@@ -29,10 +29,12 @@ export const metadata: Metadata = {
   formatDetection: { telephone: false },
   // Search-console ownership tokens come from the environment so they are never
   // hardcoded in the repository. Unset values are omitted from the rendered head.
+  // No NEXT_PUBLIC_ prefix: this metadata export is evaluated server-side, so the
+  // tokens reach the rendered <head> without being inlined into client bundles.
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
-    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
-      ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+    google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+    other: process.env.BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION }
       : undefined
   },
 
