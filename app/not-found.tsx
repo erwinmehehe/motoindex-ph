@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function NotFound(){return <section className="page shell"><div className="page-head"><h1>We can’t find that page.</h1><p>The page may have moved, changed address or been removed.</p></div><div className="hero-actions"><Link className="button" href="/search">Search MotoIndex</Link><Link className="button ghost" href="/motorcycles">Browse motorcycles</Link></div></section>}

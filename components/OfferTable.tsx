@@ -1,0 +1,8 @@
+import Link from "next/link";
+import type { SellerOffer } from "@/lib/types";
+import { php } from "@/lib/utils";
+
+export function OfferTable({offers,title}:{offers:SellerOffer[];title:string}){
+  if(!offers.length) return <div className="offer-empty"><b>No current offers available.</b><span>Seller prices will appear here when a recent, attributable offer is available.</span></div>;
+  return <div className="offer-module"><div className="offer-title"><div><h2>{title}</h2></div><small>Sample offers are marked and are not live quotes.</small></div><div className="offer-table"><div className="offer-row offer-head"><span>Seller</span><span>Price</span><span>Finance</span><span>Checked</span><span></span></div>{offers.map(o=><div className="offer-row" key={o.id}><span>{o.sellerSlug?<Link className="seller-link" href={`/sellers/${o.sellerSlug}`}>{o.sellerName}</Link>:<b>{o.sellerName}</b>}<small>{o.sellerType} · {o.availability}</small></span><span><strong>{o.pricePhp?php(o.pricePhp):"Ask seller"}</strong><em className={`offer-status ${o.status}`}>{o.status==="verified"?"checked":"sample"}</em></span><span>{o.monthlyPhp?<><b>{php(o.monthlyPhp)}/mo</b><small>{o.termMonths} months · DP {o.downpaymentPhp?php(o.downpaymentPhp):"TBD"}</small></>:<small>Not listed</small>}</span><span><b>{o.observedAt}</b><small>{o.verifiedAt?`Checked ${o.verifiedAt}`:"Sample record"}</small></span><span>{o.status==="verified"?<Link className="offer-button" href={`/go/${o.id}`}>View seller ↗</Link>:<button className="offer-button disabled" disabled>Sample only</button>}</span></div>)}</div><div className="offer-disclosure">Prices, stock, financing fees and eligibility can change. Sample rows do not open seller links.</div></div>
+}

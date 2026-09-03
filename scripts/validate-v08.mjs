@@ -1,0 +1,9 @@
+import { loadTypeScript } from "./load-typescript.mjs";
+import fs from "node:fs"; import path from "node:path"; import { createRequire } from "node:module"; const require=createRequire(import.meta.url); const ts=loadTypeScript();
+const root=process.cwd(); const errors=[];
+const read=p=>fs.readFileSync(path.join(root,p),"utf8");
+const layout=read("app/layout.tsx"); if(!layout.includes("<Header />")||!layout.includes("<Footer />"))errors.push("Root layout must own Header and Footer");
+for(const base of ["app","components"]){const walk=d=>{for(const e of fs.readdirSync(path.join(root,d),{withFileTypes:true})){const rel=path.join(d,e.name).split(path.sep).join("/");if(e.isDirectory())walk(rel);else if(/\.(tsx|ts)$/.test(e.name)){const s=read(rel);const posixRel=rel.split(path.sep).join("/");if(posixRel!=="components/Header.tsx"&&/<header\b/.test(s))errors.push(`rogue header in ${posixRel}`);if(posixRel!=="components/Footer.tsx"&&/<footer\b/.test(s))errors.push(`rogue footer in ${posixRel}`);const out=ts.transpileModule(s,{compilerOptions:{jsx:ts.JsxEmit.ReactJSX,target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext},fileName:rel,reportDiagnostics:true});for(const d of out.diagnostics||[])if(d.category===ts.DiagnosticCategory.Error)errors.push(`${rel}: ${ts.flattenDiagnosticMessageText(d.messageText," ")}`);}}};walk(base)}
+const css=read("app/globals.css"); if(!css.includes(".footer-grid>div:not(:first-child){display:flex!important"))errors.push("v0.8 footer visibility override missing");
+for(const f of ["app/used-motorcycles/page.tsx","app/ownership/cost-calculator/page.tsx","components/OwnershipCostCalculator.tsx","components/UsedValueCalculator.tsx"])if(!fs.existsSync(path.join(root,f)))errors.push(`missing ${f}`);
+if(errors.length){console.error(errors.join("\n"));process.exit(1)} console.log("v0.8 validation passed: unified chrome, new ownership/value tools, TS/TSX syntax clean.");

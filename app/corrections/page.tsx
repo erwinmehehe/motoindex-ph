@@ -1,0 +1,5 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { pageMetadata } from "@/lib/site";
+export const metadata: Metadata = pageMetadata({title:"Corrections & Data Issues",description:"How to flag an incorrect or outdated motorcycle, helmet, tire, offer or fitment record on MotoIndex PH.",path:"/corrections",index:false});
+export default function CorrectionsPage(){return <section className="page shell trust-page"><div className="page-head"><h1>Found a price, spec or fitment issue?</h1><p>The most useful correction includes the page, the field that looks wrong and a source showing the current information.</p></div><div className="info-card"><h2>Include these details</h2><ul className="checklist"><li>The MotoIndex page URL</li><li>The exact field or statement to review</li><li>The correct value if known</li><li>A manufacturer, manual, official-store or retailer source</li><li>The date you checked it</li></ul></div><p className="trust-links"><Link href="/methodology">How sources are checked →</Link><Link href="/contact">Contact MotoIndex →</Link></p></section>}

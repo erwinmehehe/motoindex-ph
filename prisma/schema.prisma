@@ -1,0 +1,378 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum FreshnessStatus {
+  VERIFIED
+  STALE
+  REVIEW
+}
+
+enum SourceType {
+  MANUFACTURER
+  DEALER
+  GOVERNMENT
+  DISTRIBUTOR
+  MARKETPLACE
+  EDITORIAL
+}
+
+model Make {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  officialUrl String?
+  models      Model[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Model {
+  id          String       @id @default(cuid())
+  makeId      String
+  make        Make         @relation(fields: [makeId], references: [id], onDelete: Cascade)
+  name        String
+  slug        String
+  category    String
+  status      String       @default("active")
+  generations Generation[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  @@unique([makeId, slug])
+}
+
+model Generation {
+  id            String             @id @default(cuid())
+  modelId       String
+  model         Model              @relation(fields: [modelId], references: [id], onDelete: Cascade)
+  name          String
+  yearStart     Int?
+  yearEnd       Int?
+  market        String             @default("PH")
+  summary       String?
+  variants      Variant[]
+  tireFitments  TireFitment[]
+  accessoryFits AccessoryFitment[]
+  maintenance   MaintenanceRecord[]
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+}
+
+model Variant {
+  id             String          @id @default(cuid())
+  generationId   String
+  generation     Generation      @relation(fields: [generationId], references: [id], onDelete: Cascade)
+  name           String
+  slug           String
+  status         FreshnessStatus @default(REVIEW)
+  sourceId       String?
+  source         Source?         @relation(fields: [sourceId], references: [id])
+  checkedAt      DateTime?
+  featureSummary String?
+  engineCc       Float?
+  powerHp        Float?
+  torqueNm       Float?
+  curbWeightKg   Float?
+  seatHeightMm   Int?
+  fuelTankL      Float?
+  abs            String?
+  colors         String[]
+  priceRecords   PriceRecord[]
+  financeOffers  FinanceOffer[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@unique([generationId, slug])
+  @@index([sourceId])
+}
+
+model Source {
+  id            String         @id @default(cuid())
+  type          SourceType
+  publisher     String
+  url           String         @unique
+  authority     Int            @default(50)
+  lastCheckedAt DateTime?
+  priceRecords  PriceRecord[]
+  variants      Variant[]
+  tireFitments  TireFitment[]
+  financeOffers FinanceOffer[]
+  accessoryFitments AccessoryFitment[]
+  mediaAssets   MediaAsset[]
+  maintenanceRecords MaintenanceRecord[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model PriceRecord {
+  id         String          @id @default(cuid())
+  variantId  String
+  variant    Variant         @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  sourceId   String
+  source     Source          @relation(fields: [sourceId], references: [id])
+  priceType  String          @default("srp")
+  amountPhp  Decimal         @db.Decimal(12, 2)
+  observedAt DateTime
+  verifiedAt DateTime?
+  status     FreshnessStatus @default(REVIEW)
+  createdAt  DateTime        @default(now())
+  @@index([variantId, observedAt])
+}
+
+model FinanceOffer {
+  id             String          @id @default(cuid())
+  variantId      String
+  variant        Variant         @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  sourceId       String
+  source         Source          @relation(fields: [sourceId], references: [id])
+  provider       String
+  downPaymentPhp Decimal?        @db.Decimal(12, 2)
+  termMonths     Int
+  monthlyPhp     Decimal?        @db.Decimal(12, 2)
+  annualRatePct  Float?
+  verifiedAt     DateTime?
+  status         FreshnessStatus @default(REVIEW)
+  createdAt      DateTime        @default(now())
+}
+
+model TireFitment {
+  id               String     @id @default(cuid())
+  generationId     String
+  generation       Generation @relation(fields: [generationId], references: [id], onDelete: Cascade)
+  sourceId         String
+  source           Source     @relation(fields: [sourceId], references: [id])
+  axle             String
+  widthMm          Int
+  aspectRatio      Int
+  rimDiameterIn    Float
+  stockAlternative String     @default("stock")
+  loadRating       String?
+  speedRating      String?
+  createdAt        DateTime   @default(now())
+  @@index([generationId, axle])
+}
+
+model Accessory {
+  id           String             @id @default(cuid())
+  brand        String
+  category     String
+  name         String
+  slug         String             @unique
+  priceMinPhp  Decimal?           @db.Decimal(12, 2)
+  priceMaxPhp  Decimal?           @db.Decimal(12, 2)
+  affiliateUrl String?
+  fitments     AccessoryFitment[]
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+}
+
+model AccessoryFitment {
+  id               String     @id @default(cuid())
+  accessoryId      String
+  accessory        Accessory  @relation(fields: [accessoryId], references: [id], onDelete: Cascade)
+  generationId     String
+  generation       Generation @relation(fields: [generationId], references: [id], onDelete: Cascade)
+  sourceId         String?
+  source           Source?    @relation(fields: [sourceId], references: [id])
+  fitmentStatus    String     @default("confirmed")
+  bracketRequired  Boolean    @default(false)
+  bracketCode      String?
+  plateRequirement String?
+  modelYears       String?
+  verifiedAt       DateTime?
+  notes            String?
+  @@unique([accessoryId, generationId])
+  @@index([sourceId])
+}
+
+model MediaAsset {
+  id           String   @id @default(cuid())
+  entityType   String
+  entityId     String
+  src          String
+  alt          String
+  width        Int
+  height       Int
+  rightsStatus String   @default("pending")
+  rightsHolder String
+  sourceId     String?
+  source       Source?  @relation(fields: [sourceId], references: [id])
+  verifiedAt   DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  @@index([entityType, entityId, rightsStatus])
+}
+
+model MaintenanceRecord {
+  id              String     @id @default(cuid())
+  generationId    String
+  generation      Generation @relation(fields: [generationId], references: [id], onDelete: Cascade)
+  sourceId        String
+  source          Source     @relation(fields: [sourceId], references: [id])
+  item            String
+  intervalKm      Int?
+  intervalMonths  Int?
+  specification   String?
+  marketNote      String?
+  verifiedAt      DateTime?
+  status          FreshnessStatus @default(REVIEW)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  @@index([generationId, item])
+}
+
+model Seller {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  type        String
+  city        String?
+  region      String?
+  website     String?
+  phone       String?
+  status      String   @default("research")
+  offers      SellerOffer[]
+  matchedImportRows OfferImportRow[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SellerOffer {
+  id             String   @id @default(cuid())
+  sellerId       String
+  seller         Seller   @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  entityType     String
+  entityId       String
+  pricePhp       Decimal? @db.Decimal(12, 2)
+  downPaymentPhp Decimal? @db.Decimal(12, 2)
+  monthlyPhp     Decimal? @db.Decimal(12, 2)
+  termMonths     Int?
+  availability   String
+  status         String   @default("review")
+  observedAt     DateTime
+  verifiedAt     DateTime?
+  targetUrl      String?
+  affiliateUrl   String?
+  observations   OfferPriceObservation[]
+  clicks         OutboundClickEvent[]
+  importRows     OfferImportRow[] @relation("PublishedOffer")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  @@index([entityType, entityId])
+  @@index([sellerId, status])
+}
+
+model OfferPriceObservation {
+  id         String      @id @default(cuid())
+  offerId    String
+  offer      SellerOffer @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  pricePhp   Decimal     @db.Decimal(12, 2)
+  observedAt DateTime
+  status     String
+  createdAt  DateTime    @default(now())
+  @@index([offerId, observedAt])
+}
+
+model OutboundClickEvent {
+  id            String       @id @default(cuid())
+  offerId       String?
+  offer         SellerOffer? @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  sourceOfferId String?
+  entityType    String?
+  entityId      String?
+  merchant      String?
+  createdAt     DateTime     @default(now())
+  @@index([offerId, createdAt])
+  @@index([sourceOfferId, createdAt])
+}
+
+model PriceAlertSubscription {
+  id             String   @id @default(cuid())
+  entityType     String
+  entityId       String
+  email          String
+  targetPricePhp Decimal? @db.Decimal(12, 2)
+  status         String   @default("pending")
+  confirmToken   String?  @unique
+  confirmedAt    DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  @@index([entityType, entityId, status])
+}
+
+model OfferImportBatch {
+  id            String           @id @default(cuid())
+  sourceLabel   String
+  sourceUrl     String?
+  status        String           @default("staged")
+  rowCount      Int              @default(0)
+  errorCount    Int              @default(0)
+  approvedCount Int              @default(0)
+  rejectedCount Int              @default(0)
+  importedAt    DateTime         @default(now())
+  reviewedAt    DateTime?
+  publishedAt   DateTime?
+  notes         String?
+  rows          OfferImportRow[]
+
+  @@index([status, importedAt])
+}
+
+model OfferImportRow {
+  id                String           @id @default(cuid())
+  batchId           String
+  batch             OfferImportBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  rowNumber         Int
+  sellerSlug        String
+  matchedSellerId   String?
+  matchedSeller     Seller?          @relation(fields: [matchedSellerId], references: [id])
+  entityType        String
+  entityId          String
+  matchedEntityLabel String?
+  pricePhp          Decimal?         @db.Decimal(12, 2)
+  downPaymentPhp    Decimal?         @db.Decimal(12, 2)
+  monthlyPhp        Decimal?         @db.Decimal(12, 2)
+  termMonths        Int?
+  availability      String
+  observedAt        DateTime
+  sourceUrl         String?
+  affiliateUrl      String?
+  status            String           @default("staged")
+  issues            String[]
+  reviewNote        String?
+  reviewedAt        DateTime?
+  publishedOfferId  String?
+  publishedOffer    SellerOffer?     @relation("PublishedOffer", fields: [publishedOfferId], references: [id])
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  @@unique([batchId, rowNumber])
+  @@index([batchId, status])
+  @@index([entityType, entityId, observedAt])
+  @@index([matchedSellerId])
+}
+
+model UsedListing {
+  id             String   @id @default(cuid())
+  modelExternalId String
+  title          String
+  modelYear      Int
+  mileageKm      Int
+  askingPricePhp Decimal  @db.Decimal(12, 2)
+  condition      String
+  sellerType     String
+  location       String
+  sourceLabel    String
+  sourceUrl      String?
+  status         String   @default("review")
+  postedAt       DateTime
+  verifiedAt     DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  @@index([modelExternalId, status, postedAt])
+}

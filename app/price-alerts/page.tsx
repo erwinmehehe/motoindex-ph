@@ -1,0 +1,6 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { pageMetadata } from "@/lib/site";
+
+export const metadata: Metadata = pageMetadata({ title: "Motorcycle Price Alerts — Not Yet Available", description: "MotoIndex price notifications are not currently active. Use dated motorcycle price pages and calculators instead.", path: "/price-alerts", index: false });
+export default function AlertsPage(){return <section className="page shell"><div className="page-head"><h1>Price notifications are not active yet.</h1><p>We do not ask you to configure an alert that cannot be delivered. Until notifications are operational, bookmark or copy a model price page and use its dated price observations as your reference.</p></div><div className="section-head compact"><div><h2>Use these pages while alerts are unavailable</h2></div></div><div className="tool-grid"><Link href="/motorcycles"><span>01</span><h3>Open a motorcycle</h3><p>Review its current price page and verification date.</p></Link><Link href="/tools/motorcycle-loan-calculator"><span>02</span><h3>Save a finance scenario</h3><p>Calculator inputs now persist in the URL, so you can bookmark or share the exact scenario.</p></Link><Link href="/compare"><span>03</span><h3>Compare finalists</h3><p>Keep two or three motorcycles side by side while you research prices.</p></Link></div></section>}

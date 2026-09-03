@@ -1,0 +1,15 @@
+import fs from "node:fs";
+const need=(file,parts)=>{const s=fs.readFileSync(file,"utf8");for(const p of parts)if(!s.includes(p))throw new Error(`${file} missing ${p}`)};
+const pkg=JSON.parse(fs.readFileSync("package.json","utf8"));
+const [maj244,min244,patch244]=String(pkg.version).split(".").map(Number);
+if(!(maj244===2&&(min244>4||(min244===4&&patch244>=4))))throw new Error(`package version must be v2.4.4 or newer within major v2, found ${pkg.version}`);
+if(pkg.dependencies?.["@prisma/client"]!=="6.5.0")throw new Error("@prisma/client 6.5.0 exact pin required");
+need("prisma/schema.prisma",["model OfferImportRow","approvedCount","publishedOfferId","OfferPriceObservation"]);
+need("lib/persistentOffers.ts",["stageOfferBatch","reviewImportRow","publishApprovedBatch","expireStaleOffers","getPriceHistory","duplicate row in this batch","getVerifiedOffers"]);
+for(const f of ["app/api/ingestion/stage/route.ts","app/api/ingestion/batches/route.ts","app/api/ingestion/expire/route.ts","app/api/price-history/route.ts","app/api/offers/route.ts"])if(!fs.existsSync(f))throw new Error(`${f} missing`);
+need("middleware.ts",['pathname === "/used-motorcycles/repo"','pathname === "/used-motorcycles/buying-checklist"']);
+const all=fs.readFileSync("middleware.ts","utf8");if(!all.includes('const prototypePrefixes'))throw new Error("prototype blocking must remain");
+need("components/OfferImportPreview.tsx",["Stage to database","never publishes"]);
+need("components/OfferIngestionQueue.tsx",["Publish approved","Expire stale offers"]);
+if(!fs.existsSync("prisma/migrations/20260826093000_initial_persistent_schema/migration.sql"))throw new Error("persistent ingestion migration missing");
+console.log("v2.4.4 persistent ingestion validation passed.");

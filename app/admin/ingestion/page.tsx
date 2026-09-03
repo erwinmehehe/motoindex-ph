@@ -1,0 +1,5 @@
+import { OfferImportPreview } from "@/components/OfferImportPreview";
+import { OfferIngestionQueue } from "@/components/OfferIngestionQueue";
+import { offerImportColumns } from "@/lib/ingestion";
+export const metadata={title:"Offer ingestion — MotoIndex Admin",robots:{index:false,follow:false}};
+export default function IngestionPage(){return <section className="page shell"><div className="page-head"><h1>Offer ingestion</h1><p>Validate partner/dealer CSV rows, persist them to a review queue, match them to known sellers and catalog entities, then explicitly approve and publish. No feed writes directly to public offers.</p></div><div className="note-box"><h2>Expected columns</h2><div className="size-chips">{offerImportColumns.map(x=><span key={x}>{x}</span>)}</div></div><OfferImportPreview/><OfferIngestionQueue/><div className="note-box"><h2>Publishing rules</h2><p>Import → validate → stage → seller/entity match → human review → approve/reject → publish → append price history → expire stale offers. A published update changes the current offer while preserving the previous observations.</p></div></section>}

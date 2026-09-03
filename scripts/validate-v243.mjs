@@ -1,0 +1,28 @@
+import fs from "node:fs";
+const read=p=>fs.readFileSync(p,"utf8");
+const errors=[];
+const expect=(condition,message)=>{if(!condition)errors.push(message)};
+const repo=read("app/used-motorcycles/repo/page.tsx");
+const checklist=read("app/used-motorcycles/buying-checklist/page.tsx");
+const data=read("lib/repoMarket.ts");
+const ownership=read("lib/ownershipGuides.ts");
+const sitemaps=read("lib/sitemaps.ts");
+const ingestion=read("app/admin/ingestion/page.tsx");
+const home=read("app/page.tsx");
+expect(repo.includes('index:true'),"repo price board must be indexable");
+expect(repo.includes("current seller-published pages"),"repo page must clearly identify seller-published observations");
+expect(repo.includes("not a MotoIndex marketplace"),"repo page must not imply MotoIndex owns the listings");
+expect(data.includes("SB_FINANCE_REPO_CENTRAL_URL"),"repo source URL contract missing");
+expect((data.match(/advertisedPricePhp:/g)||[]).length>=12,"repo price board needs at least 12 source-backed observations");
+expect(!data.includes('status:"demo"'),"repo market data must not reuse synthetic demo listing status");
+expect(checklist.includes("IRR-RA-12209.pdf"),"buying checklist must cite current LTO motorcycle ownership rule");
+expect(checklist.includes("as-is, where-is"),"repo condition caveat missing from buying checklist");
+expect(ownership.includes('slug: "deed-of-sale-motorcycle-philippines"'),"deed-of-sale guide missing");
+expect(ownership.includes("2025 LTO motorcycle ownership rules"),"transfer guide not refreshed to 2025 rule");
+expect(sitemaps.includes('/used-motorcycles/repo'),"repo page missing from sitemap");
+expect(sitemaps.includes('/used-motorcycles/buying-checklist'),"buying checklist missing from sitemap");
+expect(home.includes('href="/used-motorcycles/repo"'),"homepage must link the repo price board");
+expect(!ingestion.includes("v0.7 does not persist uploads"),"stale v0.7 ingestion wording remains");
+expect(!repo.includes('className="kicker"')&&!repo.includes('className="eyebrow"')&&!checklist.includes('className="kicker"')&&!checklist.includes('className="eyebrow"'),"new v2.4.3 pages must not reintroduce eyebrows");
+if(errors.length){console.error(errors.map(e=>`- ${e}`).join("\n"));process.exit(1)}
+console.log("v2.4.3 validation passed: source-checked repo price board, used-bike buying checklist, refreshed 2025 LTO transfer/deed guidance, sitemap/internal discovery and stale-ingestion-copy cleanup are wired.");

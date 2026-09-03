@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 96" role="img" aria-labelledby="title desc">
+  <title id="title">MotoIndex PH</title><desc id="desc">MotoIndex PH wordmark</desc>
+  <rect x="4" y="16" width="64" height="64" rx="18" fill="#101317"/>
+  <path d="M18 59V38h7.2L36 50.9 46.8 38H54v21h-7.3V48.8L36 61 25.3 48.8V59H18Z" fill="#fff"/>
+  <path d="M52 30h4v4h-4zM46 30h4v4h-4zM40 30h4v4h-4z" fill="#f0542d"/>
+  <text x="84" y="58" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="800" letter-spacing="-1.4" fill="#101317">MotoIndex</text>
+  <text x="290" y="58" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="800" letter-spacing="-1" fill="#f0542d">PH</text>
+</svg>

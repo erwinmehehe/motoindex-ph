@@ -1,0 +1,499 @@
+/* MotoIndex v2.4.7 — authoritative presentation layer.
+   Keep release-specific corrections here instead of appending more historical
+   patches to globals.css/research-ux.css. Loaded last by app/layout.tsx. */
+:root{
+  --space-section:68px;
+  --space-section-mobile:48px;
+  --card-radius:20px;
+  --media-canvas:linear-gradient(145deg,#f4f4f0,#fff);
+}
+
+/* Editorial hierarchy: compact, readable, and balanced for long SEO titles. */
+.section{padding:var(--space-section) 0}
+.page{padding:52px 0 80px}
+.page-head{max-width:900px;margin-bottom:34px;text-align:left}
+.page-head h1{font-size:clamp(38px,4.5vw,58px);line-height:1.04;letter-spacing:-.04em;max-width:900px;text-wrap:balance}
+.page-head>p{font-size:17px;line-height:1.58;max-width:760px;margin:16px 0 0}
+.homepage-hero .hero-copy h1{font-size:clamp(48px,5.3vw,64px);line-height:1;letter-spacing:-.045em;text-wrap:balance;max-width:780px}
+.model-hero h1{font-size:clamp(48px,5.4vw,66px);line-height:1;letter-spacing:-.045em;text-wrap:balance}
+.product-hero h1,.seller-hero h1{font-size:clamp(40px,4.8vw,58px);line-height:1.03;letter-spacing:-.04em;text-wrap:balance}
+.section-head h2,.split h2,.calculator h2{font-size:clamp(28px,3vw,40px);line-height:1.08;letter-spacing:-.035em;text-wrap:balance}
+.section-head.compact h2{font-size:clamp(26px,2.5vw,34px)}
+.note-box h2{font-size:26px}
+.info-card h3{font-size:21px;line-height:1.2}
+
+/* Product/catalog imagery should preserve the complete object. */
+.model-card-media,.finder-match-media,.recommendation-model-media,.mobile-hero-bike-media,.entity-media.motorcycle-media{
+  background:var(--media-canvas);overflow:hidden
+}
+.model-card-media img,.finder-match-media img,.recommendation-model-media img,.mobile-hero-bike-media img,.model-hero .entity-media img{
+  width:100%;height:100%;object-fit:contain!important;object-position:center!important;padding:10px
+}
+.model-card-media{height:195px;min-height:195px}
+.finder-match-media{height:185px;min-height:185px}
+.recommendation-model-media{height:155px;min-height:155px;border-radius:16px}
+.mobile-hero-bike-media{background:var(--media-canvas)}
+.media-unavailable{width:100%;height:100%;min-height:150px;display:grid;place-items:center;background:linear-gradient(145deg,#f1f2ef,#fafaf8);color:var(--muted);font-size:12px;font-weight:800;text-align:center;padding:18px}
+.media-unavailable span{padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:#fff}
+
+/* Make motorcycle and gear cards feel like the same product family. */
+.model-card,.product-card,.product-card-shell,.finder-match-grid article,.rank-card{border-radius:var(--card-radius)}
+.product-card-media,.product-art{background:var(--media-canvas)}
+.product-card-media img{object-fit:contain!important;object-position:center;padding:12px}
+.product-card-copy h3,.model-card h3{line-height:1.15;text-wrap:balance}
+
+/* Recommendation cards: image first, then concise decision data. */
+.rank-card{grid-template-columns:44px 180px minmax(0,1fr) 180px;gap:18px;align-items:center}
+.rank-number{font-size:28px}
+.rank-copy h2{font-size:24px;line-height:1.12}
+.rank-copy p{line-height:1.5}
+.rank-price strong{font-size:21px}
+
+/* Full finder: five primary controls, advanced constraints on demand. */
+.finder-more-row{display:flex;align-items:center;gap:12px;margin:12px 0 0;padding:0 4px;color:var(--muted);font-size:12px}
+.finder-filter-grid-more{margin-top:12px}
+.finder-more-row .button{flex:0 0 auto}
+
+/* Mobile menu can never grow beyond the viewport. */
+.mobile-menu-panel{max-height:calc(100dvh - var(--header-h) - 12px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.mobile-menu-heading{position:static}
+
+/* Search starts calm and all hint terms share one visual treatment. */
+.search-intent-help{align-items:center}
+.search-intent-help span{background:transparent;padding:0;color:var(--muted);font-weight:700}
+.search-intent-help b{padding:7px 9px;background:#f0f2f2;border-radius:999px;font-size:11px;color:#5b646b;font-weight:750}
+.search-start{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;margin-top:16px}
+.search-start h2{font-size:28px;margin:0 0 6px}
+.search-start p{color:var(--muted);margin:0 0 18px}
+.search-shortcuts{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.search-shortcuts a{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:14px;padding:13px 14px;font-size:13px;font-weight:800;background:#fbfbf8}
+
+/* Brand catalogue references: useful breadth without manufacturing product pages. */
+.brand-lineup{padding-top:46px;padding-bottom:20px}
+.brand-lineup-grid{display:flex;flex-wrap:wrap;gap:9px}
+.brand-lineup-grid span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 12px;font-size:12px;font-weight:750}
+.brand-lineup-source{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+.brand-lineup-source a{font-size:12px;font-weight:850;color:var(--accent)}
+.brand-lineup-source small,.muted-copy{color:var(--muted)}
+
+/* Contact page */
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0 32px}
+.contact-card{background:#fff;border:1px solid var(--line);border-radius:var(--card-radius);padding:24px;display:flex;flex-direction:column;align-items:flex-start}
+.contact-card h2{font-size:23px;line-height:1.15;margin:0 0 8px;letter-spacing:-.025em}
+.contact-card p{color:var(--muted);line-height:1.55;margin:0 0 20px}
+.contact-card .button,.contact-card .text-link{margin-top:auto}
+.contact-unavailable{font-size:12px;color:var(--muted)}
+.contact-email-panel{display:flex;justify-content:space-between;gap:24px;align-items:center;background:var(--ink);color:#fff;border-radius:22px;padding:26px 28px;margin:32px 0}
+.contact-email-panel h2{font-size:27px;margin:0 0 6px}
+.contact-email-panel p{margin:0;color:#bdc5ca;max-width:650px;line-height:1.5}
+.contact-email-panel code,.contact-email{background:#fff;color:var(--ink);border-radius:999px;padding:11px 14px;font-weight:850;font-size:12px;white-space:nowrap}
+.contact-help{margin-top:34px}
+
+/* Product editorial blocks and commerce CTA */
+.product-editorial{margin-top:28px}
+.affiliate-offer h2{font-size:24px;line-height:1.15;text-wrap:balance}
+
+/* Compare tray is a compact chip first on phones, expanded only on request. */
+.compare-tray-mobile-toggle{display:none}
+
+@media(max-width:900px){
+  .rank-card{grid-template-columns:40px 150px minmax(0,1fr)}
+  .rank-price{grid-column:3;text-align:left}
+  .search-shortcuts{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:700px){
+  :root{--space-section:var(--space-section-mobile)}
+  .section{padding:var(--space-section-mobile) 0}
+  .page{padding:36px 0 60px}
+  .page-head{margin-bottom:28px}
+  .page-head h1{font-size:clamp(32px,9vw,38px);line-height:1.06;letter-spacing:-.035em}
+  .page-head>p{font-size:15.5px;line-height:1.55}
+  .homepage-hero .hero-copy h1{font-size:clamp(36px,10vw,40px);line-height:1.02;letter-spacing:-.04em}
+  .model-hero h1,.product-hero h1,.seller-hero h1{font-size:clamp(36px,10vw,42px);line-height:1.02}
+  .section-head h2,.split h2,.calculator h2{font-size:clamp(27px,7.5vw,34px)}
+
+  .model-card-media,.finder-match-media{height:180px;min-height:180px}
+  .recommendation-model-media{grid-column:1/-1;width:100%;height:175px;min-height:175px}
+  .rank-card{grid-template-columns:34px minmax(0,1fr);align-items:start}
+  .rank-copy,.rank-price{grid-column:1/-1}
+
+  /* Keep the homepage useful above the fold: only two quick suggestions on phones. */
+  .homepage-hero .finder-results button:nth-child(n+3){display:none}
+  .homepage-hero .finder-results{gap:7px}
+
+  .finder-more-row{align-items:flex-start;flex-direction:column;gap:7px}
+  .finder-filter-grid-more{margin-top:10px}
+
+  .tool-grid>a,.home-tool-grid>a{min-height:170px;padding:20px}
+  .home-tool-grid{grid-template-columns:1fr}
+
+  .contact-grid{grid-template-columns:1fr}
+  .contact-email-panel{align-items:flex-start;flex-direction:column;padding:22px}
+  .contact-email-panel code,.contact-email{white-space:normal;word-break:break-word}
+
+  .search-shortcuts{grid-template-columns:1fr}
+
+  .compare-tray{padding:8px 0}
+  .compare-tray-inner{display:block}
+  .compare-tray-mobile-toggle{display:flex;width:100%;justify-content:space-between;align-items:center;border:0;background:var(--ink);color:#fff;border-radius:999px;padding:10px 14px;font-weight:850;cursor:pointer}
+  .compare-tray:not(.expanded) .compare-tray-models,.compare-tray:not(.expanded) .compare-tray-actions{display:none}
+  .compare-tray.expanded .compare-tray-models,.compare-tray.expanded .compare-tray-actions{margin-top:9px}
+}
+
+@media(max-width:340px){
+  .brand-word{display:none}
+  .mobile-search{display:none!important}
+  .nav-wrap{gap:10px}
+}
+
+/* v2.4.7 pSEO entity-page architecture: one canonical product page per entity. */
+.product-entity-page{scroll-behavior:smooth}
+.product-entity-nav{position:sticky;top:calc(var(--header-h) + 10px);z-index:12;display:flex;gap:8px;overflow-x:auto;padding:10px;margin:20px 0 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);scrollbar-width:none}
+.product-entity-nav::-webkit-scrollbar{display:none}
+.product-entity-nav a{flex:0 0 auto;padding:8px 11px;border-radius:999px;font-size:11px;font-weight:850;color:var(--ink);white-space:nowrap}
+.product-entity-nav a:hover{background:#f0f2f2}
+.product-entity-section{padding:52px 0 4px;scroll-margin-top:calc(var(--header-h) + 78px)}
+.product-entity-section>.section-head{margin-bottom:20px}
+.entity-price-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.entity-price-grid article{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:7px;min-height:145px}
+.entity-price-grid span,.entity-spec-table span{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.entity-price-grid strong{font-size:19px;line-height:1.25;text-wrap:balance}
+.entity-price-grid small{margin-top:auto;color:var(--muted);line-height:1.4}
+.entity-spec-table{display:grid;grid-template-columns:1fr 1fr;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.entity-spec-table>div{display:grid;grid-template-columns:minmax(125px,.7fr) minmax(0,1.3fr);gap:16px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.entity-spec-table>div:nth-last-child(-n+2){border-bottom:0}
+.entity-spec-table>div:nth-child(odd){border-right:1px solid var(--line)}
+.entity-spec-table strong{font-size:14px;line-height:1.45}
+.entity-size-table{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
+.entity-size-table>div{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;background:#fff;padding:13px 14px}
+.entity-size-table strong{font-size:15px}.entity-size-table span{font-size:12px;color:var(--muted);text-align:right}
+.compact-note{margin-top:16px}.compact-note h3{font-size:19px;margin:0 0 6px}.compact-note p{margin:0}
+.entity-accessories{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
+.entity-accessories h3{font-size:18px;margin:0 0 10px}.entity-accessories>div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line)}.entity-accessories>div span{font-size:12px;color:var(--muted);font-weight:800}
+.entity-comparisons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.entity-comparisons>article{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}.entity-comparisons h3{font-size:20px;line-height:1.2;margin:0 0 15px;text-wrap:balance}
+.mini-compare-table{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:14px}.mini-compare-table>div{display:grid;grid-template-columns:.8fr 1fr 1fr;gap:10px;padding:10px 12px;border-top:1px solid var(--line);align-items:start}.mini-compare-table>div:first-child{border-top:0}.mini-compare-table .head{background:#f3f4f1}.mini-compare-table span{font-size:11px;color:var(--muted);font-weight:800}.mini-compare-table b,.mini-compare-table strong{font-size:12px;line-height:1.35}.mini-compare-table.wide{max-width:100%}
+
+@media(max-width:800px){
+  .product-entity-nav{top:calc(var(--header-h) + 6px);margin:14px 0 0;border-radius:16px;padding:8px}
+  .product-entity-section{padding-top:42px;scroll-margin-top:calc(var(--header-h) + 70px)}
+  .entity-price-grid{grid-template-columns:1fr}
+  .entity-price-grid article{min-height:auto}
+  .entity-spec-table{grid-template-columns:1fr}
+  .entity-spec-table>div{grid-template-columns:1fr;gap:5px;border-right:0!important;border-bottom:1px solid var(--line)!important}
+  .entity-spec-table>div:last-child{border-bottom:0!important}
+  .entity-comparisons{grid-template-columns:1fr}
+  .mini-compare-table>div{grid-template-columns:.7fr 1fr 1fr;padding:9px 8px;gap:7px}
+}
+
+/* Post-audit UI hardening: white media canvases, richer navigation and comparisons. */
+:root{--media-canvas:#fff}
+.entity-media,.model-card-media,.finder-match-media,.recommendation-model-media,.mobile-hero-bike-media,.product-card-media,.helmet-finder-media,.helmet-compare-media,.compare-product-media{background:#fff!important}
+.entity-media img,.model-card-media img,.finder-match-media img,.recommendation-model-media img,.mobile-hero-bike-media img,.product-card-media img,.helmet-finder-media img,.helmet-compare-media img,.compare-product-media img{background:#fff!important;object-fit:contain!important;object-position:center!important}
+.product-art,.media-unavailable,.recommendation-model-fallback{background:#fff!important;color:var(--muted);border:1px dashed var(--line)}
+.product-art span{color:var(--muted);border-color:var(--line);background:#fff}
+
+/* Motorcycle + Guides dropdowns use real indexable destination pages. */
+.nav-popover-menu{min-width:250px;max-width:min(420px,calc(100vw - 32px));max-height:min(72vh,620px);overflow:auto;padding:8px}
+.nav-popover-guides{min-width:360px}
+.nav-popover-menu a{white-space:normal;line-height:1.3;border-radius:10px;padding:10px 12px}
+.nav-popover-menu .nav-popover-primary{font-weight:900;background:#f3f4f1;margin-bottom:4px}
+.mobile-menu-heading+ a{margin-top:2px}
+
+/* Comparison workspace: selected products stay visible and differences scan cleanly. */
+.detailed-compare{margin-top:24px}
+.compare-product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:22px 0}
+.compare-cols-3 .compare-product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.compare-product-card{display:grid;grid-template-columns:180px minmax(0,1fr);gap:16px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px;min-width:0}
+.compare-cols-3 .compare-product-card{grid-template-columns:1fr;gap:10px}
+.compare-product-media{height:150px;min-height:150px;border-radius:14px;overflow:hidden}
+.compare-cols-3 .compare-product-media{height:160px}
+.compare-product-media img{width:100%;height:100%;padding:8px}
+.compare-product-copy{display:flex;flex-direction:column;min-width:0;padding:6px 4px}
+.compare-product-copy>span,.compare-product-brand{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:850}
+.compare-product-copy h2{font-size:24px;line-height:1.08;margin:4px 0 8px;letter-spacing:-.03em}
+.compare-product-copy>strong{font-size:18px}
+.compare-product-copy>small{color:var(--muted);line-height:1.45;margin:6px 0 10px}
+.compare-product-copy>a{font-size:12px;font-weight:850;color:var(--accent);margin-top:auto}
+.compare-difference-key{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:12px 2px}
+.compare-difference-key strong{color:var(--ink)}
+.difference-swatch{width:18px;height:18px;border-radius:6px;background:#fff7d6;border:1px solid #eadc9c}
+.detailed-compare-wrap{border-radius:20px;border:1px solid var(--line);background:#fff;overflow:auto;max-height:none}
+.detailed-compare-table{min-width:800px;width:100%;border-collapse:separate;border-spacing:0}
+.detailed-compare-table th,.detailed-compare-table td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:13px;line-height:1.45}
+.detailed-compare-table thead th{position:sticky;top:0;z-index:6;background:#f5f6f3;box-shadow:0 1px 0 var(--line)}
+.detailed-compare-table thead th:first-child{left:0;z-index:8;min-width:190px}
+.detailed-compare-table thead th strong,.detailed-helmet-table thead th strong{display:block;font-size:13px;margin-top:2px}
+.detailed-compare-table tbody th{position:sticky;left:0;z-index:3;background:#fff;min-width:190px}
+.detailed-compare-table tbody th span,.detailed-helmet-table tbody th span{display:block;font-weight:850}
+.detailed-compare-table tbody th small,.detailed-helmet-table tbody th small{display:block;color:var(--muted);font-weight:500;line-height:1.35;margin-top:4px;max-width:230px}
+.detailed-compare-table .compare-section-row th,.detailed-helmet-table .compare-section-row th{position:static;background:#11161a;color:#fff;font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding:10px 16px;border-bottom:0}
+.detailed-compare-table td.compare-diff,.detailed-helmet-table td.compare-diff{background:#fff9df}
+.compare-source-note{font-size:12px;color:var(--muted);line-height:1.55;margin:12px 2px 34px}
+
+.helmet-compare-media{height:220px;border-radius:14px;overflow:hidden;margin-bottom:10px}
+.helmet-compare-media img{width:100%;height:100%;padding:4px}
+.helmet-comparison-grid article>small{display:block;color:var(--muted);line-height:1.4;margin:6px 0 10px}
+.detailed-helmet-table tbody th{position:sticky;left:0;background:#fff;z-index:3;min-width:190px}
+.detailed-helmet-table td,.detailed-helmet-table th{font-size:12px}
+
+/* Guide pages: editorially controlled methodology + database-driven evidence. */
+.guide-page-head{margin-bottom:14px}
+.guide-kicker{display:inline-block;font-size:10px;line-height:1;text-transform:uppercase;letter-spacing:.09em;color:var(--accent);font-weight:900;margin-bottom:10px}
+.guide-direct-answer{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 26px;align-items:end;background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px 22px;margin:0 0 30px}
+.guide-direct-answer p{grid-column:1/-1;margin:0;font-size:16px;line-height:1.62;max-width:980px}
+.guide-direct-answer strong{font-size:13px;line-height:1.4}
+.guide-direct-answer small{font-size:11px;color:var(--muted);text-align:right}
+.guide-quick-picks{margin:24px 0 38px}
+.guide-pick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.guide-pick-grid a{display:flex;flex-direction:column;gap:5px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0;transition:.16s ease}
+.guide-pick-grid a:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.guide-pick-grid span{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:850}
+.guide-pick-grid strong{font-size:15px;line-height:1.25}
+.guide-pick-grid small{color:var(--muted);line-height:1.35}
+.guide-table-wrap{overflow:auto;border:1px solid var(--line);border-radius:18px;background:#fff;margin:14px 0 30px;overscroll-behavior-x:contain}
+.guide-comparison-table{width:100%;min-width:1160px;border-collapse:separate;border-spacing:0}
+.guide-comparison-table th,.guide-comparison-table td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:12px;line-height:1.42;white-space:nowrap;background:#fff}
+.guide-comparison-table thead th{position:sticky;top:0;background:#f3f4f1;z-index:4;font-size:10px;text-transform:uppercase;letter-spacing:.06em}
+.guide-comparison-table .guide-order-cell,.guide-comparison-table thead th:first-child{position:sticky;left:0;z-index:5;width:76px;min-width:76px;text-align:center;font-weight:900}
+.guide-comparison-table thead th:first-child{background:#f3f4f1;z-index:7}
+.guide-comparison-table tbody th[scope="row"],.guide-comparison-table thead th:nth-child(2){position:sticky;left:76px;z-index:5;min-width:205px}
+.guide-comparison-table tbody th[scope="row"]{background:#fff}
+.guide-comparison-table thead th:nth-child(2){background:#f3f4f1;z-index:7}
+.guide-comparison-table tbody tr:last-child th,.guide-comparison-table tbody tr:last-child td{border-bottom:0}
+.guide-comparison-table tbody tr:hover td,.guide-comparison-table tbody tr:hover th{background:#fffdf7}
+.guide-comparison-table a{font-weight:850;color:var(--ink)}
+.guide-comparison-table .guide-why-col{min-width:310px}
+.guide-comparison-table .guide-why-cell{white-space:normal;min-width:310px;max-width:380px;color:var(--muted)}
+.guide-method-detailed{grid-template-columns:.62fr 1.38fr;align-items:start;padding:28px;margin:34px 0 42px}
+.guide-method-detailed>div:first-child>span{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#aeb6ba;font-weight:900}
+.guide-method-detailed>div:first-child h2{font-size:30px;line-height:1.05;margin:7px 0 10px}
+.guide-method-detailed>div:first-child p{color:#c7cdd0;line-height:1.55;margin:0}
+.guide-method-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.guide-method-grid>div{border:1px solid #30363a;border-radius:14px;padding:14px;min-width:0}
+.guide-method-grid strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.guide-method-grid p,.guide-method-grid li{font-size:12px;line-height:1.55;color:#d1d5d8}
+.guide-method-grid p{margin:0}
+.guide-method-grid ul{margin:0;padding-left:17px}
+.guide-model-analysis-list{display:grid;gap:12px;margin:0 0 42px}
+.guide-model-analysis{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:15px;min-width:0;align-items:start}
+.guide-model-media-wrap{position:relative;min-width:0}
+.guide-model-position{position:absolute;z-index:3;left:8px;top:8px;background:rgba(16,19,23,.94);color:#fff;border-radius:999px;padding:5px 8px;font-size:8px;font-weight:900;letter-spacing:.045em;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.guide-model-media{height:132px;border-radius:13px;overflow:hidden;background:#fff;border:1px solid #ecefeb}
+.guide-model-media .entity-media-link{height:100%;display:block}
+.guide-model-media img{width:100%;height:100%;object-fit:contain!important;object-position:center!important;background:#fff!important;padding:4px}
+.guide-model-media:has(.media-unavailable){height:84px}
+.guide-model-media .media-unavailable,.guide-model-fallback{height:100%;min-height:0!important;background:#fff!important;border:0!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--muted);gap:3px;padding:14px}
+.guide-model-fallback span{font-weight:900;color:var(--ink)}
+.guide-model-fallback small{font-size:9px;font-weight:700}
+.guide-model-copy{min-width:0}
+.guide-model-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line);padding:1px 0 11px}
+.guide-model-type{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.075em;color:var(--muted);font-weight:850;margin-bottom:5px}
+.guide-model-heading h3{font-size:22px;line-height:1.12;margin:0}
+.guide-model-heading p{margin:5px 0 0;color:var(--muted);font-size:10px;line-height:1.45}
+.guide-model-price{flex:0 0 auto;text-align:right}
+.guide-model-price small,.guide-model-price strong{display:block}
+.guide-model-price small{font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:850;margin-bottom:4px}
+.guide-model-price strong{font-size:17px;white-space:nowrap}
+.guide-model-kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:10px 0}
+.guide-model-kpis span{background:#f6f6f3;border-radius:10px;padding:9px;min-width:0}
+.guide-model-kpis small,.guide-model-kpis b{display:block}
+.guide-model-kpis small{font-size:8px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:850}
+.guide-model-kpis b{font-size:11px;line-height:1.3;margin-top:4px;overflow-wrap:anywhere}
+.guide-model-editorial{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.guide-model-editorial section{padding:11px 12px;min-width:0;border-left:1px solid var(--line)}
+.guide-model-editorial section:first-child{border-left:0}
+.guide-model-editorial strong{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.065em;color:var(--ink)}
+.guide-model-editorial p{font-size:11px;line-height:1.5;color:var(--muted);margin:5px 0 0}
+.guide-model-why{background:#fbfbf8}
+.guide-model-actions{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;padding-top:10px}
+.guide-model-actions a{font-size:10px;font-weight:850;color:var(--accent)}
+.guide-topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:38px 0}
+.guide-topic-grid article{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}
+.guide-topic-grid h2{font-size:20px;line-height:1.2;margin:0 0 7px}
+.guide-topic-grid p{font-size:13px;color:var(--muted);line-height:1.6;margin:0}
+.guide-decision-section{margin:42px 0}
+.guide-decision-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.guide-decision-grid article{background:#101317;color:#fff;border-radius:17px;padding:18px}
+.guide-decision-grid span{display:block;color:#adb5b9;font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:850;line-height:1.4}
+.guide-decision-grid h3{font-size:20px;margin:7px 0 5px;line-height:1.15}
+.guide-decision-grid p{color:#d0d5d8;font-size:12px;line-height:1.45;margin:0 0 12px}
+.guide-decision-grid a{color:#fff;font-size:11px;font-weight:850;text-decoration:underline;text-underline-offset:3px}
+.guide-caveat ul{margin:8px 0 0;padding-left:19px}
+.guide-caveat li{line-height:1.6;margin:4px 0}
+.guide-related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:30px}
+.guide-related-grid a{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.guide-related-grid strong,.guide-related-grid small{display:block}
+.guide-related-grid strong{line-height:1.25}
+.guide-related-grid small{color:var(--muted);line-height:1.4;margin-top:6px}
+.guide-data-foot{border-top:1px solid var(--line);padding-top:20px;margin-top:36px;color:var(--muted);font-size:12px;line-height:1.55}
+.guide-data-foot strong{color:var(--ink)}
+.guide-source-freshness{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;margin-bottom:24px}
+.guide-source-freshness p{margin:6px 0 0}
+.guide-source-freshness details{background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px 15px}
+.guide-source-freshness summary{cursor:pointer;color:var(--ink);font-weight:850}
+.guide-source-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:12px;max-height:360px;overflow:auto}
+.guide-source-links a{display:block;background:#f6f6f3;border-radius:10px;padding:10px;color:var(--ink);font-weight:800;line-height:1.25}
+.guide-source-links small{display:block;color:var(--muted);font-weight:500;margin-top:4px;line-height:1.35}
+
+/* Odd spec counts should not leave a broken half-row on wide layouts. */
+.entity-spec-table>div:last-child:nth-child(odd){grid-column:1/-1;border-right:0}
+.entity-spec-table>div:nth-last-child(2):nth-child(odd){border-bottom:0}
+
+@media(max-width:900px){
+  .nav-popover-guides{min-width:320px}
+  .compare-product-grid,.compare-cols-3 .compare-product-grid{grid-template-columns:1fr}
+  .compare-cols-3 .compare-product-card{grid-template-columns:160px minmax(0,1fr)}
+  .guide-pick-grid,.guide-related-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .compare-tray{padding:8px 0 calc(8px + env(safe-area-inset-bottom))}
+  body:has(.compare-tray.expanded){padding-bottom:170px}
+  .compare-product-card,.compare-cols-3 .compare-product-card{grid-template-columns:116px minmax(0,1fr);padding:10px;gap:10px}
+  .compare-product-media,.compare-cols-3 .compare-product-media{height:112px;min-height:112px}
+  .compare-product-copy h2{font-size:19px}
+  .compare-product-copy>small{font-size:10px}
+  .helmet-comparison-grid article{padding:12px}
+  .helmet-compare-media{height:180px}
+  .guide-pick-grid,.guide-related-grid,.guide-topic-grid{grid-template-columns:1fr}
+  .guide-comparison-table th:first-child{min-width:175px}
+}
+
+/* Preserve all useful mobile finder matches; do not report four and hide two. */
+@media(max-width:700px){
+  .homepage-hero .finder-results button:nth-child(n+3){display:flex}
+}
+
+/* Checked catalog records without sourced photos stay useful without fake gray image cards. */
+.checked-record-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0 28px}
+.checked-record-list>a{display:flex;align-items:center;justify-content:space-between;gap:18px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-width:0}
+.checked-record-list strong,.checked-record-list small{display:block}
+.checked-record-list strong{font-size:14px;line-height:1.25}
+.checked-record-list small{margin-top:4px;color:var(--muted);line-height:1.35}
+.checked-record-action{font-size:11px;font-weight:800;color:var(--accent);text-align:right;flex:0 0 auto}
+@media(max-width:700px){.checked-record-list{grid-template-columns:1fr}.checked-record-list>a{align-items:flex-start;flex-direction:column;gap:8px}.checked-record-action{text-align:left}}
+
+@media(max-width:900px){
+  .guide-method-detailed,.guide-source-freshness{grid-template-columns:1fr}
+  .guide-model-analysis{grid-template-columns:130px minmax(0,1fr)}
+  .guide-model-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .guide-model-editorial{grid-template-columns:1fr 1fr}
+  .guide-model-editorial section{border-left:0;border-top:1px solid var(--line)}
+  .guide-model-editorial section:first-child{grid-column:1/-1;border-top:0}
+  .guide-model-editorial section:nth-child(3){border-left:1px solid var(--line)}
+}
+@media(max-width:700px){
+  .guide-direct-answer{grid-template-columns:1fr;padding:17px}
+  .guide-direct-answer p,.guide-direct-answer strong,.guide-direct-answer small{grid-column:auto;text-align:left}
+  .guide-pick-grid,.guide-related-grid,.guide-topic-grid,.guide-decision-grid{grid-template-columns:1fr}
+  .guide-comparison-table .guide-order-cell,.guide-comparison-table thead th:first-child{width:66px;min-width:66px}
+  .guide-comparison-table tbody th[scope="row"],.guide-comparison-table thead th:nth-child(2){left:66px;min-width:170px}
+  .guide-comparison-table th:first-child{min-width:66px}
+  .guide-method-grid{grid-template-columns:1fr}
+  .guide-model-analysis{grid-template-columns:104px minmax(0,1fr);gap:12px;padding:11px}
+  .guide-model-media{height:104px}
+  .guide-model-media:has(.media-unavailable){height:72px}
+  .guide-model-position{font-size:7px;left:6px;top:6px;padding:4px 6px}
+  .guide-model-heading{flex-direction:column;gap:7px}
+  .guide-model-price{text-align:left}
+  .guide-model-price strong{font-size:15px}
+  .guide-model-kpis{grid-template-columns:repeat(2,minmax(0,1fr));grid-column:1/-1}
+  .guide-model-editorial{grid-template-columns:1fr;grid-column:1/-1}
+  .guide-model-editorial section,.guide-model-editorial section:nth-child(3){border-left:0;border-top:1px solid var(--line)}
+  .guide-model-editorial section:first-child{grid-column:auto;border-top:0}
+  .guide-model-actions{grid-column:1/-1;gap:12px}
+  .guide-source-links{grid-template-columns:1fr}
+}
+
+/* v2.4.7 R5: editorial comparison briefs */
+.comparison-page-head{max-width:940px}
+.comparison-page-head .comparison-keyword{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.comparison-page-head>small{display:block;color:var(--muted);font-size:11px;margin-top:8px}
+.comparison-intent-note{margin:18px 0 26px}.comparison-intent-note a{display:inline-block;margin-top:8px;font-weight:850;color:var(--accent)}
+.comparison-quick,.comparison-key-differences,.comparison-variants,.comparison-editorial-sections,.comparison-decision,.comparison-faqs{margin:30px 0}
+.comparison-quick-table{min-width:720px}.comparison-quick-table th,.comparison-quick-table td{vertical-align:top}
+.comparison-difference-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.comparison-difference-list>div{border:1px solid var(--line);border-radius:14px;background:#fff;padding:13px 14px;font-size:13px;line-height:1.5;font-weight:700}
+.comparison-variant-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.comparison-variant-grid>article{border:1px solid var(--line);border-radius:18px;background:#fff;padding:16px}.comparison-variant-grid h3{font-size:18px;margin:0 0 12px}.comparison-variant-grid p{margin:0;line-height:1.5}.comparison-variant-grid p small{color:var(--muted)}
+.comparison-variant-list{display:grid;gap:8px}.comparison-variant-list>div{display:grid;grid-template-columns:minmax(90px,.7fr) minmax(100px,.6fr) 1.7fr;gap:10px;padding:10px 0;border-top:1px solid var(--line);align-items:start}.comparison-variant-list>div:first-child{border-top:0}.comparison-variant-list span{font-weight:850}.comparison-variant-list strong{white-space:nowrap}.comparison-variant-list small{color:var(--muted);line-height:1.4}
+.comparison-editorial-sections{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.comparison-editorial-sections>.section-head{grid-column:1/-1}.comparison-editorial-sections>article{border:1px solid var(--line);background:#fff;border-radius:16px;padding:16px}.comparison-editorial-sections h3{font-size:17px;margin:0 0 8px}.comparison-editorial-sections p{margin:0;color:var(--muted);line-height:1.6;font-size:13px}
+.comparison-decision-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.comparison-decision-grid article{border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px}.comparison-decision-grid h3{font-size:20px;margin:0 0 10px}.comparison-decision-grid ul{margin:0;padding-left:18px}.comparison-decision-grid li{margin:8px 0;line-height:1.45}
+.comparison-methodology{margin:30px 0}.comparison-methodology p:last-child{margin-bottom:0}
+.comparison-faqs details{border-top:1px solid var(--line);background:#fff}.comparison-faqs details:last-child{border-bottom:1px solid var(--line)}.comparison-faqs summary{cursor:pointer;font-weight:850;padding:14px 2px}.comparison-faqs details p{margin:0 0 14px;color:var(--muted);line-height:1.6;max-width:900px}
+.comparison-related-inline{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 28px}.comparison-related-inline a{font-weight:850;color:var(--accent)}
+@media(max-width:800px){
+  .comparison-difference-list,.comparison-variant-grid,.comparison-editorial-sections,.comparison-decision-grid{grid-template-columns:1fr}
+  .comparison-editorial-sections>.section-head{grid-column:auto}
+  .comparison-variant-list>div{grid-template-columns:1fr auto}.comparison-variant-list small{grid-column:1/-1}
+}
+
+/* v2.4.8 catalog density + product imagery pass
+   Product thumbnails were too small in the horizontal card layout. Keep the
+   full product visible, but give the image a proper top canvas similar to the
+   featured-helmet cards used elsewhere on the site. */
+.product-grid .product-card{
+  display:grid;
+  grid-template-columns:1fr;
+  grid-template-rows:220px minmax(0,1fr);
+  min-height:390px;
+}
+.product-grid .product-card-media,
+.product-grid .product-art{
+  width:100%;
+  height:220px;
+  min-height:220px;
+}
+.product-grid .product-card-media img{
+  width:100%;
+  height:100%;
+  min-height:0;
+  object-fit:contain!important;
+  object-position:center!important;
+  padding:18px 24px 10px;
+}
+.product-grid .product-card-copy{padding:18px 20px 20px}
+.product-grid .product-card h3{margin-top:4px}
+.product-grid .product-card-foot{padding-top:20px}
+
+/* Brand pages should communicate the real breadth of the tracked catalog,
+   even when only a subset has fully researched detail pages. */
+.helmet-brand-head .brand-facts{
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  max-width:none;
+}
+.brand-lineup-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+.brand-lineup-card{
+  min-height:104px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:16px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:17px 18px;
+}
+.brand-lineup-card strong{font-size:16px;line-height:1.2;letter-spacing:-.02em}
+.brand-lineup-card span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:800}
+
+/* The homepage finder used to truncate to four before calculating the count,
+   making a full catalog look like it only had four motorcycles. */
+.homepage-hero .finder-results{max-height:420px;overflow:auto;padding-right:3px}
+.finder-showing{margin:10px 0 0;color:var(--muted);font-size:11px;line-height:1.4}
+
+@media(max-width:900px){
+  .brand-lineup-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .product-grid .product-card{grid-template-columns:1fr;grid-template-rows:210px minmax(0,1fr);min-height:360px}
+  .product-grid .product-card-media,.product-grid .product-art{height:210px;min-height:210px}
+  .product-grid .product-card-media img{padding:16px 18px 8px}
+  .homepage-hero .finder-results{max-height:360px}
+  .brand-lineup-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:460px){
+  .brand-lineup-grid{grid-template-columns:1fr}
+}

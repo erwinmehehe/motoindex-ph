@@ -1,0 +1,3 @@
+import { NextResponse } from "next/server";
+import { validateImportRow } from "@/lib/ingestion";
+export async function POST(req:Request){const body=await req.json().catch(()=>null);if(!body||!Array.isArray(body.rows))return NextResponse.json({error:"rows array required"},{status:400});if(body.rows.length>500)return NextResponse.json({error:"Maximum 500 preview rows"},{status:400});const results=body.rows.map((r:Record<string,unknown>,i:number)=>validateImportRow(r,i));return NextResponse.json({ok:true,validRows:results.filter((r:any)=>r.ok).length,invalidRows:results.filter((r:any)=>!r.ok).length,results});}

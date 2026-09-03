@@ -1,0 +1,3 @@
+import { NextResponse } from "next/server"; import { reviewImportRow } from "@/lib/persistentOffers";
+export const runtime="nodejs";
+export async function POST(req:Request,{params}:{params:Promise<{id:string}>}){try{const {id}=await params;const body=await req.json();if(!["approved","rejected"].includes(body.status))throw new Error("status must be approved or rejected");const batch=await reviewImportRow(id,String(body.rowId||""),body.status,body.note);return NextResponse.json({ok:true,batch});}catch(e){return NextResponse.json({error:e instanceof Error?e.message:"Review failed"},{status:400});}}

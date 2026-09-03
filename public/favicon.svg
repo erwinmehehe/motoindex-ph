@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">MotoIndex PH</title>
+  <rect width="64" height="64" rx="18" fill="#101317"/>
+  <path d="M14 43V22h7.2l10.8 12.9L42.8 22H50v21h-7.3V32.8L32 45 21.3 32.8V43H14Z" fill="#fff"/>
+  <path d="M48 14h4v4h-4zM42 14h4v4h-4zM36 14h4v4h-4z" fill="#f0542d"/>
+</svg>
