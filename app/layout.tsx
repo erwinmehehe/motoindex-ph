@@ -27,15 +27,8 @@ export const metadata: Metadata = {
   publisher: SITE_NAME,
   category: "Motorcycles",
   formatDetection: { telephone: false },
-  // Search-console ownership tokens come from the environment so they are never
-  // hardcoded in the repository. Unset values are omitted from the rendered head.
-  // No NEXT_PUBLIC_ prefix: this metadata export is evaluated server-side, so the
-  // tokens reach the rendered <head> without being inlined into client bundles.
   verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
-    other: process.env.BING_SITE_VERIFICATION
-      ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION }
-      : undefined
+    google: "semQnFpP4-Phz-FitfvqFxwwida4f7PGe-hXc11sUz8"
   },
 
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
