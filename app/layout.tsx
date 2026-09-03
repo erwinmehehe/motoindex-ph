@@ -27,6 +27,15 @@ export const metadata: Metadata = {
   publisher: SITE_NAME,
   category: "Motorcycles",
   formatDetection: { telephone: false },
+  // Search-console ownership tokens come from the environment so they are never
+  // hardcoded in the repository. Unset values are omitted from the rendered head.
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+      : undefined
+  },
+
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
   openGraph: {
     title: SITE_NAME,
