@@ -350,6 +350,26 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Retail product image host", sourceLabel: "Product image reference · Dunlop ScootSmart", sourceUrl: "https://www.dunlop.eu/nl_be/motorcycle/tires/scootsmart--scsmart.html", lastChecked: "2026-08-26"
   },
   {
+    id: "evo-m2-brand", entityType: "helmet", entityId: "evo-m2", role: "primary",
+    src: "/media/helmets/evo-m2.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2026/02/M2-GLOSSY-PEARL-WHITE-3-768x768.jpg", alt: "EVO M2 full-face motorcycle helmet in glossy pearl white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "EVO Helmets official M2 product image", sourceUrl: "https://evohelmet.com/product/m2-mono-colors/", lastChecked: "2026-09-04"
+  },
+  {
+    id: "evo-vxr-8000-brand", entityType: "helmet", entityId: "evo-vxr-8000", role: "primary",
+    src: "/media/helmets/evo-vxr-8000.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2026/01/VXR-8000-FRACTION-G-BLACK-BLUE-2-768x768.jpg", alt: "EVO VXR-8000 modular motorcycle helmet in black and blue", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "EVO Helmets official VXR-8000 product image", sourceUrl: "https://evohelmet.com/product/vxr-8000-fraction/", lastChecked: "2026-09-04"
+  },
+  {
+    id: "evo-sr-09-brand", entityType: "helmet", entityId: "evo-sr-09", role: "primary",
+    src: "/media/helmets/evo-sr-09.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2025/10/SR-09-TATAKAI-BLACK-RED-1-768x768.jpg", alt: "EVO SR-09 full-face motorcycle helmet in black and red", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "EVO Helmets official SR-09 product image", sourceUrl: "https://evohelmet.com/product/sr-09-tatakai/", lastChecked: "2026-09-04"
+  },
+  {
+    id: "evo-tr-x-brand", entityType: "helmet", entityId: "evo-tr-x", role: "primary",
+    src: "/media/helmets/evo-tr-x.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2025/09/TR-X-RAVINE-WHITE-TSC-3-768x768.jpg", alt: "EVO TR-X open-face motorcycle helmet in white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "EVO Helmets official TR-X product image", sourceUrl: "https://evohelmet.com/product/tr-x-ravine/", lastChecked: "2026-09-04"
+  },
+  {
     id: "spyder-neo-icon-retailer", entityType: "helmet", entityId: "spyder-neo-icon", role: "primary",
     src: "/media/helmets/spyder-neo-icon.webp", sourceImageUrl: "https://www.teamspyder.com/cdn/shop/files/A6505795800_1200x.png", alt: "Spyder Neo Icon modular motorcycle helmet", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Team Spyder", sourceLabel: "Team Spyder official Neo Icon product image", sourceUrl: "https://www.teamspyder.com/products/neo-icon-plain", lastChecked: "2026-09-04"
