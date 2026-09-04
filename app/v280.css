@@ -58,3 +58,11 @@
 .brand-guide p{color:var(--muted);line-height:1.65;margin:0 0 14px}
 .brand-guide .info-card h3{margin-top:0}
 .brand-guide .info-card .checklist li{padding:11px 0 11px 26px;font-size:14px}
+
+/* v2.9.2 — running-cost block on recommendation guides */
+.guide-running-cost{margin-top:56px}
+.guide-running-cost h3{font-size:22px;letter-spacing:-.03em;margin:0 0 10px}
+.guide-running-cost p{color:var(--muted);line-height:1.65;margin:0 0 14px}
+.guide-running-cost .fitment-grid{margin-bottom:8px}
+.guide-running-cost .info-card p{margin-top:14px;font-size:14px}
+.guide-cost-note{font-size:12px;color:var(--muted);line-height:1.6;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}

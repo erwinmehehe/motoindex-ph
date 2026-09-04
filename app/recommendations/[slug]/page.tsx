@@ -9,6 +9,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { observedMarketPriceLabel, observedMarketRange, priceChecksForModel } from "@/lib/marketChecks";
 import type { Motorcycle, RecommendationGuide, RecommendationQuickPickMetric, RecommendationTableColumn } from "@/lib/types";
 import { evaluateMotorcycle } from "@/lib/decisionEngine";
+import { GuideOwnershipCost } from "@/components/GuideOwnershipCost";
 
 export function generateStaticParams(){return recommendationGuides.map(g=>({slug:g.slug}));}
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
@@ -290,6 +291,7 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
       <div className="guide-decision-grid">{decisions.map(({prompt,model,detail})=><article key={`${prompt}-${model.id}`}><span>{prompt}</span><h3>{model.make} {model.model}</h3><p>{detail}</p><Link href={modelHref(model)}>Check the model →</Link></article>)}</div>
     </section>
 
+    <GuideOwnershipCost models={models} guideTitle={guide.title} />
     <div className="note-box guide-caveat"><h2>Important caveats</h2><ul>{guide.caveats.map(caveat=><li key={caveat}>{caveat}</li>)}</ul></div>
     {faqItems.length>0&&<FaqSection title="Questions about this guide" items={faqItems}/>} 
 
