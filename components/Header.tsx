@@ -34,7 +34,7 @@ export function Header() {
     <div className="shell nav-wrap">
       <MotoIndexLogo />
       <nav className="nav-links" aria-label="Primary navigation">
-        {hasModels && <details className="nav-more nav-motorcycles"><summary>Motorcycles <span>⌄</span></summary><div className="nav-popover nav-popover-menu"><Link className="nav-popover-primary" href="/motorcycles">All motorcycles</Link>{motorcycleBrands.map(([slug,label])=><Link href={`/motorcycles/${slug}`} key={slug}>{label} motorcycles</Link>)}</div></details>}
+        {hasModels && <details className="nav-more nav-motorcycles"><summary>Motorcycles <span>⌄</span></summary><div className="nav-popover nav-popover-menu"><Link className="nav-popover-primary" href="/motorcycles">All motorcycles</Link>{motorcycleBrands.map(([slug,label])=><Link href={`/motorcycles/${slug}`} key={slug}>{label}</Link>)}</div></details>}
         {hasModels && <Link href="/finder">Finder</Link>}
         {hasComparisons && <Link href="/compare">Compare</Link>}
         {hasGuides && <details className="nav-more nav-guides"><summary>Guides <span>⌄</span></summary><div className="nav-popover nav-popover-menu nav-popover-guides"><Link className="nav-popover-primary" href="/recommendations">All buying guides</Link>{publicGuides.map(guide=><Link href={`/recommendations/${guide.slug}`} key={guide.slug}>{guide.title}</Link>)}</div></details>}
