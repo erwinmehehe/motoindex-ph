@@ -350,6 +350,36 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Retail product image host", sourceLabel: "Product image reference · Dunlop ScootSmart", sourceUrl: "https://www.dunlop.eu/nl_be/motorcycle/tires/scootsmart--scsmart.html", lastChecked: "2026-08-26"
   },
   {
+    id: "kyt-r1r-brand", entityType: "helmet", entityId: "kyt-r1r", role: "primary",
+    src: "/media/helmets/kyt-r1r.webp", sourceImageUrl: "https://kytasia.com/wp-content/uploads/2025/11/R1R-CARBON_GLOSS.webp", alt: "KYT R1R full-face motorcycle helmet in carbon gloss", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KYT Asia", sourceLabel: "KYT Asia official R1R product image", sourceUrl: "https://kytasia.com/r1r/", lastChecked: "2026-09-04"
+  },
+  {
+    id: "kyt-nz-race-brand", entityType: "helmet", entityId: "kyt-nz-race", role: "primary",
+    src: "/media/helmets/kyt-nz-race.webp", sourceImageUrl: "https://kytasia.com/wp-content/uploads/2023/01/NZ0016-nzrace.png", alt: "KYT NZ Race full-face racing motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KYT Asia", sourceLabel: "KYT Asia official NZ Race product image", sourceUrl: "https://kytasia.com/nz-race/", lastChecked: "2026-09-04"
+  },
+  {
+    id: "kyt-d-city-brand", entityType: "helmet", entityId: "kyt-d-city", role: "primary",
+    src: "/media/helmets/kyt-d-city.webp", sourceImageUrl: "https://kytasia.com/wp-content/uploads/2024/09/Y6DC00W4-KYT-D-CITY-PLAIN-BLUE-METAL.webp", alt: "KYT D-City urban full-face motorcycle helmet in blue metal", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KYT Asia", sourceLabel: "KYT Asia official D-City product image", sourceUrl: "https://kytasia.com/d-city/", lastChecked: "2026-09-04"
+  },
+  {
+    id: "kyt-kx-1-race-gp-brand", entityType: "helmet", entityId: "kyt-kx-1-race-gp", role: "primary",
+    src: "/media/helmets/kyt-kx-1-race-gp.webp", sourceImageUrl: "https://kytasia.com/wp-content/uploads/2025/08/enea2024-01.png", alt: "KYT KX-1 Race GP full-face racing motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KYT Asia", sourceLabel: "KYT Asia official KX-1 Race GP product image", sourceUrl: "https://kytasia.com/kx-1-race-gp/", lastChecked: "2026-09-04"
+  },
+  {
+    id: "kyt-ballistic-brand", entityType: "helmet", entityId: "kyt-ballistic", role: "primary",
+    src: "/media/helmets/kyt-ballistic.webp", sourceImageUrl: "https://kytasia.com/wp-content/uploads/2024/06/ballistic-face-left.png", alt: "KYT Ballistic convertible city motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KYT Asia", sourceLabel: "KYT Asia official Ballistic product image", sourceUrl: "https://kytasia.com/ballistic/", lastChecked: "2026-09-04"
+  },
+  {
+    id: "kyt-ttr-jet-brand", entityType: "helmet", entityId: "kyt-ttr-jet", role: "primary",
+    src: "/media/helmets/kyt-ttr-jet.webp", sourceImageUrl: "https://kytasia.com/wp-content/uploads/2023/11/ttr-jet1.webp", alt: "KYT TTR-Jet open-face motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KYT Asia", sourceLabel: "KYT Asia official TTR-Jet product image", sourceUrl: "https://kytasia.com/ttr-jet/", lastChecked: "2026-09-04"
+  },
+  {
     id: "evo-m2-brand", entityType: "helmet", entityId: "evo-m2", role: "primary",
     src: "/media/helmets/evo-m2.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2026/02/M2-GLOSSY-PEARL-WHITE-3-768x768.jpg", alt: "EVO M2 full-face motorcycle helmet in glossy pearl white", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "EVO Helmets official M2 product image", sourceUrl: "https://evohelmet.com/product/m2-mono-colors/", lastChecked: "2026-09-04"
