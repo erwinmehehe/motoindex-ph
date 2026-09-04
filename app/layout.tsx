@@ -31,7 +31,19 @@ export const metadata: Metadata = {
     google: "semQnFpP4-Phz-FitfvqFxwwida4f7PGe-hXc11sUz8"
   },
 
-  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
+  // Google's SERP favicon crawler wants a square raster at a multiple of 48px.
+  // SVG alone often falls back to the generic globe, so ship PNGs alongside it.
+  icons: {
+    icon: [
+      { url: "/icon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon-96.png", sizes: "96x96", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" }
+    ],
+    shortcut: "/icon-48.png",
+    apple: "/apple-touch-icon.png"
+  },
   openGraph: {
     title: SITE_NAME,
     description: "Motorcycle prices, specs, fitment and buying tools for the Philippines.",

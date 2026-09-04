@@ -14,7 +14,7 @@ type Props = {
   linkHref?: string;
   showCredit?: boolean;
 };
-export function EntityMedia({ entityType, entityId, fallback, className, priority = false, sizes = "(max-width: 800px) 100vw, 42vw", linkHref, showCredit = true }: Props) {
+export function EntityMedia({ entityType, entityId, fallback, className, priority = false, sizes = "(max-width: 800px) 100vw, 42vw", linkHref, showCredit = false }: Props) {
   const asset = getRenderableMedia(entityType, entityId)[0];
   if (!asset) return <>{fallback}</>;
   const credit = asset.sourceLabel || asset.rightsHolder;
