@@ -27,6 +27,7 @@ const nextConfig = {
       { protocol: "https", hostname: "www.tenplus.ph" },
       { protocol: "https", hostname: "dainese-cdn.thron.com" },
       { protocol: "https", hostname: "www.motoworld.com.ph" },
+      { protocol: "https", hostname: "shop.motoworld.com.ph" },
       { protocol: "https", hostname: "shopmotoman.com" },
       { protocol: "https", hostname: "www.shoei-europe.com" },
       { protocol: "https", hostname: "platincdn.com" },

@@ -350,6 +350,16 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Retail product image host", sourceLabel: "Product image reference · Dunlop ScootSmart", sourceUrl: "https://www.dunlop.eu/nl_be/motorcycle/tires/scootsmart--scsmart.html", lastChecked: "2026-08-26"
   },
   {
+    id: "givi-v58-maxia-5-retailer", entityType: "topbox", entityId: "givi-v58-maxia-5", role: "primary",
+    src: "/media/top-boxes/givi-v58-maxia-5.webp", sourceImageUrl: "https://www.motoworld.com.ph/cdn/shop/files/GIVI_V58NNB_BLK_1.jpg", alt: "GIVI V58 Maxia 5 58-litre motorcycle top case in black", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motoworld Philippines", sourceLabel: "Motoworld Philippines GIVI V58 Maxia 5 product image", sourceUrl: "https://www.motoworld.com.ph/collections/givi-top-boxes/products/givi-v58-maxia-5-topcase-mk-58l", lastChecked: "2026-09-04"
+  },
+  {
+    id: "givi-trekker-dolomiti-30-retailer", entityType: "topbox", entityId: "givi-trekker-dolomiti-30", role: "primary",
+    src: "/media/top-boxes/givi-trekker-dolomiti-30.webp", sourceImageUrl: "https://shop.motoworld.com.ph/cdn/shop/products/DLM30BTREKKERDOLOMITIMKTOPCASES-Black_2.jpg", alt: "GIVI Trekker Dolomiti 30-litre MONOKEY motorcycle top case", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motoworld Philippines", sourceLabel: "Motoworld Philippines GIVI Trekker Dolomiti product image", sourceUrl: "https://shop.motoworld.com.ph/collections/bags-amp-luggages-top-cases/products/givi-trekker-dolomiti-mk-top-cases-30ltr", lastChecked: "2026-09-04"
+  },
+  {
     id: "kyt-r1r-brand", entityType: "helmet", entityId: "kyt-r1r", role: "primary",
     src: "/media/helmets/kyt-r1r.webp", sourceImageUrl: "https://kytasia.com/wp-content/uploads/2025/11/R1R-CARBON_GLOSS.webp", alt: "KYT R1R full-face motorcycle helmet in carbon gloss", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "KYT Asia", sourceLabel: "KYT Asia official R1R product image", sourceUrl: "https://kytasia.com/r1r/", lastChecked: "2026-09-04"
