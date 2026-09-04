@@ -350,6 +350,21 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Retail product image host", sourceLabel: "Product image reference · Dunlop ScootSmart", sourceUrl: "https://www.dunlop.eu/nl_be/motorcycle/tires/scootsmart--scsmart.html", lastChecked: "2026-08-26"
   },
   {
+    id: "spyder-neo-icon-retailer", entityType: "helmet", entityId: "spyder-neo-icon", role: "primary",
+    src: "/media/helmets/spyder-neo-icon.webp", sourceImageUrl: "https://www.teamspyder.com/cdn/shop/files/A6505795800_1200x.png", alt: "Spyder Neo Icon modular motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Team Spyder", sourceLabel: "Team Spyder official Neo Icon product image", sourceUrl: "https://www.teamspyder.com/products/neo-icon-plain", lastChecked: "2026-09-04"
+  },
+  {
+    id: "spyder-neo-blade-retailer", entityType: "helmet", entityId: "spyder-neo-blade", role: "primary",
+    src: "/media/helmets/spyder-neo-blade.webp", sourceImageUrl: "https://www.teamspyder.com/cdn/shop/files/A6505786800_1200x.png", alt: "Spyder Neo Blade open-face motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Team Spyder", sourceLabel: "Team Spyder official Neo Blade product image", sourceUrl: "https://www.teamspyder.com/products/neo-blade-plain", lastChecked: "2026-09-04"
+  },
+  {
+    id: "spyder-reboot-2-retailer", entityType: "helmet", entityId: "spyder-reboot-2", role: "primary",
+    src: "/media/helmets/spyder-reboot-2.webp", sourceImageUrl: "https://www.teamspyder.com/cdn/shop/files/A6500805800_1200x.png", alt: "Spyder Reboot 2.0 semi-jet motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Team Spyder", sourceLabel: "Team Spyder official Reboot 2.0 product image", sourceUrl: "https://www.teamspyder.com/products/spyder-reboot2-0-p-s0-v2", lastChecked: "2026-09-04"
+  },
+  {
     id: "givi-b32n-retailer", entityType: "topbox", entityId: "givi-b32n", role: "primary",
     src: "/media/top-boxes/givi-b32n.webp", sourceImageUrl: "https://data.outletmoto.eu/imgprodotto/givi-b32n-top-case-monolock-noir-32-litres_333784.jpg", alt: "GIVI B32N 32-liter motorcycle top box", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "OutletMoto", sourceLabel: "Retailer-hosted product image reference · GIVI B32N", sourceUrl: "https://www.outletmoto.eu/", lastChecked: "2026-08-25"
