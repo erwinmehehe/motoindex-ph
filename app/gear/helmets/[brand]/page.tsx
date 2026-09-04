@@ -11,6 +11,7 @@ import { RelatedLinks } from "@/components/RelatedLinks";
 import { helmetBrandInternalLinks } from "@/lib/internalLinks";
 import { pageMetadata } from "@/lib/site";
 import { getHelmetBrandLineup } from "@/lib/helmetBrandLineups";
+import { HelmetBrandGuide } from "@/components/HelmetBrandGuide";
 
 export function generateStaticParams(){return helmetBrands.map(h=>({brand:h.slug}));}
 export async function generateMetadata({params}:{params:Promise<{brand:string}>}):Promise<Metadata>{
@@ -63,6 +64,7 @@ export default async function HelmetBrandPage({params}:{params:Promise<{brand:st
 
 
     <div className="split section helmet-buying-notes"><div><h2>Why {h.brand} helmet prices can differ</h2><p>Graphics, shell material, visor bundles, size availability and promotions can change the price of the same helmet family. Compare the exact variant and seller before paying.</p></div><div className="info-card"><h3>Before buying a helmet</h3><ul className="checklist"><li>Check the PS or ICC mark on the exact helmet sold in the Philippines.</li><li>Use the manufacturer&apos;s size chart, then try the helmet on when possible.</li><li>Confirm the certification shown on the actual unit.</li><li>Check visor, liner and spare-part availability before choosing a model.</li></ul></div></div>
+    <HelmetBrandGuide brand={h.brand} verified={verified} types={types} minPrice={minPrice} maxPrice={maxPrice} trackedCount={trackedCount} />
     {verified.length>0&&<FaqSection title={`${h.brand} helmet price and buying questions`} items={faqs}/>} 
     <RelatedLinks title={`Explore ${h.brand} and related helmet guides`} links={helmetBrandInternalLinks(h.slug)} />
   </section>;

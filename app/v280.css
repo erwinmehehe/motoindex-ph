@@ -4,7 +4,7 @@
 .decision-profile-panel:after{content:"";position:absolute;width:380px;height:380px;border-radius:50%;right:-170px;top:-210px;border:1px solid rgba(255,255,255,.08);box-shadow:0 0 0 70px rgba(255,255,255,.018),0 0 0 140px rgba(255,255,255,.012);pointer-events:none}
 .decision-profile-copy{max-width:780px;position:relative;z-index:1}.decision-profile-copy>span,.decision-results-head span,.comparison-decision-matrix .decision-kicker{font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:var(--accent2)}
 .decision-profile-copy h2{font-size:clamp(31px,4vw,48px);letter-spacing:-.045em;line-height:1;margin:9px 0 12px}.decision-profile-copy p{margin:0;color:#b8c0c5;line-height:1.58;max-width:760px}
-.decision-profile-panel .finder-toolbar{position:absolute;right:28px;top:28px;z-index:2;display:flex;gap:8px}.decision-profile-panel .finder-toolbar .button.ghost{border-color:#697279;color:#fff}
+.decision-profile-panel .finder-toolbar{position:absolute;right:28px;top:28px;z-index:2;display:flex;gap:8px}.decision-profile-panel .finder-toolbar .button.ghost{border-color:#c4ccd2;color:var(--ink);background:#fff}.decision-profile-panel .finder-toolbar .button.ghost:hover{border-color:var(--ink);background:#f3f5f6}
 .decision-filter-grid{display:grid;gap:9px;position:relative;z-index:1}.decision-filter-grid.primary{grid-template-columns:repeat(5,minmax(0,1fr));margin-top:28px}.decision-filter-grid.secondary{grid-template-columns:repeat(5,minmax(0,1fr));margin-top:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,.09)}
 .decision-filter-grid label{display:grid;gap:7px}.decision-filter-grid label>span{font-size:9px;text-transform:uppercase;letter-spacing:.08em;font-weight:850;color:#aab3b9}.decision-filter-grid select{width:100%;min-width:0;padding:12px 34px 12px 12px;border:1px solid #3b444b;border-radius:12px;background:#171e23;color:#fff;font-size:12px;font-weight:750}
 .decision-toggle-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;position:relative;z-index:1}.decision-toggle-row label{display:flex;gap:8px;align-items:center;padding:10px 12px;border:1px solid #3b444b;border-radius:999px;background:rgba(255,255,255,.04);font-size:11px;font-weight:800;color:#d6dcdf}.decision-toggle-row input{accent-color:var(--accent)}
@@ -50,3 +50,11 @@
 /* v2.9.2 — the stat row had margin-top but no margin-bottom, so it collided
    with the section that follows it (e.g. accessories category pages). */
 .brand-facts{margin-bottom:46px}
+
+/* v2.9.2 — helmet brand buying guide */
+.brand-guide{margin-top:20px}
+.brand-guide h3{font-size:22px;letter-spacing:-.03em;margin:26px 0 10px}
+.brand-guide .split>div>h3:first-child{margin-top:0}
+.brand-guide p{color:var(--muted);line-height:1.65;margin:0 0 14px}
+.brand-guide .info-card h3{margin-top:0}
+.brand-guide .info-card .checklist li{padding:11px 0 11px 26px;font-size:14px}
