@@ -40,7 +40,7 @@ export function motorcycleSitemapEntries(): Entry[] {
   });
   const families = modelFamilies.flatMap(f=>{
     const list=motorcycles.filter(m=>f.generationIds.includes(m.id));
-    return list.length>0&&list.every(isIndexableModel)?[{url:`${SITE_URL}/motorcycles/${f.makeSlug}/${f.slug}`,lastModified:newest(list.map(m=>m.verifiedAt)),changeFrequency:"monthly" as const,priority:.84}]:[];
+    return list.some(isIndexableModel)?[{url:`${SITE_URL}/motorcycles/${f.makeSlug}/${f.slug}`,lastModified:newest(list.map(m=>m.verifiedAt)),changeFrequency:"monthly" as const,priority:.84}]:[];
   });
   // v2.6: each motorcycle has one canonical entity URL. Price, installment, tire-size,
   // fitment, fuel, maintenance, safety and ownership intent live as anchored sections

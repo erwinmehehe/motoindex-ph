@@ -40,6 +40,16 @@ const nextConfig = {
   experimental: { optimizePackageImports: [] },
   async redirects() {
     return [
+      // Generation-agnostic and variant search terms resolve to the family hub or
+      // the current generation, rather than being published as separate models.
+      // These are real query variants ("aerox 155", "nmax 2020", "click v3"), not
+      // distinct motorcycles, so a redirect is honest where a page would not be.
+      { source: "/motorcycles/yamaha/aerox-155", destination: "/motorcycles/yamaha/aerox", permanent: true },
+      { source: "/motorcycles/yamaha/aerox-sp", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
+      { source: "/motorcycles/yamaha/nmax-155", destination: "/motorcycles/yamaha/nmax", permanent: true },
+      { source: "/motorcycles/yamaha/nmax-2020", destination: "/motorcycles/yamaha/nmax-v2", permanent: true },
+      { source: "/motorcycles/honda/click-v3", destination: "/motorcycles/honda/click-160", permanent: true },
+      { source: "/motorcycles/honda/click-v2", destination: "/motorcycles/honda/click-150i", permanent: true },
       {
         source: "/motorcycles/yamaha/aerox-v4",
         destination: "/motorcycles/yamaha/aerox-v3",

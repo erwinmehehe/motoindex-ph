@@ -19,7 +19,12 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const family = getModelFamily(make, slug);
   if (family) {
     const familyModels = family.generationIds.map(getModelById);
-    const index = familyModels.length === family.generationIds.length && familyModels.every((m) => Boolean(m && isIndexableModel(m)));
+    // A family hub is worth indexing when at least one generation is verified.
+    // Requiring every generation to pass meant a single "review" record - the
+    // NMAX V2 and Aerox V2 entries - kept the whole hub out of the index, which
+    // is where "nmax price philippines" and "aerox price philippines" land.
+    // Each generation's own page still carries its own index gate.
+    const index = familyModels.some((m) => Boolean(m && isIndexableModel(m)));
     return pageMetadata({
       title: `${family.make} ${family.name} Price & Specs Philippines`,
       description: `${family.make} ${family.name} price and specs in the Philippines, with current-generation details, generation context and linked price sources.`,

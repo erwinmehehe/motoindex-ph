@@ -87,3 +87,10 @@
 .format-guide p{color:var(--muted);line-height:1.65;margin:0 0 14px}
 .format-guide strong{color:var(--ink)}
 .format-guide .info-card p{font-size:14px}
+
+/* v2.9.2 — model family hub guide */
+.family-guide{margin-top:44px}
+.family-guide h2{font-size:clamp(26px,3vw,34px);letter-spacing:-.04em;margin:0 0 8px}
+.family-guide h3{font-size:21px;letter-spacing:-.03em;margin:26px 0 10px}
+.family-guide .split>div>h3:first-child,.family-guide .info-card h3{margin-top:0}
+.family-guide p{color:var(--muted);line-height:1.65;margin:0 0 14px}

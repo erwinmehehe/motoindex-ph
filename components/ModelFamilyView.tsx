@@ -7,6 +7,7 @@ import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import { absoluteUrl } from "@/lib/site";
+import { ModelFamilyGuide } from "@/components/ModelFamilyGuide";
 
 export function ModelFamilyView({ family }: { family: ModelFamily }) {
   const models = getFamilyModels(family);
@@ -44,6 +45,7 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
     <div className="section-head compact"><div><h2>Which {family.name} are you looking for?</h2><p>Each generation has its own canonical price page, source date and lifecycle status.</p></div></div>
     <div className="comparison-wrap"><table className="comparison-table"><thead><tr><th>Generation</th><th>Price reference</th><th>Engine</th><th>Seat</th><th>Front tire</th><th>Rear tire</th></tr></thead><tbody>{models.map((m) => m && <tr key={m.id}><td><Link href={`/motorcycles/${m.makeSlug}/${m.slug}#price`}><strong>{m.model}</strong></Link><small>{m.marketStatus === "previous" ? "Previous generation · historical price context" : "Current model · current price page"}</small></td><td><Link className="text-link" href={`/motorcycles/${m.makeSlug}/${m.slug}#price`}>{m.marketStatus === "previous" ? php(m.srp) : observedMarketPriceLabel(m)} →</Link><small>{m.priceContext || (m.marketStatus === "previous" ? "Historical launch reference" : "Dated current reference")}</small></td><td>{m.engineCc} cc</td><td>{m.seatHeightMm} mm</td><td>{m.frontTire}</td><td>{m.rearTire}</td></tr>)}</tbody></table></div>
     <div className="tool-crosslinks">{models.map(m => m && <Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#price`}><b>{m.model} price</b><small>{m.marketStatus === "previous" ? "Historical generation price context." : "Current variants, market checks and installment estimate."}</small></Link>)}</div>
+    <ModelFamilyGuide family={family} models={models.filter((m): m is NonNullable<typeof m> => Boolean(m))} />
     <div className="note-box"><h2>Why generations have separate prices</h2><p>An older generation can still be common on the used market, but its launch SRP is not a current new-bike price. MotoIndex keeps each generation&apos;s price and specifications separate to reduce search-result cannibalization and avoid misleading comparisons.</p></div>
     {faqs.length > 0 && <FaqSection title={`${family.make} ${family.name} price questions`} items={faqs}/>} 
     <JsonLd data={itemList}/>
