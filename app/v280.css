@@ -66,3 +66,15 @@
 .guide-running-cost .fitment-grid{margin-bottom:8px}
 .guide-running-cost .info-card p{margin-top:14px;font-size:14px}
 .guide-cost-note{font-size:12px;color:var(--muted);line-height:1.6;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+
+/* v2.9.2 — tire family hub guide */
+.tire-guide{margin-top:40px}
+.tire-guide h3{font-size:22px;letter-spacing:-.03em;margin:26px 0 10px}
+.tire-guide .split>div>h3:first-child{margin-top:0}
+.tire-guide p{color:var(--muted);line-height:1.65;margin:0 0 14px}
+.tire-guide .info-card h3{margin-top:0}
+.tire-generation-list{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:8px}
+.tire-generation-list li{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:3px}
+.tire-generation-list strong{font-size:15px}
+.tire-generation-list span{font-size:12px;color:var(--muted)}
+.tire-generation-list em{font-style:normal;font-size:13px;font-weight:750}

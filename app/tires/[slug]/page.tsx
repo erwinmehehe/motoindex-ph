@@ -8,6 +8,7 @@ import { maintenanceForModel } from "@/lib/maintenance";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
+import { TireFamilyGuide } from "@/components/TireFamilyGuide";
 
 const chartSlug = "motorcycle-tire-size-chart";
 
@@ -71,6 +72,7 @@ function FamilyHub({ slug }: { slug: string }) {
     </div>
     <div className="note-box"><h2>Do not combine tire data across generations</h2><p>Search results often use one model name for several generations. MotoIndex keeps each generation on its own model page so a current tire-size recommendation does not overwrite an older scooter&apos;s stock specification.</p></div>
     <div className="fitment-crosslinks"><Link href="/tires/motorcycle-tire-size-chart"><strong>How to read tire sizes</strong><small>Width, aspect ratio and rim diameter →</small></Link><Link href="/tires"><strong>All motorcycle tire sizes</strong><small>Browse the model finder →</small></Link><Link href="/fitment"><strong>Fitment finder</strong><small>Tires + accessories →</small></Link></div>
+    <TireFamilyGuide models={models} shortName={hub.shortName} />
     <FaqSection title={`${hub.shortName} tire-size questions`} items={faqs} />
     <JsonLd data={schema} />
   </section>;
