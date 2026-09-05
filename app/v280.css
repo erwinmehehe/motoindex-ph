@@ -78,3 +78,12 @@
 .tire-generation-list strong{font-size:15px}
 .tire-generation-list span{font-size:12px;color:var(--muted)}
 .tire-generation-list em{font-style:normal;font-size:13px;font-weight:750}
+
+/* v2.9.2 — helmet format (category) guide */
+.format-guide{margin-top:44px}
+.format-guide h2{font-size:clamp(26px,3vw,34px);letter-spacing:-.04em;margin:0 0 14px}
+.format-guide h3{font-size:21px;letter-spacing:-.03em;margin:26px 0 10px}
+.format-guide .split>div>h3:first-child,.format-guide .info-card h3{margin-top:0}
+.format-guide p{color:var(--muted);line-height:1.65;margin:0 0 14px}
+.format-guide strong{color:var(--ink)}
+.format-guide .info-card p{font-size:14px}
