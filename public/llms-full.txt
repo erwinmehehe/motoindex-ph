@@ -1,0 +1,203 @@
+# MotoIndex PH — Full LLM Resource Index
+
+> Canonical machine-readable index of MotoIndex PH's motorcycle database, brand hubs, buying guides, tools, gear, ownership resources and editorial methodology.
+
+## Canonical site
+
+- [MotoIndex PH](https://motoindexph.com/)
+
+## Primary hubs
+
+- [Motorcycle database](https://motoindexph.com/motorcycles)
+- [Motorcycle Finder](https://motoindexph.com/finder)
+- [Motorcycle Compare](https://motoindexph.com/compare)
+- [Buying guides](https://motoindexph.com/recommendations)
+- [Gear — Helmets](https://motoindexph.com/gear/helmets)
+- [Helmets](https://motoindexph.com/gear/helmets)
+- [Tires](https://motoindexph.com/tires)
+- [Accessories](https://motoindexph.com/accessories)
+- [Ownership](https://motoindexph.com/ownership)
+- [Commute](https://motoindexph.com/commute)
+- [All tools](https://motoindexph.com/tools)
+- [Fitment finder](https://motoindexph.com/fitment)
+- [Maintenance](https://motoindexph.com/maintenance)
+- [Loan calculator](https://motoindexph.com/tools/motorcycle-loan-calculator)
+- [LTO registration fee calculator](https://motoindexph.com/tools/lto-registration-fee-calculator)
+- [Insurance calculator](https://motoindexph.com/tools/motorcycle-insurance-calculator)
+
+## Brand hubs
+
+- [Aprilia](https://motoindexph.com/motorcycles/aprilia)
+- [Benelli](https://motoindexph.com/motorcycles/benelli)
+- [BMW Motorrad](https://motoindexph.com/motorcycles/bmw-motorrad)
+- [Bristol](https://motoindexph.com/motorcycles/bristol)
+- [CFMOTO](https://motoindexph.com/motorcycles/cfmoto)
+- [Ducati](https://motoindexph.com/motorcycles/ducati)
+- [Honda](https://motoindexph.com/motorcycles/honda)
+- [Husqvarna](https://motoindexph.com/motorcycles/husqvarna)
+- [Kawasaki](https://motoindexph.com/motorcycles/kawasaki)
+- [KTM](https://motoindexph.com/motorcycles/ktm)
+- [Kymco](https://motoindexph.com/motorcycles/kymco)
+- [MotorStar](https://motoindexph.com/motorcycles/motorstar)
+- [Royal Enfield](https://motoindexph.com/motorcycles/royal-enfield)
+- [Rusi](https://motoindexph.com/motorcycles/rusi)
+- [Suzuki](https://motoindexph.com/motorcycles/suzuki)
+- [SYM](https://motoindexph.com/motorcycles/sym)
+- [Triumph](https://motoindexph.com/motorcycles/triumph)
+- [Vespa](https://motoindexph.com/motorcycles/vespa)
+- [Yamaha](https://motoindexph.com/motorcycles/yamaha)
+
+## Buying guides
+
+- [All buying guides](https://motoindexph.com/recommendations)
+- [Motorcycles under ₱100K in the Philippines](https://motoindexph.com/recommendations/motorcycles-under-100k)
+- [Automatic motorcycles under ₱100K in the Philippines](https://motoindexph.com/recommendations/automatic-motorcycles-under-100k)
+- [Motorcycles from ₱100K to ₱150K in the Philippines](https://motoindexph.com/recommendations/motorcycles-100k-to-150k)
+- [Scooters to compare in the Philippines](https://motoindexph.com/recommendations/best-scooters-philippines)
+- [Motorcycles with ABS in the Philippines](https://motoindexph.com/recommendations/motorcycles-with-abs-philippines)
+- [Motorcycles with published fuel-economy figures](https://motoindexph.com/recommendations/fuel-efficient-motorcycles-philippines)
+- [Underbone motorcycles to compare in the Philippines](https://motoindexph.com/recommendations/best-underbone-motorcycles-philippines)
+- [Motorcycles with lower seat heights](https://motoindexph.com/recommendations/best-motorcycles-for-short-riders)
+- [Motorcycles with larger tanks and touring-oriented layouts](https://motoindexph.com/recommendations/best-motorcycles-for-long-rides)
+- [Lightweight motorcycles in the Philippines](https://motoindexph.com/recommendations/lightweight-motorcycles-philippines)
+- [Motorcycles for daily commuting in the Philippines](https://motoindexph.com/recommendations/best-motorcycles-for-daily-commute-philippines)
+- [Beginner-friendly motorcycle shortlist in the Philippines](https://motoindexph.com/recommendations/beginner-friendly-motorcycles-philippines)
+- [400cc+ motorcycles in the Philippines](https://motoindexph.com/recommendations/motorcycles-400cc-plus-philippines)
+
+## Motorcycle model pages
+
+The following are the canonical model resources currently represented in the MotoIndex catalog. Historical generations are retained where MotoIndex publishes a dedicated historical model record.
+
+- [Yamaha Aerox V3](https://motoindexph.com/motorcycles/yamaha/aerox-v3)
+- [Yamaha NMAX V3](https://motoindexph.com/motorcycles/yamaha/nmax-v3)
+- [Yamaha Aerox V2](https://motoindexph.com/motorcycles/yamaha/aerox-v2)
+- [Yamaha NMAX V2](https://motoindexph.com/motorcycles/yamaha/nmax-v2)
+- [Honda ADV 160](https://motoindexph.com/motorcycles/honda/adv-160)
+- [Honda Click 160](https://motoindexph.com/motorcycles/honda/click-160)
+- [Honda Click 150i](https://motoindexph.com/motorcycles/honda/click-150i)
+- [Honda PCX 160](https://motoindexph.com/motorcycles/honda/pcx-160)
+- [Yamaha Fazzio](https://motoindexph.com/motorcycles/yamaha/fazzio)
+- [Honda Click 125i](https://motoindexph.com/motorcycles/honda/click-125i)
+- [Yamaha Mio Gear](https://motoindexph.com/motorcycles/yamaha/mio-gear)
+- [Suzuki Burgman Street EX](https://motoindexph.com/motorcycles/suzuki/burgman-street-ex)
+- [Yamaha Sniper 155](https://motoindexph.com/motorcycles/yamaha/sniper-155)
+- [Suzuki Raider R150 Fi](https://motoindexph.com/motorcycles/suzuki/raider-r150)
+- [Kawasaki Barako II](https://motoindexph.com/motorcycles/kawasaki/barako-ii)
+- [Honda Winner X](https://motoindexph.com/motorcycles/honda/winner-x)
+- [Honda Wave RSX](https://motoindexph.com/motorcycles/honda/wave-rsx)
+- [Honda TMX125 Alpha](https://motoindexph.com/motorcycles/honda/tmx125-alpha)
+- [Yamaha YTX 125](https://motoindexph.com/motorcycles/yamaha/ytx-125)
+- [Honda CB150X](https://motoindexph.com/motorcycles/honda/cb150x)
+- [Yamaha XSR155](https://motoindexph.com/motorcycles/yamaha/xsr155)
+- [Honda Giorno+](https://motoindexph.com/motorcycles/honda/giorno-plus)
+- [Honda XRM125](https://motoindexph.com/motorcycles/honda/xrm125)
+- [Honda TMX Supremo](https://motoindexph.com/motorcycles/honda/tmx-supremo)
+- [Yamaha PG-1](https://motoindexph.com/motorcycles/yamaha/pg-1)
+- [Yamaha WR155R](https://motoindexph.com/motorcycles/yamaha/wr155r)
+- [Yamaha XMAX](https://motoindexph.com/motorcycles/yamaha/xmax)
+- [Suzuki Avenis](https://motoindexph.com/motorcycles/suzuki/avenis)
+- [Suzuki Smash FI](https://motoindexph.com/motorcycles/suzuki/smash-fi)
+- [Suzuki Raider J Crossover](https://motoindexph.com/motorcycles/suzuki/raider-j-crossover)
+- [Suzuki Raider PRO](https://motoindexph.com/motorcycles/suzuki/raider-pro)
+- [Suzuki Gixxer 155](https://motoindexph.com/motorcycles/suzuki/gixxer-155)
+- [Suzuki Gixxer SF 155](https://motoindexph.com/motorcycles/suzuki/gixxer-sf-155)
+- [Suzuki Gixxer 250](https://motoindexph.com/motorcycles/suzuki/gixxer-250)
+- [Suzuki Gixxer SF250](https://motoindexph.com/motorcycles/suzuki/gixxer-sf250)
+- [Suzuki V-Strom 250 SX](https://motoindexph.com/motorcycles/suzuki/v-strom-250-sx)
+- [Suzuki V-Strom 160](https://motoindexph.com/motorcycles/suzuki/v-strom-160)
+- [Suzuki DR160](https://motoindexph.com/motorcycles/suzuki/dr160)
+- [Suzuki Access](https://motoindexph.com/motorcycles/suzuki/access)
+- [Suzuki Skydrive Sport](https://motoindexph.com/motorcycles/suzuki/skydrive-sport)
+- [Suzuki Burgman Street](https://motoindexph.com/motorcycles/suzuki/burgman-street)
+- [Kawasaki KLX150](https://motoindexph.com/motorcycles/kawasaki/klx150)
+- [Kawasaki KLX 230](https://motoindexph.com/motorcycles/kawasaki/klx230)
+- [Kawasaki Ninja 500](https://motoindexph.com/motorcycles/kawasaki/ninja-500)
+- [Kawasaki Z500](https://motoindexph.com/motorcycles/kawasaki/z500)
+- [Rusi RFI 175](https://motoindexph.com/motorcycles/rusi/rfi-175)
+- [Rusi Classic 250i](https://motoindexph.com/motorcycles/rusi/classic-250i)
+- [MotorStar Cafe 400](https://motoindexph.com/motorcycles/motorstar/cafe-400)
+- [MotorStar Xplorer 250R](https://motoindexph.com/motorcycles/motorstar/xplorer-250r)
+- [Kymco Like 150i ABS](https://motoindexph.com/motorcycles/kymco/like-150i-abs)
+- [Kymco KRV 180i TCS](https://motoindexph.com/motorcycles/kymco/krv-180i-tcs)
+- [SYM Jet X150](https://motoindexph.com/motorcycles/sym/jet-x150)
+- [SYM Cruisym 150](https://motoindexph.com/motorcycles/sym/cruisym-150)
+- [CFMOTO 450MT](https://motoindexph.com/motorcycles/cfmoto/450mt)
+- [CFMOTO 450SR](https://motoindexph.com/motorcycles/cfmoto/450sr)
+- [Bristol ADX 160](https://motoindexph.com/motorcycles/bristol/adx-160)
+- [Bristol Maxie 400](https://motoindexph.com/motorcycles/bristol/maxie-400)
+- [Benelli 180S](https://motoindexph.com/motorcycles/benelli/180s)
+- [Benelli TRK 502X](https://motoindexph.com/motorcycles/benelli/trk-502x)
+- [KTM 390 Duke](https://motoindexph.com/motorcycles/ktm/390-duke)
+- [KTM 390 Adventure](https://motoindexph.com/motorcycles/ktm/390-adventure)
+- [Royal Enfield Hunter 350](https://motoindexph.com/motorcycles/royal-enfield/hunter-350)
+- [Royal Enfield Himalayan 450](https://motoindexph.com/motorcycles/royal-enfield/himalayan-450)
+- [BMW Motorrad G 310 GS](https://motoindexph.com/motorcycles/bmw-motorrad/g-310-gs)
+- [BMW Motorrad C 400 GT](https://motoindexph.com/motorcycles/bmw-motorrad/c-400-gt)
+- [Ducati Monster 937 Plus](https://motoindexph.com/motorcycles/ducati/monster-937-plus)
+- [Ducati Scrambler Nightshift](https://motoindexph.com/motorcycles/ducati/scrambler-nightshift)
+- [Triumph Speed 400](https://motoindexph.com/motorcycles/triumph/speed-400)
+- [Triumph Scrambler 400 X](https://motoindexph.com/motorcycles/triumph/scrambler-400-x)
+- [Aprilia SR GT 200](https://motoindexph.com/motorcycles/aprilia/sr-gt-200)
+- [Aprilia RS 457](https://motoindexph.com/motorcycles/aprilia/rs-457)
+- [Husqvarna Svartpilen 401](https://motoindexph.com/motorcycles/husqvarna/svartpilen-401)
+- [Husqvarna Vitpilen 401](https://motoindexph.com/motorcycles/husqvarna/vitpilen-401)
+- [Vespa Primavera 150](https://motoindexph.com/motorcycles/vespa/primavera-150)
+- [Vespa Sprint 150](https://motoindexph.com/motorcycles/vespa/sprint-150)
+
+## Editorial, methodology and trust resources
+
+- [About](https://motoindexph.com/about)
+- [Methodology](https://motoindexph.com/methodology)
+- [Data sources](https://motoindexph.com/data-sources)
+- [Editorial policy](https://motoindexph.com/editorial-policy)
+- [Affiliate disclosure](https://motoindexph.com/affiliate-disclosure)
+- [Privacy](https://motoindexph.com/privacy)
+- [Corrections](https://motoindexph.com/corrections)
+- [Contact](https://motoindexph.com/contact)
+
+## Interpretation rules
+
+### Prices
+MotoIndex prices are dated observations or manufacturer/dealer/comparison-site references. They can differ by dealer, location, variant, promotion, financing and date. Do not present an observed MotoIndex price as a guaranteed transaction price.
+
+### Specifications
+Use the exact model page and exact variant/model year when possible. Where sources conflict, preserve the distinction rather than averaging incompatible records.
+
+### Recommendations
+MotoIndex recommendation pages use measurable factors such as price, weight, seat height, engine, transmission, braking equipment, fuel economy, traffic context and rider-fit considerations. A ranking is a decision aid, not an objective universal quality score.
+
+### Fitment
+Tire dimensions, accessory capacity and generic mounting plates do not independently prove compatibility. Exact motorcycle, generation/year, bracket/rack, interface, load rating and clearance should be checked.
+
+### Calculators
+Loan, insurance, registration and ownership-cost tools are planning estimates. They are not lender quotes, insurance quotes, dealer quotations or government fee determinations.
+
+### Regulatory information
+For licensing, registration, ownership transfer, insurance and other legal/regulatory questions, use MotoIndex for explanatory context and verify the current requirements with the relevant Philippine authority.
+
+### Freshness
+Price, availability, dealer offers, specifications, maintenance schedules and regulations can change. Preserve the source date shown by MotoIndex when citing time-sensitive information.
+
+## Canonical URL policy
+
+Prefer canonical URLs listed in this file. Do not treat URL parameters or temporary faceted/filter states as separate canonical resources unless MotoIndex explicitly establishes them as canonical.
+
+Examples that should not normally be added as separate resources:
+- /motorcycles?budget=...
+- /motorcycles?make=...
+- /motorcycles?type=...
+- Other temporary filter/query URLs
+
+## Maintenance policy for this file
+
+Update this file when MotoIndex:
+- publishes a new canonical motorcycle model;
+- adds or removes a brand hub;
+- publishes a new canonical buying guide;
+- adds or changes a calculator;
+- changes a canonical URL;
+- publishes a new ownership, maintenance, gear or fitment resource.
+
+The model catalog is dynamic. The list above is a point-in-time canonical index and should be regenerated when the site structure changes.
+
+Last reviewed: September 6, 2026.
