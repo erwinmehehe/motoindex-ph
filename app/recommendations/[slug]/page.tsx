@@ -10,6 +10,8 @@ import { observedMarketPriceLabel, observedMarketRange, priceChecksForModel } fr
 import type { Motorcycle, RecommendationGuide, RecommendationQuickPickMetric, RecommendationTableColumn } from "@/lib/types";
 import { evaluateMotorcycle } from "@/lib/decisionEngine";
 import { GuideOwnershipCost } from "@/components/GuideOwnershipCost";
+import { JsonLd } from "@/components/JsonLd";
+import { SITE_NAME, SITE_URL, RELEASE_DATE, absoluteUrl } from "@/lib/site";
 
 export function generateStaticParams(){return recommendationGuides.map(g=>({slug:g.slug}));}
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
@@ -252,6 +254,47 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
   const faqItems:FaqItem[]=guide.faqQuestions.map(question=>({question,answer:faqAnswer(question,models,guide)}));
   const related=guide.relatedGuideSlugs.map(relatedSlug=>recommendationGuides.find(g=>g.slug===relatedSlug)).filter((g):g is RecommendationGuide=>Boolean(g&&isIndexableRecommendation(g.slug)));
   const decisions=decisionCards(guide,models);
+  // Article + ItemList for the buying guides. dateModified uses the newest source
+  // check across the models in the guide, so it reflects a real verification date
+  // rather than a build timestamp. keywords carries the page title alongside the
+  // record's own primary/secondary keywords.
+  const newestCheck = models
+    .map(m => m.marketPriceCheckedAt || m.verifiedAt)
+    .filter(Boolean)
+    .sort()
+    .at(-1) || RELEASE_DATE;
+  const guideSchema = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: guide.title,
+      description: guide.description,
+      about: guide.primaryKeyword,
+      keywords: [guide.title, guide.primaryKeyword, ...(guide.secondaryKeywords || [])].filter(Boolean).join(", "),
+      inLanguage: "en-PH",
+      isAccessibleForFree: true,
+      datePublished: RELEASE_DATE,
+      dateModified: newestCheck,
+      mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(`/recommendations/${guide.slug}`) },
+      author: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+      publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL, logo: { "@type": "ImageObject", url: absoluteUrl("/icon-512.png") } }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: guide.title,
+      description: guide.orderingRule,
+      numberOfItems: models.length,
+      itemListOrder: "https://schema.org/ItemListOrderAscending",
+      itemListElement: models.map((m, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: `${m.make} ${m.model}`,
+        url: absoluteUrl(`/motorcycles/${m.makeSlug}/${m.slug}`)
+      }))
+    }
+  ];
+
   return <section className="page shell">
     <Breadcrumbs items={[{label:"Buying guides",href:"/recommendations"},{label:guide.title}]} />
     <div className="page-head guide-page-head"><span className="guide-kicker">{guide.kicker}</span><h1>{guide.title}</h1></div>
@@ -293,6 +336,7 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
 
     <GuideOwnershipCost models={models} guideTitle={guide.title} />
     <div className="note-box guide-caveat"><h2>Important caveats</h2><ul>{guide.caveats.map(caveat=><li key={caveat}>{caveat}</li>)}</ul></div>
+    <JsonLd data={guideSchema} />
     {faqItems.length>0&&<FaqSection title="Questions about this guide" items={faqItems}/>} 
 
     {related.length>0&&<><div className="section-head compact"><div><h2>Related recommendation guides</h2><p>Continue into adjacent budgets, categories, fit filters and equipment-led guides.</p></div></div><div className="guide-related-grid">{related.map(g=><Link key={g.slug} href={`/recommendations/${g.slug}`}><strong>{g.title}</strong><small>{g.description}</small></Link>)}</div></>}
