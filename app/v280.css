@@ -94,3 +94,20 @@
 .family-guide h3{font-size:21px;letter-spacing:-.03em;margin:26px 0 10px}
 .family-guide .split>div>h3:first-child,.family-guide .info-card h3{margin-top:0}
 .family-guide p{color:var(--muted);line-height:1.65;margin:0 0 14px}
+
+/* v2.9.2 — cross-shopping "Alternatives to…" list.
+   The markup is <a><span><b>name</b><small>specs</small></span><strong>→</strong></a>
+   but nothing styled the children, so the bold model name ran straight into the
+   price with no separator ("SYM Jet X150₱135,800"). Stack name over specs and
+   give each row its own line. */
+.similar-group>a{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line)}
+.similar-group>a:last-of-type{border-bottom:0;padding-bottom:0}
+.similar-group>a>span{display:grid;gap:4px;min-width:0}
+.similar-group>a b{font-size:14px;font-weight:800;line-height:1.35}
+.similar-group>a small{font-size:12px;color:var(--muted);line-height:1.5}
+.similar-group>a>strong{color:var(--muted);flex:none;font-weight:700}
+.similar-group>a:hover b{color:var(--accent)}
+.similar-group>a:hover>strong{color:var(--accent)}
+
+/* v2.9.2 — hero source labels are named but not linked (see Freshness.tsx) */
+.freshness-source{color:var(--ink);font-weight:650}
