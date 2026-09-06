@@ -111,3 +111,8 @@
 
 /* v2.9.2 — hero source labels are named but not linked (see Freshness.tsx) */
 .freshness-source{color:var(--ink);font-weight:650}
+
+/* v2.9.2 — source named but not linked (competitor destinations, see SourceRef.tsx) */
+.source-ref{color:var(--ink);font-weight:650}
+.source-ref-card{cursor:default}
+.source-ref-card:hover{transform:none;box-shadow:none}

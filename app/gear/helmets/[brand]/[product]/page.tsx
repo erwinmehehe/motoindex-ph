@@ -16,6 +16,7 @@ import { helmetAlternatives, helmetComparisonTargets, helmetFaqs } from "@/lib/p
 import { ProductEntityNav } from "@/components/ProductEntityNav";
 import { ProductCard } from "@/components/ProductCard";
 import { FaqSection } from "@/components/FaqSection";
+import { SourceRef } from "@/components/SourceRef";
 
 export const revalidate = 3600;
 
@@ -86,8 +87,8 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
         <div className={`source-panel ${p.status}`}>
           <span>{p.status === "verified" ? "Product details" : "Needs checking"}</span>
           <p>{p.sourceLabel}</p>
-          {p.sourceUrl && <a href={p.sourceUrl} target="_blank" rel="noreferrer">Manufacturer/spec source ↗</a>}
-          {p.priceSourceUrl && p.priceSourceUrl !== p.sourceUrl && <a href={p.priceSourceUrl} target="_blank" rel="noreferrer">Price source ↗</a>}
+          {p.sourceUrl && <SourceRef url={p.sourceUrl} label="Manufacturer/spec source" />}
+          {p.priceSourceUrl && p.priceSourceUrl !== p.sourceUrl && <SourceRef url={p.priceSourceUrl} label="Price source" />}
           <small>Updated {p.lastChecked || "date pending"}</small>
         </div>
       </div>

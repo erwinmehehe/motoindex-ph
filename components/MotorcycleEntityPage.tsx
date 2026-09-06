@@ -42,6 +42,7 @@ import { getRenderableMedia } from "@/lib/media";
 import { modelAuthorityProfile } from "@/lib/modelAuthority";
 import { phBrandSupportFor } from "@/lib/phBrandSupport";
 import { modelAuthorityQuality } from "@/lib/modelQuality";
+import { SourceRef } from "@/components/SourceRef";
 
 function HeroFact({ label, value, note }: { label: string; value: string; note?: string }) {
   return <div><span>{label}</span><strong>{value}</strong>{note && <small>{note}</small>}</div>;
@@ -251,14 +252,14 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           <div className="section-head compact"><div><h3>Products worth checking for this model</h3><p>Tire cards start from stock-size matches. Top-box cards distinguish bike-specific rack evidence from general fit-to-confirm options.</p></div></div>
           <div className="product-grid">{tireCandidates.map((p) => <ProductCard key={p.id} item={{ entityId: p.id, href: `/tires/${p.brandSlug}/${p.slug}`, category: "Tire", brand: p.brand, model: p.model, meta: `Size match · ${p.useCase}`, status: p.status, priceFromPhp: p.priceFromPhp }} />)}{topBoxCandidates.map((p) => { const edge = topBoxFitments.find((f) => f.topBoxId === p.id); return <ProductCard key={p.id} item={{ entityId: p.id, href: `/accessories/top-box/${p.slug}`, category: "Top box", brand: p.brand, model: p.model, meta: edge ? `${edge.rackCode} · ${edge.status === "verified" ? "model-specific rack" : "fit to confirm"}` : `${p.capacityL}L · fit to confirm`, status: edge?.status === "verified" ? "verified" : "research", priceFromPhp: p.priceFromPhp }} />; })}</div>
         </div>}
-        {topBoxFitments.length > 0 && <div className="fitment-evidence-grid entity-fitment-evidence">{topBoxFitments.map((f) => <article key={f.id}><span className={`catalog-status ${f.status === "verified" ? "verified" : ""}`}>{f.status === "verified" ? "Manufacturer-listed" : "Needs checking"}</span><h3>{f.topBoxLabel}</h3><p><b>Rack:</b> {f.rackCode} · {f.rackLabel}</p><p><b>Years:</b> {f.modelYears}</p><p>{f.plateRequirement}</p>{f.marketNote && <small>{f.marketNote}</small>}<div className="fitment-card-links"><Link href={f.productHref}>Open product →</Link><a href={f.sourceUrl} target="_blank" rel="noreferrer">Fitment source ↗</a></div></article>)}</div>}
+        {topBoxFitments.length > 0 && <div className="fitment-evidence-grid entity-fitment-evidence">{topBoxFitments.map((f) => <article key={f.id}><span className={`catalog-status ${f.status === "verified" ? "verified" : ""}`}>{f.status === "verified" ? "Manufacturer-listed" : "Needs checking"}</span><h3>{f.topBoxLabel}</h3><p><b>Rack:</b> {f.rackCode} · {f.rackLabel}</p><p><b>Years:</b> {f.modelYears}</p><p>{f.plateRequirement}</p>{f.marketNote && <small>{f.marketNote}</small>}<div className="fitment-card-links"><Link href={f.productHref}>Open product →</Link><SourceRef url={f.sourceUrl} label="Fitment source" /></div></article>)}</div>}
         <FitmentSummary model={model} />
       </section>
 
       <section id="fuel" className="motorcycle-entity-section" aria-labelledby="fuel-heading">
         <div className="section-head compact"><div><span className="section-kicker">Running cost</span><h2 id="fuel-heading">{model.make} {model.model} fuel consumption and range</h2><p>{efficiency.status === "listed" ? `The ${efficiency.kmPerL} km/L basis comes from the model data on file.` : "No model-specific listed economy figure is stored, so the tool starts from a labeled planning estimate."}</p></div></div>
         <FuelRangeCalculator model={model} />
-        {efficiency.sourceUrl && <div className="source-panel entity-source-panel"><span>Fuel-economy source</span><p>{efficiency.label} · checked {efficiency.checkedAt}</p><a href={efficiency.sourceUrl} target="_blank" rel="noreferrer">Open model source ↗</a></div>}
+        {efficiency.sourceUrl && <div className="source-panel entity-source-panel"><span>Fuel-economy source</span><p>{efficiency.label} · checked {efficiency.checkedAt}</p><SourceRef url={efficiency.sourceUrl} label="Open model source" /></div>}
       </section>
 
       {!isPrevious && <section id="ownership" className="motorcycle-entity-section" aria-labelledby="ownership-heading">
@@ -274,15 +275,15 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
             <div className="head" role="row"><span role="columnheader">Item</span><span role="columnheader">Action</span><span role="columnheader">Interval</span></div>
             {maintenance.items.map((item) => <div role="row" key={item.item}><span role="cell"><strong>{item.item}</strong>{item.note && <small>{item.note}</small>}</span><span role="cell">{item.action}</span><span role="cell">{item.interval}</span></div>)}
           </div>
-          <div className="source-panel entity-source-panel"><span>Official maintenance source</span><h3>{maintenance.sourceLabel}</h3><p>Checked {maintenance.lastChecked}. Always confirm the schedule for your exact model year and market.</p><a href={maintenance.sourceUrl} target="_blank" rel="noreferrer">Open official manual ↗</a></div>
+          <div className="source-panel entity-source-panel"><span>Official maintenance source</span><h3>{maintenance.sourceLabel}</h3><p>Checked {maintenance.lastChecked}. Always confirm the schedule for your exact model year and market.</p><SourceRef url={maintenance.sourceUrl} label="Open official manual" /></div>
         </> : <div className="entity-alert-card subdued"><div><span>Exact schedule not stored</span><h3>Use the official service resource</h3><p>A generic oil, CVT, valve or coolant interval could be wrong for this model.</p></div>{serviceResource ? <a className="button small" href={serviceResource.url} target="_blank" rel="noreferrer">{serviceResource.label} ↗</a> : brandSupport?.serviceUrl ? <a className="button small" href={brandSupport.serviceUrl} target="_blank" rel="noreferrer">Official {model.make} service resource ↗</a> : null}</div>}
       </section>
 
       <section id="safety" className="motorcycle-entity-section" aria-labelledby="safety-heading">
         <div className="section-head compact"><div><span className="section-kicker">Recall + campaign checks</span><h2 id="safety-heading">{model.make} {model.model} recall and service-campaign resources</h2><p>VIN/frame-specific eligibility belongs with the manufacturer. An empty notice list is never treated as proof that no campaign applies.</p></div></div>
-        {safetyNotices.length > 0 ? <div className="safety-notice-list entity-safety-list">{safetyNotices.map((notice) => <article key={`${notice.modelId}-${notice.publishedAt}`}><span>{notice.publishedAt}</span><h3>{notice.title}</h3><p>{notice.summary}</p><a href={notice.sourceUrl} target="_blank" rel="noreferrer">{notice.sourceLabel} ↗</a></article>)}</div> : <div className="note-box compact-note"><h3>No model-specific notice is listed here right now</h3><p>This does not prove that no recall, product update or service campaign applies to your motorcycle.</p></div>}
-        {safetyResource && <div className="source-panel entity-source-panel"><span>Official campaign resource</span><h3>{safetyResource.label}</h3><p>{safetyResource.method}</p><small>Checked {safetyResource.lastChecked}</small><br/><a href={safetyResource.url} target="_blank" rel="noreferrer">Open official resource ↗</a></div>}
-        {!safetyResource && brandSupport?.recallUrl && <div className="source-panel entity-source-panel"><span>Brand safety / owner resource</span><h3>{brandSupport.officialName}</h3><p>Use the official brand resource with the exact model year and VIN/frame number. MotoIndex does not infer recall status from an empty local notice list.</p><small>Checked {brandSupport.checkedAt}</small><br/><a href={brandSupport.recallUrl} target="_blank" rel="noreferrer">Open official resource ↗</a></div>}
+        {safetyNotices.length > 0 ? <div className="safety-notice-list entity-safety-list">{safetyNotices.map((notice) => <article key={`${notice.modelId}-${notice.publishedAt}`}><span>{notice.publishedAt}</span><h3>{notice.title}</h3><p>{notice.summary}</p><SourceRef url={notice.sourceUrl} label={`{notice.sourceLabel}`} /></article>)}</div> : <div className="note-box compact-note"><h3>No model-specific notice is listed here right now</h3><p>This does not prove that no recall, product update or service campaign applies to your motorcycle.</p></div>}
+        {safetyResource && <div className="source-panel entity-source-panel"><span>Official campaign resource</span><h3>{safetyResource.label}</h3><p>{safetyResource.method}</p><small>Checked {safetyResource.lastChecked}</small><br/><SourceRef url={safetyResource.url} label="Open official resource" /></div>}
+        {!safetyResource && brandSupport?.recallUrl && <div className="source-panel entity-source-panel"><span>Brand safety / owner resource</span><h3>{brandSupport.officialName}</h3><p>Use the official brand resource with the exact model year and VIN/frame number. MotoIndex does not infer recall status from an empty local notice list.</p><small>Checked {brandSupport.checkedAt}</small><br/><SourceRef url={brandSupport.recallUrl} label="Open official resource" /></div>}
       </section>
 
       {(brandSupport || authority) && <section id="research-quality" className="motorcycle-entity-section research-quality-section" aria-labelledby="research-quality-heading">
@@ -294,7 +295,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         </div>
         {brandSupport && <div className="ph-brand-support">
           <div><span>Philippine ownership support</span><h3>{brandSupport.officialName}</h3><p>{brandSupport.supportNote}</p><small>Resource check: {brandSupport.checkedAt}</small></div>
-          <div className="ph-brand-support-links"><a href={brandSupport.officialUrl} target="_blank" rel="noreferrer">Official brand ↗</a>{brandSupport.dealerUrl && <a href={brandSupport.dealerUrl} target="_blank" rel="noreferrer">Dealer network ↗</a>}{brandSupport.serviceUrl && <a href={brandSupport.serviceUrl} target="_blank" rel="noreferrer">Service / after-sales ↗</a>}{brandSupport.ownerUrl && <a href={brandSupport.ownerUrl} target="_blank" rel="noreferrer">Owner resources ↗</a>}</div>
+          <div className="ph-brand-support-links"><SourceRef url={brandSupport.officialUrl} label="Official brand" />{brandSupport.dealerUrl && <SourceRef url={brandSupport.dealerUrl} label="Dealer network" />}{brandSupport.serviceUrl && <SourceRef url={brandSupport.serviceUrl} label="Service / after-sales" />}{brandSupport.ownerUrl && <SourceRef url={brandSupport.ownerUrl} label="Owner resources" />}</div>
         </div>}
       </section>}
 

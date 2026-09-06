@@ -1,6 +1,7 @@
 import type { Motorcycle } from "@/lib/types";
 import { modelPriceIntelligence } from "@/lib/priceIntelligence";
 import { php, phpRange } from "@/lib/utils";
+import { SourceRef } from "@/components/SourceRef";
 
 function dateLabel(value?: string) {
   if (!value) return "—";
@@ -24,7 +25,7 @@ export function PriceIntelligence({ model }: { model: Motorcycle }) {
       {intel.snapshots.map((snapshot)=><article className="price-snapshot" key={`${snapshot.observedAt}-${snapshot.kind}`}>
         <time>{dateLabel(snapshot.observedAt)}</time>
         <div><span>{snapshot.kind === "launch" ? "Launch / manufacturer reference" : "Market price check"}</span><strong>{phpRange(snapshot.fromPhp,snapshot.toPhp)}</strong><small>{snapshot.sourceCount} source{snapshot.sourceCount===1?"":"s"} · {snapshot.sourceLabels.join(", ")}</small>{snapshot.note&&<p>{snapshot.note}</p>}</div>
-        {snapshot.sourceUrl?<a href={snapshot.sourceUrl} target="_blank" rel="noreferrer">Source ↗</a>:<span className="muted-copy">See price sources below</span>}
+        {snapshot.sourceUrl?<SourceRef url={snapshot.sourceUrl} label="Source" />:<span className="muted-copy">See price sources below</span>}
       </article>)}
     </div>
     {!intel.historyReady&&<p className="variant-footnote">This is the first recorded price check. More dates will appear as prices are rechecked.</p>}
