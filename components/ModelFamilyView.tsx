@@ -5,6 +5,7 @@ import { getFamilyModels } from "@/lib/families";
 import { php } from "@/lib/utils";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
+import { articleSchema } from "@/lib/articleSchema";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import { absoluteUrl } from "@/lib/site";
 import { ModelFamilyGuide } from "@/components/ModelFamilyGuide";
@@ -38,6 +39,14 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
     })).filter(Boolean)
   };
 
+  const familyArticle = articleSchema({
+    headline: `${family.make} ${family.name} price and specs in the Philippines`,
+    description: family.intro,
+    path: `/motorcycles/${family.makeSlug}/${family.slug}`,
+    about: `${family.name} price philippines`,
+    keywords: [`${family.make} ${family.name} price`, `${family.name} specs Philippines`],
+    checkedDates: models.map(m => m?.marketPriceCheckedAt || m?.verifiedAt)
+  });
   return <section className="page shell">
     <Breadcrumbs items={[{label:"Motorcycles",href:"/motorcycles"},{label:family.make,href:`/motorcycles/${family.makeSlug}`},{label:family.name}]} />
     <div className="page-head"><h1>{family.make} {family.name} price in the Philippines and generations</h1><p>{family.intro} Use this family page for generic {family.name} price research, then open the exact generation before comparing prices or financing.</p></div>
@@ -49,5 +58,6 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
     <div className="note-box"><h2>Why generations have separate prices</h2><p>An older generation can still be common on the used market, but its launch SRP is not a current new-bike price. MotoIndex keeps each generation&apos;s price and specifications separate to reduce search-result cannibalization and avoid misleading comparisons.</p></div>
     {faqs.length > 0 && <FaqSection title={`${family.make} ${family.name} price questions`} items={faqs}/>} 
     <JsonLd data={itemList}/>
+    <JsonLd data={familyArticle}/>
   </section>;
 }

@@ -8,6 +8,7 @@ import { maintenanceForModel } from "@/lib/maintenance";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
+import { articleSchema } from "@/lib/articleSchema";
 import { TireFamilyGuide } from "@/components/TireFamilyGuide";
 
 const chartSlug = "motorcycle-tire-size-chart";
@@ -58,6 +59,14 @@ function FamilyHub({ slug }: { slug: string }) {
     }))
   };
 
+  const tireArticle = articleSchema({
+    headline: hub.title,
+    description: hub.description,
+    path: `/tires/${hub.slug}`,
+    about: hub.aliases?.[0],
+    keywords: hub.aliases,
+    checkedDates: models.map(m => m.verifiedAt)
+  });
   return <section className="page shell">
     <Breadcrumbs items={[{ label: "Tires", href: "/tires" }, { label: `${hub.shortName} tire size` }]} />
     <div className="page-head"><h1>{hub.title}</h1><p>{hub.description}</p></div>
@@ -74,6 +83,7 @@ function FamilyHub({ slug }: { slug: string }) {
     <div className="fitment-crosslinks"><Link href="/tires/motorcycle-tire-size-chart"><strong>How to read tire sizes</strong><small>Width, aspect ratio and rim diameter →</small></Link><Link href="/tires"><strong>All motorcycle tire sizes</strong><small>Browse the model finder →</small></Link><Link href="/fitment"><strong>Fitment finder</strong><small>Tires + accessories →</small></Link></div>
     <TireFamilyGuide models={models} shortName={hub.shortName} />
     <FaqSection title={`${hub.shortName} tire-size questions`} items={faqs} />
+    <JsonLd data={tireArticle} />
     <JsonLd data={schema} />
   </section>;
 }

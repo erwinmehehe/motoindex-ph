@@ -3,6 +3,8 @@ import { helmetProducts } from "@/lib/catalog";
 import { ProductCard } from "@/components/ProductCard";
 import { RelatedLinks } from "@/components/RelatedLinks";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { JsonLd } from "@/components/JsonLd";
+import { articleSchema } from "@/lib/articleSchema";
 import { helmetCategoryInternalLinks } from "@/lib/internalLinks";
 import { HelmetFormatGuide } from "@/components/HelmetFormatGuide";
 
@@ -17,6 +19,14 @@ export function HelmetCategoryView({slug}:{slug:CategorySlug}){
   const c=categoryCopy[slug];
   const type=slug==="full-face"?"Full face":slug==="modular"?"Modular":null;
   const products=helmetProducts.filter(p=>p.status==="verified"&&(type?p.helmetType===type:["Half face","Open face"].includes(p.helmetType)));
+  const categoryArticle = articleSchema({
+    headline: c.title,
+    description: c.intro,
+    path: `/gear/helmets/${slug}`,
+    about: `${slug.replace("-", " ")} helmet Philippines`,
+    keywords: [`${slug.replace("-", " ")} helmet`, "motorcycle helmet Philippines"],
+    checkedDates: products.map(p => p.lastChecked)
+  });
   return <section className="page shell">
     <Breadcrumbs items={[{label:"Helmets",href:"/gear/helmets"},{label:c.title.replace(" in the Philippines","")}]} />
     <div className="page-head helmet-category-head"><h1>{c.title}</h1><p>{c.intro}</p></div>
@@ -24,5 +34,6 @@ export function HelmetCategoryView({slug}:{slug:CategorySlug}){
     <div className="product-grid">{products.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:p.helmetType,brand:p.brand,model:p.model,meta:[p.certification,p.shell].filter(Boolean).join(" · ")||p.visor,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</div>
     <HelmetFormatGuide format={slug} products={products} />
     <div className="split section helmet-buying-notes"><div><h2>Choose the format for how you ride</h2><p>{c.tradeoff}</p><p>Do not choose only by price or graphics. A correctly fitted helmet with the required local conformity mark matters more than a long feature list.</p></div><div className="info-card"><h3>Check before buying</h3><ul className="checklist">{c.check.map(x=><li key={x}>{x}</li>)}</ul></div></div><RelatedLinks title="More helmet information" links={helmetCategoryInternalLinks(slug)} />
+    <JsonLd data={categoryArticle} />
   </section>
 }

@@ -7,6 +7,8 @@ import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { notFound } from "next/navigation";
 import { php } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { JsonLd } from "@/components/JsonLd";
+import { articleSchema } from "@/lib/articleSchema";
 import { RelatedLinks } from "@/components/RelatedLinks";
 import { helmetBrandInternalLinks } from "@/lib/internalLinks";
 import { pageMetadata } from "@/lib/site";
@@ -43,6 +45,14 @@ export default async function HelmetBrandPage({params}:{params:Promise<{brand:st
     {question:`Are ${h.brand} helmets certified for use in the Philippines?`,answer:`Certification can vary by model and market. Check the PS or ICC mark and the certification label on the actual ${h.brand} helmet offered in the Philippines.`},
     {question:`How should I choose a ${h.brand} helmet size?`,answer:"Use the manufacturer size chart for the exact model, measure head circumference as instructed, and try the helmet on when possible. A brand-level size label does not guarantee the same internal fit across different helmet models."}
   ];
+  const brandArticle = articleSchema({
+    headline: `${h.brand} helmet prices and models in the Philippines`,
+    description: `Compare ${h.brand} helmet prices, types, sizes and certification in the Philippines.`,
+    path: `/gear/helmets/${h.slug}`,
+    about: `${h.brand} helmet price Philippines`,
+    keywords: [`${h.brand} helmet`, `${h.brand} helmet price`, "motorcycle helmet Philippines"],
+    checkedDates: verified.map(p => p.lastChecked)
+  });
   return <section className="page shell">
     <Breadcrumbs items={[{label:"Helmets",href:"/gear/helmets"},{label:h.brand}]} />
     <div className="page-head helmet-brand-head"><h1>{h.brand} helmet prices and models in the Philippines</h1><p>Compare {h.brand} helmet types, sizes, features and recent listed prices. Availability can change by size, graphic and seller, so use each model page as a starting point and check the actual helmet before buying.</p><div className="brand-facts"><div><span>Models tracked</span><strong>{trackedCount}</strong></div><div><span>Detailed models</span><strong>{verifiedCount}</strong></div><div><span>Types covered</span><strong>{types.length?types.join(" · "):"Researching"}</strong></div><div><span>Listed prices</span><strong>{minPrice&&maxPrice?(minPrice===maxPrice?php(minPrice):`${php(minPrice)}–${php(maxPrice)}`):"Not enough data"}</strong></div>{latestChecked&&<div><span>Updated</span><strong>{latestChecked}</strong></div>}</div></div>
@@ -67,5 +77,6 @@ export default async function HelmetBrandPage({params}:{params:Promise<{brand:st
     <HelmetBrandGuide brand={h.brand} verified={verified} types={types} minPrice={minPrice} maxPrice={maxPrice} trackedCount={trackedCount} />
     {verified.length>0&&<FaqSection title={`${h.brand} helmet price and buying questions`} items={faqs}/>} 
     <RelatedLinks title={`Explore ${h.brand} and related helmet guides`} links={helmetBrandInternalLinks(h.slug)} />
+    <JsonLd data={brandArticle} />
   </section>;
 }
