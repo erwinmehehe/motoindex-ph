@@ -98,6 +98,9 @@ export function motorcycleEntitySeo(model: Motorcycle) {
   const description = current
     ? `${name} Philippines buyer guide with dated price references, ${model.engineCc}cc specs, rider fit, ownership costs${authority ? ", a unique buyer verdict and local after-sales context" : ""}.`
     : `${name} Philippines guide with historical price context, ${model.engineCc}cc specs, tire sizes, rider fit, maintenance references and used-value planning.`;
+  const aliasNote = model.alsoKnownAs?.length
+    ? ` Also listed as ${model.alsoKnownAs.slice(0, 2).join(" and ")}.`
+    : "";
   const heading = current
     ? `${name}: price, specs and ownership guide`
     : `${name}: historical price, specs and ownership guide`;
@@ -116,6 +119,14 @@ export function motorcycleEntitySeo(model: Motorcycle) {
     `${keywordBase} maintenance schedule`,
     `${keywordBase} review`,
     `${keywordBase} ownership cost`,
+    // Riders search the names they actually use, not the official ones: "PG1"
+    // without the hyphen, "Winner X 150" with the displacement appended. These
+    // are the same motorcycle, so they belong on this page rather than on a
+    // near-duplicate built for the alias.
+    ...(model.alsoKnownAs || []).flatMap((alias) => [
+      `${alias.toLowerCase()} price philippines`,
+      `${alias.toLowerCase()} specs`
+    ]),
   ];
-  return { title, description, heading, intro, keywords };
+  return { title, description: description + aliasNote, heading, intro, keywords };
 }

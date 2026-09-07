@@ -116,3 +116,11 @@
 .source-ref{color:var(--ink);font-weight:650}
 .source-ref-card{cursor:default}
 .source-ref-card:hover{transform:none;box-shadow:none}
+
+/* Alias line under the model lede. Riders search "PG1" and "Winner X 150";
+   naming them on the page they already belong to beats building a near-duplicate. */
+.entity-aka{margin:-6px 0 18px;font-size:.92rem;color:var(--muted);line-height:1.55}
+.entity-aka strong{color:var(--ink);font-weight:650}
+
+/* Nickname explainer on family hubs (the Click V1-V4 question). */
+.family-nicknames{margin:38px 0 44px}

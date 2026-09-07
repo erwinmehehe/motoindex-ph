@@ -42,6 +42,7 @@ export const motorcycles: Motorcycle[] = [
   },
   {
     id: "yamaha-nmax-v3",
+    alsoKnownAs: ["NMAX 155", "Yamaha NMAX 155"],
     make: "Yamaha",
     makeSlug: "yamaha",
     model: "NMAX V3",
@@ -135,6 +136,7 @@ export const motorcycles: Motorcycle[] = [
   },
   {
     id: "honda-adv-160",
+    alsoKnownAs: ["Honda ADV160"],
     make: "Honda",
     makeSlug: "honda",
     model: "ADV 160",
@@ -170,6 +172,7 @@ export const motorcycles: Motorcycle[] = [
   },
   {
     id: "honda-click-160",
+    alsoKnownAs: ["Honda Click160"],
     make: "Honda",
     makeSlug: "honda",
     model: "Click 160",
@@ -203,6 +206,7 @@ export const motorcycles: Motorcycle[] = [
   },
   {
     id: "honda-click-150i",
+    alsoKnownAs: ["Honda Click 150", "Click 150"],
     make: "Honda",
     makeSlug: "honda",
     model: "Click 150i",
@@ -399,7 +403,7 @@ export const motorcycles: Motorcycle[] = [
     summary: "110cc automatic scooter with a low seat, light curb weight and city-focused dimensions."
   },
   {
-    id: "honda-click-125i", make: "Honda", makeSlug: "honda", model: "Click 125i", slug: "click-125i", generation: "Current", category: "Commuter scooter",
+    id: "honda-click-125i", alsoKnownAs: ["Honda Click 125", "Click 125"], make: "Honda", makeSlug: "honda", model: "Click 125i", slug: "click-125i", generation: "Current", category: "Commuter scooter",
     marketStatus: "current",
     srp: 81900, engineCc: 125, powerHp: 11.0, torqueNm: 10.8, curbWeightKg: 111, seatHeightMm: 769, fuelTankL: 5.5,
     frontTire: "80/90-14", rearTire: "90/90-14", abs: "No ABS", colors: ["Black", "Red", "White"], searchVolume: 7100, keywordDifficulty: 65,
@@ -473,7 +477,7 @@ export const motorcycles: Motorcycle[] = [
     summary: "177cc utility motorcycle with a long seat, rear carrier and work-oriented chassis."
   },
   {
-    id: "honda-winner-x", make: "Honda", makeSlug: "honda", model: "Winner X", slug: "winner-x", generation: "Current", category: "Underbone",
+    id: "honda-winner-x", alsoKnownAs: ["Honda Winner X 150", "Winner X 150"], make: "Honda", makeSlug: "honda", model: "Winner X", slug: "winner-x", generation: "Current", category: "Underbone",
     marketStatus: "current",
     srp: 123900, engineCc: 149, powerHp: 15.4, torqueNm: 13.5, curbWeightKg: 122, seatHeightMm: 795, fuelTankL: 4.5, fuelConsumptionKmL: 52.3, groundClearanceMm: 151,
     frontTire: "90/80-17", rearTire: "120/70-17", abs: "Variant-dependent; ABS on Premium and Racing variants", colors: [], searchVolume: 0, keywordDifficulty: 0,
@@ -551,7 +555,7 @@ export const motorcycles: Motorcycle[] = [
     summary: "149cc work motorcycle with a 10.3 L fuel tank, drum brakes and an upright utility layout."
   },
   {
-    id: "yamaha-pg-1", make: "Yamaha", makeSlug: "yamaha", model: "PG-1", slug: "pg-1", generation: "Current", category: "Scrambler / utility motorcycle",
+    id: "yamaha-pg-1", alsoKnownAs: ["Yamaha PG1", "PG1", "PG 1"], make: "Yamaha", makeSlug: "yamaha", model: "PG-1", slug: "pg-1", generation: "Current", category: "Scrambler / utility motorcycle",
     srp: 96400, engineCc: 114, powerHp: 8.85, torqueNm: 9.5, curbWeightKg: 107, seatHeightMm: 795, fuelTankL: 5.1, groundClearanceMm: 190,
     frontTire: "90/100-16", rearTire: "90/100-16", abs: "No ABS; front disc and rear drum", colors: [], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Wheeltek current Philippines PG-1 specification and indicative-price page", sourceUrl: "https://wheeltek.com.ph/vehicles/pg-1/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current",
@@ -567,7 +571,7 @@ export const motorcycles: Motorcycle[] = [
     summary: "155cc dual-sport with 21/18-inch wheels, 245 mm ground clearance and an 880 mm seat."
   },
   {
-    id: "yamaha-xmax", make: "Yamaha", makeSlug: "yamaha", model: "XMAX", slug: "xmax", generation: "Current", category: "Maxi scooter",
+    id: "yamaha-xmax", alsoKnownAs: ["Yamaha XMAX 300", "XMAX 300"], make: "Yamaha", makeSlug: "yamaha", model: "XMAX", slug: "xmax", generation: "Current", category: "Maxi scooter",
     srp: 311000, engineCc: 292, powerHp: 27.62, torqueNm: 29, curbWeightKg: 181, seatHeightMm: 795, fuelTankL: 13, groundClearanceMm: 135,
     frontTire: "120/70-15", rearTire: "140/70-14", abs: "Dual-channel ABS", colors: ["Powered Gray", "Dark Petrol"], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Wheeltek current Philippines XMAX specification and indicative-price page", sourceUrl: "https://wheeltek.com.ph/motorcycles/xmax/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current",
@@ -582,7 +586,7 @@ export const motorcycles: Motorcycle[] = [
     summary: "124cc automatic scooter with a 780 mm seat, combined braking and Suzuki's published 54 km/L test figure."
   },
   {
-    id: "suzuki-smash-fi", make: "Suzuki", makeSlug: "suzuki", model: "Smash FI", slug: "smash-fi", generation: "Current", category: "Underbone",
+    id: "suzuki-smash-fi", alsoKnownAs: ["Suzuki Smash 115", "Smash 115"], make: "Suzuki", makeSlug: "suzuki", model: "Smash FI", slug: "smash-fi", generation: "Current", category: "Underbone",
     srp: 68400, engineCc: 113, powerHp: 9.25, torqueNm: 9.1, curbWeightKg: 94, seatHeightMm: 755, fuelTankL: 3.7, fuelConsumptionKmL: 68, groundClearanceMm: 145,
     frontTire: "70/90-17", rearTire: "80/90-17", abs: "No ABS; brake equipment differs by configuration", colors: ["Candy Summer Red", "New Titan Black", "Metallic Matte Blue"], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Suzuki Motorcycles Philippines current Smash FI product page", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/underbone/smash-fi/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current",

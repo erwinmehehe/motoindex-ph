@@ -53,6 +53,12 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const isPrevious = model.marketStatus === "previous";
   const successor = model.successorId ? getModelById(model.successorId) : undefined;
   const seo = motorcycleEntitySeo(model);
+  // Keywords keep every spelling, but the visible line drops any alias that is
+  // just a shorter piece of another ("PG1" inside "Yamaha PG1"), which otherwise
+  // reads as the same name listed twice.
+  const akaDisplay = (model.alsoKnownAs || []).filter(
+    (a, _i, arr) => !arr.some((b) => b !== a && b.toLowerCase().includes(a.toLowerCase()))
+  );
   const editorial = motorcycleEntityEditorial(model);
   const faqs = motorcycleEntityFaqs(model);
   const range = observedMarketRange(model);
@@ -114,6 +120,11 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
             <span className="entity-kicker">Philippines model guide · {model.generation} · {model.category}</span>
             <h1>{seo.heading}</h1>
             <p className="entity-lede">{seo.intro}</p>
+            {akaDisplay.length ? <p className="entity-aka">
+              Also sold and searched as {akaDisplay.map((a, i, arr) =>
+                <span key={a}><strong>{a}</strong>{i < arr.length - 2 ? ", " : i === arr.length - 2 ? " and " : ""}</span>)}
+              {" "}— the same motorcycle, not a different model.
+            </p> : null}
             <div className="motorcycle-price-lockup">
               <span>{isPrevious ? "Historical launch reference" : model.marketPriceSourceLabel ? "Observed PH price range" : "Indicative SRP"}</span>
               <strong>{observedMarketPriceLabel(model)}</strong>

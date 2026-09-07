@@ -35,6 +35,14 @@ export type Motorcycle = {
   marketPriceSourceUrl?: string;
   marketPriceCheckedAt?: string;
   transmission?: "Automatic" | "Manual";
+  /**
+   * Unofficial names riders actually search for. Only unambiguous aliases go
+   * here — a different spelling ("PG1"), or the displacement people append
+   * ("Winner X 150"). Community generation nicknames like "Click V3" are
+   * deliberately excluded: sellers use them for different model years, so
+   * pinning one to a record would assert something no source supports.
+   */
+  alsoKnownAs?: string[];
   successorId?: string;
 };
 
