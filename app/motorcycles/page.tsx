@@ -7,6 +7,7 @@ import { modelFamilies } from "@/lib/families";
 import { getPhBrandPriority } from "@/lib/phBrandPriority";
 import { modelAuthorityProfile } from "@/lib/modelAuthority";
 import { modelAuthorityQuality } from "@/lib/modelQuality";
+import { forClient } from "@/lib/competitors";
 
 const publicModels = motorcycles.filter(isIndexableModel);
 const publicIds = new Set(publicModels.map((m) => m.id));
@@ -43,7 +44,7 @@ export default async function MotorcyclesPage({ searchParams }: { searchParams: 
       </section>
 
       <div className="section-head compact"><div><h2>Browse motorcycles</h2><p>Filter across the full published catalog. Each result leads to one complete model page that keeps price, specs, fitment and ownership research together.</p></div></div>
-      <ModelExplorer models={publicModels} initialFilters={initialFilters} />
+      <ModelExplorer models={forClient(publicModels)} initialFilters={initialFilters} />
     </>}
   </section>;
 }

@@ -7,6 +7,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { EntityMedia } from "@/components/EntityMedia";
 import { HelmetComparePicker } from "@/components/HelmetComparePicker";
 import { AffiliateOffer } from "@/components/AffiliateOffer";
+import { forClient } from "@/lib/competitors";
 
 export const metadata:Metadata=pageMetadata({title:"Compare Motorcycle Helmets | MotoIndex PH",description:"Compare checked motorcycle helmet prices, sizing, construction, visor equipment, certification evidence and source dates side by side.",path:"/gear/helmets/compare",index:false});
 const php=(n?:number)=>n?`₱${n.toLocaleString("en-PH")}`:"Not published";
@@ -43,7 +44,7 @@ export default async function HelmetComparePage({searchParams}:{searchParams:Pro
   const ids=[params.a,params.b,params.c].filter((v):v is string=>typeof v==="string");
   const products=helmetProducts.filter(p=>p.status==="verified");
   const selected=ids.map(id=>products.find(p=>p.id===id)).filter(Boolean) as Product[];
-  return <section className="page shell"><Breadcrumbs items={[{label:"Helmets",href:"/gear/helmets"},{label:"Compare"}]}/><div className="page-head"><h1>Compare checked helmets side by side</h1><p>Choose two or three verified products. The comparison keeps the selected helmet images visible and groups the checked price, fit, construction, visor and certification data for faster scanning.</p></div><HelmetComparePicker products={products} selected={selected.map(p=>p.id)}/>
+  return <section className="page shell"><Breadcrumbs items={[{label:"Helmets",href:"/gear/helmets"},{label:"Compare"}]}/><div className="page-head"><h1>Compare checked helmets side by side</h1><p>Choose two or three verified products. The comparison keeps the selected helmet images visible and groups the checked price, fit, construction, visor and certification data for faster scanning.</p></div><HelmetComparePicker products={forClient(products)} selected={selected.map(p=>p.id)}/>
   {selected.length<2?<div className="empty-state"><h2>Choose at least two helmets</h2><p>Use the selectors above or start in the Helmet Finder and select products there.</p><Link className="button" href="/gear/helmets/finder">Open Helmet Finder</Link></div>:<>
     <div className={`helmet-comparison-grid cols-${selected.length}`}>{selected.map(p=><article key={p.id}><EntityMedia entityType="helmet" entityId={p.id} className="helmet-compare-media" fallback={<div className="product-art"><span>Image unavailable</span></div>} showCredit={false}/><span className="compare-product-brand">{p.brand}</span><h2>{p.model}</h2><strong>{php(p.priceFromPhp)}</strong><small>{p.helmetType} · checked {p.lastChecked||"date pending"}</small><Link href={`/gear/helmets/${p.brandSlug}/${p.slug}`}>View full details →</Link><AffiliateOffer productId={p.id} productName={`${p.brand} ${p.model}`} compact/></article>)}</div>
     <div className="compare-difference-key"><span className="difference-swatch" aria-hidden="true"/> <strong>Different values are highlighted</strong><span>without declaring a universal winner.</span></div>

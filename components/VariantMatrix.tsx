@@ -1,7 +1,7 @@
 import type { Motorcycle } from "@/lib/types";
 import { getVerifiedVariantsForModel } from "@/lib/variants";
 import { php } from "@/lib/utils";
-import { SourceCard } from "@/components/SourceRef";
+import { SourceCard, SourceOpen, sourceDisplayName } from "@/components/SourceRef";
 
 export function VariantMatrix({ model }: { model: Motorcycle }) {
   const variants = getVerifiedVariantsForModel(model.id);
@@ -14,7 +14,7 @@ export function VariantMatrix({ model }: { model: Motorcycle }) {
         <p>{variant.featureSummary}</p>
         <ul>{variant.differentiators.map((item)=><li key={item}>{item}</li>)}</ul>
         {(variant.braking || variant.weightKg || variant.colors?.length) && <div className="variant-facts">{variant.braking&&<span><small>Braking / control</small><b>{variant.braking}</b></span>}{variant.weightKg&&<span><small>Listed weight</small><b>{variant.weightKg} kg</b></span>}{variant.colors?.length&&<span><small>Listed colors</small><b>{variant.colors.join(", ")}</b></span>}</div>}
-        <SourceCard url={variant.sourceUrl}><span>Checked {variant.checkedAt} · {variant.sourceLabel}</span><b>Open source ↗</b></SourceCard>
+        <SourceCard url={variant.sourceUrl}><span>Checked {variant.checkedAt} · {sourceDisplayName(variant.sourceLabel, variant.sourceUrl)}</span><SourceOpen url={variant.sourceUrl} as="b" /></SourceCard>
       </article>)}
     </div>
     <p className="variant-footnote">SRP and dealer asking price are different. Check the market-price section for current dealer and comparison-site observations.</p>

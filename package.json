@@ -63,7 +63,8 @@
     "validate:v261": "node scripts/validate-v261.mjs",
     "validate:v270": "node scripts/validate-v270.mjs",
     "validate:v280": "node scripts/validate-v280.mjs",
-    "validate:v290": "node scripts/validate-v290.mjs"
+    "validate:v290": "node scripts/validate-v290.mjs",
+    "validate:no-competitors": "node scripts/validate-no-competitors.mjs"
   },
   "dependencies": {
     "next": "15.5.24",

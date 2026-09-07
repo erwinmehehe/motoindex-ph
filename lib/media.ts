@@ -165,7 +165,7 @@ export const entityMedia: EntityMedia[] = [
   {
     id: "yamaha-pg-1-motortrade", entityType: "motorcycle", entityId: "yamaha-pg-1", role: "primary",
     src: "/media/motorcycles/yamaha-pg-1.webp", sourceImageUrl: "https://motortrade.com.ph/wp-content/uploads/2024/05/PG-1-BNR1-BN.jpg", alt: "Yamaha PG-1 motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Motortrade", sourceLabel: "Authorized-dealer image reference · Motortrade Yamaha PG-1", sourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-pg-1/", lastChecked: "2026-08-25"
+    rightsStatus: "external-reference", rightsHolder: "Philippine dealer network", sourceLabel: "Authorized-dealer image reference · Authorized PH dealer Yamaha PG-1", sourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-pg-1/", lastChecked: "2026-08-25"
   },
   {
     id: "yamaha-wr155r-wheeltek", entityType: "motorcycle", entityId: "yamaha-wr155r", role: "primary",
@@ -190,7 +190,7 @@ export const entityMedia: EntityMedia[] = [
   {
     id: "suzuki-raider-j-crossover-motortrade", entityType: "motorcycle", entityId: "suzuki-raider-j-crossover", role: "primary",
     src: "/media/motorcycles/suzuki-raider-j-crossover.webp", sourceImageUrl: "https://motortrade.com.ph/wp-content/uploads/2020/10/3-1.jpg", alt: "Suzuki Raider J Crossover motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Motortrade", sourceLabel: "Authorized-dealer image reference · Motortrade Raider J Crossover", sourceUrl: "https://motortrade.com.ph/motorcycles/suzuki-raider-j-crossover-fj110lb2/", lastChecked: "2026-08-25"
+    rightsStatus: "external-reference", rightsHolder: "Philippine dealer network", sourceLabel: "Authorized-dealer image reference · Authorized PH dealer Raider J Crossover", sourceUrl: "https://motortrade.com.ph/motorcycles/suzuki-raider-j-crossover-fj110lb2/", lastChecked: "2026-08-25"
   },
   {
     id: "suzuki-raider-pro-manufacturer", entityType: "motorcycle", entityId: "suzuki-raider-pro", role: "primary",
@@ -215,7 +215,7 @@ export const entityMedia: EntityMedia[] = [
   {
     id: "suzuki-gixxer-sf250-motortrade", entityType: "motorcycle", entityId: "suzuki-gixxer-sf250", role: "primary",
     src: "/media/motorcycles/suzuki-gixxer-sf250.webp", sourceImageUrl: "https://motortrade.com.ph/wp-content/uploads/2020/10/1-1.jpg", alt: "Suzuki Gixxer SF250 motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Motortrade", sourceLabel: "Authorized-dealer image reference · Motortrade Gixxer SF250", sourceUrl: "https://motortrade.com.ph/motorcycles/suzuki-sf-gixxer-250/", lastChecked: "2026-08-25"
+    rightsStatus: "external-reference", rightsHolder: "Philippine dealer network", sourceLabel: "Authorized-dealer image reference · Authorized PH dealer Gixxer SF250", sourceUrl: "https://motortrade.com.ph/motorcycles/suzuki-sf-gixxer-250/", lastChecked: "2026-08-25"
   },
   {
     id: "suzuki-v-strom-250-sx-manufacturer", entityType: "motorcycle", entityId: "suzuki-v-strom-250-sx", role: "primary",

@@ -31,8 +31,9 @@ if(!data.includes("currentMotorcycles.find((model) => slug.startsWith")) errors.
 if(/return \{ slug, a: a\.id, b: b\.id/.test(data)) errors.push("generated comparison still contains duplicate a/b object keys");
 
 const market=read("lib/marketChecks.ts");
-if((market.match(/sourceName:"Zigwheels Philippines"/g)||[]).length<18) errors.push("expected Zigwheels price checks for all 18 priority models");
-if((market.match(/sourceName:"Motortrade"/g)||[]).length<12) errors.push("expected at least 12 Motortrade cross-checks");
+// Competing aggregators are recorded under generic names (see lib/competitors.ts).
+if((market.match(/sourceName:"Philippine comparison site"/g)||[]).length<18) errors.push("expected comparison-site price checks for all 18 priority models");
+if((market.match(/sourceName:"Philippine dealer network"/g)||[]).length<12) errors.push("expected at least 12 dealer-network cross-checks");
 for(const token of [
   'modelId:"yamaha-nmax-v3"','priceFromPhp:155900, priceToPhp:175900',
   'modelId:"honda-adv-160"','priceFromPhp:166900',
@@ -50,7 +51,9 @@ if(media.includes("/motorcycles/motoindex-bike.svg") || media.includes("illustra
 const nextConfig=read("next.config.mjs");
 if(nextConfig.includes("imgcdn.zigwheels.ph")) errors.push("removed Zigwheels image CDN must not be re-whitelisted");
 const mediaComponent=read("components/EntityMedia.tsx");
-for(const token of ["sourceLabel","sourceUrl",'target="_blank"']) if(!mediaComponent.includes(token)) errors.push(`media source credit UI missing ${token}`);
+// The credit link now routes through SourceRef, which owns target="_blank" and
+// drops the anchor entirely for a competing source.
+for(const token of ["sourceLabel","sourceUrl","SourceRef"]) if(!mediaComponent.includes(token)) errors.push(`media source credit UI missing ${token}`);
 
 const modelCard=read("components/ModelCard.tsx");
 for(const token of ["<EntityMedia","observedMarketPriceLabel"]) if(!modelCard.includes(token)) errors.push(`model cards missing ${token}`);

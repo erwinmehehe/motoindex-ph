@@ -10,29 +10,11 @@
 // retail/affiliate destinations are unaffected — those links are useful to the
 // reader and cost nothing competitively.
 //
-// To stop linking to another domain, add it here. Matching is on the registrable
-// host and any subdomain.
+// The host list and the generic-naming rules live in lib/competitors.ts, which
+// is also imported by the client-boundary sanitizer.
 
-const COMPETITOR_HOSTS = [
-  "zigwheels.ph",
-  "motortrade.com.ph",
-  "carmudi.com.ph",
-  "motodeal.com.ph",
-  "ridemanila.com",
-  "pinoymotospecs.com",
-  "fasterwheeler.com"
-];
-
-export function isCompetitorSource(url?: string) {
-  if (!url) return false;
-  let host: string;
-  try {
-    host = new URL(url).hostname.toLowerCase().replace(/^www\./, "");
-  } catch {
-    return false;
-  }
-  return COMPETITOR_HOSTS.some(h => host === h || host.endsWith(`.${h}`));
-}
+import { isCompetitorSource } from "@/lib/competitors";
+export { isCompetitorSource, sourceDisplayName } from "@/lib/competitors";
 
 type Props = {
   url?: string;
@@ -61,4 +43,13 @@ export function SourceCard({ url, className, children }: { url?: string; classNa
     return <div className={className ? `${className} source-ref-card` : "source-ref-card"}>{children}</div>;
   }
   return <a className={className} href={url} target="_blank" rel="noreferrer">{children}</a>;
+}
+
+// The "Open source ↗" affordance inside a SourceCard. Renders nothing when the
+// card is not actually a link, so an unlinked competitor card does not invite a
+// click that does nothing.
+export function SourceOpen({ url, as = "em", label = "Open source" }: { url?: string; as?: "em" | "b"; label?: string }) {
+  if (!url || isCompetitorSource(url)) return null;
+  const Tag = as;
+  return <Tag>{label} ↗</Tag>;
 }

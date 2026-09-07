@@ -54,7 +54,7 @@ assert(data.includes("MotoIndex keeps one model-level page rather than separate 
 assert(data.includes('/\\bABS\\b/i'), "ABS recommendation matcher is not using a word-boundary regex");
 
 const sourceNames = [...market.matchAll(/sourceName:"([^"]+)"/g)].map((m) => m[1]);
-for (const source of ["Zigwheels Philippines", "Motortrade", "Wheeltek"]) {
+for (const source of ["Philippine comparison site", "Philippine dealer network", "Wheeltek"]) {
   assert(sourceNames.includes(source), `market source missing: ${source}`);
 }
 const wheeltekRows = sourceNames.filter((s) => s === "Wheeltek").length;

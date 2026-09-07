@@ -8,6 +8,7 @@ import { ModelCard } from "@/components/ModelCard";
 import { QuickFinder } from "@/components/QuickFinder";
 import { EntityMedia } from "@/components/EntityMedia";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
+import { forClient } from "@/lib/competitors";
 
 export const metadata: Metadata = pageMetadata({ title: "Motorcycle Prices, Specs & Gear Philippines", description: "Compare motorcycle prices, specifications, helmets, tires and ownership costs in the Philippines.", path: "/" });
 export default function HomePage() {
@@ -28,7 +29,7 @@ export default function HomePage() {
             {featured[0]&&<Link className="mobile-hero-bike" href={`/motorcycles/${featured[0].makeSlug}/${featured[0].slug}`}><EntityMedia entityType="motorcycle" entityId={featured[0].id} className="mobile-hero-bike-media" priority sizes="120px" showCredit={false} fallback={<span className="mobile-hero-bike-fallback"/>}/><span><small>Featured current model</small><strong>{featured[0].make} {featured[0].model}</strong><b>{observedMarketPriceLabel(featured[0])}</b></span></Link>}
             <div className="proof"><span><b>{verifiedModels.length}</b> current motorcycles</span><span><b>{helmetBrands.length}</b> helmet brands</span><span><b>{accessoryCategories.length}</b> accessory categories</span></div>
           </div>
-          <QuickFinder models={verifiedModels} />
+          <QuickFinder models={forClient(verifiedModels)} />
         </div>
       </section>
 

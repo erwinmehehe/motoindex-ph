@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { publicMotorcycles } from "@/lib/data";
 import { MotorcycleFinder, type FinderInitialFilters } from "@/components/MotorcycleFinder";
 import { pageMetadata } from "@/lib/site";
+import { forClient } from "@/lib/competitors";
 
 const models = publicMotorcycles;
 export const metadata: Metadata = pageMetadata({
@@ -56,6 +57,6 @@ export default async function FinderPage({ searchParams }: { searchParams: Promi
 
   return <section className="page shell">
     <div className="page-head"><h1>Find the motorcycle that fits your actual life.</h1><p>Rank the current Philippine catalog against budget, rider fit, traffic, daily distance, passenger and luggage needs, open-road use and a transparent monthly ownership-planning estimate.</p></div>
-    <MotorcycleFinder models={models} initialFilters={initial} />
+    <MotorcycleFinder models={forClient(models)} initialFilters={initial} />
   </section>;
 }

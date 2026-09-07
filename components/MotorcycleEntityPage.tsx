@@ -43,6 +43,7 @@ import { modelAuthorityProfile } from "@/lib/modelAuthority";
 import { phBrandSupportFor } from "@/lib/phBrandSupport";
 import { modelAuthorityQuality } from "@/lib/modelQuality";
 import { SourceRef } from "@/components/SourceRef";
+import { forClient } from "@/lib/competitors";
 
 function HeroFact({ label, value, note }: { label: string; value: string; note?: string }) {
   return <div><span>{label}</span><strong>{value}</strong>{note && <small>{note}</small>}</div>;
@@ -236,7 +237,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           <HeroFact label="Power" value={`${model.powerHp} hp`} note={`${model.engineCc} cc`} />
           <HeroFact label="Transmission" value={model.transmission || "—"} note={model.category} />
         </div>
-        <RiderFitCalculator model={model} />
+        <RiderFitCalculator model={forClient(model)} />
         <div className="note-box compact-note"><h3>Test the exact motorcycle</h3><p>Seat width, suspension sag, footwear, rider weight, road camber and technique all change real foot reach and low-speed confidence.</p></div>
       </section>
 
@@ -258,14 +259,14 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section id="fuel" className="motorcycle-entity-section" aria-labelledby="fuel-heading">
         <div className="section-head compact"><div><span className="section-kicker">Running cost</span><h2 id="fuel-heading">{model.make} {model.model} fuel consumption and range</h2><p>{efficiency.status === "listed" ? `The ${efficiency.kmPerL} km/L basis comes from the model data on file.` : "No model-specific listed economy figure is stored, so the tool starts from a labeled planning estimate."}</p></div></div>
-        <FuelRangeCalculator model={model} />
+        <FuelRangeCalculator model={forClient(model)} />
         {efficiency.sourceUrl && <div className="source-panel entity-source-panel"><span>Fuel-economy source</span><p>{efficiency.label} · checked {efficiency.checkedAt}</p><SourceRef url={efficiency.sourceUrl} label="Open model source" /></div>}
       </section>
 
       {!isPrevious && <section id="ownership" className="motorcycle-entity-section" aria-labelledby="ownership-heading">
         <div className="section-head compact"><div><span className="section-kicker">Total cost</span><h2 id="ownership-heading">{model.make} {model.model} cost of ownership</h2><p>Purchase, financing, fuel, maintenance, insurance, registration, tires and resale are adjustable in one model-specific ownership view.</p></div></div>
         <CommuteSnapshot model={model} />
-        <OwnershipCostCalculator model={model} />
+        <OwnershipCostCalculator model={forClient(model)} />
       </section>}
 
       <section id="maintenance" className="motorcycle-entity-section" aria-labelledby="maintenance-heading">
@@ -306,7 +307,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           {!isPrevious && <div className="new-used-grid entity-new-used-grid"><article><span>New reference</span><strong>{observedMarketPriceLabel(model)}</strong><p>Dated current-model purchase-price basis.</p></article><article><span>Used median ask</span><strong>{php(usedSummary.medianPrice)}</strong><p>{usedSummary.included} listing samples after outlier filtering.</p></article><article className="difference"><span>Gap vs reference</span><strong>{php(Math.max(0, range.from - usedSummary.medianPrice))}</strong><p>Before transfer costs, repairs, financing differences and condition adjustments.</p></article></div>}
           <details className="entity-disclosure"><summary>Show used listing samples</summary><UsedListingTable items={usedListings} /></details>
         </>}
-        <UsedValueCalculator model={model} />
+        <UsedValueCalculator model={forClient(model)} />
         <details className="entity-disclosure"><summary>Show illustrative depreciation table</summary><div className="depreciation-table"><div className="depreciation-row head"><span>Age</span><span>Fair</span><span>Good</span><span>Excellent</span></div>{usedCurve.map((row) => <div className="depreciation-row" key={row.age}><strong>{row.age} year{row.age === 1 ? "" : "s"}</strong><span>{php(row.fair)}</span><span>{php(row.good)}</span><span>{php(row.excellent)}</span></div>)}</div></details>
       </section>
 

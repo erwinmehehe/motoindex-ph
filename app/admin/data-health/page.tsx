@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { attentionQueue, modelHealthRows, healthSummary } from "@/lib/dataHealth";
 import { refreshQueueRows, refreshQueueSummary } from "@/lib/refreshQueue";
 import { getAffiliateConfigSummary } from "@/lib/affiliate";
+import { SourceRef } from "@/components/SourceRef";
 export const metadata: Metadata = { title: "Data Health", robots: { index: false, follow: false } };
 
 export default function DataHealthPage(){
@@ -38,7 +39,7 @@ export default function DataHealthPage(){
     <section className="priority-queue refresh-queue">
       <div className="section-head compact"><div><h2>Scheduled refresh queue — Dates, not just flags</h2><p>This is the missing freshness calendar: market prices refresh every 30 days; published model facts every 90 days; LTO/insurance and verified compatibility records are also placed on a 90-day review cycle.</p></div></div>
       <div className="health-summary refresh-summary"><div><span>Total scheduled</span><strong>{refreshSummary.total}</strong></div><div><span>Overdue</span><strong>{refreshSummary.overdue}</strong></div><div><span>Due in 14 days</span><strong>{refreshSummary.due14}</strong></div><div><span>Due in 30 days</span><strong>{refreshSummary.due30}</strong></div><div><span>Next due</span><strong>{refreshSummary.nextDueAt || "—"}</strong></div></div>
-      <div className="refresh-table"><div className="refresh-row head"><span>Area</span><span>Record</span><span>Checked</span><span>Due</span><span>Status</span></div>{refreshQueue.map((row)=><div className={`refresh-row ${row.status}`} key={row.id}><span>{row.area}</span><span><b>{row.label}</b>{row.sourceUrl&&<small><a href={row.sourceUrl} target="_blank" rel="noreferrer">Source ↗</a></small>}</span><span>{row.checkedAt}</span><span>{row.dueAt}</span><span>{row.daysUntilDue < 0 ? `${Math.abs(row.daysUntilDue)}d overdue` : row.daysUntilDue === 0 ? "Due today" : `${row.daysUntilDue}d`}</span></div>)}</div>
+      <div className="refresh-table"><div className="refresh-row head"><span>Area</span><span>Record</span><span>Checked</span><span>Due</span><span>Status</span></div>{refreshQueue.map((row)=><div className={`refresh-row ${row.status}`} key={row.id}><span>{row.area}</span><span><b>{row.label}</b>{row.sourceUrl&&<small><SourceRef url={row.sourceUrl} label="Source" /></small>}</span><span>{row.checkedAt}</span><span>{row.dueAt}</span><span>{row.daysUntilDue < 0 ? `${Math.abs(row.daysUntilDue)}d overdue` : row.daysUntilDue === 0 ? "Due today" : `${row.daysUntilDue}d`}</span></div>)}</div>
     </section>
 
     <div className="admin-table health-table"><div className="admin-row head"><span>Model</span><span>Prices</span><span>Variants</span><span>History</span><span>Image</span><span>Fuel</span><span>Flags</span></div>{rows.map(r=><div className="admin-row" key={r.id}><span><b>{r.label}</b><small>Checked {r.verifiedAt}</small></span><span>{r.priceSources}</span><span>{r.variantCount||"—"}</span><span>{r.priceSnapshotCount||"—"}</span><span>{r.imageCount?"✓":"—"}</span><span>{r.fuelEconomy?"✓":"—"}</span><span><small>{r.flags.length?r.flags.join(" · "):"Healthy"}</small></span></div>)}</div>

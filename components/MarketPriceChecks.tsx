@@ -1,7 +1,7 @@
 import type { Motorcycle } from "@/lib/types";
 import { priceChecksForModel } from "@/lib/marketChecks";
 import { phpRange } from "@/lib/utils";
-import { SourceCard } from "@/components/SourceRef";
+import { SourceCard, SourceOpen, sourceDisplayName } from "@/components/SourceRef";
 
 function sourceTypeLabel(sourceType: "manufacturer" | "comparison-site" | "dealer") {
   if (sourceType === "manufacturer") return "Manufacturer";
@@ -12,7 +12,7 @@ function sourceTypeLabel(sourceType: "manufacturer" | "comparison-site" | "deale
 export function MarketPriceChecks({ model }: { model: Motorcycle }) {
   const checks = priceChecksForModel(model.id);
   const baselineUrl = model.marketPriceSourceUrl || model.sourceUrl;
-  const baselineLabel = model.marketPriceSourceLabel || model.sourceLabel;
+  const baselineLabel = sourceDisplayName(model.marketPriceSourceLabel || model.sourceLabel, model.marketPriceSourceUrl || model.sourceUrl);
   const baselineCheckedAt = model.marketPriceCheckedAt || model.verifiedAt;
 
   return <section className="market-checks">
@@ -23,14 +23,14 @@ export function MarketPriceChecks({ model }: { model: Motorcycle }) {
         <strong>{baselineLabel}</strong>
         <b>{phpRange(model.srp, model.marketPriceHighPhp)}</b>
         <small>Checked {baselineCheckedAt} · 1 verified source currently stored</small>
-        <em>Open source ↗</em>
+        <SourceOpen url={baselineUrl} />
       </SourceCard>}
-      {checks.map((row)=><SourceCard key={`${row.sourceName}-${row.sourceUrl}`} url={row.sourceUrl}>
+      {checks.map((row)=><SourceCard key={`${row.sourceName}-${row.checkedAt}-${row.priceFromPhp}`} url={row.sourceUrl}>
         <span>{sourceTypeLabel(row.sourceType)}</span>
-        <strong>{row.sourceName}</strong>
+        <strong>{sourceDisplayName(row.sourceName, row.sourceUrl)}</strong>
         <b>{phpRange(row.priceFromPhp,row.priceToPhp)}</b>
         <small>Checked {row.checkedAt}{row.note ? ` · ${row.note}` : ""}</small>
-        <em>Open source ↗</em>
+        <SourceOpen url={row.sourceUrl} />
       </SourceCard>)}
     </div>
     {checks.length === 0 && <p className="market-check-gap">Independent dealer/comparison pricing is still a research gap for this model. MotoIndex will not turn one source into a fake market consensus.</p>}
