@@ -280,6 +280,66 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Retail product image host", sourceLabel: "Retailer-hosted product image reference · KYT R2R", sourceUrl: "https://www.speedaddicts.com/motorcycle/kyt-r2r-white-gloss-helmet", lastChecked: "2026-08-25"
   },
   {
+    id: "gille-135-source", entityType: "helmet", entityId: "gille-135", role: "primary",
+    src: "/media/helmets/gille-135.webp", sourceImageUrl: "https://kranosgears.com/cdn/shop/files/da05c09b-a56a-47cb-a47a-ae00932098e5_1024x1024@2x.jpg?v=1729128386", alt: "Gille 135 Two Tone full-face motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kranos Gears", sourceLabel: "Retailer-hosted product image reference · Gille 135 Two Tone", sourceUrl: "https://kranosgears.com/products/gille-135-two-tone-black-white-dual-visor", lastChecked: "2026-09-07"
+  },
+  {
+    id: "gille-843-circuit-source", entityType: "helmet", entityId: "gille-843-circuit", role: "primary",
+    src: "/media/helmets/gille-843-circuit.webp", sourceImageUrl: "https://kranosgears.com/cdn/shop/files/2f44cf3b-2258-44b1-b23b-cad72a5675a1_1024x1024@2x.jpg?v=1774333294", alt: "Gille 843 Circuit full-face motorcycle helmet in matte gray", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kranos Gears", sourceLabel: "Retailer-hosted product image reference · Gille 843 Circuit", sourceUrl: "https://kranosgears.com/products/gille-843-circuit-matte-gray-dual-visor", lastChecked: "2026-09-07"
+  },
+  {
+    id: "gille-863-medusa-source", entityType: "helmet", entityId: "gille-863-medusa", role: "primary",
+    src: "/media/helmets/gille-863-medusa.webp", sourceImageUrl: "https://kranosgears.com/cdn/shop/files/6066bb34-6b79-44b2-94d8-533665b31e74_1024x1024@2x.jpg?v=1729045788", alt: "Gille 863 Medusa Forged full-face motorcycle helmet with spoiler", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kranos Gears", sourceLabel: "Retailer-hosted product image reference · Gille 863 Medusa Forged", sourceUrl: "https://kranosgears.com/products/gille-863-medusa-forged-free-clear-lens-with-spoiler-dual-visor", lastChecked: "2026-09-07"
+  },
+  {
+    id: "gille-873-celeste-source", entityType: "helmet", entityId: "gille-873-celeste", role: "primary",
+    src: "/media/helmets/gille-873-celeste.webp", sourceImageUrl: "https://kranosgears.com/cdn/shop/files/7e58a6af-117a-4ab1-9f2e-a0385d5fb46d_1024x1024@2x.jpg?v=1729046805", alt: "Gille 873 Celeste Forged full-face motorcycle helmet with spoiler", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kranos Gears", sourceLabel: "Retailer-hosted product image reference · Gille 873 Celeste Forged", sourceUrl: "https://kranosgears.com/products/gille-873-celeste-forged-free-clear-lens-with-spoiler-dual-visor-copy", lastChecked: "2026-09-07"
+  },
+  {
+    id: "gille-a118-2-adira-source", entityType: "helmet", entityId: "gille-a118-2-adira", role: "primary",
+    src: "/media/helmets/gille-a118-2-adira.webp", sourceImageUrl: "https://kranosgears.com/cdn/shop/files/e1238cc0-d811-4843-b8a3-f14d979d5b84_1024x1024@2x.jpg?v=1753926972", alt: "Gille A118-2 Adira full-face motorcycle helmet in matte black", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kranos Gears", sourceLabel: "Retailer-hosted product image reference · Gille A118-2 Adira", sourceUrl: "https://kranosgears.com/products/gille-a118-2-adira-matte-black-revo-red-lens-dual-visor-with-free-clear-lens", lastChecked: "2026-09-07"
+  },
+  {
+    id: "gille-a5009-phoenix-source", entityType: "helmet", entityId: "gille-a5009-phoenix", role: "primary",
+    src: "/media/helmets/gille-a5009-phoenix.webp", sourceImageUrl: "https://kranosgears.com/cdn/shop/files/60a4fc57-b765-49a2-982b-7b9ec6032f2a_1024x1024@2x.jpg?v=1741402561", alt: "Gille A5009 Phoenix full-face motorcycle helmet in gray", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kranos Gears", sourceLabel: "Retailer-hosted product image reference · Gille A5009 Phoenix", sourceUrl: "https://kranosgears.com/products/gille-a5009-phoenix-gray-revo-gold-lens-dual-visor", lastChecked: "2026-09-07"
+  },
+  {
+    id: "gille-adira-eclipse-source", entityType: "helmet", entityId: "gille-adira-eclipse", role: "primary",
+    src: "/media/helmets/gille-adira-eclipse.webp", sourceImageUrl: "https://kranosgears.com/cdn/shop/files/ad773ad1-d48e-4832-8481-6859b4884152_1024x1024@2x.jpg?v=1772777854", alt: "Gille Adira Eclipse full-face motorcycle helmet in matte black and red", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kranos Gears", sourceLabel: "Retailer-hosted product image reference · Gille Adira Eclipse", sourceUrl: "https://kranosgears.com/products/gille-adira-eclipse-matte-black-red-with-free-clear-lens-dual-visor", lastChecked: "2026-09-07"
+  },
+  {
+    id: "sec-carbon-mamba-source", entityType: "helmet", entityId: "sec-carbon-mamba", role: "primary",
+    src: "/media/helmets/sec-carbon-mamba.webp", sourceImageUrl: "https://secmotosupply.com/cdn/shop/products/FSEC-05143_2_28bdd3fb-ad86-4aac-a359-a52abeccc672_1024x1024.png?v=1681282945", alt: "SEC Carbon Mamba full-face motorcycle helmet in glossy carbon fibre", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SEC Motosupply", sourceLabel: "Manufacturer/brand-hosted product image · SEC Carbon Mamba", sourceUrl: "https://secmotosupply.com/collections/helmets/products/i010207", lastChecked: "2026-09-07"
+  },
+  {
+    id: "sec-carbon-chronos-source", entityType: "helmet", entityId: "sec-carbon-chronos", role: "primary",
+    src: "/media/helmets/sec-carbon-chronos.webp", sourceImageUrl: "https://secmotosupply.com/cdn/shop/products/FSEC-05141_4_54dee8e4-4a9a-4f1c-b73e-4e987021f663_1024x1024.png?v=1665625157", alt: "SEC Carbon Chronos full-face motorcycle helmet in matte carbon fibre", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SEC Motosupply", sourceLabel: "Manufacturer/brand-hosted product image · SEC Carbon Chronos", sourceUrl: "https://secmotosupply.com/collections/helmets/products/i010201", lastChecked: "2026-09-07"
+  },
+  {
+    id: "sec-nomad-source", entityType: "helmet", entityId: "sec-nomad", role: "primary",
+    src: "/media/helmets/sec-nomad.webp", sourceImageUrl: "https://secmotosupply.com/cdn/shop/products/ESEC-05157_2_1024x1024.png?v=1667546471", alt: "SEC Nomad full-face motorcycle helmet in solid carbon", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SEC Motosupply", sourceLabel: "Manufacturer/brand-hosted product image · SEC Nomad", sourceUrl: "https://secmotosupply.com/collections/helmets/products/sec-nomad-solid-carbon", lastChecked: "2026-09-07"
+  },
+  {
+    id: "sec-atmos-source", entityType: "helmet", entityId: "sec-atmos", role: "primary",
+    src: "/media/helmets/sec-atmos.webp", sourceImageUrl: "https://secmotosupply.com/cdn/shop/files/DSEC-06410_ATMOS_SCORPIO_BLKGREYWHT_4d2d7918-b338-46b9-b9e1-9b0aff373f9c_1024x1024.jpg?v=1750927915", alt: "SEC ATMOS Scorpio modular motorcycle helmet in black, grey and white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SEC Motosupply", sourceLabel: "Manufacturer/brand-hosted product image · SEC ATMOS Scorpio", sourceUrl: "https://secmotosupply.com/collections/helmets/products/i014974", lastChecked: "2026-09-07"
+  },
+  {
+    id: "sec-saga-source", entityType: "helmet", entityId: "sec-saga", role: "primary",
+    src: "/media/helmets/sec-saga.webp", sourceImageUrl: "https://secmotosupply.com/cdn/shop/files/DSEC-05927_SAGA-BRAND_WHITE_PINK_ebcf1045-d5c8-4a1e-aa2d-fc3778657ba5_1024x1024.jpg?v=1750927892", alt: "SEC SAGA modular motorcycle helmet in white and pink", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SEC Motosupply", sourceLabel: "Manufacturer/brand-hosted product image · SEC SAGA", sourceUrl: "https://secmotosupply.com/collections/helmets/products/i012918", lastChecked: "2026-09-07"
+  },
+  {
     id: "spyder-fury-official", entityType: "helmet", entityId: "spyder-fury-rapid-s8", role: "primary",
     src: "/media/helmets/spyder-fury-rapid-s8.webp", sourceImageUrl: "https://www.teamspyder.com/cdn/shop/files/A6504346800_1080x.png?v=1695957836", alt: "Spyder Fury Rapid S8 full-face motorcycle helmet", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Team Spyder", sourceLabel: "Manufacturer/brand-hosted product image · Spyder Fury Rapid S8", sourceUrl: "https://www.teamspyder.com/products/spyder-fury-rapid-s8", lastChecked: "2026-08-25"
