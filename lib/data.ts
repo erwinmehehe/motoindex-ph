@@ -1088,7 +1088,118 @@ export const recommendationGuides: RecommendationGuide[] = [
     faqQuestions: ["Which 400cc+ motorcycles are cheapest in the current catalog?", "Does 400cc automatically mean expressway legal?", "Which 400cc+ motorcycle has the lowest seat?", "Which 400cc+ motorcycle is lightest?", "What should I verify before buying for expressway use?"],
     relatedGuideSlugs: ["best-motorcycles-for-long-rides", "motorcycles-with-abs-philippines", "lightweight-motorcycles-philippines"],
     intent: "category"
+  },
+  {
+    slug: "maxi-scooters-philippines",
+    kicker: "Maxi scooters",
+    title: "Maxi scooters in the Philippines",
+    seoTitle: "Maxi Scooters in the Philippines: Prices & Specs 2026",
+    description: "Compare current maxi and maxi-style scooters in the Philippines by observed price, engine size, weight, seat height, tank capacity and ABS equipment.",
+    primaryKeyword: "maxi scooters Philippines",
+    secondaryKeywords: ["maxi scooter Philippines price", "best maxi scooter Philippines", "maxi scooters 2026 Philippines"],
+    directAnswer: "MotoIndex groups current maxi and maxi-style scooters so riders can compare measurable differences in price, engine size, weight, seat height, fuel capacity and braking equipment before choosing a model.",
+    inclusionRules: ["Category contains maxi scooter or maxi-style scooter", "Current, indexable Philippine-market motorcycle record"],
+    orderingRule: "Observed starting price from lowest to highest; this is a comparison order, not an overall quality ranking.",
+    tieBreakers: ["Lower curb weight"],
+    orderLabel: "Price order",
+    sourcePolicy: "Prices use dated market observations where available; engine, dimensions, tank and braking details come from each source-backed model record.",
+    caveats: ["Maxi-scooter labels vary by manufacturer and publisher.", "Comfort, wind protection and storage are not ranked unless supported by structured source data."],
+    tableColumns: ["price", "engine", "power", "weight", "seat", "abs", "tank", "context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Largest fuel tank",metric:"tank"},{label:"Highest power",metric:"power"}],
+    editorialSections: ["Lowest-priced maxi scooters", "Lighter maxi-scooter options", "Lower-seat maxi scooters", "Largest fuel tanks", "What to compare before buying a maxi scooter"],
+    faqQuestions: ["What maxi scooters are available in the Philippines?", "Which maxi scooter has the lowest observed price?", "Which maxi scooter has the lowest seat?", "Which maxi scooter is lightest?", "Do all maxi scooters have ABS?"],
+    relatedGuideSlugs: ["best-scooters-philippines", "best-motorcycles-for-long-rides", "motorcycles-with-abs-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "naked-motorcycles-philippines",
+    kicker: "Naked motorcycles",
+    title: "Naked motorcycles in the Philippines",
+    seoTitle: "Naked Motorcycles Philippines: Prices & Specs 2026",
+    description: "Compare current naked street motorcycles in the Philippines using observed price, engine, power, weight, seat height, ABS and fuel-tank data.",
+    primaryKeyword: "naked motorcycles Philippines",
+    secondaryKeywords: ["naked bikes Philippines", "naked bike Philippines price", "street motorcycles Philippines"],
+    directAnswer: "This page compares current naked street motorcycles in MotoIndex using observed prices and published specifications rather than a subjective overall ranking.",
+    inclusionRules: ["Category is naked street bike", "Current, indexable Philippine-market motorcycle record"],
+    orderingRule: "Observed starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight"],
+    orderLabel: "Price order",
+    sourcePolicy: "Observed prices come from dated checks; engine, output, dimensions and braking details come from source-backed model records.",
+    caveats: ["Peak horsepower does not describe low-speed behavior or ease of use.", "Riding position and comfort should be checked in person."],
+    tableColumns: ["price", "engine", "power", "torque", "weight", "seat", "abs", "tank"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced naked motorcycles", "Lighter naked bikes", "Lower-seat naked motorcycles", "Higher-power options", "What to compare before choosing a naked bike"],
+    faqQuestions: ["What naked motorcycles are available in the Philippines?", "Which naked motorcycle has the lowest observed price?", "Which naked bike is lightest?", "Which naked motorcycle has the lowest seat?", "Which naked bikes list ABS?"],
+    relatedGuideSlugs: ["motorcycles-400cc-plus-philippines", "motorcycles-with-abs-philippines", "lightweight-motorcycles-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "dual-sport-motorcycles-philippines",
+    kicker: "Dual sport",
+    title: "Dual-sport motorcycles in the Philippines",
+    seoTitle: "Dual-Sport Motorcycles Philippines: Prices & Specs 2026",
+    description: "Compare current dual-sport motorcycles in the Philippines by observed price, engine, weight, seat height, ground clearance and braking equipment.",
+    primaryKeyword: "dual sport motorcycles Philippines",
+    secondaryKeywords: ["dual purpose motorcycles Philippines", "dual sport bike Philippines price", "trail motorcycles Philippines"],
+    directAnswer: "MotoIndex compares current dual-sport motorcycles using source-backed price, engine, weight, seat-height, ground-clearance and braking records so the trade-offs stay visible.",
+    inclusionRules: ["Category is dual-sport", "Current, indexable Philippine-market motorcycle record"],
+    orderingRule: "Observed starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight"],
+    orderLabel: "Price order",
+    sourcePolicy: "Observed prices use dated checks; specifications and ground-clearance figures come from each model's source-backed record when available.",
+    caveats: ["Off-road capability cannot be ranked from specifications alone.", "Seat height and ground clearance may be priorities in opposite directions for different riders."],
+    tableColumns: ["price", "engine", "power", "weight", "seat", "clearance", "abs", "tank"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced dual-sport motorcycles", "Lighter dual-sport options", "Lower-seat choices", "Ground-clearance differences", "What to verify for mixed road and trail use"],
+    faqQuestions: ["What dual-sport motorcycles are available in the Philippines?", "Which dual-sport bike has the lowest observed price?", "Which dual-sport motorcycle is lightest?", "Which has the lowest seat?", "What should I compare for road and trail use?"],
+    relatedGuideSlugs: ["lightweight-motorcycles-philippines", "best-motorcycles-for-short-riders", "motorcycles-with-abs-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "adventure-touring-motorcycles-philippines",
+    kicker: "Adventure touring",
+    title: "Adventure touring motorcycles in the Philippines",
+    seoTitle: "Adventure Touring Motorcycles Philippines 2026",
+    description: "Compare current adventure-touring motorcycles in the Philippines by observed price, engine, power, weight, seat height, tank capacity and ABS equipment.",
+    primaryKeyword: "adventure touring motorcycles Philippines",
+    secondaryKeywords: ["adventure bikes Philippines", "adventure motorcycle Philippines price", "touring motorcycles Philippines"],
+    directAnswer: "This guide compares current adventure-touring motorcycles using observed prices and published engine, weight, seat-height, tank and braking data. It does not infer comfort or off-road ability from category labels alone.",
+    inclusionRules: ["Category is adventure touring", "Current, indexable Philippine-market motorcycle record"],
+    orderingRule: "Observed starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight"],
+    orderLabel: "Price order",
+    sourcePolicy: "Prices use dated observations; core specifications come from source-backed model records.",
+    caveats: ["Touring comfort, suspension behavior and wind protection require riding evidence beyond static specifications.", "Large fuel tanks can increase weight when full."],
+    tableColumns: ["price", "engine", "power", "weight", "seat", "abs", "tank", "context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Largest fuel tank",metric:"tank"},{label:"Highest power",metric:"power"}],
+    editorialSections: ["Lowest-priced adventure touring motorcycles", "Lighter adventure bikes", "Lower-seat adventure options", "Largest fuel tanks", "What to compare for longer rides"],
+    faqQuestions: ["What adventure touring motorcycles are available in the Philippines?", "Which adventure bike has the lowest observed price?", "Which adventure motorcycle is lightest?", "Which has the lowest seat?", "Which has the largest fuel tank?"],
+    relatedGuideSlugs: ["best-motorcycles-for-long-rides", "motorcycles-400cc-plus-philippines", "motorcycles-with-abs-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "sport-motorcycles-philippines",
+    kicker: "Sport motorcycles",
+    title: "Sport motorcycles in the Philippines",
+    seoTitle: "Sport Motorcycles Philippines: Prices & Specs 2026",
+    description: "Compare current sport motorcycles in the Philippines by observed price, engine size, power, weight, seat height, tank capacity and ABS equipment.",
+    primaryKeyword: "sport motorcycles Philippines",
+    secondaryKeywords: ["sport bikes Philippines", "sports bike Philippines price", "sport motorcycle Philippines 2026"],
+    directAnswer: "MotoIndex compares current sport motorcycles with observed prices and published specifications so buyers can see price, output, weight, seat-height and braking differences without treating peak power as an overall score.",
+    inclusionRules: ["Category is sport bike", "Current, indexable Philippine-market motorcycle record"],
+    orderingRule: "Observed starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight"],
+    orderLabel: "Price order",
+    sourcePolicy: "Observed prices use dated market checks; engine, output, dimensions and braking data come from source-backed model records.",
+    caveats: ["Peak horsepower alone does not describe street usability or rider skill requirements.", "Ergonomics and heat management should be checked in person."],
+    tableColumns: ["price", "engine", "power", "torque", "weight", "seat", "abs", "tank"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced sport motorcycles", "Lighter sport bikes", "Lower-seat sport motorcycles", "Higher-power options", "What to compare before choosing a sport bike"],
+    faqQuestions: ["What sport motorcycles are available in the Philippines?", "Which sport motorcycle has the lowest observed price?", "Which sport bike is lightest?", "Which sport motorcycle has the lowest seat?", "Which sport bikes list ABS?"],
+    relatedGuideSlugs: ["motorcycles-400cc-plus-philippines", "motorcycles-with-abs-philippines", "lightweight-motorcycles-philippines"],
+    intent: "category"
   }
+
 
 ];
 
@@ -1114,6 +1225,11 @@ export function getRecommendationModels(slug: string) {
     case "best-motorcycles-for-daily-commute-philippines": return [...models].sort((a,b) => evaluateMotorcycle(b,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score - evaluateMotorcycle(a,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score || observedMarketRange(a).from - observedMarketRange(b).from);
     case "beginner-friendly-motorcycles-philippines": return [...models].sort((a,b) => { const score=(m:Motorcycle)=>Math.max(0,40-Math.max(0,m.curbWeightKg-100)*.35-Math.max(0,m.seatHeightMm-740)*.05-Math.max(0,m.powerHp-20)*.8+(hasAbs(m)?5:0)); return score(b)-score(a)||observedMarketRange(a).from-observedMarketRange(b).from; });
     case "motorcycles-400cc-plus-philippines": return byPrice.filter(m => m.engineCc >= 400);
+    case "maxi-scooters-philippines": return byPrice.filter(m => /maxi/i.test(m.category));
+    case "naked-motorcycles-philippines": return byPrice.filter(m => m.category === "Naked street bike");
+    case "dual-sport-motorcycles-philippines": return byPrice.filter(m => m.category === "Dual-sport");
+    case "adventure-touring-motorcycles-philippines": return byPrice.filter(m => m.category === "Adventure touring");
+    case "sport-motorcycles-philippines": return byPrice.filter(m => m.category === "Sport bike");
     default: return [];
   }
 }
