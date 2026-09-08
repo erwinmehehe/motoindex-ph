@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   if (!models.length) return {};
   const brand = models[0].make;
   const publicModels = models.filter(isIndexableModel);
-  const current = publicModels.filter((m) => m.marketStatus !== "previous");
+  const current = publicModels.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued");
   const low = current.length ? Math.min(...current.map((m) => observedMarketRange(m).from)) : undefined;
   const high = current.length ? Math.max(...current.map((m) => observedMarketRange(m).to || observedMarketRange(m).from)) : undefined;
   const range = low && high ? ` Current tracked prices run from ${php(low)} to ${php(high)}.` : "";
