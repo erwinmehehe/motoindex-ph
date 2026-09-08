@@ -16,6 +16,6 @@ export function similarMotorcycles(model: Motorcycle) {
   const similar = [...others].sort((a,b)=>distance(model,a)-distance(model,b)).slice(0,3);
   const currentPrice = observedMarketRange(model).from;
   const cheaper = others.filter((candidate)=>observedMarketRange(candidate).from < currentPrice).sort((a,b)=>Math.abs(currentPrice-observedMarketRange(a).from)-Math.abs(currentPrice-observedMarketRange(b).from)).slice(0,3);
-  const lowerSeat = others.filter((candidate)=>candidate.seatHeightMm < model.seatHeightMm).sort((a,b)=>Math.abs(model.seatHeightMm-a.seatHeightMm)-Math.abs(model.seatHeightMm-b.seatHeightMm)).slice(0,3);
+  const lowerSeat = others.filter((candidate)=>{const price=observedMarketRange(candidate).from;return candidate.category===model.category&&candidate.seatHeightMm<model.seatHeightMm&&price>=currentPrice*.7&&price<=currentPrice*1.3;}).sort((a,b)=>Math.abs(model.seatHeightMm-a.seatHeightMm)-Math.abs(model.seatHeightMm-b.seatHeightMm)||Math.abs(currentPrice-observedMarketRange(a).from)-Math.abs(currentPrice-observedMarketRange(b).from)).slice(0,3);
   return { similar, cheaper, lowerSeat };
 }
