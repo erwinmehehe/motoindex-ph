@@ -7,6 +7,8 @@ import { ownershipGuides } from "@/lib/ownershipGuides";
 import { commuteGuides, isIndexableCommuteGuide } from "@/lib/commute";
 import { tireFamilyHubs } from "@/lib/tireSeo";
 import { maintenanceSeoTopics } from "@/lib/maintenanceSeo";
+import { editorialGuides } from "@/lib/editorialGuides";
+import { helmetSeoCollections, isIndexableHelmetSeoCollection } from "@/lib/helmetSeoCollections";
 
 type Entry = { url: string; lastModified: string; changeFrequency?: "daily"|"weekly"|"monthly"|"yearly"; priority?: number };
 const iso = (value?: string) => value || RELEASE_DATE;
@@ -21,16 +23,17 @@ export function coreSitemapEntries(): Entry[] {
     ...(hasModels ? [["/motorcycles",.9] as const,["/finder",.84] as const,["/fitment",.78] as const] : []),
     ...(hasComparisons ? [["/compare",.82] as const] : []),
     ...(hasGuides ? [["/recommendations",.8] as const] : []),
-    ["/gear/helmets",.85],["/accessories",.72],["/tires",.75],["/maintenance",.78],["/used-motorcycles/repo",.82],["/used-motorcycles/buying-checklist",.74],["/tools",.84],["/tools/motorcycle-loan-calculator",.88],["/tools/lto-registration-fee-calculator",.8],["/tools/motorcycle-insurance-calculator",.8],["/ownership",.72],["/ownership/cost-calculator",.7],["/ownership/maintenance",.69],["/ownership/safety-campaigns",.66],["/commute",.86],["/commute/cost-calculator",.82],["/commute/affordability",.8],["/commute/rainy-season",.72],
+    ["/gear/helmets",.85],["/accessories",.72],["/guides",.74],["/tires",.75],["/maintenance",.78],["/used-motorcycles/repo",.82],["/used-motorcycles/buying-checklist",.74],["/tools",.84],["/tools/motorcycle-loan-calculator",.88],["/tools/lto-registration-fee-calculator",.8],["/tools/motorcycle-insurance-calculator",.8],["/ownership",.72],["/ownership/cost-calculator",.7],["/ownership/maintenance",.69],["/ownership/safety-campaigns",.66],["/commute",.86],["/commute/cost-calculator",.82],["/commute/affordability",.8],["/commute/rainy-season",.72],
     ["/about",.45],["/methodology",.52],["/data-sources",.5],["/editorial-policy",.42],["/privacy",.4],
     ...(process.env.NEXT_PUBLIC_CONTACT_EMAIL ? [["/contact",.35] as const] : [])
   ] as const;
   const guides = recommendationGuides.filter(g=>isIndexableRecommendation(g.slug)).map(g=>({url:`${SITE_URL}/recommendations/${g.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.72}));
   const ownership = ownershipGuides.map(g=>({url:`${SITE_URL}/ownership/${g.slug}`,lastModified:g.lastChecked,changeFrequency:"yearly" as const,priority:.64}));
+  const editorial = editorialGuides.map(g=>({url:`${SITE_URL}/guides/${g.slug}`,lastModified:g.lastChecked,changeFrequency:"monthly" as const,priority:.72}));
   const commute = commuteGuides.filter(g=>isIndexableCommuteGuide(g.slug)).map(g=>({url:`${SITE_URL}/commute/${g.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
   const maintenanceTopics = maintenanceSeoTopics.map(topic=>({url:`${SITE_URL}/maintenance/${topic.slug}`,lastModified:topic.lastChecked,changeFrequency:"monthly" as const,priority: topic.volume >= 1000 ? .76 : .7}));
   const comps = comparisons.filter(c=>isIndexableComparison(c.slug)).map(c=>{const ms=motorcycles.filter(m=>m.id===c.a||m.id===c.b);return {url:`${SITE_URL}/compare/${c.slug}`,lastModified:newest(ms.map(m=>m.verifiedAt)),changeFrequency:"monthly" as const,priority:.74};});
-  return [...staticPaths.map(([path,priority])=>({url:`${SITE_URL}${path==="/"?"":path}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority})),...guides,...commute,...maintenanceTopics,...ownership,...comps];
+  return [...staticPaths.map(([path,priority])=>({url:`${SITE_URL}${path==="/"?"":path}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority})),...guides,...editorial,...commute,...maintenanceTopics,...ownership,...comps];
 }
 
 export function motorcycleSitemapEntries(): Entry[] {
@@ -60,13 +63,14 @@ export function motorcycleSitemapEntries(): Entry[] {
 
 export function gearSitemapEntries(): Entry[] {
   const categories=["/gear/helmets/finder","/gear/helmets/full-face","/gear/helmets/half-face","/gear/helmets/modular","/gear/helmets/brands"].map(path=>({url:`${SITE_URL}${path}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
+  const helmetCollections=helmetSeoCollections.filter(c=>isIndexableHelmetSeoCollection(c.slug)).map(c=>({url:`${SITE_URL}/gear/helmets/${c.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.78}));
   const brands=helmetBrands.filter(h=>isIndexableHelmetBrand(h.slug)).map(h=>{const p=helmetProducts.filter(x=>x.brandSlug===h.slug&&x.status==="verified");return {url:`${SITE_URL}/gear/helmets/${h.slug}`,lastModified:newest(p.map(x=>x.lastChecked||RELEASE_DATE)),changeFrequency:"monthly" as const,priority:.78};});
   const products=helmetProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/gear/helmets/${p.brandSlug}/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.74}));
   const tires=tireProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/tires/${p.brandSlug}/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.68}));
   const tireSeoHubs=[...tireFamilyHubs.map(h=>({url:`${SITE_URL}/tires/${h.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76})),{url:`${SITE_URL}/tires/motorcycle-tire-size-chart`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.74}];
   const boxes=topBoxProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/accessories/top-box/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.66}));
-  const accessoryHubs=accessoryCategories.filter(a=>a.slug==="top-box").map(a=>({url:`${SITE_URL}/accessories/${a.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
-  return [...categories,...brands,...products,...tires,...tireSeoHubs,...boxes,...accessoryHubs];
+  const accessoryHubs=accessoryCategories.map(a=>({url:`${SITE_URL}/accessories/${a.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
+  return [...categories,...helmetCollections,...brands,...products,...tires,...tireSeoHubs,...boxes,...accessoryHubs];
 }
 
 export function commerceSitemapEntries(): Entry[] {
