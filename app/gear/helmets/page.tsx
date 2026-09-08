@@ -40,6 +40,12 @@ export default function HelmetsPage(){
       <article><h2>Helmets for commuting</h2><p>Compare full-face, modular and open-face tradeoffs for daily Philippine riding.</p><div className="topic-action"><Link href="/gear/helmets/for-commuting">Open commuter helmet guide →</Link></div></article>
       <article><h2>Helmet fit and certification guides</h2><p>Measure your head correctly and understand the local conformity checks before buying.</p><div className="topic-action"><Link href="/guides/motorcycle-helmet-size-guide">Open helmet size guide →</Link></div></article>
     </div>
+    <div className="section-head inline-head"><div><h2>Popular helmet comparisons</h2><p>Compare verified catalog records without declaring a paid or universal winner.</p></div><Link href="/gear/helmets/compare">Compare exact models →</Link></div>
+    <div className="topic-grid">
+      <article><h2>KYT vs LS2</h2><p>Compare verified KYT and LS2 models by price, format, visor equipment, intercom provision and certification notes.</p><div className="topic-action"><Link href="/gear/helmets/compare/kyt-vs-ls2">Compare KYT vs LS2 →</Link></div></article>
+      <article><h2>EVO vs Spyder</h2><p>Compare two common Philippine helmet brands using model-level records rather than brand assumptions.</p><div className="topic-action"><Link href="/gear/helmets/compare/evo-vs-spyder">Compare EVO vs Spyder →</Link></div></article>
+      <article><h2>Full-face vs modular</h2><p>Compare coverage, convenience, weight and model-level equipment across the two road-helmet formats.</p><div className="topic-action"><Link href="/gear/helmets/compare/full-face-vs-modular">Full-face vs modular →</Link></div></article>
+    </div>
     <div className="helmet-grid">{brands.map(h=><article key={h.slug}><div className="helmet-icon">◖</div><h2>{h.brand}</h2><p>{h.positioning}</p><div className="topic-action"><Link href={`/gear/helmets/${h.slug}`}>View brand catalog →</Link></div></article>)}</div>
     <div className="section-head inline-head"><div><h2>Compare models and price checks</h2></div><Link href="/gear/helmets/brands">Compare helmet brands →</Link></div>
     <div className="product-grid">{verified.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:"Helmet",brand:p.brand,model:p.model,meta:`${p.helmetType}${p.sizes.length?` · ${p.sizes.join(" / ")}`:""}`,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</div>
