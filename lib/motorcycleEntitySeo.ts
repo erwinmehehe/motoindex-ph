@@ -89,24 +89,33 @@ export function motorcycleEntityFaqs(model: Motorcycle): FaqItem[] {
 }
 
 export function motorcycleEntitySeo(model: Motorcycle) {
-  const current = model.marketStatus !== "previous";
+  const current = model.marketStatus !== "previous" && model.marketStatus !== "uncertain" && model.marketStatus !== "discontinued";
+  const uncertain = model.marketStatus === "uncertain";
   const authority = modelAuthorityProfile(model.id);
   const name = `${model.make} ${model.model}`;
   const title = current
     ? `${name} Price Philippines ${releaseYear}: Specs & Installment`
-    : `${name} Historical Price, Specs & Used Value Philippines`;
+    : uncertain
+      ? `${name} Price Philippines: Specs & Availability`
+      : `${name} Historical Price, Specs & Used Value Philippines`;
   const description = current
     ? `${name} Philippines buyer guide with dated price references, ${model.engineCc}cc specs, rider fit, ownership costs${authority ? ", a unique buyer verdict and local after-sales context" : ""}.`
-    : `${name} Philippines guide with historical price context, ${model.engineCc}cc specs, tire sizes, rider fit, maintenance references and used-value planning.`;
+    : uncertain
+      ? `${name} Philippines guide with a dated price reference, ${model.engineCc}cc specs and an explicit current-availability verification note.`
+      : `${name} Philippines guide with historical price context, ${model.engineCc}cc specs, tire sizes, rider fit, maintenance references and used-value planning.`;
   const aliasNote = model.alsoKnownAs?.length
     ? ` Also listed as ${model.alsoKnownAs.slice(0, 2).join(" and ")}.`
     : "";
   const heading = current
     ? `${name}: price, specs and ownership guide`
-    : `${name}: historical price, specs and ownership guide`;
+    : uncertain
+      ? `${name}: price, specs and availability guide`
+      : `${name}: historical price, specs and ownership guide`;
   const intro = current
     ? authority ? `A decision-first ${name} Philippines guide with a model-specific buyer verdict, price evidence, direct alternatives, rider fit, ownership tools, after-sales links and transparent research gaps.` : `One complete ${name} research page for Philippine buyers: price sources, variants, financing, specifications, rider fit, tire sizes, fuel range, maintenance, safety, ownership cost and used-value context.`
-    : `One complete ${name} reference page for owners and used-bike shoppers, keeping historical launch price separate from current market value while preserving specs, fitment and ownership information.`;
+    : uncertain
+      ? `A source-backed ${name} Philippines reference with current marketplace price checks, specifications and financing tools, while clearly flagging that current official-lineup availability needs dealer confirmation.`
+      : `One complete ${name} reference page for owners and used-bike shoppers, keeping historical launch price separate from current market value while preserving specs, fitment and ownership information.`;
   const keywordBase = name.toLowerCase();
   const keywords = [
     `${keywordBase} price philippines`,
