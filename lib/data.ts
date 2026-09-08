@@ -1314,6 +1314,28 @@ export const recommendationGuides: RecommendationGuide[] = [
     intent: "category"
   },
   {
+    slug: "scooters-under-150k-philippines",
+    kicker: "Scooter budget guide",
+    title: "Scooters under ₱150K in the Philippines",
+    seoTitle: "Scooters Under ₱150K Philippines: Prices & Specs 2026",
+    description: "Compare current scooters under ₱150,000 in the Philippines by observed price, engine size, weight, seat height, ABS, fuel economy and tank capacity.",
+    primaryKeyword: "scooters under 150k Philippines",
+    secondaryKeywords: ["automatic scooter under 150k Philippines", "scooter below 150k Philippines", "best scooter 150k budget Philippines", "motorcycle scooter under 150000"],
+    directAnswer: "This guide filters current Philippine-market scooter records to models with an observed starting price of ₱150,000 or less. It orders them by price and keeps seat height, weight, braking equipment and published fuel economy visible so the budget does not become the only buying criterion.",
+    inclusionRules: ["Category contains scooter", "Observed starting price at or below ₱150,000", "Current, indexable Philippine-market motorcycle record"],
+    orderingRule: "Observed starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Observed prices come from dated manufacturer, dealer or comparison-site checks. Specifications come from each model's source-backed record.",
+    caveats: ["A higher variant can exceed ₱150,000 even when the entry variant qualifies.", "Dealer fees, freight, promotions and local stock can change the final purchase price.", "A low seat number does not fully describe rider reach because seat width and suspension sag also matter."],
+    tableColumns: ["price", "engine", "weight", "seat", "abs", "economy", "tank", "context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest published fuel economy",metric:"economy"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced scooters under ₱150K", "Lower-seat scooters in this budget", "Lighter scooters for city use", "ABS and braking equipment", "What to compare beyond the purchase price"],
+    faqQuestions: ["What scooters cost under ₱150,000 in the Philippines?", "Which scooter under ₱150K has the lowest observed price?", "Which scooter in this budget has the lowest seat?", "Are there scooters with ABS under ₱150K?", "Does the ₱150K limit include every variant?"],
+    relatedGuideSlugs: ["best-scooters-philippines", "motorcycles-100k-to-150k", "automatic-motorcycles-under-100k", "best-motorcycles-for-daily-commute-philippines"],
+    intent: "budget"
+  },
+  {
     slug: "sport-motorcycles-philippines",
     kicker: "Sport motorcycles",
     title: "Sport motorcycles in the Philippines",
@@ -1352,6 +1374,7 @@ export function getRecommendationModels(slug: string) {
     case "automatic-motorcycles-under-100k": return byPrice.filter(m => m.transmission === "Automatic" && observedMarketRange(m).from < 100000);
     case "motorcycles-100k-to-150k": return byPrice.filter(m => observedMarketRange(m).from >= 100000 && observedMarketRange(m).from <= 150000);
     case "best-scooters-philippines": return byPrice.filter(m => m.category.toLowerCase().includes("scooter"));
+    case "scooters-under-150k-philippines": return byPrice.filter(m => m.category.toLowerCase().includes("scooter") && observedMarketRange(m).from <= 150000);
     case "motorcycles-with-abs-philippines": return byPrice.filter(hasAbs);
     case "fuel-efficient-motorcycles-philippines": return models.filter(m => typeof m.fuelConsumptionKmL === "number").sort((a,b) => (b.fuelConsumptionKmL || 0) - (a.fuelConsumptionKmL || 0) || observedMarketRange(a).from - observedMarketRange(b).from);
     case "best-underbone-motorcycles-philippines": return byPrice.filter(m => /underbone/i.test(m.category));
