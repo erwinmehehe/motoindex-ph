@@ -230,7 +230,7 @@ export const phTier23Motorcycles: Motorcycle[] = [
     frontTire: "110/70-17", rearTire: "150/60-17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Independent PH current Husqvarna Vitpilen 401 price and specification reference", sourceUrl: "https://www.carmudi.com.ph/new-motorcycles/husqvarna/vitpilen-401/specifications/", verifiedAt, freshness: "verified", marketStatus: "current", transmission: "Manual",
     summary: "373cc cafe-style roadster with 44 hp, ABS, 17-inch tires and a six-speed manual transmission."
-  }
+  },
   {
     id: "bmw-g-310-r", make: "BMW Motorrad", makeSlug: "bmw-motorrad", model: "G 310 R", slug: "g-310-r", generation: "2023 Philippine listing", category: "Naked street bike",
     srp: 300000, engineCc: 313, powerHp: 34, torqueNm: 28, curbWeightKg: 164, seatHeightMm: 785, fuelTankL: 11,
