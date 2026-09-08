@@ -11,6 +11,7 @@ import { VariantMatrix } from "@/components/VariantMatrix";
 import { PriceIntelligence } from "@/components/PriceIntelligence";
 import { MarketPriceChecks } from "@/components/MarketPriceChecks";
 import { InstallmentCalculator } from "@/components/InstallmentCalculator";
+import { FinancingSnapshot } from "@/components/FinancingSnapshot";
 import { RiderFitCalculator } from "@/components/RiderFitCalculator";
 import { FuelRangeCalculator } from "@/components/FuelRangeCalculator";
 import { OwnershipCostCalculator } from "@/components/OwnershipCostCalculator";
@@ -51,6 +52,7 @@ function HeroFact({ label, value, note }: { label: string; value: string; note?:
 
 export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const isPrevious = model.marketStatus === "previous";
+  const availabilityUncertain = model.marketStatus === "uncertain";
   const successor = model.successorId ? getModelById(model.successorId) : undefined;
   const seo = motorcycleEntitySeo(model);
   // Keywords keep every spelling, but the visible line drops any alias that is
@@ -81,7 +83,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const authorityComparisons = authority?.comparisonIds.map((id) => getModelById(id)).filter((item): item is Motorcycle => Boolean(item)) || [];
   const priceSourceCount = new Set([model.marketPriceSourceUrl || model.sourceUrl, ...priceChecks.map((row) => row.sourceUrl)]).size;
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}`;
-  const offer = !isPrevious && isIndexableModel(model)
+  const offer = !isPrevious && !availabilityUncertain && isIndexableModel(model)
     ? range.to && range.to > range.from
       ? { "@type": "AggregateOffer", priceCurrency: "PHP", lowPrice: range.from, highPrice: range.to, offerCount: Math.max(priceChecks.length, 1), url: absoluteUrl(canonicalPath) }
       : { "@type": "Offer", priceCurrency: "PHP", price: range.from, itemCondition: "https://schema.org/NewCondition", url: absoluteUrl(canonicalPath) }
@@ -117,7 +119,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: model.make, href: `/motorcycles/${model.makeSlug}` }, { label: model.model }]} />
         <div className="motorcycle-hero-grid">
           <div className="motorcycle-hero-copy">
-            <span className="entity-kicker">Philippines model guide · {model.generation} · {model.category}</span>
+            <span className="entity-kicker">Philippines model guide · {model.generation} · {model.category}{availabilityUncertain ? " · availability to verify" : ""}</span>
             <h1>{seo.heading}</h1>
             <p className="entity-lede">{seo.intro}</p>
             {akaDisplay.length ? <p className="entity-aka">
@@ -126,7 +128,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
               {" "}— the same motorcycle, not a different model.
             </p> : null}
             <div className="motorcycle-price-lockup">
-              <span>{isPrevious ? "Historical launch reference" : model.marketPriceSourceLabel ? "Observed PH price range" : "Indicative SRP"}</span>
+              <span>{isPrevious ? "Historical launch reference" : availabilityUncertain ? "Observed PH price reference · availability to verify" : model.marketPriceSourceLabel ? "Observed PH price range" : "Indicative SRP"}</span>
               <strong>{observedMarketPriceLabel(model)}</strong>
               <small>{isPrevious ? "Historical context — not a current new-bike quote." : `Price basis last checked ${model.marketPriceCheckedAt || model.verifiedAt}.`}</small>
             </div>
@@ -170,6 +172,8 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
     </div>
 
     <div className="shell motorcycle-entity-body">
+      {availabilityUncertain && <section className="entity-alert-card"><div><span>Availability to verify</span><h2>Confirm current new-bike availability before relying on this price</h2><p>This model still has a source-backed Philippine record and current marketplace references, but it is not surfaced in the manufacturer&apos;s current discovery lineup. Verify stock, model year and final pricing with an authorized dealer.</p></div></section>}
+
       {isPrevious && successor && <section className="entity-alert-card">
         <div><span>Previous generation</span><h2>Looking for the current model?</h2><p>{model.model} stays live for owners and used-bike research. Current new-bike pricing belongs to {successor.make} {successor.model}.</p></div>
         <Link className="button small" href={`/motorcycles/${successor.makeSlug}/${successor.slug}`}>View {successor.model} →</Link>
@@ -202,7 +206,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <div className="entity-price-grid motorcycle-price-grid">
           <article><span>{isPrevious ? "Historical launch SRP" : "Observed price range"}</span><strong>{observedMarketPriceLabel(model)}</strong><small>{model.priceContext || `Checked ${model.marketPriceCheckedAt || model.verifiedAt}`}</small></article>
           <article><span>Price sources</span><strong>{priceSourceCount}</strong><small>{priceChecks.length ? "Model source plus dated PH observations are shown below." : "One dated baseline source is stored; independent PH price checking remains open."}</small></article>
-          <article><span>Model status</span><strong>{isPrevious ? "Previous generation" : "Current model"}</strong><small>{model.generation} · {model.category}</small></article>
+          <article><span>Model status</span><strong>{isPrevious ? "Previous generation" : availabilityUncertain ? "Availability to verify" : "Current model"}</strong><small>{model.generation} · {model.category}</small></article>
         </div>
         {!isPrevious && <VariantMatrix model={model} />}
         {!isPrevious && <PriceIntelligence model={model} />}
@@ -213,6 +217,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       {!isPrevious && <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
         <div className="section-head compact"><div><span className="section-kicker">Financing</span><h2 id="installment-heading">{model.make} {model.model} installment calculator</h2><p>Start from the dated purchase-price reference, then replace the assumptions with an actual dealer or lender quote.</p></div></div>
         <InstallmentCalculator price={range.from} priceOptions={variantPriceOptions(model.id)} />
+        <FinancingSnapshot modelName={`${model.make} ${model.model}`} price={range.from} />
         <div className="entity-tool-grid">
           <Link href={loanToolHref}><span>Loan scenario</span><strong>Standalone loan calculator</strong><small>Change price, down payment, term and rate with a shareable URL.</small></Link>
           <Link href={insuranceToolHref}><span>Insurance</span><strong>Insurance estimate</strong><small>Prefill insured value from this model&apos;s price basis.</small></Link>

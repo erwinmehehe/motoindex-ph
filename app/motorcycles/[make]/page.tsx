@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   if (!models.length) return {};
   const brand = models[0].make;
   const publicModels = models.filter(isIndexableModel);
-  const current = publicModels.filter((m) => m.marketStatus !== "previous");
+  const current = publicModels.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued");
   const low = current.length ? Math.min(...current.map((m) => observedMarketRange(m).from)) : undefined;
   const high = current.length ? Math.max(...current.map((m) => observedMarketRange(m).to || observedMarketRange(m).from)) : undefined;
   const range = low && high ? ` Current tracked prices run from ${php(low)} to ${php(high)}.` : "";
@@ -44,7 +44,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const brand = models[0].make;
   const publicModels = models.filter(isIndexableModel);
   const publicIds = new Set(publicModels.map((m) => m.id));
-  const current = publicModels.filter((m) => m.marketStatus !== "previous").sort((a, b) => a.srp - b.srp || a.model.localeCompare(b.model));
+  const current = publicModels.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued").sort((a, b) => a.srp - b.srp || a.model.localeCompare(b.model));
+  const uncertain = publicModels.filter((m) => m.marketStatus === "uncertain").sort((a, b) => a.model.localeCompare(b.model));
   const previous = publicModels.filter((m) => m.marketStatus === "previous").sort((a, b) => a.model.localeCompare(b.model));
   const families = modelFamilies.filter((f) => f.makeSlug === make && f.generationIds.length > 0 && f.generationIds.every((id) => publicIds.has(id)));
   const priority = getPhBrandPriority(make);
@@ -62,6 +63,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const maxEngine = Math.max(...engines);
   const categories = [...new Set(current.map((m) => m.category))].sort();
   const automatic = current.filter((m) => m.transmission === "Automatic").length;
+  const scooters = current.filter((m) => /scooter/i.test(m.category));
   const manual = current.filter((m) => m.transmission === "Manual").length;
   const cheapest = ranges.reduce((best, row) => row.from < best.from ? row : best, ranges[0]);
   const latestChecked = current.map((m) => m.verifiedAt).sort().at(-1) || "";
@@ -177,6 +179,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       <section id="categories" className="ph-brand-section ph-brand-two-col">
         <div>
           <span className="section-kicker">Shop by use</span><h2>Categories in the {brand} lineup</h2>
+          {scooters.length >= 3 && <Link className="button small" href={`/motorcycles/${make}/scooters`}>See all {brand} scooters →</Link>}
           <div className="ph-brand-category-grid">{categories.map((category) => <Link key={category} href={{ pathname: "/motorcycles", query: { make, type: category } }}><strong>{category}</strong><span>{current.filter((m) => m.category === category).length} tracked</span></Link>)}</div>
         </div>
         <aside className="ph-brand-start-card"><span>Need a faster answer?</span><h3>Start with fit, budget or a side-by-side comparison.</h3><p>The catalog is most useful when you narrow the choice by real constraints rather than by brand alone.</p><div><Link href={{ pathname: "/finder", query: { make } }}>Use motorcycle finder →</Link><Link href="/compare">Open comparison tool →</Link><Link href="/recommendations">Browse PH recommendations →</Link></div></aside>
@@ -194,6 +197,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <div className="section-head compact"><div><span className="section-kicker">Evidence first</span><h2>How this {brand} hub stays useful</h2><p>A useful brand page needs enough real decision detail to earn its place. Expansion models are scored for source quality, core specs, unique buyer analysis, direct competitors and Philippine support resources. Missing media, maintenance schedules or independent price checks stay visible as research gaps.</p></div></div>
         <div className="ph-brand-method-grid"><article><span>01</span><h3>Research threshold first</h3><p>A dated model source, complete core specs, unique buyer analysis and a local ownership/support path are required before a Tier 2/3 model is published.</p></article><article><span>02</span><h3>One complete model page</h3><p>Price, specs, buyer verdict, financing, fitment, maintenance, support links and ownership research live together so buyers do not chase fragments.</p></article><article><span>03</span><h3>Gaps stay visible</h3><p>If media, model-year maintenance, variant mapping or a second price source is missing, the page says so instead of filling the hole with generic filler.</p></article></div>
       </section>
+
+      {uncertain.length > 0 && <section className="ph-brand-section"><div className="section-head compact"><div><span className="section-kicker">Availability to verify</span><h2>{brand} models needing a current lineup check</h2><p>These source-backed model pages remain available for research, but they are kept outside the current lineup until present-day official availability is confirmed.</p></div></div><div className="card-grid">{uncertain.map((m) => <ModelCard key={m.id} model={m} />)}</div></section>}
 
       {previous.length > 0 && <section className="ph-brand-section"><div className="section-head compact"><div><span className="section-kicker">Archive</span><h2>Older {brand} models</h2><p>Previous-generation references are kept separate from the current lineup so historical launch pricing is not mistaken for today&apos;s price.</p></div></div><div className="card-grid">{previous.map((m) => <ModelCard key={m.id} model={m} />)}</div></section>}
 

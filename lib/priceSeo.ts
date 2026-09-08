@@ -1,5 +1,8 @@
 import type { Motorcycle } from "./types";
 import type { FaqItem } from "@/components/FaqSection";
+import { financingScenario } from "./financing";
+import { php } from "./utils";
+import { observedMarketRange } from "./marketChecks";
 
 export type PriceSeoTarget = {
   title: string;
@@ -65,6 +68,7 @@ export function priceSeoForModel(model: Motorcycle): PriceSeoTarget | undefined 
 
 export function priceFaqsForModel(model: Motorcycle, priceLabel: string): FaqItem[] {
   const modelName = `${model.make} ${model.model}`;
+  const finance = financingScenario(observedMarketRange(model).from, 20, 36, 12);
   if (model.marketStatus === "previous") {
     return [
       {
@@ -92,8 +96,8 @@ export function priceFaqsForModel(model: Motorcycle, priceLabel: string): FaqIte
       answer: "Not necessarily. Manufacturer SRP, dealer cash prices, financing offers, registration charges and promotions can differ. MotoIndex keeps dated sources separate instead of averaging unlike-for-like prices."
     },
     {
-      question: `Can I estimate the ${modelName} monthly installment?`,
-      answer: "Yes. The calculator on this page lets you change the down payment, term and interest assumptions. It is a planning estimate, not a lender or dealer quotation."
+      question: `How much is the ${modelName} down payment and monthly installment?`,
+      answer: `Using a 20% down payment, 36 months and a 12% annual interest assumption, the planning example is about ${php(Math.round(finance.downPaymentPhp))} down and ${php(Math.round(finance.monthlyPhp))} per month. Use the calculator on this page to change the assumptions; this is not a dealer or lender quotation.`
     },
     {
       question: `When was the ${modelName} price checked?`,

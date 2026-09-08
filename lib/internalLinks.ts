@@ -9,6 +9,7 @@ export function modelInternalLinks(model: Motorcycle): RelatedLink[] {
   const base = `/motorcycles/${model.makeSlug}/${model.slug}`;
   const links: RelatedLink[] = [
     { href: `/motorcycles/${model.makeSlug}`, title: `${model.make} motorcycles`, eyebrow: "Brand", description: `Browse ${model.make} models and price references.` },
+    ...(/scooter/i.test(model.category) && ["honda","yamaha","suzuki"].includes(model.makeSlug) ? [{ href: `/motorcycles/${model.makeSlug}/scooters`, title: `${model.make} scooters`, eyebrow: "Scooter hub", description: `Compare ${model.make} scooter prices, engines, seat heights and weights.` }] : []),
     { href: `${base}#price`, title: `${model.model} price`, eyebrow: "Price", description: model.marketStatus === "previous" ? "Historical Philippine price context." : "Dated price sources, variants and market checks." },
     ...(model.marketStatus !== "previous" ? [{ href: `${base}#installment`, title: `${model.model} installment calculator`, eyebrow: "Financing", description: "Monthly payment planning on the canonical model page." }] : []),
     { href: `/tools/motorcycle-loan-calculator?price=${observedMarketRange(model).from}&model=${encodeURIComponent(`${model.make} ${model.model}`)}`, title: "Motorcycle loan calculator", eyebrow: "Calculator", description: `Open the standalone loan tool with ${model.model}'s price prefilled.` },
@@ -25,7 +26,7 @@ export function modelInternalLinks(model: Motorcycle): RelatedLink[] {
     const other = motorcycles.find(m => m.id === otherId)!;
     return { href: `/compare/${c.slug}`, title: `${model.model} vs ${other.model}`, eyebrow: "Compare", description: "Price, dimensions and specifications side by side." };
   });
-  const alternatives = motorcycles.filter(m => m.id !== model.id && m.marketStatus !== "previous" && m.category === model.category && isIndexableModel(m)).sort((a,b)=>Math.abs(a.srp-model.srp)-Math.abs(b.srp-model.srp)).slice(0,2).map(m=>({href:`/motorcycles/${m.makeSlug}/${m.slug}`,title:`${m.make} ${m.model}`,eyebrow:"Alternative",description:`${m.engineCc} cc · ${m.seatHeightMm} mm seat`}));
+  const alternatives = motorcycles.filter(m => m.id !== model.id && m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued" && m.category === model.category && isIndexableModel(m)).sort((a,b)=>Math.abs(a.srp-model.srp)-Math.abs(b.srp-model.srp)).slice(0,2).map(m=>({href:`/motorcycles/${m.makeSlug}/${m.slug}`,title:`${m.make} ${m.model}`,eyebrow:"Alternative",description:`${m.engineCc} cc · ${m.seatHeightMm} mm seat`}));
   return [...links, ...comparisonLinks, ...alternatives].slice(0, 12);
 }
 
