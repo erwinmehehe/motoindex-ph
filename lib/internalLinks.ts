@@ -71,7 +71,11 @@ export function helmetBrandInternalLinks(brandSlug: string): RelatedLink[] {
   if (types.some(t => t === "Modular")) categoryLinks.push({href:"/gear/helmets/modular",title:"Modular helmets",eyebrow:"Category",description:"Compare flip-up helmets across brands."});
   if (types.some(t => t === "Half face" || t === "Open face")) categoryLinks.push({href:"/gear/helmets/half-face",title:"Half-face helmets",eyebrow:"Category",description:"Compare open-face and half-face options."});
   const hasBudgetModels = products.some(p => typeof p.priceFromPhp === "number" && p.priceFromPhp <= 5000);
-  return [{href:"/gear/helmets/finder",title:"Helmet Finder",eyebrow:"Finder",description:"Filter verified helmets by budget, type, size and equipment."},{href:"/gear/helmets/compare",title:"Compare helmets",eyebrow:"Compare",description:"Compare two or three verified helmet models side by side."},{href:"/guides/motorcycle-helmet-size-guide",title:"Helmet size guide",eyebrow:"Fit",description:"Measure your head and use the exact model chart."},{href:"/guides/motorcycle-helmet-certification-philippines",title:"Helmet certification guide",eyebrow:"Certification",description:"Understand PS, ICC and model-level certification references."}, ...(hasBudgetModels?[{href:"/gear/helmets/under-5000",title:"Helmets under ₱5,000",eyebrow:"Budget",description:"Compare checked models in the same price band."}]:[]), ...categoryLinks, ...products.slice(0,3).map(p=>({href:`/gear/helmets/${p.brandSlug}/${p.slug}`,title:`${p.brand} ${p.model}`,eyebrow:"Model",description:p.helmetType}))].slice(0,10);
+  const seoCompare: RelatedLink[] = [
+    ...(["kyt","ls2"].includes(brandSlug)?[{href:"/gear/helmets/compare/kyt-vs-ls2",title:"KYT vs LS2 helmets",eyebrow:"Brand comparison",description:"Compare verified KYT and LS2 records."}]:[]),
+    ...(["evo","spyder"].includes(brandSlug)?[{href:"/gear/helmets/compare/evo-vs-spyder",title:"EVO vs Spyder helmets",eyebrow:"Brand comparison",description:"Compare verified EVO and Spyder records."}]:[])
+  ];
+  return [{href:"/gear/helmets/finder",title:"Helmet Finder",eyebrow:"Finder",description:"Filter verified helmets by budget, type, size and equipment."},{href:"/gear/helmets/compare",title:"Compare helmets",eyebrow:"Compare",description:"Compare two or three verified helmet models side by side."},...seoCompare,{href:"/guides/motorcycle-helmet-size-guide",title:"Helmet size guide",eyebrow:"Fit",description:"Measure your head and use the exact model chart."},{href:"/guides/motorcycle-helmet-certification-philippines",title:"Helmet certification guide",eyebrow:"Certification",description:"Understand PS, ICC and model-level certification references."}, ...(hasBudgetModels?[{href:"/gear/helmets/under-5000",title:"Helmets under ₱5,000",eyebrow:"Budget",description:"Compare checked models in the same price band."}]:[]), ...categoryLinks, ...products.slice(0,3).map(p=>({href:`/gear/helmets/${p.brandSlug}/${p.slug}`,title:`${p.brand} ${p.model}`,eyebrow:"Model",description:p.helmetType}))].slice(0,11);
 }
 
 export function helmetCategoryInternalLinks(slug: HelmetCategorySlug): RelatedLink[] {
@@ -91,8 +95,13 @@ export function helmetCategoryInternalLinks(slug: HelmetCategorySlug): RelatedLi
 
 export function tireProductInternalLinks(product: TireProduct): RelatedLink[] {
   const matches = getTireSizeMatches(product).filter(({motorcycle})=>isIndexableModel(motorcycle)).slice(0, 5);
+  const sizeHubs=[...new Map(product.knownSizes.map(size=>[findTireSizeSeoHub(size)?.slug,findTireSizeSeoHub(size)]).filter(([slug])=>Boolean(slug))).values()]
+    .filter(Boolean)
+    .slice(0,3)
+    .map(hub=>({href:`/tires/${hub!.slug}`,title:`${hub!.size} motorcycle tire index`,eyebrow:"Tire size",description:`See motorcycles using ${hub!.size} as a stock size.`}));
   return [
     {href:"/tires",title:"Motorcycle tire finder",eyebrow:"Tires",description:"Browse stock sizes and tire families."},
+    ...sizeHubs,
     ...matches.map(({motorcycle})=>({href:`/motorcycles/${motorcycle.makeSlug}/${motorcycle.slug}#tires-fitment`,title:`${motorcycle.model} tire size`,eyebrow:"Size match",description:`${motorcycle.frontTire} front · ${motorcycle.rearTire} rear`}))
   ];
 }
