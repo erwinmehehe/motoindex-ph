@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { publicMotorcycles } from "@/lib/data";
-import { getTireFamilyHub, getTireFamilyModels, tireFamilyHubs } from "@/lib/tireSeo";
+import { getTireFamilyHub, getTireFamilyModels, tireFamilyHubs, getTireSizeSeoHub, getMotorcyclesUsingTireSize, tireSizeSeoHubs, isIndexableTireSizeSeoHub } from "@/lib/tireSeo";
 import { maintenanceForModel } from "@/lib/maintenance";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
@@ -14,7 +14,7 @@ import { TireFamilyGuide } from "@/components/TireFamilyGuide";
 const chartSlug = "motorcycle-tire-size-chart";
 
 export function generateStaticParams() {
-  return [...tireFamilyHubs.map((hub) => ({ slug: hub.slug })), { slug: chartSlug }];
+  return [...tireFamilyHubs.map((hub) => ({ slug: hub.slug })), ...tireSizeSeoHubs.map((hub) => ({ slug: hub.slug })), { slug: chartSlug }];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -26,7 +26,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     index: true
   });
   const hub = getTireFamilyHub(slug);
-  return hub ? pageMetadata({ title: hub.title, description: hub.description, path: `/tires/${hub.slug}`, index: true }) : {};
+  if (hub) return pageMetadata({ title: hub.title, description: hub.description, path: `/tires/${hub.slug}`, index: true });
+  const sizeHub=getTireSizeSeoHub(slug);
+  return sizeHub ? pageMetadata({ title: sizeHub.title, description: sizeHub.description, path: `/tires/${sizeHub.slug}`, index: isIndexableTireSizeSeoHub(slug) }) : {};
 }
 
 function FamilyHub({ slug }: { slug: string }) {
@@ -88,6 +90,47 @@ function FamilyHub({ slug }: { slug: string }) {
   </section>;
 }
 
+function TireSizeHubPage({ slug }: { slug: string }) {
+  const hub=getTireSizeSeoHub(slug);
+  if (!hub) return notFound();
+  const matches=getMotorcyclesUsingTireSize(hub.size);
+  const faqs: FaqItem[] = [
+    { question: `Which motorcycles use ${hub.size} tires?`, answer: `MotoIndex currently lists ${matches.length} public Philippine-market motorcycle records that use ${hub.size} as a stock front and/or rear tire size. Open the exact model before ordering because axle position and the rest of the fitment still matter.` },
+    { question: `Does ${hub.size} fit every motorcycle listed here?`, answer: "No. This page only groups motorcycles that record the same printed stock size. Load index, speed rating, construction, rim width, tube or tubeless requirements and physical clearance still need to match the exact motorcycle." },
+    { question: "Can I use a different tire size if the rim diameter is the same?", answer: "Not automatically. Changing width or aspect ratio can affect handling, clearance and overall diameter. Use the motorcycle manufacturer guidance or a qualified tire specialist before changing from the recorded stock size." }
+  ];
+  const itemList={
+    "@context":"https://schema.org",
+    "@type":"ItemList",
+    name:hub.title,
+    numberOfItems:matches.length,
+    itemListElement:matches.map(({model,front,rear},index)=>({
+      "@type":"ListItem",
+      position:index+1,
+      name:`${model.make} ${model.model} — ${front&&rear?"front and rear":front?"front":"rear"} ${hub.size}`,
+      url:absoluteUrl(`/motorcycles/${model.makeSlug}/${model.slug}#tires-fitment`)
+    }))
+  };
+  const article=articleSchema({
+    headline:hub.title,
+    description:hub.description,
+    path:`/tires/${hub.slug}`,
+    about:`${hub.size} motorcycle tire size`,
+    keywords:[`${hub.size} motorcycle tire`,`${hub.size} tire size Philippines`,`motorcycles using ${hub.size}`],
+    checkedDates:matches.map(({model})=>model.verifiedAt)
+  });
+  return <section className="page shell">
+    <Breadcrumbs items={[{label:"Tires",href:"/tires"},{label:hub.size}]} />
+    <div className="page-head"><span className="section-kicker">Stock tire-size index</span><h1>{hub.title}</h1><p>{hub.description}</p></div>
+    <div className="brand-facts"><div><span>Motorcycles matched</span><strong>{matches.length}</strong></div><div><span>Printed size</span><strong>{hub.size}</strong></div><div><span>Basis</span><strong>Stock record</strong></div></div>
+    <div className="note-box"><h2>Same printed size does not equal universal fitment</h2><p>This index means the motorcycle record uses {hub.size} at the front, rear or both. It does not mean every tire carrying that size is approved for every motorcycle below.</p></div>
+    <div className="fitment-list">{matches.map(({model,front,rear})=><Link key={model.id} href={`/motorcycles/${model.makeSlug}/${model.slug}#tires-fitment`}><span><strong>{model.make} {model.model}</strong><small>{model.generation} · exact model tire section</small></span><span className="tire-pair"><b>{front&&rear?"Front + rear":front?"Front":"Rear"}</b><b>{hub.size}</b><small>Other axle: {front&&!rear?model.rearTire:rear&&!front?model.frontTire:"same size"}</small></span></Link>)}</div>
+    <div className="fitment-crosslinks"><Link href="/tires/motorcycle-tire-size-chart"><strong>How to read tire sizes</strong><small>Width, aspect ratio and rim diameter →</small></Link><Link href="/tires"><strong>Motorcycle tire finder</strong><small>Browse tire families and model matches →</small></Link><Link href="/fitment"><strong>Fitment finder</strong><small>Tires and accessories →</small></Link></div>
+    <FaqSection title={`${hub.size} tire-size questions`} items={faqs} />
+    <JsonLd data={[article,itemList]} />
+  </section>;
+}
+
 function TireSizeChart() {
   const sizeCounts = new Map<string, number>();
   for (const model of publicMotorcycles) {
@@ -115,5 +158,6 @@ export default async function TireSeoPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   if (slug === chartSlug) return <TireSizeChart />;
   if (getTireFamilyHub(slug)) return <FamilyHub slug={slug} />;
+  if (getTireSizeSeoHub(slug)) return <TireSizeHubPage slug={slug} />;
   return notFound();
 }
