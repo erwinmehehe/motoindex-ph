@@ -5,10 +5,11 @@ import { sellers, dealerCities, citySlug } from "@/lib/sellers";
 import { RELEASE_DATE, SITE_URL } from "@/lib/site";
 import { ownershipGuides } from "@/lib/ownershipGuides";
 import { commuteGuides, isIndexableCommuteGuide } from "@/lib/commute";
-import { tireFamilyHubs } from "@/lib/tireSeo";
+import { tireFamilyHubs, tireSizeSeoHubs, isIndexableTireSizeSeoHub } from "@/lib/tireSeo";
 import { maintenanceSeoTopics } from "@/lib/maintenanceSeo";
 import { editorialGuides } from "@/lib/editorialGuides";
 import { helmetSeoCollections, isIndexableHelmetSeoCollection } from "@/lib/helmetSeoCollections";
+import { helmetSeoComparisons, isIndexableHelmetSeoComparison } from "@/lib/helmetSeoComparisons";
 
 type Entry = { url: string; lastModified: string; changeFrequency?: "daily"|"weekly"|"monthly"|"yearly"; priority?: number };
 const iso = (value?: string) => value || RELEASE_DATE;
@@ -65,12 +66,13 @@ export function gearSitemapEntries(): Entry[] {
   const categories=["/gear/helmets/finder","/gear/helmets/full-face","/gear/helmets/half-face","/gear/helmets/modular","/gear/helmets/brands"].map(path=>({url:`${SITE_URL}${path}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
   const helmetCollections=helmetSeoCollections.filter(c=>isIndexableHelmetSeoCollection(c.slug)).map(c=>({url:`${SITE_URL}/gear/helmets/${c.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.78}));
   const brands=helmetBrands.filter(h=>isIndexableHelmetBrand(h.slug)).map(h=>{const p=helmetProducts.filter(x=>x.brandSlug===h.slug&&x.status==="verified");return {url:`${SITE_URL}/gear/helmets/${h.slug}`,lastModified:newest(p.map(x=>x.lastChecked||RELEASE_DATE)),changeFrequency:"monthly" as const,priority:.78};});
+  const helmetComparisons=helmetSeoComparisons.filter(c=>isIndexableHelmetSeoComparison(c.slug)).map(c=>({url:`${SITE_URL}/gear/helmets/compare/${c.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.77}));
   const products=helmetProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/gear/helmets/${p.brandSlug}/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.74}));
   const tires=tireProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/tires/${p.brandSlug}/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.68}));
-  const tireSeoHubs=[...tireFamilyHubs.map(h=>({url:`${SITE_URL}/tires/${h.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76})),{url:`${SITE_URL}/tires/motorcycle-tire-size-chart`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.74}];
+  const tireSeoHubs=[...tireFamilyHubs.map(h=>({url:`${SITE_URL}/tires/${h.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76})),...tireSizeSeoHubs.filter(h=>isIndexableTireSizeSeoHub(h.slug)).map(h=>({url:`${SITE_URL}/tires/${h.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.75})),{url:`${SITE_URL}/tires/motorcycle-tire-size-chart`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.74}];
   const boxes=topBoxProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/accessories/top-box/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.66}));
   const accessoryHubs=accessoryCategories.map(a=>({url:`${SITE_URL}/accessories/${a.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
-  return [...categories,...helmetCollections,...brands,...products,...tires,...tireSeoHubs,...boxes,...accessoryHubs];
+  return [...categories,...helmetCollections,...helmetComparisons,...brands,...products,...tires,...tireSeoHubs,...boxes,...accessoryHubs];
 }
 
 export function commerceSitemapEntries(): Entry[] {
