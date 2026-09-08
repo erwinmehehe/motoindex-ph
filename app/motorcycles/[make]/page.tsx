@@ -142,7 +142,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
             <div><span>Models covered</span><strong>{current.length}</strong><small>Current models with dated PH research</small></div>
             <div><span>Tracked price span</span><strong>{php(low)}–{php(high)}</strong><small>Model-level observed references</small></div>
             <div><span>Engine range</span><strong>{minEngine}–{maxEngine} cc</strong><small>Across the current catalog</small></div>
-            <div><span>Transmission mix</span><strong>{automatic} auto · {manual} manual</strong><small>Current tracked models</small></div>
+            <div><span>Transmission mix</span><strong>{automatic} auto · {manual} manual</strong><small>Current models covered here</small></div>
             {averageAuthorityScore !== undefined && <div><span>Research depth</span><strong>{averageAuthorityScore}/100</strong><small>{authorityModels.length} {authorityModels.length === 1 ? "model has" : "models have"} an expanded buyer brief</small></div>}
           </aside>
         </div>
@@ -151,7 +151,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
     <div className="shell">
       <nav className="ph-brand-nav" aria-label={`${brand} page sections`}>
-        <a href="#models">Models</a><a href="#price-list">Price list</a><a href="#categories">Categories</a>{support && <a href="#support">After-sales</a>}<a href="#research">Research method</a><a href="#faq">FAQ</a>
+        <a href="#models">Models</a><a href="#price-list">Price list</a><a href="#categories">Categories</a>{support && <a href="#support">After-sales</a>}<a href="#research">How to use data</a><a href="#faq">FAQ</a>
       </nav>
 
       {priority && <section className="ph-brand-context">
@@ -178,7 +178,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
       <section id="categories" className="ph-brand-section ph-brand-two-col">
         <div>
-          <span className="section-kicker">Shop by use</span><h2>Categories in the {brand} lineup</h2>
+          <span className="section-kicker">Shop by use</span><h2>Categories in the current {brand} coverage</h2>
           {scooters.length >= 3 && <Link className="button small" href={`/motorcycles/${make}/scooters`}>See all {brand} scooters →</Link>}
           <div className="ph-brand-category-grid">{categories.map((category) => <Link key={category} href={{ pathname: "/motorcycles", query: { make, type: category } }}><strong>{category}</strong><span>{current.filter((m) => m.category === category).length} covered</span></Link>)}</div>
         </div>
