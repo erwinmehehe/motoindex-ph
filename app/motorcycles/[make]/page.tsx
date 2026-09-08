@@ -11,7 +11,6 @@ import { observedMarketRange } from "@/lib/marketChecks";
 import { getPhBrandPriority } from "@/lib/phBrandPriority";
 import { phBrandSupportFor } from "@/lib/phBrandSupport";
 import { modelAuthorityProfile } from "@/lib/modelAuthority";
-import { modelAuthorityQuality } from "@/lib/modelQuality";
 import { php, phpRange } from "@/lib/utils";
 
 export function generateStaticParams() {
@@ -68,8 +67,6 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const cheapest = ranges.reduce((best, row) => row.from < best.from ? row : best, ranges[0]);
   const latestChecked = current.map((m) => m.verifiedAt).sort().at(-1) || "";
   const authorityModels = current.filter((m) => Boolean(modelAuthorityProfile(m.id)));
-  const qualityRows = authorityModels.map((m) => modelAuthorityQuality(m));
-  const averageAuthorityScore = qualityRows.length ? Math.round(qualityRows.reduce((sum, row) => sum + row.score, 0) / qualityRows.length) : undefined;
 
   const faq = [
     {
@@ -143,7 +140,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
             <div><span>Tracked price span</span><strong>{php(low)}–{php(high)}</strong><small>Model-level observed references</small></div>
             <div><span>Engine range</span><strong>{minEngine}–{maxEngine} cc</strong><small>Across the current catalog</small></div>
             <div><span>Transmission mix</span><strong>{automatic} auto · {manual} manual</strong><small>Current models covered here</small></div>
-            {averageAuthorityScore !== undefined && <div><span>Research depth</span><strong>{averageAuthorityScore}/100</strong><small>{authorityModels.length} {authorityModels.length === 1 ? "model has" : "models have"} an expanded buyer brief</small></div>}
+            {authorityModels.length > 0 && <div><span>Buyer guides</span><strong>{authorityModels.length}</strong><small>Expanded decision briefs with alternatives and Philippine ownership context</small></div>}
           </aside>
         </div>
       </div>
