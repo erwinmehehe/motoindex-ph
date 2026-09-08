@@ -207,9 +207,8 @@
   border-bottom:0;
   border-right:1px solid var(--line);
 }
-.ph-brand-models-section.is-sparse .model-card-media img{
-  padding:18px;
-}
+.ph-brand-models-section.is-sparse .model-card-media .entity-media-link{display:block;height:100%}
+.ph-brand-models-section.is-sparse .model-card-media img{height:100%;padding:18px;}
 .ph-brand-models-section.is-sparse .model-card-body{
   display:flex;
   flex-direction:column;
