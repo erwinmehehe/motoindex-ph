@@ -128,3 +128,9 @@ export function isIndexableTireSizeSeoHub(slug: string) {
   const hub=getTireSizeSeoHub(slug);
   return Boolean(hub && getMotorcyclesUsingTireSize(hub.size).length >= 3);
 }
+
+
+export function findTireSizeSeoHub(size: string) {
+  const target=normalizeTireSize(size);
+  return tireSizeSeoHubs.find((hub)=>normalizeTireSize(hub.size)===target);
+}
