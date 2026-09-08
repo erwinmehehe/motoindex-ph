@@ -9,6 +9,7 @@ export function modelInternalLinks(model: Motorcycle): RelatedLink[] {
   const base = `/motorcycles/${model.makeSlug}/${model.slug}`;
   const links: RelatedLink[] = [
     { href: `/motorcycles/${model.makeSlug}`, title: `${model.make} motorcycles`, eyebrow: "Brand", description: `Browse ${model.make} models and price references.` },
+    ...(/scooter/i.test(model.category) && ["honda","yamaha","suzuki"].includes(model.makeSlug) ? [{ href: `/motorcycles/${model.makeSlug}/scooters`, title: `${model.make} scooters`, eyebrow: "Scooter hub", description: `Compare ${model.make} scooter prices, engines, seat heights and weights.` }] : []),
     { href: `${base}#price`, title: `${model.model} price`, eyebrow: "Price", description: model.marketStatus === "previous" ? "Historical Philippine price context." : "Dated price sources, variants and market checks." },
     ...(model.marketStatus !== "previous" ? [{ href: `${base}#installment`, title: `${model.model} installment calculator`, eyebrow: "Financing", description: "Monthly payment planning on the canonical model page." }] : []),
     { href: `/tools/motorcycle-loan-calculator?price=${observedMarketRange(model).from}&model=${encodeURIComponent(`${model.make} ${model.model}`)}`, title: "Motorcycle loan calculator", eyebrow: "Calculator", description: `Open the standalone loan tool with ${model.model}'s price prefilled.` },
