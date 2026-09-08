@@ -44,7 +44,7 @@ export function median(values:number[]){if(!values.length)return 0;const s=[...v
 export function isPriceOutlier(listing:UsedListing, peers:UsedListing[]){const med=median(peers.map(x=>x.askingPricePhp));if(!med||peers.length<4)return false;return listing.askingPricePhp<med*.65||listing.askingPricePhp>med*1.35;}
 
 export function marketSummary(modelId:string){
-  const all=listingsForModel(modelId);
+  const all=listingsForModel(modelId).filter(x=>x.status==="verified");
   const clean=all.filter(x=>!isPriceOutlier(x,all));
   const prices=clean.map(x=>x.askingPricePhp).sort((a,b)=>a-b);
   const verified=clean.filter(x=>x.status==="verified").length;
@@ -65,4 +65,4 @@ export function marketSummary(modelId:string){
   } as const;
 }
 
-export function modelsWithUsedListings(){return motorcycles.filter(m=>listingsForModel(m.id).length>0);}
+export function modelsWithUsedListings(){return motorcycles.filter(m=>listingsForModel(m.id).some(x=>x.status==="verified"));}
