@@ -6,7 +6,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { ModelCard } from "@/components/ModelCard";
 import { motorcycles, isIndexableModel } from "@/lib/data";
 import { observedMarketRange } from "@/lib/marketChecks";
-import { pageMetadata } from "@/lib/site";
+import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { phpRange } from "@/lib/utils";
 
 const supported = new Set(["honda", "yamaha", "suzuki"]);
@@ -83,7 +83,7 @@ export default async function BrandScootersPage({ params }: { params: Promise<{ 
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       name: `${brand} scooters in the Philippines`,
-      url: `/motorcycles/${make}/scooters`,
+      url: absoluteUrl(`/motorcycles/${make}/scooters`),
       mainEntity: {
         "@type": "ItemList",
         numberOfItems: current.length,
@@ -91,7 +91,7 @@ export default async function BrandScootersPage({ params }: { params: Promise<{ 
           "@type":"ListItem",
           position:index+1,
           name:`${m.make} ${m.model}`,
-          url:`/motorcycles/${m.makeSlug}/${m.slug}`
+          url:absoluteUrl(`/motorcycles/${m.makeSlug}/${m.slug}`)
         }))
       }
     },
