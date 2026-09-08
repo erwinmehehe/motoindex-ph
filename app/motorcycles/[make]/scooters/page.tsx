@@ -49,6 +49,7 @@ export default async function BrandScootersPage({ params }: { params: Promise<{ 
     .filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued")
     .sort((a,b)=>observedMarketRange(a).from-observedMarketRange(b).from);
   const uncertain = models.filter((m) => m.marketStatus === "uncertain");
+  if (!current.length) return notFound();
   const prices = current.map((m) => observedMarketRange(m));
   const low = Math.min(...prices.map((p) => p.from));
   const high = Math.max(...prices.map((p) => p.to || p.from));
