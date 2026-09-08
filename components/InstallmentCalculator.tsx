@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { estimateMonthlyPayment } from "@/lib/financing";
 
 function peso(n: number) {
   return new Intl.NumberFormat("en-PH", { style: "currency", currency: "PHP", maximumFractionDigits: 0 }).format(n);
@@ -16,10 +17,8 @@ export function InstallmentCalculator({ price, priceOptions = [] }: { price: num
   const [rate, setRate] = useState(12);
   const safePrice = Number.isFinite(purchasePrice) ? Math.max(1_000, Math.min(10_000_000, purchasePrice)) : price;
   const result = useMemo(() => {
-    const principal = safePrice * (1 - down / 100);
-    const r = rate / 100 / 12;
-    const payment = r === 0 ? principal / months : principal * (r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
-    return { principal, payment };
+    const estimate = estimateMonthlyPayment(safePrice, down, months, rate);
+    return { principal: estimate.financedPhp, payment: estimate.monthlyPhp };
   }, [safePrice, down, months, rate]);
 
   function chooseVariant(value: string) {
