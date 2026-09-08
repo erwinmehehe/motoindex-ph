@@ -7,6 +7,7 @@ import "./v260.css";
 import "./v261.css";
 import "./v270.css";
 import "./v280.css";
+import "./tailwind.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
