@@ -1,0 +1,10 @@
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities" layer(utilities);
+
+@theme {
+  --color-moto-ink: #101317;
+  --color-moto-paper: #f5f4ef;
+  --color-moto-accent: #c74827;
+  --color-moto-muted: #66707a;
+  --color-moto-line: #dfe4e7;
+}
