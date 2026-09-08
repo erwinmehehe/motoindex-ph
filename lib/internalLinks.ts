@@ -14,6 +14,8 @@ export function modelInternalLinks(model: Motorcycle): RelatedLink[] {
     ...(model.marketStatus !== "previous" ? [{ href: `${base}#installment`, title: `${model.model} installment calculator`, eyebrow: "Financing", description: "Monthly payment planning on the canonical model page." }] : []),
     { href: `/tools/motorcycle-loan-calculator?price=${observedMarketRange(model).from}&model=${encodeURIComponent(`${model.make} ${model.model}`)}`, title: "Motorcycle loan calculator", eyebrow: "Calculator", description: `Open the standalone loan tool with ${model.model}'s price prefilled.` },
     { href: `${base}#tires-fitment`, title: `${model.model} tire size`, eyebrow: "Fitment", description: `${model.frontTire} front · ${model.rearTire} rear.` },
+    { href: "/accessories", title: "Motorcycle accessories", eyebrow: "Gear", description: "Research top boxes, phone holders, intercoms and rain gear." },
+    { href: "/gear/helmets/for-commuting", title: "Helmets for commuting", eyebrow: "Rider gear", description: "Compare checked road helmets by format, fit and daily-use features." },
     { href: `${base}#rider-fit`, title: `${model.model} rider fit`, eyebrow: "Fit", description: `${model.seatHeightMm} mm seat · ${model.curbWeightKg} kg curb weight.` },
     { href: `${base}#fuel`, title: `${model.model} fuel economy`, eyebrow: "Fuel", description: model.fuelConsumptionKmL ? `${model.fuelConsumptionKmL} km/L listed basis plus range planning.` : "Fuel-cost and range planning with a labeled estimate." },
     { href: `${base}#maintenance`, title: `${model.model} maintenance`, eyebrow: "Ownership", description: "Official service source and exact intervals where parsed." },
@@ -27,20 +29,27 @@ export function modelInternalLinks(model: Motorcycle): RelatedLink[] {
     return { href: `/compare/${c.slug}`, title: `${model.model} vs ${other.model}`, eyebrow: "Compare", description: "Price, dimensions and specifications side by side." };
   });
   const alternatives = motorcycles.filter(m => m.id !== model.id && m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued" && m.category === model.category && isIndexableModel(m)).sort((a,b)=>Math.abs(a.srp-model.srp)-Math.abs(b.srp-model.srp)).slice(0,2).map(m=>({href:`/motorcycles/${m.makeSlug}/${m.slug}`,title:`${m.make} ${m.model}`,eyebrow:"Alternative",description:`${m.engineCc} cc · ${m.seatHeightMm} mm seat`}));
-  return [...links, ...comparisonLinks, ...alternatives].slice(0, 12);
+  return [...links, ...comparisonLinks, ...alternatives].slice(0, 14);
 }
 
 export function helmetProductInternalLinks(product: HelmetProduct): RelatedLink[] {
   const category: HelmetCategorySlug | undefined = product.helmetType === "Full face" ? "full-face" : product.helmetType === "Modular" ? "modular" : (product.helmetType === "Half face" || product.helmetType === "Open face") ? "half-face" : undefined;
-  const sameBrand = helmetProducts.filter(p => p.status === "verified" && p.brandSlug === product.brandSlug && p.id !== product.id).slice(0, 3);
+  const isRoadHelmet = ["Full face", "Modular", "Half face", "Open face"].includes(product.helmetType);
+  const hasEce2206 = /(?:ECE\\s*)?(?:R?22[.\\s-]?06|22\\.06)/i.test(product.certification || "");
+  const sameBrand = helmetProducts.filter(p => p.status === "verified" && p.brandSlug === product.brandSlug && p.id !== product.id).slice(0, 2);
   return [
     { href: `/gear/helmets/${product.brandSlug}`, title: `${product.brand} helmets`, eyebrow: "Brand", description: `Compare the ${product.brand} models we have checked.` },
     ...(category ? [{ href: `/gear/helmets/${category}`, title: `${product.helmetType} helmets`, eyebrow: "Category", description: "Compare helmet models across brands." }] : []),
+    ...(typeof product.priceFromPhp === "number" && product.priceFromPhp <= 3000 ? [{ href: "/gear/helmets/under-3000", title: "Helmets under ₱3,000", eyebrow: "Budget", description: "Compare verified helmets in the same entry-price range." }] : typeof product.priceFromPhp === "number" && product.priceFromPhp <= 5000 ? [{ href: "/gear/helmets/under-5000", title: "Helmets under ₱5,000", eyebrow: "Budget", description: "Compare verified helmets in the same budget range." }] : []),
+    ...(hasEce2206 ? [{ href: "/gear/helmets/ece-22-06", title: "ECE 22.06 helmets", eyebrow: "Certification", description: "Compare models with explicit ECE 22.06 references." }] : []),
+    ...(product.intercomReady ? [{ href: "/gear/helmets/intercom-ready", title: "Intercom-ready helmets", eyebrow: "Feature", description: "Compare models with recorded communication-system provision." }] : []),
+    ...(isRoadHelmet ? [{ href: "/gear/helmets/for-commuting", title: "Helmets for commuting", eyebrow: "Use case", description: "Compare road-helmet formats for daily Philippine riding." }] : []),
+    { href: "/guides/motorcycle-helmet-size-guide", title: "Helmet size guide", eyebrow: "Fit", description: "Measure your head and check model-specific fit." },
+    { href: "/guides/motorcycle-helmet-certification-philippines", title: "Helmet certification guide", eyebrow: "Certification", description: "Understand PS, ICC and international certification references." },
     { href: "/gear/helmets/finder", title: "Helmet Finder", eyebrow: "Finder", description: "Filter verified helmets by budget, type, size and equipment." },
     { href: `/gear/helmets/compare?a=${encodeURIComponent(product.id)}`, title: "Compare this helmet", eyebrow: "Compare", description: "Put this helmet beside another verified model." },
-    { href: "/gear/helmets/brands", title: "Compare helmet brands", eyebrow: "Brands", description: "See checked models, categories and observed price ranges." },
     ...sameBrand.map(p => ({ href: `/gear/helmets/${p.brandSlug}/${p.slug}`, title: `${p.brand} ${p.model}`, eyebrow: "Same brand", description: `${p.helmetType}${p.priceFromPhp ? ` · observed from ₱${p.priceFromPhp.toLocaleString("en-PH")}` : ""}` }))
-  ];
+  ].slice(0, 12);
 }
 
 export function helmetBrandInternalLinks(brandSlug: string): RelatedLink[] {
@@ -50,7 +59,7 @@ export function helmetBrandInternalLinks(brandSlug: string): RelatedLink[] {
   if (types.some(t => t === "Full face")) categoryLinks.push({href:"/gear/helmets/full-face",title:"Full-face helmets",eyebrow:"Category",description:"Compare full-face options across brands."});
   if (types.some(t => t === "Modular")) categoryLinks.push({href:"/gear/helmets/modular",title:"Modular helmets",eyebrow:"Category",description:"Compare flip-up helmets across brands."});
   if (types.some(t => t === "Half face" || t === "Open face")) categoryLinks.push({href:"/gear/helmets/half-face",title:"Half-face helmets",eyebrow:"Category",description:"Compare open-face and half-face options."});
-  return [{href:"/gear/helmets/finder",title:"Helmet Finder",eyebrow:"Finder",description:"Filter verified helmets by budget, type, size and equipment."},{href:"/gear/helmets/compare",title:"Compare helmets",eyebrow:"Compare",description:"Compare two or three verified helmet models side by side."},{href:"/gear/helmets/brands",title:"Helmet brands",eyebrow:"Compare",description:"Compare checked brands and price ranges."}, ...categoryLinks, ...products.slice(0,3).map(p=>({href:`/gear/helmets/${p.brandSlug}/${p.slug}`,title:`${p.brand} ${p.model}`,eyebrow:"Model",description:p.helmetType}))].slice(0,7);
+  const hasBudgetModels = products.some(p => typeof p.priceFromPhp === "number" && p.priceFromPhp <= 5000);\n  return [{href:"/gear/helmets/finder",title:"Helmet Finder",eyebrow:"Finder",description:"Filter verified helmets by budget, type, size and equipment."},{href:"/gear/helmets/compare",title:"Compare helmets",eyebrow:"Compare",description:"Compare two or three verified helmet models side by side."},{href:"/guides/motorcycle-helmet-size-guide",title:"Helmet size guide",eyebrow:"Fit",description:"Measure your head and use the exact model chart."},{href:"/guides/motorcycle-helmet-certification-philippines",title:"Helmet certification guide",eyebrow:"Certification",description:"Understand PS, ICC and model-level certification references."}, ...(hasBudgetModels?[{href:"/gear/helmets/under-5000",title:"Helmets under ₱5,000",eyebrow:"Budget",description:"Compare checked models in the same price band."}]:[]), ...categoryLinks, ...products.slice(0,3).map(p=>({href:`/gear/helmets/${p.brandSlug}/${p.slug}`,title:`${p.brand} ${p.model}`,eyebrow:"Model",description:p.helmetType}))].slice(0,10);
 }
 
 export function helmetCategoryInternalLinks(slug: HelmetCategorySlug): RelatedLink[] {
@@ -59,10 +68,13 @@ export function helmetCategoryInternalLinks(slug: HelmetCategorySlug): RelatedLi
   return [
     {href:"/gear/helmets",title:"Helmet guide",eyebrow:"Hub",description:"Browse brands, categories and checked models."},
     {href:"/gear/helmets/finder",title:"Helmet Finder",eyebrow:"Finder",description:"Filter by budget, use case, size and features."},
+    {href:"/gear/helmets/under-5000",title:"Helmets under ₱5,000",eyebrow:"Budget",description:"Compare checked helmets by starting price."},
+    {href:"/gear/helmets/for-commuting",title:"Helmets for commuting",eyebrow:"Use case",description:"Compare road-helmet tradeoffs for daily riding."},
+    {href:"/guides/motorcycle-helmet-size-guide",title:"Helmet size guide",eyebrow:"Fit",description:"Measure your head and check model-specific sizing."},
+    {href:"/guides/motorcycle-helmet-certification-philippines",title:"Helmet certification guide",eyebrow:"Certification",description:"Understand PS, ICC and certification references."},
     {href:"/gear/helmets/compare",title:"Compare helmets",eyebrow:"Compare",description:"Compare verified helmet models side by side."},
-    {href:"/gear/helmets/brands",title:"Helmet brands",eyebrow:"Compare",description:"Compare brand coverage and observed price ranges."},
     ...brands.map(brand=>{const p=products.find(x=>x.brandSlug===brand)!;return {href:`/gear/helmets/${brand}`,title:`${p.brand} helmets`,eyebrow:"Brand",description:`See checked ${p.brand} models.`};})
-  ];
+  ].slice(0, 11);
 }
 
 export function tireProductInternalLinks(product: TireProduct): RelatedLink[] {
