@@ -6,8 +6,6 @@ import { efficiencyEvidence } from "./efficiency";
 import { maintenanceForModel } from "./maintenance";
 import { priceFaqsForModel } from "./priceSeo";
 import { modelAuthorityProfile } from "./modelAuthority";
-import { financingScenario } from "./financing";
-import { php } from "./utils";
 
 const releaseYear = RELEASE_DATE.slice(0, 4);
 
@@ -53,7 +51,6 @@ export function motorcycleEntityFaqs(model: Motorcycle): FaqItem[] {
   const maintenance = maintenanceForModel(model.id);
   const authority = modelAuthorityProfile(model.id);
   const name = `${model.make} ${model.model}`;
-  const finance = financingScenario(model.srp, 20, 36, 12);
 
   const authorityFaqs: FaqItem[] = authority ? [
     { question: `Who should buy the ${name} in the Philippines?`, answer: `${authority.verdict} It makes the strongest case if ${authority.buyIf.slice(0, 2).map((item) => item.replace(/\.$/, "").toLowerCase()).join(" and ")}.` },
