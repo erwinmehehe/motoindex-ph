@@ -611,6 +611,215 @@ export const entityMedia: EntityMedia[] = [
     src: "/media/helmets/shoei-nxr2.webp", sourceImageUrl: "https://www.shoei-europe.com/wp-content/uploads/2021/04/shoei_nxr2_product_3er_side_700x800-700x800.png", alt: "Shoei NXR2 full-face motorcycle helmet", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Shoei Europe", sourceLabel: "Official Shoei product image · NXR2", sourceUrl: "https://www.shoei-europe.com/products/nxr2/", lastChecked: "2026-08-25"
   },
+  // Motorcycle brand-hub media expansion — checked 2026-09-08.
+  {
+    id:"aprilia-sr-gt-200-editorial", entityType:"motorcycle", entityId:"aprilia-sr-gt-200", role:"primary",
+    src:"https://www.motofichas.com/images/phocagallery/Aprilia/sr-gt/01-aprilia-sr-gt-2022-estudio-azul-01.jpg", alt:"Aprilia SR GT 200 scooter in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Motofichas", sourceLabel:"Editorial product image · Aprilia SR GT 200", sourceUrl:"https://foromotos.net/threads/ficha-t%C3%A9cnica-aprilia-sr-gt-200-2022-2024.11827/", lastChecked:"2026-09-08"
+  },
+  {
+    id:"aprilia-rs-457-editorial", entityType:"motorcycle", entityId:"aprilia-rs-457", role:"primary",
+    src:"https://www.ginzinger.at/images/djmediatools/843-aprilia-rs-457-studio/01_1.jpeg", alt:"Aprilia RS 457 sport motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Ginzinger", sourceLabel:"Dealer/editorial product image · Aprilia RS 457", sourceUrl:"https://www.ginzinger.at/blog/aprilia/rs-457.html", lastChecked:"2026-09-08"
+  },
+  {
+    id:"benelli-180s-editorial", entityType:"motorcycle", entityId:"benelli-180s", role:"primary",
+    src:"https://globalgo-catalogo.s3.amazonaws.com/BEN180S-GALERIA-1.webp", alt:"Benelli 180S naked motorcycle product view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"GlobalGo", sourceLabel:"Dealer product image · Benelli 180S", sourceUrl:"https://www.globalgo.com.pe/motos/BEN-180S/", lastChecked:"2026-09-08"
+  },
+  {
+    id:"benelli-trk-502x-editorial", entityType:"motorcycle", entityId:"benelli-trk-502x", role:"primary",
+    src:"https://d1uzk9o9cg136f.cloudfront.net/f/16782548/rc/2024/12/13/e7b4a0a0bd97eb40025afa4e32c7b896fb3151c1_xlarge.jpg", alt:"Benelli TRK 502X adventure motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"web AutoBy", sourceLabel:"Editorial product image · Benelli TRK 502X", sourceUrl:"https://www.autoby.jp/_ct/17738653/album/16827695", lastChecked:"2026-09-08"
+  },
+  {
+    id:"bmw-g-310-gs-editorial", entityType:"motorcycle", entityId:"bmw-g-310-gs", role:"primary",
+    src:"https://next-moto.com/products/682/images/bmw-g310gs-2023-682-1718898487.webp", alt:"BMW G 310 GS motorcycle product photo", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Next Moto", sourceLabel:"Motorcycle listing image · BMW G 310 GS", sourceUrl:"https://next-moto.com/bmw", lastChecked:"2026-09-08"
+  },
+  {
+    id:"bmw-c-400-gt-editorial", entityType:"motorcycle", entityId:"bmw-c-400-gt", role:"primary",
+    src:"https://www.bmwpap.gr/image/cache/data/product/BMW/2024/C%20400%20GT/P90512322_lowRes_bmw-c-400-gt-my-2024-1-1-2-1400x1200.jpg", alt:"BMW C 400 GT maxi scooter in studio view", width:1400, height:1200,
+    rightsStatus:"external-reference", rightsHolder:"BMW Papadopoulos", sourceLabel:"BMW dealer product image · C 400 GT", sourceUrl:"https://www.bmwpap.gr/", lastChecked:"2026-09-08"
+  },
+  {
+    id:"bristol-adx-160-official", entityType:"motorcycle", entityId:"bristol-adx-160", role:"primary",
+    src:"https://static.wixstatic.com/media/fc6fc6_3b3250017dc649ce9b52af2c2b95c556~mv2.png/v1/fill/w_570%2Ch_398%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/white.png", alt:"Bristol ADX 160 scooter product image", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Bristol Motorcycles Philippines", sourceLabel:"Manufacturer product image · Bristol ADX 160", sourceUrl:"https://www.bristol-motorcycles.com/adx160", lastChecked:"2026-09-08"
+  },
+  {
+    id:"bristol-maxie-400-editorial", entityType:"motorcycle", entityId:"bristol-maxie-400", role:"primary",
+    src:"https://imgcdn.zigwheels.ph/large/gallery/color/128/3117/bristol-maxie-400-color-293352.jpg", alt:"Bristol Maxie 400 maxi scooter product image", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Zigwheels Philippines", sourceLabel:"Philippine catalog image · Bristol Maxie 400", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/bristol/maxie-400/colors", lastChecked:"2026-09-08"
+  },
+  {
+    id:"cfmoto-450mt-editorial", entityType:"motorcycle", entityId:"cfmoto-450mt", role:"primary",
+    src:"https://www.philharmonicmoto.com/wp-content/uploads/2024/04/cfmoto-450mt_tundra-grey_left-45-copy-1024x763.jpg", alt:"CFMOTO 450MT adventure motorcycle in Tundra Grey", width:1024, height:763,
+    rightsStatus:"external-reference", rightsHolder:"PhilharmonicMoto", sourceLabel:"Editorial product image · CFMOTO 450MT", sourceUrl:"https://www.philharmonicmoto.com/product/cfmoto-450mt-2024/", lastChecked:"2026-09-08"
+  },
+  {
+    id:"cfmoto-450sr-editorial", entityType:"motorcycle", entityId:"cfmoto-450sr", role:"primary",
+    src:"https://www.motorrad-bilder.at/slideshows/291/021705/CFMOTO_450SR_StudioRight45_ZirconBlack.jpg", alt:"CFMOTO 450SR sport motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Motorrad Bilder", sourceLabel:"Editorial product image · CFMOTO 450SR", sourceUrl:"https://www.1000ps.at/motorrad-bilder-detail-cfmoto-motorrad-modelle-und-neuheiten-2023-21705", lastChecked:"2026-09-08"
+  },
+  {
+    id:"ducati-monster-937-plus-editorial", entityType:"motorcycle", entityId:"ducati-monster-937-plus", role:"primary",
+    src:"https://img2.stcrm.it/images/23721531/HOR_STD/1000x/my21-ducati-monster-plus-1-uc214632-mid.jpg", alt:"Ducati Monster 937 Plus naked motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Moto.it", sourceLabel:"Editorial product image · Ducati Monster Plus", sourceUrl:"https://www.moto.it/listino/ducati/monster-937/monster-937-plus-2021/dQ0yxQ", lastChecked:"2026-09-08"
+  },
+  {
+    id:"ducati-scrambler-nightshift-editorial", entityType:"motorcycle", entityId:"ducati-scrambler-nightshift", role:"primary",
+    src:"https://bxrepsol.s3.eu-west-1.amazonaws.com/static/2023/08/01042843/Foto-8-Ducati-Scrambler-Nighshift-1024x819.jpg", alt:"Ducati Scrambler Nightshift motorcycle in studio view", width:1024, height:819,
+    rightsStatus:"external-reference", rightsHolder:"Box Repsol", sourceLabel:"Editorial product image · Ducati Scrambler Nightshift", sourceUrl:"https://www.boxrepsol.com/es/vive-tu-moto/motos-scrambler-cuales-son-y-sus-caracteristicas-principales/", lastChecked:"2026-09-08"
+  },
+  {
+    id:"husqvarna-svartpilen-401-editorial", entityType:"motorcycle", entityId:"husqvarna-svartpilen-401", role:"primary",
+    src:"https://next-moto.com/products/873/images/husqvarna-svartpilen-401-2023-873-1746647954.webp", alt:"Husqvarna Svartpilen 401 motorcycle product photo", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Next Moto", sourceLabel:"Motorcycle listing image · Husqvarna Svartpilen 401", sourceUrl:"https://next-moto.com/comprar-moto-ocasion", lastChecked:"2026-09-08"
+  },
+  {
+    id:"husqvarna-vitpilen-401-editorial", entityType:"motorcycle", entityId:"husqvarna-vitpilen-401", role:"primary",
+    src:"https://images5.1000ps.net/images_bikekat/2023/42-Husqvarna/8781-Vitpilen_401/004-638098127752526346-husqvarna-vitpilen-401.jpg?bgcolor=rgba_39_42_44_0&format=webp&height=834&mode=pad&quality=80&scale=both&trim.percentpadding=1&trim.threshold=80&width=1182", alt:"Husqvarna Vitpilen 401 2023 motorcycle in studio view", width:1182, height:834,
+    rightsStatus:"external-reference", rightsHolder:"1000PS", sourceLabel:"Editorial product image · Husqvarna Vitpilen 401", sourceUrl:"https://www.1000ps.com/en-gb/comparison/491398/bmw-f-450-gs-2026-vs-husqvarna-vitpilen-401-2023", lastChecked:"2026-09-08"
+  },
+  {
+    id:"ktm-390-duke-official", entityType:"motorcycle", entityId:"ktm-390-duke", role:"primary",
+    src:"https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_PERS_REVO_MY23-KTM-390-DUKE--45-degree-front-right---INDIA-CTG--LIQUID-METAL-India-CTG_%23SALL_%23AEPI_%23V1.png", alt:"KTM 390 Duke 2023 motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"KTM", sourceLabel:"Manufacturer product image · KTM 390 Duke", sourceUrl:"https://www.ktm.com/en-my/models/naked-bike/2023-ktm-390-duke.html", lastChecked:"2026-09-08"
+  },
+  {
+    id:"ktm-390-adventure-editorial", entityType:"motorcycle", entityId:"ktm-390-adventure", role:"primary",
+    src:"https://images5.1000ps.net/images_bikekat/2023/1-KTM/9529-390_Adventure/009-638108438206018074-ktm-390-adventure.jpg", alt:"KTM 390 Adventure 2023 motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"1000PS", sourceLabel:"Editorial product image · KTM 390 Adventure", sourceUrl:"https://www.1000ps.de/motorradvergleich-ktm-390-adventure-2023-vs-ktm-690-enduro-r-2020-448389", lastChecked:"2026-09-08"
+  },
+  {
+    id:"kymco-like-150i-editorial", entityType:"motorcycle", entityId:"kymco-like-150i-abs", role:"primary",
+    src:"https://cdn.accentuate.io/9517636616493/1732219160890/slide-7-%281%29.jpg?v=1732219160890", alt:"Kymco Like 150i ABS scooter product image", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"The Scooter King", sourceLabel:"Dealer product image · Kymco Like 150i ABS", sourceUrl:"https://thescooterking.com/products/2025-kymco-like-150i-abs", lastChecked:"2026-09-08"
+  },
+  {
+    id:"kymco-krv-180i-editorial", entityType:"motorcycle", entityId:"kymco-krv-180i-tcs", role:"primary",
+    src:"https://imgcdn.zigwheels.ph/large/gallery/exterior/76/2913/kymco-krv-180i-tcs-slant-rear-view-full-image-709623.jpg", alt:"Kymco KRV 180i TCS scooter product image", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Zigwheels Philippines", sourceLabel:"Philippine catalog image · Kymco KRV 180i TCS", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/kymco/krv-180i-tcs/colors", lastChecked:"2026-09-08"
+  },
+  {
+    id:"motorstar-cafe-400-editorial", entityType:"motorcycle", entityId:"motorstar-cafe-400", role:"primary",
+    src:"https://imgcdn.zigwheels.ph/large/gallery/exterior/78/1899/motorstar-cafe-400-marketing-image-145459.jpg", alt:"MotorStar Cafe 400 motorcycle product image", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Zigwheels Philippines", sourceLabel:"Philippine catalog image · MotorStar Cafe 400", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/motorstar/cafe-400", lastChecked:"2026-09-08"
+  },
+  {
+    id:"motorstar-xplorer-250r-editorial", entityType:"motorcycle", entityId:"motorstar-xplorer-250r", role:"primary",
+    src:"https://imgcdn.zigwheels.ph/large/gallery/exterior/78/1034/motorstar-xplorer-250r-left-side-view-full-image-723608.jpg", alt:"MotorStar Xplorer 250R adventure motorcycle product image", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Zigwheels Philippines", sourceLabel:"Philippine catalog image · MotorStar Xplorer 250R", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/motorstar/xplorer-250r/images", lastChecked:"2026-09-08"
+  },
+  {
+    id:"royal-enfield-hunter-350-editorial", entityType:"motorcycle", entityId:"royal-enfield-hunter-350", role:"primary",
+    src:"https://img.autocarindia.com/Galleries/20250812032243_1%20_31_.jpg", alt:"Royal Enfield Hunter 350 motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Autocar India", sourceLabel:"Editorial product image · Royal Enfield Hunter 350", sourceUrl:"https://www.autocarindia.com/auto-images/royal-enfield-hunter-350-colours-image-gallery-436617", lastChecked:"2026-09-08"
+  },
+  {
+    id:"royal-enfield-himalayan-450-editorial", entityType:"motorcycle", entityId:"royal-enfield-himalayan-450", role:"primary",
+    src:"https://www.motociclismo.es/uploads/s1/12/66/35/31/royal-enfield-himalayan-450-2024-estudio-1.jpeg", alt:"Royal Enfield Himalayan 450 adventure motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Motociclismo", sourceLabel:"Editorial product image · Royal Enfield Himalayan 450", sourceUrl:"https://www.motociclismo.es/fotos-royal-enfield-himalayan-450_70411_113.html", lastChecked:"2026-09-08"
+  },
+  {
+    id:"rusi-rfi-175-editorial", entityType:"motorcycle", entityId:"rusi-rfi-175", role:"primary",
+    src:"https://www.kamote.ph/cdn-cgi/image/lossless%3Dtrue%2Cw%3D800%2Ch%3D800%2Cf%3Dwebp%2Cfit%3Dcontain/https%3A/www.kamote.ph/Gallery/Rusi/RFI_175.webp", alt:"Rusi RFI 175 scooter product image", width:800, height:800,
+    rightsStatus:"external-reference", rightsHolder:"Kamote.ph", sourceLabel:"Philippine catalog image · Rusi RFI 175", sourceUrl:"https://www.kamote.ph/motorcycle/rusi-rfi-175", lastChecked:"2026-09-08"
+  },
+  {
+    id:"rusi-classic-250i-editorial", entityType:"motorcycle", entityId:"rusi-classic-250i", role:"primary",
+    src:"https://www.kamote.ph/cdn-cgi/image/lossless%3Dtrue%2Cw%3D800%2Ch%3D800%2Cf%3Dwebp%2Cfit%3Dcontain/https%3A/www.kamote.ph/Gallery/Rusi/Classic_250i.webp", alt:"Rusi Classic 250i motorcycle product image", width:800, height:800,
+    rightsStatus:"external-reference", rightsHolder:"Kamote.ph", sourceLabel:"Philippine catalog image · Rusi Classic 250i", sourceUrl:"https://www.kamote.ph/motorcycle/rusi-classic-250i", lastChecked:"2026-09-08"
+  },
+  {
+    id:"sym-jet-x150-editorial", entityType:"motorcycle", entityId:"sym-jet-x150", role:"primary",
+    src:"https://static.wixstatic.com/media/97f6bd_7fc1c2558c4d4bb29444f1404b58db9f~mv2.jpg/v1/fill/w_1400%2Ch_1235%2Cal_c/97f6bd_7fc1c2558c4d4bb29444f1404b58db9f~mv2.jpg", alt:"SYM Jet X150 scooter product image", width:1400, height:1235,
+    rightsStatus:"external-reference", rightsHolder:"AA Perfectionist", sourceLabel:"Editorial product image · SYM Jet X", sourceUrl:"https://www.aapefi.com/post/sym-issues-voluntary-recall-for-2024-2025-fnx-and-jet-models-over-fuel-pump-concerns", lastChecked:"2026-09-08"
+  },
+  {
+    id:"sym-cruisym-150-editorial", entityType:"motorcycle", entityId:"sym-cruisym-150", role:"primary",
+    src:"https://www.xsmt.com/upload/202302/06/202302061424135456.png", alt:"SYM Cruisym 150 scooter product image", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"XSMT", sourceLabel:"Motorcycle catalog image · SYM Cruisym 150", sourceUrl:"https://www.xsmt.com/product/show-4288.html", lastChecked:"2026-09-08"
+  },
+  {
+    id:"triumph-speed-400-editorial", entityType:"motorcycle", entityId:"triumph-speed-400", role:"primary",
+    src:"https://carroemotos.com.br/wp-content/uploads/2023/06/Speed-400_MY24_Phantom-Black_AngleRHS.jpg", alt:"Triumph Speed 400 motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Carro e Motos", sourceLabel:"Editorial product image · Triumph Speed 400", sourceUrl:"https://carroemotos.com.br/triumph-launches-two-new-400cc-motorcycles-see-photos-video-and-technical-sheet/", lastChecked:"2026-09-08"
+  },
+  {
+    id:"triumph-scrambler-400-x-editorial", entityType:"motorcycle", entityId:"triumph-scrambler-400-x", role:"primary",
+    src:"https://www.motociclismo.es/uploads/s1/12/16/83/24/triumph-speed400andscrambler400x-studio-06_7_1200x690.jpeg", alt:"Triumph Scrambler 400 X motorcycle in studio view", width:1200, height:690,
+    rightsStatus:"external-reference", rightsHolder:"Motociclismo", sourceLabel:"Editorial product image · Triumph Scrambler 400 X", sourceUrl:"https://www.motociclismo.es/novedades/triumph-speed-scrambler-400-x-nueva-categoria_278903_102.html", lastChecked:"2026-09-08"
+  },
+  {
+    id:"vespa-primavera-150-editorial", entityType:"motorcycle", entityId:"vespa-primavera-150", role:"primary",
+    src:"https://cdn.dealerspike.com/imglib/v1/800x600/imglib/Assets/Inventory/63/C4/63C4AFF1-3775-4831-A49C-B8C5C5FBB69F.jpg", alt:"Vespa Primavera 150 scooter product image", width:800, height:600,
+    rightsStatus:"external-reference", rightsHolder:"Rahal Piaggio", sourceLabel:"Dealer product image · Vespa Primavera 150", sourceUrl:"https://www.rahalpiaggio.com/New-Inventory-2025-Vespa-Motorcycle-Scooter-Primavera-150-Rahal-Piaggio-17164839", lastChecked:"2026-09-08"
+  },
+  {
+    id:"vespa-sprint-150-editorial", entityType:"motorcycle", entityId:"vespa-sprint-150", role:"primary",
+    src:"https://img.autofun.co.th/file/1e92114c8163401598ae43327f996ac2.jpg", alt:"Vespa Sprint 150 scooter product image", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"AutoFun", sourceLabel:"Editorial product image · Vespa Sprint 150", sourceUrl:"https://www.autofun.co.th/motorcycles/vespa/sprint-150-i-get", lastChecked:"2026-09-08"
+  },
+
+  // Images for the additional models added in this expansion.
+  {
+    id:"bmw-g-310-r-editorial", entityType:"motorcycle", entityId:"bmw-g-310-r", role:"primary",
+    src:"https://images.motoren-toerisme.be/2022-12/2023_bmw_g310r_01.jpg?auto=format%2Ccompres&fill=solid&fit=fill&h=880&ixlib=php-1.1.0&q=75&s=91ebbd52059cc95d08c4ba0881001f90&w=1320", alt:"BMW G 310 R 2023 motorcycle in studio view", width:1320, height:880,
+    rightsStatus:"external-reference", rightsHolder:"Motoren & Toerisme", sourceLabel:"Editorial product image · BMW G 310 R", sourceUrl:"https://www.motoren-toerisme.be/motoren/bmw-g-310-r-2023", lastChecked:"2026-09-08"
+  },
+  {
+    id:"bmw-r-1300-gs-editorial", entityType:"motorcycle", entityId:"bmw-r-1300-gs", role:"primary",
+    src:"https://www.carolenash.com/images/librariesprovider6/blog-posts/bmw_r1300g_studio.jpg?sfvrsn=bca8efd6_1", alt:"BMW R 1300 GS adventure motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Carole Nash", sourceLabel:"Editorial product image · BMW R 1300 GS", sourceUrl:"https://www.carolenash.com/news/classic-car-events/detail/reviewed--bmw-r-1300-gs", lastChecked:"2026-09-08"
+  },
+  {
+    id:"cfmoto-450nk-editorial", entityType:"motorcycle", entityId:"cfmoto-450nk", role:"primary",
+    src:"https://motowind.net/wp-content/uploads/450NK-Studio1.jpg", alt:"CFMOTO 450NK naked motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"MotoWind", sourceLabel:"Editorial product image · CFMOTO 450NK", sourceUrl:"https://motowind.net/450nk-studio1/", lastChecked:"2026-09-08"
+  },
+  {
+    id:"cfmoto-675sr-r-editorial", entityType:"motorcycle", entityId:"cfmoto-675sr-r", role:"primary",
+    src:"https://editorial.pxcrush.net/bikesales/general/editorial/450549396_780089797612891_7871008111732329732_n.jpg?height=682&width=1024", alt:"CFMOTO 675SR-R sport motorcycle product image", width:1024, height:682,
+    rightsStatus:"external-reference", rightsHolder:"Bikesales", sourceLabel:"Editorial product image · CFMOTO 675SR-R", sourceUrl:"https://www.bikesales.com.au/editorial/details/cfmoto-675sr-r-triple-is-coming-soon-146944/", lastChecked:"2026-09-08"
+  },
+  {
+    id:"triumph-trident-660-editorial", entityType:"motorcycle", entityId:"triumph-trident-660", role:"primary",
+    src:"https://www.motociclismo.es/uploads/s1/13/69/71/62/triumph-trident-660-2025-estudio-2.jpeg", alt:"Triumph Trident 660 2025 motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Motociclismo", sourceLabel:"Editorial product image · Triumph Trident 660", sourceUrl:"https://www.motociclismo.es/fotos-triumph-trident-660-2025_71379_113.html", lastChecked:"2026-09-08"
+  },
+  {
+    id:"triumph-street-triple-765-rs-editorial", entityType:"motorcycle", entityId:"triumph-street-triple-765-rs", role:"primary",
+    src:"https://images5.1000ps.net/g-000343-g_W3430656-triumph-street-triple-765-rs-639017335950495280.jpg", alt:"Triumph Street Triple 765 RS motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"1000PS dealer network", sourceLabel:"Dealer product image · Triumph Street Triple 765 RS", sourceUrl:"https://kawasaki.moto-shop-gera.de/de/neufahrzeug-triumph-street-triple-765-rs-3430656", lastChecked:"2026-09-08"
+  },
+  {
+    id:"royal-enfield-guerrilla-450-editorial", entityType:"motorcycle", entityId:"royal-enfield-guerrilla-450", role:"primary",
+    src:"https://images5.1000ps.net/images_bikekat/2025/15-Royal_Enfield/12583-Guerrilla_450/006-638783978103498301-royal-enfield-guerrilla-450.jpg?format=webp&height=566&mode=crop&width=920", alt:"Royal Enfield Guerrilla 450 motorcycle in studio view", width:920, height:566,
+    rightsStatus:"external-reference", rightsHolder:"1000PS dealer network", sourceLabel:"Dealer product image · Royal Enfield Guerrilla 450", sourceUrl:"https://www.royal-enfield-sachsen.com/de/motorrad-modell-royal-enfield-guerrilla-450-12583-2025", lastChecked:"2026-09-08"
+  },
+  {
+    id:"royal-enfield-classic-350-editorial", entityType:"motorcycle", entityId:"royal-enfield-classic-350", role:"primary",
+    src:"https://images.caradisiac.com/images/1/7/4/4/191744/S0-royal-enfield-classic-350-la-renaissance-d-un-mythe-688471.jpg", alt:"Royal Enfield Classic 350 motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Caradisiac", sourceLabel:"Editorial product image · Royal Enfield Classic 350", sourceUrl:"https://www.caradisiac.com/royal-enfield-classic-350-la-renaissance-d-un-mythe-191744.htm", lastChecked:"2026-09-08"
+  },
+  {
+    id:"vespa-gts-supersport-300-editorial", entityType:"motorcycle", entityId:"vespa-gts-supersport-300", role:"primary",
+    src:"https://www.goobike.com/newbike/material/img/model/836_Vespa_GTS_Supersport300_2025_blue.jpg", alt:"Vespa GTS SuperSport 300 2025 scooter in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Goobike", sourceLabel:"Motorcycle catalog image · Vespa GTS SuperSport 300", sourceUrl:"https://www.goobike.com/maker-vespa/car-vespa_gts300ie_supersport/index.html", lastChecked:"2026-09-08"
+  },
+  {
+    id:"vespa-gtv-300-editorial", entityType:"motorcycle", entityId:"vespa-gtv-300", role:"primary",
+    src:"https://m.atcdn.co.uk/a/media/77e29bc00fbd4404bac9108e2f8d409f.jpg", alt:"Vespa GTV 300 scooter product image", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"Auto Trader UK", sourceLabel:"Motorcycle listing image · Vespa GTV 300", sourceUrl:"https://www.autotrader.co.uk/bikes/motorcycles/piaggio/vespa-gtv-300", lastChecked:"2026-09-08"
+  },
+  {
+    id:"aprilia-rs-660-editorial", entityType:"motorcycle", entityId:"aprilia-rs-660", role:"primary",
+    src:"https://images5.1000ps.net/images_bikekat/2021/9-Aprilia/9956-RS_660/044-637381148908493951-aprilia-rs-660.jpg", alt:"Aprilia RS 660 sport motorcycle in studio view", width:1200, height:900,
+    rightsStatus:"external-reference", rightsHolder:"1000PS", sourceLabel:"Editorial product image · Aprilia RS 660", sourceUrl:"https://www.1000ps.de/motorradvergleich-aprilia-rs-660-2021-vs-yamaha-mt-09-2025-426609", lastChecked:"2026-09-08"
+  },
+
 
 ];
 
