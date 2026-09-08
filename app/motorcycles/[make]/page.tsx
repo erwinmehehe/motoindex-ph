@@ -126,9 +126,9 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
         <div className="ph-brand-hero-grid">
           <div>
-            <span className="entity-kicker">Philippines · Brand guide</span>
-            <h1>{brand} motorcycles: prices, specs and models in the Philippines</h1>
-            <p>Compare the {brand} motorcycles currently covered by MotoIndex using dated Philippine price references, core specifications, rider-fit data and ownership tools. The page grows as more models are verified, so it should not be read as the brand&apos;s complete Philippine lineup.</p>
+            <span className="entity-kicker">Philippines · Prices · Specs · Buyer guide</span>
+            <h1>{brand} motorcycles in the Philippines</h1>
+            <p>Compare {brand} motorcycle prices, engine specs, seat heights and ownership details using dated Philippine-market references. Open any model for financing estimates, fitment, maintenance and alternatives.</p>
             <div className="ph-brand-actions">
               <Link className="button" href="#models">Browse {brand} models</Link>
               <Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare motorcycles</Link>
@@ -136,10 +136,10 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
             <small className="ph-brand-checked">Latest price/spec source check: {latestChecked}</small>
           </div>
           <aside className="ph-brand-overview" aria-label={`${brand} catalog overview`}>
-            <div><span>Models covered</span><strong>{current.length}</strong><small>Current models with dated PH research</small></div>
-            <div><span>Tracked price span</span><strong>{php(low)}–{php(high)}</strong><small>Model-level observed references</small></div>
-            <div><span>Engine range</span><strong>{minEngine}–{maxEngine} cc</strong><small>Across the current catalog</small></div>
-            <div><span>Transmission mix</span><strong>{automatic} auto · {manual} manual</strong><small>Current models covered here</small></div>
+            <div><span>Models covered</span><strong>{current.length}</strong><small>Checked Philippine price and spec records</small></div>
+            <div><span>Price range</span><strong>{php(low)}–{php(high)}</strong><small>Observed model-level references</small></div>
+            <div><span>Engine range</span><strong>{minEngine}–{maxEngine} cc</strong><small>Across models covered here</small></div>
+            <div><span>Transmission</span><strong>{automatic} auto · {manual} manual</strong><small>Across models covered here</small></div>
             {authorityModels.length > 0 && <div><span>Buyer guides</span><strong>{authorityModels.length}</strong><small>Expanded decision briefs with alternatives and Philippine ownership context</small></div>}
           </aside>
         </div>
@@ -159,7 +159,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       {families.length > 0 && <div className="guide-strip ph-brand-families">{families.map((f) => <Link key={f.slug} href={`/motorcycles/${f.makeSlug}/${f.slug}`}><span>Model family</span><strong>{f.make} {f.name}</strong><small>Compare generations</small></Link>)}</div>}
 
       <section id="models" className={`ph-brand-section ph-brand-models-section${current.length <= 2 ? " is-sparse" : ""}`}>
-        <div className="section-head compact"><div><span className="section-kicker">Models to compare</span><h2>Compare {brand} motorcycles currently in MotoIndex</h2><p>{current.length <= 2 ? `MotoIndex currently has ${current.length} fully researched ${brand} ${current.length === 1 ? "model" : "models"} ready to compare. The cards use the full section width so the page stays useful while coverage expands.` : `Compare ${current.length} current ${brand} models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`}</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">Current model research</span><h2>Compare {brand} motorcycles</h2><p>{current.length <= 2 ? `Compare the ${current.length} verified ${brand} ${current.length === 1 ? "model" : "models"} currently covered with Philippine price and specification sources.` : `Compare ${current.length} ${brand} models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`}</p></div></div>
         <div className="card-grid ph-brand-model-grid">{current.map((m) => <ModelCard key={m.id} model={m} />)}</div>
       </section>
 
