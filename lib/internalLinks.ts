@@ -4,9 +4,14 @@ import type { HelmetProduct, Motorcycle, TireProduct, TopBoxProduct } from "@/li
 import { getTopBoxFitmentsForProduct } from "@/lib/topBoxFitment";
 import { observedMarketRange } from "@/lib/marketChecks";
 import type { RelatedLink } from "@/components/RelatedLinks";
+import { findTireSizeSeoHub } from "@/lib/tireSeo";
 
 export function modelInternalLinks(model: Motorcycle): RelatedLink[] {
   const base = `/motorcycles/${model.makeSlug}/${model.slug}`;
+  const tireHubLinks=[...new Set([model.frontTire,model.rearTire])]
+    .map((size)=>({size,hub:findTireSizeSeoHub(size)}))
+    .filter((row)=>Boolean(row.hub))
+    .map((row)=>({href:`/tires/${row.hub!.slug}`,title:`${row.hub!.size} motorcycle tire index`,eyebrow:"Tire size",description:`See other motorcycles that use ${row.hub!.size} as a stock front or rear tire size.`}));
   const links: RelatedLink[] = [
     { href: `/motorcycles/${model.makeSlug}`, title: `${model.make} motorcycles`, eyebrow: "Brand", description: `Browse ${model.make} models and price references.` },
     ...(/scooter/i.test(model.category) && ["honda","yamaha","suzuki"].includes(model.makeSlug) ? [{ href: `/motorcycles/${model.makeSlug}/scooters`, title: `${model.make} scooters`, eyebrow: "Scooter hub", description: `Compare ${model.make} scooter prices, engines, seat heights and weights.` }] : []),
@@ -29,11 +34,16 @@ export function modelInternalLinks(model: Motorcycle): RelatedLink[] {
     return { href: `/compare/${c.slug}`, title: `${model.model} vs ${other.model}`, eyebrow: "Compare", description: "Price, dimensions and specifications side by side." };
   });
   const alternatives = motorcycles.filter(m => m.id !== model.id && m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued" && m.category === model.category && isIndexableModel(m)).sort((a,b)=>Math.abs(a.srp-model.srp)-Math.abs(b.srp-model.srp)).slice(0,2).map(m=>({href:`/motorcycles/${m.makeSlug}/${m.slug}`,title:`${m.make} ${m.model}`,eyebrow:"Alternative",description:`${m.engineCc} cc · ${m.seatHeightMm} mm seat`}));
-  return [...links, ...comparisonLinks, ...alternatives].slice(0, 14);
+  return [...links, ...tireHubLinks, ...comparisonLinks, ...alternatives].slice(0, 16);
 }
 
 export function helmetProductInternalLinks(product: HelmetProduct): RelatedLink[] {
   const category: HelmetCategorySlug | undefined = product.helmetType === "Full face" ? "full-face" : product.helmetType === "Modular" ? "modular" : (product.helmetType === "Half face" || product.helmetType === "Open face") ? "half-face" : undefined;
+  const comparisonLinks: RelatedLink[] = [
+    ...(["kyt","ls2"].includes(product.brandSlug) ? [{ href:"/gear/helmets/compare/kyt-vs-ls2", title:"KYT vs LS2 helmets", eyebrow:"Brand comparison", description:"Compare verified KYT and LS2 model records." }] : []),
+    ...(["evo","spyder"].includes(product.brandSlug) ? [{ href:"/gear/helmets/compare/evo-vs-spyder", title:"EVO vs Spyder helmets", eyebrow:"Brand comparison", description:"Compare verified EVO and Spyder model records." }] : []),
+    ...(["Full face","Modular"].includes(product.helmetType) ? [{ href:"/gear/helmets/compare/full-face-vs-modular", title:"Full-face vs modular helmets", eyebrow:"Format comparison", description:"Compare coverage, convenience and equipment tradeoffs." }] : [])
+  ];
   const isRoadHelmet = ["Full face", "Modular", "Half face", "Open face"].includes(product.helmetType);
   const hasEce2206 = /(?:ECE\s*)?(?:R?22[.\s-]?06|22\.06)/i.test(product.certification || "");
   const sameBrand = helmetProducts.filter(p => p.status === "verified" && p.brandSlug === product.brandSlug && p.id !== product.id).slice(0, 2);
@@ -48,8 +58,9 @@ export function helmetProductInternalLinks(product: HelmetProduct): RelatedLink[
     { href: "/guides/motorcycle-helmet-certification-philippines", title: "Helmet certification guide", eyebrow: "Certification", description: "Understand PS, ICC and international certification references." },
     { href: "/gear/helmets/finder", title: "Helmet Finder", eyebrow: "Finder", description: "Filter verified helmets by budget, type, size and equipment." },
     { href: `/gear/helmets/compare?a=${encodeURIComponent(product.id)}`, title: "Compare this helmet", eyebrow: "Compare", description: "Put this helmet beside another verified model." },
+    ...comparisonLinks,
     ...sameBrand.map(p => ({ href: `/gear/helmets/${p.brandSlug}/${p.slug}`, title: `${p.brand} ${p.model}`, eyebrow: "Same brand", description: `${p.helmetType}${p.priceFromPhp ? ` · observed from ₱${p.priceFromPhp.toLocaleString("en-PH")}` : ""}` }))
-  ].slice(0, 12);
+  ].slice(0, 14);
 }
 
 export function helmetBrandInternalLinks(brandSlug: string): RelatedLink[] {
