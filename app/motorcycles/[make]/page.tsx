@@ -5,7 +5,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { notFound } from "next/navigation";
 import { motorcycles, isIndexableModel } from "@/lib/data";
 import { ModelCard } from "@/components/ModelCard";
-import { pageMetadata } from "@/lib/site";
+import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { modelFamilies } from "@/lib/families";
 import { observedMarketRange } from "@/lib/marketChecks";
 import { getPhBrandPriority } from "@/lib/phBrandPriority";
@@ -100,7 +100,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       "@type": "CollectionPage",
       name: `${brand} motorcycles in the Philippines`,
       description: `Current ${brand} motorcycle prices, specifications and research for the Philippines.`,
-      url: `/motorcycles/${make}`,
+      url: absoluteUrl(`/motorcycles/${make}`),
       mainEntity: {
         "@type": "ItemList",
         numberOfItems: current.length,
@@ -108,7 +108,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
           "@type": "ListItem",
           position: index + 1,
           name: `${m.make} ${m.model}`,
-          url: `/motorcycles/${m.makeSlug}/${m.slug}`
+          url: absoluteUrl(`/motorcycles/${m.makeSlug}/${m.slug}`)
         }))
       }
     },
@@ -131,19 +131,19 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
           <div>
             <span className="entity-kicker">Philippines {priority ? `· ${priority.label}` : "· Brand guide"}</span>
             <h1>{brand} motorcycles: prices, specs and models in the Philippines</h1>
-            <p>One research hub for the {brand} models we can substantiate now: buyer verdicts, dated price/spec references, ownership context, after-sales links and full model pages. This is a researched coverage set, not a claim that every Philippine-market {brand} is already indexed.</p>
+            <p>Compare the {brand} motorcycles currently covered by MotoIndex using dated Philippine price references, core specifications, rider-fit data and ownership tools. The page grows as more models are verified, so it should not be read as the brand&apos;s complete Philippine lineup.</p>
             <div className="ph-brand-actions">
               <Link className="button" href="#models">Browse {brand} models</Link>
               <Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare motorcycles</Link>
             </div>
-            <small className="ph-brand-checked">Latest model-source check in this hub: {latestChecked}</small>
+            <small className="ph-brand-checked">Latest price/spec source check: {latestChecked}</small>
           </div>
           <aside className="ph-brand-overview" aria-label={`${brand} catalog overview`}>
-            <div><span>Current models</span><strong>{current.length}</strong><small>Models with dated research</small></div>
+            <div><span>Models covered</span><strong>{current.length}</strong><small>Current models with dated PH research</small></div>
             <div><span>Tracked price span</span><strong>{php(low)}–{php(high)}</strong><small>Model-level observed references</small></div>
             <div><span>Engine range</span><strong>{minEngine}–{maxEngine} cc</strong><small>Across the current catalog</small></div>
             <div><span>Transmission mix</span><strong>{automatic} auto · {manual} manual</strong><small>Current tracked models</small></div>
-            {averageAuthorityScore !== undefined && <div><span>Authority depth</span><strong>{averageAuthorityScore}/100</strong><small>{authorityModels.length} buyer-researched anchor {authorityModels.length === 1 ? "model" : "models"}</small></div>}
+            {averageAuthorityScore !== undefined && <div><span>Research depth</span><strong>{averageAuthorityScore}/100</strong><small>{authorityModels.length} {authorityModels.length === 1 ? "model has" : "models have"} an expanded buyer brief</small></div>}
           </aside>
         </div>
       </div>
@@ -155,8 +155,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       </nav>
 
       {priority && <section className="ph-brand-context">
-        <div><span>Why MotoIndex is expanding this brand</span><h2>{priority.reason}</h2></div>
-        <p>Depth comes before breadth: every expansion model needs a dated source, a complete core-spec record, a unique Philippine buyer brief and a usable after-sales path before it can pass the publication gate.</p>
+        <div><span>{brand} buying context</span><h2>{priority.reason}</h2></div>
+        <p>Use this page to narrow the shortlist by price, engine size, seat height, transmission and local ownership support. Open a model for the detailed source trail, financing estimates, fitment and alternatives.</p>
       </section>}
 
       {families.length > 0 && <div className="guide-strip ph-brand-families">{families.map((f) => <Link key={f.slug} href={`/motorcycles/${f.makeSlug}/${f.slug}`}><span>Model family</span><strong>{f.make} {f.name}</strong><small>Compare generations</small></Link>)}</div>}
@@ -180,7 +180,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <div>
           <span className="section-kicker">Shop by use</span><h2>Categories in the {brand} lineup</h2>
           {scooters.length >= 3 && <Link className="button small" href={`/motorcycles/${make}/scooters`}>See all {brand} scooters →</Link>}
-          <div className="ph-brand-category-grid">{categories.map((category) => <Link key={category} href={{ pathname: "/motorcycles", query: { make, type: category } }}><strong>{category}</strong><span>{current.filter((m) => m.category === category).length} tracked</span></Link>)}</div>
+          <div className="ph-brand-category-grid">{categories.map((category) => <Link key={category} href={{ pathname: "/motorcycles", query: { make, type: category } }}><strong>{category}</strong><span>{current.filter((m) => m.category === category).length} covered</span></Link>)}</div>
         </div>
         <aside className="ph-brand-start-card"><span>Need a faster answer?</span><h3>Start with fit, budget or a side-by-side comparison.</h3><p>The catalog is most useful when you narrow the choice by real constraints rather than by brand alone.</p><div><Link href={{ pathname: "/finder", query: { make } }}>Use motorcycle finder →</Link><Link href="/compare">Open comparison tool →</Link><Link href="/recommendations">Browse PH recommendations →</Link></div></aside>
       </section>
