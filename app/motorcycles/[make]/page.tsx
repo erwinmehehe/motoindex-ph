@@ -62,6 +62,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const maxEngine = Math.max(...engines);
   const categories = [...new Set(current.map((m) => m.category))].sort();
   const automatic = current.filter((m) => m.transmission === "Automatic").length;
+  const scooters = current.filter((m) => /scooter/i.test(m.category));
   const manual = current.filter((m) => m.transmission === "Manual").length;
   const cheapest = ranges.reduce((best, row) => row.from < best.from ? row : best, ranges[0]);
   const latestChecked = current.map((m) => m.verifiedAt).sort().at(-1) || "";
@@ -177,6 +178,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       <section id="categories" className="ph-brand-section ph-brand-two-col">
         <div>
           <span className="section-kicker">Shop by use</span><h2>Categories in the {brand} lineup</h2>
+          {scooters.length >= 3 && <Link className="button small" href={`/motorcycles/${make}/scooters`}>See all {brand} scooters →</Link>}
           <div className="ph-brand-category-grid">{categories.map((category) => <Link key={category} href={{ pathname: "/motorcycles", query: { make, type: category } }}><strong>{category}</strong><span>{current.filter((m) => m.category === category).length} tracked</span></Link>)}</div>
         </div>
         <aside className="ph-brand-start-card"><span>Need a faster answer?</span><h3>Start with fit, budget or a side-by-side comparison.</h3><p>The catalog is most useful when you narrow the choice by real constraints rather than by brand alone.</p><div><Link href={{ pathname: "/finder", query: { make } }}>Use motorcycle finder →</Link><Link href="/compare">Open comparison tool →</Link><Link href="/recommendations">Browse PH recommendations →</Link></div></aside>
