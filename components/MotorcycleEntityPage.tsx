@@ -11,6 +11,7 @@ import { VariantMatrix } from "@/components/VariantMatrix";
 import { PriceIntelligence } from "@/components/PriceIntelligence";
 import { MarketPriceChecks } from "@/components/MarketPriceChecks";
 import { InstallmentCalculator } from "@/components/InstallmentCalculator";
+import { FinancingSnapshot } from "@/components/FinancingSnapshot";
 import { RiderFitCalculator } from "@/components/RiderFitCalculator";
 import { FuelRangeCalculator } from "@/components/FuelRangeCalculator";
 import { OwnershipCostCalculator } from "@/components/OwnershipCostCalculator";
@@ -213,6 +214,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       {!isPrevious && <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
         <div className="section-head compact"><div><span className="section-kicker">Financing</span><h2 id="installment-heading">{model.make} {model.model} installment calculator</h2><p>Start from the dated purchase-price reference, then replace the assumptions with an actual dealer or lender quote.</p></div></div>
         <InstallmentCalculator price={range.from} priceOptions={variantPriceOptions(model.id)} />
+        <FinancingSnapshot modelName={`${model.make} ${model.model}`} price={range.from} />
         <div className="entity-tool-grid">
           <Link href={loanToolHref}><span>Loan scenario</span><strong>Standalone loan calculator</strong><small>Change price, down payment, term and rate with a shareable URL.</small></Link>
           <Link href={insuranceToolHref}><span>Insurance</span><strong>Insurance estimate</strong><small>Prefill insured value from this model&apos;s price basis.</small></Link>
