@@ -1,4 +1,4 @@
-import { getModelById } from "./data";
+import { getModelById, publicMotorcycles } from "./data";
 import type { Motorcycle } from "./types";
 
 export type TireFamilyHub = {
@@ -85,4 +85,46 @@ export function getTireFamilyHub(slug: string) {
 
 export function getTireFamilyModels(hub: TireFamilyHub): Motorcycle[] {
   return hub.modelIds.map(getModelById).filter((m): m is Motorcycle => Boolean(m));
+}
+
+
+export type TireSizeSeoHub = {
+  slug: string;
+  size: string;
+  title: string;
+  description: string;
+};
+
+export const tireSizeSeoHubs: TireSizeSeoHub[] = [
+  { slug:"90-90-14", size:"90/90-14", title:"Motorcycles Using 90/90-14 Tires in the Philippines", description:"See current Philippine-market motorcycles that list 90/90-14 as a stock front or rear tire size, then open the exact model for full fitment context." },
+  { slug:"100-80-14", size:"100/80-14", title:"Motorcycles Using 100/80-14 Tires in the Philippines", description:"See current Philippine-market motorcycles that list 100/80-14 as a stock front or rear tire size, with axle position and exact model links." },
+  { slug:"110-80-14", size:"110/80-14", title:"Motorcycles Using 110/80-14 Tires in the Philippines", description:"See current Philippine-market motorcycles that list 110/80-14 as a stock front or rear tire size, then verify the complete fitment on the model page." },
+  { slug:"130-70-13", size:"130/70-13", title:"Motorcycles Using 130/70-13 Tires in the Philippines", description:"See current Philippine-market motorcycles that list 130/70-13 as a stock front or rear tire size and compare the exact axle use by model." },
+  { slug:"110-70-17", size:"110/70-17", title:"Motorcycles Using 110/70-17 Tires in the Philippines", description:"See current Philippine-market motorcycles that list 110/70-17 as a stock front or rear tire size, with direct links to each model's tire section." },
+  { slug:"150-60-17", size:"150/60-17", title:"Motorcycles Using 150/60-17 Tires in the Philippines", description:"See current Philippine-market motorcycles that list 150/60-17 as a stock front or rear tire size and verify the full fitment before buying." }
+];
+
+function normalizeTireSize(value: string) {
+  return value.toUpperCase().replace(/\s+/g,"").replace(/R(?=\d)/g,"-").replace(/M\/C/g,"").replace(/--+/g,"-");
+}
+
+export function getTireSizeSeoHub(slug: string) {
+  return tireSizeSeoHubs.find((hub) => hub.slug === slug);
+}
+
+export function getMotorcyclesUsingTireSize(size: string) {
+  const target=normalizeTireSize(size);
+  return publicMotorcycles
+    .map(model => ({
+      model,
+      front: normalizeTireSize(model.frontTire) === target,
+      rear: normalizeTireSize(model.rearTire) === target
+    }))
+    .filter(match => match.front || match.rear)
+    .sort((a,b) => a.model.make.localeCompare(b.model.make) || a.model.model.localeCompare(b.model.model));
+}
+
+export function isIndexableTireSizeSeoHub(slug: string) {
+  const hub=getTireSizeSeoHub(slug);
+  return Boolean(hub && getMotorcyclesUsingTireSize(hub.size).length >= 3);
 }
