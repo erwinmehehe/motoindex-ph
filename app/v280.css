@@ -124,3 +124,127 @@
 
 /* Nickname explainer on family hubs (the Click V1-V4 question). */
 .family-nicknames{margin:38px 0 44px}
+
+
+/* Brand hub audit — sparse catalog layout and professional no-photo states. */
+.model-media-placeholder{
+  min-height:195px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:20px;
+  background:
+    radial-gradient(circle at 82% 14%,rgba(240,84,45,.14),transparent 32%),
+    linear-gradient(145deg,#f4f3ee 0%,#fff 72%);
+  border-bottom:1px solid var(--line);
+  color:var(--ink);
+  overflow:hidden;
+}
+.model-media-placeholder>span{
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.11em;
+  font-weight:900;
+  color:var(--accent);
+}
+.model-media-placeholder>strong{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  margin:9px 0 16px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  line-height:1.1;
+}
+.model-media-placeholder>strong b{
+  font-size:26px;
+  line-height:1;
+  letter-spacing:-.04em;
+  text-transform:none;
+}
+.model-media-placeholder>div{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.model-media-placeholder em{
+  font-style:normal;
+  padding:6px 8px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(255,255,255,.78);
+  font-size:9px;
+  font-weight:800;
+  color:#5c666d;
+}
+.model-media-placeholder>small{
+  margin-top:13px;
+  font-size:9px;
+  color:var(--muted);
+  font-weight:750;
+}
+
+.ph-brand-models-section .section-head{
+  margin-bottom:24px;
+}
+.ph-brand-model-grid{
+  align-items:stretch;
+}
+.ph-brand-models-section.is-sparse .ph-brand-model-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.ph-brand-models-section.is-sparse .model-card{
+  display:grid;
+  grid-template-columns:minmax(180px,.72fr) minmax(0,1fr);
+  min-height:300px;
+}
+.ph-brand-models-section.is-sparse .model-card>.model-card-media,
+.ph-brand-models-section.is-sparse .model-card>.model-media-placeholder,
+.ph-brand-models-section.is-sparse .model-card>.bike-art{
+  height:100%;
+  min-height:300px;
+  border-bottom:0;
+  border-right:1px solid var(--line);
+}
+.ph-brand-models-section.is-sparse .model-card-media .entity-media-link{display:block;height:100%}
+.ph-brand-models-section.is-sparse .model-card-media img{height:100%;padding:18px;}
+.ph-brand-models-section.is-sparse .model-card-body{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+.ph-brand-models-section.is-sparse .model-card-body .card-actions{
+  margin-top:auto;
+  padding-top:20px;
+}
+
+@media(max-width:980px){
+  .ph-brand-models-section.is-sparse .model-card{
+    grid-template-columns:150px minmax(0,1fr);
+  }
+}
+@media(max-width:760px){
+  .ph-brand-models-section.is-sparse .ph-brand-model-grid{
+    grid-template-columns:1fr;
+  }
+  .ph-brand-models-section.is-sparse .model-card{
+    grid-template-columns:minmax(150px,.68fr) minmax(0,1fr);
+  }
+}
+@media(max-width:560px){
+  .ph-brand-models-section.is-sparse .model-card{
+    display:block;
+    min-height:0;
+  }
+  .ph-brand-models-section.is-sparse .model-card>.model-card-media,
+  .ph-brand-models-section.is-sparse .model-card>.model-media-placeholder,
+  .ph-brand-models-section.is-sparse .model-card>.bike-art{
+    height:180px;
+    min-height:180px;
+    border-right:0;
+    border-bottom:1px solid var(--line);
+  }
+  .model-media-placeholder{min-height:180px;padding:17px}
+  .model-media-placeholder>strong b{font-size:23px}
+}
