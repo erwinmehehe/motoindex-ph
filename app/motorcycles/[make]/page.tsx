@@ -74,11 +74,11 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const faq = [
     {
       question: `Is this the complete ${brand} motorcycle lineup in the Philippines?`,
-      answer: `No. This hub publishes only the ${brand} models that currently pass MotoIndex's evidence and page-depth gate. ${current.length} current ${brand} ${current.length === 1 ? "model is" : "models are"} published here today; the real Philippine lineup may be broader, and additional models are added only after their records are researched.`
+      answer: `No. This page includes only the ${brand} models for which MotoIndex has a dated Philippine price/specification source and enough decision data to publish responsibly. ${current.length} current ${brand} ${current.length === 1 ? "model is" : "models are"} covered here today; the real Philippine lineup may be broader.`
     },
     {
       question: `How many ${brand} motorcycles does MotoIndex currently track in the Philippines?`,
-      answer: `MotoIndex currently publishes ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} on this Philippines brand hub${previous.length ? `, plus ${previous.length} previous-generation reference ${previous.length === 1 ? "model" : "models"}` : ""}. The catalog expands when we can attach a dated price reference and a usable specification record to the model.`
+      answer: `MotoIndex currently covers ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} on this Philippines brand page${previous.length ? `, plus ${previous.length} previous-generation reference ${previous.length === 1 ? "model" : "models"}` : ""}. Additional models are added after their Philippine price and core specifications are verified.`
     },
     {
       question: `How much are ${brand} motorcycles in the Philippines?`,
@@ -129,7 +129,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
         <div className="ph-brand-hero-grid">
           <div>
-            <span className="entity-kicker">Philippines {priority ? `· ${priority.label}` : "· Brand guide"}</span>
+            <span className="entity-kicker">Philippines · Brand guide</span>
             <h1>{brand} motorcycles: prices, specs and models in the Philippines</h1>
             <p>Compare the {brand} motorcycles currently covered by MotoIndex using dated Philippine price references, core specifications, rider-fit data and ownership tools. The page grows as more models are verified, so it should not be read as the brand&apos;s complete Philippine lineup.</p>
             <div className="ph-brand-actions">
@@ -161,9 +161,9 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
       {families.length > 0 && <div className="guide-strip ph-brand-families">{families.map((f) => <Link key={f.slug} href={`/motorcycles/${f.makeSlug}/${f.slug}`}><span>Model family</span><strong>{f.make} {f.name}</strong><small>Compare generations</small></Link>)}</div>}
 
-      <section id="models" className="ph-brand-section">
-        <div className="section-head compact"><div><span className="section-kicker">Published coverage</span><h2>{brand} motorcycles we have researched now</h2><p>This is deliberately not labeled the complete lineup. Every card must meet the model-page publication standard and opens one consolidated research page rather than splitting the same motorcycle across repetitive pages.</p></div></div>
-        <div className="card-grid">{current.map((m) => <ModelCard key={m.id} model={m} />)}</div>
+      <section id="models" className={`ph-brand-section ph-brand-models-section${current.length <= 2 ? " is-sparse" : ""}`}>
+        <div className="section-head compact"><div><span className="section-kicker">Models to compare</span><h2>Compare {brand} motorcycles currently in MotoIndex</h2><p>{current.length <= 2 ? `MotoIndex currently has ${current.length} fully researched ${brand} ${current.length === 1 ? "model" : "models"} ready to compare. The cards use the full section width so the page stays useful while coverage expands.` : `Compare ${current.length} current ${brand} models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`}</p></div></div>
+        <div className="card-grid ph-brand-model-grid">{current.map((m) => <ModelCard key={m.id} model={m} />)}</div>
       </section>
 
       <section id="price-list" className="ph-brand-section">
@@ -194,8 +194,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       </section>}
 
       <section id="research" className="ph-brand-section">
-        <div className="section-head compact"><div><span className="section-kicker">Evidence first</span><h2>How this {brand} hub stays useful</h2><p>A useful brand page needs enough real decision detail to earn its place. Expansion models are scored for source quality, core specs, unique buyer analysis, direct competitors and Philippine support resources. Missing media, maintenance schedules or independent price checks stay visible as research gaps.</p></div></div>
-        <div className="ph-brand-method-grid"><article><span>01</span><h3>Research threshold first</h3><p>A dated model source, complete core specs, unique buyer analysis and a local ownership/support path are required before a Tier 2/3 model is published.</p></article><article><span>02</span><h3>One complete model page</h3><p>Price, specs, buyer verdict, financing, fitment, maintenance, support links and ownership research live together so buyers do not chase fragments.</p></article><article><span>03</span><h3>Gaps stay visible</h3><p>If media, model-year maintenance, variant mapping or a second price source is missing, the page says so instead of filling the hole with generic filler.</p></article></div>
+        <div className="section-head compact"><div><span className="section-kicker">How to use the data</span><h2>Before choosing a {brand} motorcycle</h2><p>MotoIndex keeps dated price references and specifications visible so you can compare models without treating the page as a dealer quote or a complete manufacturer catalog.</p></div></div>
+        <div className="ph-brand-method-grid"><article><span>01</span><h3>Check the price date</h3><p>Prices are dated reference points. Open the model page to see the source and confirm the current cash price, fees and variant with the seller.</p></article><article><span>02</span><h3>Compare fit and use</h3><p>Engine size, seat height, weight, transmission and tire data help narrow the shortlist, but actual rider fit and comfort still need an in-person check.</p></article><article><span>03</span><h3>Confirm local support</h3><p>Dealer reach, parts, service intervals and warranty support matter after purchase. Use the official brand resources linked on this page when available.</p></article></div>
       </section>
 
       {uncertain.length > 0 && <section className="ph-brand-section"><div className="section-head compact"><div><span className="section-kicker">Availability to verify</span><h2>{brand} models needing a current lineup check</h2><p>These source-backed model pages remain available for research, but they are kept outside the current lineup until present-day official availability is confirmed.</p></div></div><div className="card-grid">{uncertain.map((m) => <ModelCard key={m.id} model={m} />)}</div></section>}
