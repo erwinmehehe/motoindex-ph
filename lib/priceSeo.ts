@@ -2,6 +2,7 @@ import type { Motorcycle } from "./types";
 import type { FaqItem } from "@/components/FaqSection";
 import { financingScenario } from "./financing";
 import { php } from "./utils";
+import { observedMarketRange } from "./marketChecks";
 
 export type PriceSeoTarget = {
   title: string;
@@ -67,7 +68,7 @@ export function priceSeoForModel(model: Motorcycle): PriceSeoTarget | undefined 
 
 export function priceFaqsForModel(model: Motorcycle, priceLabel: string): FaqItem[] {
   const modelName = `${model.make} ${model.model}`;
-  const finance = financingScenario(model.srp, 20, 36, 12);
+  const finance = financingScenario(observedMarketRange(model).from, 20, 36, 12);
   if (model.marketStatus === "previous") {
     return [
       {
