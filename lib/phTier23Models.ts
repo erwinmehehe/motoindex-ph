@@ -4,6 +4,7 @@ import type { Motorcycle } from "./types";
 // These are current, source-backed anchor models for Tier 2 and Tier 3 brands.
 // Search-volume fields remain zero until measured keyword data is imported; we do not invent SEO volume.
 const verifiedAt = "2026-08-27";
+const verifiedNow = "2026-09-08";
 
 export const phTier23Motorcycles: Motorcycle[] = [
   {
@@ -149,10 +150,10 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "313cc entry adventure motorcycle with ABS, 19/17-inch wheels and a published 835 mm seat height."
   },
   {
-    id: "bmw-c-400-gt", make: "BMW Motorrad", makeSlug: "bmw-motorrad", model: "C 400 GT", slug: "c-400-gt", generation: "Current", category: "Maxi scooter",
-    srp: 595000, engineCc: 350, powerHp: 34, torqueNm: 35, curbWeightKg: 219, seatHeightMm: 775, fuelTankL: 12.8,
+    id: "bmw-c-400-gt", make: "BMW Motorrad", makeSlug: "bmw-motorrad", model: "C 400 GT", slug: "c-400-gt", generation: "2026 Philippine model", category: "Maxi scooter",
+    srp: 625000, engineCc: 350, powerHp: 34, torqueNm: 35, curbWeightKg: 219, seatHeightMm: 775, fuelTankL: 12.8,
     frontTire: "120/70-15", rearTire: "150/70-14", abs: "BMW Motorrad ABS Pro with traction-control equipment", colors: [], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "BMW Motorrad Philippines C 400 GT technical data with current Philippines price cross-check", sourceUrl: "https://www.bmwmotorrad.com.ph/en/models/urban_mobility/c400gt/technicaldata.html", verifiedAt, freshness: "verified", marketStatus: "current", transmission: "Automatic",
+    sourceLabel: "BMW Motorrad Philippines C 400 GT technical data", sourceUrl: "https://www.bmwmotorrad.com.ph/en/models/urban_mobility/c400gt/technicaldata.html", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current", marketPriceSourceLabel: "BMW Motorrad Philippines 2026 model overview", marketPriceSourceUrl: "https://www.bmwmotorrad.com.ph/en/models/modeloverview.html", marketPriceCheckedAt: verifiedNow, transmission: "Automatic",
     summary: "350cc premium maxi scooter with a 775 mm seat, 12.8 L tank and BMW ABS/traction-control rider aids."
   },
 
@@ -229,5 +230,94 @@ export const phTier23Motorcycles: Motorcycle[] = [
     frontTire: "110/70-17", rearTire: "150/60-17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Independent PH current Husqvarna Vitpilen 401 price and specification reference", sourceUrl: "https://www.carmudi.com.ph/new-motorcycles/husqvarna/vitpilen-401/specifications/", verifiedAt, freshness: "verified", marketStatus: "current", transmission: "Manual",
     summary: "373cc cafe-style roadster with 44 hp, ABS, 17-inch tires and a six-speed manual transmission."
-  }
+  },
+  {
+    id: "bmw-g-310-r", make: "BMW Motorrad", makeSlug: "bmw-motorrad", model: "G 310 R", slug: "g-310-r", generation: "2023 Philippine listing", category: "Naked street bike",
+    srp: 300000, engineCc: 313, powerHp: 34, torqueNm: 28, curbWeightKg: 164, seatHeightMm: 785, fuelTankL: 11,
+    frontTire: "110/70 R17", rearTire: "150/60 R17", abs: "BMW Motorrad ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "BMW Motorrad Philippines G 310 R technical data", sourceUrl: "https://www.bmwmotorrad.com.ph/en/models/roadster/g310r/technicaldata.html", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "BMW Motorrad Philippines model overview", marketPriceSourceUrl: "https://www.bmwmotorrad.com.ph/en/models/modeloverview.html", marketPriceCheckedAt: verifiedNow, transmission: "Manual",
+    summary: "313cc entry roadster with 34 hp, a 785 mm seat, 164 kg road-ready weight, 17-inch tires and BMW Motorrad ABS."
+  },
+  {
+    id: "bmw-r-1300-gs", make: "BMW Motorrad", makeSlug: "bmw-motorrad", model: "R 1300 GS", slug: "r-1300-gs", generation: "2026 Philippine model", category: "Adventure touring",
+    srp: 1675000, engineCc: 1300, powerHp: 145, torqueNm: 149, curbWeightKg: 237, seatHeightMm: 850, fuelTankL: 19,
+    frontTire: "120/70 R19", rearTire: "170/60 R17", abs: "BMW Motorrad Full Integral ABS Pro", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "BMW Motorrad Philippines R 1300 GS technical data", sourceUrl: "https://www.bmwmotorrad.com.ph/en/models/adventure/r1300gs/technicaldata.html", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "BMW Motorrad Philippines 2026 model overview", marketPriceSourceUrl: "https://www.bmwmotorrad.com.ph/en/models/modeloverview.html", marketPriceCheckedAt: verifiedNow, transmission: "Manual",
+    summary: "1300cc boxer adventure motorcycle with 145 hp, 149 Nm, a 19 L tank, 850 mm seat and Full Integral ABS Pro."
+  },
+  {
+    id: "cfmoto-450nk", make: "CFMOTO", makeSlug: "cfmoto", model: "450NK", slug: "450nk", generation: "Current Philippine model", category: "Naked street bike",
+    srp: 275900, engineCc: 449.5, powerHp: 51, torqueNm: 39, curbWeightKg: 173, seatHeightMm: 795, fuelTankL: 14, groundClearanceMm: 192,
+    frontTire: "110/70 ZR17", rearTire: "150/60 ZR17", abs: "ABS with traction control", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "CFMOTO Philippines current 450NK price and specification page", sourceUrl: "https://www.cfmotoph.com/motorcycle/450nk", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "CFMOTO Philippines", marketPriceSourceUrl: "https://www.cfmotoph.com/motorcycle/450nk", marketPriceCheckedAt: verifiedNow, transmission: "Manual",
+    summary: "449.5cc twin-cylinder naked bike with about 51 hp, a 795 mm seat, ABS, traction control and six-speed manual transmission."
+  },
+  {
+    id: "cfmoto-675sr-r", alsoKnownAs: ["CFMOTO 675SRR"], make: "CFMOTO", makeSlug: "cfmoto", model: "675SR-R", slug: "675sr-r", generation: "Current Philippine model", category: "Sport bike",
+    srp: 438900, engineCc: 675, powerHp: 93.9, torqueNm: 70, curbWeightKg: 189, seatHeightMm: 810, fuelTankL: 15, groundClearanceMm: 140,
+    frontTire: "120/70 R17", rearTire: "180/55 R17", abs: "ABS with adjustable traction control", colors: ["Nebula Black", "Nebula White", "Aerolite Grey"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "CFMOTO Philippines current 675SR-R price and engine specification page with global chassis specification cross-check", sourceUrl: "https://www.cfmotoph.com/motorcycle/675sr", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "CFMOTO Philippines", marketPriceSourceUrl: "https://www.cfmotoph.com/motorcycle/675sr", marketPriceCheckedAt: verifiedNow, transmission: "Manual",
+    summary: "675cc inline-three sport bike with 70 kW output, 70 Nm, a 15 L tank, 810 mm seat, ABS and adjustable traction control."
+  },
+  {
+    id: "triumph-trident-660", make: "Triumph", makeSlug: "triumph", model: "Trident 660", slug: "trident-660", generation: "2025 Philippine model", category: "Naked street bike",
+    srp: 524000, engineCc: 660, powerHp: 81, torqueNm: 64, curbWeightKg: 190, seatHeightMm: 805, fuelTankL: 14,
+    frontTire: "120/70 R17", rearTire: "180/55 R17", abs: "Optimised cornering ABS with traction control", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Triumph Motorcycles Philippines Trident 660 model and specification pages", sourceUrl: "https://www.triumphmotorcycles.ph/bikes/roadsters/trident/specification", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Triumph Motorcycles Philippines", marketPriceSourceUrl: "https://www.triumphmotorcycles.ph/bikes/previous-model-year/models/trident-660-2025", marketPriceCheckedAt: verifiedNow, transmission: "Manual",
+    summary: "660cc inline-three roadster with 81 hp, 64 Nm, an 805 mm seat, 14 L tank and optimised cornering ABS."
+  },
+  {
+    id: "triumph-street-triple-765-rs", alsoKnownAs: ["Street Triple RS"], make: "Triumph", makeSlug: "triumph", model: "Street Triple 765 RS", slug: "street-triple-765-rs", generation: "Current Philippine model", category: "Naked street bike",
+    srp: 870000, engineCc: 765, powerHp: 128.2, torqueNm: 80, curbWeightKg: 188, seatHeightMm: 839, fuelTankL: 15,
+    frontTire: "120/70 ZR17", rearTire: "180/55 ZR17", abs: "Optimised cornering ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Triumph Motorcycles Philippines Street Triple 765 RS specification page", sourceUrl: "https://www.triumphmotorcycles.ph/bikes/roadsters/street-triple-765/specification", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Triumph Motorcycles Philippines", marketPriceSourceUrl: "https://www.triumphmotorcycles.ph/bikes/roadsters/street-triple/street-triple-765-rs", marketPriceCheckedAt: verifiedNow, transmission: "Manual",
+    summary: "765cc inline-three naked bike with 128.2 hp, 80 Nm, an 839 mm seat, 188 kg wet weight and optimised cornering ABS."
+  },
+  {
+    id: "royal-enfield-guerrilla-450", make: "Royal Enfield", makeSlug: "royal-enfield", model: "Guerrilla 450", slug: "guerrilla-450", generation: "Current Philippine model", category: "Naked street bike",
+    srp: 289000, engineCc: 452, powerHp: 39.5, torqueNm: 40, curbWeightKg: 185, seatHeightMm: 780, fuelTankL: 11, groundClearanceMm: 169,
+    frontTire: "120/70 R17", rearTire: "160/60 R17", abs: "Dual-channel ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Royal Enfield Philippines Guerrilla 450 model and technical specification page", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/guerrilla-450/", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Royal Enfield Philippines owner support", marketPriceSourceUrl: "https://www.royalenfield.com/ph/en/support/owners-manual/", marketPriceCheckedAt: verifiedNow, transmission: "Manual",
+    summary: "452cc roadster with 40 PS and 40 Nm, a low 780 mm seat, 169 mm ground clearance, 17-inch tires and dual-channel ABS."
+  },
+  {
+    id: "royal-enfield-classic-350", make: "Royal Enfield", makeSlug: "royal-enfield", model: "Classic 350", slug: "classic-350", generation: "Current Philippine model", category: "Classic road bike",
+    srp: 230000, engineCc: 349, powerHp: 20.2, torqueNm: 27, curbWeightKg: 195, seatHeightMm: 805, fuelTankL: 13, groundClearanceMm: 170,
+    frontTire: "100/90-19", rearTire: "120/80-18", abs: "Dual-channel ABS on current dual-disc configurations", colors: ["Emerald", "Stealth Black", "Gun Grey", "Commando Sand", "Medallion Bronze"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Royal Enfield Classic 350 technical specification and Philippine model pages", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/classic-350/", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Royal Enfield Philippines owner support", marketPriceSourceUrl: "https://www.royalenfield.com/ph/en/support/owners-manual/", marketPriceCheckedAt: verifiedNow, transmission: "Manual",
+    summary: "349cc classic road bike with 20.2 hp, 27 Nm, an 805 mm seat, 13 L tank and 19/18-inch wheels."
+  },
+  {
+    id: "vespa-gts-supersport-300", alsoKnownAs: ["Vespa GTS Super Sport 300"], make: "Vespa", makeSlug: "vespa", model: "GTS SuperSport 300", slug: "gts-supersport-300", generation: "2025 Philippine model", category: "Premium scooter",
+    srp: 375000, engineCc: 278, powerHp: 23.8, torqueNm: 26, curbWeightKg: 157, seatHeightMm: 790, fuelTankL: 8.5, fuelConsumptionKmL: 30.3,
+    frontTire: "120/70-12", rearTire: "130/70-12", abs: "Dual-channel ABS with ASR traction control", colors: ["Blue Eclettico"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Vespa Philippines GTS SuperSport 300 price page and official technical specification sheet", sourceUrl: "https://www.vespa.com/ph_EN/models/gts/gts-supersport-300-hpe-2025/", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Vespa Philippines", marketPriceSourceUrl: "https://www.vespa.com/ph_EN/models/gts/gts-supersport-300-hpe-2025/", marketPriceCheckedAt: verifiedNow, transmission: "Automatic",
+    summary: "278cc premium Grand Tourer scooter with 23.8 hp, dual-channel ABS, ASR, 12-inch wheels, a 790 mm seat and an 8.5 L tank."
+  },
+  {
+    id: "vespa-gtv-300", make: "Vespa", makeSlug: "vespa", model: "GTV 300", slug: "gtv-300", generation: "2025 Philippine model", category: "Premium scooter",
+    srp: 425000, engineCc: 278, powerHp: 23.8, torqueNm: 26, curbWeightKg: 163, seatHeightMm: 790, fuelTankL: 8.5,
+    frontTire: "120/70-12", rearTire: "130/70-12", abs: "Dual-channel ABS with ASR traction control", colors: ["Green Tenace"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Vespa Philippines GTV 300 price and product page with current GTV technical cross-check", sourceUrl: "https://www.vespa.com/ph_EN/models/gtv/gtv-300-hpe-2025/", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Vespa Philippines", marketPriceSourceUrl: "https://www.vespa.com/ph_EN/models/gtv/gtv-300-hpe-2025/", marketPriceCheckedAt: verifiedNow, transmission: "Automatic",
+    summary: "278cc premium retro-sport scooter with 23.8 hp, a 790 mm seat, 12-inch tires, dual-channel ABS and ASR traction control."
+  },
+  {
+    id: "aprilia-rs-660", make: "Aprilia", makeSlug: "aprilia", model: "RS 660", slug: "rs-660", generation: "Current Philippine model", category: "Sport bike",
+    srp: 660000, engineCc: 659, powerHp: 105, torqueNm: 70, curbWeightKg: 183, seatHeightMm: 820, fuelTankL: 15,
+    frontTire: "120/70 ZR17", rearTire: "180/55 ZR17", abs: "Multimap cornering ABS with APRC rider aids", colors: ["Acid Gold", "Lava Red", "Tribute", "Apex Black"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Aprilia Philippines RS 660 price page with current official technical specification cross-check", sourceUrl: "https://www.aprilia.com/ph_EN/models/rs-660/", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Aprilia Philippines", marketPriceSourceUrl: "https://www.aprilia.com/ph_EN/models/rs-660/", marketPriceCheckedAt: verifiedNow, transmission: "Manual",
+    summary: "659cc parallel-twin sport motorcycle with 105 hp, 70 Nm, 183 kg wet weight, a 15 L tank and multimap cornering ABS."
+  },
+
 ];
