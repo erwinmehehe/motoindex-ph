@@ -11,6 +11,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { php } from "@/lib/utils";
 import { topBoxBrandLineups } from "@/lib/topBoxBrandLineups";
 import { hasRenderableProductMedia } from "@/lib/media";
+import { getAccessorySeoGuide } from "@/lib/accessorySeo";
+import { AccessorySeoGuideContent } from "@/components/AccessorySeoGuideContent";
 
 export function generateStaticParams(){return accessoryCategories.map(a=>({slug:a.slug}));}
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
@@ -23,7 +25,8 @@ export async function generateMetadata({params}:{params:Promise<{slug:string}>})
     path:"/accessories/top-box",
     index:true
   });
-  return pageMetadata({title:`${a.name} for Motorcycles Philippines`,description:a.description,path:`/accessories/${a.slug}`,index:false});
+  const guide=getAccessorySeoGuide(slug);
+  return pageMetadata({title:guide?.seoTitle||`${a.name} for Motorcycles Philippines`,description:guide?.description||a.description,path:`/accessories/${a.slug}`,index:Boolean(guide)});
 }
 
 export default async function AccessoryCategoryPage({params}:{params:Promise<{slug:string}>}){
@@ -31,6 +34,7 @@ export default async function AccessoryCategoryPage({params}:{params:Promise<{sl
   const a=getAccessoryCategory(slug);
   if(!a) return notFound();
   const isTopBox=slug==="top-box";
+  const seoGuide=getAccessorySeoGuide(slug);
   const verifiedBoxes=topBoxProducts.filter(p=>p.status==="verified");
   const verifiedBoxesWithImages=verifiedBoxes.filter(p=>hasRenderableProductMedia(p.id));
   const verifiedBoxesWithoutImages=verifiedBoxes.filter(p=>!hasRenderableProductMedia(p.id));
@@ -44,7 +48,7 @@ export default async function AccessoryCategoryPage({params}:{params:Promise<{sl
 
   return <section className="page shell">
     <Breadcrumbs items={[{label:"Accessories",href:"/accessories"},{label:a.name}]} />
-    <div className="page-head"><h1>{isTopBox?"Motorcycle top boxes: sizes, brackets and fitment":`${a.name} for motorcycles`}</h1><p>{isTopBox?"Compare storage capacity and mounting systems, then check a motorcycle-specific rack or bracket before buying. A 32L or 39L box can be useful storage, but capacity alone never proves fitment.":a.description}</p></div>
+    <div className="page-head"><h1>{isTopBox?"Motorcycle top boxes: sizes, brackets and fitment":seoGuide?.title||`${a.name} for motorcycles`}</h1><p>{isTopBox?"Compare storage capacity and mounting systems, then check a motorcycle-specific rack or bracket before buying. A 32L or 39L box can be useful storage, but capacity alone never proves fitment.":seoGuide?.intro||a.description}</p></div>
 
     {isTopBox && <div className="brand-facts"><div><span>Verified boxes</span><strong>{verifiedBoxes.length}</strong></div><div><span>Bike-specific fitment records</span><strong>{verifiedFitments.length}</strong></div><div><span>Capacity range</span><strong>{Math.min(...verifiedBoxes.map(p=>p.capacityL))}–{Math.max(...verifiedBoxes.map(p=>p.capacityL))} L</strong></div></div>}
 
@@ -73,6 +77,8 @@ export default async function AccessoryCategoryPage({params}:{params:Promise<{sl
       <div className="note-box"><h2>Philippines LTO top-box note</h2><p>LTO announced that the ₱100 registration fee for custom-made motorcycle top boxes and saddle bags was removed. This does not replace safe mounting, load-limit and road-safety checks.</p><a className="text-link" href="https://lto.gov.ph/news/bayad-sa-rehistro-ng-top-box-sa-motorsiklo-inalis-na-ng-lto/" target="_blank" rel="noreferrer">Read the LTO notice ↗</a></div>
       <FaqSection title="Motorcycle top-box questions" items={topBoxFaqs}/>
     </>}
+
+    {!isTopBox && seoGuide && <AccessorySeoGuideContent guide={seoGuide} />}
 
     <div className="section-head inline-head"><div><h2>Model-specific {a.name.toLowerCase()}</h2></div></div>
     <div className="list-cards">{publicMotorcycles.slice(0,8).map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}><span><strong>{a.name} for {m.make} {m.model}</strong><small>Mounting and fitment notes</small></span><b>View fitment →</b></Link>)}</div>
