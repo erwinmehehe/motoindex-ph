@@ -52,8 +52,8 @@ export function motorcycleSitemapEntries(): Entry[] {
   const models = motorcycles.filter(isIndexableModel).map(m=>({
     url:`${SITE_URL}/motorcycles/${m.makeSlug}/${m.slug}`,
     lastModified:iso(m.marketPriceCheckedAt || m.verifiedAt),
-    changeFrequency:m.marketStatus==="previous"?"monthly" as const:"weekly" as const,
-    priority:m.marketStatus==="previous"?.82:.92
+    changeFrequency:m.marketStatus==="previous"||m.marketStatus==="uncertain"?"monthly" as const:"weekly" as const,
+    priority:m.marketStatus==="previous"?.82:m.marketStatus==="uncertain"?.78:.92
   }));
   return [...brands,...scooterHubs,...families,...models];
 }
