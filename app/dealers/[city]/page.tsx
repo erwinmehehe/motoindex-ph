@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { notFound } from "next/navigation";
 import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug, publicDealerCities, publicDealersByCity } from "@/lib/sellers";
+import { allVerifiedDealers } from "@/lib/persistentSellers";
 import { pageMetadata } from "@/lib/site";
 
 export function generateStaticParams(){
@@ -13,7 +14,7 @@ export function generateStaticParams(){
 
 export async function generateMetadata({params}:{params:Promise<{city:string}>}):Promise<Metadata>{
   const {city}=await params;
-  const list=publicDealersByCity(city);
+  const list=(await allVerifiedDealers()).filter(dealer=>citySlug(dealer.city)===city);
   if(list.length < MIN_PUBLIC_DEALERS_PER_CITY) return {};
   const cityName=list[0].city;
   return pageMetadata({
@@ -28,7 +29,7 @@ function phoneHref(phone:string){return `tel:${phone.replace(/[^+\d]/g,"")}`;}
 
 export default async function DealerCityPage({params}:{params:Promise<{city:string}>}){
   const {city}=await params;
-  const list=publicDealersByCity(city);
+  const list=(await allVerifiedDealers()).filter(dealer=>citySlug(dealer.city)===city);
   if(list.length < MIN_PUBLIC_DEALERS_PER_CITY) return notFound();
   const cityName=list[0].city;
   const province=list[0].province;
