@@ -30,7 +30,7 @@ export default async function DealersPage() {
       <div className="section-head compact"><div>
         <span className="section-kicker">Checked records</span>
         <h2>Search the dealer directory</h2>
-        <p>We publish a branch only when its dealer relationship and business details can be checked against trustworthy current sources, with an official dealer source on file.</p>
+        <p>We publish a branch only when its dealer relationship and business details can be checked against a trustworthy current verification source.</p>
       </div></div>
       <DealerFinder dealers={verifiedDealers} />
     </section>
@@ -79,7 +79,7 @@ export default async function DealersPage() {
       </div>
       <div className="dealer-verification-note">
         <strong>What “checked” means here</strong>
-        <p>The dealer relationship is backed by an official manufacturer or dealer-operator source. Address and contact details are also checked before publication. This does not verify current inventory, financing approval, promo pricing or same-day release.</p>
+        <p>The dealer relationship has a reviewed verification source on file. For manufacturer-locator records, that source is the official brand directory. Address and contact details are also checked before publication. This does not verify current inventory, financing approval, promo pricing or same-day release.</p>
       </div>
     </section>
 
