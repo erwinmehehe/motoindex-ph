@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
-import { sellersByType } from "@/lib/sellers";
+import { publicSellersByType } from "@/lib/sellers";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Dealers Philippines: Buying Guide",
@@ -11,9 +11,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function DealersPage() {
-  const verifiedDealers = sellersByType("dealer").filter(
-    (dealer) => !dealer.isDemo && dealer.status === "verified"
-  );
+  const verifiedDealers = publicSellersByType("dealer");
 
   return <section className="page shell">
     <div className="page-head">
@@ -29,15 +27,16 @@ export default function DealersPage() {
         <p>These dealer records have passed the site&apos;s business-detail checks.</p>
       </div></div>
       <div className="seller-grid">
-        {verifiedDealers.map((dealer) => <article key={dealer.slug}>
+        {verifiedDealers.map((dealer) => <Link key={dealer.slug} href={`/sellers/${dealer.slug}`}>
           <div className="seller-icon">D</div>
           <h3>{dealer.name}</h3>
           <p>{dealer.addressLabel}</p>
           <small>{dealer.brands.join(" · ")}</small>
-        </article>)}
+          <b>View dealer →</b>
+        </Link>)}
       </div>
     </section> : <section className="motorcycle-entity-section">
-      <div className="seller-home">
+      <div className="seller-home seller-home-single">
         <div>
           <span className="section-kicker">Directory status</span>
           <h2>No dealer profiles are published yet</h2>
@@ -52,7 +51,7 @@ export default function DealersPage() {
         <h2>What to ask the dealer</h2>
         <p>Request the details below in writing so quotes from different branches are easy to compare.</p>
       </div></div>
-      <div className="seller-stats">
+      <div className="seller-stats dealer-checklist">
         <div><strong>Cash price</strong><span>Exact variant and color</span></div>
         <div><strong>Added fees</strong><span>Registration and processing</span></div>
         <div><strong>Release date</strong><span>Confirmed stock availability</span></div>
