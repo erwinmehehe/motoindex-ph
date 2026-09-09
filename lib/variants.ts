@@ -115,7 +115,36 @@ export const motorcycleVariants: MotorcycleVariant[] = [
     differentiators: ["Honda RoadSync", "5-inch TFT meter", "ABS", "Honda Selectable Torque Control (HSTC)"],
     colors: ["Matte Pearl Crater White", "Quartz Brown Metallic"],
     braking: "ABS + HSTC",
+  },,
+{
+    id: "honda-cb650r-standard",
+    modelId: "honda-cb650r",
+    name: "Standard",
+    slug: "standard",
+    srpPhp: 525000,
+    status: "verified",
+    checkedAt: "2026-09-09",
+    sourceLabel: "Honda Philippines Makina Moto Expo 2026 CB650R launch",
+    sourceUrl: "https://www.hondaph.com/big-bike/news/honda-philippines-launches-three-new-models-elevates-innovation-at-makina-moto-expo-2026",
+    featureSummary: "The conventional-clutch 2026 CB650R, using the same 649cc inline-four platform and RoadSync-equipped TFT package as the current Philippine lineup.",
+    differentiators: ["Conventional manual clutch", "5-inch full-color TFT", "Honda RoadSync"],
+    colors: ["Matte Gunpowder Black Metallic"],
   },
+  {
+    id: "honda-cb650r-e-clutch",
+    modelId: "honda-cb650r",
+    name: "E-Clutch",
+    slug: "e-clutch",
+    srpPhp: 565000,
+    status: "verified",
+    checkedAt: "2026-09-09",
+    sourceLabel: "Honda Philippines Makina Moto Expo 2026 CB650R launch",
+    sourceUrl: "https://www.hondaph.com/big-bike/news/honda-philippines-launches-three-new-models-elevates-innovation-at-makina-moto-expo-2026",
+    featureSummary: "The E-Clutch CB650R lets the rider start, stop and shift by foot without using the clutch lever, while retaining manual-clutch control when desired.",
+    differentiators: ["Honda E-Clutch", "Quick shifter", "5-inch full-color TFT", "Honda RoadSync"],
+    colors: ["Matte Gunpowder Black Metallic", "Grand Prix Red", "Matte Jeans Blue Metallic"],
+  }
+
 ];
 
 export function getVariantsForModel(modelId: string) {
