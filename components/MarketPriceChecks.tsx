@@ -16,16 +16,16 @@ export function MarketPriceChecks({ model }: { model: Motorcycle }) {
   const baselineCheckedAt = model.marketPriceCheckedAt || model.verifiedAt;
 
   return <section className="market-checks">
-    <div className="section-head compact"><div><h2>Prices found on PH sources</h2><p>These are source-dated listed prices, not a guaranteed branch quote. Independent checks are shown when stored; until then the model-level source remains visible as a one-source baseline instead of implying broader market coverage.</p></div></div>
+    <div className="section-head compact"><div><h2>Current Philippine price references</h2><p>Compare the published prices we found for this exact model. Dealer cash prices, registration, financing and promotions can still change the final amount.</p></div></div>
     <div className="market-check-grid">
-      {checks.length === 0 && <SourceCard url={baselineUrl} className="baseline-price-source">
+      {checks.length === 0 && <SourceCard url={baselineUrl} className="market-check-card baseline-price-source">
         <span>Model-level baseline</span>
         <strong>{baselineLabel}</strong>
         <b>{phpRange(model.srp, model.marketPriceHighPhp)}</b>
         <small>Checked {baselineCheckedAt} · 1 verified source currently stored</small>
         <SourceOpen url={baselineUrl} />
       </SourceCard>}
-      {checks.map((row)=><SourceCard key={`${row.sourceName}-${row.checkedAt}-${row.priceFromPhp}`} url={row.sourceUrl}>
+      {checks.map((row)=><SourceCard className="market-check-card" key={`${row.sourceName}-${row.checkedAt}-${row.priceFromPhp}`} url={row.sourceUrl}>
         <span>{sourceTypeLabel(row.sourceType)}</span>
         <strong>{sourceDisplayName(row.sourceName, row.sourceUrl)}</strong>
         <b>{phpRange(row.priceFromPhp,row.priceToPhp)}</b>
@@ -33,6 +33,6 @@ export function MarketPriceChecks({ model }: { model: Motorcycle }) {
         <SourceOpen url={row.sourceUrl} />
       </SourceCard>)}
     </div>
-    {checks.length === 0 && <p className="market-check-gap">Independent dealer/comparison pricing is still a research gap for this model. MotoIndex will not turn one source into a fake market consensus.</p>}
+    {checks.length === 0 && <p className="market-check-gap">Only one current price source is stored for this model, so treat it as a reference rather than a market-wide price.</p>}
   </section>;
 }
