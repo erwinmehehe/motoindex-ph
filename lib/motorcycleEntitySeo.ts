@@ -53,35 +53,44 @@ export function motorcycleEntityFaqs(model: Motorcycle): FaqItem[] {
   const name = `${model.make} ${model.model}`;
 
   const authorityFaqs: FaqItem[] = authority ? [
-    { question: `Who should buy the ${name} in the Philippines?`, answer: `${authority.verdict} It makes the strongest case if ${authority.buyIf.slice(0, 2).map((item) => item.replace(/\.$/, "").toLowerCase()).join(" and ")}.` },
-    { question: `What should I check before buying a ${name}?`, answer: authority.phContext.join(" ") },
-    { question: `What are the main reasons to skip the ${name}?`, answer: authority.skipIf.join(" ") },
+    {
+      question: `Who should buy the ${name} in the Philippines?`,
+      answer: `${authority.verdict} It is a better match if ${authority.buyIf.slice(0, 2).map((item) => item.replace(/\.$/, "").toLowerCase()).join(" and ")}.`
+    },
+    {
+      question: `What should I check before buying a ${name}?`,
+      answer: authority.phContext.join(" ")
+    },
+    {
+      question: `What are the main reasons to skip the ${name}?`,
+      answer: authority.skipIf.join(" ")
+    },
   ] : [];
 
   const extra: FaqItem[] = [
     {
       question: `What are the ${name} engine, seat height and weight?`,
-      answer: `This MotoIndex record lists a ${model.engineCc} cc engine, ${model.seatHeightMm} mm seat height and ${model.curbWeightKg} kg curb weight. Use the exact model year and variant when checking a dealer unit.`
+      answer: `The ${name} has a ${model.engineCc} cc engine, a ${model.seatHeightMm} mm seat height and a ${model.curbWeightKg} kg curb weight. Check the exact model year and variant if a dealer unit differs.`
     },
     {
       question: `What tire size does the ${name} use?`,
-      answer: `The stored stock sizes are ${model.frontTire} front and ${model.rearTire} rear. A printed size match alone is not a complete fitment approval; load index, speed rating, rim, construction and clearance still matter.`
+      answer: `Stock tire sizes are ${model.frontTire} at the front and ${model.rearTire} at the rear. When replacing tires, match the full size plus the correct load rating, speed rating, rim and front/rear application.`
     },
     {
       question: `What is the fuel consumption of the ${name}?`,
       answer: efficiency.status === "listed"
-        ? `The model record lists ${efficiency.kmPerL} km/L as its fuel-economy basis. Real-world consumption varies with traffic, speed, load, weather, tire pressure and maintenance.`
-        : `MotoIndex does not currently store a model-specific listed consumption figure for this record. The page uses a ${efficiency.kmPerL} km/L planning estimate and labels it as an estimate rather than measured consumption.`
+        ? `Listed fuel consumption is ${efficiency.kmPerL} km/L. Actual fuel economy can be lower or higher depending on traffic, speed, load, tire pressure, maintenance and riding style.`
+        : `A model-specific published fuel-consumption figure is not available in the current source set. The calculator uses ${efficiency.kmPerL} km/L as a clearly labeled estimate for planning only.`
     },
     {
       question: `Is there a ${name} maintenance schedule?`,
       answer: maintenance
-        ? `Yes. MotoIndex has ${maintenance.items.length} maintenance items transcribed from the linked official owner-manual source for this model record. Always confirm the schedule for your exact year and market unit.`
-        : `An exact model-specific interval table is not stored yet. Use the official manufacturer service resource linked on the page instead of applying a generic oil, belt or valve schedule.`
+        ? `Yes. The maintenance section includes ${maintenance.items.length} service items taken from the linked owner-manual source. Follow the schedule for your exact model year and market version.`
+        : `A model-specific service-interval table is not available yet. Use the manufacturer's service schedule for your exact model year instead of relying on a generic oil, belt or valve interval.`
     },
     {
       question: `Will the ${name} fit my height?`,
-      answer: `Seat height is ${model.seatHeightMm} mm, but inseam, seat width, suspension sag, footwear and technique affect real foot reach. Use the rider-fit tool on this page as a planning aid and sit on the exact motorcycle before buying.`
+      answer: `The seat height is ${model.seatHeightMm} mm. Whether it fits you comfortably also depends on your inseam, seat width, suspension sag, footwear and riding technique, so sit on the motorcycle before buying if possible.`
     },
   ];
 
