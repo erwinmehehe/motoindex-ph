@@ -499,4 +499,67 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "648cc parallel-twin roadster with 46.4 hp, 52.3 Nm, a 795 mm seat, 13.8 L tank and modular solo-or-pillion styling."
   },
 
+
+  {
+    id: "honda-adv-150", alsoKnownAs: ["Honda ADV150"], make: "Honda", makeSlug: "honda", model: "ADV 150", slug: "adv-150", generation: "2019–2022 Philippine generation", category: "Adventure scooter",
+    srp: 149000, engineCc: 150, powerHp: 14.35, torqueNm: 13.8, curbWeightKg: 133, seatHeightMm: 795, fuelTankL: 8, fuelConsumptionKmL: 46.6, groundClearanceMm: 165,
+    frontTire: "110/80-14", rearTire: "130/70-13", abs: "Single-channel ABS with front and rear disc brakes", colors: ["Winning Red", "White", "Matte Meteorite Brown Metallic"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Honda Philippines ADV150 launch and official specification brochure", sourceUrl: "https://www.hondaph.com/cms/files/products/6050687a6e4a7.pdf", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "previous", transmission: "Automatic", successorId: "honda-adv-160",
+    priceContext: "Historical Philippine launch SRP; the ADV150 is discontinued and succeeded by the ADV160.",
+    summary: "Previous-generation 150cc Honda adventure scooter with a 795 mm seat, 133 kg curb weight, 8 L tank and single-channel ABS."
+  },
+  {
+    id: "honda-cbr650r", make: "Honda", makeSlug: "honda", model: "CBR650R", slug: "cbr650r", generation: "Current Philippine model", category: "Sport bike",
+    srp: 554000, marketPriceHighPhp: 594000, engineCc: 649, powerHp: 93.8, torqueNm: 63, curbWeightKg: 208, seatHeightMm: 810, fuelTankL: 15.4, fuelConsumptionKmL: 20.9, groundClearanceMm: 130,
+    frontTire: "120/70 ZR17", rearTire: "180/55 ZR17", abs: "2-channel ABS", colors: ["Grand Prix Red", "Matte Gunpowder Black Metallic"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine CBR650R price and specification reference with Honda specification cross-check", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/cbr650r/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Current Philippine Standard/E-Clutch variant pricing", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/cbr650r", marketPriceCheckedAt: "2026-09-09",
+    summary: "649cc inline-four sport motorcycle with 2-channel ABS, 810 mm seat, 15.4 L tank and Standard/E-Clutch price range."
+  },
+  {
+    id: "kawasaki-ninja-zx-25r", alsoKnownAs: ["Kawasaki ZX-25R", "ZX25R"], make: "Kawasaki", makeSlug: "kawasaki", model: "Ninja ZX-25R", slug: "ninja-zx-25r", generation: "Current Philippine model", category: "Sport bike",
+    srp: 406000, marketPriceHighPhp: 442000, engineCc: 250, powerHp: 43.58, torqueNm: 21.2, curbWeightKg: 183, seatHeightMm: 785, fuelTankL: 15,
+    frontTire: "110/70 R17", rearTire: "150/60 R17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Kawasaki Leisure Bikes Philippines official Ninja ZX-25R Standard specification and MSRP", sourceUrl: "https://kawasakileisurebikes.ph/motorcycles/supersports/ninja-zx-25r-standard/", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Kawasaki Philippines Standard/SE model pricing", marketPriceSourceUrl: "https://kawasakileisurebikes.ph/motorcycles/supersports/ninja-zx-25r/", marketPriceCheckedAt: "2026-09-09",
+    summary: "250cc inline-four supersport with a 785 mm seat, 15 L tank and Philippine Standard/SE price range."
+  },
+  {
+    id: "cfmoto-400nk", alsoKnownAs: ["CFMOTO 400 NK"], make: "CFMOTO", makeSlug: "cfmoto", model: "400NK", slug: "400nk", generation: "Current Philippine model", category: "Naked street bike",
+    srp: 219000, engineCc: 400, powerHp: 40.9, torqueNm: 34.4, curbWeightKg: 206, seatHeightMm: 815, fuelTankL: 17, fuelConsumptionKmL: 27, groundClearanceMm: 150,
+    frontTire: "120/70 ZR17", rearTire: "160/60 ZR17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine CFMOTO 400NK price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/cfmoto/400-nk/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    summary: "400cc parallel-twin naked motorcycle with 40.9 hp, ABS, an 815 mm seat and 17 L fuel tank."
+  },
+  {
+    id: "yamaha-mio-i-125", alsoKnownAs: ["Yamaha Mio i125", "Mio i 125"], make: "Yamaha", makeSlug: "yamaha", model: "Mio i 125", slug: "mio-i-125", generation: "Current Philippine model", category: "Commuter scooter",
+    srp: 77900, marketPriceHighPhp: 82900, engineCc: 125, powerHp: 9.3, torqueNm: 9.6, curbWeightKg: 92, seatHeightMm: 750, fuelTankL: 4.2, groundClearanceMm: 135,
+    frontTire: "70/90 R14", rearTire: "80/90 R14", abs: "No ABS; front disc and rear drum brake configuration", colors: ["Yellow", "Magenta", "Matt Black", "Cyan Metallic", "Matte Blue"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Yamaha Mio i 125 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/mio-i-125/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Automatic",
+    marketPriceSourceLabel: "Current Philippine Standard/S variant pricing", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/mio-i-125", marketPriceCheckedAt: "2026-09-09",
+    summary: "125cc automatic commuter scooter with a 750 mm seat, 92 kg curb weight, 4.2 L tank and Standard/S price range."
+  },
+  {
+    id: "yamaha-yzf-r15m", alsoKnownAs: ["Yamaha R15M", "YZF R15M"], make: "Yamaha", makeSlug: "yamaha", model: "YZF-R15M", slug: "yzf-r15m", generation: "Current Philippine model", category: "Sport bike",
+    srp: 204000, engineCc: 155, powerHp: 19, torqueNm: 14.7, curbWeightKg: 140, seatHeightMm: 815, fuelTankL: 11, groundClearanceMm: 170,
+    frontTire: "100/80 R17", rearTire: "140/70 R17", abs: "ABS with traction control", colors: ["Icon Performance"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Yamaha YZF-R15M price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/yzf-r15m/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    summary: "155cc sport motorcycle with 19 hp, ABS, traction control, an 815 mm seat and six-speed transmission."
+  },
+  {
+    id: "yamaha-yzf-r1m", alsoKnownAs: ["Yamaha R1M", "YZF R1M"], make: "Yamaha", makeSlug: "yamaha", model: "YZF-R1M", slug: "yzf-r1m", generation: "Current Philippine model", category: "Sport bike",
+    srp: 1769000, engineCc: 998, powerHp: 197, torqueNm: 113.3, curbWeightKg: 202, seatHeightMm: 860, fuelTankL: 17, fuelConsumptionKmL: 13.8, groundClearanceMm: 130,
+    frontTire: "120/70 ZR17", rearTire: "200/55 ZR17", abs: "ABS", colors: ["Icon Blue"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Yamaha YZF-R1M price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/yzf-r1m/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    summary: "998cc superbike with 197 hp, 113.3 Nm, a 17 L tank, 860 mm seat and six-speed transmission."
+  },
+  {
+    id: "bajaj-dominar-400", alsoKnownAs: ["Kawasaki Dominar 400", "Dominar 400"], make: "Bajaj", makeSlug: "bajaj", model: "Dominar 400", slug: "dominar-400", generation: "Current Philippine model", category: "Sport touring",
+    srp: 208888, engineCc: 373.3, powerHp: 39.5, torqueNm: 35, curbWeightKg: 192, seatHeightMm: 800, fuelTankL: 13, groundClearanceMm: 157,
+    frontTire: "110/70 R17", rearTire: "150/60 R17", abs: "Twin-channel ABS", colors: ["Aurora Green", "Charcoal Black", "Canyon Red"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Bajaj Auto Philippines official Dominar D400 specification page with current Philippine price cross-check", sourceUrl: "https://www.bajajauto.com/en-ph/bikes/dominar-d400", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Current Philippine comparison-site price", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/bajaj/dominar-400", marketPriceCheckedAt: "2026-09-09",
+    summary: "373.3cc sport-touring motorcycle with a six-speed gearbox, twin-channel ABS, 13 L tank and 800 mm seat."
+  },
+
 ];
