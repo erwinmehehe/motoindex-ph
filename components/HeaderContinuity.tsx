@@ -25,7 +25,15 @@ export function HeaderContinuity() {
   useEffect(() => {
     const header = document.querySelector<HTMLElement>(".site-header");
     if (!header) return;
-    const closeMenus = () => header.querySelectorAll<HTMLDetailsElement>("details[open]").forEach(details => details.removeAttribute("open"));
+
+    const allMenus = Array.from(header.querySelectorAll<HTMLDetailsElement>("details"));
+    const desktopMenus = Array.from(header.querySelectorAll<HTMLDetailsElement>(".nav-links details.nav-more"));
+    const closeMenus = (except?: HTMLDetailsElement) => {
+      allMenus.forEach(details => {
+        if (details !== except && details.open) details.removeAttribute("open");
+      });
+    };
+
     closeMenus();
 
     header.querySelectorAll<HTMLAnchorElement>('a[href^="/"]').forEach(link => {
@@ -46,9 +54,36 @@ export function HeaderContinuity() {
     moreSummary?.classList.toggle("nav-current", moreActive);
     if (moreActive) moreSummary?.setAttribute("aria-current", "location"); else moreSummary?.removeAttribute("aria-current");
 
-    const handleClick = (event: Event) => { const target = event.target as Element | null; if (target?.closest("a[href]")) closeMenus(); };
+    const handleMenuToggle = (event: Event) => {
+      const current = event.currentTarget as HTMLDetailsElement;
+      if (current.open) closeMenus(current);
+    };
+    desktopMenus.forEach(menu => menu.addEventListener("toggle", handleMenuToggle));
+
+    const handleClick = (event: Event) => {
+      const target = event.target as Element | null;
+      if (target?.closest("a[href]")) closeMenus();
+    };
+    const handleOutsidePointer = (event: PointerEvent) => {
+      const target = event.target as Node | null;
+      if (target && !header.contains(target)) closeMenus();
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeMenus();
+        header.querySelector<HTMLElement>(".nav-more>summary:focus")?.focus();
+      }
+    };
+
     header.addEventListener("click", handleClick);
-    return () => header.removeEventListener("click", handleClick);
+    document.addEventListener("pointerdown", handleOutsidePointer);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      desktopMenus.forEach(menu => menu.removeEventListener("toggle", handleMenuToggle));
+      header.removeEventListener("click", handleClick);
+      document.removeEventListener("pointerdown", handleOutsidePointer);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [pathname]);
   return null;
 }
