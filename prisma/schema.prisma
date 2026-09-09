@@ -227,15 +227,24 @@ model MaintenanceRecord {
 }
 
 model Seller {
-  id          String   @id @default(cuid())
-  name        String
-  slug        String   @unique
-  type        String
-  city        String?
-  region      String?
-  website     String?
-  phone       String?
-  status      String   @default("research")
+  id               String   @id @default(cuid())
+  name             String
+  slug             String   @unique
+  type             String
+  city             String?
+  province         String?
+  region           String?
+  addressLabel     String?
+  website          String?
+  phone            String?
+  brands           String[]
+  categories       String[]
+  description      String?
+  sourceLabel      String?
+  sourceUrl        String?
+  lastChecked      DateTime?
+  verificationNote String?
+  status           String   @default("research")
   offers      SellerOffer[]
   matchedImportRows OfferImportRow[]
   createdAt   DateTime @default(now())
@@ -398,4 +407,32 @@ model DealerLead {
 
   @@index([modelExternalId, status, createdAt])
   @@index([cityProvince, status, createdAt])
+}
+
+model DealerApplication {
+  id                String   @id @default(cuid())
+  businessName      String
+  branchName        String?
+  addressLabel      String
+  city              String
+  province          String
+  region            String?
+  brands            String[]
+  website           String?
+  phone             String
+  contactName       String
+  contactEmail      String
+  contactMobile     String
+  officialSourceUrl String?
+  notes             String?
+  consentedAt       DateTime
+  status            String   @default("new")
+  reviewNote        String?
+  reviewedAt        DateTime?
+  publishedSellerId String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([status, createdAt])
+  @@index([contactEmail, createdAt])
 }
