@@ -59,10 +59,10 @@ export default async function MotorcycleSpecificationsPage({ params }: { params:
   ];
 
   const faq = [
-    { q: `What is the engine size of the ${model.make} ${model.model}?`, a: `The stored specification record lists a ${model.engineCc} cc engine with ${model.powerHp} hp and ${model.torqueNm} Nm.` },
-    { q: `What is the seat height of the ${model.make} ${model.model}?`, a: `The published seat-height figure in MotoIndex is ${model.seatHeightMm} mm. Real rider reach also depends on seat width, suspension sag, footwear and inseam.` },
-    { q: `How much does the ${model.make} ${model.model} weigh?`, a: `The stored curb-weight figure is ${model.curbWeightKg} kg. Check the exact model-year source if your unit or market specification differs.` },
-    { q: `What tire sizes does the ${model.make} ${model.model} use?`, a: `MotoIndex records ${model.frontTire} at the front and ${model.rearTire} at the rear. Match the complete size, load/speed rating and front/rear application before buying replacement tires.` }
+    { q: `What is the engine size of the ${model.make} ${model.model}?`, a: `The ${model.make} ${model.model} has a ${model.engineCc} cc engine producing ${model.powerHp} hp and ${model.torqueNm} Nm of torque.` },
+    { q: `What is the seat height of the ${model.make} ${model.model}?`, a: `Seat height is ${model.seatHeightMm} mm. Actual ground reach also depends on your inseam, seat width, suspension sag and footwear.` },
+    { q: `How much does the ${model.make} ${model.model} weigh?`, a: `Curb weight is ${model.curbWeightKg} kg. Check the exact model year if your motorcycle or local specification differs.` },
+    { q: `What tire sizes does the ${model.make} ${model.model} use?`, a: `It uses ${model.frontTire} at the front and ${model.rearTire} at the rear. Match the full size, load rating, speed rating and front/rear application when buying replacements.` }
   ];
 
   const schema = [
