@@ -59,16 +59,18 @@ need(sellers.includes("sourceUrl")&&sellers.includes("lastChecked")&&sellers.inc
 need(["Honda","Yamaha","Suzuki","Kawasaki"].every(brand=>sellers.includes(`brands:["${brand}"]`))&&sellers.includes('city:"San Fernando"'),"San Fernando coverage must retain checked Honda, Yamaha, Suzuki and Kawasaki records");
 need(["Angeles City","Cebu City","Davao City"].every(city=>(sellers.match(new RegExp(`city:"${city}"[^\\n]+isDemo:false[^\\n]+status:"verified"`,"g"))||[]).length>=3),"Angeles, Cebu and Davao must each retain at least three real verified dealers for public city pages");
 need(fs.existsSync(path.join(root,"components/DealerFinder.tsx"))&&read("components/DealerFinder.tsx").includes("Search dealers"),"Dealer directory must provide working search and filters");
+need(fs.existsSync(path.join(root,"app/dealers/pampanga/page.tsx"))&&read("app/dealers/pampanga/page.tsx").includes("Motorcycle dealers in Pampanga")&&dealersPage.includes('href="/dealers/pampanga"'),"Pampanga province hub must remain published and linked from the dealer root");
 need(fs.existsSync(path.join(root,"lib/dealerLocators.ts"))&&read("lib/dealerLocators.ts").includes("hondaph.com/dealer-locator")&&read("lib/dealerLocators.ts").includes("motorcycles-dealer")&&read("lib/dealerLocators.ts").includes("kawasaki.ph/dealers/motorcycle"),"Dealer root must link current official manufacturer locators");
 const continuity=read("components/HeaderContinuity.tsx");
 need(continuity.includes('pathname.startsWith("/dealers")')&&continuity.includes('pathname.startsWith("/sellers/")'),"Dealer and seller routes must retain the More navigation active state");
 const sitemapSource=read("lib/sitemaps.ts");
 need(sitemapSource.includes("publicSellers()")&&sitemapSource.includes("publicDealerCities()")&&sitemapSource.includes("MIN_PUBLIC_DEALERS_PER_CITY"),"Commerce sitemap must use the same public seller and dealer-city rules as routes");
+need(sitemapSource.includes('/dealers/pampanga')&&sitemapSource.includes('s.province==="Pampanga"'),"Commerce sitemap must publish the checked Pampanga province hub");
 need(sitemapSource.includes('["/dealers",.82]'),"Indexed dealer root must be present in the core sitemap");
 const robotsSource=read("app/robots.ts");
 need(robotsSource.includes("commerceSitemapEntries().length")&&robotsSource.includes("/sitemaps/commerce.xml"),"Robots must advertise commerce sitemap only when it has verified public URLs");
 const smoke=read("scripts/smoke-production.mjs");
-need(["/dealers","/dealers/san-fernando","/dealers/angeles-city","/dealers/cebu-city","/dealers/davao-city"].every(route=>smoke.includes(`"${route}"`))&&smoke.includes('"/sellers/demo-yamaha-dealer-a"')&&smoke.includes("populated commerce sitemap"),"Production smoke test must cover published dealer cities, hidden demo routes and populated commerce URLs");
+need(["/dealers","/dealers/san-fernando","/dealers/angeles-city","/dealers/cebu-city","/dealers/davao-city","/dealers/pampanga"].every(route=>smoke.includes(`"${route}"`))&&smoke.includes('"/sellers/demo-yamaha-dealer-a"')&&smoke.includes("populated commerce sitemap"),"Production smoke test must cover published dealer cities, Pampanga hub, hidden demo routes and populated commerce URLs");
 need(fs.existsSync(path.join(root,"app/dealer-directory.css"))&&dealersPage.includes("dealer-checklist")&&read("app/dealer-directory.css").includes(".dealer-filter-bar")&&read("app/dealer-directory.css").includes("@media(max-width:650px)"),"Dealer directory must retain finder and mobile checklist styling");
 
 const checkLaunch=read("scripts/check-launch.mjs");
