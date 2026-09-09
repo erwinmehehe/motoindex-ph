@@ -413,3 +413,20 @@ a.market-price-source-card:hover{
   .price-history-source{grid-column:auto}
 }
 
+
+/* Dealer quote funnel */
+.lead-form-head>span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:850;margin-bottom:7px}
+.lead-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0}
+.lead-form-grid label{display:grid;gap:7px}
+.lead-form-grid label>span{font-size:11px;font-weight:850;color:#394147}
+.lead-form-grid label small{font-weight:600;color:var(--muted)}
+.lead-form-grid input,.lead-form-grid select{width:100%;border:1px solid var(--line);background:#fff;border-radius:12px;padding:13px 14px;font:inherit;color:var(--ink)}
+.lead-form-grid input:focus,.lead-form-grid select:focus{outline:2px solid rgba(18,108,90,.18);border-color:var(--accent)}
+.lead-form-wide{grid-column:1/-1}
+.lead-consent{display:flex;gap:10px;align-items:flex-start;background:#f7f8f5;border:1px solid var(--line);border-radius:14px;padding:14px;margin:4px 0 18px;font-size:12px;line-height:1.55;color:#4b555b}
+.lead-consent input{margin-top:3px}
+.form-error{background:#fff2f1;border:1px solid #efc1bd;color:#9d3028;border-radius:12px;padding:12px 14px;font-size:12px}
+.form-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;opacity:0!important}
+.lead-form-success{background:#f1f8f4;border-color:#b9dac8}
+.lead-form button[disabled]{opacity:.65;cursor:wait}
+@media(max-width:650px){.lead-form-grid{grid-template-columns:1fr}.lead-form-wide{grid-column:auto}}
