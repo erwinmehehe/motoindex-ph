@@ -29,6 +29,12 @@ const electricGuides = [
     kicker: "Registration",
     title: "Electric motorcycle registration",
     description: "A source-linked guide to LTO classification and the checks to make before buying an electric two-wheeler."
+  },
+  {
+    href: "/guides/electric-motorcycle-vs-gas-motorcycle",
+    kicker: "Ownership",
+    title: "Electric vs gas motorcycle",
+    description: "Compare range, charging, refueling, maintenance and everyday ownership trade-offs."
   }
 ];
 
