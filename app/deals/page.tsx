@@ -11,6 +11,8 @@ import {
 import { pageMetadata } from "@/lib/site";
 import { php } from "@/lib/utils";
 import { OfferOutboundLink } from "@/components/OfferOutboundLink";
+import { getModelById } from "@/lib/data";
+import { helmetProducts, tireProducts, topBoxProducts } from "@/lib/catalog";
 import type { SellerOffer } from "@/lib/types";
 
 export const dynamic="force-dynamic";
@@ -40,12 +42,20 @@ export async function generateMetadata():Promise<Metadata>{
 
 function entityHref(offer:SellerOffer){
   if(offer.entityType==="motorcycle"){
-    const [make,...rest]=offer.entityId.split("-");
-    return rest.length?\`/motorcycles/\${make}/\${rest.join("-")}\`:"/motorcycles";
+    const model=getModelById(offer.entityId);
+    return model?`/motorcycles/${model.makeSlug}/${model.slug}`:"/motorcycles";
   }
   if(offer.entityType==="helmet"){
-    const parts=offer.entityId.split("-");
-    return parts.length>1?\`/gear/helmets/\${parts[0]}/\${parts.slice(1).join("-")}\`:"/gear/helmets";
+    const product=helmetProducts.find(item=>item.id===offer.entityId);
+    return product?`/gear/helmets/${product.brandSlug}/${product.slug}`:"/gear/helmets";
+  }
+  if(offer.entityType==="tire"){
+    const product=tireProducts.find(item=>item.id===offer.entityId);
+    return product?`/tires/${product.brandSlug}/${product.slug}`:"/tires";
+  }
+  if(offer.entityType==="topbox"){
+    const product=topBoxProducts.find(item=>item.id===offer.entityId);
+    return product?`/accessories/top-box/${product.slug}`:"/accessories";
   }
   return "/catalog";
 }
@@ -83,7 +93,7 @@ export default async function DealsPage(){
           </div>
           <div className="current-offer-price">
             <strong>{offer.pricePhp?php(offer.pricePhp):"Ask seller"}</strong>
-            {offer.monthlyPhp?<small>{php(offer.monthlyPhp)}/mo · {offer.termMonths||"—"} months{offer.downpaymentPhp?\` · DP \${php(offer.downpaymentPhp)}\`:""}</small>:<small>Finance terms not listed</small>}
+            {offer.monthlyPhp?<small>{php(offer.monthlyPhp)}/mo · {offer.termMonths||"—"} months{offer.downpaymentPhp?` · DP ${php(offer.downpaymentPhp)}`:""}</small>:<small>Finance terms not listed</small>}
           </div>
           <div className="current-offer-actions">
             <Link className="button ghost small" href={entityHref(offer)}>Research item</Link>
