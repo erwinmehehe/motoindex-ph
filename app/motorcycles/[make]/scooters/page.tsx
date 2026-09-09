@@ -121,7 +121,7 @@ export default async function BrandScootersPage({ params }: { params: Promise<{ 
       <article><span>Engine range</span><strong>{engineMin}–{engineMax} cc</strong><small>Across the current checked scooter set</small></article>
     </div>
 
-    <div className="section-head compact"><div><h2>Current {brand} scooter models and prices</h2><p>Cards open the canonical model page with price sources, installment examples, specs, fitment and ownership tools.</p></div></div>
+    <div className="section-head compact"><div><h2>Current {brand} scooter models and prices</h2><p>Open any model to compare prices, installment examples, specifications, fitment and ownership costs.</p></div></div>
     <div className="card-grid">{current.map((m)=><ModelCard key={m.id} model={m}/>)}</div>
 
     <div className="section-head compact"><div><h2>{brand} scooter price list</h2><p>Price order is for quick comparison only. It is not a quality ranking.</p></div></div>
