@@ -55,7 +55,7 @@ export default async function SellerPage({params}:{params:Promise<{slug:string}>
     <Breadcrumbs items={[parent,{label:s.name}]} />
     <div className="seller-hero">
       <div>
-        <span className="entity-kicker">Official listing checked</span>
+        <span className="entity-kicker">Dealer details checked</span>
         <h1>{s.name}</h1>
         <p>{s.description}</p>
         <div className="seller-tags">{s.categories.map(x=><span key={x}>{x}</span>)}{s.brands.map(x=><span key={x}>{x}</span>)}</div>
@@ -72,10 +72,10 @@ export default async function SellerPage({params}:{params:Promise<{slug:string}>
     <section className="dealer-profile-trust">
       <div>
         <span className="section-kicker">Listing check</span>
-        <h2>Branch appears in an official dealer source</h2>
+        <h2>Branch details have a checked verification source</h2>
         <p>{s.verificationNote||"This public profile has an official source on file for its business details."}</p>
       </div>
-      {s.sourceUrl?<a href={s.sourceUrl} target="_blank" rel="noopener noreferrer">Open official dealer listing ↗</a>:null}
+      {s.sourceUrl?<a href={s.sourceUrl} target="_blank" rel="noopener noreferrer">Open verification source ↗</a>:null}
     </section>
 
     <div className="section-head"><div>
