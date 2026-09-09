@@ -503,3 +503,5 @@ a.market-price-source-card:hover{
 /* Private dealer quote response */
 .dealer-quote-response{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;margin-top:22px}.dealer-quote-response textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px 13px;font:inherit;resize:vertical}.dealer-quote-submit{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.dealer-quote-submit small{color:var(--muted);font-size:10px}
 .dealer-lead-delivery-stack{display:grid;gap:8px}.dealer-quote-admin-summary{display:grid;gap:4px;background:#eef6f0;border:1px solid #d4e5d9;border-radius:12px;padding:12px 14px}.dealer-quote-admin-summary>span{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:#50715d;font-weight:850}.dealer-quote-admin-summary>strong{font-size:19px;letter-spacing:-.03em}.dealer-quote-admin-summary small{font-size:10px;color:#65756c}.dealer-quote-admin-summary p{font-size:11px;line-height:1.5;color:#455149;margin:4px 0 0}
+
+.growth-sla-panel{margin:24px 0}.growth-sla-panel .section-head{align-items:center}.growth-sla-panel .text-link{white-space:nowrap}
