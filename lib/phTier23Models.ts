@@ -320,4 +320,41 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "659cc parallel-twin sport motorcycle with 105 hp, 70 Nm, 183 kg wet weight, a 15 L tank and multimap cornering ABS."
   },
 
+
+  {
+    id: "kymco-sky-town-150", make: "Kymco", makeSlug: "kymco", model: "Sky Town 150", slug: "sky-town-150", generation: "2026 Philippine model", category: "Commuter scooter",
+    srp: 118500, engineCc: 150, powerHp: 11.3, torqueNm: 11.9, curbWeightKg: 126, seatHeightMm: 770, fuelTankL: 7,
+    frontTire: "110/70-14", rearTire: "130/70-13", abs: "Dual-channel ABS", colors: ["Pearly White", "Pearly Black", "Golden Brown"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Kymco Philippines Sky Town 150 official product and launch references", sourceUrl: "https://kymco.com.ph/product/sky-town-150/", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current", transmission: "Automatic",
+    summary: "150cc fuel-injected urban scooter with dual ABS, mixed 14/13-inch wheels, a 770 mm seat and a 7 L fuel tank."
+  },
+  {
+    id: "kymco-agility-eco-125i", make: "Kymco", makeSlug: "kymco", model: "Agility Eco 125i", slug: "agility-eco-125i", generation: "Current Philippine model", category: "Commuter scooter",
+    srp: 82500, engineCc: 124, powerHp: 9.4, torqueNm: 10.2, curbWeightKg: 119, seatHeightMm: 760, fuelTankL: 9,
+    frontTire: "90/90-12", rearTire: "100/90-10", abs: "ABS is not stated on the official Philippine product specification page", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Kymco Philippines Agility Eco 125i official product specification", sourceUrl: "https://kymco.com.ph/product/agility-eco-125i/", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current",
+    summary: "124cc fuel-injected commuter scooter with a low 760 mm seat, 9 L fuel tank and compact 12/10-inch wheel setup."
+  },
+  {
+    id: "kymco-dink-r-150", make: "Kymco", makeSlug: "kymco", model: "Dink R 150", slug: "dink-r-150", generation: "Current Philippine model", category: "Maxi-style scooter",
+    srp: 148900, engineCc: 150, powerHp: 15, torqueNm: 13.2, curbWeightKg: 148, seatHeightMm: 783, fuelTankL: 10.7,
+    frontTire: "120/70-13", rearTire: "130/70-13", abs: "Bosch 9.1M dual-channel ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Kymco Philippines Dink R 150 official product specification", sourceUrl: "https://kymco.com.ph/product/dink-r-150/", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current", transmission: "Automatic",
+    summary: "150cc liquid-cooled scooter with dual ABS, a 783 mm seat, 10.7 L fuel tank and 13-inch tires."
+  },
+  {
+    id: "kymco-dtx360-300", make: "Kymco", makeSlug: "kymco", model: "DTX360-300", slug: "dtx360-300", generation: "Current Philippine model", category: "Adventure scooter",
+    srp: 229000, engineCc: 276, powerHp: 22.8, torqueNm: 23.7, curbWeightKg: 184, seatHeightMm: 800, fuelTankL: 12.5,
+    frontTire: "120/80-14", rearTire: "150/70-13", abs: "ABS with traction control", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Kymco Philippines DTX360-300 official product specification", sourceUrl: "https://kymco.com.ph/product/dtx-360-300/", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current", transmission: "Automatic",
+    summary: "276cc crossover scooter with ABS, traction control, an 800 mm seat, 12.5 L tank and mixed 14/13-inch tires."
+  },
+  {
+    id: "husqvarna-svartpilen-200", make: "Husqvarna", makeSlug: "husqvarna", model: "Svartpilen 200", slug: "svartpilen-200", generation: "Current Philippine model", category: "Cafe roadster",
+    srp: 175000, engineCc: 200, powerHp: 26, torqueNm: 19.5, curbWeightKg: 147, seatHeightMm: 835, fuelTankL: 9.5, fuelConsumptionKmL: 37.5, groundClearanceMm: 145,
+    frontTire: "110/70 R17", rearTire: "150/60 R17", abs: "ABS", colors: ["Gray"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Husqvarna Svartpilen 200 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/husqvarna/svartpilen-200/specifications", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current", transmission: "Manual",
+    summary: "200cc lightweight roadster with 26 hp, ABS, an 835 mm seat, 17-inch tires and a six-speed manual transmission."
+  },
+
 ];
