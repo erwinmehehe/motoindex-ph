@@ -12,7 +12,7 @@ import { articleSchema } from "@/lib/articleSchema";
 import { RelatedLinks } from "@/components/RelatedLinks";
 import { helmetBrandInternalLinks } from "@/lib/internalLinks";
 import { pageMetadata } from "@/lib/site";
-import { getHelmetBrandLineup } from "@/lib/helmetBrandLineups";
+import { getHelmetBrandLineup, helmetModelSlug } from "@/lib/helmetBrandLineups";
 import { HelmetBrandGuide } from "@/components/HelmetBrandGuide";
 
 export function generateStaticParams(){return helmetBrands.map(h=>({brand:h.slug}));}
@@ -63,7 +63,7 @@ export default async function HelmetBrandPage({params}:{params:Promise<{brand:st
 
       {lineup && lineupModels.length>0 && <section className="brand-lineup section" aria-labelledby="brand-lineup-title">
         <div className="section-head compact"><div><h2 id="brand-lineup-title">More {h.brand} models in current catalogs ({lineupModels.length})</h2><p>These are additional real model or family names from the cited brand or Philippine retail catalog. They stay visible here while MotoIndex finishes the model-specific price, fit, visor, shell and certification checks needed for a full detail page.</p></div></div>
-        <div className="brand-lineup-grid">{lineupModels.map(model=><div className="brand-lineup-card" key={model}><strong>{model}</strong><span>Catalog model</span></div>)}</div>
+        <div className="brand-lineup-grid">{lineupModels.map(model=><Link className="brand-lineup-card" href={`/gear/helmets/${h.slug}/${helmetModelSlug(model)}`} key={model}><strong>{model}</strong><span>Open model page →</span></Link>)}</div>
         {lineup.note&&<p className="muted-copy">{lineup.note}</p>}
         <p className="brand-lineup-source"><a href={lineup.sourceUrl} target="_blank" rel="noreferrer">View {lineup.sourceLabel} ↗</a> <small>Checked {lineup.checkedAt}</small></p>
       </section>}
