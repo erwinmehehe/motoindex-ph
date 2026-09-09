@@ -19,7 +19,7 @@ if(!/motoindex-og\.(svg|png)/.test(layout))errors.push("layout missing branded s
 const robots=read("app/robots.ts");
 if(robots.includes('"/search"'))errors.push("robots must not block /search because search uses meta noindex");
 for(const sm of ["/sitemap.xml","/sitemaps/motorcycles.xml","/sitemaps/gear.xml"])if(!robots.includes(sm))errors.push(`robots missing sitemap ${sm}`);
-if(robots.includes("/sitemaps/commerce.xml"))errors.push("robots must not advertise the empty commerce sitemap");
+if(!robots.includes("commerceSitemapEntries().length")||!robots.includes("/sitemaps/commerce.xml"))errors.push("robots must advertise the commerce sitemap only when verified commerce URLs exist");
 
 const sitemaps=read("lib/sitemaps.ts");
 if(/tireProducts\.map/.test(sitemaps)||/topBoxProducts\.map/.test(sitemaps))errors.push("gear sitemap must filter product verification status before mapping");
@@ -47,4 +47,4 @@ for(const href of ["/about","/methodology","/data-sources","/editorial-policy","
 const files=[]; for(const base of ["app","components","lib"]){const recur=d=>{for(const e of fs.readdirSync(path.join(root,d),{withFileTypes:true})){const rel=path.join(d,e.name).split(path.sep).join("/");if(e.isDirectory())recur(rel);else if(/\.(tsx|ts)$/.test(e.name))files.push(rel)}};recur(base)}
 for(const rel of files){const out=ts.transpileModule(read(rel),{compilerOptions:{jsx:ts.JsxEmit.ReactJSX,target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext},fileName:rel,reportDiagnostics:true});for(const d of out.diagnostics||[])if(d.category===ts.DiagnosticCategory.Error)errors.push(`${rel}: ${ts.flattenDiagnosticMessageText(d.messageText," ")}`)}
 if(errors.length){console.error(errors.join("\n"));process.exit(1)}
-console.log(`v1.3 validation passed: canonical metadata on ${publicPages.length} public page files, split sitemap gates, trust pages, internal-linking, shared brand assets, ${files.length} TS/TSX files syntax clean.`);
+console.log(`v1.3 validation passed: canonical metadata on ${publicPages.length} public page files, split sitemap gates including conditional commerce discovery, trust pages, internal-linking, shared brand assets, ${files.length} TS/TSX files syntax clean.`);
