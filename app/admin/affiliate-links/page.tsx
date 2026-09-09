@@ -9,7 +9,15 @@ export const dynamic="force-dynamic";
 
 export default async function AffiliateLinksAdmin(){
   const configured=databaseConfigured();
-  const dbRows=configured?await prisma.affiliateProductLink.findMany({orderBy:{updatedAt:"desc"}}):[];
+  let databaseReady=configured;
+  let dbRows:Awaited<ReturnType<typeof prisma.affiliateProductLink.findMany>>=[];
+  if(configured){
+    try{
+      dbRows=await prisma.affiliateProductLink.findMany({orderBy:{updatedAt:"desc"}});
+    }catch{
+      databaseReady=false;
+    }
+  }
   const byId=new Map(dbRows.map(row=>[row.productId,row]));
   const rows=allCatalogProducts().map(product=>{
     const db=byId.get(product.id);
@@ -35,6 +43,6 @@ export default async function AffiliateLinksAdmin(){
       <div className="hero-actions"><a className="button ghost small" href="/admin/data-health">Data health</a><a className="button ghost small" href="/affiliate-disclosure" target="_blank">Affiliate disclosure ↗</a></div>
     </div>
     <div className="note-box"><h2>Publication rule</h2><p>Only HTTPS links on approved Shopee or Involve Asia hosts can be activated. An explicit database Disabled record blocks older JSON/environment fallbacks for that product.</p></div>
-    <AffiliateLinkManager rows={rows} databaseConfigured={configured}/>
+    <AffiliateLinkManager rows={rows} databaseConfigured={databaseReady}/>
   </section>;
 }
