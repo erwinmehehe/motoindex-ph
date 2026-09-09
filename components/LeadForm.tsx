@@ -71,7 +71,7 @@ export function LeadForm({ model }: { model: Motorcycle }) {
     <div className="lead-form-head">
       <span>Dealer quote request</span>
       <h2>Get the latest {model.make} {model.model} dealer price</h2>
-      <p>Tell us what you want to buy and where you are. Your request is matched only with verified dealer records.</p>
+      <p>Tell us what you want to buy and where you are. Your request is matched only with verified dealer partners that are approved to receive buyer requests.</p>
     </div>
 
     <input className="form-honeypot" type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
@@ -86,10 +86,10 @@ export function LeadForm({ model }: { model: Motorcycle }) {
       <label className="lead-form-wide"><span>Email <small>optional</small></span><input name="email" type="email" autoComplete="email" placeholder="you@example.com" /></label>
     </div>
 
-    <label className="lead-consent"><input type="checkbox" name="consent" required /> <span>I agree that MotoIndex may store these details and share them with a verified dealer only when there is a relevant match for this motorcycle and location.</span></label>
+    <label className="lead-consent"><input type="checkbox" name="consent" required /> <span>I agree that MotoIndex may store these details and share them with up to three relevant verified dealer partners when there is a match for this motorcycle and location.</span></label>
 
     {state === "error" && <p className="form-error" role="alert">{message}</p>}
     <button className="button" type="submit" disabled={state === "sending"}>{state === "sending" ? "Saving request…" : "Get dealer prices"}</button>
-    <small>No request is represented as sent to a dealer unless a verified dealer match exists.</small>
+    <small>Your details are not shared with a public directory listing unless that dealer is also an approved MotoIndex quote partner.</small>
   </form>;
 }
