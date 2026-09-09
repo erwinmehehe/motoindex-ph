@@ -95,7 +95,7 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
       </nav>
 
       <section id="generations" className="model-family-section">
-        <div className="section-head compact"><div><span className="section-kicker">Choose the exact model</span><h2>Which {family.name} are you looking for?</h2><p>Every generation below has its own canonical model page, lifecycle context and price source date.</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">Choose the exact model</span><h2>Which {family.name} are you looking for?</h2><p>Open a generation below to see its price, current-market status and model-specific details.</p></div></div>
         <div className="model-family-generation-grid">{models.map((m) => {
           if (!m) return null;
           const previous = m.marketStatus === "previous";
