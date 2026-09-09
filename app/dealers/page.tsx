@@ -83,6 +83,11 @@ export default async function DealersPage() {
       </div>
     </section>
 
+    <section className="dealer-partner-strip">
+      <div><span className="section-kicker">Dealer partners</span><h2>Own or represent a motorcycle dealership?</h2><p>Apply to add a verified branch, publish checked dealer details and become eligible for relevant buyer quote matching.</p></div>
+      <Link className="button" href="/dealers/join">Join MotoIndex as a dealer</Link>
+    </section>
+
     <section className="motorcycle-entity-section">
       <div className="section-head compact"><div>
         <h2>Choose the motorcycle before requesting quotes</h2>
