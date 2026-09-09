@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const protectedPrefixes = ["/admin", "/api/ingestion"];
-const prototypePrefixes = ["/get-quote", "/price-alerts", "/deals", "/sellers", "/dealers", "/used-motorcycles"];
+const prototypePrefixes = ["/get-quote", "/price-alerts", "/deals", "/sellers", "/used-motorcycles"];
 const AUTH_WINDOW_MS = 15 * 60 * 1000;
 const AUTH_MAX_FAILURES = 10;
 const authFailures = new Map<string, { count: number; resetAt: number }>();
@@ -43,6 +43,8 @@ function recordAuthFailure(key: string, now = Date.now()) {
 
 function isPrototypePath(pathname: string) {
   if (pathname === "/used-motorcycles/repo" || pathname === "/used-motorcycles/buying-checklist") return false;
+  if (pathname === "/dealers") return false;
+  if (pathname.startsWith("/dealers/")) return true;
   if (prototypePrefixes.some(prefix => pathname === prefix || pathname.startsWith(`${prefix}/`))) return true;
   return /^\/motorcycles\/[^/]+\/[^/]+\/(used-value|new-vs-used)\/?$/.test(pathname);
 }
