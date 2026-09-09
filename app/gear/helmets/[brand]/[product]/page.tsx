@@ -19,6 +19,7 @@ import { ProductEntityNav } from "@/components/ProductEntityNav";
 import { ProductCard } from "@/components/ProductCard";
 import { FaqSection } from "@/components/FaqSection";
 import { SourceRef } from "@/components/SourceRef";
+import { AuthorBox } from "@/components/AuthorBox";
 
 export const revalidate = 3600;
 
@@ -38,8 +39,8 @@ export async function generateMetadata({ params }: { params: Promise<{ brand: st
     if (!catalog) return {};
     const brandLabel = catalog.brandSlug.toUpperCase();
     return pageMetadata({
-      title: `${brandLabel} ${catalog.model} Helmet Philippines: Catalog Model`,
-      description: `${brandLabel} ${catalog.model} current catalog model page with source reference and Philippine buying checks while exact price, fit, visor, shell and certification details are verified.`,
+      title: `${brandLabel} ${catalog.model} Helmet Philippines: Buying Guide`,
+      description: `${brandLabel} ${catalog.model} Philippines helmet guide with current catalog reference, seller-price checks, sizing, certification, visor and replacement-parts advice.`,
       path: `/gear/helmets/${catalog.brandSlug}/${catalog.slug}`,
       index: false,
     });
@@ -193,6 +194,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
 
     <div className="note-box"><h2>Philippine helmet check</h2><p>Inspect the conformity marking on the exact helmet offered locally, confirm the fit in your size, and match replacement visors or inserts to the exact model before buying.</p><Link className="text-link" href="/methodology">How MotoIndex checks product information →</Link></div>
 
+    <AuthorBox />
     <RelatedLinks title={`More about ${p.brand} and ${p.helmetType.toLowerCase()} helmets`} links={helmetProductInternalLinks(p)} />
     <JsonLd data={schema} />
   </section>;
