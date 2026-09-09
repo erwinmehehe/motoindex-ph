@@ -1,2 +1,5 @@
 import { permanentRedirect } from "next/navigation";
-export default function Page(){permanentRedirect("/guides/electric-scooters-philippines");}
+
+export default function ConsolidatedElectricGuideRoute() {
+  permanentRedirect("/motorcycles/electric#models");
+}
