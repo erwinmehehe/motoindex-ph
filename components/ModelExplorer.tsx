@@ -42,14 +42,15 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
   const dirty = Boolean(q || make!=="all" || category!=="all" || budget!=="all");
   function reset(){setQ("");setMake("all");setCategory("all");setBudget("all");}
 
-  return <>
+  return <div className="model-explorer-v300">
+    <div className="model-explorer-toolbar"><div><span>Filter motorcycles</span><strong>Search the current catalog</strong></div>{dirty&&<button type="button" className="filter-reset" onClick={reset}>Reset filters</button>}</div>
     <div className="filter-bar">
       <label className="filter-search"><span>Search models</span><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search Aerox, Honda, sport scooter..." /></label>
       <label><span>Make</span><select value={make} onChange={e=>setMake(e.target.value)}><option value="all">All makes</option>{makes.map(v=><option key={v} value={v}>{v}</option>)}</select></label>
       <label><span>Type</span><select value={category} onChange={e=>setCategory(e.target.value)}><option value="all">All types</option>{categories.map(v=><option key={v} value={v}>{v}</option>)}</select></label>
       <label><span>Budget</span><select value={budget} onChange={e=>setBudget(e.target.value)}><option value="all">Any</option><option value="under100">Under ₱100K</option><option value="100to150">₱100K–₱150K</option><option value="150to200">₱150K–₱200K</option><option value="over200">₱200K and above</option></select></label>
     </div>
-    <div className="result-meta" aria-live="polite"><span><b>{filtered.length}</b> motorcycles match your filters</span>{dirty&&<button type="button" className="filter-reset" onClick={reset}>Reset filters</button>}</div>
-    {filtered.length ? <div className="card-grid">{filtered.map(m=><ModelCard key={m.id} model={m}/>)}</div> : <div className="empty-state large">No motorcycles match these filters. <button type="button" className="text-button" onClick={reset}>Clear filters</button></div>}
-  </>;
+    <div className="result-meta" aria-live="polite"><span><b>{filtered.length}</b> motorcycles match your filters</span><small>{dirty ? "Filtered view" : "All published model records"}</small></div>
+    {filtered.length ? <div className="card-grid motorcycle-catalog-grid">{filtered.map(m=><ModelCard key={m.id} model={m}/>)}</div> : <div className="empty-state large">No motorcycles match these filters. <button type="button" className="text-button" onClick={reset}>Clear filters</button></div>}
+  </div>;
 }
