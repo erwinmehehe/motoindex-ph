@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { getModelById } from "@/lib/data";
-import { publicSellersByType } from "@/lib/sellers";
+import { allVerifiedDealers } from "@/lib/persistentSellers";
 
 export const runtime = "nodejs";
 
@@ -61,7 +61,8 @@ export async function POST(request: Request) {
   if (!consent) return NextResponse.json({ ok: false, error: "Consent is required before we can save and match your request." }, { status: 400 });
 
   const location = cityProvince.toLowerCase();
-  const matched = publicSellersByType("dealer").filter((seller) => {
+  const verifiedDealers = await allVerifiedDealers();
+  const matched = verifiedDealers.filter((seller) => {
     const brandMatch = seller.brands.some((brand) => brand.toLowerCase() === model.make.toLowerCase());
     const locationMatch = location.includes(seller.city.toLowerCase()) || location.includes(seller.region.toLowerCase());
     return brandMatch && locationMatch;
