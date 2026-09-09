@@ -60,6 +60,21 @@ const publicFiles = {
   ],
   "lib/data.ts": [
     "an published starting price"
+  ],
+  "app/gear/helmets/[brand]/page.tsx": [
+    "More {h.brand} models in current catalogs",
+    "finishes the model-specific",
+    "still being researched"
+  ],
+  "components/HelmetCatalogModelPage.tsx": [
+    "Verification in progress",
+    "Source expansion in progress",
+    "while model-specific"
+  ],
+  "components/HelmetBrandGuide.tsx": [
+    "full MotoIndex page yet",
+    "still building out full product pages",
+    "placeholder research cards"
   ]
 };
 
@@ -68,6 +83,23 @@ for (const [path, phrases] of Object.entries(publicFiles)) {
   for (const phrase of phrases) {
     if (text.includes(phrase)) failures.push(`${path}: remove public internal-language phrase "${phrase}"`);
   }
+}
+
+const articleSchema = read("lib/articleSchema.ts");
+if (!articleSchema.includes("author: authorPersonSchema()")) {
+  failures.push("lib/articleSchema.ts: Article schema must use the Erwin Valles Person author entity");
+}
+const authorProfile = read("app/authors/erwin-valles/page.tsx");
+if (!authorProfile.includes('"@type": "ProfilePage"') || !authorProfile.includes("Erwin")) {
+  failures.push("app/authors/erwin-valles/page.tsx: author ProfilePage schema is missing");
+}
+const authorBox = read("components/AuthorBox.tsx");
+if (!authorBox.includes("AUTHOR_NAME") || !authorBox.includes("AUTHOR_PATH")) {
+  failures.push("components/AuthorBox.tsx: reusable author box is not wired to the canonical author entity");
+}
+const sitemapSource = read("lib/sitemaps.ts");
+if (!sitemapSource.includes('["/authors/erwin-valles",.5]')) {
+  failures.push("lib/sitemaps.ts: Erwin Valles author profile must remain in the core sitemap");
 }
 
 const priceChecks = read("components/MarketPriceChecks.tsx");
