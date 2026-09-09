@@ -1,6 +1,5 @@
-import type { Metadata } from "next";
-import { safetyResources } from "@/lib/safety";
-import { pageMetadata } from "@/lib/site";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
-export const metadata:Metadata=pageMetadata({title:"Motorcycle Recall & Service Campaign Check Philippines",description:"Official Honda, Suzuki, Yamaha and Kawasaki Philippines resources for motorcycle recalls, product updates and service campaigns.",path:"/ownership/safety-campaigns",index:true});
-export default function SafetyHub(){return <section className="page shell"><Breadcrumbs items={[{label:"Ownership",href:"/ownership"},{label:"Safety campaigns"}]}/><div className="page-head"><h1>Check recalls and service campaigns at the manufacturer</h1><p>Campaign eligibility can be VIN/frame-specific. Use the official Philippine manufacturer resources below; an empty notice list does not prove that a motorcycle is unaffected.</p></div><div className="source-ladder">{safetyResources.map(r=><article key={r.makeSlug}><span>{r.hasVehicleChecker?"Vehicle checker":"Official support"}</span><div><h2>{r.label}</h2><small>Checked {r.lastChecked}</small></div><div><p>{r.method}</p><a className="button small" href={r.url} target="_blank" rel="noreferrer">Open official resource ↗</a></div></article>)}</div></section>}
+import { permanentRedirect } from "next/navigation";
+
+export default function ConsolidatedOwnershipRoute() {
+  permanentRedirect("/ownership#safety-campaigns");
+}
