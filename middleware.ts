@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const protectedPrefixes = ["/admin", "/api/ingestion"];
-const prototypePrefixes = ["/get-quote", "/price-alerts", "/deals", "/used-motorcycles"];
+const prototypePrefixes = ["/price-alerts", "/deals"];
 const AUTH_WINDOW_MS = 15 * 60 * 1000;
 const AUTH_MAX_FAILURES = 10;
 const authFailures = new Map<string, { count: number; resetAt: number }>();
@@ -81,8 +81,8 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/admin/:path*", "/api/ingestion/:path*", "/get-quote/:path*", "/price-alerts/:path*", "/deals/:path*",
-    "/sellers", "/used-motorcycles/:path*", "/go/:path*",
+    "/admin/:path*", "/api/ingestion/:path*", "/price-alerts/:path*", "/deals/:path*",
+    "/sellers", "/go/:path*",
     "/motorcycles/:make/:slug/used-value", "/motorcycles/:make/:slug/new-vs-used"
   ]
 };
