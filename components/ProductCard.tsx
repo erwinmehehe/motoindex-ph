@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { EntityMedia } from "@/components/EntityMedia";
 import { AffiliateOffer } from "@/components/AffiliateOffer";
-import { hasAffiliateLink } from "@/lib/affiliate";
 import { hasRenderableProductMedia } from "@/lib/media";
 
 export type ProductCardItem = {
@@ -26,7 +25,6 @@ export function ProductCard({ item }: { item: ProductCardItem }) {
   const entityType=entityTypeForHref(item.href);
   const productName=`${item.brand} ${item.model}`;
   const hasMedia=Boolean(item.entityId&&hasRenderableProductMedia(item.entityId));
-  const hasAffiliate=Boolean(item.entityId&&hasAffiliateLink(item.entityId));
   const card=<Link className="product-card" href={item.href}>
     {entityType&&item.entityId&&hasMedia?<EntityMedia entityType={entityType} entityId={item.entityId} className="product-card-media" showCredit={false} fallback={null}/>:<div className="product-art" aria-label="Product photo not yet available"><span>Photo not yet available</span></div>}
     <div className="product-card-copy">
@@ -36,6 +34,6 @@ export function ProductCard({ item }: { item: ProductCardItem }) {
       <div className="product-card-foot"><strong>{item.priceFromPhp ? `From ₱${item.priceFromPhp.toLocaleString("en-PH")}` : "Price pending"}</strong><span>View →</span></div>
     </div>
   </Link>;
-  if(!hasAffiliate||!item.entityId)return card;
+  if(!item.entityId)return card;
   return <article className="product-card-shell">{card}<AffiliateOffer productId={item.entityId} productName={productName} compact /></article>;
 }
