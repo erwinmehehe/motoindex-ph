@@ -4,11 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
 
-type Result = { ok: boolean; message?: string; error?: string; matchedDealers?: number };
+type Result = { ok: boolean; message?: string; error?: string; matchedDealers?: number; statusPath?: string };
 
 export function LeadForm({ model }: { model: Motorcycle }) {
   const [state, setState] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const [statusPath, setStatusPath] = useState("");
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -45,6 +46,7 @@ export function LeadForm({ model }: { model: Motorcycle }) {
       }
       setState("success");
       setMessage(result.message || "Your dealer request has been saved.");
+      setStatusPath(result.statusPath || "");
       form.reset();
     } catch {
       setState("error");
@@ -56,10 +58,12 @@ export function LeadForm({ model }: { model: Motorcycle }) {
     return <div className="lead-form lead-form-success" aria-live="polite">
       <div className="lead-form-head"><span>Request received</span><h2>We saved your dealer request.</h2><p>{message}</p></div>
       <div className="hero-actions">
-        <Link className="button" href={`/motorcycles/${model.makeSlug}/${model.slug}`}>Back to {model.model}</Link>
+        {statusPath&&<Link className="button" href={statusPath}>View quote status</Link>}
+        <Link className={statusPath?"button ghost":"button"} href={`/motorcycles/${model.makeSlug}/${model.slug}`}>Back to {model.model}</Link>
         <Link className="button ghost" href="/dealers">Browse verified dealers</Link>
       </div>
-      <small>MotoIndex only shares contact details with verified dealer partners when a match exists.</small>
+      {statusPath&&<small>Save the private quote-status link if you want to return later. It expires after 30 days and should not be shared publicly.</small>}
+      {!statusPath&&<small>MotoIndex only shares contact details with verified dealer partners when a match exists.</small>}
     </div>;
   }
 
