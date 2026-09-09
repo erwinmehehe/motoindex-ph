@@ -571,3 +571,14 @@ a.market-price-source-card:hover{
   .helmet-model-guide-grid{grid-template-columns:1fr}
   .helmet-model-buying-facts{grid-template-columns:1fr}
 }
+
+.entity-color-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:18px 0}
+.entity-color-grid article,.variant-color-list article{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+.entity-color-grid article{display:flex;flex-direction:column;gap:5px}
+.entity-color-grid strong{font-size:14px}
+.entity-color-grid small,.variant-color-list span{font-size:9px;color:var(--muted)}
+.variant-color-list{display:grid;gap:10px;margin-top:14px}
+.variant-color-list article{display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:12px;align-items:center}
+.variant-color-list strong{font-size:11px}
+@media(max-width:800px){.entity-color-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.variant-color-list article{grid-template-columns:1fr}.variant-color-list article a{justify-self:start}}
+@media(max-width:480px){.entity-color-grid{grid-template-columns:1fr}}
