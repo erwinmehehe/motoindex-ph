@@ -637,4 +637,21 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "471cc parallel-twin cruiser with a six-speed gearbox, dual-channel ABS, low 690 mm seat and 11.2 L fuel tank."
   },
 
+  {
+    id: "bristol-zontes-400g", alsoKnownAs: ["Zontes 400G", "Bristol 400G"], make: "Bristol", makeSlug: "bristol", model: "Zontes 400G", slug: "zontes-400g", generation: "2026 Philippine model", category: "Adventure maxi scooter",
+    srp: 408800, engineCc: 400, powerHp: 38, torqueNm: 40, curbWeightKg: 203, seatHeightMm: 770, fuelTankL: 17.5, groundClearanceMm: 180,
+    frontTire: "110/70-17", rearTire: "150/70-14", abs: "Dual-channel ABS with traction control", colors: ["Gray", "Black", "Green", "White"], searchVolume: 7000, keywordDifficulty: 0,
+    sourceLabel: "2026 Philippine Zontes 400G launch and locally published specification cross-check", sourceUrl: "https://lifestyleonwheels.com/the-digital-nomads-shield-the-zontes-400g-safe-ride-journey-feature/", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Automatic",
+    marketPriceSourceLabel: "2026 Zontes 400G Philippine launch price", marketPriceSourceUrl: "https://trafficnetworkph.com/2026-zontes-400g-launches-in-the-philippines/", marketPriceCheckedAt: "2026-09-09",
+    summary: "400cc CVT adventure maxi scooter with 38 hp, 40 Nm, 203 kg curb weight, a 770 mm seat, 17.5 L tank, dual-channel ABS and traction control."
+  },
+  {
+    id: "kawasaki-ninja-h2", alsoKnownAs: ["Kawasaki H2", "Ninja H2 Carbon"], make: "Kawasaki", makeSlug: "kawasaki", model: "Ninja H2", slug: "ninja-h2", generation: "2026 Carbon Philippine listing", category: "Hypersport",
+    srp: 1917200, engineCc: 998, powerHp: 197.4, torqueNm: 133.5, curbWeightKg: 237, seatHeightMm: 825, fuelTankL: 17, groundClearanceMm: 130,
+    frontTire: "120/70 R17", rearTire: "200/55 R17", abs: "KIBS ABS with traction control and launch-control equipment", colors: ["Mirror Coated Matte Spark Black / Candy Flat Blazed Green"], searchVolume: 6400, keywordDifficulty: 0,
+    sourceLabel: "2026 Kawasaki Ninja H2 Carbon specification with Philippine-market cross-check", sourceUrl: "https://www.kawasaki.com/en-us/motorcycle/ninja/hypersport/ninja-h2/2026-ninja-h2-carbon-abs", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Current Philippine Ninja H2 Carbon price", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/kawasaki/ninja-h2/price", marketPriceCheckedAt: "2026-09-09",
+    summary: "998cc supercharged hypersport motorcycle with 197.4 hp, 133.5 Nm, 237 kg curb weight, an 825 mm seat and KIBS ABS."
+  },
+
 ];
