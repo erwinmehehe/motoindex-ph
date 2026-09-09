@@ -56,7 +56,7 @@ export const modelFamilies: ModelFamily[] = [
         "So do not buy, sell or price a Click on a V-number. Read the displacement and the model year off the OR/CR and the engine number, then use the page for that exact model below. If a seller quotes you a price for a “V3”, ask which displacement and which year they mean before comparing it to anything."
       ]
     }
-  }
+  },
 
   {
     make: "Honda",
