@@ -75,16 +75,30 @@ export async function POST(request: Request) {
     orderBy: { createdAt: "desc" }
   });
   if (duplicate) {
+    let buyerAccessToken = duplicate.buyerAccessToken;
+    let buyerAccessExpiresAt = duplicate.buyerAccessExpiresAt;
+    if (!buyerAccessToken || !buyerAccessExpiresAt || buyerAccessExpiresAt <= new Date()) {
+      buyerAccessToken = randomBytes(32).toString("hex");
+      buyerAccessExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+      await prisma.dealerLead.update({
+        where: { id: duplicate.id },
+        data: { buyerAccessToken, buyerAccessExpiresAt }
+      });
+    }
     return NextResponse.json({
       ok: true,
       queued: true,
       leadId: duplicate.id,
+      statusPath: `/quote-status/${buyerAccessToken}`,
       matchedDealers: duplicate.matchedSellerSlugs.length,
       message: duplicate.matchedSellerSlugs.length
         ? `Your recent request is already saved and matched with ${duplicate.matchedSellerSlugs.length} verified dealer${duplicate.matchedSellerSlugs.length === 1 ? "" : "s"}.`
         : "Your recent request is already saved. No verified dealer match is available for your area yet."
     });
   }
+
+  const buyerAccessToken = randomBytes(32).toString("hex");
+  const buyerAccessExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
   const lead = await prisma.dealerLead.create({
     data: {
@@ -102,6 +116,8 @@ export async function POST(request: Request) {
       matchedSellerSlugs: matched.map((seller) => seller.slug),
       status: matched.length ? "matched" : "new",
       sourcePath: clean(body.sourcePath, 180) || `/get-quote/${model.makeSlug}/${model.slug}`,
+      buyerAccessToken,
+      buyerAccessExpiresAt,
     }
   });
 
@@ -129,6 +145,7 @@ export async function POST(request: Request) {
     ok: true,
     queued: true,
     leadId: lead.id,
+    statusPath: `/quote-status/${buyerAccessToken}`,
     matchedDealers: matched.length,
     message: matched.length
       ? `Request saved and matched with ${matched.length} verified dealer${matched.length === 1 ? "" : "s"} covering your area. MotoIndex reviews the match before any buyer details are shared.`
