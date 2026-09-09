@@ -4,7 +4,7 @@ import { useState } from "react";
 
 type Result={ok:boolean;message?:string;error?:string};
 
-const brands=["Honda","Yamaha","Suzuki","Kawasaki","KTM","CFMOTO","BMW Motorrad","Ducati","Triumph","Royal Enfield","Bristol","Zontes","Other"];
+const brands=["Honda","Yamaha","Suzuki","Kawasaki","KTM","CFMOTO","BMW Motorrad","Ducati","Triumph","Royal Enfield","Bristol","Zontes"];
 
 export function DealerPartnerForm(){
   const [state,setState]=useState<"idle"|"sending"|"success"|"error">("idle");
@@ -23,6 +23,7 @@ export function DealerPartnerForm(){
       province:String(data.get("province")||""),
       region:String(data.get("region")||""),
       brands:data.getAll("brands").map(String),
+      otherBrands:String(data.get("otherBrands")||""),
       website:String(data.get("website")||""),
       phone:String(data.get("phone")||""),
       contactName:String(data.get("contactName")||""),
@@ -58,7 +59,7 @@ export function DealerPartnerForm(){
       <label className="lead-form-wide"><span>Official manufacturer/dealer source <small>strongly recommended</small></span><input name="officialSourceUrl" type="url" placeholder="https://..." /></label>
     </div>
 
-    <fieldset className="dealer-brand-fieldset"><legend>Brands sold at this branch</legend><div className="dealer-brand-checks">{brands.map(brand=><label key={brand}><input type="checkbox" name="brands" value={brand}/><span>{brand}</span></label>)}</div></fieldset>
+    <fieldset className="dealer-brand-fieldset"><legend>Brands sold at this branch</legend><div className="dealer-brand-checks">{brands.map(brand=><label key={brand}><input type="checkbox" name="brands" value={brand}/><span>{brand}</span></label>)}</div><label className="dealer-other-brands"><span>Other brands <small>comma separated</small></span><input name="otherBrands" placeholder="e.g. Kymco, Vespa"/></label></fieldset>
 
     <div className="lead-form-grid">
       <label><span>Contact person</span><input name="contactName" required autoComplete="name"/></label>
