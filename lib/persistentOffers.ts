@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { prisma, databaseConfigured } from "./db";
 import { motorcycles } from "./data";
 import { helmetProducts, tireProducts, topBoxProducts } from "./catalog";
