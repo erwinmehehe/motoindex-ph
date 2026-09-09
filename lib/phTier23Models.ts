@@ -431,4 +431,30 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "378cc parallel-twin roadster with 36.2 hp, dual-channel ABS, a 19 L tank, 770 mm seat and six-speed manual transmission."
   },
 
+
+  {
+    id: "bristol-maxxie-160", make: "Bristol", makeSlug: "bristol", model: "Maxxie 160", slug: "maxxie-160", generation: "Current Philippine model", category: "Maxi-style scooter",
+    srp: 168800, engineCc: 160, powerHp: 15.8, torqueNm: 14.7, curbWeightKg: 137.6, seatHeightMm: 746, fuelTankL: 13, groundClearanceMm: 130,
+    frontTire: "110/70-13", rearTire: "130/70-13", abs: "Dual-channel ABS", colors: ["Black", "Gray", "White"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Bristol Maxxie 160 current model specification with Philippine market cross-check", sourceUrl: "https://www.bikes4sale.com/details/bristol/maxxie-160/maxxie-160/", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Bristol Motorcycle Cebu current dealer listing", marketPriceSourceUrl: "https://www.autoyas.com/PH/Mandaue-City/116217340506470/Bristol-Motorcycle-Cebu", marketPriceCheckedAt: "2026-09-09", transmission: "Automatic",
+    summary: "160cc urban maxi-style scooter with CVT, dual-channel ABS, a low 746 mm seat, 13 L tank and 13-inch tires."
+  },
+  {
+    id: "bristol-basilica-125", make: "Bristol", makeSlug: "bristol", model: "Basilica 125", slug: "basilica-125", generation: "Current Philippine model", category: "Retro scooter",
+    srp: 128800, engineCc: 125, powerHp: 8.9, torqueNm: 9.5, curbWeightKg: 111, seatHeightMm: 780, fuelTankL: 6.6, fuelConsumptionKmL: 50, groundClearanceMm: 110,
+    frontTire: "120/70-12", rearTire: "120/70-12", abs: "Combined braking system (CBS); no ABS asserted", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Bristol Basilica 125 current model specification with Philippine market cross-check", sourceUrl: "https://www.bikes4sale.com/details/bristol/basilica/basilica/", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Bristol Motorcycle Cebu current dealer listing", marketPriceSourceUrl: "https://www.autoyas.com/PH/Mandaue-City/116217340506470/Bristol-Motorcycle-Cebu", marketPriceCheckedAt: "2026-09-09", transmission: "Automatic",
+    summary: "125cc retro automatic scooter with CBS, a 780 mm seat, 6.6 L tank, 12-inch tires and an approximately 111 kg kerb weight."
+  },
+  {
+    id: "husqvarna-norden-901", make: "Husqvarna", makeSlug: "husqvarna", model: "Norden 901", slug: "norden-901", generation: "Current Philippine model", category: "Adventure touring",
+    srp: 950000, engineCc: 889, powerHp: 105, torqueNm: 100, curbWeightKg: 204, seatHeightMm: 854, fuelTankL: 19, fuelConsumptionKmL: 22.2, groundClearanceMm: 252,
+    frontTire: "90/90 R21", rearTire: "150/70 R18", abs: "Bosch cornering ABS with off-road mode", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Husqvarna Philippines Norden 901 technical specification", sourceUrl: "https://www.husqvarna-motorcycles.com/en-ph/models/travel/norden-901-2022.html", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current",
+    priceContext: "Current 2026 Philippine listings are price-on-request; ₱950,000 is the last confirmed public Philippine launch SRP from 2023.", transmission: "Manual",
+    summary: "889cc parallel-twin adventure tourer with 105 hp, 100 Nm, 21/18-inch tubeless spoked wheels, a 19 L tank and adjustable 854/874 mm seat."
+  },
+
 ];
