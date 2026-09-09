@@ -43,6 +43,7 @@ export default async function DealerLeadsAdmin(){
               <small>{delivery.quoteResponse.monthlyPhp?`${php(Number(delivery.quoteResponse.downPaymentPhp||0))} down · ${php(Number(delivery.quoteResponse.monthlyPhp))}/mo · ${delivery.quoteResponse.termMonths||"—"} months`:"No installment quote"}</small>
               <small>{delivery.quoteResponse.availability} · submitted {delivery.quoteResponse.submittedAt.toISOString().slice(0,10)}</small>
               {delivery.quoteResponse.validUntil&&<small>Valid until {delivery.quoteResponse.validUntil.toISOString().slice(0,10)}</small>}
+              {delivery.quoteResponse.buyerDecision&&<small className={`buyer-decision ${delivery.quoteResponse.buyerDecision}`}>Buyer response: {delivery.quoteResponse.buyerDecision==="interested"?"Interested":"Not for me"}{delivery.quoteResponse.buyerDecisionAt?` · ${delivery.quoteResponse.buyerDecisionAt.toISOString().slice(0,10)}`:""}</small>}
               {delivery.quoteResponse.dealerNote&&<p>{delivery.quoteResponse.dealerNote}</p>}
             </div>}
           </div>):<div className="lead-delivery-empty"><strong>No secure partner handoff available</strong><small>{lead.matchedSellerSlugs.length?"Matched dealer records do not have an approved private lead email yet.":"No verified dealer matched this request."}</small></div>}
