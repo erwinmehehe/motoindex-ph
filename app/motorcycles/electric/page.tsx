@@ -47,7 +47,10 @@ export default function ElectricMotorcyclesPage() {
         <Link href="/guides/electric-scooters-philippines"><span>Buying guide</span><h3>Electric scooters Philippines</h3><p>Compare the verified local models and their battery choices.</p></Link>
         <Link href="/guides/e-bike-vs-motorcycle"><span>Classification</span><h3>E-bike versus motorcycle</h3><p>Understand why speed and vehicle category affect registration.</p></Link>
         <Link href="/guides/electric-motorcycle-registration-philippines"><span>LTO</span><h3>Registration requirements</h3><p>Check how L3 electric motorcycles differ from lighter electric vehicles.</p></Link>
+        <Link href="/recommendations/electric-motorcycles-philippines"><span>Compare</span><h3>Electric motorcycles to compare</h3><p>See price, range, battery and speed side by side.</p></Link>
+        <Link href="/guides/electric-motorcycle-vs-gas-motorcycle"><span>Ownership</span><h3>Electric vs gas motorcycle</h3><p>Compare charging, refueling, range and day-to-day ownership.</p></Link>
         <Link href="/tools/electric-motorcycle-charging-cost"><span>Calculator</span><h3>Charging cost calculator</h3><p>Estimate charging cost from battery capacity and electricity rate.</p></Link>
+        <Link href="/tools/electric-motorcycle-range-calculator"><span>Calculator</span><h3>Range calculator</h3><p>Turn published range into a more conservative daily-use planning figure.</p></Link>
         <Link href="/motorcycles/electric/range-comparison"><span>Comparison</span><h3>Electric motorcycle range</h3><p>Compare one-battery and two-battery manufacturer claims.</p></Link>
       </div>
     </section>
