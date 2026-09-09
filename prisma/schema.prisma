@@ -490,6 +490,8 @@ model DealerQuoteResponse {
   availability   String
   validUntil     DateTime?
   dealerNote     String?
+  buyerDecision  String?
+  buyerDecisionAt DateTime?
   submittedAt    DateTime           @default(now())
   updatedAt      DateTime           @updatedAt
 
