@@ -17,11 +17,11 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
   const faqs: FaqItem[] = current ? [
     {
       question: `How much is the ${family.make} ${family.name} in the Philippines?`,
-      answer: `The current ${current.model} price reference on MotoIndex is ${observedMarketPriceLabel(current)}. Open the current-generation model page for the source date, variants and market checks.`
+      answer: `The current ${current.make} ${current.model} is priced at ${observedMarketPriceLabel(current)} in the Philippines. Open the current-generation page for variant prices and the latest source date.`
     },
     {
       question: `Which ${family.name} generation is current?`,
-      answer: `${current.model} is the current generation in the MotoIndex catalog. Older generations stay on separate pages so historical launch prices are not confused with current new-bike pricing.`
+      answer: `${current.make} ${current.model} is the current generation. Older generations are kept separate so historical launch prices are not confused with current new-bike prices.`
     },
     {
       question: `Are older and current ${family.name} prices directly comparable?`,
@@ -165,7 +165,7 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
       <section className="model-family-note">
         <span>Why separate generations?</span>
         <h2>Historical launch prices are not current new-bike prices.</h2>
-        <p>An older generation can still be common on the used market, but its launch SRP should not be presented as today's dealer price. MotoIndex keeps generation pages separate so the number you see stays attached to the right motorcycle and market context.</p>
+        <p>An older generation can still be common on the used market, but its launch SRP should not be presented as today's dealer price. Generation pages stay separate so each price remains tied to the correct motorcycle and market context.</p>
       </section>
 
       {faqs.length > 0 && <section id="faq" className="model-family-section model-family-faq-section"><FaqSection title={`${family.make} ${family.name} price questions`} items={faqs}/></section>}

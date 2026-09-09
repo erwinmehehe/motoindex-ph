@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const colors = colorsForModel(model.id, model.colors);
   return pageMetadata({
     title: `${model.make} ${model.model} Colors Philippines 2026`,
-    description: `See the ${model.make} ${model.model} colors recorded for the Philippines, including current variant-specific color information and the source date used by MotoIndex.`,
+    description: `See the ${model.make} ${model.model} colors recorded for the Philippines, including current variant-specific color information and the latest source date.`,
     path: `/motorcycles/${model.makeSlug}/${model.slug}/colors`,
     index: isIndexableModel(model) && colors.length > 0
   });
@@ -46,8 +46,8 @@ export default async function MotorcycleColorsPage({ params }: { params: Promise
     .map((variant) => ({ name: variant.name, colors: variant.colors || [], sourceLabel: variant.sourceLabel, sourceUrl: variant.sourceUrl, checkedAt: variant.checkedAt }));
 
   const faq = [
-    { q: `What colors does the ${model.make} ${model.model} come in?`, a: `MotoIndex currently records ${colors.join(", ")} for this model or its verified Philippine variants. Availability can change by model year, trim and dealer stock.` },
-    { q: `Are all ${model.model} colors available on every variant?`, a: variantRows.length ? "Not necessarily. MotoIndex lists variant-specific colors separately where a checked Philippine source provides that mapping." : "Not necessarily. Color availability can vary by trim, model year and seller even when the model family uses the same basic specification." },
+    { q: `What colors does the ${model.make} ${model.model} come in?`, a: `Available color references include ${colors.join(", ")}. Actual availability can vary by model year, variant and dealer stock.` },
+    { q: `Are all ${model.model} colors available on every variant?`, a: variantRows.length ? "Not necessarily. Some colors are tied to specific variants, so check the exact trim before choosing a finish." : "Not necessarily. Color availability can vary by trim, model year and seller even when the core motorcycle is the same." },
     { q: "Will the actual paint look exactly like it does on a screen?", a: "No. Screens, lighting, camera processing and compression can change how a finish looks. Inspect the actual motorcycle before choosing a color." }
   ];
 
@@ -83,14 +83,14 @@ export default async function MotorcycleColorsPage({ params }: { params: Promise
     <div className="page-head">
       <span className="entity-kicker">Philippines color guide · checked {model.verifiedAt}</span>
       <h1>{model.make} {model.model} colors</h1>
-      <p>These are the color names MotoIndex can tie to the {model.make} {model.model} or its verified Philippine variants. Color availability can change by model year, trim and dealer inventory.</p>
+      <p>These are the color names currently tied to the {model.make} {model.model} or its verified Philippine variants. Color availability can change by model year, trim and dealer inventory.</p>
       <div className="hero-actions">
         <Link className="button" href={`/motorcycles/${model.makeSlug}/${model.slug}`}>Full {model.model} guide</Link>
         <Link className="button secondary" href={`/motorcycles/${model.makeSlug}/${model.slug}/specifications`}>View specifications</Link>
       </div>
     </div>
 
-    <div className="section-head compact"><div><span className="section-kicker">Recorded finishes</span><h2>{colors.length} {colors.length === 1 ? "color" : "colors"} currently recorded</h2><p>The labels below are names, not digital paint swatches. MotoIndex does not invent hex values for manufacturer finishes.</p></div></div>
+    <div className="section-head compact"><div><span className="section-kicker">Recorded finishes</span><h2>{colors.length} {colors.length === 1 ? "color" : "colors"} currently recorded</h2><p>The labels below are names, not digital paint swatches. Manufacturer color names are shown as text instead of guessed digital swatches.</p></div></div>
     <div className="topic-grid">
       {colors.map((color) => <article key={color}><span>Color option</span><h3>{color}</h3><p>Confirm this finish on the exact Philippine model year and variant before placing a reservation.</p></article>)}
     </div>
