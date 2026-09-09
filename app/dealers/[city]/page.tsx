@@ -51,7 +51,7 @@ export default async function DealerCityPage({params}:{params:Promise<{city:stri
     <div className="section-head compact"><div>
       <span className="section-kicker">Dealer profiles</span>
       <h2>Checked branches in {cityName}</h2>
-      <p>Each record below has an official source on file for the branch name, address and contact information.</p>
+      <p>Each record below has an official dealer source on file, with address and contact details checked before publication.</p>
     </div></div>
 
     <div className="dealer-results">
