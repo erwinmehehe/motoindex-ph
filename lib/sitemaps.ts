@@ -1,7 +1,7 @@
 import { accessoryCategories, comparisons, helmetBrands, motorcycles, recommendationGuides, isIndexableModel, isIndexableComparison, isIndexableRecommendation } from "@/lib/data";
 import { modelFamilies } from "@/lib/families";
 import { helmetProducts, tireProducts, topBoxProducts, isIndexableHelmetBrand } from "@/lib/catalog";
-import { sellers, dealerCities, citySlug } from "@/lib/sellers";
+import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug, publicDealerCities, publicDealersByCity, publicSellers } from "@/lib/sellers";
 import { RELEASE_DATE, SITE_URL } from "@/lib/site";
 import { ownershipGuides } from "@/lib/ownershipGuides";
 import { commuteGuides, isIndexableCommuteGuide } from "@/lib/commute";
@@ -91,8 +91,10 @@ export function gearSitemapEntries(): Entry[] {
 }
 
 export function commerceSitemapEntries(): Entry[] {
-  const sellerUrls=sellers.filter(s=>!s.isDemo&&s.status==="verified").map(s=>({url:`${SITE_URL}/sellers/${s.slug}`,lastModified:iso(s.lastChecked),changeFrequency:"weekly" as const,priority:.62}));
-  const dealerUrls=dealerCities().filter(city=>sellers.filter(s=>s.type==="dealer"&&!s.isDemo&&s.status==="verified"&&s.city===city).length>=3).map(city=>({url:`${SITE_URL}/dealers/${citySlug(city)}`,lastModified:RELEASE_DATE,changeFrequency:"weekly" as const,priority:.62}));
+  const sellerUrls=publicSellers().map(s=>({url:`${SITE_URL}/sellers/${s.slug}`,lastModified:iso(s.lastChecked),changeFrequency:"weekly" as const,priority:.62}));
+  const dealerUrls=publicDealerCities()
+    .filter(city=>publicDealersByCity(citySlug(city)).length>=MIN_PUBLIC_DEALERS_PER_CITY)
+    .map(city=>({url:`${SITE_URL}/dealers/${citySlug(city)}`,lastModified:RELEASE_DATE,changeFrequency:"weekly" as const,priority:.62}));
   return [...sellerUrls,...dealerUrls];
 }
 
