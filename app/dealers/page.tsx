@@ -28,7 +28,7 @@ export default function DealersPage() {
       <div className="section-head compact"><div>
         <span className="section-kicker">Checked records</span>
         <h2>Search the dealer directory</h2>
-        <p>We publish a branch only when its name, address and contact details can be checked against an official source.</p>
+        <p>We publish a branch only when its dealer relationship and business details can be checked against trustworthy current sources, with an official dealer source on file.</p>
       </div></div>
       <DealerFinder dealers={verifiedDealers} />
     </section>
@@ -77,7 +77,7 @@ export default function DealersPage() {
       </div>
       <div className="dealer-verification-note">
         <strong>What “checked” means here</strong>
-        <p>The branch listing matches an official manufacturer dealer source. It does not mean MotoIndex has confirmed current inventory, financing approval, promo pricing or same-day release.</p>
+        <p>The dealer relationship is backed by an official manufacturer or dealer-operator source. Address and contact details are also checked before publication. This does not verify current inventory, financing approval, promo pricing or same-day release.</p>
       </div>
     </section>
 
