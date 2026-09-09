@@ -97,7 +97,7 @@ export default async function MotorcycleSpecificationsPage({ params }: { params:
     <div className="page-head">
       <span className="entity-kicker">Philippines specifications · checked {model.verifiedAt}</span>
       <h1>{model.make} {model.model} specifications</h1>
-      <p>Engine, power, torque, dimensions, seat height, weight, fuel capacity, tire sizes and braking data for the {model.make} {model.model}. The figures below use the same source-backed record as the main MotoIndex model page.</p>
+      <p>Engine, power, torque, dimensions, seat height, weight, fuel capacity, tire sizes and braking data for the {model.make} {model.model}. The figures below use the same source-backed model record as the main motorcycle guide.</p>
       <div className="hero-actions">
         <Link className="button" href={`/motorcycles/${model.makeSlug}/${model.slug}`}>Full {model.model} guide</Link>
         {model.colors.length > 0 && <Link className="button secondary" href={`/motorcycles/${model.makeSlug}/${model.slug}/colors`}>View colors</Link>}
