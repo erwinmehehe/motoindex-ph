@@ -52,11 +52,11 @@ for(const file of ["app/tools/lto-registration-fee-calculator/page.tsx","app/too
 
 const robots=read("app/robots.ts");
 for(const sm of ["/sitemap.xml","/sitemaps/motorcycles.xml","/sitemaps/gear.xml"])if(!robots.includes(sm))errors.push(`robots missing ${sm}`);
-if(robots.includes("/sitemaps/commerce.xml"))errors.push("robots still advertises empty commerce sitemap");
+if(!robots.includes("commerceSitemapEntries().length")||!robots.includes("/sitemaps/commerce.xml"))errors.push("robots must gate commerce sitemap discovery on verified commerce URLs");
 
 const og=path.join(root,"public/brand/motoindex-og.png");
 if(!fs.existsSync(og))errors.push("social OG image missing");
 else if(fs.statSync(og).size>=100*1024)errors.push(`social OG image is ${Math.round(fs.statSync(og).size/1024)}KB; must remain under 100KB`);
 
 if(errors.length){console.error(errors.join("\n"));process.exit(1);}
-console.log(`v2.1.2 validation passed: Inter loaded, contrast ratios AA-safe, mobile Search/hero/tap targets patched, price Product+Offer schema present, visible FAQ markup wired, empty commerce sitemap removed from robots, OG image ${Math.round(fs.statSync(og).size/1024)}KB.`);
+console.log(`v2.1.2 validation passed: Inter loaded, contrast ratios AA-safe, mobile Search/hero/tap targets patched, price Product+Offer schema present, visible FAQ markup wired, commerce sitemap conditionally advertised when verified URLs exist, OG image ${Math.round(fs.statSync(og).size/1024)}KB.`);
