@@ -405,6 +405,8 @@ model DealerLead {
   matchedSellerSlugs String[]
   status             String   @default("new")
   sourcePath         String
+  buyerAccessToken   String?  @unique
+  buyerAccessExpiresAt DateTime?
   deliveries         DealerLeadDelivery[]
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
