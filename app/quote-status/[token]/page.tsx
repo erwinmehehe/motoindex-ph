@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { php } from "@/lib/utils";
 import { getModelById } from "@/lib/data";
+import { BuyerQuoteDecision } from "@/components/BuyerQuoteDecision";
 
 export const metadata:Metadata={title:"Private Quote Status",robots:{index:false,follow:false,noarchive:true}};
 export const dynamic="force-dynamic";
@@ -72,6 +73,7 @@ export default async function QuoteStatusPage({params}:{params:Promise<{token:st
           {quote.validUntil&&<small>Valid until {quote.validUntil.toISOString().slice(0,10)}</small>}
         </div>
         {quote.dealerNote&&<p className="buyer-quote-note">{quote.dealerNote}</p>}
+        <BuyerQuoteDecision token={token} quoteId={quote.id} initialDecision={quote.buyerDecision}/>
       </article>})}
     </section>:<div className="note-box"><h2>No dealer quote has been submitted yet</h2><p>{activeHandoffs.length?"Your request has been prepared for matched dealer partners. Return to this private link later to check for a structured response.":"There is no secure dealer handoff available for this request yet."}</p></div>}
 
