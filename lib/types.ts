@@ -291,6 +291,7 @@ export type SellerProfile = {
   slug: string;
   type: SellerType;
   city: string;
+  province?: string;
   region: string;
   addressLabel: string;
   website?: string;
@@ -301,6 +302,9 @@ export type SellerProfile = {
   isDemo: boolean;
   status: "research" | "verified";
   lastChecked?: string;
+  sourceLabel?: string;
+  sourceUrl?: string;
+  verificationNote?: string;
 };
 
 export type PriceAlertTarget = {
