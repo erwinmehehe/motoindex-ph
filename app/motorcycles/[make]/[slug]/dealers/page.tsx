@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { getModel, motorcycles, isIndexableModel } from "@/lib/data";
-import { publicSellersByType } from "@/lib/sellers";
+import { allVerifiedDealers } from "@/lib/persistentSellers";
 import { pageMetadata } from "@/lib/site";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
 
@@ -17,7 +17,7 @@ export async function generateMetadata({params}:{params:Promise<{make:string;slu
     title:`${model.make} ${model.model} Dealers Philippines`,
     description:`Find verified dealers for the ${model.make} ${model.model}, compare the published price and request a current cash or installment quote.`,
     path:`/motorcycles/${model.makeSlug}/${model.slug}/dealers`,
-    index:isIndexableModel(model) && publicSellersByType("dealer").some(seller=>seller.brands.some(brand=>brand.toLowerCase()===model.make.toLowerCase()))
+    index:isIndexableModel(model) && (await allVerifiedDealers()).some(seller=>seller.brands.some(brand=>brand.toLowerCase()===model.make.toLowerCase()))
   });
 }
 
@@ -25,7 +25,7 @@ export default async function ModelDealersPage({params}:{params:Promise<{make:st
   const {make,slug}=await params; const model=getModel(make,slug);
   if(!model || model.marketStatus==="previous" || model.marketStatus==="discontinued")return notFound();
 
-  const dealers=publicSellersByType("dealer").filter(seller=>seller.brands.some(brand=>brand.toLowerCase()===model.make.toLowerCase()));
+  const dealers=(await allVerifiedDealers()).filter(seller=>seller.brands.some(brand=>brand.toLowerCase()===model.make.toLowerCase()));
 
   return <section className="page shell">
     <Breadcrumbs items={[{label:"Motorcycles",href:"/motorcycles"},{label:model.make,href:`/motorcycles/${model.makeSlug}`},{label:model.model,href:`/motorcycles/${model.makeSlug}/${model.slug}`},{label:"Dealers"}]}/>
