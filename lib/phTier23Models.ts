@@ -604,4 +604,37 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "149cc six-speed sport motorcycle with 16 hp, a 787 mm seat, 12 L fuel tank and current Winning Red color listing."
   },
 
+  {
+    id: "ktm-rc-390", alsoKnownAs: ["KTM RC390"], make: "KTM", makeSlug: "ktm", model: "RC 390", slug: "rc-390", generation: "2022 model in current Philippine catalog", category: "Sport bike",
+    srp: 335000, engineCc: 373, powerHp: 43.5, torqueNm: 37, curbWeightKg: 170, seatHeightMm: 824, fuelTankL: 13.7, groundClearanceMm: 158,
+    frontTire: "110/70 ZR17", rearTire: "150/60 ZR17", abs: "Cornering ABS with Supermoto mode", colors: ["Blue", "Orange"], searchVolume: 10000, keywordDifficulty: 0,
+    sourceLabel: "KTM Philippines official RC 390 model page and technical specification", sourceUrl: "https://www.ktm.com/en-ph/models/supersport/2022-ktm-rc-390.html", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "KTM Philippines official base price", marketPriceSourceUrl: "https://www.ktm.com/en-ph/models/supersport/2022-ktm-rc-390.html", marketPriceCheckedAt: "2026-09-09",
+    summary: "373cc single-cylinder sport motorcycle with 43.5 hp, 37 Nm, cornering ABS, a 824 mm seat and six-speed transmission."
+  },
+  {
+    id: "honda-gold-wing", alsoKnownAs: ["Honda Goldwing", "Gold Wing 1800"], make: "Honda", makeSlug: "honda", model: "Gold Wing", slug: "gold-wing", generation: "Current Philippine listing", category: "Luxury touring",
+    srp: 2050000, marketPriceHighPhp: 2100000, engineCc: 1833, powerHp: 125.3, torqueNm: 171, curbWeightKg: 385, seatHeightMm: 745, fuelTankL: 21.1, groundClearanceMm: 130,
+    frontTire: "130/70 R18", rearTire: "200/55 R16", abs: "Dual combined ABS; airbag equipment depends on variant", colors: [], searchVolume: 5100, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Honda Gold Wing specification and variant reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/gold-wing/standard", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Automatic",
+    marketPriceSourceLabel: "Current Philippine Standard and 50th Anniversary DCT pricing", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/gold-wing/standard", marketPriceCheckedAt: "2026-09-09",
+    summary: "1833cc flat-six luxury tourer with seven-speed DCT, 171 Nm, integrated luggage, a 745 mm seat and variant-dependent airbag equipment."
+  },
+  {
+    id: "honda-rebel-1100", alsoKnownAs: ["Honda Rebel1100"], make: "Honda", makeSlug: "honda", model: "Rebel 1100", slug: "rebel-1100", generation: "Current Philippine listing", category: "Cruiser",
+    srp: 665000, engineCc: 1083, powerHp: 85.8, torqueNm: 98, curbWeightKg: 233, seatHeightMm: 690, fuelTankL: 13.6, groundClearanceMm: 120,
+    frontTire: "130/70 R18", rearTire: "180/70 R16", abs: "Dual-channel ABS with traction-control rider aids", colors: ["Gunmetal Black Metallic"], searchVolume: 3500, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Honda Rebel 1100 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/rebel-1100", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Automatic",
+    marketPriceSourceLabel: "Current Philippine Rebel 1100 starting-price reference", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/rebel-1100", marketPriceCheckedAt: "2026-09-09",
+    summary: "1083cc parallel-twin cruiser with six-speed DCT, 98 Nm, cruise control, a low 690 mm seat and dual-channel ABS."
+  },
+  {
+    id: "honda-rebel-500", alsoKnownAs: ["Honda Rebel", "Honda CMX500 Rebel"], make: "Honda", makeSlug: "honda", model: "Rebel 500", slug: "rebel-500", generation: "Current Philippine listing", category: "Cruiser",
+    srp: 399000, engineCc: 471, powerHp: 45.5, torqueNm: 43.3, curbWeightKg: 191, seatHeightMm: 690, fuelTankL: 11.2, fuelConsumptionKmL: 27, groundClearanceMm: 124,
+    frontTire: "130/90-16", rearTire: "150/80-16", abs: "Dual-channel ABS", colors: ["Matte Gunpowder Black Metallic"], searchVolume: 3400, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Honda Rebel 500 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/rebel", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Current Philippine Rebel 500 SRP reference", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/rebel", marketPriceCheckedAt: "2026-09-09",
+    summary: "471cc parallel-twin cruiser with a six-speed gearbox, dual-channel ABS, low 690 mm seat and 11.2 L fuel tank."
+  },
+
 ];
