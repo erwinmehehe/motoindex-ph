@@ -46,8 +46,8 @@ export default async function MotorcycleColorsPage({ params }: { params: Promise
     .map((variant) => ({ name: variant.name, colors: variant.colors || [], sourceLabel: variant.sourceLabel, sourceUrl: variant.sourceUrl, checkedAt: variant.checkedAt }));
 
   const faq = [
-    { q: `What colors does the ${model.make} ${model.model} come in?`, a: `MotoIndex currently records ${colors.join(", ")} for this model or its verified Philippine variants. Availability can change by model year, trim and dealer stock.` },
-    { q: `Are all ${model.model} colors available on every variant?`, a: variantRows.length ? "Not necessarily. MotoIndex lists variant-specific colors separately where a checked Philippine source provides that mapping." : "Not necessarily. Color availability can vary by trim, model year and seller even when the model family uses the same basic specification." },
+    { q: `What colors does the ${model.make} ${model.model} come in?`, a: `Available color references include ${colors.join(", ")}. Actual availability can vary by model year, variant and dealer stock.` },
+    { q: `Are all ${model.model} colors available on every variant?`, a: variantRows.length ? "Not necessarily. Some colors are tied to specific variants, so check the exact trim before choosing a finish." : "Not necessarily. Color availability can vary by trim, model year and seller even when the core motorcycle is the same." },
     { q: "Will the actual paint look exactly like it does on a screen?", a: "No. Screens, lighting, camera processing and compression can change how a finish looks. Inspect the actual motorcycle before choosing a color." }
   ];
 
