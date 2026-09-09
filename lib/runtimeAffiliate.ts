@@ -33,11 +33,11 @@ export function validateRuntimeAffiliateUrl(productId:string, rawUrl:string){
 export async function getRuntimeAffiliateLink(productId:string):Promise<AffiliateLinkConfig|undefined>{
   if(databaseConfigured()){
     const row=await prisma.affiliateProductLink.findUnique({where:{productId}});
-    if(row&&row.status==="active"){
+    if(row){
+      if(row.status!=="active")return undefined;
       const checked=validateRuntimeAffiliateUrl(productId,row.url);
-      if(checked.ok){
-        return {productId,merchant:"shopee",network:checked.network,url:checked.url};
-      }
+      if(!checked.ok)return undefined;
+      return {productId,merchant:"shopee",network:checked.network,url:checked.url};
     }
   }
   return getAffiliateLink(productId);
