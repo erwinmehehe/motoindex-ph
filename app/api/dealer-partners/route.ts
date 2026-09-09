@@ -30,7 +30,9 @@ export async function POST(request:Request){
   const contactMobile=phone(clean(body.contactMobile,40));
   const notes=clean(body.notes,1000);
   const consent=body.consent===true;
-  const brands=Array.isArray(body.brands)?body.brands.map(item=>clean(item,60)).filter(Boolean).slice(0,20):[];
+  const presetBrands=Array.isArray(body.brands)?body.brands.map(item=>clean(item,60)).filter(Boolean):[];
+  const otherBrands=clean(body.otherBrands,240).split(",").map(item=>item.trim()).filter(Boolean);
+  const brands=[...new Set([...presetBrands,...otherBrands])].slice(0,20);
 
   if(businessName.length<2||addressLabel.length<6||city.length<2||province.length<2)return NextResponse.json({ok:false,error:"Complete the business name, branch address, city and province."},{status:400});
   if(branchPhone.length<7||contactMobile.length<10)return NextResponse.json({ok:false,error:"Enter valid branch and contact phone numbers."},{status:400});
