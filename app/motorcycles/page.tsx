@@ -26,7 +26,6 @@ export default async function MotorcyclesPage({ searchParams }: { searchParams: 
   const initialFilters = { q: one(query.q) || "", make: one(query.make) || "all", category: one(query.type) || "all", budget: one(query.budget) || "all" };
   const makes = [...new Map(currentModels.map((m) => [m.makeSlug, m.make])).entries()];
   const authorityModels = currentModels.filter((model) => Boolean(modelAuthorityProfile(model.id)));
-  const categories = [...new Set(currentModels.map((model) => model.category))].sort();
   const overallLow = currentModels.length ? Math.min(...currentModels.map((m) => observedMarketRange(m).from)) : undefined;
   const overallHigh = currentModels.length ? Math.max(...currentModels.map((m) => observedMarketRange(m).to || observedMarketRange(m).from)) : undefined;
   const brandDirectory = makes.map(([slug, name]) => {
