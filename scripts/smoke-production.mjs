@@ -6,7 +6,7 @@ const failures=[];
 async function get(path, expected=200){try{const r=await fetch(new URL(path,base),{redirect:"manual"});if(r.status!==expected)failures.push(`${path}: expected ${expected}, got ${r.status}`);return r}catch(e){failures.push(`${path}: ${e instanceof Error?e.message:String(e)}`);return null}}
 
 const publicPaths = [
-  "/", "/motorcycles", "/dealers", "/dealers/manila", "/dealers/san-fernando", "/robots.txt", "/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear.xml", "/privacy",
+  "/", "/motorcycles", "/dealers", "/dealers/manila", "/dealers/san-fernando", "/dealers/angeles-city", "/dealers/cebu-city", "/dealers/davao-city", "/robots.txt", "/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear.xml", "/privacy",
   "/used-motorcycles/repo", "/used-motorcycles/buying-checklist",
   "/maintenance", "/maintenance/motorcycle-battery", "/maintenance/change-oil-motorcycle",
   "/ownership/motorcycle-registration-renewal"
@@ -55,6 +55,7 @@ const admin=await get("/admin/data-health",401);if(admin&&!admin.headers.get("x-
 for(const path of ["/price-alerts","/deals","/sellers","/used-motorcycles","/get-quote/honda/click-160","/motorcycles/honda/click-160/used-value"]){const r=await get(path,404);if(r&&!r.headers.get("x-robots-tag")?.includes("noindex"))failures.push(`${path}: prototype 404 missing X-Robots-Tag noindex`);}
 for(const path of ["/sellers/demo-yamaha-dealer-a","/dealers/quezon-city"]) await get(path,404);
 for(const path of ["/sellers/desmark-honda-san-fernando-pampanga","/sellers/suzuki-motorcyclecity-san-fernando","/sellers/premiumbikes-san-fernando-pampanga"]) await get(path);
+for(const path of ["/sellers/yamaha-kservico-angeles","/sellers/yamaha-motor-ace-cebu-city","/sellers/yamaha-premio-davao-city"]) await get(path);
 for(const path of ["/api/leads","/api/price-alerts"]){try{const r=await fetch(new URL(path,base),{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({email:"do-not-store@example.invalid",contact:"do-not-store"})});if(r.status!==410)failures.push(`${path}: expected disabled status 410, got ${r.status}`)}catch(e){failures.push(`${path}: ${e instanceof Error?e.message:String(e)}`)}}
 for(const path of ["/api/offers","/api/used-listings"]){await get(path,410)}
 const models=await get("/api/models");if(models){try{const body=await models.json();if(!Array.isArray(body.data)||body.data.length<1)failures.push("/api/models returned no verified launch records");for(const item of body.data||[]){if(item.freshness!=="verified")failures.push(`/api/models leaked non-verified model ${item.id||"unknown"}`);if(/pending|recheck|research only|needs verification/i.test(item.sourceLabel||""))failures.push(`/api/models leaked review-labeled model ${item.id||"unknown"}`);}}catch{failures.push("/api/models did not return valid JSON")}}
