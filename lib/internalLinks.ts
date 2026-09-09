@@ -4,19 +4,14 @@ import type { HelmetProduct, Motorcycle, TireProduct, TopBoxProduct } from "@/li
 import { getTopBoxFitmentsForProduct } from "@/lib/topBoxFitment";
 import { observedMarketRange } from "@/lib/marketChecks";
 import type { RelatedLink } from "@/components/RelatedLinks";
-import { findTireSizeSeoHub } from "@/lib/tireSeo";
 
 export function modelInternalLinks(model: Motorcycle): RelatedLink[] {
   const base = `/motorcycles/${model.makeSlug}/${model.slug}`;
-  const tireHubLinks=[...new Set([model.frontTire,model.rearTire])]
-    .map((size)=>({size,hub:findTireSizeSeoHub(size)}))
-    .filter((row)=>Boolean(row.hub))
-    .map((row)=>({href:`/tires/${row.hub!.slug}`,title:`${row.hub!.size} motorcycle tire index`,eyebrow:"Tire size",description:`See other motorcycles that use ${row.hub!.size} as a stock front or rear tire size.`}));
   const links: RelatedLink[] = [
     { href: `/motorcycles/${model.makeSlug}`, title: `${model.make} motorcycles`, eyebrow: "Brand", description: `Browse ${model.make} models and price references.` },
     { href: `${base}#specs`, title: `${model.model} specifications`, eyebrow: "Specs", description: `${model.engineCc} cc · ${model.powerHp} hp · ${model.seatHeightMm} mm seat · ${model.curbWeightKg} kg.` },
     ...(model.colors.length ? [{ href: `${base}#colors`, title: `${model.model} colors`, eyebrow: "Colors", description: `${model.colors.length} recorded color ${model.colors.length === 1 ? "option" : "options"} with source context.` }] : []),
-    ...(/scooter/i.test(model.category) && ["honda","yamaha","suzuki"].includes(model.makeSlug) ? [{ href: `/motorcycles/${model.makeSlug}/scooters`, title: `${model.make} scooters`, eyebrow: "Scooter hub", description: `Compare ${model.make} scooter prices, engines, seat heights and weights.` }] : []),
+    ...(/scooter/i.test(model.category) && ["honda","yamaha","suzuki"].includes(model.makeSlug) ? [{ href: `/motorcycles/${model.makeSlug}#scooters`, title: `${model.make} scooters`, eyebrow: "Scooter hub", description: `Compare ${model.make} scooter prices, engines, seat heights and weights.` }] : []),
     { href: `${base}#price`, title: `${model.model} price`, eyebrow: "Price", description: model.marketStatus === "previous" ? "Historical Philippine price context." : "Dated price sources, variants and market checks." },
     ...(model.marketStatus !== "previous" ? [{ href: `${base}#installment`, title: `${model.model} installment calculator`, eyebrow: "Financing", description: "Monthly payment planning on the canonical model page." }] : []),
     { href: `/tools/motorcycle-loan-calculator?price=${observedMarketRange(model).from}&model=${encodeURIComponent(`${model.make} ${model.model}`)}`, title: "Motorcycle loan calculator", eyebrow: "Calculator", description: `Open the standalone loan tool with ${model.model}'s price prefilled.` },
@@ -36,7 +31,7 @@ export function modelInternalLinks(model: Motorcycle): RelatedLink[] {
     return { href: `/compare/${c.slug}`, title: `${model.model} vs ${other.model}`, eyebrow: "Compare", description: "Price, dimensions and specifications side by side." };
   });
   const alternatives = motorcycles.filter(m => m.id !== model.id && m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued" && m.category === model.category && isIndexableModel(m)).sort((a,b)=>Math.abs(a.srp-model.srp)-Math.abs(b.srp-model.srp)).slice(0,2).map(m=>({href:`/motorcycles/${m.makeSlug}/${m.slug}`,title:`${m.make} ${m.model}`,eyebrow:"Alternative",description:`${m.engineCc} cc · ${m.seatHeightMm} mm seat`}));
-  return [...links, ...tireHubLinks, ...comparisonLinks, ...alternatives].slice(0, 16);
+  return [...links, ...comparisonLinks, ...alternatives].slice(0, 16);
 }
 
 export function helmetProductInternalLinks(product: HelmetProduct): RelatedLink[] {
