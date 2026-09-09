@@ -53,7 +53,11 @@ const nextConfig = {
       { protocol: "https", hostname: "www.motofichas.com" },
       { protocol: "https", hostname: "www.motorrad-bilder.at" },
       { protocol: "https", hostname: "www.philharmonicmoto.com" },
-      { protocol: "https", hostname: "www.xsmt.com" }
+      { protocol: "https", hostname: "www.xsmt.com" },
+      { protocol: "https", hostname: "www.todocircuito.com" },
+      { protocol: "https", hostname: "hondanews.eu" },
+      { protocol: "https", hostname: "powersports.honda.com" },
+      { protocol: "https", hostname: "cdn.riderly.com" }
     ]
   },
   experimental: { optimizePackageImports: [] },
