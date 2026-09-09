@@ -34,7 +34,25 @@ export function isCompetitorSource(url?: string) {
 // Keep the real source name visible to readers. SourceRef applies nofollow to
 // competitor links, so transparency does not require hiding who published the
 // price or specification.
-export function sourceDisplayName(label: string | undefined, _url?: string, _kind?: string) {
+const PUBLIC_SOURCE_NAMES: Record<string, string> = {
+  "zigwheels.ph": "Zigwheels Philippines",
+  "motortrade.com.ph": "Motortrade",
+  "carmudi.com.ph": "Carmudi Philippines",
+  "motodeal.com.ph": "MotoDeal Philippines",
+  "pinoymotospecs.com": "Pinoy Moto Specs",
+  "fasterwheeler.com": "Fasterwheeler"
+};
+
+export function sourceDisplayName(label: string | undefined, url?: string, _kind?: string) {
+  if (url) {
+    try {
+      const host = new URL(url).hostname.toLowerCase().replace(/^www\./, "");
+      const matched = Object.keys(PUBLIC_SOURCE_NAMES).find((domain) => host === domain || host.endsWith(`.${domain}`));
+      if (matched) return PUBLIC_SOURCE_NAMES[matched];
+    } catch {
+      // Fall back to the stored label when the URL is malformed.
+    }
+  }
   return label || "Source";
 }
 
