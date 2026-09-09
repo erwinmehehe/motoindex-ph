@@ -43,6 +43,7 @@ export default async function ElectricModelPage({params}:{params:Promise<{slug:s
         <div><span>One battery</span><strong>{model.oneBatteryPricePhp?php(model.oneBatteryPricePhp):"Check manufacturer"}</strong></div>
         <div><span>Two batteries</span><strong>{model.twoBatteryPricePhp?php(model.twoBatteryPricePhp):"Check manufacturer"}</strong></div>
       </div>
+      <p className="variant-footnote">The subscription starting price comes from the manufacturer. One- and two-battery purchase prices are recorded from a dated Philippine motorcycle-news report. <a href={model.purchasePriceSourceUrl} target="_blank" rel="nofollow noopener noreferrer">Check the battery-purchase price source</a>.</p>
     </section>
 
     <section className="motorcycle-entity-section">
