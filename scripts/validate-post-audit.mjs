@@ -56,8 +56,15 @@ need(read("lib/persistentSellers.ts").includes('where:{type:"dealer",status:"ver
 const dealersPage=read("app/dealers/page.tsx");
 need(dealersPage.includes("index: true")&&dealersPage.includes("DealerFinder")&&dealersPage.includes("officialDealerLocators"),"Dealer root must be indexable only when it provides checked search and official locator utility");
 need(sellers.includes("sourceUrl")&&sellers.includes("lastChecked")&&sellers.includes("Yamaha Motor Philippines dealer locator"),"Public dealer records must carry current official-source verification details");
+need(["DESMARK_LOCATOR","SUZUKI_GUD_PARTNERSHIP","SUZUKI_TRUMPH_DAVAO","EMCOR_STORES"].every(token=>sellers.includes(token)),"Cross-brand Cebu and Davao records must retain their reviewed verification sources");
 need(["Honda","Yamaha","Suzuki","Kawasaki"].every(brand=>sellers.includes(`brands:["${brand}"]`))&&sellers.includes('city:"San Fernando"'),"San Fernando coverage must retain checked Honda, Yamaha, Suzuki and Kawasaki records");
 need(["Angeles City","Cebu City","Davao City"].every(city=>(sellers.match(new RegExp(`city:"${city}"[^\\n]+isDemo:false[^\\n]+status:"verified"`,"g"))||[]).length>=3),"Angeles, Cebu and Davao must each retain at least three real verified dealers for public city pages");
+for(const city of ["Cebu City","Davao City"]){
+  for(const brand of ["Honda","Yamaha","Suzuki","Kawasaki"]){
+    need(new RegExp(`city:"${city}"[^\\n]+brands:\\["${brand}"\\][^\\n]+isDemo:false[^\\n]+status:"verified"`).test(sellers),`${city} must retain a real verified ${brand} dealer`);
+  }
+}
+need(dealerCity.includes("dealer-city-brands")&&dealerCity.includes("brands.map"),"Dealer city pages must visibly show represented brands");
 need(fs.existsSync(path.join(root,"components/DealerFinder.tsx"))&&read("components/DealerFinder.tsx").includes("Search dealers"),"Dealer directory must provide working search and filters");
 need(fs.existsSync(path.join(root,"app/dealers/pampanga/page.tsx"))&&read("app/dealers/pampanga/page.tsx").includes("Motorcycle dealers in Pampanga")&&dealersPage.includes('href="/dealers/pampanga"'),"Pampanga province hub must remain published and linked from the dealer root");
 need(fs.existsSync(path.join(root,"lib/dealerLocators.ts"))&&read("lib/dealerLocators.ts").includes("hondaph.com/dealer-locator")&&read("lib/dealerLocators.ts").includes("motorcycles-dealer")&&read("lib/dealerLocators.ts").includes("kawasaki.ph/dealers/motorcycle"),"Dealer root must link current official manufacturer locators");
@@ -71,7 +78,7 @@ const robotsSource=read("app/robots.ts");
 need(robotsSource.includes("commerceSitemapEntries().length")&&robotsSource.includes("/sitemaps/commerce.xml"),"Robots must advertise commerce sitemap only when it has verified public URLs");
 const smoke=read("scripts/smoke-production.mjs");
 need(["/dealers","/dealers/san-fernando","/dealers/angeles-city","/dealers/cebu-city","/dealers/davao-city","/dealers/pampanga"].every(route=>smoke.includes(`"${route}"`))&&smoke.includes('"/sellers/demo-yamaha-dealer-a"')&&smoke.includes("populated commerce sitemap"),"Production smoke test must cover published dealer cities, Pampanga hub, hidden demo routes and populated commerce URLs");
-need(fs.existsSync(path.join(root,"app/dealer-directory.css"))&&dealersPage.includes("dealer-checklist")&&read("app/dealer-directory.css").includes(".dealer-filter-bar")&&read("app/dealer-directory.css").includes("@media(max-width:650px)"),"Dealer directory must retain finder and mobile checklist styling");
+need(fs.existsSync(path.join(root,"app/dealer-directory.css"))&&dealersPage.includes("dealer-checklist")&&read("app/dealer-directory.css").includes(".dealer-filter-bar")&&read("app/dealer-directory.css").includes(".dealer-city-brands")&&read("app/dealer-directory.css").includes("@media(max-width:650px)"),"Dealer directory must retain finder, brand coverage and mobile styling");
 
 const checkLaunch=read("scripts/check-launch.mjs");
 need(checkLaunch.includes("findSiblingDynamicRouteConflicts"),"Launch gate must include sibling dynamic route conflict guard");
