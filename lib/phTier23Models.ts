@@ -638,7 +638,7 @@ export const phTier23Motorcycles: Motorcycle[] = [
   },
 
   {
-    id: "bristol-zontes-400g", alsoKnownAs: ["Zontes 400G", "Bristol 400G"], make: "Bristol", makeSlug: "bristol", model: "Zontes 400G", slug: "zontes-400g", generation: "2026 Philippine model", category: "Adventure maxi scooter",
+    id: "zontes-400g", alsoKnownAs: ["Bristol Zontes 400G", "Bristol 400G"], make: "Zontes", makeSlug: "zontes", model: "400G", slug: "400g", generation: "2026 Philippine model", category: "Adventure maxi scooter",
     srp: 408800, engineCc: 400, powerHp: 38, torqueNm: 40, curbWeightKg: 203, seatHeightMm: 770, fuelTankL: 17.5, groundClearanceMm: 180,
     frontTire: "110/70-17", rearTire: "150/70-14", abs: "Dual-channel ABS with traction control", colors: ["Gray", "Black", "Green", "White"], searchVolume: 7000, keywordDifficulty: 0,
     sourceLabel: "2026 Philippine Zontes 400G launch and locally published specification cross-check", sourceUrl: "https://lifestyleonwheels.com/the-digital-nomads-shield-the-zontes-400g-safe-ride-journey-feature/", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Automatic",
