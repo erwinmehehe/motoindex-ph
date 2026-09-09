@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { DealerLeadPortal } from "@/components/DealerLeadPortal";
+import { DealerQuoteResponseForm } from "@/components/DealerQuoteResponseForm";
 import { php } from "@/lib/utils";
 
 export const metadata:Metadata={title:"Secure Buyer Lead",robots:{index:false,follow:false,noarchive:true}};
@@ -10,7 +11,7 @@ export const dynamic="force-dynamic";
 export default async function DealerLeadPage({params}:{params:Promise<{token:string}>}){
   if(!databaseConfigured())return notFound();
   const {token}=await params;
-  const delivery=await prisma.dealerLeadDelivery.findUnique({where:{deliveryToken:token},include:{lead:true}});
+  const delivery=await prisma.dealerLeadDelivery.findUnique({where:{deliveryToken:token},include:{lead:true,quoteResponse:true}});
   if(!delivery||delivery.status==="pending"||delivery.status==="cancelled"||delivery.expiresAt<=new Date())return notFound();
   const lead=delivery.lead;
 
@@ -27,6 +28,15 @@ export default async function DealerLeadPage({params}:{params:Promise<{token:str
     </div>
 
     <div className="note-box"><h2>Handle this buyer information carefully</h2><p>The buyer consented to MotoIndex storing this request and sharing it with a relevant verified dealer. Use the details only to respond to this motorcycle request, and do not publish or redistribute them.</p></div>
+    <DealerQuoteResponseForm token={token} initial={delivery.quoteResponse?{
+      cashPricePhp:delivery.quoteResponse.cashPricePhp?Number(delivery.quoteResponse.cashPricePhp):null,
+      downPaymentPhp:delivery.quoteResponse.downPaymentPhp?Number(delivery.quoteResponse.downPaymentPhp):null,
+      monthlyPhp:delivery.quoteResponse.monthlyPhp?Number(delivery.quoteResponse.monthlyPhp):null,
+      termMonths:delivery.quoteResponse.termMonths,
+      availability:delivery.quoteResponse.availability,
+      validUntil:delivery.quoteResponse.validUntil?.toISOString()||null,
+      dealerNote:delivery.quoteResponse.dealerNote||""
+    }:undefined}/>
     <DealerLeadPortal token={token} initialStatus={delivery.status}/>
   </section>;
 }
