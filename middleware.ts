@@ -47,6 +47,12 @@ function isPrototypePath(pathname: string) {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   if (process.env.NODE_ENV === "production" && isPrototypePath(pathname)) return deny("Not found.", 404);
+  if (pathname.startsWith("/dealer-lead/") || pathname.startsWith("/api/dealer-lead/")) {
+    const response = NextResponse.next();
+    response.headers.set("Cache-Control", "no-store");
+    response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+    return response;
+  }
   if (!protectedPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) return NextResponse.next();
 
   const expectedUser = process.env.ADMIN_USERNAME;
@@ -82,7 +88,7 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/admin/:path*", "/api/ingestion/:path*", "/api/admin/:path*", "/price-alerts/:path*", "/deals/:path*",
-    "/sellers", "/go/:path*",
+    "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*",
     "/motorcycles/:make/:slug/used-value", "/motorcycles/:make/:slug/new-vs-used"
   ]
 };
