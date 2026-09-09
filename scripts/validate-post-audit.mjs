@@ -43,6 +43,12 @@ const guideTypes=read("lib/types.ts");
 for(const field of ["primaryKeyword","secondaryKeywords","directAnswer","inclusionRules","orderingRule","tieBreakers","sourcePolicy","tableColumns","editorialSections","faqQuestions","relatedGuideSlugs"]){need(guideTypes.includes(field),`RecommendationGuide must include ${field}`)}
 need(rec.includes("Why it&apos;s here")&&rec.includes("Prices checked:")&&rec.includes("Specifications checked:"),"Guide table and freshness block must expose rationale plus separate price/spec dates");
 
+const middleware=read("middleware.ts");
+need(middleware.includes('if (pathname === "/dealers") return false;'),"Dealer directory root must remain reachable from public navigation");
+need(middleware.includes('if (pathname.startsWith("/dealers/")) return true;'),"Unverified dealer city/profile routes must remain blocked");
+const dealersPage=read("app/dealers/page.tsx");
+need(dealersPage.includes("No dealer profiles are published yet")&&!dealersPage.includes("sample businesses"),"Dealer root must provide an honest buyer guide without publishing sample businesses");
+
 const checkLaunch=read("scripts/check-launch.mjs");
 need(checkLaunch.includes("findSiblingDynamicRouteConflicts"),"Launch gate must include sibling dynamic route conflict guard");
 need(fs.existsSync(path.join(root,"scripts/route-conflict-guard.mjs"))&&fs.existsSync(path.join(root,"scripts/test-route-conflict-guard.mjs")),"Route conflict guard and negative test must be present");
