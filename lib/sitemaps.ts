@@ -10,6 +10,7 @@ import { maintenanceSeoTopics } from "@/lib/maintenanceSeo";
 import { editorialGuides } from "@/lib/editorialGuides";
 import { helmetSeoCollections, isIndexableHelmetSeoCollection } from "@/lib/helmetSeoCollections";
 import { helmetSeoComparisons, isIndexableHelmetSeoComparison } from "@/lib/helmetSeoComparisons";
+import { electricMotorcycles } from "@/lib/electricMotorcycles";
 
 type Entry = { url: string; lastModified: string; changeFrequency?: "daily"|"weekly"|"monthly"|"yearly"; priority?: number };
 const iso = (value?: string) => value || RELEASE_DATE;
@@ -24,7 +25,7 @@ export function coreSitemapEntries(): Entry[] {
     ...(hasModels ? [["/motorcycles",.9] as const,["/finder",.84] as const,["/fitment",.78] as const] : []),
     ...(hasComparisons ? [["/compare",.82] as const] : []),
     ...(hasGuides ? [["/recommendations",.8] as const] : []),
-    ["/gear/helmets",.85],["/accessories",.72],["/guides",.74],["/tires",.75],["/maintenance",.78],["/used-motorcycles/repo",.82],["/used-motorcycles/buying-checklist",.74],["/tools",.84],["/tools/motorcycle-loan-calculator",.88],["/tools/lto-registration-fee-calculator",.8],["/tools/motorcycle-insurance-calculator",.8],["/ownership",.72],["/ownership/cost-calculator",.7],["/ownership/maintenance",.69],["/ownership/safety-campaigns",.66],["/commute",.86],["/commute/cost-calculator",.82],["/commute/affordability",.8],["/commute/rainy-season",.72],
+    ["/gear/helmets",.85],["/accessories",.72],["/tools/electric-motorcycle-charging-cost",.82],["/guides/electric-scooters-philippines",.8],["/guides/e-bike-vs-motorcycle",.78],["/guides/electric-motorcycle-registration-philippines",.8],["/guides",.74],["/tires",.75],["/maintenance",.78],["/used-motorcycles/repo",.82],["/used-motorcycles/buying-checklist",.74],["/tools",.84],["/tools/motorcycle-loan-calculator",.88],["/tools/lto-registration-fee-calculator",.8],["/tools/motorcycle-insurance-calculator",.8],["/ownership",.72],["/ownership/cost-calculator",.7],["/ownership/maintenance",.69],["/ownership/safety-campaigns",.66],["/commute",.86],["/commute/cost-calculator",.82],["/commute/affordability",.8],["/commute/rainy-season",.72],
     ["/about",.45],["/methodology",.52],["/data-sources",.5],["/editorial-policy",.42],["/privacy",.4],
     ...(process.env.NEXT_PUBLIC_CONTACT_EMAIL ? [["/contact",.35] as const] : [])
   ] as const;
@@ -72,7 +73,8 @@ export function motorcycleSitemapEntries(): Entry[] {
     changeFrequency:"monthly" as const,
     priority:.72
   }));
-  return [...brands,...scooterHubs,...families,...models,...specificationPages,...colorPages];
+  const electricPages=[{url:`${SITE_URL}/motorcycles/electric`,lastModified:"2026-09-09",changeFrequency:"weekly" as const,priority:.9},{url:`${SITE_URL}/motorcycles/electric/range-comparison`,lastModified:"2026-09-09",changeFrequency:"monthly" as const,priority:.82},...electricMotorcycles.map(m=>({url:`${SITE_URL}/motorcycles/electric/${m.slug}`,lastModified:m.checkedAt,changeFrequency:"weekly" as const,priority:.88}))];
+  return [...brands,...scooterHubs,...families,...models,...specificationPages,...colorPages,...electricPages];
 }
 
 export function gearSitemapEntries(): Entry[] {
