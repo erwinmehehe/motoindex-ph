@@ -1,14 +1,102 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { databaseConfigured } from "@/lib/db";
+import { getVerifiedOffers, matchEntity } from "@/lib/persistentOffers";
+import {
+  compareCommerceOffers,
+  commerceOfferFreshness,
+  isFreshCommerceOffer,
+  sourceBackedCommerceOffers
+} from "@/lib/commerceOffers";
 import { pageMetadata } from "@/lib/site";
+import { php } from "@/lib/utils";
+import { OfferOutboundLink } from "@/components/OfferOutboundLink";
+import type { SellerOffer } from "@/lib/types";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Live Motorcycle Deals — Not Yet Available",
-  description: "MotoIndex does not currently publish live dealer deals. Use verified motorcycle price pages and gear research instead.",
-  path: "/deals",
-  index: false
-});
+export const dynamic="force-dynamic";
 
-export default function DealsPage(){
-  return <section className="page shell"><div className="page-head"><h1>Live seller deals are not active yet.</h1><p>We removed demo offer rows from the public research experience. Until live seller feeds pass the verification gate, use dated model price observations and product research instead.</p></div><div className="section-head compact"><div><h2>Use current research pages instead</h2></div></div><div className="tool-grid"><Link href="/motorcycles"><span>01</span><h3>Motorcycle prices</h3><p>Compare current model records and open each price page for dated market observations.</p></Link><Link href="/compare"><span>02</span><h3>Compare motorcycles</h3><p>Put price, power, weight, seat height and other decision specs side by side.</p></Link><Link href="/catalog"><span>03</span><h3>Gear catalog</h3><p>Research helmets, tires and accessories without presenting demo seller prices as live offers.</p></Link></div></section>;
+async function currentOffers(){
+  const sourceOffers=sourceBackedCommerceOffers.filter(offer=>isFreshCommerceOffer(offer));
+  let persistent:SellerOffer[]=[];
+  if(databaseConfigured()){
+    try{persistent=await getVerifiedOffers();}catch{persistent=[];}
+  }
+  const merged=new Map<string,SellerOffer>();
+  for(const offer of [...persistent,...sourceOffers])merged.set(offer.id,offer);
+  return [...merged.values()].filter(offer=>isFreshCommerceOffer(offer)).sort((a,b)=>compareCommerceOffers(a,b));
+}
+
+export async function generateMetadata():Promise<Metadata>{
+  const offers=await currentOffers();
+  const merchants=new Set(offers.map(offer=>offer.sellerName));
+  const index=offers.length>=3&&merchants.size>=2;
+  return pageMetadata({
+    title:"Current Motorcycle & Gear Seller Offers Philippines",
+    description:"Browse fresh, attributable motorcycle and riding-gear seller offers in the Philippines. Check current price, finance terms, stock and the original merchant.",
+    path:"/deals",
+    index
+  });
+}
+
+function entityHref(offer:SellerOffer){
+  if(offer.entityType==="motorcycle"){
+    const [make,...rest]=offer.entityId.split("-");
+    return rest.length?\`/motorcycles/\${make}/\${rest.join("-")}\`:"/motorcycles";
+  }
+  if(offer.entityType==="helmet"){
+    const parts=offer.entityId.split("-");
+    return parts.length>1?\`/gear/helmets/\${parts[0]}/\${parts.slice(1).join("-")}\`:"/gear/helmets";
+  }
+  return "/catalog";
+}
+
+export default async function DealsPage(){
+  const offers=await currentOffers();
+  const motorcycleOffers=offers.filter(offer=>offer.entityType==="motorcycle");
+  const gearOffers=offers.filter(offer=>offer.entityType!=="motorcycle");
+  const merchants=new Set(offers.map(offer=>offer.sellerName));
+
+  return <section className="page shell current-offers-page">
+    <div className="page-head">
+      <span className="entity-kicker">Current seller offers</span>
+      <h1>Fresh motorcycle and gear offers in the Philippines</h1>
+      <p>These are recent, attributable seller observations that still pass MotoIndex freshness checks. An offer is not automatically a discount; compare it with the product or motorcycle page before buying.</p>
+    </div>
+
+    <div className="buyer-status-summary current-offer-summary">
+      <article><span>Fresh offers</span><strong>{offers.length}</strong><small>Only current verified rows</small></article>
+      <article><span>Merchants</span><strong>{merchants.size}</strong><small>Distinct attributable sellers</small></article>
+      <article><span>Motorcycles</span><strong>{motorcycleOffers.length}</strong><small>Current dealer/seller offers</small></article>
+      <article><span>Gear</span><strong>{gearOffers.length}</strong><small>Helmets, tires and top boxes</small></article>
+    </div>
+
+    {offers.length?<div className="current-offer-list">
+      {offers.map(offer=>{
+        const label=matchEntity(offer.entityType,offer.entityId)||offer.entityId;
+        const freshness=commerceOfferFreshness(offer);
+        return <article className="current-offer-card" key={offer.id}>
+          <div className="current-offer-copy">
+            <span>{offer.entityType}</span>
+            <h2>{label}</h2>
+            <p>{offer.sellerName} · {offer.availability}</p>
+            <div className="current-offer-meta"><small>{freshness.label}</small><small>Observed {offer.observedAt}</small></div>
+          </div>
+          <div className="current-offer-price">
+            <strong>{offer.pricePhp?php(offer.pricePhp):"Ask seller"}</strong>
+            {offer.monthlyPhp?<small>{php(offer.monthlyPhp)}/mo · {offer.termMonths||"—"} months{offer.downpaymentPhp?\` · DP \${php(offer.downpaymentPhp)}\`:""}</small>:<small>Finance terms not listed</small>}
+          </div>
+          <div className="current-offer-actions">
+            <Link className="button ghost small" href={entityHref(offer)}>Research item</Link>
+            <OfferOutboundLink offerId={offer.id} entityType={offer.entityType} entityId={offer.entityId} sellerName={offer.sellerName} affiliate={Boolean(offer.affiliateUrl)}/>
+          </div>
+        </article>;
+      })}
+    </div>:<div className="note-box">
+      <h2>No fresh public seller offers are available right now</h2>
+      <p>MotoIndex does not fill this page with demo rows or stale merchant prices. Use the motorcycle and gear research pages while current offers are being verified.</p>
+      <div className="hero-actions"><Link className="button small" href="/motorcycles">Motorcycle prices</Link><Link className="button ghost small" href="/catalog">Gear catalog</Link></div>
+    </div>}
+
+    <div className="note-box"><h2>Before treating an offer as a deal</h2><p>Check the exact model or SKU, variant or size, stock, registration or shipping charges, financing assumptions and final checkout total. MotoIndex does not label an offer as discounted unless a reliable comparison basis supports that claim.</p></div>
+  </section>;
 }
