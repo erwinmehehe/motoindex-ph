@@ -45,6 +45,7 @@ import { modelAuthorityQuality } from "@/lib/modelQuality";
 import { SourceRef } from "@/components/SourceRef";
 import { forClient } from "@/lib/competitors";
 import { performanceAnswerFor } from "@/lib/modelPerformance";
+import { AuthorBox } from "@/components/AuthorBox";
 import { getModelGearGuide } from "@/lib/modelGearGuides";
 
 function HeroFact({ label, value, note }: { label: string; value: string; note?: string }) {
@@ -378,7 +379,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         </>}
         <UsedValueCalculator model={forClient(model)} />
         <div className="entity-tool-grid">
-          <Link href={`/used-motorcycles/${model.makeSlug}/${model.slug}`}><span>Used listings</span><strong>Check verified used {model.model} listings</strong><small>Only verified marketplace references appear on the used page.</small></Link>
+          <a href="#used"><span>Used listings</span><strong>Check verified used {model.model} listings</strong><small>Verified listings and depreciation estimates stay on this model page.</small></a>
           <Link href="/used-motorcycles/buying-checklist"><span>Buying used</span><strong>Open the used-bike checklist</strong><small>Check documents, condition, service history and the actual unit before paying.</small></Link>
         </div>
         <details className="entity-disclosure"><summary>Show illustrative depreciation table</summary><div className="depreciation-table"><div className="depreciation-row head"><span>Age</span><span>Fair</span><span>Good</span><span>Excellent</span></div>{usedCurve.map((row) => <div className="depreciation-row" key={row.age}><strong>{row.age} year{row.age === 1 ? "" : "s"}</strong><span>{php(row.fair)}</span><span>{php(row.good)}</span><span>{php(row.excellent)}</span></div>)}</div></details>
@@ -387,6 +388,8 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       {!isPrevious && <section id="alternatives" className="motorcycle-entity-section" aria-labelledby="alternatives-heading"><div className="section-head compact"><div><span className="section-kicker">Cross-shopping</span><h2 id="alternatives-heading">Alternatives to the {model.make} {model.model}</h2><p>Similar current models are grouped by price, engine size, category, transmission and seat height.</p></div></div><SimilarMotorcycles model={model} /></section>}
 
       <section id="faq" className="motorcycle-entity-section"><FaqSection title={`${model.make} ${model.model} FAQs`} items={faqs} /></section>
+
+      <AuthorBox />
 
       <section className="motorcycle-entity-section entity-page-footer-block"><RelatedLinks title={`More ${model.model} research`} links={modelInternalLinks(model)} /></section>
     </div>
