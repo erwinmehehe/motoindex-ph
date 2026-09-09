@@ -17,7 +17,7 @@ export default async function GrowthDashboard(){
 
   let metrics={
     leads7:0,leads30:0,matched30:0,contacted30:0,closed30:0,
-    handoffs30:0,opened30:0,
+    handoffs30:0,opened30:0,quotes30:0,
     applications30:0,approvedApplications30:0,verifiedDealers:0,
     activeAffiliateLinks:0,affiliateClicks7:0,affiliateClicks30:0,
     offerClicks30:0
@@ -29,7 +29,7 @@ export default async function GrowthDashboard(){
     try{
       const [leads,deliveries,applications,verifiedDealers,affiliateLinks,clicks]=await Promise.all([
         prisma.dealerLead.findMany({where:{createdAt:{gte:d30}},select:{make:true,model:true,status:true,matchedSellerSlugs:true,createdAt:true}}),
-        prisma.dealerLeadDelivery.findMany({where:{createdAt:{gte:d30}},select:{status:true,createdAt:true}}),
+        prisma.dealerLeadDelivery.findMany({where:{createdAt:{gte:d30}},select:{status:true,createdAt:true,quoteResponse:{select:{id:true}}}}),
         prisma.dealerApplication.findMany({where:{createdAt:{gte:d30}},select:{status:true,createdAt:true}}),
         prisma.seller.count({where:{type:"dealer",status:"verified"}}),
         prisma.affiliateProductLink.findMany({where:{status:"active"},select:{productId:true}}),
@@ -43,7 +43,8 @@ export default async function GrowthDashboard(){
         contacted30:leads.filter(item=>item.status==="contacted").length,
         closed30:leads.filter(item=>item.status==="closed").length,
         handoffs30:deliveries.length,
-        opened30:deliveries.filter(item=>["opened","contacted","closed"].includes(item.status)).length,
+        opened30:deliveries.filter(item=>["opened","contacted","quoted","closed"].includes(item.status)).length,
+        quotes30:deliveries.filter(item=>Boolean(item.quoteResponse)).length,
         applications30:applications.length,
         approvedApplications30:applications.filter(item=>item.status==="approved").length,
         verifiedDealers,
@@ -77,6 +78,7 @@ export default async function GrowthDashboard(){
   const leadMatchRate=metrics.leads30?Math.round((metrics.matched30/metrics.leads30)*100):0;
   const dealerContactRate=metrics.leads30?Math.round((metrics.contacted30/metrics.leads30)*100):0;
   const handoffOpenRate=metrics.handoffs30?Math.round((metrics.opened30/metrics.handoffs30)*100):0;
+  const quoteResponseRate=metrics.handoffs30?Math.round((metrics.quotes30/metrics.handoffs30)*100):0;
 
   return <section className="page shell">
     <div className="page-head">
@@ -98,6 +100,7 @@ export default async function GrowthDashboard(){
       <article><span>Lead match rate · 30d</span><strong>{leadMatchRate}%</strong><small>{metrics.matched30} matched requests</small></article>
       <article><span>Dealer contact rate · 30d</span><strong>{dealerContactRate}%</strong><small>{metrics.contacted30} contacted · {metrics.closed30} closed</small></article>
       <article><span>Secure handoff open rate</span><strong>{handoffOpenRate}%</strong><small>{metrics.opened30} of {metrics.handoffs30} handoffs</small></article>
+      <article><span>Dealer quote response rate</span><strong>{quoteResponseRate}%</strong><small>{metrics.quotes30} private quotes · 30d</small></article>
       <article><span>Dealer applications · 30d</span><strong>{metrics.applications30}</strong><small>{metrics.approvedApplications30} approved</small></article>
       <article><span>Verified DB dealers</span><strong>{metrics.verifiedDealers}</strong><small>Approved persistent partners</small></article>
       <article><span>Active affiliate links</span><strong>{metrics.activeAffiliateLinks}</strong><small>Runtime database links</small></article>
