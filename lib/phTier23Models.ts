@@ -610,7 +610,7 @@ export const phTier23Motorcycles: Motorcycle[] = [
     frontTire: "110/70 ZR17", rearTire: "150/60 ZR17", abs: "Cornering ABS with Supermoto mode", colors: ["Blue", "Orange"], searchVolume: 10000, keywordDifficulty: 0,
     sourceLabel: "KTM Philippines official RC 390 model page and technical specification", sourceUrl: "https://www.ktm.com/en-ph/models/supersport/2022-ktm-rc-390.html", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
     marketPriceSourceLabel: "KTM Philippines official base price", marketPriceSourceUrl: "https://www.ktm.com/en-ph/models/supersport/2022-ktm-rc-390.html", marketPriceCheckedAt: "2026-09-09",
-    summary: "373cc single-cylinder sport motorcycle with 43.5 hp, 37 Nm, cornering ABS, a 824 mm seat and six-speed transmission."
+    summary: "373cc single-cylinder sport motorcycle with 43.5 hp, 37 Nm, cornering ABS, an 824 mm seat and six-speed transmission."
   },
   {
     id: "honda-gold-wing", alsoKnownAs: ["Honda Goldwing", "Gold Wing 1800"], make: "Honda", makeSlug: "honda", model: "Gold Wing", slug: "gold-wing", generation: "Current Philippine listing", category: "Luxury touring",
