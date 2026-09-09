@@ -124,7 +124,7 @@ export function motorcycleEntitySeo(model: Motorcycle) {
     ? authority ? `Compare the ${name} price, specs, rider fit and ownership costs, with clear reasons to buy or skip it, direct alternatives and Philippine after-sales links.` : `Compare the ${name} price, variants, financing, specs, rider fit, tires, fuel use, maintenance, ownership cost and used-value estimates in one place.`
     : uncertain
       ? `Check the ${name} price, specifications and financing tools, then confirm current dealer stock and the exact model year before buying.`
-      : `Use this ${name} page for historical launch pricing, specifications, fitment and used-bike ownership research without confusing the old SRP with today&apos;s market value.`;
+      : `Use this ${name} page for historical launch pricing, specifications, fitment and used-bike ownership research without confusing the old SRP with today's market value.`;
   const keywordBase = name.toLowerCase();
   const keywords = [
     `${keywordBase} price philippines`,
