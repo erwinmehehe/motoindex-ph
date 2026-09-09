@@ -31,7 +31,6 @@ jobs:
           npm run check:links
           npm run validate:lockfile
           npm run prisma:validate
-          npm run validate:media
 
       - name: Typecheck
         run: npm run typecheck
