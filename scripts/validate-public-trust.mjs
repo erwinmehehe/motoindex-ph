@@ -102,6 +102,25 @@ if (!sitemapSource.includes('["/authors/erwin-valles",.5]')) {
   failures.push("lib/sitemaps.ts: Erwin Valles author profile must remain in the core sitemap");
 }
 
+const helmetCatalog = read("lib/catalog.ts");
+const promotedHelmetModels = [
+  "ls2-thunder-gp-aero","ls2-vector-ii-carbon","ls2-challenger-ii","ls2-vector-ii","ls2-storm-iii","ls2-stream-ii","ls2-rapid-iii",
+  "ls2-advant-x-carbon","ls2-advant-x","ls2-advant","ls2-scope-ii","ls2-strobe-ii","ls2-bob-ii-carbon","ls2-bob-ii","ls2-infinity-ii-carbon","ls2-infinity-ii","ls2-verso-ii",
+  "nhk-gp-r-tech-street","nhk-rx-9","nhk-race-pro","nhk-terminator-2v","nhk-tr-one-1v","nhk-tr-one-2v","nhk-s2-gp-pro","nhk-s1-gp-pro",
+  "smk-bionic-youth","smk-bionic-adult","smk-agnar","smk-titan","smk-titan-carbon","smk-allterra","smk-ares","smk-laminar","smk-retro-jet","smk-gtj","smk-delta-tour"
+];
+for (const id of promotedHelmetModels) {
+  const start = helmetCatalog.indexOf(`id:"${id}"`);
+  if (start < 0) {
+    failures.push(`lib/catalog.ts: promoted helmet model ${id} is missing`);
+    continue;
+  }
+  const record = helmetCatalog.slice(start, helmetCatalog.indexOf("},", start) + 2);
+  if (!record.includes('status:"verified"') || !record.includes('sourceUrl:"http')) {
+    failures.push(`lib/catalog.ts: promoted helmet model ${id} must remain verified with a source URL`);
+  }
+}
+
 const priceChecks = read("components/MarketPriceChecks.tsx");
 if (!priceChecks.includes('href="/dealers"')) {
   failures.push("components/MarketPriceChecks.tsx: price verification should keep a dealer-directory next step");
