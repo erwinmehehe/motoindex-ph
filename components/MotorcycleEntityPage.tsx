@@ -333,7 +333,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       {!isPrevious && <section id="alternatives" className="motorcycle-entity-section" aria-labelledby="alternatives-heading"><div className="section-head compact"><div><span className="section-kicker">Cross-shopping</span><h2 id="alternatives-heading">Alternatives to the {model.make} {model.model}</h2><p>Similar current models are grouped by price, engine size, category, transmission and seat height.</p></div></div><SimilarMotorcycles model={model} /></section>}
 
-      <section id="faq" className="motorcycle-entity-section"><FaqSection title={`${model.make} ${model.model} questions`} items={faqs} /></section>
+      <section id="faq" className="motorcycle-entity-section"><FaqSection title={`${model.make} ${model.model} FAQs`} items={faqs} /></section>
 
       <section className="motorcycle-entity-section entity-page-footer-block"><ModelUpdateLog model={model} /><RelatedLinks title={`More ${model.model} research`} links={modelInternalLinks(model)} /></section>
     </div>
