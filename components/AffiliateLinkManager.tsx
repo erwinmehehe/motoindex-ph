@@ -86,6 +86,9 @@ function AffiliateRow({row}:{row:ProductRow}){
 
 export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[];databaseConfigured:boolean}){
   const [query,setQuery]=useState("");
+  const [bulk,setBulk]=useState("");
+  const [bulkSaving,setBulkSaving]=useState(false);
+  const [bulkMessage,setBulkMessage]=useState("");
   const filtered=useMemo(()=>{
     const q=query.trim().toLowerCase();
     if(!q)return rows;
@@ -96,6 +99,40 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
   const fallback=rows.filter(row=>row.fallback).length;
   const clicks7=rows.reduce((sum,row)=>sum+row.clicks7,0);
   const clicks30=rows.reduce((sum,row)=>sum+row.clicks30,0);
+
+  async function activateBulk(){
+    const lines=bulk.split(/\r?\n/).map(line=>line.trim()).filter(Boolean);
+    const parsed=lines.map((line,index)=>{
+      const parts=line.includes("\t")?line.split("\t"):line.split("|");
+      return {
+        row:index+1,
+        productId:(parts[0]||"").trim(),
+        url:(parts[1]||"").trim(),
+        reviewNote:(parts.slice(2).join(" | ")||"").trim()
+      };
+    });
+    if(!parsed.length){setBulkMessage("Paste at least one row first.");return;}
+    setBulkSaving(true);setBulkMessage("");
+    try{
+      const response=await fetch("/api/admin/affiliate-links/bulk",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({rows:parsed})
+      });
+      const result=await response.json();
+      if(!response.ok||!result.ok){
+        const issues=Array.isArray(result.issues)?result.issues.slice(0,6).join(" · "):"";
+        setBulkMessage([result.error||"Bulk activation failed.",issues].filter(Boolean).join(" "));
+        return;
+      }
+      setBulkMessage(`${result.activated} affiliate links activated. Refresh this page to see the updated states.`);
+      setBulk("");
+    }catch{
+      setBulkMessage("Bulk activation failed.");
+    }finally{
+      setBulkSaving(false);
+    }
+  }
 
   return <div className="affiliate-manager">
     <div className="health-summary">
@@ -108,6 +145,12 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
     </div>
 
     {!databaseConfigured&&<div className="note-box"><h2>Production database is not configured</h2><p>Runtime affiliate management requires DATABASE_URL and the latest Prisma migration. Existing environment/JSON links can still work as fallback.</p></div>}
+
+    <section className="affiliate-bulk-panel">
+      <div><span className="section-kicker">Bulk activation</span><h2>Paste affiliate links from Google Sheets</h2><p>Use three columns: product ID, Shopee/Involve Asia URL, review note. Paste tab-separated rows directly from a sheet. You can also use the <code>|</code> character as a separator.</p></div>
+      <textarea value={bulk} onChange={e=>setBulk(e.target.value)} rows={6} placeholder={"kyt-d-city\thttps://invl.me/example\tChecked exact KYT D-City listing\nevo-m2\thttps://shopee.ph/example\tChecked exact EVO M2 listing"}/>
+      <div className="affiliate-bulk-actions"><button type="button" disabled={bulkSaving||!databaseConfigured} onClick={activateBulk}>{bulkSaving?"Validating…":"Validate & activate all"}</button><small>{bulkMessage}</small></div>
+    </section>
 
     <div className="affiliate-manager-toolbar">
       <label><span>Find product</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search helmet, tire, top box or product ID"/></label>
