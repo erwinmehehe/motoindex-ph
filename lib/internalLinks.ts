@@ -14,15 +14,15 @@ export function modelInternalLinks(model: Motorcycle): RelatedLink[] {
     .map((row)=>({href:`/tires/${row.hub!.slug}`,title:`${row.hub!.size} motorcycle tire index`,eyebrow:"Tire size",description:`See other motorcycles that use ${row.hub!.size} as a stock front or rear tire size.`}));
   const links: RelatedLink[] = [
     { href: `/motorcycles/${model.makeSlug}`, title: `${model.make} motorcycles`, eyebrow: "Brand", description: `Browse ${model.make} models and price references.` },
-    { href: `${base}/specifications`, title: `${model.model} specifications`, eyebrow: "Specs", description: `${model.engineCc} cc · ${model.powerHp} hp · ${model.seatHeightMm} mm seat · ${model.curbWeightKg} kg.` },
-    ...(model.colors.length ? [{ href: `${base}/colors`, title: `${model.model} colors`, eyebrow: "Colors", description: `${model.colors.length} recorded color ${model.colors.length === 1 ? "option" : "options"} with source context.` }] : []),
+    { href: `${base}#specs`, title: `${model.model} specifications`, eyebrow: "Specs", description: `${model.engineCc} cc · ${model.powerHp} hp · ${model.seatHeightMm} mm seat · ${model.curbWeightKg} kg.` },
+    ...(model.colors.length ? [{ href: `${base}#colors`, title: `${model.model} colors`, eyebrow: "Colors", description: `${model.colors.length} recorded color ${model.colors.length === 1 ? "option" : "options"} with source context.` }] : []),
     ...(/scooter/i.test(model.category) && ["honda","yamaha","suzuki"].includes(model.makeSlug) ? [{ href: `/motorcycles/${model.makeSlug}/scooters`, title: `${model.make} scooters`, eyebrow: "Scooter hub", description: `Compare ${model.make} scooter prices, engines, seat heights and weights.` }] : []),
     { href: `${base}#price`, title: `${model.model} price`, eyebrow: "Price", description: model.marketStatus === "previous" ? "Historical Philippine price context." : "Dated price sources, variants and market checks." },
     ...(model.marketStatus !== "previous" ? [{ href: `${base}#installment`, title: `${model.model} installment calculator`, eyebrow: "Financing", description: "Monthly payment planning on the canonical model page." }] : []),
     { href: `/tools/motorcycle-loan-calculator?price=${observedMarketRange(model).from}&model=${encodeURIComponent(`${model.make} ${model.model}`)}`, title: "Motorcycle loan calculator", eyebrow: "Calculator", description: `Open the standalone loan tool with ${model.model}'s price prefilled.` },
     { href: `${base}#tires-fitment`, title: `${model.model} tire size`, eyebrow: "Fitment", description: `${model.frontTire} front · ${model.rearTire} rear.` },
     { href: "/accessories", title: "Motorcycle accessories", eyebrow: "Gear", description: "Research top boxes, phone holders, intercoms and rain gear." },
-    { href: "/gear/helmets/for-commuting", title: "Helmets for commuting", eyebrow: "Rider gear", description: "Compare checked road helmets by format, fit and daily-use features." },
+    { href: `${base}#gear`, title: `${model.model} rider gear`, eyebrow: "Rider gear", description: "Helmet suggestions and model-specific tire or top-box fitment where available." },
     { href: `${base}#rider-fit`, title: `${model.model} rider fit`, eyebrow: "Fit", description: `${model.seatHeightMm} mm seat · ${model.curbWeightKg} kg curb weight.` },
     { href: `${base}#fuel`, title: `${model.model} fuel economy`, eyebrow: "Fuel", description: model.fuelConsumptionKmL ? `${model.fuelConsumptionKmL} km/L listed basis plus range planning.` : "Fuel-cost and range planning with a labeled estimate." },
     { href: `${base}#maintenance`, title: `${model.model} maintenance`, eyebrow: "Ownership", description: "Official service source and exact intervals where parsed." },
