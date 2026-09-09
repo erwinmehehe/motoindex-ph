@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { randomBytes } from "node:crypto";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { getModelById } from "@/lib/data";
 import { allVerifiedDealers } from "@/lib/persistentSellers";
@@ -104,13 +105,33 @@ export async function POST(request: Request) {
     }
   });
 
+  const matchedSlugs = matched.map((seller) => seller.slug);
+  const deliverableDealers = matchedSlugs.length ? await prisma.seller.findMany({
+    where: { slug: { in: matchedSlugs }, type: "dealer", status: "verified", leadEmail: { not: null } },
+    select: { slug: true, name: true, leadEmail: true }
+  }) : [];
+  if (deliverableDealers.length) {
+    const expiresAt = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
+    await prisma.dealerLeadDelivery.createMany({
+      data: deliverableDealers.flatMap((seller) => seller.leadEmail ? [{
+        leadId: lead.id,
+        sellerSlug: seller.slug,
+        sellerName: seller.name,
+        dealerEmail: seller.leadEmail,
+        deliveryToken: randomBytes(32).toString("hex"),
+        expiresAt
+      }] : []),
+      skipDuplicates: true
+    });
+  }
+
   return NextResponse.json({
     ok: true,
     queued: true,
     leadId: lead.id,
     matchedDealers: matched.length,
     message: matched.length
-      ? `Request saved and matched with ${matched.length} verified dealer${matched.length === 1 ? "" : "s"} covering your area.`
+      ? `Request saved and matched with ${matched.length} verified dealer${matched.length === 1 ? "" : "s"} covering your area. MotoIndex reviews the match before any buyer details are shared.`
       : "Request saved. No verified dealer match is available for your area yet, so your details have not been shared with a dealer."
   }, { status: 201 });
 }
