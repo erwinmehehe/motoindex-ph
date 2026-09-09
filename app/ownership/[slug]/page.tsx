@@ -7,6 +7,8 @@ import { pageMetadata } from "@/lib/site";
 import { LtoRegistrationCalculator } from "@/components/LtoRegistrationCalculator";
 import { MotorcycleInsuranceCalculator } from "@/components/MotorcycleInsuranceCalculator";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
+import { AuthorBox } from "@/components/AuthorBox";
+import { articleSchema } from "@/lib/articleSchema";
 
 
 const guideFaqs: Record<string, FaqItem[]> = {
@@ -61,14 +63,14 @@ export default async function OwnershipGuidePage({ params }: { params: Promise<{
   const guide = getOwnershipGuide(slug);
   if (!guide) return notFound();
 
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
+  const schema = articleSchema({
     headline: guide.title,
     description: guide.description,
-    dateModified: guide.lastChecked,
-    author: { "@type": "Organization", name: "MotoIndex PH" }
-  };
+    path: `/ownership/${guide.slug}`,
+    about: guide.kicker,
+    keywords: [guide.title, "motorcycle ownership Philippines"],
+    checkedDates: [guide.lastChecked]
+  });
 
   return <section className="page shell trust-page">
     <Breadcrumbs items={[{ label: "Ownership", href: "/ownership" }, { label: guide.title }]} />
