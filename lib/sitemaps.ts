@@ -40,10 +40,6 @@ export function motorcycleSitemapEntries(): Entry[] {
     const list=motorcycles.filter(m=>m.makeSlug===make&&isIndexableModel(m));
     return list.length?[{url:`${SITE_URL}/motorcycles/${make}`,lastModified:newest(list.map(m=>m.verifiedAt)),changeFrequency:"weekly" as const,priority:.82}]:[];
   });
-  const scooterHubs = ["honda","yamaha","suzuki"].flatMap(make=>{
-    const list=motorcycles.filter(m=>m.makeSlug===make&&/scooter/i.test(m.category)&&m.marketStatus!=="previous"&&m.marketStatus!=="uncertain"&&m.marketStatus!=="discontinued"&&isIndexableModel(m));
-    return list.length>=3?[{url:`${SITE_URL}/motorcycles/${make}/scooters`,lastModified:newest(list.map(m=>m.marketPriceCheckedAt||m.verifiedAt)),changeFrequency:"weekly" as const,priority:.86}]:[];
-  });
   const families = modelFamilies.flatMap(f=>{
     const list=motorcycles.filter(m=>f.generationIds.includes(m.id));
     return list.some(isIndexableModel)?[{url:`${SITE_URL}/motorcycles/${f.makeSlug}/${f.slug}`,lastModified:newest(list.map(m=>m.verifiedAt)),changeFrequency:"monthly" as const,priority:.84}]:[];
@@ -57,7 +53,7 @@ export function motorcycleSitemapEntries(): Entry[] {
     priority:m.marketStatus==="previous"?.82:m.marketStatus==="uncertain"?.78:.92
   }));
   const electricPages=[{url:`${SITE_URL}/motorcycles/electric`,lastModified:"2026-09-09",changeFrequency:"weekly" as const,priority:.9},{url:`${SITE_URL}/motorcycles/electric/range-comparison`,lastModified:"2026-09-09",changeFrequency:"monthly" as const,priority:.82},...electricMotorcycles.map(m=>({url:`${SITE_URL}/motorcycles/electric/${m.slug}`,lastModified:m.checkedAt,changeFrequency:"weekly" as const,priority:.88}))];
-  return [...brands,...scooterHubs,...families,...models,...electricPages];
+  return [...brands,...families,...models,...electricPages];
 }
 
 export function gearSitemapEntries(): Entry[] {
