@@ -11,7 +11,6 @@ import { editorialGuides } from "@/lib/editorialGuides";
 import { helmetSeoCollections, isIndexableHelmetSeoCollection } from "@/lib/helmetSeoCollections";
 import { helmetSeoComparisons, isIndexableHelmetSeoComparison } from "@/lib/helmetSeoComparisons";
 import { electricMotorcycles } from "@/lib/electricMotorcycles";
-import { modelGearGuides } from "@/lib/modelGearGuides";
 
 type Entry = { url: string; lastModified: string; changeFrequency?: "daily"|"weekly"|"monthly"|"yearly"; priority?: number };
 const iso = (value?: string) => value || RELEASE_DATE;
@@ -62,21 +61,8 @@ export function motorcycleSitemapEntries(): Entry[] {
     changeFrequency:m.marketStatus==="previous"||m.marketStatus==="uncertain"?"monthly" as const:"weekly" as const,
     priority:m.marketStatus==="previous"?.82:m.marketStatus==="uncertain"?.78:.92
   }));
-  const specificationPages = indexableModels.map(m=>({
-    url:`${SITE_URL}/motorcycles/${m.makeSlug}/${m.slug}/specifications`,
-    lastModified:iso(m.verifiedAt),
-    changeFrequency:"monthly" as const,
-    priority:.8
-  }));
-  const colorPages = indexableModels.filter(m=>m.colors.length>0).map(m=>({
-    url:`${SITE_URL}/motorcycles/${m.makeSlug}/${m.slug}/colors`,
-    lastModified:iso(m.verifiedAt),
-    changeFrequency:"monthly" as const,
-    priority:.72
-  }));
   const electricPages=[{url:`${SITE_URL}/motorcycles/electric`,lastModified:"2026-09-09",changeFrequency:"weekly" as const,priority:.9},{url:`${SITE_URL}/motorcycles/electric/range-comparison`,lastModified:"2026-09-09",changeFrequency:"monthly" as const,priority:.82},...electricMotorcycles.map(m=>({url:`${SITE_URL}/motorcycles/electric/${m.slug}`,lastModified:m.checkedAt,changeFrequency:"weekly" as const,priority:.88}))];
-  const gearGuides=modelGearGuides.flatMap(guide=>{const m=motorcycles.find(model=>model.id===guide.modelId);return m&&isIndexableModel(m)?[{url:`${SITE_URL}/motorcycles/${m.makeSlug}/${m.slug}/gear`,lastModified:iso(m.verifiedAt),changeFrequency:"monthly" as const,priority:.72}]:[];});
-  return [...brands,...scooterHubs,...families,...models,...specificationPages,...colorPages,...gearGuides,...electricPages];
+  return [...brands,...scooterHubs,...families,...models,...electricPages];
 }
 
 export function gearSitemapEntries(): Entry[] {
