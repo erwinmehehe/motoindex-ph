@@ -36,8 +36,8 @@ export default function DealersPage() {
         </Link>)}
       </div>
     </section> : <section className="motorcycle-entity-section">
-      <div className="seller-home" style={{gridTemplateColumns:"1fr"}}>
-        <div style={{maxWidth:760}}>
+      <div className="seller-home dealer-empty-state">
+        <div>
           <span className="section-kicker">Directory status</span>
           <h2>No dealer profiles are published yet</h2>
           <p>We will add dealer profiles only after checking the business name, address, contact details and current operating status. Until then, use the motorcycle brand&apos;s official dealer locator and confirm details directly with the branch.</p>
@@ -51,7 +51,7 @@ export default function DealersPage() {
         <h2>What to ask the dealer</h2>
         <p>Request the details below in writing so quotes from different branches are easy to compare.</p>
       </div></div>
-      <div className="seller-stats">
+      <div className="seller-stats dealer-checklist">
         <div><strong>Cash price</strong><span>Exact variant and color</span></div>
         <div><strong>Added fees</strong><span>Registration and processing</span></div>
         <div><strong>Release date</strong><span>Confirmed stock availability</span></div>
