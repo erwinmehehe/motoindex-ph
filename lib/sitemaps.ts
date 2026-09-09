@@ -19,7 +19,7 @@ export function coreSitemapEntries(): Entry[] {
     ...(hasModels ? [["/motorcycles",.9] as const,["/finder",.84] as const,["/fitment",.78] as const] : []),
     ...(hasComparisons ? [["/compare",.82] as const] : []),
     ["/recommendations",.8],
-    ["/dealers",.82],["/dealers/join",.58],["/gear/helmets",.85],["/accessories",.72],["/tools/electric-motorcycle-charging-cost",.82],["/tools/electric-motorcycle-range-calculator",.82],["/recommendations/electric-motorcycles-philippines",.8],["/guides/electric-scooters-philippines",.8],["/guides/e-bike-vs-motorcycle",.78],["/guides/electric-motorcycle-registration-philippines",.8],["/guides/electric-motorcycle-vs-gas-motorcycle",.8],["/guides",.74],["/tires",.75],["/maintenance",.78],["/used-motorcycles/repo",.82],["/used-motorcycles/buying-checklist",.74],["/tools",.84],["/tools/motorcycle-loan-calculator",.88],["/tools/lto-registration-fee-calculator",.8],["/tools/motorcycle-insurance-calculator",.8],["/ownership",.72],["/ownership/cost-calculator",.7],["/ownership/maintenance",.69],["/ownership/safety-campaigns",.66],["/commute",.86],["/commute/cost-calculator",.82],["/commute/affordability",.8],["/commute/rainy-season",.72],
+    ["/dealers",.82],["/dealers/join",.58],["/gear/helmets",.85],["/accessories",.72],["/tools/electric-motorcycle-charging-cost",.82],["/tools/electric-motorcycle-range-calculator",.82],["/guides",.74],["/tires",.75],["/maintenance",.78],["/used-motorcycles/repo",.82],["/used-motorcycles/buying-checklist",.74],["/tools",.84],["/tools/motorcycle-loan-calculator",.88],["/tools/lto-registration-fee-calculator",.8],["/tools/motorcycle-insurance-calculator",.8],["/ownership",.72],["/ownership/cost-calculator",.7],["/ownership/maintenance",.69],["/ownership/safety-campaigns",.66],["/commute",.86],["/commute/cost-calculator",.82],["/commute/affordability",.8],["/commute/rainy-season",.72],
     ["/about",.45],["/authors/erwin-valles",.5],["/methodology",.52],["/data-sources",.5],["/editorial-policy",.42],["/privacy",.4],
     ...(process.env.NEXT_PUBLIC_CONTACT_EMAIL ? [["/contact",.35] as const] : [])
   ] as const;
@@ -46,7 +46,7 @@ export function motorcycleSitemapEntries(): Entry[] {
     changeFrequency:m.marketStatus==="previous"||m.marketStatus==="uncertain"?"monthly" as const:"weekly" as const,
     priority:m.marketStatus==="previous"?.82:m.marketStatus==="uncertain"?.78:.92
   }));
-  const electricPages=[{url:`${SITE_URL}/motorcycles/electric`,lastModified:"2026-09-09",changeFrequency:"weekly" as const,priority:.9},{url:`${SITE_URL}/motorcycles/electric/range-comparison`,lastModified:"2026-09-09",changeFrequency:"monthly" as const,priority:.82},...electricMotorcycles.map(m=>({url:`${SITE_URL}/motorcycles/electric/${m.slug}`,lastModified:m.checkedAt,changeFrequency:"weekly" as const,priority:.88}))];
+  const electricPages=[{url:`${SITE_URL}/motorcycles/electric`,lastModified:"2026-09-09",changeFrequency:"weekly" as const,priority:.9},...electricMotorcycles.map(m=>({url:`${SITE_URL}/motorcycles/electric/${m.slug}`,lastModified:m.checkedAt,changeFrequency:"weekly" as const,priority:.88}))];
   return [...brands,...families,...models,...electricPages];
 }
 
