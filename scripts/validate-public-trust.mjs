@@ -121,6 +121,71 @@ for (const id of promotedHelmetModels) {
   }
 }
 
+const consolidatedRouteFiles = [
+  "app/motorcycles/[make]/[slug]/price/page.tsx",
+  "app/motorcycles/[make]/[slug]/installment/page.tsx",
+  "app/motorcycles/[make]/[slug]/specifications/page.tsx",
+  "app/motorcycles/[make]/[slug]/colors/page.tsx",
+  "app/motorcycles/[make]/[slug]/fuel-economy/page.tsx",
+  "app/motorcycles/[make]/[slug]/tire-size/page.tsx",
+  "app/motorcycles/[make]/[slug]/rider-fit/page.tsx",
+  "app/motorcycles/[make]/[slug]/maintenance/page.tsx",
+  "app/motorcycles/[make]/[slug]/ownership-cost/page.tsx",
+  "app/motorcycles/[make]/[slug]/used-value/page.tsx",
+  "app/motorcycles/[make]/[slug]/new-vs-used/page.tsx",
+  "app/motorcycles/[make]/[slug]/safety/page.tsx",
+  "app/motorcycles/[make]/[slug]/gear/page.tsx",
+  "app/motorcycles/[make]/[slug]/accessories/page.tsx",
+  "app/motorcycles/[make]/[slug]/dealers/page.tsx",
+  "app/fitment/[make]/[slug]/page.tsx",
+  "app/used-motorcycles/[make]/[slug]/page.tsx",
+  "app/motorcycles/[make]/scooters/page.tsx",
+  "app/recommendations/[slug]/page.tsx",
+  "app/commute/[slug]/page.tsx",
+  "app/maintenance/[slug]/page.tsx",
+  "app/ownership/maintenance/page.tsx",
+  "app/ownership/safety-campaigns/page.tsx",
+  "app/recommendations/electric-motorcycles-philippines/page.tsx",
+  "app/recommendations/electric-scooters-philippines/page.tsx",
+  "app/guides/electric-scooters-philippines/page.tsx",
+  "app/guides/e-bike-vs-motorcycle/page.tsx",
+  "app/guides/electric-motorcycle-registration-philippines/page.tsx",
+  "app/guides/electric-motorcycle-vs-gas-motorcycle/page.tsx",
+  "app/motorcycles/electric/range-comparison/page.tsx"
+];
+for (const path of consolidatedRouteFiles) {
+  if (!read(path).includes("permanentRedirect(")) {
+    failures.push(`${path}: consolidated route must remain a permanent redirect`);
+  }
+}
+
+const forbiddenSitemapFragments = [
+  "/motorcycles/electric/range-comparison",
+  "/recommendations/electric-motorcycles-philippines",
+  "/guides/electric-scooters-philippines",
+  "/guides/e-bike-vs-motorcycle",
+  "/guides/electric-motorcycle-registration-philippines",
+  "/guides/electric-motorcycle-vs-gas-motorcycle",
+  "/ownership/maintenance",
+  "/ownership/safety-campaigns"
+];
+for (const fragment of forbiddenSitemapFragments) {
+  if (sitemapSource.includes(fragment)) failures.push(`lib/sitemaps.ts: consolidated route ${fragment} must not be in a sitemap`);
+}
+
+const motorcycleEntity = read("components/MotorcycleEntityPage.tsx");
+if (!motorcycleEntity.includes("<AuthorBox />")) {
+  failures.push("components/MotorcycleEntityPage.tsx: canonical motorcycle page must show the author box");
+}
+if (motorcycleEntity.includes("/specifications") || motorcycleEntity.includes("/colors") || motorcycleEntity.includes("/gear`")) {
+  failures.push("components/MotorcycleEntityPage.tsx: do not reintroduce model fragment links");
+}
+
+const accessoryRoute = read("app/accessories/[slug]/page.tsx");
+if (!accessoryRoute.includes('permanentRedirect(`/accessories#${slug}`)')) {
+  failures.push("app/accessories/[slug]/page.tsx: generic accessory categories must redirect to the canonical accessories hub");
+}
+
 const priceChecks = read("components/MarketPriceChecks.tsx");
 if (!priceChecks.includes('href="/dealers"')) {
   failures.push("components/MarketPriceChecks.tsx: price verification should keep a dealer-directory next step");
