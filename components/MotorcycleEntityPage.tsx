@@ -44,6 +44,7 @@ import { phBrandSupportFor } from "@/lib/phBrandSupport";
 import { modelAuthorityQuality } from "@/lib/modelQuality";
 import { SourceRef } from "@/components/SourceRef";
 import { forClient } from "@/lib/competitors";
+import { performanceAnswerFor } from "@/lib/modelPerformance";
 
 function HeroFact({ label, value, note }: { label: string; value: string; note?: string }) {
   return <div><span>{label}</span><strong>{value}</strong>{note && <small>{note}</small>}</div>;
@@ -61,7 +62,11 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
     (a, _i, arr) => !arr.some((b) => b !== a && b.toLowerCase().includes(a.toLowerCase()))
   );
   const editorial = motorcycleEntityEditorial(model);
-  const faqs = motorcycleEntityFaqs(model);
+  const performance = performanceAnswerFor(model.id);
+  const faqs = [
+    ...motorcycleEntityFaqs(model),
+    ...(performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])
+  ];
   const range = observedMarketRange(model);
   const priceChecks = priceChecksForModel(model.id);
   const tireCandidates = getTireProductsForModel(model.id).filter((p) => !isIndexableModel(model) || p.status === "verified");
@@ -158,6 +163,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         ...(authority ? [{ href: "#buyer-guide", label: "Buyer guide" }] : []),
         ...(!isPrevious ? [{ href: "#installment", label: "Installment" }] : []),
         { href: "#specs", label: "Specs" },
+        ...(performance ? [{ href: "#performance", label: "Top speed" }] : []),
         { href: "#rider-fit", label: "Rider fit" },
         { href: "#tires-fitment", label: "Tires & fitment" },
         { href: "#fuel", label: "Fuel" },
@@ -247,6 +253,17 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           {model.colors.length > 0 && <Link href={`${canonicalPath}/colors`}><span>Colors</span><strong>See recorded color options</strong><small>Color names and variant-specific finishes with source context.</small></Link>}
         </div>
       </section>
+
+      {performance && <section id="performance" className="motorcycle-entity-section" aria-labelledby="performance-heading">
+        <div className="section-head compact"><div><span className="section-kicker">Performance evidence</span><h2 id="performance-heading">{model.make} {model.model} top speed</h2><p>Manufacturer specifications, independent tests and rider reports are not treated as interchangeable evidence.</p></div></div>
+        <div className="source-panel entity-source-panel">
+          <span>{performance.evidence}</span>
+          <h3>{performance.observedRangeKph ? `${performance.observedRangeKph[0]}–${performance.observedRangeKph[1]} km/h observed range` : performance.observedTopSpeedKph ? `About ${performance.observedTopSpeedKph} km/h, editorial estimate` : "No verified numeric claim published"}</h3>
+          <p>{performance.answer}</p>
+          <small>{performance.caution}</small><br/>
+          <SourceRef url={performance.sourceUrl} label={performance.sourceLabel} />
+        </div>
+      </section>}
 
       <section id="rider-fit" className="motorcycle-entity-section" aria-labelledby="fit-heading">
         <div className="section-head compact"><div><span className="section-kicker">Ergonomics</span><h2 id="fit-heading">Will the {model.make} {model.model} fit your height and use?</h2><p>Seat height alone cannot predict actual foot reach. Combine published dimensions with your inseam, traffic, passenger and luggage needs.</p></div></div>
