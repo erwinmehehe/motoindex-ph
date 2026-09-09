@@ -454,6 +454,7 @@ model DealerLeadDelivery {
   openedAt      DateTime?
   expiresAt     DateTime
   createdAt     DateTime   @default(now())
+  quoteResponse DealerQuoteResponse?
   updatedAt     DateTime   @updatedAt
 
   @@unique([leadId, sellerSlug])
@@ -474,4 +475,21 @@ model AffiliateProductLink {
   updatedAt  DateTime @updatedAt
 
   @@index([status, updatedAt])
+}
+
+model DealerQuoteResponse {
+  id             String             @id @default(cuid())
+  deliveryId     String             @unique
+  delivery       DealerLeadDelivery @relation(fields: [deliveryId], references: [id], onDelete: Cascade)
+  cashPricePhp   Decimal?           @db.Decimal(12, 2)
+  downPaymentPhp Decimal?           @db.Decimal(12, 2)
+  monthlyPhp     Decimal?           @db.Decimal(12, 2)
+  termMonths     Int?
+  availability   String
+  validUntil     DateTime?
+  dealerNote     String?
+  submittedAt    DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  @@index([submittedAt])
 }
