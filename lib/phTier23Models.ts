@@ -5,6 +5,7 @@ import type { Motorcycle } from "./types";
 // Search-volume fields remain zero until measured keyword data is imported; we do not invent SEO volume.
 const verifiedAt = "2026-08-27";
 const verifiedNow = "2026-09-08";
+const verifiedExpansion = "2026-09-09";
 
 export const phTier23Motorcycles: Motorcycle[] = [
   {
@@ -318,6 +319,111 @@ export const phTier23Motorcycles: Motorcycle[] = [
     sourceLabel: "Aprilia Philippines RS 660 price page with current official technical specification cross-check", sourceUrl: "https://www.aprilia.com/ph_EN/models/rs-660/", verifiedAt: verifiedNow, freshness: "verified", marketStatus: "current",
     marketPriceSourceLabel: "Aprilia Philippines", marketPriceSourceUrl: "https://www.aprilia.com/ph_EN/models/rs-660/", marketPriceCheckedAt: verifiedNow, transmission: "Manual",
     summary: "659cc parallel-twin sport motorcycle with 105 hp, 70 Nm, 183 kg wet weight, a 15 L tank and multimap cornering ABS."
+  },
+
+  {
+    id: "rusi-sigma-250", make: "Rusi", makeSlug: "rusi", model: "Sigma 250", slug: "sigma-250", generation: "Current Philippine listing", category: "Sport bike",
+    srp: 93000, engineCc: 223, powerHp: 17.7, torqueNm: 17.2, curbWeightKg: 143, seatHeightMm: 780, fuelTankL: 16, fuelConsumptionKmL: 40, groundClearanceMm: 175,
+    frontTire: "110/70-17", rearTire: "140/70-17", abs: "Front and rear ABS", colors: ["White"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Kamote.ph current Rusi Sigma 250 Philippine price and specification reference", sourceUrl: "https://www.kamote.ph/motorcycle/rusi-sigma-250", verifiedAt: verifiedExpansion, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Kamote.ph Philippine market listing", marketPriceSourceUrl: "https://www.kamote.ph/motorcycle/rusi-sigma-250", marketPriceCheckedAt: verifiedExpansion, transmission: "Manual",
+    summary: "223cc six-speed sport-style motorcycle with front/rear ABS, a 780 mm seat, 16 L tank and 17-inch tires."
+  },
+  {
+    id: "kymco-dink-r-150", make: "Kymco", makeSlug: "kymco", model: "Dink R 150", slug: "dink-r-150", generation: "Current Philippine model", category: "Maxi-style scooter",
+    srp: 148900, engineCc: 150, powerHp: 15, torqueNm: 13.2, curbWeightKg: 148, seatHeightMm: 783, fuelTankL: 10.7,
+    frontTire: "120/70-13", rearTire: "130/70-13", abs: "Dual-channel Bosch ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Dink R 150 specification with KYMCO Philippines price cross-check", sourceUrl: "https://www.kamote.ph/motorcycle/kymco-dink-r-150", verifiedAt: verifiedExpansion, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "KYMCO Philippines", marketPriceSourceUrl: "https://kymco.com.ph/product/dink-r-150/", marketPriceCheckedAt: verifiedExpansion, transmission: "Automatic",
+    summary: "150cc liquid-cooled maxi-style scooter with a 783 mm seat, 10.7 L tank and dual-channel Bosch ABS."
+  },
+  {
+    id: "kymco-skytown-150", make: "Kymco", makeSlug: "kymco", model: "Sky Town 150", slug: "skytown-150", generation: "Current Philippine model", category: "Commuter scooter",
+    srp: 118500, engineCc: 149.6, powerHp: 11.2, torqueNm: 11.9, curbWeightKg: 126, seatHeightMm: 770, fuelTankL: 7, fuelConsumptionKmL: 40,
+    frontTire: "110/70-14", rearTire: "130/70-13", abs: "Dual-channel ABS with traction control", colors: ["Pearly White", "Pearly Black", "Golden Brown"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "MotoPinas Philippine road-test specification with KYMCO Philippines product cross-check", sourceUrl: "https://www.motopinas.com/bike-reviews/2025-kymco-sky-town-150.html", verifiedAt: verifiedExpansion, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "KYMCO Philippines", marketPriceSourceUrl: "https://kymco.com.ph/product/sky-town-150/", marketPriceCheckedAt: verifiedExpansion, transmission: "Automatic",
+    summary: "Light 150cc commuter scooter with a 770 mm seat, 126 kg wet-weight reference, dual-channel ABS and traction control."
+  },
+  {
+    id: "sym-husky-150", make: "SYM", makeSlug: "sym", model: "Husky 150", slug: "husky-150", generation: "Current Philippine listing", category: "Adventure scooter",
+    srp: 152900, engineCc: 150, powerHp: 14.5, torqueNm: 14.5, curbWeightKg: 150, seatHeightMm: 785, fuelTankL: 15,
+    frontTire: "120/70-R13", rearTire: "130/70-R13", abs: "Dual-channel ABS with traction control", colors: ["Ebony Black", "Wolf Gray", "Pure White"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "SYM regional technical specification with current Philippine price and curb-weight cross-check", sourceUrl: "https://www.symmotor.com.my/sym-motor/sym-husky-150", verifiedAt: verifiedExpansion, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Kamote.ph Philippine market listing", marketPriceSourceUrl: "https://www.kamote.ph/motorcycle/sym-husky-150", marketPriceCheckedAt: verifiedExpansion, transmission: "Automatic",
+    summary: "150cc adventure-style scooter with a 15 L tank, 785 mm seat, dual-channel ABS, traction control and keyless equipment."
+  },
+  {
+    id: "sym-maxsym-tl-508", make: "SYM", makeSlug: "sym", model: "MAXSYM TL 508", slug: "maxsym-tl-508", generation: "Current Philippine listing", category: "Maxi scooter",
+    srp: 469900, engineCc: 508, powerHp: 44.9, torqueNm: 49.9, curbWeightKg: 227, seatHeightMm: 795, fuelTankL: 12.5,
+    frontTire: "120/70 R15", rearTire: "160/60 R15", abs: "Dual-channel ABS with traction control", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "SYM global MAXSYM TL 508 technical specification with Philippine availability cross-check", sourceUrl: "https://www.sym-global.com/maxsymtl508", verifiedAt: verifiedExpansion, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Kamote.ph Philippine market listing", marketPriceSourceUrl: "https://www.kamote.ph/motorcycle/sym-maxsym-tl-508", marketPriceCheckedAt: verifiedExpansion, transmission: "Automatic",
+    summary: "508cc twin-cylinder maxi scooter with a 795 mm seat, 15-inch tires, dual-channel ABS and traction control."
+  },
+  {
+    id: "bristol-venturi-500", make: "Bristol", makeSlug: "bristol", model: "Venturi 500", slug: "venturi-500", generation: "Current Philippine listing", category: "Adventure touring",
+    srp: 368000, engineCc: 471, powerHp: 47, torqueNm: 43, curbWeightKg: 178, seatHeightMm: 820, fuelTankL: 21, groundClearanceMm: 110,
+    frontTire: "110/80 R18", rearTire: "160/60 R16", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Bristol Venturi 500 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/bristol/venturi-500/specifications", verifiedAt: verifiedExpansion, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/bristol/venturi-500/specifications", marketPriceCheckedAt: verifiedExpansion, transmission: "Manual",
+    summary: "471cc twin-cylinder adventure-tourer with 47 hp, an 820 mm seat, 21 L tank and ABS."
+  },
+  {
+    id: "bristol-zontes-703rr", make: "Bristol", makeSlug: "bristol", model: "Zontes 703RR", slug: "zontes-703rr", generation: "Current Philippine listing", category: "Sport bike",
+    srp: 498800, engineCc: 699, powerHp: 95, torqueNm: 75, curbWeightKg: 196, seatHeightMm: 795, fuelTankL: 16, groundClearanceMm: 145,
+    frontTire: "120/70 R17", rearTire: "180/55 R17", abs: "ABS with traction and stability control", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Bristol Zontes 703RR price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/bristol/zontes-703rr/specifications", verifiedAt: verifiedExpansion, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/bristol/zontes-703rr/standard", marketPriceCheckedAt: verifiedExpansion, transmission: "Manual",
+    summary: "699cc inline-three sport bike with 95 hp, a 795 mm seat, ABS, traction control and stability control."
+  },
+  {
+    id: "benelli-302s", make: "Benelli", makeSlug: "benelli", model: "302S", slug: "302s", generation: "Current Philippine listing", category: "Naked street bike",
+    srp: 222800, engineCc: 300, powerHp: 38, torqueNm: 25.6, curbWeightKg: 185, seatHeightMm: 795, fuelTankL: 16, fuelConsumptionKmL: 25, groundClearanceMm: 175,
+    frontTire: "120/70 ZR17", rearTire: "160/60 ZR17", abs: "Front and rear ABS", colors: ["Black", "Bright Red", "White", "Lime Green"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Kamote.ph current Benelli 302S Philippine price and specification reference", sourceUrl: "https://www.kamote.ph/motorcycle/benelli-302s", verifiedAt: verifiedExpansion, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Benelli Philippines current model page", marketPriceSourceUrl: "https://www.benelli.com/ph-en/products/302s-2", marketPriceCheckedAt: verifiedExpansion, transmission: "Manual",
+    summary: "300cc parallel-twin naked bike with 38 hp, a 795 mm seat, 16 L tank and front/rear ABS."
+  },
+  {
+    id: "benelli-leoncino-250", make: "Benelli", makeSlug: "benelli", model: "Leoncino 250", slug: "leoncino-250", generation: "Current Philippine listing", category: "Modern classic",
+    srp: 188800, engineCc: 249, powerHp: 25, torqueNm: 21, curbWeightKg: 159, seatHeightMm: 800, fuelTankL: 12.5, fuelConsumptionKmL: 24.4, groundClearanceMm: 170,
+    frontTire: "110/70 R17", rearTire: "150/60 R17", abs: "Front and rear ABS", colors: ["White", "Red", "Matte Brown", "Matte Gray"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Benelli Leoncino 250 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/benelli/leoncino-250/specifications", verifiedAt: verifiedExpansion, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/benelli/leoncino-250/specifications", marketPriceCheckedAt: verifiedExpansion, transmission: "Manual",
+    summary: "249cc modern-classic roadster with a six-speed gearbox, 800 mm seat, 12.5 L tank and ABS."
+  },
+  {
+    id: "ktm-duke-200", make: "KTM", makeSlug: "ktm", model: "Duke 200", slug: "duke-200", generation: "Current Philippine listing", category: "Naked street bike",
+    srp: 178000, engineCc: 200, powerHp: 26, torqueNm: 19.5, curbWeightKg: 154, seatHeightMm: 830, fuelTankL: 13.4, fuelConsumptionKmL: 37.5, groundClearanceMm: 170,
+    frontTire: "110/70 R17", rearTire: "150/70 R17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine KTM Duke 200 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/ktm/duke-200/specifications", verifiedAt: verifiedExpansion, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/ktm/duke-200", marketPriceCheckedAt: verifiedExpansion, transmission: "Manual",
+    summary: "200cc lightweight naked bike with 26 hp, an 830 mm seat, ABS and a six-speed manual transmission."
+  },
+  {
+    id: "ktm-790-duke", make: "KTM", makeSlug: "ktm", model: "790 Duke", slug: "790-duke", generation: "Current Philippine listing", category: "Naked street bike",
+    srp: 599000, engineCc: 799, powerHp: 105, torqueNm: 87, curbWeightKg: 189, seatHeightMm: 825, fuelTankL: 14, fuelConsumptionKmL: 22, groundClearanceMm: 186,
+    frontTire: "120/70 ZR17", rearTire: "180/55 ZR17", abs: "ABS with traction-control rider aids", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine KTM 790 Duke price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/ktm/duke-790/specifications", verifiedAt: verifiedExpansion, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/ktm/duke-790", marketPriceCheckedAt: verifiedExpansion, transmission: "Manual",
+    summary: "799cc parallel-twin naked bike with 105 hp, 87 Nm, an 825 mm seat and modern ABS/traction-control equipment."
+  },
+  {
+    id: "ducati-multistrada-v4", make: "Ducati", makeSlug: "ducati", model: "Multistrada V4", slug: "multistrada-v4", generation: "Current Philippine listing", category: "Adventure touring",
+    srp: 1490000, engineCc: 1158, powerHp: 170, torqueNm: 125, curbWeightKg: 240, seatHeightMm: 840, fuelTankL: 22, fuelConsumptionKmL: 15, groundClearanceMm: 220,
+    frontTire: "120/70 ZR19", rearTire: "170/60 ZR17", abs: "ABS with traction-control rider aids", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Ducati Multistrada V4 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/ducati/multistrada-v4/specifications", verifiedAt: verifiedExpansion, freshness: "verified", marketStatus: "current",
+    marketPriceHighPhp: 2180000, marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/ducati/multistrada-v4/specifications", marketPriceCheckedAt: verifiedExpansion, transmission: "Manual",
+    summary: "1158cc V4 adventure-tourer with 170 hp, a 22 L tank, 19-inch front wheel and a Philippine variant range reaching premium V4 trims."
+  },
+  {
+    id: "husqvarna-svartpilen-200", make: "Husqvarna", makeSlug: "husqvarna", model: "Svartpilen 200", slug: "svartpilen-200", generation: "Current Philippine listing", category: "Cafe roadster",
+    srp: 175000, engineCc: 200, powerHp: 26, torqueNm: 19.5, curbWeightKg: 147, seatHeightMm: 835, fuelTankL: 9.5, fuelConsumptionKmL: 37.5, groundClearanceMm: 145,
+    frontTire: "110/70 R17", rearTire: "150/60 R17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Husqvarna Svartpilen 200 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/husqvarna/svartpilen-200/specifications", verifiedAt: verifiedExpansion, freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/husqvarna/svartpilen-200", marketPriceCheckedAt: verifiedExpansion, transmission: "Manual",
+    summary: "200cc design-led roadster with 26 hp, an 835 mm seat, 17-inch tires and ABS."
   },
 
 ];
