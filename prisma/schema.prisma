@@ -376,3 +376,26 @@ model UsedListing {
   updatedAt      DateTime @updatedAt
   @@index([modelExternalId, status, postedAt])
 }
+
+model DealerLead {
+  id                 String   @id @default(cuid())
+  modelExternalId    String
+  make               String
+  model              String
+  variant            String?
+  cityProvince       String
+  purchaseType       String
+  downPaymentBudget  Int?
+  fullName           String
+  mobile             String
+  email              String?
+  consentedAt        DateTime
+  matchedSellerSlugs String[]
+  status             String   @default("new")
+  sourcePath         String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([modelExternalId, status, createdAt])
+  @@index([cityProvince, status, createdAt])
+}
