@@ -8,7 +8,7 @@ const need=(ok,message)=>{if(!ok)errors.push(message)};
 
 const header=read("components/Header.tsx");
 need(header.includes("motorcycleBrands")&&header.includes("/motorcycles/${slug}"),"Motorcycles nav must expose brand catalog links");
-need(header.includes("publicGuides.map")&&header.includes("/recommendations/${guide.slug}"),"Guides nav must expose public guide pages");
+need(header.includes("navGuides.map")&&header.includes("/recommendations/${guide.slug}"),"Guides nav must expose curated public guide pages");
 
 const pair=read("app/compare/[slug]/page.tsx");
 const three=read("app/compare/three/page.tsx");
@@ -44,17 +44,25 @@ for(const field of ["primaryKeyword","secondaryKeywords","directAnswer","inclusi
 need(rec.includes("Why it&apos;s here")&&rec.includes("Prices checked:")&&rec.includes("Specifications checked:"),"Guide table and freshness block must expose rationale plus separate price/spec dates");
 
 const middleware=read("middleware.ts");
-need(!middleware.includes('pathname.startsWith("/dealers/")')&&!middleware.includes('"/sellers"'),"Middleware must not blanket-block public dealer or verified seller routes");
+need(!middleware.includes('pathname.startsWith("/dealers/")')&&!middleware.includes('pathname.startsWith("/sellers/")'),"Middleware must not blanket-block public dealer or verified seller detail routes");
+need(middleware.includes('pathname === "/sellers"')&&middleware.includes('"/sellers"'),"Prototype seller directory root must remain hidden while verified seller profiles stay route-gated");
 const sellers=read("lib/sellers.ts");
-need(sellers.includes("isPublicSeller")&&sellers.includes("publicDealersByCity")&&sellers.includes("getPublicSeller"),"Seller data layer must provide one verified public visibility rule");
+need(sellers.includes("isPublicSeller")&&sellers.includes("publicDealersByCity")&&sellers.includes("getPublicSeller")&&sellers.includes("MIN_PUBLIC_DEALERS_PER_CITY"),"Seller data layer must provide one verified public visibility rule and shared city threshold");
 const dealerCity=read("app/dealers/[city]/page.tsx");
-need(dealerCity.includes("publicDealersByCity")&&dealerCity.includes("MIN_PUBLIC_DEALERS")&&dealerCity.includes("notFound()"),"Dealer city routes must require enough verified public dealers");
+need(dealerCity.includes("publicDealersByCity")&&dealerCity.includes("MIN_PUBLIC_DEALERS_PER_CITY")&&dealerCity.includes("notFound()"),"Dealer city routes must require enough verified public dealers");
 const sellerPage=read("app/sellers/[slug]/page.tsx");
 need(sellerPage.includes("getPublicSeller")&&sellerPage.includes("notFound()")&&sellerPage.includes('o.status==="verified"'),"Seller profiles must reject non-public sellers and hide unverified offers");
 const dealersPage=read("app/dealers/page.tsx");
 need(dealersPage.includes("No dealer profiles are published yet")&&!dealersPage.includes("sample businesses")&&dealersPage.includes("href={`/sellers/${dealer.slug}`}"),"Dealer root must provide an honest buyer guide and link verified dealer cards");
 const continuity=read("components/HeaderContinuity.tsx");
 need(continuity.includes('pathname.startsWith("/dealers")')&&continuity.includes('pathname.startsWith("/sellers/")'),"Dealer and seller routes must retain the More navigation active state");
+const sitemapSource=read("lib/sitemaps.ts");
+need(sitemapSource.includes("publicSellers()")&&sitemapSource.includes("publicDealerCities()")&&sitemapSource.includes("MIN_PUBLIC_DEALERS_PER_CITY"),"Commerce sitemap must use the same public seller and dealer-city rules as routes");
+const robotsSource=read("app/robots.ts");
+need(robotsSource.includes("commerceSitemapEntries().length")&&robotsSource.includes("/sitemaps/commerce.xml"),"Robots must advertise commerce sitemap only when it has verified public URLs");
+const smoke=read("scripts/smoke-production.mjs");
+need(smoke.includes('"/dealers"')&&smoke.includes('"/sellers/demo-yamaha-dealer-a"')&&smoke.includes("populated commerce sitemap"),"Production smoke test must cover dealer root, hidden demo routes and populated commerce URLs");
+need(fs.existsSync(path.join(root,"app/dealer-directory.css"))&&dealersPage.includes("dealer-checklist")&&dealersPage.includes("dealer-empty-state"),"Dealer directory must retain dedicated mobile checklist and empty-state styling");
 
 const checkLaunch=read("scripts/check-launch.mjs");
 need(checkLaunch.includes("findSiblingDynamicRouteConflicts"),"Launch gate must include sibling dynamic route conflict guard");
