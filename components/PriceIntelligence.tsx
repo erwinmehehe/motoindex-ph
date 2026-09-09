@@ -5,29 +5,68 @@ import { SourceRef } from "@/components/SourceRef";
 
 function dateLabel(value?: string) {
   if (!value) return "—";
-  return new Intl.DateTimeFormat("en-PH", { year: "numeric", month: "short", day: "numeric", timeZone: "Asia/Manila" }).format(new Date(`${value}T00:00:00+08:00`));
+  return new Intl.DateTimeFormat("en-PH", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "Asia/Manila"
+  }).format(new Date(`${value}T00:00:00+08:00`));
 }
 
 export function PriceIntelligence({ model }: { model: Motorcycle }) {
   const intel = modelPriceIntelligence(model);
-  if (!intel.snapshots.length) return null;
+
+  // A single price observation does not need its own "history" section.
+  // The current price and its source are already shown above and below.
+  if (!intel.historyReady || intel.snapshots.length < 2) return null;
+
   const delta = intel.lowDeltaPhp;
-  return <section className="price-intel">
-    <div className="section-head compact"><div><h2>Dated price records</h2><p>Each entry is tied to a date and source set. A difference between dates can reflect a different seller mix as well as an actual price change.</p></div></div>
-    <div className="price-intel-kpis">
-      <div><span>Observed range</span><strong>{phpRange(intel.range.from,intel.range.to)}</strong></div>
-      <div><span>Price sources on page</span><strong>{intel.sourceCount}</strong></div>
-      <div><span>Latest price spread</span><strong>{php(intel.spreadPhp)}</strong></div>
-      <div><span>Records since</span><strong>{dateLabel(intel.firstObservedAt)}</strong></div>
+
+  return <section className="price-intel price-history" aria-labelledby="price-history-heading">
+    <div className="section-head compact price-history-head">
+      <div>
+        <span className="section-kicker">Price history</span>
+        <h2 id="price-history-heading">How the recorded price has changed</h2>
+        <p>Compare dated price observations for the same motorcycle. A difference can come from a new variant, seller mix, promotion or an actual price change.</p>
+      </div>
     </div>
-    {typeof delta === "number" && <div className="price-intel-delta"><span>Lowest recorded price vs previous check</span><strong>{delta===0?"No change":`${delta>0?"+":"−"}${php(Math.abs(delta))}`}</strong><small>This compares the lowest recorded observation on each date. It does not prove the whole market moved by the same amount.</small></div>}
-    <div className="price-snapshots">
-      {intel.snapshots.map((snapshot)=><article className="price-snapshot" key={`${snapshot.observedAt}-${snapshot.kind}`}>
-        <time>{dateLabel(snapshot.observedAt)}</time>
-        <div><span>{snapshot.kind === "launch" ? "Launch / manufacturer reference" : "Market price check"}</span><strong>{phpRange(snapshot.fromPhp,snapshot.toPhp)}</strong><small>{snapshot.sourceCount} source{snapshot.sourceCount===1?"":"s"} · {snapshot.sourceLabels.join(", ")}</small>{snapshot.note&&<p>{snapshot.note}</p>}</div>
-        {snapshot.sourceUrl?<SourceRef url={snapshot.sourceUrl} label="Source" />:<span className="muted-copy">See price sources below</span>}
+
+    <div className="price-history-summary">
+      <div>
+        <span>Recorded range</span>
+        <strong>{phpRange(intel.range.from, intel.range.to)}</strong>
+      </div>
+      <div>
+        <span>Price sources</span>
+        <strong>{intel.sourceCount}</strong>
+      </div>
+      <div>
+        <span>Tracking since</span>
+        <strong>{dateLabel(intel.firstObservedAt)}</strong>
+      </div>
+    </div>
+
+    {typeof delta === "number" && delta !== 0 && <div className="price-history-change">
+      <span>Change in the lowest recorded price</span>
+      <strong>{`${delta > 0 ? "+" : "−"}${php(Math.abs(delta))}`}</strong>
+    </div>}
+
+    <div className="price-history-list">
+      {intel.snapshots.map((snapshot) => <article className="price-history-row" key={`${snapshot.observedAt}-${snapshot.kind}`}>
+        <div className="price-history-date">
+          <time>{dateLabel(snapshot.observedAt)}</time>
+          <span>{snapshot.kind === "launch" ? "Launch price" : "Market check"}</span>
+        </div>
+        <div className="price-history-price">
+          <strong>{phpRange(snapshot.fromPhp, snapshot.toPhp)}</strong>
+          {snapshot.note && <p>{snapshot.note}</p>}
+        </div>
+        <div className="price-history-source">
+          <small>{snapshot.sourceCount} source{snapshot.sourceCount === 1 ? "" : "s"}</small>
+          <span>{snapshot.sourceLabels.join(", ")}</span>
+          {snapshot.sourceUrl ? <SourceRef url={snapshot.sourceUrl} label="Source" /> : null}
+        </div>
       </article>)}
     </div>
-    {!intel.historyReady&&<p className="variant-footnote">This is the first recorded price check. More dates will appear as prices are rechecked.</p>}
   </section>;
 }
