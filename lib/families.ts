@@ -57,6 +57,18 @@ export const modelFamilies: ModelFamily[] = [
       ]
     }
   }
+
+  {
+    make: "Honda",
+    makeSlug: "honda",
+    name: "ADV",
+    slug: "adv",
+    searchVolume: 0,
+    intro: "Compare the current Honda ADV160 with the previous ADV150 generation, keeping current new-bike pricing separate from the discontinued model's historical Philippine launch price.",
+    currentModelId: "honda-adv-160",
+    generationIds: ["honda-adv-160", "honda-adv-150"]
+  },
+
 ];
 
 export function getModelFamily(makeSlug: string, slug: string) {
