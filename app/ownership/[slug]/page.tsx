@@ -104,5 +104,6 @@ export default async function OwnershipGuidePage({ params }: { params: Promise<{
     </div>
     {guideFaqs[guide.slug]&&<FaqSection title={`${guide.kicker} questions`} items={guideFaqs[guide.slug]}/>}
     <JsonLd data={schema} />
+    <AuthorBox />
   </section>;
 }
