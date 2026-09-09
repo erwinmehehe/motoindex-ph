@@ -64,7 +64,22 @@ export async function runtimeAffiliateSummary(){
       }
     };
   }
-  const rows=await prisma.affiliateProductLink.findMany({orderBy:{updatedAt:"desc"}});
+  let rows;
+  try{
+    rows=await prisma.affiliateProductLink.findMany({orderBy:{updatedAt:"desc"}});
+  }catch{
+    const configured=catalog.map(product=>fallback(product.id)).filter(Boolean) as AffiliateLinkConfig[];
+    return {
+      databaseConfigured:false,
+      active:configured.length,
+      disabled:0,
+      catalogProducts:catalog.length,
+      byNetwork:{
+        shopeeDirect:configured.filter(link=>link.network==="shopee_direct").length,
+        involveAsia:configured.filter(link=>link.network==="involve_asia").length
+      }
+    };
+  }
   const activeRows=rows.filter(row=>row.status==="active");
   return {
     databaseConfigured:true,
