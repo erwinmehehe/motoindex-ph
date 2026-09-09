@@ -1,6 +1,7 @@
 import type { HelmetProduct, TireProduct, TopBoxProduct } from "./types";
 import { motorcycles, publicMotorcycles } from "./data";
 import { getTopBoxFitmentsForModel } from "./topBoxFitment";
+import { getHelmetBrandLineup } from "./helmetBrandLineups";
 
 const researchSource = "Product details need verification against a current official or retailer source";
 
@@ -158,7 +159,8 @@ export function getHelmetBrandStats(brand: string) {
 
 export function isIndexableHelmetBrand(brand: string) {
   const stats = getHelmetBrandStats(brand);
-  return stats.verifiedCount >= 2;
+  const lineupCount = getHelmetBrandLineup(brand)?.models.length || 0;
+  return stats.verifiedCount >= 2 || lineupCount >= 2;
 }
 export function getHelmetProduct(brand: string, slug: string) {
   return helmetProducts.find(p => p.brandSlug === brand && p.slug === slug);
