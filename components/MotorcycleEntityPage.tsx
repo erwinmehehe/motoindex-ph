@@ -26,8 +26,8 @@ import { UsedListingTable } from "@/components/UsedListingTable";
 import { UsedValueCalculator } from "@/components/UsedValueCalculator";
 import { getModelById, isIndexableModel } from "@/lib/data";
 import { observedMarketPriceLabel, observedMarketRange, priceChecksForModel } from "@/lib/marketChecks";
-import { variantPriceOptions } from "@/lib/variants";
-import { getTireProductsForModel, getTopBoxProductsForModel } from "@/lib/catalog";
+import { getVerifiedVariantsForModel, variantPriceOptions } from "@/lib/variants";
+import { helmetProducts, getTireProductsForModel, getTopBoxProductsForModel } from "@/lib/catalog";
 import { getTopBoxFitmentsForModel } from "@/lib/topBoxFitment";
 import { efficiencyEvidence } from "@/lib/efficiency";
 import { maintenanceForModel, serviceResourceForModel } from "@/lib/maintenance";
@@ -45,6 +45,7 @@ import { modelAuthorityQuality } from "@/lib/modelQuality";
 import { SourceRef } from "@/components/SourceRef";
 import { forClient } from "@/lib/competitors";
 import { performanceAnswerFor } from "@/lib/modelPerformance";
+import { getModelGearGuide } from "@/lib/modelGearGuides";
 
 function HeroFact({ label, value, note }: { label: string; value: string; note?: string }) {
   return <div><span>{label}</span><strong>{value}</strong>{note && <small>{note}</small>}</div>;
@@ -69,6 +70,12 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   ];
   const range = observedMarketRange(model);
   const priceChecks = priceChecksForModel(model.id);
+  const verifiedVariants = getVerifiedVariantsForModel(model.id);
+  const allColors = [...new Set([...model.colors, ...verifiedVariants.flatMap((variant) => variant.colors || [])])];
+  const gearGuide = getModelGearGuide(model.id);
+  const helmetCandidates = (gearGuide?.helmetIds || [])
+    .map((id) => helmetProducts.find((product) => product.id === id))
+    .filter((product): product is NonNullable<typeof product> => Boolean(product && product.status === "verified"));
   const tireCandidates = getTireProductsForModel(model.id).filter((p) => !isIndexableModel(model) || p.status === "verified");
   const topBoxCandidates = getTopBoxProductsForModel(model.id).filter((p) => !isIndexableModel(model) || p.status === "verified");
   const topBoxFitments = getTopBoxFitmentsForModel(model.id);
@@ -225,7 +232,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         {!isPrevious && <MarketPriceChecks model={model} />}
         {!isPrevious && !availabilityUncertain && <div className="entity-tool-grid">
           <Link href={`/get-quote/${model.makeSlug}/${model.slug}`}><span>Dealer quote</span><strong>Get the latest dealer price</strong><small>Request a current cash or installment quote for your city or province.</small></Link>
-          <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/dealers`}><span>Dealers</span><strong>Find {model.make} dealer options</strong><small>Browse verified dealer records and local coverage when available.</small></Link>
+          <Link href="/dealers"><span>Dealers</span><strong>Browse verified motorcycle dealers</strong><small>Use the dealer directory for local coverage, then request the exact {model.model} quote.</small></Link>
         </div>}
         {isPrevious && <div className="note-box compact-note"><h3>Do not use the launch SRP as today&apos;s used-bike value</h3><p>Condition, year, mileage, registration, service history, modifications and location can move the actual used price materially.</p></div>}
       </section>
@@ -260,9 +267,19 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           <div role="row"><span role="cell">Colors recorded</span><strong role="cell">{model.colors.length ? model.colors.join(" · ") : "Check current source"}</strong></div>
         </div>
         <div className="entity-tool-grid">
-          <Link href={`${canonicalPath}/specifications`}><span>Specifications</span><strong>Open the dedicated specs page</strong><small>Engine, power, torque, dimensions, weight, seat height, tires and braking in one crawlable reference.</small></Link>
-          {model.colors.length > 0 && <Link href={`${canonicalPath}/colors`}><span>Colors</span><strong>See recorded color options</strong><small>Color names and variant-specific finishes with source context.</small></Link>}
+          <a href="#rider-fit"><span>Rider fit</span><strong>Check seat height and low-speed fit</strong><small>Use your inseam with the recorded seat height and curb weight.</small></a>
+          <a href="#tires-fitment"><span>Tires</span><strong>Check stock sizes and compatible products</strong><small>${model.frontTire} front · ${model.rearTire} rear.</small></a>
         </div>
+      </section>
+
+      {allColors.length > 0 && <section id="colors" className="motorcycle-entity-section" aria-labelledby="colors-heading">
+        <div className="section-head compact"><div><span className="section-kicker">Colors</span><h2 id="colors-heading">${model.make} ${model.model} colors in the Philippines</h2><p>Color names are kept on the model page so you can compare finishes without opening a separate SEO page. Availability can still change by variant, model year and dealer stock.</p></div></div>
+        <div className="entity-color-grid">
+          {allColors.map((color) => <article key={color}><strong>{color}</strong><small>Recorded color option</small></article>)}
+        </div>
+        {verifiedVariants.some((variant) => variant.colors?.length) && <div className="variant-color-list">
+          {verifiedVariants.filter((variant) => variant.colors?.length).map((variant) => <article key={variant.id}><span>{variant.name}</span><strong>{variant.colors!.join(" · ")}</strong><SourceRef url={variant.sourceUrl} label={`Source checked ${variant.checkedAt}`} /></article>)}
+        </div>}
       </section>
 
       {performance && <section id="performance" className="motorcycle-entity-section" aria-labelledby="performance-heading">
@@ -302,8 +319,12 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         </div>}
         {topBoxFitments.length > 0 && <div className="fitment-evidence-grid entity-fitment-evidence">{topBoxFitments.map((f) => <article key={f.id}><span className={`catalog-status ${f.status === "verified" ? "verified" : ""}`}>{f.status === "verified" ? "Manufacturer-listed" : "Needs checking"}</span><h3>{f.topBoxLabel}</h3><p><b>Rack:</b> {f.rackCode} · {f.rackLabel}</p><p><b>Years:</b> {f.modelYears}</p><p>{f.plateRequirement}</p>{f.marketNote && <small>{f.marketNote}</small>}<div className="fitment-card-links"><Link href={f.productHref}>Open product →</Link><SourceRef url={f.sourceUrl} label="Fitment source" /></div></article>)}</div>}
         <FitmentSummary model={model} />
-        {["yamaha-nmax-v3","honda-adv-160","yamaha-aerox-v3","honda-click-160","honda-pcx-160","yamaha-fazzio"].includes(model.id) && <div className="entity-tool-grid"><Link href={`/motorcycles/${model.makeSlug}/${model.slug}/gear`}><span>Gear guide</span><strong>Helmets, tires and top boxes for {model.model}</strong><small>Shop from verified helmet records and exact tire or top-box fitment evidence.</small></Link></div>}
       </section>
+
+      {gearGuide && <section id="gear" className="motorcycle-entity-section" aria-labelledby="gear-heading">
+        <div className="section-head compact"><div><span className="section-kicker">Rider gear</span><h2 id="gear-heading">Helmet options for {model.make} {model.model} riders</h2><p>{gearGuide.intro} Helmet fit is rider-specific, so these are shopping options rather than motorcycle-fitment claims.</p></div></div>
+        {helmetCandidates.length > 0 ? <div className="product-grid">{helmetCandidates.map((p) => <ProductCard key={p.id} item={{ entityId:p.id, href:`/gear/helmets/${p.brandSlug}/${p.slug}`, category:p.helmetType, brand:p.brand, model:p.model, meta:[p.certification,p.intercomReady?"Intercom-ready":undefined].filter(Boolean).join(" · "), status:p.status, priceFromPhp:p.priceFromPhp }} />)}</div> : <div className="note-box compact-note"><h3>Choose the helmet by your head fit</h3><p>Use the helmet finder and exact model size chart rather than matching a helmet to the motorcycle name.</p><Link href="/gear/helmets/finder">Open helmet finder →</Link></div>}
+      </section>}
 
       <section id="fuel" className="motorcycle-entity-section" aria-labelledby="fuel-heading">
         <div className="section-head compact"><div><span className="section-kicker">Running cost</span><h2 id="fuel-heading">{model.make} {model.model} fuel consumption and range</h2><p>{efficiency.status === "listed" ? `The ${efficiency.kmPerL} km/L basis comes from the model data on file.` : "No model-specific listed economy figure is stored, so the tool starts from a labeled planning estimate."}</p></div></div>
