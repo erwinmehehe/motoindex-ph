@@ -38,13 +38,13 @@ export function ModelFamilyGuide({ family, models }: Props) {
 
   return <div className="family-guide">
     <div className="section-head inline-head"><div>
-      <h2>Which {family.name} are you actually looking at?</h2>
-      <p>Searches for the {family.make} {family.name} rarely say which generation. They are different motorcycles with different prices, so start by working out which one is in front of you.</p>
+      <span className="section-kicker">Generation buying guide</span><h2>What actually changed between {family.name} generations?</h2>
+      <p>Once you know the exact generation, compare the differences that can change the buying decision: purchase price, dimensions, tires, condition and ownership stage.</p>
     </div></div>
 
     <div className="split section">
       <div>
-        <h3>What changed between generations</h3>
+        <h3>Price and mechanical changes</h3>
         <p>
           MotoIndex records {models.length} {family.name} generations
           {models.map(m => ` ${m.model} (${m.generation})`).join(",").replace(/,([^,]*)$/, " and$1")}.
