@@ -57,6 +57,7 @@ const dealersPage=read("app/dealers/page.tsx");
 need(dealersPage.includes("index: true")&&dealersPage.includes("DealerFinder")&&dealersPage.includes("officialDealerLocators"),"Dealer root must be indexable only when it provides checked search and official locator utility");
 need(sellers.includes("sourceUrl")&&sellers.includes("lastChecked")&&sellers.includes("Yamaha Motor Philippines dealer locator"),"Public dealer records must carry current official-source verification details");
 need(["Honda","Yamaha","Suzuki","Kawasaki"].every(brand=>sellers.includes(`brands:["${brand}"]`))&&sellers.includes('city:"San Fernando"'),"San Fernando coverage must retain checked Honda, Yamaha, Suzuki and Kawasaki records");
+need(["Angeles City","Cebu City","Davao City"].every(city=>(sellers.match(new RegExp(`city:"${city}"`,"g"))||[]).length>=3),"Angeles, Cebu and Davao must each retain enough checked dealers for public city pages");
 need(fs.existsSync(path.join(root,"components/DealerFinder.tsx"))&&read("components/DealerFinder.tsx").includes("Search dealers"),"Dealer directory must provide working search and filters");
 need(fs.existsSync(path.join(root,"lib/dealerLocators.ts"))&&read("lib/dealerLocators.ts").includes("hondaph.com/dealer-locator")&&read("lib/dealerLocators.ts").includes("motorcycles-dealer")&&read("lib/dealerLocators.ts").includes("kawasaki.ph/dealers/motorcycle"),"Dealer root must link current official manufacturer locators");
 const continuity=read("components/HeaderContinuity.tsx");
@@ -67,7 +68,7 @@ need(sitemapSource.includes('["/dealers",.82]'),"Indexed dealer root must be pre
 const robotsSource=read("app/robots.ts");
 need(robotsSource.includes("commerceSitemapEntries().length")&&robotsSource.includes("/sitemaps/commerce.xml"),"Robots must advertise commerce sitemap only when it has verified public URLs");
 const smoke=read("scripts/smoke-production.mjs");
-need(smoke.includes('"/dealers"')&&smoke.includes('"/dealers/san-fernando"')&&smoke.includes('"/sellers/demo-yamaha-dealer-a"')&&smoke.includes("populated commerce sitemap"),"Production smoke test must cover dealer root, San Fernando, hidden demo routes and populated commerce URLs");
+need(["/dealers","/dealers/san-fernando","/dealers/angeles-city","/dealers/cebu-city","/dealers/davao-city"].every(route=>smoke.includes(`"${route}"`))&&smoke.includes('"/sellers/demo-yamaha-dealer-a"')&&smoke.includes("populated commerce sitemap"),"Production smoke test must cover published dealer cities, hidden demo routes and populated commerce URLs");
 need(fs.existsSync(path.join(root,"app/dealer-directory.css"))&&dealersPage.includes("dealer-checklist")&&read("app/dealer-directory.css").includes(".dealer-filter-bar")&&read("app/dealer-directory.css").includes("@media(max-width:650px)"),"Dealer directory must retain finder and mobile checklist styling");
 
 const checkLaunch=read("scripts/check-launch.mjs");
