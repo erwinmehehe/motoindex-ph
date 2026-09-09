@@ -53,12 +53,12 @@ export function DealerFinder({ dealers }: { dealers: SellerProfile[] }) {
 
     <div className="dealer-results-head" aria-live="polite">
       <strong>{filtered.length} checked dealer{filtered.length===1?"":"s"}</strong>
-      <span>Public records are shown only when an official source, address and recent check are on file.</span>
+      <span>Public records are shown only when a verification source, address and recent check are on file.</span>
     </div>
 
     {filtered.length?<div className="dealer-results">
       {filtered.map(dealer=><article className="dealer-result-card" key={dealer.slug}>
-        <div className="dealer-card-top"><span className="dealer-brand">{dealer.brands.join(" · ")}</span><span className="dealer-checked">Official listing checked</span></div>
+        <div className="dealer-card-top"><span className="dealer-brand">{dealer.brands.join(" · ")}</span><span className="dealer-checked">Dealer details checked</span></div>
         <h3>{dealer.name}</h3>
         <p>{dealer.addressLabel}</p>
         <div className="dealer-card-meta">
