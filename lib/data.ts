@@ -1356,7 +1356,30 @@ export const recommendationGuides: RecommendationGuide[] = [
     faqQuestions: ["What sport motorcycles are available in the Philippines?", "Which sport motorcycle has the lowest observed price?", "Which sport bike is lightest?", "Which sport motorcycle has the lowest seat?", "Which sport bikes list ABS?"],
     relatedGuideSlugs: ["motorcycles-400cc-plus-philippines", "motorcycles-with-abs-philippines", "lightweight-motorcycles-philippines"],
     intent: "category"
+  },
+{
+    slug: "motorcycles-under-400cc-philippines",
+    kicker: "Under 400cc",
+    title: "Motorcycles under 400cc in the Philippines",
+    seoTitle: "Motorcycles Under 400cc Philippines: Prices & Specs 2026",
+    description: "Compare current motorcycles under 400cc in the Philippines by observed price, engine size, power, weight, seat height, transmission and ABS equipment.",
+    primaryKeyword: "motorcycles under 400cc Philippines",
+    secondaryKeywords: ["motorcycle below 400cc Philippines", "under 400cc motorcycle price Philippines", "sub 400cc motorcycles Philippines"],
+    directAnswer: "This guide filters current Philippine-market motorcycle records to engines below 400cc, then keeps price, power, weight, seat height, transmission and braking equipment visible so buyers can compare practical trade-offs.",
+    inclusionRules: ["Engine displacement is below 400cc", "Current, indexable Philippine-market motorcycle record"],
+    orderingRule: "Observed starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Observed prices use dated Philippine manufacturer, dealer or comparison-site checks. Core specifications come from each model's source-backed record.",
+    caveats: ["Engine displacement alone does not determine difficulty, speed or suitability.", "Some expressway rules and classifications depend on legal registration details rather than marketing category alone.", "Dealer fees, promotions and model-year changes can alter the final price or equipment."],
+    tableColumns: ["price", "engine", "power", "weight", "seat", "abs", "tank", "context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced motorcycles under 400cc", "Lighter sub-400cc choices", "Lower-seat options", "Higher-output models under 400cc", "What to compare beyond displacement"],
+    faqQuestions: ["What motorcycles under 400cc are available in the Philippines?", "Which motorcycle under 400cc has the lowest observed price?", "Which sub-400cc motorcycle is lightest?", "Which under-400cc bike has the lowest seat?", "Does being under 400cc make a motorcycle beginner-friendly?"],
+    relatedGuideSlugs: ["motorcycles-400cc-plus-philippines", "beginner-friendly-motorcycles-philippines", "motorcycles-with-abs-philippines", "lightweight-motorcycles-philippines"],
+    intent: "category"
   }
+
 
 
 ];
@@ -1384,6 +1407,7 @@ export function getRecommendationModels(slug: string) {
     case "best-motorcycles-for-daily-commute-philippines": return [...models].sort((a,b) => evaluateMotorcycle(b,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score - evaluateMotorcycle(a,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score || observedMarketRange(a).from - observedMarketRange(b).from);
     case "beginner-friendly-motorcycles-philippines": return [...models].sort((a,b) => { const score=(m:Motorcycle)=>Math.max(0,40-Math.max(0,m.curbWeightKg-100)*.35-Math.max(0,m.seatHeightMm-740)*.05-Math.max(0,m.powerHp-20)*.8+(hasAbs(m)?5:0)); return score(b)-score(a)||observedMarketRange(a).from-observedMarketRange(b).from; });
     case "motorcycles-400cc-plus-philippines": return byPrice.filter(m => m.engineCc >= 400);
+    case "motorcycles-under-400cc-philippines": return byPrice.filter(m => m.engineCc < 400);
     case "maxi-scooters-philippines": return byPrice.filter(m => /maxi/i.test(m.category));
     case "naked-motorcycles-philippines": return byPrice.filter(m => m.category === "Naked street bike");
     case "dual-sport-motorcycles-philippines": return byPrice.filter(m => m.category === "Dual-sport");
