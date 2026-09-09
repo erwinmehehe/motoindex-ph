@@ -8,7 +8,6 @@ import { commuteGuides, isIndexableCommuteGuide } from "@/lib/commute";
 import { tireFamilyHubs, tireSizeSeoHubs, isIndexableTireSizeSeoHub } from "@/lib/tireSeo";
 import { maintenanceSeoTopics } from "@/lib/maintenanceSeo";
 import { editorialGuides } from "@/lib/editorialGuides";
-import { helmetSeoCollections, isIndexableHelmetSeoCollection } from "@/lib/helmetSeoCollections";
 import { helmetSeoComparisons, isIndexableHelmetSeoComparison } from "@/lib/helmetSeoComparisons";
 import { electricMotorcycles } from "@/lib/electricMotorcycles";
 
@@ -51,9 +50,7 @@ export function motorcycleSitemapEntries(): Entry[] {
     const list=motorcycles.filter(m=>f.generationIds.includes(m.id));
     return list.some(isIndexableModel)?[{url:`${SITE_URL}/motorcycles/${f.makeSlug}/${f.slug}`,lastModified:newest(list.map(m=>m.verifiedAt)),changeFrequency:"monthly" as const,priority:.84}]:[];
   });
-  // Price, installment, tire-size, fuel, maintenance and ownership remain consolidated
-  // on the canonical model entity. Specifications and colors are separate only because
-  // they have distinct, high-volume SERP intent and can stand on complete source-backed data.
+  // Model-level price, specs, colors, installment, fitment, fuel, gear, maintenance and ownership stay on one canonical motorcycle page.
   const indexableModels = motorcycles.filter(isIndexableModel);
   const models = indexableModels.map(m=>({
     url:`${SITE_URL}/motorcycles/${m.makeSlug}/${m.slug}`,
@@ -66,8 +63,7 @@ export function motorcycleSitemapEntries(): Entry[] {
 }
 
 export function gearSitemapEntries(): Entry[] {
-  const categories=["/gear/helmets/finder","/gear/helmets/full-face","/gear/helmets/half-face","/gear/helmets/modular","/gear/helmets/brands"].map(path=>({url:`${SITE_URL}${path}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
-  const helmetCollections=helmetSeoCollections.filter(c=>isIndexableHelmetSeoCollection(c.slug)).map(c=>({url:`${SITE_URL}/gear/helmets/${c.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.78}));
+  const categories=["/gear/helmets/finder","/gear/helmets/compare"].map(path=>({url:`${SITE_URL}${path}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
   const brands=helmetBrands.filter(h=>isIndexableHelmetBrand(h.slug)).map(h=>{const p=helmetProducts.filter(x=>x.brandSlug===h.slug&&x.status==="verified");return {url:`${SITE_URL}/gear/helmets/${h.slug}`,lastModified:newest(p.map(x=>x.lastChecked||RELEASE_DATE)),changeFrequency:"monthly" as const,priority:.78};});
   const helmetComparisons=helmetSeoComparisons.filter(c=>isIndexableHelmetSeoComparison(c.slug)).map(c=>({url:`${SITE_URL}/gear/helmets/compare/${c.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.77}));
   const products=helmetProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/gear/helmets/${p.brandSlug}/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.74}));
@@ -75,7 +71,7 @@ export function gearSitemapEntries(): Entry[] {
   const tireSeoHubs=[...tireFamilyHubs.map(h=>({url:`${SITE_URL}/tires/${h.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76})),...tireSizeSeoHubs.filter(h=>isIndexableTireSizeSeoHub(h.slug)).map(h=>({url:`${SITE_URL}/tires/${h.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.75})),{url:`${SITE_URL}/tires/motorcycle-tire-size-chart`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.74}];
   const boxes=topBoxProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/accessories/top-box/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.66}));
   const accessoryHubs=accessoryCategories.map(a=>({url:`${SITE_URL}/accessories/${a.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
-  return [...categories,...helmetCollections,...helmetComparisons,...brands,...products,...tires,...tireSeoHubs,...boxes,...accessoryHubs];
+  return [...categories,...helmetComparisons,...brands,...products,...tires,...tireSeoHubs,...boxes,...accessoryHubs];
 }
 
 export function commerceSitemapEntries(): Entry[] {
