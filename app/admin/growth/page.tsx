@@ -18,21 +18,24 @@ export default async function GrowthDashboard(){
   let metrics={
     leads7:0,leads30:0,matched30:0,contacted30:0,closed30:0,
     handoffs30:0,opened30:0,quotes30:0,interestedQuotes30:0,overdueHandoffs:0,undeliverableLeads:0,
-    applications30:0,approvedApplications30:0,verifiedDealers:0,
+    applications30:0,approvedApplications30:0,verifiedDealers:0,quoteEligibleDealers:0,
     activeAffiliateLinks:0,affiliateClicks7:0,affiliateClicks30:0,
     offerClicks30:0
   };
   let topProducts:ProductClick[]=[];
   let topLeadModels:{label:string;count:number}[]=[];
   let overdueHandoffs:{sellerName:string;modelLabel:string;buyerName:string;sharedAt:Date;hoursOpen:number}[]=[];
+  let coverageGaps:{label:string;count:number}[]=[];
+  let partnerPerformance:{sellerName:string;handoffs:number;quotes:number;interested:number;quoteRate:number}[]=[];
 
   if(configured){
     try{
-      const [leads,deliveries,applications,verifiedDealers,affiliateLinks,clicks]=await Promise.all([
-        prisma.dealerLead.findMany({where:{createdAt:{gte:d30}},select:{make:true,model:true,status:true,matchedSellerSlugs:true,createdAt:true,deliveries:{select:{id:true}}}}),
-        prisma.dealerLeadDelivery.findMany({where:{createdAt:{gte:d30}},select:{status:true,createdAt:true,sharedAt:true,sellerName:true,quoteResponse:{select:{id:true,buyerDecision:true}},lead:{select:{make:true,model:true,fullName:true}}}}),
+      const [leads,deliveries,applications,verifiedDealers,quoteEligibleDealers,affiliateLinks,clicks]=await Promise.all([
+        prisma.dealerLead.findMany({where:{createdAt:{gte:d30}},select:{make:true,model:true,cityProvince:true,status:true,matchedSellerSlugs:true,createdAt:true,deliveries:{select:{id:true}}}}),
+        prisma.dealerLeadDelivery.findMany({where:{createdAt:{gte:d30}},select:{status:true,createdAt:true,sharedAt:true,sellerSlug:true,sellerName:true,quoteResponse:{select:{id:true,buyerDecision:true}},lead:{select:{make:true,model:true,fullName:true}}}}),
         prisma.dealerApplication.findMany({where:{createdAt:{gte:d30}},select:{status:true,createdAt:true}}),
         prisma.seller.count({where:{type:"dealer",status:"verified"}}),
+        prisma.seller.count({where:{type:"dealer",status:"verified",leadEmail:{not:null}}}),
         prisma.affiliateProductLink.findMany({where:{status:"active"},select:{productId:true}}),
         prisma.outboundClickEvent.findMany({where:{createdAt:{gte:d30}},select:{offerId:true,sourceOfferId:true,entityType:true,createdAt:true}})
       ]);
@@ -65,6 +68,7 @@ export default async function GrowthDashboard(){
         applications30:applications.length,
         approvedApplications30:applications.filter(item=>item.status==="approved").length,
         verifiedDealers,
+        quoteEligibleDealers,
         activeAffiliateLinks:affiliateLinks.length,
         affiliateClicks7:clicks.filter(item=>item.entityType==="affiliate_product"&&item.createdAt>=d7).length,
         affiliateClicks30:clicks.filter(item=>item.entityType==="affiliate_product").length,
@@ -87,6 +91,26 @@ export default async function GrowthDashboard(){
         modelMap.set(label,(modelMap.get(label)||0)+1);
       }
       topLeadModels=[...modelMap.entries()].map(([label,count])=>({label,count})).sort((a,b)=>b.count-a.count).slice(0,10);
+
+      const gapMap=new Map<string,number>();
+      for(const lead of leads.filter(item=>item.matchedSellerSlugs.length===0)){
+        const label=`${lead.make} · ${lead.cityProvince}`;
+        gapMap.set(label,(gapMap.get(label)||0)+1);
+      }
+      coverageGaps=[...gapMap.entries()].map(([label,count])=>({label,count})).sort((a,b)=>b.count-a.count||a.label.localeCompare(b.label)).slice(0,10);
+
+      const partnerMap=new Map<string,{sellerName:string;handoffs:number;quotes:number;interested:number}>();
+      for(const delivery of deliveries){
+        const current=partnerMap.get(delivery.sellerSlug)||{sellerName:delivery.sellerName,handoffs:0,quotes:0,interested:0};
+        current.handoffs+=1;
+        if(delivery.quoteResponse)current.quotes+=1;
+        if(delivery.quoteResponse?.buyerDecision==="interested")current.interested+=1;
+        partnerMap.set(delivery.sellerSlug,current);
+      }
+      partnerPerformance=[...partnerMap.values()]
+        .map(item=>({...item,quoteRate:item.handoffs?Math.round((item.quotes/item.handoffs)*100):0}))
+        .sort((a,b)=>b.interested-a.interested||b.quotes-a.quotes||b.quoteRate-a.quoteRate)
+        .slice(0,10);
     }catch{
       ready=false;
     }
@@ -124,6 +148,7 @@ export default async function GrowthDashboard(){
       <article><span>Matched but not deliverable</span><strong>{metrics.undeliverableLeads}</strong><small>Matched dealer, no secure contact path</small></article>
       <article><span>Dealer applications · 30d</span><strong>{metrics.applications30}</strong><small>{metrics.approvedApplications30} approved</small></article>
       <article><span>Verified DB dealers</span><strong>{metrics.verifiedDealers}</strong><small>Approved persistent partners</small></article>
+      <article><span>Quote-capable partners</span><strong>{metrics.quoteEligibleDealers}</strong><small>Verified dealers with approved private lead contact</small></article>
       <article><span>Active affiliate links</span><strong>{metrics.activeAffiliateLinks}</strong><small>Runtime database links</small></article>
       <article><span>Affiliate clicks · 7d</span><strong>{metrics.affiliateClicks7}</strong><small>{metrics.affiliateClicks30} in 30 days</small></article>
     </div>
@@ -142,6 +167,18 @@ export default async function GrowthDashboard(){
       <section className="growth-panel">
         <div className="section-head compact"><div><h2>Top affiliate products · 30 days</h2><p>Clicks are anonymous product-level outbound events and do not include buyer contact fields.</p></div></div>
         {topProducts.length?<div className="growth-ranking">{topProducts.map((item,index)=><div key={item.productId}><b>#{index+1}</b><span>{item.productId}<small>{item.clicks7} clicks · 7d</small></span><strong>{item.clicks30}</strong></div>)}</div>:<p className="empty-copy">No affiliate clicks yet.</p>}
+      </section>
+    </div>
+
+    <div className="growth-dashboard-columns">
+      <section className="growth-panel">
+        <div className="section-head compact"><div><h2>Dealer coverage gaps · 30 days</h2><p>Buyer demand where no quote-capable dealer partner matched the motorcycle brand and location.</p></div></div>
+        {coverageGaps.length?<div className="growth-ranking">{coverageGaps.map((item,index)=><div key={item.label}><b>#{index+1}</b><span>{item.label}</span><strong>{item.count}</strong></div>)}</div>:<p className="empty-copy">No unmatched dealer-demand gaps in the last 30 days.</p>}
+      </section>
+
+      <section className="growth-panel">
+        <div className="section-head compact"><div><h2>Dealer partner performance · 30 days</h2><p>Internal response signals only. Do not treat this as a public dealer ranking.</p></div></div>
+        {partnerPerformance.length?<div className="partner-performance-table">{partnerPerformance.map((item,index)=><div key={item.sellerName}><b>#{index+1}</b><span>{item.sellerName}<small>{item.handoffs} handoffs · {item.quotes} quotes · {item.interested} interested</small></span><strong>{item.quoteRate}%</strong></div>)}</div>:<p className="empty-copy">No dealer handoff performance data yet.</p>}
       </section>
     </div>
 
