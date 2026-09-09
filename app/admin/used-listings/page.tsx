@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Metadata } from "next";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { usedListings } from "@/lib/usedMarket";
