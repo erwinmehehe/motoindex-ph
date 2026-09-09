@@ -2,21 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { notFound } from "next/navigation";
-import { citySlug, publicDealerCities, publicDealersByCity } from "@/lib/sellers";
+import { MIN_PUBLIC_DEALERS_PER_CITY_PER_CITY, citySlug, publicDealerCities, publicDealersByCity } from "@/lib/sellers";
 import { pageMetadata } from "@/lib/site";
 
-const MIN_PUBLIC_DEALERS = 3;
 
 export function generateStaticParams(){
   return publicDealerCities()
-    .filter(city => publicDealersByCity(citySlug(city)).length >= MIN_PUBLIC_DEALERS)
+    .filter(city => publicDealersByCity(citySlug(city)).length >= MIN_PUBLIC_DEALERS_PER_CITY)
     .map(city => ({city:citySlug(city)}));
 }
 
 export async function generateMetadata({params}:{params:Promise<{city:string}>}):Promise<Metadata>{
   const {city}=await params;
   const list=publicDealersByCity(city);
-  if(list.length < MIN_PUBLIC_DEALERS) return {};
+  if(list.length < MIN_PUBLIC_DEALERS_PER_CITY) return {};
   const cityName=list[0].city;
   return pageMetadata({
     title:`Motorcycle Dealers in ${cityName}`,
@@ -29,7 +28,7 @@ export async function generateMetadata({params}:{params:Promise<{city:string}>})
 export default async function DealerCityPage({params}:{params:Promise<{city:string}>}){
   const {city}=await params;
   const list=publicDealersByCity(city);
-  if(list.length < MIN_PUBLIC_DEALERS) return notFound();
+  if(list.length < MIN_PUBLIC_DEALERS_PER_CITY) return notFound();
   const cityName=list[0].city;
   return <section className="page shell">
     <Breadcrumbs items={[{label:"Dealers",href:"/dealers"},{label:cityName}]} />
