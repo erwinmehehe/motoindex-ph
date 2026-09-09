@@ -17,7 +17,7 @@ export default async function GrowthDashboard(){
 
   let metrics={
     leads7:0,leads30:0,matched30:0,contacted30:0,closed30:0,
-    handoffs30:0,opened30:0,quotes30:0,overdueHandoffs:0,undeliverableLeads:0,
+    handoffs30:0,opened30:0,quotes30:0,interestedQuotes30:0,overdueHandoffs:0,undeliverableLeads:0,
     applications30:0,approvedApplications30:0,verifiedDealers:0,
     activeAffiliateLinks:0,affiliateClicks7:0,affiliateClicks30:0,
     offerClicks30:0
@@ -30,7 +30,7 @@ export default async function GrowthDashboard(){
     try{
       const [leads,deliveries,applications,verifiedDealers,affiliateLinks,clicks]=await Promise.all([
         prisma.dealerLead.findMany({where:{createdAt:{gte:d30}},select:{make:true,model:true,status:true,matchedSellerSlugs:true,createdAt:true,deliveries:{select:{id:true}}}}),
-        prisma.dealerLeadDelivery.findMany({where:{createdAt:{gte:d30}},select:{status:true,createdAt:true,sharedAt:true,sellerName:true,quoteResponse:{select:{id:true}},lead:{select:{make:true,model:true,fullName:true}}}}),
+        prisma.dealerLeadDelivery.findMany({where:{createdAt:{gte:d30}},select:{status:true,createdAt:true,sharedAt:true,sellerName:true,quoteResponse:{select:{id:true,buyerDecision:true}},lead:{select:{make:true,model:true,fullName:true}}}}),
         prisma.dealerApplication.findMany({where:{createdAt:{gte:d30}},select:{status:true,createdAt:true}}),
         prisma.seller.count({where:{type:"dealer",status:"verified"}}),
         prisma.affiliateProductLink.findMany({where:{status:"active"},select:{productId:true}}),
@@ -59,6 +59,7 @@ export default async function GrowthDashboard(){
         handoffs30:deliveries.length,
         opened30:deliveries.filter(item=>["opened","contacted","quoted","closed"].includes(item.status)).length,
         quotes30:deliveries.filter(item=>Boolean(item.quoteResponse)).length,
+        interestedQuotes30:deliveries.filter(item=>item.quoteResponse?.buyerDecision==="interested").length,
         overdueHandoffs:overdue.length,
         undeliverableLeads:leads.filter(item=>item.matchedSellerSlugs.length>0&&item.deliveries.length===0).length,
         applications30:applications.length,
@@ -95,6 +96,7 @@ export default async function GrowthDashboard(){
   const dealerContactRate=metrics.leads30?Math.round((metrics.contacted30/metrics.leads30)*100):0;
   const handoffOpenRate=metrics.handoffs30?Math.round((metrics.opened30/metrics.handoffs30)*100):0;
   const quoteResponseRate=metrics.handoffs30?Math.round((metrics.quotes30/metrics.handoffs30)*100):0;
+  const buyerInterestRate=metrics.quotes30?Math.round((metrics.interestedQuotes30/metrics.quotes30)*100):0;
 
   return <section className="page shell">
     <div className="page-head">
@@ -117,6 +119,7 @@ export default async function GrowthDashboard(){
       <article><span>Dealer contact rate · 30d</span><strong>{dealerContactRate}%</strong><small>{metrics.contacted30} contacted · {metrics.closed30} closed</small></article>
       <article><span>Secure handoff open rate</span><strong>{handoffOpenRate}%</strong><small>{metrics.opened30} of {metrics.handoffs30} handoffs</small></article>
       <article><span>Dealer quote response rate</span><strong>{quoteResponseRate}%</strong><small>{metrics.quotes30} private quotes · 30d</small></article>
+      <article><span>Buyer interest rate</span><strong>{buyerInterestRate}%</strong><small>{metrics.interestedQuotes30} interested quote responses</small></article>
       <article><span>Overdue dealer handoffs</span><strong>{metrics.overdueHandoffs}</strong><small>Shared 24h+ with no quote</small></article>
       <article><span>Matched but not deliverable</span><strong>{metrics.undeliverableLeads}</strong><small>Matched dealer, no secure contact path</small></article>
       <article><span>Dealer applications · 30d</span><strong>{metrics.applications30}</strong><small>{metrics.approvedApplications30} approved</small></article>
