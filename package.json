@@ -14,7 +14,7 @@
     "validate:v13": "node scripts/validate-v13.mjs",
     "check:links": "node scripts/check-internal-links.mjs",
     "validate:v14": "node scripts/validate-v14.mjs",
-    "validate:all": "npm run validate:v08 && npm run validate:v09 && npm run validate:v10 && npm run validate:v12 && npm run validate:v13 && npm run validate:v14 && npm run validate:v141 && npm run validate:v15 && npm run validate:v16 && npm run validate:v17 && npm run validate:v18 && npm run validate:v19 && npm run validate:launch-hardening && npm run validate:v20 && npm run validate:copy-tone && npm run validate:v21 && npm run validate:v212 && npm run validate:v22 && npm run validate:v221 && npm run validate:v222 && npm run validate:v223 && npm run validate:v224 && npm run validate:v230 && npm run validate:v231 && npm run validate:v240 && npm run validate:v241 && npm run validate:v242 && npm run validate:v243 && npm run validate:v244 && npm run validate:v245 && npm run validate:v246 && npm run validate:v247 && npm run validate:v260 && npm run validate:v261 && npm run validate:v270 && npm run validate:v280 && npm run validate:v290 && npm run check:links && node scripts/validate-content.mjs && node scripts/validate-product-layer.mjs && node scripts/validate-v05.mjs && node scripts/validate-v06.mjs && node scripts/validate-v07.mjs && node scripts/validate-v11.mjs && npm run validate:media",
+    "validate:all": "npm run validate:v08 && npm run validate:v09 && npm run validate:v10 && npm run validate:v12 && npm run validate:v13 && npm run validate:v14 && npm run validate:v141 && npm run validate:v15 && npm run validate:v16 && npm run validate:v17 && npm run validate:v18 && npm run validate:v19 && npm run validate:launch-hardening && npm run validate:v20 && npm run validate:copy-tone && npm run validate:v21 && npm run validate:v212 && npm run validate:v22 && npm run validate:v221 && npm run validate:v222 && npm run validate:v223 && npm run validate:v224 && npm run validate:v230 && npm run validate:v231 && npm run validate:v240 && npm run validate:v241 && npm run validate:v242 && npm run validate:v243 && npm run validate:v244 && npm run validate:v245 && npm run validate:v246 && npm run validate:v247 && npm run validate:v260 && npm run validate:v261 && npm run validate:v270 && npm run validate:v280 && npm run validate:v290 && npm run validate:post-audit && npm run check:links && node scripts/validate-content.mjs && node scripts/validate-product-layer.mjs && node scripts/validate-v05.mjs && node scripts/validate-v06.mjs && node scripts/validate-v07.mjs && node scripts/validate-v11.mjs && npm run validate:media",
     "prisma:validate": "node scripts/prisma-validate.mjs",
     "verify": "npm run validate:all && npm run validate:lockfile && npm run prisma:validate && npm run typecheck && npm run build",
     "validate:v141": "node scripts/validate-v141.mjs",
@@ -64,7 +64,8 @@
     "validate:v270": "node scripts/validate-v270.mjs",
     "validate:v280": "node scripts/validate-v280.mjs",
     "validate:v290": "node scripts/validate-v290.mjs",
-    "validate:no-competitors": "node scripts/validate-no-competitors.mjs"
+    "validate:no-competitors": "node scripts/validate-no-competitors.mjs",
+    "validate:post-audit": "node scripts/validate-post-audit.mjs"
   },
   "dependencies": {
     "next": "15.5.24",
