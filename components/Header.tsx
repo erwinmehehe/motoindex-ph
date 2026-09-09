@@ -37,6 +37,7 @@ const gear = [
 const more = [
   ["Ownership", "/ownership"] as const,
   ["Dealers", "/dealers"] as const,
+  ["Seller offers", "/deals"] as const,
   ["Commute", "/commute"] as const,
   ["All tools", "/tools"] as const,
   ...(hasModels ? [["Fitment finder", "/fitment"] as const] : []),
