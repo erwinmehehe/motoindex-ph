@@ -37,17 +37,17 @@ export const usedListings: UsedListing[] = [
   {id:"u-outlier-aerox",modelId:"yamaha-aerox-v3",title:"2025 Yamaha Aerox V3 — unusual ask",year:2025,mileageKm:900,askingPricePhp:168000,condition:"excellent",sellerType:"private",location:"Manila",postedAt:"2026-08-23",status:"demo",sourceLabel:demo}
 ];
 
-export function listingsForModel(modelId:string){return usedListings.filter(x=>x.modelId===modelId&&x.status!=="expired");}
-export function getUsedListing(id:string){return usedListings.find(x=>x.id===id);}
+export function listingsForModel(modelId:string){return usedListings.filter(x=>x.modelId===modelId&&x.status==="verified");}
+export function getUsedListing(id:string){return usedListings.find(x=>x.id===id&&x.status==="verified");}
 
 export function median(values:number[]){if(!values.length)return 0;const s=[...values].sort((a,b)=>a-b);const m=Math.floor(s.length/2);return s.length%2?s[m]:Math.round((s[m-1]+s[m])/2);}
 export function isPriceOutlier(listing:UsedListing, peers:UsedListing[]){const med=median(peers.map(x=>x.askingPricePhp));if(!med||peers.length<4)return false;return listing.askingPricePhp<med*.65||listing.askingPricePhp>med*1.35;}
 
 export function marketSummary(modelId:string){
-  const all=listingsForModel(modelId).filter(x=>x.status==="verified");
+  const all=listingsForModel(modelId);
   const clean=all.filter(x=>!isPriceOutlier(x,all));
   const prices=clean.map(x=>x.askingPricePhp).sort((a,b)=>a-b);
-  const verified=clean.filter(x=>x.status==="verified").length;
+  const verified=clean.length;
   const medianPrice=median(prices);
   const reference=motorcycles.find(m=>m.id===modelId)?.srp||0;
   return {
@@ -65,4 +65,4 @@ export function marketSummary(modelId:string){
   } as const;
 }
 
-export function modelsWithUsedListings(){return motorcycles.filter(m=>listingsForModel(m.id).some(x=>x.status==="verified"));}
+export function modelsWithUsedListings(){return motorcycles.filter(m=>listingsForModel(m.id).length>0);}
