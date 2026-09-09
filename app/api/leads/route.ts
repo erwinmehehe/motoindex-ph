@@ -14,6 +14,9 @@ function normalizePhone(value: string) {
 }
 
 export async function POST(request: Request) {
+  const contentLength = Number(request.headers.get("content-length") || 0);
+  if (contentLength > 20_000) return NextResponse.json({ ok: false, error: "Request too large." }, { status: 413 });
+
   if (!databaseConfigured()) {
     return NextResponse.json(
       { ok: false, error: "Dealer requests are temporarily unavailable while the production database is being configured." },
@@ -63,6 +66,23 @@ export async function POST(request: Request) {
     const locationMatch = location.includes(seller.city.toLowerCase()) || location.includes(seller.region.toLowerCase());
     return brandMatch && locationMatch;
   });
+
+  const duplicateSince = new Date(Date.now() - 15 * 60 * 1000);
+  const duplicate = await prisma.dealerLead.findFirst({
+    where: { modelExternalId: model.id, mobile, createdAt: { gte: duplicateSince } },
+    orderBy: { createdAt: "desc" }
+  });
+  if (duplicate) {
+    return NextResponse.json({
+      ok: true,
+      queued: true,
+      leadId: duplicate.id,
+      matchedDealers: duplicate.matchedSellerSlugs.length,
+      message: duplicate.matchedSellerSlugs.length
+        ? `Your recent request is already saved and matched with ${duplicate.matchedSellerSlugs.length} verified dealer${duplicate.matchedSellerSlugs.length === 1 ? "" : "s"}.`
+        : "Your recent request is already saved. No verified dealer match is available for your area yet."
+    });
+  }
 
   const lead = await prisma.dealerLead.create({
     data: {
