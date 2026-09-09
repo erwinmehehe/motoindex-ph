@@ -41,7 +41,6 @@ export function HelmetBrandGuide({ brand, verified, types, minPrice, maxPrice, t
   const hasModular = types.some(t => /modular|flip/i.test(t));
   const hasHalf = types.some(t => /half|open/i.test(t));
   const hasFull = types.some(t => /full/i.test(t));
-  const undocumented = Math.max(0, trackedCount - verified.length);
 
   const marks: string[] = [];
   if (mentionsEce) marks.push("ECE");
@@ -63,8 +62,7 @@ export function HelmetBrandGuide({ brand, verified, types, minPrice, maxPrice, t
           {band === "upper-mid" && " At this level you are typically paying for shell material, ventilation design, visor optics and liner quality rather than a jump in the legal certification itself."}
           {band === "premium" && " At this level the spend goes into shell construction, multiple shell sizes, aerodynamics and finishing — the legal requirement to ride in the Philippines is unchanged, so buy this tier for fit and comfort, not to satisfy the law."}
         </p> : <p>
-          MotoIndex does not yet have enough checked {brand} prices to publish a useful range. The model
-          pages below show what has been recorded so far.
+          Seller pricing is limited for the {brand} models currently covered. Open the individual model guide and compare the exact size, graphic and seller before buying.
         </p>}
         <p>
           The same model can carry different prices for reasons that have nothing to do with safety: a graphic
@@ -86,7 +84,7 @@ export function HelmetBrandGuide({ brand, verified, types, minPrice, maxPrice, t
             ? <>Across the {brand} models recorded here, the certification text cites {marks.join(", ")}. </>
             : <>Certification text has not been recorded for every {brand} model here yet. </>}
           {mentionsEce && !mentionsPsIcc && <>An ECE homologation is a meaningful safety standard, but it is not the same thing as the PS or ICC mark that Philippine enforcement looks for — an imported helmet still needs the local clearance sticker. </>}
-          {needsLocalCheck && <>Several entries note that the marking varies by batch or market, which is why MotoIndex records the certification claim rather than asserting it. </>}
+          {needsLocalCheck && <>Several entries note that the marking varies by batch or market, so the exact local helmet should be checked before purchase. </>}
           Check the sticker on the actual unit in front of you, not the box art or the listing photo.
         </p>
       </div>
@@ -123,20 +121,17 @@ export function HelmetBrandGuide({ brand, verified, types, minPrice, maxPrice, t
         <h3>What {brand}&apos;s range covers here</h3>
         <p>
           {types.length
-            ? <>The {brand} models with full MotoIndex pages cover {types.join(", ").toLowerCase()}. </>
-            : <>MotoIndex is still building out full product pages for {brand}. </>}
+            ? <>The current {brand} model guides include {types.join(", ").toLowerCase()}. </>
+            : <>The current {brand} range includes multiple helmet families and should be compared model by model. </>}
           {hasFull && hasHalf && "Full-face models give the most coverage for highway and provincial riding, while open-face options trade that for airflow in stop-go city traffic. "}
           {hasModular && "Modular or flip-up models are convenient at checkpoints and fuel stops, at the cost of extra weight and a chin bar hinge. "}
           {composite && thermoplastic && "Shell materials recorded across the range include both thermoplastic and composite construction, which is usually where the price steps up. "}
           {!composite && thermoplastic && "Shells recorded across the range are thermoplastic, which is the common construction at this price level. "}
           {intercomReady > 0 && `${intercomReady} of the documented models are noted as intercom-ready, which matters if you ride with a pillion or navigate by audio. `}
         </p>
-        {undocumented > 0 && <p>
-          Another {undocumented} {brand} model {undocumented === 1 ? "name appears" : "names appear"} in current
-          catalogue references without a full MotoIndex page yet. Those are listed above as catalogue entries so
-          the range is visible, but MotoIndex will not publish a price, certification or shell claim for them
-          until it has a checkable source.
-        </p>}
+        <p>
+          This brand page combines detailed product records with current catalog model guides so you can move through the range without running into placeholder research cards. Exact price, sizing and certification should still be checked on the model and on the helmet sold locally.
+        </p>
         <h3>When to replace it</h3>
         <p>
           Replace a helmet after any impact, even one that leaves no visible crack, because the liner is designed
