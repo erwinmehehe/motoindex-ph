@@ -18,6 +18,7 @@ export default async function DealersPage() {
   const cityCounts = new Map<string, number>();
   for (const dealer of verifiedDealers) cityCounts.set(dealer.city, (cityCounts.get(dealer.city) || 0) + 1);
   const publishedCities = [...cityCounts.entries()].filter(([,count])=>count>=MIN_PUBLIC_DEALERS_PER_CITY).map(([city])=>city).sort();
+  const pampangaCount = verifiedDealers.filter(dealer=>dealer.province==="Pampanga").length;
 
   return <section className="page shell">
     <div className="page-head dealer-page-head">
@@ -46,6 +47,20 @@ export default async function DealersPage() {
           <strong>Motorcycle dealers in {city}</strong>
           <span>{cityCounts.get(city) || 0} checked branches</span>
         </Link>)}
+      </div>
+    </section>:null}
+
+    {pampangaCount>=5?<section className="motorcycle-entity-section">
+      <div className="section-head compact"><div>
+        <span className="section-kicker">Province guide</span>
+        <h2>Browse motorcycle dealers across Pampanga</h2>
+        <p>See checked dealer branches across Angeles City and San Fernando in one local directory.</p>
+      </div></div>
+      <div className="dealer-city-links">
+        <Link href="/dealers/pampanga">
+          <strong>Motorcycle dealers in Pampanga</strong>
+          <span>{pampangaCount} checked branches</span>
+        </Link>
       </div>
     </section>:null}
 
