@@ -117,9 +117,7 @@ export const comparisonEditorialBriefs: ComparisonEditorialBrief[] = [
     opening: "The TMX125 Alpha and YTX 125 are utility-focused manual motorcycles, so the useful comparison is price, engine output, curb weight, seat height, fuel capacity, ground clearance, transmission, tires and braking. MotoIndex does not infer reliability, durability or maintenance-cost winners without ownership data.",
     sections: ["Price", "Engine and transmission", "Weight", "Seat height", "Fuel tank", "Dimensions", "Brakes", "Utility-focused specifications", "Which costs less?", "Which has the larger tank?", "Which is lighter?"],
     faqs: ["Which costs less?", "Which has the larger fuel tank?", "Which is lighter?", "Which has the lower seat?", "Which has more ground clearance?", "How do their engine outputs compare?"]
-  }
-];
-
+  },
   {
     slug: "click-160-vs-pcx-160",
     primaryKeyword: "Click 160 vs PCX 160",
@@ -155,7 +153,8 @@ export const comparisonEditorialBriefs: ComparisonEditorialBrief[] = [
     opening: "The RC 390 and Ninja 500 differ in engine layout, published output, weight, seat height and price. This comparison focuses on those measurable differences and the exact Philippine model records.",
     sections: ["Price", "Engine and output", "Torque", "Curb weight", "Seat height", "Fuel tank", "Tires", "ABS and braking", "Rider-fit considerations"],
     faqs: ["Which is cheaper?", "Which makes more power?", "Which is lighter?", "Which has the lower seat?", "How do the braking packages differ?"]
-  },
+  }
+];
 
 export const pendingComparisonEditorialBriefs: ComparisonEditorialBrief[] = [
   {
