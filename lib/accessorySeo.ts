@@ -49,8 +49,8 @@ export const accessorySeoGuides: AccessorySeoGuide[] = [
       { question: "Can I use the same phone holder on a scooter and a big bike?", answer: "Possibly, but do not assume it. The available bar or mirror mounting points, clamp diameter, clearance and vibration can be different." }
     ],
     related: [
-      { href: "/accessories/intercoms", title: "Motorcycle intercoms", description: "Compare communication-system buying factors." },
-      { href: "/accessories/rain-gear", title: "Motorcycle rain gear", description: "Build a more practical wet-weather commute setup." },
+      { href: "/accessories#intercoms", title: "Motorcycle intercoms", description: "Compare communication-system buying factors." },
+      { href: "/accessories#rain-gear", title: "Motorcycle rain gear", description: "Build a more practical wet-weather commute setup." },
       { href: "/motorcycles", title: "Choose your motorcycle", description: "Open a model page before planning mounting and fitment." }
     ]
   },
@@ -92,9 +92,9 @@ export const accessorySeoGuides: AccessorySeoGuide[] = [
       { question: "Should all riders use the same intercom brand?", answer: "Not necessarily, but group features and cross-brand compatibility can vary. Check the exact models and connection modes before assuming every unit will work together." }
     ],
     related: [
-      { href: "/gear/helmets/intercom-ready", title: "Intercom-ready helmets", description: "Compare verified helmets with recorded communication-system provision." },
-      { href: "/gear/helmets/for-commuting", title: "Helmets for commuting", description: "Compare helmet formats for daily riding." },
-      { href: "/accessories/phone-holders", title: "Motorcycle phone holders", description: "Plan navigation mounting without blocking controls." }
+      { href: "/gear/helmets#intercom-ready", title: "Intercom-ready helmets", description: "Compare verified helmets with recorded communication-system provision." },
+      { href: "/gear/helmets#commuting", title: "Helmets for commuting", description: "Compare helmet formats for daily riding." },
+      { href: "/accessories#phone-holders", title: "Motorcycle phone holders", description: "Plan navigation mounting without blocking controls." }
     ]
   },
   {
@@ -135,8 +135,8 @@ export const accessorySeoGuides: AccessorySeoGuide[] = [
       { question: "What is best for daily rainy-season commuting?", answer: "A practical setup is one you can keep with the motorcycle, put on quickly over normal gear, move in comfortably and dry between rides." }
     ],
     related: [
-      { href: "/gear/helmets/for-commuting", title: "Helmets for commuting", description: "Compare visor, coverage and daily-use helmet tradeoffs." },
-      { href: "/accessories/phone-holders", title: "Motorcycle phone holders", description: "Plan navigation and charging for wet-weather use." },
+      { href: "/gear/helmets#commuting", title: "Helmets for commuting", description: "Compare visor, coverage and daily-use helmet tradeoffs." },
+      { href: "/accessories#phone-holders", title: "Motorcycle phone holders", description: "Plan navigation and charging for wet-weather use." },
       { href: "/commute/rainy-season", title: "Rainy-season motorcycle commuting", description: "Open MotoIndex rainy-season ownership guidance." }
     ]
   }
