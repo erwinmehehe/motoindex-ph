@@ -5,7 +5,7 @@ import { topBoxProducts } from "@/lib/catalog";
 import { topBoxFitments } from "@/lib/topBoxFitment";
 import { ProductCard } from "@/components/ProductCard";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { pageMetadata } from "@/lib/site";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { php } from "@/lib/utils";
@@ -19,7 +19,8 @@ export async function generateMetadata({params}:{params:Promise<{slug:string}>})
   const {slug}=await params;
   const a=getAccessoryCategory(slug);
   if(!a)return {};
-  if(slug==="top-box")return pageMetadata({
+  if(slug!=="top-box")return {};
+  return pageMetadata({
     title:"Motorcycle Top Box Philippines: Sizes, Brackets & Fitment",
     description:"Compare motorcycle top boxes by capacity, mounting system, bike-specific bracket fitment and current GIVI/SHAD product records in the Philippines.",
     path:"/accessories/top-box",
@@ -33,7 +34,8 @@ export default async function AccessoryCategoryPage({params}:{params:Promise<{sl
   const {slug}=await params;
   const a=getAccessoryCategory(slug);
   if(!a) return notFound();
-  const isTopBox=slug==="top-box";
+  if(slug!=="top-box") permanentRedirect(`/accessories#${slug}`);
+  const isTopBox=true;
   const seoGuide=getAccessorySeoGuide(slug);
   const verifiedBoxes=topBoxProducts.filter(p=>p.status==="verified");
   const verifiedBoxesWithImages=verifiedBoxes.filter(p=>hasRenderableProductMedia(p.id));
