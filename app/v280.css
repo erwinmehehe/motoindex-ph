@@ -425,3 +425,77 @@
   .ph-brand-page .model-card>.model-card-media,.ph-brand-page .model-card>.model-media-placeholder,.ph-brand-page .model-card>.bike-art{height:190px!important;min-height:190px!important}
   .ph-brand-actions .button{width:auto;flex:1 1 150px}
 }
+
+
+/* Helmet hub refresh */
+.helmet-hub-page{padding-top:38px;padding-bottom:72px}
+.helmet-hub-page>.page-head{padding:34px 0 18px}
+.helmet-hub-page>.page-head h1{max-width:920px;font-size:clamp(44px,5.2vw,68px)}
+.helmet-hub-page>.page-head p{max-width:800px;font-size:18px;margin-top:18px}
+.helmet-hub-page .brand-facts{margin:22px 0 26px}
+.helmet-hub-page .helmet-shop-actions{margin-bottom:34px}
+.helmet-hub-page .helmet-category-links{margin:0 0 56px}
+.helmet-hub-section-head{margin:58px 0 20px;align-items:end}
+.helmet-hub-section-head h2{font-size:clamp(30px,3.3vw,44px);margin:5px 0 8px}
+.helmet-hub-section-head p{max-width:680px;margin:0;color:var(--muted);line-height:1.55}
+.helmet-seo-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.helmet-seo-grid article{
+  min-height:0;
+  padding:22px 22px 20px;
+  border-radius:18px;
+  display:flex;
+  flex-direction:column;
+  background:linear-gradient(180deg,#fff 0%,#fdfdfb 100%);
+}
+.helmet-seo-grid h2{font-size:22px;line-height:1.08;margin:0 0 10px;letter-spacing:-.035em}
+.helmet-seo-grid p{min-height:0;margin:0 0 22px;font-size:14px;line-height:1.55}
+.helmet-seo-grid .topic-action{margin-top:auto}
+.helmet-seo-grid .topic-action a{font-size:12px}
+.helmet-comparison-link-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.helmet-comparison-link-grid article{min-height:0;padding:20px 22px;border-radius:18px}
+.helmet-comparison-link-grid h2{font-size:21px;margin:0 0 8px}
+.helmet-comparison-link-grid p{min-height:0;margin:0 0 18px;font-size:13px}
+.helmet-brand-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+.helmet-brand-grid article{
+  min-height:0;
+  display:grid;
+  grid-template-columns:46px 1fr auto;
+  gap:14px;
+  align-items:center;
+  padding:16px 18px;
+  border-radius:16px;
+  background:#fff;
+}
+.helmet-brand-grid article:hover{transform:translateY(-1px)}
+.helmet-brand-badge{
+  width:46px;height:46px;border-radius:14px;
+  display:grid;place-items:center;
+  background:#15191d;color:#fff;
+  font-size:13px;font-weight:900;letter-spacing:.06em;
+}
+.helmet-brand-copy{min-width:0}
+.helmet-brand-grid h2{font-size:18px;line-height:1.1;margin:0 0 4px}
+.helmet-brand-grid p{min-height:0;margin:0;font-size:12px;line-height:1.4}
+.helmet-brand-grid .topic-action{margin:0}
+.helmet-brand-grid .topic-action a{font-size:11px;white-space:nowrap}
+.helmet-hub-page>.section-head.inline-head:not(.helmet-hub-section-head){margin-top:64px}
+
+@media(max-width:980px){
+  .helmet-seo-grid,.helmet-comparison-link-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .helmet-brand-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:640px){
+  .helmet-hub-page{padding-top:20px}
+  .helmet-hub-page>.page-head{padding-top:20px}
+  .helmet-hub-page>.page-head h1{font-size:clamp(38px,12vw,52px)}
+  .helmet-hub-page>.page-head p{font-size:16px}
+  .helmet-hub-page .helmet-category-links{margin-bottom:42px}
+  .helmet-hub-section-head{margin-top:44px}
+  .helmet-seo-grid,.helmet-comparison-link-grid,.helmet-brand-grid{grid-template-columns:1fr}
+  .helmet-seo-grid article,.helmet-comparison-link-grid article{padding:19px 18px}
+  .helmet-brand-grid article{grid-template-columns:42px 1fr auto;padding:14px}
+  .helmet-brand-badge{width:42px;height:42px;border-radius:12px}
+}
