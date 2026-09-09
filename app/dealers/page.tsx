@@ -1,67 +1,70 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
-import { dealerCities, citySlug, dealersByCity, sellersByType } from "@/lib/sellers";
+import { sellersByType } from "@/lib/sellers";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Motorcycle Dealers Philippines: City Directory",
-  description: "Browse MotoIndex motorcycle dealer city pages and preview dealer records by location. Sample records stay noindex until business details are verified.",
+  title: "Motorcycle Dealers Philippines: Buying Guide",
+  description: "Learn how to verify motorcycle dealers, compare written quotes and check the final cash price before paying a reservation or deposit.",
   path: "/dealers",
   index: false,
 });
 
 export default function DealersPage() {
-  const cities = dealerCities();
-  const dealers = sellersByType("dealer");
-  const brandCount = new Set(dealers.flatMap((dealer) => dealer.brands)).size;
+  const verifiedDealers = sellersByType("dealer").filter(
+    (dealer) => !dealer.isDemo && dealer.status === "verified"
+  );
 
   return <section className="page shell">
     <div className="page-head">
-      <span className="entity-kicker">Dealer directory preview</span>
-      <h1>Motorcycle dealers in the Philippines</h1>
-      <p>Browse available dealer records by city and brand. This directory is still in verification mode, so sample businesses remain clearly labeled and are not indexed as real dealer listings.</p>
+      <span className="entity-kicker">Dealer guide</span>
+      <h1>Finding a motorcycle dealer in the Philippines</h1>
+      <p>Start with the motorcycle brand&apos;s official dealer locator, then ask nearby branches for a written quote. Compare the complete amount, not only the advertised SRP or monthly payment.</p>
     </div>
 
-    <div className="seller-stats">
-      <div><strong>{dealers.length}</strong><span>Dealer records</span></div>
-      <div><strong>{cities.length}</strong><span>Cities covered</span></div>
-      <div><strong>{brandCount}</strong><span>Brands represented</span></div>
-      <div><strong>Preview</strong><span>Verification status</span></div>
-    </div>
-
-    <section className="motorcycle-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Browse by location</span><h2>Dealer city pages</h2><p>Open a city to see the dealer records currently attached to that location.</p></div></div>
+    {verifiedDealers.length > 0 ? <section className="motorcycle-entity-section">
+      <div className="section-head compact"><div>
+        <span className="section-kicker">Verified businesses</span>
+        <h2>Motorcycle dealers</h2>
+        <p>These dealer records have passed the site&apos;s business-detail checks.</p>
+      </div></div>
       <div className="seller-grid">
-        {cities.map((city) => {
-          const cityDealers = dealersByCity(citySlug(city));
-          const brands = [...new Set(cityDealers.flatMap((dealer) => dealer.brands))];
-          return <Link key={city} href={`/dealers/${citySlug(city)}`}>
-            <div className="seller-icon">D</div>
-            <span className="catalog-status">preview</span>
-            <h3>{city}</h3>
-            <p>{cityDealers.length} dealer {cityDealers.length === 1 ? "record" : "records"}</p>
-            <small>{brands.join(" · ") || "Brand data pending"}</small>
-            <b>View dealers →</b>
-          </Link>;
-        })}
+        {verifiedDealers.map((dealer) => <article key={dealer.slug}>
+          <div className="seller-icon">D</div>
+          <h3>{dealer.name}</h3>
+          <p>{dealer.addressLabel}</p>
+          <small>{dealer.brands.join(" · ")}</small>
+        </article>)}
       </div>
-    </section>
-
-    <section className="motorcycle-entity-section">
+    </section> : <section className="motorcycle-entity-section">
       <div className="seller-home">
         <div>
-          <span className="section-kicker">What comes next</span>
-          <h2>Verified dealer pages, not fake local SEO pages</h2>
-          <p>Dealer and city pages should only become indexable after the business name, address, brand authorization, contact details and current status are verified. That keeps the directory useful and avoids publishing thousands of thin location pages.</p>
+          <span className="section-kicker">Directory status</span>
+          <h2>No dealer profiles are published yet</h2>
+          <p>We will add dealer profiles only after checking the business name, address, contact details and current operating status. Until then, use the motorcycle brand&apos;s official dealer locator and confirm details directly with the branch.</p>
         </div>
-        <div className="seller-home-flow" aria-label="Dealer verification workflow">
-          <span>Business identity</span><b>→</b><span>Address</span><b>→</b><span>Brand authorization</span><b>→</b><span>Contact</span><b>→</b><span>Publish</span>
-        </div>
+      </div>
+    </section>}
+
+    <section className="motorcycle-entity-section">
+      <div className="section-head compact"><div>
+        <span className="section-kicker">Before you pay</span>
+        <h2>What to ask the dealer</h2>
+        <p>Request the details below in writing so quotes from different branches are easy to compare.</p>
+      </div></div>
+      <div className="seller-stats">
+        <div><strong>Cash price</strong><span>Exact variant and color</span></div>
+        <div><strong>Added fees</strong><span>Registration and processing</span></div>
+        <div><strong>Release date</strong><span>Confirmed stock availability</span></div>
+        <div><strong>Warranty</strong><span>Coverage and service location</span></div>
       </div>
     </section>
 
     <section className="motorcycle-entity-section">
-      <div className="section-head compact"><div><h2>Looking for a motorcycle instead?</h2><p>Start from the motorcycle catalog, compare models, then use dealer pages once a shortlist is ready.</p></div></div>
+      <div className="section-head compact"><div>
+        <h2>Choose the motorcycle first</h2>
+        <p>Compare models and estimate the budget before requesting dealer quotes.</p>
+      </div></div>
       <div className="hero-actions">
         <Link className="button" href="/motorcycles">Browse motorcycles</Link>
         <Link className="button secondary" href="/finder">Open motorcycle finder</Link>
