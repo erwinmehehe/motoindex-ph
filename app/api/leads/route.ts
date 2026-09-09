@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { randomBytes } from "node:crypto";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { getModelById } from "@/lib/data";
-import { allVerifiedDealers } from "@/lib/persistentSellers";
+import { matchQuoteEligibleDealers } from "@/lib/persistentSellers";
 
 export const runtime = "nodejs";
 
@@ -61,13 +61,7 @@ export async function POST(request: Request) {
   if (!["cash", "installment"].includes(purchaseType)) return NextResponse.json({ ok: false, error: "Choose cash or installment." }, { status: 400 });
   if (!consent) return NextResponse.json({ ok: false, error: "Consent is required before we can save and match your request." }, { status: 400 });
 
-  const location = cityProvince.toLowerCase();
-  const verifiedDealers = await allVerifiedDealers();
-  const matched = verifiedDealers.filter((seller) => {
-    const brandMatch = seller.brands.some((brand) => brand.toLowerCase() === model.make.toLowerCase());
-    const locationMatch = location.includes(seller.city.toLowerCase()) || location.includes(seller.region.toLowerCase());
-    return brandMatch && locationMatch;
-  });
+  const matched = await matchQuoteEligibleDealers(model.make, cityProvince, 3);
 
   const duplicateSince = new Date(Date.now() - 15 * 60 * 1000);
   const duplicate = await prisma.dealerLead.findFirst({
@@ -92,7 +86,7 @@ export async function POST(request: Request) {
       statusPath: `/quote-status/${buyerAccessToken}`,
       matchedDealers: duplicate.matchedSellerSlugs.length,
       message: duplicate.matchedSellerSlugs.length
-        ? `Your recent request is already saved and matched with ${duplicate.matchedSellerSlugs.length} verified dealer${duplicate.matchedSellerSlugs.length === 1 ? "" : "s"}.`
+        ? `Your recent request is already saved and matched with ${duplicate.matchedSellerSlugs.length} verified dealer partner${duplicate.matchedSellerSlugs.length === 1 ? "" : "s"}.`
         : "Your recent request is already saved. No verified dealer match is available for your area yet."
     });
   }
@@ -121,22 +115,17 @@ export async function POST(request: Request) {
     }
   });
 
-  const matchedSlugs = matched.map((seller) => seller.slug);
-  const deliverableDealers = matchedSlugs.length ? await prisma.seller.findMany({
-    where: { slug: { in: matchedSlugs }, type: "dealer", status: "verified", leadEmail: { not: null } },
-    select: { slug: true, name: true, leadEmail: true }
-  }) : [];
-  if (deliverableDealers.length) {
+  if (matched.length) {
     const expiresAt = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
     await prisma.dealerLeadDelivery.createMany({
-      data: deliverableDealers.flatMap((seller) => seller.leadEmail ? [{
+      data: matched.map((seller) => ({
         leadId: lead.id,
         sellerSlug: seller.slug,
         sellerName: seller.name,
         dealerEmail: seller.leadEmail,
         deliveryToken: randomBytes(32).toString("hex"),
         expiresAt
-      }] : []),
+      })),
       skipDuplicates: true
     });
   }
@@ -148,7 +137,7 @@ export async function POST(request: Request) {
     statusPath: `/quote-status/${buyerAccessToken}`,
     matchedDealers: matched.length,
     message: matched.length
-      ? `Request saved and matched with ${matched.length} verified dealer${matched.length === 1 ? "" : "s"} covering your area. MotoIndex reviews the match before any buyer details are shared.`
-      : "Request saved. No verified dealer match is available for your area yet, so your details have not been shared with a dealer."
+      ? `Request saved and matched with ${matched.length} verified dealer partner${matched.length === 1 ? "" : "s"} covering your area. MotoIndex reviews the handoff before any buyer details are shared.`
+      : "Request saved. No verified dealer partner is currently available to receive this request in your area, so your details have not been shared with a dealer."
   }, { status: 201 });
 }
