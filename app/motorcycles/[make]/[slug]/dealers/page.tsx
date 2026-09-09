@@ -17,7 +17,7 @@ export async function generateMetadata({params}:{params:Promise<{make:string;slu
     title:`${model.make} ${model.model} Dealers Philippines`,
     description:`Find verified dealers for the ${model.make} ${model.model}, compare the published price and request a current cash or installment quote.`,
     path:`/motorcycles/${model.makeSlug}/${model.slug}/dealers`,
-    index:isIndexableModel(model)
+    index:isIndexableModel(model) && publicSellersByType("dealer").some(seller=>seller.brands.some(brand=>brand.toLowerCase()===model.make.toLowerCase()))
   });
 }
 
