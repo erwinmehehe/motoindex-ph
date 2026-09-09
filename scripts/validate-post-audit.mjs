@@ -51,7 +51,8 @@ need(sellers.includes("isPublicSeller")&&sellers.includes("publicDealersByCity")
 const dealerCity=read("app/dealers/[city]/page.tsx");
 need(dealerCity.includes("publicDealersByCity")&&dealerCity.includes("MIN_PUBLIC_DEALERS_PER_CITY")&&dealerCity.includes("notFound()"),"Dealer city routes must require enough verified public dealers");
 const sellerPage=read("app/sellers/[slug]/page.tsx");
-need(sellerPage.includes("getPublicSeller")&&sellerPage.includes("notFound()")&&sellerPage.includes('o.status==="verified"'),"Seller profiles must reject non-public sellers and hide unverified offers");
+need(sellerPage.includes("getVerifiedSellerProfile")&&sellerPage.includes("notFound()")&&sellerPage.includes('legacyOffers=offersForSeller(slug).filter(o=>o.status==="verified")')&&sellerPage.includes("getVerifiedOffers"),"Seller profiles must use verified static/persistent seller gating and hide unverified offers");
+need(read("lib/persistentSellers.ts").includes('where:{type:"dealer",status:"verified"}')&&read("lib/persistentSellers.ts").includes("profile.city&&profile.addressLabel&&profile.sourceUrl&&profile.lastChecked"),"Persistent dealer profiles must require verified status plus publishable business/source fields");
 const dealersPage=read("app/dealers/page.tsx");
 need(dealersPage.includes("index: true")&&dealersPage.includes("DealerFinder")&&dealersPage.includes("officialDealerLocators"),"Dealer root must be indexable only when it provides checked search and official locator utility");
 need(sellers.includes("sourceUrl")&&sellers.includes("lastChecked")&&sellers.includes("Yamaha Motor Philippines dealer locator"),"Public dealer records must carry current official-source verification details");
