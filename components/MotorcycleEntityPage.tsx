@@ -85,12 +85,18 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const brandSupport = phBrandSupportFor(model.makeSlug);
   const quality = modelAuthorityQuality(model);
   const authorityComparisons = authority?.comparisonIds.map((id) => getModelById(id)).filter((item): item is Motorcycle => Boolean(item)) || [];
-  const priceSourceCount = new Set([model.marketPriceSourceUrl || model.sourceUrl, ...priceChecks.map((row) => row.sourceUrl)]).size;
+  const priceSourceCount = new Set([model.marketPriceSourceUrl || model.sourceUrl, ...priceChecks.map((row) => row.sourceUrl)].filter(Boolean)).size;
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}`;
-  const offer = !isPrevious && !availabilityUncertain && isIndexableModel(model)
-    ? range.to && range.to > range.from
-      ? { "@type": "AggregateOffer", priceCurrency: "PHP", lowPrice: range.from, highPrice: range.to, offerCount: Math.max(priceChecks.length, 1), url: absoluteUrl(canonicalPath) }
-      : { "@type": "Offer", priceCurrency: "PHP", price: range.from, itemCondition: "https://schema.org/NewCondition", url: absoluteUrl(canonicalPath) }
+  const officialPriceChecks = priceChecks.filter((row) => row.sourceType === "manufacturer");
+  const officialPricePoints = officialPriceChecks.flatMap((row) =>
+    [row.priceFromPhp, row.priceToPhp].filter((value): value is number => typeof value === "number")
+  );
+  const officialLow = officialPricePoints.length ? Math.min(...officialPricePoints) : undefined;
+  const officialHigh = officialPricePoints.length ? Math.max(...officialPricePoints) : undefined;
+  const offer = !isPrevious && !availabilityUncertain && isIndexableModel(model) && typeof officialLow === "number"
+    ? typeof officialHigh === "number" && officialHigh > officialLow
+      ? { "@type": "AggregateOffer", priceCurrency: "PHP", lowPrice: officialLow, highPrice: officialHigh, url: absoluteUrl(canonicalPath) }
+      : { "@type": "Offer", priceCurrency: "PHP", price: officialLow, itemCondition: "https://schema.org/NewCondition", url: absoluteUrl(canonicalPath) }
     : undefined;
   const schema = {
     "@context": "https://schema.org",
@@ -132,9 +138,9 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
               {" "}— the same motorcycle, not a different model.
             </p> : null}
             <div className="motorcycle-price-lockup">
-              <span>{isPrevious ? "Historical launch reference" : availabilityUncertain ? "Observed PH price reference · availability to verify" : model.marketPriceSourceLabel ? "Observed PH price range" : "Indicative SRP"}</span>
+              <span>{isPrevious ? "Historical launch reference" : availabilityUncertain ? "Published PH price · availability to verify" : model.marketPriceSourceLabel ? "Published PH price range" : "Published Philippine price"}</span>
               <strong>{observedMarketPriceLabel(model)}</strong>
-              <small>{isPrevious ? "Historical context — not a current new-bike quote." : `Price basis last checked ${model.marketPriceCheckedAt || model.verifiedAt}.`}</small>
+              <small>{isPrevious ? "Historical context — not a current new-bike quote." : `Price checked ${model.marketPriceCheckedAt || model.verifiedAt}. Final dealer pricing can vary.`}</small>
             </div>
             <div className="hero-actions entity-hero-actions">
               <a className="button" href={isPrevious ? "#used" : "#installment"}>{isPrevious ? "Check used value" : "Estimate monthly"}</a>
@@ -145,7 +151,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
             <Freshness model={model} />
           </div>
           <div className="motorcycle-hero-visual">
-            <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" priority sizes="(max-width: 900px) 100vw, 48vw" fallback={authority ? <div className="authority-media-fallback"><span>Verified model record · photo pending</span><strong>{model.make}<b>{model.model}</b></strong><div><em>{model.engineCc} cc</em><em>{model.powerHp} hp</em><em>{model.curbWeightKg} kg</em><em>{model.seatHeightMm} mm seat</em></div><small>{model.category} · {model.generation}</small></div> : <div className="bike-art big"><span className="wheel wheel-a"/><span className="wheel wheel-b"/><span className="bike-body"/><div className="art-caption">{model.generation} · {model.category}</div></div>} />
+            <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" priority sizes="(max-width: 900px) 100vw, 48vw" fallback={authority ? <div className="authority-media-fallback"><span>Model photo pending</span><strong>{model.make}<b>{model.model}</b></strong><div><em>{model.engineCc} cc</em><em>{model.powerHp} hp</em><em>{model.curbWeightKg} kg</em><em>{model.seatHeightMm} mm seat</em></div><small>{model.category} · {model.generation}</small></div> : <div className="bike-art big"><span className="wheel wheel-a"/><span className="wheel wheel-b"/><span className="bike-body"/><div className="art-caption">{model.generation} · {model.category}</div></div>} />
             <div className="motorcycle-hero-facts">
               <HeroFact label="Engine" value={`${model.engineCc} cc`} note={`${model.powerHp} hp · ${model.torqueNm} Nm`} />
               <HeroFact label="Seat / weight" value={`${model.seatHeightMm} mm`} note={`${model.curbWeightKg} kg curb`} />
@@ -207,10 +213,10 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       </section>}
 
       <section id="price" className="motorcycle-entity-section" aria-labelledby="price-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Price intelligence</span><h2 id="price-heading">{model.make} {model.model} price in the Philippines</h2><p>{isPrevious ? "Historical launch-price context is kept separate from current used value." : "Dated manufacturer, dealer and comparison-site observations stay visible instead of being averaged into one unexplained number."}</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">Price</span><h2 id="price-heading">{model.make} {model.model} price in the Philippines</h2><p>{isPrevious ? "Historical launch-price context is kept separate from current used value." : "Compare the published prices we found, see where each one came from, and confirm the exact dealer quote before buying."}</p></div></div>
         <div className="entity-price-grid motorcycle-price-grid">
-          <article><span>{isPrevious ? "Historical launch SRP" : "Observed price range"}</span><strong>{observedMarketPriceLabel(model)}</strong><small>{model.priceContext || `Checked ${model.marketPriceCheckedAt || model.verifiedAt}`}</small></article>
-          <article><span>Price sources</span><strong>{priceSourceCount}</strong><small>{priceChecks.length ? "Model source plus dated PH observations are shown below." : "One dated baseline source is stored; independent PH price checking remains open."}</small></article>
+          <article><span>{isPrevious ? "Historical launch SRP" : "Published price range"}</span><strong>{observedMarketPriceLabel(model)}</strong><small>{model.priceContext || `Checked ${model.marketPriceCheckedAt || model.verifiedAt}`}</small></article>
+          <article><span>Price sources</span><strong>{priceSourceCount}</strong><small>{priceChecks.length ? "Open the published price sources below." : "One published price source is available below."}</small></article>
           <article><span>Model status</span><strong>{isPrevious ? "Previous generation" : availabilityUncertain ? "Availability to verify" : "Current model"}</strong><small>{model.generation} · {model.category}</small></article>
         </div>
         {!isPrevious && <VariantMatrix model={model} />}
@@ -220,7 +226,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       </section>
 
       {!isPrevious && <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Financing</span><h2 id="installment-heading">{model.make} {model.model} installment calculator</h2><p>Start from the dated purchase-price reference, then replace the assumptions with an actual dealer or lender quote.</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">Financing</span><h2 id="installment-heading">{model.make} {model.model} installment calculator</h2><p>Start with the published price, then replace the assumptions with the actual dealer or lender quote you receive.</p></div></div>
         <InstallmentCalculator price={range.from} priceOptions={variantPriceOptions(model.id)} />
         <FinancingSnapshot modelName={`${model.make} ${model.model}`} price={range.from} />
         <div className="entity-tool-grid">
@@ -231,7 +237,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       </section>}
 
       <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Specifications</span><h2 id="specs-heading">{model.make} {model.model} specs and dimensions</h2><p>Core model data is kept on the canonical entity page so price, fit and ownership questions share the same specification record.</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">Specifications</span><h2 id="specs-heading">{model.make} {model.model} specs and dimensions</h2><p>Compare the key specifications here, then use the dedicated specs page for the full model details.</p></div></div>
         <div className="entity-spec-table motorcycle-spec-table" role="table" aria-label={`${model.make} ${model.model} specifications`}>
           <div role="row"><span role="cell">Engine</span><strong role="cell">{model.engineCc} cc</strong></div>
           <div role="row"><span role="cell">Transmission</span><strong role="cell">{model.transmission || "Check current model source"}</strong></div>
@@ -324,11 +330,10 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       </section>
 
       {(brandSupport || authority) && <section id="research-quality" className="motorcycle-entity-section research-quality-section" aria-labelledby="research-quality-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Evidence + after-sales</span><h2 id="research-quality-heading">What the evidence shows — and what still needs checking</h2><p>Strong research pages should show their evidence depth, not hide missing data behind generated paragraphs.</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">What we checked</span><h2 id="research-quality-heading">What we verified and what you should still confirm</h2><p>Use the verified details as a starting point, then confirm anything that can change by variant, dealer, location or model year.</p></div></div>
         <div className="research-quality-panel">
-          <div className={`quality-score ${quality.grade}`}><span>Authority score</span><strong>{quality.score}<small>/100</small></strong><b>{quality.grade}</b><p>{quality.indexable ? "Passes the current expansion-page publication gate." : "Held from indexation until the hard gate is met."}</p></div>
-          <article><span>Evidence present</span><ul>{quality.strengths.slice(0, 7).map((item) => <li key={item}>{item}</li>)}</ul></article>
-          <article><span>Open research gaps</span><ul>{quality.gaps.slice(0, 7).map((item) => <li key={item}>{item}</li>)}</ul></article>
+          <article><span>Verified on this page</span><ul>{quality.strengths.slice(0, 7).map((item) => <li key={item}>{item}</li>)}</ul></article>
+          <article><span>Still worth confirming</span><ul>{quality.gaps.slice(0, 7).map((item) => <li key={item}>{item}</li>)}</ul></article>
         </div>
         {brandSupport && <div className="ph-brand-support">
           <div><span>Philippine ownership support</span><h3>{brandSupport.officialName}</h3><p>{brandSupport.supportNote}</p><small>Resource check: {brandSupport.checkedAt}</small></div>
@@ -340,7 +345,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <div className="section-head compact"><div><span className="section-kicker">Used market</span><h2 id="used-heading">Used {model.make} {model.model} price and value</h2><p>Listing samples and depreciation estimates are shown separately so a small sample is not mistaken for a live market appraisal.</p></div></div>
         {usedListings.length > 0 && <>
           <UsedMarketSummary modelId={model.id} />
-          {!isPrevious && <div className="new-used-grid entity-new-used-grid"><article><span>New reference</span><strong>{observedMarketPriceLabel(model)}</strong><p>Dated current-model purchase-price basis.</p></article><article><span>Used median ask</span><strong>{php(usedSummary.medianPrice)}</strong><p>{usedSummary.included} listing samples after outlier filtering.</p></article><article className="difference"><span>Gap vs reference</span><strong>{php(Math.max(0, range.from - usedSummary.medianPrice))}</strong><p>Before transfer costs, repairs, financing differences and condition adjustments.</p></article></div>}
+          {!isPrevious && <div className="new-used-grid entity-new-used-grid"><article><span>New reference</span><strong>{observedMarketPriceLabel(model)}</strong><p>Published new-bike price for comparison.</p></article><article><span>Used median ask</span><strong>{php(usedSummary.medianPrice)}</strong><p>{usedSummary.included} listing samples after outlier filtering.</p></article><article className="difference"><span>Gap vs reference</span><strong>{php(Math.max(0, range.from - usedSummary.medianPrice))}</strong><p>Before transfer costs, repairs, financing differences and condition adjustments.</p></article></div>}
           <details className="entity-disclosure"><summary>Show used listing samples</summary><UsedListingTable items={usedListings} /></details>
         </>}
         <UsedValueCalculator model={forClient(model)} />
