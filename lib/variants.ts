@@ -115,8 +115,8 @@ export const motorcycleVariants: MotorcycleVariant[] = [
     differentiators: ["Honda RoadSync", "5-inch TFT meter", "ABS", "Honda Selectable Torque Control (HSTC)"],
     colors: ["Matte Pearl Crater White", "Quartz Brown Metallic"],
     braking: "ABS + HSTC",
-  },,
-{
+  },
+  {
     id: "honda-cb650r-standard",
     modelId: "honda-cb650r",
     name: "Standard",
