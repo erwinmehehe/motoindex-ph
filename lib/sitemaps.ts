@@ -5,7 +5,6 @@ import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug, publicDealerCities, publicDealer
 import { RELEASE_DATE, SITE_URL } from "@/lib/site";
 import { ownershipGuides } from "@/lib/ownershipGuides";
 import { editorialGuides } from "@/lib/editorialGuides";
-import { helmetSeoComparisons, isIndexableHelmetSeoComparison } from "@/lib/helmetSeoComparisons";
 import { electricMotorcycles } from "@/lib/electricMotorcycles";
 
 type Entry = { url: string; lastModified: string; changeFrequency?: "daily"|"weekly"|"monthly"|"yearly"; priority?: number };
@@ -54,12 +53,11 @@ export function motorcycleSitemapEntries(): Entry[] {
 export function gearSitemapEntries(): Entry[] {
   const categories=["/gear/helmets/finder","/gear/helmets/compare"].map(path=>({url:`${SITE_URL}${path}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
   const brands=helmetBrands.filter(h=>isIndexableHelmetBrand(h.slug)).map(h=>{const p=helmetProducts.filter(x=>x.brandSlug===h.slug&&x.status==="verified");return {url:`${SITE_URL}/gear/helmets/${h.slug}`,lastModified:newest(p.map(x=>x.lastChecked||RELEASE_DATE)),changeFrequency:"monthly" as const,priority:.78};});
-  const helmetComparisons=helmetSeoComparisons.filter(c=>isIndexableHelmetSeoComparison(c.slug)).map(c=>({url:`${SITE_URL}/gear/helmets/compare/${c.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.77}));
   const products=helmetProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/gear/helmets/${p.brandSlug}/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.74}));
   const tires=tireProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/tires/${p.brandSlug}/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.68}));
   const boxes=topBoxProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/accessories/top-box/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.66}));
   const accessoryHubs=accessoryCategories.map(a=>({url:`${SITE_URL}/accessories/${a.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
-  return [...categories,...helmetComparisons,...brands,...products,...tires,...boxes,...accessoryHubs];
+  return [...categories,...brands,...products,...tires,...boxes,...accessoryHubs];
 }
 
 export function commerceSitemapEntries(): Entry[] {
