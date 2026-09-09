@@ -68,40 +68,48 @@ export function priceSeoForModel(model: Motorcycle): PriceSeoTarget | undefined 
 
 export function priceFaqsForModel(model: Motorcycle, priceLabel: string): FaqItem[] {
   const modelName = `${model.make} ${model.model}`;
-  const finance = financingScenario(observedMarketRange(model).from, 20, 36, 12);
+  const range = observedMarketRange(model);
+  const finance = financingScenario(range.from, 20, 36, 12);
+
   if (model.marketStatus === "previous") {
     return [
       {
         question: `How much was the ${modelName} in the Philippines?`,
-        answer: `${priceLabel} is the historical Philippine price context stored for this generation. It is not presented as a current new-bike dealer quote.`
+        answer: `The ${modelName} had a Philippine price of ${priceLabel} for this generation. It is now a previous-generation model, so current used prices will depend on year, mileage, condition and location.`
       },
       {
         question: `Is the ${modelName} price still the same today?`,
-        answer: "No assumption is made that the historical launch SRP equals today’s market value. Used prices depend on year, mileage, condition, registration, modifications and seller." 
+        answer: "Usually not. A previous-generation motorcycle can sell for more or less than its old launch price depending on condition, mileage, service history, registration, modifications and demand."
       },
       {
         question: `Where can I see the current ${model.make} generation price?`,
-        answer: model.successorId ? "Use the linked successor model on this page for current new-bike pricing. Historical and current generations are kept separate to avoid mixing prices." : "Use MotoIndex’s current model catalog and dated price pages for current new-bike pricing."
+        answer: model.successorId
+          ? "The current-generation replacement is linked near the top of this page. Use that model for current new-bike pricing and this page for the older generation."
+          : "Check the current model lineup for the latest new-bike generation and its current Philippine price."
       }
     ];
   }
 
+  const priceAnswer = range.to && range.to > range.from
+    ? `The ${modelName} is priced from ${php(range.from)} to ${php(range.to)} in the Philippines. The exact amount depends on the variant and the seller's current cash price.`
+    : `The ${modelName} starts at ${php(range.from)} in the Philippines. The final cash price can vary by dealer, location, registration charges and promotions.`;
+
   return [
     {
       question: `How much is the ${modelName} in the Philippines?`,
-      answer: `MotoIndex currently shows ${priceLabel} based on the dated price references on this page. Check the source date and confirm the final cash price with the seller because availability, fees and promotions can change.`
+      answer: priceAnswer
     },
     {
       question: `Is the ${modelName} SRP the same at every dealer?`,
-      answer: "Not necessarily. Manufacturer SRP, dealer cash prices, financing offers, registration charges and promotions can differ. MotoIndex keeps dated sources separate instead of averaging unlike-for-like prices."
+      answer: "No. The manufacturer SRP may be the same, but the final cash price can change once dealer fees, registration, insurance, financing and promotions are included. Compare quotes for the exact variant you want."
     },
     {
       question: `How much is the ${modelName} down payment and monthly installment?`,
-      answer: `Using a 20% down payment, 36 months and a 12% annual interest assumption, the planning example is about ${php(Math.round(finance.downPaymentPhp))} down and ${php(Math.round(finance.monthlyPhp))} per month. Use the calculator on this page to change the assumptions; this is not a dealer or lender quotation.`
+      answer: `At 20% down over 36 months with 12% annual interest, the estimate is about ${php(Math.round(finance.downPaymentPhp))} down and ${php(Math.round(finance.monthlyPhp))} per month. Actual dealer and lender terms can be different.`
     },
     {
       question: `When was the ${modelName} price checked?`,
-      answer: `The model record was last verified on ${model.marketPriceCheckedAt || model.verifiedAt}. Open the linked source on the page to confirm the latest published price.`
+      answer: `The latest price reference on this page was checked on ${model.marketPriceCheckedAt || model.verifiedAt}. Dealer prices can change after that date, so confirm the current quote before buying.`
     }
   ];
 }
