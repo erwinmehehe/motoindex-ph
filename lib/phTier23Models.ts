@@ -562,4 +562,46 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "373.3cc sport-touring motorcycle with a six-speed gearbox, twin-channel ABS, 13 L tank and 800 mm seat."
   },
 
+
+  {
+    id: "yamaha-yzf-r7", alsoKnownAs: ["Yamaha R7", "YZF R7"], make: "Yamaha", makeSlug: "yamaha", model: "YZF-R7", slug: "yzf-r7", generation: "Current Philippine model", category: "Sport bike",
+    srp: 598000, engineCc: 689, powerHp: 72, torqueNm: 67, curbWeightKg: 188, seatHeightMm: 855, fuelTankL: 13, fuelConsumptionKmL: 23.8, groundClearanceMm: 135,
+    frontTire: "120/70 ZR17", rearTire: "180/55 ZR17", abs: "ABS", colors: ["Black", "Race Blue", "Anniversary White"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Yamaha YZF-R7 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/yzf-r7/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Current Philippine YZF-R7 SRP reference", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/yzf-r7", marketPriceCheckedAt: "2026-09-09",
+    summary: "689cc sport motorcycle with 72 hp, 67 Nm, ABS, a 855 mm seat, 13 L tank and six-speed manual transmission."
+  },
+  {
+    id: "kawasaki-ninja-1000", alsoKnownAs: ["Kawasaki Ninja 1000SX", "Ninja 1000SX"], make: "Kawasaki", makeSlug: "kawasaki", model: "Ninja 1000SX", slug: "ninja-1000", generation: "Current Philippine model", category: "Sport touring",
+    srp: 718000, engineCc: 1043, powerHp: 142, torqueNm: 111, curbWeightKg: 234, seatHeightMm: 820, fuelTankL: 19, groundClearanceMm: 135,
+    frontTire: "120/70 ZR17", rearTire: "190/50 ZR17", abs: "ABS with traction-control rider aids", colors: ["Green"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Kawasaki Leisure Bikes Philippines official Ninja 1000SX specification and MSRP", sourceUrl: "https://kawasakileisurebikes.ph/motorcycles/sports/ninja-1000/", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Kawasaki Philippines current MSRP", marketPriceSourceUrl: "https://kawasakileisurebikes.ph/motorcycles/sports/ninja-1000/", marketPriceCheckedAt: "2026-09-09",
+    summary: "1043cc inline-four sport-tourer with 142 hp, 111 Nm, a 19 L tank, 820 mm seat and six-speed manual transmission."
+  },
+  {
+    id: "kawasaki-z1000-r-edition", make: "Kawasaki", makeSlug: "kawasaki", model: "Z1000 R Edition", slug: "z1000-r-edition", generation: "Current Philippine model", category: "Naked street bike",
+    srp: 710000, engineCc: 1043, powerHp: 142, torqueNm: 111, curbWeightKg: 221, seatHeightMm: 815, fuelTankL: 17, fuelConsumptionKmL: 15, groundClearanceMm: 125,
+    frontTire: "120/70 ZR17", rearTire: "190/50 ZR17", abs: "ABS with Brembo braking hardware", colors: ["Black"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Kawasaki Leisure Bikes Philippines official Z1000 R Edition specification and MSRP", sourceUrl: "https://www.kawasakileisurebikes.ph/motorcycles/sports/z100r/", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Kawasaki Philippines current MSRP", marketPriceSourceUrl: "https://www.kawasakileisurebikes.ph/motorcycles/sports/z100r/", marketPriceCheckedAt: "2026-09-09",
+    summary: "1043cc inline-four naked motorcycle with 142 hp, 111 Nm, ABS, a 17 L tank and 815 mm seat height."
+  },
+  {
+    id: "keeway-cafe-racer-152", make: "Keeway", makeSlug: "keeway", model: "Cafe Racer 152", slug: "cafe-racer-152", generation: "Current Philippine model", category: "Cafe racer",
+    srp: 69900, engineCc: 149, powerHp: 11.3, torqueNm: 11.1, curbWeightKg: 108, seatHeightMm: 770, fuelTankL: 12.1, groundClearanceMm: 160,
+    frontTire: "3.00-17", rearTire: "110/80-17", abs: "ABS is not stated in the manufacturer specification; front disc and rear drum brakes are listed", colors: ["Black", "Silver"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Keeway official Cafe Racer 152 specification with current Philippine price cross-check", sourceUrl: "https://www.keeway.com/int-en/products/cafe-racer-152", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Current Philippine Cafe Racer 152 SRP reference", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/keeway/cafe-racer-152", marketPriceCheckedAt: "2026-09-09",
+    summary: "149cc retro cafe racer with a five-speed manual gearbox, 770 mm seat, 12.1 L tank and spoke wheels."
+  },
+  {
+    id: "honda-cbr150r", make: "Honda", makeSlug: "honda", model: "CBR150R", slug: "cbr150r", generation: "Current Philippine model", category: "Sport bike",
+    srp: 183900, engineCc: 149, powerHp: 16, torqueNm: 13.7, curbWeightKg: 135, seatHeightMm: 787, fuelTankL: 12, fuelConsumptionKmL: 41.5, groundClearanceMm: 166,
+    frontTire: "100/80 R17", rearTire: "130/70 R17", abs: "No ABS confirmed for the current Standard variant; front and rear disc brakes", colors: ["Winning Red"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Honda CBR150R price, specification and color reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/cbr150r/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Current Philippine CBR150R SRP reference", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/cbr150r", marketPriceCheckedAt: "2026-09-09",
+    summary: "149cc six-speed sport motorcycle with 16 hp, a 787 mm seat, 12 L fuel tank and current Winning Red color listing."
+  },
+
 ];
