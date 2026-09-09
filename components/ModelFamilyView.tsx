@@ -165,7 +165,7 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
       <section className="model-family-note">
         <span>Why separate generations?</span>
         <h2>Historical launch prices are not current new-bike prices.</h2>
-        <p>An older generation can still be common on the used market, but its launch SRP should not be presented as today's dealer price. MotoIndex keeps generation pages separate so the number you see stays attached to the right motorcycle and market context.</p>
+        <p>An older generation can still be common on the used market, but its launch SRP should not be presented as today's dealer price. Generation pages stay separate so each price remains tied to the correct motorcycle and market context.</p>
       </section>
 
       {faqs.length > 0 && <section id="faq" className="model-family-section model-family-faq-section"><FaqSection title={`${family.make} ${family.name} price questions`} items={faqs}/></section>}
