@@ -23,7 +23,8 @@ export async function PATCH(request:Request,{params}:{params:Promise<{id:string}
   }
 
   if(!application.officialSourceUrl)return NextResponse.json({ok:false,error:"Add an official verification source before approval."},{status:400});
-  if(!application.brands.length)return NextResponse.json({ok:false,error:"At least one motorcycle brand is required before approval."},{status:400});
+  const approvedBrands=application.brands.map(brand=>brand.trim()).filter(Boolean);
+  if(!approvedBrands.length)return NextResponse.json({ok:false,error:"At least one named motorcycle brand is required before approval."},{status:400});
 
   const baseName=application.branchName?`${application.businessName} - ${application.branchName}`:application.businessName;
   const baseSlug=sellerSlug([application.businessName,application.branchName,application.city].filter(Boolean).join("-"))||`dealer-${application.id.slice(-8)}`;
@@ -41,7 +42,7 @@ export async function PATCH(request:Request,{params}:{params:Promise<{id:string}
     addressLabel:application.addressLabel,
     website:application.website,
     phone:application.phone,
-    brands:application.brands.filter(brand=>brand!=="Other"),
+    brands:approvedBrands,
     categories:["Motorcycles","Dealer partner"],
     description:`${baseName} in ${application.city}, ${application.province}. This branch was submitted to MotoIndex and approved after its dealer evidence was reviewed.`,
     sourceLabel:"Dealer partner verification source",
