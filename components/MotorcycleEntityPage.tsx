@@ -243,6 +243,10 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           <div role="row"><span role="cell">Generation</span><strong role="cell">{model.generation}</strong></div>
           <div role="row"><span role="cell">Colors recorded</span><strong role="cell">{model.colors.length ? model.colors.join(" · ") : "Check current source"}</strong></div>
         </div>
+        <div className="entity-tool-grid">
+          <Link href={`${canonicalPath}/specifications`}><span>Specifications</span><strong>Open the dedicated specs page</strong><small>Engine, power, torque, dimensions, weight, seat height, tires and braking in one crawlable reference.</small></Link>
+          {model.colors.length > 0 && <Link href={`${canonicalPath}/colors`}><span>Colors</span><strong>See recorded color options</strong><small>Color names and variant-specific finishes with source context.</small></Link>}
+        </div>
       </section>
 
       <section id="rider-fit" className="motorcycle-entity-section" aria-labelledby="fit-heading">
