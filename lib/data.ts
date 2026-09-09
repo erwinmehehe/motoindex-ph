@@ -1212,7 +1212,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     description: "Compare current big bikes and 400cc+ motorcycles in the Philippines by price, weight, seat height, power, tank size and ABS.",
     primaryKeyword: "big bikes Philippines",
     secondaryKeywords: ["400cc motorcycles Philippines", "expressway motorcycle Philippines", "big bike Philippines", "affordable 400cc motorcycle Philippines"],
-    directAnswer: "This guide lists current MotoIndex motorcycles with at least 400cc recorded engine displacement. It is useful for big-bike and expressway-planning research, but engine displacement alone is not a legal determination: confirm the motorcycle's registration classification and current tollway rules before relying on it for expressway access.",
+    directAnswer: "This guide compares current motorcycles with at least 400cc recorded engine displacement. It is useful for big-bike and expressway-planning research, but displacement alone does not determine legal tollway access, so confirm the motorcycle's registration classification and current tollway rules.",
     inclusionRules: ["Recorded engine displacement is at least 400cc", "Current, indexable Philippine-market motorcycle record"],
     orderingRule: "Observed starting price from lowest to highest within the 400cc+ recorded-displacement set.",
     tieBreakers: ["Lower curb weight"],
@@ -1691,7 +1691,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest engine",metric:"engine"}],
     editorialSections: ["Lowest-priced Raider model", "Raider R150 Fi performance", "Raider J Crossover practicality", "Raider PRO value", "Which Raider fits different riders"],
     faqQuestions: ["What Suzuki Raider models are available in the Philippines?", "Which Raider is cheapest?", "Which Raider is fastest on paper?", "Which Raider is lightest?", "Which Raider has the lowest seat?"],
-    relatedGuideSlugs: ["best-underbone-motorcycles-philippines","motorcycles-under-150k-philippines","beginner-friendly-motorcycles-philippines"],
+    relatedGuideSlugs: ["best-underbone-motorcycles-philippines","motorcycles-100k-to-150k","beginner-friendly-motorcycles-philippines"],
     intent: "category"
   },
   {
