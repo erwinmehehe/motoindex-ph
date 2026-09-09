@@ -11,7 +11,9 @@ import type { Motorcycle, RecommendationGuide, RecommendationQuickPickMetric, Re
 import { evaluateMotorcycle } from "@/lib/decisionEngine";
 import { GuideOwnershipCost } from "@/components/GuideOwnershipCost";
 import { JsonLd } from "@/components/JsonLd";
-import { SITE_NAME, SITE_URL, RELEASE_DATE, absoluteUrl } from "@/lib/site";
+import { RELEASE_DATE, absoluteUrl } from "@/lib/site";
+import { articleSchema } from "@/lib/articleSchema";
+import { AuthorBox } from "@/components/AuthorBox";
 
 export function generateStaticParams(){return recommendationGuides.map(g=>({slug:g.slug}));}
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
@@ -280,21 +282,14 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
     .sort()
     .at(-1) || RELEASE_DATE;
   const guideSchema = [
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
+    articleSchema({
       headline: guide.title,
       description: guide.description,
+      path: `/recommendations/${guide.slug}`,
       about: guide.primaryKeyword,
-      keywords: [guide.title, guide.primaryKeyword, ...(guide.secondaryKeywords || [])].filter(Boolean).join(", "),
-      inLanguage: "en-PH",
-      isAccessibleForFree: true,
-      datePublished: RELEASE_DATE,
-      dateModified: newestCheck,
-      mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(`/recommendations/${guide.slug}`) },
-      author: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
-      publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL, logo: { "@type": "ImageObject", url: absoluteUrl("/icon-512.png") } }
-    },
+      keywords: [guide.title, guide.primaryKeyword, ...(guide.secondaryKeywords || [])],
+      checkedDates: [...specDates, ...priceDates, newestCheck]
+    }),
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
@@ -354,6 +349,7 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
     <div className="note-box guide-caveat"><h2>Before you buy</h2><ul>{guide.caveats.map(caveat=><li key={caveat}>{caveat}</li>)}</ul></div>
     <JsonLd data={guideSchema} />
     {faqItems.length>0&&<FaqSection title="Questions about this guide" items={faqItems}/>}
+    <AuthorBox />
 
     {related.length>0&&<><div className="section-head compact"><div><h2>Related motorcycle guides</h2><p>Compare nearby budgets, categories and rider-fit options.</p></div></div><div className="guide-related-grid">{related.map(g=><Link key={g.slug} href={"/recommendations/" + g.slug}><strong>{g.title}</strong><small>{g.description}</small></Link>)}</div></>}
   </section>;
