@@ -18,3 +18,8 @@ yarn-error.log*
 pnpm-debug.log*
 .DS_Store
 .vercel/
+
+# Cloudflare Workers / OpenNext
+.open-next/
+.wrangler/
+cloudflare-env.d.ts
