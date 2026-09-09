@@ -190,7 +190,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       {authority && <section id="buyer-guide" className="motorcycle-entity-section authority-decision-section" aria-labelledby="buyer-guide-heading">
         <div className="authority-verdict">
-          <div><span className="section-kicker">MotoIndex buyer verdict</span><h2 id="buyer-guide-heading">Should you buy the {model.make} {model.model} in the Philippines?</h2><p>{authority.verdict}</p></div>
+          <div><span className="section-kicker">Buyer verdict</span><h2 id="buyer-guide-heading">Should you buy the {model.make} {model.model} in the Philippines?</h2><p>{authority.verdict}</p></div>
           <aside><span>Research angle</span><p>{authority.researchAngle}</p></aside>
         </div>
         <div className="authority-grid">
@@ -304,11 +304,11 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <div className="section-head compact"><div><span className="section-kicker">Recall + campaign checks</span><h2 id="safety-heading">{model.make} {model.model} recall and service-campaign resources</h2><p>VIN/frame-specific eligibility belongs with the manufacturer. An empty notice list is never treated as proof that no campaign applies.</p></div></div>
         {safetyNotices.length > 0 ? <div className="safety-notice-list entity-safety-list">{safetyNotices.map((notice) => <article key={`${notice.modelId}-${notice.publishedAt}`}><span>{notice.publishedAt}</span><h3>{notice.title}</h3><p>{notice.summary}</p><SourceRef url={notice.sourceUrl} label={`{notice.sourceLabel}`} /></article>)}</div> : <div className="note-box compact-note"><h3>No model-specific notice is listed here right now</h3><p>This does not prove that no recall, product update or service campaign applies to your motorcycle.</p></div>}
         {safetyResource && <div className="source-panel entity-source-panel"><span>Official campaign resource</span><h3>{safetyResource.label}</h3><p>{safetyResource.method}</p><small>Checked {safetyResource.lastChecked}</small><br/><SourceRef url={safetyResource.url} label="Open official resource" /></div>}
-        {!safetyResource && brandSupport?.recallUrl && <div className="source-panel entity-source-panel"><span>Brand safety / owner resource</span><h3>{brandSupport.officialName}</h3><p>Use the official brand resource with the exact model year and VIN/frame number. MotoIndex does not infer recall status from an empty local notice list.</p><small>Checked {brandSupport.checkedAt}</small><br/><SourceRef url={brandSupport.recallUrl} label="Open official resource" /></div>}
+        {!safetyResource && brandSupport?.recallUrl && <div className="source-panel entity-source-panel"><span>Brand safety / owner resource</span><h3>{brandSupport.officialName}</h3><p>Use the official brand resource with the exact model year and VIN/frame number. An empty local notice list is not treated as proof that no recall or safety campaign exists.</p><small>Checked {brandSupport.checkedAt}</small><br/><SourceRef url={brandSupport.recallUrl} label="Open official resource" /></div>}
       </section>
 
       {(brandSupport || authority) && <section id="research-quality" className="motorcycle-entity-section research-quality-section" aria-labelledby="research-quality-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Evidence + after-sales</span><h2 id="research-quality-heading">What MotoIndex knows — and what still needs checking</h2><p>Strong research pages should show their evidence depth, not hide missing data behind generated paragraphs.</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">Evidence + after-sales</span><h2 id="research-quality-heading">What the evidence shows — and what still needs checking</h2><p>Strong research pages should show their evidence depth, not hide missing data behind generated paragraphs.</p></div></div>
         <div className="research-quality-panel">
           <div className={`quality-score ${quality.grade}`}><span>Authority score</span><strong>{quality.score}<small>/100</small></strong><b>{quality.grade}</b><p>{quality.indexable ? "Passes the current expansion-page publication gate." : "Held from indexation until the hard gate is met."}</p></div>
           <article><span>Evidence present</span><ul>{quality.strengths.slice(0, 7).map((item) => <li key={item}>{item}</li>)}</ul></article>
