@@ -13,6 +13,10 @@ type Props = {
   comparison?: { href: string; label: string };
 };
 
+function sentenceCase(value: string) {
+  return value ? value.charAt(0).toUpperCase() + value.slice(1) : value;
+}
+
 export function GuideModelAnalysisCard({ model, orderLabel, position, why, consider, alternative, comparison }: Props) {
   const href = `/motorcycles/${model.makeSlug}/${model.slug}`;
   return <article className="guide-model-analysis">
@@ -34,9 +38,9 @@ export function GuideModelAnalysisCard({ model, orderLabel, position, why, consi
         <div>
           <span className="guide-model-type">{model.category}</span>
           <h3><Link href={href}>{model.make} {model.model}</Link></h3>
-          <p>{model.generation || "Current"} Philippine-market record · specs checked {model.verifiedAt}</p>
+          <p>{model.generation || "Current"} · {model.category}</p>
         </div>
-        <div className="guide-model-price"><small>Observed price</small><strong>{observedMarketPriceLabel(model)}</strong></div>
+        <div className="guide-model-price"><small>Published price</small><strong>{observedMarketPriceLabel(model)}</strong></div>
       </div>
 
       <div className="guide-model-kpis" aria-label={`${model.make} ${model.model} key specifications`}>
@@ -48,9 +52,9 @@ export function GuideModelAnalysisCard({ model, orderLabel, position, why, consi
       </div>
 
       <div className="guide-model-editorial">
-        <section className="guide-model-why"><strong>Why it ranks here</strong><p>{why}</p></section>
-        <section><strong>Who should consider it</strong><p>{consider}</p></section>
-        <section><strong>Main tradeoff</strong><p>{alternative}</p></section>
+        <section className="guide-model-why"><strong>Why it appears here</strong><p>{sentenceCase(why)}</p></section>
+        <section><strong>Who should consider it</strong><p>{sentenceCase(consider)}</p></section>
+        <section><strong>Main tradeoff</strong><p>{sentenceCase(alternative)}</p></section>
       </div>
 
       <div className="guide-model-actions">
