@@ -408,4 +408,27 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "1103cc V4 superbike with 214 hp, 124 Nm, ABS, traction control, a 835 mm seat and six-speed manual transmission."
   },
 
+
+  {
+    id: "rusi-adventure-x-150i-v2", make: "Rusi", makeSlug: "rusi", model: "Adventure X 150i V2", slug: "adventure-x-150i-v2", generation: "2025-current Philippine model", category: "Adventure scooter",
+    srp: 110000, engineCc: 150, powerHp: 14.75, torqueNm: 14, curbWeightKg: 142, seatHeightMm: 790, fuelTankL: 11, fuelConsumptionKmL: 40, groundClearanceMm: 120,
+    frontTire: "110/80-14", rearTire: "130/70-13", abs: "Dual-channel ABS", colors: ["Red", "Aqua Blue", "White"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Rusi Adventure X 150i V2 price and specification reference", sourceUrl: "https://www.kamote.ph/motorcycle/rusi-adventure-x-150i-v2", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Automatic",
+    summary: "150cc adventure-style automatic scooter with dual-channel ABS, an 11 L tank, 790 mm seat and mixed 14/13-inch tires."
+  },
+  {
+    id: "rusi-flash-150x", make: "Rusi", makeSlug: "rusi", model: "Flash 150X", slug: "flash-150x", generation: "Current Philippine model", category: "Sport underbone",
+    srp: 75000, engineCc: 149.6, powerHp: 16.76, torqueNm: 14.5, curbWeightKg: 118, seatHeightMm: 770, fuelTankL: 5.3, fuelConsumptionKmL: 56, groundClearanceMm: 145,
+    frontTire: "90/80-17", rearTire: "120/70-17", abs: "Front ABS is listed; the same reference lists a rear drum brake", colors: ["Red", "Yellow", "White"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Rusi Flash 150X price and specification reference", sourceUrl: "https://www.kamote.ph/motorcycle/rusi-flash-150x", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    summary: "149.6cc six-speed sport underbone with fuel injection, a 770 mm seat, 17-inch tires and a listed front ABS setup."
+  },
+  {
+    id: "rusi-cyclone-400", make: "Rusi", makeSlug: "rusi", model: "Cyclone 400", slug: "cyclone-400", generation: "Current Philippine model", category: "Cafe roadster",
+    srp: 270000, engineCc: 378, powerHp: 36.2, torqueNm: 33, curbWeightKg: 184, seatHeightMm: 770, fuelTankL: 19, fuelConsumptionKmL: 29.5, groundClearanceMm: 145,
+    frontTire: "120/70-17", rearTire: "150/70-17", abs: "Dual-channel ABS", colors: ["Gray"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Rusi Cyclone 400 price and specification reference", sourceUrl: "https://www.kamote.ph/motorcycle/rusi-cyclone-400", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    summary: "378cc parallel-twin roadster with 36.2 hp, dual-channel ABS, a 19 L tank, 770 mm seat and six-speed manual transmission."
+  },
+
 ];
