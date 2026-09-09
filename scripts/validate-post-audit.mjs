@@ -53,16 +53,20 @@ need(dealerCity.includes("publicDealersByCity")&&dealerCity.includes("MIN_PUBLIC
 const sellerPage=read("app/sellers/[slug]/page.tsx");
 need(sellerPage.includes("getPublicSeller")&&sellerPage.includes("notFound()")&&sellerPage.includes('o.status==="verified"'),"Seller profiles must reject non-public sellers and hide unverified offers");
 const dealersPage=read("app/dealers/page.tsx");
-need(dealersPage.includes("No dealer profiles are published yet")&&!dealersPage.includes("sample businesses")&&dealersPage.includes("href={`/sellers/${dealer.slug}`}"),"Dealer root must provide an honest buyer guide and link verified dealer cards");
+need(dealersPage.includes("index: true")&&dealersPage.includes("DealerFinder")&&dealersPage.includes("officialDealerLocators"),"Dealer root must be indexable only when it provides checked search and official locator utility");
+need(sellers.includes("sourceUrl")&&sellers.includes("lastChecked")&&sellers.includes("Yamaha Motor Philippines dealer locator"),"Public dealer records must carry current official-source verification details");
+need(fs.existsSync(path.join(root,"components/DealerFinder.tsx"))&&read("components/DealerFinder.tsx").includes("Search dealers"),"Dealer directory must provide working search and filters");
+need(fs.existsSync(path.join(root,"lib/dealerLocators.ts"))&&read("lib/dealerLocators.ts").includes("hondaph.com/dealer-locator")&&read("lib/dealerLocators.ts").includes("motorcycles-dealer"),"Dealer root must link current official manufacturer locators");
 const continuity=read("components/HeaderContinuity.tsx");
 need(continuity.includes('pathname.startsWith("/dealers")')&&continuity.includes('pathname.startsWith("/sellers/")'),"Dealer and seller routes must retain the More navigation active state");
 const sitemapSource=read("lib/sitemaps.ts");
 need(sitemapSource.includes("publicSellers()")&&sitemapSource.includes("publicDealerCities()")&&sitemapSource.includes("MIN_PUBLIC_DEALERS_PER_CITY"),"Commerce sitemap must use the same public seller and dealer-city rules as routes");
+need(sitemapSource.includes('["/dealers",.82]'),"Indexed dealer root must be present in the core sitemap");
 const robotsSource=read("app/robots.ts");
 need(robotsSource.includes("commerceSitemapEntries().length")&&robotsSource.includes("/sitemaps/commerce.xml"),"Robots must advertise commerce sitemap only when it has verified public URLs");
 const smoke=read("scripts/smoke-production.mjs");
 need(smoke.includes('"/dealers"')&&smoke.includes('"/sellers/demo-yamaha-dealer-a"')&&smoke.includes("populated commerce sitemap"),"Production smoke test must cover dealer root, hidden demo routes and populated commerce URLs");
-need(fs.existsSync(path.join(root,"app/dealer-directory.css"))&&dealersPage.includes("dealer-checklist")&&dealersPage.includes("dealer-empty-state"),"Dealer directory must retain dedicated mobile checklist and empty-state styling");
+need(fs.existsSync(path.join(root,"app/dealer-directory.css"))&&dealersPage.includes("dealer-checklist")&&read("app/dealer-directory.css").includes(".dealer-filter-bar")&&read("app/dealer-directory.css").includes("@media(max-width:650px)"),"Dealer directory must retain finder and mobile checklist styling");
 
 const checkLaunch=read("scripts/check-launch.mjs");
 need(checkLaunch.includes("findSiblingDynamicRouteConflicts"),"Launch gate must include sibling dynamic route conflict guard");
