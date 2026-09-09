@@ -1378,7 +1378,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     faqQuestions: ["What motorcycles under 400cc are available in the Philippines?", "Which motorcycle under 400cc has the lowest observed price?", "Which sub-400cc motorcycle is lightest?", "Which under-400cc bike has the lowest seat?", "Does being under 400cc make a motorcycle beginner-friendly?"],
     relatedGuideSlugs: ["motorcycles-400cc-plus-philippines", "beginner-friendly-motorcycles-philippines", "motorcycles-with-abs-philippines", "lightweight-motorcycles-philippines"],
     intent: "category"
-  }
+  },
 
 
 
