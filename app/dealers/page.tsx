@@ -3,7 +3,8 @@ import Link from "next/link";
 import { DealerFinder } from "@/components/DealerFinder";
 import { pageMetadata } from "@/lib/site";
 import { officialDealerLocators } from "@/lib/dealerLocators";
-import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug, publicDealerCities, publicDealersByCity, publicSellersByType } from "@/lib/sellers";
+import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug } from "@/lib/sellers";
+import { allVerifiedDealers } from "@/lib/persistentSellers";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Dealers Philippines: Find Checked Dealers",
@@ -12,10 +13,11 @@ export const metadata: Metadata = pageMetadata({
   index: true,
 });
 
-export default function DealersPage() {
-  const verifiedDealers = publicSellersByType("dealer");
-  const publishedCities = publicDealerCities()
-    .filter(city=>publicDealersByCity(citySlug(city)).length>=MIN_PUBLIC_DEALERS_PER_CITY);
+export default async function DealersPage() {
+  const verifiedDealers = await allVerifiedDealers();
+  const cityCounts = new Map<string, number>();
+  for (const dealer of verifiedDealers) cityCounts.set(dealer.city, (cityCounts.get(dealer.city) || 0) + 1);
+  const publishedCities = [...cityCounts.entries()].filter(([,count])=>count>=MIN_PUBLIC_DEALERS_PER_CITY).map(([city])=>city).sort();
 
   return <section className="page shell">
     <div className="page-head dealer-page-head">
@@ -42,7 +44,7 @@ export default function DealersPage() {
       <div className="dealer-city-links">
         {publishedCities.map(city=><Link href={`/dealers/${citySlug(city)}`} key={city}>
           <strong>Motorcycle dealers in {city}</strong>
-          <span>{publicDealersByCity(citySlug(city)).length} checked branches</span>
+          <span>{cityCounts.get(city) || 0} checked branches</span>
         </Link>)}
       </div>
     </section>:null}
