@@ -54,8 +54,8 @@ export function HelmetBrandGuide({ brand, verified, types, minPrice, maxPrice, t
       <div>
         <h3>What moves the price</h3>
         {minPrice && maxPrice ? <p>
-          The {brand} models documented here start between {php(minPrice)} and {php(maxPrice)}. Those are
-          {" "}observed seller prices at the time each listing was checked, not a manufacturer SRP, so treat
+          The {brand} models with published seller prices on this page start between {php(minPrice)} and {php(maxPrice)}. Those are
+          {" "}seller prices from the linked listings, not a guaranteed manufacturer SRP, so treat
           them as a starting band rather than a quote.
           {band === "budget" && " At this level you are usually looking at thermoplastic shells and simpler visor hardware, which is normal for the price and not automatically a safety problem — the certification marking matters more than the price tag."}
           {band === "mainstream" && " This is the range most Philippine commuters shop in, where you start seeing better visor mechanisms, removable liners and more size options."}
@@ -81,8 +81,8 @@ export function HelmetBrandGuide({ brand, verified, types, minPrice, maxPrice, t
         </p>
         <p>
           {marks.length
-            ? <>Across the {brand} models recorded here, the certification text cites {marks.join(", ")}. </>
-            : <>Certification text has not been recorded for every {brand} model here yet. </>}
+            ? <>Across the {brand} models with certification details, the cited standards include {marks.join(", ")}. </>
+            : <>Certification can vary by {brand} model, batch and market.  </>}
           {mentionsEce && !mentionsPsIcc && <>An ECE homologation is a meaningful safety standard, but it is not the same thing as the PS or ICC mark that Philippine enforcement looks for — an imported helmet still needs the local clearance sticker. </>}
           {needsLocalCheck && <>Several entries note that the marking varies by batch or market, so the exact local helmet should be checked before purchase. </>}
           Check the sticker on the actual unit in front of you, not the box art or the listing photo.
@@ -128,10 +128,10 @@ export function HelmetBrandGuide({ brand, verified, types, minPrice, maxPrice, t
           {hasModular && "Modular or flip-up models are convenient at checkpoints and fuel stops, at the cost of extra weight and a chin bar hinge. "}
           {composite && thermoplastic && "Shell materials recorded across the range include both thermoplastic and composite construction, which is usually where the price steps up. "}
           {!composite && thermoplastic && "Shells recorded across the range are thermoplastic, which is the common construction at this price level. "}
-          {intercomReady > 0 && `${intercomReady} of the documented models are noted as intercom-ready, which matters if you ride with a pillion or navigate by audio. `}
+          {intercomReady > 0 && `${intercomReady} of the models with communication details are listed as intercom-ready, which matters if you ride with a pillion or navigate by audio. `}
         </p>
         <p>
-          This brand page combines detailed product records with current catalog model guides so you can move through the range without running into placeholder research cards. Exact price, sizing and certification should still be checked on the model and on the helmet sold locally.
+          Use the individual model guides to compare the range, then check the exact price, sizing, certification marking and replacement parts on the helmet sold locally.
         </p>
         <h3>When to replace it</h3>
         <p>
