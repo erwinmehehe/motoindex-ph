@@ -14,6 +14,8 @@ export const sellers: SellerProfile[] = [
   { id:"seller-demo-accessories", name:"Demo Accessories Shop", slug:"demo-accessories-shop", type:"retailer", city:"Davao City", region:"Davao Region", addressLabel:"Demo location — Davao City", description:"Demo accessory shop in Davao City for testing top-box, rack and bracket offers.", brands:["GIVI","SHAD"], categories:["Top boxes","Accessories"], isDemo:true, status:"research" },
 ];
 
+export const MIN_PUBLIC_DEALERS_PER_CITY = 3;
+
 export function isPublicSeller(seller: SellerProfile){ return !seller.isDemo && seller.status === "verified"; }
 export function publicSellers(){ return sellers.filter(isPublicSeller); }
 export function getSeller(slug:string){ return sellers.find(s=>s.slug===slug); }
