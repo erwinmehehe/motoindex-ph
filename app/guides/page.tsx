@@ -13,28 +13,10 @@ export const metadata: Metadata = pageMetadata({
 
 const electricGuides = [
   {
-    href: "/guides/electric-scooters-philippines",
-    kicker: "Electric",
-    title: "Electric scooters in the Philippines",
-    description: "Compare verified Philippine-market electric scooters, prices, battery options, claimed range and charging time."
-  },
-  {
-    href: "/guides/e-bike-vs-motorcycle",
-    kicker: "Classification",
-    title: "E-bike versus electric motorcycle",
-    description: "Understand why appearance alone does not determine registration, licensing or road-use requirements."
-  },
-  {
-    href: "/guides/electric-motorcycle-registration-philippines",
-    kicker: "Registration",
-    title: "Electric motorcycle registration",
-    description: "A source-linked guide to LTO classification and the checks to make before buying an electric two-wheeler."
-  },
-  {
-    href: "/guides/electric-motorcycle-vs-gas-motorcycle",
-    kicker: "Ownership",
-    title: "Electric vs gas motorcycle",
-    description: "Compare range, charging, refueling, maintenance and everyday ownership trade-offs."
+    href: "/motorcycles/electric",
+    kicker: "Electric motorcycles",
+    title: "Electric motorcycles in the Philippines",
+    description: "One guide for current models, prices, batteries, range, charging, LTO classification, registration and electric-vs-gas ownership."
   }
 ];
 
