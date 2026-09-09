@@ -3,7 +3,9 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { notFound } from "next/navigation";
-import { getPublicSeller, publicSellers, offersForSeller } from "@/lib/sellers";
+import { publicSellers, offersForSeller } from "@/lib/sellers";
+import { getVerifiedSellerProfile } from "@/lib/persistentSellers";
+import { getVerifiedOffers } from "@/lib/persistentOffers";
 import { entityHref, entityLabel } from "@/lib/entities";
 import { php } from "@/lib/utils";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
@@ -12,7 +14,7 @@ export function generateStaticParams(){return publicSellers().map(s=>({slug:s.sl
 
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
   const {slug}=await params;
-  const s=getPublicSeller(slug);
+  const s=await getVerifiedSellerProfile(slug);
   return s?pageMetadata({
     title:`${s.name}: Dealer Details & Contact`,
     description:`${s.name} in ${s.city}: checked address, phone, supported motorcycle brands and official dealer-source details.`,
@@ -25,9 +27,11 @@ function phoneHref(phone:string){return `tel:${phone.replace(/[^+\d]/g,"")}`;}
 
 export default async function SellerPage({params}:{params:Promise<{slug:string}>}){
   const {slug}=await params;
-  const s=getPublicSeller(slug);
+  const s=await getVerifiedSellerProfile(slug);
   if(!s)return notFound();
-  const offers=offersForSeller(slug).filter(o=>o.status==="verified");
+  const legacyOffers=offersForSeller(slug).filter(o=>o.status==="verified");
+  const persistentOffers=(await getVerifiedOffers()).filter(o=>o.sellerSlug===slug);
+  const offers=[...new Map([...legacyOffers,...persistentOffers].map(offer=>[offer.id,offer])).values()];
   const parent = s.type === "dealer" ? {label:"Dealers",href:"/dealers"} : {label:"Sellers"};
 
   const localBusinessSchema={
