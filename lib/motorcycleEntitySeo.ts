@@ -25,16 +25,16 @@ export function motorcycleEntityEditorial(model: Motorcycle) {
   const watchOuts: string[] = authority ? authority.skipIf.slice(0, 2) : [];
 
   if (model.transmission === "Automatic") strengths.push("Automatic transmission keeps stop-go operation simple.");
-  if (model.curbWeightKg <= 125) strengths.push(`${model.curbWeightKg} kg curb weight is relatively light among the current motorcycles in this catalog.`);
-  if (model.fuelConsumptionKmL && model.fuelConsumptionKmL >= 40) strengths.push(`${model.fuelConsumptionKmL} km/L is the listed fuel-economy basis in this record.`);
+  if (model.curbWeightKg <= 125) strengths.push(`${model.curbWeightKg} kg curb weight keeps it relatively light compared with many motorcycles on this site.`);
+  if (model.fuelConsumptionKmL && model.fuelConsumptionKmL >= 40) strengths.push(`${model.fuelConsumptionKmL} km/L is the published fuel-economy figure available for this model.`);
   if (/abs/i.test(model.abs)) strengths.push(`${model.abs} is listed in the braking specification; verify the exact local variant.`);
   if (model.fuelTankL >= 8) strengths.push(`${model.fuelTankL} L tank capacity gives more range headroom than very small-tank commuters.`);
   if (!strengths.length) strengths.push(`${model.engineCc} cc engine, ${model.curbWeightKg} kg curb weight and ${model.seatHeightMm} mm seat height are clearly documented for comparison.`);
 
   if (model.seatHeightMm >= 800) watchOuts.push(`${model.seatHeightMm} mm seat height can make actual foot reach worth testing in person.`);
   if (model.curbWeightKg >= 165) watchOuts.push(`${model.curbWeightKg} kg curb weight deserves extra attention for parking, reversing and low-speed maneuvering.`);
-  if (!model.fuelConsumptionKmL) watchOuts.push("Fuel economy on this page starts from a clearly labeled planning estimate because a model-specific listed figure is not stored yet.");
-  if (!/abs/i.test(model.abs)) watchOuts.push(`The braking field is listed as “${model.abs}”; confirm the exact trim before assuming ABS equipment.`);
+  if (!model.fuelConsumptionKmL) watchOuts.push("Fuel economy starts with a clearly labeled planning estimate because we do not have a published model-specific figure yet.");
+  if (!/abs/i.test(model.abs)) watchOuts.push(`Braking is listed as “${model.abs}”; confirm the exact trim before assuming ABS equipment.`);
   if (model.marketStatus === "previous") watchOuts.push("This is a previous-generation record, so launch price is historical context rather than a current new-bike quote.");
   if (!watchOuts.length) watchOuts.push("Dealer price, rider fit, real-world fuel use and accessory fitment still need confirmation for the exact unit and use case.");
 
@@ -108,9 +108,9 @@ export function motorcycleEntitySeo(model: Motorcycle) {
       ? `${name} Price Philippines: Specs & Availability`
       : `${name} Historical Price, Specs & Used Value Philippines`;
   const description = current
-    ? `${name} Philippines buyer guide with dated price references, ${model.engineCc}cc specs, rider fit, ownership costs${authority ? ", a unique buyer verdict and local after-sales context" : ""}.`
+    ? `${name} price in the Philippines, ${model.engineCc}cc specs, rider fit, installment planning and ownership costs${authority ? ", plus buyer advice and local after-sales context" : ""}.`
     : uncertain
-      ? `${name} Philippines guide with a dated price reference, ${model.engineCc}cc specs and an explicit current-availability verification note.`
+      ? `${name} price and specs in the Philippines, with financing tools and a clear note to confirm current dealer availability.`
       : `${name} Philippines guide with historical price context, ${model.engineCc}cc specs, tire sizes, rider fit, maintenance references and used-value planning.`;
   const aliasNote = model.alsoKnownAs?.length
     ? ` Also listed as ${model.alsoKnownAs.slice(0, 2).join(" and ")}.`
@@ -121,10 +121,10 @@ export function motorcycleEntitySeo(model: Motorcycle) {
       ? `${name}: price, specs and availability guide`
       : `${name}: historical price, specs and ownership guide`;
   const intro = current
-    ? authority ? `A decision-first ${name} Philippines guide with a model-specific buyer verdict, price evidence, direct alternatives, rider fit, ownership tools, after-sales links and transparent research gaps.` : `One complete ${name} research page for Philippine buyers: price sources, variants, financing, specifications, rider fit, tire sizes, fuel range, maintenance, safety, ownership cost and used-value context.`
+    ? authority ? `Compare the ${name} price, specs, rider fit and ownership costs, with clear reasons to buy or skip it, direct alternatives and Philippine after-sales links.` : `Compare the ${name} price, variants, financing, specs, rider fit, tires, fuel use, maintenance, ownership cost and used-value estimates in one place.`
     : uncertain
-      ? `A source-backed ${name} Philippines reference with current marketplace price checks, specifications and financing tools, while clearly flagging that current official-lineup availability needs dealer confirmation.`
-      : `One complete ${name} reference page for owners and used-bike shoppers, keeping historical launch price separate from current market value while preserving specs, fitment and ownership information.`;
+      ? `Check the ${name} price, specifications and financing tools, then confirm current dealer stock and the exact model year before buying.`
+      : `Use this ${name} page for historical launch pricing, specifications, fitment and used-bike ownership research without confusing the old SRP with today&apos;s market value.`;
   const keywordBase = name.toLowerCase();
   const keywords = [
     `${keywordBase} price philippines`,
