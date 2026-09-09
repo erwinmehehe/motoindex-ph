@@ -1,4 +1,4 @@
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const AUTHOR_NAME = "Erwin Valles";
 export const AUTHOR_PATH = "/authors/erwin-valles";
@@ -10,5 +10,11 @@ export function authorPersonSchema() {
     "@type": "Person",
     name: AUTHOR_NAME,
     url: absoluteUrl(AUTHOR_PATH),
+    jobTitle: AUTHOR_ROLE,
+    worksFor: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
   };
 }
