@@ -20,6 +20,7 @@ export type ElectricMotorcycle = {
   colors: string[];
   imageUrl: string;
   sourceUrl: string;
+  purchasePriceSourceUrl: string;
   ltoSourceUrl: string;
   checkedAt: string;
 };
@@ -35,6 +36,7 @@ export const electricMotorcycles: ElectricMotorcycle[] = [
     colors: ["Olive", "Red", "Black", "White"],
     imageUrl: "https://vinfastauto.ph/themes/custom/vinfast/images/pdp/evo/olive.webp",
     sourceUrl: "https://vinfastauto.ph/en/evo",
+    purchasePriceSourceUrl: "https://www.motopinas.com/motorcycle-news/vinfast-e-scooters-get-lto-approval-but-why-are-there-6-listings.html",
     ltoSourceUrl: "https://lto.gov.ph/wp-content/uploads/2026/08/MEMORANDUM-CIRCULAR-NO.-MVL-2026-5281.pdf",
     checkedAt: "2026-09-09"
   },
@@ -48,6 +50,7 @@ export const electricMotorcycles: ElectricMotorcycle[] = [
     colors: ["Olive", "Red", "Black", "White"],
     imageUrl: "https://vinfastauto.ph/themes/custom/vinfast/images/pdp/feliz-ii/olive.webp",
     sourceUrl: "https://vinfastauto.ph/en/feliz-ii",
+    purchasePriceSourceUrl: "https://www.motopinas.com/motorcycle-news/vinfast-e-scooters-get-lto-approval-but-why-are-there-6-listings.html",
     ltoSourceUrl: "https://lto.gov.ph/wp-content/uploads/2026/08/MEMORANDUM-CIRCULAR-NO.-MVL-2026-5279.pdf",
     checkedAt: "2026-09-09"
   },
@@ -61,6 +64,7 @@ export const electricMotorcycles: ElectricMotorcycle[] = [
     colors: ["Beige Black", "Red Black", "Matte Black", "Grey", "White"],
     imageUrl: "https://vinfastauto.ph/themes/custom/vinfast/images/pdp/viper/beige-black.webp",
     sourceUrl: "https://vinfastauto.ph/en/viper",
+    purchasePriceSourceUrl: "https://www.motopinas.com/motorcycle-news/vinfast-e-scooters-get-lto-approval-but-why-are-there-6-listings.html",
     ltoSourceUrl: "https://lto.gov.ph/wp-content/uploads/2026/08/MEMORANDUM-CIRCULAR-NO.-MVL-2026-5277.pdf",
     checkedAt: "2026-09-09"
   }
