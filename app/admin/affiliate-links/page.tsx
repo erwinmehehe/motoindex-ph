@@ -11,7 +11,7 @@ export default async function AffiliateLinksAdmin(){
   const configured=databaseConfigured();
   let databaseReady=configured;
   let dbRows:Awaited<ReturnType<typeof prisma.affiliateProductLink.findMany>>=[];
-  let clickEvents:Awaited<ReturnType<typeof prisma.outboundClickEvent.findMany>>=[];
+  let clickEvents:{sourceOfferId:string|null;createdAt:Date}[]=[];
   if(configured){
     try{
       dbRows=await prisma.affiliateProductLink.findMany({orderBy:{updatedAt:"desc"}});
