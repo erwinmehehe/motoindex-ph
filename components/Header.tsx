@@ -2,29 +2,10 @@ import { HeaderContinuity } from "@/components/HeaderContinuity";
 import Link from "next/link";
 import { ShortlistNav } from "@/components/ShortlistNav";
 import { MotoIndexLogo } from "@/components/MotoIndexLogo";
-import { comparisons, publicMotorcycles, recommendationGuides, isIndexableComparison, isIndexableRecommendation } from "@/lib/data";
+import { comparisons, publicMotorcycles, isIndexableComparison } from "@/lib/data";
 
 const hasModels = publicMotorcycles.length > 0;
 const hasComparisons = comparisons.some(c => isIndexableComparison(c.slug));
-const publicGuides = recommendationGuides.filter(g => isIndexableRecommendation(g.slug));
-const guideMenuSlugs = [
-  "best-scooters-philippines",
-  "125cc-scooters-philippines",
-  "150cc-scooters-philippines",
-  "160cc-scooters-philippines",
-  "automatic-motorcycles-philippines",
-  "motorcycles-under-80k",
-  "motorcycles-under-100k",
-  "motorcycles-150k-to-250k",
-  "motorcycles-400cc-plus-philippines",
-  "best-motorcycles-for-daily-commute-philippines",
-  "best-motorcycles-for-short-riders",
-  "sport-motorcycles-philippines",
-];
-const navGuides = guideMenuSlugs
-  .map((slug) => publicGuides.find((guide) => guide.slug === slug))
-  .filter((guide): guide is (typeof publicGuides)[number] => Boolean(guide));
-const hasGuides = publicGuides.length > 0;
 const motorcycleBrands = [...new Map(publicMotorcycles.map(model => [model.makeSlug, model.make])).entries()]
   .sort((a,b)=>a[1].localeCompare(b[1]));
 
@@ -56,7 +37,7 @@ export function Header() {
         {hasModels && <details className="nav-more nav-motorcycles"><summary>Motorcycles <span>⌄</span></summary><div className="nav-popover nav-popover-menu"><Link className="nav-popover-primary" href="/motorcycles">All motorcycles</Link><Link href="/motorcycles/electric">Electric motorcycles</Link>{motorcycleBrands.map(([slug,label])=><Link href={`/motorcycles/${slug}`} key={slug}>{label}</Link>)}</div></details>}
         {hasModels && <Link href="/finder">Finder</Link>}
         {hasComparisons && <Link href="/compare">Compare</Link>}
-        {hasGuides && <details className="nav-more nav-guides"><summary>Guides <span>⌄</span></summary><div className="nav-popover nav-popover-menu nav-popover-guides"><Link className="nav-popover-primary" href="/recommendations">Motorcycle buying guides</Link><Link href="/guides">Ownership guides</Link><Link href="/recommendations/electric-scooters-philippines">Electric scooters</Link>{navGuides.map(guide=><Link href={`/recommendations/${guide.slug}`} key={guide.slug}>{guide.title}</Link>)}</div></details>}
+        <details className="nav-more nav-guides"><summary>Guides <span>⌄</span></summary><div className="nav-popover nav-popover-menu nav-popover-guides"><Link className="nav-popover-primary" href="/recommendations">Motorcycle buying guide</Link><Link href="/guides">Editorial guides</Link><Link href="/recommendations/electric-motorcycles-philippines">Electric motorcycles</Link><Link href="/guides/electric-scooters-philippines">Electric scooters</Link></div></details>
         <details className="nav-more nav-gear"><summary>Gear <span>⌄</span></summary><div className="nav-popover">{gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</div></details>
         <details className="nav-more nav-moremenu"><summary>More <span>⌄</span></summary><div className="nav-popover">{more.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</div></details>
       </nav>
@@ -66,7 +47,7 @@ export function Header() {
         {hasModels && <><strong className="mobile-menu-heading">Motorcycles</strong><Link href="/motorcycles">All motorcycles</Link><Link href="/motorcycles/electric">Electric motorcycles</Link>{motorcycleBrands.map(([slug,label])=><Link href={`/motorcycles/${slug}`} key={slug}>{label}</Link>)}</>}
         {hasModels && <Link href="/finder">Finder</Link>}
         {hasComparisons && <Link href="/compare">Compare</Link>}
-        {hasGuides && <><strong className="mobile-menu-heading">Guides</strong><Link href="/recommendations">Motorcycle buying guides</Link><Link href="/guides">Ownership guides</Link><Link href="/recommendations/electric-scooters-philippines">Electric scooters</Link>{navGuides.map(guide=><Link href={`/recommendations/${guide.slug}`} key={guide.slug}>{guide.title}</Link>)}</>}
+        <><strong className="mobile-menu-heading">Guides</strong><Link href="/recommendations">Motorcycle buying guide</Link><Link href="/guides">Editorial guides</Link><Link href="/recommendations/electric-motorcycles-philippines">Electric motorcycles</Link><Link href="/guides/electric-scooters-philippines">Electric scooters</Link></>
         <strong className="mobile-menu-heading">Gear</strong>
         {gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
         <strong className="mobile-menu-heading">Ownership & tools</strong>
