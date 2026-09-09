@@ -52,7 +52,7 @@ export function Header() {
     <div className="shell nav-wrap">
       <MotoIndexLogo />
       <nav className="nav-links" aria-label="Primary navigation">
-        {hasModels && <details className="nav-more nav-motorcycles"><summary>Motorcycles <span>⌄</span></summary><div className="nav-popover nav-popover-menu"><Link className="nav-popover-primary" href="/motorcycles">All motorcycles</Link>{motorcycleBrands.map(([slug,label])=><Link href={`/motorcycles/${slug}`} key={slug}>{label}</Link>)}</div></details>}
+        {hasModels && <details className="nav-more nav-motorcycles"><summary>Motorcycles <span>⌄</span></summary><div className="nav-popover nav-popover-menu"><Link className="nav-popover-primary" href="/motorcycles">All motorcycles</Link><Link href="/motorcycles/electric">Electric motorcycles</Link>{motorcycleBrands.map(([slug,label])=><Link href={`/motorcycles/${slug}`} key={slug}>{label}</Link>)}</div></details>}
         {hasModels && <Link href="/finder">Finder</Link>}
         {hasComparisons && <Link href="/compare">Compare</Link>}
         {hasGuides && <details className="nav-more nav-guides"><summary>Guides <span>⌄</span></summary><div className="nav-popover nav-popover-menu nav-popover-guides"><Link className="nav-popover-primary" href="/recommendations">All buying guides</Link>{navGuides.map(guide=><Link href={`/recommendations/${guide.slug}`} key={guide.slug}>{guide.title}</Link>)}</div></details>}
@@ -62,7 +62,7 @@ export function Header() {
       <Link className="mobile-search" href="/search">Search</Link>
       <div className="nav-actions"><ShortlistNav /><Link className="nav-search" href="/search">Search</Link></div>
       <details className="mobile-menu"><summary aria-label="Open navigation">Menu</summary><div className="mobile-menu-panel"><nav aria-label="Mobile navigation">
-        {hasModels && <><strong className="mobile-menu-heading">Motorcycles</strong><Link href="/motorcycles">All motorcycles</Link>{motorcycleBrands.map(([slug,label])=><Link href={`/motorcycles/${slug}`} key={slug}>{label}</Link>)}</>}
+        {hasModels && <><strong className="mobile-menu-heading">Motorcycles</strong><Link href="/motorcycles">All motorcycles</Link><Link href="/motorcycles/electric">Electric motorcycles</Link>{motorcycleBrands.map(([slug,label])=><Link href={`/motorcycles/${slug}`} key={slug}>{label}</Link>)}</>}
         {hasModels && <Link href="/finder">Finder</Link>}
         {hasComparisons && <Link href="/compare">Compare</Link>}
         {hasGuides && <><strong className="mobile-menu-heading">Guides</strong><Link href="/recommendations">All buying guides</Link>{navGuides.map(guide=><Link href={`/recommendations/${guide.slug}`} key={guide.slug}>{guide.title}</Link>)}</>}
