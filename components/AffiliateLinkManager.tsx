@@ -65,7 +65,7 @@ function AffiliateRow({row}:{row:ProductRow}){
       <label><span>Review note</span><input value={note} onChange={e=>setNote(e.target.value)} placeholder="Checked merchant, exact product and destination."/></label>
       <div className="affiliate-admin-actions">
         <button type="button" disabled={saving} onClick={()=>save("active")}>{saving?"Saving…":"Save & activate"}</button>
-        <button type="button" disabled={saving||!url} onClick={()=>save("disabled")}>Save disabled</button>
+        <button type="button" disabled={saving||(!url&&!row.fallback)} onClick={()=>save("disabled")}>Save disabled</button>
       </div>
       {message&&<small className={message.includes("active")?"review-success":""}>{message}</small>}
     </div>
