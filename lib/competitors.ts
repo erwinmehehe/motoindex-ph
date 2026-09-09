@@ -1,15 +1,14 @@
 // Competing price/spec aggregators and dealer chains.
 //
-// MotoIndex still checks these sources and still records the date it did, but it
-// does not link to them and does not print their names: a dofollow link and a
-// brand mention on every model page is free marketing and free link equity for a
-// site competing for the same queries.
+// MotoIndex still checks these sources and records the date. Public citations
+// show the publisher name and remain openable; SourceRef adds nofollow for these
+// competing domains so transparency does not imply editorial endorsement.
 //
 // Retail merchants are deliberately NOT listed here. Ride Manila, Shopee and the
 // like are shopping destinations for the reader and a revenue path for the site.
 //
-// To stop linking to another domain, add it here. Matching is on the registrable
-// host and any subdomain.
+// Add competing domains here so their public links receive nofollow. Matching is
+// on the registrable host and any subdomain.
 
 export const COMPETITOR_HOSTS = [
   "zigwheels.ph",
