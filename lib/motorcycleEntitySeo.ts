@@ -25,7 +25,7 @@ export function motorcycleEntityEditorial(model: Motorcycle) {
   const watchOuts: string[] = authority ? authority.skipIf.slice(0, 2) : [];
 
   if (model.transmission === "Automatic") strengths.push("Automatic transmission keeps stop-go operation simple.");
-  if (model.curbWeightKg <= 125) strengths.push(`${model.curbWeightKg} kg curb weight is relatively light within the current MotoIndex catalog.`);
+  if (model.curbWeightKg <= 125) strengths.push(`${model.curbWeightKg} kg curb weight is relatively light among the current motorcycles in this catalog.`);
   if (model.fuelConsumptionKmL && model.fuelConsumptionKmL >= 40) strengths.push(`${model.fuelConsumptionKmL} km/L is the listed fuel-economy basis in this record.`);
   if (/abs/i.test(model.abs)) strengths.push(`${model.abs} is listed in the braking specification; verify the exact local variant.`);
   if (model.fuelTankL >= 8) strengths.push(`${model.fuelTankL} L tank capacity gives more range headroom than very small-tank commuters.`);
