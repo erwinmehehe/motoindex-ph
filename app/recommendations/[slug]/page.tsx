@@ -357,4 +357,4 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
 
     {related.length>0&&<><div className="section-head compact"><div><h2>Related motorcycle guides</h2><p>Compare nearby budgets, categories and rider-fit options.</p></div></div><div className="guide-related-grid">{related.map(g=><Link key={g.slug} href={"/recommendations/" + g.slug}><strong>{g.title}</strong><small>{g.description}</small></Link>)}</div></>}
   </section>;
-}}
+}
