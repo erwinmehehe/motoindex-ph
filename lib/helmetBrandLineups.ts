@@ -35,3 +35,38 @@ export const helmetBrandLineups: HelmetBrandLineup[] = [
 export function getHelmetBrandLineup(brandSlug: string) {
   return helmetBrandLineups.find((item) => item.brandSlug === brandSlug);
 }
+
+export type HelmetCatalogModel = {
+  brandSlug: string;
+  model: string;
+  slug: string;
+  sourceLabel: string;
+  sourceUrl: string;
+  checkedAt: string;
+  note?: string;
+};
+
+export function helmetModelSlug(model: string) {
+  return model
+    .normalize("NFKD")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export const helmetCatalogModels: HelmetCatalogModel[] = helmetBrandLineups.flatMap((lineup) =>
+  lineup.models.map((model) => ({
+    brandSlug: lineup.brandSlug,
+    model,
+    slug: helmetModelSlug(model),
+    sourceLabel: lineup.sourceLabel,
+    sourceUrl: lineup.sourceUrl,
+    checkedAt: lineup.checkedAt,
+    note: lineup.note,
+  }))
+);
+
+export function getHelmetCatalogModel(brandSlug: string, slug: string) {
+  return helmetCatalogModels.find((item) => item.brandSlug === brandSlug && item.slug === slug);
+}
+
