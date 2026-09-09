@@ -38,10 +38,10 @@ const accessory=read("app/accessories/[slug]/page.tsx");
 need(accessory.includes("verifiedBoxesWithImages")&&accessory.includes("verifiedBoxesWithoutImages"),"Top-box hub must distinguish checked records with and without sourced images");
 
 const rec=read("app/recommendations/[slug]/page.tsx");
-for(const token of ["We currently track","Quick picks","Full comparison table","How we selected these motorcycles","Individual model analysis","Which one should you choose?","Important caveats","Related recommendation guides","Sources and freshness"]){need(rec.includes(token),`Guide template missing ${token}`)}
+for(const token of ["guide-direct-answer","Quick picks","Full comparison table","What qualifies for this comparison","Model-by-model breakdown","Which one should you choose?","Before you buy","Related motorcycle guides","Latest checks"]){need(rec.includes(token),`Guide template missing ${token}`)}
 const guideTypes=read("lib/types.ts");
 for(const field of ["primaryKeyword","secondaryKeywords","directAnswer","inclusionRules","orderingRule","tieBreakers","sourcePolicy","tableColumns","editorialSections","faqQuestions","relatedGuideSlugs"]){need(guideTypes.includes(field),`RecommendationGuide must include ${field}`)}
-need(rec.includes("Why it&apos;s here")&&rec.includes("Prices checked:")&&rec.includes("Specifications checked:"),"Guide table and freshness block must expose rationale plus separate price/spec dates");
+need(rec.includes("Why it&apos;s here")&&rec.includes("Prices:")&&rec.includes("Specifications:"),"Guide table and freshness block must expose rationale plus separate price/spec dates");
 
 const middleware=read("middleware.ts");
 need(!middleware.includes('pathname.startsWith("/dealers/")')&&!middleware.includes('pathname.startsWith("/sellers/")'),"Middleware must not blanket-block public dealer or verified seller detail routes");
