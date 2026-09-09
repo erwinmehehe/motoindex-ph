@@ -39,4 +39,4 @@ jobs:
         run: npm run cf:build
 
       - name: Deploy Worker
-        run: npx wrangler deploy
+        run: npm run cf:deploy:built
