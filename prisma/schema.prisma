@@ -244,6 +244,9 @@ model Seller {
   sourceUrl        String?
   lastChecked      DateTime?
   verificationNote String?
+  leadContactName  String?
+  leadEmail        String?
+  leadMobile       String?
   status           String   @default("research")
   offers      SellerOffer[]
   matchedImportRows OfferImportRow[]
@@ -402,6 +405,7 @@ model DealerLead {
   matchedSellerSlugs String[]
   status             String   @default("new")
   sourcePath         String
+  deliveries         DealerLeadDelivery[]
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
@@ -435,4 +439,24 @@ model DealerApplication {
 
   @@index([status, createdAt])
   @@index([contactEmail, createdAt])
+}
+
+model DealerLeadDelivery {
+  id            String     @id @default(cuid())
+  leadId        String
+  lead          DealerLead @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  sellerSlug    String
+  sellerName    String
+  dealerEmail   String
+  deliveryToken String     @unique @default(cuid())
+  status        String     @default("pending")
+  sharedAt      DateTime?
+  openedAt      DateTime?
+  expiresAt     DateTime
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@unique([leadId, sellerSlug])
+  @@index([sellerSlug, status, createdAt])
+  @@index([leadId, status])
 }
