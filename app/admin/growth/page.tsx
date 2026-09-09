@@ -33,7 +33,7 @@ export default async function GrowthDashboard(){
         prisma.dealerApplication.findMany({where:{createdAt:{gte:d30}},select:{status:true,createdAt:true}}),
         prisma.seller.count({where:{type:"dealer",status:"verified"}}),
         prisma.affiliateProductLink.findMany({where:{status:"active"},select:{productId:true}}),
-        prisma.outboundClickEvent.findMany({where:{createdAt:{gte:d30}},select:{sourceOfferId:true,entityType:true,createdAt:true}})
+        prisma.outboundClickEvent.findMany({where:{createdAt:{gte:d30}},select:{offerId:true,sourceOfferId:true,entityType:true,createdAt:true}})
       ]);
 
       metrics={
