@@ -56,7 +56,7 @@ export function gearSitemapEntries(): Entry[] {
   const products=helmetProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/gear/helmets/${p.brandSlug}/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.74}));
   const tires=tireProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/tires/${p.brandSlug}/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.68}));
   const boxes=topBoxProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/accessories/top-box/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.66}));
-  const accessoryHubs=accessoryCategories.map(a=>({url:`${SITE_URL}/accessories/${a.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
+  const accessoryHubs=accessoryCategories.filter(a=>a.slug==="top-box").map(a=>({url:`${SITE_URL}/accessories/${a.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
   return [...categories,...brands,...products,...tires,...boxes,...accessoryHubs];
 }
 
