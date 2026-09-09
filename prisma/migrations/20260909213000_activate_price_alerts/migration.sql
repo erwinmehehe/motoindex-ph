@@ -1,3 +1,5 @@
+DELETE FROM "PriceAlertSubscription" WHERE "targetPricePhp" IS NULL;
+
 ALTER TABLE "PriceAlertSubscription"
 ALTER COLUMN "targetPricePhp" SET NOT NULL,
 ADD COLUMN "unsubscribeToken" TEXT,
