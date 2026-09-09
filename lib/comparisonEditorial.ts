@@ -120,17 +120,44 @@ export const comparisonEditorialBriefs: ComparisonEditorialBrief[] = [
   }
 ];
 
-export const pendingComparisonEditorialBriefs: ComparisonEditorialBrief[] = [
   {
-    slug: "ninja-500-vs-cfmoto-450sr",
-    primaryKeyword: "Ninja 500 vs CFMoto 450SR",
-    intent: "Entry/mid-size sport-bike purchase decision.",
-    h1: "Kawasaki Ninja 500 vs CFMoto 450SR: Price, Power and Specs",
-    opening: "Publish only when both current Philippine-market records have source-backed price, engine, output, weight, chassis, brakes and electronics data.",
-    sections: ["Price", "Engine architecture", "Horsepower", "Torque", "Power-to-weight", "Weight", "Seat height", "Dimensions", "Suspension", "Brakes and ABS", "Electronics and features", "Fuel capacity"],
-    faqs: ["Which costs less?", "Which makes more power on paper?", "Which is lighter?"],
-    note: "Pending: the current MotoIndex dataset does not contain a source-backed Philippine-market CFMoto 450SR record."
+    slug: "click-160-vs-pcx-160",
+    primaryKeyword: "Click 160 vs PCX 160",
+    intent: "Honda scooter buyer choosing between a lighter commuter format and a larger premium scooter.",
+    h1: "Honda Click 160 vs PCX 160: Price, Specs and Differences",
+    opening: "The Click 160 and PCX 160 use a similar engine class, but the useful differences are price, curb weight, seat height, fuel capacity, tires and braking equipment. This comparison keeps those buyer-facing differences together without declaring a universal winner.",
+    sections: ["Price", "Engine and output", "Curb weight", "Seat height", "Fuel tank and economy", "Wheel and tire sizes", "Braking equipment", "City use", "Passenger and longer-ride considerations"],
+    faqs: ["Which is cheaper, Click 160 or PCX 160?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "How do their braking systems differ?"]
   },
+  {
+    slug: "ninja-500-vs-450sr",
+    primaryKeyword: "Ninja 500 vs CFMOTO 450SR",
+    intent: "Mid-size sport-bike buyer comparing two current Philippine-market parallel twins.",
+    h1: "Kawasaki Ninja 500 vs CFMOTO 450SR: Price and Specs",
+    opening: "The Ninja 500 and CFMOTO 450SR are close on displacement and curb weight, which makes price, published output, seat height, braking and exact local equipment more useful than broad brand claims.",
+    sections: ["Price", "Engine displacement", "Horsepower and torque", "Curb weight", "Seat height", "Fuel capacity", "Tires", "ABS and braking", "Which is lighter?", "Which costs less?", "Which has the lower seat?"],
+    faqs: ["Which is cheaper, Ninja 500 or 450SR?", "Which makes more power on paper?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?"]
+  },
+  {
+    slug: "390-duke-vs-ninja-500",
+    primaryKeyword: "KTM 390 Duke vs Ninja 500",
+    intent: "Buyer choosing between a lightweight naked bike and a larger parallel-twin sport bike.",
+    h1: "KTM 390 Duke vs Kawasaki Ninja 500: Price and Specs",
+    opening: "The 390 Duke and Ninja 500 target different road-bike formats, but shoppers often cross-shop them on budget and performance. Compare the published price, output, curb weight, seat height, tank size and braking before deciding which layout fits your use.",
+    sections: ["Price", "Engine architecture and displacement", "Power and torque", "Weight", "Seat height", "Fuel tank", "Brakes and ABS", "City maneuverability", "Longer-ride considerations"],
+    faqs: ["Which is cheaper?", "Which is lighter?", "Which makes more power?", "Which has the lower seat?", "Which has the larger fuel tank?"]
+  },
+  {
+    slug: "rc-390-vs-ninja-500",
+    primaryKeyword: "KTM RC 390 vs Ninja 500",
+    intent: "Sport-bike shopper comparing KTM's single-cylinder RC with Kawasaki's parallel-twin Ninja.",
+    h1: "KTM RC 390 vs Kawasaki Ninja 500: Price, Power and Specs",
+    opening: "The RC 390 and Ninja 500 differ in engine layout, published output, weight, seat height and price. This comparison focuses on those measurable differences and the exact Philippine model records.",
+    sections: ["Price", "Engine and output", "Torque", "Curb weight", "Seat height", "Fuel tank", "Tires", "ABS and braking", "Rider-fit considerations"],
+    faqs: ["Which is cheaper?", "Which makes more power?", "Which is lighter?", "Which has the lower seat?", "How do the braking packages differ?"]
+  },
+
+export const pendingComparisonEditorialBriefs: ComparisonEditorialBrief[] = [
   {
     slug: "xmax-vs-forza-350",
     primaryKeyword: "XMAX vs Forza 350",
