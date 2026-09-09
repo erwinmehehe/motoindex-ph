@@ -19,7 +19,6 @@ import { FitmentSummary } from "@/components/FitmentSummary";
 import { ProductCard } from "@/components/ProductCard";
 import { SimilarMotorcycles } from "@/components/SimilarMotorcycles";
 import { CommuteSnapshot } from "@/components/CommuteSnapshot";
-import { ModelUpdateLog } from "@/components/ModelUpdateLog";
 import { RelatedLinks } from "@/components/RelatedLinks";
 import { FaqSection } from "@/components/FaqSection";
 import { UsedMarketSummary } from "@/components/UsedMarketSummary";
@@ -335,7 +334,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section id="faq" className="motorcycle-entity-section"><FaqSection title={`${model.make} ${model.model} FAQs`} items={faqs} /></section>
 
-      <section className="motorcycle-entity-section entity-page-footer-block"><ModelUpdateLog model={model} /><RelatedLinks title={`More ${model.model} research`} links={modelInternalLinks(model)} /></section>
+      <section className="motorcycle-entity-section entity-page-footer-block"><RelatedLinks title={`More ${model.model} research`} links={modelInternalLinks(model)} /></section>
     </div>
 
     <JsonLd data={schema} />
