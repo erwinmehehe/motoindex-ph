@@ -119,6 +119,7 @@ export function HelmetBrandGuide({ brand, verified, types, minPrice, maxPrice, t
       </div>
       <div>
         <h3>What {brand}&apos;s range covers here</h3>
+        <p>The current guide covers {trackedCount} {brand} helmet model{trackedCount === 1 ? "" : "s"}. </p>
         <p>
           {types.length
             ? <>The current {brand} model guides include {types.join(", ").toLowerCase()}. </>
