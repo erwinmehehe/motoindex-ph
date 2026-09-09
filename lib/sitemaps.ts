@@ -1,4 +1,4 @@
-import { accessoryCategories, comparisons, helmetBrands, motorcycles, recommendationGuides, isIndexableModel, isIndexableComparison, isIndexableRecommendation } from "@/lib/data";
+import { accessoryCategories, comparisons, helmetBrands, motorcycles, isIndexableModel, isIndexableComparison } from "@/lib/data";
 import { modelFamilies } from "@/lib/families";
 import { helmetProducts, tireProducts, topBoxProducts, isIndexableHelmetBrand } from "@/lib/catalog";
 import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug, publicDealerCities, publicDealersByCity, publicSellers, publicSellersByType } from "@/lib/sellers";
@@ -18,23 +18,21 @@ const newest = (dates: string[]) => dates.sort().at(-1) || RELEASE_DATE;
 export function coreSitemapEntries(): Entry[] {
   const hasModels=motorcycles.some(isIndexableModel);
   const hasComparisons=comparisons.some(c=>isIndexableComparison(c.slug));
-  const hasGuides=recommendationGuides.some(g=>isIndexableRecommendation(g.slug));
   const staticPaths = [
     ["/",1],
     ...(hasModels ? [["/motorcycles",.9] as const,["/finder",.84] as const,["/fitment",.78] as const] : []),
     ...(hasComparisons ? [["/compare",.82] as const] : []),
-    ...(hasGuides ? [["/recommendations",.8] as const] : []),
+    ["/recommendations",.8],
     ["/dealers",.82],["/dealers/join",.58],["/gear/helmets",.85],["/accessories",.72],["/tools/electric-motorcycle-charging-cost",.82],["/tools/electric-motorcycle-range-calculator",.82],["/recommendations/electric-motorcycles-philippines",.8],["/guides/electric-scooters-philippines",.8],["/guides/e-bike-vs-motorcycle",.78],["/guides/electric-motorcycle-registration-philippines",.8],["/guides/electric-motorcycle-vs-gas-motorcycle",.8],["/guides",.74],["/tires",.75],["/maintenance",.78],["/used-motorcycles/repo",.82],["/used-motorcycles/buying-checklist",.74],["/tools",.84],["/tools/motorcycle-loan-calculator",.88],["/tools/lto-registration-fee-calculator",.8],["/tools/motorcycle-insurance-calculator",.8],["/ownership",.72],["/ownership/cost-calculator",.7],["/ownership/maintenance",.69],["/ownership/safety-campaigns",.66],["/commute",.86],["/commute/cost-calculator",.82],["/commute/affordability",.8],["/commute/rainy-season",.72],
     ["/about",.45],["/authors/erwin-valles",.5],["/methodology",.52],["/data-sources",.5],["/editorial-policy",.42],["/privacy",.4],
     ...(process.env.NEXT_PUBLIC_CONTACT_EMAIL ? [["/contact",.35] as const] : [])
   ] as const;
-  const guides = recommendationGuides.filter(g=>isIndexableRecommendation(g.slug)).map(g=>({url:`${SITE_URL}/recommendations/${g.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.72}));
   const ownership = ownershipGuides.map(g=>({url:`${SITE_URL}/ownership/${g.slug}`,lastModified:g.lastChecked,changeFrequency:"yearly" as const,priority:.64}));
   const editorial = editorialGuides.map(g=>({url:`${SITE_URL}/guides/${g.slug}`,lastModified:g.lastChecked,changeFrequency:"monthly" as const,priority:.72}));
   const commute = commuteGuides.filter(g=>isIndexableCommuteGuide(g.slug)).map(g=>({url:`${SITE_URL}/commute/${g.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
   const maintenanceTopics = maintenanceSeoTopics.map(topic=>({url:`${SITE_URL}/maintenance/${topic.slug}`,lastModified:topic.lastChecked,changeFrequency:"monthly" as const,priority: topic.volume >= 1000 ? .76 : .7}));
   const comps = comparisons.filter(c=>isIndexableComparison(c.slug)).map(c=>{const ms=motorcycles.filter(m=>m.id===c.a||m.id===c.b);return {url:`${SITE_URL}/compare/${c.slug}`,lastModified:newest(ms.map(m=>m.verifiedAt)),changeFrequency:"monthly" as const,priority:.74};});
-  return [...staticPaths.map(([path,priority])=>({url:`${SITE_URL}${path==="/"?"":path}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority})),...guides,...editorial,...commute,...maintenanceTopics,...ownership,...comps];
+  return [...staticPaths.map(([path,priority])=>({url:`${SITE_URL}${path==="/"?"":path}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority})),...editorial,...commute,...maintenanceTopics,...ownership,...comps];
 }
 
 export function motorcycleSitemapEntries(): Entry[] {
