@@ -460,3 +460,18 @@ model DealerLeadDelivery {
   @@index([sellerSlug, status, createdAt])
   @@index([leadId, status])
 }
+
+model AffiliateProductLink {
+  id         String   @id @default(cuid())
+  productId  String   @unique
+  merchant   String   @default("shopee")
+  network    String
+  url        String
+  status     String   @default("active")
+  reviewNote String?
+  approvedAt DateTime?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([status, updatedAt])
+}
