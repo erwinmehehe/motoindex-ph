@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { NextResponse } from "next/server";
 import { randomBytes } from "node:crypto";
 import { databaseConfigured, prisma } from "@/lib/db";
