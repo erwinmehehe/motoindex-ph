@@ -26,7 +26,7 @@ const val=(n:number|undefined,suffix:string)=>typeof n==="number"?`${n.toLocaleS
 const modelHref=(m:Motorcycle)=>`/motorcycles/${m.makeSlug}/${m.slug}`;
 
 const label:Record<RecommendationTableColumn,string>={
-  price:"Observed price",engine:"Engine",transmission:"Transmission",weight:"Weight",seat:"Seat height",abs:"ABS configuration",economy:"Published km/L",tank:"Fuel tank",range:"Theoretical range",power:"Power",torque:"Torque",clearance:"Ground clearance",context:"Use context"
+  price:"Published price",engine:"Engine",transmission:"Transmission",weight:"Weight",seat:"Seat height",abs:"ABS configuration",economy:"Published km/L",tank:"Fuel tank",range:"Theoretical range",power:"Power",torque:"Torque",clearance:"Ground clearance",context:"Use context"
 };
 
 function contextLabel(m:Motorcycle){
@@ -88,8 +88,8 @@ function positionReason(guide:RecommendationGuide,m:Motorcycle,index:number){
   if(guide.slug==="lightweight-motorcycles-philippines")return `Weight order ${pos} is based on its ${m.curbWeightKg} kg published curb weight, with seat height used as the tie-breaker.`;
   if(guide.slug==="best-motorcycles-for-daily-commute-philippines"){const score=evaluateMotorcycle(m,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score;return `Position ${pos} follows the fixed city-commute decision profile; this model scores ${score}/100 on the stored fit, traffic, use and ownership-planning factors.`;}
   if(guide.slug==="beginner-friendly-motorcycles-philippines")return `Position ${pos} follows the stated beginner-starting method using published curb weight (${m.curbWeightKg} kg), seat height (${m.seatHeightMm} mm), recorded output (${m.powerHp} hp) and ABS context.`;
-  if(guide.slug==="motorcycles-400cc-plus-philippines")return `Price order ${pos} is based on its observed starting price at ${observedMarketPriceLabel(m)} within the current 400cc+ recorded-displacement set.`;
-  return `${guide.orderLabel} ${pos} follows the page's observed-price ordering at ${observedMarketPriceLabel(m)}; it is not an overall quality score.`;
+  if(guide.slug==="motorcycles-400cc-plus-philippines")return `Price order ${pos} is based on its published starting price at ${observedMarketPriceLabel(m)} within the current 400cc+ recorded-displacement set.`;
+  return `${guide.orderLabel} ${pos}: ${observedMarketPriceLabel(m)}. This position follows the price order used for this guide.`;
 }
 
 function considerReason(guide:RecommendationGuide,m:Motorcycle){
@@ -102,8 +102,8 @@ function considerReason(guide:RecommendationGuide,m:Motorcycle){
   if(guide.slug==="best-scooters-philippines")return `its ${m.engineCc} cc engine, ${m.curbWeightKg} kg curb weight and ${m.seatHeightMm} mm seat fit the scooter trade-offs you want to compare.`;
   if(guide.slug==="best-motorcycles-for-daily-commute-philippines")return `the fixed commute profile rewards its combination of ${m.curbWeightKg} kg curb weight, ${m.transmission?.toLowerCase()||"recorded transmission"} and ${m.seatHeightMm} mm published seat${m.fuelConsumptionKmL?`, with ${m.fuelConsumptionKmL} km/L published fuel data`:""}.`;
   if(guide.slug==="beginner-friendly-motorcycles-philippines")return `you want a first-bike shortlist grounded in published weight (${m.curbWeightKg} kg), seat (${m.seatHeightMm} mm), output (${m.powerHp} hp) and braking equipment rather than engine size alone.`;
-  if(guide.slug==="motorcycles-400cc-plus-philippines")return `you are researching the 400cc+ class and want to compare its ${m.engineCc} cc engine, ${m.curbWeightKg} kg curb weight, ${m.seatHeightMm} mm seat and ${observedMarketPriceLabel(m)} observed starting price.`;
-  return `its ${m.transmission?.toLowerCase()||"recorded"} configuration, ${m.engineCc} cc engine and ${observedMarketPriceLabel(m)} observed price match your budget priorities.`;
+  if(guide.slug==="motorcycles-400cc-plus-philippines")return `you are researching the 400cc+ class and want to compare its ${m.engineCc} cc engine, ${m.curbWeightKg} kg curb weight, ${m.seatHeightMm} mm seat and ${observedMarketPriceLabel(m)} published starting price.`;
+  return `its ${m.transmission?.toLowerCase()||"recorded"} configuration, ${m.engineCc} cc engine and ${observedMarketPriceLabel(m)} published price match your budget priorities.`;
 }
 
 function alternativeReason(guide:RecommendationGuide,m:Motorcycle,models:Motorcycle[]){
@@ -114,14 +114,14 @@ function alternativeReason(guide:RecommendationGuide,m:Motorcycle,models:Motorcy
   const largestTank=metricModel(models,"tank");
   const highestPower=metricModel(models,"power");
   const alternatives:[Motorcycle|undefined,string][] = guide.slug==="fuel-efficient-motorcycles-philippines"
-    ? [[largestTank,"a larger tank matters more than the highest published km/L"],[lowestPrice,"lower observed price matters more"]]
+    ? [[largestTank,"a larger tank matters more than the highest published km/L"],[lowestPrice,"lower published price matters more"]]
     : guide.slug==="best-motorcycles-for-long-rides"
-      ? [[bestEconomy,"a higher published km/L figure matters more"],[lowestPrice,"lower observed price matters more"]]
+      ? [[bestEconomy,"a higher published km/L figure matters more"],[lowestPrice,"lower published price matters more"]]
       : guide.slug==="best-underbone-motorcycles-philippines"
-        ? [[highestPower,"higher recorded power matters more"],[lowestPrice,"lower observed price matters more"]]
+        ? [[highestPower,"higher recorded power matters more"],[lowestPrice,"lower published price matters more"]]
         : guide.slug==="best-motorcycles-for-short-riders"
-          ? [[lightest,"lower curb weight matters more"],[lowestPrice,"lower observed price matters more"]]
-          : [[lightest,"lower curb weight matters more"],[lowestSeat,"a lower published seat matters more"],[lowestPrice,"lower observed price matters more"]];
+          ? [[lightest,"lower curb weight matters more"],[lowestPrice,"lower published price matters more"]]
+          : [[lightest,"lower curb weight matters more"],[lowestSeat,"a lower published seat matters more"],[lowestPrice,"lower published price matters more"]];
   const choice=alternatives.find(([candidate])=>candidate&&candidate.id!==m.id);
   return choice&&choice[0]?`${choice[0].make} ${choice[0].model} is the clearer checked alternative when ${choice[1]}.`:`Compare the table for a model that better matches your next-highest measurable priority.`;
 }
@@ -138,7 +138,7 @@ function comparisonFor(m:Motorcycle,models:Motorcycle[]){
 function modelNames(models:Motorcycle[],max=4){return models.slice(0,max).map(m=>`${m.make} ${m.model}`).join(", ");}
 
 function sectionSummary(title:string,models:Motorcycle[]){
-  if(!models.length)return "No current checked motorcycles qualify for this section.";
+  if(!models.length)return "No current motorcycles qualify for this section.";
   const lower=title.toLowerCase();
   const price=[...models].sort((a,b)=>observedMarketRange(a).from-observedMarketRange(b).from);
   const weight=[...models].sort((a,b)=>a.curbWeightKg-b.curbWeightKg);
@@ -153,17 +153,17 @@ function sectionSummary(title:string,models:Motorcycle[]){
   const manual=models.filter(m=>m.transmission!=="Automatic");
   const scooters=models.filter(m=>/scooter/i.test(m.category));
   const underbones=models.filter(m=>/underbone/i.test(m.category));
-  if(lower.includes("strong city-commute")){const ranked=[...models].sort((a,b)=>evaluateMotorcycle(b,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score-evaluateMotorcycle(a,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score);return `${modelNames(ranked,3)} lead the fixed city-commute profile in the current checked set. The profile rewards measurable fit, stop-go usability and stored ownership inputs rather than a subjective road-test score.`;}
-  if(lower.includes("stop-go traffic"))return automatic.length?`${automatic.length} checked automatic model${automatic.length===1?"":"s"} are in this set, including ${modelNames(automatic)}. Automatic transmission reduces clutch/shift workload, but weight, seat height, wheel size and actual traffic conditions still matter.`:"No current automatic model qualifies in this set.";
-  if(lower.includes("daily use"))return `${weight[0].make} ${weight[0].model} is the lightest checked option here at ${weight[0].curbWeightKg} kg. Lower weight can help during parking and repeated low-speed stops, but it does not measure balance or handlebar width.`;
+  if(lower.includes("strong city-commute")){const ranked=[...models].sort((a,b)=>evaluateMotorcycle(b,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score-evaluateMotorcycle(a,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score);return `${modelNames(ranked,3)} lead the fixed city-commute profile in the current comparison. The profile rewards measurable fit, stop-go usability and ownership factors rather than a subjective road-test score.`;}
+  if(lower.includes("stop-go traffic"))return automatic.length?`${automatic.length} automatic model${automatic.length===1?"":"s"} are in this set, including ${modelNames(automatic)}. Automatic transmission reduces clutch/shift workload, but weight, seat height, wheel size and actual traffic conditions still matter.`:"No current automatic model qualifies in this set.";
+  if(lower.includes("daily use"))return `${weight[0].make} ${weight[0].model} is the lightest option here at ${weight[0].curbWeightKg} kg. Lower weight can help during parking and repeated low-speed stops, but it does not measure balance or handlebar width.`;
   if(lower.includes("commute score cannot"))return `The score cannot measure lane-filtering width, heat management, suspension comfort, dealer proximity, parts delays, rider skill or the exact traffic pattern on your route. Use it to shortlist, then test fit and verify ownership support.`;
-  if(lower.includes("lower-weight starting"))return `${weight[0].make} ${weight[0].model} is the lightest checked starting point at ${weight[0].curbWeightKg} kg. The page still keeps seat height, power and braking context visible because low weight alone does not make a motorcycle beginner-safe.`;
+  if(lower.includes("lower-weight starting"))return `${weight[0].make} ${weight[0].model} is the lightest starting point at ${weight[0].curbWeightKg} kg. The page still keeps seat height, power and braking context visible because low weight alone does not make a motorcycle beginner-safe.`;
   if(lower.includes("engine size alone"))return `Engine displacement is not a beginner-suitability score. Curb weight, seat height, throttle response, gearing, brakes, rider training and the roads you will use can matter more than the cc figure by itself.`;
   if(lower.includes("training matters"))return `A database shortlist cannot replace rider education. Practical training, emergency braking practice, low-speed control and a motorcycle you can confidently support at a stop should take priority over rank position.`;
-  if(lower.includes("lowest-priced 400cc"))return `${price[0].make} ${price[0].model} has the lowest observed starting price in the current 400cc+ set at ${observedMarketPriceLabel(price[0])}. This is a price distinction only, not a declaration of legal tollway access or overall value.`;
+  if(lower.includes("lowest-priced 400cc"))return `${price[0].make} ${price[0].model} has the lowest published starting price in the current 400cc+ set at ${observedMarketPriceLabel(price[0])}. This is a price distinction only, not a declaration of legal tollway access or overall value.`;
   if(lower.includes("lighter 400cc"))return `${weight[0].make} ${weight[0].model} is the lightest checked 400cc+ model here at ${weight[0].curbWeightKg} kg. Compare seat height, output and intended road use before treating low weight as an automatic advantage.`;
   if(lower.includes("expressway planning"))return `Treat 400cc+ as a research filter only. Before buying for tollway use, verify current rules, the exact unit's OR/CR classification and displacement entry, and any route-specific restrictions.`;
-  if(lower.includes("cheapest")||lower.includes("affordable"))return `${price[0].make} ${price[0].model} starts the checked set at ${observedMarketPriceLabel(price[0])}. Other low-price entries include ${modelNames(price.slice(1),3)||"no additional checked models"}. Separate utility/business motorcycles from scooters and underbones when the intended use differs.`;
+  if(lower.includes("cheapest")||lower.includes("affordable"))return `${price[0].make} ${price[0].model} starts the comparison at ${observedMarketPriceLabel(price[0])}. Other low-price entries include ${modelNames(price.slice(1),3)||"no additional checked models"}. Separate utility/business motorcycles from scooters and underbones when the intended use differs.`;
   if(lower.includes("lightest")||lower.includes("lightweight"))return `${weight[0].make} ${weight[0].model} is the lightest checked model here at ${weight[0].curbWeightKg} kg. Lower weight can help at parking and low speeds, but it does not settle rider fit by itself.`;
   if(lower.includes("lower seat")||lower.includes("lowest published seat")||lower.includes("low seat"))return `${seat[0].make} ${seat[0].model} has the lowest published seat in this set at ${seat[0].seatHeightMm} mm. Seat width, suspension sag and rider proportions still affect actual ground reach.`;
   if(lower.includes("largest engine")||lower.includes("largest-engine"))return `${engine[0].make} ${engine[0].model} has the largest recorded displacement in this set at ${engine[0].engineCc} cc. That is an engine-size distinction, not an overall quality score.`;
@@ -174,19 +174,19 @@ function sectionSummary(title:string,models:Motorcycle[]){
   if(lower.includes("abs"))return abs.length?`${abs.length} checked model${abs.length===1?"":"s"} here list ABS on at least one current configuration: ${modelNames(abs)}${abs.length>4?" and others":""}. The exact ABS wording and trim still need to be checked on the model page.`:"No checked model in this set currently records ABS on a verified configuration.";
   if(lower.includes("automatic"))return `${automatic.length} checked model${automatic.length===1?"":"s"} use an automatic transmission${automatic.length?`: ${modelNames(automatic)}`:""}. Compare weight and seat height alongside transmission type for stop-and-go use.`;
   if(lower.includes("manual"))return `${manual.length} checked model${manual.length===1?"":"s"} in this set are not recorded as automatic${manual.length?`: ${modelNames(manual)}`:""}. Use the full table for engine, weight and equipment differences.`;
-  if(lower.includes("scooter"))return scooters.length?`${scooters.length} scooter${scooters.length===1?"":"s"} qualify in this checked set: ${modelNames(scooters)}${scooters.length>4?" and others":""}. Compare price, engine, weight, seat height and equipment rather than assuming one scooter format suits everyone.`:"No current checked scooter qualifies for this section.";
+  if(lower.includes("scooter"))return scooters.length?`${scooters.length} scooter${scooters.length===1?"":"s"} qualify in this comparison: ${modelNames(scooters)}${scooters.length>4?" and others":""}. Compare price, engine, weight, seat height and equipment rather than assuming one scooter format suits everyone.`:"No current checked scooter qualifies for this section.";
   if(lower.includes("underbone"))return underbones.length?`${underbones.length} underbone${underbones.length===1?"":"s"} qualify here: ${modelNames(underbones)}${underbones.length>4?" and others":""}. The useful differences are price, output, weight, seat height, transmission and brakes.`:"No current checked underbone qualifies for this section.";
   if(lower.includes("what do you give up"))return `The records expose the trade-offs directly: ABS availability, engine size, transmission, tank capacity, curb weight and published fuel economy vary independently. A lower price does not imply the same compromise on every model.`;
-  if(lower.includes("city commuting"))return `For city use, start with the measurable constraint that matters most to you: observed price, curb weight, seat height, transmission or published fuel economy. Then use the individual model pages to verify dimensions, variants and current price sources.`;
+  if(lower.includes("city commuting"))return `For city use, start with the measurable constraint that matters most to you: published price, curb weight, seat height, transmission or published fuel economy. Then use the individual model pages to verify dimensions, variants and current price sources.`;
   if(lower.includes("size changes"))return `Scooter size changes several measurable things at once: curb weight, seat height, engine class and tank capacity. Those fields affect how much motorcycle you are moving and how often you may refuel, but they do not establish handling or comfort by themselves.`;
   if(lower.includes("seat height isn't")||lower.includes("seat height isn’t"))return `Published seat height is only one fit measure. Seat width, suspension sag, rider inseam, footwear and weight distribution can materially change how easy the motorcycle is to support at a stop.`;
   if(lower.includes("physical fit checklist"))return `Before buying, check whether you can put one foot down confidently, lift the motorcycle from its side stand, push it backward, turn it at walking speed and comfortably reach the bars and controls.`;
   if(lower.includes("cannot determine")||lower.includes("comfort"))return `The current structured fields do not objectively measure seat comfort after hours of riding, wind buffeting, vibration, luggage usability, passenger comfort or suspension quality. Use this page to shortlist measurable candidates, then verify those factors in person or with credible ride testing.`;
-  if(lower.includes("what changes"))return `Moving above ₱100K can change engine size, ABS availability, tank capacity, curb weight, power and equipment, but the exact trade-off is model-specific. The table is designed to show those record-backed differences instead of assuming higher price always buys the same upgrade.`;
+  if(lower.includes("what changes"))return `Moving above ₱100K can change engine size, ABS availability, tank capacity, curb weight, power and equipment, but the exact trade-off is model-specific. The table is designed to show those published differences instead of assuming higher price always buys the same upgrade.`;
   if(lower.includes("fuel economy vs"))return `Published km/L and tank capacity answer different questions. A motorcycle with higher km/L can still have a shorter theoretical fuel range than one with a larger tank, so compare both rather than treating efficiency and refueling frequency as the same thing.`;
   if(lower.includes("real-world fuel")||lower.includes("affects real-world"))return `Traffic, load, throttle use, speed, tire pressure, terrain and maintenance can all change real-world fuel consumption. Published figures are useful reference points, not guarantees.`;
   if(lower.includes("lightweight does not"))return `Low curb weight does not necessarily mean a small engine, low seat or compact dimensions. Compare weight with engine displacement, seat height and the model's category before drawing a fit or performance conclusion.`;
-  return `This section uses the same checked price, dimensions, engine and equipment records shown in the comparison table. Open an individual motorcycle page for its dated sources, variant notes and market-price checks.`;
+  return `${modelNames(price,3)} show the main price and specification trade-offs in this section. Use the comparison table to narrow the shortlist, then open the model page for the exact variant and source.`;
 }
 
 function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide){
@@ -205,7 +205,7 @@ function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide
     const rows=models.filter(m=>m.make.toLowerCase()===brandMatch&&m.transmission==="Automatic");
     return rows.length?`${rows.length} checked ${rows.length===1?"model qualifies":"models qualify"}: ${modelNames(rows,6)}. Use the table for price, weight and seat-height differences.`:`No current ${brandMatch[0].toUpperCase()+brandMatch.slice(1)} automatic model qualifies in this checked guide set.`;
   }
-  if(lower.includes("cheapest")||lower.includes("lowest observed"))return `${price[0].make} ${price[0].model} has the lowest observed starting price in this guide at ${observedMarketPriceLabel(price[0])}. Check its model page for dated price sources and variant notes.`;
+  if(lower.includes("cheapest")||lower.includes("lowest observed"))return `${price[0].make} ${price[0].model} has the lowest published starting price in this guide at ${observedMarketPriceLabel(price[0])}. Check its model page for dated price sources and variant notes.`;
   if(lower.includes("lowest seat"))return `${seat[0].make} ${seat[0].model} has the lowest published seat height in this guide at ${seat[0].seatHeightMm} mm. Published seat height alone does not guarantee rider fit.`;
   if(lower.includes("lightest"))return `${weight[0].make} ${weight[0].model} is the lightest checked model in this guide at ${weight[0].curbWeightKg} kg.`;
   if(lower.includes("best published fuel")||lower.includes("highest published fuel"))return economy.length?`${economy[0].make} ${economy[0].model} has the highest sourced published figure in this set at ${economy[0].fuelConsumptionKmL} km/L. Different test methods can limit direct real-world comparability.`:"No qualifying model currently has a checked published fuel-economy figure.";
@@ -233,13 +233,22 @@ function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide
   return `Use the checked comparison table and the explicit method for this guide: ${guide.orderingRule} ${guide.tieBreakers.length?`Tie-breaker: ${guide.tieBreakers.join(", ")}.`:""}`;
 }
 
+function friendlyRule(rule:string){
+  return rule
+    .replace("Current, indexable Philippine-market motorcycle record","Current Philippine-market motorcycle")
+    .replace(/Observed/g,"Published")
+    .replace(/observed/g,"published");
+}
+
 function decisionCards(guide:RecommendationGuide,models:Motorcycle[]){
-  return guide.quickPicks.slice(0,4).map(pick=>{
+  const seen = new Set<string>();
+  return guide.quickPicks.map(pick=>{
     const model=metricModel(models,pick.metric);
-    if(!model)return null;
+    if(!model || seen.has(model.id))return null;
+    seen.add(model.id);
     const prompt=pick.metric==="price"?"If keeping the starting price down matters most":pick.metric==="weight"?"If lower curb weight matters most":pick.metric==="seat"?"If published seat height is your main fit filter":pick.metric==="economy"?"If published fuel economy is your priority":pick.metric==="tank"?"If tank capacity is your priority":pick.metric==="power"?"If recorded power matters most":pick.metric==="range"?"If theoretical fuel range is your planning priority":"If engine size is your priority";
     return {prompt,model,detail:quickPickDetail(model,pick.metric)};
-  }).filter(Boolean) as {prompt:string;model:Motorcycle;detail:string}[];
+  }).filter(Boolean).slice(0,4) as {prompt:string;model:Motorcycle;detail:string}[];
 }
 
 export default async function RecommendationPage({params}:{params:Promise<{slug:string}>}){
@@ -254,6 +263,13 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
   const faqItems:FaqItem[]=guide.faqQuestions.map(question=>({question,answer:faqAnswer(question,models,guide)}));
   const related=guide.relatedGuideSlugs.map(relatedSlug=>recommendationGuides.find(g=>g.slug===relatedSlug)).filter((g):g is RecommendationGuide=>Boolean(g&&isIndexableRecommendation(g.slug)));
   const decisions=decisionCards(guide,models);
+  const quickPicks = guide.quickPicks
+    .map((pick)=>({pick,model:metricModel(models,pick.metric)}))
+    .filter((item)=>Boolean(item.model)) as {pick:RecommendationGuide["quickPicks"][number];model:Motorcycle}[];
+  const uniqueQuickPicks = quickPicks.filter((item,index,all)=>all.findIndex((other)=>other.model.id===item.model.id)===index);
+  const editorialSummaries = guide.editorialSections
+    .map((title)=>({title,summary:sectionSummary(title,models)}))
+    .filter((item,index,all)=>all.findIndex((other)=>other.summary===item.summary)===index);
   // Article + ItemList for the buying guides. dateModified uses the newest source
   // check across the models in the guide, so it reflects a real verification date
   // rather than a build timestamp. keywords carries the page title alongside the
@@ -298,52 +314,47 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
   return <section className="page shell">
     <Breadcrumbs items={[{label:"Buying guides",href:"/recommendations"},{label:guide.title}]} />
     <div className="page-head guide-page-head"><span className="guide-kicker">{guide.kicker}</span><h1>{guide.title}</h1></div>
-    <div className="guide-direct-answer"><p>{guide.directAnswer}</p><strong>We currently track {models.length} motorcycle{models.length===1?"":"s"} that meet this guide&apos;s criteria.</strong><small>Last specification check represented here: {lastSpecUpdated||"see individual model pages"}.</small></div>
-    {!isIndexableRecommendation(slug)&&<div className="note-box"><h2>Some entries need a fresh check</h2><p>Use the individual model pages for the latest source dates before making a purchase decision.</p></div>}
+    <div className="guide-direct-answer"><p>{guide.directAnswer}</p><strong>Compare {models.length} motorcycle{models.length===1?"":"s"} that match this guide.</strong></div>
+    {!isIndexableRecommendation(slug)&&<div className="note-box"><h2>Some entries need a fresh check</h2><p>Open the individual model pages before buying to confirm the latest price and exact variant.</p></div>}
 
     <div className="guide-quick-picks">
-      <div className="section-head compact"><div><h2>Quick picks</h2><p>Objective distinctions from the checked records. No “Best Overall” label is used without a defensible scoring model.</p></div></div>
-      <div className="guide-pick-grid">{guide.quickPicks.map(pick=>{const m=metricModel(models,pick.metric);return m?<Link key={`${pick.label}-${m.id}`} href={modelHref(m)}><span>{pick.label}</span><strong>{m.make} {m.model}</strong><small>{quickPickDetail(m,pick.metric)}</small></Link>:null})}</div>
+      <div className="section-head compact"><div><h2>Quick picks</h2><p>Useful shortcuts based on the prices and specifications in this comparison.</p></div></div>
+      <div className="guide-pick-grid">{uniqueQuickPicks.map(({pick,model:m})=><Link key={pick.label + "-" + m.id} href={modelHref(m)}><span>{pick.label}</span><strong>{m.make} {m.model}</strong><small>{quickPickDetail(m,pick.metric)}</small></Link>)}</div>
     </div>
 
-    <div className="section-head compact"><div><h2>Full comparison table</h2><p>Scroll horizontally on smaller screens. The order follows the methodology below, not a subjective overall score.</p></div></div>
-    <div className="guide-table-wrap" role="region" aria-label={`${guide.title} comparison table`} tabIndex={0}>
+    <div className="section-head compact"><div><h2>Full comparison table</h2><p>Compare price, engine, fit and equipment side by side. On smaller screens, swipe the table horizontally.</p></div></div>
+    <div className="guide-table-wrap" role="region" aria-label={guide.title + " comparison table"} tabIndex={0}>
       <table className="guide-comparison-table guide-comparison-table-wide">
-        <thead><tr><th scope="col">{guide.orderLabel}</th><th scope="col">Model</th>{guide.tableColumns.map(c=><th scope="col" key={c}>{label[c]}</th>)}<th scope="col" className="guide-why-col">Why it&apos;s here</th></tr></thead>
-        <tbody>{models.map((m,index)=><tr key={m.id}><td className="guide-order-cell">{index+1}</td><th scope="row"><Link href={modelHref(m)}>{m.make} {m.model}</Link></th>{guide.tableColumns.map(c=><td key={c}>{cell(m,c)}</td>)}<td className="guide-why-cell">{positionReason(guide,m,index)}</td></tr>)}</tbody>
+        <thead><tr><th scope="col">{guide.orderLabel}</th><th scope="col">Model</th>{guide.tableColumns.map(col=><th scope="col" key={col}>{label[col]}</th>)}<th scope="col" className="guide-why-col">Why it&apos;s here</th></tr></thead>
+        <tbody>{models.map((m,index)=><tr key={m.id}><td className="guide-order-cell">{index+1}</td><th scope="row"><Link href={modelHref(m)}>{m.make} {m.model}</Link></th>{guide.tableColumns.map(col=><td key={col}>{cell(m,col)}</td>)}<td className="guide-why-cell">{positionReason(guide,m,index)}</td></tr>)}</tbody>
       </table>
     </div>
 
     <section className="method-card guide-method guide-method-detailed">
-      <div><span>Methodology</span><h2>How we selected these motorcycles</h2><p>{guide.orderingRule}</p></div>
+      <div><span>How this guide works</span><h2>What qualifies for this comparison</h2><p>{friendlyRule(guide.orderingRule)}</p></div>
       <div className="guide-method-grid">
-        <div><strong>Inclusion rule</strong><ul>{guide.inclusionRules.map(rule=><li key={rule}>{rule}</li>)}</ul></div>
-        <div><strong>Tie-breaker</strong><ul>{guide.tieBreakers.map(rule=><li key={rule}>{rule}</li>)}</ul></div>
-        <div><strong>Data source policy</strong><p>{guide.sourcePolicy}</p></div>
-        <div><strong>Last updated</strong><p>Prices checked: {lastPriceUpdated||"see model pages"}<br/>Specifications checked: {lastSpecUpdated||"see model pages"}</p></div>
+        <div><strong>What qualifies</strong><ul>{guide.inclusionRules.map(rule=><li key={rule}>{friendlyRule(rule)}</li>)}</ul></div>
+        <div><strong>If two models tie</strong><ul>{guide.tieBreakers.map(rule=><li key={rule}>{rule}</li>)}</ul></div>
+        <div><strong>Prices and specs</strong><p>Prices and specifications come from the sources linked on each motorcycle page. Confirm the exact variant and current dealer quote before buying.</p></div>
+        <div><strong>Latest checks</strong><p>Prices: {lastPriceUpdated||"see model pages"}<br/>Specifications: {lastSpecUpdated||"see model pages"}</p></div>
       </div>
     </section>
 
-    <div className="section-head compact"><div><h2>Individual model analysis</h2><p>Each block explains the model&apos;s position, the measurable reason to consider it, the main competing priority, and a dated next step.</p></div></div>
+    <div className="section-head compact"><div><h2>Model-by-model breakdown</h2><p>See why each motorcycle appears here, who it suits, and the main tradeoff to consider.</p></div></div>
     <div className="guide-model-analysis-list">{models.map((m,index)=><GuideModelAnalysisCard key={m.id} model={m} orderLabel={guide.orderLabel} position={index+1} why={positionReason(guide,m,index)} consider={considerReason(guide,m)} alternative={alternativeReason(guide,m,models)} comparison={comparisonFor(m,models)}/>)}</div>
 
-    {guide.editorialSections.length>0&&<div className="guide-topic-grid">{guide.editorialSections.map(title=><article key={title}><h2>{title}</h2><p>{sectionSummary(title,models)}</p></article>)}</div>}
+    {editorialSummaries.length>0&&<div className="guide-topic-grid">{editorialSummaries.map(({title,summary})=><article key={title}><h2>{title}</h2><p>{summary}</p></article>)}</div>}
 
     <section className="guide-decision-section">
-      <div className="section-head compact"><div><h2>Which one should you choose?</h2><p>Start with the rider/use-case constraint that matters most, then verify the model and exact variant.</p></div></div>
-      <div className="guide-decision-grid">{decisions.map(({prompt,model,detail})=><article key={`${prompt}-${model.id}`}><span>{prompt}</span><h3>{model.make} {model.model}</h3><p>{detail}</p><Link href={modelHref(model)}>Check the model →</Link></article>)}</div>
+      <div className="section-head compact"><div><h2>Which one should you choose?</h2><p>Start with the budget, fit or use-case factor that matters most, then check the exact variant.</p></div></div>
+      <div className="guide-decision-grid">{decisions.map(({prompt,model,detail})=><article key={prompt + "-" + model.id}><span>{prompt}</span><h3>{model.make} {model.model}</h3><p>{detail}</p><Link href={modelHref(model)}>Check the model →</Link></article>)}</div>
     </section>
 
     <GuideOwnershipCost models={models} guideTitle={guide.title} />
-    <div className="note-box guide-caveat"><h2>Important caveats</h2><ul>{guide.caveats.map(caveat=><li key={caveat}>{caveat}</li>)}</ul></div>
+    <div className="note-box guide-caveat"><h2>Before you buy</h2><ul>{guide.caveats.map(caveat=><li key={caveat}>{caveat}</li>)}</ul></div>
     <JsonLd data={guideSchema} />
-    {faqItems.length>0&&<FaqSection title="Questions about this guide" items={faqItems}/>} 
+    {faqItems.length>0&&<FaqSection title="Questions about this guide" items={faqItems}/>}
 
-    {related.length>0&&<><div className="section-head compact"><div><h2>Related recommendation guides</h2><p>Continue into adjacent budgets, categories, fit filters and equipment-led guides.</p></div></div><div className="guide-related-grid">{related.map(g=><Link key={g.slug} href={`/recommendations/${g.slug}`}><strong>{g.title}</strong><small>{g.description}</small></Link>)}</div></>}
-
-    <section className="guide-data-foot guide-source-freshness">
-      <div><strong>Sources and freshness</strong><p>Prices checked: {lastPriceUpdated||"see individual model pages"}. Specifications checked: {lastSpecUpdated||"see individual model pages"}. MotoIndex keeps observed market prices separate from manufacturer specifications and does not manufacture subjective rankings where the data cannot support them.</p></div>
-      <details><summary>Model pages and source dates ({models.length})</summary><div className="guide-source-links">{models.map(m=><Link key={m.id} href={modelHref(m)}>{m.make} {m.model}<small>{m.sourceLabel} · specs {m.verifiedAt}{priceChecksForModel(m.id).length?` · ${priceChecksForModel(m.id).length} price check${priceChecksForModel(m.id).length===1?"":"s"}`:""}</small></Link>)}</div></details>
-    </section>
+    {related.length>0&&<><div className="section-head compact"><div><h2>Related motorcycle guides</h2><p>Compare nearby budgets, categories and rider-fit options.</p></div></div><div className="guide-related-grid">{related.map(g=><Link key={g.slug} href={"/recommendations/" + g.slug}><strong>{g.title}</strong><small>{g.description}</small></Link>)}</div></>}
   </section>;
-}
+}}
