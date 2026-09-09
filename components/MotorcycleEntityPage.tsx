@@ -231,7 +231,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <FinancingSnapshot modelName={`${model.make} ${model.model}`} price={range.from} />
         <div className="entity-tool-grid">
           <Link href={loanToolHref}><span>Loan scenario</span><strong>Standalone loan calculator</strong><small>Change price, down payment, term and rate with a shareable URL.</small></Link>
-          <Link href={insuranceToolHref}><span>Insurance</span><strong>Insurance estimate</strong><small>Prefill insured value from this model&apos;s price basis.</small></Link>
+          <Link href={insuranceToolHref}><span>Insurance</span><strong>Insurance estimate</strong><small>Prefill insured value from this model&apos;s published price.</small></Link>
           <Link href={registrationToolHref}><span>Registration</span><strong>LTO fee estimate</strong><small>Add editable registration, CTPL and assessed fees.</small></Link>
         </div>
       </section>}
