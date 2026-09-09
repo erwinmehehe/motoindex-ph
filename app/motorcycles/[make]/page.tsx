@@ -49,6 +49,30 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const families = modelFamilies.filter((f) => f.makeSlug === make && f.generationIds.length > 0 && f.generationIds.every((id) => publicIds.has(id)));
   const priority = getPhBrandPriority(make);
   const support = phBrandSupportFor(make);
+  const collectionLinks: Record<string, { label: string; href: string; note: string }[]> = {
+    honda: [
+      { label: "Honda scooters", href: "/recommendations/honda-scooters-philippines", note: "Compare current automatic Honda models" },
+      { label: "Honda ADV", href: "/recommendations/honda-adv-motorcycles-philippines", note: "ADV160, ADV350 and X-ADV comparison" },
+    ],
+    yamaha: [
+      { label: "Yamaha scooters", href: "/recommendations/yamaha-scooters-philippines", note: "Compare Yamaha automatic models" },
+      { label: "Yamaha Mio", href: "/recommendations/yamaha-mio-motorcycles-philippines", note: "Mio-family price and spec comparison" },
+    ],
+    suzuki: [
+      { label: "Suzuki Burgman", href: "/recommendations/suzuki-burgman-motorcycles-philippines", note: "Burgman Street, Street EX and 400" },
+      { label: "Suzuki Raider", href: "/recommendations/suzuki-raider-motorcycles-philippines", note: "Compare current Raider models" },
+    ],
+    kawasaki: [
+      { label: "Kawasaki Ninja", href: "/recommendations/kawasaki-ninja-motorcycles-philippines", note: "Compare the current Ninja range" },
+    ],
+    ktm: [
+      { label: "KTM Duke", href: "/recommendations/ktm-duke-motorcycles-philippines", note: "200, 390 and 790 Duke comparison" },
+    ],
+    cfmoto: [
+      { label: "CFMOTO SR", href: "/recommendations/cfmoto-sr-motorcycles-philippines", note: "300SR, 450SR and 675SR-R comparison" },
+    ],
+  };
+  const collections = collectionLinks[make] || [];
 
   if (!publicModels.length) {
     return <section className="page shell"><Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} /><div className="page-head"><h1>{brand} motorcycles in the Philippines</h1><p>Model data is being checked before publication.</p></div><div className="note-box"><h2>{brand} model data is being updated</h2><p>Current prices and specifications still need checking before this list is published.</p></div></section>;
@@ -157,6 +181,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       </section>}
 
       {families.length > 0 && <div className="guide-strip ph-brand-families">{families.map((f) => <Link key={f.slug} href={`/motorcycles/${f.makeSlug}/${f.slug}`}><span>Model family</span><strong>{f.make} {f.name}</strong><small>Compare generations</small></Link>)}</div>}
+      {collections.length > 0 && <div className="guide-strip ph-brand-families">{collections.map((item) => <Link key={item.href} href={item.href}><span>Popular collection</span><strong>{item.label}</strong><small>{item.note}</small></Link>)}</div>}
 
       <section id="models" className={`ph-brand-section ph-brand-models-section${current.length <= 2 ? " is-sparse" : ""}`}>
         <div className="section-head compact"><div><span className="section-kicker">Current model research</span><h2>Compare {brand} motorcycles</h2><p>{current.length <= 2 ? `Compare the ${current.length} verified ${brand} ${current.length === 1 ? "model" : "models"} currently covered with Philippine price and specification sources.` : `Compare ${current.length} ${brand} models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`}</p></div></div>
