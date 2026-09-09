@@ -12,7 +12,7 @@ import { articleSchema } from "@/lib/articleSchema";
 import { RelatedLinks } from "@/components/RelatedLinks";
 import { helmetBrandInternalLinks } from "@/lib/internalLinks";
 import { pageMetadata } from "@/lib/site";
-import { getHelmetBrandLineup, helmetModelSlug } from "@/lib/helmetBrandLineups";
+import { getHelmetBrandLineup, helmetCatalogCanonicalSlug } from "@/lib/helmetBrandLineups";
 import { HelmetBrandGuide } from "@/components/HelmetBrandGuide";
 
 export function generateStaticParams(){return helmetBrands.map(h=>({brand:h.slug}));}
@@ -36,12 +36,12 @@ export default async function HelmetBrandPage({params}:{params:Promise<{brand:st
   const verified=products.filter(p=>p.status==="verified").sort((a,b)=>(a.priceFromPhp??Number.MAX_SAFE_INTEGER)-(b.priceFromPhp??Number.MAX_SAFE_INTEGER)||a.model.localeCompare(b.model));
   const types=[...new Set(verified.map(p=>p.helmetType))];
   const latestChecked=verified.map(p=>p.lastChecked).filter((v):v is string=>Boolean(v)).sort().at(-1);
-  const verifiedNames=new Set(verified.map(p=>p.model.toLowerCase()));
-  const lineupModels=(lineup?.models||[]).filter(model=>!verifiedNames.has(model.toLowerCase()));
+  const verifiedSlugs=new Set(verified.map(p=>p.slug));
+  const lineupModels=(lineup?.models||[]).filter(model=>!verifiedSlugs.has(helmetCatalogCanonicalSlug(h.slug, model)));
   const trackedCount=verified.length+lineupModels.length;
   const faqs: FaqItem[]=[
-    {question:`How much is a ${h.brand} helmet in the Philippines?`,answer:minPrice&&maxPrice?`The ${h.brand} models in this guide have starting prices from ${php(minPrice)} to ${php(maxPrice)}. The exact price can change by graphic, visor bundle, size and seller, so open the source on the individual model before buying.`:`MotoIndex does not yet have enough priced ${h.brand} models for a useful range. Open the model pages for the available details.`},
-    {question:`What types of ${h.brand} helmets are in the MotoIndex catalog?`,answer:types.length?`The ${h.brand} models with full MotoIndex product pages cover ${types.join(", ")}. The brand may sell other models that do not yet have full MotoIndex product pages.`:`MotoIndex is still adding full ${h.brand} product pages.`},
+    {question:`How much is a ${h.brand} helmet in the Philippines?`,answer:minPrice&&maxPrice?`The ${h.brand} models in this guide have starting prices from ${php(minPrice)} to ${php(maxPrice)}. The exact price can change by graphic, visor bundle, size and seller, so open the source on the individual model before buying.`:`There are not enough priced ${h.brand} models yet for a useful range. Open the available model pages for current details.`},
+    {question:`What types of ${h.brand} helmets are covered here?`,answer:types.length?`The detailed ${h.brand} pages currently cover ${types.join(", ")}. The brand may sell other helmet types or models that are still being researched.`:`Detailed ${h.brand} product pages are still being added.`},
     {question:`Are ${h.brand} helmets certified for use in the Philippines?`,answer:`Certification can vary by model and market. Check the PS or ICC mark and the certification label on the actual ${h.brand} helmet offered in the Philippines.`},
     {question:`How should I choose a ${h.brand} helmet size?`,answer:"Use the manufacturer size chart for the exact model, measure head circumference as instructed, and try the helmet on when possible. A brand-level size label does not guarantee the same internal fit across different helmet models."}
   ];
@@ -58,12 +58,12 @@ export default async function HelmetBrandPage({params}:{params:Promise<{brand:st
     <div className="page-head helmet-brand-head"><h1>{h.brand} helmet prices and models in the Philippines</h1><p>Compare {h.brand} helmet types, sizes, features and recent listed prices. Availability can change by size, graphic and seller, so use each model page as a starting point and check the actual helmet before buying.</p><div className="brand-facts"><div><span>Models tracked</span><strong>{trackedCount}</strong></div><div><span>Detailed models</span><strong>{verifiedCount}</strong></div><div><span>Types covered</span><strong>{types.length?types.join(" · "):"Researching"}</strong></div><div><span>Listed prices</span><strong>{minPrice&&maxPrice?(minPrice===maxPrice?php(minPrice):`${php(minPrice)}–${php(maxPrice)}`):"Not enough data"}</strong></div>{latestChecked&&<div><span>Updated</span><strong>{latestChecked}</strong></div>}</div></div>
 
     {verified.length?<>
-      <div className="section-head inline-head"><div><h2>{h.brand} models with detailed MotoIndex pages</h2><p>Open a model for price, fit, visor, shell and certification notes, plus the product information used for the page.</p></div></div>
+      <div className="section-head inline-head"><div><h2>{h.brand} models with detailed pages</h2><p>Open a model for price, fit, visor, shell and certification notes, plus the product information used for the page.</p></div></div>
       <div className="product-grid">{verified.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:p.helmetType,brand:p.brand,model:p.model,meta:[p.certification,p.shell].filter(Boolean).join(" · ")||p.visor,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</div>
 
       {lineup && lineupModels.length>0 && <section className="brand-lineup section" aria-labelledby="brand-lineup-title">
         <div className="section-head compact"><div><h2 id="brand-lineup-title">More {h.brand} models in current catalogs ({lineupModels.length})</h2><p>These are additional real model or family names from the cited brand or Philippine retail catalog. They stay visible here while MotoIndex finishes the model-specific price, fit, visor, shell and certification checks needed for a full detail page.</p></div></div>
-        <div className="brand-lineup-grid">{lineupModels.map(model=><Link className="brand-lineup-card" href={`/gear/helmets/${h.slug}/${helmetModelSlug(model)}`} key={model}><strong>{model}</strong><span>Open model page →</span></Link>)}</div>
+        <div className="brand-lineup-grid">{lineupModels.map(model=><Link className="brand-lineup-card" href={`/gear/helmets/${h.slug}/${helmetCatalogCanonicalSlug(h.slug, model)}`} key={model}><strong>{model}</strong><span>Open model page →</span></Link>)}</div>
         {lineup.note&&<p className="muted-copy">{lineup.note}</p>}
         <p className="brand-lineup-source"><a href={lineup.sourceUrl} target="_blank" rel="noreferrer">View {lineup.sourceLabel} ↗</a> <small>Checked {lineup.checkedAt}</small></p>
       </section>}

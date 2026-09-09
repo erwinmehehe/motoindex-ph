@@ -1,8 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getHelmetProduct, helmetProducts } from "@/lib/catalog";
-import { getHelmetCatalogModel, helmetCatalogModels } from "@/lib/helmetBrandLineups";
+import { getHelmetCatalogModel, helmetCatalogModels, helmetCatalogAliasTarget } from "@/lib/helmetBrandLineups";
 import { HelmetCatalogModelPage } from "@/components/HelmetCatalogModelPage";
 import { php } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -71,6 +71,8 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
   const { brand, product } = await params;
   const p = getHelmetProduct(brand, product);
   if (!p) {
+    const aliasTarget = helmetCatalogAliasTarget(brand, product);
+    if (aliasTarget) redirect(`/gear/helmets/${brand}/${aliasTarget}`);
     const catalog = getHelmetCatalogModel(brand, product);
     if (!catalog) return notFound();
     return <HelmetCatalogModelPage item={catalog} />;

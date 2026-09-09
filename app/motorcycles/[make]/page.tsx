@@ -49,6 +49,30 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const families = modelFamilies.filter((f) => f.makeSlug === make && f.generationIds.length > 0 && f.generationIds.every((id) => publicIds.has(id)));
   const priority = getPhBrandPriority(make);
   const support = phBrandSupportFor(make);
+  const collectionLinks: Record<string, { label: string; href: string; note: string }[]> = {
+    honda: [
+      { label: "Honda scooters", href: "/recommendations/honda-scooters-philippines", note: "Compare current automatic Honda models" },
+      { label: "Honda ADV", href: "/recommendations/honda-adv-motorcycles-philippines", note: "ADV160, ADV350 and X-ADV comparison" },
+    ],
+    yamaha: [
+      { label: "Yamaha scooters", href: "/recommendations/yamaha-scooters-philippines", note: "Compare Yamaha automatic models" },
+      { label: "Yamaha Mio", href: "/recommendations/yamaha-mio-motorcycles-philippines", note: "Mio-family price and spec comparison" },
+    ],
+    suzuki: [
+      { label: "Suzuki Burgman", href: "/recommendations/suzuki-burgman-motorcycles-philippines", note: "Burgman Street, Street EX and 400" },
+      { label: "Suzuki Raider", href: "/recommendations/suzuki-raider-motorcycles-philippines", note: "Compare current Raider models" },
+    ],
+    kawasaki: [
+      { label: "Kawasaki Ninja", href: "/recommendations/kawasaki-ninja-motorcycles-philippines", note: "Compare the current Ninja range" },
+    ],
+    ktm: [
+      { label: "KTM Duke", href: "/recommendations/ktm-duke-motorcycles-philippines", note: "200, 390 and 790 Duke comparison" },
+    ],
+    cfmoto: [
+      { label: "CFMOTO SR", href: "/recommendations/cfmoto-sr-motorcycles-philippines", note: "300SR, 450SR and 675SR-R comparison" },
+    ],
+  };
+  const collections = collectionLinks[make] || [];
 
   if (!publicModels.length) {
     return <section className="page shell"><Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} /><div className="page-head"><h1>{brand} motorcycles in the Philippines</h1><p>Model data is being checked before publication.</p></div><div className="note-box"><h2>{brand} model data is being updated</h2><p>Current prices and specifications still need checking before this list is published.</p></div></section>;
@@ -71,11 +95,11 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const faq = [
     {
       question: `Is this the complete ${brand} motorcycle lineup in the Philippines?`,
-      answer: `No. This page includes only the ${brand} models for which MotoIndex has a dated Philippine price/specification source and enough decision data to publish responsibly. ${current.length} current ${brand} ${current.length === 1 ? "model is" : "models are"} covered here today; the real Philippine lineup may be broader.`
+      answer: `Not necessarily. This page includes ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} with checked Philippine price and specification sources. The full manufacturer lineup can be broader and can change over time.`
     },
     {
-      question: `How many ${brand} motorcycles does MotoIndex currently track in the Philippines?`,
-      answer: `MotoIndex currently covers ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} on this Philippines brand page${previous.length ? `, plus ${previous.length} previous-generation reference ${previous.length === 1 ? "model" : "models"}` : ""}. Additional models are added after their Philippine price and core specifications are verified.`
+      question: `How many ${brand} motorcycles are covered on this page?`,
+      answer: `There are ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} covered here${previous.length ? `, plus ${previous.length} previous-generation ${previous.length === 1 ? "model" : "models"} kept for reference` : ""}.`
     },
     {
       question: `How much are ${brand} motorcycles in the Philippines?`,
@@ -87,7 +111,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     },
     {
       question: `Are these ${brand} prices official dealer quotes?`,
-      answer: `No. MotoIndex treats prices as dated reference points, not guaranteed transaction quotes. Each model page shows its source and verification date so buyers can recheck the current Philippine offer.`
+      answer: `No. The prices are dated reference points, not guaranteed transaction quotes. Open a model page to see the source date, then confirm the current cash price, fees and promotions with the seller.`
     }
   ];
 
@@ -157,6 +181,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       </section>}
 
       {families.length > 0 && <div className="guide-strip ph-brand-families">{families.map((f) => <Link key={f.slug} href={`/motorcycles/${f.makeSlug}/${f.slug}`}><span>Model family</span><strong>{f.make} {f.name}</strong><small>Compare generations</small></Link>)}</div>}
+      {collections.length > 0 && <div className="guide-strip ph-brand-families">{collections.map((item) => <Link key={item.href} href={item.href}><span>Popular collection</span><strong>{item.label}</strong><small>{item.note}</small></Link>)}</div>}
 
       <section id="models" className={`ph-brand-section ph-brand-models-section${current.length <= 2 ? " is-sparse" : ""}`}>
         <div className="section-head compact"><div><span className="section-kicker">Current model research</span><h2>Compare {brand} motorcycles</h2><p>{current.length <= 2 ? `Compare the ${current.length} verified ${brand} ${current.length === 1 ? "model" : "models"} currently covered with Philippine price and specification sources.` : `Compare ${current.length} ${brand} models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`}</p></div></div>
@@ -191,7 +216,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       </section>}
 
       <section id="research" className="ph-brand-section">
-        <div className="section-head compact"><div><span className="section-kicker">How to use the data</span><h2>Before choosing a {brand} motorcycle</h2><p>MotoIndex keeps dated price references and specifications visible so you can compare models without treating the page as a dealer quote or a complete manufacturer catalog.</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">How to use the data</span><h2>Before choosing a {brand} motorcycle</h2><p>Dated price references and specifications stay visible so you can compare models without treating the page as a guaranteed dealer quote or a complete manufacturer catalog.</p></div></div>
         <div className="ph-brand-method-grid"><article><span>01</span><h3>Check the price date</h3><p>Prices are dated reference points. Open the model page to see the source and confirm the current cash price, fees and variant with the seller.</p></article><article><span>02</span><h3>Compare fit and use</h3><p>Engine size, seat height, weight, transmission and tire data help narrow the shortlist, but actual rider fit and comfort still need an in-person check.</p></article><article><span>03</span><h3>Confirm local support</h3><p>Dealer reach, parts, service intervals and warranty support matter after purchase. Use the official brand resources linked on this page when available.</p></article></div>
       </section>
 

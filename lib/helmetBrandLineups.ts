@@ -54,11 +54,28 @@ export function helmetModelSlug(model: string) {
     .replace(/^-+|-+$/g, "");
 }
 
+const helmetCatalogAliases: Record<string, string> = {
+  "spyder:icon": "neo-icon",
+  "spyder:blade": "neo-blade",
+  "spyder:ace": "neo-ace",
+  "spyder:recon-2": "recon-2-plain-a",
+  "spyder:recon-2-0": "recon-2-plain-a",
+};
+
+export function helmetCatalogAliasTarget(brandSlug: string, slug: string) {
+  return helmetCatalogAliases[`${brandSlug}:${slug}`];
+}
+
+export function helmetCatalogCanonicalSlug(brandSlug: string, model: string) {
+  const slug = helmetModelSlug(model);
+  return helmetCatalogAliasTarget(brandSlug, slug) || slug;
+}
+
 export const helmetCatalogModels: HelmetCatalogModel[] = helmetBrandLineups.flatMap((lineup) =>
   lineup.models.map((model) => ({
     brandSlug: lineup.brandSlug,
     model,
-    slug: helmetModelSlug(model),
+    slug: helmetCatalogCanonicalSlug(lineup.brandSlug, model),
     sourceLabel: lineup.sourceLabel,
     sourceUrl: lineup.sourceUrl,
     checkedAt: lineup.checkedAt,
