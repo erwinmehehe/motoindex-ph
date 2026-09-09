@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AuthorBox } from "@/components/AuthorBox";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
@@ -24,78 +25,74 @@ export function HelmetCatalogModelPage({ item }: { item: HelmetCatalogModel }) {
     url: absoluteUrl(canonicalPath),
     brand: { "@type": "Brand", name: brandName },
     category: "Motorcycle helmet",
-    description: `${brandName} ${item.model} is a current catalog model tracked by MotoIndex while model-specific Philippine price, fit, visor, shell and certification details are being completed.`,
+    description: `${brandName} ${item.model} helmet guide for Philippine buyers with model identity, catalog source, sizing, certification, visor and purchase checks.`,
   };
 
   const faqs = [
     {
-      question: `Is the ${brandName} ${item.model} a real helmet model?`,
-      answer: `Yes. MotoIndex tracks ${item.model} from the cited current ${brandName} brand or Philippine retail catalog. This page separates that confirmed model identity from details that still need exact model-specific verification.`,
+      question: `Is the ${brandName} ${item.model} a current helmet model?`,
+      answer: `The ${brandName} ${item.model} appears in the current brand or Philippine retail catalog source linked on this page. Availability can still differ by seller, size and graphic.`,
     },
     {
       question: `How much is the ${brandName} ${item.model} in the Philippines?`,
-      answer: "MotoIndex does not publish a price here until a current model-specific Philippine price source is checked. Seller prices can also vary by size, graphic, visor package and promotion.",
+      answer: "The final price depends on the seller, size, graphic, visor package and current promotion. Check a current Philippine seller for the exact version you plan to buy rather than using a price from another helmet in the same family.",
     },
     {
       question: `Is the ${brandName} ${item.model} certified for Philippine use?`,
-      answer: "Check the conformity marking and certification label on the exact local unit. A brand-level catalog reference is not enough to confirm the certification of a specific helmet sold by a specific seller.",
+      answer: "Check the certification label and the PS or ICC conformity marking on the exact helmet offered locally. Do not assume a certification from another market or another model applies to the unit in front of you.",
+    },
+    {
+      question: `How do I choose the right ${brandName} ${item.model} size?`,
+      answer: "Measure your head using the helmet maker's method and use the size chart for this exact model. Try the helmet on when possible because shell shape and cheek-pad thickness can differ even within one brand.",
     },
   ];
 
-  return <section className="page shell product-entity-page">
+  return <section className="page shell product-entity-page helmet-model-guide-page">
     <Breadcrumbs items={[
       { label: "Helmets", href: "/gear/helmets" },
       { label: brandName, href: `/gear/helmets/${item.brandSlug}` },
       { label: item.model },
     ]} />
 
-    <div className="page-head">
-      <span className="entity-kicker">Current catalog model · checked {item.checkedAt}</span>
-      <h1>{brandName} {item.model} helmet</h1>
-      <p>{item.model} is listed in the current {brandName} catalog source tracked by MotoIndex. The model page is live now so riders can navigate to the exact helmet instead of hitting a dead catalog card while price, shell, visor, sizing and certification details are verified.</p>
+    <div className="page-head helmet-model-guide-head">
+      <span className="entity-kicker">{brandName} helmet guide</span>
+      <h1>{brandName} {item.model} helmet: price, fit and buying guide</h1>
+      <p>Use this guide to check the exact {item.model} model before buying, including the current seller price, size chart, local certification marking, visor compatibility and replacement-parts availability.</p>
       <div className="hero-actions">
-        <Link className="button" href={`/gear/helmets/${item.brandSlug}`}>Back to {brandName} helmets</Link>
-        <Link className="button secondary" href="/gear/helmets/finder">Open helmet finder</Link>
+        <Link className="button" href={`/gear/helmets/${item.brandSlug}`}>All {brandName} helmets</Link>
+        <Link className="button secondary" href="/gear/helmets/finder">Compare helmet options</Link>
       </div>
     </div>
 
-    <div className="entity-price-grid">
-      <article><span>Catalog status</span><strong>Model identity confirmed</strong><small>Listed in the checked current catalog source.</small></article>
-      <article><span>Philippine price</span><strong>Verification in progress</strong><small>No price is invented from a family or unrelated graphic.</small></article>
-      <article><span>Detailed specification</span><strong>Verification in progress</strong><small>Exact shell, visor, sizing and certification stay model-specific.</small></article>
+    <div className="entity-price-grid helmet-model-buying-facts">
+      <article><span>Model</span><strong>{brandName} {item.model}</strong><small>Listed in the linked current catalog reference.</small></article>
+      <article><span>Price</span><strong>Check current seller</strong><small>Match the exact size, color or graphic and included visor.</small></article>
+      <article><span>Fit</span><strong>Use the exact size chart</strong><small>Brand-level sizing is not a substitute for model-specific fit.</small></article>
+      <article><span>Local compliance</span><strong>Check PS / ICC marking</strong><small>Inspect the actual helmet offered in the Philippines.</small></article>
     </div>
 
     <section className="product-entity-section">
-      <div className="section-head compact"><div><h2>What MotoIndex has confirmed</h2><p>This page distinguishes a confirmed catalog model name from product details that still need a stronger exact-model source.</p></div></div>
-      <div className="entity-spec-table">
-        <div><span>Brand</span><strong>{brandName}</strong></div>
-        <div><span>Model / family</span><strong>{item.model}</strong></div>
-        <div><span>Catalog checked</span><strong>{item.checkedAt}</strong></div>
-        <div><span>Detail-page status</span><strong>Source expansion in progress</strong></div>
-      </div>
-    </section>
-
-    <section className="product-entity-section">
-      <div className="section-head compact"><div><h2>What to verify before buying</h2><p>Use the exact unit and exact model-specific source instead of assuming every helmet in one brand shares the same specification.</p></div></div>
+      <div className="section-head compact"><div><h2>What to check on the {brandName} {item.model}</h2><p>These checks matter more than assuming details from another helmet in the same brand.</p></div></div>
       <div className="topic-grid">
-        <article><h3>Fit and size chart</h3><p>Measure your head and use the size chart for this exact model. Shell shape can differ between models from the same brand.</p></article>
-        <article><h3>Certification and PH marking</h3><p>Inspect the certification label plus the PS or ICC conformity marking on the actual helmet offered locally.</p></article>
-        <article><h3>Visor and replacement parts</h3><p>Match replacement shields, Pinlock inserts and mechanisms to this exact helmet model before ordering.</p></article>
-        <article><h3>Price and variant</h3><p>Compare the exact size, color or graphic and included visor bundle. A family name alone is not a reliable price reference.</p></article>
+        <article><h3>Fit and size chart</h3><p>Measure the widest part of your head and use the manufacturer chart for the {item.model}. Confirm cheek-pad pressure, forehead comfort and movement before paying.</p></article>
+        <article><h3>Certification and PH marking</h3><p>Read the certification label on the actual unit and look for the required PS or ICC conformity marking for helmets sold locally.</p></article>
+        <article><h3>Visor and replacement parts</h3><p>Confirm the shield code, Pinlock compatibility, visor mechanism and replacement-liner availability for this exact model before ordering accessories.</p></article>
+        <article><h3>Price and variant</h3><p>Compare the same size, color or graphic across sellers. Replica graphics, bundled visors and promotions can change the asking price without changing the base model.</p></article>
       </div>
     </section>
 
     <section className="product-entity-section">
-      <div className="note-box">
-        <h2>Catalog source</h2>
+      <div className="section-head compact"><div><h2>{brandName} {item.model} catalog reference</h2><p>Use the original catalog reference to confirm the model name and current range, then check the exact local helmet before purchase.</p></div></div>
+      <div className="source-panel verified">
+        <span>Model source</span>
         <p>{item.sourceLabel}</p>
         <SourceRef url={item.sourceUrl} label="Open catalog source" />
-        <small>Checked {item.checkedAt}. {item.note || "MotoIndex will replace catalog-only fields with exact model-specific data as stronger sources are verified."}</small>
+        <small>Catalog checked {item.checkedAt}.</small>
       </div>
     </section>
 
     {detailed.length > 0 && <section className="product-entity-section">
-      <div className="section-head compact"><div><h2>Detailed {brandName} helmet pages</h2><p>These models already have model-specific product records and can be used for a more complete price and specification comparison.</p></div></div>
+      <div className="section-head compact"><div><h2>Compare other {brandName} helmets</h2><p>These {brandName} models have additional price and specification details for side-by-side shopping.</p></div></div>
       <div className="product-grid">{detailed.map((product) => <ProductCard key={product.id} item={{
         entityId: product.id,
         href: `/gear/helmets/${product.brandSlug}/${product.slug}`,
@@ -108,7 +105,8 @@ export function HelmetCatalogModelPage({ item }: { item: HelmetCatalogModel }) {
       }} />)}</div>
     </section>}
 
-    <section className="product-entity-section"><FaqSection title={`${brandName} ${item.model} questions`} items={faqs} /></section>
+    <section className="product-entity-section"><FaqSection title={`${brandName} ${item.model} buying questions`} items={faqs} /></section>
+    <AuthorBox />
     <JsonLd data={schema} />
   </section>;
 }
