@@ -6,7 +6,6 @@ import { RELEASE_DATE, SITE_URL } from "@/lib/site";
 import { ownershipGuides } from "@/lib/ownershipGuides";
 import { commuteGuides, isIndexableCommuteGuide } from "@/lib/commute";
 import { tireFamilyHubs, tireSizeSeoHubs, isIndexableTireSizeSeoHub } from "@/lib/tireSeo";
-import { maintenanceSeoTopics } from "@/lib/maintenanceSeo";
 import { editorialGuides } from "@/lib/editorialGuides";
 import { helmetSeoComparisons, isIndexableHelmetSeoComparison } from "@/lib/helmetSeoComparisons";
 import { electricMotorcycles } from "@/lib/electricMotorcycles";
@@ -30,9 +29,8 @@ export function coreSitemapEntries(): Entry[] {
   const ownership = ownershipGuides.map(g=>({url:`${SITE_URL}/ownership/${g.slug}`,lastModified:g.lastChecked,changeFrequency:"yearly" as const,priority:.64}));
   const editorial = editorialGuides.map(g=>({url:`${SITE_URL}/guides/${g.slug}`,lastModified:g.lastChecked,changeFrequency:"monthly" as const,priority:.72}));
   const commute = commuteGuides.filter(g=>isIndexableCommuteGuide(g.slug)).map(g=>({url:`${SITE_URL}/commute/${g.slug}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority:.76}));
-  const maintenanceTopics = maintenanceSeoTopics.map(topic=>({url:`${SITE_URL}/maintenance/${topic.slug}`,lastModified:topic.lastChecked,changeFrequency:"monthly" as const,priority: topic.volume >= 1000 ? .76 : .7}));
   const comps = comparisons.filter(c=>isIndexableComparison(c.slug)).map(c=>{const ms=motorcycles.filter(m=>m.id===c.a||m.id===c.b);return {url:`${SITE_URL}/compare/${c.slug}`,lastModified:newest(ms.map(m=>m.verifiedAt)),changeFrequency:"monthly" as const,priority:.74};});
-  return [...staticPaths.map(([path,priority])=>({url:`${SITE_URL}${path==="/"?"":path}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority})),...editorial,...commute,...maintenanceTopics,...ownership,...comps];
+  return [...staticPaths.map(([path,priority])=>({url:`${SITE_URL}${path==="/"?"":path}`,lastModified:RELEASE_DATE,changeFrequency:"monthly" as const,priority})),...editorial,...commute,...ownership,...comps];
 }
 
 export function motorcycleSitemapEntries(): Entry[] {
