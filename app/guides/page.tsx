@@ -53,7 +53,7 @@ export default function GuidesPage() {
       <article><h2>Charging-cost calculator</h2><p>Estimate a full charge, cost per 100 km and monthly electricity use from your own rate and riding distance.</p><div className="topic-action"><Link href="/tools/electric-motorcycle-charging-cost">Calculate charging cost →</Link></div></article>
       <article><h2>Helmet Finder</h2><p>Filter verified helmet models by format, price, size and equipment.</p><div className="topic-action"><Link href="/gear/helmets/finder">Find a helmet →</Link></div></article>
       <article><h2>Motorcycle buying guides</h2><p>Compare current motorcycles by budget, seat height, category and riding use.</p><div className="topic-action"><Link href="/recommendations">Browse recommendations →</Link></div></article>
-      <article><h2>Maintenance guides</h2><p>Use source-backed service information and model-specific ownership checks where available.</p><div className="topic-action"><Link href="/maintenance">Browse maintenance →</Link></div></article>
+      <article><h2>Maintenance guides</h2><p>Find practical service information and ownership checks for your motorcycle.</p><div className="topic-action"><Link href="/maintenance">Browse maintenance →</Link></div></article>
     </div>
   </section>;
 }
