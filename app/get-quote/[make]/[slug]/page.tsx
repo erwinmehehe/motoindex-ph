@@ -6,6 +6,7 @@ import { getModel, motorcycles, isIndexableModel } from "@/lib/data";
 import { pageMetadata } from "@/lib/site";
 import { LeadForm } from "@/components/LeadForm";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
+import { publicSellersByType } from "@/lib/sellers";
 
 export function generateStaticParams(){return motorcycles.filter(m=>m.marketStatus!=="previous"&&m.marketStatus!=="discontinued").map(m=>({make:m.makeSlug,slug:m.slug}));}
 
@@ -15,7 +16,7 @@ export async function generateMetadata({params}:{params:Promise<{make:string;slu
     title:`${m.make} ${m.model} Dealer Price & Quote Philippines`,
     description:`Request the latest ${m.make} ${m.model} cash or installment price from verified motorcycle dealers serving your area in the Philippines.`,
     path:`/get-quote/${m.makeSlug}/${m.slug}`,
-    index:isIndexableModel(m) && m.marketStatus!=="previous" && m.marketStatus!=="discontinued"
+    index:isIndexableModel(m) && m.marketStatus!=="previous" && m.marketStatus!=="discontinued" && publicSellersByType("dealer").some(seller=>seller.brands.some(brand=>brand.toLowerCase()===m.make.toLowerCase()))
   });
 }
 
