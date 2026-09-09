@@ -143,8 +143,9 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
               <small>{isPrevious ? "Historical context — not a current new-bike quote." : `Price checked ${model.marketPriceCheckedAt || model.verifiedAt}. Final dealer pricing can vary.`}</small>
             </div>
             <div className="hero-actions entity-hero-actions">
-              <a className="button" href={isPrevious ? "#used" : "#installment"}>{isPrevious ? "Check used value" : "Estimate monthly"}</a>
-              <a className="button ghost on-light" href="#price">See price sources</a>
+              {!isPrevious && !availabilityUncertain && <Link className="button" href={`/get-quote/${model.makeSlug}/${model.slug}`}>Get dealer price</Link>}
+              <a className={isPrevious ? "button" : "button ghost on-light"} href={isPrevious ? "#used" : "#installment"}>{isPrevious ? "Check used value" : "Estimate monthly"}</a>
+              <a className="button ghost on-light" href="#price">See prices</a>
               <CompareButton modelId={model.id} />
               <SaveToShortlistButton modelId={model.id} />
             </div>
@@ -222,6 +223,10 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         {!isPrevious && <VariantMatrix model={model} />}
         {!isPrevious && <PriceIntelligence model={model} />}
         {!isPrevious && <MarketPriceChecks model={model} />}
+        {!isPrevious && !availabilityUncertain && <div className="entity-tool-grid">
+          <Link href={`/get-quote/${model.makeSlug}/${model.slug}`}><span>Dealer quote</span><strong>Get the latest dealer price</strong><small>Request a current cash or installment quote for your city or province.</small></Link>
+          <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/dealers`}><span>Dealers</span><strong>Find {model.make} dealer options</strong><small>Browse verified dealer records and local coverage when available.</small></Link>
+        </div>}
         {isPrevious && <div className="note-box compact-note"><h3>Do not use the launch SRP as today&apos;s used-bike value</h3><p>Condition, year, mileage, registration, service history, modifications and location can move the actual used price materially.</p></div>}
       </section>
 
