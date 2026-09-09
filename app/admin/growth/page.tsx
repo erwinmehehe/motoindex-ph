@@ -17,24 +17,38 @@ export default async function GrowthDashboard(){
 
   let metrics={
     leads7:0,leads30:0,matched30:0,contacted30:0,closed30:0,
-    handoffs30:0,opened30:0,quotes30:0,
+    handoffs30:0,opened30:0,quotes30:0,overdueHandoffs:0,undeliverableLeads:0,
     applications30:0,approvedApplications30:0,verifiedDealers:0,
     activeAffiliateLinks:0,affiliateClicks7:0,affiliateClicks30:0,
     offerClicks30:0
   };
   let topProducts:ProductClick[]=[];
   let topLeadModels:{label:string;count:number}[]=[];
+  let overdueHandoffs:{sellerName:string;modelLabel:string;buyerName:string;sharedAt:Date;hoursOpen:number}[]=[];
 
   if(configured){
     try{
       const [leads,deliveries,applications,verifiedDealers,affiliateLinks,clicks]=await Promise.all([
-        prisma.dealerLead.findMany({where:{createdAt:{gte:d30}},select:{make:true,model:true,status:true,matchedSellerSlugs:true,createdAt:true}}),
-        prisma.dealerLeadDelivery.findMany({where:{createdAt:{gte:d30}},select:{status:true,createdAt:true,quoteResponse:{select:{id:true}}}}),
+        prisma.dealerLead.findMany({where:{createdAt:{gte:d30}},select:{make:true,model:true,status:true,matchedSellerSlugs:true,createdAt:true,deliveries:{select:{id:true}}}}),
+        prisma.dealerLeadDelivery.findMany({where:{createdAt:{gte:d30}},select:{status:true,createdAt:true,sharedAt:true,sellerName:true,quoteResponse:{select:{id:true}},lead:{select:{make:true,model:true,fullName:true}}}}),
         prisma.dealerApplication.findMany({where:{createdAt:{gte:d30}},select:{status:true,createdAt:true}}),
         prisma.seller.count({where:{type:"dealer",status:"verified"}}),
         prisma.affiliateProductLink.findMany({where:{status:"active"},select:{productId:true}}),
         prisma.outboundClickEvent.findMany({where:{createdAt:{gte:d30}},select:{offerId:true,sourceOfferId:true,entityType:true,createdAt:true}})
       ]);
+
+      const slaCutoff=new Date(now-24*60*60*1000);
+      const overdue=deliveries.filter(item=>item.sharedAt&&item.sharedAt<=slaCutoff&&!item.quoteResponse&&!["closed","cancelled","quoted"].includes(item.status));
+      overdueHandoffs=overdue
+        .map(item=>({
+          sellerName:item.sellerName,
+          modelLabel:`${item.lead.make} ${item.lead.model}`,
+          buyerName:item.lead.fullName,
+          sharedAt:item.sharedAt as Date,
+          hoursOpen:Math.max(24,Math.floor((now-(item.sharedAt as Date).getTime())/(60*60*1000)))
+        }))
+        .sort((a,b)=>b.hoursOpen-a.hoursOpen)
+        .slice(0,12);
 
       metrics={
         leads7:leads.filter(item=>item.createdAt>=d7).length,
@@ -45,6 +59,8 @@ export default async function GrowthDashboard(){
         handoffs30:deliveries.length,
         opened30:deliveries.filter(item=>["opened","contacted","quoted","closed"].includes(item.status)).length,
         quotes30:deliveries.filter(item=>Boolean(item.quoteResponse)).length,
+        overdueHandoffs:overdue.length,
+        undeliverableLeads:leads.filter(item=>item.matchedSellerSlugs.length>0&&item.deliveries.length===0).length,
         applications30:applications.length,
         approvedApplications30:applications.filter(item=>item.status==="approved").length,
         verifiedDealers,
@@ -101,11 +117,18 @@ export default async function GrowthDashboard(){
       <article><span>Dealer contact rate · 30d</span><strong>{dealerContactRate}%</strong><small>{metrics.contacted30} contacted · {metrics.closed30} closed</small></article>
       <article><span>Secure handoff open rate</span><strong>{handoffOpenRate}%</strong><small>{metrics.opened30} of {metrics.handoffs30} handoffs</small></article>
       <article><span>Dealer quote response rate</span><strong>{quoteResponseRate}%</strong><small>{metrics.quotes30} private quotes · 30d</small></article>
+      <article><span>Overdue dealer handoffs</span><strong>{metrics.overdueHandoffs}</strong><small>Shared 24h+ with no quote</small></article>
+      <article><span>Matched but not deliverable</span><strong>{metrics.undeliverableLeads}</strong><small>Matched dealer, no secure contact path</small></article>
       <article><span>Dealer applications · 30d</span><strong>{metrics.applications30}</strong><small>{metrics.approvedApplications30} approved</small></article>
       <article><span>Verified DB dealers</span><strong>{metrics.verifiedDealers}</strong><small>Approved persistent partners</small></article>
       <article><span>Active affiliate links</span><strong>{metrics.activeAffiliateLinks}</strong><small>Runtime database links</small></article>
       <article><span>Affiliate clicks · 7d</span><strong>{metrics.affiliateClicks7}</strong><small>{metrics.affiliateClicks30} in 30 days</small></article>
     </div>
+
+    <section className="growth-panel growth-sla-panel">
+      <div className="section-head compact"><div><h2>Dealer response SLA queue</h2><p>Shared buyer requests with no structured quote after 24 hours. Work the oldest handoffs first.</p></div><Link className="text-link" href="/admin/dealer-leads">Open dealer leads →</Link></div>
+      {overdueHandoffs.length?<div className="growth-ranking">{overdueHandoffs.map((item,index)=><div key={`${item.sellerName}-${item.sharedAt.toISOString()}-${index}`}><b>#{index+1}</b><span>{item.modelLabel}<small>{item.sellerName} · buyer {item.buyerName}</small></span><strong>{item.hoursOpen}h</strong></div>)}</div>:<p className="empty-copy">No dealer handoffs are past the 24-hour quote-response target.</p>}
+    </section>
 
     <div className="growth-dashboard-columns">
       <section className="growth-panel">
