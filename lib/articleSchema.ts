@@ -1,4 +1,5 @@
 import { SITE_NAME, SITE_URL, RELEASE_DATE, absoluteUrl } from "@/lib/site";
+import { authorPersonSchema } from "@/lib/author";
 
 // Shared Article schema builder for the editorial page types.
 //
@@ -41,7 +42,7 @@ export function articleSchema({ headline, description, path, about, keywords = [
     datePublished: RELEASE_DATE,
     dateModified,
     mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(path) },
-    author: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+    author: authorPersonSchema(),
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
