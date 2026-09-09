@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { AUTHOR_BIO, AUTHOR_NAME, AUTHOR_PATH, AUTHOR_ROLE, authorPersonSchema } from "@/lib/author";
-import { absoluteUrl, pageMetadata, SITE_NAME, SITE_URL } from "@/lib/site";
+import { absoluteUrl, pageMetadata, SITE_NAME } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Erwin Valles | MotoIndex Philippines Author",
@@ -12,13 +12,9 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function ErwinVallesAuthorPage() {
-  const schema = {
-    "@context": "https://schema.org",
+  const person = {
     ...authorPersonSchema(),
-    jobTitle: AUTHOR_ROLE,
     description: AUTHOR_BIO,
-    worksFor: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
-    mainEntityOfPage: { "@type": "ProfilePage", "@id": absoluteUrl(AUTHOR_PATH) },
     knowsAbout: [
       "Motorcycle prices in the Philippines",
       "Motorcycle specifications",
@@ -26,6 +22,13 @@ export default function ErwinVallesAuthorPage() {
       "Motorcycle ownership research",
       "Motorcycle buyer guides"
     ]
+  };
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    name: `${AUTHOR_NAME} | ${SITE_NAME}`,
+    url: absoluteUrl(AUTHOR_PATH),
+    mainEntity: person,
   };
 
   return <section className="page shell author-profile-page">
