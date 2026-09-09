@@ -31,16 +31,11 @@ export function isCompetitorSource(url?: string) {
   return COMPETITOR_HOSTS.some(h => host === h || host.endsWith(`.${h}`));
 }
 
-// Competitor sources are named generically rather than by brand. The reader still
-// sees that a real Philippine source was checked, and on what date, without the
-// page advertising a competing site by name.
-export function sourceDisplayName(label: string | undefined, url?: string, kind?: string) {
-  if (!isCompetitorSource(url)) return label || "Source";
-  const k = (kind || "").toLowerCase();
-  if (k.includes("dealer")) return "Philippine dealer listing";
-  if (k.includes("retail")) return "Philippine retailer listing";
-  if (k.includes("comparison") || k.includes("aggregat")) return "Philippine comparison site";
-  return "Philippine market source";
+// Keep the real source name visible to readers. SourceRef applies nofollow to
+// competitor links, so transparency does not require hiding who published the
+// price or specification.
+export function sourceDisplayName(label: string | undefined, _url?: string, _kind?: string) {
+  return label || "Source";
 }
 
 // Server components can read a competitor URL to decide not to link it, but the
