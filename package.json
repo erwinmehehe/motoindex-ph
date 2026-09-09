@@ -6,6 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "cf:build": "opennextjs-cloudflare build",
+    "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "typecheck": "tsc --noEmit",
     "validate:v08": "node scripts/validate-v08.mjs",
     "validate:v09": "node scripts/validate-v09.mjs",
@@ -72,7 +76,8 @@
     "next": "15.5.24",
     "react": "19.2.7",
     "react-dom": "19.2.7",
-    "@prisma/client": "6.5.0"
+    "@prisma/client": "6.5.0",
+    "@opennextjs/cloudflare": "^1.12.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.3.3",
@@ -82,7 +87,8 @@
     "postcss": "8.5.26",
     "prisma": "6.5.0",
     "tailwindcss": "4.3.3",
-    "typescript": "5.8.2"
+    "typescript": "5.8.2",
+    "wrangler": "^4.36.0"
   },
   "packageManager": "npm@10.9.2",
   "engines": {
