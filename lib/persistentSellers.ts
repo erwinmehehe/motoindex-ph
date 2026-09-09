@@ -61,3 +61,52 @@ export async function getVerifiedSellerProfile(slug:string){
 export function sellerSlug(value:string){
   return value.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,80);
 }
+
+
+export type QuoteEligibleDealer = SellerProfile & { leadEmail:string };
+
+function normalizedLocation(value:string){
+  return value.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g," ").trim();
+}
+
+function locationScore(profile:SellerProfile, location:string){
+  const haystack=` ${normalizedLocation(location)} `;
+  const city=normalizedLocation(profile.city||"");
+  const province=normalizedLocation(profile.province||"");
+  const region=normalizedLocation(profile.region||"");
+  if(city&&haystack.includes(` ${city} `))return 100;
+  if(province&&haystack.includes(` ${province} `))return 70;
+  if(region&&haystack.includes(` ${region} `))return 40;
+  return 0;
+}
+
+export async function quoteEligibleDealers(){
+  if(!databaseConfigured())return [] as QuoteEligibleDealer[];
+  const rows=await prisma.seller.findMany({
+    where:{type:"dealer",status:"verified",leadEmail:{not:null}},
+    orderBy:[{city:"asc"},{name:"asc"}],
+    take:500
+  });
+  return rows.flatMap(row=>{
+    if(!row.leadEmail)return [];
+    const profile=fromDb(row);
+    if(!profile.city||!profile.addressLabel||!profile.sourceUrl||!profile.lastChecked)return [];
+    return [{...profile,leadEmail:row.leadEmail}];
+  });
+}
+
+export async function matchQuoteEligibleDealers(make:string, location:string, limit=3){
+  const dealers=await quoteEligibleDealers();
+  return dealers
+    .filter(dealer=>dealer.brands.some(brand=>brand.toLowerCase()===make.toLowerCase()))
+    .map(dealer=>({dealer,score:locationScore(dealer,location)}))
+    .filter(item=>item.score>0)
+    .sort((a,b)=>b.score-a.score||a.dealer.name.localeCompare(b.dealer.name))
+    .slice(0,Math.max(1,Math.min(limit,3)))
+    .map(item=>item.dealer);
+}
+
+export async function hasQuoteEligibleDealerForBrand(make:string){
+  const dealers=await quoteEligibleDealers();
+  return dealers.some(dealer=>dealer.brands.some(brand=>brand.toLowerCase()===make.toLowerCase()));
+}
