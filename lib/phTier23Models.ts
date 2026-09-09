@@ -357,4 +357,55 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "200cc lightweight roadster with 26 hp, ABS, an 835 mm seat, 17-inch tires and a six-speed manual transmission."
   },
 
+
+  {
+    id: "benelli-trk-502", make: "Benelli", makeSlug: "benelli", model: "TRK 502", slug: "trk-502", generation: "Current Philippine model", category: "Adventure touring",
+    srp: 379000, engineCc: 500, powerHp: 47, torqueNm: 45, curbWeightKg: 213, seatHeightMm: 800, fuelTankL: 20, fuelConsumptionKmL: 33.7, groundClearanceMm: 190,
+    frontTire: "120/70 R17", rearTire: "160/60 R17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Benelli TRK 502 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/benelli/trk-502/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    summary: "500cc parallel-twin adventure-tourer with 47 hp, ABS, a 20 L tank, 800 mm seat and 17-inch road tires."
+  },
+  {
+    id: "benelli-302s", make: "Benelli", makeSlug: "benelli", model: "302S", slug: "302s", generation: "Current Philippine model", category: "Naked street bike",
+    srp: 222800, engineCc: 300, powerHp: 38, torqueNm: 25.6, curbWeightKg: 185, seatHeightMm: 795, fuelTankL: 16, fuelConsumptionKmL: 25, groundClearanceMm: 175,
+    frontTire: "120/70 ZR17", rearTire: "160/60 ZR17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Benelli 302S price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/benelli/302-s/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    summary: "300cc parallel-twin naked bike with 38 hp, ABS, a 795 mm seat, 16 L tank and six-speed manual transmission."
+  },
+  {
+    id: "benelli-leoncino-250", make: "Benelli", makeSlug: "benelli", model: "Leoncino 250", slug: "leoncino-250", generation: "Current Philippine model", category: "Modern classic",
+    srp: 188800, engineCc: 249, powerHp: 25, torqueNm: 21, curbWeightKg: 159, seatHeightMm: 800, fuelTankL: 12.5, fuelConsumptionKmL: 24.4, groundClearanceMm: 170,
+    frontTire: "110/70 R17", rearTire: "150/60 R17", abs: "ABS is not listed in the referenced Philippine specification", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Benelli Leoncino 250 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/benelli/leoncino-250/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    summary: "249cc single-cylinder modern-classic motorcycle with 25 hp, an 800 mm seat and six-speed manual transmission."
+  },
+  {
+    id: "ktm-200-duke", alsoKnownAs: ["KTM Duke 200"], make: "KTM", makeSlug: "ktm", model: "200 Duke", slug: "200-duke", generation: "Current Philippine listing", category: "Naked street bike",
+    srp: 178000, engineCc: 200, powerHp: 26, torqueNm: 19.5, curbWeightKg: 154, seatHeightMm: 830, fuelTankL: 13.4, fuelConsumptionKmL: 37.5, groundClearanceMm: 170,
+    frontTire: "110/70 R17", rearTire: "150/70 R17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine KTM Duke 200 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/ktm/duke-200/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    summary: "200cc single-cylinder street bike with 26 hp, ABS, a 13.4 L tank, 830 mm seat and six-speed manual transmission."
+  },
+  {
+    id: "ktm-790-duke", make: "KTM", makeSlug: "ktm", model: "790 Duke", slug: "790-duke", generation: "Current Philippine listing", category: "Naked street bike",
+    srp: 599000, engineCc: 799, powerHp: 105, torqueNm: 87, curbWeightKg: 189, seatHeightMm: 825, fuelTankL: 14, fuelConsumptionKmL: 22, groundClearanceMm: 186,
+    frontTire: "120/70 ZR17", rearTire: "180/55 ZR17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine KTM 790 Duke price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/ktm/duke-790/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    summary: "799cc parallel-twin naked bike with 105 hp, 87 Nm, ABS, a 14 L tank and six-speed manual transmission."
+  },
+  {
+    id: "ducati-streetfighter-v4", make: "Ducati", makeSlug: "ducati", model: "Streetfighter V4", slug: "streetfighter-v4", generation: "Current Philippine model", category: "Naked street bike",
+    srp: 1590000, engineCc: 1103, powerHp: 208, torqueNm: 123, curbWeightKg: 199, seatHeightMm: 845, fuelTankL: 16,
+    frontTire: "120/70 ZR17", rearTire: "200/60 ZR17", abs: "ABS with traction-control rider aids", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Ducati Streetfighter V4 price and specification reference", sourceUrl: "https://www.carmudi.com.ph/new-motorcycles/ducati/streetfighter-v4/specifications/", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    summary: "1103cc V4 hyper-naked motorcycle with 208 hp, 123 Nm, ABS, traction control and a six-speed manual transmission."
+  },
+  {
+    id: "ducati-panigale-v4", make: "Ducati", makeSlug: "ducati", model: "Panigale V4", slug: "panigale-v4", generation: "Current Philippine model", category: "Super sport",
+    srp: 1995000, engineCc: 1103, powerHp: 214, torqueNm: 124, curbWeightKg: 198, seatHeightMm: 835, fuelTankL: 16,
+    frontTire: "120/70 ZR17", rearTire: "200/60 ZR17", abs: "ABS with traction-control rider aids", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Current Philippine Ducati Panigale V4 price and specification reference", sourceUrl: "https://www.carmudi.com.ph/new-motorcycles/ducati/panigale-v4/specifications/", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    summary: "1103cc V4 superbike with 214 hp, 124 Nm, ABS, traction control, a 835 mm seat and six-speed manual transmission."
+  },
+
 ];
