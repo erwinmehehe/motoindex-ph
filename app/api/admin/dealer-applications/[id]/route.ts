@@ -49,6 +49,9 @@ export async function PATCH(request:Request,{params}:{params:Promise<{id:string}
     sourceUrl:application.officialSourceUrl,
     lastChecked:new Date(),
     verificationNote:reviewNote,
+    leadContactName:application.contactName,
+    leadEmail:application.contactEmail,
+    leadMobile:application.contactMobile,
     status:"verified"
   };
 
