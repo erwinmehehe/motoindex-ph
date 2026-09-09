@@ -1,55 +1,73 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DealerFinder } from "@/components/DealerFinder";
 import { pageMetadata } from "@/lib/site";
-import { publicSellersByType } from "@/lib/sellers";
+import { officialDealerLocators } from "@/lib/dealerLocators";
+import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug, publicDealerCities, publicDealersByCity, publicSellersByType } from "@/lib/sellers";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Motorcycle Dealers Philippines: Buying Guide",
-  description: "Learn how to verify motorcycle dealers, compare written quotes and check the final cash price before paying a reservation or deposit.",
+  title: "Motorcycle Dealers Philippines: Find Checked Dealers",
+  description: "Find checked motorcycle dealer records in the Philippines, search by city or brand, and open official Honda, Yamaha, Suzuki and Kawasaki dealer locators.",
   path: "/dealers",
-  index: false,
+  index: true,
 });
 
 export default function DealersPage() {
   const verifiedDealers = publicSellersByType("dealer");
+  const publishedCities = publicDealerCities()
+    .filter(city=>publicDealersByCity(citySlug(city)).length>=MIN_PUBLIC_DEALERS_PER_CITY);
 
   return <section className="page shell">
-    <div className="page-head">
-      <span className="entity-kicker">Dealer guide</span>
-      <h1>Finding a motorcycle dealer in the Philippines</h1>
-      <p>Start with the motorcycle brand&apos;s official dealer locator, then ask nearby branches for a written quote. Compare the complete amount, not only the advertised SRP or monthly payment.</p>
+    <div className="page-head dealer-page-head">
+      <span className="entity-kicker">Motorcycle dealer finder</span>
+      <h1>Find motorcycle dealers in the Philippines</h1>
+      <p>Search checked dealer records by city or brand, then confirm stock and the complete cash price with the branch before paying a reservation or deposit.</p>
     </div>
 
-    {verifiedDealers.length > 0 ? <section className="motorcycle-entity-section">
+    <section className="motorcycle-entity-section dealer-directory-section">
       <div className="section-head compact"><div>
-        <span className="section-kicker">Verified businesses</span>
-        <h2>Motorcycle dealers</h2>
-        <p>These dealer records have passed the site&apos;s business-detail checks.</p>
+        <span className="section-kicker">Checked records</span>
+        <h2>Search the dealer directory</h2>
+        <p>We publish a branch only when its name, address and contact details can be checked against an official source.</p>
       </div></div>
-      <div className="seller-grid">
-        {verifiedDealers.map((dealer) => <Link key={dealer.slug} href={`/sellers/${dealer.slug}`}>
-          <div className="seller-icon">D</div>
-          <h3>{dealer.name}</h3>
-          <p>{dealer.addressLabel}</p>
-          <small>{dealer.brands.join(" · ")}</small>
-          <b>View dealer →</b>
+      <DealerFinder dealers={verifiedDealers} />
+    </section>
+
+    {publishedCities.length?<section className="motorcycle-entity-section">
+      <div className="section-head compact"><div>
+        <span className="section-kicker">City guides</span>
+        <h2>Browse dealer coverage by city</h2>
+        <p>City pages open only when at least {MIN_PUBLIC_DEALERS_PER_CITY} checked dealer records are available.</p>
+      </div></div>
+      <div className="dealer-city-links">
+        {publishedCities.map(city=><Link href={`/dealers/${citySlug(city)}`} key={city}>
+          <strong>Motorcycle dealers in {city}</strong>
+          <span>{publicDealersByCity(citySlug(city)).length} checked branches</span>
         </Link>)}
       </div>
-    </section> : <section className="motorcycle-entity-section">
-      <div className="seller-home dealer-empty-state">
-        <div>
-          <span className="section-kicker">Directory status</span>
-          <h2>No dealer profiles are published yet</h2>
-          <p>We will add dealer profiles only after checking the business name, address, contact details and current operating status. Until then, use the motorcycle brand&apos;s official dealer locator and confirm details directly with the branch.</p>
-        </div>
+    </section>:null}
+
+    <section className="motorcycle-entity-section">
+      <div className="section-head compact"><div>
+        <span className="section-kicker">Official sources</span>
+        <h2>Use the motorcycle brand&apos;s dealer locator</h2>
+        <p>MotoIndex coverage is still growing. These links go directly to the official Philippine dealer directories for broader branch coverage.</p>
+      </div></div>
+      <div className="dealer-locator-grid">
+        {officialDealerLocators.map(locator=><a className="dealer-locator-card" href={locator.href} target="_blank" rel="noopener noreferrer" key={locator.brand}>
+          <span>{locator.brand}</span>
+          <h3>{locator.brand} dealer locator</h3>
+          <p>{locator.note}</p>
+          <b>Open official locator ↗</b>
+        </a>)}
       </div>
-    </section>}
+    </section>
 
     <section className="motorcycle-entity-section">
       <div className="section-head compact"><div>
         <span className="section-kicker">Before you pay</span>
         <h2>What to ask the dealer</h2>
-        <p>Request the details below in writing so quotes from different branches are easy to compare.</p>
+        <p>Get these details in writing so quotes from different branches are easy to compare.</p>
       </div></div>
       <div className="seller-stats dealer-checklist">
         <div><strong>Cash price</strong><span>Exact variant and color</span></div>
@@ -57,12 +75,16 @@ export default function DealersPage() {
         <div><strong>Release date</strong><span>Confirmed stock availability</span></div>
         <div><strong>Warranty</strong><span>Coverage and service location</span></div>
       </div>
+      <div className="dealer-verification-note">
+        <strong>What “checked” means here</strong>
+        <p>The branch listing matches an official manufacturer dealer source. It does not mean MotoIndex has confirmed current inventory, financing approval, promo pricing or same-day release.</p>
+      </div>
     </section>
 
     <section className="motorcycle-entity-section">
       <div className="section-head compact"><div>
-        <h2>Choose the motorcycle first</h2>
-        <p>Compare models and estimate the budget before requesting dealer quotes.</p>
+        <h2>Choose the motorcycle before requesting quotes</h2>
+        <p>Compare models and set a budget first, then contact more than one branch for the same exact variant.</p>
       </div></div>
       <div className="hero-actions">
         <Link className="button" href="/motorcycles">Browse motorcycles</Link>
