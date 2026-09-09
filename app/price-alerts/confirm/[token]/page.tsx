@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { getModelById } from "@/lib/data";
 import { php } from "@/lib/utils";
+import { PriceAlertAction } from "@/components/PriceAlertAction";
 
 export const metadata:Metadata={title:"Confirm Price Alert",robots:{index:false,follow:false,noarchive:true}};
 export const dynamic="force-dynamic";
@@ -18,14 +18,9 @@ export default async function ConfirmPriceAlertPage({params}:{params:Promise<{to
   const model=getModelById(subscription.entityId);
   if(!model)return notFound();
 
-  await prisma.priceAlertSubscription.update({
-    where:{id:subscription.id},
-    data:{status:"active",confirmedAt:new Date(),confirmToken:null,thresholdWasMet:false}
-  });
-
   return <section className="page shell price-alert-confirmed">
-    <div className="page-head"><span className="entity-kicker">Price alert confirmed</span><h1>{model.make} {model.model}</h1><p>Your alert is active. MotoIndex will notify this email if the published starting-price reference reaches {php(Number(subscription.targetPricePhp))} or lower.</p></div>
-    <div className="note-box"><h2>What this alert watches</h2><p>The alert uses MotoIndex&apos;s current published starting-price reference, not a guaranteed dealer cash price. Always open the model page and confirm the final dealer quote before buying.</p></div>
-    <div className="hero-actions"><Link className="button" href={`/motorcycles/${model.makeSlug}/${model.slug}`}>Open {model.model}</Link><Link className="button ghost" href="/price-alerts">Price alerts</Link></div>
+    <div className="page-head"><span className="entity-kicker">Confirm price alert</span><h1>{model.make} {model.model}</h1><p>Confirm the alert for {php(Number(subscription.targetPricePhp))} or lower. This confirmation link expires 24 hours after the latest alert request.</p></div>
+    <div className="note-box"><h2>What this watches</h2><p>MotoIndex checks the current published starting-price reference for this motorcycle. It does not guarantee a dealer cash price, promotion, stock or financing approval.</p></div>
+    <PriceAlertAction endpoint={`/api/price-alerts/confirm/${token}`} actionLabel="Confirm price alert" successMessage="Your price alert is active."/>
   </section>;
 }
