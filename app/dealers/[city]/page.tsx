@@ -17,9 +17,11 @@ export async function generateMetadata({params}:{params:Promise<{city:string}>})
   const list=(await allVerifiedDealers()).filter(dealer=>citySlug(dealer.city)===city);
   if(list.length < MIN_PUBLIC_DEALERS_PER_CITY) return {};
   const cityName=list[0].city;
+  const brands=[...new Set(list.flatMap(s=>s.brands))].sort();
+  const brandLead=brands.length>1?`${brands.join(", ")} motorcycle dealers`:"motorcycle dealers";
   return pageMetadata({
     title:`Motorcycle Dealers in ${cityName}: Checked Branches`,
-    description:`Find checked motorcycle dealer branches in ${cityName}, with addresses, phone numbers and supported brands from official dealer sources.`,
+    description:`Find checked ${brandLead} in ${cityName}, with branch addresses, phone numbers and reviewed dealer-source details.`,
     path:`/dealers/${city}`,
     index:true
   });
@@ -49,10 +51,15 @@ export default async function DealerCityPage({params}:{params:Promise<{city:stri
       <div><strong>{province||list[0].region}</strong><span>coverage area</span></div>
     </div>
 
+    <div className="dealer-city-brands" aria-label={`Motorcycle brands represented in ${cityName}`}>
+      <span>Brands in this directory</span>
+      <div>{brands.map(brand=><b key={brand}>{brand}</b>)}</div>
+    </div>
+
     <div className="section-head compact"><div>
       <span className="section-kicker">Dealer profiles</span>
       <h2>Checked branches in {cityName}</h2>
-      <p>Each record below has an official dealer source on file, with address and contact details checked before publication.</p>
+      <p>Each record below has a reviewed dealer-verification source on file, with address and contact details checked before publication.</p>
     </div></div>
 
     <div className="dealer-results">
