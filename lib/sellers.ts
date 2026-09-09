@@ -14,10 +14,16 @@ export const sellers: SellerProfile[] = [
   { id:"seller-demo-accessories", name:"Demo Accessories Shop", slug:"demo-accessories-shop", type:"retailer", city:"Davao City", region:"Davao Region", addressLabel:"Demo location — Davao City", description:"Demo accessory shop in Davao City for testing top-box, rack and bracket offers.", brands:["GIVI","SHAD"], categories:["Top boxes","Accessories"], isDemo:true, status:"research" },
 ];
 
+export function isPublicSeller(seller: SellerProfile){ return !seller.isDemo && seller.status === "verified"; }
+export function publicSellers(){ return sellers.filter(isPublicSeller); }
 export function getSeller(slug:string){ return sellers.find(s=>s.slug===slug); }
+export function getPublicSeller(slug:string){ const seller=getSeller(slug); return seller && isPublicSeller(seller) ? seller : undefined; }
 export function sellersByType(type:SellerType){ return sellers.filter(s=>s.type===type); }
+export function publicSellersByType(type:SellerType){ return sellers.filter(s=>s.type===type && isPublicSeller(s)); }
 export function dealerCities(){ return [...new Set(sellers.filter(s=>s.type==="dealer").map(s=>s.city))].sort(); }
+export function publicDealerCities(){ return [...new Set(publicSellersByType("dealer").map(s=>s.city))].sort(); }
 export function citySlug(city:string){ return city.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,""); }
 export function dealersByCity(slug:string){ return sellers.filter(s=>s.type==="dealer" && citySlug(s.city)===slug); }
+export function publicDealersByCity(slug:string){ return dealersByCity(slug).filter(isPublicSeller); }
 export function offersForSeller(slug:string){ return sellerOffers.filter(o=>o.sellerSlug===slug && o.status!=="expired"); }
 export function sellerCounts(){ return { total:sellers.length, dealers:sellers.filter(s=>s.type==="dealer").length, retailers:sellers.filter(s=>s.type==="retailer").length, cities:new Set(sellers.map(s=>s.city)).size }; }
