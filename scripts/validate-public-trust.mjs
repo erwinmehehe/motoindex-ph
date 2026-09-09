@@ -55,7 +55,11 @@ const publicFiles = {
   "app/recommendations/[slug]/page.tsx": [
     "defensible scoring model",
     "guide-source-freshness",
-    "Philippine-market record"
+    "Philippine-market record",
+    "current checked"
+  ],
+  "lib/data.ts": [
+    "an published starting price"
   ]
 };
 
