@@ -249,7 +249,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       </section>}
 
       <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Specifications</span><h2 id="specs-heading">{model.make} {model.model} specs and dimensions</h2><p>Compare the key specifications here, then use the dedicated specs page for the full model details.</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">Specifications</span><h2 id="specs-heading">{model.make} {model.model} specs and dimensions</h2><p>Engine, power, torque, dimensions, weight, seat height, tires, braking and colors are kept together on this page.</p></div></div>
         <div className="entity-spec-table motorcycle-spec-table" role="table" aria-label={`${model.make} ${model.model} specifications`}>
           <div role="row"><span role="cell">Engine</span><strong role="cell">{model.engineCc} cc</strong></div>
           <div role="row"><span role="cell">Transmission</span><strong role="cell">{model.transmission || "Check current model source"}</strong></div>
@@ -268,12 +268,12 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         </div>
         <div className="entity-tool-grid">
           <a href="#rider-fit"><span>Rider fit</span><strong>Check seat height and low-speed fit</strong><small>Use your inseam with the recorded seat height and curb weight.</small></a>
-          <a href="#tires-fitment"><span>Tires</span><strong>Check stock sizes and compatible products</strong><small>${model.frontTire} front · ${model.rearTire} rear.</small></a>
+          <a href="#tires-fitment"><span>Tires</span><strong>Check stock sizes and compatible products</strong><small>{model.frontTire} front · {model.rearTire} rear.</small></a>
         </div>
       </section>
 
       {allColors.length > 0 && <section id="colors" className="motorcycle-entity-section" aria-labelledby="colors-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Colors</span><h2 id="colors-heading">${model.make} ${model.model} colors in the Philippines</h2><p>Color names are kept on the model page so you can compare finishes without opening a separate SEO page. Availability can still change by variant, model year and dealer stock.</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">Colors</span><h2 id="colors-heading">{model.make} {model.model} colors in the Philippines</h2><p>Color names are kept on the model page so you can compare finishes without opening a separate SEO page. Availability can still change by variant, model year and dealer stock.</p></div></div>
         <div className="entity-color-grid">
           {allColors.map((color) => <article key={color}><strong>{color}</strong><small>Recorded color option</small></article>)}
         </div>
