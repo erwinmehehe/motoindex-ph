@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { EntityMedia } from "@/components/EntityMedia";
 import type { ModelFamily } from "@/lib/families";
 import { getFamilyModels } from "@/lib/families";
 import { php } from "@/lib/utils";
@@ -16,17 +17,18 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
   const faqs: FaqItem[] = current ? [
     {
       question: `How much is the ${family.make} ${family.name} in the Philippines?`,
-      answer: `The current ${current.model} price reference on MotoIndex is ${observedMarketPriceLabel(current)}. Open the current-generation price page for the source date, variants and market checks.`
+      answer: `The current ${current.model} price reference on MotoIndex is ${observedMarketPriceLabel(current)}. Open the current-generation model page for the source date, variants and market checks.`
     },
     {
       question: `Which ${family.name} generation is current?`,
       answer: `${current.model} is the current generation in the MotoIndex catalog. Older generations stay on separate pages so historical launch prices are not confused with current new-bike pricing.`
     },
     {
-      question: `Are ${family.name} V2 and V3 prices directly comparable?`,
+      question: `Are older and current ${family.name} prices directly comparable?`,
       answer: "Not as current new-bike quotes. A previous generation may now trade mainly on the used market, while the current generation uses current SRP or market observations. Compare the generation context and source dates before using the numbers."
     }
   ] : [];
+
   const itemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -47,33 +49,128 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
     keywords: [`${family.make} ${family.name} price`, `${family.name} specs Philippines`],
     checkedDates: models.map(m => m?.marketPriceCheckedAt || m?.verifiedAt)
   });
-  return <section className="page shell">
-    <Breadcrumbs items={[{label:"Motorcycles",href:"/motorcycles"},{label:family.make,href:`/motorcycles/${family.makeSlug}`},{label:family.name}]} />
-    <div className="page-head"><h1>{family.make} {family.name} price in the Philippines and generations</h1><p>{family.intro} Use this family page for generic {family.name} price research, then open the exact generation before comparing prices or financing.</p></div>
-    {current && <div className="price-panel"><div><span>Current {family.name} price reference</span><strong>{observedMarketPriceLabel(current)}</strong><small>{current.make} {current.model} · checked {current.marketPriceCheckedAt || current.verifiedAt}</small></div><Link className="button" href={`/motorcycles/${current.makeSlug}/${current.slug}#price`}>See {current.model} price</Link></div>}
-    <div className="section-head compact"><div><h2>Which {family.name} are you looking for?</h2><p>Each generation has its own canonical price page, source date and lifecycle status.</p></div></div>
-    <div className="comparison-wrap"><table className="comparison-table"><thead><tr><th>Generation</th><th>Price reference</th><th>Engine</th><th>Seat</th><th>Front tire</th><th>Rear tire</th></tr></thead><tbody>{models.map((m) => m && <tr key={m.id}><td><Link href={`/motorcycles/${m.makeSlug}/${m.slug}#price`}><strong>{m.model}</strong></Link><small>{m.marketStatus === "previous" ? "Previous generation · historical price context" : "Current model · current price page"}</small></td><td><Link className="text-link" href={`/motorcycles/${m.makeSlug}/${m.slug}#price`}>{m.marketStatus === "previous" ? php(m.srp) : observedMarketPriceLabel(m)} →</Link><small>{m.priceContext || (m.marketStatus === "previous" ? "Historical launch reference" : "Dated current reference")}</small></td><td>{m.engineCc} cc</td><td>{m.seatHeightMm} mm</td><td>{m.frontTire}</td><td>{m.rearTire}</td></tr>)}</tbody></table></div>
-    <div className="tool-crosslinks">{models.map(m => m && <Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#price`}><b>{m.model} price</b><small>{m.marketStatus === "previous" ? "Historical generation price context." : "Current variants, market checks and installment estimate."}</small></Link>)}</div>
-    {family.nicknames && <div className="family-nicknames">
-      <div className="section-head inline-head"><div><h2>{family.nicknames.heading}</h2></div></div>
-      <div className="split section">
-        <div>{family.nicknames.body.map((para) => <p key={para.slice(0, 40)}>{para}</p>)}</div>
-        <div className="info-card">
-          <h3>Identify yours in 30 seconds</h3>
-          <ul className="checklist">
-            <li>Read the displacement off the OR/CR — 125, 150 or 160</li>
-            <li>Check the model year on the same document, not the ad</li>
-            <li>Match the frame and engine numbers to the papers</li>
-            <li>Ask any seller quoting a &ldquo;V&rdquo; number which year they mean</li>
-          </ul>
-          <Link href="/used-motorcycles/buying-checklist">Full used-buying checklist →</Link>
+
+  return <article className="model-family-page">
+    <section className="model-family-hero">
+      <div className="shell">
+        <Breadcrumbs items={[{label:"Motorcycles",href:"/motorcycles"},{label:family.make,href:`/motorcycles/${family.makeSlug}`},{label:family.name}]} />
+        <div className="model-family-hero-grid">
+          <div className="model-family-hero-copy">
+            <span className="entity-kicker">Model family · Philippines</span>
+            <h1>{family.make} {family.name} prices and generations</h1>
+            <p>{family.intro} Use this page to identify the exact generation first, then open that model for its price sources, specs, financing and ownership details.</p>
+            <div className="model-family-actions">
+              <a className="button" href="#generations">Compare generations</a>
+              <Link className="button secondary" href={{pathname:"/compare",query:{make:family.makeSlug}}}>Open comparison tool</Link>
+            </div>
+          </div>
+          {current && <aside className="model-family-current-card">
+            <EntityMedia
+              entityType="motorcycle"
+              entityId={current.id}
+              className="model-family-current-media"
+              linkHref={`/motorcycles/${current.makeSlug}/${current.slug}`}
+              showCredit={false}
+              fallback={<Link className="model-family-media-fallback" href={`/motorcycles/${current.makeSlug}/${current.slug}`}><span>Current generation</span><strong>{current.make}<b>{current.model}</b></strong></Link>}
+            />
+            <div className="model-family-current-copy">
+              <span>Current generation</span>
+              <h2>{current.make} {current.model}</h2>
+              <strong>{observedMarketPriceLabel(current)}</strong>
+              <small>Price basis checked {current.marketPriceCheckedAt || current.verifiedAt}</small>
+              <Link href={`/motorcycles/${current.makeSlug}/${current.slug}`}>Open full model guide →</Link>
+            </div>
+          </aside>}
         </div>
       </div>
-    </div>}
-    <ModelFamilyGuide family={family} models={models.filter((m): m is NonNullable<typeof m> => Boolean(m))} />
-    <div className="note-box"><h2>Why generations have separate prices</h2><p>An older generation can still be common on the used market, but its launch SRP is not a current new-bike price. MotoIndex keeps each generation&apos;s price and specifications separate to reduce search-result cannibalization and avoid misleading comparisons.</p></div>
-    {faqs.length > 0 && <FaqSection title={`${family.make} ${family.name} price questions`} items={faqs}/>} 
+    </section>
+
+    <div className="shell model-family-body">
+      <nav className="model-family-nav" aria-label={`${family.make} ${family.name} page sections`}>
+        <a href="#generations">Generations</a>
+        <a href="#quick-compare">Quick compare</a>
+        {family.nicknames && <a href="#names">Naming guide</a>}
+        <a href="#buying-guide">Buying guide</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <section id="generations" className="model-family-section">
+        <div className="section-head compact"><div><span className="section-kicker">Choose the exact model</span><h2>Which {family.name} are you looking for?</h2><p>Every generation below has its own canonical model page, lifecycle context and price source date.</p></div></div>
+        <div className="model-family-generation-grid">{models.map((m) => {
+          if (!m) return null;
+          const previous = m.marketStatus === "previous";
+          return <article className={`model-family-generation-card${m.id === family.currentModelId ? " is-current" : ""}`} key={m.id}>
+            <EntityMedia
+              entityType="motorcycle"
+              entityId={m.id}
+              className="model-family-generation-media"
+              linkHref={`/motorcycles/${m.makeSlug}/${m.slug}`}
+              showCredit={false}
+              fallback={<Link className="model-family-generation-fallback" href={`/motorcycles/${m.makeSlug}/${m.slug}`}><span>{previous ? "Previous generation" : "Current generation"}</span><strong>{m.model}</strong></Link>}
+            />
+            <div className="model-family-generation-copy">
+              <div className="model-family-generation-topline"><span>{previous ? "Previous generation" : "Current model"}</span>{m.id === family.currentModelId && <b>Current</b>}</div>
+              <h3>{m.make} {m.model}</h3>
+              <strong className="model-family-generation-price">{previous ? php(m.srp) : observedMarketPriceLabel(m)}</strong>
+              <small>{previous ? "Historical launch price context" : `Price checked ${m.marketPriceCheckedAt || m.verifiedAt}`}</small>
+              <div className="model-family-generation-facts">
+                <span><small>Engine</small><b>{m.engineCc} cc</b></span>
+                <span><small>Seat</small><b>{m.seatHeightMm} mm</b></span>
+                <span><small>Weight</small><b>{m.curbWeightKg} kg</b></span>
+                <span><small>Tires</small><b>{m.frontTire} / {m.rearTire}</b></span>
+              </div>
+              <Link className="button small" href={`/motorcycles/${m.makeSlug}/${m.slug}`}>View {m.model}</Link>
+            </div>
+          </article>;
+        })}</div>
+      </section>
+
+      <section id="quick-compare" className="model-family-section model-family-compare-section">
+        <div className="section-head compact"><div><span className="section-kicker">Quick comparison</span><h2>What changes from one {family.name} to another?</h2><p>Use this compact view for the first pass. Open the generation card above before using any price as a purchase reference.</p></div></div>
+        <div className="model-family-compare-list">
+          {models.map((m) => m && <Link href={`/motorcycles/${m.makeSlug}/${m.slug}`} key={m.id}>
+            <span className="model-family-compare-name"><small>{m.marketStatus === "previous" ? "Previous" : "Current"}</small><strong>{m.model}</strong></span>
+            <span><small>Price</small><b>{m.marketStatus === "previous" ? php(m.srp) : observedMarketPriceLabel(m)}</b></span>
+            <span><small>Engine</small><b>{m.engineCc} cc</b></span>
+            <span><small>Seat</small><b>{m.seatHeightMm} mm</b></span>
+            <span><small>Weight</small><b>{m.curbWeightKg} kg</b></span>
+            <strong aria-hidden="true">→</strong>
+          </Link>)}
+        </div>
+      </section>
+
+      {family.nicknames && <section id="names" className="model-family-section model-family-nickname-section">
+        <div className="model-family-nickname-copy">
+          <span className="section-kicker">Naming guide</span>
+          <h2>{family.nicknames.heading}</h2>
+          {family.nicknames.body.map((para) => <p key={para.slice(0, 40)}>{para}</p>)}
+        </div>
+        <aside className="model-family-identify-card">
+          <span>Identify yours correctly</span>
+          <h3>Use the papers, not the nickname.</h3>
+          <ul className="checklist">
+            <li>Read the displacement from the OR/CR</li>
+            <li>Check the model year on the same document</li>
+            <li>Match the frame and engine numbers to the papers</li>
+            <li>Ask any seller using a “V” number which exact year and displacement they mean</li>
+          </ul>
+          <Link href="/used-motorcycles/buying-checklist">Open used-buying checklist →</Link>
+        </aside>
+      </section>}
+
+      <section id="buying-guide" className="model-family-section model-family-guide-section">
+        <ModelFamilyGuide family={family} models={models.filter((m): m is NonNullable<typeof m> => Boolean(m))} />
+      </section>
+
+      <section className="model-family-note">
+        <span>Why separate generations?</span>
+        <h2>Historical launch prices are not current new-bike prices.</h2>
+        <p>An older generation can still be common on the used market, but its launch SRP should not be presented as today's dealer price. MotoIndex keeps generation pages separate so the number you see stays attached to the right motorcycle and market context.</p>
+      </section>
+
+      {faqs.length > 0 && <section id="faq" className="model-family-section model-family-faq-section"><FaqSection title={`${family.make} ${family.name} price questions`} items={faqs}/></section>}
+    </div>
     <JsonLd data={itemList}/>
     <JsonLd data={familyArticle}/>
-  </section>;
+  </article>;
 }

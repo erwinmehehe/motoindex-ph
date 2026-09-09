@@ -567,3 +567,500 @@
   .nav-popover::-webkit-scrollbar-thumb{background:#cfd4d7;border-radius:999px;border:2px solid #fff}
   .nav-popover::-webkit-scrollbar-track{background:transparent}
 }
+
+
+/* v3.0 — unified motorcycle discovery, family and research pages */
+.motorcycles-index-v300,
+.model-family-page,
+.ph-brand-page,
+.motorcycle-entity-page{background:#f6f7f4}
+
+.motorcycle-index-hero,
+.model-family-hero{
+  color:#fff;
+  background:
+    radial-gradient(circle at 82% 16%,rgba(240,84,45,.23),transparent 26%),
+    radial-gradient(circle at 8% 112%,rgba(240,84,45,.09),transparent 30%),
+    linear-gradient(135deg,#101417 0%,#181d21 58%,#22292e 100%);
+}
+.motorcycle-index-hero{padding:46px 0 28px}
+.model-family-hero{padding:30px 0 38px}
+.motorcycle-index-hero .entity-kicker,
+.model-family-hero .entity-kicker{color:#ff8b68}
+.motorcycle-index-hero h1,
+.model-family-hero h1{
+  color:#fff;
+  font-size:clamp(42px,5vw,66px);
+  line-height:.98;
+  letter-spacing:-.05em;
+  margin:10px 0 0;
+  text-wrap:balance;
+}
+.motorcycle-index-hero p,
+.model-family-hero p{color:#c0c7cc;line-height:1.62}
+.model-family-hero .breadcrumbs{margin-bottom:20px;color:#8f999f}
+.model-family-hero .breadcrumbs a{color:#e7ebed}
+.model-family-hero .breadcrumbs a:hover{color:#fff}
+
+.motorcycle-index-hero-grid,
+.model-family-hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.12fr) minmax(360px,.88fr);
+  gap:42px;
+  align-items:stretch;
+}
+.motorcycle-index-hero-copy,
+.model-family-hero-copy{align-self:center}
+.motorcycle-index-hero-copy>p,
+.model-family-hero-copy>p{max-width:760px;margin:17px 0 0;font-size:16px}
+.motorcycle-index-actions,
+.model-family-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}
+.motorcycle-index-actions .button,
+.model-family-actions .button{background:var(--accent);border-color:var(--accent);color:#fff}
+.motorcycle-index-actions .button.secondary,
+.model-family-actions .button.secondary{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.2);color:#fff}
+
+.motorcycle-index-overview{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  padding:10px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:24px;
+  background:rgba(255,255,255,.055);
+  box-shadow:0 22px 55px rgba(0,0,0,.18);
+}
+.motorcycle-index-overview>div{
+  min-height:112px;
+  padding:17px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:17px;
+  background:rgba(255,255,255,.045);
+}
+.motorcycle-index-overview span,
+.motorcycle-index-overview strong,
+.motorcycle-index-overview small{display:block}
+.motorcycle-index-overview span{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#ff8b68;font-weight:900}
+.motorcycle-index-overview strong{font-size:23px;letter-spacing:-.035em;margin:8px 0 5px}
+.motorcycle-index-overview small{font-size:10px;line-height:1.4;color:#9fa9af}
+
+.motorcycle-index-quicklinks{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+  margin-top:22px;
+}
+.motorcycle-index-quicklinks>a{
+  min-height:112px;
+  display:flex;
+  flex-direction:column;
+  padding:15px 16px;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:16px;
+  background:rgba(255,255,255,.045);
+  transition:.18s ease;
+}
+.motorcycle-index-quicklinks>a:hover{background:rgba(255,255,255,.085);transform:translateY(-1px)}
+.motorcycle-index-quicklinks span{font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:#ff8b68;font-weight:900}
+.motorcycle-index-quicklinks strong{font-size:15px;margin:5px 0 0}
+.motorcycle-index-quicklinks small{margin-top:auto;padding-top:10px;color:#aeb6bb;font-size:10px;line-height:1.35}
+
+.motorcycle-index-body{padding:30px 0 84px}
+.motorcycle-catalog-section,
+.motorcycle-brand-directory,
+.motorcycle-family-strip{margin-top:28px}
+.motorcycle-catalog-section{margin-top:0}
+.motorcycle-section-heading{margin-bottom:18px}
+.motorcycle-section-heading h2{font-size:clamp(30px,3.2vw,42px);letter-spacing:-.04em;line-height:1.05}
+.motorcycle-section-heading p{max-width:780px;color:var(--muted);line-height:1.55}
+
+.model-explorer-v300{
+  padding:18px;
+  border:1px solid #dfe3de;
+  border-radius:26px;
+  background:#fff;
+  box-shadow:0 12px 34px rgba(16,19,23,.035);
+}
+.model-explorer-toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:4px 4px 15px;
+  border-bottom:1px solid #e8eae6;
+}
+.model-explorer-toolbar>div span,
+.model-explorer-toolbar>div strong{display:block}
+.model-explorer-toolbar>div span{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:900}
+.model-explorer-toolbar>div strong{font-size:17px;margin-top:3px}
+.model-explorer-v300 .filter-bar{
+  display:grid;
+  grid-template-columns:minmax(220px,1.7fr) repeat(3,minmax(150px,1fr));
+  gap:9px;
+  margin:15px 0 0;
+  padding:0;
+}
+.model-explorer-v300 .filter-bar label{
+  padding:10px 11px;
+  border:1px solid #e1e4df;
+  border-radius:14px;
+  background:#f7f8f5;
+}
+.model-explorer-v300 .filter-bar label>span{font-size:8.5px}
+.model-explorer-v300 .filter-bar input,
+.model-explorer-v300 .filter-bar select{
+  border:0;
+  padding:8px 0 0;
+  background:transparent;
+  border-radius:0;
+  font-size:13px;
+  min-height:36px;
+  box-shadow:none;
+}
+.model-explorer-v300 .filter-bar input:focus,
+.model-explorer-v300 .filter-bar select:focus{box-shadow:none}
+.model-explorer-v300 .result-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin:14px 2px 16px;
+  padding:0;
+}
+.model-explorer-v300 .result-meta span{font-size:12px}
+.model-explorer-v300 .result-meta small{font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#8a949a}
+.model-explorer-v300 .filter-reset{
+  border:1px solid #d9ddd8;
+  border-radius:999px;
+  background:#fff;
+  padding:8px 12px;
+  font-size:10px;
+  font-weight:850;
+  cursor:pointer;
+}
+.model-explorer-v300 .filter-reset:hover{border-color:#bcc3bd;color:var(--accent)}
+
+.motorcycle-catalog-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+.motorcycles-index-v300 .model-card{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  border:1px solid #dfe3de;
+  border-radius:19px;
+  box-shadow:0 7px 20px rgba(16,19,23,.035);
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.motorcycles-index-v300 .model-card:hover{transform:translateY(-2px);border-color:#cdd3cc;box-shadow:0 14px 30px rgba(16,19,23,.075)}
+.motorcycles-index-v300 .model-card>.model-card-media,
+.motorcycles-index-v300 .model-card>.model-media-placeholder,
+.motorcycles-index-v300 .model-card>.bike-art{
+  height:176px!important;
+  min-height:176px!important;
+  border-bottom:1px solid #e8eae6;
+  background:linear-gradient(145deg,#f8f9f6,#fff);
+}
+.motorcycles-index-v300 .model-card-media img{padding:14px!important}
+.motorcycles-index-v300 .model-card-body{display:flex;flex:1;flex-direction:column;padding:16px}
+.motorcycles-index-v300 .model-card h3{font-size:18px;line-height:1.12;margin:5px 0}
+.motorcycles-index-v300 .model-card .price{font-size:20px;line-height:1;margin:7px 0 6px}
+.motorcycles-index-v300 .model-card-body>small{min-height:30px;font-size:9px;line-height:1.4}
+.motorcycles-index-v300 .model-card .mini-stats{gap:5px;margin-top:11px}
+.motorcycles-index-v300 .model-card .mini-stats span{padding:5px 6px;border:1px solid #e3e6e2;background:#f6f7f4;font-size:9px}
+.motorcycles-index-v300 .model-card .card-actions{margin-top:auto;padding-top:14px;gap:7px}
+.motorcycles-index-v300 .model-card .card-actions .button{flex:1;justify-content:center}
+
+.motorcycle-brand-directory-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:9px;
+}
+.motorcycle-brand-directory-grid>a{
+  display:grid;
+  grid-template-columns:44px minmax(0,1fr) auto;
+  gap:12px;
+  align-items:center;
+  min-height:78px;
+  padding:13px 14px;
+  border:1px solid #dfe3de;
+  border-radius:16px;
+  background:#fff;
+  transition:.16s ease;
+}
+.motorcycle-brand-directory-grid>a:hover{transform:translateY(-1px);border-color:#cbd1ca;box-shadow:0 8px 22px rgba(16,19,23,.05)}
+.motorcycle-brand-mark{
+  width:44px;height:44px;
+  display:grid;place-items:center;
+  border-radius:13px;
+  background:#161b1f;
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.06em;
+}
+.motorcycle-brand-directory-grid strong,
+.motorcycle-brand-directory-grid small{display:block}
+.motorcycle-brand-directory-grid strong{font-size:14px}
+.motorcycle-brand-directory-grid small{font-size:9px;color:var(--muted);margin-top:3px}
+.motorcycle-brand-directory-grid>a>span{font-size:10px;color:#6d777e;text-align:right;white-space:nowrap}
+
+.motorcycle-family-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.motorcycle-family-card-grid>a{
+  min-height:145px;
+  display:flex;
+  flex-direction:column;
+  padding:20px;
+  border:1px solid #dfe3de;
+  border-radius:18px;
+  background:#fff;
+  transition:.18s ease;
+}
+.motorcycle-family-card-grid>a:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(16,19,23,.06)}
+.motorcycle-family-card-grid span{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:900}
+.motorcycle-family-card-grid strong{font-size:26px;letter-spacing:-.04em;margin:8px 0}
+.motorcycle-family-card-grid small{margin-top:auto;color:var(--muted);font-size:10px;line-height:1.4}
+
+.motorcycle-index-method{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:26px;
+  align-items:center;
+  margin-top:34px;
+  padding:28px;
+  border-radius:24px;
+  background:#11161a;
+  color:#fff;
+}
+.motorcycle-index-method h2{font-size:clamp(28px,3vw,40px);letter-spacing:-.04em;line-height:1.05;margin:6px 0 10px}
+.motorcycle-index-method p{max-width:650px;color:#aeb6bb;line-height:1.55;margin:0}
+.motorcycle-index-method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.motorcycle-index-method-grid article{min-height:118px;padding:16px;border:1px solid rgba(255,255,255,.1);border-radius:16px;background:rgba(255,255,255,.045)}
+.motorcycle-index-method-grid b{display:block;color:#ff8b68;font-size:11px}
+.motorcycle-index-method-grid strong{display:block;font-size:15px;margin:8px 0 5px}
+.motorcycle-index-method-grid small{display:block;color:#9da7ad;font-size:9px;line-height:1.4}
+
+/* Model family hubs */
+.model-family-current-card{
+  overflow:hidden;
+  align-self:stretch;
+  display:grid;
+  grid-template-columns:1.02fr .98fr;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:24px;
+  background:#fff;
+  color:var(--ink);
+  box-shadow:0 22px 55px rgba(0,0,0,.18);
+}
+.model-family-current-media{min-height:250px;background:#fff;border-right:1px solid #eceeea}
+.model-family-current-media .entity-media-link{display:block;height:100%}
+.model-family-current-media img{width:100%;height:100%;object-fit:contain!important;padding:18px!important}
+.model-family-media-fallback{height:100%;min-height:250px;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;background:linear-gradient(145deg,#f2f3ef,#fff)}
+.model-family-media-fallback span{font-size:9px;text-transform:uppercase;color:var(--accent);font-weight:900}
+.model-family-media-fallback strong{display:flex;flex-direction:column;margin-top:8px;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.model-family-media-fallback b{font-size:25px;text-transform:none;letter-spacing:-.04em}
+.model-family-current-copy{display:flex;flex-direction:column;padding:20px}
+.model-family-current-copy>span{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:900}
+.model-family-current-copy h2{font-size:24px;line-height:1.05;letter-spacing:-.035em;margin:8px 0 12px}
+.model-family-current-copy>strong{font-size:24px;letter-spacing:-.04em}
+.model-family-current-copy>small{color:var(--muted);font-size:9px;line-height:1.4;margin-top:5px}
+.model-family-current-copy>a{margin-top:auto;padding-top:16px;font-size:11px;font-weight:850;color:var(--accent)}
+
+.model-family-body{padding:0 0 84px}
+.model-family-nav{
+  position:sticky;
+  top:calc(var(--header-h) + 8px);
+  z-index:35;
+  width:max-content;
+  max-width:100%;
+  display:flex;
+  gap:3px;
+  overflow:auto;
+  margin:14px auto 0;
+  padding:5px;
+  border:1px solid #dde1dc;
+  border-radius:16px;
+  background:rgba(255,255,255,.95);
+  box-shadow:0 10px 30px rgba(18,24,28,.08);
+}
+.model-family-nav a{min-height:38px;display:inline-flex;align-items:center;padding:0 12px;border-radius:11px;font-size:10px;font-weight:850;white-space:nowrap}
+.model-family-nav a:hover{background:#f2f3ef;color:var(--accent)}
+.model-family-section{
+  scroll-margin-top:calc(var(--header-h) + 86px);
+  margin-top:24px;
+  padding:30px;
+  border:1px solid #dfe3de;
+  border-radius:24px;
+  background:#fff;
+  box-shadow:0 10px 28px rgba(16,19,23,.025);
+}
+.model-family-section>.section-head{margin-bottom:20px}
+.model-family-section>.section-head h2{font-size:clamp(29px,3.2vw,41px);letter-spacing:-.04em;line-height:1.05}
+.model-family-section>.section-head p{max-width:790px;color:var(--muted);line-height:1.55}
+
+.model-family-generation-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.model-family-generation-card{
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  border:1px solid #dfe3de;
+  border-radius:20px;
+  background:#fff;
+  transition:.18s ease;
+}
+.model-family-generation-card:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(16,19,23,.07)}
+.model-family-generation-card.is-current{border-color:#e3b8aa;box-shadow:0 0 0 1px rgba(193,59,25,.07)}
+.model-family-generation-media,
+.model-family-generation-fallback{height:200px;min-height:200px;background:#f8f9f6;border-bottom:1px solid #e6e9e4}
+.model-family-generation-media .entity-media-link{display:block;height:100%}
+.model-family-generation-media img{width:100%;height:100%;object-fit:contain!important;padding:16px!important}
+.model-family-generation-fallback{display:flex;flex-direction:column;justify-content:flex-end;padding:20px}
+.model-family-generation-fallback span{font-size:9px;text-transform:uppercase;color:var(--accent);font-weight:900}
+.model-family-generation-fallback strong{font-size:24px;letter-spacing:-.04em;margin-top:6px}
+.model-family-generation-copy{display:flex;flex:1;flex-direction:column;padding:18px}
+.model-family-generation-topline{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.model-family-generation-topline span{font-size:8.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:850}
+.model-family-generation-topline b{padding:5px 7px;border-radius:999px;background:#fff0ea;color:var(--accent);font-size:8px;text-transform:uppercase;letter-spacing:.07em}
+.model-family-generation-copy h3{font-size:20px;line-height:1.1;letter-spacing:-.03em;margin:8px 0}
+.model-family-generation-price{font-size:22px;letter-spacing:-.035em}
+.model-family-generation-copy>small{min-height:28px;color:var(--muted);font-size:9px;line-height:1.4;margin-top:4px}
+.model-family-generation-facts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:14px 0}
+.model-family-generation-facts span{padding:9px 10px;border-radius:11px;background:#f5f6f3}
+.model-family-generation-facts small,.model-family-generation-facts b{display:block}
+.model-family-generation-facts small{font-size:8px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.model-family-generation-facts b{font-size:10px;margin-top:3px;line-height:1.35}
+.model-family-generation-copy>.button{margin-top:auto;justify-content:center}
+
+.model-family-compare-list{display:grid;gap:7px}
+.model-family-compare-list>a{
+  display:grid;
+  grid-template-columns:1.35fr 1.05fr .7fr .7fr .7fr 22px;
+  gap:12px;
+  align-items:center;
+  padding:13px 15px;
+  border:1px solid #e1e4df;
+  border-radius:14px;
+  background:#fafbf8;
+}
+.model-family-compare-list>a:hover{background:#fff;border-color:#cfd5ce}
+.model-family-compare-list span small,
+.model-family-compare-list span b,
+.model-family-compare-name strong{display:block}
+.model-family-compare-list span small{font-size:8px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.model-family-compare-list span b,
+.model-family-compare-name strong{font-size:11px;margin-top:3px}
+.model-family-compare-name strong{font-size:14px}
+.model-family-compare-list>a>strong{color:#9aa3a8}
+
+.model-family-nickname-section{
+  display:grid;
+  grid-template-columns:1.18fr .82fr;
+  gap:28px;
+  align-items:start;
+}
+.model-family-nickname-copy h2{font-size:clamp(29px,3vw,40px);letter-spacing:-.04em;line-height:1.05;margin:4px 0 16px}
+.model-family-nickname-copy p{color:var(--muted);line-height:1.65;margin:0 0 14px}
+.model-family-identify-card{padding:24px;border-radius:20px;background:#12171b;color:#fff}
+.model-family-identify-card>span{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#ff8b68;font-weight:900}
+.model-family-identify-card h3{font-size:24px;letter-spacing:-.035em;margin:8px 0 12px}
+.model-family-identify-card .checklist li{border-color:rgba(255,255,255,.1);color:#d0d6d9;font-size:11px}
+.model-family-identify-card>a{display:inline-flex;margin-top:16px;font-size:11px;font-weight:850;color:#ff8b68}
+
+.model-family-guide-section .family-guide{margin:0}
+.model-family-guide-section .family-guide>.section-head{margin:0 0 18px}
+.model-family-guide-section .family-guide .split.section{padding:0;margin:0;gap:26px}
+.model-family-guide-section .family-guide h3{font-size:20px}
+.model-family-guide-section .family-guide .info-card{background:#f7f8f5;border-radius:18px;padding:22px}
+
+.model-family-note{
+  margin-top:24px;
+  padding:26px 28px;
+  border-radius:22px;
+  background:#11161a;
+  color:#fff;
+}
+.model-family-note>span{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#ff8b68;font-weight:900}
+.model-family-note h2{font-size:28px;letter-spacing:-.04em;margin:7px 0 9px}
+.model-family-note p{max-width:850px;color:#aeb6bb;line-height:1.55;margin:0}
+.model-family-faq-section .faq-section{margin-top:0}
+.model-family-faq-section>.faq-section>h2{margin-top:0}
+
+/* Keep brand and detail pages visually tied to the same motorcycle system */
+.ph-brand-page>.shell{padding-bottom:76px}
+.ph-brand-page .ph-brand-section{background:#fff}
+.ph-brand-page .ph-brand-families{margin-top:22px}
+.ph-brand-page .ph-brand-families>a{min-height:140px;border-radius:18px}
+.motorcycle-entity-hero{background:linear-gradient(145deg,#f3f4f0 0%,#fff 70%)}
+.motorcycle-entity-body{padding-top:24px}
+.motorcycle-entity-section{border-radius:24px;border-color:#dfe3de;box-shadow:0 9px 26px rgba(16,19,23,.025)}
+
+@media(max-width:1080px){
+  .motorcycle-catalog-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .motorcycle-index-quicklinks{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .motorcycle-brand-directory-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:900px){
+  .motorcycle-index-hero-grid,
+  .model-family-hero-grid,
+  .motorcycle-index-method{grid-template-columns:1fr}
+  .motorcycle-index-overview{max-width:720px}
+  .model-explorer-v300 .filter-bar{grid-template-columns:1fr 1fr}
+  .motorcycle-catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .motorcycle-family-card-grid{grid-template-columns:1fr 1fr}
+  .model-family-current-card{max-width:720px}
+  .model-family-generation-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .model-family-compare-list>a{grid-template-columns:1.2fr 1fr .7fr .7fr 22px}
+  .model-family-compare-list>a>span:nth-child(5){display:none}
+  .model-family-nickname-section{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  .motorcycle-index-hero{padding:28px 0 20px}
+  .model-family-hero{padding:22px 0 28px}
+  .motorcycle-index-hero h1,
+  .model-family-hero h1{font-size:clamp(37px,11vw,48px)}
+  .motorcycle-index-overview{grid-template-columns:1fr 1fr}
+  .motorcycle-index-overview>div{min-height:98px;padding:14px}
+  .motorcycle-index-overview strong{font-size:19px}
+  .motorcycle-index-quicklinks{grid-template-columns:1fr}
+  .motorcycle-index-quicklinks>a{min-height:92px}
+  .motorcycle-index-body{padding-top:20px}
+  .model-explorer-v300{padding:13px;border-radius:20px}
+  .model-explorer-toolbar{align-items:flex-start}
+  .model-explorer-v300 .filter-bar{grid-template-columns:1fr}
+  .model-explorer-v300 .result-meta{align-items:flex-start;flex-direction:column}
+  .motorcycle-catalog-grid{grid-template-columns:1fr}
+  .motorcycles-index-v300 .model-card>.model-card-media,
+  .motorcycles-index-v300 .model-card>.model-media-placeholder,
+  .motorcycles-index-v300 .model-card>.bike-art{height:210px!important;min-height:210px!important}
+  .motorcycle-brand-directory-grid{grid-template-columns:1fr}
+  .motorcycle-brand-directory-grid>a{grid-template-columns:42px 1fr auto}
+  .motorcycle-family-card-grid{grid-template-columns:1fr}
+  .motorcycle-index-method{padding:22px}
+  .motorcycle-index-method-grid{grid-template-columns:1fr}
+  .motorcycle-index-method-grid article{min-height:90px}
+
+  .model-family-current-card{grid-template-columns:1fr}
+  .model-family-current-media{min-height:220px;height:220px;border-right:0;border-bottom:1px solid #eceeea}
+  .model-family-current-copy{min-height:190px}
+  .model-family-nav{margin-top:10px;border-radius:14px}
+  .model-family-section{padding:20px;border-radius:20px}
+  .model-family-generation-grid{grid-template-columns:1fr}
+  .model-family-generation-media,
+  .model-family-generation-fallback{height:220px;min-height:220px}
+  .model-family-compare-list>a{grid-template-columns:1fr 1fr 22px;gap:8px}
+  .model-family-compare-list>a>span:nth-child(3),
+  .model-family-compare-list>a>span:nth-child(4),
+  .model-family-compare-list>a>span:nth-child(5){display:none}
+  .model-family-nickname-section{padding:20px}
+  .model-family-identify-card{padding:20px}
+  .model-family-guide-section .family-guide .split.section{grid-template-columns:1fr}
+  .model-family-note{padding:22px}
+}
+@media(max-width:460px){
+  .motorcycle-index-overview{grid-template-columns:1fr}
+  .motorcycle-index-actions .button,
+  .model-family-actions .button{width:100%;justify-content:center}
+  .motorcycle-brand-directory-grid>a>span{display:none}
+}
