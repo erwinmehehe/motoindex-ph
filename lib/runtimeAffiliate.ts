@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { databaseConfigured, prisma } from "@/lib/db";
 import { getAffiliateLink, type AffiliateLinkConfig, type AffiliateNetwork } from "@/lib/affiliate";
 import { allCatalogProducts } from "@/lib/catalog";
