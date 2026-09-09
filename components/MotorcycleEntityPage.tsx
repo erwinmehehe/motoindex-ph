@@ -302,6 +302,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         </div>}
         {topBoxFitments.length > 0 && <div className="fitment-evidence-grid entity-fitment-evidence">{topBoxFitments.map((f) => <article key={f.id}><span className={`catalog-status ${f.status === "verified" ? "verified" : ""}`}>{f.status === "verified" ? "Manufacturer-listed" : "Needs checking"}</span><h3>{f.topBoxLabel}</h3><p><b>Rack:</b> {f.rackCode} · {f.rackLabel}</p><p><b>Years:</b> {f.modelYears}</p><p>{f.plateRequirement}</p>{f.marketNote && <small>{f.marketNote}</small>}<div className="fitment-card-links"><Link href={f.productHref}>Open product →</Link><SourceRef url={f.sourceUrl} label="Fitment source" /></div></article>)}</div>}
         <FitmentSummary model={model} />
+        {["yamaha-nmax-v3","honda-adv-160","yamaha-aerox-v3","honda-click-160","honda-pcx-160","yamaha-fazzio"].includes(model.id) && <div className="entity-tool-grid"><Link href={`/motorcycles/${model.makeSlug}/${model.slug}/gear`}><span>Gear guide</span><strong>Helmets, tires and top boxes for {model.model}</strong><small>Shop from verified helmet records and exact tire or top-box fitment evidence.</small></Link></div>}
       </section>
 
       <section id="fuel" className="motorcycle-entity-section" aria-labelledby="fuel-heading">
@@ -355,6 +356,10 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           <details className="entity-disclosure"><summary>Show used listing samples</summary><UsedListingTable items={usedListings} /></details>
         </>}
         <UsedValueCalculator model={forClient(model)} />
+        <div className="entity-tool-grid">
+          <Link href={`/used-motorcycles/${model.makeSlug}/${model.slug}`}><span>Used listings</span><strong>Check verified used {model.model} listings</strong><small>Only verified marketplace references appear on the used page.</small></Link>
+          <Link href="/used-motorcycles/buying-checklist"><span>Buying used</span><strong>Open the used-bike checklist</strong><small>Check documents, condition, service history and the actual unit before paying.</small></Link>
+        </div>
         <details className="entity-disclosure"><summary>Show illustrative depreciation table</summary><div className="depreciation-table"><div className="depreciation-row head"><span>Age</span><span>Fair</span><span>Good</span><span>Excellent</span></div>{usedCurve.map((row) => <div className="depreciation-row" key={row.age}><strong>{row.age} year{row.age === 1 ? "" : "s"}</strong><span>{php(row.fair)}</span><span>{php(row.good)}</span><span>{php(row.excellent)}</span></div>)}</div></details>
       </section>
 
