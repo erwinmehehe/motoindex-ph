@@ -61,6 +61,7 @@ export default async function MotorcyclesPage({ searchParams }: { searchParams: 
           <Link href={{ pathname:"/motorcycles", query:{ budget:"100to150" } }}><span>Budget</span><strong>₱100K–₱150K</strong><small>Compare popular commuter price bands →</small></Link>
           <Link href="/recommendations/scooters-under-150k-philippines"><span>Guide</span><strong>Scooters under ₱150K</strong><small>Open the focused buying guide →</small></Link>
           <Link href="/recommendations"><span>Buying guides</span><strong>Shop by riding need</strong><small>Commuting, beginners, touring and more →</small></Link>
+          <Link href="/motorcycles/electric"><span>Electric</span><strong>Electric motorcycles</strong><small>Verified batteries, range, charging and LTO class →</small></Link>
         </div>
       </div>
     </div>
