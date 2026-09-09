@@ -1,7 +1,7 @@
 import { accessoryCategories, comparisons, helmetBrands, motorcycles, recommendationGuides, isIndexableModel, isIndexableComparison, isIndexableRecommendation } from "@/lib/data";
 import { modelFamilies } from "@/lib/families";
 import { helmetProducts, tireProducts, topBoxProducts, isIndexableHelmetBrand } from "@/lib/catalog";
-import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug, publicDealerCities, publicDealersByCity, publicSellers } from "@/lib/sellers";
+import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug, publicDealerCities, publicDealersByCity, publicSellers, publicSellersByType } from "@/lib/sellers";
 import { RELEASE_DATE, SITE_URL } from "@/lib/site";
 import { ownershipGuides } from "@/lib/ownershipGuides";
 import { commuteGuides, isIndexableCommuteGuide } from "@/lib/commute";
@@ -97,7 +97,11 @@ export function commerceSitemapEntries(): Entry[] {
   const dealerUrls=publicDealerCities()
     .filter(city=>publicDealersByCity(citySlug(city)).length>=MIN_PUBLIC_DEALERS_PER_CITY)
     .map(city=>({url:`${SITE_URL}/dealers/${citySlug(city)}`,lastModified:RELEASE_DATE,changeFrequency:"weekly" as const,priority:.62}));
-  return [...sellerUrls,...dealerUrls];
+  const pampangaDealers=publicSellersByType("dealer").filter(s=>s.province==="Pampanga");
+  const provinceUrls=pampangaDealers.length>=5
+    ? [{url:`${SITE_URL}/dealers/pampanga`,lastModified:newest(pampangaDealers.map(s=>s.lastChecked||RELEASE_DATE)),changeFrequency:"weekly" as const,priority:.66}]
+    : [];
+  return [...sellerUrls,...dealerUrls,...provinceUrls];
 }
 
 export function sitemapXml(entries: Entry[]) {
