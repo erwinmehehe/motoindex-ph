@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getHelmetProduct, helmetProducts } from "@/lib/catalog";
+import { getHelmetCatalogModel, helmetCatalogModels } from "@/lib/helmetBrandLineups";
+import { HelmetCatalogModelPage } from "@/components/HelmetCatalogModelPage";
 import { php } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RelatedLinks } from "@/components/RelatedLinks";
@@ -21,13 +23,27 @@ import { SourceRef } from "@/components/SourceRef";
 export const revalidate = 3600;
 
 export function generateStaticParams() {
-  return helmetProducts.map((p) => ({ brand: p.brandSlug, product: p.slug }));
+  const params = [
+    ...helmetProducts.map((p) => ({ brand: p.brandSlug, product: p.slug })),
+    ...helmetCatalogModels.map((p) => ({ brand: p.brandSlug, product: p.slug })),
+  ];
+  return [...new Map(params.map((item) => [`${item.brand}/${item.product}`, item])).values()];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ brand: string; product: string }> }): Promise<Metadata> {
   const { brand, product } = await params;
   const p = getHelmetProduct(brand, product);
-  if (!p) return {};
+  if (!p) {
+    const catalog = getHelmetCatalogModel(brand, product);
+    if (!catalog) return {};
+    const brandLabel = catalog.brandSlug.toUpperCase();
+    return pageMetadata({
+      title: `${brandLabel} ${catalog.model} Helmet Philippines: Catalog Model`,
+      description: `${brandLabel} ${catalog.model} current catalog model page with source reference and Philippine buying checks while exact price, fit, visor, shell and certification details are verified.`,
+      path: `/gear/helmets/${catalog.brandSlug}/${catalog.slug}`,
+      index: false,
+    });
+  }
   const base = pageMetadata({
     title: `${p.brand} ${p.model} Price Philippines: Specs & Size Guide`,
     description: `${p.brand} ${p.model} Philippines guide with price, size chart, shell, weight, visor/Pinlock details, pros and cons, alternatives and fit checks.`,
@@ -54,7 +70,11 @@ function helmetCompareRows(base: ReturnType<typeof getHelmetProduct>, other: Non
 export default async function HelmetProductPage({ params }: { params: Promise<{ brand: string; product: string }> }) {
   const { brand, product } = await params;
   const p = getHelmetProduct(brand, product);
-  if (!p) return notFound();
+  if (!p) {
+    const catalog = getHelmetCatalogModel(brand, product);
+    if (!catalog) return notFound();
+    return <HelmetCatalogModelPage item={catalog} />;
+  }
 
   const editorial = helmetEditorial(p);
   const alternatives = helmetAlternatives(p, 3);

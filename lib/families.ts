@@ -56,7 +56,19 @@ export const modelFamilies: ModelFamily[] = [
         "So do not buy, sell or price a Click on a V-number. Read the displacement and the model year off the OR/CR and the engine number, then use the page for that exact model below. If a seller quotes you a price for a “V3”, ask which displacement and which year they mean before comparing it to anything."
       ]
     }
-  }
+  },
+
+  {
+    make: "Honda",
+    makeSlug: "honda",
+    name: "ADV",
+    slug: "adv",
+    searchVolume: 0,
+    intro: "Compare the current Honda ADV160 with the previous ADV150 generation, keeping current new-bike pricing separate from the discontinued model's historical Philippine launch price.",
+    currentModelId: "honda-adv-160",
+    generationIds: ["honda-adv-160", "honda-adv-150"]
+  },
+
 ];
 
 export function getModelFamily(makeSlug: string, slug: string) {

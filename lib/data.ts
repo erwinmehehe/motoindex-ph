@@ -1378,9 +1378,143 @@ export const recommendationGuides: RecommendationGuide[] = [
     faqQuestions: ["What motorcycles under 400cc are available in the Philippines?", "Which motorcycle under 400cc has the lowest observed price?", "Which sub-400cc motorcycle is lightest?", "Which under-400cc bike has the lowest seat?", "Does being under 400cc make a motorcycle beginner-friendly?"],
     relatedGuideSlugs: ["motorcycles-400cc-plus-philippines", "beginner-friendly-motorcycles-philippines", "motorcycles-with-abs-philippines", "lightweight-motorcycles-philippines"],
     intent: "category"
-  }
+  },
 
 
+
+
+  {
+    slug: "yamaha-scooters-philippines",
+    kicker: "Yamaha scooters",
+    title: "Yamaha scooters in the Philippines",
+    seoTitle: "Yamaha Scooters Philippines: Prices & Specs 2026",
+    description: "Compare current Yamaha scooters in the Philippines by observed price, engine size, curb weight, seat height, ABS, fuel economy and tank capacity.",
+    primaryKeyword: "Yamaha scooters Philippines",
+    secondaryKeywords: ["Yamaha scooter price Philippines", "Yamaha automatic motorcycle Philippines", "Yamaha scooter models 2026"],
+    directAnswer: "This guide filters MotoIndex to current, source-backed Yamaha scooters and compares their observed Philippine prices with published engine, weight, seat-height, braking and fuel data.",
+    inclusionRules: ["Make is Yamaha", "Category contains scooter", "Current, indexable Philippine-market motorcycle record"],
+    orderingRule: "Observed starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Observed prices use dated Philippine manufacturer, dealer or comparison-site checks. Core specifications come from each source-backed model record.",
+    caveats: ["Variant pricing can differ from the entry price shown.", "Dealer fees, freight, stock and promotions can change the final purchase price.", "Category labels do not replace an in-person fit check."],
+    tableColumns: ["price","engine","weight","seat","abs","economy","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest published fuel economy",metric:"economy"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced Yamaha scooters", "Lighter Yamaha scooters", "Lower-seat Yamaha scooters", "Fuel economy and tank differences", "What to compare before choosing a Yamaha scooter"],
+    faqQuestions: ["What Yamaha scooters are available in the Philippines?", "Which Yamaha scooter has the lowest observed price?", "Which Yamaha scooter is lightest?", "Which Yamaha scooter has the lowest seat?", "Which Yamaha scooters list ABS?"],
+    relatedGuideSlugs: ["best-scooters-philippines","scooters-under-150k-philippines","yamaha-mio-motorcycles-philippines","best-motorcycles-for-daily-commute-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "honda-scooters-philippines",
+    kicker: "Honda scooters",
+    title: "Honda scooters in the Philippines",
+    seoTitle: "Honda Scooters Philippines: Prices & Specs 2026",
+    description: "Compare current Honda scooters in the Philippines by observed price, engine size, weight, seat height, ABS, fuel economy and fuel-tank capacity.",
+    primaryKeyword: "Honda scooters Philippines",
+    secondaryKeywords: ["Honda scooter price Philippines", "Honda automatic motorcycle Philippines", "Honda scooter models 2026"],
+    directAnswer: "This page compares current Honda scooter records using dated Philippine prices and source-backed engine, weight, seat-height, fuel and braking specifications.",
+    inclusionRules: ["Make is Honda", "Category contains scooter", "Current, indexable Philippine-market motorcycle record"],
+    orderingRule: "Observed starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Observed prices use dated Philippine sources; specifications come from the stored model-level evidence used by each MotoIndex page.",
+    caveats: ["Equipment can vary by trim, including ABS and connected features.", "Dealer availability and final on-road price can differ by location.", "Published seat height alone does not determine rider reach."],
+    tableColumns: ["price","engine","weight","seat","abs","economy","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest published fuel economy",metric:"economy"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced Honda scooters", "Lighter Honda scooters", "Lower-seat Honda scooters", "ABS and braking differences", "What to compare before choosing a Honda scooter"],
+    faqQuestions: ["What Honda scooters are available in the Philippines?", "Which Honda scooter has the lowest observed price?", "Which Honda scooter is lightest?", "Which Honda scooter has the lowest seat?", "Which Honda scooters list ABS?"],
+    relatedGuideSlugs: ["best-scooters-philippines","scooters-under-150k-philippines","honda-adv-motorcycles-philippines","best-motorcycles-for-daily-commute-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "yamaha-mio-motorcycles-philippines",
+    kicker: "Yamaha Mio line",
+    title: "Yamaha Mio motorcycles in the Philippines",
+    seoTitle: "Yamaha Mio Philippines: Models, Prices & Specs 2026",
+    description: "Compare current Yamaha Mio-family and closely marketed Mio scooter models in the Philippines by price, engine, weight, seat height and equipment.",
+    primaryKeyword: "Yamaha Mio Philippines",
+    secondaryKeywords: ["Yamaha Mio price Philippines", "Mio scooter models Philippines", "Mio Aerox price", "Mio Gear price", "Mio i 125 price"],
+    directAnswer: "MotoIndex groups current Yamaha Mio-branded and closely marketed Mio scooter records here so buyers can compare price, engine, weight, seat height and braking without mixing them with unrelated Yamaha motorcycles.",
+    inclusionRules: ["Make is Yamaha", "Model name contains Mio, Aerox or Fazzio", "Current, indexable Philippine-market motorcycle record"],
+    orderingRule: "Observed starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Prices and specifications remain attached to the exact model record; the collection page does not merge generations or variants into one price.",
+    caveats: ["Aerox generations have separate canonical model pages.", "The Mio name spans scooters with different engines, dimensions and intended use.", "Dealer stock and variant pricing can change."],
+    tableColumns: ["price","engine","weight","seat","abs","economy","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced Yamaha Mio models", "Lighter Mio-family scooters", "Lower-seat Mio choices", "Engine and power differences", "Which exact Mio model to open next"],
+    faqQuestions: ["What Yamaha Mio models are available in the Philippines?", "Which Yamaha Mio model has the lowest observed price?", "Which Mio-family scooter is lightest?", "Which Mio model has the lowest seat?", "Are Mio Aerox generations kept separate?"],
+    relatedGuideSlugs: ["yamaha-scooters-philippines","best-scooters-philippines","scooters-under-150k-philippines","best-motorcycles-for-daily-commute-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "kawasaki-ninja-motorcycles-philippines",
+    kicker: "Kawasaki Ninja",
+    title: "Kawasaki Ninja motorcycles in the Philippines",
+    seoTitle: "Kawasaki Ninja Philippines: Prices & Specs 2026",
+    description: "Compare current Kawasaki Ninja motorcycles in the Philippines by observed price, engine, power, weight, seat height, ABS and fuel-tank capacity.",
+    primaryKeyword: "Kawasaki Ninja Philippines",
+    secondaryKeywords: ["Kawasaki Ninja price Philippines", "Ninja motorcycle models Philippines", "Ninja ZX-4RR price", "Ninja ZX-25R price", "Ninja 1000 price"],
+    directAnswer: "This collection compares current Kawasaki Ninja model records from lightweight sport bikes through inline-four ZX models and the Ninja 1000SX, while keeping each motorcycle's own price and specification evidence separate.",
+    inclusionRules: ["Make is Kawasaki", "Model name starts with Ninja", "Current, indexable Philippine-market motorcycle record"],
+    orderingRule: "Observed starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight"],
+    orderLabel: "Price order",
+    sourcePolicy: "Current Philippine model pages keep MSRP or market observations dated and tied to each exact Ninja model.",
+    caveats: ["The Ninja name covers motorcycles with very different engine sizes and intended uses.", "Peak power is not an overall suitability score.", "Confirm the exact variant and current dealer stock before buying."],
+    tableColumns: ["price","engine","power","torque","weight","seat","abs","tank"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced Kawasaki Ninja models", "Lighter Ninja motorcycles", "Lower-seat Ninja choices", "Higher-power Ninja models", "What changes across the Ninja range"],
+    faqQuestions: ["What Kawasaki Ninja motorcycles are available in the Philippines?", "Which Kawasaki Ninja has the lowest observed price?", "Which Ninja is lightest?", "Which Ninja has the lowest seat?", "Which Ninja motorcycles list ABS?"],
+    relatedGuideSlugs: ["sport-motorcycles-philippines","motorcycles-400cc-plus-philippines","motorcycles-with-abs-philippines","best-motorcycles-for-long-rides"],
+    intent: "category"
+  },
+  {
+    slug: "honda-adv-motorcycles-philippines",
+    kicker: "Honda ADV line",
+    title: "Honda ADV motorcycles in the Philippines",
+    seoTitle: "Honda ADV Philippines: ADV160, ADV350 & X-ADV 2026",
+    description: "Compare current Honda ADV160, ADV350 and X-ADV models in the Philippines by observed price, engine, weight, seat height, fuel tank and ABS.",
+    primaryKeyword: "Honda ADV Philippines",
+    secondaryKeywords: ["Honda ADV price Philippines", "Honda ADV160 price", "Honda ADV350 price", "Honda X-ADV price Philippines"],
+    directAnswer: "MotoIndex compares the current Honda ADV160, ADV350 and X-ADV records on one page while the Honda ADV family hub separately handles the ADV150-to-ADV160 generation relationship.",
+    inclusionRules: ["Make is Honda", "Model name contains ADV", "Current, indexable Philippine-market motorcycle record"],
+    orderingRule: "Observed starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight"],
+    orderLabel: "Price order",
+    sourcePolicy: "Each ADV model retains its own Philippine price and specification source so smaller scooters are not blended with the 745cc X-ADV.",
+    caveats: ["ADV150 is a previous generation and is handled separately from this current-model comparison.", "Engine size and price differ dramatically across the ADV line.", "Confirm variant-specific rider aids and equipment."],
+    tableColumns: ["price","engine","power","weight","seat","clearance","abs","tank"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced Honda ADV model", "Weight differences across Honda ADV models", "Seat-height differences", "Engine and power differences", "ADV160 vs ADV350 vs X-ADV use cases"],
+    faqQuestions: ["What Honda ADV motorcycles are available in the Philippines?", "Which Honda ADV has the lowest observed price?", "Which Honda ADV is lightest?", "Which Honda ADV has the lowest seat?", "Where does the older ADV150 fit?"],
+    relatedGuideSlugs: ["honda-scooters-philippines","adventure-touring-motorcycles-philippines","maxi-scooters-philippines","motorcycles-400cc-plus-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "cafe-racer-motorcycles-philippines",
+    kicker: "Cafe racer and modern classic",
+    title: "Cafe racer motorcycles in the Philippines",
+    seoTitle: "Cafe Racer Motorcycles Philippines: Prices & Specs 2026",
+    description: "Compare cafe-racer and modern-classic motorcycles in the Philippines by observed price, engine, weight, seat height, ABS and fuel-tank capacity.",
+    primaryKeyword: "cafe racer motorcycles Philippines",
+    secondaryKeywords: ["cafe racer Philippines price", "classic motorcycle Philippines", "retro motorcycle Philippines", "modern classic motorcycles Philippines"],
+    directAnswer: "This guide brings together current cafe-racer, modern-classic and closely related classic-road motorcycle records while keeping the exact category label visible for each model.",
+    inclusionRules: ["Category is cafe racer, modern classic or classic road bike", "Current, indexable Philippine-market motorcycle record"],
+    orderingRule: "Observed starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight"],
+    orderLabel: "Price order",
+    sourcePolicy: "Prices and core specifications come from each model's dated source-backed record; style labels are not used to invent performance claims.",
+    caveats: ["Cafe-racer styling does not imply identical ergonomics or performance.", "Some modern-classic motorcycles are broader roadsters rather than strict cafe racers.", "Check rider fit and parts support before choosing by appearance alone."],
+    tableColumns: ["price","engine","power","weight","seat","abs","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced cafe racer and classic motorcycles", "Lighter retro-style motorcycles", "Lower-seat classic choices", "Engine and output differences", "What to compare beyond styling"],
+    faqQuestions: ["What cafe racer motorcycles are available in the Philippines?", "Which cafe racer has the lowest observed price?", "Which retro-style motorcycle is lightest?", "Which cafe racer or classic bike has the lowest seat?", "What should I compare beyond cafe-racer styling?"],
+    relatedGuideSlugs: ["naked-motorcycles-philippines","motorcycles-under-400cc-philippines","beginner-friendly-motorcycles-philippines","best-motorcycles-for-long-rides"],
+    intent: "category"
+  },
 
 ];
 
@@ -1413,6 +1547,12 @@ export function getRecommendationModels(slug: string) {
     case "dual-sport-motorcycles-philippines": return byPrice.filter(m => m.category === "Dual-sport");
     case "adventure-touring-motorcycles-philippines": return byPrice.filter(m => m.category === "Adventure touring");
     case "sport-motorcycles-philippines": return byPrice.filter(m => m.category === "Sport bike");
+    case "yamaha-scooters-philippines": return byPrice.filter(m => m.makeSlug === "yamaha" && /scooter/i.test(m.category));
+    case "honda-scooters-philippines": return byPrice.filter(m => m.makeSlug === "honda" && /scooter/i.test(m.category));
+    case "yamaha-mio-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "yamaha" && /mio|aerox|fazzio/i.test(m.model));
+    case "kawasaki-ninja-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "kawasaki" && /^ninja\b/i.test(m.model));
+    case "honda-adv-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "honda" && /adv/i.test(m.model));
+    case "cafe-racer-motorcycles-philippines": return byPrice.filter(m => /cafe racer|modern classic|classic road bike/i.test(m.category));
     default: return [];
   }
 }
