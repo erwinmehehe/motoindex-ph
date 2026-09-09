@@ -71,11 +71,11 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const faq = [
     {
       question: `Is this the complete ${brand} motorcycle lineup in the Philippines?`,
-      answer: `No. This page includes only the ${brand} models for which MotoIndex has a dated Philippine price/specification source and enough decision data to publish responsibly. ${current.length} current ${brand} ${current.length === 1 ? "model is" : "models are"} covered here today; the real Philippine lineup may be broader.`
+      answer: `Not necessarily. This page includes ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} with checked Philippine price and specification sources. The full manufacturer lineup can be broader and can change over time.`
     },
     {
-      question: `How many ${brand} motorcycles does MotoIndex currently track in the Philippines?`,
-      answer: `MotoIndex currently covers ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} on this Philippines brand page${previous.length ? `, plus ${previous.length} previous-generation reference ${previous.length === 1 ? "model" : "models"}` : ""}. Additional models are added after their Philippine price and core specifications are verified.`
+      question: `How many ${brand} motorcycles are covered on this page?`,
+      answer: `There are ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} covered here${previous.length ? `, plus ${previous.length} previous-generation ${previous.length === 1 ? "model" : "models"} kept for reference` : ""}.`
     },
     {
       question: `How much are ${brand} motorcycles in the Philippines?`,
@@ -87,7 +87,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     },
     {
       question: `Are these ${brand} prices official dealer quotes?`,
-      answer: `No. MotoIndex treats prices as dated reference points, not guaranteed transaction quotes. Each model page shows its source and verification date so buyers can recheck the current Philippine offer.`
+      answer: `No. The prices are dated reference points, not guaranteed transaction quotes. Open a model page to see the source date, then confirm the current cash price, fees and promotions with the seller.`
     }
   ];
 
@@ -191,7 +191,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       </section>}
 
       <section id="research" className="ph-brand-section">
-        <div className="section-head compact"><div><span className="section-kicker">How to use the data</span><h2>Before choosing a {brand} motorcycle</h2><p>MotoIndex keeps dated price references and specifications visible so you can compare models without treating the page as a dealer quote or a complete manufacturer catalog.</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">How to use the data</span><h2>Before choosing a {brand} motorcycle</h2><p>Dated price references and specifications stay visible so you can compare models without treating the page as a guaranteed dealer quote or a complete manufacturer catalog.</p></div></div>
         <div className="ph-brand-method-grid"><article><span>01</span><h3>Check the price date</h3><p>Prices are dated reference points. Open the model page to see the source and confirm the current cash price, fees and variant with the seller.</p></article><article><span>02</span><h3>Compare fit and use</h3><p>Engine size, seat height, weight, transmission and tire data help narrow the shortlist, but actual rider fit and comfort still need an in-person check.</p></article><article><span>03</span><h3>Confirm local support</h3><p>Dealer reach, parts, service intervals and warranty support matter after purchase. Use the official brand resources linked on this page when available.</p></article></div>
       </section>
 
