@@ -457,4 +457,46 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "889cc parallel-twin adventure tourer with 105 hp, 100 Nm, 21/18-inch tubeless spoked wheels, a 19 L tank and adjustable 854/874 mm seat."
   },
 
+
+  {
+    id: "honda-cb650r", make: "Honda", makeSlug: "honda", model: "CB650R", slug: "cb650r", generation: "2026 Philippine model", category: "Naked street bike",
+    srp: 525000, engineCc: 649, powerHp: 93.9, torqueNm: 63, curbWeightKg: 203, seatHeightMm: 810, fuelTankL: 15.4, fuelConsumptionKmL: 20.9, groundClearanceMm: 148,
+    frontTire: "120/70-17", rearTire: "180/55-17", abs: "2-channel ABS", colors: ["Matte Gunpowder Black Metallic", "Grand Prix Red", "Matte Jeans Blue Metallic"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Honda Philippines CB650R official specification sheet", sourceUrl: "https://www.hondaph.com/honda-bigbikes/files/products/646b1eb380c48.pdf", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current",
+    marketPriceHighPhp: 565000, marketPriceSourceLabel: "Honda Philippines Makina Moto Expo 2026 launch", marketPriceSourceUrl: "https://www.hondaph.com/big-bike/news/honda-philippines-launches-three-new-models-elevates-innovation-at-makina-moto-expo-2026", marketPriceCheckedAt: "2026-09-09", transmission: "Manual",
+    summary: "649cc inline-four naked bike with 93.9 hp, 63 Nm, an 810 mm seat and Standard plus E-Clutch variants in the 2026 Philippine lineup."
+  },
+  {
+    id: "honda-x-adv", make: "Honda", makeSlug: "honda", model: "X-ADV", slug: "x-adv", generation: "Current Philippine model", category: "Adventure scooter",
+    srp: 1170000, engineCc: 745, powerHp: 57.8, torqueNm: 69, curbWeightKg: 237, seatHeightMm: 820, fuelTankL: 13.2, fuelConsumptionKmL: 28.3, groundClearanceMm: 162,
+    frontTire: "120/70 R17", rearTire: "160/60 R15", abs: "2-channel ABS", colors: ["Matte Ballistic Black Metallic", "Iridium Gray Metallic", "Puco Blue"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Honda Philippines current X-ADV official specification sheet", sourceUrl: "https://www.hondaph.com/honda-bigbikes/files/products/675164fa0742a.pdf", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Honda Philippines current X-ADV official price/specification sheet", marketPriceSourceUrl: "https://www.hondaph.com/honda-bigbikes/files/products/69dca8e80ca1c.pdf", marketPriceCheckedAt: "2026-09-09", transmission: "Automatic",
+    summary: "745cc parallel-twin adventure scooter with six-speed DCT, 2-channel ABS, 28.3 km/L WMTC fuel consumption and a 820 mm seat."
+  },
+  {
+    id: "kawasaki-ninja-zx-4rr", make: "Kawasaki", makeSlug: "kawasaki", model: "Ninja ZX-4RR", slug: "ninja-zx-4rr", generation: "2026 model", category: "Sport bike",
+    srp: 505000, engineCc: 401, powerHp: 76, torqueNm: 39.6, curbWeightKg: 188, seatHeightMm: 800, fuelTankL: 15, fuelConsumptionKmL: 19.6, groundClearanceMm: 135,
+    frontTire: "120/70 ZR17", rearTire: "160/60 ZR17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Kawasaki 2026 Ninja ZX-4RR official specification", sourceUrl: "https://www.kawasaki-lifestyle.com/en/motorcycles/ninja/ninja-zx-4rr-2026.html", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Current Philippine 2026 market listing", marketPriceSourceUrl: "https://www.carmudi.com.ph/new-motorcycles/kawasaki/ninja-zx-4rr/price/angeles/", marketPriceCheckedAt: "2026-09-09", transmission: "Manual",
+    summary: "401cc inline-four supersport with approximately 76 hp, an 800 mm seat, 188 kg curb mass and 15 L fuel tank."
+  },
+  {
+    id: "cfmoto-300sr", make: "CFMOTO", makeSlug: "cfmoto", model: "300SR", slug: "300sr", generation: "Current Philippine model", category: "Sport bike",
+    srp: 165000, engineCc: 292.4, powerHp: 29, torqueNm: 25.3, curbWeightKg: 165, seatHeightMm: 780, fuelTankL: 12, groundClearanceMm: 135,
+    frontTire: "110/70 R17", rearTire: "140/60 R17", abs: "Continental dual-channel ABS", colors: ["Nebula Black", "Turquoise Blue"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "CFMOTO Philippines 300SR official product specification", sourceUrl: "https://www.cfmoto.ph/product/300sr/", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Current Philippine 2026 market listing", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/cfmoto/300sr", marketPriceCheckedAt: "2026-09-09", transmission: "Manual",
+    summary: "292.4cc single-cylinder sport bike with 29 hp, 25.3 Nm, a 780 mm seat and dual-channel ABS."
+  },
+  {
+    id: "royal-enfield-shotgun-650", make: "Royal Enfield", makeSlug: "royal-enfield", model: "Shotgun 650", slug: "shotgun-650", generation: "Current Philippine model", category: "Classic road bike",
+    srp: 429000, engineCc: 648, powerHp: 46.4, torqueNm: 52.3, curbWeightKg: 240, seatHeightMm: 795, fuelTankL: 13.8, fuelConsumptionKmL: 22, groundClearanceMm: 140,
+    frontTire: "100/90-18", rearTire: "150/70 R17", abs: "Dual-channel ABS", colors: ["Stencil White", "Sheet Metal Grey", "Drill Green", "Plasma Blue"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Royal Enfield Philippines Shotgun 650 current campaign and official specification", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/shotgun-650/campaign/", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current",
+    marketPriceHighPhp: 445000, marketPriceSourceLabel: "Current Philippine variant price reference", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/royal-enfield/shotgun-650/faq/what-is-the-price-of-royal-enfield-shotgun-650", marketPriceCheckedAt: "2026-09-09", transmission: "Manual",
+    summary: "648cc parallel-twin roadster with 46.4 hp, 52.3 Nm, a 795 mm seat, 13.8 L tank and modular solo-or-pillion styling."
+  },
+
 ];

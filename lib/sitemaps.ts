@@ -50,16 +50,29 @@ export function motorcycleSitemapEntries(): Entry[] {
     const list=motorcycles.filter(m=>f.generationIds.includes(m.id));
     return list.some(isIndexableModel)?[{url:`${SITE_URL}/motorcycles/${f.makeSlug}/${f.slug}`,lastModified:newest(list.map(m=>m.verifiedAt)),changeFrequency:"monthly" as const,priority:.84}]:[];
   });
-  // v2.6: each motorcycle has one canonical entity URL. Price, installment, tire-size,
-  // fitment, fuel, maintenance, safety and ownership intent live as anchored sections
-  // on that page instead of separate sitemap URLs competing with the parent entity.
-  const models = motorcycles.filter(isIndexableModel).map(m=>({
+  // Price, installment, tire-size, fuel, maintenance and ownership remain consolidated
+  // on the canonical model entity. Specifications and colors are separate only because
+  // they have distinct, high-volume SERP intent and can stand on complete source-backed data.
+  const indexableModels = motorcycles.filter(isIndexableModel);
+  const models = indexableModels.map(m=>({
     url:`${SITE_URL}/motorcycles/${m.makeSlug}/${m.slug}`,
     lastModified:iso(m.marketPriceCheckedAt || m.verifiedAt),
     changeFrequency:m.marketStatus==="previous"||m.marketStatus==="uncertain"?"monthly" as const:"weekly" as const,
     priority:m.marketStatus==="previous"?.82:m.marketStatus==="uncertain"?.78:.92
   }));
-  return [...brands,...scooterHubs,...families,...models];
+  const specificationPages = indexableModels.map(m=>({
+    url:`${SITE_URL}/motorcycles/${m.makeSlug}/${m.slug}/specifications`,
+    lastModified:iso(m.verifiedAt),
+    changeFrequency:"monthly" as const,
+    priority:.8
+  }));
+  const colorPages = indexableModels.filter(m=>m.colors.length>0).map(m=>({
+    url:`${SITE_URL}/motorcycles/${m.makeSlug}/${m.slug}/colors`,
+    lastModified:iso(m.verifiedAt),
+    changeFrequency:"monthly" as const,
+    priority:.72
+  }));
+  return [...brands,...scooterHubs,...families,...models,...specificationPages,...colorPages];
 }
 
 export function gearSitemapEntries(): Entry[] {

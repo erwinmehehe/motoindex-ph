@@ -14,6 +14,8 @@ export function modelInternalLinks(model: Motorcycle): RelatedLink[] {
     .map((row)=>({href:`/tires/${row.hub!.slug}`,title:`${row.hub!.size} motorcycle tire index`,eyebrow:"Tire size",description:`See other motorcycles that use ${row.hub!.size} as a stock front or rear tire size.`}));
   const links: RelatedLink[] = [
     { href: `/motorcycles/${model.makeSlug}`, title: `${model.make} motorcycles`, eyebrow: "Brand", description: `Browse ${model.make} models and price references.` },
+    { href: `${base}/specifications`, title: `${model.model} specifications`, eyebrow: "Specs", description: `${model.engineCc} cc · ${model.powerHp} hp · ${model.seatHeightMm} mm seat · ${model.curbWeightKg} kg.` },
+    ...(model.colors.length ? [{ href: `${base}/colors`, title: `${model.model} colors`, eyebrow: "Colors", description: `${model.colors.length} recorded color ${model.colors.length === 1 ? "option" : "options"} with source context.` }] : []),
     ...(/scooter/i.test(model.category) && ["honda","yamaha","suzuki"].includes(model.makeSlug) ? [{ href: `/motorcycles/${model.makeSlug}/scooters`, title: `${model.make} scooters`, eyebrow: "Scooter hub", description: `Compare ${model.make} scooter prices, engines, seat heights and weights.` }] : []),
     { href: `${base}#price`, title: `${model.model} price`, eyebrow: "Price", description: model.marketStatus === "previous" ? "Historical Philippine price context." : "Dated price sources, variants and market checks." },
     ...(model.marketStatus !== "previous" ? [{ href: `${base}#installment`, title: `${model.model} installment calculator`, eyebrow: "Financing", description: "Monthly payment planning on the canonical model page." }] : []),
