@@ -44,10 +44,17 @@ for(const field of ["primaryKeyword","secondaryKeywords","directAnswer","inclusi
 need(rec.includes("Why it&apos;s here")&&rec.includes("Prices checked:")&&rec.includes("Specifications checked:"),"Guide table and freshness block must expose rationale plus separate price/spec dates");
 
 const middleware=read("middleware.ts");
-need(middleware.includes('if (pathname === "/dealers") return false;'),"Dealer directory root must remain reachable from public navigation");
-need(middleware.includes('if (pathname.startsWith("/dealers/")) return true;'),"Unverified dealer city/profile routes must remain blocked");
+need(!middleware.includes('pathname.startsWith("/dealers/")')&&!middleware.includes('"/sellers"'),"Middleware must not blanket-block public dealer or verified seller routes");
+const sellers=read("lib/sellers.ts");
+need(sellers.includes("isPublicSeller")&&sellers.includes("publicDealersByCity")&&sellers.includes("getPublicSeller"),"Seller data layer must provide one verified public visibility rule");
+const dealerCity=read("app/dealers/[city]/page.tsx");
+need(dealerCity.includes("publicDealersByCity")&&dealerCity.includes("MIN_PUBLIC_DEALERS")&&dealerCity.includes("notFound()"),"Dealer city routes must require enough verified public dealers");
+const sellerPage=read("app/sellers/[slug]/page.tsx");
+need(sellerPage.includes("getPublicSeller")&&sellerPage.includes("notFound()")&&sellerPage.includes('o.status==="verified"'),"Seller profiles must reject non-public sellers and hide unverified offers");
 const dealersPage=read("app/dealers/page.tsx");
-need(dealersPage.includes("No dealer profiles are published yet")&&!dealersPage.includes("sample businesses"),"Dealer root must provide an honest buyer guide without publishing sample businesses");
+need(dealersPage.includes("No dealer profiles are published yet")&&!dealersPage.includes("sample businesses")&&dealersPage.includes("href={`/sellers/${dealer.slug}`}"),"Dealer root must provide an honest buyer guide and link verified dealer cards");
+const continuity=read("components/HeaderContinuity.tsx");
+need(continuity.includes('pathname.startsWith("/dealers")')&&continuity.includes('pathname.startsWith("/sellers/")'),"Dealer and seller routes must retain the More navigation active state");
 
 const checkLaunch=read("scripts/check-launch.mjs");
 need(checkLaunch.includes("findSiblingDynamicRouteConflicts"),"Launch gate must include sibling dynamic route conflict guard");
@@ -57,4 +64,4 @@ need(read("scripts/validate-v09.mjs").includes("split(path.sep).join")&&read("sc
 for(const file of ["AFFILIATE_SETUP.md","SHOPEE_AFFILIATE_SETUP.md"]){const source=read(file);need(/build[- ]time/i.test(source)&&/redeploy/i.test(source),`${file} must document build-time affiliate configuration and redeploy requirement`)}
 
 if(errors.length){console.error("Post-audit validation failed:\n- "+errors.join("\n- "));process.exit(1)}
-console.log("Post-audit validation passed: nav dropdowns, full product sets, white media, rich checked-data comparisons, 302 affiliate redirects, guide structure, responsive fixes and route/tooling guards are present.");
+console.log("Post-audit validation passed: navigation, comparisons, product media, dealer publication rules, responsive fixes and route/tooling guards are present.");
