@@ -183,7 +183,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
     </div>
 
     <div className="shell motorcycle-entity-body">
-      {availabilityUncertain && <section className="entity-alert-card"><div><span>Availability to verify</span><h2>Confirm current new-bike availability before relying on this price</h2><p>This model still has a source-backed Philippine record and current marketplace references, but it is not surfaced in the manufacturer&apos;s current discovery lineup. Verify stock, model year and final pricing with an authorized dealer.</p></div></section>}
+      {availabilityUncertain && <section className="entity-alert-card"><div><span>Availability to verify</span><h2>Confirm current new-bike availability before relying on this price</h2><p>This motorcycle still has Philippine price and specification references, but it is not shown in the manufacturer&apos;s current lineup we checked. Confirm stock, model year and final pricing with an authorized dealer.</p></div></section>}
 
       {isPrevious && successor && <section className="entity-alert-card">
         <div><span>Previous generation</span><h2>Looking for the current model?</h2><p>{model.model} stays live for owners and used-bike research. Current new-bike pricing belongs to {successor.make} {successor.model}.</p></div>
@@ -202,14 +202,14 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       {authority && <section id="buyer-guide" className="motorcycle-entity-section authority-decision-section" aria-labelledby="buyer-guide-heading">
         <div className="authority-verdict">
           <div><span className="section-kicker">Buyer verdict</span><h2 id="buyer-guide-heading">Should you buy the {model.make} {model.model} in the Philippines?</h2><p>{authority.verdict}</p></div>
-          <aside><span>Research angle</span><p>{authority.researchAngle}</p></aside>
+          <aside><span>What to know</span><p>{authority.researchAngle}</p></aside>
         </div>
         <div className="authority-grid">
           <article className="authority-buy"><span>Buy it if</span><ul>{authority.buyIf.map((item) => <li key={item}>{item}</li>)}</ul></article>
           <article className="authority-skip"><span>Skip it if</span><ul>{authority.skipIf.map((item) => <li key={item}>{item}</li>)}</ul></article>
-          <article className="authority-ph"><span>PH ownership reality</span><ul>{authority.phContext.map((item) => <li key={item}>{item}</li>)}</ul></article>
+          <article className="authority-ph"><span>Philippine ownership</span><ul>{authority.phContext.map((item) => <li key={item}>{item}</li>)}</ul></article>
         </div>
-        {authorityComparisons.length > 0 && <div className="authority-comparisons"><div><span>Direct cross-shopping</span><strong>Compare the alternatives that change the decision</strong></div><div>{authorityComparisons.map((item) => <Link key={item.id} href={`/motorcycles/${item.makeSlug}/${item.slug}`}>{item.make} {item.model}<small>{item.engineCc} cc · {observedMarketPriceLabel(item)}</small></Link>)}</div></div>}
+        {authorityComparisons.length > 0 && <div className="authority-comparisons"><div><span>Compare alternatives</span><strong>See the motorcycles most likely to change your decision</strong></div><div>{authorityComparisons.map((item) => <Link key={item.id} href={`/motorcycles/${item.makeSlug}/${item.slug}`}>{item.make} {item.model}<small>{item.engineCc} cc · {observedMarketPriceLabel(item)}</small></Link>)}</div></div>}
       </section>}
 
       <section id="price" className="motorcycle-entity-section" aria-labelledby="price-heading">
@@ -343,6 +343,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section id="used" className="motorcycle-entity-section" aria-labelledby="used-heading">
         <div className="section-head compact"><div><span className="section-kicker">Used market</span><h2 id="used-heading">Used {model.make} {model.model} price and value</h2><p>Listing samples and depreciation estimates are shown separately so a small sample is not mistaken for a live market appraisal.</p></div></div>
+        {usedListings.length === 0 && <div className="note-box compact-note"><h3>No verified used listings yet</h3><p>The used-value calculator below is an estimate, not a live appraisal. Verified listing samples will appear here when available.</p></div>}
         {usedListings.length > 0 && <>
           <UsedMarketSummary modelId={model.id} />
           {!isPrevious && <div className="new-used-grid entity-new-used-grid"><article><span>New reference</span><strong>{observedMarketPriceLabel(model)}</strong><p>Published new-bike price for comparison.</p></article><article><span>Used median ask</span><strong>{php(usedSummary.medianPrice)}</strong><p>{usedSummary.included} listing samples after outlier filtering.</p></article><article className="difference"><span>Gap vs reference</span><strong>{php(Math.max(0, range.from - usedSummary.medianPrice))}</strong><p>Before transfer costs, repairs, financing differences and condition adjustments.</p></article></div>}
