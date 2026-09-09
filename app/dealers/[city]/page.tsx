@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { notFound } from "next/navigation";
-import { MIN_PUBLIC_DEALERS_PER_CITY_PER_CITY, citySlug, publicDealerCities, publicDealersByCity } from "@/lib/sellers";
+import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug, publicDealerCities, publicDealersByCity } from "@/lib/sellers";
 import { pageMetadata } from "@/lib/site";
 
 
