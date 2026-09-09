@@ -14,6 +14,7 @@ function matchesSection(pathname: string, href: string) {
   if (href === "/tires") return pathname.startsWith("/tires");
   if (href === "/accessories") return pathname.startsWith("/accessories");
   if (href === "/ownership") return pathname.startsWith("/ownership");
+  if (href === "/dealers") return pathname.startsWith("/dealers") || pathname.startsWith("/sellers/");
   if (href === "/search") return pathname.startsWith("/search");
   if (href === "/shortlist") return pathname.startsWith("/shortlist");
   return pathname === href || pathname.startsWith(`${href}/`);
@@ -29,13 +30,10 @@ export function HeaderContinuity() {
     const allMenus = Array.from(header.querySelectorAll<HTMLDetailsElement>("details"));
     const desktopMenus = Array.from(header.querySelectorAll<HTMLDetailsElement>(".nav-links details.nav-more"));
     const closeMenus = (except?: HTMLDetailsElement) => {
-      allMenus.forEach(details => {
-        if (details !== except && details.open) details.removeAttribute("open");
-      });
+      allMenus.forEach(details => { if (details !== except && details.open) details.removeAttribute("open"); });
     };
 
     closeMenus();
-
     header.querySelectorAll<HTMLAnchorElement>('a[href^="/"]').forEach(link => {
       const href = link.getAttribute("href") || "";
       const active = matchesSection(pathname, href);
@@ -50,30 +48,15 @@ export function HeaderContinuity() {
     if (gearActive) gearSummary?.setAttribute("aria-current", "location"); else gearSummary?.removeAttribute("aria-current");
 
     const moreSummary = header.querySelector<HTMLElement>(".nav-moremenu>summary");
-    const moreActive = pathname.startsWith("/ownership") || pathname.startsWith("/commute") || pathname.startsWith("/tools") || pathname.startsWith("/fitment") || pathname.startsWith("/maintenance");
+    const moreActive = pathname.startsWith("/ownership") || pathname.startsWith("/dealers") || pathname.startsWith("/sellers/") || pathname.startsWith("/commute") || pathname.startsWith("/tools") || pathname.startsWith("/fitment") || pathname.startsWith("/maintenance");
     moreSummary?.classList.toggle("nav-current", moreActive);
     if (moreActive) moreSummary?.setAttribute("aria-current", "location"); else moreSummary?.removeAttribute("aria-current");
 
-    const handleMenuToggle = (event: Event) => {
-      const current = event.currentTarget as HTMLDetailsElement;
-      if (current.open) closeMenus(current);
-    };
+    const handleMenuToggle = (event: Event) => { const current = event.currentTarget as HTMLDetailsElement; if (current.open) closeMenus(current); };
     desktopMenus.forEach(menu => menu.addEventListener("toggle", handleMenuToggle));
-
-    const handleClick = (event: Event) => {
-      const target = event.target as Element | null;
-      if (target?.closest("a[href]")) closeMenus();
-    };
-    const handleOutsidePointer = (event: PointerEvent) => {
-      const target = event.target as Node | null;
-      if (target && !header.contains(target)) closeMenus();
-    };
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        closeMenus();
-        header.querySelector<HTMLElement>(".nav-more>summary:focus")?.focus();
-      }
-    };
+    const handleClick = (event: Event) => { const target = event.target as Element | null; if (target?.closest("a[href]")) closeMenus(); };
+    const handleOutsidePointer = (event: PointerEvent) => { const target = event.target as Node | null; if (target && !header.contains(target)) closeMenus(); };
+    const handleKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") { closeMenus(); header.querySelector<HTMLElement>(".nav-more>summary:focus")?.focus(); } };
 
     header.addEventListener("click", handleClick);
     document.addEventListener("pointerdown", handleOutsidePointer);
