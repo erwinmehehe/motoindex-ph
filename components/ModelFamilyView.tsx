@@ -17,11 +17,11 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
   const faqs: FaqItem[] = current ? [
     {
       question: `How much is the ${family.make} ${family.name} in the Philippines?`,
-      answer: `The current ${current.model} price reference on MotoIndex is ${observedMarketPriceLabel(current)}. Open the current-generation model page for the source date, variants and market checks.`
+      answer: `The current ${current.make} ${current.model} is priced at ${observedMarketPriceLabel(current)} in the Philippines. Open the current-generation page for variant prices and the latest source date.`
     },
     {
       question: `Which ${family.name} generation is current?`,
-      answer: `${current.model} is the current generation in the MotoIndex catalog. Older generations stay on separate pages so historical launch prices are not confused with current new-bike pricing.`
+      answer: `${current.make} ${current.model} is the current generation. Older generations are kept separate so historical launch prices are not confused with current new-bike prices.`
     },
     {
       question: `Are older and current ${family.name} prices directly comparable?`,
