@@ -39,6 +39,7 @@ function recordAuthFailure(key: string, now = Date.now()) {
 
 function isPrototypePath(pathname: string) {
   if (pathname === "/used-motorcycles/repo" || pathname === "/used-motorcycles/buying-checklist") return false;
+  if (pathname === "/sellers") return true;
   if (prototypePrefixes.some(prefix => pathname === prefix || pathname.startsWith(`${prefix}/`))) return true;
   return /^\/motorcycles\/[^/]+\/[^/]+\/(used-value|new-vs-used)\/?$/.test(pathname);
 }
@@ -81,7 +82,7 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/admin/:path*", "/api/ingestion/:path*", "/get-quote/:path*", "/price-alerts/:path*", "/deals/:path*",
-    "/used-motorcycles/:path*", "/go/:path*",
+    "/sellers", "/used-motorcycles/:path*", "/go/:path*",
     "/motorcycles/:make/:slug/used-value", "/motorcycles/:make/:slug/new-vs-used"
   ]
 };
