@@ -72,7 +72,7 @@ export const motorcycles: Motorcycle[] = [
     marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/nmax",
     marketPriceCheckedAt: "2026-08-25",
     transmission: "Automatic",
-    summary: "155cc maxi-scooter with a 770 mm seat, 135 kg curb weight and Standard/Tech Max variants."
+    summary: "155cc maxi-scooter with a 770 mm seat, 131 kg curb weight and Standard/Tech Max variants."
   },
   {
     id: "yamaha-aerox-v2",
@@ -270,7 +270,7 @@ export const motorcycles: Motorcycle[] = [
     marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/news/elevate-your-riding-experience-where-elegance-meets-truly-exceptional-with-the-all-new-pcx160",
     marketPriceCheckedAt: "2026-08-25",
     transmission: "Automatic",
-    summary: "157cc maxi-scooter with a 764 mm seat, 132 kg curb weight and Standard/RoadSync variants."
+    summary: "157cc maxi-scooter with a 764 mm seat, 131 kg curb weight and Standard/RoadSync variants."
   },
   {
     id: "yamaha-fazzio",
@@ -437,7 +437,7 @@ export const motorcycles: Motorcycle[] = [
     marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/suzuki/burgman-street-125-ex",
     marketPriceCheckedAt: "2026-08-25",
     transmission: "Automatic",
-    summary: "124cc automatic scooter with a 780 mm seat, 111 kg curb weight and a 5.5 L tank."
+    summary: "124cc automatic scooter with a 780 mm seat, 112 kg curb weight and a 5.5 L tank."
   },
   {
     id: "yamaha-sniper-155", make: "Yamaha", makeSlug: "yamaha", model: "Sniper 155", slug: "sniper-155", generation: "Current", category: "Underbone",
