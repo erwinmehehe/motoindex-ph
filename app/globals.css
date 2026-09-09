@@ -430,3 +430,18 @@ a.market-price-source-card:hover{
 .lead-form-success{background:#f1f8f4;border-color:#b9dac8}
 .lead-form button[disabled]{opacity:.65;cursor:wait}
 @media(max-width:650px){.lead-form-grid{grid-template-columns:1fr}.lead-form-wide{grid-column:auto}}
+
+/* Electric range calculator */
+.calculator-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:28px;box-shadow:0 18px 55px rgba(16,19,23,.06);margin-bottom:26px}
+.calculator-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.calculator-grid label{display:grid;gap:7px}
+.calculator-grid label>span{font-size:11px;font-weight:850;color:#3e474c}
+.calculator-grid select,.calculator-grid input{width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:13px 14px;font:inherit}
+.calculator-grid label>small{color:var(--muted);font-size:10px}
+.calculator-results{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.calculator-results article{background:#f5f6f2;border:1px solid var(--line);border-radius:16px;padding:17px}
+.calculator-results span,.calculator-results small{display:block;color:var(--muted);font-size:10px}
+.calculator-results strong{display:block;font-size:27px;letter-spacing:-.04em;margin:5px 0}
+.calculator-note{font-size:12px;color:var(--muted);line-height:1.55;margin:18px 0 0}
+@media(max-width:760px){.calculator-grid,.calculator-results{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.calculator-grid,.calculator-results{grid-template-columns:1fr}}
