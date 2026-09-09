@@ -821,6 +821,27 @@ export const entityMedia: EntityMedia[] = [
   },
 
 
+  {
+    id: "ktm-rc-390-editorial", entityType: "motorcycle", entityId: "ktm-rc-390", role: "primary",
+    src: "https://www.todocircuito.com/ckfinder/userfiles/images/KTM-RC390-2022-4.jpg", alt: "KTM RC 390 sport motorcycle in blue and orange", width: 1200, height: 800,
+    rightsStatus: "external-reference", rightsHolder: "TodoCircuito", sourceLabel: "Editorial product image · KTM RC 390", sourceUrl: "https://www.todocircuito.com/noticias/27805-nueva-ktm-rc-390-2022%3A-presentacion-oficial-y-fotos-de-la-renovada-supersport-austriaca.html", lastChecked: "2026-09-09"
+  },
+  {
+    id: "honda-gold-wing-hondanews", entityType: "motorcycle", entityId: "honda-gold-wing", role: "primary",
+    src: "https://hondanews.eu/image/motorcycles/low/453308/1_18/5?v=2", alt: "Honda Gold Wing Tour luxury touring motorcycle", width: 1200, height: 800,
+    rightsStatus: "external-reference", rightsHolder: "Honda Motor Europe", sourceLabel: "Official Honda media image · Gold Wing Tour", sourceUrl: "https://hondanews.eu/pl/pl/motorcycles/media/pressreleases/453353/honda-gold-wing-tour-na-rok-modelowy-2024", lastChecked: "2026-09-09"
+  },
+  {
+    id: "honda-rebel-1100-official", entityType: "motorcycle", entityId: "honda-rebel-1100", role: "primary",
+    src: "https://powersports.honda.com/-/media/products/family/rebel-1100/trims/trim-main/rebel-1100/2025/2025-rebel-1100-matte_black_metallic-1505x923.png?imwidth=640", alt: "Honda Rebel 1100 cruiser in Matte Black Metallic", width: 1505, height: 923,
+    rightsStatus: "external-reference", rightsHolder: "American Honda Motor Co.", sourceLabel: "Official Honda product image · Rebel 1100", sourceUrl: "https://powersports.honda.com/motorcycle/cruiser/rebel-1100/2025/rebel-1100", lastChecked: "2026-09-09"
+  },
+  {
+    id: "honda-rebel-500-manila", entityType: "motorcycle", entityId: "honda-rebel-500", role: "primary",
+    src: "https://cdn.riderly.com/storage/media/img/bikes/honda__rebel%20500.png", alt: "Honda Rebel 500 cruiser in silver", width: 1200, height: 800,
+    rightsStatus: "external-reference", rightsHolder: "Riderly / Motorent Manila", sourceLabel: "Philippine rental product image · Honda Rebel 500", sourceUrl: "https://www.motorentmanila.com/motorcycles/honda-rebel-500", lastChecked: "2026-09-09"
+  },
+
 ];
 
 export function getRenderableMedia(entityType: EntityMedia["entityType"], entityId: string) {
