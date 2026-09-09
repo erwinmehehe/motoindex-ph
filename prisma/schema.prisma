@@ -304,17 +304,24 @@ model OutboundClickEvent {
 }
 
 model PriceAlertSubscription {
-  id             String   @id @default(cuid())
-  entityType     String
-  entityId       String
-  email          String
-  targetPricePhp Decimal? @db.Decimal(12, 2)
-  status         String   @default("pending")
-  confirmToken   String?  @unique
-  confirmedAt    DateTime?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id                  String   @id @default(cuid())
+  entityType          String
+  entityId            String
+  email               String
+  targetPricePhp      Decimal  @db.Decimal(12, 2)
+  status              String   @default("pending")
+  confirmToken        String?  @unique
+  unsubscribeToken    String   @unique
+  confirmedAt         DateTime?
+  lastCheckedAt       DateTime?
+  lastObservedPricePhp Decimal? @db.Decimal(12, 2)
+  lastAlertedPricePhp Decimal? @db.Decimal(12, 2)
+  thresholdWasMet     Boolean  @default(false)
+  lastSentAt          DateTime?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
   @@index([entityType, entityId, status])
+  @@index([status, updatedAt])
 }
 
 model OfferImportBatch {
