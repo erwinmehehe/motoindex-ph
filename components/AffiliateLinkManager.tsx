@@ -21,6 +21,8 @@ type ProductRow={
   fallback?:{
     network:string;
   };
+  clicks7:number;
+  clicks30:number;
 };
 
 function AffiliateRow({row}:{row:ProductRow}){
@@ -74,6 +76,8 @@ function AffiliateRow({row}:{row:ProductRow}){
       <em className={`affiliate-state ${status}`}>{status}</em>
       <small>{network||"No network"}</small>
       {row.dbLink?.approvedAt&&<small>Approved {row.dbLink.approvedAt.slice(0,10)}</small>}
+      <small>{row.clicks7} clicks · 7 days</small>
+      <small>{row.clicks30} clicks · 30 days</small>
       {row.fallback&&<small>Legacy fallback: {row.fallback.network}</small>}
       {status==="disabled"&&row.fallback&&<small>Database disable overrides the legacy fallback.</small>}
     </div>
@@ -90,6 +94,8 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
   const active=rows.filter(row=>row.dbLink?.status==="active").length;
   const disabled=rows.filter(row=>row.dbLink?.status==="disabled").length;
   const fallback=rows.filter(row=>row.fallback).length;
+  const clicks7=rows.reduce((sum,row)=>sum+row.clicks7,0);
+  const clicks30=rows.reduce((sum,row)=>sum+row.clicks30,0);
 
   return <div className="affiliate-manager">
     <div className="health-summary">
@@ -97,6 +103,8 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
       <div><span>DB active</span><strong>{active}</strong></div>
       <div><span>DB disabled</span><strong>{disabled}</strong></div>
       <div><span>Legacy fallback</span><strong>{fallback}</strong></div>
+      <div><span>Clicks · 7d</span><strong>{clicks7}</strong></div>
+      <div><span>Clicks · 30d</span><strong>{clicks30}</strong></div>
     </div>
 
     {!databaseConfigured&&<div className="note-box"><h2>Production database is not configured</h2><p>Runtime affiliate management requires DATABASE_URL and the latest Prisma migration. Existing environment/JSON links can still work as fallback.</p></div>}
