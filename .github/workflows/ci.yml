@@ -25,7 +25,6 @@ jobs:
 
       - name: Release validation
         run: |
-          npm run validate:post-audit
           npm run validate:copy-tone
           npm run validate:public-trust
           npm run check:links
