@@ -9,6 +9,7 @@ import "./v270.css";
 import "./v280.css";
 import "./tailwind.css";
 import "./dealer-directory.css";
+import "./redesign.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
@@ -32,9 +33,6 @@ export const metadata: Metadata = {
   verification: {
     google: "semQnFpP4-Phz-FitfvqFxwwida4f7PGe-hXc11sUz8"
   },
-
-  // Google's SERP favicon crawler wants a square raster at a multiple of 48px.
-  // SVG alone often falls back to the generic globe, so ship PNGs alongside it.
   icons: {
     icon: [
       { url: "/icon-48.png", sizes: "48x48", type: "image/png" },
