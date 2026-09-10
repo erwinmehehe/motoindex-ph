@@ -281,7 +281,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         {verifiedVariants.some((variant) => variant.colors?.length) && <div className="variant-color-list">
           {verifiedVariants.filter((variant) => variant.colors?.length).map((variant) => <article key={variant.id}><span>{variant.name}</span><strong>{variant.colors!.join(" · ")}</strong><SourceRef url={variant.sourceUrl} label={`Source checked ${variant.checkedAt}`} /></article>)}
         </div>}
-      </section>
+      </section>}
 
       {performance && <section id="performance" className="motorcycle-entity-section" aria-labelledby="performance-heading">
         <div className="section-head compact"><div><span className="section-kicker">Performance evidence</span><h2 id="performance-heading">{model.make} {model.model} top speed</h2><p>Manufacturer specifications, independent tests and rider reports are not treated as interchangeable evidence.</p></div></div>
