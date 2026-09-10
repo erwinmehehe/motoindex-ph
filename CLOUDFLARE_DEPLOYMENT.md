@@ -36,3 +36,8 @@ Then manually run the **Deploy MotoIndex to Cloudflare Workers** workflow. Wrang
 ## Database features
 
 Prisma was intentionally removed from the Cloudflare build. When persistence is needed, migrate the individual feature to Supabase or another Workers-native backend instead of restoring Prisma globally.
+
+
+## Fresh-build trigger note
+
+Cloudflare Workers Builds may use Node 24. MotoIndex supports Node >=22 <25; use a new branch build rather than retrying a stale deployment created before the engine range was updated.
