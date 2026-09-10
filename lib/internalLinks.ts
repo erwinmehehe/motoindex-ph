@@ -93,15 +93,8 @@ export function helmetCategoryInternalLinks(slug: HelmetCategorySlug): RelatedLi
 
 export function tireProductInternalLinks(product: TireProduct): RelatedLink[] {
   const matches = getTireSizeMatches(product).filter(({motorcycle})=>isIndexableModel(motorcycle)).slice(0, 5);
-  const sizeHubs=product.knownSizes
-    .map((size)=>findTireSizeSeoHub(size))
-    .filter((hub): hub is NonNullable<ReturnType<typeof findTireSizeSeoHub>> => Boolean(hub))
-    .filter((hub,index,all)=>all.findIndex((candidate)=>candidate.slug===hub.slug)===index)
-    .slice(0,3)
-    .map((hub)=>({href:`/tires/${hub.slug}`,title:`${hub.size} motorcycle tire index`,eyebrow:"Tire size",description:`See motorcycles using ${hub.size} as a stock size.`}));
   return [
     {href:"/tires",title:"Motorcycle tire finder",eyebrow:"Tires",description:"Browse stock sizes and tire families."},
-    ...sizeHubs,
     ...matches.map(({motorcycle})=>({href:`/motorcycles/${motorcycle.makeSlug}/${motorcycle.slug}#tires-fitment`,title:`${motorcycle.model} tire size`,eyebrow:"Size match",description:`${motorcycle.frontTire} front · ${motorcycle.rearTire} rear`}))
   ];
 }
