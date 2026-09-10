@@ -1,9 +1,6 @@
 name: Cloudflare Temporary Preview
 
 on:
-  push:
-    branches:
-      - cloudflare-workers-migration
   workflow_dispatch:
 
 permissions:
