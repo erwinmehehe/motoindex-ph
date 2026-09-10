@@ -26,8 +26,6 @@ export async function generateMetadata({params}:{params:Promise<{slug:string}>})
     path:"/accessories/top-box",
     index:true
   });
-  const guide=getAccessorySeoGuide(slug);
-  return pageMetadata({title:guide?.seoTitle||`${a.name} for Motorcycles Philippines`,description:guide?.description||a.description,path:`/accessories/${a.slug}`,index:Boolean(guide)});
 }
 
 export default async function AccessoryCategoryPage({params}:{params:Promise<{slug:string}>}){
