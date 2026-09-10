@@ -1,0 +1,59 @@
+name: Fix typecheck blockers
+
+on:
+  push:
+    branches:
+      - hotfix/typecheck-blockers
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Apply exact TypeScript fixes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          accessory = Path('app/accessories/[slug]/page.tsx')
+          s = accessory.read_text()
+          old = '''  });
+  const guide=getAccessorySeoGuide(slug);
+  return pageMetadata({title:guide?.seoTitle||`${a.name} for Motorcycles Philippines`,description:guide?.description||a.description,path:`/accessories/${a.slug}`,index:Boolean(guide)});
+}'''
+          new = '''  });
+}'''
+          if s.count(old) != 1:
+              raise SystemExit('Accessory metadata exact match failed')
+          accessory.write_text(s.replace(old, new, 1))
+
+          links = Path('lib/internalLinks.ts')
+          s = links.read_text()
+          old = '''  const sizeHubs=product.knownSizes
+    .map((size)=>findTireSizeSeoHub(size))
+    .filter((hub): hub is NonNullable<ReturnType<typeof findTireSizeSeoHub>> => Boolean(hub))
+    .filter((hub,index,all)=>all.findIndex((candidate)=>candidate.slug===hub.slug)===index)
+    .slice(0,3)
+    .map((hub)=>({href:`/tires/${hub.slug}`,title:`${hub.size} motorcycle tire index`,eyebrow:"Tire size",description:`See motorcycles using ${hub.size} as a stock size.`}));
+'''
+          if s.count(old) != 1:
+              raise SystemExit('Tire size hub exact match failed')
+          s = s.replace(old, '', 1)
+          if s.count('    ...sizeHubs,\n') != 1:
+              raise SystemExit('sizeHubs spread exact match failed')
+          links.write_text(s.replace('    ...sizeHubs,\n', '', 1))
+          PY
+      - name: Commit fixes to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 'app/accessories/[slug]/page.tsx' lib/internalLinks.ts
+          git commit -m "Fix legacy TypeScript blockers"
+          git push origin HEAD:main
