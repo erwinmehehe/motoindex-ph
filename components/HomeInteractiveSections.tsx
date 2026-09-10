@@ -95,6 +95,8 @@ const knowledgeGroups = [
   },
 ] as const;
 
+type KnowledgeGroupId = (typeof knowledgeGroups)[number]["id"];
+
 function budgetMatches(model: MatchModel, budget: NonNullable<Answers["budget"]>) {
   if (budget === "under100") return model.srp < 100000;
   if (budget === "100to175") return model.srp >= 100000 && model.srp <= 175000;
@@ -227,7 +229,7 @@ export function HomeLoanPlanner() {
 }
 
 export function HomeKnowledgeHub() {
-  const [active, setActive] = useState(knowledgeGroups[0].id);
+  const [active, setActive] = useState<KnowledgeGroupId>(knowledgeGroups[0].id);
   const group = knowledgeGroups.find((item) => item.id === active) ?? knowledgeGroups[0];
   return (
     <section className="mi-section mi-library" id="library">
