@@ -18,8 +18,6 @@ import { ProductEntityNav } from "@/components/ProductEntityNav";
 import { ProductCard } from "@/components/ProductCard";
 import { FaqSection } from "@/components/FaqSection";
 
-export const revalidate = 3600;
-
 export function generateStaticParams() {
   return tireProducts.map((p) => ({ slug: p.brandSlug, product: p.slug }));
 }

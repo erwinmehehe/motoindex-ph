@@ -21,8 +21,6 @@ import { FaqSection } from "@/components/FaqSection";
 import { SourceRef } from "@/components/SourceRef";
 import { AuthorBox } from "@/components/AuthorBox";
 
-export const revalidate = 3600;
-
 export function generateStaticParams() {
   const params = [
     ...helmetProducts.map((p) => ({ brand: p.brandSlug, product: p.slug })),

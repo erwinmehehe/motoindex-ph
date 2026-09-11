@@ -19,8 +19,6 @@ import { ProductEntityNav } from "@/components/ProductEntityNav";
 import { ProductCard } from "@/components/ProductCard";
 import { FaqSection } from "@/components/FaqSection";
 
-export const revalidate = 3600;
-
 export function generateStaticParams() {
   return topBoxProducts.map((product) => ({ product: product.slug }));
 }
