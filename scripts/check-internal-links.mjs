@@ -8,6 +8,7 @@ function walk(dir, out=[]){for(const e of fs.readdirSync(dir,{withFileTypes:true
 const pages=walk(app).filter(p=>!p.includes("/admin/")&&!p.includes("/api/"));
 function routeFor(file){let rel=path.relative(app,path.dirname(file)).replaceAll(path.sep,"/");if(rel===".")return "/";return "/"+rel;}
 function routeRegex(route){const escaped=route.replace(/[.*+?^${}()|[\]\\]/g,"\\$&").replace(/\\\[\\\.\\\.\\\.[^\]]+\\\]/g,".+").replace(/\\\[[^\]]+\\\]/g,"[^/]+");return new RegExp(`^${escaped}/?$`);}
+function pathnameOnly(candidate){return (candidate.split("#",1)[0]||"/").split("?",1)[0]||"/";}
 const routes=pages.map(file=>({file,route:routeFor(file)}));
 const patterns=routes.map(r=>({ ...r, re:routeRegex(r.route) }));
 const staticRoutes=new Map(routes.filter(r=>!r.route.includes("[")).map(r=>[r.route,r.file]));
@@ -16,17 +17,22 @@ const inbound=new Map([...staticRoutes.keys()].map(r=>[r,0]));
 const sources=[];
 for(const base of ["app","components"]){const dir=path.join(root,base);const rec=d=>{for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name).split(path.sep).join("/");if(e.isDirectory()){if(p.includes("/admin/")||p.includes("/api/"))continue;rec(p)}else if(/\.tsx$/.test(e.name))sources.push(p)}};rec(dir)}
 
-function validRoute(candidate){return patterns.some(p=>p.re.test(candidate));}
+function validRoute(candidate){return patterns.some(p=>p.re.test(pathnameOnly(candidate)));}
 for(const file of sources){const src=fs.readFileSync(file,"utf8");
   for(const m of src.matchAll(/href=["'](\/[^"'#?]*)["']/g)){
     const href=m[1]||"/"; if(!validRoute(href))errors.push(`${path.relative(root,file).split(path.sep).join("/")} links to missing route ${href}`); if(inbound.has(href))inbound.set(href,inbound.get(href)+1);
   }
   for(const m of src.matchAll(/href=\{`(\/[^`]+)`\}/g)){
-    const raw=m[1]; const candidate=raw.replace(/\$\{[^}]+\}/g,"x"); if(!validRoute(candidate))errors.push(`${path.relative(root,file).split(path.sep).join("/")} template link has no route pattern: ${raw}`);
+    const raw=m[1]; const candidate=pathnameOnly(raw.replace(/\$\{[^}]+\}/g,"x")); if(!validRoute(candidate))errors.push(`${path.relative(root,file).split(path.sep).join("/")} template link has no route pattern: ${raw}`);
   }
 }
 
-for(const [route,file] of staticRoutes){if(route==="/"||route.startsWith("/sitemaps/")||route.startsWith("/contact")||route.startsWith("/corrections")||route.startsWith("/search")||route.startsWith("/used-motorcycles")||route.startsWith("/price-alerts")||route.startsWith("/catalog")||route.startsWith("/deals")||route.startsWith("/sellers"))continue;const src=fs.readFileSync(file,"utf8");if(/index\s*:\s*false/.test(src))continue;if((inbound.get(route)||0)===0)errors.push(`indexable static route has no literal inbound link: ${route}`)}
+for(const [route,file] of staticRoutes){
+  if(route==="/"||route.startsWith("/sitemaps/")||route.startsWith("/contact")||route.startsWith("/corrections")||route.startsWith("/search")||route.startsWith("/used-motorcycles")||route.startsWith("/price-alerts")||route.startsWith("/catalog")||route.startsWith("/deals")||route.startsWith("/sellers"))continue;
+  const src=fs.readFileSync(file,"utf8");
+  if(/index\s*:\s*false/.test(src)||/\bpermanentRedirect\s*\(/.test(src))continue;
+  if((inbound.get(route)||0)===0)errors.push(`indexable static route has no literal inbound link: ${route}`)
+}
 
 // Dynamic route integrity: the electric hub exposes concrete model cards, so make
 // sure every model is emitted as a build-time route rather than merely matching a
