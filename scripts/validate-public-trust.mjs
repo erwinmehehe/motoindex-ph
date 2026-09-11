@@ -115,7 +115,11 @@ for (const id of promotedHelmetModels) {
     failures.push(`lib/catalog.ts: promoted helmet model ${id} is missing`);
     continue;
   }
-  const record = helmetCatalog.slice(start, helmetCatalog.indexOf("},", start) + 2);
+  // Product records can contain nested object literals such as sizeChart entries.
+  // Splitting at the first "}," therefore truncates a valid record before its
+  // status/source fields. Bound the record by the next top-level product instead.
+  const nextRecord = helmetCatalog.indexOf('\n  { id:"', start + 1);
+  const record = helmetCatalog.slice(start, nextRecord < 0 ? helmetCatalog.length : nextRecord);
   if (!record.includes('status:"verified"') || !record.includes('sourceUrl:"http')) {
     failures.push(`lib/catalog.ts: promoted helmet model ${id} must remain verified with a source URL`);
   }

@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { electricMotorcycles, getElectricMotorcycle, php } from "@/lib/electricMotorcycles";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 
+export const dynamicParams = false;
 export function generateStaticParams(){return electricMotorcycles.map(model=>({slug:model.slug}));}
 
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
@@ -23,11 +24,11 @@ export default async function ElectricModelPage({params}:{params:Promise<{slug:s
   const {slug}=await params; const model=getElectricMotorcycle(slug); if(!model)return notFound();
   const name=`${model.make} ${model.model}`;
   const schema={"@context":"https://schema.org","@type":"Product",name,image:[model.imageUrl],brand:{"@type":"Brand",name:model.make},offers:{"@type":"AggregateOffer",priceCurrency:"PHP",lowPrice:model.priceFromPhp,highPrice:model.twoBatteryPricePhp||model.priceFromPhp,offerCount:3,url:absoluteUrl(`/motorcycles/electric/${model.slug}`)}};
-  return <section className="page shell">
+  return <section className="page shell electric-model-page">
     <JsonLd data={schema}/>
     <Breadcrumbs items={[{label:"Motorcycles",href:"/motorcycles"},{label:"Electric",href:"/motorcycles/electric"},{label:name}]}/>
     <div className="product-hero">
-      <div className="product-hero-media"><img src={model.imageUrl} alt={`${name} electric motorcycle`}/><small>Image: {model.make} Philippines</small></div>
+      <div className="product-hero-media"><img src={model.imageUrl} alt={`${name} electric motorcycle`} decoding="async"/><small>Image: {model.make} Philippines</small></div>
       <div className="product-hero-copy">
         <span className="entity-kicker">LTO L3 electric motorcycle</span>
         <h1>{name} price and specifications</h1>

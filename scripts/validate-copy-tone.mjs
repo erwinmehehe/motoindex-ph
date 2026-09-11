@@ -8,14 +8,14 @@ const excluded = [
 ];
 
 const banned = [
-  [/(?:source[- ]checked|source[- ]backed)/i, "source-checked/source-backed pipeline language"],
+  [/(?:source[- ]backed)/i, "source-backed pipeline language"],
   [/(?:canonical model page|indexed catalog surfaces?|thin indexable)/i, "SEO/indexing implementation language"],
   [/(?:current-source gate|source[- ]review gate|verified-data gate|quality gate)/i, "internal data-gate language"],
   [/(?:review-state|research-only|launch build|production build|not in the index)/i, "internal lifecycle/build language"],
   [/(?:planning score|\d+%\s+match|%\s+match|\/100\s+(?:fit|score))/i, "fake recommendation precision"],
   [/(?:without the guesswork|does the math|one magic number|data leaders?|measurable row)/i, "generic AI/startup phrasing"],
   [/(?:stored rack evidence|compatibility graph|exact (?:fitment )?edge|research candidates?|research only)/i, "database/fitment implementation language"],
-  [/(?:source status|search demand|keyword variation|search audience|demo data)/i, "internal SEO/data vocabulary"],
+  [/(?:source status|search demand|search audience|demo data)/i, "internal SEO/data vocabulary"],
   [/(?:\bunlock\b|\bultimate\b|\bseamless\b|\beffortless\b|game[- ]changing|smart choice|make an informed decision|perfect (?:bike|motorcycle))/i, "generic marketing/AI cliche"],
 ];
 

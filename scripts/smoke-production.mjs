@@ -6,10 +6,10 @@ const failures=[];
 async function get(path, expected=200){try{const r=await fetch(new URL(path,base),{redirect:"manual"});if(r.status!==expected)failures.push(`${path}: expected ${expected}, got ${r.status}`);return r}catch(e){failures.push(`${path}: ${e instanceof Error?e.message:String(e)}`);return null}}
 
 const publicPaths = [
-  "/", "/motorcycles", "/dealers", "/dealers/manila", "/dealers/san-fernando", "/dealers/angeles-city", "/dealers/cebu-city", "/dealers/davao-city", "/dealers/pampanga", "/robots.txt", "/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear.xml", "/privacy",
+  "/", "/motorcycles", "/compare", "/compare/three", "/compare/three?bikes=aerox-v3,nmax-v3,adv-160", "/motorcycles/electric", "/motorcycles/electric/vinfast-evo", "/motorcycles/electric/vinfast-feliz-ii", "/motorcycles/electric/vinfast-viper", "/gear/helmets", "/deals", "/dealers", "/dealers/manila", "/dealers/san-fernando", "/dealers/angeles-city", "/dealers/cebu-city", "/dealers/davao-city", "/dealers/pampanga", "/robots.txt", "/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear.xml", "/privacy",
   "/used-motorcycles/repo", "/used-motorcycles/buying-checklist",
   "/maintenance", "/maintenance/motorcycle-battery", "/maintenance/change-oil-motorcycle",
-  "/ownership/motorcycle-registration-renewal"
+  "/ownership/registration-renewal"
 ];
 for(const path of publicPaths) await get(path);
 
@@ -26,7 +26,7 @@ const robots=await get("/robots.txt");
 if(robots){robotsBody=await robots.text();for(const marker of ["Disallow: /admin/","Disallow: /api/","Sitemap:"])if(!robotsBody.includes(marker))failures.push(`/robots.txt missing ${marker}`);}
 
 function isForbiddenIndexedPath(pathname){
-  if (["/price-alerts","/deals","/sellers","/used-motorcycles"].includes(pathname)) return true;
+  if (["/price-alerts","/sellers","/used-motorcycles"].includes(pathname)) return true;
   for(const prefix of ["/admin/","/api/","/get-quote/"]) if(pathname.startsWith(prefix)) return true;
   if(pathname.startsWith("/used-motorcycles/") && !["/used-motorcycles/repo","/used-motorcycles/buying-checklist"].includes(pathname)) return true;
   if(/^\/motorcycles\/[^/]+\/[^/]+\/(used-value|new-vs-used)\/?$/.test(pathname)) return true;
@@ -52,7 +52,7 @@ for(const path of ["/sitemap.xml","/sitemaps/motorcycles.xml","/sitemaps/gear.xm
 }
 
 const admin=await get("/admin/data-health",401);if(admin&&!admin.headers.get("x-robots-tag")?.includes("noindex"))failures.push("Unauthenticated admin response missing X-Robots-Tag noindex.");
-for(const path of ["/price-alerts","/deals","/sellers","/used-motorcycles","/get-quote/honda/click-160","/motorcycles/honda/click-160/used-value"]){const r=await get(path,404);if(r&&!r.headers.get("x-robots-tag")?.includes("noindex"))failures.push(`${path}: prototype 404 missing X-Robots-Tag noindex`);}
+for(const path of ["/price-alerts","/sellers","/used-motorcycles","/get-quote/honda/click-160","/motorcycles/honda/click-160/used-value"]){const r=await get(path,404);if(r&&!r.headers.get("x-robots-tag")?.includes("noindex"))failures.push(`${path}: prototype 404 missing X-Robots-Tag noindex`);}
 for(const path of ["/sellers/demo-yamaha-dealer-a","/dealers/quezon-city"]) await get(path,404);
 for(const path of ["/sellers/desmark-honda-san-fernando-pampanga","/sellers/suzuki-motorcyclecity-san-fernando","/sellers/premiumbikes-san-fernando-pampanga"]) await get(path);
 for(const path of ["/sellers/yamaha-kservico-angeles","/sellers/yamaha-motor-ace-cebu-city","/sellers/yamaha-premio-davao-city"]) await get(path);
