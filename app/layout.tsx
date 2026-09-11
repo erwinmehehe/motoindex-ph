@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Sora } from "next/font/google";
+import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 import "./research-ux.css";
 import "./v247.css";
@@ -13,6 +13,7 @@ import "./redesign.css";
 import "./redesign-fonts.css";
 import "./recommendations.css";
 import "./navigation-fix.css";
+import "./arena-port.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
@@ -21,8 +22,8 @@ import { Analytics } from "@/components/Analytics";
 import { CompareTray } from "@/components/CompareTray";
 import { publicMotorcycles } from "@/lib/data";
 
-const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
-const sora = Sora({ subsets: ["latin"], variable: "--font-sora", display: "swap" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -76,10 +77,10 @@ const websiteSchema = {
   potentialAction: {
     "@type": "SearchAction",
     target: `${SITE_URL}/search?q={search_term_string}`,
-    "query-input": "required name=search_term_string"
+    "query-input": "required name=query-input"
   }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en-PH" className={`${manrope.variable} ${sora.variable}`}><body><Analytics/><a className="skip-link" href="#main-content">Skip to main content</a><Header /><main id="main-content" tabIndex={-1}>{children}</main><CompareTray models={publicMotorcycles.map(({id,make,model,slug})=>({id,make,model,slug}))}/><Footer /><JsonLd data={[organizationSchema, websiteSchema]} /></body></html>;
+  return <html lang="en-PH" className={`${inter.variable} ${oswald.variable}`}><body><Analytics/><a className="skip-link" href="#main-content">Skip to main content</a><Header /><main id="main-content" tabIndex={-1}>{children}</main><CompareTray models={publicMotorcycles.map(({id,make,model,slug})=>({id,make,model,slug}))}/><Footer /><JsonLd data={[organizationSchema, websiteSchema]} /></body></html>;
 }
