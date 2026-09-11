@@ -1,0 +1,341 @@
+/* Arena-style page templates layered over the production MotoIndex components.
+   Visual only: routing, real catalog data, calculators, affiliate logic and validators stay unchanged. */
+
+/* Motorcycle catalog */
+.motorcycles-index-v300{background:#fff;color:var(--arena-ink)}
+.motorcycle-index-hero{position:relative;overflow:hidden;background:var(--arena-black);color:#fff;border-bottom:1px solid rgba(255,255,255,.1)}
+.motorcycle-index-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:48px 48px;opacity:.32;mask-image:linear-gradient(to bottom,#000,transparent 90%)}
+.motorcycle-index-hero:after{content:"";position:absolute;width:520px;height:520px;border-radius:50%;right:-120px;top:-150px;background:rgba(255,59,0,.22);filter:blur(100px)}
+.motorcycle-index-hero>.shell{position:relative;z-index:2;padding-top:72px;padding-bottom:42px}
+.motorcycle-index-hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(360px,.85fr);gap:64px;align-items:end}
+.motorcycle-index-hero-copy{max-width:760px}
+.motorcycle-index-hero h1{margin:12px 0 20px;color:#fff;font-size:clamp(58px,7vw,96px);line-height:.9;text-transform:uppercase}
+.motorcycle-index-hero-copy>p{max-width:690px;margin:0;color:rgba(255,255,255,.62);font-size:16px;line-height:1.75}
+.entity-kicker,.section-kicker{color:var(--arena-orange)!important;font-size:10px!important;font-weight:900!important;letter-spacing:.14em!important;text-transform:uppercase!important}
+.motorcycle-index-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.motorcycle-index-actions .button:first-child{background:var(--arena-orange)!important}
+.motorcycle-index-actions .button.secondary{background:transparent!important;color:#fff!important;border:1px solid rgba(255,255,255,.24)!important}
+.motorcycle-index-overview{display:grid;grid-template-columns:1fr 1fr;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.035)}
+.motorcycle-index-overview>div{min-height:134px;padding:22px;border-right:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12)}
+.motorcycle-index-overview>div:nth-child(2n){border-right:0}
+.motorcycle-index-overview>div:nth-last-child(-n+2){border-bottom:0}
+.motorcycle-index-overview span,.motorcycle-index-overview small{display:block;color:rgba(255,255,255,.47);font-size:9px;text-transform:uppercase;letter-spacing:.08em}
+.motorcycle-index-overview strong{display:block;margin:9px 0 7px;color:#fff;font-family:var(--font-oswald),Oswald,sans-serif;font-size:29px;line-height:1;text-transform:uppercase}
+.motorcycle-index-quicklinks{display:grid;grid-template-columns:repeat(5,1fr);margin-top:42px;border-top:1px solid rgba(255,255,255,.12);border-left:1px solid rgba(255,255,255,.12)}
+.motorcycle-index-quicklinks>a{display:flex;min-height:112px;flex-direction:column;justify-content:center;padding:17px;border-right:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);color:#fff}
+.motorcycle-index-quicklinks>a:hover{background:rgba(255,59,0,.12)}
+.motorcycle-index-quicklinks span{color:var(--arena-orange);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em}
+.motorcycle-index-quicklinks strong{margin:5px 0;font-family:var(--font-oswald),Oswald,sans-serif;font-size:18px;text-transform:uppercase}
+.motorcycle-index-quicklinks small{color:rgba(255,255,255,.5);font-size:9px;line-height:1.45}
+.motorcycle-index-body{padding-top:76px;padding-bottom:100px}
+.motorcycle-catalog-section,.motorcycle-brand-directory,.motorcycle-family-strip{margin-bottom:90px}
+.motorcycle-section-heading h2{font-size:clamp(38px,4.7vw,62px)!important;line-height:.96!important;text-transform:uppercase}
+.motorcycle-section-heading p{max-width:700px;color:var(--arena-muted);line-height:1.7}
+
+.model-explorer-v300{border-top:3px solid var(--arena-black)}
+.model-explorer-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 0;border-bottom:1px solid var(--arena-line)}
+.model-explorer-toolbar>div{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.model-explorer-toolbar span{color:var(--arena-orange);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.12em}
+.model-explorer-toolbar strong{font-family:var(--font-oswald),Oswald,sans-serif;font-size:20px;text-transform:uppercase}
+.filter-reset,.text-button{border:0;background:transparent;color:var(--arena-orange);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;cursor:pointer}
+.filter-bar{display:grid!important;grid-template-columns:2fr repeat(3,1fr)!important;gap:0!important;margin:0!important;border:1px solid var(--arena-line)!important;border-top:0!important;background:#fff!important}
+.filter-bar label{display:flex!important;flex-direction:column!important;gap:7px!important;padding:15px!important;border-right:1px solid var(--arena-line)!important}
+.filter-bar label:last-child{border-right:0!important}
+.filter-bar label>span{color:var(--arena-muted)!important;font-size:9px!important;font-weight:900!important;text-transform:uppercase!important;letter-spacing:.09em!important}
+.filter-bar input,.filter-bar select{width:100%;min-height:40px;border:0!important;border-bottom:1px solid #cfcfc8!important;border-radius:0!important;background:#fff!important;color:var(--arena-ink)!important;outline:0!important;font-size:12px!important;padding:8px 0!important}
+.filter-bar input:focus,.filter-bar select:focus{border-bottom-color:var(--arena-orange)!important;box-shadow:none!important}
+.result-meta{display:flex!important;justify-content:space-between!important;align-items:center!important;padding:14px 0 20px!important;color:var(--arena-muted)!important;font-size:10px!important;text-transform:uppercase!important;letter-spacing:.06em!important}
+.result-meta b{color:var(--arena-ink);font-size:13px}
+.motorcycle-catalog-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
+.empty-state.large{padding:60px 24px!important;border:1px dashed var(--arena-line)!important;background:var(--arena-soft)!important;text-align:center!important}
+
+.motorcycle-brand-directory-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;border-top:1px solid var(--arena-line)!important;border-left:1px solid var(--arena-line)!important}
+.motorcycle-brand-directory-grid>a{display:grid!important;grid-template-columns:48px 1fr auto!important;align-items:center!important;gap:14px!important;min-height:94px!important;padding:16px!important;border-right:1px solid var(--arena-line)!important;border-bottom:1px solid var(--arena-line)!important;background:#fff!important}
+.motorcycle-brand-directory-grid>a:hover{background:var(--arena-soft)!important}
+.motorcycle-brand-mark{display:grid!important;place-items:center!important;width:46px!important;height:46px!important;border-radius:2px!important;background:var(--arena-black)!important;color:#fff!important;font-family:var(--font-oswald),Oswald,sans-serif!important;font-size:18px!important}
+.motorcycle-brand-directory-grid strong{display:block;font-family:var(--font-oswald),Oswald,sans-serif;font-size:20px;text-transform:uppercase}
+.motorcycle-brand-directory-grid small{display:block;margin-top:3px;color:var(--arena-muted);font-size:9px;text-transform:uppercase;letter-spacing:.05em}
+.motorcycle-brand-directory-grid>a>span{color:var(--arena-orange);font-size:10px;font-weight:900;text-align:right}
+.motorcycle-family-card-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important}
+.motorcycle-family-card-grid>a{display:flex!important;min-height:150px!important;flex-direction:column!important;justify-content:flex-end!important;padding:18px!important;border:1px solid var(--arena-line)!important;border-radius:3px!important;background:var(--arena-soft)!important}
+.motorcycle-family-card-grid>a:hover{border-color:var(--arena-orange)!important}
+.motorcycle-family-card-grid span{color:var(--arena-orange);font-size:9px;font-weight:900;text-transform:uppercase}
+.motorcycle-family-card-grid strong{margin:6px 0;font-family:var(--font-oswald),Oswald,sans-serif;font-size:22px;text-transform:uppercase}
+.motorcycle-family-card-grid small{color:var(--arena-muted);font-size:10px}
+.motorcycle-index-method{display:grid!important;grid-template-columns:1.05fr .95fr!important;gap:70px!important;align-items:end!important;padding:54px 0!important;border-top:3px solid var(--arena-black)!important;border-bottom:1px solid var(--arena-line)!important}
+.motorcycle-index-method h2{margin:8px 0;font-size:clamp(38px,4vw,56px);line-height:.96;text-transform:uppercase}
+.motorcycle-index-method p{color:var(--arena-muted);line-height:1.7}
+.motorcycle-index-method-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important}
+.motorcycle-index-method-grid article{min-height:140px;padding:18px;border:1px solid var(--arena-line);border-right:0}
+.motorcycle-index-method-grid article:last-child{border-right:1px solid var(--arena-line)}
+.motorcycle-index-method-grid b{color:var(--arena-orange);font-size:10px}
+.motorcycle-index-method-grid strong{display:block;margin:28px 0 5px;font-family:var(--font-oswald),Oswald,sans-serif;font-size:20px;text-transform:uppercase}
+.motorcycle-index-method-grid small{color:var(--arena-muted);font-size:10px;line-height:1.5}
+
+/* Brand hubs */
+.ph-brand-page{background:#fff}
+.ph-brand-hero{position:relative;overflow:hidden;background:var(--arena-black);color:#fff}
+.ph-brand-hero:after{content:"";position:absolute;right:-120px;top:-160px;width:540px;height:540px;border-radius:50%;background:rgba(255,59,0,.22);filter:blur(110px)}
+.ph-brand-hero>.shell{position:relative;z-index:2;padding-top:34px;padding-bottom:50px}
+.ph-brand-hero .breadcrumbs,.ph-brand-hero .breadcrumbs a{color:rgba(255,255,255,.52)!important}
+.ph-brand-hero-grid{display:grid!important;grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr)!important;gap:64px!important;align-items:end!important}
+.ph-brand-hero h1{margin:10px 0 18px;color:#fff;font-size:clamp(58px,7vw,94px);line-height:.9;text-transform:uppercase}
+.ph-brand-hero p{max-width:680px;color:rgba(255,255,255,.58);line-height:1.7}
+.ph-brand-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.ph-brand-actions .button:first-child{background:var(--arena-orange)!important}
+.ph-brand-actions .button.secondary{background:transparent!important;color:#fff!important;border:1px solid rgba(255,255,255,.24)!important}
+.ph-brand-checked{display:block;margin-top:17px;color:rgba(255,255,255,.4);font-size:9px;text-transform:uppercase;letter-spacing:.07em}
+.ph-brand-overview{display:grid!important;grid-template-columns:1fr 1fr!important;border:1px solid rgba(255,255,255,.13)!important;background:rgba(255,255,255,.035)!important}
+.ph-brand-overview>div{min-height:120px;padding:19px!important;border-right:1px solid rgba(255,255,255,.12)!important;border-bottom:1px solid rgba(255,255,255,.12)!important;background:transparent!important}
+.ph-brand-overview>div:nth-child(2n){border-right:0!important}
+.ph-brand-overview span,.ph-brand-overview small{display:block;color:rgba(255,255,255,.44)!important;font-size:9px!important;text-transform:uppercase;letter-spacing:.06em}
+.ph-brand-overview strong{display:block;margin:8px 0 6px;color:#fff!important;font-family:var(--font-oswald),Oswald,sans-serif!important;font-size:24px!important;line-height:1!important;text-transform:uppercase}
+.ph-brand-page>.shell{padding-bottom:100px}
+.ph-brand-nav{position:sticky!important;top:68px!important;z-index:28!important;display:flex!important;gap:0!important;overflow-x:auto!important;margin:0 0 56px!important;border:1px solid var(--arena-line)!important;border-top:0!important;background:rgba(255,255,255,.96)!important;backdrop-filter:blur(12px)}
+.ph-brand-nav a{flex:none;padding:13px 15px!important;border-right:1px solid var(--arena-line)!important;color:var(--arena-muted)!important;font-size:9px!important;font-weight:900!important;text-transform:uppercase!important;letter-spacing:.07em!important}
+.ph-brand-nav a:hover{background:var(--arena-soft)!important;color:var(--arena-orange)!important}
+.ph-brand-context{display:grid!important;grid-template-columns:.75fr 1.25fr!important;gap:50px!important;padding:34px 0!important;border-top:3px solid var(--arena-black)!important;border-bottom:1px solid var(--arena-line)!important}
+.ph-brand-context span{color:var(--arena-orange);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.09em}
+.ph-brand-context h2{margin:7px 0 0;font-size:36px;text-transform:uppercase}
+.ph-brand-context p{margin:0;color:var(--arena-muted);line-height:1.75}
+.ph-brand-section{padding-top:74px!important}
+.ph-brand-section .section-head h2{font-size:clamp(38px,4.5vw,58px)!important;line-height:.96!important;text-transform:uppercase}
+.ph-brand-model-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
+.ph-brand-models-section.is-sparse .ph-brand-model-grid{grid-template-columns:repeat(2,minmax(0,360px))!important}
+.ph-brand-price-table{border-top:3px solid var(--arena-black)!important;border-left:1px solid var(--arena-line)!important;border-right:1px solid var(--arena-line)!important}
+.ph-brand-price-table>.head,.ph-brand-price-table>a{display:grid!important;grid-template-columns:1.4fr 1.1fr .7fr .7fr 1fr!important;align-items:center!important;gap:14px!important;padding:15px 16px!important;border-bottom:1px solid var(--arena-line)!important}
+.ph-brand-price-table>.head{background:var(--arena-black)!important;color:#fff!important;font-size:9px!important;font-weight:900!important;text-transform:uppercase!important;letter-spacing:.08em!important}
+.ph-brand-price-table>a:hover{background:var(--arena-soft)!important}
+.ph-brand-price-table>a strong{font-family:var(--font-oswald),Oswald,sans-serif;font-size:19px;text-transform:uppercase}
+.ph-brand-price-table>a small{display:block;margin-top:3px;color:var(--arena-muted);font-family:var(--font-inter),Inter,sans-serif;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.ph-brand-price-table>a>span{font-size:10px;font-weight:800}
+.ph-brand-two-col{display:grid!important;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr)!important;gap:44px!important}
+.ph-brand-category-grid{display:grid!important;grid-template-columns:repeat(2,1fr)!important;border-top:1px solid var(--arena-line)!important;border-left:1px solid var(--arena-line)!important}
+.ph-brand-category-grid>a{display:flex!important;justify-content:space-between!important;align-items:center!important;padding:17px!important;border-right:1px solid var(--arena-line)!important;border-bottom:1px solid var(--arena-line)!important}
+.ph-brand-category-grid>a:hover{background:var(--arena-soft)!important}
+.ph-brand-category-grid strong{font-family:var(--font-oswald),Oswald,sans-serif;text-transform:uppercase}
+.ph-brand-category-grid span{color:var(--arena-muted);font-size:9px;text-transform:uppercase}
+.ph-brand-start-card{padding:28px!important;border:0!important;border-radius:3px!important;background:var(--arena-black)!important;color:#fff!important}
+.ph-brand-start-card>span{color:var(--arena-orange)!important;font-size:9px!important;font-weight:900!important;text-transform:uppercase!important}
+.ph-brand-start-card h3{margin:34px 0 10px;color:#fff!important;font-size:32px!important;line-height:1!important;text-transform:uppercase}
+.ph-brand-start-card p{color:rgba(255,255,255,.52)!important;line-height:1.65!important}
+.ph-brand-start-card a{display:block!important;padding:12px 0!important;border-top:1px solid rgba(255,255,255,.12)!important;color:#fff!important;font-size:10px!important;font-weight:900!important;text-transform:uppercase!important}
+.ph-brand-start-card a:hover{color:var(--arena-orange)!important}
+.ph-brand-support-panel{display:grid!important;grid-template-columns:1fr 1fr!important;border:1px solid var(--arena-line)!important}
+.ph-brand-support-panel article,.ph-brand-support-panel>div{padding:26px!important}
+.ph-brand-support-panel article{border-right:1px solid var(--arena-line)!important;background:var(--arena-soft)!important}
+.ph-brand-support-panel article h3{font-size:28px;text-transform:uppercase}
+.ph-brand-support-panel>div a{display:block;padding:13px 0;border-bottom:1px solid var(--arena-line);font-size:10px;font-weight:900;text-transform:uppercase}
+.ph-brand-support-panel>div a:hover{color:var(--arena-orange)}
+
+/* Model entity pages */
+.motorcycle-entity-page{background:#fff}
+.motorcycle-entity-hero{background:var(--arena-soft)!important;border-bottom:1px solid var(--arena-line)!important}
+.motorcycle-entity-hero>.shell{padding-top:32px;padding-bottom:54px}
+.motorcycle-hero-grid{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(420px,.9fr)!important;gap:62px!important;align-items:center!important}
+.motorcycle-hero-copy h1{margin:10px 0 18px!important;font-size:clamp(58px,7vw,94px)!important;line-height:.9!important;text-transform:uppercase!important}
+.entity-lede{max-width:680px;color:var(--arena-muted)!important;font-size:15px!important;line-height:1.72!important}
+.entity-aka{color:var(--arena-muted)!important;font-size:11px!important}
+.motorcycle-price-lockup{margin:28px 0 20px;padding:19px 0;border-top:3px solid var(--arena-black);border-bottom:1px solid var(--arena-line)}
+.motorcycle-price-lockup>span,.motorcycle-price-lockup>small{display:block;color:var(--arena-muted);font-size:9px;text-transform:uppercase;letter-spacing:.06em}
+.motorcycle-price-lockup>strong{display:block;margin:5px 0 7px;font-family:var(--font-oswald),Oswald,sans-serif;font-size:46px;line-height:1;text-transform:uppercase}
+.entity-hero-actions{gap:8px!important}
+.entity-hero-actions .button:first-child{background:var(--arena-orange)!important}
+.motorcycle-hero-visual{position:relative}
+.motorcycle-hero-media{min-height:440px!important;max-height:520px!important;border:1px solid var(--arena-line)!important;border-radius:4px!important;background:#fff!important;object-fit:contain!important}
+.motorcycle-hero-facts{display:grid!important;grid-template-columns:repeat(2,1fr)!important;margin-top:10px!important;border-top:1px solid var(--arena-line)!important;border-left:1px solid var(--arena-line)!important;background:#fff!important}
+.motorcycle-hero-facts>div{padding:14px!important;border-right:1px solid var(--arena-line)!important;border-bottom:1px solid var(--arena-line)!important}
+.motorcycle-hero-facts span,.motorcycle-hero-facts small{display:block;color:var(--arena-muted)!important;font-size:8px!important;text-transform:uppercase;letter-spacing:.06em}
+.motorcycle-hero-facts strong{display:block;margin:5px 0;font-family:var(--font-oswald),Oswald,sans-serif!important;font-size:19px!important;text-transform:uppercase}
+.motorcycle-entity-nav-wrap{position:sticky;top:68px;z-index:24;background:#fff}
+.motorcycle-entity-nav-wrap>nav,.product-entity-nav{border:1px solid var(--arena-line)!important;border-top:0!important;border-radius:0!important;box-shadow:none!important;background:rgba(255,255,255,.97)!important}
+.product-entity-nav a{font-size:9px!important;font-weight:900!important;text-transform:uppercase!important;letter-spacing:.06em!important}
+.product-entity-nav a:hover{color:var(--arena-orange)!important}
+.motorcycle-entity-body{padding-top:70px;padding-bottom:110px}
+.motorcycle-entity-section{padding:72px 0!important;border-top:1px solid var(--arena-line)!important}
+.motorcycle-entity-section:first-of-type{border-top:0!important}
+.motorcycle-entity-section .section-head h2{font-size:clamp(38px,4.5vw,60px)!important;line-height:.96!important;text-transform:uppercase}
+.motorcycle-editorial-grid,.entity-spec-grid,.entity-info-grid{gap:12px!important}
+.editorial-card,.entity-alert-card,.entity-panel,.entity-summary-card{border-radius:3px!important;border-color:var(--arena-line)!important;box-shadow:none!important}
+.entity-alert-card{border-left:4px solid var(--arena-orange)!important;background:#fff7f2!important}
+.author-box{border-radius:3px!important;border-color:var(--arena-line)!important}
+
+/* Finder */
+.page:has(.decision-finder)>.page-head h1{font-size:clamp(56px,7vw,90px)!important;line-height:.9!important;text-transform:uppercase}
+.page:has(.decision-finder)>.page-head p{max-width:760px;font-size:15px;line-height:1.75}
+.decision-finder{margin-top:36px}
+.decision-profile-panel{padding:30px!important;border:0!important;border-radius:4px!important;background:var(--arena-black)!important;color:#fff!important}
+.decision-profile-copy>span{color:var(--arena-orange)!important;font-size:9px!important;font-weight:900!important;text-transform:uppercase!important;letter-spacing:.12em!important}
+.decision-profile-copy h2{margin:7px 0!important;color:#fff!important;font-size:42px!important;line-height:.98!important;text-transform:uppercase}
+.decision-profile-copy p{max-width:720px;color:rgba(255,255,255,.54)!important;line-height:1.65!important}
+.finder-toolbar{display:flex!important;gap:8px!important}
+.finder-toolbar .button.ghost{background:transparent!important;color:#fff!important;border-color:rgba(255,255,255,.24)!important}
+.finder-toolbar .button:not(.ghost){background:var(--arena-orange)!important}
+.decision-filter-grid{display:grid!important;gap:0!important;margin-top:22px!important;border-top:1px solid rgba(255,255,255,.14)!important;border-left:1px solid rgba(255,255,255,.14)!important}
+.decision-filter-grid.primary{grid-template-columns:repeat(5,1fr)!important}
+.decision-filter-grid.secondary{grid-template-columns:repeat(4,1fr)!important}
+.decision-filter-grid label{padding:14px!important;border-right:1px solid rgba(255,255,255,.14)!important;border-bottom:1px solid rgba(255,255,255,.14)!important}
+.decision-filter-grid label>span{display:block;margin-bottom:7px;color:rgba(255,255,255,.47)!important;font-size:8px!important;font-weight:900!important;text-transform:uppercase!important;letter-spacing:.07em!important}
+.decision-filter-grid select,.decision-filter-grid input{width:100%!important;min-height:40px!important;border:0!important;border-bottom:1px solid rgba(255,255,255,.28)!important;border-radius:0!important;background:transparent!important;color:#fff!important;padding:7px 0!important}
+.decision-filter-grid select option{color:#111}
+.decision-toggle-row{display:flex!important;gap:8px!important;flex-wrap:wrap!important;margin-top:14px!important}
+.decision-toggle-row label{display:flex!important;align-items:center!important;gap:8px!important;padding:9px 11px!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:3px!important;color:rgba(255,255,255,.7)!important;font-size:10px!important}
+.decision-toggle-row input{accent-color:var(--arena-orange)}
+.finder-more-row{display:flex!important;align-items:center!important;gap:14px!important;margin-top:14px!important}
+.finder-more-row .button{background:transparent!important;color:#fff!important;border-color:rgba(255,255,255,.24)!important}
+.finder-more-row span{color:rgba(255,255,255,.4)!important;font-size:9px!important}
+.decision-winner{display:grid!important;grid-template-columns:160px 1fr 220px!important;gap:28px!important;margin-top:28px!important;padding:28px!important;border:1px solid var(--arena-line)!important;border-left:5px solid var(--arena-orange)!important;border-radius:3px!important;background:#fff!important;box-shadow:none!important}
+.decision-winner-score{display:flex!important;flex-direction:column!important;justify-content:center!important;border-right:1px solid var(--arena-line)!important}
+.decision-winner-score>span{color:var(--arena-orange)!important;font-size:9px!important;font-weight:900!important;text-transform:uppercase!important}
+.decision-winner-score>strong{font-family:var(--font-oswald),Oswald,sans-serif!important;font-size:66px!important;line-height:.9!important}
+.decision-winner-score>strong small{font-size:15px!important}
+.decision-winner-score>b{margin-top:7px!important;font-size:10px!important;text-transform:uppercase!important}
+.decision-winner-copy>span{color:var(--arena-orange)!important;font-size:9px!important;font-weight:900!important;text-transform:uppercase!important}
+.decision-winner-copy h2{margin:3px 0 8px!important;font-size:46px!important;text-transform:uppercase}
+.decision-winner-copy p{color:var(--arena-muted)!important;line-height:1.6!important}
+.decision-winner-cost{display:grid!important;grid-template-columns:repeat(4,1fr)!important;margin-top:18px!important;border-top:1px solid var(--arena-line)!important;border-left:1px solid var(--arena-line)!important}
+.decision-winner-cost>span{padding:11px!important;border-right:1px solid var(--arena-line)!important;border-bottom:1px solid var(--arena-line)!important}
+.decision-winner-cost small{display:block;color:var(--arena-muted)!important;font-size:7px!important;text-transform:uppercase!important}
+.decision-winner-cost b{display:block;margin-top:5px!important;font-size:10px!important}
+.decision-winner-actions{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:8px!important}
+.decision-winner-actions .button:first-child{background:var(--arena-orange)!important}
+.decision-winner-actions small{margin-top:auto;color:var(--arena-muted)!important;font-size:8px!important;line-height:1.45!important}
+.decision-results-head{display:flex!important;justify-content:space-between!important;gap:40px!important;align-items:end!important;margin:66px 0 24px!important;padding-top:24px!important;border-top:3px solid var(--arena-black)!important}
+.decision-results-head span{color:var(--arena-orange)!important;font-size:9px!important;font-weight:900!important;text-transform:uppercase!important}
+.decision-results-head h2{margin:5px 0 0!important;font-size:42px!important;text-transform:uppercase}
+.decision-results-head p{max-width:440px;color:var(--arena-muted)!important}
+.decision-result-list{display:grid!important;gap:10px!important}
+.decision-result-card{display:grid!important;grid-template-columns:72px 190px minmax(0,1fr)!important;gap:18px!important;padding:16px!important;border:1px solid var(--arena-line)!important;border-radius:3px!important;background:#fff!important;box-shadow:none!important}
+.decision-result-card:hover{border-color:#c9c9c2!important}
+.decision-rank{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;border-right:1px solid var(--arena-line)!important}
+.decision-rank span{color:var(--arena-orange)!important;font-size:9px!important;font-weight:900!important}
+.decision-rank strong{font-family:var(--font-oswald),Oswald,sans-serif!important;font-size:40px!important;line-height:1!important}
+.decision-rank small{font-size:8px!important;text-transform:uppercase!important}
+.decision-result-media{min-height:150px!important;background:var(--arena-soft)!important}
+.decision-result-media img{width:100%!important;height:100%!important;object-fit:contain!important}
+.decision-title-row h3{margin:2px 0!important;font-size:30px!important;text-transform:uppercase}
+.decision-title-row>strong{font-size:12px!important}
+.decision-chips{display:flex!important;gap:5px!important;flex-wrap:wrap!important;margin-top:9px!important}
+.decision-chips span{padding:5px 7px!important;border-radius:2px!important;background:var(--arena-soft)!important;color:var(--arena-muted)!important;font-size:8px!important}
+.decision-reason-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:16px!important;margin-top:14px!important}
+.decision-reason-grid>div{padding-top:11px!important;border-top:1px solid var(--arena-line)!important}
+.decision-reason-grid>div>span{font-size:8px!important;font-weight:900!important;text-transform:uppercase!important;letter-spacing:.06em!important}
+.decision-reason-grid li{font-size:9px!important;line-height:1.45!important}
+.decision-breakdown{margin-top:10px!important;border-top:1px solid var(--arena-line)!important}
+.decision-breakdown summary{padding:10px 0!important;color:var(--arena-orange)!important;font-size:8px!important;font-weight:900!important;text-transform:uppercase!important;cursor:pointer!important}
+.decision-cost-strip{display:grid!important;grid-template-columns:repeat(5,1fr)!important;margin-top:10px!important;border-top:1px solid var(--arena-line)!important;border-left:1px solid var(--arena-line)!important}
+.decision-cost-strip>span{padding:9px!important;border-right:1px solid var(--arena-line)!important;border-bottom:1px solid var(--arena-line)!important}
+.decision-cost-strip small{display:block;color:var(--arena-muted)!important;font-size:7px!important;text-transform:uppercase!important}
+.decision-cost-strip b{display:block;margin-top:4px!important;font-size:9px!important}
+.decision-card-actions{display:flex!important;gap:7px!important;flex-wrap:wrap!important;margin-top:12px!important}
+.decision-card-actions .button:first-child{background:var(--arena-orange)!important}
+.decision-empty{padding:54px!important;border:1px solid var(--arena-line)!important;border-left:5px solid var(--arena-orange)!important;background:var(--arena-soft)!important}
+
+/* Compare builder */
+.page:has(.compare-builder)>.page-head h1{font-size:clamp(56px,7vw,90px)!important;line-height:.9!important;text-transform:uppercase}
+.compare-builder{padding:28px!important;border:0!important;border-radius:4px!important;background:var(--arena-black)!important;color:#fff!important;box-shadow:none!important}
+.compare-builder-head{display:flex!important;justify-content:space-between!important;gap:30px!important;align-items:flex-start!important}
+.compare-builder-head h2{margin:0!important;color:#fff!important;font-size:40px!important;text-transform:uppercase}
+.compare-builder-head p{max-width:650px;color:rgba(255,255,255,.5)!important;line-height:1.6!important}
+.compare-count{padding:7px 9px!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:2px!important;color:var(--arena-orange)!important;font-size:9px!important;font-weight:900!important;text-transform:uppercase!important}
+.compare-picker-grid{display:grid!important;grid-template-columns:1fr 42px 1fr 1fr!important;gap:0!important;margin-top:22px!important;border-top:1px solid rgba(255,255,255,.14)!important;border-left:1px solid rgba(255,255,255,.14)!important}
+.compare-picker-grid label{padding:15px!important;border-right:1px solid rgba(255,255,255,.14)!important;border-bottom:1px solid rgba(255,255,255,.14)!important}
+.compare-picker-grid label>span{display:block;margin-bottom:8px;color:rgba(255,255,255,.46)!important;font-size:8px!important;font-weight:900!important;text-transform:uppercase!important;letter-spacing:.08em!important}
+.compare-picker-grid select{width:100%!important;min-height:42px!important;border:0!important;border-bottom:1px solid rgba(255,255,255,.28)!important;border-radius:0!important;background:transparent!important;color:#fff!important;padding:7px 0!important}
+.compare-picker-grid select option{color:#111}
+.compare-picker-grid label small{display:block;margin-top:7px;color:rgba(255,255,255,.42)!important;font-size:8px!important;line-height:1.4!important}
+.compare-vs{display:grid!important;place-items:center!important;border-right:1px solid rgba(255,255,255,.14)!important;border-bottom:1px solid rgba(255,255,255,.14)!important;color:var(--arena-orange)!important;font-family:var(--font-oswald),Oswald,sans-serif!important;font-size:18px!important}
+.compare-actions{display:flex!important;gap:8px!important;margin-top:18px!important}
+.compare-actions .button:first-child{background:var(--arena-orange)!important}
+.compare-actions .button.ghost{background:transparent!important;color:#fff!important;border-color:rgba(255,255,255,.24)!important}
+.compare-actions .button:disabled{opacity:.35!important;cursor:not-allowed!important}
+.compare-popular-head{margin-top:70px!important;padding-top:22px!important;border-top:3px solid var(--arena-black)!important}
+.compare-popular-head h2{font-size:38px!important;text-transform:uppercase}
+.page:has(.compare-builder) .list-cards{display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:8px!important}
+.page:has(.compare-builder) .list-cards>a{min-height:110px!important;border-radius:3px!important;padding:18px!important}
+.page:has(.compare-builder) .list-cards>a:hover{border-color:var(--arena-orange)!important;background:var(--arena-soft)!important}
+.page:has(.compare-builder) .list-cards strong{font-family:var(--font-oswald),Oswald,sans-serif!important;font-size:20px!important;text-transform:uppercase!important}
+.page:has(.compare-builder) .list-cards b{color:var(--arena-orange)!important;font-size:9px!important;text-transform:uppercase!important}
+
+/* Gear / commerce surfaces */
+.product-card-shell{overflow:hidden!important}
+.product-card{display:flex!important;height:100%!important;flex-direction:column!important}
+.product-card-media,.product-art{min-height:210px!important;border-bottom:1px solid var(--arena-line)!important;background:var(--arena-soft)!important}
+.product-card-media img{width:100%!important;height:100%!important;object-fit:contain!important}
+.product-card-foot{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;margin-top:18px!important;padding-top:12px!important;border-top:1px solid var(--arena-line)!important}
+.product-card-foot span{color:var(--arena-orange)!important;font-size:9px!important;font-weight:900!important;text-transform:uppercase!important}
+.affiliate-offer{border-radius:0!important;border-top:1px solid var(--arena-line)!important;background:#fff7f2!important}
+
+@media(max-width:1100px){
+  .motorcycle-index-hero-grid,.ph-brand-hero-grid,.motorcycle-hero-grid{grid-template-columns:1fr 1fr!important;gap:38px!important}
+  .motorcycle-index-quicklinks{grid-template-columns:repeat(3,1fr)}
+  .motorcycle-catalog-grid,.ph-brand-model-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .decision-filter-grid.primary{grid-template-columns:repeat(3,1fr)!important}
+  .decision-filter-grid.secondary{grid-template-columns:repeat(3,1fr)!important}
+  .decision-winner{grid-template-columns:130px 1fr!important}
+  .decision-winner-actions{grid-column:1/-1!important;flex-direction:row!important;flex-wrap:wrap!important}
+  .decision-winner-actions small{width:100%}
+  .decision-result-card{grid-template-columns:60px 160px minmax(0,1fr)!important}
+}
+
+@media(max-width:900px){
+  .motorcycle-index-hero>.shell{padding-top:54px}
+  .motorcycle-index-hero-grid,.ph-brand-hero-grid,.motorcycle-hero-grid,.motorcycle-index-method,.ph-brand-context,.ph-brand-two-col,.ph-brand-support-panel{grid-template-columns:1fr!important}
+  .motorcycle-index-overview,.ph-brand-overview{max-width:680px}
+  .motorcycle-index-quicklinks{grid-template-columns:repeat(2,1fr)}
+  .motorcycle-catalog-grid,.ph-brand-model-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .motorcycle-brand-directory-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .motorcycle-family-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .filter-bar{grid-template-columns:1fr 1fr!important}
+  .filter-bar label:nth-child(2n){border-right:0!important}
+  .ph-brand-nav,.motorcycle-entity-nav-wrap{top:60px!important}
+  .ph-brand-support-panel article{border-right:0!important;border-bottom:1px solid var(--arena-line)!important}
+  .motorcycle-hero-media{min-height:360px!important}
+  .decision-filter-grid.primary,.decision-filter-grid.secondary{grid-template-columns:repeat(2,1fr)!important}
+  .decision-result-card{grid-template-columns:58px 145px minmax(0,1fr)!important}
+  .decision-winner-cost{grid-template-columns:repeat(2,1fr)!important}
+  .decision-cost-strip{grid-template-columns:repeat(3,1fr)!important}
+  .compare-picker-grid{grid-template-columns:1fr 40px 1fr!important}
+  .compare-picker-grid label:last-child{grid-column:1/-1!important;border-top:0!important}
+  .page:has(.compare-builder) .list-cards{grid-template-columns:1fr!important}
+}
+
+@media(max-width:650px){
+  .motorcycle-index-hero h1,.ph-brand-hero h1,.motorcycle-hero-copy h1{font-size:52px!important}
+  .motorcycle-index-quicklinks{grid-template-columns:1fr}
+  .motorcycle-index-overview,.ph-brand-overview{grid-template-columns:1fr!important}
+  .motorcycle-index-overview>div,.ph-brand-overview>div{border-right:0!important}
+  .motorcycle-catalog-grid,.ph-brand-model-grid,.motorcycle-brand-directory-grid,.motorcycle-family-card-grid{grid-template-columns:1fr!important}
+  .filter-bar{grid-template-columns:1fr!important}
+  .filter-bar label{border-right:0!important}
+  .motorcycle-index-method-grid{grid-template-columns:1fr!important}
+  .motorcycle-index-method-grid article{border-right:1px solid var(--arena-line)!important;border-bottom:0}
+  .motorcycle-index-method-grid article:last-child{border-bottom:1px solid var(--arena-line)}
+  .ph-brand-models-section.is-sparse .ph-brand-model-grid{grid-template-columns:1fr!important}
+  .ph-brand-price-table{overflow-x:auto!important}
+  .ph-brand-price-table>.head,.ph-brand-price-table>a{min-width:760px!important}
+  .ph-brand-category-grid{grid-template-columns:1fr!important}
+  .motorcycle-hero-media{min-height:300px!important}
+  .motorcycle-hero-facts{grid-template-columns:1fr 1fr!important}
+  .motorcycle-entity-body{padding-top:50px}
+  .decision-profile-panel{padding:20px!important}
+  .decision-profile-copy h2{font-size:34px!important}
+  .decision-filter-grid.primary,.decision-filter-grid.secondary{grid-template-columns:1fr!important}
+  .finder-more-row{align-items:flex-start!important;flex-direction:column!important}
+  .decision-winner{grid-template-columns:1fr!important;padding:20px!important}
+  .decision-winner-score{border-right:0!important;border-bottom:1px solid var(--arena-line)!important;padding-bottom:16px!important}
+  .decision-winner-actions{grid-column:auto!important;flex-direction:column!important}
+  .decision-winner-cost{grid-template-columns:1fr 1fr!important}
+  .decision-results-head{align-items:flex-start!important;flex-direction:column!important;gap:10px!important}
+  .decision-result-card{grid-template-columns:54px 1fr!important}
+  .decision-result-media{min-height:180px!important}
+  .decision-result-main{grid-column:1/-1!important}
+  .decision-reason-grid{grid-template-columns:1fr!important}
+  .decision-cost-strip{grid-template-columns:1fr 1fr!important}
+  .compare-builder{padding:20px!important}
+  .compare-builder-head{flex-direction:column!important}
+  .compare-picker-grid{grid-template-columns:1fr!important}
+  .compare-vs{min-height:38px!important}
+  .compare-picker-grid label:last-child{grid-column:auto!important}
+  .compare-actions{flex-direction:column!important}
+}
