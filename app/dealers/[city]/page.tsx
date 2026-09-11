@@ -2,14 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { notFound } from "next/navigation";
-import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug, publicDealerCities, publicDealersByCity } from "@/lib/sellers";
+import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug } from "@/lib/sellers";
 import { allVerifiedDealers } from "@/lib/persistentSellers";
 import { pageMetadata } from "@/lib/site";
 
-export function generateStaticParams(){
-  return publicDealerCities()
-    .filter(city => publicDealersByCity(citySlug(city)).length >= MIN_PUBLIC_DEALERS_PER_CITY)
-    .map(city => ({city:citySlug(city)}));
+export async function generateStaticParams(){
+  const dealers=await allVerifiedDealers();
+  const counts=new Map<string,number>();
+  for(const dealer of dealers){
+    const slug=citySlug(dealer.city);
+    counts.set(slug,(counts.get(slug)||0)+1);
+  }
+  return [...counts.entries()]
+    .filter(([,count])=>count>=MIN_PUBLIC_DEALERS_PER_CITY)
+    .map(([city])=>({city}));
 }
 
 export async function generateMetadata({params}:{params:Promise<{city:string}>}):Promise<Metadata>{
