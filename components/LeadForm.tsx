@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
+import { backendUrl, publicApiConfigured } from "@/lib/apiBase";
 
 type Result = { ok: boolean; message?: string; error?: string; matchedDealers?: number; statusPath?: string };
 
@@ -33,7 +34,7 @@ export function LeadForm({ model }: { model: Motorcycle }) {
     };
 
     try {
-      const response = await fetch("/api/leads", {
+      const response = await fetch(backendUrl("/api/leads"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -52,6 +53,13 @@ export function LeadForm({ model }: { model: Motorcycle }) {
       setState("error");
       setMessage("We could not save your request. Please try again.");
     }
+  }
+
+  if (!publicApiConfigured) {
+    return <div className="lead-form lead-form-disabled">
+      <div className="lead-form-head"><span>Dealer quote requests</span><h2>Quote requests are temporarily unavailable.</h2><p>The public MotoIndex catalog is live, but dealer-request processing is not enabled on this deployment yet.</p></div>
+      <div className="hero-actions"><Link className="button" href={`/motorcycles/${model.makeSlug}/${model.slug}/dealers`}>Browse dealer options</Link><Link className="button ghost" href={`/motorcycles/${model.makeSlug}/${model.slug}`}>Back to {model.model}</Link></div>
+    </div>;
   }
 
   if (state === "success") {
