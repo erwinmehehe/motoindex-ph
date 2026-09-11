@@ -5,12 +5,16 @@ import { JsonLd } from "@/components/JsonLd";
 import { notFound } from "next/navigation";
 import { publicSellers, offersForSeller } from "@/lib/sellers";
 import { getVerifiedSellerProfile } from "@/lib/persistentSellers";
-import { getVerifiedOffers } from "@/lib/persistentOffers";
+import { getVerifiedOffers } from "@/lib/publicOffers";
+import { snapshotDealers } from "@/lib/publicSnapshot";
 import { entityHref, entityLabel } from "@/lib/entities";
 import { php } from "@/lib/utils";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 
-export function generateStaticParams(){return publicSellers().map(s=>({slug:s.slug}));}
+export function generateStaticParams(){
+  const slugs=new Set([...publicSellers().map(s=>s.slug),...snapshotDealers().map(s=>s.slug)]);
+  return [...slugs].map(slug=>({slug}));
+}
 
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
   const {slug}=await params;
