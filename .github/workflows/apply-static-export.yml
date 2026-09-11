@@ -1,0 +1,56 @@
+name: Apply static export conversion
+
+on:
+  push:
+    branches: [cloudflare-static-export]
+    paths:
+      - .github/workflows/apply-static-export.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout migration branch
+        uses: actions/checkout@v4
+        with:
+          ref: cloudflare-static-export
+
+      - name: Remove ISR and enable export
+        shell: python
+        run: |
+          from pathlib import Path
+
+          for name in [
+              "app/gear/helmets/[brand]/[product]/page.tsx",
+              "app/tires/[slug]/[product]/page.tsx",
+              "app/accessories/top-box/[product]/page.tsx",
+          ]:
+              path = Path(name)
+              text = path.read_text(encoding="utf-8")
+              text = text.replace("export const revalidate = 3600;\n\n", "")
+              text = text.replace("export const revalidate=3600;\n\n", "")
+              text = text.replace("export const revalidate = 3600;\n", "")
+              text = text.replace("export const revalidate=3600;\n", "")
+              path.write_text(text, encoding="utf-8")
+
+          config = Path("next.config.mjs")
+          text = config.read_text(encoding="utf-8")
+          if 'output: "export"' not in text:
+              text = text.replace("  poweredByHeader: false,\n", '  poweredByHeader: false,\n  output: "export",\n')
+          config.write_text(text, encoding="utf-8")
+
+      - name: Commit conversion
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "Static export conversion already applied."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add next.config.mjs app/gear/helmets/[brand]/[product]/page.tsx app/tires/[slug]/[product]/page.tsx app/accessories/top-box/[product]/page.tsx
+          git commit -m "Enable Next static export"
+          git push origin HEAD:cloudflare-static-export
