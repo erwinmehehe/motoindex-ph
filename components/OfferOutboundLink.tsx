@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { backendUrl } from "@/lib/apiBase";
 import { trackEvent } from "@/lib/track";
 
 export function OfferOutboundLink({ offerId, entityType, entityId, sellerName, affiliate = false }: {
@@ -12,7 +13,7 @@ export function OfferOutboundLink({ offerId, entityType, entityId, sellerName, a
 }) {
   return <Link
     className="commerce-offer-button"
-    href={`/go/${encodeURIComponent(offerId)}`}
+    href={backendUrl(`/go/${encodeURIComponent(offerId)}`)}
     rel={affiliate ? "sponsored nofollow" : "nofollow"}
     onClick={() => trackEvent("commerce_outbound_click", {
       offer_id: offerId,
