@@ -22,28 +22,30 @@ jobs:
       - name: Static export inventory
         shell: bash
         run: |
+          set +e
           echo '=== DYNAMIC EXPORTS ==='
-          grep -RIn --include='*.ts' --include='*.tsx' 'export const dynamic' app || true
+          grep -RIn --include='*.ts' --include='*.tsx' 'export const dynamic' app
           echo '=== REVALIDATE EXPORTS ==='
-          grep -RIn --include='*.ts' --include='*.tsx' 'revalidate' app || true
-          echo '=== PRISMA / DB IMPORTS IN APP ==='
-          grep -RIn --include='*.ts' --include='*.tsx' -E '(@/lib/db|from ["'"'].*lib/db|prisma\.)' app || true
-          echo '=== PRISMA / DB IMPORTS IN LIB ==='
-          grep -RIn --include='*.ts' --include='*.tsx' -E '(@/lib/db|from ["'"'].*db|prisma\.)' lib || true
+          grep -RIn --include='*.ts' --include='*.tsx' 'export const revalidate' app
+          echo '=== PUBLIC PERSISTENT IMPORTS ==='
+          grep -RIn --include='*.ts' --include='*.tsx' 'persistentSellers\|persistentOffers\|persistentUsedListings\|@/lib/db' app components
+          echo '=== DB USAGE IN LIB ==='
+          grep -RIn --include='*.ts' --include='*.tsx' 'prisma\.\|@/lib/db\|./db' lib
           echo '=== API ROUTE HANDLERS ==='
-          find app/api -type f -name 'route.ts' -o -name 'route.tsx' 2>/dev/null | sort || true
+          find app/api -type f \( -name 'route.ts' -o -name 'route.tsx' \) -print 2>/dev/null | sort
           echo '=== MIDDLEWARE ==='
-          test -f middleware.ts && echo middleware.ts || true
+          test -f middleware.ts && echo middleware.ts
           echo '=== ADMIN APP FILES ==='
-          find app/admin -type f 2>/dev/null | sort || true
+          find app/admin -type f 2>/dev/null | sort
           echo '=== METADATA ROUTES ==='
-          find app -maxdepth 2 -type f \( -name 'sitemap.ts' -o -name 'robots.ts' -o -name 'manifest.ts' \) -print || true
+          find app -maxdepth 2 -type f \( -name 'sitemap.ts' -o -name 'robots.ts' -o -name 'manifest.ts' \) -print
+          exit 0
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Typecheck baseline
+      - name: Typecheck
         run: npm run typecheck
 
-      - name: Build baseline
+      - name: Build
         run: npm run build
