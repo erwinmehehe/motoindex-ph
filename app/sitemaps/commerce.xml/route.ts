@@ -3,6 +3,8 @@ import { allVerifiedDealers } from "@/lib/persistentSellers";
 import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug } from "@/lib/sellers";
 import { RELEASE_DATE, SITE_URL } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 export async function GET(){
   const dealers=await allVerifiedDealers();
   const cityCounts=new Map<string,number>();
