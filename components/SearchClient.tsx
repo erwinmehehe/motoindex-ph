@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { SearchItem } from "@/lib/searchQuery";
 import { searchItemMatches, searchItemScore } from "@/lib/searchQuery";
 import { trackEvent } from "@/lib/track";
@@ -16,6 +16,7 @@ const shortcuts = [
 
 export function SearchClient({ items, initialQuery = "" }: { items: SearchItem[]; initialQuery?: string }) {
   const [query, setQuery] = useState(initialQuery);
+  useEffect(()=>{if(initialQuery)return;const q=new URLSearchParams(window.location.search).get("q")||"";if(q)setQuery(q.slice(0,200));},[initialQuery]);
   const q = query.trim();
   const matches = useMemo(() => {
     const term = query.trim();
