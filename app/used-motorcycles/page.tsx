@@ -6,8 +6,6 @@ import { estimatedUsedValue } from "@/lib/ownership";
 import { getVerifiedUsedListings } from "@/lib/persistentUsedListings";
 import { php } from "@/lib/utils";
 
-export const dynamic="force-dynamic";
-
 export const metadata: Metadata = pageMetadata({
   title: "Used Motorcycles Philippines: Verified Listings & Value",
   description: "Browse verified used motorcycle listing references when available, or estimate used value by model. Demo and research listings are never shown as live market data.",
