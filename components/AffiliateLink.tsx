@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { backendUrl } from "@/lib/apiBase";
 import { trackEvent } from "@/lib/track";
 
 export function AffiliateLink({
@@ -14,7 +15,7 @@ export function AffiliateLink({
   network: "shopee_direct" | "involve_asia";
   compact?: boolean;
 }) {
-  const href = `/go/affiliate/${encodeURIComponent(productId)}`;
+  const href = backendUrl(`/go/affiliate/${encodeURIComponent(productId)}`);
   return <Link
     className={compact ? "affiliate-button compact" : "affiliate-button"}
     href={href}
