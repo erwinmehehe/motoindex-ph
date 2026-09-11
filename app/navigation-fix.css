@@ -1,0 +1,64 @@
+.nav-motorcycles .nav-popover-menu{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:4px;
+  width:min(560px,calc(100vw - 32px));
+  max-height:min(68vh,540px);
+  padding:12px!important;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,.25) transparent;
+}
+
+.nav-motorcycles .nav-popover-menu::-webkit-scrollbar{width:7px}
+.nav-motorcycles .nav-popover-menu::-webkit-scrollbar-track{background:transparent}
+.nav-motorcycles .nav-popover-menu::-webkit-scrollbar-thumb{background:rgba(255,255,255,.22);border-radius:999px}
+
+.nav-motorcycles .nav-popover-menu>a{
+  display:flex!important;
+  align-items:center;
+  min-height:40px;
+  padding:9px 12px!important;
+  border-radius:10px!important;
+  color:rgba(255,255,255,.78)!important;
+  font-size:12px;
+  line-height:1.25;
+}
+
+.nav-motorcycles .nav-popover-menu>a:hover{
+  background:rgba(255,255,255,.075)!important;
+  color:#fff!important;
+}
+
+.nav-motorcycles .nav-popover-menu>.nav-popover-primary{
+  grid-column:1/-1;
+  min-height:44px;
+  margin-bottom:2px;
+  background:var(--mi-red,#d9252a)!important;
+  color:#fff!important;
+  font-weight:900;
+}
+
+.nav-motorcycles .nav-popover-menu>.nav-popover-primary:hover{
+  background:var(--mi-red-dark,#aa171d)!important;
+}
+
+.nav-motorcycles .nav-popover-menu>a:nth-child(2){
+  grid-column:1/-1;
+  margin-bottom:5px;
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.045)!important;
+  color:#fff!important;
+  font-weight:800;
+}
+
+@media(max-width:1100px) and (min-width:901px){
+  .nav-wrap{gap:20px}
+  .nav-links{gap:16px}
+  .nav-motorcycles .nav-popover-menu{width:min(500px,calc(100vw - 28px))}
+}
+
+@media(max-height:700px) and (min-width:901px){
+  .nav-motorcycles .nav-popover-menu{max-height:calc(100vh - 96px)}
+}
