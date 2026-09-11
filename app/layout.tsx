@@ -15,6 +15,7 @@ import "./recommendations.css";
 import "./navigation-fix.css";
 import "./arena-port.css";
 import "./arena-pages.css";
+import "./arena-sections.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
