@@ -1,0 +1,100 @@
+.guide-master-page{padding-top:44px;padding-bottom:112px}
+.guide-master-page>.page-head{position:relative;overflow:hidden;margin:0 0 22px;padding:56px 58px;border:1px solid rgba(255,255,255,.08);border-radius:32px;background:linear-gradient(135deg,#0b0c0e 0%,#171a1e 62%,#241014 125%);box-shadow:0 26px 70px rgba(15,18,21,.18);color:#fff}
+.guide-master-page>.page-head:before{content:"";position:absolute;width:420px;height:420px;right:-120px;top:-170px;border-radius:50%;background:radial-gradient(circle,rgba(217,37,42,.38),rgba(217,37,42,0) 68%);pointer-events:none}
+.guide-master-page>.page-head:after{content:"BUY SMARTER";position:absolute;right:34px;bottom:22px;color:rgba(255,255,255,.045);font-size:clamp(58px,9vw,120px);font-weight:950;letter-spacing:-.07em;line-height:.8;white-space:nowrap;pointer-events:none}
+.guide-master-page>.page-head>*{position:relative;z-index:1}
+.guide-master-page>.page-head .entity-kicker{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;padding:8px 12px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(255,255,255,.055);color:#ff6a6f;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.guide-master-page>.page-head h1{max-width:920px;margin:0;color:#fff;font-size:clamp(48px,6.3vw,78px);line-height:.96;letter-spacing:-.06em}
+.guide-master-page>.page-head>p{max-width:780px;margin:24px 0 0;color:rgba(255,255,255,.62);font-size:16px;line-height:1.75}
+.guide-master-page>.page-head .hero-actions{margin-top:30px}
+.guide-master-page>.page-head .button{background:var(--mi-red,#d9252a);color:#fff;box-shadow:0 10px 26px rgba(217,37,42,.2)}
+.guide-master-page>.page-head .button:hover{background:var(--mi-red-dark,#aa171d)}
+.guide-master-page>.page-head .button.secondary{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);color:#fff;box-shadow:none}
+.guide-master-page>.page-head .button.secondary:hover{background:rgba(255,255,255,.12)}
+
+.guide-master-nav{position:sticky;top:86px;z-index:30;display:flex;gap:7px;overflow-x:auto;margin:0 0 44px;padding:10px;border:1px solid #e4e7eb;border-radius:18px;background:rgba(251,250,247,.94);box-shadow:0 12px 32px rgba(16,19,23,.07);backdrop-filter:blur(14px);scrollbar-width:none}
+.guide-master-nav::-webkit-scrollbar{display:none}
+.guide-master-nav a{flex:none;padding:9px 12px;border-radius:10px;color:#606873;font-size:11px;font-weight:850;white-space:nowrap;transition:.18s ease}
+.guide-master-nav a:hover{background:#15171a;color:#fff}
+
+.guide-master-section{scroll-margin-top:150px;padding:58px 0;border-top:1px solid #e3e6e9}
+.guide-master-section:first-of-type{padding-top:12px;border-top:0}
+.guide-master-section .section-head{align-items:flex-end;margin-bottom:28px}
+.guide-master-section .section-head>div{max-width:800px}
+.guide-master-section .section-head .section-kicker{display:block;margin-bottom:10px;color:var(--mi-red,#d9252a);font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.guide-master-section .section-head h2{margin:0;color:#17191d;font-size:clamp(32px,4.1vw,52px);line-height:1.02;letter-spacing:-.05em}
+.guide-master-section .section-head p{max-width:760px;margin:14px 0 0;color:#747c87;font-size:14px;line-height:1.72}
+.guide-master-section .section-head>a{flex:none;padding:9px 13px;border:1px solid #dde0e4;border-radius:999px;background:#fff;color:#292d32;font-size:10px;font-weight:900}
+.guide-master-section .section-head>a:hover{border-color:#cfd3d8;background:#f5f6f8}
+
+.guide-master-page>.guide-master-section:first-of-type{margin:0 0 10px;padding:34px;border:1px solid #e1e4e8;border-radius:26px;background:#fff;box-shadow:0 10px 30px rgba(18,20,24,.04)}
+.guide-master-page>.guide-master-section:first-of-type .section-head{margin-bottom:24px}
+.guide-master-page .topic-grid{counter-reset:guide-step;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.guide-master-page .topic-grid article{position:relative;min-height:220px;padding:24px;border:1px solid #e2e5e9;border-radius:20px;background:#f8f9fa;box-shadow:none}
+.guide-master-page .topic-grid article:before{counter-increment:guide-step;content:"0" counter(guide-step);display:block;margin-bottom:44px;color:#b9bec5;font-size:10px;font-weight:900;letter-spacing:.08em}
+.guide-master-page .topic-grid h3{margin:0;color:#202328;font-size:18px;line-height:1.2;letter-spacing:-.025em}
+.guide-master-page .topic-grid p{min-height:0;margin:10px 0 0;color:#767e89;font-size:12px;line-height:1.65}
+
+.guide-master-bike-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.guide-master-bike-grid>a{position:relative;display:flex;min-height:182px;flex-direction:column;padding:21px 22px 20px;border:1px solid #e1e4e8;border-radius:20px;background:#fff;box-shadow:0 8px 26px rgba(18,20,24,.035);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.guide-master-bike-grid>a:after{content:"↗";position:absolute;right:18px;top:17px;color:#a4aab2;font-size:15px;font-weight:800}
+.guide-master-bike-grid>a:hover{transform:translateY(-4px);border-color:#cfd3d9;box-shadow:0 18px 40px rgba(18,20,24,.08)}
+.guide-master-bike-grid>a:hover:after{color:var(--mi-red,#d9252a)}
+.guide-master-bike-grid span{padding-right:26px;color:#9aa1aa;font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.guide-master-bike-grid h3{margin:10px 0 0;color:#1d2024;font-size:21px;line-height:1.08;letter-spacing:-.035em}
+.guide-master-bike-grid strong{margin:auto 0 8px;color:#1d2024;font-size:17px;letter-spacing:-.025em}
+.guide-master-bike-grid small{color:#7b838d;font-size:10px;line-height:1.5}
+
+.guide-master-subsection{margin-top:34px;padding-top:30px;border-top:1px dashed #d9dde1}
+.guide-master-subsection>h3,.guide-master-two-col>div>h3{margin:0 0 17px;color:#34383e;font-size:13px;font-weight:900;letter-spacing:.01em;text-transform:uppercase}
+.guide-master-two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.guide-master-two-col>div{min-width:0;padding:24px;border:1px solid #e2e5e9;border-radius:22px;background:#f6f7f8}
+.guide-master-two-col .guide-master-bike-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.guide-master-two-col .guide-master-bike-grid>a{min-height:158px;padding:17px}
+.guide-master-two-col .guide-master-bike-grid h3{font-size:17px}
+.guide-master-two-col .guide-master-bike-grid strong{font-size:14px}
+.guide-master-two-col .guide-master-bike-grid small{font-size:9px}
+
+.guide-master-link-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.guide-master-link-grid>a{position:relative;display:flex;min-height:108px;flex-direction:column;justify-content:center;padding:18px 42px 18px 19px;border:1px solid #e1e4e8;border-radius:17px;background:#fff;transition:.18s ease}
+.guide-master-link-grid>a:after{content:"→";position:absolute;right:17px;color:#acb1b8;font-size:15px}
+.guide-master-link-grid>a:hover{transform:translateY(-2px);border-color:#cfd3d9;background:#fafafa}
+.guide-master-link-grid>a:hover:after{color:var(--mi-red,#d9252a)}
+.guide-master-link-grid strong{color:#25282d;font-size:14px;letter-spacing:-.015em}
+.guide-master-link-grid small{margin-top:5px;color:#858c95;font-size:9px;line-height:1.45}
+
+.guide-master-page>.cta-panel{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:32px;margin:34px 0 64px;padding:42px 44px;border:0;border-radius:28px;background:linear-gradient(135deg,#111316,#1b1e22);box-shadow:0 22px 54px rgba(15,18,21,.16);color:#fff}
+.guide-master-page>.cta-panel .section-kicker{color:#ff676c}
+.guide-master-page>.cta-panel h2{max-width:720px;margin:7px 0 0;color:#fff;font-size:clamp(30px,4vw,46px);line-height:1.02;letter-spacing:-.045em}
+.guide-master-page>.cta-panel p{max-width:720px;margin:14px 0 0;color:rgba(255,255,255,.55);font-size:13px;line-height:1.7}
+.guide-master-page>.cta-panel .button{background:var(--mi-red,#d9252a);color:#fff}
+
+.guide-master-page .faq-section,.guide-master-page .author-box{margin-top:40px}
+
+@media(max-width:1000px){
+  .guide-master-bike-grid,.guide-master-link-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .guide-master-page .topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .guide-master-two-col{grid-template-columns:1fr}
+  .guide-master-two-col .guide-master-bike-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media(max-width:700px){
+  .guide-master-page{padding-top:18px;padding-bottom:80px}
+  .guide-master-page>.page-head{padding:34px 24px;border-radius:24px}
+  .guide-master-page>.page-head:after{display:none}
+  .guide-master-page>.page-head h1{font-size:clamp(40px,12vw,56px)}
+  .guide-master-page>.page-head>p{font-size:14px;line-height:1.65}
+  .guide-master-page>.page-head .hero-actions{display:grid;grid-template-columns:1fr}
+  .guide-master-page>.page-head .button{width:100%}
+  .guide-master-nav{top:72px;margin-bottom:30px;border-radius:14px}
+  .guide-master-section{padding:42px 0}
+  .guide-master-page>.guide-master-section:first-of-type{padding:24px 18px;border-radius:22px}
+  .guide-master-page .topic-grid,.guide-master-bike-grid,.guide-master-link-grid,.guide-master-two-col .guide-master-bike-grid{grid-template-columns:1fr}
+  .guide-master-page .topic-grid article{min-height:auto}
+  .guide-master-page .topic-grid article:before{margin-bottom:24px}
+  .guide-master-bike-grid>a{min-height:158px}
+  .guide-master-two-col>div{padding:18px}
+  .guide-master-page>.cta-panel{grid-template-columns:1fr;padding:32px 24px;border-radius:24px}
+  .guide-master-page>.cta-panel .button{width:100%}
+  .guide-master-section .section-head{align-items:flex-start;flex-direction:column}
+}
