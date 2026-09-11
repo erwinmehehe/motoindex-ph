@@ -8,3 +8,4 @@
 /motorcycles/yamaha/aerox-2025 /motorcycles/yamaha/aerox-v3 301
 /motorcycles/yamaha/nmax-turbo /motorcycles/yamaha/nmax-v3 301
 /fitment/:make/:slug /motorcycles/:make/:slug#tires-fitment 301
+/used-motorcycles/:make/:slug /motorcycles/:make/:slug#used 301
