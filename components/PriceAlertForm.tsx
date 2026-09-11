@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { backendUrl } from "@/lib/apiBase";
 
 type AlertModel={
   id:string;
@@ -27,7 +28,7 @@ export function PriceAlertForm({models,initialModelId}:{models:AlertModel[];init
     const data=new FormData(event.currentTarget);
     setState("sending");setMessage("");
     try{
-      const response=await fetch("/api/price-alerts",{
+      const response=await fetch(backendUrl("/api/price-alerts"),{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
