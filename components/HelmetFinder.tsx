@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { HelmetProduct } from "@/lib/types";
 import { EntityMedia } from "@/components/EntityMedia";
 
@@ -78,6 +78,13 @@ export function HelmetFinder({products,initialFilters}:{products:HelmetProduct[]
   const [selected,setSelected]=useState<string[]>([]);
   const brands=useMemo(()=>[...new Set(products.map(p=>p.brand))].sort(),[products]);
   const sizes=useMemo(()=>[...new Set(products.flatMap(p=>p.sizes))].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})),[products]);
+
+  useEffect(()=>{
+    const params=new URLSearchParams(window.location.search);
+    const next:Partial<HelmetFinderFilters>={};
+    (Object.keys(defaults) as (keyof HelmetFinderFilters)[]).forEach(key=>{const value=params.get(key);if(value)next[key]=value;});
+    if(Object.keys(next).length)setFilters(current=>({...current,...next}));
+  },[]);
 
   function update<K extends keyof HelmetFinderFilters>(key:K,value:HelmetFinderFilters[K]){
     const next={...filters,[key]:value};setFilters(next);
