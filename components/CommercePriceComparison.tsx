@@ -8,9 +8,8 @@ import {
   getSourceBackedCommerceOffers,
   merchantOfferKey,
 } from "@/lib/commerceOffers";
-import { databaseConfigured } from "@/lib/db";
 import { isHttpsUrl } from "@/lib/commercePolicy";
-import { getVerifiedOffers } from "@/lib/persistentOffers";
+import { getVerifiedOffers } from "@/lib/publicOffers";
 import type { OfferEntityType, SellerOffer } from "@/lib/types";
 import { php } from "@/lib/utils";
 
@@ -24,16 +23,6 @@ function uniqueOffers(offers: SellerOffer[]) {
   });
 }
 
-async function safeDatabaseOffers(entityType: OfferEntityType, entityId: string) {
-  if (!databaseConfigured()) return [];
-  try {
-    return await getVerifiedOffers({ entityType, entityId });
-  } catch (error) {
-    console.error("Commerce database lookup failed; using catalog offer fallback.", error instanceof Error ? error.message : error);
-    return [];
-  }
-}
-
 export async function CommercePriceComparison({ entityType, entityId, productName }: {
   entityType: OfferEntityType;
   entityId: string;
@@ -41,8 +30,8 @@ export async function CommercePriceComparison({ entityType, entityId, productNam
 }) {
   const now = new Date();
   const sourceOffers = getSourceBackedCommerceOffers(entityType, entityId, now);
-  const databaseOffers = await safeDatabaseOffers(entityType, entityId);
-  const offers = uniqueOffers([...databaseOffers, ...sourceOffers])
+  const snapshotOffers = await getVerifiedOffers({ entityType, entityId }, now);
+  const offers = uniqueOffers([...snapshotOffers, ...sourceOffers])
     .filter((offer) => Boolean(commerceOfferDestination(offer)))
     .sort((a, b) => compareCommerceOffers(a, b, now));
 
