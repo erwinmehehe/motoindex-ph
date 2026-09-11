@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { databaseConfigured } from "@/lib/db";
-import { getVerifiedOffers, matchEntity } from "@/lib/persistentOffers";
+import { getVerifiedOffers, matchEntity } from "@/lib/publicOffers";
 import {
   compareCommerceOffers,
   commerceOfferFreshness,
@@ -15,16 +14,11 @@ import { getModelById } from "@/lib/data";
 import { helmetProducts, tireProducts, topBoxProducts } from "@/lib/catalog";
 import type { SellerOffer } from "@/lib/types";
 
-export const dynamic="force-dynamic";
-
 async function currentOffers(){
   const sourceOffers=sourceBackedCommerceOffers.filter(offer=>isFreshCommerceOffer(offer));
-  let persistent:SellerOffer[]=[];
-  if(databaseConfigured()){
-    try{persistent=await getVerifiedOffers();}catch{persistent=[];}
-  }
+  const snapshotOffers=await getVerifiedOffers();
   const merged=new Map<string,SellerOffer>();
-  for(const offer of [...persistent,...sourceOffers])merged.set(offer.id,offer);
+  for(const offer of [...snapshotOffers,...sourceOffers])merged.set(offer.id,offer);
   return [...merged.values()].filter(offer=>isFreshCommerceOffer(offer)).sort((a,b)=>compareCommerceOffers(a,b));
 }
 
