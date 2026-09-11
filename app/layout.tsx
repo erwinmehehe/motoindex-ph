@@ -34,7 +34,9 @@ export const metadata: Metadata = {
   publisher: SITE_NAME,
   category: "Motorcycles",
   formatDetection: { telephone: false },
-  verification: { google: "semQnFpP4-Phz-FitfvqFxwwida4f7PGe-hXc11sUz8" },
+  verification: {
+    google: "semQnFpP4-Phz-FitfvqFxwwida4f7PGe-hXc11sUz8"
+  },
   icons: {
     icon: [
       { url: "/icon-48.png", sizes: "48x48", type: "image/png" },
