@@ -8,7 +8,7 @@ const need=(ok,message)=>{if(!ok)errors.push(message)};
 
 const header=read("components/Header.tsx");
 need(header.includes("motorcycleBrands")&&header.includes("/motorcycles/${slug}"),"Motorcycles nav must expose brand catalog links");
-need(header.includes("navGuides.map")&&header.includes("/recommendations/${guide.slug}"),"Guides nav must expose curated public guide pages");
+need(header.includes('href="/recommendations"'),"Guides nav must expose the consolidated recommendation hub");
 
 const pair=read("app/compare/[slug]/page.tsx");
 const three=read("app/compare/three/page.tsx");
@@ -37,11 +37,19 @@ need(css.includes("last-child:nth-child(odd)"),"Odd entity spec rows must span t
 const accessory=read("app/accessories/[slug]/page.tsx");
 need(accessory.includes("verifiedBoxesWithImages")&&accessory.includes("verifiedBoxesWithoutImages"),"Top-box hub must distinguish checked records with and without sourced images");
 
-const rec=read("app/recommendations/[slug]/page.tsx");
-for(const token of ["guide-direct-answer","Quick picks","Full comparison table","What qualifies for this comparison","Model-by-model breakdown","Which one should you choose?","Before you buy","Related motorcycle guides","Latest checks"]){need(rec.includes(token),`Guide template missing ${token}`)}
+const recHub=read("app/recommendations/page.tsx");
+const recRedirect=read("app/recommendations/[slug]/page.tsx");
+need(
+  recRedirect.includes("recommendationGuides.map")&&
+  recRedirect.includes("sectionBySlug")&&
+  recRedirect.includes('permanentRedirect(`/recommendations#${section}`)'),
+  "Legacy recommendation guide URLs must permanently redirect into consolidated recommendation sections"
+);
+for(const section of ["budget","scooters","commuting","rider-fit","safety-efficiency","long-rides","400cc","categories","brands"]){
+  need(recHub.includes(`id="${section}"`),`Consolidated recommendation hub missing #${section}`);
+}
 const guideTypes=read("lib/types.ts");
 for(const field of ["primaryKeyword","secondaryKeywords","directAnswer","inclusionRules","orderingRule","tieBreakers","sourcePolicy","tableColumns","editorialSections","faqQuestions","relatedGuideSlugs"]){need(guideTypes.includes(field),`RecommendationGuide must include ${field}`)}
-need(rec.includes("Why it&apos;s here")&&rec.includes("Prices:")&&rec.includes("Specifications:"),"Guide table and freshness block must expose rationale plus separate price/spec dates");
 
 const middleware=read("middleware.ts");
 need(!middleware.includes('pathname.startsWith("/dealers/")')&&!middleware.includes('pathname.startsWith("/sellers/")'),"Middleware must not blanket-block public dealer or verified seller detail routes");
@@ -88,4 +96,4 @@ need(read("scripts/validate-v09.mjs").includes("split(path.sep).join")&&read("sc
 for(const file of ["AFFILIATE_SETUP.md","SHOPEE_AFFILIATE_SETUP.md"]){const source=read(file);need(/build[- ]time/i.test(source)&&/redeploy/i.test(source),`${file} must document build-time affiliate configuration and redeploy requirement`)}
 
 if(errors.length){console.error("Post-audit validation failed:\n- "+errors.join("\n- "));process.exit(1)}
-console.log("Post-audit validation passed: navigation, comparisons, product media, dealer publication rules, responsive fixes and route/tooling guards are present.");
+console.log("Post-audit validation passed: navigation, comparisons, consolidated recommendations, product media, dealer publication rules, responsive fixes and route/tooling guards are present.");
