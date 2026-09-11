@@ -2,20 +2,27 @@ body {
   font-family: var(--font-manrope), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.mi-home h1,
-.mi-home h2,
-.mi-home h3,
+h1,
+h2,
+h3,
+.brand-word,
 .mi-home strong,
-.brand-word {
+.footer strong {
   font-family: var(--font-sora), var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 }
 
-.mi-home p,
-.mi-home a,
-.mi-home input,
-.mi-home button,
-.mi-home summary,
-.mi-home small,
-.mi-home span {
+body p,
+body a,
+body input,
+body select,
+body textarea,
+body button,
+body summary,
+body small,
+body span,
+body label,
+body li,
+body td,
+body th {
   font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 }
