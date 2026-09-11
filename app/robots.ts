@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 import { commerceSitemapEntries } from "@/lib/sitemaps";
 
+export const dynamic = "force-static";
+
 // The llms.txt resources live at their well-known paths, /llms.txt and
 // /llms-full.txt. robots.txt has no standard directive for them and Next's
 // MetadataRoute.Robots cannot emit comment lines, so they are not referenced
