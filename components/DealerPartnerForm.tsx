@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { backendUrl, publicApiConfigured } from "@/lib/apiBase";
 
 type Result={ok:boolean;message?:string;error?:string};
 
@@ -35,12 +36,14 @@ export function DealerPartnerForm(){
       websiteCheck:String(data.get("websiteCheck")||"")
     };
     try{
-      const response=await fetch("/api/dealer-partners",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+      const response=await fetch(backendUrl("/api/dealer-partners"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
       const result=await response.json() as Result;
       if(!response.ok||!result.ok){setState("error");setMessage(result.error||"Application could not be saved.");return;}
       setState("success");setMessage(result.message||"Application received.");form.reset();
     }catch{setState("error");setMessage("Application could not be saved. Please try again.");}
   }
+
+  if(!publicApiConfigured)return <div className="lead-form lead-form-disabled"><div className="lead-form-head"><span>Dealer partner applications</span><h2>Applications are temporarily unavailable.</h2><p>The public MotoIndex dealer directory is live, but application processing is not enabled on this deployment yet.</p></div><small>No dealer contact information is being collected while the backend is offline.</small></div>;
 
   if(state==="success")return <div className="lead-form lead-form-success" aria-live="polite"><div className="lead-form-head"><span>Application received</span><h2>We saved your dealer application.</h2><p>{message}</p></div><small>Submitting does not automatically publish a dealer profile or activate buyer-lead routing. MotoIndex reviews the branch evidence first.</small></div>;
 
