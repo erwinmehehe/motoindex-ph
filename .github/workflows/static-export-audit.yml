@@ -1,0 +1,49 @@
+name: Static Export Audit
+
+on:
+  push:
+    branches: [cloudflare-static-export]
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Static export inventory
+        shell: bash
+        run: |
+          echo '=== DYNAMIC EXPORTS ==='
+          grep -RIn --include='*.ts' --include='*.tsx' 'export const dynamic' app || true
+          echo '=== REVALIDATE EXPORTS ==='
+          grep -RIn --include='*.ts' --include='*.tsx' 'revalidate' app || true
+          echo '=== PRISMA / DB IMPORTS IN APP ==='
+          grep -RIn --include='*.ts' --include='*.tsx' -E '(@/lib/db|from ["'"'].*lib/db|prisma\.)' app || true
+          echo '=== PRISMA / DB IMPORTS IN LIB ==='
+          grep -RIn --include='*.ts' --include='*.tsx' -E '(@/lib/db|from ["'"'].*db|prisma\.)' lib || true
+          echo '=== API ROUTE HANDLERS ==='
+          find app/api -type f -name 'route.ts' -o -name 'route.tsx' 2>/dev/null | sort || true
+          echo '=== MIDDLEWARE ==='
+          test -f middleware.ts && echo middleware.ts || true
+          echo '=== ADMIN APP FILES ==='
+          find app/admin -type f 2>/dev/null | sort || true
+          echo '=== METADATA ROUTES ==='
+          find app -maxdepth 2 -type f \( -name 'sitemap.ts' -o -name 'robots.ts' -o -name 'manifest.ts' \) -print || true
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck baseline
+        run: npm run typecheck
+
+      - name: Build baseline
+        run: npm run build
