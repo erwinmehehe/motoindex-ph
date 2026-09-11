@@ -6,7 +6,7 @@ const failures=[];
 async function get(path, expected=200){try{const r=await fetch(new URL(path,base),{redirect:"manual"});if(r.status!==expected)failures.push(`${path}: expected ${expected}, got ${r.status}`);return r}catch(e){failures.push(`${path}: ${e instanceof Error?e.message:String(e)}`);return null}}
 
 const publicPaths = [
-  "/", "/motorcycles", "/dealers", "/dealers/manila", "/dealers/san-fernando", "/dealers/angeles-city", "/dealers/cebu-city", "/dealers/davao-city", "/dealers/pampanga", "/robots.txt", "/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear.xml", "/privacy",
+  "/", "/motorcycles", "/compare", "/compare/three", "/compare/three?bikes=aerox-v3,nmax-v3,adv-160", "/motorcycles/electric", "/motorcycles/electric/vinfast-evo", "/motorcycles/electric/vinfast-feliz-ii", "/motorcycles/electric/vinfast-viper", "/gear/helmets", "/dealers", "/dealers/manila", "/dealers/san-fernando", "/dealers/angeles-city", "/dealers/cebu-city", "/dealers/davao-city", "/dealers/pampanga", "/robots.txt", "/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear.xml", "/privacy",
   "/used-motorcycles/repo", "/used-motorcycles/buying-checklist",
   "/maintenance", "/maintenance/motorcycle-battery", "/maintenance/change-oil-motorcycle",
   "/ownership/motorcycle-registration-renewal"
