@@ -1,0 +1,74 @@
+/* Secondary Arena-style section templates. Real product and tool logic remains unchanged. */
+
+/* Helmet hub */
+.helmet-hub-page{padding-top:52px!important}
+.helmet-hub-page>.page-head{max-width:980px!important}
+.helmet-hub-page>.page-head h1{font-size:clamp(58px,7vw,92px)!important;line-height:.9!important;text-transform:uppercase!important}
+.helmet-hub-page>.page-head p{max-width:760px;color:var(--arena-muted)!important;font-size:15px!important;line-height:1.75!important}
+.helmet-shop-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:24px}
+.helmet-shop-actions .button:first-child{background:var(--arena-orange)!important}
+.helmet-shop-actions .button.secondary{background:#fff!important;color:var(--arena-black)!important;border:1px solid var(--arena-black)!important}
+.brand-facts{display:grid!important;grid-template-columns:repeat(4,1fr)!important;margin:40px 0 0!important;border-top:3px solid var(--arena-black)!important;border-left:1px solid var(--arena-line)!important}
+.brand-facts>div{padding:20px!important;border-right:1px solid var(--arena-line)!important;border-bottom:1px solid var(--arena-line)!important;background:#fff!important}
+.brand-facts span{display:block;color:var(--arena-muted)!important;font-size:8px!important;font-weight:900!important;text-transform:uppercase!important;letter-spacing:.08em!important}
+.brand-facts strong{display:block;margin-top:7px;font-family:var(--font-oswald),Oswald,sans-serif!important;font-size:28px!important;line-height:1!important;text-transform:uppercase!important}
+.helmet-master-nav{position:sticky!important;top:68px!important;z-index:24!important;display:flex!important;overflow-x:auto!important;margin:0 0 64px!important;border-top:0!important;border-radius:0!important;background:rgba(255,255,255,.96)!important;backdrop-filter:blur(12px)}
+.helmet-master-nav a{flex:none!important;padding:13px 14px!important;border-right:1px solid var(--arena-line)!important;color:var(--arena-muted)!important;font-size:8px!important;font-weight:900!important;text-transform:uppercase!important;letter-spacing:.06em!important}
+.helmet-master-nav a:hover{background:var(--arena-soft)!important;color:var(--arena-orange)!important}
+.helmet-master-intro,.helmet-master-section{padding:70px 0!important;border-top:1px solid var(--arena-line)!important}
+.helmet-master-intro{border-top:0!important;padding-top:0!important}
+.helmet-master-section .section-head h2,.helmet-master-intro .section-head h2{font-size:clamp(38px,4.5vw,58px)!important;line-height:.96!important;text-transform:uppercase!important}
+.helmet-master-section .section-head>strong{flex:none;color:var(--arena-orange);font-family:var(--font-oswald),Oswald,sans-serif;font-size:19px;text-transform:uppercase}
+.helmet-hub-page .topic-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important}
+.helmet-hub-page .topic-grid article{display:flex!important;min-height:230px!important;flex-direction:column!important;padding:21px!important;border:1px solid var(--arena-line)!important;border-radius:3px!important;background:#fff!important;box-shadow:none!important}
+.helmet-hub-page .topic-grid article:hover{border-color:#c7c7c0!important}
+.helmet-hub-page .topic-grid h3{margin:0 0 10px!important;font-size:26px!important;line-height:1!important;text-transform:uppercase!important}
+.helmet-hub-page .topic-grid p{min-height:0!important;color:var(--arena-muted)!important;font-size:10px!important;line-height:1.65!important}
+.helmet-hub-page .topic-grid a{margin-top:auto!important;padding-top:18px!important;color:var(--arena-orange)!important;font-size:9px!important;font-weight:900!important;text-transform:uppercase!important}
+.helmet-hub-page .product-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important}
+.helmet-master-note{margin-top:16px!important}
+.helmet-master-note a{color:var(--arena-orange)!important;font-size:10px!important;font-weight:900!important;text-transform:uppercase!important}
+.helmet-brand-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:10px!important}
+.helmet-brand-grid article{display:flex!important;min-height:210px!important;flex-direction:column!important;padding:20px!important;border:1px solid var(--arena-line)!important;border-radius:3px!important;background:#fff!important}
+.helmet-brand-badge{display:grid!important;place-items:center!important;width:44px!important;height:44px!important;border-radius:2px!important;background:var(--arena-black)!important;color:#fff!important;font-family:var(--font-oswald),Oswald,sans-serif!important;font-size:17px!important}
+.helmet-brand-copy{margin-top:auto!important}
+.helmet-brand-copy h3{margin:18px 0 6px!important;font-size:26px!important;text-transform:uppercase!important}
+.helmet-brand-copy p{min-height:0!important;color:var(--arena-muted)!important;font-size:10px!important;line-height:1.55!important}
+.helmet-brand-grid .topic-action{margin-top:14px!important}
+.helmet-brand-grid .topic-action a{color:var(--arena-orange)!important;font-size:9px!important;font-weight:900!important;text-transform:uppercase!important}
+
+/* Tool directory */
+.page:has(.commute-tool-grid)>.page-head h1{font-size:clamp(58px,7vw,92px)!important;line-height:.9!important;text-transform:uppercase!important}
+.page:has(.commute-tool-grid)>.page-head p{max-width:720px;font-size:15px;line-height:1.7}
+.page:has(.commute-tool-grid)>.section-head{margin-top:58px!important;padding-top:20px!important;border-top:3px solid var(--arena-black)!important}
+.page:has(.commute-tool-grid)>.section-head h2{font-size:40px!important;text-transform:uppercase!important}
+.commute-tool-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}
+.commute-tool-grid>a{display:flex!important;min-height:250px!important;flex-direction:column!important;padding:23px!important;border:1px solid var(--arena-line)!important;border-radius:3px!important;background:#fff!important;box-shadow:none!important;transition:.18s ease!important}
+.commute-tool-grid>a:hover{transform:translateY(-3px)!important;border-color:var(--arena-orange)!important;box-shadow:var(--arena-shadow)!important}
+.commute-tool-grid>a>span{color:var(--arena-orange)!important;font-size:9px!important;font-weight:900!important;text-transform:uppercase!important;letter-spacing:.1em!important}
+.commute-tool-grid h3{margin:auto 0 8px!important;font-size:30px!important;line-height:1!important;text-transform:uppercase!important}
+.commute-tool-grid p{margin:0!important;color:var(--arena-muted)!important;font-size:11px!important;line-height:1.65!important}
+
+/* General editorial guide and FAQ surfaces */
+.faq-section,.faq-list,.related-links,.guide-strip{border-radius:3px!important}
+.faq-section details,.faq-list details{border-color:var(--arena-line)!important;border-radius:3px!important}
+.faq-section summary,.faq-list summary{font-family:var(--font-oswald),Oswald,sans-serif!important;font-size:19px!important;text-transform:uppercase!important}
+.faq-section details[open],.faq-list details[open]{border-left:3px solid var(--arena-orange)!important}
+.author-box{background:var(--arena-soft)!important}
+.author-box a{color:var(--arena-orange)!important}
+
+@media(max-width:1000px){
+  .helmet-hub-page .product-grid,.helmet-brand-grid,.helmet-hub-page .topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .commute-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+@media(max-width:900px){
+  .helmet-master-nav{top:60px!important}
+  .brand-facts{grid-template-columns:repeat(2,1fr)!important}
+}
+
+@media(max-width:620px){
+  .helmet-hub-page>.page-head h1,.page:has(.commute-tool-grid)>.page-head h1{font-size:50px!important}
+  .brand-facts,.helmet-hub-page .product-grid,.helmet-brand-grid,.helmet-hub-page .topic-grid,.commute-tool-grid{grid-template-columns:1fr!important}
+  .helmet-master-section,.helmet-master-intro{padding:52px 0!important}
+}
