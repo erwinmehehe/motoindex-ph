@@ -23,14 +23,18 @@ jobs:
         shell: bash
         run: |
           set +e
+          echo '=== SEARCH PARAMS IN APP ROUTES ==='
+          grep -RIn --include='page.ts' --include='page.tsx' 'searchParams' app || true
+          echo '=== REQUEST-TIME NEXT APIS ==='
+          grep -RIn --include='*.ts' --include='*.tsx' -E '(^|[^A-Za-z])(headers|cookies)\(' app components lib || true
           echo '=== DYNAMIC EXPORTS ==='
-          grep -RIn --include='*.ts' --include='*.tsx' 'export const dynamic' app
+          grep -RIn --include='*.ts' --include='*.tsx' 'export const dynamic' app || true
           echo '=== REVALIDATE EXPORTS ==='
-          grep -RIn --include='*.ts' --include='*.tsx' 'export const revalidate' app
+          grep -RIn --include='*.ts' --include='*.tsx' 'export const revalidate' app || true
           echo '=== PUBLIC PERSISTENT IMPORTS ==='
-          grep -RIn --include='*.ts' --include='*.tsx' 'persistentSellers\|persistentOffers\|persistentUsedListings\|@/lib/db' app components
+          grep -RIn --include='*.ts' --include='*.tsx' 'persistentSellers\|persistentOffers\|persistentUsedListings\|@/lib/db' app components || true
           echo '=== DB USAGE IN LIB ==='
-          grep -RIn --include='*.ts' --include='*.tsx' 'prisma\.\|@/lib/db\|./db' lib
+          grep -RIn --include='*.ts' --include='*.tsx' 'prisma\.\|@/lib/db\|./db' lib || true
           echo '=== API ROUTE HANDLERS ==='
           find app/api -type f \( -name 'route.ts' -o -name 'route.tsx' \) -print 2>/dev/null | sort
           echo '=== MIDDLEWARE ==='
