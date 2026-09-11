@@ -13,6 +13,7 @@ import "./redesign.css";
 import "./redesign-fonts.css";
 import "./redesign-v2.css";
 import "./arena-sitewide.css";
+import "./responsive-polish.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
