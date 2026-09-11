@@ -24,7 +24,6 @@ jobs:
         run: npm ci
 
       - name: Release validation
-        continue-on-error: true
         run: |
           npm run validate:post-audit
           npm run validate:copy-tone
