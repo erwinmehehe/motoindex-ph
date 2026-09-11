@@ -11,6 +11,7 @@ import "./tailwind.css";
 import "./dealer-directory.css";
 import "./redesign.css";
 import "./redesign-fonts.css";
+import "./recommendations.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
