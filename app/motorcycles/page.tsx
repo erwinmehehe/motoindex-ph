@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
 import { motorcycles, isIndexableModel } from "@/lib/data";
-import { ModelExplorer } from "@/components/ModelExplorer";
+import { ModelExplorerFromQuery } from "@/components/ModelExplorerFromQuery";
 import { modelFamilies } from "@/lib/families";
 import { modelAuthorityProfile } from "@/lib/modelAuthority";
 import { forClient } from "@/lib/competitors";
@@ -19,11 +19,8 @@ export const metadata: Metadata = pageMetadata({
   path: "/motorcycles",
   index: publicModels.length > 0
 });
-function one(value?: string | string[]) { return Array.isArray(value) ? value[0] : value; }
 
-export default async function MotorcyclesPage({ searchParams }: { searchParams: Promise<{ q?: string | string[]; make?: string | string[]; type?: string | string[]; budget?: string | string[] }> }) {
-  const query = await searchParams;
-  const initialFilters = { q: one(query.q) || "", make: one(query.make) || "all", category: one(query.type) || "all", budget: one(query.budget) || "all" };
+export default function MotorcyclesPage() {
   const makes = [...new Map(currentModels.map((m) => [m.makeSlug, m.make])).entries()];
   const authorityModels = currentModels.filter((model) => Boolean(modelAuthorityProfile(model.id)));
   const overallLow = currentModels.length ? Math.min(...currentModels.map((m) => observedMarketRange(m).from)) : undefined;
@@ -70,7 +67,7 @@ export default async function MotorcyclesPage({ searchParams }: { searchParams: 
       {publicModels.length === 0 ? <div className="note-box"><h2>Motorcycle data is being updated</h2><p>Prices and specifications are still being checked. Gear and ownership tools remain available in the meantime.</p></div> : <>
         <section id="browse-models" className="motorcycle-catalog-section">
           <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Browse the catalog</span><h2>Find a motorcycle that fits your budget and use</h2><p>Search and filter the published catalog first. Open a model only when you want the deeper price, financing, rider-fit, tire, maintenance and ownership details.</p></div></div>
-          <ModelExplorer models={forClient(publicModels)} initialFilters={initialFilters} />
+          <ModelExplorerFromQuery models={forClient(publicModels)} />
         </section>
 
         <section className="motorcycle-brand-directory">
