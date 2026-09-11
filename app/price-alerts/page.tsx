@@ -3,10 +3,8 @@ import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
 import { publicMotorcycles } from "@/lib/data";
 import { observedMarketRange } from "@/lib/marketChecks";
-import { priceAlertsConfigured } from "@/lib/priceAlerts";
+import { publicApiConfigured } from "@/lib/apiBase";
 import { PriceAlertForm } from "@/components/PriceAlertForm";
-
-export const dynamic="force-dynamic";
 
 export const metadata:Metadata=pageMetadata({
   title:"Motorcycle Price Alerts Philippines",
@@ -15,9 +13,7 @@ export const metadata:Metadata=pageMetadata({
   index:false
 });
 
-export default async function AlertsPage({searchParams}:{searchParams:Promise<{model?:string}>}){
-  const {model}=await searchParams;
-  const ready=priceAlertsConfigured();
+export default function AlertsPage(){
   const models=publicMotorcycles
     .filter(item=>item.marketStatus!=="previous"&&item.marketStatus!=="discontinued"&&item.marketStatus!=="uncertain")
     .map(item=>({id:item.id,label:`${item.make} ${item.model}`,currentPricePhp:observedMarketRange(item).from}))
@@ -31,7 +27,7 @@ export default async function AlertsPage({searchParams}:{searchParams:Promise<{m
       <p>MotoIndex checks the current published starting-price reference. Alerts do not guarantee dealer stock, a final cash quote, financing approval or a promotion.</p>
     </div>
 
-    {ready&&models.length
+    {publicApiConfigured&&models.length
       ? <div className="quote-grid">
           <div className="quote-summary">
             <h2>How it works</h2>
@@ -44,9 +40,9 @@ export default async function AlertsPage({searchParams}:{searchParams:Promise<{m
             </ul>
             <div className="note-box compact-note"><h3>Dealer prices can still differ</h3><p>Registration, insurance, dealer fees, stock, financing and promotions can change the actual amount you pay.</p></div>
           </div>
-          <PriceAlertForm models={models} initialModelId={model}/>
+          <PriceAlertForm models={models}/>
         </div>
-      : <div className="note-box"><h2>Price alerts are not active on this deployment yet</h2><p>MotoIndex will not collect an alert email until the production database, email sender and scheduled price checker are all configured.</p><div className="hero-actions"><Link className="button small" href="/motorcycles">Browse motorcycle prices</Link><Link className="button ghost small" href="/deals">Current seller offers</Link></div></div>}
+      : <div className="note-box"><h2>Price alerts are not active on this deployment yet</h2><p>MotoIndex will not collect an alert email until the separated backend URL, production database, email sender and scheduled price checker are configured.</p><div className="hero-actions"><Link className="button small" href="/motorcycles">Browse motorcycle prices</Link><Link className="button ghost small" href="/deals">Current seller offers</Link></div></div>}
 
     <div className="note-box"><h2>What price the alert uses</h2><p>The threshold is compared with the same published starting-price reference used by MotoIndex model research. It is a research signal, not a promise that every dealer will sell the motorcycle at that amount.</p></div>
   </section>;
