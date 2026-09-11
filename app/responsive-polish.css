@@ -1,0 +1,137 @@
+/* Final responsive/visual QA layer for public navigation and electric motorcycle pages. */
+
+/* Motorcycle navigation */
+.nav-motorcycles .nav-popover-menu{left:0;right:auto;width:min(520px,calc(100vw - 32px));max-height:min(72dvh,560px);padding:10px;overflow:auto;overscroll-behavior:contain;scrollbar-width:none}
+.nav-motorcycles .nav-popover-menu::-webkit-scrollbar,.mobile-menu-panel::-webkit-scrollbar,.product-entity-nav::-webkit-scrollbar{display:none}
+.nav-motorcycles .nav-popover-primary,.nav-motorcycles .nav-popover-secondary{display:flex;min-height:42px;align-items:center;padding:10px 12px;border-radius:11px;font-weight:850}
+.nav-motorcycles .nav-popover-primary{color:#15171a!important;background:#fff2ec!important}
+.nav-motorcycles .nav-popover-secondary{margin-top:4px;color:#fff!important;background:rgba(255,255,255,.07)!important}
+.nav-popover-label,.mobile-menu-label{display:block;color:rgba(255,255,255,.42);font-size:10px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
+.nav-popover-label{margin:12px 8px 7px}
+.nav-brand-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+.nav-brand-grid>a{display:flex;min-width:0;min-height:38px;align-items:center;padding:8px 10px;border-radius:9px;color:rgba(255,255,255,.76)!important;font-size:12px;font-weight:760;line-height:1.25}
+.nav-brand-grid>a:hover{color:#fff!important;background:rgba(255,255,255,.07)!important}
+.mobile-menu-featured{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+.mobile-menu-featured>a{display:flex;min-height:44px;align-items:center;padding:10px 12px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.055);color:#fff!important;font-size:12px;font-weight:850}
+.mobile-menu-featured>a:first-child{color:#15171a!important;background:#fff2ec;border-color:#fff2ec}
+.mobile-menu-label{margin:4px 2px 7px}
+.mobile-menu-brand-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;margin-bottom:14px}
+.mobile-menu-brand-grid>a{display:flex;min-width:0;min-height:38px;align-items:center;padding:8px 10px;border-radius:9px;color:rgba(255,255,255,.76)!important;font-size:12px;font-weight:760;line-height:1.2}
+.mobile-menu-brand-grid>a:hover{color:#fff!important;background:rgba(255,255,255,.07)!important}
+
+@media(max-width:900px){
+  .nav-links{display:none!important}
+  .mobile-menu{display:block!important;position:relative}
+  .mobile-menu-panel{position:fixed!important;top:68px!important;left:12px!important;right:12px!important;width:auto!important;max-width:none!important;max-height:calc(100dvh - 138px)!important;padding:12px!important;overflow-y:auto!important;overscroll-behavior:contain;border-radius:18px!important;scrollbar-width:none}
+  .mobile-menu-panel nav{display:block}
+  .mobile-menu-panel nav>.mobile-menu-heading{display:block;margin:15px 4px 8px;color:rgba(255,255,255,.48)!important;font-size:10px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
+  .mobile-menu-panel nav>.mobile-menu-heading:first-child{margin-top:2px}
+  .mobile-menu-panel nav>a{display:flex;min-height:42px;align-items:center;padding:9px 10px;border-radius:10px;color:rgba(255,255,255,.82)!important;font-size:13px;font-weight:760}
+}
+@media(min-width:901px){.mobile-menu{display:none!important}}
+@media(max-width:420px){.mobile-menu-featured{grid-template-columns:1fr}.mobile-menu-panel{left:8px!important;right:8px!important}}
+
+/* Electric motorcycle master guide */
+.electric-master-page{--ev-ink:#15171a;--ev-muted:#69717c;--ev-line:#e5e7eb;--ev-card:#fff;--ev-red:#d9252a;--ev-soft:#fff3ef;padding-top:34px;padding-bottom:96px}
+.electric-master-page .breadcrumbs{margin-bottom:18px}
+.electric-master-page>.page-head{position:relative;isolation:isolate;overflow:hidden;margin-bottom:14px;padding:clamp(30px,5vw,64px);border:1px solid rgba(255,255,255,.08);border-radius:30px;background:#0b0c0e;color:#fff;box-shadow:0 28px 72px rgba(18,20,24,.16)}
+.electric-master-page>.page-head:before{content:"";position:absolute;z-index:-2;inset:0;opacity:.16;background-image:linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px);background-size:52px 52px}
+.electric-master-page>.page-head:after{content:"";position:absolute;z-index:-1;width:520px;height:520px;right:-150px;top:-270px;border-radius:50%;background:rgba(217,37,42,.3);filter:blur(110px)}
+.electric-master-page>.page-head .entity-kicker{color:#ff666b!important}
+.electric-master-page>.page-head h1{max-width:980px;margin:12px 0 18px;color:#fff;font-size:clamp(43px,5.7vw,72px);line-height:.98;letter-spacing:-.06em}
+.electric-master-page>.page-head>p{max-width:780px;margin:0;color:rgba(255,255,255,.62);font-size:16px;line-height:1.72}
+.electric-master-page>.page-head .hero-actions{margin-top:28px}
+.electric-master-page>.page-head .button{background:var(--ev-red);color:#fff}
+.electric-master-page>.page-head .button.secondary{border-color:rgba(255,255,255,.14);background:rgba(255,255,255,.07);color:#fff}
+.electric-master-page .seller-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0 18px}
+.electric-master-page .seller-stats>div{min-width:0;padding:18px;border:1px solid var(--ev-line);border-radius:17px;background:#fff;box-shadow:0 8px 26px rgba(18,20,24,.035)}
+.electric-master-page .seller-stats strong{display:block;color:var(--ev-ink);font-size:24px;line-height:1.1;letter-spacing:-.04em}
+.electric-master-page .seller-stats span{display:block;margin-top:6px;color:var(--ev-muted);font-size:10px;line-height:1.4}
+.electric-master-page>.product-entity-nav{position:sticky;top:78px;z-index:30;display:flex;gap:5px;margin:0 0 28px;padding:10px;border:1px solid rgba(224,227,231,.92);border-radius:15px;overflow-x:auto;background:rgba(251,250,247,.94);box-shadow:0 8px 30px rgba(18,20,24,.055);backdrop-filter:blur(16px);scrollbar-width:none}
+.electric-master-page>.product-entity-nav a{flex:none;padding:8px 11px;border-radius:999px;color:#69717c;font-size:10px;font-weight:850;white-space:nowrap}
+.electric-master-page>.product-entity-nav a:hover{background:#eceef1;color:var(--ev-ink)}
+.electric-master-page .motorcycle-entity-section{padding:58px 0;border-bottom:1px solid #e8eaed;scroll-margin-top:150px}
+.electric-master-page .motorcycle-entity-section:last-of-type{border-bottom:0}
+.electric-master-page .section-head.compact{margin-bottom:24px}
+.electric-master-page .section-head h2{max-width:860px;font-size:clamp(31px,4vw,48px);line-height:1.03}
+.electric-master-page .section-head p{max-width:780px;color:var(--ev-muted);font-size:13px;line-height:1.68}
+.electric-master-page .catalog-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.electric-master-page .catalog-card{position:relative;display:flex;min-width:0;flex-direction:column;overflow:hidden;padding:0 19px 20px;border:1px solid var(--ev-line);border-radius:21px;background:#fff;box-shadow:0 10px 30px rgba(18,20,24,.045);transition:.2s ease}
+.electric-master-page .catalog-card:hover{transform:translateY(-4px);border-color:#d3d7dc;box-shadow:0 22px 50px rgba(18,20,24,.09)}
+.electric-master-page .catalog-media{aspect-ratio:4/3;margin:0 -19px 16px;overflow:hidden;border-bottom:1px solid #eceef1;background:linear-gradient(145deg,#f0f1f2,#fafafa)}
+.electric-master-page .catalog-media img{display:block;width:100%;height:100%;padding:18px;object-fit:contain}
+.electric-master-page .catalog-status{align-self:flex-start;margin-bottom:9px;padding:5px 8px;border-radius:999px;background:#fff2e8!important;color:#9d5b26!important;font-size:8px!important;font-weight:900!important;letter-spacing:.07em;text-transform:uppercase}
+.electric-master-page .catalog-card h3{margin:0;font-size:21px;line-height:1.15}
+.electric-master-page .catalog-card>strong{display:block;margin:9px 0 7px;font-size:20px;letter-spacing:-.03em}
+.electric-master-page .catalog-card p{margin:0;color:var(--ev-muted);font-size:11px;line-height:1.55}
+.electric-master-page .catalog-card small{display:block;margin-top:auto;padding-top:14px;color:#8b929b;font-size:9px;line-height:1.45}
+.electric-master-page .guide-table-wrap,.electric-master-page .comparison-table-wrap{max-width:100%;overflow-x:auto;border:1px solid var(--ev-line);border-radius:18px;background:#fff;box-shadow:0 9px 28px rgba(18,20,24,.035);-webkit-overflow-scrolling:touch}
+.electric-master-page .guide-comparison-table,.electric-master-page .comparison-table{width:100%;min-width:760px;border-collapse:collapse}
+.electric-master-page .guide-comparison-table th,.electric-master-page .guide-comparison-table td,.electric-master-page .comparison-table th,.electric-master-page .comparison-table td{padding:15px 17px;border-bottom:1px solid #eceef1;text-align:left;vertical-align:top;font-size:11px;line-height:1.45}
+.electric-master-page .guide-comparison-table thead th,.electric-master-page .comparison-table thead th{background:#f2f3f5;color:#555d67;font-size:9px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}
+.electric-master-page .guide-comparison-table tbody th,.electric-master-page .comparison-table tbody th{font-weight:850}
+.electric-master-page .guide-comparison-table tbody tr:last-child>* ,.electric-master-page .comparison-table tbody tr:last-child>*{border-bottom:0}
+.electric-master-page .topic-grid,.electric-master-page .guide-topic-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+.electric-master-page .guide-topic-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.electric-master-page .topic-grid article,.electric-master-page .guide-topic-grid article{min-width:0;padding:21px;border:1px solid var(--ev-line);border-radius:18px;background:#fff;box-shadow:0 8px 25px rgba(18,20,24,.035)}
+.electric-master-page .topic-grid h3,.electric-master-page .guide-topic-grid h3{margin:0 0 8px;font-size:17px}
+.electric-master-page .topic-grid p,.electric-master-page .guide-topic-grid p{min-height:0;margin:0;color:var(--ev-muted);font-size:11px;line-height:1.6}
+.electric-master-page .note-box,.electric-master-page .source-panel{margin-top:18px;padding:22px;border:1px solid #eadfd7;border-radius:18px;background:var(--ev-soft);box-shadow:none}
+.electric-master-page .note-box h3,.electric-master-page .source-panel h3{margin:0 0 7px;font-size:18px}
+.electric-master-page .note-box p,.electric-master-page .source-panel p{margin:0;color:#6e6762;font-size:11px;line-height:1.6}
+.electric-master-page .source-panel a{display:inline-block;margin-top:11px;color:var(--ev-red);font-size:10px;font-weight:900}
+.electric-master-page .source-ladder{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}
+.electric-master-page .source-ladder article{padding:18px;border:1px solid var(--ev-line);border-radius:17px;background:#fff}
+.electric-master-page .source-ladder article>span{color:#8b929b;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+.electric-master-page .source-ladder h3{margin:8px 0 16px;font-size:16px}
+.electric-master-page .source-ladder article>div{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.electric-master-page .source-ladder a{color:var(--ev-red);font-size:10px;font-weight:900}
+.electric-master-page .source-ladder small{color:#969da6;font-size:9px}
+.electric-master-page .commute-tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.electric-master-page .commute-tool-grid>a{display:flex;min-height:180px;flex-direction:column;padding:23px;border:1px solid var(--ev-line);border-radius:19px;background:#fff;box-shadow:0 9px 28px rgba(18,20,24,.035);transition:.18s ease}
+.electric-master-page .commute-tool-grid>a:hover{transform:translateY(-3px);box-shadow:0 17px 38px rgba(18,20,24,.07)}
+.electric-master-page .commute-tool-grid span{color:var(--ev-red);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em}
+.electric-master-page .commute-tool-grid h3{margin:auto 0 7px;font-size:20px}
+.electric-master-page .commute-tool-grid p{margin:0;color:var(--ev-muted);font-size:11px;line-height:1.55}
+.electric-master-page #faq{scroll-margin-top:150px}
+
+/* Electric detail pages */
+.electric-model-page{padding-top:34px;padding-bottom:96px}
+.electric-model-page>.product-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.82fr);gap:44px;align-items:center;margin-bottom:22px;padding:clamp(26px,4vw,48px);overflow:hidden;border-radius:28px;background:#0b0c0e;color:#fff;box-shadow:0 26px 68px rgba(18,20,24,.15)}
+.electric-model-page>.product-hero h1{color:#fff;font-size:clamp(42px,5.2vw,68px);line-height:.98}
+.electric-model-page>.product-hero p{color:rgba(255,255,255,.6);line-height:1.65}
+.electric-model-page>.product-hero strong{color:#fff}
+.electric-model-page>.product-hero img{display:block;width:100%;aspect-ratio:4/3;padding:18px;border:1px solid rgba(255,255,255,.1);border-radius:22px;background:radial-gradient(circle at 52% 28%,#353a42 0,#17191d 58%,#0c0d0f 100%);object-fit:contain}
+.electric-model-page .motorcycle-entity-section{scroll-margin-top:150px}
+.electric-model-page .comparison-table-wrap,.electric-model-page .guide-table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* Global small-screen QA */
+@media(max-width:900px){
+  .electric-master-page .seller-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .electric-master-page .catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .electric-master-page .guide-topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .electric-master-page .topic-grid,.electric-master-page .source-ladder{grid-template-columns:1fr}
+  .electric-model-page>.product-hero{grid-template-columns:1fr;gap:24px}
+}
+@media(max-width:650px){
+  html,body{max-width:100%;overflow-x:hidden}
+  .electric-master-page{padding-top:20px;padding-bottom:74px}
+  .electric-master-page>.page-head{padding:29px 22px;border-radius:22px}
+  .electric-master-page>.page-head h1{font-size:40px}
+  .electric-master-page>.page-head>p{font-size:14px}
+  .electric-master-page>.page-head .hero-actions{display:grid;grid-template-columns:1fr}
+  .electric-master-page>.page-head .button{width:100%}
+  .electric-master-page .seller-stats{gap:7px}
+  .electric-master-page .seller-stats>div{padding:14px}
+  .electric-master-page .seller-stats strong{font-size:20px}
+  .electric-master-page>.product-entity-nav{top:66px;margin-left:-2px;margin-right:-2px;border-radius:13px}
+  .electric-master-page .motorcycle-entity-section{padding:44px 0;scroll-margin-top:132px}
+  .electric-master-page .catalog-grid,.electric-master-page .guide-topic-grid,.electric-master-page .commute-tool-grid{grid-template-columns:1fr}
+  .electric-master-page .catalog-card{padding:0 17px 18px}
+  .electric-master-page .catalog-media{margin:0 -17px 15px}
+  .electric-master-page .section-head h2{font-size:31px}
+  .electric-master-page .source-ladder article>div{align-items:flex-start;flex-direction:column}
+  .electric-model-page{padding-top:20px;padding-bottom:76px}
+  .electric-model-page>.product-hero{padding:24px 20px;border-radius:22px}
+  .electric-model-page>.product-hero h1{font-size:40px}
+}
