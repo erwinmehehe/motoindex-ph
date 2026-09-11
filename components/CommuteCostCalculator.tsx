@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Motorcycle } from "@/lib/types";
 import { commuteMonthlyCosts, DEFAULT_FUEL_PRICE_PHP } from "@/lib/commuteMath";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
@@ -8,6 +8,11 @@ import { efficiencyEvidence } from "@/lib/efficiency";
 export function CommuteCostCalculator({models,initialId}:{models:Motorcycle[];initialId?:string}){
   const first=models.find(m=>m.id===initialId)||models[0];
   const [id,setId]=useState(first?.id||"");
+  useEffect(()=>{
+    if(initialId||typeof window==="undefined")return;
+    const bike=new URLSearchParams(window.location.search).get("bike");
+    if(bike&&models.some(m=>m.id===bike))setId(bike);
+  },[initialId,models]);
   const [dailyKm,setDailyKm]=useState(20),[days,setDays]=useState(22),[fuel,setFuel]=useState(DEFAULT_FUEL_PRICE_PHP),[parking,setParking]=useState(0),[maintenance,setMaintenance]=useState<number|undefined>(undefined),[currentSpend,setCurrentSpend]=useState(0);
   const model=models.find(m=>m.id===id)||first;
   const result=useMemo(()=>model?commuteMonthlyCosts(model,dailyKm,days,fuel,parking,maintenance):null,[model,dailyKm,days,fuel,parking,maintenance]);
