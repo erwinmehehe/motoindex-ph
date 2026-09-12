@@ -16,9 +16,9 @@ const fallbackPages = {
     terms: ["bmw", "r 1300 gs", "r1300gs"]
   },
   "vespa-gtv-300": {
-    pageUrl: "https://www.vespa.com/ph_EN/models/gtv/gtv-300-hpe-2025/",
-    rightsHolder: "Vespa / Piaggio Group",
-    sourceLabel: "Official Vespa Philippines product image · GTV 300",
+    pageUrl: "https://press.piaggiogroup.com/en_EN/post/show/253279/new-vespa-gtv.html",
+    rightsHolder: "Piaggio Group",
+    sourceLabel: "Official Piaggio Group press image · Vespa GTV",
     terms: ["vespa", "gtv", "gtv 300"]
   },
   "honda-rebel-1100": {
