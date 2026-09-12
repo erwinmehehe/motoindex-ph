@@ -5,6 +5,8 @@ on:
     branches: [fix/product-image-coverage]
     paths:
       - package.json
+      - package-lock.json
+      - scripts/validate-lockfile.mjs
       - .github/workflows/security-lock-refresh.yml
   workflow_dispatch:
 
