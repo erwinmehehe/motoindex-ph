@@ -8,6 +8,7 @@ on:
       - scripts/backfill-ls2-media.mjs
       - scripts/normalize-generated-product-media.mjs
       - scripts/localize-motorcycle-media.mjs
+      - scripts/validate-media-backfill-safety.mjs
       - .github/workflows/product-image-backfill.yml
   workflow_dispatch:
 
@@ -21,7 +22,7 @@ permissions:
 jobs:
   backfill:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,22 +42,35 @@ jobs:
       - name: Install image normalizer
         run: npm install --no-save --package-lock=false sharp@0.34.3
 
+      - name: Verify non-destructive media pipeline
+        run: node scripts/validate-media-backfill-safety.mjs
+
       - name: Localize external motorcycle images
         run: node scripts/localize-motorcycle-media.mjs
 
-      - name: Rebuild and localize gear product images
-        env:
-          REBUILD_GENERATED_MEDIA: "1"
+      - name: Backfill missing gear product images
         run: node scripts/backfill-product-media.mjs
 
-      - name: Backfill LS2 from official mirror
+      - name: Backfill missing LS2 images from official mirror
         run: node scripts/backfill-ls2-media.mjs
 
       - name: Normalize generated media metadata
         run: node scripts/normalize-generated-product-media.mjs
 
+      - name: Verify non-destructive media pipeline after generation
+        run: node scripts/validate-media-backfill-safety.mjs
+
       - name: Show updated exact-image coverage
         run: node scripts/audit-product-media-coverage.mjs
+
+      - name: Validate media records
+        run: npm run validate:media
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Production build
+        run: npm run build
 
       - name: Commit localized product media
         run: |
