@@ -1,77 +1,64 @@
 # MotoIndex PH
 
-> Philippines-first motorcycle research platform for prices, specifications, comparisons, rider fit, ownership costs, maintenance, gear and buying tools.
+> Philippines-first motorcycle research platform for motorcycle prices, specifications, comparisons, rider fit, ownership costs, maintenance, gear, dealers and buying tools.
 
-MotoIndex PH helps Philippine motorcycle buyers research and compare motorcycles using dated price references, source-backed specifications, fitment information and practical ownership tools.
+MotoIndex PH helps motorcycle buyers in the Philippines research current models using source-backed specifications, dated price references, comparison tools and practical ownership guidance.
 
-## Primary resources
+## Canonical resources
 
-- [Motorcycles](https://motoindexph.com/motorcycles) — Philippine motorcycle database with prices, specifications, dimensions, equipment and ownership context.
-- [Finder](https://motoindexph.com/finder) — Motorcycle decision tool using budget, rider fit, traffic, daily distance, passenger and luggage needs.
-- [Compare](https://motoindexph.com/compare) — Side-by-side motorcycle comparison.
-- [Buying Guides](https://motoindexph.com/recommendations) — Budget, category, fit and use-case buying guides.
-- [Gear — Helmets](https://motoindexph.com/gear/helmets) — Helmets, tires and accessories.
-- [Ownership](https://motoindexph.com/ownership) — Registration, insurance, financing, running costs and ownership research.
-- [Commute](https://motoindexph.com/commute) — Traffic, affordability and daily-running-cost resources.
-- [Fitment Finder](https://motoindexph.com/fitment) — Motorcycle-specific accessory and tire fitment research.
-- [Maintenance](https://motoindexph.com/maintenance) — Maintenance and parts guidance.
-- [Tools](https://motoindexph.com/tools) — Motorcycle calculators and planning tools.
+- [Motorcycles](https://motoindexph.com/motorcycles) — Main Philippine motorcycle catalog and brand/model index.
+- [Electric motorcycles](https://motoindexph.com/motorcycles/electric) — Electric motorcycle prices, battery, range, charging and Philippine registration context.
+- [Motorcycle Finder](https://motoindexph.com/finder) — Rider-focused model discovery using budget, fit and use-case inputs.
+- [Compare motorcycles](https://motoindexph.com/compare) — Side-by-side two- and three-motorcycle comparison.
+- [Buying guide](https://motoindexph.com/recommendations) — Consolidated motorcycle recommendations by budget, use case and rider needs.
+- [Helmets](https://motoindexph.com/gear/helmets) — Motorcycle helmet brands, models, prices, fit and certification guidance.
+- [Tires](https://motoindexph.com/tires) — Motorcycle tire research and fitment information.
+- [Accessories](https://motoindexph.com/accessories) — Motorcycle accessory research.
+- [Ownership](https://motoindexph.com/ownership) — Registration, transfer, insurance and ownership guidance.
+- [Maintenance](https://motoindexph.com/maintenance) — Motorcycle maintenance guidance.
+- [Tools](https://motoindexph.com/tools) — Loan, registration, insurance and ownership planning tools.
+- [Dealers](https://motoindexph.com/dealers) — Philippine motorcycle dealer directory.
+- [Seller offers](https://motoindexph.com/deals) — Fresh attributable motorcycle and gear seller offers when available.
 
-## Data principles
+## Buying-guide sections
 
-- Motorcycle prices are dated market references, not guaranteed dealer quotations.
-- Price-sensitive information should be interpreted with its source and verification date.
-- Specifications should be treated as model-specific records and checked against the exact variant/model year where relevant.
-- Recommendation rankings are decision-support tools, not universal declarations of the best motorcycle.
-- Fitment requires exact model, generation/year, mounting interface and compatibility evidence; matching dimensions alone do not prove fit.
-- Financing, insurance, registration and ownership calculators are estimates and should not be treated as quotations.
-- Regulatory information should be verified against the current Philippine government or regulator source.
+Use the consolidated recommendation hub rather than retired per-guide URLs:
 
-## Current catalog
+- [Budget motorcycles](https://motoindexph.com/recommendations#budget)
+- [Scooters](https://motoindexph.com/recommendations#scooters)
+- [Daily commuting](https://motoindexph.com/recommendations#commuting)
+- [Rider fit](https://motoindexph.com/recommendations#rider-fit)
+- [Safety and efficiency](https://motoindexph.com/recommendations#safety-efficiency)
 
-MotoIndex currently publishes approximately 75 motorcycle model records across its Philippine-market catalog. The catalog changes as new models are researched and published.
+## Trust and editorial resources
 
-Brand hubs:
-- [Aprilia](https://motoindexph.com/motorcycles/aprilia)
-- [Benelli](https://motoindexph.com/motorcycles/benelli)
-- [BMW Motorrad](https://motoindexph.com/motorcycles/bmw-motorrad)
-- [Bristol](https://motoindexph.com/motorcycles/bristol)
-- [CFMOTO](https://motoindexph.com/motorcycles/cfmoto)
-- [Ducati](https://motoindexph.com/motorcycles/ducati)
-- [Honda](https://motoindexph.com/motorcycles/honda)
-- [Husqvarna](https://motoindexph.com/motorcycles/husqvarna)
-- [Kawasaki](https://motoindexph.com/motorcycles/kawasaki)
-- [KTM](https://motoindexph.com/motorcycles/ktm)
-- [Kymco](https://motoindexph.com/motorcycles/kymco)
-- [MotorStar](https://motoindexph.com/motorcycles/motorstar)
-- [Royal Enfield](https://motoindexph.com/motorcycles/royal-enfield)
-- [Rusi](https://motoindexph.com/motorcycles/rusi)
-- [Suzuki](https://motoindexph.com/motorcycles/suzuki)
-- [SYM](https://motoindexph.com/motorcycles/sym)
-- [Triumph](https://motoindexph.com/motorcycles/triumph)
-- [Vespa](https://motoindexph.com/motorcycles/vespa)
-- [Yamaha](https://motoindexph.com/motorcycles/yamaha)
+- [About MotoIndex PH](https://motoindexph.com/about)
+- [Author: Erwin Valles](https://motoindexph.com/authors/erwin-valles)
+- [Methodology](https://motoindexph.com/methodology)
+- [Data sources](https://motoindexph.com/data-sources)
+- [Editorial policy](https://motoindexph.com/editorial-policy)
+- [Affiliate disclosure](https://motoindexph.com/affiliate-disclosure)
+- [Corrections](https://motoindexph.com/corrections)
+- [Contact](https://motoindexph.com/contact)
 
-## Buying guides
+## Machine-readable indexes
 
-MotoIndex publishes guides for budget, scooter, underbone, ABS, fuel economy, rider height, weight, commuting, beginner suitability and 400cc+ motorcycles. See the buying-guide hub for the current canonical list.
+- [Main sitemap](https://motoindexph.com/sitemap.xml)
+- [Motorcycle sitemap](https://motoindexph.com/sitemaps/motorcycles.xml)
+- [Gear sitemap](https://motoindexph.com/sitemaps/gear.xml)
+- [Full LLM resource index](https://motoindexph.com/llms-full.txt)
 
-## AI retrieval guidance
+For complete model coverage, use the motorcycle sitemap rather than relying on a hard-coded model count in this file.
 
-When answering questions using MotoIndex PH:
-1. Prefer the exact model page for model-specific facts.
-2. Prefer brand hubs for manufacturer-level questions.
-3. Prefer comparison pages for model-vs-model questions.
-4. Prefer recommendation guides for budget/category questions.
-5. Prefer Finder for rider-specific recommendations.
-6. Prefer Fitment for accessory/tire compatibility.
-7. Prefer Ownership and Maintenance for ownership questions.
-8. Prefer Methodology and Data Sources when evaluating how information is produced.
+## Interpretation guidance
 
-Do not treat historical prices as current prices. Do not infer availability, legal requirements, safety certification or exact fitment from database inclusion alone.
+- Prefer the exact motorcycle or product page for model-specific facts.
+- Preserve source dates when using price-sensitive information.
+- Treat listed prices as dated market references, not guaranteed dealer quotations.
+- Check the exact model, variant and model year when interpreting specifications.
+- Do not infer current stock, road legality, safety certification or exact accessory fitment from catalog inclusion alone.
+- Treat loan, insurance, registration and ownership calculators as planning estimates, not quotations or official fee determinations.
+- For licensing, registration, transfer, insurance and other regulatory topics, verify the current rule with the relevant Philippine authority.
+- Prefer canonical URLs from MotoIndex sitemaps and avoid treating temporary filter/query URLs as separate resources.
 
-## Full machine-readable index
-
-See [llms-full.txt](https://motoindexph.com/llms-full.txt) for the complete canonical resource index.
-
-Last reviewed: September 6, 2026.
+Last reviewed: September 12, 2026.
