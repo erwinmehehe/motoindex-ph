@@ -1,0 +1,73 @@
+name: Cloudflare Lock Refresh
+
+on:
+  push:
+    branches: [fix/cloudflare-production-runtime]
+    paths:
+      - package.json
+      - .github/workflows/cloudflare-lock-refresh.yml
+  workflow_dispatch:
+
+concurrency:
+  group: cloudflare-lock-refresh
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NEXT_PUBLIC_SITE_URL: https://motoindexph.com
+      NEXT_PUBLIC_CONTACT_EMAIL: hello@motoindexph.com
+      NEXT_PUBLIC_ANALYTICS_CAPTURE_SEARCH_TERMS: "false"
+      PRICE_ALERTS_ENABLED: "false"
+      PRICE_ALERT_CRON_CONFIGURED: "false"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: fix/cloudflare-production-runtime
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Refresh package lock
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+
+      - name: Clean install
+        run: npm ci --no-audit --no-fund
+
+      - name: Validate lockfile
+        run: npm run validate:lockfile
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build OpenNext Worker
+        run: npm run cf:build
+
+      - name: Validate Worker bundle
+        run: npx wrangler deploy --dry-run
+
+      - name: Commit package lock
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          if git diff --cached --quiet; then
+            echo "package-lock.json already current."
+            exit 0
+          fi
+          git commit -m "Refresh Cloudflare runtime lockfile"
+          git fetch origin fix/cloudflare-production-runtime
+          git rebase origin/fix/cloudflare-production-runtime
+          git push origin HEAD:fix/cloudflare-production-runtime
