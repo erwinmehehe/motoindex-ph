@@ -6,7 +6,7 @@ const failures=[];
 async function get(path, expected=200){try{const r=await fetch(new URL(path,base),{redirect:"manual"});if(r.status!==expected)failures.push(`${path}: expected ${expected}, got ${r.status}`);return r}catch(e){failures.push(`${path}: ${e instanceof Error?e.message:String(e)}`);return null}}
 
 const publicPaths = [
-  "/", "/motorcycles", "/compare", "/compare/three", "/compare/three?bikes=aerox-v3,nmax-v3,adv-160", "/motorcycles/electric", "/motorcycles/electric/vinfast-evo", "/motorcycles/electric/vinfast-feliz-ii", "/motorcycles/electric/vinfast-viper", "/gear/helmets", "/deals", "/dealers", "/dealers/manila", "/dealers/san-fernando", "/dealers/angeles-city", "/dealers/cebu-city", "/dealers/davao-city", "/dealers/pampanga", "/robots.txt", "/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear.xml", "/privacy",
+  "/", "/motorcycles", "/compare", "/compare/three", "/compare/three?bikes=aerox-v3,nmax-v3,adv-160", "/motorcycles/electric", "/motorcycles/electric/vinfast-evo", "/motorcycles/electric/vinfast-feliz-ii", "/motorcycles/electric/vinfast-viper", "/gear/helmets", "/deals", "/dealers", "/dealers/manila", "/dealers/san-fernando", "/dealers/angeles-city", "/dealers/cebu-city", "/dealers/davao-city", "/dealers/pampanga", "/robots.txt", "/llms.txt", "/llms-full.txt", "/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear.xml", "/privacy",
   "/used-motorcycles/repo", "/used-motorcycles/buying-checklist",
   "/maintenance", "/maintenance/motorcycle-battery", "/maintenance/change-oil-motorcycle",
   "/ownership/registration-renewal"
@@ -19,6 +19,13 @@ if(home){
     if(home.headers.get(header)!==expected) failures.push(`/: missing or unexpected ${header} header`);
   }
   if(base.protocol === "https:" && !home.headers.get("strict-transport-security")) failures.push("/: missing Strict-Transport-Security on HTTPS production response");
+}
+
+for(const [path,markers] of [
+  ["/llms.txt",["# MotoIndex PH","https://motoindexph.com/motorcycles","https://motoindexph.com/authors/erwin-valles","https://motoindexph.com/llms-full.txt"]],
+  ["/llms-full.txt",["# MotoIndex PH","https://motoindexph.com/sitemaps/motorcycles.xml","https://motoindexph.com/motorcycles/electric","https://motoindexph.com/methodology"]]
+]){
+  const r=await get(path);if(!r)continue;const body=await r.text();for(const marker of markers)if(!body.includes(marker))failures.push(`${path} missing required marker ${marker}`);
 }
 
 let robotsBody="";
