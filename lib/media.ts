@@ -770,9 +770,9 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus:"external-reference", rightsHolder:"Motoren & Toerisme", sourceLabel:"Editorial product image · BMW G 310 R", sourceUrl:"https://www.motoren-toerisme.be/motoren/bmw-g-310-r-2023", lastChecked:"2026-09-08"
   },
   {
-    id:"bmw-r-1300-gs-editorial", entityType:"motorcycle", entityId:"bmw-r-1300-gs", role:"primary",
-    src:"https://www.carolenash.com/images/librariesprovider6/blog-posts/bmw_r1300g_studio.jpg?sfvrsn=bca8efd6_1", alt:"BMW R 1300 GS adventure motorcycle in studio view", width:1200, height:900,
-    rightsStatus:"external-reference", rightsHolder:"Carole Nash", sourceLabel:"Editorial product image · BMW R 1300 GS", sourceUrl:"https://www.carolenash.com/news/classic-car-events/detail/reviewed--bmw-r-1300-gs", lastChecked:"2026-09-08"
+    id:"bmw-r-1300-gs-editorial", entityType:"motorcycle", entityId:"bmw-r-1300-gs", role:"primary", sourceImageUrl:"https://mediapool.bmwgroup.com/cache/P9/202511/P90624522/P90624522-bmw-r-1300-gs-2250px.jpg",
+    src:"/media/motorcycles/bmw-r-1300-gs.webp", alt:"BMW R 1300 GS adventure motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder:"BMW Group", sourceLabel:"Official BMW Motorrad media image · R 1300 GS", sourceUrl:"https://www.press.bmwgroup.com/global/photo/detail/P90624522/BMW-R-1300-GS", lastChecked:"2026-09-08"
   },
   {
     id:"cfmoto-450nk-editorial", entityType:"motorcycle", entityId:"cfmoto-450nk", role:"primary",
@@ -832,9 +832,9 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Honda Motor Europe", sourceLabel: "Official Honda media image · Gold Wing Tour", sourceUrl: "https://hondanews.eu/pl/pl/motorcycles/media/pressreleases/453353/honda-gold-wing-tour-na-rok-modelowy-2024", lastChecked: "2026-09-09"
   },
   {
-    id: "honda-rebel-1100-official", entityType: "motorcycle", entityId: "honda-rebel-1100", role: "primary",
-    src: "https://powersports.honda.com/-/media/products/family/rebel-1100/trims/trim-main/rebel-1100/2025/2025-rebel-1100-matte_black_metallic-1505x923.png?imwidth=640", alt: "Honda Rebel 1100 cruiser in Matte Black Metallic", width: 1505, height: 923,
-    rightsStatus: "external-reference", rightsHolder: "American Honda Motor Co.", sourceLabel: "Official Honda product image · Rebel 1100", sourceUrl: "https://powersports.honda.com/motorcycle/cruiser/rebel-1100/2025/rebel-1100", lastChecked: "2026-09-09"
+    id: "honda-rebel-1100-official", entityType: "motorcycle", entityId: "honda-rebel-1100", role: "primary", sourceImageUrl:"https://images.ctfassets.net/p4ab844it03t/1A4vT25I9tDc75WtXAzzIR/a07a61d60d30563082646b8d8f532ac2/10M_Photo1.jpg?w=662&h=426&fm=webp&q=80",
+    src:"/media/motorcycles/honda-rebel-1100.webp", alt: "Honda Rebel 1100 cruiser in Matte Black Metallic", width:1200, height:1200,
+    rightsStatus: "external-reference", rightsHolder:"Honda Philippines", sourceLabel:"Official Honda Philippines product image · Rebel 1100", sourceUrl:"https://www.hondaph.com/big-bike/news/the-all-new-rebel1100-new-modern-street-bobber-style-bike", lastChecked: "2026-09-09"
   },
   {
     id: "honda-rebel-500-manila", entityType: "motorcycle", entityId: "honda-rebel-500", role: "primary",
