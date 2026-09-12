@@ -9,6 +9,7 @@ on:
       - public/media/**
       - scripts/backfill-product-media.mjs
       - scripts/backfill-ls2-media.mjs
+      - scripts/backfill-smk-media.mjs
       - scripts/localize-motorcycle-media.mjs
       - scripts/normalize-generated-product-media.mjs
       - scripts/audit-product-media-coverage.mjs
@@ -16,8 +17,10 @@ on:
       - components/ProductMedia.tsx
       - app/gear/**
       - package.json
+      - package-lock.json
       - .github/workflows/media-coverage-audit.yml
       - .github/workflows/product-image-backfill.yml
+      - .github/workflows/security-lock-refresh.yml
   workflow_dispatch:
 
 jobs:
@@ -40,6 +43,8 @@ jobs:
         run: node scripts/audit-product-media-coverage.mjs
       - name: Validate media records
         run: npm run validate:media
+      - name: Security audit
+        run: npm audit --audit-level=high
       - name: Typecheck
         run: npm run typecheck
       - name: Production build
