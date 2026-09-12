@@ -29,6 +29,8 @@ jobs:
           npm run validate:copy-tone
           npm run validate:public-trust
           npm run check:links
+          npm run check:legacy-links
+          npm run audit:freshness
           npm run validate:lockfile
           npm run prisma:validate
 
