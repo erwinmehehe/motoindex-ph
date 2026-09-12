@@ -4,10 +4,12 @@ import path from "node:path";
 const root = process.cwd();
 const catalogSource = fs.readFileSync(path.join(root, "lib/catalog.ts"), "utf8");
 const mediaSource = fs.readFileSync(path.join(root, "lib/media.ts"), "utf8");
+const generatedMediaPath = path.join(root, "lib/generatedProductMedia.ts");
+const generatedMediaSource = fs.existsSync(generatedMediaPath) ? fs.readFileSync(generatedMediaPath, "utf8") : "";
 
 function extractArray(source, declaration) {
   const start = source.indexOf(declaration);
-  if (start < 0) throw new Error(`Could not find ${declaration}`);
+  if (start < 0) return "";
   const equals = source.indexOf("=", start);
   if (equals < 0) throw new Error(`Could not find assignment for ${declaration}`);
   const open = source.indexOf("[", equals);
@@ -40,6 +42,7 @@ function extractArray(source, declaration) {
 }
 
 function topLevelObjects(arrayText) {
+  if (!arrayText) return [];
   const objects = [];
   let inString = false;
   let quote = "";
@@ -90,19 +93,26 @@ function catalogRecords(declaration, entityType) {
     .filter((item) => item.id && item.status === "verified");
 }
 
+function mediaRecords(source, declaration) {
+  return topLevelObjects(extractArray(source, declaration))
+    .map((block) => ({
+      entityId: stringField(block, "entityId"),
+      entityType: stringField(block, "entityType"),
+      rightsStatus: stringField(block, "rightsStatus")
+    }))
+    .filter((item) => item.entityId && item.entityType && item.rightsStatus !== "pending");
+}
+
 const products = [
   ...catalogRecords("export const helmetProducts", "helmet"),
   ...catalogRecords("export const tireProducts", "tire"),
   ...catalogRecords("export const topBoxProducts", "topbox")
 ];
 
-const media = topLevelObjects(extractArray(mediaSource, "export const entityMedia"))
-  .map((block) => ({
-    entityId: stringField(block, "entityId"),
-    entityType: stringField(block, "entityType"),
-    rightsStatus: stringField(block, "rightsStatus")
-  }))
-  .filter((item) => item.entityId && item.entityType && item.rightsStatus !== "pending");
+const media = [
+  ...mediaRecords(mediaSource, "export const entityMedia"),
+  ...mediaRecords(generatedMediaSource, "export const generatedProductMedia")
+];
 
 const mediaKeys = new Set(media.map((item) => `${item.entityType}:${item.entityId}`));
 const missing = products.filter((item) => !mediaKeys.has(`${item.entityType}:${item.id}`));
