@@ -8,7 +8,9 @@ const mediaSource = fs.readFileSync(path.join(root, "lib/media.ts"), "utf8");
 function extractArray(source, declaration) {
   const start = source.indexOf(declaration);
   if (start < 0) throw new Error(`Could not find ${declaration}`);
-  const open = source.indexOf("[", start);
+  const equals = source.indexOf("=", start);
+  if (equals < 0) throw new Error(`Could not find assignment for ${declaration}`);
+  const open = source.indexOf("[", equals);
   if (open < 0) throw new Error(`Could not find array start for ${declaration}`);
 
   let inString = false;
