@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { EntityMedia } from "@/components/EntityMedia";
 import { AffiliateOffer } from "@/components/AffiliateOffer";
-import { hasRenderableProductMedia } from "@/lib/media";
+import { hasRenderableProductMedia } from "@/lib/renderableMedia";
 
 export type ProductCardItem = {
   href: string;
