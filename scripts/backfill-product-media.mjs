@@ -11,7 +11,6 @@ const generatedPath = path.join(root, "lib/generatedProductMedia.ts");
 const generatedSource = fs.existsSync(generatedPath) ? fs.readFileSync(generatedPath, "utf8") : "";
 const today = new Date().toISOString().slice(0, 10);
 const userAgent = "Mozilla/5.0 (compatible; MotoIndexMediaVerifier/1.0; +https://motoindexph.com/methodology)";
-const rebuild = process.env.REBUILD_GENERATED_MEDIA === "1";
 
 function extractArray(source, declaration) {
   const start = source.indexOf(declaration);
@@ -167,20 +166,22 @@ async function discoverImage(product) {
   throw lastError || new Error("image candidates failed");
 }
 
+function hasLocalAsset(asset) {
+  if (!asset?.src?.startsWith("/media/")) return false;
+  return fs.existsSync(path.join(root, "public", asset.src.replace(/^\//, "")));
+}
+
 const products = [
   ...catalogRecords("export const helmetProducts", "helmet"),
   ...catalogRecords("export const tireProducts", "tire"),
   ...catalogRecords("export const topBoxProducts", "topbox")
 ];
 const previousGenerated = existingGeneratedRecords();
-if (rebuild) {
-  for (const asset of previousGenerated) {
-    if (!asset.src?.startsWith("/media/")) continue;
-    const file = path.join(root, "public", asset.src.replace(/^\//, ""));
-    if (fs.existsSync(file)) fs.rmSync(file);
-  }
+const generated = previousGenerated.filter(hasLocalAsset);
+const missingLocalRecords = previousGenerated.filter((asset) => !hasLocalAsset(asset));
+for (const asset of missingLocalRecords) {
+  console.warn(`! ignoring generated record with missing local file: ${asset.entityType}:${asset.entityId} -> ${asset.src}`);
 }
-const generated = rebuild ? [] : previousGenerated;
 const existing = new Set([
   ...mediaKeys(mediaSource, "export const entityMedia"),
   ...generated.map((item) => `${item.entityType}:${item.entityId}`)
@@ -189,6 +190,7 @@ const missing = products.filter((item) => !existing.has(`${item.entityType}:${it
 let outputRecords = [...generated];
 const failures = [];
 const successes = [];
+const newRecordIds = new Set();
 const folders = { helmet: "helmets", tire: "tires", topbox: "topboxes" };
 
 async function processProduct(product) {
@@ -201,13 +203,15 @@ async function processProduct(product) {
     const metadata = await sharp(discovered.bytes).metadata();
     if ((metadata.width || 0) < 200 || (metadata.height || 0) < 200) throw new Error(`source image dimensions too small (${metadata.width || 0}x${metadata.height || 0})`);
     await sharp(discovered.bytes).rotate().resize({ width: 1200, height: 1200, fit: "contain", withoutEnlargement: false, background: { r: 255, g: 255, b: 255, alpha: 1 } }).webp({ quality: 84, effort: 4 }).toFile(output);
-    outputRecords.push({
+    const record = {
       id: `${product.id}-generated-product`, entityType: product.entityType, entityId: product.id, role: "primary",
       src: relativeSrc, sourceImageUrl: discovered.url,
       alt: `${product.brand} ${product.model} product image`, width: 1200, height: 1200,
       rightsStatus: "external-reference", sourceLabel: `Checked product-page image · ${product.brand} ${product.model}`,
       sourceUrl: product.sourceUrl, lastChecked: today
-    });
+    };
+    outputRecords.push(record);
+    newRecordIds.add(record.id);
     successes.push(`${product.entityType}:${product.id} (${discovered.reason})`);
     console.log(`✓ ${product.entityType}:${product.id} <- ${discovered.url}`);
   } catch (error) {
@@ -229,6 +233,7 @@ function localHash(asset) {
   } catch { return ""; }
 }
 function removeGeneratedAsset(asset, reason) {
+  if (!newRecordIds.has(asset.id)) return;
   if (asset.src?.startsWith("/media/")) {
     const file = path.join(root, "public", asset.src.replace(/^\//, ""));
     if (fs.existsSync(file)) fs.rmSync(file);
@@ -247,12 +252,15 @@ for (const asset of outputRecords) {
 }
 const rejectedIds = new Map();
 for (const [key, assets] of sourceGroups) {
-  if (assets.length > 1) for (const asset of assets) rejectedIds.set(asset.id, `same upstream image reused by ${assets.length} products (${key})`);
+  if (assets.length <= 1) continue;
+  for (const asset of assets) if (newRecordIds.has(asset.id)) rejectedIds.set(asset.id, `same upstream image reused by ${assets.length} products (${key})`);
 }
 for (const [hash, assets] of hashGroups) {
-  if (assets.length > 1) for (const asset of assets) rejectedIds.set(asset.id, `same image bytes reused by ${assets.length} products (${hash.slice(0, 10)})`);
+  if (assets.length <= 1) continue;
+  for (const asset of assets) if (newRecordIds.has(asset.id)) rejectedIds.set(asset.id, `same image bytes reused by ${assets.length} products (${hash.slice(0, 10)})`);
 }
 for (const asset of outputRecords) {
+  if (!newRecordIds.has(asset.id)) continue;
   if (isBadImageUrl(asset.sourceImageUrl || "")) rejectedIds.set(asset.id, "generic/social/accessory image URL");
   if (isWeakSourcePage(asset.sourceUrl || "")) rejectedIds.set(asset.id, "source is a search/listing page rather than an exact product page");
 }
@@ -264,7 +272,8 @@ if (rejectedIds.size) {
 const header = 'import type { EntityMedia } from "./types";\n\n// Generated from checked product source pages by scripts/backfill-product-media.mjs.\n// Local WebP derivatives are used at runtime; sourceImageUrl and sourceUrl preserve provenance.\n';
 fs.writeFileSync(generatedPath, `${header}export const generatedProductMedia: EntityMedia[] = ${JSON.stringify(outputRecords, null, 2)};\n`);
 
-console.log(`\nBackfill complete: ${outputRecords.length - generated.length} retained from this pass, ${failures.length} unresolved/rejected, ${missing.length} attempted.`);
+const retainedNew = [...newRecordIds].filter((id) => outputRecords.some((asset) => asset.id === id)).length;
+console.log(`\nBackfill complete: ${retainedNew} new images retained, ${generated.length} existing images preserved, ${failures.length} unresolved/rejected, ${missing.length} attempted.`);
 if (failures.length) {
   console.log("\nUnresolved or rejected product images:");
   failures.forEach((item) => console.log(`- ${item}`));
