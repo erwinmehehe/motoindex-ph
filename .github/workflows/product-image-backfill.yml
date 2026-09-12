@@ -7,6 +7,7 @@ on:
       - scripts/backfill-product-media.mjs
       - scripts/backfill-ls2-media.mjs
       - scripts/normalize-generated-product-media.mjs
+      - scripts/localize-motorcycle-media.mjs
       - .github/workflows/product-image-backfill.yml
   workflow_dispatch:
 
@@ -40,7 +41,10 @@ jobs:
       - name: Install image normalizer
         run: npm install --no-save --package-lock=false sharp@0.34.3
 
-      - name: Rebuild and localize product images
+      - name: Localize external motorcycle images
+        run: node scripts/localize-motorcycle-media.mjs
+
+      - name: Rebuild and localize gear product images
         env:
           REBUILD_GENERATED_MEDIA: "1"
         run: node scripts/backfill-product-media.mjs
@@ -58,10 +62,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A lib/generatedProductMedia.ts public/media/helmets public/media/tires public/media/topboxes
+          git add -A lib/media.ts lib/generatedProductMedia.ts public/media/motorcycles public/media/helmets public/media/tires public/media/topboxes
           if git diff --cached --quiet; then
             echo "No product media changes to commit."
             exit 0
           fi
-          git commit -m "Rebuild verified product images"
+          git commit -m "Localize verified product images"
           git push origin HEAD:fix/product-image-coverage
