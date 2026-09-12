@@ -25,13 +25,13 @@ jobs:
     timeout-minutes: 35
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: fix/product-image-coverage
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -72,7 +72,12 @@ jobs:
       - name: Production build
         run: npm run build
 
+      - name: Dependency audit details
+        if: always()
+        run: npm audit || true
+
       - name: Commit localized product media
+        if: success()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
