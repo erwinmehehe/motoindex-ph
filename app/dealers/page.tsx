@@ -13,8 +13,14 @@ export const metadata: Metadata = pageMetadata({
   index: true,
 });
 
-export default async function DealersPage() {
+function first(value?: string | string[]) { return Array.isArray(value) ? value[0] : value; }
+
+export default async function DealersPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const query = await searchParams;
   const verifiedDealers = await allVerifiedDealers();
+  const availableBrands = [...new Set(verifiedDealers.flatMap(dealer => dealer.brands))];
+  const requestedBrandRaw = first(query.brand) || "";
+  const requestedBrand = availableBrands.find(brand => brand.toLowerCase() === requestedBrandRaw.toLowerCase()) || "all";
   const cityCounts = new Map<string, number>();
   for (const dealer of verifiedDealers) cityCounts.set(dealer.city, (cityCounts.get(dealer.city) || 0) + 1);
   const publishedCities = [...cityCounts.entries()].filter(([,count])=>count>=MIN_PUBLIC_DEALERS_PER_CITY).map(([city])=>city).sort();
@@ -23,8 +29,8 @@ export default async function DealersPage() {
   return <section className="page shell">
     <div className="page-head dealer-page-head">
       <span className="entity-kicker">Motorcycle dealer finder</span>
-      <h1>Find motorcycle dealers in the Philippines</h1>
-      <p>Search checked dealer records by city or brand, then confirm stock and the complete cash price with the branch before paying a reservation or deposit.</p>
+      <h1>{requestedBrand !== "all" ? `${requestedBrand} motorcycle dealers in the Philippines` : "Find motorcycle dealers in the Philippines"}</h1>
+      <p>{requestedBrand !== "all" ? `Start with checked ${requestedBrand} dealer records, then confirm the exact model, variant, stock and complete cash price with the branch before paying a reservation or deposit.` : "Search checked dealer records by city or brand, then confirm stock and the complete cash price with the branch before paying a reservation or deposit."}</p>
     </div>
 
     <section className="motorcycle-entity-section dealer-directory-section">
@@ -33,7 +39,7 @@ export default async function DealersPage() {
         <h2>Search the dealer directory</h2>
         <p>We publish a branch only when its dealer relationship and business details can be checked against a trustworthy current verification source.</p>
       </div></div>
-      <DealerFinder dealers={verifiedDealers} />
+      <DealerFinder dealers={verifiedDealers} initialBrand={requestedBrand} />
     </section>
 
     {publishedCities.length?<section className="motorcycle-entity-section">

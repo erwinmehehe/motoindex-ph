@@ -1,0 +1,57 @@
+name: Data Freshness
+
+on:
+  schedule:
+    - cron: "17 0 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Audit dated source checks and maintain alert issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          FRESHNESS_STRICT=1 node scripts/audit-freshness.mjs
+          status=$?
+          set -e
+
+          issue_number=$(gh issue list --state open --search 'Data freshness audit needs attention in:title' --json number --jq '.[0].number // empty')
+
+          if [ "$status" -ne 0 ]; then
+            body=$(cat artifacts/freshness-report.md)
+            if [ -n "$issue_number" ]; then
+              printf '%s\n' "$body" | gh issue comment "$issue_number" --body-file -
+            else
+              printf '%s\n' "$body" | gh issue create --title "Data freshness audit needs attention" --body-file -
+            fi
+            exit "$status"
+          fi
+
+          if [ -n "$issue_number" ]; then
+            gh issue close "$issue_number" --comment "The scheduled freshness audit is back within configured source-check windows."
+          fi
+
+      - name: Upload freshness report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: motoindex-freshness-report
+          path: artifacts/freshness-report.md
+          if-no-files-found: warn
+          retention-days: 30

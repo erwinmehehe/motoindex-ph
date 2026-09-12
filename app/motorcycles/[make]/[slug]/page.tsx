@@ -4,6 +4,8 @@ import { motorcycles, getModel, getModelById, isIndexableModel } from "@/lib/dat
 import { getModelFamily, modelFamilies } from "@/lib/families";
 import { ModelFamilyView } from "@/components/ModelFamilyView";
 import { MotorcycleEntityPage } from "@/components/MotorcycleEntityPage";
+import { PriorityModelBrief } from "@/components/PriorityModelBrief";
+import { DecisionPath } from "@/components/DecisionPath";
 import { pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
 
@@ -50,5 +52,9 @@ export default async function ModelPage({ params }: { params: Promise<{ make: st
   if (family) return <ModelFamilyView family={family}/>;
   const model = getModel(make, slug);
   if (!model) return notFound();
-  return <MotorcycleEntityPage model={model} />;
+  return <>
+    <MotorcycleEntityPage model={model} />
+    <PriorityModelBrief model={model} />
+    {!model.marketStatus || model.marketStatus === "current" ? <div className="shell model-decision-path-wrap"><DecisionPath stage="model" modelName={`${model.make} ${model.model}`} make={model.make} makeSlug={model.makeSlug} modelSlug={model.slug} /></div> : null}
+  </>;
 }
