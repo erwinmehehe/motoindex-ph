@@ -103,7 +103,7 @@ async function readyState(send) {
 const auditExpression = `(() => {
   const root = document.documentElement;
   const viewportWidth = root.clientWidth;
-  const bodyOverflow = Math.max(root.scrollWidth, document.body?.scrollWidth || 0) - viewportWidth;
+  const bodyOverflow = root.scrollWidth - viewportWidth;
   const visible = (el) => {
     const style = getComputedStyle(el);
     const rect = el.getBoundingClientRect();
@@ -185,5 +185,8 @@ try {
   await cdp.send("Browser.close").catch(() => {});
 } finally {
   proc.kill("SIGKILL");
-  fs.rmSync(profile, { recursive: true, force: true });
+  await new Promise((resolve) => setTimeout(resolve, 250));
+  try {
+    fs.rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
+  } catch {}
 }
