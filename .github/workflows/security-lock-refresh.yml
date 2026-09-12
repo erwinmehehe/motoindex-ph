@@ -1,0 +1,66 @@
+name: Security Lock Refresh
+
+on:
+  push:
+    branches: [fix/product-image-coverage]
+    paths:
+      - package.json
+      - .github/workflows/security-lock-refresh.yml
+  workflow_dispatch:
+
+concurrency:
+  group: security-lock-refresh
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: fix/product-image-coverage
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Refresh lockfile from pinned package policy
+        run: npm install --package-lock-only --ignore-scripts
+
+      - name: Clean install
+        run: npm ci
+
+      - name: Security audit
+        run: npm audit --audit-level=high
+
+      - name: Validate lockfile
+        run: npm run validate:lockfile
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Production build
+        run: npm run build
+
+      - name: Commit lockfile
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          if git diff --cached --quiet; then
+            echo "Lockfile already current."
+            exit 0
+          fi
+          git commit -m "Refresh security lockfile"
+          git fetch origin fix/product-image-coverage
+          git rebase origin/fix/product-image-coverage
+          git push origin HEAD:fix/product-image-coverage
