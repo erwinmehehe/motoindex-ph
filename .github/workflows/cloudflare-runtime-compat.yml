@@ -1,0 +1,45 @@
+name: Cloudflare Runtime Compatibility
+
+on:
+  push:
+    branches: [fix/cloudflare-production-runtime]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NEXT_PUBLIC_SITE_URL: https://motoindexph.com
+      NEXT_PUBLIC_CONTACT_EMAIL: hello@motoindexph.com
+      NEXT_PUBLIC_ANALYTICS_CAPTURE_SEARCH_TERMS: "false"
+      PRICE_ALERTS_ENABLED: "false"
+      PRICE_ALERT_CRON_CONFIGURED: "false"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install app dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Install Cloudflare build tooling
+        run: npm install --no-save --package-lock=false --ignore-scripts @opennextjs/cloudflare@1.20.6 wrangler@4.129.1
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build OpenNext Worker
+        run: npx opennextjs-cloudflare build
+
+      - name: Validate Worker bundle
+        run: npx wrangler deploy --dry-run
