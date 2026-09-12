@@ -29,8 +29,7 @@ function productPlaceholder(entityType: ProductEntityType, entityId: string): En
     rightsStatus: "first-party",
     rightsHolder: "MotoIndex PH",
     sourceLabel: "MotoIndex PH verification placeholder",
-    lastChecked: "2026-09-12",
-    notes: "Neutral placeholder shown until an exact product photo is verified."
+    lastChecked: "2026-09-12"
   };
 }
 
