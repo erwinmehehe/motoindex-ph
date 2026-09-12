@@ -5,6 +5,7 @@ on:
     branches: [fix/product-image-coverage]
     paths:
       - scripts/backfill-product-media.mjs
+      - scripts/backfill-ls2-media.mjs
       - .github/workflows/product-image-backfill.yml
   workflow_dispatch:
 
@@ -38,6 +39,9 @@ jobs:
         env:
           REBUILD_GENERATED_MEDIA: "1"
         run: node scripts/backfill-product-media.mjs
+
+      - name: Backfill LS2 from official mirror
+        run: node scripts/backfill-ls2-media.mjs
 
       - name: Show updated coverage
         run: node scripts/audit-product-media-coverage.mjs
