@@ -30,8 +30,13 @@ for (const section of ['dependencies', 'devDependencies']) {
 for (const [location, record] of Object.entries(lock.packages || {})) {
   if (!location) continue;
   if (!record.version) failures.push(`${location} is missing version metadata.`);
-  if (!record.resolved && !record.link) failures.push(`${location} is missing a resolved tarball URL.`);
-  if (!record.integrity && !record.link) failures.push(`${location} is missing an integrity hash.`);
+
+  // npm lockfile v3 intentionally omits resolved/integrity for dependencies that
+  // are physically bundled inside another package tarball. Those entries are
+  // identified with inBundle:true and are still covered by the parent tarball's SRI.
+  const requiresOwnTarballMetadata = !record.link && !record.inBundle;
+  if (requiresOwnTarballMetadata && !record.resolved) failures.push(`${location} is missing a resolved tarball URL.`);
+  if (requiresOwnTarballMetadata && !record.integrity) failures.push(`${location} is missing an integrity hash.`);
 }
 
 const nextVersion = pkg.dependencies?.next;
@@ -57,4 +62,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Lockfile validation passed: npm v${lock.lockfileVersion}, ${Object.keys(lock.packages).length - 1} dependency records, strict SRI present, Next/@next/env/SWC all ${nextVersion}.`);
+console.log(`Lockfile validation passed: npm v${lock.lockfileVersion}, ${Object.keys(lock.packages).length - 1} dependency records, strict SRI present for non-bundled packages, Next/@next/env/SWC all ${nextVersion}.`);

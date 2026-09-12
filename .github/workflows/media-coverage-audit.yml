@@ -1,0 +1,51 @@
+name: Media Coverage Audit
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - lib/media.ts
+      - lib/generatedProductMedia.ts
+      - public/media/**
+      - scripts/backfill-product-media.mjs
+      - scripts/backfill-ls2-media.mjs
+      - scripts/backfill-smk-media.mjs
+      - scripts/localize-motorcycle-media.mjs
+      - scripts/normalize-generated-product-media.mjs
+      - scripts/audit-product-media-coverage.mjs
+      - scripts/validate-media-backfill-safety.mjs
+      - components/ProductMedia.tsx
+      - app/gear/**
+      - package.json
+      - package-lock.json
+      - .github/workflows/media-coverage-audit.yml
+      - .github/workflows/product-image-backfill.yml
+      - .github/workflows/security-lock-refresh.yml
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Verify non-destructive media pipeline
+        run: node scripts/validate-media-backfill-safety.mjs
+      - name: Audit verified exact-image coverage
+        run: node scripts/audit-product-media-coverage.mjs
+      - name: Validate media records
+        run: npm run validate:media
+      - name: Security audit
+        run: npm audit --audit-level=high
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Production build
+        run: npm run build

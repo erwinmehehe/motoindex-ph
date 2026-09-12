@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Tire image pending verification</title>
+  <desc id="desc">Neutral MotoIndex placeholder shown until an exact tire product image is verified.</desc>
+  <rect width="1200" height="1200" rx="72" fill="#f5f6f8"/>
+  <rect x="84" y="84" width="1032" height="1032" rx="56" fill="none" stroke="#d8dde6" stroke-width="8"/>
+  <circle cx="600" cy="570" r="260" fill="#e3e7ed" stroke="#7d8796" stroke-width="20"/>
+  <circle cx="600" cy="570" r="128" fill="#ffffff" stroke="#7d8796" stroke-width="16"/>
+  <path d="M439 374l64 84m194-84-64 84M377 510l102 25m344-25-102 25M393 687l94-42m320 42-94-42" fill="none" stroke="#a0a8b4" stroke-width="18" stroke-linecap="round"/>
+  <text x="600" y="953" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#3f4855">IMAGE VERIFICATION IN PROGRESS</text>
+  <text x="600" y="1015" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#6e7886">Exact product photo will replace this placeholder</text>
+</svg>

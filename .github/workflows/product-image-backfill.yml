@@ -1,0 +1,96 @@
+name: Product Image Backfill
+
+on:
+  push:
+    branches: [fix/product-image-coverage]
+    paths:
+      - scripts/backfill-product-media.mjs
+      - scripts/backfill-ls2-media.mjs
+      - scripts/backfill-smk-media.mjs
+      - scripts/normalize-generated-product-media.mjs
+      - scripts/localize-motorcycle-media.mjs
+      - scripts/validate-media-backfill-safety.mjs
+      - .github/workflows/product-image-backfill.yml
+  workflow_dispatch:
+
+concurrency:
+  group: product-image-backfill
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: fix/product-image-coverage
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Install image normalizer
+        run: npm install --no-save --package-lock=false sharp@0.35.4
+
+      - name: Verify non-destructive media pipeline
+        run: node scripts/validate-media-backfill-safety.mjs
+
+      - name: Localize external motorcycle images
+        run: node scripts/localize-motorcycle-media.mjs
+
+      - name: Backfill missing gear product images
+        run: node scripts/backfill-product-media.mjs
+
+      - name: Backfill missing SMK images from official sources
+        run: node scripts/backfill-smk-media.mjs
+
+      - name: Backfill missing LS2 images from official mirror
+        run: node scripts/backfill-ls2-media.mjs
+
+      - name: Normalize generated media metadata
+        run: node scripts/normalize-generated-product-media.mjs
+
+      - name: Verify non-destructive media pipeline after generation
+        run: node scripts/validate-media-backfill-safety.mjs
+
+      - name: Show updated exact-image coverage
+        run: node scripts/audit-product-media-coverage.mjs
+
+      - name: Validate media records
+        run: npm run validate:media
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Production build
+        run: npm run build
+
+      - name: Dependency audit details
+        if: always()
+        run: npm audit || true
+
+      - name: Commit localized product media
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A lib/media.ts lib/generatedProductMedia.ts public/media/motorcycles public/media/helmets public/media/tires public/media/topboxes
+          if git diff --cached --quiet; then
+            echo "No product media changes to commit."
+            exit 0
+          fi
+          git commit -m "Localize verified product images"
+          git fetch origin fix/product-image-coverage
+          git rebase origin/fix/product-image-coverage
+          git push origin HEAD:fix/product-image-coverage

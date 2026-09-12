@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Helmet image pending verification</title>
+  <desc id="desc">Neutral MotoIndex placeholder shown until an exact helmet product image is verified.</desc>
+  <rect width="1200" height="1200" rx="72" fill="#f5f6f8"/>
+  <rect x="84" y="84" width="1032" height="1032" rx="56" fill="none" stroke="#d8dde6" stroke-width="8"/>
+  <path d="M321 655c0-178 110-322 294-322 159 0 287 109 310 262l-2 95H747c-22 0-40 18-40 40v85H487c-92 0-166-69-166-160Z" fill="#e3e7ed" stroke="#7d8796" stroke-width="18" stroke-linejoin="round"/>
+  <path d="M706 507c73 14 128 60 162 137H720c-26 0-46-21-46-46v-52c0-25 15-43 32-39Z" fill="#ffffff" stroke="#7d8796" stroke-width="14"/>
+  <text x="600" y="953" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#3f4855">IMAGE VERIFICATION IN PROGRESS</text>
+  <text x="600" y="1015" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#6e7886">Exact product photo will replace this placeholder</text>
+</svg>

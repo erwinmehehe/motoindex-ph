@@ -18,7 +18,7 @@
     "audit:freshness": "node scripts/audit-freshness.mjs",
     "visual:qa": "node scripts/visual-qa.mjs",
     "validate:v14": "node scripts/validate-v14.mjs",
-    "validate:all": "npm run validate:v08 && npm run validate:v09 && npm run validate:v10 && npm run validate:v12 && npm run validate:v13 && npm run validate:v14 && npm run validate:v141 && npm run validate:v15 && npm run validate:v16 && npm run validate:v17 && npm run validate:v18 && npm run validate:v19 && npm run validate:launch-hardening && npm run validate:v20 && npm run validate:copy-tone && npm run validate:public-trust && npm run validate:v21 && npm run validate:v212 && npm run validate:v22 && npm run validate:v221 && npm run validate:v222 && npm run validate:v223 && npm run validate:v224 && npm run validate:v230 && npm run validate:v231 && npm run validate:v240 && npm run validate:v241 && npm run validate:v242 && npm run validate:v243 && npm run validate:v244 && npm run validate:v245 && npm run validate:v246 && npm run validate:v247 && npm run validate:v260 && npm run validate:v261 && npm run validate:v270 && npm run validate:v280 && npm run validate:v290 && npm run validate:post-audit && npm run check:links && npm run check:legacy-links && node scripts/validate-content.mjs && node scripts/validate-product-layer.mjs && node scripts/validate-v05.mjs && node scripts/validate-v06.mjs && node scripts/validate-v07.mjs && node scripts/validate-v11.mjs && npm run validate:media",
+    "validate:all": "npm run validate:v08 && npm run validate:v09 && npm run validate:v10 && npm run validate:v12 && npm run validate:v13 && npm run validate:v14 && npm run validate:v141 && npm run validate:v15 && npm run validate:v16 && npm run validate:v17 && npm run validate:v18 && npm run validate:v19 && npm run validate:launch-hardening && npm run validate:v20 && npm run validate:copy-tone && npm run validate:public-trust && npm run validate:v21 && npm run validate:v212 && npm run validate:v22 && npm run validate:v221 && npm run validate:v222 && npm run validate:v223 && npm run validate:v224 && npm run validate:v230 && npm run validate:v231 && npm run validate:v240 && npm run validate:v241 && npm run validate:v242 && npm run validate:v243 && npm run validate:v244 && npm run validate:v245 && npm run validate:v246 && npm run validate:v247 && npm run validate:v260 && npm run validate:v261 && npm run validate:v270 && npm run validate:v280 && npm run validate:v290 && npm run validate:post-audit && npm run check:links && npm run check:legacy-links && node scripts/validate-content.mjs && node scripts/validate-product-layer.mjs && node scripts/validate-v05.mjs && node scripts/validate-v06.mjs && node scripts/validate-v07.mjs && node scripts/validate-v11.mjs && npm run validate:media && npm run validate:media-backfill",
     "prisma:validate": "node scripts/prisma-validate.mjs",
     "verify": "npm run validate:all && npm run validate:lockfile && npm run prisma:validate && npm run typecheck && npm run build",
     "validate:v141": "node scripts/validate-v141.mjs",
@@ -45,7 +45,7 @@
     "validate:v230": "node scripts/validate-v230.mjs",
     "launch:status": "node scripts/launch-status.mjs",
     "validate:v231": "node scripts/validate-v231.mjs",
-    "refresh:security-lock": "npm install next@15.5.24 @next/env@15.5.24 --save-exact --package-lock-only --ignore-scripts",
+    "refresh:security-lock": "npm install --package-lock-only --ignore-scripts",
     "validate:v240": "node scripts/validate-v240.mjs",
     "validate:v241": "node scripts/validate-v241.mjs",
     "validate:v242": "node scripts/validate-v242.mjs",
@@ -62,6 +62,7 @@
     "check:affiliate-build": "node scripts/check-affiliate-build.mjs",
     "media:sync": "node scripts/sync-entity-media.mjs",
     "validate:media": "node scripts/validate-media.mjs",
+    "validate:media-backfill": "node scripts/validate-media-backfill-safety.mjs",
     "affiliates:preview": "node scripts/generate-involve-affiliates.mjs --dry-run",
     "affiliates:generate": "node scripts/generate-involve-affiliates.mjs",
     "validate:v260": "node scripts/validate-v260.mjs",
@@ -87,6 +88,10 @@
     "prisma": "6.5.0",
     "tailwindcss": "4.3.3",
     "typescript": "5.8.2"
+  },
+  "overrides": {
+    "postcss": "8.5.26",
+    "sharp": "0.35.4"
   },
   "packageManager": "npm@10.9.2",
   "engines": {
