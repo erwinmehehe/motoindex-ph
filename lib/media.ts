@@ -810,9 +810,9 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus:"external-reference", rightsHolder:"Goobike", sourceLabel:"Motorcycle catalog image · Vespa GTS SuperSport 300", sourceUrl:"https://www.goobike.com/maker-vespa/car-vespa_gts300ie_supersport/index.html", lastChecked:"2026-09-08"
   },
   {
-    id:"vespa-gtv-300-editorial", entityType:"motorcycle", entityId:"vespa-gtv-300", role:"primary",
-    src:"https://m.atcdn.co.uk/a/media/77e29bc00fbd4404bac9108e2f8d409f.jpg", alt:"Vespa GTV 300 scooter product image", width:1200, height:900,
-    rightsStatus:"external-reference", rightsHolder:"Auto Trader UK", sourceLabel:"Motorcycle listing image · Vespa GTV 300", sourceUrl:"https://www.autotrader.co.uk/bikes/motorcycles/piaggio/vespa-gtv-300", lastChecked:"2026-09-08"
+    id:"vespa-gtv-300-editorial", entityType:"motorcycle", entityId:"vespa-gtv-300", role:"primary", sourceImageUrl:"https://media.lulop.com/media/getimage/l/253279/1/640,480",
+    src:"/media/motorcycles/vespa-gtv-300.webp", alt:"Vespa GTV 300 scooter product image", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder:"Piaggio Group", sourceLabel:"Official Piaggio Group press image · Vespa GTV", sourceUrl:"https://press.piaggiogroup.com/en_EN/post/show/253279/new-vespa-gtv.html", lastChecked:"2026-09-08"
   },
   {
     id:"aprilia-rs-660-editorial", entityType:"motorcycle", entityId:"aprilia-rs-660", role:"primary",
