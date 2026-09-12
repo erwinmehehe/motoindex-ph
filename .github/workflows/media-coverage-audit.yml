@@ -1,8 +1,23 @@
 name: Media Coverage Audit
 
 on:
-  push:
-    branches: [fix/product-image-coverage]
+  pull_request:
+    branches: [main]
+    paths:
+      - lib/media.ts
+      - lib/generatedProductMedia.ts
+      - public/media/**
+      - scripts/backfill-product-media.mjs
+      - scripts/backfill-ls2-media.mjs
+      - scripts/localize-motorcycle-media.mjs
+      - scripts/normalize-generated-product-media.mjs
+      - scripts/audit-product-media-coverage.mjs
+      - scripts/validate-media-backfill-safety.mjs
+      - components/ProductMedia.tsx
+      - app/gear/**
+      - package.json
+      - .github/workflows/media-coverage-audit.yml
+      - .github/workflows/product-image-backfill.yml
   workflow_dispatch:
 
 jobs:
@@ -19,6 +34,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Verify non-destructive media pipeline
+        run: node scripts/validate-media-backfill-safety.mjs
       - name: Audit verified exact-image coverage
         run: node scripts/audit-product-media-coverage.mjs
       - name: Validate media records
