@@ -6,7 +6,7 @@ const failures=[];
 async function get(path, expected=200){try{const r=await fetch(new URL(path,base),{redirect:"manual",headers:{"cache-control":"no-cache"}});if(r.status!==expected)failures.push(`${path}: expected ${expected}, got ${r.status}`);return r}catch(e){failures.push(`${path}: ${e instanceof Error?e.message:String(e)}`);return null}}
 
 const publicPaths = [
-  "/", "/motorcycles", "/compare", "/compare/three", "/compare/three?bikes=aerox-v3,nmax-v3,adv-160", "/motorcycles/electric", "/motorcycles/electric/vinfast-evo", "/motorcycles/electric/vinfast-feliz-ii", "/motorcycles/electric/vinfast-viper", "/gear/helmets", "/deals", "/dealers", "/dealers/manila", "/dealers/san-fernando", "/dealers/angeles-city", "/dealers/cebu-city", "/dealers/davao-city", "/dealers/pampanga", "/robots.txt", "/llms.txt", "/llms-full.txt", "/deployment-info.json", "/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear.xml", "/privacy",
+  "/", "/motorcycles", "/compare", "/compare/three", "/compare/three?bikes=aerox-v3,nmax-v3,adv-160", "/motorcycles/electric", "/motorcycles/electric/vinfast-evo", "/motorcycles/electric/vinfast-feliz-ii", "/motorcycles/electric/vinfast-viper", "/gear/helmets", "/deals", "/dealers", "/dealers?brand=Honda", "/dealers/manila", "/dealers/san-fernando", "/dealers/angeles-city", "/dealers/cebu-city", "/dealers/davao-city", "/dealers/pampanga", "/robots.txt", "/llms.txt", "/llms-full.txt", "/deployment-info.json", "/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear.xml", "/privacy",
   "/used-motorcycles/repo", "/used-motorcycles/buying-checklist",
   "/maintenance", "/maintenance/motorcycle-battery", "/maintenance/change-oil-motorcycle",
   "/ownership/registration-renewal"
@@ -44,7 +44,8 @@ for(const [path,target] of [
   ["/recommendations/motorcycles-under-100k","/recommendations#budget"],
   ["/recommendations/best-scooters-philippines","/recommendations#scooters"],
   ["/recommendations/best-motorcycles-for-daily-commute-philippines","/recommendations#commuting"],
-  ["/recommendations/electric-motorcycles-philippines","/motorcycles/electric#models"]
+  ["/recommendations/electric-motorcycles-philippines","/motorcycles/electric#models"],
+  ["/get-quote/honda/click-160","/dealers?brand=Honda"]
 ]){
   const r=await get(path,308);if(!r)continue;const location=r.headers.get("location")||"";if(!location.endsWith(target))failures.push(`${path}: expected permanent redirect to ${target}, got ${location||"no Location header"}`);
 }
@@ -81,7 +82,7 @@ for(const path of ["/sitemap.xml","/sitemaps/motorcycles.xml","/sitemaps/gear.xm
 }
 
 const admin=await get("/admin/data-health",401);if(admin&&!admin.headers.get("x-robots-tag")?.includes("noindex"))failures.push("Unauthenticated admin response missing X-Robots-Tag noindex.");
-for(const path of ["/price-alerts","/sellers","/used-motorcycles","/get-quote/honda/click-160","/motorcycles/honda/click-160/used-value"]){const r=await get(path,404);if(r&&!r.headers.get("x-robots-tag")?.includes("noindex"))failures.push(`${path}: prototype 404 missing X-Robots-Tag noindex`);}
+for(const path of ["/price-alerts","/sellers","/used-motorcycles","/motorcycles/honda/click-160/used-value"]){const r=await get(path,404);if(r&&!r.headers.get("x-robots-tag")?.includes("noindex"))failures.push(`${path}: prototype 404 missing X-Robots-Tag noindex`);}
 for(const path of ["/sellers/demo-yamaha-dealer-a","/dealers/quezon-city"]) await get(path,404);
 for(const path of ["/sellers/desmark-honda-san-fernando-pampanga","/sellers/suzuki-motorcyclecity-san-fernando","/sellers/premiumbikes-san-fernando-pampanga"]) await get(path);
 for(const path of ["/sellers/yamaha-kservico-angeles","/sellers/yamaha-motor-ace-cebu-city","/sellers/yamaha-premio-davao-city"]) await get(path);
