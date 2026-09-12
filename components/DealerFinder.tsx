@@ -8,13 +8,14 @@ function phoneHref(phone: string) {
   return `tel:${phone.replace(/[^+\d]/g, "")}`;
 }
 
-export function DealerFinder({ dealers }: { dealers: SellerProfile[] }) {
-  const [query,setQuery]=useState("");
-  const [brand,setBrand]=useState("all");
-  const [city,setCity]=useState("all");
-
+export function DealerFinder({ dealers, initialBrand = "all" }: { dealers: SellerProfile[]; initialBrand?: string }) {
   const brands=useMemo(()=>[...new Set(dealers.flatMap(d=>d.brands))].sort(),[dealers]);
   const cities=useMemo(()=>[...new Set(dealers.map(d=>d.city))].sort(),[dealers]);
+  const normalizedInitialBrand=brands.find(value=>value.toLowerCase()===initialBrand.toLowerCase())||"all";
+  const [query,setQuery]=useState("");
+  const [brand,setBrand]=useState(normalizedInitialBrand);
+  const [city,setCity]=useState("all");
+
   const filtered=useMemo(()=>{
     const q=query.trim().toLowerCase();
     return dealers.filter(dealer=>{
@@ -52,7 +53,7 @@ export function DealerFinder({ dealers }: { dealers: SellerProfile[] }) {
     </div>
 
     <div className="dealer-results-head" aria-live="polite">
-      <strong>{filtered.length} checked dealer{filtered.length===1?"":"s"}</strong>
+      <strong>{filtered.length} checked dealer{filtered.length===1?"":"s"}{brand!=="all"?` for ${brand}`:""}</strong>
       <span>Public records are shown only when a verification source, address and recent check are on file.</span>
     </div>
 
