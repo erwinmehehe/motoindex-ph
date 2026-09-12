@@ -4,18 +4,18 @@ import type { EntityMedia } from "./types";
 // Local WebP derivatives are used at runtime; sourceImageUrl and sourceUrl preserve provenance.
 export const generatedProductMedia: EntityMedia[] = [
   {
-    "id": "spyder-corsa-v2-generated-product",
+    "id": "spyder-surge-v2-generated-product",
     "entityType": "helmet",
-    "entityId": "spyder-corsa-v2",
+    "entityId": "spyder-surge-v2",
     "role": "primary",
-    "src": "/media/helmets/spyder-corsa-v2.webp",
-    "sourceImageUrl": "http://www.teamspyder.com/cdn/shop/files/A6500315800.png?v=1689936234",
-    "alt": "Spyder Corsa Plain V2 product image",
+    "src": "/media/helmets/spyder-surge-v2.webp",
+    "sourceImageUrl": "http://www.teamspyder.com/cdn/shop/files/A6501093800.png?v=1760060494",
+    "alt": "Spyder Surge Plain V2 product image",
     "width": 1200,
     "height": 1200,
     "rightsStatus": "external-reference",
-    "sourceLabel": "Checked product-page image · Spyder Corsa Plain V2",
-    "sourceUrl": "https://www.teamspyder.com/products/spyder-corsa-plain-v2",
+    "sourceLabel": "Checked product-page image · Spyder Surge Plain V2",
+    "sourceUrl": "https://www.teamspyder.com/products/spyder-surge-p-plain-v2",
     "lastChecked": "2026-09-12"
   },
   {
@@ -34,18 +34,33 @@ export const generatedProductMedia: EntityMedia[] = [
     "lastChecked": "2026-09-12"
   },
   {
-    "id": "spyder-surge-v2-generated-product",
+    "id": "spyder-corsa-v2-generated-product",
     "entityType": "helmet",
-    "entityId": "spyder-surge-v2",
+    "entityId": "spyder-corsa-v2",
     "role": "primary",
-    "src": "/media/helmets/spyder-surge-v2.webp",
-    "sourceImageUrl": "http://www.teamspyder.com/cdn/shop/files/A6501093800.png?v=1760060494",
-    "alt": "Spyder Surge Plain V2 product image",
+    "src": "/media/helmets/spyder-corsa-v2.webp",
+    "sourceImageUrl": "http://www.teamspyder.com/cdn/shop/files/A6500315800.png?v=1689936234",
+    "alt": "Spyder Corsa Plain V2 product image",
     "width": 1200,
     "height": 1200,
     "rightsStatus": "external-reference",
-    "sourceLabel": "Checked product-page image · Spyder Surge Plain V2",
-    "sourceUrl": "https://www.teamspyder.com/products/spyder-surge-p-plain-v2",
+    "sourceLabel": "Checked product-page image · Spyder Corsa Plain V2",
+    "sourceUrl": "https://www.teamspyder.com/products/spyder-corsa-plain-v2",
+    "lastChecked": "2026-09-12"
+  },
+  {
+    "id": "spyder-nf1-generated-product",
+    "entityType": "helmet",
+    "entityId": "spyder-nf1",
+    "role": "primary",
+    "src": "/media/helmets/spyder-nf1.webp",
+    "sourceImageUrl": "http://www.teamspyder.com/cdn/shop/files/A6509835800.png?v=1712977695",
+    "alt": "Spyder NF1 Plain product image",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "sourceLabel": "Checked product-page image · Spyder NF1 Plain",
+    "sourceUrl": "https://www.teamspyder.com/products/neo-nf1-plain-s0",
     "lastChecked": "2026-09-12"
   },
   {
@@ -76,21 +91,6 @@ export const generatedProductMedia: EntityMedia[] = [
     "rightsStatus": "external-reference",
     "sourceLabel": "Checked product-page image · Spyder Rogue+ Plain V2",
     "sourceUrl": "https://www.teamspyder.com/products/spyder-rogue-pd-plain-vesion2",
-    "lastChecked": "2026-09-12"
-  },
-  {
-    "id": "spyder-nf1-generated-product",
-    "entityType": "helmet",
-    "entityId": "spyder-nf1",
-    "role": "primary",
-    "src": "/media/helmets/spyder-nf1.webp",
-    "sourceImageUrl": "http://www.teamspyder.com/cdn/shop/files/A6509835800.png?v=1712977695",
-    "alt": "Spyder NF1 Plain product image",
-    "width": 1200,
-    "height": 1200,
-    "rightsStatus": "external-reference",
-    "sourceLabel": "Checked product-page image · Spyder NF1 Plain",
-    "sourceUrl": "https://www.teamspyder.com/products/neo-nf1-plain-s0",
     "lastChecked": "2026-09-12"
   },
   {
@@ -154,18 +154,18 @@ export const generatedProductMedia: EntityMedia[] = [
     "lastChecked": "2026-09-12"
   },
   {
-    "id": "mt-thunder-4-sv-generated-product",
+    "id": "mt-atom-2-sv-generated-product",
     "entityType": "helmet",
-    "entityId": "mt-thunder-4-sv",
+    "entityId": "mt-atom-2-sv",
     "role": "primary",
-    "src": "/media/helmets/mt-thunder-4-sv.webp",
-    "sourceImageUrl": "http://mthelmets.com/cdn/shop/files/130800PA220-1PP-26-FF118SV_MT_Helmets_Thunder_4_SV_Pure_A2_Matt_02.webp?crop=center&height=1200&v=1781627540&width=1200",
-    "alt": "MT Thunder 4 SV product image",
+    "src": "/media/helmets/mt-atom-2-sv.webp",
+    "sourceImageUrl": "http://mthelmets.com/cdn/shop/files/133500PA220-1PP-26-FU404SV_MT_Helmets_ATOM_2_SV_Pure_A2_Matt_02.webp?crop=center&height=1200&v=1781627586&width=1200",
+    "alt": "MT Atom 2 SV product image",
     "width": 1200,
     "height": 1200,
     "rightsStatus": "external-reference",
-    "sourceLabel": "Checked product-page image · MT Thunder 4 SV",
-    "sourceUrl": "https://mthelmets.com/en/products/thunder-4-sv-pure-a2-matt",
+    "sourceLabel": "Checked product-page image · MT Atom 2 SV",
+    "sourceUrl": "https://mthelmets.com/en/products/atom-2-sv-pure-a2-matt",
     "lastChecked": "2026-09-12"
   },
   {
@@ -184,18 +184,18 @@ export const generatedProductMedia: EntityMedia[] = [
     "lastChecked": "2026-09-12"
   },
   {
-    "id": "mt-atom-2-sv-generated-product",
+    "id": "shark-spartan-gt-pro-carbon-generated-product",
     "entityType": "helmet",
-    "entityId": "mt-atom-2-sv",
+    "entityId": "shark-spartan-gt-pro-carbon",
     "role": "primary",
-    "src": "/media/helmets/mt-atom-2-sv.webp",
-    "sourceImageUrl": "http://mthelmets.com/cdn/shop/files/133500PA220-1PP-26-FU404SV_MT_Helmets_ATOM_2_SV_Pure_A2_Matt_02.webp?crop=center&height=1200&v=1781627586&width=1200",
-    "alt": "MT Atom 2 SV product image",
+    "src": "/media/helmets/shark-spartan-gt-pro-carbon.webp",
+    "sourceImageUrl": "http://www.shark-helmets.com/cdn/shop/files/HE1308EDWU_SHARK-HELMETS-SPARTAN-GT-PRO-STHYR-GLOSSY_ps_01.webp?v=1787674066",
+    "alt": "Shark Spartan GT Pro Carbon product image",
     "width": 1200,
     "height": 1200,
     "rightsStatus": "external-reference",
-    "sourceLabel": "Checked product-page image · MT Atom 2 SV",
-    "sourceUrl": "https://mthelmets.com/en/products/atom-2-sv-pure-a2-matt",
+    "sourceLabel": "Checked product-page image · Shark Spartan GT Pro Carbon",
+    "sourceUrl": "https://www.shark-helmets.com/en/products/spartan-gt-pro-carbon-sthyr-he1308edwu",
     "lastChecked": "2026-09-12"
   },
   {
@@ -214,33 +214,18 @@ export const generatedProductMedia: EntityMedia[] = [
     "lastChecked": "2026-09-12"
   },
   {
-    "id": "shark-spartan-gt-pro-carbon-generated-product",
+    "id": "mt-thunder-4-sv-generated-product",
     "entityType": "helmet",
-    "entityId": "shark-spartan-gt-pro-carbon",
+    "entityId": "mt-thunder-4-sv",
     "role": "primary",
-    "src": "/media/helmets/shark-spartan-gt-pro-carbon.webp",
-    "sourceImageUrl": "http://www.shark-helmets.com/cdn/shop/files/HE1308EDWU_SHARK-HELMETS-SPARTAN-GT-PRO-STHYR-GLOSSY_ps_01.webp?v=1787674066",
-    "alt": "Shark Spartan GT Pro Carbon product image",
+    "src": "/media/helmets/mt-thunder-4-sv.webp",
+    "sourceImageUrl": "http://mthelmets.com/cdn/shop/files/130800PA220-1PP-26-FF118SV_MT_Helmets_Thunder_4_SV_Pure_A2_Matt_02.webp?crop=center&height=1200&v=1781627540&width=1200",
+    "alt": "MT Thunder 4 SV product image",
     "width": 1200,
     "height": 1200,
     "rightsStatus": "external-reference",
-    "sourceLabel": "Checked product-page image · Shark Spartan GT Pro Carbon",
-    "sourceUrl": "https://www.shark-helmets.com/en/products/spartan-gt-pro-carbon-sthyr-he1308edwu",
-    "lastChecked": "2026-09-12"
-  },
-  {
-    "id": "mt-braker-sv-generated-product",
-    "entityType": "helmet",
-    "entityId": "mt-braker-sv",
-    "role": "primary",
-    "src": "/media/helmets/mt-braker-sv.webp",
-    "sourceImageUrl": "http://mthelmets.com/cdn/shop/files/134600PA010-1PP-26-FF128SV_MT_Helmets_Braker_SV_Pure_A0_02.webp?crop=center&height=1200&v=1781627617&width=1200",
-    "alt": "MT Braker SV product image",
-    "width": 1200,
-    "height": 1200,
-    "rightsStatus": "external-reference",
-    "sourceLabel": "Checked product-page image · MT Braker SV",
-    "sourceUrl": "https://mthelmets.com/en/products/braker-sv-pure-a0-gloss",
+    "sourceLabel": "Checked product-page image · MT Thunder 4 SV",
+    "sourceUrl": "https://mthelmets.com/en/products/thunder-4-sv-pure-a2-matt",
     "lastChecked": "2026-09-12"
   },
   {
@@ -259,18 +244,18 @@ export const generatedProductMedia: EntityMedia[] = [
     "lastChecked": "2026-09-12"
   },
   {
-    "id": "bell-race-star-dlx-flex-generated-product",
+    "id": "mt-braker-sv-generated-product",
     "entityType": "helmet",
-    "entityId": "bell-race-star-dlx-flex",
+    "entityId": "mt-braker-sv",
     "role": "primary",
-    "src": "/media/helmets/bell-race-star-dlx-flex.webp",
-    "sourceImageUrl": "https://vault.widen.net/content/gyn26njts8?w=1500&h=1500",
-    "alt": "Bell Race Star DLX Flex product image",
+    "src": "/media/helmets/mt-braker-sv.webp",
+    "sourceImageUrl": "http://mthelmets.com/cdn/shop/files/134600PA010-1PP-26-FF128SV_MT_Helmets_Braker_SV_Pure_A0_02.webp?crop=center&height=1200&v=1781627617&width=1200",
+    "alt": "MT Braker SV product image",
     "width": 1200,
     "height": 1200,
     "rightsStatus": "external-reference",
-    "sourceLabel": "Checked product-page image · Bell Race Star DLX Flex",
-    "sourceUrl": "https://www.bellhelmets.com/product/race-star-dlx-flex/250070000200000005.html",
+    "sourceLabel": "Checked product-page image · MT Braker SV",
+    "sourceUrl": "https://mthelmets.com/en/products/braker-sv-pure-a0-gloss",
     "lastChecked": "2026-09-12"
   },
   {
@@ -289,18 +274,18 @@ export const generatedProductMedia: EntityMedia[] = [
     "lastChecked": "2026-09-12"
   },
   {
-    "id": "nhk-gp-r-tech-street-generated-product",
+    "id": "bell-race-star-dlx-flex-generated-product",
     "entityType": "helmet",
-    "entityId": "nhk-gp-r-tech-street",
+    "entityId": "bell-race-star-dlx-flex",
     "role": "primary",
-    "src": "/media/helmets/nhk-gp-r-tech-street.webp",
-    "sourceImageUrl": "https://nhkhelmet.com/wp-content/uploads/2021/11/GP-R-TECH-STREET_FRONTSIDE-600x600.png",
-    "alt": "NHK GP R Tech Street product image",
+    "src": "/media/helmets/bell-race-star-dlx-flex.webp",
+    "sourceImageUrl": "https://vault.widen.net/content/gyn26njts8?w=1500&h=1500",
+    "alt": "Bell Race Star DLX Flex product image",
     "width": 1200,
     "height": 1200,
     "rightsStatus": "external-reference",
-    "sourceLabel": "Checked product-page image · NHK GP R Tech Street",
-    "sourceUrl": "https://nhkhelmet.com/gp-r-tech-full-face/",
+    "sourceLabel": "Checked product-page image · Bell Race Star DLX Flex",
+    "sourceUrl": "https://www.bellhelmets.com/product/race-star-dlx-flex/250070000200000005.html",
     "lastChecked": "2026-09-12"
   },
   {
@@ -316,6 +301,21 @@ export const generatedProductMedia: EntityMedia[] = [
     "rightsStatus": "external-reference",
     "sourceLabel": "Checked product-page image · NHK Cross One",
     "sourceUrl": "https://nhkhelmet.com/cross-one/",
+    "lastChecked": "2026-09-12"
+  },
+  {
+    "id": "nhk-gp-r-tech-street-generated-product",
+    "entityType": "helmet",
+    "entityId": "nhk-gp-r-tech-street",
+    "role": "primary",
+    "src": "/media/helmets/nhk-gp-r-tech-street.webp",
+    "sourceImageUrl": "https://nhkhelmet.com/wp-content/uploads/2021/11/GP-R-TECH-STREET_FRONTSIDE-600x600.png",
+    "alt": "NHK GP R Tech Street product image",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "sourceLabel": "Checked product-page image · NHK GP R Tech Street",
+    "sourceUrl": "https://nhkhelmet.com/gp-r-tech-full-face/",
     "lastChecked": "2026-09-12"
   },
   {
@@ -349,21 +349,6 @@ export const generatedProductMedia: EntityMedia[] = [
     "lastChecked": "2026-09-12"
   },
   {
-    "id": "alpinestars-supertech-m10-generated-product",
-    "entityType": "helmet",
-    "entityId": "alpinestars-supertech-m10",
-    "role": "primary",
-    "src": "/media/helmets/alpinestars-supertech-m10.webp",
-    "sourceImageUrl": "http://www.alpinestars.com/cdn/shop/files/8300223-9190-r2_s-m10-fame-helmet_2b5700d5-5c39-4e1b-9d7c-9dea822e0f27.png?v=1783758167",
-    "alt": "Alpinestars Supertech M10 product image",
-    "width": 1200,
-    "height": 1200,
-    "rightsStatus": "external-reference",
-    "sourceLabel": "Checked product-page image · Alpinestars Supertech M10",
-    "sourceUrl": "https://www.alpinestars.com/products/supertech-m10-fame-helmet",
-    "lastChecked": "2026-09-12"
-  },
-  {
     "id": "alpinestars-supertech-r10-generated-product",
     "entityType": "helmet",
     "entityId": "alpinestars-supertech-r10",
@@ -376,6 +361,21 @@ export const generatedProductMedia: EntityMedia[] = [
     "rightsStatus": "external-reference",
     "sourceLabel": "Checked product-page image · Alpinestars Supertech R10",
     "sourceUrl": "https://www.alpinestars.com/products/supertech-r10-solid-helmet",
+    "lastChecked": "2026-09-12"
+  },
+  {
+    "id": "alpinestars-supertech-m10-generated-product",
+    "entityType": "helmet",
+    "entityId": "alpinestars-supertech-m10",
+    "role": "primary",
+    "src": "/media/helmets/alpinestars-supertech-m10.webp",
+    "sourceImageUrl": "http://www.alpinestars.com/cdn/shop/files/8300223-9190-r2_s-m10-fame-helmet_2b5700d5-5c39-4e1b-9d7c-9dea822e0f27.png?v=1783758167",
+    "alt": "Alpinestars Supertech M10 product image",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "sourceLabel": "Checked product-page image · Alpinestars Supertech M10",
+    "sourceUrl": "https://www.alpinestars.com/products/supertech-m10-fame-helmet",
     "lastChecked": "2026-09-12"
   },
   {
@@ -424,6 +424,21 @@ export const generatedProductMedia: EntityMedia[] = [
     "lastChecked": "2026-09-12"
   },
   {
+    "id": "shoei-hornet-adv-06-generated-product",
+    "entityType": "helmet",
+    "entityId": "shoei-hornet-adv-06",
+    "role": "primary",
+    "src": "/media/helmets/shoei-hornet-adv-06.webp",
+    "sourceImageUrl": "https://www.shoei-europe.com/wp-content/uploads/2020/09/Menue-Products_HornetADV.png",
+    "alt": "Shoei Hornet-ADV 06 product image",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "sourceLabel": "Checked product-page image · Shoei Hornet-ADV 06",
+    "sourceUrl": "https://www.shoei-europe.com/products/hornet-adv-06/",
+    "lastChecked": "2026-09-12"
+  },
+  {
     "id": "shoei-glamster-06-generated-product",
     "entityType": "helmet",
     "entityId": "shoei-glamster-06",
@@ -454,21 +469,6 @@ export const generatedProductMedia: EntityMedia[] = [
     "lastChecked": "2026-09-12"
   },
   {
-    "id": "shoei-hornet-adv-06-generated-product",
-    "entityType": "helmet",
-    "entityId": "shoei-hornet-adv-06",
-    "role": "primary",
-    "src": "/media/helmets/shoei-hornet-adv-06.webp",
-    "sourceImageUrl": "https://www.shoei-europe.com/wp-content/uploads/2020/09/Menue-Products_HornetADV.png",
-    "alt": "Shoei Hornet-ADV 06 product image",
-    "width": 1200,
-    "height": 1200,
-    "rightsStatus": "external-reference",
-    "sourceLabel": "Checked product-page image · Shoei Hornet-ADV 06",
-    "sourceUrl": "https://www.shoei-europe.com/products/hornet-adv-06/",
-    "lastChecked": "2026-09-12"
-  },
-  {
     "id": "shoei-vfx-wr-06-generated-product",
     "entityType": "helmet",
     "entityId": "shoei-vfx-wr-06",
@@ -484,21 +484,6 @@ export const generatedProductMedia: EntityMedia[] = [
     "lastChecked": "2026-09-12"
   },
   {
-    "id": "mt-targo-s-generated-product",
-    "entityType": "helmet",
-    "entityId": "mt-targo-s",
-    "role": "primary",
-    "src": "/media/helmets/mt-targo-s.webp",
-    "sourceImageUrl": "https://mthelmets.com/cdn/shop/files/1343D25C820-1PP-26-FF106B_MT_Helmets_Targo_S_Outside_C8_02.webp?v=1781627606&width=460",
-    "alt": "MT Targo S product image",
-    "width": 1200,
-    "height": 1200,
-    "rightsStatus": "external-reference",
-    "sourceLabel": "Checked product-page image · MT Targo S",
-    "sourceUrl": "https://mthelmets.com/en/collections/targo-s",
-    "lastChecked": "2026-09-12"
-  },
-  {
     "id": "mt-stinger-2-generated-product",
     "entityType": "helmet",
     "entityId": "mt-stinger-2",
@@ -511,6 +496,21 @@ export const generatedProductMedia: EntityMedia[] = [
     "rightsStatus": "external-reference",
     "sourceLabel": "Checked product-page image · MT Stinger 2",
     "sourceUrl": "https://mthelmets.com/en/collections/stinger-2",
+    "lastChecked": "2026-09-12"
+  },
+  {
+    "id": "mt-targo-s-generated-product",
+    "entityType": "helmet",
+    "entityId": "mt-targo-s",
+    "role": "primary",
+    "src": "/media/helmets/mt-targo-s.webp",
+    "sourceImageUrl": "https://mthelmets.com/cdn/shop/files/1343D25C820-1PP-26-FF106B_MT_Helmets_Targo_S_Outside_C8_02.webp?v=1781627606&width=460",
+    "alt": "MT Targo S product image",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "sourceLabel": "Checked product-page image · MT Targo S",
+    "sourceUrl": "https://mthelmets.com/en/collections/targo-s",
     "lastChecked": "2026-09-12"
   },
   {
