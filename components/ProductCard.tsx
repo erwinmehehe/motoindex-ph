@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { EntityMedia } from "@/components/EntityMedia";
 import { AffiliateOffer } from "@/components/AffiliateOffer";
-import { hasRenderableProductMedia } from "@/lib/renderableMedia";
 
 export type ProductCardItem = {
   href: string;
@@ -24,11 +23,11 @@ function entityTypeForHref(href: string): "helmet" | "tire" | "topbox" | null {
 export function ProductCard({ item }: { item: ProductCardItem }) {
   const entityType = entityTypeForHref(item.href);
   const productName = `${item.brand} ${item.model}`;
-  const hasMedia = Boolean(item.entityId && hasRenderableProductMedia(item.entityId));
+  const missingPhoto = <div className="product-art" aria-label="Product image verification in progress"><span>Image verification in progress</span></div>;
   const card = <Link className="product-card" href={item.href}>
-    {entityType && item.entityId && hasMedia
-      ? <EntityMedia entityType={entityType} entityId={item.entityId} className="product-card-media" showCredit={false} fallback={null} />
-      : <div className="product-art" aria-label="Product photo not yet available"><span>Photo not yet available</span></div>}
+    {entityType && item.entityId
+      ? <EntityMedia entityType={entityType} entityId={item.entityId} className="product-card-media" showCredit={false} fallback={missingPhoto} />
+      : missingPhoto}
     <div className="product-card-copy">
       <div className="product-card-top">
         <span className="product-card-category">{item.category}</span>
