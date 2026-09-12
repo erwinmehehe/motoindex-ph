@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Top box image pending verification</title>
+  <desc id="desc">Neutral MotoIndex placeholder shown until an exact top box product image is verified.</desc>
+  <rect width="1200" height="1200" rx="72" fill="#f5f6f8"/>
+  <rect x="84" y="84" width="1032" height="1032" rx="56" fill="none" stroke="#d8dde6" stroke-width="8"/>
+  <path d="M330 477c0-52 42-94 94-94h352c52 0 94 42 94 94v268c0 52-42 94-94 94H424c-52 0-94-42-94-94V477Z" fill="#e3e7ed" stroke="#7d8796" stroke-width="18"/>
+  <path d="M372 545h456M448 383v-56h304v56" fill="none" stroke="#7d8796" stroke-width="18" stroke-linecap="round"/>
+  <rect x="532" y="640" width="136" height="72" rx="24" fill="#ffffff" stroke="#7d8796" stroke-width="14"/>
+  <text x="600" y="953" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#3f4855">IMAGE VERIFICATION IN PROGRESS</text>
+  <text x="600" y="1015" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#6e7886">Exact product photo will replace this placeholder</text>
+</svg>
