@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 import { URL } from "node:url";
 import sharp from "sharp";
 
@@ -10,6 +11,7 @@ const generatedPath = path.join(root, "lib/generatedProductMedia.ts");
 const generatedSource = fs.existsSync(generatedPath) ? fs.readFileSync(generatedPath, "utf8") : "";
 const today = new Date().toISOString().slice(0, 10);
 const userAgent = "Mozilla/5.0 (compatible; MotoIndexMediaVerifier/1.0; +https://motoindexph.com/methodology)";
+const rebuild = process.env.REBUILD_GENERATED_MEDIA === "1";
 
 function extractArray(source, declaration) {
   const start = source.indexOf(declaration);
@@ -89,7 +91,13 @@ function words(value) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim().split(/\s+/).filter((word) => word.length > 2);
 }
 function isBadImageUrl(url) {
-  return /(?:logo|favicon|sprite|icon|payment|placeholder|spinner|loading|badge|avatar|tracking|pixel|banner)/i.test(url);
+  return /(?:logo|favicon|sprite|icon|payment|placeholder|spinner|loading|badge|avatar|tracking|pixel|banner|\bsocial\b|pinlock)/i.test(url);
+}
+function isWeakSourcePage(url) {
+  try {
+    const parsed = new URL(url);
+    return /(?:^|\/)search(?:\/|$)/i.test(parsed.pathname) || parsed.searchParams.has("q") && /search/i.test(parsed.pathname);
+  } catch { return false; }
 }
 function imageCandidates(html, pageUrl, product) {
   const candidates = [];
@@ -143,6 +151,7 @@ async function fetchBuffer(url, referer) {
 
 async function discoverImage(product) {
   if (/\.pdf(?:$|[?#])/i.test(product.sourceUrl)) throw new Error("PDF source requires manual image selection");
+  if (isWeakSourcePage(product.sourceUrl)) throw new Error("search/listing source requires manual image selection");
   const response = await fetch(product.sourceUrl, { redirect: "follow", signal: AbortSignal.timeout(15000), headers: { "user-agent": userAgent, accept: "text/html,application/xhtml+xml" } });
   if (!response.ok) throw new Error(`source HTTP ${response.status}`);
   const type = response.headers.get("content-type") || "";
@@ -163,13 +172,21 @@ const products = [
   ...catalogRecords("export const tireProducts", "tire"),
   ...catalogRecords("export const topBoxProducts", "topbox")
 ];
-const generated = existingGeneratedRecords();
+const previousGenerated = existingGeneratedRecords();
+if (rebuild) {
+  for (const asset of previousGenerated) {
+    if (!asset.src?.startsWith("/media/")) continue;
+    const file = path.join(root, "public", asset.src.replace(/^\//, ""));
+    if (fs.existsSync(file)) fs.rmSync(file);
+  }
+}
+const generated = rebuild ? [] : previousGenerated;
 const existing = new Set([
   ...mediaKeys(mediaSource, "export const entityMedia"),
   ...generated.map((item) => `${item.entityType}:${item.entityId}`)
 ]);
 const missing = products.filter((item) => !existing.has(`${item.entityType}:${item.id}`));
-const outputRecords = [...generated];
+let outputRecords = [...generated];
 const failures = [];
 const successes = [];
 const folders = { helmet: "helmets", tire: "tires", topbox: "topboxes" };
@@ -202,11 +219,53 @@ async function processProduct(product) {
 
 for (let i = 0; i < missing.length; i += 5) await Promise.all(missing.slice(i, i + 5).map(processProduct));
 
+function normalizedSource(url) {
+  try { const parsed = new URL(url); return `${parsed.hostname}${parsed.pathname}`.toLowerCase(); } catch { return url || ""; }
+}
+function localHash(asset) {
+  try {
+    const file = path.join(root, "public", asset.src.replace(/^\//, ""));
+    return crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
+  } catch { return ""; }
+}
+function removeGeneratedAsset(asset, reason) {
+  if (asset.src?.startsWith("/media/")) {
+    const file = path.join(root, "public", asset.src.replace(/^\//, ""));
+    if (fs.existsSync(file)) fs.rmSync(file);
+  }
+  failures.push(`${asset.entityType}:${asset.entityId} | rejected generated image: ${reason} | ${asset.sourceUrl || ""}`);
+  console.log(`! rejected ${asset.entityType}:${asset.entityId}: ${reason}`);
+}
+
+const sourceGroups = new Map();
+const hashGroups = new Map();
+for (const asset of outputRecords) {
+  const sourceKey = normalizedSource(asset.sourceImageUrl);
+  if (sourceKey) sourceGroups.set(sourceKey, [...(sourceGroups.get(sourceKey) || []), asset]);
+  const hash = localHash(asset);
+  if (hash) hashGroups.set(hash, [...(hashGroups.get(hash) || []), asset]);
+}
+const rejectedIds = new Map();
+for (const [key, assets] of sourceGroups) {
+  if (assets.length > 1) for (const asset of assets) rejectedIds.set(asset.id, `same upstream image reused by ${assets.length} products (${key})`);
+}
+for (const [hash, assets] of hashGroups) {
+  if (assets.length > 1) for (const asset of assets) rejectedIds.set(asset.id, `same image bytes reused by ${assets.length} products (${hash.slice(0, 10)})`);
+}
+for (const asset of outputRecords) {
+  if (isBadImageUrl(asset.sourceImageUrl || "")) rejectedIds.set(asset.id, "generic/social/accessory image URL");
+  if (isWeakSourcePage(asset.sourceUrl || "")) rejectedIds.set(asset.id, "source is a search/listing page rather than an exact product page");
+}
+if (rejectedIds.size) {
+  for (const asset of outputRecords) if (rejectedIds.has(asset.id)) removeGeneratedAsset(asset, rejectedIds.get(asset.id));
+  outputRecords = outputRecords.filter((asset) => !rejectedIds.has(asset.id));
+}
+
 const header = 'import type { EntityMedia } from "./types";\n\n// Generated from checked product source pages by scripts/backfill-product-media.mjs.\n// Local WebP derivatives are used at runtime; sourceImageUrl and sourceUrl preserve provenance.\n';
 fs.writeFileSync(generatedPath, `${header}export const generatedProductMedia: EntityMedia[] = ${JSON.stringify(outputRecords, null, 2)};\n`);
 
-console.log(`\nBackfill complete: ${successes.length} added, ${failures.length} unresolved, ${missing.length} attempted.`);
+console.log(`\nBackfill complete: ${outputRecords.length - generated.length} retained from this pass, ${failures.length} unresolved/rejected, ${missing.length} attempted.`);
 if (failures.length) {
-  console.log("\nUnresolved product images:");
+  console.log("\nUnresolved or rejected product images:");
   failures.forEach((item) => console.log(`- ${item}`));
 }
