@@ -6,6 +6,7 @@ on:
     paths:
       - scripts/backfill-product-media.mjs
       - scripts/backfill-ls2-media.mjs
+      - scripts/backfill-smk-media.mjs
       - scripts/normalize-generated-product-media.mjs
       - scripts/localize-motorcycle-media.mjs
       - scripts/validate-media-backfill-safety.mjs
@@ -40,7 +41,7 @@ jobs:
         run: npm ci
 
       - name: Install image normalizer
-        run: npm install --no-save --package-lock=false sharp@0.34.3
+        run: npm install --no-save --package-lock=false sharp@0.35.4
 
       - name: Verify non-destructive media pipeline
         run: node scripts/validate-media-backfill-safety.mjs
@@ -50,6 +51,9 @@ jobs:
 
       - name: Backfill missing gear product images
         run: node scripts/backfill-product-media.mjs
+
+      - name: Backfill missing SMK images from official sources
+        run: node scripts/backfill-smk-media.mjs
 
       - name: Backfill missing LS2 images from official mirror
         run: node scripts/backfill-ls2-media.mjs
@@ -87,4 +91,6 @@ jobs:
             exit 0
           fi
           git commit -m "Localize verified product images"
+          git fetch origin fix/product-image-coverage
+          git rebase origin/fix/product-image-coverage
           git push origin HEAD:fix/product-image-coverage
