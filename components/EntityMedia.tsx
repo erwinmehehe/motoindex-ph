@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { SafeEntityImage } from "@/components/SafeEntityImage";
-import { getRenderableMedia } from "@/lib/media";
+import { getRenderableMedia } from "@/lib/renderableMedia";
 import { SourceRef } from "@/components/SourceRef";
 import { isCompetitorSource } from "@/lib/competitors";
 import type { EntityMedia as EntityMediaRecord } from "@/lib/types";
