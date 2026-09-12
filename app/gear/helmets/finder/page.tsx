@@ -3,6 +3,7 @@ import { pageMetadata } from "@/lib/site";
 import { helmetProducts } from "@/lib/catalog";
 import { HelmetFinder, type HelmetFinderFilters } from "@/components/HelmetFinder";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { DecisionPath } from "@/components/DecisionPath";
 import Link from "next/link";
 import { forClient } from "@/lib/competitors";
 
@@ -11,5 +12,5 @@ const keys:(keyof HelmetFinderFilters)[]=["budget","type","use","brand","size","
 export default async function HelmetFinderPage({searchParams}:{searchParams:Promise<Record<string,string|string[]|undefined>>}){
   const params=await searchParams;const initial:Partial<HelmetFinderFilters>={};for(const key of keys){const v=params[key];if(typeof v==="string")initial[key]=v;}
   const products=helmetProducts.filter(p=>p.status==="verified");
-  return <section className="page shell"><Breadcrumbs items={[{label:"Helmets",href:"/gear/helmets"},{label:"Helmet Finder"}]}/><div className="page-head"><h1>Find a helmet for your budget and riding</h1><p>Filter the verified catalog by helmet format, budget, listed size, visor equipment and intercom provision. The ranking explains practical fit to your use case; it is not a safety ranking.</p></div><div className="note-box helmet-safety-note"><h2>Before you buy</h2><p>Check the PS or ICC conformity mark on the exact helmet delivered in the Philippines, confirm the current brand size chart, and verify the seller and variant. Marketplace availability does not prove local conformity.</p><Link href="/methodology">How MotoIndex checks product sources →</Link></div><HelmetFinder products={forClient(products)} initialFilters={initial}/></section>;
+  return <section className="page shell"><Breadcrumbs items={[{label:"Helmets",href:"/gear/helmets"},{label:"Helmet Finder"}]}/><div className="page-head"><span className="entity-kicker">{products.length} verified helmet records loaded</span><h1>Find a helmet for your budget and riding</h1><p>Filter the verified catalog by helmet format, budget, listed size, visor equipment and intercom provision. Your visible result count becomes smaller as filters are applied, so it will not always match the full verified catalog count.</p></div><div className="note-box helmet-safety-note"><h2>Before you buy</h2><p>Check the PS or ICC conformity mark on the exact helmet delivered in the Philippines, confirm the current brand size chart, and verify the seller and variant. Marketplace availability does not prove local conformity.</p><Link href="/methodology">How MotoIndex checks product sources →</Link></div><HelmetFinder products={forClient(products)} initialFilters={initial}/><DecisionPath stage="helmet" /></section>;
 }
