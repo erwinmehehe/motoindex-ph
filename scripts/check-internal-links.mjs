@@ -30,7 +30,7 @@ for(const file of sources){const src=fs.readFileSync(file,"utf8");
 for(const [route,file] of staticRoutes){
   if(route==="/"||route.startsWith("/sitemaps/")||route.startsWith("/contact")||route.startsWith("/corrections")||route.startsWith("/search")||route.startsWith("/used-motorcycles")||route.startsWith("/price-alerts")||route.startsWith("/catalog")||route.startsWith("/deals")||route.startsWith("/sellers"))continue;
   const src=fs.readFileSync(file,"utf8");
-  if(/index\s*:\s*false/.test(src)||/\bpermanentRedirect\s*\(/.test(src))continue;
+  if(/index\s*:\s*false/.test(src)||/\bpermanentRedirect\s*\(/.test(src)||(/x-robots-tag/i.test(src)&&/noindex/i.test(src)))continue;
   if((inbound.get(route)||0)===0)errors.push(`indexable static route has no literal inbound link: ${route}`)
 }
 
