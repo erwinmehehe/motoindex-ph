@@ -77,7 +77,7 @@ function topLevelObjects(arrayText) {
 }
 
 function stringField(block, name) {
-  return block.match(new RegExp(`\\b${name}:\\s*["']([^"']+)["']`))?.[1];
+  return block.match(new RegExp(`["']?${name}["']?\\s*:\\s*["']([^"']+)["']`))?.[1];
 }
 
 function catalogRecords(declaration, entityType) {
