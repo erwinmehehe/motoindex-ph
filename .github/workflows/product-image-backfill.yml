@@ -1,0 +1,53 @@
+name: Product Image Backfill
+
+on:
+  push:
+    branches: [fix/product-image-coverage]
+    paths:
+      - scripts/backfill-product-media.mjs
+      - .github/workflows/product-image-backfill.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: fix/product-image-coverage
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Install image normalizer
+        run: npm install --no-save --package-lock=false sharp@0.34.3
+
+      - name: Discover and localize missing product images
+        run: node scripts/backfill-product-media.mjs
+
+      - name: Show updated coverage
+        run: node scripts/audit-product-media-coverage.mjs
+
+      - name: Commit localized product media
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/generatedProductMedia.ts public/media/helmets public/media/tires public/media/topboxes
+          if git diff --cached --quiet; then
+            echo "No product media changes to commit."
+            exit 0
+          fi
+          git commit -m "Backfill verified product images"
+          git push origin HEAD:fix/product-image-coverage
