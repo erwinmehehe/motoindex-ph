@@ -6,6 +6,7 @@ on:
     paths:
       - scripts/backfill-product-media.mjs
       - scripts/backfill-ls2-media.mjs
+      - scripts/normalize-generated-product-media.mjs
       - .github/workflows/product-image-backfill.yml
   workflow_dispatch:
 
@@ -43,7 +44,10 @@ jobs:
       - name: Backfill LS2 from official mirror
         run: node scripts/backfill-ls2-media.mjs
 
-      - name: Show updated coverage
+      - name: Normalize generated media metadata
+        run: node scripts/normalize-generated-product-media.mjs
+
+      - name: Show updated exact-image coverage
         run: node scripts/audit-product-media-coverage.mjs
 
       - name: Commit localized product media
