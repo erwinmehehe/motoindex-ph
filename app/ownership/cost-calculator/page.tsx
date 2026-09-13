@@ -13,8 +13,9 @@ export const metadata: Metadata = pageMetadata({
   index: true
 });
 
-export default function CostCalculatorPage() {
-  const model = publicMotorcycles[0];
+export default async function CostCalculatorPage({ searchParams }: { searchParams: Promise<{ bike?: string }> }) {
+  const { bike } = await searchParams;
+  const model = publicMotorcycles.find((item) => item.id === bike) ?? publicMotorcycles[0];
   return <section className="page shell">
     <Breadcrumbs items={[{ label: "Ownership", href: "/ownership" }, { label: "Cost calculator" }]} />
     <div className="page-head">
