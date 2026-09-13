@@ -1,0 +1,139 @@
+/* MotoIndex experience v6
+   Editorial refinement pass: shorter homepage rhythm, calmer catalog shopping,
+   consistent finder photography and simpler mobile model actions. */
+
+:root{
+  --mx6-ink:#111318;
+  --mx6-muted:#737b85;
+  --mx6-line:rgba(17,19,24,.10);
+  --mx6-paper:#fbfaf7;
+  --mx6-red:#ed303a;
+}
+
+/* Homepage: fewer sections, tighter vertical rhythm and less dashboard-like chrome. */
+.mi-brand-shelf{padding:42px 0!important}
+.mi-brand-shelf .mi-section-head{margin-bottom:22px!important}
+.mi-brand-shelf .mi-section-head h2{font-size:clamp(30px,3.2vw,44px)!important}
+.mi-section{padding:88px 0!important}
+.mi-section-head{margin-bottom:34px!important}
+.mi-models{padding-top:94px!important;padding-bottom:86px!important}
+.mi-categories{padding-top:86px!important;padding-bottom:92px!important}
+.mi-tools{padding:94px 0!important}
+.mi-gear{padding:86px 0!important}
+.mi-final{min-height:500px!important;padding:90px 0!important}
+.mi-final h2{font-size:clamp(50px,7vw,92px)!important}
+
+/* Brand rail should feel like navigation, not six SEO cards. */
+.mi-brand-grid{gap:6px!important}
+.mi-brand-grid>a{min-height:76px!important;padding:14px 16px!important;border-radius:14px!important;box-shadow:none!important}
+.mi-brand-grid strong{font-size:15px!important}
+.mi-brand-grid span{margin-top:3px!important;font-size:8px!important}
+
+/* Use-case cards: one consistent editorial grid. */
+.mi-category-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}
+.mi-category-card,
+.mi-category-card:nth-child(n){grid-column:auto!important;min-height:190px!important;padding:22px!important;border-radius:20px!important;background:#fff!important;color:var(--mx6-ink)!important}
+.mi-category-card:nth-child(1),
+.mi-category-card:nth-child(6){background:var(--mx6-ink)!important;color:#fff!important;border-color:var(--mx6-ink)!important}
+.mi-category-card:nth-child(1) h3,
+.mi-category-card:nth-child(6) h3{color:#fff!important}
+.mi-category-card:nth-child(1) p,
+.mi-category-card:nth-child(6) p{color:rgba(255,255,255,.54)!important}
+.mi-category-card h3{font-size:24px!important}
+.mi-category-card p{font-size:11px!important;line-height:1.55!important}
+
+/* Tools: three substantial decisions, not a wall of utilities. */
+.mi-tool-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}
+.mi-tool-grid>a{min-height:245px!important}
+
+/* Catalog: make the shopping interface the visual focus. */
+.motorcycle-index-hero{padding:82px 0 46px!important}
+.motorcycle-index-hero-grid{grid-template-columns:minmax(0,1.4fr) minmax(300px,.6fr)!important;gap:54px!important}
+.motorcycle-index-hero-copy h1{max-width:880px!important;font-size:clamp(54px,6.2vw,84px)!important}
+.motorcycle-index-quicklinks{display:flex!important;gap:8px!important;margin-top:34px!important;overflow-x:auto!important;scrollbar-width:none!important;padding-bottom:4px!important}
+.motorcycle-index-quicklinks::-webkit-scrollbar{display:none}
+.motorcycle-index-quicklinks>a{flex:0 0 auto!important;min-height:0!important;width:auto!important;min-width:150px!important;padding:13px 15px!important;border-radius:14px!important}
+.motorcycle-index-quicklinks span{font-size:8px!important}
+.motorcycle-index-quicklinks strong{margin-top:8px!important;font-size:14px!important}
+.motorcycle-index-quicklinks small{display:none!important}
+.motorcycle-index-body{padding-top:44px!important}
+.motorcycle-catalog-section{margin-bottom:64px!important}
+.motorcycle-section-heading{max-width:700px!important}
+.motorcycle-section-heading h2{font-size:clamp(30px,3.5vw,46px)!important}
+.motorcycle-section-heading p{max-width:640px!important;font-size:12px!important}
+.model-explorer-layout{grid-template-columns:250px minmax(0,1fr)!important;gap:24px!important}
+.model-explorer-rail{top:98px!important}
+.model-filter-panel{border-radius:20px!important;padding:17px!important;box-shadow:none!important}
+.model-filter-panel-head{margin-bottom:14px!important;padding-bottom:14px!important}
+.model-filter-panel-head strong{font-size:16px!important}
+.model-explorer-results .result-meta{margin-bottom:14px!important;padding-bottom:13px!important}
+.model-explorer-results .result-meta span{font-size:16px!important}
+.model-explorer-results .result-meta b{font-size:26px!important}
+.motorcycle-catalog-grid{gap:18px!important}
+.motorcycle-catalog-grid .model-card{border-radius:20px!important}
+.motorcycle-catalog-grid .model-card-media{background:#f5f6f6!important}
+.motorcycle-catalog-grid .model-card:hover{transform:translateY(-3px)!important}
+.motorcycle-brand-directory,.motorcycle-family-strip{margin-bottom:64px!important}
+.motorcycle-index-method{margin-top:8px!important}
+
+/* Finder: one consistent studio treatment for the live recommendation image. */
+.finder-live-preview{background:#0d0f12!important}
+.finder-preview-media{
+  height:220px!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  border-radius:18px!important;
+  background:radial-gradient(circle at 50% 46%,#fff 0,#f5f5f3 62%,#e8e9e9 100%)!important;
+  padding:16px!important;
+  overflow:hidden!important;
+}
+.finder-preview-media img{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;filter:drop-shadow(0 14px 18px rgba(16,18,22,.14))!important}
+.finder-live-preview h3{font-size:28px!important}
+.finder-stage-card{box-shadow:0 18px 50px rgba(10,12,15,.055)!important}
+
+/* Product cards in the shortened homepage should feel like a compact next step. */
+.mi-gear .product-card{min-height:170px!important}
+.mi-gear .product-card-copy{padding:20px!important}
+.mi-gear .product-card-copy h3{margin-top:18px!important;font-size:19px!important}
+.mi-gear .product-card-foot{padding-top:18px!important}
+
+/* Model detail on phones: one conversion action plus compare/save. Price anchors stay in the sticky section nav. */
+@media(max-width:820px){
+  .entity-hero-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important;width:100%!important}
+  .entity-hero-actions>a.button:first-child{grid-column:1/-1!important;justify-content:center!important}
+  .entity-hero-actions>a[href="#installment"],
+  .entity-hero-actions>a[href="#price"]{display:none!important}
+  .entity-hero-actions .compare-button,
+  .entity-hero-actions .shortlist-button{width:100%!important;min-height:44px!important;justify-content:center!important}
+  .finder-preview-media{height:130px!important;width:130px!important;padding:10px!important}
+  .motorcycle-index-quicklinks{margin-right:-12px!important;padding-right:12px!important}
+  .motorcycle-index-body{padding-top:32px!important}
+  .motorcycle-catalog-section{margin-bottom:48px!important}
+  .mi-section{padding:70px 0!important}
+  .mi-tools,.mi-gear{padding:72px 0!important}
+}
+
+@media(max-width:680px){
+  .mi-category-grid{grid-template-columns:1fr!important}
+  .mi-category-card,.mi-category-card:nth-child(n){min-height:160px!important}
+  .mi-tool-grid{grid-template-columns:1fr!important}
+  .mi-tool-grid>a{min-height:190px!important}
+  .motorcycle-index-overview{grid-template-columns:1fr 1fr!important}
+  .motorcycle-index-overview>div{min-height:105px!important}
+}
+
+@media(max-width:520px){
+  .mi-brand-shelf{padding:32px 0!important}
+  .mi-section{padding:58px 0!important}
+  .mi-section-head{margin-bottom:26px!important}
+  .mi-tools,.mi-gear{padding:62px 0!important}
+  .mi-final{min-height:430px!important;padding:70px 0!important}
+  .mi-final h2{font-size:48px!important}
+  .mi-category-card,.mi-category-card:nth-child(n){padding:19px!important;border-radius:18px!important}
+  .mi-category-card h3{font-size:22px!important}
+  .entity-hero-actions{margin-top:18px!important}
+  .motorcycle-index-hero{padding-top:54px!important;padding-bottom:36px!important}
+  .motorcycle-index-hero-copy h1{font-size:46px!important}
+  .motorcycle-index-actions{gap:7px!important}
+  .motorcycle-index-actions .button{font-size:10px!important;padding:11px 14px!important}
+  .motorcycle-index-overview{margin-top:24px!important}
+}
