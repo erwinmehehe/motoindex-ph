@@ -32,7 +32,7 @@ const startPoints = [
 
 export default function HomePage() {
   const verifiedModels = currentMotorcycles.filter(isIndexableModel);
-  const featured = verifiedModels.slice(0, 8);
+  const featured = verifiedModels.slice(0, 4);
   const heroModel = verifiedModels.find((model) => model.makeSlug === "yamaha" && model.slug.toLowerCase().includes("aerox")) ?? featured[0];
   const hasComparisons = comparisons.some((comparison) => isIndexableComparison(comparison.slug));
 

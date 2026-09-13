@@ -155,6 +155,29 @@
   line-height:.98!important;
 }
 
+/* Desktop showcase is a complete four-card grid. Horizontal rails are reserved for smaller screens where swipe is expected. */
+@media (min-width:821px){
+  .mi-model-grid{
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    grid-auto-flow:row!important;
+    grid-auto-columns:auto!important;
+    overflow:visible!important;
+    padding:4px 0 0!important;
+  }
+  .mi-model-grid>.model-card,
+  .mi-model-grid>.model-card:nth-child(n){
+    width:auto!important;
+    min-width:0!important;
+    scroll-snap-align:none!important;
+  }
+  .mi-model-grid>.model-card:nth-child(n) .model-card-media{
+    min-height:0!important;
+    height:auto!important;
+    aspect-ratio:4/3!important;
+  }
+}
+
 @media (max-width:1050px){
   .mi-hero-layout{
     grid-template-columns:minmax(0,1fr) minmax(360px,.82fr)!important;
