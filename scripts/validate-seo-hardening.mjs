@@ -69,6 +69,8 @@ requireText(commuteCalculator, "Turn the commute number into a buying decision",
 requireText(priorityBrief, '/ownership/cost-calculator?bike=${model.id}', "Priority model pages should deep-link into ownership cost with the current model selected.");
 requireText(priorityBrief, '/commute/cost-calculator?bike=${model.id}', "Priority model pages should deep-link into commute cost with the current model selected.");
 requireText(priorityBrief, 'href="/dealers"', "Priority model pages should keep a dealer research next step.");
+requireText(priorityBrief, '"cfmoto-450mt"', "CFMOTO 450MT should retain a focused buyer brief.");
+requireText(priorityBrief, '"cfmoto-450sr"', "CFMOTO 450SR should retain a focused buyer brief.");
 requireText(authorProfile, 'href="/data-sources"', "Author profile should expose the data-source policy.");
 requireText(authorProfile, 'href="/corrections"', "Author profile should expose the correction path.");
 requireText(authorProfile, "Selected buyer research", "Author profile should connect the author entity to representative research.");
