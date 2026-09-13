@@ -30,6 +30,8 @@ requireText(motorcycles, "href=\"/recommendations#budget\"", "Motorcycle hub sho
 forbidText(faq, "FAQPage", "Visible FAQs should not emit deprecated FAQPage rich-result markup.");
 forbidText(faq, "JsonLd", "FaqSection should remain visible HTML without JSON-LD.");
 requireText(jsonLd, 'value["@type"] === "FAQPage"', "JsonLd must suppress any legacy/manual FAQPage objects.");
+requireText(jsonLd, 'offer["@type"] !== "AggregateOffer"', "Motorcycle Product JSON-LD must suppress ambiguous variant-range AggregateOffer markup.");
+requireText(jsonLd, 'value.category.startsWith("Motorcycle")', "AggregateOffer cleanup must stay scoped to motorcycle Product markup.");
 requireText(media, 'entityType === "motorcycle" && priority', "Priority motorcycle media should expose image provenance by default.");
 requireText(mediaValidator, "rightsStatus", "Media validation must enforce explicit rights status.");
 requireText(mediaValidator, "rightsHolder", "Media validation must enforce a rights holder.");
