@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">MotoIndex motorcycle helmet certification guide Philippines</title>
+  <desc id="desc">Original MotoIndex diagram separating Philippine PS or ICC conformity checks from model-level ECE certification claims.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef2ff"/>
+      <stop offset="0.5" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#fff7ed"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#444CE7"/>
+      <stop offset="1" stop-color="#7A5AF8"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#444CE7" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" rx="40" fill="url(#bg)"/>
+  <circle cx="1110" cy="55" r="180" fill="#FDB022" opacity="0.10"/>
+  <circle cx="95" cy="585" r="190" fill="#12B76A" opacity="0.08"/>
+  <g transform="translate(70 62)">
+    <rect width="54" height="54" rx="15" fill="url(#accent)"/>
+    <path d="M13 39V15h7l7 12 7-12h7v24h-7V26l-7 11-7-11v13z" fill="#fff"/>
+    <text x="70" y="37" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#0f172a">MotoIndex PH</text>
+  </g>
+  <g transform="translate(70 150)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#444CE7">PHILIPPINE HELMET CHECK</text>
+    <text x="0" y="58" font-family="Arial, Helvetica, sans-serif" font-size="51" font-weight="800" fill="#0f172a">Separate local conformity</text>
+    <text x="0" y="114" font-family="Arial, Helvetica, sans-serif" font-size="51" font-weight="800" fill="#0f172a">from model certification.</text>
+    <text x="0" y="166" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#475569">Inspect the exact helmet. Do not rely on a marketplace badge or brand-wide claim.</text>
+  </g>
+  <g transform="translate(700 142)" filter="url(#shadow)">
+    <rect width="425" height="372" rx="32" fill="#fff"/>
+    <path d="M94 188c0-81 52-134 122-134 81 0 130 58 130 142v37H223l-27 57H99c-13-28-5-65-5-102z" fill="#eef2ff" stroke="#444CE7" stroke-width="8"/>
+    <path d="M214 88c58 5 87 42 92 103H218c-38 0-65-17-82-47 20-36 45-54 78-56z" fill="#fff" stroke="#7A5AF8" stroke-width="5"/>
+    <circle cx="100" cy="311" r="28" fill="#12B76A"/>
+    <path d="M88 311l8 8 17-19" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="145" y="306" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#0f172a">Check the physical mark</text>
+    <text x="145" y="332" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#64748b">and the exact model label</text>
+  </g>
+  <g transform="translate(70 425)">
+    <g>
+      <rect width="178" height="104" rx="24" fill="#fff" stroke="#dbe2ea"/>
+      <text x="24" y="39" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800" fill="#0f172a">PS</text>
+      <text x="24" y="70" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#12B76A">LOCAL CHECK</text>
+      <text x="24" y="91" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#64748b">Verify current BPS guidance</text>
+    </g>
+    <g transform="translate(195)">
+      <rect width="178" height="104" rx="24" fill="#fff" stroke="#dbe2ea"/>
+      <text x="24" y="39" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800" fill="#0f172a">ICC</text>
+      <text x="24" y="70" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#12B76A">LOCAL CHECK</text>
+      <text x="24" y="91" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#64748b">Inspect the actual product</text>
+    </g>
+    <g transform="translate(390)">
+      <rect width="210" height="104" rx="24" fill="#fff" stroke="#dbe2ea"/>
+      <text x="24" y="39" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800" fill="#0f172a">ECE 22.06</text>
+      <text x="24" y="70" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#7A5AF8">MODEL CLAIM</text>
+      <text x="24" y="91" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#64748b">Do not substitute for PS/ICC</text>
+    </g>
+  </g>
+  <text x="70" y="585" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#64748b">Original MotoIndex research graphic · verify current DTI-BPS requirements before purchase</text>
+</svg>
