@@ -7,6 +7,7 @@ import { MotorcycleEntityPage } from "@/components/MotorcycleEntityPage";
 import { PriorityModelBrief } from "@/components/PriorityModelBrief";
 import { DecisionPath } from "@/components/DecisionPath";
 import { RecentlyViewedTracker } from "@/components/RecentlyViewed";
+import { ShareModelButton } from "@/components/ShareModelButton";
 import { pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
 
@@ -50,6 +51,7 @@ export default async function ModelPage({ params }: { params: Promise<{ make: st
   if (!model) return notFound();
   return <>
     <RecentlyViewedTracker model={{ id: model.id, make: model.make, model: model.model, makeSlug: model.makeSlug, slug: model.slug }} />
+    <div className="model-floating-share"><ShareModelButton label="Share model" /></div>
     <MotorcycleEntityPage model={model} />
     <PriorityModelBrief model={model} />
     {!model.marketStatus || model.marketStatus === "current" ? <div className="shell model-decision-path-wrap"><DecisionPath stage="model" modelName={`${model.make} ${model.model}`} make={model.make} makeSlug={model.makeSlug} modelSlug={model.slug} /></div> : null}
