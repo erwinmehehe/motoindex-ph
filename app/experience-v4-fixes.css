@@ -1,0 +1,2 @@
+.model-floating-share{position:fixed;right:22px;bottom:92px;z-index:44}.model-floating-share .share-model-button{background:#fff!important;border:1px solid rgba(18,20,24,.12)!important;box-shadow:0 16px 40px rgba(10,12,15,.14)!important;color:#121418!important}.model-floating-share .share-model-button:hover{background:#121418!important;color:#fff!important}
+@media(max-width:720px){.model-floating-share{right:12px;bottom:78px}.model-floating-share .share-model-button{padding:10px 13px!important;font-size:10px!important}}
