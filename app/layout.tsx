@@ -21,6 +21,7 @@ import "./experience-v4-fixes.css";
 import "./experience-v5.css";
 import "./experience-v6.css";
 import "./experience-v6-fixes.css";
+import "./experience-v7.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
