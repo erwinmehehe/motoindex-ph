@@ -1,0 +1,137 @@
+/* Model-page visual regression guard.
+   Missing motorcycle photography must degrade into a deliberate product panel,
+   never a collapsed column with one-character-per-line typography. */
+
+.motorcycle-hero-grid > *,
+.motorcycle-hero-visual,
+.motorcycle-hero-copy{
+  min-width:0;
+}
+
+.motorcycle-hero-copy h1{
+  max-width:100%;
+  word-break:normal!important;
+  overflow-wrap:normal!important;
+  hyphens:none;
+}
+
+.motorcycle-hero-visual > .authority-media-fallback,
+.authority-media-fallback{
+  position:relative;
+  display:grid!important;
+  grid-template-rows:auto 1fr auto auto;
+  gap:18px;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  min-height:430px!important;
+  padding:32px!important;
+  overflow:hidden!important;
+  border:1px solid rgba(255,255,255,.11)!important;
+  border-radius:28px!important;
+  background:
+    radial-gradient(circle at 82% 18%,rgba(240,68,77,.26),transparent 32%),
+    linear-gradient(145deg,#20242a,#0d0f12)!important;
+  color:#fff!important;
+  box-shadow:0 32px 72px rgba(0,0,0,.28)!important;
+}
+
+.authority-media-fallback:after{
+  content:"PHOTO PENDING";
+  position:absolute;
+  right:-8px;
+  bottom:8px;
+  color:rgba(255,255,255,.035);
+  font:900 clamp(54px,7vw,100px)/.8 var(--font-sora),sans-serif;
+  letter-spacing:-.07em;
+  white-space:nowrap;
+  pointer-events:none;
+}
+
+.authority-media-fallback > span,
+.authority-media-fallback > small{
+  position:relative;
+  z-index:1;
+  color:rgba(255,255,255,.48)!important;
+  font-size:10px!important;
+  font-weight:850!important;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.authority-media-fallback > strong{
+  position:relative;
+  z-index:1;
+  align-self:end;
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  color:#fff!important;
+  font:800 clamp(34px,4.1vw,58px)/.92 var(--font-sora),sans-serif!important;
+  letter-spacing:-.055em!important;
+  word-break:normal!important;
+  overflow-wrap:normal!important;
+  white-space:normal!important;
+}
+
+.authority-media-fallback > strong > b{
+  display:block!important;
+  max-width:100%!important;
+  color:#ff626a!important;
+  font:inherit!important;
+  letter-spacing:inherit!important;
+  word-break:normal!important;
+  overflow-wrap:normal!important;
+  white-space:normal!important;
+}
+
+.authority-media-fallback > div{
+  position:relative;
+  z-index:1;
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:7px!important;
+  min-width:0!important;
+}
+
+.authority-media-fallback > div > em{
+  display:inline-flex!important;
+  align-items:center;
+  min-height:32px;
+  padding:0 10px!important;
+  border:1px solid rgba(255,255,255,.11)!important;
+  border-radius:9px!important;
+  background:rgba(255,255,255,.055)!important;
+  color:rgba(255,255,255,.76)!important;
+  font-size:10px!important;
+  font-style:normal!important;
+  font-weight:800!important;
+  white-space:nowrap!important;
+}
+
+@media(max-width:900px){
+  .authority-media-fallback{
+    min-height:350px!important;
+    padding:24px!important;
+  }
+  .authority-media-fallback > strong{
+    font-size:clamp(32px,8vw,48px)!important;
+  }
+}
+
+@media(max-width:520px){
+  .authority-media-fallback{
+    min-height:300px!important;
+    padding:20px!important;
+    border-radius:22px!important;
+  }
+  .authority-media-fallback > strong{
+    font-size:34px!important;
+    line-height:.96!important;
+  }
+  .authority-media-fallback:after{
+    font-size:58px;
+  }
+}
