@@ -71,6 +71,17 @@
 .model-card .card-actions .button{min-height:42px!important;border-radius:13px!important}
 .model-card .compare-button{min-height:42px!important;border-radius:13px!important}
 
+/* Homepage gear: never devote half a screen to unverified/blank photography. */
+.mi-gear .mi-product-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}
+.mi-gear .product-card-shell{min-width:0!important}
+.mi-gear .product-card{display:flex!important;min-height:190px!important;flex-direction:column!important;padding:0!important}
+.mi-gear .product-card-media,
+.mi-gear .product-art{display:none!important}
+.mi-gear .product-card-copy{display:flex!important;flex:1!important;flex-direction:column!important;padding:22px!important}
+.mi-gear .product-card-copy h3{margin:22px 0 7px!important;font-size:21px!important}
+.mi-gear .product-card-copy p{margin:0!important;color:#7b838d!important;font-size:11px!important;line-height:1.55!important}
+.mi-gear .product-card-foot{margin-top:auto!important;padding-top:22px!important}
+
 /* Model detail hero: restore deliberate dark contrast after the light-v4 regression. */
 .motorcycle-entity-hero{
   background:
@@ -153,14 +164,28 @@
   .mi-model-grid{grid-auto-columns:minmax(255px,82vw)!important;margin-right:-24px!important;padding-right:24px!important}
   .model-card-body{padding:18px!important}
   .model-card h3{font-size:19px!important}
+  .mi-gear .mi-product-grid{
+    grid-auto-flow:column!important;
+    grid-auto-columns:minmax(255px,82vw)!important;
+    grid-template-columns:none!important;
+    overflow-x:auto!important;
+    padding:2px 24px 14px 0!important;
+    scroll-snap-type:x proximity;
+    scrollbar-width:none;
+  }
+  .mi-gear .mi-product-grid::-webkit-scrollbar{display:none}
+  .mi-gear .product-card-shell{scroll-snap-align:start}
   .page:has(.finder-v4)>.page-head{padding-top:54px!important;padding-bottom:36px!important}
-  .finder-live-preview{position:relative!important;top:auto!important}
+  .finder-stage-shell{display:flex!important;flex-direction:column!important}
+  .finder-stage-main{order:1!important;width:100%!important}
+  .finder-live-preview{position:relative!important;top:auto!important;order:2!important;width:100%!important;margin-top:16px!important}
   .motorcycle-entity-hero{padding-top:26px!important;padding-bottom:46px!important}
   .motorcycle-hero-grid{gap:28px!important}
   .motorcycle-hero-copy h1{font-size:clamp(48px,13vw,68px)!important;line-height:.92!important}
   .motorcycle-hero-copy .entity-lede{font-size:15px!important;line-height:1.6!important}
   .motorcycle-hero-media{min-height:330px!important}
   .motorcycle-hero-facts{margin-top:-14px!important;grid-template-columns:repeat(2,1fr)!important}
+  .model-floating-share{display:none!important}
 }
 
 @media(max-width:520px){
