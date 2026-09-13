@@ -98,7 +98,7 @@ if (!authorBox.includes("AUTHOR_NAME") || !authorBox.includes("AUTHOR_PATH")) {
   failures.push("components/AuthorBox.tsx: reusable author box is not wired to the canonical author entity");
 }
 const sitemapSource = read("lib/sitemaps.ts");
-if (!sitemapSource.includes('["/authors/erwin-valles",.5]')) {
+if (!sitemapSource.includes('["/authors/erwin-valles",.5]') && !sitemapSource.includes('path:"/authors/erwin-valles",priority:.5')) {
   failures.push("lib/sitemaps.ts: Erwin Valles author profile must remain in the core sitemap");
 }
 
