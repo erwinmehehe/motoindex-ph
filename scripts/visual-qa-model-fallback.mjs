@@ -7,6 +7,7 @@ const base = new URL(process.env.BASE_URL || "http://127.0.0.1:3000");
 const pages = [
   ["f900gs-fallback", "/motorcycles/bmw-motorrad/f-900-gs"],
   ["speed-twin-fallback", "/motorcycles/triumph/speed-twin-900"],
+  ["commute-contrast", "/commute"],
 ];
 const widths = [430, 1024, 1440];
 const outputDir = path.join(process.cwd(), "artifacts", "visual-qa");
@@ -116,6 +117,8 @@ try {
         const fallbackTitle=fallback?.querySelector('strong');
         const fallbackRect=fallback?.getBoundingClientRect();
         const titleRect=fallbackTitle?.getBoundingClientRect();
+        const commute=document.querySelector('.commute-master-page .commute-context');
+        const commuteHeading=commute?.querySelector('h2');
         const pathological=[...document.querySelectorAll('h1,h2,h3,strong')].filter(el=>{
           const text=(el.textContent||'').trim();
           if(text.length<5)return false;
@@ -134,6 +137,9 @@ try {
           fallbackWidth:fallbackRect?Math.round(fallbackRect.width):null,
           fallbackHeight:fallbackRect?Math.round(fallbackRect.height):null,
           fallbackTitleWidth:titleRect?Math.round(titleRect.width):null,
+          commuteBackground:commute?getComputedStyle(commute).backgroundColor:null,
+          commuteHeadingColor:commuteHeading?getComputedStyle(commuteHeading).color:null,
+          commuteHeadingWidth:commuteHeading?Math.round(commuteHeading.getBoundingClientRect().width):null,
           pathological
         };
       })()`);
@@ -148,6 +154,11 @@ try {
         if ((audit.fallbackTitleWidth || 0) < minTitle) failures.push(`${width}px ${pathname}: fallback model title collapsed to ${audit.fallbackTitleWidth}px`);
         if ((audit.fallbackHeight || 0) > 700) failures.push(`${width}px ${pathname}: fallback panel became excessively tall (${audit.fallbackHeight}px)`);
       }
+      if (pathname === "/commute") {
+        if (!audit?.commuteHeadingWidth || audit.commuteHeadingWidth < (width <= 430 ? 240 : 400)) failures.push(`${width}px /commute: context heading collapsed to ${audit?.commuteHeadingWidth}px`);
+        if (audit?.commuteBackground === "rgb(255, 255, 255)") failures.push(`${width}px /commute: context panel regressed to white behind white typography`);
+        if (audit?.commuteHeadingColor !== "rgb(255, 255, 255)") failures.push(`${width}px /commute: context heading lost white-on-dark contrast (${audit?.commuteHeadingColor})`);
+      }
 
       const shot = await cdp.send("Page.captureScreenshot", { format: "png", fromSurface: true, captureBeyondViewport: false });
       fs.writeFileSync(path.join(outputDir, `${String(width).padStart(4,"0")}-${name}.png`), Buffer.from(shot.data, "base64"));
@@ -155,7 +166,7 @@ try {
   }
 
   fs.writeFileSync(path.join(outputDir, "model-fallback-report.json"), JSON.stringify({ failures, results }, null, 2));
-  console.log(`Model fallback visual QA: ${results.length} renders, ${failures.length} failures`);
+  console.log(`Model fallback/contrast QA: ${results.length} renders, ${failures.length} failures`);
   if (failures.length) {
     for (const failure of failures) console.error(`- ${failure}`);
     process.exitCode = 1;
