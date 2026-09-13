@@ -1,0 +1,173 @@
+/* MotoIndex experience v5
+   Final QA overrides for the public shopping journey. This layer intentionally
+   comes last so older redesign experiments cannot reintroduce contrast/layout bugs. */
+
+:root{
+  --mx5-ink:#101216;
+  --mx5-black:#08090b;
+  --mx5-red:#ef313b;
+  --mx5-paper:#fbfaf7;
+  --mx5-line:rgba(16,18,22,.10);
+}
+
+/* Featured motorcycles: a consistent runway, not a random bento wall. */
+.mi-model-grid{
+  display:grid!important;
+  grid-auto-flow:column!important;
+  grid-auto-columns:minmax(270px,310px)!important;
+  grid-template-columns:none!important;
+  gap:14px!important;
+  align-items:stretch!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  padding:4px 2px 18px!important;
+  scroll-snap-type:x proximity;
+  overscroll-behavior-inline:contain;
+  scrollbar-width:none;
+}
+.mi-model-grid::-webkit-scrollbar{display:none}
+.mi-model-grid>.model-card,
+.mi-model-grid>.model-card:nth-child(n){
+  grid-column:auto!important;
+  width:auto!important;
+  min-width:0!important;
+  height:100%!important;
+  scroll-snap-align:start;
+}
+.mi-model-grid>.model-card:nth-child(n) .model-card-media{
+  min-height:0!important;
+  height:auto!important;
+  aspect-ratio:4/3!important;
+}
+
+/* One calm card system across homepage, catalog and brand pages. */
+.model-card{display:flex!important;flex-direction:column!important;position:relative!important}
+.model-card-media{padding:18px!important;background:#f3f4f5!important}
+.model-card-media img{padding:4px!important;filter:drop-shadow(0 14px 18px rgba(16,18,22,.08))}
+.model-card-body{display:flex!important;flex:1!important;flex-direction:column!important;padding:20px!important}
+.model-card-topline{
+  position:absolute!important;
+  z-index:4!important;
+  top:12px!important;
+  right:12px!important;
+  min-height:0!important;
+  margin:0!important;
+  pointer-events:auto;
+}
+.model-card-topline .shortlist-button{
+  min-height:38px!important;
+  padding:8px 11px!important;
+  border-color:rgba(16,18,22,.14)!important;
+  background:rgba(255,255,255,.94)!important;
+  box-shadow:0 8px 24px rgba(16,18,22,.08)!important;
+  backdrop-filter:blur(12px);
+}
+.model-card h3{margin:0 0 8px!important;font-size:20px!important}
+.model-card .price{font-size:20px!important;margin:0 0 4px!important}
+.model-card-body>small{min-height:26px!important;font-size:9px!important;color:#8a9199!important}
+.model-card .mini-stats{margin-top:14px!important;gap:5px!important}
+.model-card .mini-stats span{padding:6px 8px!important;background:#f1f2f4!important;color:#626a73!important;font-size:9px!important}
+.model-card .card-actions{margin-top:auto!important;padding-top:18px!important;gap:8px!important}
+.model-card .card-actions .button{min-height:42px!important;border-radius:13px!important}
+.model-card .compare-button{min-height:42px!important;border-radius:13px!important}
+
+/* Model detail hero: restore deliberate dark contrast after the light-v4 regression. */
+.motorcycle-entity-hero{
+  background:
+    radial-gradient(circle at 82% 18%,rgba(239,49,59,.22),transparent 33%),
+    linear-gradient(135deg,#08090b 0%,#111419 58%,#1a0d10 130%)!important;
+  color:#fff!important;
+}
+.motorcycle-entity-hero:after{background:rgba(239,49,59,.15)!important}
+.motorcycle-entity-hero .breadcrumbs,
+.motorcycle-entity-hero .breadcrumbs a,
+.motorcycle-entity-hero .breadcrumbs b{color:rgba(255,255,255,.46)!important}
+.motorcycle-hero-copy h1{color:#fff!important;text-wrap:balance}
+.motorcycle-hero-copy .entity-lede,
+.motorcycle-hero-copy .entity-aka{color:rgba(255,255,255,.58)!important}
+.motorcycle-hero-copy .entity-aka strong{color:#fff!important}
+.motorcycle-price-lockup span,
+.motorcycle-price-lockup small{color:rgba(255,255,255,.48)!important}
+.motorcycle-price-lockup strong{color:#fff!important}
+.motorcycle-entity-hero .freshness{
+  border-color:rgba(255,255,255,.12)!important;
+  background:rgba(255,255,255,.07)!important;
+  color:#fff!important;
+  backdrop-filter:blur(14px);
+}
+.motorcycle-entity-hero .freshness strong{color:#fff!important}
+.motorcycle-entity-hero .freshness small{color:rgba(255,255,255,.48)!important}
+.motorcycle-entity-hero .button.ghost,
+.motorcycle-entity-hero .button.ghost.on-light,
+.motorcycle-entity-hero .compare-button,
+.motorcycle-entity-hero .shortlist-button{
+  border-color:rgba(255,255,255,.18)!important;
+  background:rgba(255,255,255,.07)!important;
+  color:#fff!important;
+}
+.motorcycle-entity-hero .motorcycle-hero-media{
+  border:1px solid rgba(255,255,255,.08)!important;
+  background:radial-gradient(circle at 52% 48%,#fff 0,#f2f3f3 54%,#e8e9e9 100%)!important;
+  box-shadow:0 34px 80px rgba(0,0,0,.26)!important;
+}
+.motorcycle-entity-hero .motorcycle-hero-facts>div{
+  border-color:rgba(255,255,255,.12)!important;
+  background:rgba(12,14,17,.86)!important;
+  color:#fff!important;
+  box-shadow:0 16px 35px rgba(0,0,0,.20)!important;
+}
+.motorcycle-entity-hero .motorcycle-hero-facts span,
+.motorcycle-entity-hero .motorcycle-hero-facts small{color:rgba(255,255,255,.47)!important}
+.motorcycle-entity-hero .motorcycle-hero-facts strong{color:#fff!important}
+
+/* Finder heading must be true full-bleed. The old shell-width background left a white strip. */
+.page:has(.finder-v4)>.page-head{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+  padding-top:82px!important;
+  padding-bottom:52px!important;
+  padding-left:max(24px,calc((100vw - 1240px)/2 + 24px))!important;
+  padding-right:max(24px,calc((100vw - 1240px)/2 + 24px))!important;
+  background:
+    radial-gradient(circle at 78% 6%,rgba(239,49,59,.18),transparent 34%),
+    var(--mx5-black)!important;
+  color:#fff!important;
+}
+.page:has(.finder-v4)>.page-head h1{color:#fff!important;max-width:1040px!important}
+.page:has(.finder-v4)>.page-head p{color:rgba(255,255,255,.52)!important}
+.page:has(.finder-v4)>.page-head .entity-kicker,
+.page:has(.finder-v4)>.page-head .section-kicker{color:#ff666e!important}
+
+/* Mobile chrome: the former bottom dock obscured content and duplicated Menu/Search. */
+.mobile-quick-tabs{display:none!important}
+
+/* Slightly calmer header actions at desktop widths. */
+@media(min-width:901px){
+  .nav-actions{gap:7px!important}
+  .nav-search,.shortlist-nav,.nav-match{min-height:40px!important}
+}
+
+@media(max-width:820px){
+  .mi-model-grid{grid-auto-columns:minmax(255px,82vw)!important;margin-right:-24px!important;padding-right:24px!important}
+  .model-card-body{padding:18px!important}
+  .model-card h3{font-size:19px!important}
+  .page:has(.finder-v4)>.page-head{padding-top:54px!important;padding-bottom:36px!important}
+  .finder-live-preview{position:relative!important;top:auto!important}
+  .motorcycle-entity-hero{padding-top:26px!important;padding-bottom:46px!important}
+  .motorcycle-hero-grid{gap:28px!important}
+  .motorcycle-hero-copy h1{font-size:clamp(48px,13vw,68px)!important;line-height:.92!important}
+  .motorcycle-hero-copy .entity-lede{font-size:15px!important;line-height:1.6!important}
+  .motorcycle-hero-media{min-height:330px!important}
+  .motorcycle-hero-facts{margin-top:-14px!important;grid-template-columns:repeat(2,1fr)!important}
+}
+
+@media(max-width:520px){
+  .page:has(.finder-v4)>.page-head{padding-left:16px!important;padding-right:16px!important}
+  .finder-v4{width:calc(100% - 24px)!important}
+  .motorcycle-entity-hero .shell{width:calc(100% - 24px)!important}
+  .motorcycle-hero-copy h1{font-size:46px!important}
+  .motorcycle-hero-media{min-height:280px!important;border-radius:24px!important}
+  .motorcycle-hero-facts>div{min-height:96px!important}
+}
