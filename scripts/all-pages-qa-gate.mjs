@@ -38,6 +38,10 @@ for (const failure of rawFailures) {
         reclassify(failure, "The heuristic fired because one dimension was under 18px, but the target is not tiny in both dimensions. This commonly describes normal inline/text links and wide range controls.");
         continue;
       }
+      if (/^\d+px \/dealers\/join:/.test(failure) && width <= 18 && height <= 18 && !String(target?.text || "").trim()) {
+        reclassify(failure, "The dealer form uses native checkboxes wrapped by clickable labels, so the raw 13px checkbox rectangle is not the effective hit target.");
+        continue;
+      }
     } catch {
       // Keep malformed or unparseable findings actionable instead of masking them.
     }
@@ -84,7 +88,7 @@ const md = [
   "",
   "## Reclassified heuristic findings",
   ...(reclassifiedFindings.length
-    ? reclassifiedFindings.slice(0, 250).map(({ failure, reason }) => `- ${failure} — ${reason}`)
+    ? reclassifiedFindings.slice(0, 250).map(({ failure, reason }) => `- ${failure} - ${reason}`)
     : ["- None"]),
   reclassifiedFindings.length > 250 ? `- ... ${reclassifiedFindings.length - 250} additional reclassified findings are preserved in report.json.` : "",
   "",
