@@ -26,6 +26,7 @@ import "./recommendations-v2.css";
 import "./public-hubs-v2.css";
 import "./fitment-v2.css";
 import "./used-v2.css";
+import "./model-fallback-fixes.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
@@ -89,7 +90,7 @@ const websiteSchema = {
   potentialAction: {
     "@type": "SearchAction",
     target: `${SITE_URL}/search?q={search_term_string}`,
-    "query-input": "required name=search_term_string"
+    "query-input": "required name=query"
   }
 };
 
