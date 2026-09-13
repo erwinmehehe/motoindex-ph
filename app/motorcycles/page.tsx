@@ -9,6 +9,7 @@ import { modelAuthorityProfile } from "@/lib/modelAuthority";
 import { forClient } from "@/lib/competitors";
 import { observedMarketRange } from "@/lib/marketChecks";
 import { php } from "@/lib/utils";
+import styles from "./motorcycles.module.css";
 
 const publicModels = motorcycles.filter(isIndexableModel);
 const publicIds = new Set(publicModels.map((m) => m.id));
@@ -37,11 +38,11 @@ export default function MotorcyclesPage() {
   return <section className="motorcycles-index-v300">
     <div className="motorcycle-index-hero">
       <div className="shell">
-        <div className="motorcycle-index-hero-grid">
-          <div className="motorcycle-index-hero-copy">
+        <div className={`motorcycle-index-hero-grid ${styles.heroGrid}`}>
+          <div className={`motorcycle-index-hero-copy ${styles.heroCopy}`}>
             <span className="entity-kicker">Philippines motorcycle database</span>
-            <h1>Shop motorcycles with the numbers that actually matter.</h1>
-            <p>Filter current Philippine motorcycles by price, brand and body type, then compare fit, financing and ownership costs without losing your place.</p>
+            <h1>Motorcycle prices in the Philippines</h1>
+            <p>Compare current Philippine motorcycles by price, brand, body type and specifications, then narrow the shortlist with rider fit, financing and ownership costs.</p>
             <div className="motorcycle-index-actions">
               <a className="button" href="#browse-models">Browse motorcycles</a>
               <Link className="button secondary" href="/finder">Find my match</Link>
@@ -56,7 +57,7 @@ export default function MotorcyclesPage() {
           </aside>
         </div>
         <div className="motorcycle-index-quicklinks">
-          <Link href={{ pathname:"/motorcycles", query:{ budget:"under100" } }}><span>Budget</span><strong>Under ₱100K</strong><small>Affordable current models →</small></Link>
+          <Link href="/recommendations#budget"><span>Budget</span><strong>Under ₱100K</strong><small>Affordable current models →</small></Link>
           <Link href={{ pathname:"/motorcycles", query:{ budget:"100to150" } }}><span>Budget</span><strong>₱100K–₱150K</strong><small>Popular commuter price band →</small></Link>
           <Link href="/recommendations#scooters"><span>Body type</span><strong>Scooters</strong><small>Automatic city-focused choices →</small></Link>
           <Link href="/recommendations#400cc"><span>Displacement</span><strong>400cc+</strong><small>Bigger bikes and expressway-planning research →</small></Link>
