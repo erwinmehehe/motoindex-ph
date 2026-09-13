@@ -1,0 +1,19 @@
+/* Final v6 visual QA corrections. */
+@media(max-width:520px){
+  .finder-v4,.finder-stage-shell,.finder-stage-main,.finder-stage-card{min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+  .finder-stage-card{width:100%!important;overflow:hidden!important}
+  .finder-stage-card>h2,
+  .finder-stage-card>p{
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    white-space:normal!important;
+    word-break:normal!important;
+    overflow-wrap:break-word!important;
+  }
+  .finder-stage-card>h2{font-size:30px!important;line-height:1.04!important;letter-spacing:-.045em!important}
+  .finder-stage-card>p{font-size:13px!important;line-height:1.55!important}
+  .finder-choice-grid,.finder-choice-grid.budget,.finder-choice-grid.compact{width:100%!important;min-width:0!important;grid-template-columns:minmax(0,1fr)!important}
+  .finder-choice-grid button{min-width:0!important;width:100%!important}
+}
