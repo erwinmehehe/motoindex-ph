@@ -27,6 +27,7 @@ import "./public-hubs-v2.css";
 import "./fitment-v2.css";
 import "./used-v2.css";
 import "./model-fallback-fixes.css";
+import "./homepage-compact-modern.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
