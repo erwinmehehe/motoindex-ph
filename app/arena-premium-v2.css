@@ -1,0 +1,185 @@
+/* Premium product experience layer inspired by the Arena visual benchmark.
+   Presentation-only: preserves routes, data, structured data and commerce logic. */
+
+:root{
+  --mx-black:#07080a;
+  --mx-ink:#121418;
+  --mx-paper:#f3f4f5;
+  --mx-cream:#fbfaf7;
+  --mx-white:#fff;
+  --mx-muted:#717985;
+  --mx-line:#e3e6e9;
+  --mx-red:#e62d36;
+  --mx-red2:#ff5a62;
+  --mx-green:#21a574;
+  --mx-blue:#486cff;
+  --mx-radius-sm:14px;
+  --mx-radius:22px;
+  --mx-radius-lg:34px;
+  --mx-shadow:0 20px 60px rgba(9,11,14,.08);
+  --mx-shadow-strong:0 34px 90px rgba(9,11,14,.16);
+}
+
+html{scroll-padding-top:108px}
+body{overflow-x:hidden;background:var(--mx-cream)}
+.shell{width:min(1240px,calc(100% - 48px))}
+::selection{background:var(--mx-red);color:#fff}
+
+/* Global interaction polish */
+a,button,input,select,summary{transition:color .18s ease,background-color .18s ease,border-color .18s ease,box-shadow .18s ease,transform .18s ease,opacity .18s ease}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid rgba(230,45,54,.25);outline-offset:3px}
+
+/* Navigation: restrained glass instead of dashboard chrome. */
+.site-header{background:rgba(251,250,247,.88);border-bottom:1px solid rgba(18,20,24,.08);backdrop-filter:blur(22px) saturate(140%);box-shadow:0 8px 28px rgba(8,10,12,.025)}
+.nav-wrap{height:78px;gap:30px}
+.nav-links{gap:23px;font-size:13px}
+.nav-links>a,.nav-more>summary{position:relative;font-weight:760}
+.nav-links>a:after,.nav-more>summary:after{content:"";position:absolute;left:0;right:100%;bottom:-9px;height:2px;background:var(--mx-red);transition:right .2s ease}
+.nav-links>a:hover:after,.nav-more>summary:hover:after{right:0}
+.nav-search{border:1px solid rgba(18,20,24,.13);background:#fff;padding:10px 14px}
+.nav-match{display:inline-flex;align-items:center;min-height:38px;padding:0 16px;border-radius:999px;background:var(--mx-ink);color:#fff;font-size:11px;font-weight:900}
+.nav-match:hover{background:var(--mx-red);transform:translateY(-1px)}
+.nav-popover{border:1px solid rgba(18,20,24,.09)!important;box-shadow:0 28px 70px rgba(8,10,12,.15)!important;backdrop-filter:blur(18px)}
+
+/* Homepage hero: near full-screen product stage. */
+.mi-home{background:var(--mx-cream)}
+.mi-hero{position:relative;isolation:isolate;min-height:calc(100svh - 78px);display:grid;align-items:center;overflow:hidden;background:var(--mx-black)!important;color:#fff}
+.mi-hero:before{content:"MOTOINDEX";position:absolute;left:50%;top:49%;z-index:-1;transform:translate(-50%,-50%);font-family:var(--font-sora),sans-serif;font-size:clamp(120px,20vw,330px);font-weight:800;letter-spacing:-.08em;color:rgba(255,255,255,.018);white-space:nowrap;pointer-events:none}
+.mi-hero:after{content:"";position:absolute;right:-8%;top:-20%;width:min(64vw,900px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(230,45,54,.30),rgba(230,45,54,.07) 43%,transparent 70%);filter:blur(20px);z-index:-2}
+.mi-grid-bg{opacity:.18!important;mask-image:linear-gradient(to bottom,#000,transparent 88%)}
+.mi-hero-layout{min-height:calc(100svh - 78px);grid-template-columns:minmax(0,.88fr) minmax(520px,1.12fr)!important;gap:50px!important;align-items:center!important;padding:68px 0 54px}
+.mi-hero-copy{position:relative;z-index:2;max-width:660px}
+.mi-badge{display:inline-flex!important;align-items:center;gap:8px!important;padding:7px 10px 7px 7px!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:999px!important;background:rgba(255,255,255,.055)!important;backdrop-filter:blur(12px);color:rgba(255,255,255,.65)!important;font-size:9px!important;letter-spacing:.02em}
+.mi-badge span{background:var(--mx-red)!important;color:#fff!important;border-radius:999px;padding:5px 8px!important;text-transform:uppercase;letter-spacing:.09em;font-weight:900}
+.mi-badge b{color:#fff!important;font-weight:760!important}.mi-badge em{color:rgba(255,255,255,.4)!important;font-style:normal!important}
+.mi-hero h1{margin:22px 0 20px!important;max-width:760px;font-size:clamp(62px,7.4vw,112px)!important;line-height:.86!important;letter-spacing:-.075em!important;color:#fff!important;text-wrap:balance}
+.mi-hero h1 span{color:var(--mx-red2)!important}
+.mi-hero-copy>p{max-width:610px!important;margin:0 0 27px!important;color:rgba(255,255,255,.56)!important;font-size:16px!important;line-height:1.72!important}
+.mi-search{display:grid!important;grid-template-columns:1fr auto!important;gap:8px!important;max-width:610px;padding:7px!important;border:1px solid rgba(255,255,255,.13)!important;border-radius:18px!important;background:rgba(255,255,255,.075)!important;box-shadow:0 24px 70px rgba(0,0,0,.23)!important;backdrop-filter:blur(18px)}
+.mi-search input{height:52px!important;border:0!important;background:transparent!important;color:#fff!important;padding:0 14px!important;outline:0!important;font-size:13px!important}.mi-search input::placeholder{color:rgba(255,255,255,.36)}
+.mi-search button{border:0!important;border-radius:12px!important;background:var(--mx-red)!important;color:#fff!important;padding:0 20px!important;font-size:11px!important;font-weight:900!important;cursor:pointer}.mi-search button:hover{background:#ff414b!important;transform:translateY(-1px)}
+.mi-popular{margin-top:14px!important;color:rgba(255,255,255,.4)!important;font-size:9px!important}.mi-popular a{color:rgba(255,255,255,.63)!important}.mi-popular a:hover{color:#fff!important}
+.mi-trust{margin-top:28px!important;gap:18px!important;color:rgba(255,255,255,.48)!important;font-size:9px!important}.mi-trust span:before{color:var(--mx-green)!important}
+.mi-hero-visual{position:relative;min-height:610px!important;display:grid!important;place-items:center!important;transform:translateX(2vw)}
+.mi-bike-frame{position:relative!important;width:min(690px,52vw)!important;aspect-ratio:1.22!important;border:0!important;border-radius:44px!important;background:radial-gradient(circle at 55% 55%,rgba(255,255,255,.13),rgba(255,255,255,.035) 43%,transparent 68%)!important;box-shadow:none!important;overflow:visible!important}
+.mi-bike-frame:before{content:"";position:absolute;left:10%;right:10%;bottom:10%;height:10%;border-radius:50%;background:rgba(0,0,0,.65);filter:blur(24px);transform:scaleX(.88);z-index:-1}
+.mi-bike-media,.mi-bike-media>*,.mi-bike-media img{width:100%!important;height:100%!important;object-fit:contain!important;filter:drop-shadow(0 32px 42px rgba(0,0,0,.55));transition:transform .6s cubic-bezier(.2,.8,.2,1),filter .6s ease!important}
+.mi-hero-visual:hover .mi-bike-media img{transform:scale(1.035) translateY(-5px)!important;filter:drop-shadow(0 42px 58px rgba(0,0,0,.65))}
+.mi-float{border:1px solid rgba(255,255,255,.11)!important;background:rgba(14,16,19,.58)!important;color:#fff!important;box-shadow:0 18px 50px rgba(0,0,0,.25)!important;backdrop-filter:blur(20px) saturate(140%)!important;border-radius:15px!important;font-size:9px!important}
+.mi-current{top:9%!important;left:2%!important;color:#d9ffe9!important}.mi-stars{right:0!important;top:18%!important;color:#ffd469!important}.mi-specs{left:0!important;bottom:18%!important}.mi-price{right:2%!important;bottom:10%!important}.mi-price strong{font-size:17px!important}
+
+/* Home section rhythm: editorial, not repeated dashboard grids. */
+.mi-brand-shelf,.mi-section{border:0!important}
+.mi-brand-shelf{padding:56px 0!important;background:#fff!important}
+.mi-section{padding:112px 0!important}
+.mi-section-head{align-items:flex-end!important;margin-bottom:46px!important}
+.mi-section-head .mi-eyebrow{color:var(--mx-red)!important;font-size:9px!important;font-weight:900!important;letter-spacing:.12em!important;text-transform:uppercase!important}
+.mi-section-head h2{max-width:800px!important;margin:9px 0 0!important;font-size:clamp(40px,5vw,68px)!important;line-height:.96!important;letter-spacing:-.06em!important}
+.mi-section-head h2 em{color:var(--mx-red)!important;font-style:normal!important}
+.mi-section-head p{max-width:700px!important;margin-top:15px!important;color:var(--mx-muted)!important;font-size:14px!important;line-height:1.7!important}
+.mi-section-head>a{font-size:10px!important;font-weight:900!important;text-transform:uppercase;letter-spacing:.06em}
+
+/* Brand shelf becomes a clean horizontal runway. */
+.mi-brand-grid{display:grid!important;grid-template-columns:repeat(6,minmax(170px,1fr))!important;gap:8px!important;overflow:auto!important;scrollbar-width:none;padding-bottom:2px}.mi-brand-grid::-webkit-scrollbar{display:none}
+.mi-brand-grid>a{min-height:96px!important;padding:18px!important;border:1px solid var(--mx-line)!important;border-radius:16px!important;background:var(--mx-white)!important;box-shadow:none!important}.mi-brand-grid>a:hover{transform:translateY(-3px)!important;border-color:#cfd3d8!important;box-shadow:var(--mx-shadow)!important}.mi-brand-grid strong{font-size:17px!important}.mi-brand-grid span{font-size:9px!important;color:#8b929b!important}
+
+/* Browse-by-need uses an asymmetric bento layout. */
+.mi-categories{background:var(--mx-paper)!important}
+.mi-category-grid{display:grid!important;grid-template-columns:repeat(12,1fr)!important;gap:14px!important}
+.mi-category-card{position:relative;min-height:220px!important;padding:25px!important;border:1px solid var(--mx-line)!important;border-radius:22px!important;background:#fff!important;overflow:hidden!important;box-shadow:none!important}
+.mi-category-card:nth-child(1),.mi-category-card:nth-child(6){grid-column:span 6}.mi-category-card:nth-child(2),.mi-category-card:nth-child(3),.mi-category-card:nth-child(4),.mi-category-card:nth-child(5),.mi-category-card:nth-child(7),.mi-category-card:nth-child(8){grid-column:span 3}
+.mi-category-card:nth-child(1),.mi-category-card:nth-child(6){min-height:275px!important;background:var(--mx-ink)!important;color:#fff!important;border-color:var(--mx-ink)!important}
+.mi-category-card:nth-child(1):after,.mi-category-card:nth-child(6):after{content:"";position:absolute;width:280px;height:280px;right:-110px;bottom:-160px;border-radius:50%;background:rgba(230,45,54,.23);filter:blur(35px)}
+.mi-category-card>span{color:var(--mx-red)!important;font-size:9px!important;font-weight:900!important}.mi-category-card h3{margin:0 0 8px!important;font-size:clamp(20px,2vw,28px)!important}.mi-category-card p{color:#808892!important;font-size:11px!important;line-height:1.55!important}.mi-category-card:nth-child(1) p,.mi-category-card:nth-child(6) p{color:rgba(255,255,255,.5)!important}.mi-category-card small{font-size:9px!important;font-weight:900!important}.mi-category-card:hover{transform:translateY(-5px)!important;box-shadow:var(--mx-shadow)!important}
+
+/* Featured models: cinematic editorial grid. */
+.mi-models{background:#fff!important}
+.mi-model-grid{display:grid!important;grid-template-columns:repeat(12,1fr)!important;gap:16px!important;align-items:stretch!important}
+.mi-model-grid>.model-card{grid-column:span 3!important}.mi-model-grid>.model-card:nth-child(1),.mi-model-grid>.model-card:nth-child(5){grid-column:span 6!important}.mi-model-grid>.model-card:nth-child(1) .model-card-media,.mi-model-grid>.model-card:nth-child(5) .model-card-media{min-height:340px!important}
+.model-card{border:1px solid var(--mx-line)!important;border-radius:24px!important;box-shadow:none!important;overflow:hidden!important}.model-card:hover{transform:translateY(-6px)!important;box-shadow:var(--mx-shadow-strong)!important}.model-card-media{background:linear-gradient(145deg,#f0f1f3,#fafafa)!important;overflow:hidden!important}.model-card-media img{transition:transform .55s cubic-bezier(.2,.8,.2,1)!important}.model-card:hover .model-card-media img{transform:scale(1.045)!important}.model-card-body{padding:21px!important}
+.mi-showcase-cta{margin-top:24px!important;padding:28px 30px!important;border:0!important;border-radius:24px!important;background:var(--mx-ink)!important;color:#fff!important}.mi-showcase-cta span{color:var(--mx-red2)!important}.mi-showcase-cta strong{max-width:560px!important;font-size:22px!important}.mi-btn{border-radius:999px!important;font-size:10px!important;font-weight:900!important}.mi-btn.dark{background:var(--mx-red)!important}.mi-btn.light{border-color:rgba(255,255,255,.15)!important;background:rgba(255,255,255,.07)!important;color:#fff!important}
+
+/* Why MotoIndex: one visual story instead of equal cards. */
+.mi-why{position:relative;background:var(--mx-black)!important;color:#fff!important;overflow:hidden}
+.mi-why:after{content:"";position:absolute;width:620px;height:620px;left:-300px;bottom:-340px;border-radius:50%;background:rgba(72,108,255,.16);filter:blur(70px)}
+.mi-why .mi-section-head p{color:rgba(255,255,255,.48)!important}.mi-why .mi-section-head h2{color:#fff!important}
+.mi-feature-grid{position:relative;z-index:1;display:grid!important;grid-template-columns:1.35fr .825fr .825fr!important;gap:14px!important}.mi-feature-grid .feature{min-height:340px!important;padding:28px!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:24px!important;background:rgba(255,255,255,.045)!important;color:#fff!important}.mi-feature-grid .feature.main{min-height:480px!important;background:linear-gradient(150deg,rgba(230,45,54,.24),rgba(255,255,255,.045) 60%)!important}.mi-feature-grid .feature span{font-size:30px!important}.mi-feature-grid .feature h3{margin-top:auto!important;font-size:clamp(25px,3vw,40px)!important}.mi-feature-grid .feature p{color:rgba(255,255,255,.48)!important;font-size:12px!important}.mi-feature-grid .feature b{font-size:10px!important}.mi-feature-grid .feature:hover{transform:translateY(-5px)!important;background:rgba(255,255,255,.075)!important}
+
+/* Guides as magazine cards. */
+.mi-guides{background:var(--mx-paper)!important}
+.mi-guide-grid{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:12px!important}.mi-guide-grid>a{min-height:330px!important;padding:24px!important;border-radius:22px!important;background:#fff!important;border:1px solid var(--mx-line)!important;box-shadow:none!important}.mi-guide-grid>a:nth-child(1){grid-column:span 2!important;background:var(--mx-ink)!important;color:#fff!important}.mi-guide-grid>a:nth-child(1) p{color:rgba(255,255,255,.48)!important}.mi-guide-grid h3{margin-top:auto!important;font-size:24px!important}.mi-guide-grid p{color:#7e8791!important;font-size:11px!important;line-height:1.6!important}.mi-guide-grid>a:hover{transform:translateY(-5px)!important;box-shadow:var(--mx-shadow)!important}
+
+/* Tool block + gear + final CTA. */
+.mi-tools{padding:118px 0!important;background:#0b0c0f!important}.mi-tool-grid{grid-template-columns:repeat(4,1fr)!important;gap:11px!important}.mi-tool-grid>a{min-height:290px!important;padding:24px!important;border-radius:21px!important;border:1px solid rgba(255,255,255,.1)!important;background:rgba(255,255,255,.035)!important}.mi-tool-grid>a:hover{transform:translateY(-5px)!important;background:rgba(255,255,255,.065)!important}.mi-tool-grid h3{font-size:23px!important}
+.mi-gear{background:#fff!important}.mi-product-grid{gap:14px!important}.product-card{border-radius:22px!important;box-shadow:none!important}.product-card:hover{transform:translateY(-4px)!important;box-shadow:var(--mx-shadow)!important}
+.mi-faq{background:var(--mx-paper)!important}.mi-faq-layout{gap:80px!important}.mi-faq-list details{border-color:#dfe3e7!important}.mi-faq-list summary{font-size:15px!important}.mi-correction{border-radius:18px!important}
+.mi-final{min-height:600px!important;display:grid!important;place-items:center!important;padding:110px 0!important;background:var(--mx-black)!important;text-align:center!important}.mi-final .shell{max-width:1000px!important}.mi-final h2{font-size:clamp(56px,8vw,108px)!important;line-height:.88!important;letter-spacing:-.075em!important}.mi-final p{max-width:650px!important;margin:22px auto 30px!important;color:rgba(255,255,255,.48)!important}.mi-final>div>span,.mi-final .shell>span{color:var(--mx-red2)!important;font-size:9px!important;font-weight:900!important;text-transform:uppercase!important;letter-spacing:.12em!important}
+
+/* Catalog experience: sticky commerce-style filter system. */
+.motorcycle-index-hero{padding:96px 0 64px!important}.motorcycle-index-hero-copy h1{font-size:clamp(58px,6.6vw,92px)!important;line-height:.9!important;max-width:900px!important}.motorcycle-index-overview{border-radius:28px!important}.motorcycle-index-quicklinks{margin-top:58px!important}.motorcycle-index-quicklinks>a{min-height:145px!important}
+.motorcycle-index-body{padding-top:88px!important}
+.model-explorer-v300{position:relative;gap:17px!important}
+.model-explorer-toolbar{position:relative;z-index:5}
+.model-explorer-v300 .filter-bar{position:sticky!important;top:92px!important;z-index:25!important;grid-template-columns:1.8fr repeat(3,1fr)!important;border-radius:18px!important;box-shadow:0 18px 55px rgba(8,10,12,.11)!important;backdrop-filter:blur(18px);background:rgba(255,255,255,.94)!important}
+.model-explorer-quick{display:flex;gap:7px;flex-wrap:wrap;padding:1px 2px 2px}.model-explorer-quick button{height:34px;padding:0 12px;border:1px solid var(--mx-line);border-radius:999px;background:#fff;color:#686f79;font-size:9px;font-weight:850;cursor:pointer}.model-explorer-quick button:hover,.model-explorer-quick button.active{border-color:var(--mx-ink);background:var(--mx-ink);color:#fff}.model-explorer-sort{display:flex!important;align-items:center!important;gap:8px!important}.model-explorer-sort select{height:36px!important;border:1px solid var(--mx-line)!important;border-radius:999px!important;background:#fff!important;padding:0 28px 0 11px!important;font-size:9px!important;font-weight:800!important}
+.motorcycle-catalog-grid{gap:20px!important}.motorcycle-catalog-grid .model-card-media{min-height:235px!important}
+
+/* Product detail: configurator-like stage. */
+.motorcycle-entity-hero{padding:42px 0 76px!important;min-height:760px!important;display:grid!important;align-items:center!important}.motorcycle-hero-grid{grid-template-columns:minmax(0,.85fr) minmax(560px,1.15fr)!important;gap:54px!important;align-items:center!important}.motorcycle-hero-copy h1{font-size:clamp(58px,6.8vw,96px)!important;line-height:.88!important;letter-spacing:-.07em!important}.entity-lede{max-width:620px!important;color:rgba(255,255,255,.52)!important;font-size:15px!important}.motorcycle-price-lockup strong{font-size:clamp(34px,4vw,52px)!important}.motorcycle-hero-visual{min-height:600px!important}.motorcycle-hero-media,.motorcycle-hero-media>*{min-height:520px!important}.motorcycle-hero-media img{object-fit:contain!important;filter:drop-shadow(0 34px 46px rgba(0,0,0,.5));transition:transform .55s ease!important}.motorcycle-hero-visual:hover .motorcycle-hero-media img{transform:scale(1.025) translateY(-5px)!important}.motorcycle-hero-facts{position:absolute!important;left:5%!important;right:5%!important;bottom:0!important;display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:7px!important;padding:8px!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:20px!important;background:rgba(12,14,17,.55)!important;backdrop-filter:blur(18px)!important}.motorcycle-hero-facts>div{min-height:94px!important;padding:14px!important;border-radius:13px!important;background:rgba(255,255,255,.04)!important}.motorcycle-hero-facts strong{font-size:16px!important}.motorcycle-hero-facts small{font-size:8px!important;color:rgba(255,255,255,.43)!important}
+.motorcycle-entity-nav-wrap{position:sticky!important;top:78px!important;z-index:35!important;background:rgba(251,250,247,.92)!important;backdrop-filter:blur(18px)!important;border-bottom:1px solid rgba(18,20,24,.07)!important}
+.motorcycle-entity-body{padding-top:66px!important}.motorcycle-entity-section{padding:76px 0!important;border-bottom:1px solid rgba(18,20,24,.07)!important}.motorcycle-editorial-grid{gap:16px!important}.motorcycle-editorial-grid article{border-radius:22px!important}.spec-grid{border-radius:22px!important;box-shadow:0 18px 48px rgba(8,10,12,.05)!important}
+
+/* Brand hubs: identity-led destinations. */
+.ph-brand-hero{padding:80px 0 70px!important;min-height:630px!important;display:grid!important;align-items:center!important}.ph-brand-hero-grid{grid-template-columns:minmax(0,1fr) minmax(400px,.72fr)!important;gap:70px!important}.ph-brand-hero h1{font-size:clamp(58px,7vw,94px)!important;line-height:.9!important;letter-spacing:-.07em!important}.ph-brand-overview{border-radius:26px!important}.ph-brand-nav{position:sticky!important;top:78px!important;z-index:30!important;background:rgba(251,250,247,.93)!important;backdrop-filter:blur(18px)!important}.ph-brand-section{padding:88px 0!important}.ph-brand-model-grid{gap:18px!important}.ph-brand-context{border-radius:26px!important}.ph-brand-price-table{border-radius:22px!important;overflow:hidden!important}
+
+/* Finder: feel like a guided product, not a settings screen. */
+.page:has(.decision-finder){padding-top:0!important;width:100%!important;max-width:none!important}
+.page:has(.decision-finder)>.page-head{max-width:none!important;margin:0!important;padding:94px max(24px,calc((100vw - 1240px)/2)) 66px!important;background:var(--mx-black)!important;color:#fff!important}.page:has(.decision-finder)>.page-head h1{max-width:980px!important;font-size:clamp(58px,7vw,96px)!important;line-height:.9!important;color:#fff!important}.page:has(.decision-finder)>.page-head p{max-width:760px!important;color:rgba(255,255,255,.52)!important}.page:has(.decision-finder)>.page-head .entity-kicker{color:var(--mx-red2)!important}
+.decision-finder{width:min(1240px,calc(100% - 48px))!important;margin:0 auto!important;padding:68px 0 110px!important}.decision-profile-panel{position:relative!important;padding:34px!important;border:1px solid var(--mx-line)!important;border-radius:28px!important;background:#fff!important;box-shadow:var(--mx-shadow)!important}.decision-profile-panel:before{content:"01 · YOUR RIDE";display:block;margin-bottom:20px;color:var(--mx-red);font-size:9px;font-weight:900;letter-spacing:.12em}.decision-profile-copy h2{font-size:clamp(34px,4vw,52px)!important}.decision-profile-copy p{max-width:720px!important;color:var(--mx-muted)!important}.decision-filter-grid.primary{grid-template-columns:repeat(5,1fr)!important;gap:9px!important;margin-top:28px!important}.decision-filter-grid label{padding:13px!important;border:1px solid var(--mx-line)!important;border-radius:14px!important;background:#f7f8f9!important}.decision-filter-grid label>span{font-size:8px!important;letter-spacing:.08em!important}.decision-filter-grid select{border:0!important;background:transparent!important;font-weight:850!important}.decision-toggle-row{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:8px!important;margin-top:10px!important}.decision-toggle-row label{padding:13px 14px!important;border:1px solid var(--mx-line)!important;border-radius:14px!important;background:#fff!important;font-size:10px!important;font-weight:800!important}.decision-toggle-row label:has(input:checked){border-color:var(--mx-ink)!important;background:var(--mx-ink)!important;color:#fff!important}.decision-winner{margin-top:28px!important;padding:30px!important;border:0!important;border-radius:28px!important;background:var(--mx-black)!important;color:#fff!important;box-shadow:var(--mx-shadow-strong)!important}.decision-winner:before{content:"02 · TOP MATCH";position:absolute;color:var(--mx-red2);font-size:9px;font-weight:900;letter-spacing:.12em}.decision-winner-copy h2{font-size:clamp(38px,5vw,64px)!important;color:#fff!important}.decision-winner-copy p{color:rgba(255,255,255,.52)!important}.decision-winner-cost>span{background:rgba(255,255,255,.055)!important;border-color:rgba(255,255,255,.08)!important}.decision-winner-cost small{color:rgba(255,255,255,.45)!important}.decision-winner-actions .button{background:var(--mx-red)!important}.decision-winner-actions .button.ghost{border-color:rgba(255,255,255,.15)!important;background:rgba(255,255,255,.06)!important;color:#fff!important}.decision-results-head{margin-top:70px!important}.decision-results-head:before{content:"03 · SHORTLIST";display:block;margin-bottom:12px;color:var(--mx-red);font-size:9px;font-weight:900;letter-spacing:.12em}.decision-result-list{gap:14px!important}.decision-result-card{border-radius:24px!important;box-shadow:none!important}.decision-result-card:hover{box-shadow:var(--mx-shadow)!important}.decision-result-media{overflow:hidden!important;border-radius:18px!important}.decision-result-media img{transition:transform .4s ease!important}.decision-result-card:hover .decision-result-media img{transform:scale(1.035)!important}
+
+/* Compare and sticky tray polish. */
+.compare-wrap{border-radius:24px!important;box-shadow:0 16px 50px rgba(8,10,12,.05)!important}.compare-table th{position:sticky;top:78px;z-index:3;background:#f3f4f5!important}.compare-tray{box-shadow:0 -18px 55px rgba(8,10,12,.15)!important;backdrop-filter:blur(18px)}
+
+/* Scroll-reveal without shipping a client animation library. */
+@supports (animation-timeline:view()){
+  .mi-section-head,.mi-category-card,.mi-model-grid>.model-card,.mi-feature-grid>.feature,.mi-guide-grid>a,.mi-tool-grid>a,.motorcycle-brand-directory-grid>a,.ph-brand-section>.section-head,.decision-result-card{
+    animation:mx-reveal both linear;
+    animation-timeline:view();
+    animation-range:entry 4% cover 26%;
+  }
+  .mi-bike-frame{animation:mx-bike-parallax both linear;animation-timeline:view();animation-range:entry 0% exit 100%}
+}
+@keyframes mx-reveal{from{opacity:.15;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes mx-bike-parallax{from{transform:translateY(18px) scale(.985)}50%{transform:translateY(0) scale(1)}to{transform:translateY(-18px) scale(1.015)}}
+
+/* Tablet */
+@media(max-width:1050px){
+  .shell,.decision-finder{width:min(100% - 34px,1240px)!important}
+  .mi-hero-layout{grid-template-columns:1fr 1fr!important}.mi-hero h1{font-size:clamp(56px,8vw,82px)!important}.mi-hero-visual{min-height:500px!important}.mi-bike-frame{width:50vw!important}
+  .mi-category-card:nth-child(n){grid-column:span 6!important}.mi-model-grid>.model-card{grid-column:span 4!important}.mi-model-grid>.model-card:nth-child(1),.mi-model-grid>.model-card:nth-child(5){grid-column:span 8!important}
+  .mi-feature-grid{grid-template-columns:1fr 1fr!important}.mi-feature-grid .feature.main{grid-column:1/-1!important;min-height:360px!important}.mi-guide-grid{grid-template-columns:1fr 1fr!important}.mi-guide-grid>a:nth-child(1){grid-column:1/-1!important}
+  .mi-tool-grid{grid-template-columns:1fr 1fr!important}
+  .motorcycle-hero-grid{grid-template-columns:1fr!important}.motorcycle-hero-visual{min-height:560px!important}.motorcycle-hero-media,.motorcycle-hero-media>*{min-height:480px!important}
+  .ph-brand-hero-grid{grid-template-columns:1fr!important}.ph-brand-hero{min-height:auto!important}
+  .decision-filter-grid.primary{grid-template-columns:repeat(3,1fr)!important}.decision-toggle-row{grid-template-columns:1fr 1fr!important}
+}
+
+/* Mobile */
+@media(max-width:720px){
+  html{scroll-padding-top:72px}.shell,.decision-finder{width:min(100% - 24px,1240px)!important}.site-header{position:sticky!important}.nav-wrap{height:64px!important}.nav-match{display:none!important}
+  .mi-hero{min-height:auto!important}.mi-hero-layout{min-height:auto!important;grid-template-columns:1fr!important;padding:58px 0 26px!important;gap:20px!important}.mi-hero-copy{max-width:none!important}.mi-hero h1{font-size:clamp(52px,15vw,72px)!important;line-height:.89!important}.mi-hero-copy>p{font-size:14px!important}.mi-search{grid-template-columns:1fr!important}.mi-search button{height:46px!important}.mi-popular{display:flex!important;gap:7px!important;overflow:auto!important;white-space:nowrap!important;padding-bottom:4px!important}.mi-trust{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
+  .mi-hero-visual{min-height:390px!important;transform:none!important;margin-top:0!important}.mi-bike-frame{width:100%!important;max-width:540px!important;border-radius:28px!important}.mi-float{font-size:8px!important}.mi-current{left:0!important}.mi-stars{right:0!important}.mi-specs{left:0!important;bottom:15%!important}.mi-price{right:0!important;bottom:4%!important}
+  .mi-brand-shelf{padding:42px 0!important}.mi-brand-grid{grid-template-columns:repeat(6,160px)!important}.mi-section{padding:76px 0!important}.mi-section-head{align-items:flex-start!important;flex-direction:column!important;margin-bottom:30px!important}.mi-section-head h2{font-size:clamp(36px,11vw,52px)!important}.mi-section-head>a{margin-top:7px!important}
+  .mi-category-grid{grid-template-columns:1fr!important}.mi-category-card:nth-child(n){grid-column:auto!important;min-height:180px!important}.mi-category-card:nth-child(1),.mi-category-card:nth-child(6){min-height:230px!important}
+  .mi-model-grid{display:flex!important;overflow-x:auto!important;scroll-snap-type:x mandatory!important;gap:12px!important;padding:0 4px 16px!important;margin:0 -4px!important;scrollbar-width:none}.mi-model-grid::-webkit-scrollbar{display:none}.mi-model-grid>.model-card{flex:0 0 84vw!important;max-width:380px!important;scroll-snap-align:start!important}.mi-model-grid>.model-card:nth-child(1) .model-card-media,.mi-model-grid>.model-card:nth-child(5) .model-card-media{min-height:230px!important}.mi-showcase-cta{align-items:flex-start!important;flex-direction:column!important;padding:24px!important}
+  .mi-feature-grid{grid-template-columns:1fr!important}.mi-feature-grid .feature.main{grid-column:auto!important;min-height:330px!important}.mi-feature-grid .feature{min-height:250px!important}.mi-guide-grid{display:flex!important;overflow-x:auto!important;scroll-snap-type:x mandatory!important;gap:12px!important;padding-bottom:12px!important}.mi-guide-grid>a,.mi-guide-grid>a:nth-child(1){flex:0 0 82vw!important;min-height:300px!important;scroll-snap-align:start!important}.mi-tool-grid{display:flex!important;overflow-x:auto!important;scroll-snap-type:x mandatory!important}.mi-tool-grid>a{flex:0 0 78vw!important;scroll-snap-align:start!important}.mi-faq-layout{grid-template-columns:1fr!important;gap:38px!important}.mi-final{min-height:520px!important;padding:80px 0!important}.mi-final h2{font-size:clamp(52px,15vw,76px)!important}
+  .motorcycle-index-hero{padding:70px 0 46px!important}.motorcycle-index-hero-copy h1{font-size:clamp(50px,14vw,70px)!important}.motorcycle-index-hero-grid{grid-template-columns:1fr!important;gap:34px!important}.motorcycle-index-quicklinks{display:flex!important;overflow-x:auto!important;scroll-snap-type:x mandatory!important;margin-top:36px!important}.motorcycle-index-quicklinks>a{flex:0 0 72vw!important;scroll-snap-align:start!important}.model-explorer-v300 .filter-bar{position:static!important;grid-template-columns:1fr!important}.model-explorer-toolbar{align-items:flex-start!important;flex-direction:column!important}.model-explorer-sort{width:100%!important;justify-content:space-between!important}.motorcycle-catalog-grid{grid-template-columns:1fr!important}
+  .motorcycle-entity-hero{min-height:auto!important;padding:30px 0 54px!important}.motorcycle-hero-copy h1{font-size:clamp(50px,14vw,72px)!important}.motorcycle-hero-visual{min-height:430px!important}.motorcycle-hero-media,.motorcycle-hero-media>*{min-height:360px!important}.motorcycle-hero-facts{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;grid-template-columns:1fr 1fr!important;margin-top:8px!important}.motorcycle-entity-nav-wrap{top:64px!important;margin-inline:0!important;width:100%!important}.motorcycle-entity-section{padding:58px 0!important}
+  .ph-brand-hero{padding:64px 0 52px!important}.ph-brand-hero h1{font-size:clamp(50px,14vw,72px)!important}.ph-brand-nav{top:64px!important;overflow-x:auto!important;white-space:nowrap!important}.ph-brand-section{padding:62px 0!important}
+  .page:has(.decision-finder)>.page-head{padding:70px 20px 48px!important}.page:has(.decision-finder)>.page-head h1{font-size:clamp(50px,14vw,72px)!important}.decision-finder{padding:34px 0 90px!important}.decision-profile-panel{padding:22px!important;border-radius:22px!important}.decision-filter-grid.primary,.decision-filter-grid.secondary{grid-template-columns:1fr!important}.decision-toggle-row{grid-template-columns:1fr!important}.decision-winner{grid-template-columns:1fr!important;padding:23px!important}.decision-winner-cost{grid-template-columns:1fr 1fr!important}.decision-result-card{grid-template-columns:1fr!important}.decision-result-media{min-height:220px!important}.decision-result-main{padding-top:0!important}
+  .mobile-quick-tabs{backdrop-filter:blur(18px)!important;background:rgba(251,250,247,.92)!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.mi-bike-media img,.model-card-media img,.decision-result-media img{transform:none!important}
+}
