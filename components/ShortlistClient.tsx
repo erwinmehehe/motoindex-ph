@@ -1,16 +1,24 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
 import { SHORTLIST_KEY } from "@/components/SaveToShortlistButton";
 import { ModelCard } from "@/components/ModelCard";
 import { trackEvent } from "@/lib/track";
 
+const EMPTY_SLUGS:string[]=[];
 function read(){try{return JSON.parse(localStorage.getItem(SHORTLIST_KEY)||"[]") as string[]}catch{return []}}
-export function ShortlistClient({models,initialSlugs=[]}:{models:Motorcycle[];initialSlugs?:string[]}){
-  const initialIds=useMemo(()=>initialSlugs.map(slug=>models.find(m=>m.slug===slug)?.id).filter((id):id is string=>Boolean(id)),[models,initialSlugs]);
+export function ShortlistClient({models,initialSlugs=EMPTY_SLUGS}:{models:Motorcycle[];initialSlugs?:string[]}){
   const [ids,setIds]=useState<string[]>([]);
-  useEffect(()=>{const stored=read();const merged=[...new Set([...initialIds,...stored])].slice(0,8);if(merged.length) localStorage.setItem(SHORTLIST_KEY,JSON.stringify(merged));setIds(merged);const sync=()=>setIds(read());window.addEventListener("storage",sync);window.addEventListener("motoindex-shortlist",sync as EventListener);return()=>{window.removeEventListener("storage",sync);window.removeEventListener("motoindex-shortlist",sync as EventListener)}},[initialIds]);
+  useEffect(()=>{
+    const querySlugs=(new URLSearchParams(window.location.search).get("bikes")||"").split(",").filter(Boolean).slice(0,8);
+    const slugs=[...new Set([...initialSlugs,...querySlugs])];
+    const queryIds=slugs.map(slug=>models.find(m=>m.slug===slug)?.id).filter((id):id is string=>Boolean(id));
+    const stored=read(); const merged=[...new Set([...queryIds,...stored])].slice(0,8);
+    if(merged.length)localStorage.setItem(SHORTLIST_KEY,JSON.stringify(merged)); setIds(merged);
+    const sync=()=>setIds(read()); window.addEventListener("storage",sync); window.addEventListener("motoindex-shortlist",sync as EventListener);
+    return()=>{window.removeEventListener("storage",sync);window.removeEventListener("motoindex-shortlist",sync as EventListener)};
+  },[initialSlugs,models]);
   const saved=ids.map(id=>models.find(m=>m.id===id)).filter((m):m is Motorcycle=>Boolean(m));
   function clear(){localStorage.removeItem(SHORTLIST_KEY);setIds([]);window.dispatchEvent(new CustomEvent("motoindex-shortlist"));}
   async function share(){if(!saved.length)return;const url=`${window.location.origin}/shortlist?bikes=${saved.map(m=>m.slug).join(",")}`;await navigator.clipboard?.writeText(url);trackEvent("shortlist_share",{count:saved.length});}
