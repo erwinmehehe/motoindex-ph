@@ -9,7 +9,6 @@ import { SaveToShortlistButton } from "@/components/SaveToShortlistButton";
 import { CompareButton } from "@/components/CompareButton";
 import { trackEvent } from "@/lib/track";
 import { rankMotorcycles, type DecisionUseCase, type TrafficLevel } from "@/lib/decisionEngine";
-// commuteMonthlyCosts is applied inside the shared decision engine so finder and commute tools use one running-cost model.
 
 export type FinderInitialFilters = {
   budget?: string;
@@ -44,6 +43,16 @@ function compactPeso(value: number) {
   return `₱${Math.round(value / 1000)}K`;
 }
 
+const finderSteps = ["Budget", "Riding use", "Rider fit", "Passenger", "Transmission", "Road use"] as const;
+const budgetChoices = [["80000","Up to ₱80K"],["100000","Up to ₱100K"],["150000","Up to ₱150K"],["200000","Up to ₱200K"],["300000","Up to ₱300K"],["any","No fixed limit"]] as const;
+const useChoices: Array<[DecisionUseCase,string,string]> = [
+  ["city","City commute","Traffic, errands and daily riding"],
+  ["short","Easy to handle","Lower, lighter and confidence-friendly"],
+  ["work","Work / utility","Frequent riding, cargo and practicality"],
+  ["performance","Performance","Acceleration and stronger engine performance"],
+  ["touring","Longer rides","Comfort and open-road use"]
+];
+
 export function MotorcycleFinder({ models, initialFilters = {} }: { models: Motorcycle[]; initialFilters?: FinderInitialFilters }) {
   const [budget, setBudget] = useState(initialFilters.budget || "150000");
   const [make, setMake] = useState(initialFilters.make || "any");
@@ -66,6 +75,7 @@ export function MotorcycleFinder({ models, initialFilters = {} }: { models: Moto
   const [annualRatePct, setAnnualRatePct] = useState(initialFilters.annualRatePct || 12);
   const [copied, setCopied] = useState(false);
   const [showMoreFilters, setShowMoreFilters] = useState(false);
+  const [step, setStep] = useState(0);
   const analyticsReady = useRef(false);
   const previousFilterSnapshot = useRef("");
   const previousResultsSnapshot = useRef("");
@@ -111,7 +121,7 @@ export function MotorcycleFinder({ models, initialFilters = {} }: { models: Moto
   useEffect(() => {
     trackEvent("finder_view", { initial_results: results.length });
     analyticsReady.current = true;
-  }, []); // Intentional once-per-view event.
+  }, []);
 
   useEffect(() => {
     const snapshot = JSON.stringify({ budget, make, transmission, useCase, abs, maxSeat, maxWeight, category, inseam, passenger, highway, expresswayClass, luggage, traffic, dailyKm, monthlyBudget, downPaymentPct, termMonths, annualRatePct });
@@ -119,9 +129,7 @@ export function MotorcycleFinder({ models, initialFilters = {} }: { models: Moto
     if (!previousFilterSnapshot.current) { previousFilterSnapshot.current = snapshot; return; }
     if (previousFilterSnapshot.current === snapshot) return;
     previousFilterSnapshot.current = snapshot;
-    const timer = window.setTimeout(() => trackEvent("finder_filter_change", {
-      results: results.length, use_case: useCase, traffic, passenger, luggage, highway, expressway_class: expresswayClass, monthly_ceiling_set: monthlyBudget > 0,
-    }), 350);
+    const timer = window.setTimeout(() => trackEvent("finder_filter_change", { results: results.length, use_case: useCase, traffic, passenger, luggage, highway, expressway_class: expresswayClass, monthly_ceiling_set: monthlyBudget > 0 }), 350);
     return () => window.clearTimeout(timer);
   }, [budget, make, transmission, useCase, abs, maxSeat, maxWeight, category, inseam, passenger, highway, expresswayClass, luggage, traffic, dailyKm, monthlyBudget, downPaymentPct, termMonths, annualRatePct, results.length]);
 
@@ -130,20 +138,9 @@ export function MotorcycleFinder({ models, initialFilters = {} }: { models: Moto
     const snapshot = `${top.model.id}:${top.decision.score}:${results.length}`;
     if (previousResultsSnapshot.current === snapshot) return;
     previousResultsSnapshot.current = snapshot;
-    const timer = window.setTimeout(() => trackEvent("finder_results_generated", {
-      results: results.length, top_model_id: top.model.id, top_score: top.decision.score, use_case: useCase,
-    }), 450);
+    const timer = window.setTimeout(() => trackEvent("finder_results_generated", { results: results.length, top_model_id: top.model.id, top_score: top.decision.score, use_case: useCase }), 450);
     return () => window.clearTimeout(timer);
   }, [top, results.length, useCase]);
-
-  useEffect(() => {
-    if (results.length) return;
-    const timer = window.setTimeout(() => trackEvent("finder_zero_results", {
-      budget, make, transmission, use_case: useCase, abs, max_seat: maxSeat, max_weight: maxWeight, category,
-      inseam, passenger, highway, expressway_class: expresswayClass, luggage, traffic, daily_km: dailyKm, monthly_budget: monthlyBudget,
-    }), 700);
-    return () => window.clearTimeout(timer);
-  }, [results.length, budget, make, transmission, useCase, abs, maxSeat, maxWeight, category, inseam, passenger, highway, expresswayClass, luggage, traffic, dailyKm, monthlyBudget]);
 
   useEffect(() => {
     const p = new URLSearchParams();
@@ -172,7 +169,7 @@ export function MotorcycleFinder({ models, initialFilters = {} }: { models: Moto
   function reset() {
     trackEvent("finder_reset", { results_before_reset: results.length });
     setBudget("150000"); setMake("any"); setTransmission("any"); setUseCase("city"); setAbs("any"); setMaxSeat("any"); setMaxWeight("any"); setCategory("any");
-    setInseam(30); setPassenger(false); setHighway(false); setExpresswayClass(false); setLuggage(false); setTraffic("heavy"); setDailyKm(20); setMonthlyBudget(0); setDownPaymentPct(20); setTermMonths(36); setAnnualRatePct(12);
+    setInseam(30); setPassenger(false); setHighway(false); setExpresswayClass(false); setLuggage(false); setTraffic("heavy"); setDailyKm(20); setMonthlyBudget(0); setDownPaymentPct(20); setTermMonths(36); setAnnualRatePct(12); setStep(0);
   }
   async function share() {
     await navigator.clipboard?.writeText(window.location.href);
@@ -181,65 +178,59 @@ export function MotorcycleFinder({ models, initialFilters = {} }: { models: Moto
     trackEvent("finder_share", { results: results.length });
   }
 
-  return <div className="decision-finder">
-    <section className="decision-profile-panel">
-      <div className="decision-profile-copy">
-        <span>Motorcycle finder</span>
-        <h2>Tell us what matters for your ride.</h2>
-        <p>Use your budget, inseam, traffic, daily distance, passenger and luggage needs to narrow the current motorcycles. The result is a shortlist, so still test the bike and confirm the dealer price.</p>
+  function nextStep(){setStep((value)=>Math.min(value+1, finderSteps.length-1));}
+  function prevStep(){setStep((value)=>Math.max(value-1, 0));}
+
+  return <div className="decision-finder finder-v4">
+    <section className="finder-stage-shell">
+      <div className="finder-stage-main">
+        <div className="finder-progress" aria-label="Finder progress">{finderSteps.map((label,index)=><button type="button" key={label} className={index===step?"active":index<step?"done":""} onClick={()=>setStep(index)}><span>{index<step?"✓":index+1}</span><b>{label}</b></button>)}</div>
+        <div className="finder-stage-card">
+          <div className="finder-stage-kicker">Step {step+1} of {finderSteps.length}</div>
+          {step===0&&<><h2>What is your purchase budget?</h2><p>Start with the amount you are comfortable spending on the motorcycle itself.</p><div className="finder-choice-grid budget">{budgetChoices.map(([value,label])=><button type="button" key={value} className={budget===value?"selected":""} onClick={()=>{setBudget(value);window.setTimeout(nextStep,120);}}><span>{label}</span><small>{value==="any"?"Show the full current catalog":`Motorcycles priced at or below ${label.replace("Up to ","")}`}</small></button>)}</div></>}
+          {step===1&&<><h2>What will the motorcycle do most often?</h2><p>This changes how the Finder scores weight, comfort, engine performance and day-to-day usability.</p><div className="finder-choice-grid">{useChoices.map(([value,label,copy])=><button type="button" key={value} className={useCase===value?"selected":""} onClick={()=>{setUseCase(value);window.setTimeout(nextStep,120);}}><span>{label}</span><small>{copy}</small></button>)}</div></>}
+          {step===2&&<><h2>How should the motorcycle fit you?</h2><p>Inseam is more useful than total height for estimating low-speed confidence and foot reach.</p><div className="finder-fit-stage"><label><span>Your inseam</span><select value={inseam} onChange={(e)=>setInseam(Number(e.target.value))}>{[26,27,28,29,30,31,32,33,34,35,36,37,38].map((v)=><option value={v} key={v}>{v} inches</option>)}</select><small>Measure from the floor to the top of your inner leg while standing.</small></label><label><span>Maximum seat height</span><select value={maxSeat} onChange={(e)=>setMaxSeat(e.target.value)}><option value="any">Let MotoIndex score the fit</option><option value="760">760 mm</option><option value="780">780 mm</option><option value="800">800 mm</option><option value="820">820 mm</option></select><small>Optional hard limit if you already know your preference.</small></label></div></>}
+          {step===3&&<><h2>Will you regularly carry someone or something?</h2><p>Passenger and luggage needs change the usefulness of weight, power and storage-friendly motorcycles.</p><div className="finder-choice-grid toggles"><button type="button" className={passenger?"selected":""} onClick={()=>setPassenger((v)=>!v)}><span>{passenger?"✓ ":""}Regular passenger</span><small>Score two-up practicality more strongly.</small></button><button type="button" className={luggage?"selected":""} onClick={()=>setLuggage((v)=>!v)}><span>{luggage?"✓ ":""}Need luggage</span><small>Favor utility and practical everyday use.</small></button><button type="button" className={!passenger&&!luggage?"selected":""} onClick={()=>{setPassenger(false);setLuggage(false);}}><span>Mostly solo</span><small>Keep the shortlist focused on your own ride.</small></button></div></>}
+          {step===4&&<><h2>Automatic or manual?</h2><p>Choose your preference, then tell us what traffic you actually face.</p><div className="finder-choice-grid compact">{[["any","Either"],["Automatic","Automatic"],["Manual","Manual"]].map(([value,label])=><button type="button" key={value} className={transmission===value?"selected":""} onClick={()=>setTransmission(value)}><span>{label}</span></button>)}</div><div className="finder-traffic-row"><span>Typical traffic</span>{(["heavy","mixed","light"] as TrafficLevel[]).map((value)=><button type="button" key={value} className={traffic===value?"selected":""} onClick={()=>setTraffic(value)}>{value==="heavy"?"Heavy stop-go":value==="mixed"?"Mixed":"Mostly open"}</button>)}</div></>}
+          {step===5&&<><h2>Where will you ride?</h2><p>Use these only when they reflect your real riding. A 400cc+ filter is not a guarantee of tollway eligibility.</p><div className="finder-choice-grid toggles"><button type="button" className={highway?"selected":""} onClick={()=>setHighway((v)=>!v)}><span>{highway?"✓ ":""}Faster provincial / national roads</span><small>Give more weight to open-road performance.</small></button><button type="button" className={expresswayClass?"selected":""} onClick={()=>setExpresswayClass((v)=>!v)}><span>{expresswayClass?"✓ ":""}Only show 400cc+</span><small>Engine-displacement research filter only.</small></button></div><label className="finder-distance"><span>Daily round trip</span><select value={dailyKm} onChange={(e)=>setDailyKm(Number(e.target.value))}>{[10,20,30,40,60,80].map((v)=><option key={v} value={v}>{v} km</option>)}</select></label></>}
+          <div className="finder-stage-actions"><button type="button" className="button ghost on-light" onClick={prevStep} disabled={step===0}>Back</button>{step<finderSteps.length-1?<button type="button" className="button" onClick={nextStep}>Continue</button>:<a className="button" href="#finder-results">See my matches ↓</a>}</div>
+        </div>
+        <div className="finder-advanced-row"><button type="button" onClick={()=>setShowMoreFilters((v)=>!v)} aria-expanded={showMoreFilters}>{showMoreFilters?"Hide advanced filters":"Advanced filters"}</button><span>Brand, category, ABS, weight and monthly ownership planning</span></div>
+        {showMoreFilters&&<div className="finder-advanced-panel">
+          <label><span>Make</span><select value={make} onChange={(e)=>setMake(e.target.value)}><option value="any">Any make</option>{makes.map((v)=><option key={v} value={v}>{v}</option>)}</select></label>
+          <label><span>Category</span><select value={category} onChange={(e)=>setCategory(e.target.value)}><option value="any">Any category</option>{categories.map((v)=><option key={v} value={v}>{v}</option>)}</select></label>
+          <label><span>ABS listing</span><select value={abs} onChange={(e)=>setAbs(e.target.value)}><option value="any">Any</option><option value="yes">ABS listed</option><option value="no">No ABS listed</option></select></label>
+          <label><span>Maximum weight</span><select value={maxWeight} onChange={(e)=>setMaxWeight(e.target.value)}><option value="any">No limit</option><option value="110">110 kg</option><option value="120">120 kg</option><option value="140">140 kg</option><option value="180">180 kg</option></select></label>
+          <label><span>Monthly ownership ceiling</span><select value={monthlyBudget} onChange={(e)=>setMonthlyBudget(Number(e.target.value))}><option value="0">Not set</option><option value="4000">₱4K/mo</option><option value="6000">₱6K/mo</option><option value="8000">₱8K/mo</option><option value="10000">₱10K/mo</option><option value="15000">₱15K/mo</option><option value="25000">₱25K/mo</option></select></label>
+          <label><span>Down payment</span><select value={downPaymentPct} onChange={(e)=>setDownPaymentPct(Number(e.target.value))}><option value="10">10%</option><option value="20">20%</option><option value="30">30%</option><option value="40">40%</option></select></label>
+          <label><span>Planning term</span><select value={termMonths} onChange={(e)=>setTermMonths(Number(e.target.value))}><option value="12">12 mo</option><option value="24">24 mo</option><option value="36">36 mo</option><option value="48">48 mo</option><option value="60">60 mo</option></select></label>
+          <label><span>Planning APR</span><select value={annualRatePct} onChange={(e)=>setAnnualRatePct(Number(e.target.value))}><option value="0">0%</option><option value="8">8%</option><option value="12">12%</option><option value="18">18%</option><option value="24">24%</option></select></label>
+        </div>}
+        <div className="finder-utility-row"><button type="button" onClick={reset}>Start over</button><button type="button" onClick={share}>{copied?"Link copied ✓":"Copy finder link"}</button></div>
       </div>
-      <div className="finder-toolbar"><button type="button" className="button ghost small" onClick={reset}>Reset</button><button type="button" className="button small" onClick={share}>{copied ? "Copied ✓" : "Copy finder link"}</button></div>
-      <div className="decision-filter-grid primary">
-        <label><span>Purchase budget</span><select value={budget} onChange={(e) => setBudget(e.target.value)}><option value="80000">₱80K</option><option value="100000">₱100K</option><option value="125000">₱125K</option><option value="150000">₱150K</option><option value="200000">₱200K</option><option value="300000">₱300K</option><option value="500000">₱500K</option><option value="any">No limit</option></select></label>
-        <label><span>Main use</span><select value={useCase} onChange={(e) => setUseCase(e.target.value as DecisionUseCase)}><option value="city">Daily city commute</option><option value="short">Lower / easier bike</option><option value="work">Work / utility</option><option value="performance">Performance</option><option value="touring">Longer rides / touring</option></select></label>
-        <label><span>Inseam</span><select value={inseam} onChange={(e) => setInseam(Number(e.target.value))}>{[26,27,28,29,30,31,32,33,34,35,36,37,38].map((v) => <option value={v} key={v}>{v} in</option>)}</select></label>
-        <label><span>Traffic</span><select value={traffic} onChange={(e) => setTraffic(e.target.value as TrafficLevel)}><option value="heavy">Heavy stop-go</option><option value="mixed">Mixed</option><option value="light">Mostly open</option></select></label>
-        <label><span>Daily round trip</span><select value={dailyKm} onChange={(e) => setDailyKm(Number(e.target.value))}><option value="10">10 km</option><option value="20">20 km</option><option value="30">30 km</option><option value="40">40 km</option><option value="60">60 km</option><option value="80">80 km</option></select></label>
-      </div>
-      <div className="decision-toggle-row">
-        <label><input type="checkbox" checked={passenger} onChange={(e) => setPassenger(e.target.checked)} /> Regular passenger</label>
-        <label><input type="checkbox" checked={luggage} onChange={(e) => setLuggage(e.target.checked)} /> Need luggage</label>
-        <label><input type="checkbox" checked={highway} onChange={(e) => setHighway(e.target.checked)} /> Faster provincial / national roads</label>
-        <label><input type="checkbox" checked={expresswayClass} onChange={(e) => setExpresswayClass(e.target.checked)} /> 400cc+ expressway-planning class</label>
-      </div>
-      <div className="finder-more-row"><button type="button" className="button ghost small" aria-expanded={showMoreFilters} aria-controls="finder-more-filters" onClick={() => setShowMoreFilters((v) => { const next = !v; trackEvent("finder_advanced_filters_toggle", { open: next }); return next; })}>{showMoreFilters ? "Fewer filters" : "More filters"}</button><span>Brand, transmission, ABS, physical limits and monthly ownership planning</span></div>
-      {showMoreFilters && <div className="decision-filter-grid secondary" id="finder-more-filters">
-        <label><span>Make</span><select value={make} onChange={(e) => setMake(e.target.value)}><option value="any">Any make</option>{makes.map((v) => <option key={v} value={v}>{v}</option>)}</select></label>
-        <label><span>Category</span><select value={category} onChange={(e) => setCategory(e.target.value)}><option value="any">Any category</option>{categories.map((v) => <option key={v} value={v}>{v}</option>)}</select></label>
-        <label><span>Transmission</span><select value={transmission} onChange={(e) => setTransmission(e.target.value)}><option value="any">Any</option><option value="Automatic">Automatic</option><option value="Manual">Manual</option></select></label>
-        <label><span>ABS listing</span><select value={abs} onChange={(e) => setAbs(e.target.value)}><option value="any">Any</option><option value="yes">ABS listed</option><option value="no">No ABS listed</option></select></label>
-        <label><span>Maximum seat</span><select value={maxSeat} onChange={(e) => setMaxSeat(e.target.value)}><option value="any">No limit</option><option value="760">760 mm</option><option value="780">780 mm</option><option value="800">800 mm</option><option value="820">820 mm</option></select></label>
-        <label><span>Maximum weight</span><select value={maxWeight} onChange={(e) => setMaxWeight(e.target.value)}><option value="any">No limit</option><option value="110">110 kg</option><option value="120">120 kg</option><option value="140">140 kg</option><option value="180">180 kg</option></select></label>
-        <label><span>Monthly ownership ceiling</span><select value={monthlyBudget} onChange={(e) => setMonthlyBudget(Number(e.target.value))}><option value="0">Not set</option><option value="4000">₱4K/mo</option><option value="6000">₱6K/mo</option><option value="8000">₱8K/mo</option><option value="10000">₱10K/mo</option><option value="15000">₱15K/mo</option><option value="25000">₱25K/mo</option></select></label>
-        <label><span>Down payment</span><select value={downPaymentPct} onChange={(e) => setDownPaymentPct(Number(e.target.value))}><option value="10">10%</option><option value="20">20%</option><option value="30">30%</option><option value="40">40%</option></select></label>
-        <label><span>Planning term</span><select value={termMonths} onChange={(e) => setTermMonths(Number(e.target.value))}><option value="12">12 mo</option><option value="24">24 mo</option><option value="36">36 mo</option><option value="48">48 mo</option><option value="60">60 mo</option></select></label>
-        <label><span>Planning APR</span><select value={annualRatePct} onChange={(e) => setAnnualRatePct(Number(e.target.value))}><option value="0">0%</option><option value="8">8%</option><option value="12">12%</option><option value="18">18%</option><option value="24">24%</option></select></label>
-      </div>}
-      {expresswayClass && <p className="finder-legal-note">The 400cc+ control is only an engine-displacement research filter. Confirm the motorcycle&apos;s registration classification and current tollway rules before relying on it for expressway access.</p>}
+
+      <aside className="finder-live-preview" aria-live="polite">
+        <span>Live best match</span>
+        {top?<><div className="finder-preview-media"><EntityMedia entityType="motorcycle" entityId={top.model.id} showCredit={false} fallback={<div className="decision-media-fallback"><strong>{top.model.make} {top.model.model}</strong></div>} /></div><small>{top.model.make} · {top.model.category}</small><h3>{top.model.model}</h3><strong>{observedMarketPriceLabel(top.model)}</strong><div className="finder-preview-score"><b>{top.decision.score}</b><span>/100<br/>{top.decision.label}</span></div><p>{top.decision.reasons.slice(0,2).join(" · ") || "Current highest score for your answers."}</p></>:<><h3>No exact match yet</h3><p>Relax one hard filter or increase the purchase budget.</p></>}
+      </aside>
     </section>
 
-    {top ? <>
-      <section className="decision-winner" aria-live="polite">
-        <div className="decision-winner-score"><span>Top match</span><strong>{top.decision.score}<small>/100</small></strong><b>{top.decision.label}</b></div>
-        <div className="decision-winner-copy"><span>{top.model.make}</span><h2>{top.model.model}</h2><p>{top.decision.reasons.length ? top.decision.reasons.join(" · ") : "Highest score against the current profile."}</p><div className="decision-winner-cost"><span><small>Published price</small><b>{observedMarketPriceLabel(top.model)}</b></span><span><small>Estimated loan</small><b>{peso(top.decision.estimatedLoanMonthlyPhp)}/mo</b></span><span><small>Running costs</small><b>{peso(top.decision.estimatedRunningMonthlyPhp)}/mo</b></span><span><small>Estimated total</small><b>{peso(top.decision.estimatedTotalMonthlyPhp)}/mo</b></span></div></div>
-        <div className="decision-winner-actions"><Link className="button" href={`/get-quote/${top.model.makeSlug}/${top.model.slug}`} onClick={() => trackEvent("finder_quote_click", { model_id: top.model.id, score: top.decision.score, surface: "top" })}>Get dealer price</Link><Link className="button ghost on-light" href={`/motorcycles/${top.model.makeSlug}/${top.model.slug}`} onClick={() => trackEvent("finder_top_match_click", { model_id: top.model.id, score: top.decision.score })}>Open model</Link>{second && <Link className="button ghost on-light" href={compareTopHref} onClick={() => trackEvent("finder_compare_top_two", { a: top.model.id, b: second.model.id })}>Compare top two</Link>}<small>Loan and ownership figures are planning estimates. Replace them with the actual dealer, lender, insurance and registration amounts before buying.</small></div>
-      </section>
+    {expresswayClass&&<p className="finder-legal-note">The 400cc+ control is only an engine-displacement research filter. Confirm the motorcycle&apos;s registration classification and current tollway rules before relying on it for expressway access.</p>}
 
-      <div className="decision-results-head"><div><span>{results.length} matching motorcycles</span><h2>Best matches for your filters</h2></div><p>Open the breakdown if you want to see why a motorcycle moved up or down the shortlist.</p></div>
-      <div className="decision-result-list">{results.slice(0, 18).map(({ model, decision }, index) => {
-        const href = `/motorcycles/${model.makeSlug}/${model.slug}`;
-        return <article className="decision-result-card" key={model.id}>
-          <div className="decision-rank"><span>#{index + 1}</span><strong>{decision.score}</strong><small>{decision.label}</small></div>
+    <section id="finder-results" className="finder-results-section">
+      {top ? <>
+        <section className="decision-winner" aria-live="polite">
+          <div className="decision-winner-score"><span>Top match</span><strong>{top.decision.score}<small>/100</small></strong><b>{top.decision.label}</b></div>
+          <div className="decision-winner-copy"><span>{top.model.make}</span><h2>{top.model.model}</h2><p>{top.decision.reasons.length ? top.decision.reasons.join(" · ") : "Highest score against the current profile."}</p><div className="decision-winner-cost"><span><small>Published price</small><b>{observedMarketPriceLabel(top.model)}</b></span><span><small>Estimated loan</small><b>{peso(top.decision.estimatedLoanMonthlyPhp)}/mo</b></span><span><small>Running costs</small><b>{peso(top.decision.estimatedRunningMonthlyPhp)}/mo</b></span><span><small>Estimated total</small><b>{peso(top.decision.estimatedTotalMonthlyPhp)}/mo</b></span></div></div>
+          <div className="decision-winner-actions"><Link className="button" href={`/get-quote/${top.model.makeSlug}/${top.model.slug}`}>Get dealer price</Link><Link className="button ghost on-light" href={`/motorcycles/${top.model.makeSlug}/${top.model.slug}`}>Open model</Link>{second&&<Link className="button ghost on-light" href={compareTopHref}>Compare top two</Link>}<small>Loan and ownership figures are planning estimates. Replace them with actual dealer and lender amounts before buying.</small></div>
+        </section>
+        <div className="decision-results-head"><div><span>{results.length} matching motorcycles</span><h2>Why these motorcycles fit your answers</h2></div><p>The score explains the trade-offs instead of pretending there is one perfect motorcycle for everyone.</p></div>
+        <div className="decision-result-list">{results.slice(0,18).map(({model,decision},index)=>{const href=`/motorcycles/${model.makeSlug}/${model.slug}`;return <article className="decision-result-card" key={model.id}>
+          <div className="decision-rank"><span>#{index+1}</span><strong>{decision.score}</strong><small>{decision.label}</small></div>
           <div className="decision-result-media"><EntityMedia entityType="motorcycle" entityId={model.id} linkHref={href} showCredit={false} fallback={<Link href={href} className="decision-media-fallback"><span>{model.make}</span><strong>{model.model}</strong><small>{model.engineCc} cc · {model.curbWeightKg} kg</small></Link>} /></div>
-          <div className="decision-result-main"><div className="decision-title-row"><div><span>{model.make} · {model.category}</span><h3><Link href={href} onClick={() => trackEvent("finder_result_click", { model_id: model.id, rank: index + 1, score: decision.score, surface: "title" })}>{model.model}</Link></h3></div><strong>{observedMarketPriceLabel(model)}</strong></div>
-            <div className="decision-chips"><span>{model.engineCc} cc</span><span>{model.seatHeightMm} mm seat</span><span>{model.curbWeightKg} kg</span><span>{model.transmission || "—"}</span>{absAvailable(model) && <span>ABS listed</span>}</div>
-            <div className="decision-reason-grid"><div><span>Why it fits</span><ul>{decision.reasons.slice(0, 3).map((reason) => <li key={reason}>{reason}</li>)}{decision.reasons.length === 0 && <li>Best available score on the selected measurable factors.</li>}</ul></div><div><span>Watch-outs</span><ul>{decision.cautions.slice(0, 3).map((reason) => <li key={reason}>{reason}</li>)}{decision.cautions.length === 0 && <li>No major score penalty under the selected profile.</li>}</ul></div></div>
-            <details className="decision-breakdown" onToggle={(e) => { if (e.currentTarget.open) trackEvent("finder_score_breakdown_open", { model_id: model.id, rank: index + 1, score: decision.score }); }}><summary>Show score breakdown</summary><div>{decision.factors.map((factor) => <div key={factor.key} className={`decision-factor ${factor.tone}`}><span>{factor.label}<small>{factor.detail}</small></span><b>{factor.score}/{factor.maxScore}</b></div>)}</div></details>
-            <div className="decision-cost-strip finder-commute-cost"><span><small>Published price</small><b>{compactPeso(decision.purchasePricePhp)}</b></span><span><small>Estimated loan</small><b>{peso(decision.estimatedLoanMonthlyPhp)}</b></span><span><small>Running costs</small><b>{peso(decision.estimatedRunningMonthlyPhp)}</b></span><span><small>Est. ownership / mo</small><b>{peso(decision.estimatedTotalMonthlyPhp)}</b></span>{monthlyBudget > 0 && <span className={decision.affordabilityGapPhp && decision.affordabilityGapPhp >= 0 ? "within" : "over"}><small>Vs ceiling</small><b>{decision.affordabilityGapPhp && decision.affordabilityGapPhp >= 0 ? "+" : ""}{peso(decision.affordabilityGapPhp || 0)}</b></span>}</div>
-            <div className="decision-card-actions"><Link href={`/get-quote/${model.makeSlug}/${model.slug}`} className="button small" onClick={() => trackEvent("finder_quote_click", { model_id: model.id, rank: index + 1, score: decision.score, surface: "result" })}>Dealer price</Link><Link href={href} className="button ghost small" onClick={() => trackEvent("finder_result_click", { model_id: model.id, rank: index + 1, score: decision.score, surface: "cta" })}>Model details</Link><CompareButton modelId={model.id} compact /><SaveToShortlistButton modelId={model.id} compact /></div>
-          </div>
-        </article>;
-      })}</div>
-    </> : <div className="decision-empty"><span>No exact match</span><h2>Those filters do not match a current motorcycle yet.</h2><p>Raise the purchase budget, remove the 400cc+ class requirement or relax a physical/brand filter. Reset or relax one filter to see the closest available motorcycles.</p><button type="button" className="button" onClick={reset}>Reset filters</button></div>}
+          <div className="decision-result-main"><div className="decision-title-row"><div><span>{model.make} · {model.category}</span><h3><Link href={href}>{model.model}</Link></h3></div><strong>{observedMarketPriceLabel(model)}</strong></div><div className="decision-chips"><span>{model.engineCc} cc</span><span>{model.seatHeightMm} mm seat</span><span>{model.curbWeightKg} kg</span><span>{model.transmission||"—"}</span>{absAvailable(model)&&<span>ABS listed</span>}</div><div className="decision-reason-grid"><div><span>Why it fits</span><ul>{decision.reasons.slice(0,3).map((reason)=><li key={reason}>{reason}</li>)}{decision.reasons.length===0&&<li>Best available score on the selected measurable factors.</li>}</ul></div><div><span>Watch-outs</span><ul>{decision.cautions.slice(0,3).map((reason)=><li key={reason}>{reason}</li>)}{decision.cautions.length===0&&<li>No major score penalty under the selected profile.</li>}</ul></div></div><details className="decision-breakdown"><summary>Show score breakdown</summary><div>{decision.factors.map((factor)=><div key={factor.key} className={`decision-factor ${factor.tone}`}><span>{factor.label}<small>{factor.detail}</small></span><b>{factor.score}/{factor.maxScore}</b></div>)}</div></details><div className="decision-cost-strip finder-commute-cost"><span><small>Published price</small><b>{compactPeso(decision.purchasePricePhp)}</b></span><span><small>Estimated loan</small><b>{peso(decision.estimatedLoanMonthlyPhp)}</b></span><span><small>Running costs</small><b>{peso(decision.estimatedRunningMonthlyPhp)}</b></span><span><small>Est. ownership / mo</small><b>{peso(decision.estimatedTotalMonthlyPhp)}</b></span>{monthlyBudget>0&&<span className={decision.affordabilityGapPhp&&decision.affordabilityGapPhp>=0?"within":"over"}><small>Vs ceiling</small><b>{decision.affordabilityGapPhp&&decision.affordabilityGapPhp>=0?"+":""}{peso(decision.affordabilityGapPhp||0)}</b></span>}</div><div className="decision-card-actions"><Link href={`/get-quote/${model.makeSlug}/${model.slug}`} className="button small">Dealer price</Link><Link href={href} className="button ghost small">Model details</Link><CompareButton modelId={model.id} compact/><SaveToShortlistButton modelId={model.id} compact/></div></div>
+        </article>})}</div>
+      </> : <div className="decision-empty"><span>No exact match</span><h2>Those answers do not match a current motorcycle yet.</h2><p>Raise the purchase budget, remove the 400cc+ requirement or relax an advanced filter.</p><button type="button" className="button" onClick={reset}>Start over</button></div>}
+    </section>
   </div>;
 }
