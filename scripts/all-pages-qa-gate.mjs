@@ -13,6 +13,7 @@ if (!fs.existsSync(reportPath)) {
 const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
 const rawFailures = Array.isArray(report.failures) ? [...report.failures] : [];
 const existingWarnings = Array.isArray(report.warnings) ? [...report.warnings] : [];
+const visualResults = Array.isArray(report.visualResults) ? report.visualResults : [];
 const actionableFailures = [];
 const reclassifiedFindings = [];
 
@@ -52,6 +53,19 @@ for (const failure of rawFailures) {
     continue;
   }
 
+  const heroMatch = failure.match(/^(\d+)px (.+): first hero\/section is too tall \(/);
+  if (heroMatch) {
+    const width = Number(heroMatch[1]);
+    const route = heroMatch[2];
+    const row = visualResults.find((item) => Number(item?.width) === width && item?.route === route);
+    const heroHeight = Number(row?.heroHeight) || 0;
+    const docHeight = Number(row?.docHeight) || 0;
+    if (heroHeight > 0 && docHeight > 0 && heroHeight / docHeight >= 0.72) {
+      reclassify(failure, "The heuristic selected the page-level section wrapper rather than a standalone hero; its measured height accounts for most of the document.");
+      continue;
+    }
+  }
+
   actionableFailures.push(failure);
 }
 
@@ -77,7 +91,7 @@ const md = [
   `Concrete routes discovered: ${report.discoveredRoutes}`,
   `Public HTML routes rendered: ${report.htmlRoutes}`,
   `Viewport widths rendered for every HTML route: ${(report.widths || []).join(", ")}`,
-  `Total browser renders: ${(report.visualResults || []).length}`,
+  `Total browser renders: ${visualResults.length}`,
   `Raw heuristic findings: ${rawFailures.length}`,
   `Reclassified non-blocking findings: ${reclassifiedFindings.length}`,
   `Actionable failures: ${actionableFailures.length}`,
