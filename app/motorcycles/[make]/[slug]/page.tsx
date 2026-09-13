@@ -10,6 +10,7 @@ import { RecentlyViewedTracker } from "@/components/RecentlyViewed";
 import { ShareModelButton } from "@/components/ShareModelButton";
 import { pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
+import { getRenderableMedia } from "@/lib/renderableMedia";
 
 export function generateStaticParams() {
   return [
@@ -34,11 +35,13 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const model = getModel(make, slug);
   if (!model) return {};
   const seo = motorcycleEntitySeo(model);
+  const image = getRenderableMedia("motorcycle", model.id)[0]?.src;
   const base = pageMetadata({
     title: seo.title,
     description: seo.description,
     path: `/motorcycles/${model.makeSlug}/${model.slug}`,
-    index: isIndexableModel(model)
+    index: isIndexableModel(model),
+    image
   });
   return { ...base, keywords: seo.keywords };
 }
