@@ -7,6 +7,7 @@ const source = fs.readFileSync(path.join(ROOT, "lib", "media.ts"), "utf8");
 const blocks = source.match(/  \{[\s\S]*?\n  \},/g) || [];
 const strict = process.env.MEDIA_STRICT_LOCAL === "1";
 const folder = { motorcycle: "motorcycles", helmet: "helmets", tire: "tires", topbox: "top-boxes" };
+const validRights = new Set(["first-party", "licensed", "external-reference", "pending"]);
 const errors = [];
 const missing = [];
 const keys = new Set();
@@ -29,6 +30,11 @@ for (const block of blocks) {
   const alt = field(block, "alt");
   const width = numberField(block, "width");
   const height = numberField(block, "height");
+  const rightsStatus = field(block, "rightsStatus");
+  const rightsHolder = field(block, "rightsHolder");
+  const sourceLabel = field(block, "sourceLabel");
+  const sourceUrl = field(block, "sourceUrl");
+  const lastChecked = field(block, "lastChecked");
   if (!type || !id || !src) { errors.push("A media record is missing entityType/entityId/src."); continue; }
 
   const key = `${type}:${id}`;
@@ -36,6 +42,11 @@ for (const block of blocks) {
   keys.add(key);
   if (role !== "primary") errors.push(`${key} must declare role: \"primary\".`);
   if (!alt || alt.length < 12 || /^(image|photo|motorcycle|helmet)$/i.test(alt.trim())) errors.push(`${key} needs useful descriptive alt text.`);
+  if (!rightsStatus || !validRights.has(rightsStatus)) errors.push(`${key} needs an explicit valid rightsStatus.`);
+  if (!rightsHolder) errors.push(`${key} needs a rightsHolder.`);
+  if (!lastChecked || !/^\d{4}-\d{2}-\d{2}$/.test(lastChecked)) errors.push(`${key} needs a YYYY-MM-DD lastChecked date.`);
+  if ((rightsStatus === "external-reference" || rightsStatus === "licensed") && (!sourceLabel || !sourceUrl)) errors.push(`${key} ${rightsStatus} media needs sourceLabel and sourceUrl provenance.`);
+  if (sourceUrl && !sourceUrl.startsWith("https://")) errors.push(`${key} sourceUrl must be HTTPS.`);
 
   if (type === "site") continue;
   const expectedPrefix = `/media/${folder[type]}/`;

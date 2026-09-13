@@ -81,7 +81,7 @@ need(continuity.includes('pathname.startsWith("/dealers")')&&continuity.includes
 const sitemapSource=read("lib/sitemaps.ts");
 need(sitemapSource.includes("publicSellers()")&&sitemapSource.includes("publicDealerCities()")&&sitemapSource.includes("MIN_PUBLIC_DEALERS_PER_CITY"),"Commerce sitemap must use the same public seller and dealer-city rules as routes");
 need(sitemapSource.includes('/dealers/pampanga')&&sitemapSource.includes('s.province==="Pampanga"'),"Commerce sitemap must publish the checked Pampanga province hub");
-need(sitemapSource.includes('["/dealers",.82]'),"Indexed dealer root must be present in the core sitemap");
+need(sitemapSource.includes('["/dealers",.82]')||sitemapSource.includes('path:"/dealers",priority:.82'),"Indexed dealer root must be present in the core sitemap");
 const robotsSource=read("app/robots.ts");
 need(robotsSource.includes("commerceSitemapEntries().length")&&robotsSource.includes("/sitemaps/commerce.xml"),"Robots must advertise commerce sitemap only when it has verified public URLs");
 const smoke=read("scripts/smoke-production.mjs");
