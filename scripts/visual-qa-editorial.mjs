@@ -17,6 +17,7 @@ const pages = [
   ["maintenance-hub", "/maintenance"],
   ["commute-hub", "/commute"],
   ["accessories-hub", "/accessories"],
+  ["fitment-hub", "/fitment"],
   ["guide-detail", "/guides/motorcycle-helmet-size-guide"],
   ["ownership-detail", "/ownership/registration-renewal"],
   ["helmet-brand", "/gear/helmets/kyt"],
@@ -27,7 +28,7 @@ const pages = [
   ["top-box-hub", "/accessories/top-box"],
 ];
 const widths = [430, 1440];
-const fullPageNames = new Set(["recommendations", "ownership", "dealers", "helmets-hub", "tires-hub", "maintenance-hub", "commute-hub", "accessories-hub"]);
+const fullPageNames = new Set(["recommendations", "ownership", "dealers", "helmets-hub", "tires-hub", "maintenance-hub", "commute-hub", "accessories-hub", "fitment-hub"]);
 const outputDir = path.join(process.cwd(), "artifacts", "visual-qa");
 fs.mkdirSync(outputDir, { recursive: true });
 
@@ -136,7 +137,7 @@ try {
         const broken=[...document.images].filter(img=>visible(img)&&img.complete&&img.currentSrc&&img.naturalWidth===0).map(img=>img.currentSrc).slice(0,8);
         const h1=document.querySelector('h1');
         const safety=document.querySelector('#safety-efficiency');
-        const grids=[...document.querySelectorAll('.product-grid,.fitment-list,.commute-rank-list,.guide-grid,.helmet-grid')].map(el=>({cls:String(el.className||''),count:el.children.length}));
+        const grids=[...document.querySelectorAll('.product-grid,.fitment-list,.commute-rank-list,.guide-grid,.helmet-grid,.fitment-model-grid-v2')].map(el=>({cls:String(el.className||''),count:el.children.length}));
         const largestGrid=grids.sort((a,b)=>b.count-a.count)[0]||{cls:'',count:0};
         const dealerSection=document.querySelector('.dealer-directory-section');
         const ownershipCost=document.querySelector('.ownership-master-page #cost');
@@ -159,7 +160,10 @@ try {
           stockFitmentRows:document.querySelectorAll('.tire-master-page #stock-sizes .fitment-list>a').length,
           commuteRankCards:document.querySelectorAll('.commute-master-page .commute-rank-card').length,
           dealerPadding:dealerSection?parseFloat(getComputedStyle(dealerSection).paddingTop||'0'):0,
-          ownershipCostPadding:ownershipCost?parseFloat(getComputedStyle(ownershipCost).paddingTop||'0'):0
+          ownershipCostPadding:ownershipCost?parseFloat(getComputedStyle(ownershipCost).paddingTop||'0'):0,
+          fitmentCards:document.querySelectorAll('.fitment-hub-page .fitment-model-card').length,
+          fitmentSearch:Boolean(document.querySelector('.fitment-hub-page input[type="search"]')),
+          fitmentBrandFilter:Boolean(document.querySelector('.fitment-hub-page select'))
         };
       })()`);
 
@@ -186,6 +190,11 @@ try {
       if (pathname === "/gear/helmets" && (audit?.visibleProductCards || 0) < 10) failures.push(`${width}px /gear/helmets: product browsing became too sparse (${audit.visibleProductCards} visible cards)`);
       if (pathname === "/tires" && (audit?.stockFitmentRows || 0) > 30) failures.push(`${width}px /tires: stock-size section regressed into a long model wall (${audit.stockFitmentRows} rows)`);
       if (pathname === "/commute" && (audit?.commuteRankCards || 0) > 20) failures.push(`${width}px /commute: too many repeated recommendation cards are rendered (${audit.commuteRankCards})`);
+      if (pathname === "/fitment") {
+        if (!audit?.fitmentSearch || !audit?.fitmentBrandFilter) failures.push(`${width}px /fitment: bounded search/filter controls are missing`);
+        if ((audit?.fitmentCards || 0) > 24) failures.push(`${width}px /fitment: initial result view renders too many motorcycle cards (${audit.fitmentCards})`);
+        if ((audit?.fitmentCards || 0) < 8) failures.push(`${width}px /fitment: initial fitment discovery is unexpectedly sparse (${audit.fitmentCards})`);
+      }
 
       const shot = await cdp.send("Page.captureScreenshot", { format: "png", fromSurface: true, captureBeyondViewport: false });
       fs.writeFileSync(path.join(outputDir, `${String(width).padStart(4,"0")}-${name}-editorial.png`), Buffer.from(shot.data, "base64"));
