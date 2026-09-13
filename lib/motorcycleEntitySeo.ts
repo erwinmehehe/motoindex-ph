@@ -19,6 +19,10 @@ function categoryUse(model: Motorcycle) {
   return `${model.category.toLowerCase()} buyers comparing price, fit, running cost and everyday usability`;
 }
 
+function firstTitleThatFits(options: string[], limit = 60) {
+  return options.find((option) => option.length <= limit) || options[options.length - 1];
+}
+
 export function motorcycleEntityEditorial(model: Motorcycle) {
   const authority = modelAuthorityProfile(model.id);
   const strengths: string[] = authority ? authority.buyIf.slice(0, 2) : [];
@@ -103,10 +107,22 @@ export function motorcycleEntitySeo(model: Motorcycle) {
   const authority = modelAuthorityProfile(model.id);
   const name = `${model.make} ${model.model}`;
   const title = current
-    ? `${name} Price Philippines ${releaseYear}: Specs & Installment`
+    ? firstTitleThatFits([
+        `${name} Price Philippines ${releaseYear}: Specs & Installment`,
+        `${name} Price Philippines ${releaseYear} | Specs`,
+        `${name} Price Philippines ${releaseYear}`,
+      ])
     : uncertain
-      ? `${name} Price Philippines: Specs & Availability`
-      : `${name} Historical Price, Specs & Used Value Philippines`;
+      ? firstTitleThatFits([
+          `${name} Price Philippines: Specs & Availability`,
+          `${name} Price Philippines | Availability`,
+          `${name} Price Philippines`,
+        ])
+      : firstTitleThatFits([
+          `${name} Historical Price & Specs Philippines`,
+          `${name} Used Price & Specs Philippines`,
+          `${name} Specs & Used Value Philippines`,
+        ]);
   const description = current
     ? `${name} price in the Philippines, ${model.engineCc}cc specs, rider fit, installment planning and ownership costs${authority ? ", plus buyer advice and local after-sales context" : ""}.`
     : uncertain
@@ -141,10 +157,6 @@ export function motorcycleEntitySeo(model: Motorcycle) {
     `${keywordBase} maintenance schedule`,
     `${keywordBase} review`,
     `${keywordBase} ownership cost`,
-    // Riders search the names they actually use, not the official ones: "PG1"
-    // without the hyphen, "Winner X 150" with the displacement appended. These
-    // are the same motorcycle, so they belong on this page rather than on a
-    // near-duplicate built for the alias.
     ...(model.alsoKnownAs || []).flatMap((alias) => [
       `${alias.toLowerCase()} price philippines`,
       `${alias.toLowerCase()} specs`
