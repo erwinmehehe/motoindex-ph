@@ -96,5 +96,6 @@ export function PriorityModelBrief({ model }: { model: Motorcycle }) {
       <article><span>Ownership question</span><p>{brief.ownership}</p></article>
     </div>
     {alternatives.length > 0 && <div className="priority-model-alternatives"><strong>Compare before committing</strong>{alternatives.map((alt) => <Link key={alt.id} href={`/motorcycles/${alt.makeSlug}/${alt.slug}`}>{alt.make} {alt.model} →</Link>)}</div>}
+    <div className="priority-model-alternatives"><strong>Research next</strong><Link href={`/ownership/cost-calculator?bike=${model.id}`}>3-year ownership cost →</Link><Link href={`/commute/cost-calculator?bike=${model.id}`}>Commute cost →</Link><Link href="/compare">Compare motorcycles →</Link><Link href="/dealers">Dealer directory →</Link></div>
   </section>;
 }
