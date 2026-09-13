@@ -22,10 +22,16 @@ function peso(value: number) {
   return new Intl.NumberFormat("en-PH", { style: "currency", currency: "PHP", maximumFractionDigits: 0 }).format(value);
 }
 
+function makeSlug(value: string) {
+  return value.toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+}
+
 export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcycle[]; initialFilters?: ExplorerFilters }) {
   const prices = useMemo(() => models.map((model) => observedMarketRange(model).from), [models]);
   const catalogMax = Math.ceil((Math.max(...prices, 100000) + 25000) / 25000) * 25000;
   const catalogMin = Math.floor(Math.min(...prices, 0) / 25000) * 25000;
+  const makes = useMemo(()=>[...new Set(models.map(m=>m.make))].sort(),[models]);
+  const categories = useMemo(()=>[...new Set(models.map(m=>m.category))].sort(),[models]);
   const [q, setQ] = useState(initialFilters.q || "");
   const [make, setMake] = useState(initialFilters.make || "all");
   const [category, setCategory] = useState(initialFilters.category || "all");
@@ -34,20 +40,38 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
   const [maxPrice, setMaxPrice] = useState(Math.min(initialFilters.maxPrice || catalogMax, catalogMax));
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(pageSize);
-  const makes = [...new Set(models.map(m=>m.make))].sort();
-  const categories = [...new Set(models.map(m=>m.category))].sort();
+  const [urlReady,setUrlReady]=useState(false);
 
   useEffect(()=>{
+    const params=new URLSearchParams(window.location.search);
+    const requestedMake=params.get("make")||initialFilters.make||"all";
+    const resolvedMake=requestedMake==="all"?"all":makes.find(value=>value===requestedMake||makeSlug(value)===requestedMake)||"all";
+    const requestedBudget=params.get("budget")||initialFilters.budget||"all";
+    const requestedSort=params.get("sort")||initialFilters.sort||"recommended";
+    const requestedMax=Number(params.get("max")||initialFilters.maxPrice||catalogMax);
+    setQ(params.get("q")||initialFilters.q||"");
+    setMake(resolvedMake);
+    setCategory(params.get("type")||initialFilters.category||"all");
+    setBudget(allowedBudgets.has(requestedBudget)?requestedBudget:"all");
+    setSort(allowedSorts.has(requestedSort)?requestedSort:"recommended");
+    setMaxPrice(Number.isFinite(requestedMax)&&requestedMax>0?Math.min(requestedMax,catalogMax):catalogMax);
+    setUrlReady(true);
+    // URL state is intentionally read once so /motorcycles can remain a static route.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
+
+  useEffect(()=>{
+    if(!urlReady)return;
     const params = new URLSearchParams();
     if (q.trim()) params.set("q", q.trim());
-    if (make !== "all") params.set("make", make);
+    if (make !== "all") params.set("make", makeSlug(make));
     if (category !== "all") params.set("type", category);
     if (budget !== "all") params.set("budget", budget);
     if (sort !== "recommended") params.set("sort", sort);
     if (maxPrice < catalogMax) params.set("max", String(maxPrice));
     const next = `${window.location.pathname}${params.size ? `?${params.toString()}` : ""}`;
     window.history.replaceState(null, "", next);
-  }, [q, make, category, budget, sort, maxPrice, catalogMax]);
+  }, [q, make, category, budget, sort, maxPrice, catalogMax, urlReady]);
 
   useEffect(()=>setVisibleCount(pageSize),[q,make,category,budget,sort,maxPrice]);
 

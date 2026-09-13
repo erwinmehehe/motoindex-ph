@@ -20,12 +20,8 @@ export const metadata: Metadata = pageMetadata({
   path: "/motorcycles",
   index: publicModels.length > 0
 });
-function one(value?: string | string[]) { return Array.isArray(value) ? value[0] : value; }
 
-export default async function MotorcyclesPage({ searchParams }: { searchParams: Promise<{ q?: string | string[]; make?: string | string[]; type?: string | string[]; budget?: string | string[]; sort?: string | string[]; max?: string | string[] }> }) {
-  const query = await searchParams;
-  const parsedMax = Number(one(query.max));
-  const initialFilters = { q: one(query.q) || "", make: one(query.make) || "all", category: one(query.type) || "all", budget: one(query.budget) || "all", sort: one(query.sort) || "recommended", maxPrice: Number.isFinite(parsedMax) && parsedMax > 0 ? parsedMax : undefined };
+export default function MotorcyclesPage() {
   const makes = [...new Map(currentModels.map((m) => [m.makeSlug, m.make])).entries()];
   const authorityModels = currentModels.filter((model) => Boolean(modelAuthorityProfile(model.id)));
   const overallLow = currentModels.length ? Math.min(...currentModels.map((m) => observedMarketRange(m).from)) : undefined;
@@ -74,7 +70,7 @@ export default async function MotorcyclesPage({ searchParams }: { searchParams: 
         <RecentlyViewedRail models={recentModels} />
         <section id="browse-models" className="motorcycle-catalog-section">
           <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Main shopping experience</span><h2>Filter the catalog without opening twenty tabs</h2><p>Your filters stay in the URL, the compare tray stays persistent, and recently viewed motorcycles remain available when you come back.</p></div></div>
-          <ModelExplorer models={forClient(publicModels)} initialFilters={initialFilters} />
+          <ModelExplorer models={forClient(publicModels)} />
         </section>
 
         <section className="motorcycle-brand-directory">
