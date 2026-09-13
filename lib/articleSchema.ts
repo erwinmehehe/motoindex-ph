@@ -3,32 +3,38 @@ import { authorPersonSchema } from "@/lib/author";
 
 // Shared Article schema builder for the editorial page types.
 //
-// Model pages are deliberately excluded — they carry Product/AggregateOffer,
-// which is the correct type for an entity with a price, and stacking Article on
-// top of that would misrepresent them.
+// Model pages are deliberately excluded because they carry Product markup,
+// which is the correct type for an entity with a price.
 //
-// dateModified takes the newest real source-check date passed in by the caller,
-// falling back to the site release date. It is never a build timestamp: an
-// article that claims to change every deploy is worse than one with an honest
-// older date.
+// Publication dates are only emitted when a caller supplies a real date. This
+// avoids making every article look as though it was published on the site-wide
+// release date. dateModified uses the newest real source-check date when one is
+// available and never uses a build timestamp.
 
 type Args = {
   headline: string;
   description: string;
   path: string;
-  /** Primary topic — usually the page's target query. */
+  /** Primary topic, usually the page's target query. */
   about?: string;
   /** Extra keyword phrases; the headline is always included. */
   keywords?: (string | undefined)[];
+  /** Real publication date for the specific article. */
+  datePublished?: string;
   /** Real source-check dates (verifiedAt / lastChecked) from the page's records. */
   checkedDates?: (string | undefined)[];
+  /** Representative editorial image. Relative paths are resolved against SITE_URL. */
+  image?: string;
 };
 
-export function articleSchema({ headline, description, path, about, keywords = [], checkedDates = [] }: Args) {
+const isDate = (value?: string): value is string => Boolean(value) && /^\d{4}-\d{2}-\d{2}$/.test(value as string);
+
+export function articleSchema({ headline, description, path, about, keywords = [], datePublished, checkedDates = [], image }: Args) {
+  const published = isDate(datePublished) ? datePublished : undefined;
   const dateModified = checkedDates
-    .filter((d): d is string => Boolean(d) && /^\d{4}-\d{2}-\d{2}$/.test(d as string))
+    .filter(isDate)
     .sort()
-    .at(-1) || RELEASE_DATE;
+    .at(-1) || published || RELEASE_DATE;
 
   return {
     "@context": "https://schema.org",
@@ -39,8 +45,9 @@ export function articleSchema({ headline, description, path, about, keywords = [
     keywords: [headline, about, ...keywords].filter(Boolean).join(", "),
     inLanguage: "en-PH",
     isAccessibleForFree: true,
-    datePublished: RELEASE_DATE,
+    ...(published ? { datePublished: published } : {}),
     dateModified,
+    ...(image ? { image: { "@type": "ImageObject", url: absoluteUrl(image) } } : {}),
     mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(path) },
     author: authorPersonSchema(),
     publisher: {
