@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
-    formats: ["image/webp"],
+    formats: ["image/avif", "image/webp"],
     // Remote patterns remain only as a migration fallback if a local asset has not been synced yet.
     remotePatterns: [
       { protocol: "https", hostname: "bikeluggage.co.uk" },
@@ -35,36 +35,36 @@ const nextConfig = {
       { protocol: "https", hostname: "www.motoworld.com.ph" },
       { protocol: "https", hostname: "www.shoei-europe.com" },
       { protocol: "https", hostname: "www.teamspyder.com" },
-      { protocol: "https", hostname: "www.tenplus.ph" },    ]
+      { protocol: "https", hostname: "www.tenplus.ph" },
+    ]
   },
   experimental: { optimizePackageImports: [] },
   async redirects() {
     return [
-      // Generation-agnostic and variant search terms resolve to the family hub or
-      // the current generation, rather than being published as separate models.
-      // These are real query variants ("aerox 155", "nmax 2020", "click v3"), not
-      // distinct motorcycles, so a redirect is honest where a page would not be.
+      // Consolidate thin derivative model routes into the stronger all-in-one model page.
+      // This keeps price, specs, colors, financing, fit and ownership context together.
+      { source: "/motorcycles/:make/:slug/price", destination: "/motorcycles/:make/:slug#price", permanent: true },
+      { source: "/motorcycles/:make/:slug/specifications", destination: "/motorcycles/:make/:slug#specs", permanent: true },
+      { source: "/motorcycles/:make/:slug/colors", destination: "/motorcycles/:make/:slug#colors", permanent: true },
+      { source: "/motorcycles/:make/:slug/installment", destination: "/motorcycles/:make/:slug#installment", permanent: true },
+      { source: "/motorcycles/:make/:slug/rider-fit", destination: "/motorcycles/:make/:slug#rider-fit", permanent: true },
+      { source: "/motorcycles/:make/:slug/fuel-economy", destination: "/motorcycles/:make/:slug#fuel", permanent: true },
+      { source: "/motorcycles/:make/:slug/ownership-cost", destination: "/motorcycles/:make/:slug#ownership", permanent: true },
+      { source: "/motorcycles/:make/:slug/tire-size", destination: "/motorcycles/:make/:slug#tires-fitment", permanent: true },
+      { source: "/motorcycles/:make/:slug/maintenance", destination: "/motorcycles/:make/:slug#maintenance", permanent: true },
+      { source: "/motorcycles/:make/:slug/safety", destination: "/motorcycles/:make/:slug#safety", permanent: true },
+      { source: "/motorcycles/:make/:slug/used-value", destination: "/motorcycles/:make/:slug#used", permanent: true },
+      { source: "/motorcycles/:make/:slug/new-vs-used", destination: "/motorcycles/:make/:slug#used", permanent: true },
+      // Generation-agnostic and variant search terms resolve to the family hub or current generation.
       { source: "/motorcycles/yamaha/aerox-155", destination: "/motorcycles/yamaha/aerox", permanent: true },
       { source: "/motorcycles/yamaha/aerox-sp", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
       { source: "/motorcycles/yamaha/nmax-155", destination: "/motorcycles/yamaha/nmax", permanent: true },
       { source: "/motorcycles/yamaha/nmax-2020", destination: "/motorcycles/yamaha/nmax-v2", permanent: true },
       { source: "/motorcycles/honda/click-v3", destination: "/motorcycles/honda/click-160", permanent: true },
       { source: "/motorcycles/honda/click-v2", destination: "/motorcycles/honda/click-150i", permanent: true },
-      {
-        source: "/motorcycles/yamaha/aerox-v4",
-        destination: "/motorcycles/yamaha/aerox-v3",
-        permanent: true
-      },
-      {
-        source: "/motorcycles/yamaha/aerox-2025",
-        destination: "/motorcycles/yamaha/aerox-v3",
-        permanent: true
-      },
-      {
-        source: "/motorcycles/yamaha/nmax-turbo",
-        destination: "/motorcycles/yamaha/nmax-v3",
-        permanent: true
-      }
+      { source: "/motorcycles/yamaha/aerox-v4", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
+      { source: "/motorcycles/yamaha/aerox-2025", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
+      { source: "/motorcycles/yamaha/nmax-turbo", destination: "/motorcycles/yamaha/nmax-v3", permanent: true }
     ];
   },
   async headers() {
