@@ -81,6 +81,18 @@ const briefs: Record<string, Brief> = {
     check: ["Confirm the exact generation and Philippine model-year specification because RC 390 equipment changes across generations.", "Check KTM service access and sport-tire costs before choosing it on performance alone."],
     ownership: "Budget for premium tires, insurance and scheduled service, then compare the ownership picture with Ninja 500 and 450SR.",
     alternatives: ["kawasaki-ninja-500", "cfmoto-450sr", "ktm-390-duke"]
+  },
+  "cfmoto-450mt": {
+    fit: ["You want a 449cc twin-cylinder adventure bike with 21/18-inch wheels and more off-road-oriented geometry than a road-biased tourer.", "Longer rides, luggage and rougher provincial roads matter enough to justify a taller and heavier motorcycle."],
+    check: ["Test the 820 mm seat and 175 kg curb weight at walking pace, especially with luggage.", "Confirm current CFMOTO dealer and service access along the routes where you expect to travel."],
+    ownership: "Price adventure-size tires, insurance, scheduled service and accessories before comparing the 450MT with lighter or more road-focused alternatives.",
+    alternatives: ["royal-enfield-himalayan-450", "honda-adv-350"]
+  },
+  "cfmoto-450sr": {
+    fit: ["You want a fully faired 449.5cc parallel-twin sport bike with a lower purchase price than some established middleweight alternatives.", "You are comfortable prioritizing sport-bike bodywork and riding position over commuter practicality."],
+    check: ["Confirm the current Philippine price and exact model-year equipment.", "Compare dealer coverage, parts access, insurance and fairing-repair cost before choosing on specification value alone."],
+    ownership: "Run the real quote with 17-inch sport tires, insurance and scheduled service, then compare the total against Ninja 500 and RC 390.",
+    alternatives: ["kawasaki-ninja-500", "ktm-rc-390"]
   }
 };
 
