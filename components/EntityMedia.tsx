@@ -16,13 +16,14 @@ type Props = {
   linkHref?: string;
   showCredit?: boolean;
 };
-export function EntityMedia({ entityType, entityId, fallback, className, priority = false, sizes = "(max-width: 800px) 100vw, 42vw", linkHref, showCredit = false }: Props) {
+export function EntityMedia({ entityType, entityId, fallback, className, priority = false, sizes = "(max-width: 800px) 100vw, 42vw", linkHref, showCredit }: Props) {
   const asset = getRenderableMedia(entityType, entityId)[0];
   if (!asset) return <>{fallback}</>;
   const credit = asset.sourceLabel || asset.rightsHolder;
+  const shouldShowCredit = showCredit ?? (entityType === "motorcycle" && priority);
   const image=<SafeEntityImage src={asset.src} fallbackSrc={isCompetitorSource(asset.sourceImageUrl) ? undefined : asset.sourceImageUrl} alt={asset.alt} width={asset.width} height={asset.height} sizes={sizes} priority={priority} unoptimized={asset.src.endsWith(".svg")} />;
   return <div className={className || "entity-media"}>
     {linkHref?<Link className="entity-media-link" href={linkHref} aria-label={`View ${asset.alt}`}>{image}</Link>:image}
-    {showCredit&&<small className="entity-media-credit"><SourceRef url={asset.sourceUrl} label={`Image: ${credit}`} />{asset.src.startsWith("/") && asset.sourceImageUrl ? " · local-first media" : asset.rightsStatus === "external-reference" ? " · external reference" : ` · ${asset.rightsStatus}`}</small>}
+    {shouldShowCredit&&<small className="entity-media-credit"><SourceRef url={asset.sourceUrl} label={`Image: ${credit}`} />{asset.src.startsWith("/") && asset.sourceImageUrl ? " · locally served with source provenance" : asset.rightsStatus === "external-reference" ? " · external reference" : ` · ${asset.rightsStatus}`}</small>}
   </div>;
 }
