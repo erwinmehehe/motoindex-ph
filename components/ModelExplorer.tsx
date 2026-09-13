@@ -8,6 +8,7 @@ import { observedMarketRange } from "@/lib/marketChecks";
 type ExplorerFilters = { q?: string; make?: string; category?: string; budget?: string; sort?: string; maxPrice?: number };
 const allowedBudgets = new Set(["all","under100","100to150","150to200","over200"]);
 const allowedSorts = new Set(["recommended","price-asc","price-desc","engine-desc","seat-asc"]);
+const pageSize = 18;
 
 const budgetChips = [
   ["all", "Any budget"],
@@ -32,6 +33,7 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
   const [sort, setSort] = useState(allowedSorts.has(initialFilters.sort || "") ? initialFilters.sort! : "recommended");
   const [maxPrice, setMaxPrice] = useState(Math.min(initialFilters.maxPrice || catalogMax, catalogMax));
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(pageSize);
   const makes = [...new Set(models.map(m=>m.make))].sort();
   const categories = [...new Set(models.map(m=>m.category))].sort();
 
@@ -46,6 +48,8 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
     const next = `${window.location.pathname}${params.size ? `?${params.toString()}` : ""}`;
     window.history.replaceState(null, "", next);
   }, [q, make, category, budget, sort, maxPrice, catalogMax]);
+
+  useEffect(()=>setVisibleCount(pageSize),[q,make,category,budget,sort,maxPrice]);
 
   const filtered = useMemo(()=>{
     const rows = models.filter((m)=>{
@@ -68,8 +72,10 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
     return rows;
   },[models,q,make,category,budget,sort,maxPrice]);
 
+  const visible = filtered.slice(0,visibleCount);
+  const hasMore = visible.length < filtered.length;
   const dirty = Boolean(q || make!=="all" || category!=="all" || budget!=="all" || sort!=="recommended" || maxPrice<catalogMax);
-  function reset(){setQ("");setMake("all");setCategory("all");setBudget("all");setSort("recommended");setMaxPrice(catalogMax);}
+  function reset(){setQ("");setMake("all");setCategory("all");setBudget("all");setSort("recommended");setMaxPrice(catalogMax);setVisibleCount(pageSize);}
   function chooseBudget(value: string){setBudget(value);if(value==="under100")setMaxPrice(Math.min(100000,catalogMax));else if(value==="100to150")setMaxPrice(Math.min(150000,catalogMax));else if(value==="150to200")setMaxPrice(Math.min(200000,catalogMax));else setMaxPrice(catalogMax);}
 
   const filterPanel = <div className="model-filter-panel">
@@ -88,8 +94,8 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
     <div className="model-explorer-layout">
       <aside className="model-explorer-rail">{filterPanel}</aside>
       <div className="model-explorer-results">
-        <div className="result-meta" aria-live="polite"><div><span><b>{filtered.length}</b> motorcycles</span><small>{dirty ? "Filtered to your current shopping criteria" : "All published current model records"}</small></div>{dirty&&<button type="button" className="text-button" onClick={reset}>Clear all</button>}</div>
-        {filtered.length ? <div className="card-grid motorcycle-catalog-grid">{filtered.map(m=><ModelCard key={m.id} model={m}/>)}</div> : <div className="empty-state large"><strong>No motorcycles match every filter.</strong><span>Try a higher price ceiling, another body type or clear the brand filter.</span><button type="button" className="button small" onClick={reset}>Reset filters</button></div>}
+        <div className="result-meta" aria-live="polite"><div><span><b>{filtered.length}</b> motorcycles</span><small>{dirty ? "Filtered to your current shopping criteria" : `Showing ${visible.length} of ${filtered.length} current model records`}</small></div>{dirty&&<button type="button" className="text-button" onClick={reset}>Clear all</button>}</div>
+        {filtered.length ? <><div className="card-grid motorcycle-catalog-grid">{visible.map(m=><ModelCard key={m.id} model={m}/>)}</div>{hasMore&&<div className="catalog-load-more"><button type="button" onClick={()=>setVisibleCount((count)=>Math.min(count+pageSize,filtered.length))}>Show {Math.min(pageSize,filtered.length-visible.length)} more motorcycles</button><small>{visible.length} of {filtered.length} shown</small></div>}</> : <div className="empty-state large"><strong>No motorcycles match every filter.</strong><span>Try a higher price ceiling, another body type or clear the brand filter.</span><button type="button" className="button small" onClick={reset}>Reset filters</button></div>}
       </div>
     </div>
   </div>;
