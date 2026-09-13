@@ -1,0 +1,41 @@
+name: Production All Pages QA
+
+on:
+  workflow_run:
+    workflows: ["Deploy to Cloudflare Workers"]
+    types: [completed]
+  workflow_dispatch:
+  schedule:
+    - cron: "23 */6 * * *"
+
+concurrency:
+  group: motoindex-production-all-pages
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Allow Cloudflare propagation
+        if: github.event_name == 'workflow_run'
+        run: sleep 30
+
+      - name: Crawl every public production URL
+        env:
+          BASE_URL: https://motoindexph.com
+          EXPECTED_COMMIT_SHA: ${{ github.event.workflow_run.head_sha || '' }}
+          PRODUCTION_PAGE_TIMEOUT_MS: 10000
+          PRODUCTION_QA_CONCURRENCY: 4
+        run: node scripts/production-all-pages-qa.mjs
