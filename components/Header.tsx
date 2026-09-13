@@ -59,14 +59,14 @@ export function Header() {
         <details className="nav-more nav-guides">
           <summary>Guides <span>⌄</span></summary>
           <div className="nav-popover nav-popover-menu nav-popover-guides">
-            <Link className="nav-popover-primary" href="/recommendations">Motorcycle buying guide</Link>
+            <Link className="nav-popover-primary" href="/recommendations">Start with the buying guide</Link>
             <Link href="/guides">Editorial guides</Link>
             {navGuides.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
           </div>
         </details>
       </nav>
       <Link className="mobile-search" href="/search">Search</Link>
-      <div className="nav-actions"><Link className="nav-search" href="/search">⌕ Search</Link><ShortlistNav /><Link className="nav-match" href="/finder">Find my match →</Link></div>
+      <div className="nav-actions"><Link className="nav-search" href="/search">Search</Link><ShortlistNav /><Link className="nav-match" href="/finder">Find my match</Link></div>
       <details className="mobile-menu">
         <summary aria-label="Open navigation">Menu</summary>
         <div className="mobile-menu-panel"><nav aria-label="Mobile navigation">
