@@ -117,7 +117,7 @@ export default function RecommendationsPage() {
 
     <div className="rec-nav-wrap">
       <nav className="shell rec-nav" aria-label="Buying guide sections">
-        <a href="#budget">Budget</a><a href="#commuting">Daily ride</a><a href="#rider-fit">Rider fit</a><a href="#safety-efficiency">Safety & fuel</a><a href="#long-rides">Long rides</a><a href="#explore">Explore</a>
+        <a href="#budget">Budget</a><a href="#scooters">Scooters</a><a href="#commuting">Daily ride</a><a href="#rider-fit">Rider fit</a><a href="#safety-efficiency">Safety & fuel</a><a href="#long-rides">Long rides</a><a href="#400cc">400cc+</a><a href="#explore">Explore</a>
       </nav>
     </div>
 
@@ -139,7 +139,7 @@ export default function RecommendationsPage() {
 
       <section id="commuting" className="rec-section rec-editorial-split">
         <div className="rec-editorial-copy"><span>Daily riding</span><h2>Traffic changes what “good” means.</h2><p>For city use, manageable weight, predictable low-speed behavior and easy controls often matter more than peak power.</p><div className="rec-editorial-points"><div><b>Stop-go</b><small>Automatic transmission can reduce workload.</small></div><div><b>Parking</b><small>Lighter motorcycles are easier to move around tight spaces.</small></div><div><b>Running cost</b><small>Fuel economy only matters alongside service and parts access.</small></div></div><Link className="rec-text-link" href="/finder">Build a commuting shortlist →</Link></div>
-        <div className="rec-editorial-rail"><div className="rec-section-head compact"><div><span>Automatic options</span><h3>Scooters worth comparing</h3></div></div><BikeRail models={scooters} /></div>
+        <div id="scooters" className="rec-editorial-rail"><div className="rec-section-head compact"><div><span>Automatic options</span><h3>Scooters worth comparing</h3></div></div><BikeRail models={scooters} /></div>
       </section>
 
       <section id="rider-fit" className="rec-section rec-data-section">
@@ -162,13 +162,13 @@ export default function RecommendationsPage() {
         <div className="rec-section-head"><div><span>Longer rides</span><h2>Range and displacement are only the start.</h2><p>Tank size can reduce fuel stops. Real touring suitability also depends on ergonomics, wind protection, luggage, passenger needs and service access.</p></div></div>
         <div className="rec-two-column">
           <div><div className="rec-list-title"><span>Fuel capacity</span><h3>Larger-tank comparisons</h3></div><RankedList models={longRide} metric={(m) => `${m.fuelTankL} L tank · ${m.engineCc} cc`} /></div>
-          <div><div className="rec-list-title"><span>Displacement</span><h3>400cc+ starting points</h3></div><RankedList models={bigBikes} metric={(m) => `${m.engineCc} cc · ${m.powerHp} hp`} /></div>
+          <div id="400cc"><div className="rec-list-title"><span>Displacement</span><h3>400cc+ starting points</h3></div><RankedList models={bigBikes} metric={(m) => `${m.engineCc} cc · ${m.powerHp} hp`} /></div>
         </div>
       </section>
 
       <section id="explore" className="rec-explore">
         <div className="rec-explore-copy"><span>Keep exploring</span><h2>Browse by type or go straight to a brand.</h2><p>Use these as navigation, not as another wall of SEO pages.</p><Link className="rec-primary" href="/motorcycles">Browse all motorcycles →</Link></div>
-        <div className="rec-explore-links"><div><span>Popular categories</span>{categories.map((item) => <Link href={`/finder?category=${encodeURIComponent(item.category)}`} key={item.category}><strong>{item.category}</strong><small>{item.count}</small></Link>)}</div><div><span>Brands</span><div className="rec-brand-cloud">{brands.map(([slug, name]) => <Link href={`/motorcycles/${slug}`} key={slug}>{name}</Link>)}</div></div></div>
+        <div className="rec-explore-links"><div id="categories"><span>Popular categories</span>{categories.map((item) => <Link href={`/finder?category=${encodeURIComponent(item.category)}`} key={item.category}><strong>{item.category}</strong><small>{item.count}</small></Link>)}</div><div id="brands"><span>Brands</span><div className="rec-brand-cloud">{brands.map(([slug, name]) => <Link href={`/motorcycles/${slug}`} key={slug}>{name}</Link>)}</div></div></div>
       </section>
 
       <section className="rec-final-cta">
