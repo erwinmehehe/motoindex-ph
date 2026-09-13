@@ -78,7 +78,7 @@ export default async function MotorcyclesPage({ searchParams }: { searchParams: 
         </section>
 
         <section className="motorcycle-brand-directory">
-          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Browse by brand</span><h2>Verified brand research, without pretending the catalog is complete.</h2><p>Each count is the number of current MotoIndex records already checked for that brand. Coverage is expanded only when the Philippine model, price and core specification data can be verified.</p></div></div>
+          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Browse by brand</span><h2>Verified brand coverage.</h2><p>Counts show the current Philippine models already checked by MotoIndex. Coverage expands as local availability, pricing and core specifications are verified.</p></div></div>
           <div className="motorcycle-brand-directory-grid">{brandDirectory.map((brand) => <Link href={`/motorcycles/${brand.slug}`} key={brand.slug}><div className="motorcycle-brand-mark" aria-hidden="true">{brand.name.slice(0,2).toUpperCase()}</div><div><strong>{brand.name}</strong><small>{brand.count} researched {brand.count === 1 ? "model" : "models"}</small></div><span>{php(brand.low)}{brand.high > brand.low ? `–${php(brand.high)}` : ""}</span></Link>)}</div>
         </section>
 
