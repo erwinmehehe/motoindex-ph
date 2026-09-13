@@ -23,12 +23,11 @@ const gear = [
   ["Accessories", "/accessories"] as const
 ] as const;
 
-const more = [
+const ownership = [
   ["Ownership", "/ownership"] as const,
   ["Dealers", "/dealers"] as const,
   ["Seller offers", "/deals"] as const,
   ["Commute", "/commute"] as const,
-  ["All tools", "/tools"] as const,
   ...(hasModels ? [["Fitment finder", "/fitment"] as const] : []),
   ["Maintenance", "/maintenance"] as const,
   ["Loan calculator", "/tools/motorcycle-loan-calculator"] as const,
@@ -54,8 +53,10 @@ export function Header() {
               </div>
             </div>
           </details>}
-          {hasModels && <Link href="/finder">Finder</Link>}
           {hasComparisons && <Link href="/compare">Compare</Link>}
+          {hasModels && <Link href="/finder">Finder</Link>}
+          <details className="nav-more nav-gear"><summary>Helmets & gear <span>⌄</span></summary><div className="nav-popover">{gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</div></details>
+          <Link href="/tools">Tools</Link>
           <details className="nav-more nav-guides">
             <summary>Guides <span>⌄</span></summary>
             <div className="nav-popover nav-popover-menu nav-popover-guides">
@@ -64,8 +65,6 @@ export function Header() {
               {navGuides.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
             </div>
           </details>
-          <details className="nav-more nav-gear"><summary>Gear <span>⌄</span></summary><div className="nav-popover">{gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</div></details>
-          <details className="nav-more nav-moremenu"><summary>More <span>⌄</span></summary><div className="nav-popover">{more.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</div></details>
         </nav>
         <Link className="mobile-search" href="/search">Search</Link>
         <div className="nav-actions"><Link className="nav-search" href="/search">⌕ Search</Link><ShortlistNav /><Link className="nav-match" href="/finder">Find my match →</Link></div>
@@ -83,16 +82,17 @@ export function Header() {
                 {motorcycleBrands.map(([slug, label]) => <Link href={`/motorcycles/${slug}`} key={slug}>{label}</Link>)}
               </div>
             </>}
-            {hasModels && <Link href="/finder">Finder</Link>}
             {hasComparisons && <Link href="/compare">Compare</Link>}
+            {hasModels && <Link href="/finder">Finder</Link>}
+            <strong className="mobile-menu-heading">Helmets & gear</strong>
+            {gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
+            <Link href="/tools">All tools</Link>
             <strong className="mobile-menu-heading">Guides</strong>
             <Link href="/recommendations">Motorcycle buying guide</Link>
             <Link href="/guides">Editorial guides</Link>
             {navGuides.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
-            <strong className="mobile-menu-heading">Gear</strong>
-            {gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
-            <strong className="mobile-menu-heading">Ownership & tools</strong>
-            {more.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
+            <strong className="mobile-menu-heading">Ownership & local research</strong>
+            {ownership.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
             <Link href="/shortlist">Shortlist</Link><Link href="/search">Search</Link>
           </nav></div>
         </details>
