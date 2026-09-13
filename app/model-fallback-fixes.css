@@ -111,6 +111,50 @@
   white-space:nowrap!important;
 }
 
+/* Commute hero regression guard.
+   Older hub CSS gave this text panel a white card background while newer CSS
+   changed its type to white, making the main message effectively disappear. */
+.commute-master-page .commute-hero-grid .commute-context{
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  min-width:0!important;
+  padding:24px 18px 24px 8px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#fff!important;
+}
+
+.commute-master-page .commute-context h2{
+  max-width:720px;
+  margin:0 0 14px!important;
+  color:#fff!important;
+  font-size:clamp(32px,3.4vw,50px)!important;
+  line-height:.98!important;
+  letter-spacing:-.045em!important;
+}
+
+.commute-master-page .commute-context p{
+  max-width:680px;
+  margin:0!important;
+  color:rgba(255,255,255,.60)!important;
+  font-size:14px!important;
+  line-height:1.7!important;
+}
+
+.commute-master-page .commute-context .source-links{
+  margin-top:28px!important;
+}
+
+.commute-master-page .commute-context .source-links a{
+  border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:9px!important;
+  background:rgba(255,255,255,.055)!important;
+  color:#ff7a80!important;
+}
+
 @media(max-width:900px){
   .authority-media-fallback{
     min-height:350px!important;
@@ -118,6 +162,9 @@
   }
   .authority-media-fallback > strong{
     font-size:clamp(32px,8vw,48px)!important;
+  }
+  .commute-master-page .commute-hero-grid .commute-context{
+    padding:8px 0 24px!important;
   }
 }
 
@@ -133,5 +180,8 @@
   }
   .authority-media-fallback:after{
     font-size:58px;
+  }
+  .commute-master-page .commute-context h2{
+    font-size:32px!important;
   }
 }
