@@ -6,6 +6,7 @@ import { ModelFamilyView } from "@/components/ModelFamilyView";
 import { MotorcycleEntityPage } from "@/components/MotorcycleEntityPage";
 import { PriorityModelBrief } from "@/components/PriorityModelBrief";
 import { DecisionPath } from "@/components/DecisionPath";
+import { RecentlyViewedTracker } from "@/components/RecentlyViewed";
 import { pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
 
@@ -21,11 +22,6 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const family = getModelFamily(make, slug);
   if (family) {
     const familyModels = family.generationIds.map(getModelById);
-    // A family hub is worth indexing when at least one generation is verified.
-    // Requiring every generation to pass meant a single "review" record - the
-    // NMAX V2 and Aerox V2 entries - kept the whole hub out of the index, which
-    // is where "nmax price philippines" and "aerox price philippines" land.
-    // Each generation's own page still carries its own index gate.
     const index = familyModels.some((m) => Boolean(m && isIndexableModel(m)));
     return pageMetadata({
       title: `${family.make} ${family.name} Price & Specs Philippines`,
@@ -53,6 +49,7 @@ export default async function ModelPage({ params }: { params: Promise<{ make: st
   const model = getModel(make, slug);
   if (!model) return notFound();
   return <>
+    <RecentlyViewedTracker model={{ id: model.id, make: model.make, model: model.model, makeSlug: model.makeSlug, slug: model.slug }} />
     <MotorcycleEntityPage model={model} />
     <PriorityModelBrief model={model} />
     {!model.marketStatus || model.marketStatus === "current" ? <div className="shell model-decision-path-wrap"><DecisionPath stage="model" modelName={`${model.make} ${model.model}`} make={model.make} makeSlug={model.makeSlug} modelSlug={model.slug} /></div> : null}
