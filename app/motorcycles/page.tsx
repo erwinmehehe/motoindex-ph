@@ -21,9 +21,9 @@ export const metadata: Metadata = pageMetadata({
 });
 function one(value?: string | string[]) { return Array.isArray(value) ? value[0] : value; }
 
-export default async function MotorcyclesPage({ searchParams }: { searchParams: Promise<{ q?: string | string[]; make?: string | string[]; type?: string | string[]; budget?: string | string[] }> }) {
+export default async function MotorcyclesPage({ searchParams }: { searchParams: Promise<{ q?: string | string[]; make?: string | string[]; type?: string | string[]; budget?: string | string[]; sort?: string | string[] }> }) {
   const query = await searchParams;
-  const initialFilters = { q: one(query.q) || "", make: one(query.make) || "all", category: one(query.type) || "all", budget: one(query.budget) || "all" };
+  const initialFilters = { q: one(query.q) || "", make: one(query.make) || "all", category: one(query.type) || "all", budget: one(query.budget) || "all", sort: one(query.sort) || "recommended" };
   const makes = [...new Map(currentModels.map((m) => [m.makeSlug, m.make])).entries()];
   const authorityModels = currentModels.filter((model) => Boolean(modelAuthorityProfile(model.id)));
   const overallLow = currentModels.length ? Math.min(...currentModels.map((m) => observedMarketRange(m).from)) : undefined;
