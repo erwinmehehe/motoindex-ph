@@ -23,6 +23,7 @@ import "./experience-v6.css";
 import "./experience-v6-fixes.css";
 import "./experience-v7.css";
 import "./recommendations-v2.css";
+import "./public-hubs-v2.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";

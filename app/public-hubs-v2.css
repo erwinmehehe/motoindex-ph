@@ -1,0 +1,289 @@
+/* Public hub hardening
+   Gives long research hubs stronger hierarchy, limits card-wall fatigue, and
+   removes the oversized empty section shells that previously passed visual QA. */
+
+:root{
+  --hub-ink:#111318;
+  --hub-red:#f0444d;
+  --hub-paper:#f5f6f7;
+  --hub-line:rgba(17,19,24,.11);
+  --hub-muted:#737b85;
+}
+
+/* Keep long editorial hubs compact and clearly sectional. */
+:is(.ownership-master-page,.maintenance-master-page,.commute-master-page,.accessories-master-page,.tire-master-page,.helmet-hub-page) > .page-head{
+  max-width:980px;
+  margin-bottom:30px!important;
+}
+:is(.ownership-master-page,.maintenance-master-page,.commute-master-page,.accessories-master-page,.tire-master-page,.helmet-hub-page) > .page-head h1{
+  text-wrap:balance;
+}
+:is(.ownership-master-page,.maintenance-master-page,.commute-master-page,.accessories-master-page,.tire-master-page,.helmet-hub-page) > .product-entity-nav{
+  margin-bottom:8px;
+  border:1px solid var(--hub-line);
+  border-radius:16px;
+  background:rgba(255,255,255,.72);
+  padding-inline:8px;
+  box-shadow:0 10px 30px rgba(17,19,24,.035);
+}
+
+/* Dealer directory: remove the giant empty rounded shell around the finder. */
+.dealer-directory-section{
+  min-height:0!important;
+  margin:0!important;
+  padding:28px 0 48px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.dealer-directory-section>.section-head{margin-bottom:20px!important}
+.dealer-directory-section .dealer-finder{
+  padding:20px!important;
+  border:1px solid var(--hub-line)!important;
+  border-radius:22px!important;
+  background:#fff!important;
+  box-shadow:0 22px 55px rgba(17,19,24,.055)!important;
+}
+
+/* Ownership: one strong opening decision surface, then clean editorial sections. */
+.ownership-master-page .motorcycle-entity-section{
+  min-height:0!important;
+  margin:0!important;
+  padding:50px 0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.ownership-master-page #cost{
+  margin:22px 0 10px!important;
+  padding:38px!important;
+  border:0!important;
+  border-radius:28px!important;
+  background:radial-gradient(circle at 92% 12%,rgba(240,68,77,.23),transparent 31%),var(--hub-ink)!important;
+  color:#fff!important;
+}
+.ownership-master-page #cost .section-head{margin-bottom:24px!important}
+.ownership-master-page #cost .section-head h2{color:#fff!important}
+.ownership-master-page #cost .section-head p{color:rgba(255,255,255,.58)!important}
+.ownership-master-page #cost .ownership-feature-grid>a{
+  border-color:rgba(255,255,255,.11)!important;
+  background:rgba(255,255,255,.06)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+}
+.ownership-master-page #cost .ownership-feature-grid>a p{color:rgba(255,255,255,.55)!important}
+.ownership-master-page #cost .ownership-feature-grid>a span,
+.ownership-master-page #cost .ownership-feature-grid>a b{color:#ff7178!important}
+.ownership-master-page #maintenance,
+.ownership-master-page #safety-campaigns,
+.ownership-master-page #paperwork{border-top:1px solid var(--hub-line)!important}
+
+/* Helmet hub: turn repeated product grids into compact browse rails. */
+.helmet-hub-page .brand-facts{margin-bottom:28px!important}
+.helmet-hub-page .helmet-master-intro{
+  margin:16px 0 26px!important;
+  padding:34px!important;
+  border:0!important;
+  border-radius:28px!important;
+  background:radial-gradient(circle at 88% 10%,rgba(240,68,77,.22),transparent 34%),var(--hub-ink)!important;
+  color:#fff!important;
+}
+.helmet-hub-page .helmet-master-intro .section-head h2,
+.helmet-hub-page .helmet-master-intro .topic-grid h3{color:#fff!important}
+.helmet-hub-page .helmet-master-intro .section-head p,
+.helmet-hub-page .helmet-master-intro .topic-grid p{color:rgba(255,255,255,.56)!important}
+.helmet-hub-page .helmet-master-intro .topic-grid>article{
+  border-color:rgba(255,255,255,.11)!important;
+  background:rgba(255,255,255,.055)!important;
+  box-shadow:none!important;
+}
+.helmet-hub-page .helmet-master-intro a{color:#ff7a80!important}
+.helmet-hub-page .helmet-master-section{
+  padding:52px 0!important;
+  border-top:1px solid var(--hub-line)!important;
+}
+.helmet-hub-page .helmet-master-section .section-head{margin-bottom:22px!important}
+.helmet-hub-page .product-grid.hub-product-rail{
+  display:grid!important;
+  grid-template-columns:none!important;
+  grid-auto-flow:column!important;
+  grid-auto-columns:minmax(280px,320px)!important;
+  gap:14px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  padding:2px 2px 14px!important;
+  scroll-snap-type:x proximity;
+  scrollbar-width:thin;
+}
+.helmet-hub-page .product-grid.hub-product-rail>.product-card-shell,
+.helmet-hub-page .product-grid.hub-product-rail>.product-card{scroll-snap-align:start}
+.helmet-hub-page .product-card{height:100%!important}
+.helmet-hub-page #models{
+  margin-top:12px;
+  padding:42px!important;
+  border:1px solid var(--hub-line)!important;
+  border-radius:28px!important;
+  background:#fff!important;
+}
+.helmet-hub-page .helmet-brand-grid{gap:10px!important}
+.helmet-hub-page .helmet-brand-grid>article{box-shadow:none!important}
+
+/* Tires: keep the useful data without turning the page into a 150-row wall. */
+.tire-master-page .tire-master-section{
+  padding:50px 0!important;
+  border-top:1px solid var(--hub-line)!important;
+}
+.tire-master-page #size-chart{
+  margin:20px 0 8px!important;
+  padding:38px!important;
+  border:0!important;
+  border-radius:28px!important;
+  background:radial-gradient(circle at 90% 12%,rgba(240,68,77,.20),transparent 30%),var(--hub-ink)!important;
+  color:#fff!important;
+}
+.tire-master-page #size-chart .section-head h2,
+.tire-master-page #size-chart .topic-grid h3,
+.tire-master-page #size-chart .note-box h3{color:#fff!important}
+.tire-master-page #size-chart .section-head p,
+.tire-master-page #size-chart .topic-grid p,
+.tire-master-page #size-chart .note-box p{color:rgba(255,255,255,.56)!important}
+.tire-master-page #size-chart .topic-grid>article,
+.tire-master-page #size-chart .note-box{
+  border-color:rgba(255,255,255,.11)!important;
+  background:rgba(255,255,255,.055)!important;
+  box-shadow:none!important;
+}
+.tire-master-page #stock-sizes .fitment-list{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+}
+.tire-master-page #stock-sizes .fitment-list>a{
+  min-height:74px!important;
+  border-radius:14px!important;
+}
+.tire-master-page .tire-family-master-grid>article,
+.tire-master-page .guide-master-link-grid>article{box-shadow:none!important}
+
+/* Commute: show four strong candidates per use case instead of endless rankings. */
+.commute-master-page .commute-hero-grid{
+  margin:20px 0 28px!important;
+  padding:34px!important;
+  border:0!important;
+  border-radius:28px!important;
+  background:radial-gradient(circle at 88% 10%,rgba(240,68,77,.22),transparent 33%),var(--hub-ink)!important;
+  color:#fff!important;
+}
+.commute-master-page .commute-context h2{color:#fff!important}
+.commute-master-page .commute-context p{color:rgba(255,255,255,.58)!important}
+.commute-master-page .source-links a{color:#ff7a80!important}
+.commute-master-page .commute-stat-stack>span{
+  border-color:rgba(255,255,255,.11)!important;
+  background:rgba(255,255,255,.055)!important;
+  box-shadow:none!important;
+}
+.commute-master-page .commute-stat-stack small{color:rgba(255,255,255,.46)!important}
+.commute-master-page .commute-stat-stack b{color:#fff!important}
+.commute-master-page .commute-master-section{
+  padding:50px 0!important;
+  border-top:1px solid var(--hub-line)!important;
+}
+.commute-master-page .commute-rank-list{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:12px!important;
+}
+.commute-master-page .commute-rank-card{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  min-height:260px!important;
+  padding:24px!important;
+  border:1px solid var(--hub-line)!important;
+  border-radius:20px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+.commute-master-page .commute-rank-card h2{font-size:24px!important}
+.commute-master-page .commute-rank-kpis{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:8px!important;
+  margin-top:auto!important;
+  padding-top:18px!important;
+}
+.commute-master-page .commute-rank-kpis>a{grid-column:1/-1}
+
+/* Maintenance: cleaner reading rhythm and fewer giant shells. */
+.maintenance-master-page>.note-box{
+  margin:22px 0 8px!important;
+  padding:28px!important;
+  border:0!important;
+  border-radius:24px!important;
+  background:var(--hub-ink)!important;
+  color:#fff!important;
+}
+.maintenance-master-page>.note-box h2{color:#fff!important}
+.maintenance-master-page>.note-box p{color:rgba(255,255,255,.58)!important}
+.maintenance-master-page .maintenance-master-section{
+  min-height:0!important;
+  padding:52px 0!important;
+  border-top:1px solid var(--hub-line)!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.maintenance-master-page .maintenance-master-section .section-head{margin-bottom:22px!important}
+.maintenance-master-page .maintenance-source-details{margin-top:18px!important}
+
+/* Accessories: create one visual anchor, keep the rest editorial. */
+.accessories-master-page .motorcycle-entity-section{
+  min-height:0!important;
+  padding:50px 0!important;
+  border-top:1px solid var(--hub-line)!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.accessories-master-page #top-box{
+  margin:20px 0 8px!important;
+  padding:38px!important;
+  border:0!important;
+  border-radius:28px!important;
+  background:radial-gradient(circle at 90% 12%,rgba(240,68,77,.20),transparent 31%),var(--hub-ink)!important;
+  color:#fff!important;
+}
+.accessories-master-page #top-box .section-head h2,
+.accessories-master-page #top-box .topic-grid h3{color:#fff!important}
+.accessories-master-page #top-box .section-head p,
+.accessories-master-page #top-box .topic-grid p{color:rgba(255,255,255,.56)!important}
+.accessories-master-page #top-box .topic-grid>article{
+  border-color:rgba(255,255,255,.11)!important;
+  background:rgba(255,255,255,.055)!important;
+  box-shadow:none!important;
+}
+.accessories-master-page #top-box .button{background:var(--hub-red)!important;color:#fff!important}
+
+/* Long sections should not render hundreds of off-screen elements at once. */
+:is(.helmet-hub-page,.tire-master-page,.maintenance-master-page,.commute-master-page,.accessories-master-page,.ownership-master-page) > section{
+  content-visibility:auto;
+  contain-intrinsic-size:1px 760px;
+}
+
+@media(max-width:850px){
+  .ownership-master-page #cost,
+  .helmet-hub-page .helmet-master-intro,
+  .tire-master-page #size-chart,
+  .commute-master-page .commute-hero-grid,
+  .accessories-master-page #top-box{padding:26px!important;border-radius:22px!important}
+  .commute-master-page .commute-rank-list,
+  .tire-master-page #stock-sizes .fitment-list{grid-template-columns:1fr!important}
+  .helmet-hub-page #models{padding:26px!important;border-radius:22px!important}
+}
+
+@media(max-width:560px){
+  :is(.ownership-master-page,.maintenance-master-page,.commute-master-page,.accessories-master-page,.tire-master-page,.helmet-hub-page) > .page-head{margin-bottom:24px!important}
+  .helmet-hub-page .product-grid.hub-product-rail{grid-auto-columns:82vw!important}
+  .commute-master-page .commute-rank-card{min-height:0!important;padding:20px!important}
+  .commute-master-page .commute-rank-kpis{grid-template-columns:1fr!important}
+  .commute-master-page .commute-rank-kpis>a{grid-column:auto}
+  .dealer-directory-section .dealer-finder{padding:14px!important}
+}

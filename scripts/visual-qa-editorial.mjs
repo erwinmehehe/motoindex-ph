@@ -11,8 +11,23 @@ const pages = [
   ["honda-brand", "/motorcycles/honda"],
   ["ownership", "/ownership"],
   ["search", "/search"],
+  ["dealers", "/dealers"],
+  ["helmets-hub", "/gear/helmets"],
+  ["tires-hub", "/tires"],
+  ["maintenance-hub", "/maintenance"],
+  ["commute-hub", "/commute"],
+  ["accessories-hub", "/accessories"],
+  ["guide-detail", "/guides/motorcycle-helmet-size-guide"],
+  ["ownership-detail", "/ownership/registration-renewal"],
+  ["helmet-brand", "/gear/helmets/kyt"],
+  ["helmet-product", "/gear/helmets/kyt/skyhawk"],
+  ["tire-product", "/tires/michelin/city-grip-2"],
+  ["compare-detail", "/compare/aerox-vs-nmax"],
+  ["commute-detail", "/commute/heavy-traffic"],
+  ["top-box-hub", "/accessories/top-box"],
 ];
 const widths = [430, 1440];
+const fullPageNames = new Set(["recommendations", "ownership", "dealers", "helmets-hub", "tires-hub", "maintenance-hub", "commute-hub", "accessories-hub"]);
 const outputDir = path.join(process.cwd(), "artifacts", "visual-qa");
 fs.mkdirSync(outputDir, { recursive: true });
 
@@ -121,6 +136,11 @@ try {
         const broken=[...document.images].filter(img=>visible(img)&&img.complete&&img.currentSrc&&img.naturalWidth===0).map(img=>img.currentSrc).slice(0,8);
         const h1=document.querySelector('h1');
         const safety=document.querySelector('#safety-efficiency');
+        const grids=[...document.querySelectorAll('.product-grid,.fitment-list,.commute-rank-list,.guide-grid,.helmet-grid')].map(el=>({cls:String(el.className||''),count:el.children.length}));
+        const largestGrid=grids.sort((a,b)=>b.count-a.count)[0]||{cls:'',count:0};
+        const dealerSection=document.querySelector('.dealer-directory-section');
+        const ownershipCost=document.querySelector('.ownership-master-page #cost');
+        const visibleProductCards=[...document.querySelectorAll('.product-card')].filter(visible).length;
         return {
           title:document.title,
           overflow:root.scrollWidth-root.clientWidth,
@@ -132,13 +152,22 @@ try {
           h1Size:h1?parseFloat(getComputedStyle(h1).fontSize||'0'):0,
           duplicateAutomaticHeading:(document.body.innerText.match(/Lowest-price automatic options/g)||[]).length,
           unsafeAbsNames:safety?['MotorStar Xplorer 250R','Keeway Cafe Racer 152','Rusi Classic 250i','Kymco Agility Eco 125i'].filter(name=>safety.innerText.includes(name)):[],
-          contentHeight:Math.round(root.scrollHeight)
+          contentHeight:Math.round(root.scrollHeight),
+          largestGrid,
+          visibleProductCards,
+          helmetCards:document.querySelectorAll('.helmet-hub-page .product-card').length,
+          stockFitmentRows:document.querySelectorAll('.tire-master-page #stock-sizes .fitment-list>a').length,
+          commuteRankCards:document.querySelectorAll('.commute-master-page .commute-rank-card').length,
+          dealerPadding:dealerSection?parseFloat(getComputedStyle(dealerSection).paddingTop||'0'):0,
+          ownershipCostPadding:ownershipCost?parseFloat(getComputedStyle(ownershipCost).paddingTop||'0'):0
         };
       })()`);
 
       results.push({ width, name, pathname, ...audit });
       if ((audit?.overflow || 0) > 5) failures.push(`${width}px ${pathname}: horizontal overflow ${audit.overflow}px`);
       if (audit?.broken?.length) failures.push(`${width}px ${pathname}: broken visible image ${audit.broken[0]}`);
+      if ((audit?.h1Size || 0) < (width === 1440 ? 40 : 34)) failures.push(`${width}px ${pathname}: primary heading is visually too weak (${audit.h1Size}px)`);
+      if ((audit?.largestGrid?.count || 0) > 30) failures.push(`${width}px ${pathname}: oversized repeated grid has ${audit.largestGrid.count} direct items (${audit.largestGrid.cls})`);
 
       if (pathname === "/recommendations") {
         if (!audit?.hasRecommendationsRoot) failures.push(`${width}px /recommendations: premium recommendations root is missing`);
@@ -151,10 +180,17 @@ try {
         if (audit?.unsafeAbsNames?.length) failures.push(`${width}px /recommendations: unconfirmed ABS models shown as confirmed: ${audit.unsafeAbsNames.join(', ')}`);
       }
 
+      if (pathname === "/dealers" && (audit?.dealerPadding || 0) > 64) failures.push(`${width}px /dealers: finder section has excessive top padding (${audit.dealerPadding}px)`);
+      if (pathname === "/ownership" && (audit?.ownershipCostPadding || 0) > 64) failures.push(`${width}px /ownership: first ownership decision section has excessive top padding (${audit.ownershipCostPadding}px)`);
+      if (pathname === "/gear/helmets" && (audit?.helmetCards || 0) > 80) failures.push(`${width}px /gear/helmets: too many helmet product cards are rendered at once (${audit.helmetCards})`);
+      if (pathname === "/gear/helmets" && (audit?.visibleProductCards || 0) < 10) failures.push(`${width}px /gear/helmets: product browsing became too sparse (${audit.visibleProductCards} visible cards)`);
+      if (pathname === "/tires" && (audit?.stockFitmentRows || 0) > 30) failures.push(`${width}px /tires: stock-size section regressed into a long model wall (${audit.stockFitmentRows} rows)`);
+      if (pathname === "/commute" && (audit?.commuteRankCards || 0) > 20) failures.push(`${width}px /commute: too many repeated recommendation cards are rendered (${audit.commuteRankCards})`);
+
       const shot = await cdp.send("Page.captureScreenshot", { format: "png", fromSurface: true, captureBeyondViewport: false });
       fs.writeFileSync(path.join(outputDir, `${String(width).padStart(4,"0")}-${name}-editorial.png`), Buffer.from(shot.data, "base64"));
 
-      if (pathname === "/recommendations") {
+      if (fullPageNames.has(name)) {
         const metrics = await cdp.send("Page.getLayoutMetrics");
         const size = metrics.cssContentSize || metrics.contentSize;
         const fullHeight = Math.min(Math.max(Math.ceil(size.height || 0), 1), 12000);
@@ -164,7 +200,7 @@ try {
           captureBeyondViewport: true,
           clip: { x: 0, y: 0, width, height: fullHeight, scale: 1 }
         });
-        fs.writeFileSync(path.join(outputDir, `${String(width).padStart(4,"0")}-recommendations-editorial-full.png`), Buffer.from(fullShot.data, "base64"));
+        fs.writeFileSync(path.join(outputDir, `${String(width).padStart(4,"0")}-${name}-editorial-full.png`), Buffer.from(fullShot.data, "base64"));
       }
     }
   }

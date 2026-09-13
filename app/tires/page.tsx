@@ -22,6 +22,7 @@ function normalize(value:string){
 
 export default function TiresPage(){
   const verifiedProducts=tireProducts.filter(p=>p.status==="verified");
+  const stockPreview=publicMotorcycles.slice(0,24);
   const sizeMap=new Map<string,{label:string;models:typeof publicMotorcycles}>();
   for(const model of publicMotorcycles){
     for(const size of [model.frontTire,model.rearTire]){
@@ -47,13 +48,13 @@ export default function TiresPage(){
       <span className="entity-kicker">Motorcycle tire fitment guide</span>
       <h1>Motorcycle tire size chart and finder</h1>
       <p>Start with the exact motorcycle&apos;s stock front and rear size. Then check load index, speed rating, construction, tube or tubeless requirement, rim width and physical clearance. Matching the printed size alone does not guarantee complete fitment.</p>
-      <div className="hero-actions"><Link className="button" href="/fitment">Open fitment finder</Link><a className="button secondary" href="#stock-sizes">Browse stock sizes</a></div>
+      <div className="hero-actions"><Link className="button" href="/fitment">Open fitment finder</Link><a className="button secondary" href="#stock-sizes">Browse stock-size preview</a></div>
     </div>
 
     <nav className="product-entity-nav tire-master-nav" aria-label="Tire guide sections">
       <a href="#size-chart">Read tire sizes</a>
       <a href="#families">Aerox, NMAX & Click</a>
-      <a href="#stock-sizes">Stock sizes</a>
+      <a href="#stock-sizes">Stock-size preview</a>
       <a href="#common-sizes">Common sizes</a>
       <a href="#products">Tire products</a>
     </nav>
@@ -78,8 +79,9 @@ export default function TiresPage(){
     </section>
 
     <section id="stock-sizes" className="tire-master-section">
-      <div className="section-head inline-head"><div><span className="section-kicker">Exact motorcycles</span><h2>Stock front and rear tire sizes</h2><p>Open the motorcycle for pressure references, compatible product candidates and model-specific fitment evidence.</p></div><Link href="/fitment">Open fitment finder →</Link></div>
-      <div className="fitment-list">{publicMotorcycles.map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}><span><strong>{m.make} {m.model}</strong><small>{m.category}</small></span><span className="tire-pair"><b>{m.frontTire}</b><b>{m.rearTire}</b></span></Link>)}</div>
+      <div className="section-head inline-head"><div><span className="section-kicker">Exact motorcycles</span><h2>Stock front and rear tire sizes</h2><p>This is a compact preview. Use the Fitment Finder to search the complete current motorcycle catalog and open the exact model before ordering.</p></div><Link href="/fitment">Search all fitment →</Link></div>
+      <div className="fitment-list">{stockPreview.map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}><span><strong>{m.make} {m.model}</strong><small>{m.category}</small></span><span className="tire-pair"><b>{m.frontTire}</b><b>{m.rearTire}</b></span></Link>)}</div>
+      <div className="hero-actions"><Link className="button secondary small" href="/fitment">Search all {publicMotorcycles.length} motorcycles in Fitment Finder</Link></div>
     </section>
 
     <section id="common-sizes" className="tire-master-section">

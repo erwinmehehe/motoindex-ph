@@ -15,9 +15,10 @@ export const metadata: Metadata = pageMetadata({
   index: true
 });
 
-function ProductGrid({ products }: { products: typeof helmetProducts }) {
-  if (!products.length) return <div className="note-box compact-note"><p>No matching verified helmet is published right now.</p></div>;
-  return <div className="product-grid">{products.map(p=><ProductCard key={p.id} item={{
+function ProductGrid({ products, limit = 6 }: { products: typeof helmetProducts; limit?: number }) {
+  const visible = products.slice(0, limit);
+  if (!visible.length) return <div className="note-box compact-note"><p>No matching verified helmet is published right now.</p></div>;
+  return <div className="product-grid hub-product-rail">{visible.map(p=><ProductCard key={p.id} item={{
     entityId:p.id,
     href:`/gear/helmets/${p.brandSlug}/${p.slug}`,
     category:p.helmetType,
@@ -82,7 +83,7 @@ export default function HelmetsPage(){
       <a href="#intercom-ready">Intercom</a>
       <a href="#commuting">Commuting</a>
       <a href="#brands">Brands</a>
-      <a href="#models">All models</a>
+      <a href="#models">Model preview</a>
     </nav>
 
     <section className="helmet-master-intro">
@@ -97,38 +98,38 @@ export default function HelmetsPage(){
 
     <section id="full-face" className="helmet-master-section">
       <div className="section-head compact"><div><span className="section-kicker">Helmet type</span><h2>Full-face motorcycle helmets</h2><p>Fixed-chin-bar helmets for commuting, touring and sport riding. Compare fit, visor setup, ventilation, shell construction and certification on the exact model.</p></div><strong>{fullFace.length} models</strong></div>
-      <ProductGrid products={fullFace.slice(0,12)} />
+      <ProductGrid products={fullFace} />
     </section>
 
     <section id="modular" className="helmet-master-section">
       <div className="section-head compact"><div><span className="section-kicker">Helmet type</span><h2>Modular and flip-up motorcycle helmets</h2><p>Useful for riders who want a chin bar that can open at stops. Check P/J homologation where claimed, hinge operation, weight and intercom clearance.</p></div><strong>{modular.length} models</strong></div>
-      <ProductGrid products={modular.slice(0,12)} />
+      <ProductGrid products={modular} />
     </section>
 
     <section id="open-face" className="helmet-master-section">
       <div className="section-head compact"><div><span className="section-kicker">Helmet type</span><h2>Open-face and half-face motorcycle helmets</h2><p>City-focused choices with more airflow and facial openness. Compare visor coverage, sun visor, fit and local conformity marking before buying.</p></div><strong>{openFace.length} models</strong></div>
-      <ProductGrid products={openFace.slice(0,12)} />
+      <ProductGrid products={openFace} />
     </section>
 
     <section id="under-3000" className="helmet-master-section">
       <div className="section-head compact"><div><span className="section-kicker">Budget</span><h2>Motorcycle helmets under ₱3,000</h2><p>This is a price filter, not a safety ranking. Check the exact Philippine unit for PS or ICC marking, correct fit, secure retention and replacement-visor availability.</p></div><strong>{under3000.length} models</strong></div>
-      <ProductGrid products={under3000.slice(0,12)} />
+      <ProductGrid products={under3000} />
     </section>
 
     <section id="under-5000" className="helmet-master-section">
       <div className="section-head compact"><div><span className="section-kicker">Budget</span><h2>Motorcycle helmets under ₱5,000</h2><p>Use the wider budget to compare fit, ventilation, visor quality, removable liners and parts availability. A graphic or visor bundle can push a specific variant above the starting price shown.</p></div><strong>{under5000.length} models</strong></div>
-      <ProductGrid products={under5000.slice(0,12)} />
+      <ProductGrid products={under5000} />
     </section>
 
     <section id="ece-22-06" className="helmet-master-section">
       <div className="section-head compact"><div><span className="section-kicker">Certification</span><h2>ECE 22.06 motorcycle helmets</h2><p>These models explicitly reference ECE 22.06 or R22.06 in the checked product record. For Philippine use, also inspect the exact helmet for the applicable PS or ICC conformity marking.</p></div><strong>{ece2206.length} models</strong></div>
-      <ProductGrid products={ece2206.slice(0,12)} />
+      <ProductGrid products={ece2206} />
       <p className="helmet-master-note"><Link href="/guides/motorcycle-helmet-certification-philippines">Read the Philippine helmet certification guide →</Link></p>
     </section>
 
     <section id="intercom-ready" className="helmet-master-section">
       <div className="section-head compact"><div><span className="section-kicker">Communication</span><h2>Intercom-ready motorcycle helmets</h2><p>Speaker pockets or communication-system provision can make installation cleaner, but speaker depth, microphone routing and mount clearance still need to match your exact intercom.</p></div><strong>{intercom.length} models</strong></div>
-      <ProductGrid products={intercom.slice(0,12)} />
+      <ProductGrid products={intercom} />
     </section>
 
     <section id="commuting" className="helmet-master-section">
@@ -148,8 +149,8 @@ export default function HelmetsPage(){
     </section>
 
     <section id="models" className="helmet-master-section">
-      <div className="section-head inline-head"><div><span className="section-kicker">All models</span><h2>Compare verified helmet models</h2><p>Open the exact product page for its current source, sizing, shell, visor, certification and available Philippine price information.</p></div><Link href="/gear/helmets/finder">Filter with Helmet Finder →</Link></div>
-      <ProductGrid products={verified} />
+      <div className="section-head inline-head"><div><span className="section-kicker">Model preview</span><h2>Browse a sample of verified helmet models</h2><p>Use the Helmet Finder for the full catalog. Open an exact product page for sizing, shell, visor, certification and current Philippine price information.</p></div><Link href="/gear/helmets/finder">Filter the full catalog →</Link></div>
+      <ProductGrid products={verified} limit={18} />
     </section>
 
     <AuthorBox />

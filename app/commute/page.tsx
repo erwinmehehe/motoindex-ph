@@ -49,7 +49,7 @@ export default function CommutePage(){
     </nav>
 
     {commuteGuides.map(g=>{
-      const ordered=commuteGuideModels(g.slug).slice(0,6);
+      const ordered=commuteGuideModels(g.slug).slice(0,4);
       return <section id={g.slug} className="commute-master-section" key={g.slug}>
         <div className="section-head compact"><div><span className="section-kicker">{g.kicker}</span><h2>{g.title}</h2><p>{g.description}</p></div></div>
         <div className="method-card compact-method"><strong>What this shortlist uses</strong><ul>{g.criteria.map(c=><li key={c}>{c}</li>)}</ul><small>These are measurable filters, not a crash-risk or comfort score.</small></div>
