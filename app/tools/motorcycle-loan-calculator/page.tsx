@@ -92,7 +92,7 @@ export default async function MotorcycleLoanCalculatorPage({ searchParams }: { s
     </section>
 
     <section className="section" aria-labelledby="loan-related-models">
-      <div className="section-head compact"><div><h2 id="loan-related-models">Related motorcycles to price</h2><p>Open a canonical model page first, verify the exact variant and current price, then return to the calculator with that figure.</p></div></div>
+      <div className="section-head compact"><div><h2 id="loan-related-models">Related motorcycles to price</h2><p>Open the motorcycle&apos;s main research page first, verify the exact variant and current price, then return to the calculator with that figure.</p></div></div>
       <div className="guide-strip">
         <Link href="/motorcycles/yamaha/aerox-v3"><strong>Yamaha Aerox V3</strong><small>Compare Standard and SP pricing before financing.</small></Link>
         <Link href="/motorcycles/honda/adv-160"><strong>Honda ADV160</strong><small>Check ABS and RoadSync variant differences.</small></Link>
