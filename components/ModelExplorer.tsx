@@ -5,14 +5,24 @@ import type { Motorcycle } from "@/lib/types";
 import { ModelCard } from "@/components/ModelCard";
 import { observedMarketRange } from "@/lib/marketChecks";
 
-type ExplorerFilters = { q?: string; make?: string; category?: string; budget?: string };
+type ExplorerFilters = { q?: string; make?: string; category?: string; budget?: string; sort?: string };
 const allowedBudgets = new Set(["all","under100","100to150","150to200","over200"]);
+const allowedSorts = new Set(["recommended","price-asc","price-desc","engine-desc","seat-asc"]);
+
+const budgetChips = [
+  ["all", "All"],
+  ["under100", "Under ₱100K"],
+  ["100to150", "₱100K–₱150K"],
+  ["150to200", "₱150K–₱200K"],
+  ["over200", "₱200K+"]
+] as const;
 
 export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcycle[]; initialFilters?: ExplorerFilters }) {
   const [q, setQ] = useState(initialFilters.q || "");
   const [make, setMake] = useState(initialFilters.make || "all");
   const [category, setCategory] = useState(initialFilters.category || "all");
   const [budget, setBudget] = useState(allowedBudgets.has(initialFilters.budget || "") ? initialFilters.budget! : "all");
+  const [sort, setSort] = useState(allowedSorts.has(initialFilters.sort || "") ? initialFilters.sort! : "recommended");
   const makes = [...new Set(models.map(m=>m.make))].sort();
   const categories = [...new Set(models.map(m=>m.category))].sort();
 
@@ -22,28 +32,52 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
     if (make !== "all") params.set("make", make);
     if (category !== "all") params.set("type", category);
     if (budget !== "all") params.set("budget", budget);
+    if (sort !== "recommended") params.set("sort", sort);
     const next = `${window.location.pathname}${params.size ? `?${params.toString()}` : ""}`;
     window.history.replaceState(null, "", next);
-  }, [q, make, category, budget]);
+  }, [q, make, category, budget, sort]);
 
-  const filtered = useMemo(()=>models.filter((m)=>{
-    const text = `${m.make} ${m.model} ${m.category}`.toLowerCase();
-    if (q && !text.includes(q.toLowerCase())) return false;
-    if (make !== "all" && m.make !== make) return false;
-    if (category !== "all" && m.category !== category) return false;
-    const price=observedMarketRange(m).from;
-    if (budget === "under100" && price >= 100000) return false;
-    if (budget === "100to150" && (price < 100000 || price > 150000)) return false;
-    if (budget === "150to200" && (price <= 150000 || price > 200000)) return false;
-    if (budget === "over200" && price < 200000) return false;
-    return true;
-  }),[models,q,make,category,budget]);
+  const filtered = useMemo(()=>{
+    const rows = models.filter((m)=>{
+      const text = `${m.make} ${m.model} ${m.category}`.toLowerCase();
+      if (q && !text.includes(q.toLowerCase())) return false;
+      if (make !== "all" && m.make !== make) return false;
+      if (category !== "all" && m.category !== category) return false;
+      const price=observedMarketRange(m).from;
+      if (budget === "under100" && price >= 100000) return false;
+      if (budget === "100to150" && (price < 100000 || price > 150000)) return false;
+      if (budget === "150to200" && (price <= 150000 || price > 200000)) return false;
+      if (budget === "over200" && price < 200000) return false;
+      return true;
+    });
+    if (sort === "price-asc") return [...rows].sort((a,b)=>observedMarketRange(a).from-observedMarketRange(b).from);
+    if (sort === "price-desc") return [...rows].sort((a,b)=>observedMarketRange(b).from-observedMarketRange(a).from);
+    if (sort === "engine-desc") return [...rows].sort((a,b)=>b.engineCc-a.engineCc || a.model.localeCompare(b.model));
+    if (sort === "seat-asc") return [...rows].sort((a,b)=>a.seatHeightMm-b.seatHeightMm || a.model.localeCompare(b.model));
+    return rows;
+  },[models,q,make,category,budget,sort]);
 
-  const dirty = Boolean(q || make!=="all" || category!=="all" || budget!=="all");
-  function reset(){setQ("");setMake("all");setCategory("all");setBudget("all");}
+  const dirty = Boolean(q || make!=="all" || category!=="all" || budget!=="all" || sort!=="recommended");
+  function reset(){setQ("");setMake("all");setCategory("all");setBudget("all");setSort("recommended");}
 
   return <div className="model-explorer-v300">
-    <div className="model-explorer-toolbar"><div><span>Filter motorcycles</span><strong>Search the current catalog</strong></div>{dirty&&<button type="button" className="filter-reset" onClick={reset}>Reset filters</button>}</div>
+    <div className="model-explorer-toolbar">
+      <div><span>Filter motorcycles</span><strong>Search the current catalog</strong></div>
+      <div className="model-explorer-sort">
+        <label className="sr-only" htmlFor="model-sort">Sort motorcycles</label>
+        <select id="model-sort" value={sort} onChange={e=>setSort(e.target.value)} aria-label="Sort motorcycles">
+          <option value="recommended">Recommended order</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+          <option value="engine-desc">Largest engine first</option>
+          <option value="seat-asc">Lowest seat first</option>
+        </select>
+        {dirty&&<button type="button" className="filter-reset" onClick={reset}>Reset</button>}
+      </div>
+    </div>
+    <div className="model-explorer-quick" aria-label="Quick budget filters">
+      {budgetChips.map(([value,label])=><button key={value} type="button" className={budget===value?"active":""} aria-pressed={budget===value} onClick={()=>setBudget(value)}>{label}</button>)}
+    </div>
     <div className="filter-bar">
       <label className="filter-search"><span>Search models</span><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search Aerox, Honda, sport scooter..." /></label>
       <label><span>Make</span><select value={make} onChange={e=>setMake(e.target.value)}><option value="all">All makes</option>{makes.map(v=><option key={v} value={v}>{v}</option>)}</select></label>
