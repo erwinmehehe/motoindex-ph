@@ -28,6 +28,7 @@ jobs:
           npm run validate:post-audit
           npm run validate:copy-tone
           npm run validate:public-trust
+          node scripts/validate-authority-growth.mjs
           npm run check:links
           npm run check:legacy-links
           npm run audit:freshness
