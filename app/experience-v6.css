@@ -147,8 +147,8 @@
   .motorcycle-index-actions{gap:7px!important}
   .motorcycle-index-actions .button{font-size:10px!important;padding:11px 14px!important}
   .motorcycle-index-overview{margin-top:24px!important}
-  .finder-stage-card{width:100%!important;max-width:100%!important;padding:20px!important;overflow:hidden!important}
-  .finder-stage-card>h2{max-width:100%!important;font-size:34px!important;line-height:1!important;overflow-wrap:anywhere!important}
+  .finder-stage-card{width:100%!important;max-width:100%!important;box-sizing:border-box!important;padding:20px!important;overflow:hidden!important}
+  .finder-stage-card>h2{max-width:100%!important;font-size:32px!important;line-height:1!important;overflow-wrap:anywhere!important}
   .finder-stage-card>p{max-width:100%!important;font-size:14px!important;line-height:1.55!important;overflow-wrap:anywhere!important}
   .finder-choice-grid,.finder-choice-grid.budget{grid-template-columns:1fr!important}
   .finder-choice-grid button{min-height:88px!important}
