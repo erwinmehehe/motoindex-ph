@@ -50,11 +50,7 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
           ALL_PAGES_QA_WIDTHS: 430,1440
           ALL_PAGES_QA_SCREENSHOTS: 1
-        run: |
-          set +e
-          node scripts/all-pages-qa.mjs
-          set -e
-          node scripts/all-pages-qa-gate.mjs
+        run: node scripts/all-pages-qa.mjs
 
       - name: Upload visual QA evidence
         if: always()
