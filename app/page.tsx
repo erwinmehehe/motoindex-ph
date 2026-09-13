@@ -25,7 +25,7 @@ const startPoints = [
   ["01", "Daily commute", "Practical motorcycles for traffic, errands and frequent riding.", "/recommendations#commuting"],
   ["02", "Scooters", "Automatic choices built around easy city use.", "/recommendations#scooters"],
   ["03", "Beginner friendly", "Approachable choices with fit and weight kept in view.", "/recommendations#rider-fit"],
-  ["04", "Under ₱100K", "Current models that fit an entry-level purchase budget.", "/motorcycles?budget=under100"],
+  ["04", "Under ₱100K", "Current models that fit an entry-level purchase budget.", "/recommendations#budget"],
   ["05", "400cc and above", "Bigger-displacement options with the important numbers side by side.", "/recommendations#400cc"],
   ["06", "Electric", "Battery, range, charging and registration research.", "/motorcycles/electric"],
 ] as const;
@@ -55,14 +55,14 @@ export default function HomePage() {
         <div className="shell mi-hero-layout">
           <div className="mi-hero-copy">
             <div className="mi-badge"><b>Motorcycle prices, specs and ownership tools</b><em>Philippines</em></div>
-            <h1 id="mi-home-title">Your next <span>motorcycle</span><br />starts here.</h1>
-            <p>Compare current motorcycles, published prices, rider fit and ownership costs before you narrow the shortlist.</p>
+            <h1 id="mi-home-title">Compare <span>motorcycle prices</span><br />and specs in the Philippines.</h1>
+            <p>Find your next motorcycle with current published prices, rider fit, specifications and ownership costs kept together in one research flow.</p>
             <form className="mi-search" action="/motorcycles" method="get" role="search">
               <label className="sr-only" htmlFor="mi-home-search">Search motorcycles by brand or model</label>
               <input id="mi-home-search" type="search" name="q" placeholder="Search Aerox, ADV, Click, Honda..." />
               <button type="submit">Search bikes</button>
             </form>
-            <div className="mi-popular"><b>Popular:</b><Link href="/recommendations#scooters">Scooters</Link><Link href="/recommendations#commuting">Daily commute</Link><Link href="/recommendations#400cc">400cc+</Link><Link href="/motorcycles?budget=under100">Under ₱100K ↗</Link></div>
+            <div className="mi-popular"><b>Popular:</b><Link href="/recommendations#scooters">Scooters</Link><Link href="/recommendations#commuting">Daily commute</Link><Link href="/recommendations#400cc">400cc+</Link><Link href="/recommendations#budget">Under ₱100K ↗</Link></div>
             <div className="mi-trust"><span>✓ {siteStats.currentMotorcycles} current models</span><span>✓ Compare up to 3</span><span>✓ Save a shortlist</span></div>
           </div>
 
