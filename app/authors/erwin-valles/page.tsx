@@ -69,6 +69,31 @@ export default function ErwinVallesAuthorPage() {
       </div>
     </section>
 
+    <section className="split section" aria-labelledby="author-accountability">
+      <div>
+        <span className="section-kicker">Accountability</span>
+        <h2 id="author-accountability">How the research can be checked</h2>
+        <p>MotoIndex keeps source links, source-check dates and correction paths visible so readers can distinguish a current manufacturer specification from a market observation or an editorial estimate.</p>
+      </div>
+      <div className="info-card">
+        <h3>Research records</h3>
+        <ul className="checklist">
+          <li><Link href="/data-sources">Review the data-source policy and source hierarchy.</Link></li>
+          <li><Link href="/corrections">See how errors and stale information are corrected.</Link></li>
+          <li><Link href="/methodology">Read the editorial and verification methodology.</Link></li>
+        </ul>
+      </div>
+    </section>
+
+    <section className="section author-profile-links">
+      <h2>Selected buyer research</h2>
+      <div className="guide-strip">
+        <Link href="/guides/motorcycle-helmet-size-guide"><strong>Motorcycle helmet size guide</strong><small>Fit, measurement and manufacturer-chart verification.</small></Link>
+        <Link href="/guides/motorcycle-helmet-certification-philippines"><strong>Helmet certification guide</strong><small>How to verify current certification and Philippine requirements.</small></Link>
+        <Link href="/ownership/cost-calculator"><strong>Ownership cost calculator</strong><small>Estimate purchase, financing and running costs together.</small></Link>
+      </div>
+    </section>
+
     <JsonLd data={schema} />
   </section>;
 }
