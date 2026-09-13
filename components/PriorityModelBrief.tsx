@@ -76,6 +76,12 @@ const briefs: Record<string, Brief> = {
     ownership: "Run the full cost with insurance, larger tires, service and potential fairing repair. Compare it with 450SR and RC 390 on total ownership, not just purchase price.",
     alternatives: ["cfmoto-450sr", "ktm-rc-390"]
   },
+  "kawasaki-ninja-400": {
+    fit: ["You are researching a previous-generation Ninja 400 for used-bike ownership rather than assuming its historical new-bike price is still current.", "You want a lightweight faired twin and are willing to inspect condition and history carefully."],
+    check: ["Confirm model year, mileage, service history and any applicable recall or service-campaign status for the exact unit.", "Inspect tires, chain and sprockets, fairing condition and evidence of crash repairs before comparing asking prices."],
+    ownership: "Treat the asking price as only the start. Add transfer and registration costs, insurance, tires, chain/sprocket wear and near-term service, then compare the result with the current Ninja 500 and other sport-bike alternatives.",
+    alternatives: ["kawasaki-ninja-500", "cfmoto-450sr", "ktm-rc-390"]
+  },
   "ktm-rc-390": {
     fit: ["You want a lightweight single-cylinder sport bike and are comfortable with a more committed riding position.", "Handling focus matters more than relaxed commuting ergonomics."],
     check: ["Confirm the exact generation and Philippine model-year specification because RC 390 equipment changes across generations.", "Check KTM service access and sport-tire costs before choosing it on performance alone."],
@@ -96,6 +102,12 @@ const briefs: Record<string, Brief> = {
   }
 };
 
+function buyingGuideHref(model: Motorcycle) {
+  if (/scooter|underbone/i.test(model.category)) return "/recommendations#commuting";
+  if (model.engineCc >= 400) return "/recommendations#400cc";
+  return "/recommendations";
+}
+
 export function PriorityModelBrief({ model }: { model: Motorcycle }) {
   const brief = briefs[model.id];
   if (!brief) return null;
@@ -108,6 +120,6 @@ export function PriorityModelBrief({ model }: { model: Motorcycle }) {
       <article><span>Ownership question</span><p>{brief.ownership}</p></article>
     </div>
     {alternatives.length > 0 && <div className="priority-model-alternatives"><strong>Compare before committing</strong>{alternatives.map((alt) => <Link key={alt.id} href={`/motorcycles/${alt.makeSlug}/${alt.slug}`}>{alt.make} {alt.model} →</Link>)}</div>}
-    <div className="priority-model-alternatives"><strong>Research next</strong><Link href={`/ownership/cost-calculator?bike=${model.id}`}>3-year ownership cost →</Link><Link href={`/commute/cost-calculator?bike=${model.id}`}>Commute cost →</Link><Link href="/compare">Compare motorcycles →</Link><Link href="/dealers">Dealer directory →</Link></div>
+    <div className="priority-model-alternatives"><strong>Research next</strong><Link href={buyingGuideHref(model)}>Buying guide →</Link><Link href={`/ownership/cost-calculator?bike=${model.id}`}>3-year ownership cost →</Link><Link href={`/commute/cost-calculator?bike=${model.id}`}>Commute cost →</Link><Link href="/compare">Compare motorcycles →</Link><Link href="/dealers">Dealer directory →</Link></div>
   </section>;
 }
