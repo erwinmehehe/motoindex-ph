@@ -194,9 +194,17 @@ const auditExpression = `(() => {
     return style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity || 1) > .03 && r.width > 2 && r.height > 2;
   };
   const parseRgb = (value) => {
-    const nums = String(value || '').match(/[\\d.]+/g)?.map(Number) || [];
+    const raw = String(value || '').trim();
+    const nums = raw.match(/[\\d.]+/g)?.map(Number) || [];
     if (nums.length < 3) return null;
-    return { r: nums[0], g: nums[1], b: nums[2], a: nums.length > 3 ? nums[3] : 1 };
+    if (raw.startsWith('color(srgb ')) {
+      return { r: nums[0] * 255, g: nums[1] * 255, b: nums[2] * 255, a: nums.length > 3 ? nums[3] : 1 };
+    }
+    if (/^rgba?\\(/i.test(raw)) {
+      const percent = raw.includes('%');
+      return { r: percent ? nums[0] * 2.55 : nums[0], g: percent ? nums[1] * 2.55 : nums[1], b: percent ? nums[2] * 2.55 : nums[2], a: nums.length > 3 ? nums[3] : 1 };
+    }
+    return null;
   };
   const luminance = ({r,g,b}) => {
     const convert = (v) => { const x=v/255; return x <= .03928 ? x/12.92 : Math.pow((x+.055)/1.055,2.4); };
@@ -222,7 +230,7 @@ const auditExpression = `(() => {
   const lowContrast=[...document.querySelectorAll('h1,h2,h3,p,a,button,strong')].filter(visible).map(el=>{const s=getComputedStyle(el), fg=parseRgb(s.color), bg=effectiveBg(el);if(!fg||!bg||fg.a<.9)return null;return {text:(el.textContent||'').trim().replace(/\\s+/g,' ').slice(0,80),ratio:contrast(fg,bg),font:parseFloat(s.fontSize||'0')};}).filter(Boolean).filter(x=>x.text.length>2&&x.ratio<1.35).slice(0,12);
   const emptySections=[...document.querySelectorAll('main > section, main > div > section')].filter(visible).map(el=>{const r=el.getBoundingClientRect();return {cls:String(el.className||'').slice(0,100),h:Math.round(r.height),text:(el.innerText||'').trim().length,media:el.querySelectorAll('img,video,canvas,svg,form').length};}).filter(x=>x.h>650&&x.text<45&&x.media===0).slice(0,10);
   const cardWalls=[...document.querySelectorAll('main [class*="grid"],main [class*="list"],main [class*="rail"]')].filter(visible).map(el=>({cls:String(el.className||'').slice(0,110),count:el.querySelectorAll(':scope > article,:scope > .model-card,:scope > .product-card,:scope > a[class*="card"]').length})).filter(x=>x.count>30).slice(0,10);
-  const tinyTargets=[...document.querySelectorAll('button,a,input,select')].filter(visible).map(el=>{const hit=(el.matches('input,select')&&el.closest('label'))||el;const r=hit.getBoundingClientRect();return {text:(el.textContent||el.getAttribute('aria-label')||'').trim().slice(0,50),w:Math.round(r.width),h:Math.round(r.height)}}).filter(x=>(x.w>0&&x.h>0)&&(x.w<18&&x.h<18)).slice(0,12);
+  const tinyTargets=[...document.querySelectorAll('button,a,input,select')].filter(visible).filter(el=>!el.closest('.breadcrumbs')).map(el=>{const hit=(el.matches('input,select')&&el.closest('label'))||el;const r=hit.getBoundingClientRect();return {text:(el.textContent||el.getAttribute('aria-label')||'').trim().slice(0,50),w:Math.round(r.width),h:Math.round(r.height)}}).filter(x=>(x.w>0&&x.h>0)&&(x.w<18&&x.h<18)).slice(0,12);
   const firstHero=document.querySelector('main > .hero,main > .model-hero,main .page-head,main .product-hero');
   const heroHeight=firstHero&&visible(firstHero)?Math.round(firstHero.getBoundingClientRect().height):0;
   const bodyText=(document.querySelector('main')?.innerText||'').trim();
