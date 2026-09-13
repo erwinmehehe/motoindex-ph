@@ -78,7 +78,7 @@ export default async function LtoRegistrationFeeCalculatorPage({ searchParams }:
     </section>
 
     <section className="section" aria-labelledby="registration-related-models">
-      <div className="section-head compact"><div><h2 id="registration-related-models">Related motorcycles and ownership research</h2><p>Registration is only one ownership line. Start from a canonical model page, then compare the full cost rather than choosing from SRP alone.</p></div></div>
+      <div className="section-head compact"><div><h2 id="registration-related-models">Related motorcycles and ownership research</h2><p>Registration is only one ownership line. Start from the motorcycle&apos;s main research page, then compare the full cost rather than choosing from SRP alone.</p></div></div>
       <div className="guide-strip">
         <Link href="/motorcycles/honda/click-160"><strong>Honda Click160</strong><small>Review price, ownership and maintenance context.</small></Link>
         <Link href="/motorcycles/suzuki/raider-r150"><strong>Suzuki Raider R150 FI</strong><small>Compare purchase and ongoing ownership costs.</small></Link>
