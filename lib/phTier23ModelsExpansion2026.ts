@@ -52,5 +52,29 @@ export const phTier23Expansion2026: Motorcycle[] = [
     sourceLabel: "Kymco Philippines current Dollar 150 product specification and launch reference", sourceUrl: "https://kymco.com.ph/product/dollar-150/", verifiedAt, freshness: "verified", marketStatus: "current", transmission: "Automatic",
     marketPriceSourceLabel: "Kymco Philippines", marketPriceSourceUrl: "https://kymco.com.ph/product/dollar-150/", marketPriceCheckedAt: verifiedAt,
     summary: "150.1cc utility-focused scooter with a low 745 mm seat, 125 kg kerb weight, 8 L tank and flexible passenger-or-cargo layout."
+  },
+  {
+    id: "royal-enfield-meteor-350", make: "Royal Enfield", makeSlug: "royal-enfield", model: "Meteor 350", slug: "meteor-350", generation: "Current Philippine model", category: "Cruiser",
+    srp: 240000, engineCc: 349, powerHp: 20.2, torqueNm: 27, curbWeightKg: 191, seatHeightMm: 765, fuelTankL: 15, groundClearanceMm: 170,
+    frontTire: "100/90-19", rearTire: "140/70-17", abs: "Dual-channel ABS", colors: ["Fireball Black", "Fireball Blue", "Fireball Matt Green", "Fireball Red", "Stellar Blue", "Stellar Black", "Stellar Red", "Aurora Green", "Aurora Blue", "Aurora Black", "Supernova Red", "Supernova Blue"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Royal Enfield Philippines current Meteor 350 pricing and technical specification", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/meteor-350/", verifiedAt, freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceHighPhp: 266000, marketPriceSourceLabel: "Royal Enfield Philippines", marketPriceSourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/meteor-350/", marketPriceCheckedAt: verifiedAt,
+    summary: "349cc easy-cruising single with a 765 mm seat, 191 kg running-order weight, 15 L tank, 19/17-inch wheels and dual-channel ABS."
+  },
+  {
+    id: "royal-enfield-super-meteor-650", make: "Royal Enfield", makeSlug: "royal-enfield", model: "Super Meteor 650", slug: "super-meteor-650", generation: "Current Philippine model", category: "Cruiser",
+    srp: 439000, engineCc: 648, powerHp: 46.3, torqueNm: 52.3, curbWeightKg: 241, seatHeightMm: 740, fuelTankL: 15.7, groundClearanceMm: 135,
+    frontTire: "100/90-19", rearTire: "150/80 B16", abs: "Dual-channel ABS", colors: ["Astral Black", "Astral Blue", "Astral Green", "Interstellar Green", "Interstellar Grey", "Celestial Red", "Celestial Blue"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Royal Enfield Philippines current Super Meteor 650 campaign and technical specification", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/super-meteor-650/campaign/", verifiedAt, freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Current Philippine 2026 price reference", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/royal-enfield/super-meteor-650/price", marketPriceCheckedAt: verifiedAt,
+    summary: "648cc parallel-twin cruiser with 46.3 hp, a very low 740 mm seat, 241 kg kerb weight, 15.7 L tank and dual-channel ABS."
+  },
+  {
+    id: "royal-enfield-classic-650", make: "Royal Enfield", makeSlug: "royal-enfield", model: "Classic 650", slug: "classic-650", generation: "Current Philippine model", category: "Classic road bike",
+    srp: 429000, engineCc: 647.95, powerHp: 46, torqueNm: 52.3, curbWeightKg: 243, seatHeightMm: 800, fuelTankL: 14.8, groundClearanceMm: 154,
+    frontTire: "100/90-19", rearTire: "140/70 R18", abs: "Dual-channel ABS", colors: ["Vallam Red", "Teal", "Black Chrome"], searchVolume: 0, keywordDifficulty: 0,
+    sourceLabel: "Royal Enfield Philippines current Classic 650 technical specification; Philippine price cross-check", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/classic-650/", verifiedAt, freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Current Philippine 2026 price reference", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/royal-enfield/classic-650", marketPriceCheckedAt: verifiedAt,
+    summary: "647.95cc parallel-twin classic with 46 hp, 52.3 Nm, an 800 mm seat, 243 kg kerb weight, 14.8 L tank and dual-channel ABS."
   }
 ];
