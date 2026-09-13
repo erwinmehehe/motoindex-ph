@@ -177,5 +177,6 @@ try {
   }
 } finally {
   proc.kill("SIGTERM");
-  fs.rmSync(profile, { recursive: true, force: true });
+  await new Promise((resolve) => setTimeout(resolve, 250));
+  try { fs.rmSync(profile, { recursive: true, force: true }); } catch {}
 }
