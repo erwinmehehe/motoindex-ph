@@ -31,6 +31,10 @@ jobs:
           npm run check:links
           npm run check:legacy-links
           npm run audit:freshness
+          npm run audit:runtime
+          npm run audit:models
+          npm run audit:media-backlog
+          npm run audit:indexability
           npm run validate:lockfile
           npm run prisma:validate
 

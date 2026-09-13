@@ -1,12 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import type { SellerProfile } from "@/lib/types";
 
-function phoneHref(phone: string) {
-  return `tel:${phone.replace(/[^+\d]/g, "")}`;
-}
+const PAGE_SIZE = 12;
+function phoneHref(phone: string) { return `tel:${phone.replace(/[^+\d]/g, "")}`; }
 
 export function DealerFinder({ dealers, initialBrand = "all" }: { dealers: SellerProfile[]; initialBrand?: string }) {
   const brands=useMemo(()=>[...new Set(dealers.flatMap(d=>d.brands))].sort(),[dealers]);
@@ -15,6 +14,13 @@ export function DealerFinder({ dealers, initialBrand = "all" }: { dealers: Selle
   const [query,setQuery]=useState("");
   const [brand,setBrand]=useState(normalizedInitialBrand);
   const [city,setCity]=useState("all");
+  const [visibleCount,setVisibleCount]=useState(PAGE_SIZE);
+
+  useEffect(()=>{
+    const requested=new URLSearchParams(window.location.search).get("brand")||initialBrand;
+    const resolved=brands.find(value=>value.toLowerCase()===requested.toLowerCase())||"all";
+    setBrand(resolved);
+  },[brands,initialBrand]);
 
   const filtered=useMemo(()=>{
     const q=query.trim().toLowerCase();
@@ -27,53 +33,27 @@ export function DealerFinder({ dealers, initialBrand = "all" }: { dealers: Selle
     });
   },[brand,city,dealers,query]);
 
+  useEffect(()=>setVisibleCount(PAGE_SIZE),[query,brand,city]);
+  const visible=filtered.slice(0,visibleCount);
   const active=query||brand!=="all"||city!=="all";
 
   return <div className="dealer-finder">
     <div className="dealer-filter-bar">
-      <label className="dealer-search">
-        <span>Search dealers</span>
-        <input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Dealer, city or street" />
-      </label>
-      <label>
-        <span>Brand</span>
-        <select value={brand} onChange={e=>setBrand(e.target.value)}>
-          <option value="all">All brands</option>
-          {brands.map(value=><option value={value} key={value}>{value}</option>)}
-        </select>
-      </label>
-      <label>
-        <span>City</span>
-        <select value={city} onChange={e=>setCity(e.target.value)}>
-          <option value="all">All cities</option>
-          {cities.map(value=><option value={value} key={value}>{value}</option>)}
-        </select>
-      </label>
+      <label className="dealer-search"><span>Search dealers</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Dealer, city or street" /></label>
+      <label><span>Brand</span><select value={brand} onChange={e=>setBrand(e.target.value)}><option value="all">All brands</option>{brands.map(value=><option value={value} key={value}>{value}</option>)}</select></label>
+      <label><span>City</span><select value={city} onChange={e=>setCity(e.target.value)}><option value="all">All cities</option>{cities.map(value=><option value={value} key={value}>{value}</option>)}</select></label>
       {active?<button className="dealer-clear" type="button" onClick={()=>{setQuery("");setBrand("all");setCity("all");}}>Clear</button>:null}
     </div>
 
-    <div className="dealer-results-head" aria-live="polite">
-      <strong>{filtered.length} checked dealer{filtered.length===1?"":"s"}{brand!=="all"?` for ${brand}`:""}</strong>
-      <span>Public records are shown only when a verification source, address and recent check are on file.</span>
-    </div>
+    <div className="dealer-results-head" aria-live="polite"><strong>{filtered.length} checked dealer{filtered.length===1?"":"s"}{brand!=="all"?` for ${brand}`:""}</strong><span>Public records are shown only when a verification source, address and recent check are on file.</span></div>
 
-    {filtered.length?<div className="dealer-results">
-      {filtered.map(dealer=><article className="dealer-result-card" key={dealer.slug}>
+    {filtered.length?<><div className="dealer-results">
+      {visible.map(dealer=><article className="dealer-result-card" key={dealer.slug}>
         <div className="dealer-card-top"><span className="dealer-brand">{dealer.brands.join(" · ")}</span><span className="dealer-checked">Dealer details checked</span></div>
-        <h3>{dealer.name}</h3>
-        <p>{dealer.addressLabel}</p>
-        <div className="dealer-card-meta">
-          <span>{dealer.city}{dealer.province?`, ${dealer.province}`:""}</span>
-          {dealer.phoneLabel?<span>{dealer.phoneLabel}</span>:null}
-        </div>
-        <div className="dealer-card-actions">
-          <Link href={`/sellers/${dealer.slug}`}>View dealer</Link>
-          {dealer.phoneLabel?<a href={phoneHref(dealer.phoneLabel)}>Call branch</a>:null}
-        </div>
+        <h3>{dealer.name}</h3><p>{dealer.addressLabel}</p>
+        <div className="dealer-card-meta"><span>{dealer.city}{dealer.province?`, ${dealer.province}`:""}</span>{dealer.phoneLabel?<span>{dealer.phoneLabel}</span>:null}</div>
+        <div className="dealer-card-actions"><Link href={`/sellers/${dealer.slug}`}>View dealer</Link>{dealer.phoneLabel?<a href={phoneHref(dealer.phoneLabel)}>Call branch</a>:null}</div>
       </article>)}
-    </div>:<div className="dealer-no-results">
-      <h3>No checked dealer matches</h3>
-      <p>Try another city or brand, or use the official brand locators below for broader coverage.</p>
-    </div>}
+    </div>{visibleCount<filtered.length?<div className="dealer-show-more"><button className="button secondary" type="button" onClick={()=>setVisibleCount(value=>value+PAGE_SIZE)}>Show {Math.min(PAGE_SIZE,filtered.length-visibleCount)} more dealers</button></div>:null}</>:<div className="dealer-no-results"><h3>No checked dealer matches</h3><p>Try another city or brand, or use the official brand locators below for broader coverage.</p></div>}
   </div>;
 }

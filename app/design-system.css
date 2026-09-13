@@ -1,0 +1,131 @@
+:root {
+  --mi-bg: #08090b;
+  --mi-surface: #f7f6f2;
+  --mi-surface-strong: #ffffff;
+  --mi-text: #15171a;
+  --mi-muted: #6d727b;
+  --mi-border: rgba(18, 22, 28, 0.12);
+  --mi-accent: #ef3340;
+  --mi-accent-strong: #d91f2d;
+  --mi-radius-control: 12px;
+  --mi-radius-card: 18px;
+  --mi-shadow-hover: 0 18px 45px rgba(12, 16, 22, 0.12);
+}
+
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--mi-accent) 65%, white);
+  outline-offset: 3px;
+}
+
+.button,
+.compare-button,
+.shortlist-button,
+.dealer-clear,
+.nav-actions > a,
+.nav-actions > button,
+.mobile-search {
+  border-radius: var(--mi-radius-control);
+}
+
+.button {
+  min-height: 44px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease;
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.button:not(.secondary):not(.ghost) {
+  background: var(--mi-accent);
+  border-color: var(--mi-accent);
+}
+
+.button:not(.secondary):not(.ghost):hover {
+  background: var(--mi-accent-strong);
+  border-color: var(--mi-accent-strong);
+  box-shadow: 0 10px 26px rgba(239, 51, 64, .22);
+}
+
+.compare-button,
+.shortlist-button,
+.dealer-clear {
+  min-height: 40px;
+  transition: transform .18s ease, border-color .18s ease, background-color .18s ease;
+}
+
+.compare-button:hover:not(:disabled),
+.shortlist-button:hover:not(:disabled),
+.dealer-clear:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.nav-actions .nav-search,
+.nav-actions .shortlist-nav,
+.nav-actions .shortlist-nav a {
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.nav-actions .nav-match {
+  border-radius: 12px;
+  background: var(--mi-accent);
+  border-color: var(--mi-accent);
+}
+
+:where(input, select, textarea) {
+  border-radius: var(--mi-radius-control);
+}
+
+.model-card,
+.dealer-result-card,
+.note-box,
+.empty-state,
+.current-offer-card {
+  border-radius: var(--mi-radius-card);
+}
+
+.model-card,
+.dealer-result-card,
+.current-offer-card {
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.model-card:hover,
+.dealer-result-card:hover,
+.current-offer-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--mi-shadow-hover);
+}
+
+.finder-loading {
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--mi-border);
+  border-radius: 24px;
+  background: var(--mi-surface);
+  color: var(--mi-muted);
+  font-weight: 700;
+}
+
+.dealer-show-more {
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .compare-button,
+  .shortlist-button,
+  .dealer-clear,
+  .model-card,
+  .dealer-result-card,
+  .current-offer-card {
+    transition: none;
+    transform: none !important;
+  }
+}
