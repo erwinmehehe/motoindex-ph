@@ -3,8 +3,7 @@ name: Production Smoke
 on:
   workflow_run:
     workflows:
-      - Deploy to Cloudflare Workers
-      - Deploy MotoIndex Production to Cloudflare
+      - Production All Pages QA
     types: [completed]
   workflow_dispatch:
 
@@ -16,7 +15,7 @@ jobs:
   smoke:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 8
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -28,24 +27,9 @@ jobs:
         with:
           node-version: 22
 
-      - name: Allow Cloudflare propagation
-        if: github.event_name == 'workflow_run'
-        run: sleep 30
-
       - name: Verify production contract
         env:
           BASE_URL: https://motoindexph.com
           EXPECTED_COMMIT_SHA: ${{ github.event.workflow_run.head_sha || '' }}
           SMOKE_REQUEST_TIMEOUT_MS: 10000
-        run: |
-          for attempt in 1 2 3 4; do
-            echo "Production verification attempt ${attempt}/4 for ${EXPECTED_COMMIT_SHA:-current production}"
-            if timeout 180s node scripts/smoke-production.mjs; then
-              exit 0
-            fi
-            if [ "$attempt" -lt 4 ]; then
-              sleep 20
-            fi
-          done
-          echo "Cloudflare production did not satisfy the smoke contract in time."
-          exit 1
+        run: timeout 240s node scripts/smoke-production.mjs
