@@ -19,7 +19,8 @@ async function fetchWithTimeout(url, options = {}) {
 }
 
 async function discoverSitemaps() {
-  const queue = ["/sitemap.xml"];
+  // These are separate URL sets rather than children of a sitemap index, so seed every public sitemap explicitly.
+  const queue = ["/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear.xml", "/sitemaps/commerce.xml"];
   const seen = new Set();
   while (queue.length) {
     const current = queue.shift();
@@ -104,4 +105,4 @@ if (failures.length) {
   console.error(`Production all-pages QA failed with ${failures.length} issue(s):\n- ${failures.slice(0,150).join("\n- ")}${failures.length > 150 ? `\n... ${failures.length - 150} more` : ""}`);
   process.exit(1);
 }
-console.log("Production all-pages QA passed: every sitemap URL plus core interactive pages returned clean 200 responses without Cloudflare/runtime error signatures.");
+console.log("Production all-pages QA passed: every public sitemap URL plus core interactive pages returned clean 200 responses without Cloudflare/runtime error signatures.");
