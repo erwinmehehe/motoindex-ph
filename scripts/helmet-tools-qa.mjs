@@ -189,8 +189,14 @@ try {
     await screenshot("compare", width);
   }
 } finally {
-  proc.kill("SIGTERM");
-  fs.rmSync(profile, { recursive: true, force: true });
+  if (proc.exitCode === null) {
+    proc.kill("SIGTERM");
+    await Promise.race([
+      new Promise(resolve => proc.once("exit", resolve)),
+      new Promise(resolve => setTimeout(resolve, 1500))
+    ]);
+  }
+  fs.rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
 }
 
 fs.writeFileSync(path.join(outputDir, "helmet-tools-report.json"), JSON.stringify({ results, failures }, null, 2));
