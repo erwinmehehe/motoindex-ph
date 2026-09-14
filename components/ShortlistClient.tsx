@@ -1,9 +1,10 @@
 "use client";
+
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
 import { SHORTLIST_KEY } from "@/components/SaveToShortlistButton";
-import { ModelCard } from "@/components/ModelCard";
+import { EntityMedia } from "@/components/EntityMedia";
 import { trackEvent } from "@/lib/track";
 import { observedMarketRange } from "@/lib/marketChecks";
 import { ownershipDefaults } from "@/lib/ownership";
@@ -30,20 +31,19 @@ function buyerSnapshot(model:Motorcycle,kmPerMonth:number){
   const fuelMonthly=kmPerMonth/kmpl*defaults.fuelPricePerL;
   const runningMonthly=fuelMonthly+defaults.maintenancePerMonth+
     defaults.annualInsurance/12+defaults.annualRegistration/12+defaults.tiresPerYear/12;
-  const financeMonthly=monthlyPayment(price*.8);
-  return {price,monthly:runningMonthly+financeMonthly};
+  return {price,monthly:runningMonthly+monthlyPayment(price*.8)};
 }
 
 export function ShortlistClient({models,initialSlugs=EMPTY_SLUGS}:{models:Motorcycle[];initialSlugs?:string[]}){
   const [ids,setIds]=useState<string[]>([]);
   const [kmPerMonth,setKmPerMonth]=useState(600);
+  const [shared,setShared]=useState(false);
 
   useEffect(()=>{
     const querySlugs=(new URLSearchParams(window.location.search).get("bikes")||"").split(",").filter(Boolean).slice(0,8);
     const slugs=[...new Set([...initialSlugs,...querySlugs])];
-    const queryIds=slugs.map(slug=>models.find(m=>m.slug===slug)?.id).filter((id):id is string=>Boolean(id));
-    const stored=read();
-    const merged=[...new Set([...queryIds,...stored])].slice(0,8);
+    const queryIds=slugs.map(slug=>models.find(model=>model.slug===slug)?.id).filter((id):id is string=>Boolean(id));
+    const merged=[...new Set([...queryIds,...read()])].slice(0,8);
     if(merged.length)localStorage.setItem(SHORTLIST_KEY,JSON.stringify(merged));
     setIds(merged);
     const sync=()=>setIds(read());
@@ -52,70 +52,79 @@ export function ShortlistClient({models,initialSlugs=EMPTY_SLUGS}:{models:Motorc
     return()=>{window.removeEventListener("storage",sync);window.removeEventListener("motoindex-shortlist",sync as EventListener)};
   },[initialSlugs,models]);
 
-  const saved=ids.map(id=>models.find(m=>m.id===id)).filter((m):m is Motorcycle=>Boolean(m));
+  const saved=ids.map(id=>models.find(model=>model.id===id)).filter((model):model is Motorcycle=>Boolean(model));
   const snapshots=useMemo(()=>saved.map(model=>({model,...buyerSnapshot(model,kmPerMonth)})),[saved,kmPerMonth]);
-  const lowestPrice=Math.min(...snapshots.map(item=>item.price));
   const lowestMonthly=Math.min(...snapshots.map(item=>item.monthly));
-  const lowestSeat=Math.min(...saved.map(model=>model.seatHeightMm||Infinity));
+  const compareHref=saved.length>=3?`/compare/three?bikes=${saved.slice(0,3).map(model=>model.slug).join(",")}`:saved.length===2?`/compare/${saved[0].slug}-vs-${saved[1].slug}`:"";
 
-  function clear(){
-    localStorage.removeItem(SHORTLIST_KEY);
-    setIds([]);
-    window.dispatchEvent(new CustomEvent("motoindex-shortlist"));
-  }
-
-  function remove(id:string){
-    const next=ids.filter(item=>item!==id);
+  function persist(next:string[]){
     localStorage.setItem(SHORTLIST_KEY,JSON.stringify(next));
     setIds(next);
     window.dispatchEvent(new CustomEvent("motoindex-shortlist"));
-    trackEvent("shortlist_remove",{id});
   }
+
+  function remove(id:string){persist(ids.filter(item=>item!==id));trackEvent("shortlist_remove",{id})}
+  function clear(){localStorage.removeItem(SHORTLIST_KEY);setIds([]);window.dispatchEvent(new CustomEvent("motoindex-shortlist"))}
 
   async function share(){
     if(!saved.length)return;
-    const url=`${window.location.origin}/shortlist?bikes=${saved.map(m=>m.slug).join(",")}`;
+    const url=`${window.location.origin}/shortlist?bikes=${saved.map(model=>model.slug).join(",")}`;
     await navigator.clipboard?.writeText(url);
+    setShared(true);
+    window.setTimeout(()=>setShared(false),1800);
     trackEvent("shortlist_share",{count:saved.length});
   }
 
-  const compareHref=saved.length>=3?`/compare/three?bikes=${saved.slice(0,3).map(m=>m.slug).join(",")}`:saved.length===2?`/compare/${saved[0].slug}-vs-${saved[1].slug}`:"";
-
-  if(!saved.length)return <div className="empty-state large">
-    <h2>No saved motorcycles yet</h2>
-    <p>Use the Save button on motorcycle cards, finder results or model pages.</p>
-    <Link className="button" href="/motorcycles">Browse motorcycles</Link>
+  if(!saved.length)return <div className="mi-empty">
+    <p className="mi-kicker">Your shortlist</p>
+    <h2>Find the one you will want to ride.</h2>
+    <p>Save motorcycles as you browse, then return here to compare the details that matter.</p>
+    <Link className="mi-button mi-button-primary" href="/motorcycles">Explore motorcycles</Link>
   </div>;
 
-  return <div className="buyer-workspace">
-    <div className="shortlist-toolbar">
-      <div><b>{saved.length} saved motorcycles</b><small>Stored in this browser. Share creates a URL with model slugs only.</small></div>
-      <div>{compareHref&&<Link className="button small" href={compareHref}>Compare {Math.min(3,saved.length)} →</Link>}<button className="button ghost small" onClick={share}>Copy share link</button><button className="button ghost small" onClick={clear}>Clear</button></div>
+  return <div className="mi-shortlist">
+    <div className="mi-toolbar">
+      <p>{saved.length} {saved.length===1?"motorcycle":"motorcycles"}</p>
+      <div>
+        {compareHref&&<Link className="mi-button mi-button-primary" href={compareHref}>Compare side by side</Link>}
+        <button className="mi-button mi-button-quiet" onClick={share}>{shared?"Link copied":"Share"}</button>
+        <button className="mi-link-button" onClick={clear}>Clear</button>
+      </div>
     </div>
 
-    <section className="buyer-decision-panel" aria-labelledby="buyer-decision-heading">
-      <div className="buyer-decision-head">
-        <div><span className="section-kicker">Buyer decision workspace</span><h2 id="buyer-decision-heading">See the tradeoffs before opening every model</h2><p>Compare the numbers buyers usually need first. Monthly estimates assume 20% down, 36 months and 12% APR, plus fuel and routine ownership reserves.</p></div>
-        <label>Distance each month <b>{kmPerMonth.toLocaleString()} km</b><input type="range" min="200" max="2000" step="100" value={kmPerMonth} onChange={event=>setKmPerMonth(Number(event.target.value))}/></label>
-      </div>
-      <div className="buyer-snapshot-grid">
-        {snapshots.map(({model,price,monthly})=><article className="buyer-snapshot-card" key={model.id}>
-          <div className="buyer-snapshot-title"><div><small>{model.make}</small><h3>{model.model}</h3></div><button type="button" onClick={()=>remove(model.id)} aria-label={`Remove ${model.make} ${model.model} from shortlist`}>Remove</button></div>
-          <dl>
-            <div><dt>Observed price</dt><dd>{php(price)} {price===lowestPrice&&<em>Lowest</em>}</dd></div>
-            <div><dt>Est. monthly</dt><dd>{php(monthly)} {monthly===lowestMonthly&&<em>Lowest</em>}</dd></div>
-            <div><dt>Seat height</dt><dd>{model.seatHeightMm?model.seatHeightMm+" mm":"Not listed"} {model.seatHeightMm===lowestSeat&&<em>Easiest reach</em>}</dd></div>
-            <div><dt>Wet weight</dt><dd>{model.curbWeightKg?model.curbWeightKg+" kg":"Not listed"}</dd></div>
-            <div><dt>Engine</dt><dd>{model.engineCc?model.engineCc+" cc":"Electric"}</dd></div>
-            <div><dt>Transmission</dt><dd>{model.transmission||"Not listed"}</dd></div>
-          </dl>
-          <div className="buyer-snapshot-actions"><Link href={`/motorcycles/${model.makeSlug}/${model.slug}`}>View model →</Link><Link href={`/motorcycles/${model.makeSlug}/${model.slug}/ownership-cost`}>Full cost estimate</Link></div>
-        </article>)}
-      </div>
-      <p className="buyer-decision-note"><b>Planning estimate only.</b> Dealer fees, promotions, parking, tolls, repairs and accessories are not included. Open a full cost estimate to change financing and ownership assumptions.</p>
+    <section className="mi-comparison" aria-label="Saved motorcycles">
+      {snapshots.map(({model,price,monthly})=>{
+        const href=`/motorcycles/${model.makeSlug}/${model.slug}`;
+        return <article className="mi-bike" key={model.id}>
+          <button className="mi-remove" type="button" onClick={()=>remove(model.id)} aria-label={`Remove ${model.make} ${model.model}`}>Remove</button>
+          <Link className="mi-bike-media" href={href} aria-label={`View ${model.make} ${model.model}`}>
+            <EntityMedia entityType="motorcycle" entityId={model.id} showCredit={false} fallback={<div className="mi-bike-fallback"><span>{model.make}</span><strong>{model.model}</strong></div>}/>
+          </Link>
+          <div className="mi-bike-copy">
+            <p>{model.make}</p>
+            <h2><Link href={href}>{model.model}</Link></h2>
+            <strong className="mi-price">{php(price)}</strong>
+            <p className="mi-monthly">About <strong>{php(monthly)}</strong> a month{monthly===lowestMonthly&&snapshots.length>1?<span> · Lowest estimate</span>:null}</p>
+          </div>
+          <details className="mi-details">
+            <summary>Key specifications</summary>
+            <dl>
+              <div><dt>Engine</dt><dd>{model.engineCc?model.engineCc+" cc":"Electric"}</dd></div>
+              <div><dt>Seat height</dt><dd>{model.seatHeightMm?model.seatHeightMm+" mm":"Not listed"}</dd></div>
+              <div><dt>Weight</dt><dd>{model.curbWeightKg?model.curbWeightKg+" kg":"Not listed"}</dd></div>
+              <div><dt>Transmission</dt><dd>{model.transmission||"Not listed"}</dd></div>
+            </dl>
+          </details>
+          <Link className="mi-view-link" href={href}>Explore {model.model} <span aria-hidden="true">→</span></Link>
+        </article>;
+      })}
     </section>
 
-    <div className="section-head compact"><div><span className="section-kicker">Full model cards</span><h2>Continue researching your saved motorcycles</h2></div></div>
-    <div className="card-grid">{saved.map(m=><ModelCard key={m.id} model={m}/>)}</div>
+    <section className="mi-assumption" aria-labelledby="distance-label">
+      <div><h2 id="distance-label">Your monthly riding</h2><p>Fine-tune the ownership estimates.</p></div>
+      <label><span>{kmPerMonth.toLocaleString()} km per month</span><input aria-label="Monthly distance in kilometres" type="range" min="200" max="2000" step="100" value={kmPerMonth} onChange={event=>setKmPerMonth(Number(event.target.value))}/></label>
+    </section>
+
+    <p className="mi-disclaimer">Estimates assume 20% down, 36 months and 12% APR, plus fuel and routine ownership. Dealer quotes will vary.</p>
   </div>;
 }

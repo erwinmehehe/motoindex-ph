@@ -1,19 +1,24 @@
 import type { Metadata } from "next";
-import { ShortlistClient } from "@/components/ShortlistClient";
-import { forClient } from "@/lib/competitors";
 import { publicMotorcycles } from "@/lib/data";
+import { ShortlistClient } from "@/components/ShortlistClient";
 import { pageMetadata } from "@/lib/site";
-import styles from "./ShortlistPage.module.css";
+import { forClient } from "@/lib/competitors";
 
 export const dynamic="force-static";
-export const metadata:Metadata=pageMetadata({title:"Saved Motorcycle Shortlist",description:"Save Philippine motorcycles in your browser, share a shortlist URL and compare up to three current models.",path:"/shortlist",index:false});
+export const metadata:Metadata=pageMetadata({
+  title:"Saved Motorcycle Shortlist",
+  description:"Compare your saved Philippine motorcycles by observed price, monthly ownership estimate, rider fit and essential specifications.",
+  path:"/shortlist",
+  index:false
+});
 
 export default function ShortlistPage(){
-  return <section className={styles.page}>
-    <div className={styles.head}>
-      <h1>Your saved motorcycles, in one place.</h1>
-      <p>Keep the bikes you are seriously considering together, compare your strongest options and share the list when you need a second opinion. No account is required.</p>
+  return <section className="apple-shortlist-page shell">
+    <div className="apple-page-heading">
+      <span>Your shortlist</span>
+      <h1>The motorcycles you are considering.</h1>
+      <p>Saved privately in this browser. No account required.</p>
     </div>
-    <div className={styles.workspace}><ShortlistClient models={forClient(publicMotorcycles)}/></div>
-  </section>
+    <ShortlistClient models={forClient(publicMotorcycles)}/>
+  </section>;
 }
