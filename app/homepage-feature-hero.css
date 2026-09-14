@@ -368,4 +368,8 @@
 
 @media(prefers-reduced-motion:reduce){
   .mi-research-chip{animation:none}
+  .mi-research-open,
+  .mi-research-actions>a{transition:none!important}
+  .mi-research-open:hover,
+  .mi-research-actions>a:hover{transform:none}
 }
