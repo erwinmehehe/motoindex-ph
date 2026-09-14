@@ -63,16 +63,8 @@ export function ShortlistClient({models,initialSlugs=EMPTY_SLUGS}:{models:Motorc
     window.dispatchEvent(new CustomEvent("motoindex-shortlist"));
   }
 
-  function remove(id:string){
-    persist(ids.filter(item=>item!==id));
-    trackEvent("shortlist_remove",{id});
-  }
-
-  function clear(){
-    localStorage.removeItem(SHORTLIST_KEY);
-    setIds([]);
-    window.dispatchEvent(new CustomEvent("motoindex-shortlist"));
-  }
+  function remove(id:string){persist(ids.filter(item=>item!==id));trackEvent("shortlist_remove",{id})}
+  function clear(){localStorage.removeItem(SHORTLIST_KEY);setIds([]);window.dispatchEvent(new CustomEvent("motoindex-shortlist"))}
 
   async function share(){
     if(!saved.length)return;
@@ -83,58 +75,56 @@ export function ShortlistClient({models,initialSlugs=EMPTY_SLUGS}:{models:Motorc
     trackEvent("shortlist_share",{count:saved.length});
   }
 
-  if(!saved.length)return <div className="apple-empty">
-    <span>Shortlist</span>
-    <h2>Your next motorcycle starts here.</h2>
-    <p>Save models while you browse. They will appear here for a clean side-by-side decision.</p>
-    <Link className="apple-primary-action" href="/motorcycles">Explore motorcycles</Link>
+  if(!saved.length)return <div className="mi-empty">
+    <p className="mi-kicker">Your shortlist</p>
+    <h2>Find the one you will want to ride.</h2>
+    <p>Save motorcycles as you browse, then return here to compare the details that matter.</p>
+    <Link className="mi-button mi-button-primary" href="/motorcycles">Explore motorcycles</Link>
   </div>;
 
-  return <div className="apple-shortlist">
-    <header className="apple-shortlist-intro">
-      <div><span>{saved.length} saved</span><h2>Choose with clarity.</h2><p>Price, fit and real monthly cost in one calm view.</p></div>
-      <div className="apple-shortlist-actions">
-        {compareHref&&<Link className="apple-primary-action" href={compareHref}>Compare models</Link>}
-        <button className="apple-secondary-action" onClick={share}>{shared?"Link copied":"Share"}</button>
-        <button className="apple-text-action" onClick={clear}>Clear all</button>
+  return <div className="mi-shortlist">
+    <div className="mi-toolbar">
+      <p>{saved.length} {saved.length===1?"motorcycle":"motorcycles"}</p>
+      <div>
+        {compareHref&&<Link className="mi-button mi-button-primary" href={compareHref}>Compare side by side</Link>}
+        <button className="mi-button mi-button-quiet" onClick={share}>{shared?"Link copied":"Share"}</button>
+        <button className="mi-link-button" onClick={clear}>Clear</button>
       </div>
-    </header>
-
-    <section className="apple-distance-control" aria-label="Monthly distance assumption">
-      <div><span>Monthly distance</span><strong>{kmPerMonth.toLocaleString()} km</strong></div>
-      <input aria-label="Monthly distance in kilometres" type="range" min="200" max="2000" step="100" value={kmPerMonth} onChange={event=>setKmPerMonth(Number(event.target.value))}/>
-      <small>Updates fuel and monthly ownership estimates for every model.</small>
-    </section>
-
-    <div className="apple-product-grid">
-      {snapshots.map(({model,price,monthly})=>{
-        const href=`/motorcycles/${model.makeSlug}/${model.slug}`;
-        return <article className="apple-product" key={model.id}>
-          <button className="apple-remove" type="button" onClick={()=>remove(model.id)} aria-label={`Remove ${model.make} ${model.model}`}>×</button>
-          <Link className="apple-product-media" href={href} aria-label={`View ${model.make} ${model.model}`}>
-            <EntityMedia entityType="motorcycle" entityId={model.id} showCredit={false} fallback={<div className="apple-product-fallback"><span>{model.make}</span><strong>{model.model}</strong></div>}/>
-          </Link>
-          <div className="apple-product-name"><span>{model.make}</span><h3>{model.model}</h3></div>
-          <div className="apple-product-price"><strong>{php(price)}</strong><span>observed price</span></div>
-          <div className="apple-monthly">
-            <span>Estimated monthly</span>
-            <strong>{php(monthly)}</strong>
-            {monthly===lowestMonthly&&snapshots.length>1&&<small>Lowest in your shortlist</small>}
-          </div>
-          <dl className="apple-specs">
-            <div><dt>Engine</dt><dd>{model.engineCc?model.engineCc+" cc":"Electric"}</dd></div>
-            <div><dt>Seat</dt><dd>{model.seatHeightMm?model.seatHeightMm+" mm":"Not listed"}</dd></div>
-            <div><dt>Weight</dt><dd>{model.curbWeightKg?model.curbWeightKg+" kg":"Not listed"}</dd></div>
-            <div><dt>Gearbox</dt><dd>{model.transmission||"Not listed"}</dd></div>
-          </dl>
-          <div className="apple-product-links">
-            <Link href={href}>View motorcycle</Link>
-            <Link href={`${href}/ownership-cost`}>Adjust costs</Link>
-          </div>
-        </article>;
-      })}
     </div>
 
-    <p className="apple-estimate-note">Monthly figures assume 20% down, 36 months and 12% APR, plus fuel and routine ownership reserves. They are planning estimates, not dealer quotes.</p>
+    <section className="mi-comparison" aria-label="Saved motorcycles">
+      {snapshots.map(({model,price,monthly})=>{
+        const href=`/motorcycles/${model.makeSlug}/${model.slug}`;
+        return <article className="mi-bike" key={model.id}>
+          <button className="mi-remove" type="button" onClick={()=>remove(model.id)} aria-label={`Remove ${model.make} ${model.model}`}>Remove</button>
+          <Link className="mi-bike-media" href={href} aria-label={`View ${model.make} ${model.model}`}>
+            <EntityMedia entityType="motorcycle" entityId={model.id} showCredit={false} fallback={<div className="mi-bike-fallback"><span>{model.make}</span><strong>{model.model}</strong></div>}/>
+          </Link>
+          <div className="mi-bike-copy">
+            <p>{model.make}</p>
+            <h2><Link href={href}>{model.model}</Link></h2>
+            <strong className="mi-price">{php(price)}</strong>
+            <p className="mi-monthly">About <strong>{php(monthly)}</strong> a month{monthly===lowestMonthly&&snapshots.length>1?<span> · Lowest estimate</span>:null}</p>
+          </div>
+          <details className="mi-details">
+            <summary>Key specifications</summary>
+            <dl>
+              <div><dt>Engine</dt><dd>{model.engineCc?model.engineCc+" cc":"Electric"}</dd></div>
+              <div><dt>Seat height</dt><dd>{model.seatHeightMm?model.seatHeightMm+" mm":"Not listed"}</dd></div>
+              <div><dt>Weight</dt><dd>{model.curbWeightKg?model.curbWeightKg+" kg":"Not listed"}</dd></div>
+              <div><dt>Transmission</dt><dd>{model.transmission||"Not listed"}</dd></div>
+            </dl>
+          </details>
+          <Link className="mi-view-link" href={href}>Explore {model.model} <span aria-hidden="true">→</span></Link>
+        </article>;
+      })}
+    </section>
+
+    <section className="mi-assumption" aria-labelledby="distance-label">
+      <div><h2 id="distance-label">Your monthly riding</h2><p>Fine-tune the ownership estimates.</p></div>
+      <label><span>{kmPerMonth.toLocaleString()} km per month</span><input aria-label="Monthly distance in kilometres" type="range" min="200" max="2000" step="100" value={kmPerMonth} onChange={event=>setKmPerMonth(Number(event.target.value))}/></label>
+    </section>
+
+    <p className="mi-disclaimer">Estimates assume 20% down, 36 months and 12% APR, plus fuel and routine ownership. Dealer quotes will vary.</p>
   </div>;
 }
