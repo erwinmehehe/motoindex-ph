@@ -11,8 +11,8 @@ export const metadata:Metadata=pageMetadata({title:"Saved Motorcycle Shortlist",
 export default function ShortlistPage(){
   return <section className={styles.page}>
     <div className={styles.head}>
-      <h1>Your saved motorcycles, without the dashboard clutter.</h1>
-      <p>Keep the bikes you are seriously considering in one clean workspace. Your shortlist stays in this browser, and shared links contain model slugs only.</p>
+      <h1>Your saved motorcycles, in one place.</h1>
+      <p>Keep the bikes you are seriously considering together, compare your strongest options and share the list when you need a second opinion. No account is required.</p>
     </div>
     <div className={styles.workspace}><ShortlistClient models={forClient(publicMotorcycles)}/></div>
   </section>
