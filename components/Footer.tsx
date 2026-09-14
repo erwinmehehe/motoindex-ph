@@ -9,16 +9,6 @@ const hasGuides = recommendationGuides.some((guide) => isIndexableRecommendation
 
 export function Footer() {
   return <footer className={styles.footer}>
-    <div className={`${styles.inner} ${styles.cta}`}>
-      <span className={styles.kicker}>MotoIndex Philippines</span>
-      <h2>Research the bike. Plan the ownership. Ride with fewer surprises.</h2>
-      <p>Use real MotoIndex catalog data, comparisons and ownership tools to move from browsing to a practical shortlist.</p>
-      <div className={styles.actions}>
-        {hasModels && <Link className={styles.primary} href="/motorcycles">Explore motorcycles</Link>}
-        {hasModels && <Link className={styles.secondary} href="/finder">Find my match</Link>}
-      </div>
-    </div>
-
     <div className={`${styles.inner} ${styles.links}`}>
       <div className={styles.about}>
         <MotoIndexLogo className={styles.brand} />
