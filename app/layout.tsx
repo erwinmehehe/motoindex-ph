@@ -35,6 +35,7 @@ import "./premium-light-qa-fixes.css";
 import "./premium-light-final-fixes.css";
 import "./homepage-feature-hero.css";
 import "./brand-page-refined.css";
+import "./visual-cleanup-final.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
