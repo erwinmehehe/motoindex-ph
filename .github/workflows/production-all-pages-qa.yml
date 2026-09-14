@@ -39,5 +39,7 @@ jobs:
           BASE_URL: https://motoindexph.com
           EXPECTED_COMMIT_SHA: ${{ github.event.workflow_run.head_sha || '' }}
           PRODUCTION_PAGE_TIMEOUT_MS: 10000
-          PRODUCTION_QA_CONCURRENCY: 4
+          PRODUCTION_QA_CONCURRENCY: 1
+          PRODUCTION_QA_DELAY_MS: 75
+          PRODUCTION_QA_MAX_ATTEMPTS: 4
         run: node scripts/production-all-pages-qa.mjs
