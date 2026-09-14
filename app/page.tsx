@@ -7,8 +7,6 @@ import {
   isIndexableModel,
   isIndexableComparison,
 } from "@/lib/data";
-import { helmetProducts, tireProducts, topBoxProducts } from "@/lib/catalog";
-import { ProductCard } from "@/components/ProductCard";
 import { ModelCard } from "@/components/ModelCard";
 import { EntityMedia } from "@/components/EntityMedia";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
@@ -28,6 +26,12 @@ const startPoints = [
   ["04", "Under ₱100K", "Current models that fit an entry-level purchase budget.", "/recommendations#budget"],
   ["05", "400cc and above", "Bigger-displacement options with the important numbers side by side.", "/recommendations#400cc"],
   ["06", "Electric", "Battery, range, charging and registration research.", "/motorcycles/electric"],
+] as const;
+
+const gearPaths = [
+  ["01", "Helmets", "Browse helmet types, standards, sizing and checked product records.", "/gear/helmets", "Browse helmets →"],
+  ["02", "Tires", "Find tire sizes, fitment references and current tire research.", "/tires", "Browse tires →"],
+  ["03", "Top boxes", "Compare storage capacity, shell types and fitment considerations.", "/accessories/top-box", "Browse storage →"],
 ] as const;
 
 export default function HomePage() {
@@ -84,7 +88,7 @@ export default function HomePage() {
 
       <section className="mi-tools"><div className="mi-grid-bg" aria-hidden="true" /><div className="shell"><div className="mi-section-head dark-head"><div><span className="mi-eyebrow">Before you buy</span><h2>Do the math <em>before the dealership.</em></h2><p>Compare the motorcycle, the monthly cost and the budget you actually want to live with.</p></div><Link href="/tools">All tools →</Link></div><div className="mi-tool-grid">{hasComparisons && <Link href="/compare"><span>01</span><h3>Compare motorcycles</h3><p>Price, specs and rider fit side by side.</p><b>Compare →</b></Link>}<Link href="/ownership/cost-calculator"><span>02</span><h3>Cost to own</h3><p>Plan fuel, maintenance, insurance, registration and financing.</p><b>Calculate →</b></Link><Link href="/commute/affordability"><span>03</span><h3>Affordability</h3><p>Set a monthly ceiling before a payment looks deceptively cheap.</p><b>Plan budget →</b></Link></div></div></section>
 
-      <section className="mi-section mi-gear"><div className="shell"><div className="mi-section-head"><div><span className="mi-eyebrow">After the motorcycle</span><h2>Sort the <em>essentials.</em></h2><p>Verified helmet, tire and storage records for the gear decisions that come next.</p></div><Link href="/gear/helmets">Browse gear →</Link></div><div className="mi-product-grid">{helmetProducts.filter((p) => p.status === "verified").slice(0, 2).map((p) => <ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:"Helmet",brand:p.brand,model:p.model,meta:p.helmetType,status:p.status,priceFromPhp:p.priceFromPhp}} />)}{tireProducts.filter((p) => p.status === "verified").slice(0, 2).map((p) => <ProductCard key={p.id} item={{entityId:p.id,href:`/tires/${p.brandSlug}/${p.slug}`,category:"Tire",brand:p.brand,model:p.model,meta:p.useCase,status:p.status,priceFromPhp:p.priceFromPhp}} />)}{topBoxProducts.filter((p) => p.status === "verified").slice(0, 2).map((p) => <ProductCard key={p.id} item={{entityId:p.id,href:`/accessories/top-box/${p.slug}`,category:"Top box",brand:p.brand,model:p.model,meta:`${p.capacityL}L ${p.shell}`,status:p.status,priceFromPhp:p.priceFromPhp}} />)}</div></div></section>
+      <section className="mi-section mi-gear"><div className="shell"><div className="mi-section-head"><div><span className="mi-eyebrow">After the motorcycle</span><h2>Sort the <em>essentials.</em></h2><p>Move from the motorcycle to the three gear decisions most riders make next.</p></div><Link href="/gear/helmets">Browse gear →</Link></div><div className="mi-gear-grid">{gearPaths.map(([number,title,copy,href,cta])=><Link key={title} href={href}><span>{number}</span><h3>{title}</h3><p>{copy}</p><b>{cta}</b></Link>)}</div></div></section>
 
       <section className="mi-final"><div className="mi-grid-bg" aria-hidden="true" /><div className="shell"><span>Start with the shortlist</span><h2>Find the right bike. <em>Then verify it.</em></h2><p>Browse the catalog when you already have a few models in mind. Use the Finder when you only know what the motorcycle needs to do.</p><div><Link className="mi-btn red" href="/motorcycles">Explore motorcycles</Link><Link className="mi-btn glass" href="/finder">Find my motorcycle</Link></div></div></section>
     </div>
