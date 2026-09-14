@@ -1,0 +1,79 @@
+/* Follow-up fixes for compact homepage cards. Loaded after compact-polish-v1.css. */
+
+/* Prevent older mosaic rules from stretching compact cards across grid tracks. */
+.mi-category-card,
+.mi-category-card:nth-child(n),
+.mi-gear-grid>a,
+.mi-gear-grid>a:nth-child(n){
+  grid-column:auto!important;
+  grid-row:auto!important;
+}
+
+/* Always-useful gear entry points. These replace the old data-dependent blank product rail. */
+.mi-gear-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:12px!important;
+}
+.mi-gear-grid>a{
+  min-width:0!important;
+  min-height:158px!important;
+  padding:18px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  border:1px solid rgba(148,163,184,.16)!important;
+  border-radius:17px!important;
+  background:rgba(255,255,255,.88)!important;
+  color:#0f172a!important;
+  box-shadow:0 10px 28px rgba(68,76,231,.055)!important;
+  backdrop-filter:blur(12px)!important;
+  -webkit-backdrop-filter:blur(12px)!important;
+}
+.mi-gear-grid>a:hover{
+  transform:translateY(-3px)!important;
+  border-color:rgba(68,76,231,.20)!important;
+  box-shadow:0 18px 38px rgba(68,76,231,.10)!important;
+}
+.mi-gear-grid>a>span{
+  display:grid!important;
+  place-items:center!important;
+  width:29px!important;
+  height:29px!important;
+  margin:0 0 14px!important;
+  border-radius:9px!important;
+  background:rgba(68,76,231,.08)!important;
+  color:#444CE7!important;
+  font-size:9px!important;
+  font-weight:900!important;
+  letter-spacing:.06em!important;
+}
+.mi-gear-grid h3{
+  margin:0 0 6px!important;
+  color:#0f172a!important;
+  font-size:19px!important;
+  line-height:1.15!important;
+  letter-spacing:-.025em!important;
+}
+.mi-gear-grid p{
+  margin:0!important;
+  color:#64748b!important;
+  font-size:12.5px!important;
+  line-height:1.5!important;
+}
+.mi-gear-grid b{
+  margin-top:auto!important;
+  padding-top:14px!important;
+  color:#444CE7!important;
+  font-size:11px!important;
+  font-weight:850!important;
+}
+
+@media(max-width:860px){
+  .mi-gear-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+@media(max-width:700px){
+  .mi-gear-grid{grid-template-columns:1fr!important}
+  .mi-gear-grid>a{min-height:138px!important}
+}
