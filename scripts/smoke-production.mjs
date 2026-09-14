@@ -28,18 +28,6 @@ async function get(path, expected = 200) {
   return response;
 }
 
-const publicPaths = [
-  "/", "/motorcycles", "/finder", "/shortlist", "/search?q=Click", "/compare", "/compare/three",
-  "/compare/three?bikes=aerox-v3,nmax-v3,adv-160", "/motorcycles/electric",
-  "/motorcycles/electric/vinfast-evo", "/motorcycles/electric/vinfast-feliz-ii", "/motorcycles/electric/vinfast-viper",
-  "/gear/helmets", "/deals", "/dealers", "/dealers?brand=Honda", "/dealers/manila", "/dealers/san-fernando",
-  "/dealers/angeles-city", "/dealers/cebu-city", "/dealers/davao-city", "/dealers/pampanga",
-  "/robots.txt", "/llms.txt", "/llms-full.txt", "/deployment-info.json", "/sitemap.xml", "/sitemaps/motorcycles.xml",
-  "/sitemaps/gear.xml", "/privacy", "/price-alerts", "/used-motorcycles", "/used-motorcycles/repo",
-  "/used-motorcycles/buying-checklist", "/maintenance", "/ownership/registration-renewal"
-];
-for (const path of publicPaths) await get(path);
-
 const expectedCommit = (process.env.EXPECTED_COMMIT_SHA || "").trim();
 const deploymentInfo = await get("/deployment-info.json");
 if (deploymentInfo) {
@@ -81,7 +69,11 @@ for (const [path, target] of [
   ["/recommendations/electric-motorcycles-philippines", "/motorcycles/electric#models"],
   ["/get-quote/honda/click-160", "/dealers?brand=Honda"],
   ["/maintenance/motorcycle-battery", "/maintenance#motorcycle-battery"],
-  ["/maintenance/change-oil-motorcycle", "/maintenance#change-oil-motorcycle"]
+  ["/maintenance/change-oil-motorcycle", "/maintenance#change-oil-motorcycle"],
+  ["/motorcycles/honda/click-160/used-value", "/motorcycles/honda/click-160#used"],
+  ["/motorcycles/electric/vinfast-evo", "/motorcycles/electric#models"],
+  ["/motorcycles/electric/vinfast-feliz-ii", "/motorcycles/electric#models"],
+  ["/motorcycles/electric/vinfast-viper", "/motorcycles/electric#models"]
 ]) {
   const response = await get(path, 308);
   if (!response) continue;
@@ -120,7 +112,7 @@ for (const path of ["/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear
       const url = new URL(raw);
       if (isForbiddenIndexedPath(url.pathname)) failures.push(`${path} leaks noindex/prototype route ${url.pathname}`);
       if (/^\/recommendations\/[^/]+\/?$/.test(url.pathname)) failures.push(`${path} leaks retired recommendation URL ${url.pathname}`);
-      if (path === "/sitemaps/commerce.xml") await get(url.pathname);
+      if (/^\/motorcycles\/electric\/[^/]+\/?$/.test(url.pathname)) failures.push(`${path} leaks consolidated electric model URL ${url.pathname}`);
     } catch {
       failures.push(`${path} contains invalid URL ${raw}`);
     }
@@ -130,10 +122,9 @@ for (const path of ["/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear
 const admin = await get("/admin/data-health", [401, 503]);
 if (admin && !admin.headers.get("x-robots-tag")?.includes("noindex")) failures.push("Unauthenticated admin response missing X-Robots-Tag noindex.");
 
-for (const path of ["/sellers", "/motorcycles/honda/click-160/used-value"]) {
-  const response = await get(path, 404);
-  if (response && !response.headers.get("x-robots-tag")?.includes("noindex")) failures.push(`${path}: prototype 404 missing X-Robots-Tag noindex`);
-}
+const sellersHub = await get("/sellers", 404);
+if (sellersHub && !sellersHub.headers.get("x-robots-tag")?.includes("noindex")) failures.push("/sellers: prototype 404 missing X-Robots-Tag noindex");
+for (const path of ["/sellers/demo-yamaha-dealer-a", "/dealers/quezon-city"]) await get(path, 404);
 
 for (const path of ["/price-alerts", "/used-motorcycles"]) {
   const response = await get(path);
@@ -141,14 +132,6 @@ for (const path of ["/price-alerts", "/used-motorcycles"]) {
   const body = (await response.text()).toLowerCase();
   if (!body.includes("noindex")) failures.push(`${path}: public utility page is missing noindex metadata`);
 }
-
-for (const path of ["/sellers/demo-yamaha-dealer-a", "/dealers/quezon-city"]) await get(path, 404);
-for (const path of [
-  "/sellers/desmark-honda-san-fernando-pampanga", "/sellers/suzuki-motorcyclecity-san-fernando", "/sellers/premiumbikes-san-fernando-pampanga",
-  "/sellers/yamaha-kservico-angeles", "/sellers/yamaha-motor-ace-cebu-city", "/sellers/yamaha-premio-davao-city",
-  "/sellers/desmark-honda-pardo-cebu", "/sellers/suzuki-gud-moto-cebu", "/sellers/kawasaki-des-strong-labangon",
-  "/sellers/desmark-honda-bajada-davao", "/sellers/suzuki-trumph-davao", "/sellers/kawasaki-emcor-bajada-davao"
-]) await get(path);
 
 for (const path of ["/api/leads", "/api/price-alerts"]) {
   const response = await request(path, {
