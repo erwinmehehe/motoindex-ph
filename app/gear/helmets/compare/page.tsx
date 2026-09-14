@@ -8,6 +8,7 @@ import { EntityMedia } from "@/components/EntityMedia";
 import { HelmetComparePicker } from "@/components/HelmetComparePicker";
 import { AffiliateOffer } from "@/components/AffiliateOffer";
 import { forClient } from "@/lib/competitors";
+import styles from "../HelmetTools.module.css";
 
 export const metadata:Metadata=pageMetadata({title:"Compare Motorcycle Helmets Philippines: Side by Side",description:"Compare motorcycle helmet prices, sizing, shell construction, visor equipment, certification and intercom provision side by side.",path:"/gear/helmets/compare",index:true});
 const php=(n?:number)=>n?`₱${n.toLocaleString("en-PH")}`:"Not published";
@@ -44,7 +45,7 @@ export default async function HelmetComparePage({searchParams}:{searchParams:Pro
   const ids=[params.a,params.b,params.c].filter((v):v is string=>typeof v==="string");
   const products=helmetProducts.filter(p=>p.status==="verified");
   const selected=ids.map(id=>products.find(p=>p.id===id)).filter(Boolean) as Product[];
-  return <section className="page shell"><Breadcrumbs items={[{label:"Helmets",href:"/gear/helmets"},{label:"Compare"}]}/><div className="page-head"><h1>Compare checked helmets side by side</h1><p>Choose two or three verified products. The comparison keeps the selected helmet images visible and groups the checked price, fit, construction, visor and certification data for faster scanning.</p></div><HelmetComparePicker products={forClient(products)} selected={selected.map(p=>p.id)}/>
+  return <section className={`page shell ${styles.comparePage}`}><Breadcrumbs items={[{label:"Helmets",href:"/gear/helmets"},{label:"Compare"}]}/><div className="page-head"><h1>Compare checked helmets side by side</h1><p>Choose two or three verified products. The comparison keeps the selected helmet images visible and groups the checked price, fit, construction, visor and certification data for faster scanning.</p></div><HelmetComparePicker products={forClient(products)} selected={selected.map(p=>p.id)}/>
   <div className="section-head inline-head"><div><h2>How to compare helmets properly</h2><p>Choose exact models instead of comparing brands as if every helmet under one badge is the same.</p></div></div>
   <div className="topic-grid">
     <article><h2>Fit first</h2><p>Compare the exact size chart and shell shape. A feature-rich helmet is still the wrong choice if it does not fit securely.</p></article>
