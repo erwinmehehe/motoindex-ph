@@ -8,7 +8,7 @@ on:
     types: [completed]
   workflow_dispatch:
   schedule:
-    - cron: "23 */6 * * *"
+    - cron: "23 2 * * *"
 
 concurrency:
   group: motoindex-production-all-pages
@@ -18,7 +18,7 @@ jobs:
   audit:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -40,6 +40,6 @@ jobs:
           EXPECTED_COMMIT_SHA: ${{ github.event.workflow_run.head_sha || '' }}
           PRODUCTION_PAGE_TIMEOUT_MS: 10000
           PRODUCTION_QA_CONCURRENCY: 1
-          PRODUCTION_QA_DELAY_MS: 75
-          PRODUCTION_QA_MAX_ATTEMPTS: 4
+          PRODUCTION_QA_DELAY_MS: 1500
+          PRODUCTION_QA_MAX_ATTEMPTS: 3
         run: node scripts/production-all-pages-qa.mjs

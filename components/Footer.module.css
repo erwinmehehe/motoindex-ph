@@ -1,0 +1,119 @@
+.footer{
+  position:relative;
+  overflow:hidden;
+  padding:42px 0 22px;
+  border-top:1px solid rgba(148,163,184,.18);
+  background:linear-gradient(180deg,#fff 0%,#f8fafc 100%);
+  color:#0f172a;
+}
+
+.inner{
+  position:relative;
+  width:min(1160px,calc(100% - 48px));
+  margin:0 auto;
+}
+
+.links{
+  display:grid;
+  grid-template-columns:minmax(250px,1.65fr) repeat(4,minmax(130px,1fr));
+  gap:38px;
+  padding:0 0 30px;
+}
+
+.about{
+  min-width:0;
+}
+
+.brand{
+  display:inline-flex;
+  margin-bottom:16px;
+}
+
+.about p{
+  max-width:310px;
+  margin:0;
+  color:#64748b;
+  font-size:13px;
+  line-height:1.65;
+}
+
+.about small{
+  display:block;
+  max-width:310px;
+  margin-top:10px;
+  color:#94a3b8;
+  font-size:10.5px;
+  line-height:1.55;
+}
+
+.column{
+  display:flex;
+  min-width:0;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:8px;
+}
+
+.column strong{
+  margin-bottom:5px;
+  color:#334155;
+  font-size:10.5px;
+  font-weight:850;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+
+.column a{
+  color:#64748b;
+  font-size:12.5px;
+  line-height:1.35;
+  transition:color .18s ease;
+}
+
+.column a:hover{
+  color:#3038bd;
+}
+
+.note{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding-top:17px;
+  border-top:1px solid rgba(148,163,184,.16);
+  color:#94a3b8;
+  font-size:10.5px;
+  line-height:1.5;
+}
+
+@media(max-width:900px){
+  .inner{width:min(100% - 36px,1160px)}
+  .footer{padding-top:36px}
+  .links{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:28px 42px;
+    padding-bottom:28px;
+  }
+  .about{
+    grid-column:1/-1;
+    max-width:520px;
+    padding-bottom:2px;
+  }
+}
+
+@media(max-width:620px){
+  .footer{padding:32px 0 20px}
+  .inner{width:min(100% - 28px,1160px)}
+  .links{gap:26px 22px;padding-bottom:26px}
+  .about{padding-bottom:0}
+  .note{align-items:flex-start;flex-direction:column;gap:5px}
+}
+
+@media(max-width:430px){
+  .links{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 18px}
+  .column a{font-size:12px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .column a{transition:none}
+}
