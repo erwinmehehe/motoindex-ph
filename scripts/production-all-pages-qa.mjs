@@ -81,11 +81,22 @@ await runPool(allRoutes);
 
 try {
   const deployment = await fetchWithTimeout(new URL("/deployment-info.json", base));
-  if (deployment.ok) {
+  if (!deployment.ok) {
+    const message = `/deployment-info.json returned ${deployment.status}`;
+    if (expectedCommit) failures.push(`${message}; cannot verify deployed commit ${expectedCommit}`);
+    else warnings.push(message);
+  } else {
     const info = await deployment.json();
-    if (expectedCommit && info.commit && info.commit !== expectedCommit) failures.push(`/deployment-info.json: production serves ${info.commit}, expected ${expectedCommit}`);
-  } else warnings.push(`/deployment-info.json returned ${deployment.status}`);
-} catch (error) { warnings.push(`/deployment-info.json could not be checked: ${error instanceof Error ? error.message : String(error)}`); }
+    if (expectedCommit) {
+      if (!info.commit) failures.push(`/deployment-info.json: missing commit; expected ${expectedCommit}`);
+      else if (info.commit !== expectedCommit) failures.push(`/deployment-info.json: production serves ${info.commit}, expected ${expectedCommit}`);
+    }
+  }
+} catch (error) {
+  const message = `/deployment-info.json could not be checked: ${error instanceof Error ? error.message : String(error)}`;
+  if (expectedCommit) failures.push(`${message}; cannot verify deployed commit ${expectedCommit}`);
+  else warnings.push(message);
+}
 
 console.log(`Production all-pages QA checked ${allRoutes.length} public URLs at ${base.origin}.`);
 for (const warning of warnings) console.warn(`WARNING: ${warning}`);
