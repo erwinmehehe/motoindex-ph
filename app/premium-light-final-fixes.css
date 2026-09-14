@@ -1,0 +1,119 @@
+/* Final visual-QA polish: remove residual dark editorial cards and restore model-hero contrast. */
+
+/* Fitment guide step cards */
+.fitment-guide-panel>div{
+  background:rgba(255,255,255,.88)!important;
+  color:#0f172a!important;
+  border-color:rgba(148,163,184,.16)!important;
+}
+.fitment-guide-panel>div h2{color:#0f172a!important}
+.fitment-guide-panel>div p{color:#64748b!important}
+
+/* Commute hub context and methodology */
+.commute-context,
+.commute-stat-stack>span,
+.commute-master-page .method-card{
+  background:rgba(255,255,255,.82)!important;
+  color:#0f172a!important;
+  border:1px solid rgba(255,255,255,.84)!important;
+  box-shadow:0 18px 48px rgba(68,76,231,.07)!important;
+}
+.commute-context h2,.commute-stat-stack b,.commute-master-page .method-card strong{color:#0f172a!important}
+.commute-context p,.commute-stat-stack small,.commute-master-page .method-card li,.commute-master-page .method-card small{color:#64748b!important}
+.commute-context .source-links a{color:#444CE7!important}
+
+/* Ownership hub feature sections */
+.ownership-master-page .motorcycle-entity-section,
+.ownership-feature-grid>a{
+  background:rgba(255,255,255,.80)!important;
+  color:#0f172a!important;
+  border:1px solid rgba(255,255,255,.84)!important;
+  box-shadow:0 18px 48px rgba(68,76,231,.07)!important;
+}
+.ownership-master-page .motorcycle-entity-section{border-radius:26px!important;padding:clamp(22px,3vw,34px)!important}
+.ownership-feature-grid>a h3,.ownership-feature-grid>a b{color:#0f172a!important}
+.ownership-feature-grid>a span{color:#444CE7!important}
+.ownership-feature-grid>a p{color:#64748b!important}
+
+/* Maintenance hub */
+.maintenance-master-page>.note-box,
+.maintenance-master-section,
+.maintenance-master-page .method-steps>article{
+  background:rgba(255,255,255,.82)!important;
+  color:#0f172a!important;
+  border:1px solid rgba(255,255,255,.84)!important;
+  box-shadow:0 18px 48px rgba(68,76,231,.07)!important;
+}
+.maintenance-master-section{border-radius:26px!important;padding:clamp(22px,3vw,34px)!important}
+.maintenance-master-page>.note-box h2,.maintenance-master-page .method-steps h3{color:#0f172a!important}
+.maintenance-master-page>.note-box p,.maintenance-master-page .method-steps p{color:#64748b!important}
+.maintenance-master-page .method-steps>article>b{color:#444CE7!important}
+
+/* Tire hub */
+.tire-master-section,
+.tire-master-page .topic-grid>article,
+.tire-family-master-grid>article{
+  background:rgba(255,255,255,.82)!important;
+  color:#0f172a!important;
+  border:1px solid rgba(255,255,255,.84)!important;
+  box-shadow:0 18px 48px rgba(68,76,231,.07)!important;
+}
+.tire-master-section{border-radius:26px!important;padding:clamp(22px,3vw,34px)!important}
+.tire-master-page .topic-grid h3,.tire-family-master-grid h3{color:#0f172a!important}
+.tire-master-page .topic-grid p,.tire-family-master-grid p{color:#64748b!important}
+
+/* Accessories hub */
+.accessories-master-page .motorcycle-entity-section,
+.accessories-master-page .topic-grid>article,
+.accessories-master-page .method-steps>article{
+  background:rgba(255,255,255,.82)!important;
+  color:#0f172a!important;
+  border:1px solid rgba(255,255,255,.84)!important;
+  box-shadow:0 18px 48px rgba(68,76,231,.07)!important;
+}
+.accessories-master-page .motorcycle-entity-section{border-radius:26px!important;padding:clamp(22px,3vw,34px)!important}
+.accessories-master-page .topic-grid h3,.accessories-master-page .method-steps h3{color:#0f172a!important}
+.accessories-master-page .topic-grid p,.accessories-master-page .method-steps p{color:#64748b!important}
+.accessories-master-page .method-steps>article>b{color:#444CE7!important}
+
+/* Motorcycle detail hero: dark price block and low-contrast legacy copy */
+.motorcycle-entity-hero .breadcrumbs,
+.motorcycle-entity-hero .breadcrumbs a{color:#64748b!important}
+.motorcycle-entity-hero .motorcycle-hero-copy>p,
+.motorcycle-entity-hero .entity-lede,
+.motorcycle-entity-hero .entity-aka{color:#64748b!important}
+.motorcycle-price-lockup{
+  background:rgba(255,255,255,.84)!important;
+  color:#0f172a!important;
+  border:1px solid rgba(255,255,255,.86)!important;
+  box-shadow:0 16px 44px rgba(68,76,231,.08)!important;
+  backdrop-filter:blur(16px)!important;
+}
+.motorcycle-price-lockup span,.motorcycle-price-lockup small{color:#64748b!important}
+.motorcycle-price-lockup strong{color:#0f172a!important}
+.motorcycle-entity-hero .entity-hero-actions .button.ghost,
+.motorcycle-entity-hero .entity-hero-actions .button.ghost.on-light,
+.motorcycle-entity-hero .entity-hero-actions .compare-button,
+.motorcycle-entity-hero .entity-hero-actions .shortlist-button{
+  background:rgba(255,255,255,.86)!important;
+  color:#334155!important;
+  border:1px solid rgba(148,163,184,.22)!important;
+  box-shadow:0 10px 26px rgba(68,76,231,.06)!important;
+}
+.motorcycle-entity-hero .entity-hero-actions .button:first-child{
+  background:linear-gradient(135deg,#444CE7,#7A5AF8)!important;
+  color:#fff!important;
+  border-color:transparent!important;
+}
+.motorcycle-entity-hero .freshness{
+  background:rgba(255,255,255,.82)!important;
+  border-color:rgba(148,163,184,.17)!important;
+  color:#334155!important;
+}
+
+@media(max-width:700px){
+  .ownership-master-page .motorcycle-entity-section,
+  .maintenance-master-section,
+  .tire-master-section,
+  .accessories-master-page .motorcycle-entity-section{border-radius:20px!important;padding:20px!important}
+}
