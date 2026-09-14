@@ -7,6 +7,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { AuthorBox } from "@/components/AuthorBox";
 import { php } from "@/lib/utils";
+import styles from "./HelmetHub.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Helmets Philippines 2026: Prices, Brands & Guide",
@@ -55,7 +56,7 @@ export default function HelmetsPage(){
     {question:"Does a more expensive helmet automatically mean safer?",answer:"No. Price can reflect shell material, finish, aerodynamics, visor hardware, liner quality and brand positioning. Check the exact model's certification, local conformity marking and fit rather than using price as a safety score."}
   ];
 
-  return <section className="page shell helmet-hub-page">
+  return <section className={`page shell helmet-hub-page ${styles.hub}`}>
     <div className="page-head">
       <span className="entity-kicker">Philippine helmet buying guide</span>
       <h1>Motorcycle helmets in the Philippines: prices, types and brands</h1>
