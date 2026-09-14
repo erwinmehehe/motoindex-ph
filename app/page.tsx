@@ -13,6 +13,9 @@ import { ModelCard } from "@/components/ModelCard";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import { siteStats } from "@/lib/siteStats";
 
+export const dynamic = "force-static";
+export const revalidate = false;
+
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Prices, Specs & Gear Philippines",
   description: "Compare motorcycle prices, specifications, helmets, tires and ownership costs in the Philippines.",
