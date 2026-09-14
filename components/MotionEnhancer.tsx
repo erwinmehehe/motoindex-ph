@@ -3,25 +3,16 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
+/* Keep motion at the section level. Individual product cards, catalog rows and
+   utility tiles stay visible immediately so long pages do not feel like a
+   dashboard assembling itself as the rider scrolls. */
 const revealSelector = [
   ".mi-section-head",
-  ".mi-brand-grid > a",
-  ".mi-model-grid > *",
-  ".mi-category-grid > *",
-  ".mi-tool-grid > *",
-  ".mi-product-grid > *",
   ".mi-showcase-cta",
   ".mi-final > .shell > *",
   ".page-head",
   ".model-hero-grid > *",
-  ".section > *",
-  ".guide-strip > *",
-  ".list-cards > *",
-  ".topic-grid > *",
-  ".helmet-grid > *",
-  ".priority-model-brief-grid > *",
-  ".spec-grid > *",
-  ".health-summary > *"
+  ".section-head"
 ].join(",");
 
 function siblingDelay(node: HTMLElement) {
@@ -29,7 +20,7 @@ function siblingDelay(node: HTMLElement) {
   if (!parent) return 0;
   const peers = Array.from(parent.children).filter((child) => (child as HTMLElement).matches?.(revealSelector));
   const index = Math.max(0, peers.indexOf(node));
-  return Math.min(index * 90, 450);
+  return Math.min(index * 70, 210);
 }
 
 export function MotionEnhancer() {
@@ -56,7 +47,7 @@ export function MotionEnhancer() {
         node.dataset.reveal = "visible";
         observer.unobserve(node);
       });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.06 });
 
     nodes.forEach((node) => observer.observe(node));
     return () => observer.disconnect();
