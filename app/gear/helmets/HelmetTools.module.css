@@ -1,0 +1,536 @@
+.finderPage,
+.comparePage{
+  --tool-ink:#0f172a;
+  --tool-copy:#64748b;
+  --tool-faint:#94a3b8;
+  --tool-line:rgba(148,163,184,.22);
+  --tool-soft:#f8fafc;
+  --tool-blue:#4f46e5;
+  padding-top:56px;
+}
+
+.finderPage :global(.page-head),
+.comparePage :global(.page-head){
+  max-width:880px;
+  margin-bottom:34px!important;
+}
+.finderPage :global(.page-head h1),
+.comparePage :global(.page-head h1){
+  max-width:860px!important;
+  margin:8px 0 16px!important;
+  color:var(--tool-ink)!important;
+  font-size:clamp(42px,5.2vw,68px)!important;
+  line-height:.96!important;
+  letter-spacing:-.055em!important;
+}
+.finderPage :global(.page-head>p),
+.comparePage :global(.page-head>p){
+  max-width:760px!important;
+  margin:0!important;
+  color:var(--tool-copy)!important;
+  font-size:15px!important;
+  line-height:1.65!important;
+}
+
+/* Finder safety note should read like guidance, not a promo card. */
+.finderPage :global(.helmet-safety-note){
+  display:grid!important;
+  grid-template-columns:180px minmax(0,1fr) auto!important;
+  gap:22px!important;
+  align-items:center!important;
+  margin:0 0 34px!important;
+  padding:18px 0!important;
+  border:0!important;
+  border-top:1px solid var(--tool-line)!important;
+  border-bottom:1px solid var(--tool-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.finderPage :global(.helmet-safety-note h2){
+  margin:0!important;
+  color:var(--tool-ink)!important;
+  font-size:16px!important;
+  letter-spacing:-.025em!important;
+}
+.finderPage :global(.helmet-safety-note p){
+  margin:0!important;
+  color:var(--tool-copy)!important;
+  font-size:12px!important;
+  line-height:1.55!important;
+}
+.finderPage :global(.helmet-safety-note a){
+  color:var(--tool-blue)!important;
+  font-size:11px!important;
+  font-weight:750!important;
+  white-space:nowrap!important;
+}
+
+/* Filters become a clean control deck rather than one giant dashboard card. */
+.finderPage :global(.helmet-finder-panel){
+  margin:0 0 26px!important;
+  padding:0 0 24px!important;
+  border:0!important;
+  border-bottom:1px solid var(--tool-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.finderPage :global(.helmet-finder-grid){
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:12px!important;
+}
+.finderPage :global(.helmet-finder-grid label){
+  display:grid!important;
+  gap:7px!important;
+  min-width:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+}
+.finderPage :global(.helmet-finder-grid label>span),
+.comparePage :global(.helmet-compare-picks label>span){
+  color:var(--tool-copy)!important;
+  font-size:9px!important;
+  font-weight:800!important;
+  letter-spacing:.07em!important;
+  text-transform:uppercase!important;
+}
+.finderPage :global(.helmet-finder-grid select),
+.comparePage :global(.helmet-compare-picks select){
+  width:100%!important;
+  min-width:0!important;
+  min-height:44px!important;
+  padding:0 12px!important;
+  border:1px solid var(--tool-line)!important;
+  border-radius:11px!important;
+  outline:none!important;
+  background:#fff!important;
+  color:#334155!important;
+  box-shadow:none!important;
+  font-size:12px!important;
+}
+.finderPage :global(.helmet-finder-grid select:focus),
+.comparePage :global(.helmet-compare-picks select:focus){
+  border-color:rgba(79,70,229,.55)!important;
+  box-shadow:0 0 0 3px rgba(79,70,229,.09)!important;
+}
+.finderPage :global(.finder-toolbar){
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:18px!important;
+  margin-top:18px!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+}
+.finderPage :global(.finder-toolbar p){
+  margin:0!important;
+  color:var(--tool-copy)!important;
+  font-size:11px!important;
+  line-height:1.5!important;
+}
+.finderPage :global(.finder-toolbar p strong){color:var(--tool-ink)!important}
+.finderPage :global(.finder-toolbar>div){display:flex!important;gap:8px!important;flex-wrap:wrap!important}
+.finderPage :global(.finder-toolbar .button),
+.finderPage :global(.finder-toolbar .filter-reset){
+  min-height:38px!important;
+  padding:0 12px!important;
+  border:1px solid var(--tool-line)!important;
+  border-radius:9px!important;
+  background:#fff!important;
+  color:#334155!important;
+  box-shadow:none!important;
+  font-size:10px!important;
+  font-weight:750!important;
+}
+
+/* Selection state stays visible without becoming another giant sticky dashboard. */
+.finderPage :global(.helmet-compare-bar){
+  display:flex!important;
+  align-items:center!important;
+  gap:12px!important;
+  margin:0 0 8px!important;
+  padding:12px 0!important;
+  border:0!important;
+  border-bottom:1px solid var(--tool-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.finderPage :global(.helmet-compare-bar strong){font-size:11px!important;color:var(--tool-ink)!important}
+.finderPage :global(.helmet-compare-bar>span){color:var(--tool-copy)!important;font-size:10px!important}
+.finderPage :global(.helmet-compare-bar .button){
+  min-height:36px!important;
+  margin-left:auto!important;
+  padding:0 12px!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+  font-size:10px!important;
+}
+.finderPage :global(.helmet-compare-bar .text-button){
+  min-height:36px!important;
+  padding:0 6px!important;
+  border:0!important;
+  background:transparent!important;
+  color:var(--tool-copy)!important;
+  font-size:10px!important;
+}
+
+/* Ranked helmets become an editorial/product list. */
+.finderPage :global(.helmet-finder-results){
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:0!important;
+  border-top:1px solid var(--tool-line)!important;
+}
+.finderPage :global(.helmet-finder-card){
+  display:grid!important;
+  grid-template-columns:168px minmax(0,1fr)!important;
+  gap:24px!important;
+  min-height:0!important;
+  padding:26px 0!important;
+  border:0!important;
+  border-bottom:1px solid var(--tool-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.finderPage :global(.helmet-finder-card:hover){
+  transform:none!important;
+  box-shadow:none!important;
+}
+.finderPage :global(.helmet-finder-media){
+  display:block!important;
+  width:100%!important;
+  height:142px!important;
+  overflow:hidden!important;
+  border:1px solid rgba(148,163,184,.16)!important;
+  border-radius:14px!important;
+  background:var(--tool-soft)!important;
+}
+.finderPage :global(.helmet-finder-media .entity-media-link),
+.finderPage :global(.helmet-finder-media>a){
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+}
+.finderPage :global(.helmet-finder-media img){
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  padding:12px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:transparent!important;
+}
+.finderPage :global(.helmet-finder-media .product-art){
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:linear-gradient(145deg,#f8fafc,#eef2f7)!important;
+  color:var(--tool-copy)!important;
+}
+.finderPage :global(.helmet-finder-copy){min-width:0!important}
+.finderPage :global(.helmet-finder-rank){
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  margin:0 0 5px!important;
+}
+.finderPage :global(.helmet-finder-rank span){
+  color:var(--tool-blue)!important;
+  font-size:8px!important;
+  font-weight:850!important;
+  letter-spacing:.07em!important;
+  text-transform:uppercase!important;
+}
+.finderPage :global(.helmet-finder-rank b){
+  color:var(--tool-copy)!important;
+  font-size:9px!important;
+  font-weight:700!important;
+}
+.finderPage :global(.helmet-finder-copy h2){
+  margin:0 0 5px!important;
+  color:var(--tool-ink)!important;
+  font-size:25px!important;
+  line-height:1.05!important;
+  letter-spacing:-.04em!important;
+}
+.finderPage :global(.helmet-finder-price){
+  display:block!important;
+  margin:0!important;
+  color:#334155!important;
+  font-size:14px!important;
+  letter-spacing:-.02em!important;
+}
+.finderPage :global(.helmet-reasons){
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:5px 0!important;
+  margin:11px 0 8px!important;
+}
+.finderPage :global(.helmet-reasons span){
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--tool-copy)!important;
+  font-size:9px!important;
+}
+.finderPage :global(.helmet-reasons span+span:before){content:"·";padding:0 7px;color:var(--tool-faint)}
+.finderPage :global(.helmet-finder-copy>p){
+  max-width:680px!important;
+  margin:0!important;
+  color:var(--tool-copy)!important;
+  font-size:10px!important;
+  line-height:1.5!important;
+}
+.finderPage :global(.helmet-card-actions){
+  display:flex!important;
+  gap:8px!important;
+  margin-top:14px!important;
+  flex-wrap:wrap!important;
+}
+.finderPage :global(.helmet-card-actions .button),
+.finderPage :global(.helmet-card-actions .compare-button){
+  width:auto!important;
+  min-width:0!important;
+  min-height:38px!important;
+  padding:0 12px!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+  font-size:10px!important;
+}
+
+/* Compare picker and product summaries use the same restrained system. */
+.comparePage :global(.helmet-compare-picker){
+  margin:0 0 42px!important;
+  padding:0 0 26px!important;
+  border:0!important;
+  border-bottom:1px solid var(--tool-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.comparePage :global(.helmet-compare-picks){
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:12px!important;
+}
+.comparePage :global(.helmet-compare-picks label){display:grid!important;gap:7px!important;min-width:0!important}
+
+.comparePage :global(.section-head.inline-head){
+  align-items:flex-end!important;
+  margin-bottom:18px!important;
+}
+.comparePage :global(.section-head.inline-head h2){
+  margin:0 0 6px!important;
+  color:var(--tool-ink)!important;
+  font-size:25px!important;
+  letter-spacing:-.04em!important;
+}
+.comparePage :global(.section-head.inline-head p){margin:0!important;color:var(--tool-copy)!important;font-size:12px!important}
+.comparePage :global(.topic-grid){
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:0!important;
+  margin-bottom:42px!important;
+  border-top:1px solid var(--tool-line)!important;
+  border-bottom:1px solid var(--tool-line)!important;
+}
+.comparePage :global(.topic-grid>article){
+  min-height:0!important;
+  padding:20px 22px!important;
+  border:0!important;
+  border-right:1px solid var(--tool-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.comparePage :global(.topic-grid>article:last-child){border-right:0!important}
+.comparePage :global(.topic-grid h2){margin:0 0 8px!important;font-size:16px!important;letter-spacing:-.025em!important}
+.comparePage :global(.topic-grid p){min-height:0!important;margin:0!important;color:var(--tool-copy)!important;font-size:11px!important;line-height:1.55!important}
+
+.comparePage :global(.helmet-comparison-grid){
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:0!important;
+  margin:28px 0 20px!important;
+  border-top:1px solid var(--tool-line)!important;
+  border-bottom:1px solid var(--tool-line)!important;
+}
+.comparePage :global(.helmet-comparison-grid.cols-2){grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.comparePage :global(.helmet-comparison-grid>article){
+  min-width:0!important;
+  padding:26px 24px!important;
+  border:0!important;
+  border-right:1px solid var(--tool-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.comparePage :global(.helmet-comparison-grid>article:last-child){border-right:0!important}
+.comparePage :global(.helmet-compare-media){
+  display:block!important;
+  width:100%!important;
+  height:190px!important;
+  margin:0 0 18px!important;
+  overflow:hidden!important;
+  border:0!important;
+  border-radius:14px!important;
+  background:var(--tool-soft)!important;
+  box-shadow:none!important;
+}
+.comparePage :global(.helmet-compare-media .entity-media-link),
+.comparePage :global(.helmet-compare-media>a){display:block!important;width:100%!important;height:100%!important}
+.comparePage :global(.helmet-compare-media img){width:100%!important;height:100%!important;padding:16px!important;object-fit:contain!important;background:transparent!important}
+.comparePage :global(.compare-product-brand){color:var(--tool-blue)!important;font-size:8px!important;font-weight:850!important;letter-spacing:.08em!important;text-transform:uppercase!important}
+.comparePage :global(.helmet-comparison-grid h2){margin:4px 0 7px!important;color:var(--tool-ink)!important;font-size:24px!important;line-height:1.05!important;letter-spacing:-.04em!important}
+.comparePage :global(.helmet-comparison-grid>article>strong){display:block!important;color:#334155!important;font-size:16px!important}
+.comparePage :global(.helmet-comparison-grid>article>small){display:block!important;margin-top:7px!important;color:var(--tool-copy)!important;font-size:9px!important;line-height:1.45!important}
+.comparePage :global(.helmet-comparison-grid>article>a){display:inline-block!important;margin-top:14px!important;color:var(--tool-blue)!important;font-size:10px!important;font-weight:750!important}
+
+.comparePage :global(.compare-difference-key){
+  display:flex!important;
+  align-items:center!important;
+  gap:7px!important;
+  margin:18px 0 10px!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  color:var(--tool-copy)!important;
+  font-size:10px!important;
+}
+.comparePage :global(.compare-difference-key strong){color:#334155!important}
+
+.comparePage :global(.helmet-compare-wrap){
+  overflow:auto!important;
+  margin-top:0!important;
+  border:0!important;
+  border-top:1px solid var(--tool-line)!important;
+  border-bottom:1px solid var(--tool-line)!important;
+  border-radius:0!important;
+  background:#fff!important;
+  box-shadow:none!important;
+  scrollbar-width:thin;
+}
+.comparePage :global(.helmet-spec-table){
+  width:100%!important;
+  min-width:760px!important;
+  border-collapse:collapse!important;
+}
+.comparePage :global(.helmet-spec-table th),
+.comparePage :global(.helmet-spec-table td){
+  padding:14px 16px!important;
+  border:0!important;
+  border-bottom:1px solid rgba(148,163,184,.16)!important;
+  background:#fff!important;
+  color:#475569!important;
+  font-size:10px!important;
+  line-height:1.5!important;
+  vertical-align:top!important;
+}
+.comparePage :global(.helmet-spec-table thead th){color:var(--tool-copy)!important;font-size:9px!important;text-transform:uppercase!important;letter-spacing:.05em!important}
+.comparePage :global(.helmet-spec-table thead th strong){display:block!important;margin-top:4px!important;color:var(--tool-ink)!important;font-size:12px!important;text-transform:none!important;letter-spacing:-.02em!important}
+.comparePage :global(.helmet-spec-table th:first-child){
+  position:sticky!important;
+  left:0!important;
+  z-index:2!important;
+  width:190px!important;
+  min-width:190px!important;
+  color:#334155!important;
+}
+.comparePage :global(.helmet-spec-table th small){display:block!important;margin-top:5px!important;color:var(--tool-faint)!important;font-size:8px!important;font-weight:500!important;line-height:1.4!important}
+.comparePage :global(.compare-section-row th){
+  position:static!important;
+  padding-top:22px!important;
+  background:#f8fafc!important;
+  color:var(--tool-ink)!important;
+  font-size:10px!important;
+  font-weight:850!important;
+  letter-spacing:.06em!important;
+  text-transform:uppercase!important;
+}
+.comparePage :global(.compare-diff){background:rgba(79,70,229,.035)!important;color:#334155!important}
+.comparePage :global(.note-box){
+  margin-top:30px!important;
+  padding:20px 0!important;
+  border:0!important;
+  border-top:1px solid var(--tool-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.comparePage :global(.note-box h2){margin:0 0 6px!important;font-size:17px!important;letter-spacing:-.025em!important}
+.comparePage :global(.note-box p){max-width:860px!important;margin:0!important;color:var(--tool-copy)!important;font-size:11px!important;line-height:1.55!important}
+
+@media(max-width:900px){
+  .finderPage :global(.helmet-finder-grid){grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .finderPage :global(.helmet-safety-note){grid-template-columns:150px minmax(0,1fr)!important}
+  .finderPage :global(.helmet-safety-note a){grid-column:2!important}
+  .comparePage :global(.helmet-compare-picks){grid-template-columns:1fr 1fr!important}
+  .comparePage :global(.helmet-compare-picks label:last-child){grid-column:1/-1!important}
+}
+
+@media(max-width:620px){
+  .finderPage,
+  .comparePage{padding-top:38px}
+  .finderPage :global(.page-head h1),
+  .comparePage :global(.page-head h1){font-size:clamp(38px,12vw,52px)!important}
+  .finderPage :global(.page-head>p),
+  .comparePage :global(.page-head>p){font-size:13px!important}
+
+  .finderPage :global(.helmet-safety-note){display:block!important;padding:16px 0!important}
+  .finderPage :global(.helmet-safety-note h2){margin-bottom:7px!important}
+  .finderPage :global(.helmet-safety-note a){display:inline-block!important;margin-top:9px!important;white-space:normal!important}
+  .finderPage :global(.helmet-finder-grid){grid-template-columns:1fr!important;gap:10px!important}
+  .finderPage :global(.finder-toolbar){align-items:flex-start!important;flex-direction:column!important}
+  .finderPage :global(.finder-toolbar>div){width:100%!important}
+  .finderPage :global(.finder-toolbar .button),
+  .finderPage :global(.finder-toolbar .filter-reset){flex:1!important}
+  .finderPage :global(.helmet-compare-bar){align-items:flex-start!important;flex-wrap:wrap!important}
+  .finderPage :global(.helmet-compare-bar>span){width:calc(100% - 70px)!important}
+  .finderPage :global(.helmet-compare-bar .button){margin-left:0!important}
+
+  .finderPage :global(.helmet-finder-card){
+    grid-template-columns:104px minmax(0,1fr)!important;
+    gap:14px!important;
+    padding:20px 0!important;
+  }
+  .finderPage :global(.helmet-finder-media){height:116px!important;border-radius:11px!important}
+  .finderPage :global(.helmet-finder-media img){padding:7px!important}
+  .finderPage :global(.helmet-finder-rank){align-items:flex-start!important;flex-direction:column!important;gap:2px!important}
+  .finderPage :global(.helmet-finder-copy h2){font-size:19px!important}
+  .finderPage :global(.helmet-finder-price){font-size:12px!important}
+  .finderPage :global(.helmet-reasons){margin-top:8px!important}
+  .finderPage :global(.helmet-reasons span){font-size:8px!important}
+  .finderPage :global(.helmet-finder-copy>p){font-size:9px!important}
+  .finderPage :global(.helmet-card-actions){display:grid!important;grid-template-columns:1fr 1fr!important}
+  .finderPage :global(.helmet-card-actions .button),
+  .finderPage :global(.helmet-card-actions .compare-button){width:100%!important;min-height:40px!important;padding:0 8px!important}
+
+  .comparePage :global(.helmet-compare-picks){grid-template-columns:1fr!important}
+  .comparePage :global(.helmet-compare-picks label:last-child){grid-column:auto!important}
+  .comparePage :global(.topic-grid){grid-template-columns:1fr!important}
+  .comparePage :global(.topic-grid>article){padding:16px 0!important;border-right:0!important;border-bottom:1px solid var(--tool-line)!important}
+  .comparePage :global(.topic-grid>article:last-child){border-bottom:0!important}
+  .comparePage :global(.helmet-comparison-grid),
+  .comparePage :global(.helmet-comparison-grid.cols-2){grid-template-columns:1fr!important}
+  .comparePage :global(.helmet-comparison-grid>article){padding:22px 0!important;border-right:0!important;border-bottom:1px solid var(--tool-line)!important}
+  .comparePage :global(.helmet-comparison-grid>article:last-child){border-bottom:0!important}
+  .comparePage :global(.helmet-compare-media){height:170px!important}
+  .comparePage :global(.helmet-spec-table){min-width:680px!important}
+  .comparePage :global(.helmet-spec-table th),
+  .comparePage :global(.helmet-spec-table td){padding:12px!important}
+  .comparePage :global(.helmet-spec-table th:first-child){width:150px!important;min-width:150px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .finderPage *,
+  .comparePage *{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
