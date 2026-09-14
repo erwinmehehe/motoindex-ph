@@ -111,9 +111,150 @@
   color:#334155!important;
 }
 
+/* Final buyer-flow cleanup: remove the remaining dashboard chrome. */
+.mi-home .mi-brand-grid{
+  display:grid!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:0!important;
+  overflow:hidden!important;
+  border-top:1px solid rgba(148,163,184,.18)!important;
+  border-bottom:1px solid rgba(148,163,184,.18)!important;
+  border-radius:0!important;
+  background:transparent!important;
+}
+.mi-home .mi-brand-grid>a{
+  min-height:0!important;
+  padding:16px 14px!important;
+  border:0!important;
+  border-left:1px solid rgba(148,163,184,.16)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+}
+.mi-home .mi-brand-grid>a:first-child{border-left:0!important;padding-left:0!important}
+.mi-home .mi-brand-grid>a:hover{transform:none!important;background:rgba(68,76,231,.035)!important;box-shadow:none!important}
+.mi-home .mi-brand-grid strong{font-size:13px!important;letter-spacing:-.02em!important}
+.mi-home .mi-brand-grid span{font-size:9px!important;color:#94a3b8!important}
+
+.motorcycles-index-v300 .motorcycle-catalog-grid .card-actions,
+.ph-brand-page .ph-brand-model-grid .card-actions{
+  display:flex!important;
+  width:auto!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  flex-wrap:wrap!important;
+  gap:7px!important;
+}
+.motorcycles-index-v300 .motorcycle-catalog-grid .card-actions .button,
+.motorcycles-index-v300 .motorcycle-catalog-grid .card-actions .compare-button,
+.ph-brand-page .ph-brand-model-grid .card-actions .button,
+.ph-brand-page .ph-brand-model-grid .card-actions .compare-button{
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:36px!important;
+  padding:0 12px!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+  font-size:9px!important;
+}
+.motorcycles-index-v300 .motorcycle-catalog-grid .card-actions .button:after,
+.ph-brand-page .ph-brand-model-grid .card-actions .button:after{display:none!important}
+
+.ph-brand-page .ph-brand-overview{
+  min-height:0!important;
+  height:auto!important;
+  align-self:end!important;
+}
+.ph-brand-page .ph-brand-overview>div{
+  min-height:0!important;
+  height:auto!important;
+}
+.ph-brand-page .ph-brand-nav{
+  border:0!important;
+  border-bottom:1px solid var(--brand-line)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+}
+
+.decision-finder .decision-result-list{
+  gap:0!important;
+  border-top:1px solid rgba(148,163,184,.18)!important;
+}
+.decision-finder .decision-result-card{
+  padding:20px 0!important;
+  border:0!important;
+  border-bottom:1px solid rgba(148,163,184,.18)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.decision-finder .decision-result-card:hover{
+  border-color:rgba(148,163,184,.18)!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  transform:none!important;
+}
+.decision-finder .decision-result-media{
+  border:1px solid rgba(148,163,184,.12)!important;
+  border-radius:12px!important;
+  background:#f8fafc!important;
+  box-shadow:none!important;
+}
+.decision-finder .decision-card-actions .button,
+.decision-finder .decision-card-actions button{
+  flex:0 0 auto!important;
+  width:auto!important;
+  box-shadow:none!important;
+}
+
+.compare-tray{
+  border-top:1px solid rgba(148,163,184,.18)!important;
+  background:rgba(255,255,255,.97)!important;
+  color:#0f172a!important;
+  box-shadow:0 -8px 24px rgba(15,23,42,.06)!important;
+  backdrop-filter:blur(16px)!important;
+  -webkit-backdrop-filter:blur(16px)!important;
+}
+.compare-tray-label,.compare-tray-hint{color:#64748b!important}
+.compare-tray-models button{
+  border:1px solid rgba(148,163,184,.22)!important;
+  border-radius:10px!important;
+  background:#f8fafc!important;
+  color:#334155!important;
+  box-shadow:none!important;
+}
+.compare-tray-models button span{color:#94a3b8!important}
+.compare-tray-clear{color:#64748b!important}
+.compare-tray .button{border-radius:10px!important;box-shadow:none!important}
+
+@media(max-width:980px){
+  .mi-home .mi-brand-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .mi-home .mi-brand-grid>a:nth-child(4){border-left:0!important;padding-left:0!important}
+}
+
 @media(max-width:700px){
   .ownership-master-page .motorcycle-entity-section,
   .maintenance-master-section,
   .tire-master-section,
   .accessories-master-page .motorcycle-entity-section{border-radius:20px!important;padding:20px!important}
+}
+
+@media(max-width:620px){
+  .mi-home .mi-brand-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .mi-home .mi-brand-grid>a,
+  .mi-home .mi-brand-grid>a:first-child,
+  .mi-home .mi-brand-grid>a:nth-child(4){padding:13px 10px!important;border-left:1px solid rgba(148,163,184,.16)!important;border-bottom:1px solid rgba(148,163,184,.14)!important}
+  .mi-home .mi-brand-grid>a:nth-child(odd){padding-left:0!important;border-left:0!important}
+  .decision-finder .decision-result-card{padding:17px 0!important}
+  .compare-tray-models button{min-height:44px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .mi-home .mi-brand-grid>a,
+  .decision-finder .decision-result-card,
+  .compare-tray button,
+  .compare-tray a{transition:none!important}
 }
