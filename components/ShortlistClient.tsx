@@ -105,9 +105,9 @@ export function ShortlistClient({models,initialSlugs=EMPTY_SLUGS}:{models:Motorc
             <div><dt>Observed price</dt><dd>{php(price)} {price===lowestPrice&&<em>Lowest</em>}</dd></div>
             <div><dt>Est. monthly</dt><dd>{php(monthly)} {monthly===lowestMonthly&&<em>Lowest</em>}</dd></div>
             <div><dt>Seat height</dt><dd>{model.seatHeightMm?model.seatHeightMm+" mm":"Not listed"} {model.seatHeightMm===lowestSeat&&<em>Easiest reach</em>}</dd></div>
-            <div><dt>Wet weight</dt><dd>{model.wetWeightKg?model.wetWeightKg+" kg":"Not listed"}</dd></div>
+            <div><dt>Wet weight</dt><dd>{model.curbWeightKg?model.curbWeightKg+" kg":"Not listed"}</dd></div>
             <div><dt>Engine</dt><dd>{model.engineCc?model.engineCc+" cc":"Electric"}</dd></div>
-            <div><dt>Transmission</dt><dd>{model.transmission}</dd></div>
+            <div><dt>Transmission</dt><dd>{model.transmission||"Not listed"}</dd></div>
           </dl>
           <div className="buyer-snapshot-actions"><Link href={`/motorcycles/${model.makeSlug}/${model.slug}`}>View model →</Link><Link href={`/motorcycles/${model.makeSlug}/${model.slug}/ownership-cost`}>Full cost estimate</Link></div>
         </article>)}
