@@ -1,32 +1,31 @@
 import Link from "next/link";
 import { MotoIndexLogo } from "@/components/MotoIndexLogo";
 import { comparisons, motorcycles, recommendationGuides, isIndexableComparison, isIndexableModel, isIndexableRecommendation } from "@/lib/data";
+import styles from "./Footer.module.css";
 
 const hasModels = motorcycles.some(isIndexableModel);
 const hasComparisons = comparisons.some((comparison) => isIndexableComparison(comparison.slug));
 const hasGuides = recommendationGuides.some((guide) => isIndexableRecommendation(guide.slug));
 
 export function Footer() {
-  return <footer className="footer">
-    <div className="shell footer-intro">
-      <div>
-        <span className="footer-kicker">MotoIndex Philippines</span>
-        <h2>Research the bike. Plan the ownership. Ride with fewer surprises.</h2>
-        <p>Use real MotoIndex catalog data, comparisons and ownership tools to move from browsing to a practical shortlist.</p>
-      </div>
-      <div className="footer-intro-actions">
-        {hasModels && <Link href="/motorcycles">Explore motorcycles</Link>}
-        {hasModels && <Link href="/finder">Find my match</Link>}
+  return <footer className={styles.footer}>
+    <div className={`${styles.inner} ${styles.cta}`}>
+      <span className={styles.kicker}>MotoIndex Philippines</span>
+      <h2>Research the bike. Plan the ownership. Ride with fewer surprises.</h2>
+      <p>Use real MotoIndex catalog data, comparisons and ownership tools to move from browsing to a practical shortlist.</p>
+      <div className={styles.actions}>
+        {hasModels && <Link className={styles.primary} href="/motorcycles">Explore motorcycles</Link>}
+        {hasModels && <Link className={styles.secondary} href="/finder">Find my match</Link>}
       </div>
     </div>
 
-    <div className="shell footer-grid">
-      <div className="footer-about">
-        <MotoIndexLogo className="footer-brand" />
+    <div className={`${styles.inner} ${styles.links}`}>
+      <div className={styles.about}>
+        <MotoIndexLogo className={styles.brand} />
         <p>Motorcycle prices, specs, fitment, gear and ownership tools for the Philippines.</p>
         <small>Check the source and date on price-sensitive information.</small>
       </div>
-      <div>
+      <div className={styles.column}>
         <strong>Browse</strong>
         {hasModels && <Link href="/motorcycles">Motorcycles</Link>}
         {hasModels && <Link href="/finder">Finder</Link>}
@@ -34,13 +33,13 @@ export function Footer() {
         {hasGuides && <Link href="/recommendations">Guides</Link>}
         <Link href="/commute">Commute</Link>
       </div>
-      <div>
+      <div className={styles.column}>
         <strong>Gear</strong>
         <Link href="/gear/helmets">Helmets</Link>
         <Link href="/tires">Tires</Link>
         <Link href="/accessories">Accessories</Link>
       </div>
-      <div>
+      <div className={styles.column}>
         <strong>Ownership & tools</strong>
         <Link href="/ownership">Ownership</Link>
         {hasModels && <Link href="/fitment">Fitment finder</Link>}
@@ -51,7 +50,7 @@ export function Footer() {
         <Link href="/maintenance">Maintenance</Link>
         <Link href="/ownership/registration-renewal">Registration renewal</Link>
       </div>
-      <div>
+      <div className={styles.column}>
         <strong>About MotoIndex</strong>
         <Link href="/about">About</Link>
         <Link href="/authors/erwin-valles">Author: Erwin Valles</Link>
@@ -64,7 +63,7 @@ export function Footer() {
         <Link href="/contact">Contact</Link>
       </div>
     </div>
-    <div className="shell footer-note">
+    <div className={`${styles.inner} ${styles.note}`}>
       <span>© 2026 MotoIndex PH</span>
       <span>Prices and availability can change. Verify before purchase.</span>
     </div>
