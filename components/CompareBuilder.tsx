@@ -22,8 +22,12 @@ export function CompareBuilder({ models }: { models: Motorcycle[] }) {
     {value&&(()=>{const m=options.find(x=>x.slug===value);return m?<small>{observedMarketPriceLabel(m)} · {m.engineCc} cc · {m.seatHeightMm} mm seat</small>:null})()}
   </label>;
 
-  function goTwo(){if(!ready||!a||!b)return;trackEvent("compare_build",{count:2,a:a.id,b:b.id});router.push(`/compare/${a.slug}-vs-${b.slug}`)}
-  function goThree(){if(!ready3||!a||!b||!c)return;trackEvent("compare_build",{count:3,a:a.id,b:b.id,c:c.id});router.push(`/compare/three?bikes=${a.slug},${b.slug},${c.slug}`)}
+  function openSelection(selected:Motorcycle[]){
+    const bikes=encodeURIComponent(selected.map(model=>model.slug).join(","));
+    router.push(`/compare/selection?bikes=${bikes}`);
+  }
+  function goTwo(){if(!ready||!a||!b)return;trackEvent("compare_build",{count:2,a:a.id,b:b.id});openSelection([a,b])}
+  function goThree(){if(!ready3||!a||!b||!c)return;trackEvent("compare_build",{count:3,a:a.id,b:b.id,c:c.id});openSelection([a,b,c])}
 
   return <div className="compare-builder">
     <div className="compare-builder-head"><div><h2>Choose the motorcycles to compare</h2><p>Select two models, or add a third for a three-way comparison. A motorcycle can only be selected once.</p></div><span className="compare-count">{options.length} models</span></div>
