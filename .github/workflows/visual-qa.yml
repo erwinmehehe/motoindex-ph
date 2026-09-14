@@ -45,6 +45,11 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
         run: npm run visual:qa
 
+      - name: Compare selection regression QA
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: node scripts/compare-selection-qa.mjs
+
       - name: Upload visual QA evidence
         if: always()
         uses: actions/upload-artifact@v6
