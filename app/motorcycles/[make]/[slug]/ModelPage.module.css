@@ -1,0 +1,771 @@
+.refined{
+  width:100%;
+  --model-ink:#0f172a;
+  --model-muted:#64748b;
+  --model-soft:#94a3b8;
+  --model-line:rgba(148,163,184,.20);
+  --model-accent:#444CE7;
+  background:#fff;
+  color:var(--model-ink);
+}
+
+.refined :global(.motorcycle-entity-page){
+  background:#fff!important;
+  color:var(--model-ink)!important;
+}
+
+.refined :global(.motorcycle-entity-hero){
+  padding:0 0 34px!important;
+  border-bottom:1px solid var(--model-line)!important;
+  background:
+    radial-gradient(circle at 86% 12%,rgba(68,76,231,.055),transparent 26%),
+    linear-gradient(180deg,#fff 0%,#fbfcff 100%)!important;
+}
+
+.refined :global(.motorcycle-entity-hero>.shell){
+  width:min(1120px,calc(100% - 40px))!important;
+}
+
+.refined :global(.motorcycle-entity-hero .breadcrumbs){
+  margin:0!important;
+  padding:22px 0 24px!important;
+  color:#94a3b8!important;
+  font-size:10px!important;
+}
+
+.refined :global(.motorcycle-hero-grid){
+  display:grid!important;
+  grid-template-columns:minmax(0,1.02fr) minmax(420px,.98fr)!important;
+  gap:54px!important;
+  align-items:center!important;
+}
+
+.refined :global(.motorcycle-hero-copy){
+  min-width:0!important;
+  padding:22px 0 12px!important;
+}
+
+.refined :global(.motorcycle-hero-copy>.entity-kicker){
+  display:block!important;
+  margin-bottom:12px!important;
+  color:var(--model-accent)!important;
+  font-size:9px!important;
+  font-weight:850!important;
+  letter-spacing:.105em!important;
+  text-transform:uppercase!important;
+}
+
+.refined :global(.motorcycle-hero-copy h1){
+  max-width:680px!important;
+  margin:0!important;
+  color:var(--model-ink)!important;
+  font-size:clamp(48px,5.7vw,74px)!important;
+  font-weight:800!important;
+  line-height:.95!important;
+  letter-spacing:-.06em!important;
+}
+
+.refined :global(.motorcycle-hero-copy .entity-lede){
+  max-width:640px!important;
+  margin:18px 0 0!important;
+  color:var(--model-muted)!important;
+  font-size:15px!important;
+  line-height:1.65!important;
+}
+
+.refined :global(.motorcycle-hero-copy .entity-aka){
+  max-width:620px!important;
+  margin:10px 0 0!important;
+  color:#94a3b8!important;
+  font-size:10px!important;
+  line-height:1.5!important;
+}
+
+.refined :global(.motorcycle-price-lockup){
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  margin:24px 0 0!important;
+  padding:18px 0!important;
+  border-top:1px solid var(--model-line)!important;
+  border-bottom:1px solid var(--model-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.motorcycle-price-lockup>span){
+  color:#94a3b8!important;
+  font-size:9px!important;
+  font-weight:800!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+}
+
+.refined :global(.motorcycle-price-lockup>strong){
+  margin:5px 0 4px!important;
+  color:var(--model-ink)!important;
+  font-size:32px!important;
+  font-weight:800!important;
+  line-height:1!important;
+  letter-spacing:-.04em!important;
+}
+
+.refined :global(.motorcycle-price-lockup>small){
+  color:#94a3b8!important;
+  font-size:9px!important;
+  line-height:1.45!important;
+}
+
+.refined :global(.entity-hero-actions){
+  display:flex!important;
+  gap:8px!important;
+  margin-top:18px!important;
+  flex-wrap:wrap!important;
+}
+
+.refined :global(.entity-hero-actions .button),
+.refined :global(.entity-hero-actions button){
+  min-height:40px!important;
+  padding:0 14px!important;
+  border-radius:10px!important;
+  box-shadow:none!important;
+  font-size:10px!important;
+}
+
+.refined :global(.entity-hero-actions .button:not(.ghost)){
+  border:1px solid var(--model-accent)!important;
+  background:var(--model-accent)!important;
+  color:#fff!important;
+}
+
+.refined :global(.entity-hero-actions .button.ghost),
+.refined :global(.entity-hero-actions button){
+  border:1px solid rgba(148,163,184,.25)!important;
+  background:#fff!important;
+  color:#334155!important;
+}
+
+.refined :global(.motorcycle-hero-copy .freshness){
+  max-width:none!important;
+  margin-top:15px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.motorcycle-hero-visual){
+  min-width:0!important;
+}
+
+.refined :global(.motorcycle-hero-media){
+  min-height:410px!important;
+  height:410px!important;
+  overflow:hidden!important;
+  border:1px solid rgba(148,163,184,.14)!important;
+  border-radius:20px!important;
+  background:#f8fafc!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.motorcycle-hero-media img){
+  object-fit:contain!important;
+  padding:24px!important;
+}
+
+.refined :global(.authority-media-fallback),
+.refined :global(.motorcycle-hero-media .bike-art.big){
+  min-height:410px!important;
+  height:410px!important;
+  border-radius:20px!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.motorcycle-hero-facts){
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:0!important;
+  margin-top:14px!important;
+  border-top:1px solid var(--model-line)!important;
+  border-bottom:1px solid var(--model-line)!important;
+}
+
+.refined :global(.motorcycle-hero-facts>div){
+  min-width:0!important;
+  padding:13px 12px!important;
+  border:0!important;
+  border-left:1px solid var(--model-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.motorcycle-hero-facts>div:first-child){
+  padding-left:0!important;
+  border-left:0!important;
+}
+
+.refined :global(.motorcycle-hero-facts span),
+.refined :global(.entity-fit-kpis span){
+  display:block!important;
+  color:#94a3b8!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  letter-spacing:.07em!important;
+  text-transform:uppercase!important;
+}
+
+.refined :global(.motorcycle-hero-facts strong),
+.refined :global(.entity-fit-kpis strong){
+  display:block!important;
+  margin-top:4px!important;
+  color:var(--model-ink)!important;
+  font-size:14px!important;
+  font-weight:780!important;
+  line-height:1.15!important;
+}
+
+.refined :global(.motorcycle-hero-facts small),
+.refined :global(.entity-fit-kpis small){
+  display:block!important;
+  margin-top:3px!important;
+  color:#94a3b8!important;
+  font-size:8px!important;
+  line-height:1.35!important;
+}
+
+.refined :global(.motorcycle-entity-nav-wrap){
+  width:min(1120px,calc(100% - 40px))!important;
+  margin:0 auto!important;
+  padding:12px 0!important;
+  border-bottom:1px solid var(--model-line)!important;
+}
+
+.refined :global(.product-entity-nav){
+  gap:4px!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.product-entity-nav a){
+  min-height:32px!important;
+  padding:0 9px!important;
+  border:0!important;
+  border-radius:8px!important;
+  background:transparent!important;
+  color:#64748b!important;
+  font-size:9px!important;
+  font-weight:750!important;
+}
+
+.refined :global(.product-entity-nav a:hover){
+  background:rgba(68,76,231,.05)!important;
+  color:#3038bd!important;
+  transform:none!important;
+}
+
+.refined :global(.motorcycle-entity-body){
+  width:min(1120px,calc(100% - 40px))!important;
+  margin:0 auto!important;
+}
+
+.refined :global(.motorcycle-entity-section){
+  margin:0!important;
+  padding:52px 0!important;
+  border:0!important;
+  border-bottom:1px solid var(--model-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.motorcycle-entity-section>.section-head.compact){
+  max-width:780px!important;
+  margin:0 0 26px!important;
+}
+
+.refined :global(.motorcycle-entity-section .section-kicker){
+  color:var(--model-accent)!important;
+  font-size:9px!important;
+  font-weight:850!important;
+  letter-spacing:.1em!important;
+  text-transform:uppercase!important;
+}
+
+.refined :global(.motorcycle-entity-section .section-head h2){
+  max-width:760px!important;
+  margin:6px 0 0!important;
+  color:var(--model-ink)!important;
+  font-size:clamp(30px,3.5vw,42px)!important;
+  font-weight:800!important;
+  line-height:1.02!important;
+  letter-spacing:-.045em!important;
+}
+
+.refined :global(.motorcycle-entity-section .section-head p){
+  max-width:690px!important;
+  margin:10px 0 0!important;
+  color:var(--model-muted)!important;
+  font-size:12px!important;
+  line-height:1.6!important;
+}
+
+.refined :global(.entity-price-grid),
+.refined :global(.entity-fit-kpis){
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:0!important;
+  margin:0 0 26px!important;
+  border-top:1px solid var(--model-line)!important;
+  border-bottom:1px solid var(--model-line)!important;
+}
+
+.refined :global(.entity-price-grid){
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+}
+
+.refined :global(.entity-price-grid>article),
+.refined :global(.entity-fit-kpis>div){
+  min-width:0!important;
+  padding:17px 16px!important;
+  border:0!important;
+  border-left:1px solid var(--model-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.entity-price-grid>article:first-child),
+.refined :global(.entity-fit-kpis>div:first-child){
+  padding-left:0!important;
+  border-left:0!important;
+}
+
+.refined :global(.entity-price-grid span){
+  color:#94a3b8!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  letter-spacing:.07em!important;
+  text-transform:uppercase!important;
+}
+
+.refined :global(.entity-price-grid strong){
+  display:block!important;
+  margin:5px 0 3px!important;
+  color:var(--model-ink)!important;
+  font-size:20px!important;
+  font-weight:800!important;
+  line-height:1.15!important;
+  letter-spacing:-.025em!important;
+}
+
+.refined :global(.entity-price-grid small){
+  color:#94a3b8!important;
+  font-size:8px!important;
+  line-height:1.4!important;
+}
+
+.refined :global(.entity-spec-table){
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:0!important;
+  overflow:visible!important;
+  margin:0!important;
+  border:0!important;
+  border-top:1px solid var(--model-line)!important;
+  border-bottom:1px solid var(--model-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.entity-spec-table>div){
+  display:grid!important;
+  grid-template-columns:minmax(120px,.8fr) minmax(0,1.2fr)!important;
+  gap:18px!important;
+  align-items:center!important;
+  min-width:0!important;
+  padding:13px 16px 13px 0!important;
+  border:0!important;
+  border-bottom:1px solid rgba(148,163,184,.13)!important;
+  background:transparent!important;
+}
+
+.refined :global(.entity-spec-table>div:nth-child(even)){
+  padding-left:16px!important;
+  border-left:1px solid var(--model-line)!important;
+}
+
+.refined :global(.entity-spec-table>div span){
+  color:#94a3b8!important;
+  font-size:9px!important;
+  font-weight:700!important;
+}
+
+.refined :global(.entity-spec-table>div strong){
+  min-width:0!important;
+  color:var(--model-ink)!important;
+  font-size:11px!important;
+  font-weight:750!important;
+  line-height:1.4!important;
+  text-align:right!important;
+}
+
+.refined :global(.entity-tool-grid){
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:0!important;
+  margin-top:24px!important;
+  border-top:1px solid var(--model-line)!important;
+}
+
+.refined :global(.entity-tool-grid>a){
+  display:block!important;
+  min-height:0!important;
+  padding:17px 16px!important;
+  border:0!important;
+  border-right:1px solid var(--model-line)!important;
+  border-bottom:1px solid var(--model-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.entity-tool-grid>a:first-child){padding-left:0!important}
+.refined :global(.entity-tool-grid>a:last-child){border-right:0!important}
+.refined :global(.entity-tool-grid>a:hover){color:#3038bd!important;transform:none!important}
+
+.refined :global(.entity-tool-grid span){
+  color:#94a3b8!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  letter-spacing:.06em!important;
+  text-transform:uppercase!important;
+}
+
+.refined :global(.entity-tool-grid strong){
+  display:block!important;
+  margin-top:4px!important;
+  color:var(--model-ink)!important;
+  font-size:13px!important;
+  font-weight:760!important;
+  line-height:1.35!important;
+}
+
+.refined :global(.entity-tool-grid small){
+  display:block!important;
+  margin-top:5px!important;
+  color:#94a3b8!important;
+  font-size:9px!important;
+  line-height:1.45!important;
+}
+
+.refined :global(.note-box.compact-note),
+.refined :global(.source-panel.entity-source-panel),
+.refined :global(.entity-alert-card){
+  margin-top:22px!important;
+  padding:18px 20px!important;
+  border:0!important;
+  border-left:2px solid rgba(68,76,231,.45)!important;
+  border-radius:0!important;
+  background:#f8fafc!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.note-box.compact-note h3),
+.refined :global(.source-panel.entity-source-panel h3),
+.refined :global(.entity-alert-card h2){
+  margin:0 0 6px!important;
+  color:var(--model-ink)!important;
+  font-size:17px!important;
+  letter-spacing:-.025em!important;
+}
+
+.refined :global(.note-box.compact-note p),
+.refined :global(.source-panel.entity-source-panel p),
+.refined :global(.entity-alert-card p){
+  margin:0!important;
+  color:var(--model-muted)!important;
+  font-size:11px!important;
+  line-height:1.55!important;
+}
+
+.refined :global(.entity-color-grid){
+  display:flex!important;
+  gap:0!important;
+  flex-wrap:wrap!important;
+  border-top:1px solid var(--model-line)!important;
+  border-bottom:1px solid var(--model-line)!important;
+}
+
+.refined :global(.entity-color-grid>article){
+  min-width:170px!important;
+  padding:14px 18px!important;
+  border:0!important;
+  border-right:1px solid var(--model-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.entity-color-grid strong){
+  display:block!important;
+  color:var(--model-ink)!important;
+  font-size:12px!important;
+}
+
+.refined :global(.entity-color-grid small){
+  color:#94a3b8!important;
+  font-size:8px!important;
+}
+
+.refined :global(.motorcycle-editorial-grid){
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:0!important;
+  border-top:1px solid var(--model-line)!important;
+}
+
+.refined :global(.motorcycle-editorial-grid>article){
+  padding:20px 20px 20px 0!important;
+  border:0!important;
+  border-bottom:1px solid var(--model-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.motorcycle-editorial-grid>article:nth-child(even)){
+  padding-left:20px!important;
+  border-left:1px solid var(--model-line)!important;
+}
+
+.refined :global(.motorcycle-editorial-grid h3){
+  color:var(--model-ink)!important;
+  font-size:18px!important;
+  letter-spacing:-.025em!important;
+}
+
+.refined :global(.motorcycle-editorial-grid p),
+.refined :global(.motorcycle-editorial-grid li){
+  color:var(--model-muted)!important;
+  font-size:11px!important;
+  line-height:1.55!important;
+}
+
+.refined :global(.authority-comparisons),
+.refined :global(.variant-color-list),
+.refined :global(.fitment-evidence-grid){
+  border:0!important;
+  border-top:1px solid var(--model-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.product-grid){
+  gap:12px!important;
+}
+
+.refined :global(.product-grid>article),
+.refined :global(.product-grid>a){
+  border:1px solid rgba(148,163,184,.18)!important;
+  border-radius:14px!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.priority-model-brief){
+  width:min(1120px,calc(100% - 40px))!important;
+  margin:0 auto!important;
+  padding:54px 0!important;
+  border-bottom:1px solid var(--model-line)!important;
+}
+
+.refined :global(.priority-model-brief-head){
+  max-width:760px!important;
+  margin-bottom:24px!important;
+}
+
+.refined :global(.priority-model-brief-head>span){
+  color:var(--model-accent)!important;
+  font-size:9px!important;
+  font-weight:850!important;
+  letter-spacing:.1em!important;
+  text-transform:uppercase!important;
+}
+
+.refined :global(.priority-model-brief-head h2){
+  margin:6px 0 0!important;
+  color:var(--model-ink)!important;
+  font-size:clamp(30px,3.5vw,42px)!important;
+  line-height:1.02!important;
+  letter-spacing:-.045em!important;
+}
+
+.refined :global(.priority-model-brief-head p){
+  margin:10px 0 0!important;
+  color:var(--model-muted)!important;
+  font-size:11px!important;
+  line-height:1.55!important;
+}
+
+.refined :global(.priority-model-brief-grid){
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:0!important;
+  border-top:1px solid var(--model-line)!important;
+  border-bottom:1px solid var(--model-line)!important;
+}
+
+.refined :global(.priority-model-brief-grid>article){
+  min-width:0!important;
+  padding:18px!important;
+  border:0!important;
+  border-left:1px solid var(--model-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.refined :global(.priority-model-brief-grid>article:first-child){
+  padding-left:0!important;
+  border-left:0!important;
+}
+
+.refined :global(.priority-model-brief-grid span){
+  color:#94a3b8!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  letter-spacing:.07em!important;
+  text-transform:uppercase!important;
+}
+
+.refined :global(.priority-model-brief-grid p),
+.refined :global(.priority-model-brief-grid li){
+  color:var(--model-muted)!important;
+  font-size:10px!important;
+  line-height:1.55!important;
+}
+
+.refined :global(.priority-model-alternatives){
+  display:flex!important;
+  align-items:center!important;
+  gap:14px!important;
+  margin:0!important;
+  padding:14px 0!important;
+  border:0!important;
+  border-bottom:1px solid var(--model-line)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  flex-wrap:wrap!important;
+}
+
+.refined :global(.priority-model-alternatives strong){
+  margin-right:auto!important;
+  color:var(--model-ink)!important;
+  font-size:10px!important;
+}
+
+.refined :global(.priority-model-alternatives a){
+  color:#475569!important;
+  font-size:9px!important;
+  font-weight:750!important;
+}
+
+.refined :global(.priority-model-alternatives a:hover){color:#3038bd!important}
+
+.refined :global(.model-decision-path-wrap){
+  width:min(1120px,calc(100% - 40px))!important;
+  margin:0 auto!important;
+  padding:36px 0 70px!important;
+}
+
+.refined :global(.model-floating-share){
+  right:18px!important;
+  bottom:18px!important;
+}
+
+@media(max-width:900px){
+  .refined :global(.motorcycle-hero-grid){
+    grid-template-columns:1fr!important;
+    gap:28px!important;
+  }
+  .refined :global(.motorcycle-hero-copy){padding-top:8px!important}
+  .refined :global(.motorcycle-hero-copy h1){max-width:760px!important}
+  .refined :global(.motorcycle-hero-visual){max-width:720px!important}
+  .refined :global(.motorcycle-hero-media),
+  .refined :global(.authority-media-fallback),
+  .refined :global(.motorcycle-hero-media .bike-art.big){height:360px!important;min-height:360px!important}
+  .refined :global(.entity-tool-grid){grid-template-columns:1fr 1fr!important}
+  .refined :global(.priority-model-brief-grid){grid-template-columns:1fr!important}
+  .refined :global(.priority-model-brief-grid>article){
+    padding:17px 0!important;
+    border-left:0!important;
+    border-bottom:1px solid var(--model-line)!important;
+  }
+}
+
+@media(max-width:620px){
+  .refined :global(.motorcycle-entity-hero>.shell),
+  .refined :global(.motorcycle-entity-nav-wrap),
+  .refined :global(.motorcycle-entity-body),
+  .refined :global(.priority-model-brief),
+  .refined :global(.model-decision-path-wrap){
+    width:calc(100% - 24px)!important;
+  }
+  .refined :global(.motorcycle-entity-hero .breadcrumbs){padding:16px 0 18px!important}
+  .refined :global(.motorcycle-hero-copy h1){font-size:clamp(40px,12.5vw,52px)!important}
+  .refined :global(.motorcycle-hero-copy .entity-lede){font-size:14px!important;line-height:1.55!important}
+  .refined :global(.motorcycle-price-lockup>strong){font-size:28px!important}
+  .refined :global(.entity-hero-actions){display:grid!important;grid-template-columns:1fr 1fr!important}
+  .refined :global(.entity-hero-actions .button),
+  .refined :global(.entity-hero-actions button){width:100%!important}
+  .refined :global(.motorcycle-hero-media),
+  .refined :global(.authority-media-fallback),
+  .refined :global(.motorcycle-hero-media .bike-art.big){height:280px!important;min-height:280px!important}
+  .refined :global(.motorcycle-hero-media img){padding:12px!important}
+  .refined :global(.motorcycle-hero-facts){grid-template-columns:1fr 1fr!important}
+  .refined :global(.motorcycle-hero-facts>div){padding:12px 8px!important;border-bottom:1px solid var(--model-line)!important}
+  .refined :global(.motorcycle-hero-facts>div:nth-child(odd)){padding-left:0!important;border-left:0!important}
+  .refined :global(.motorcycle-entity-section){padding:40px 0!important}
+  .refined :global(.motorcycle-entity-section .section-head h2),
+  .refined :global(.priority-model-brief-head h2){font-size:30px!important}
+  .refined :global(.entity-price-grid),
+  .refined :global(.entity-fit-kpis){grid-template-columns:1fr 1fr!important}
+  .refined :global(.entity-price-grid>article),
+  .refined :global(.entity-fit-kpis>div){padding:14px 8px!important;border-bottom:1px solid var(--model-line)!important}
+  .refined :global(.entity-price-grid>article:nth-child(odd)),
+  .refined :global(.entity-fit-kpis>div:nth-child(odd)){padding-left:0!important;border-left:0!important}
+  .refined :global(.entity-spec-table){grid-template-columns:1fr!important}
+  .refined :global(.entity-spec-table>div),
+  .refined :global(.entity-spec-table>div:nth-child(even)){
+    padding:12px 0!important;
+    border-left:0!important;
+  }
+  .refined :global(.entity-tool-grid){grid-template-columns:1fr!important}
+  .refined :global(.entity-tool-grid>a),
+  .refined :global(.entity-tool-grid>a:first-child){padding:15px 0!important;border-right:0!important}
+  .refined :global(.motorcycle-editorial-grid){grid-template-columns:1fr!important}
+  .refined :global(.motorcycle-editorial-grid>article),
+  .refined :global(.motorcycle-editorial-grid>article:nth-child(even)){
+    padding:17px 0!important;
+    border-left:0!important;
+  }
+  .refined :global(.entity-color-grid>article){min-width:50%!important;padding:13px 10px!important}
+  .refined :global(.priority-model-brief){padding:42px 0!important}
+  .refined :global(.priority-model-alternatives){align-items:flex-start!important;flex-direction:column!important;gap:8px!important}
+  .refined :global(.priority-model-alternatives strong){margin-right:0!important}
+  .refined :global(.model-floating-share){display:none!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .refined :global(a),
+  .refined :global(button){transition:none!important}
+  .refined :global(a:hover),
+  .refined :global(button:hover){transform:none!important}
+}
