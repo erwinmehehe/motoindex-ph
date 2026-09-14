@@ -35,7 +35,7 @@ export default function MotorcyclesPage() {
   }).sort((a,b) => b.count - a.count || a.name.localeCompare(b.name));
   const recentModels = currentModels.map(({ id, make, model, makeSlug, slug }) => ({ id, make, model, makeSlug, slug }));
 
-  return <section className="motorcycles-index-v300">
+  return <section className={`${styles.page} motorcycles-index-v300`}>
     <div className="motorcycle-index-hero">
       <div className="shell">
         <div className={`motorcycle-index-hero-grid ${styles.heroGrid}`}>
