@@ -63,7 +63,13 @@ for (const selector of [
   '.tire-master-section',
   '.accessories-master-page .motorcycle-entity-section',
   '.motorcycle-price-lockup',
-  '.motorcycle-entity-hero .motorcycle-hero-copy>p'
+  '.motorcycle-entity-hero .motorcycle-hero-copy>p',
+  '.ph-brand-support-panel>article',
+  '.ph-brand-support-panel>div>a',
+  '.ph-brand-price-table>a[role="row"]',
+  '.compare-table th',
+  '.admin-row.head',
+  'main table:not(.compare-table)'
 ]) requireText(finalFixes, selector, `Final premium light contrast override is missing ${selector}.`);
 requireText(motion, "IntersectionObserver", "Motion enhancer should use IntersectionObserver instead of scroll polling.");
 requireText(motion, "prefers-reduced-motion", "Motion enhancer must respect reduced motion.");
