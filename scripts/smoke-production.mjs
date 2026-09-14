@@ -106,6 +106,15 @@ for (const path of ["/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear
     const advertised = robotsBody.includes("/sitemaps/commerce.xml");
     if (urls.length > 0 && !advertised) failures.push("/robots.txt does not advertise populated commerce sitemap");
     if (urls.length === 0 && advertised) failures.push("/robots.txt advertises empty commerce sitemap");
+    if (urls.length === 0) failures.push("/sitemaps/commerce.xml must remain a populated commerce sitemap");
+    if (urls.length > 0) {
+      try {
+        const sample = new URL(urls[0]);
+        await get(`${sample.pathname}${sample.search}`);
+      } catch {
+        failures.push(`/sitemaps/commerce.xml contains invalid sample URL ${urls[0]}`);
+      }
+    }
   }
   for (const raw of urls) {
     try {
@@ -118,6 +127,16 @@ for (const path of ["/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear
     }
   }
 }
+
+// Keep a small explicit dealer smoke set after the exhaustive crawl has already passed.
+for (const path of [
+  "/dealers",
+  "/dealers/san-fernando",
+  "/dealers/angeles-city",
+  "/dealers/cebu-city",
+  "/dealers/davao-city",
+  "/dealers/pampanga"
+]) await get(path);
 
 const admin = await get("/admin/data-health", [401, 503]);
 if (admin && !admin.headers.get("x-robots-tag")?.includes("noindex")) failures.push("Unauthenticated admin response missing X-Robots-Tag noindex.");
