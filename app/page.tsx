@@ -10,7 +10,6 @@ import {
 import { helmetProducts, tireProducts, topBoxProducts } from "@/lib/catalog";
 import { ProductCard } from "@/components/ProductCard";
 import { ModelCard } from "@/components/ModelCard";
-import { EntityMedia } from "@/components/EntityMedia";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import { siteStats } from "@/lib/siteStats";
 
@@ -66,12 +65,49 @@ export default function HomePage() {
             <div className="mi-trust"><span>✓ {siteStats.currentMotorcycles} current models</span><span>✓ Compare up to 3</span><span>✓ Save a shortlist</span></div>
           </div>
 
-          <div className="mi-hero-visual">
-            <div className="mi-bike-frame">
-              {heroModel ? <EntityMedia entityType="motorcycle" entityId={heroModel.id} className="mi-bike-media" priority sizes="(max-width: 900px) 90vw, 44vw" showCredit={false} fallback={<div className="mi-bike-fallback">MotoIndex PH</div>} /> : <div className="mi-bike-fallback">MotoIndex PH</div>}
+          <div className="mi-hero-visual mi-hero-product-visual">
+            <div className="mi-research-shell">
+              <div className="mi-research-toolbar">
+                <div><span className="mi-research-dot" aria-hidden="true" /><strong>MotoIndex research snapshot</strong></div>
+                <span className="mi-research-status">Current model data</span>
+              </div>
+
+              {heroModel ? <>
+                <div className="mi-research-model-head">
+                  <div>
+                    <span className="mi-research-kicker">Researching now</span>
+                    <h2>{heroModel.make} {heroModel.model}</h2>
+                    <p>Price, key specifications, rider fit and ownership planning in one decision flow.</p>
+                  </div>
+                  <Link className="mi-research-open" href={`/motorcycles/${heroModel.makeSlug}/${heroModel.slug}`}>Open model <span aria-hidden="true">↗</span></Link>
+                </div>
+
+                <div className="mi-research-price-card">
+                  <span>Published price</span>
+                  <strong>{observedMarketPriceLabel(heroModel)}</strong>
+                  <small>Open the model page for source details and the latest checked date.</small>
+                </div>
+
+                <div className="mi-research-metrics" aria-label={`${heroModel.make} ${heroModel.model} key specifications`}>
+                  <div><span>Engine</span><strong>{heroModel.engineCc} cc</strong></div>
+                  <div><span>Power</span><strong>{heroModel.powerHp} hp</strong></div>
+                  <div><span>Seat height</span><strong>{heroModel.seatHeightMm} mm</strong></div>
+                </div>
+
+                <div className="mi-research-flow">
+                  <div className="mi-research-flow-head"><span>Continue the research</span><small>Use the same model across MotoIndex tools</small></div>
+                  <div className="mi-research-actions">
+                    <Link href="/finder"><b>Finder</b><span>Match by budget, use and rider fit</span><i aria-hidden="true">→</i></Link>
+                    {hasComparisons && <Link href="/compare"><b>Compare</b><span>Put up to three motorcycles side by side</span><i aria-hidden="true">→</i></Link>}
+                    <Link href={`/ownership/cost-calculator?bike=${heroModel.id}`}><b>Cost to own</b><span>Estimate the monthly ownership picture</span><i aria-hidden="true">→</i></Link>
+                  </div>
+                </div>
+              </> : <div className="mi-research-empty"><strong>Research motorcycles with the numbers that matter.</strong><Link href="/motorcycles">Explore motorcycles →</Link></div>}
             </div>
-            <div className="mi-float mi-current">● Current model research</div>
-            {heroModel && <><div className="mi-float mi-specs"><small>{heroModel.make} {heroModel.model}</small><b>{heroModel.engineCc} cc</b><b>{heroModel.powerHp} hp</b><b>{heroModel.seatHeightMm} mm seat</b></div><div className="mi-float mi-price"><small>Published price</small><strong>{observedMarketPriceLabel(heroModel)}</strong></div></>}
+
+            <div className="mi-research-chip mi-research-chip-one" aria-hidden="true"><span>01</span><b>Price context</b></div>
+            <div className="mi-research-chip mi-research-chip-two" aria-hidden="true"><span>02</span><b>Rider fit</b></div>
+            <div className="mi-research-chip mi-research-chip-three" aria-hidden="true"><span>03</span><b>Ownership math</b></div>
           </div>
         </div>
       </section>
