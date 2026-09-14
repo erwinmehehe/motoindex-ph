@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Sora } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import "./research-ux.css";
 import "./v247.css";
@@ -28,16 +28,22 @@ import "./fitment-v2.css";
 import "./used-v2.css";
 import "./model-fallback-fixes.css";
 import "./homepage-compact-modern.css";
+import "./premium-light.css";
+import "./premium-light-fixes.css";
+import "./premium-light-sticky-fix.css";
+import "./premium-light-qa-fixes.css";
+import "./premium-light-final-fixes.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import { Analytics } from "@/components/Analytics";
 import { CompareTray } from "@/components/CompareTray";
+import { MotionEnhancer } from "@/components/MotionEnhancer";
 import { publicMotorcycles } from "@/lib/data";
 
-const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
-const sora = Sora({ subsets: ["latin"], variable: "--font-sora", display: "swap" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -96,5 +102,5 @@ const websiteSchema = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en-PH" className={`${manrope.variable} ${sora.variable}`}><body><Analytics/><a className="skip-link" href="#main-content">Skip to main content</a><Header /><main id="main-content" tabIndex={-1}>{children}</main><CompareTray models={publicMotorcycles.map(({id,make,model,slug})=>({id,make,model,slug}))}/><Footer /><JsonLd data={[organizationSchema, websiteSchema]} /></body></html>;
+  return <html lang="en-PH" data-theme="premium-light" className={`${inter.variable} ${jakarta.variable}`}><body><Analytics/><MotionEnhancer/><a className="skip-link" href="#main-content">Skip to main content</a><Header /><main id="main-content" tabIndex={-1}>{children}</main><CompareTray models={publicMotorcycles.map(({id,make,model,slug})=>({id,make,model,slug}))}/><Footer /><JsonLd data={[organizationSchema, websiteSchema]} /></body></html>;
 }

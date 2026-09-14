@@ -29,6 +29,7 @@ jobs:
           npm run validate:copy-tone
           npm run validate:public-trust
           node scripts/validate-authority-growth.mjs
+          node scripts/validate-premium-light.mjs
           node --check scripts/gsc-opportunity-report.mjs
           npm run check:links
           npm run check:legacy-links
