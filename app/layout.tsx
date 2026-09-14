@@ -33,6 +33,7 @@ import "./premium-light-fixes.css";
 import "./premium-light-sticky-fix.css";
 import "./premium-light-qa-fixes.css";
 import "./premium-light-final-fixes.css";
+import "./product-system.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
