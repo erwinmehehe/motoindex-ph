@@ -10,7 +10,7 @@ on:
 jobs:
   browser-qa:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -40,17 +40,26 @@ jobs:
           cat /tmp/motoindex-next.log
           exit 1
 
-      - name: Responsive browser QA
+      - name: Deep responsive template QA
         env:
           BASE_URL: http://127.0.0.1:3000
         run: npm run visual:qa
 
-      - name: Upload visual QA screenshots
+      - name: Exhaustive all-pages browser QA
+        env:
+          BASE_URL: http://127.0.0.1:3000
+          ALL_PAGES_QA_WIDTHS: 430,1440
+          ALL_PAGES_QA_SCREENSHOTS: 1
+        run: node scripts/all-pages-qa.mjs
+
+      - name: Upload visual QA evidence
         if: always()
         uses: actions/upload-artifact@v6
         with:
           name: motoindex-visual-qa
-          path: artifacts/visual-qa
+          path: |
+            artifacts/visual-qa
+            artifacts/all-pages-qa
           if-no-files-found: warn
           retention-days: 14
 

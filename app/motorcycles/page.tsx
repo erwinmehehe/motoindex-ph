@@ -9,6 +9,7 @@ import { modelAuthorityProfile } from "@/lib/modelAuthority";
 import { forClient } from "@/lib/competitors";
 import { observedMarketRange } from "@/lib/marketChecks";
 import { php } from "@/lib/utils";
+import styles from "./motorcycles.module.css";
 
 const publicModels = motorcycles.filter(isIndexableModel);
 const publicIds = new Set(publicModels.map((m) => m.id));
@@ -37,8 +38,8 @@ export default function MotorcyclesPage() {
   return <section className="motorcycles-index-v300">
     <div className="motorcycle-index-hero">
       <div className="shell">
-        <div className="motorcycle-index-hero-grid">
-          <div className="motorcycle-index-hero-copy">
+        <div className={`motorcycle-index-hero-grid ${styles.heroGrid}`}>
+          <div className={`motorcycle-index-hero-copy ${styles.heroCopy}`}>
             <span className="entity-kicker">Philippines motorcycle database</span>
             <h1>Motorcycle prices in the Philippines</h1>
             <p>Compare current Philippine motorcycles by price, brand, body type and specifications, then narrow the shortlist with rider fit, financing and ownership costs.</p>
