@@ -41,6 +41,10 @@ const nextConfig = {
   experimental: { optimizePackageImports: [] },
   async redirects() {
     return [
+      // Keep the electric category as one strong buying guide instead of thin model pages.
+      { source: "/motorcycles/electric/vinfast-evo", destination: "/motorcycles/electric#models", permanent: true },
+      { source: "/motorcycles/electric/vinfast-feliz-ii", destination: "/motorcycles/electric#models", permanent: true },
+      { source: "/motorcycles/electric/vinfast-viper", destination: "/motorcycles/electric#models", permanent: true },
       // Consolidate thin derivative model routes into the stronger all-in-one model page.
       // This keeps price, specs, colors, financing, fit and ownership context together.
       { source: "/motorcycles/:make/:slug/price", destination: "/motorcycles/:make/:slug#price", permanent: true },
