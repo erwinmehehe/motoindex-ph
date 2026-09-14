@@ -188,6 +188,7 @@ async function evaluate(send, expression) {
 
 const auditExpression = `(() => {
   const root = document.documentElement;
+  const main = document.querySelector('main');
   const visible = (el) => {
     const style = getComputedStyle(el);
     const r = el.getBoundingClientRect();
@@ -227,13 +228,13 @@ const auditExpression = `(() => {
   const brokenImages=[...document.images].filter(img=>visible(img)&&img.complete&&img.currentSrc&&img.naturalWidth===0).map(img=>img.currentSrc).slice(0,12);
   const pathologicalHeadings=headings.map(el=>{const r=el.getBoundingClientRect(), s=getComputedStyle(el), text=(el.textContent||'').trim();return {text:text.slice(0,90),w:Math.round(r.width),h:Math.round(r.height),font:parseFloat(s.fontSize||'0')}}).filter(x=>x.text.length>=7&&x.font>=24&&x.w<95&&x.h>x.font*2.8).slice(0,10);
   const clippedHeadings=headings.map(el=>{const s=getComputedStyle(el);return {text:(el.textContent||'').trim().slice(0,90),client:el.clientWidth,scroll:el.scrollWidth,overflow:s.overflowX,nowrap:s.whiteSpace==='nowrap'}}).filter(x=>x.scroll>x.client+8&&['hidden','clip'].includes(x.overflow)&&!x.nowrap).slice(0,10);
-  const lowContrast=[...document.querySelectorAll('h1,h2,h3,p,a,button,strong')].filter(visible).map(el=>{const s=getComputedStyle(el), fg=parseRgb(s.color), bg=effectiveBg(el);if(!fg||!bg||fg.a<.9)return null;return {text:(el.textContent||'').trim().replace(/\\s+/g,' ').slice(0,80),ratio:contrast(fg,bg),font:parseFloat(s.fontSize||'0')};}).filter(Boolean).filter(x=>x.text.length>2&&x.ratio<1.35).slice(0,12);
+  const lowContrast=[...(main?.querySelectorAll('h1,h2,h3,p,a,button,strong') || [])].filter(visible).map(el=>{const s=getComputedStyle(el), fg=parseRgb(s.color), bg=effectiveBg(el);if(!fg||!bg||fg.a<.9)return null;return {text:(el.textContent||'').trim().replace(/\\s+/g,' ').slice(0,80),ratio:contrast(fg,bg),font:parseFloat(s.fontSize||'0')};}).filter(Boolean).filter(x=>x.text.length>2&&x.ratio<1.35).slice(0,12);
   const emptySections=[...document.querySelectorAll('main > section, main > div > section')].filter(visible).map(el=>{const r=el.getBoundingClientRect();return {cls:String(el.className||'').slice(0,100),h:Math.round(r.height),text:(el.innerText||'').trim().length,media:el.querySelectorAll('img,video,canvas,svg,form').length};}).filter(x=>x.h>650&&x.text<45&&x.media===0).slice(0,10);
   const cardWalls=[...document.querySelectorAll('main [class*="grid"],main [class*="list"],main [class*="rail"]')].filter(visible).map(el=>({cls:String(el.className||'').slice(0,110),count:el.querySelectorAll(':scope > article,:scope > .model-card,:scope > .product-card,:scope > a[class*="card"]').length})).filter(x=>x.count>30).slice(0,10);
   const tinyTargets=[...document.querySelectorAll('button,a,input,select')].filter(visible).filter(el=>!el.closest('.breadcrumbs')).map(el=>{const hit=(el.matches('input,select')&&el.closest('label'))||el;const r=hit.getBoundingClientRect();return {text:(el.textContent||el.getAttribute('aria-label')||'').trim().slice(0,50),w:Math.round(r.width),h:Math.round(r.height)}}).filter(x=>(x.w>0&&x.h>0)&&(x.w<18&&x.h<18)).slice(0,12);
   const firstHero=document.querySelector('main > .hero,main > .model-hero,main .page-head,main .product-hero');
   const heroHeight=firstHero&&visible(firstHero)?Math.round(firstHero.getBoundingClientRect().height):0;
-  const bodyText=(document.querySelector('main')?.innerText||'').trim();
+  const bodyText=(main?.innerText||'').trim();
   const errorText=/Error 1102|Worker exceeded resource limits|Internal Server Error|Application error|This page could not be found|Server Error/i.test(document.body.innerText||'');
   const links=[...document.querySelectorAll('a[href]')].map(a=>a.getAttribute('href')).filter(Boolean).filter(h=>h.startsWith('/')).slice(0,1000);
   return {
