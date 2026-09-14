@@ -5,6 +5,7 @@ import type { Motorcycle } from "@/lib/types";
 import { MotorcycleFinder, type FinderInitialFilters } from "@/components/MotorcycleFinder";
 import type { DecisionUseCase } from "@/lib/decisionEngine";
 import styles from "./FinderClient.module.css";
+import resultStyles from "./FinderResultsPolish.module.css";
 
 const budgets = new Set(["80000", "100000", "125000", "150000", "200000", "300000", "500000", "any"]);
 const uses = new Set<DecisionUseCase>(["city", "short", "work", "performance", "touring"]);
@@ -59,6 +60,7 @@ export function FinderClient({ models }: { models: Motorcycle[] }) {
     });
   }, [models]);
 
-  if (!initial) return <div className={styles.refined}><div className="finder-loading" aria-busy="true">Preparing the motorcycle finder…</div></div>;
-  return <div className={styles.refined}><MotorcycleFinder models={models} initialFilters={initial} /></div>;
+  const className = `${styles.refined} ${resultStyles.results}`;
+  if (!initial) return <div className={className}><div className="finder-loading" aria-busy="true">Preparing the motorcycle finder…</div></div>;
+  return <div className={className}><MotorcycleFinder models={models} initialFilters={initial} /></div>;
 }
