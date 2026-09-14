@@ -48,7 +48,7 @@ jobs:
       - name: Helmet Finder and Compare QA
         env:
           BASE_URL: http://127.0.0.1:3000
-        run: node scripts/helmet-tools-qa.mjs
+        run: node scripts/helmet-tools-qa-ci.mjs
 
       - name: Upload visual QA evidence
         if: always()
