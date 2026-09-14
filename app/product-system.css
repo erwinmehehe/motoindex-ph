@@ -53,3 +53,126 @@
 }
 
 @media(prefers-reduced-motion:reduce){.mi-bike-media img{transition:none}.mi-bike:hover .mi-bike-media img{transform:none}}
+
+/* Catalog surfaces: flatter product-led hierarchy for tires, accessories and product entities. */
+.tire-master-page,.accessories-master-page,.product-entity-page{color:var(--mi-ink)}
+.tire-master-page>.page-head,.accessories-master-page>.page-head{max-width:860px;margin-bottom:34px}
+.tire-master-page>.page-head h1,.accessories-master-page>.page-head h1{max-width:820px;font-size:clamp(44px,5.6vw,68px);line-height:.96;letter-spacing:-.055em}
+.tire-master-page>.page-head p,.accessories-master-page>.page-head p{max-width:740px;color:var(--mi-copy);font-size:15px;line-height:1.65}
+.tire-master-page .product-entity-nav,.accessories-master-page .product-entity-nav,.product-entity-page .product-entity-nav{display:flex;gap:4px;overflow-x:auto;margin:20px 0 44px;padding:0 0 12px;border:0;border-bottom:1px solid var(--mi-line);border-radius:0;background:transparent;box-shadow:none;scrollbar-width:none}
+.tire-master-page .product-entity-nav::-webkit-scrollbar,.accessories-master-page .product-entity-nav::-webkit-scrollbar,.product-entity-page .product-entity-nav::-webkit-scrollbar{display:none}
+.tire-master-page .product-entity-nav a,.accessories-master-page .product-entity-nav a,.product-entity-page .product-entity-nav a{min-height:38px;display:inline-flex;align-items:center;padding:0 10px;border:0;border-radius:8px;background:transparent;color:var(--mi-copy);font-size:11px;font-weight:700;white-space:nowrap}
+.tire-master-page .product-entity-nav a:hover,.accessories-master-page .product-entity-nav a:hover,.product-entity-page .product-entity-nav a:hover{background:#f5f5f7;color:var(--mi-ink)}
+.tire-master-section,.accessories-master-page .motorcycle-entity-section,.product-entity-page .product-entity-section{padding:52px 0;border-top:1px solid var(--mi-line)}
+.tire-master-section:first-of-type,.accessories-master-page .motorcycle-entity-section:first-of-type{border-top:0}
+.tire-master-page .section-head,.accessories-master-page .section-head,.product-entity-page .section-head{margin-bottom:22px}
+.tire-master-page .section-head h2,.accessories-master-page .section-head h2,.product-entity-page .section-head h2{font-size:clamp(27px,3.2vw,38px);line-height:1.02;letter-spacing:-.045em}
+.tire-master-page .section-head p,.accessories-master-page .section-head p,.product-entity-page .section-head p{max-width:760px;color:var(--mi-copy);font-size:13px;line-height:1.6}
+.tire-master-page .topic-grid,.accessories-master-page .topic-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--mi-line);border-bottom:1px solid var(--mi-line)}
+.tire-master-page .topic-grid>article,.accessories-master-page .topic-grid>article{min-height:0;padding:20px;border:0;border-right:1px solid var(--mi-line);border-radius:0;background:transparent;box-shadow:none}
+.tire-master-page .topic-grid>article:last-child,.accessories-master-page .topic-grid>article:last-child{border-right:0}
+.tire-master-page .topic-grid h3,.accessories-master-page .topic-grid h3{margin:0 0 8px;font-size:17px;letter-spacing:-.025em}
+.tire-master-page .topic-grid p,.accessories-master-page .topic-grid p{min-height:0;margin:0;color:var(--mi-copy);font-size:11px;line-height:1.55}
+.accessories-master-page .method-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid var(--mi-line)}
+.accessories-master-page .method-steps>article{padding:24px 22px;border:0;border-bottom:1px solid var(--mi-line);border-radius:0;background:transparent;box-shadow:none}
+.accessories-master-page .method-steps>article:nth-child(odd){border-right:1px solid var(--mi-line)}
+.accessories-master-page .method-steps>article>b{color:#a1a1aa;font-size:10px}
+.accessories-master-page .method-steps h3{font-size:20px;letter-spacing:-.03em}
+.accessories-master-page .method-steps p{color:var(--mi-copy);font-size:12px;line-height:1.6}
+.tire-master-page .fitment-list,.accessories-master-page .list-cards{gap:0;border-top:1px solid var(--mi-line)}
+.tire-master-page .fitment-list>a,.accessories-master-page .list-cards>a{min-height:66px;padding:14px 2px;border:0;border-bottom:1px solid var(--mi-line);border-radius:0;background:transparent;box-shadow:none}
+.tire-master-page .fitment-list>a:hover,.accessories-master-page .list-cards>a:hover{background:#fafafa}
+.tire-master-page .tire-pair{gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.tire-master-page .tire-pair b{padding:2px 0 2px 10px;border:0;border-radius:0;background:transparent;color:#475569;font-size:11px;font-weight:700}
+.tire-master-page .guide-master-link-grid,.tire-master-page .tire-family-master-grid{gap:0;border-top:1px solid var(--mi-line)}
+.tire-master-page .guide-master-link-grid>article,.tire-master-page .tire-family-master-grid>article{border:0;border-bottom:1px solid var(--mi-line);border-radius:0;background:transparent;box-shadow:none}
+
+/* Product cards become image-first catalog rows/columns instead of dashboard tiles. */
+.product-grid{gap:0;border-top:1px solid var(--mi-line);border-bottom:1px solid var(--mi-line)}
+.product-card-shell{min-width:0;padding:0;border-right:1px solid var(--mi-line);background:#fff}
+.product-card-shell:nth-child(3n){border-right:0}
+.product-card{height:100%;min-height:0;display:flex;flex-direction:column;border:0;border-radius:0;background:#fff;box-shadow:none;overflow:hidden;transition:none}
+.product-card:hover{transform:none;box-shadow:none;background:#fafafa}
+.product-card-media{width:100%;height:176px;display:grid;place-items:center;overflow:hidden;background:#f8fafc;border:0;border-radius:0}
+.product-card-media img{display:block;width:100%;height:100%;padding:18px;object-fit:contain;object-position:center;background:transparent}
+.product-card .product-art{width:100%;height:176px;min-height:0;background:linear-gradient(145deg,#f8fafc,#eef2f7);color:#64748b}
+.product-card .product-art span{width:auto;height:auto;border:0;border-radius:0;padding:12px;color:#64748b;font-size:10px;font-weight:700;text-align:center}
+.product-card-copy{padding:18px 18px 20px}
+.product-card-top{align-items:center}
+.product-card-category{color:#64748b;font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+.product-card h3{margin:6px 0 6px;color:var(--mi-ink);font-size:21px;line-height:1.05;letter-spacing:-.035em}
+.product-card p{color:var(--mi-copy);font-size:11px;line-height:1.45}
+.product-card-foot{margin-top:18px;padding-top:12px;border-top:1px solid var(--mi-line)}
+.product-card-foot strong{font-size:12px}.product-card-foot span{color:var(--mi-blue);font-size:10px}
+.product-card .catalog-status{padding:0;border-radius:0;background:transparent;color:#8a6a39;font-size:8px}
+
+/* Product entities use a calm editorial spec layout. */
+.product-entity-page{max-width:1180px}
+.product-entity-page .product-hero{grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);gap:48px;align-items:center;padding-bottom:48px;border-bottom:1px solid var(--mi-line)}
+.product-entity-page .product-hero h1{margin:0 0 16px;color:var(--mi-ink);font-size:clamp(42px,5vw,64px);line-height:.96;letter-spacing:-.055em}
+.product-entity-page .product-hero>div>p{max-width:680px;color:var(--mi-copy);font-size:14px;line-height:1.65}
+.product-entity-page .product-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-top:24px;border-top:1px solid var(--mi-line);border-bottom:1px solid var(--mi-line)}
+.product-entity-page .product-facts>div{min-height:76px;padding:15px 16px;border:0;border-right:1px solid var(--mi-line);border-bottom:1px solid var(--mi-line);border-radius:0;background:transparent}
+.product-entity-page .product-facts>div:nth-child(even){border-right:0}.product-entity-page .product-facts>div:nth-last-child(-n+2){border-bottom:0}
+.product-entity-page .product-facts span{color:#94a3b8;font-size:8px}.product-entity-page .product-facts strong{margin-top:5px;color:#334155;font-size:14px;line-height:1.35}
+.product-entity-page .source-panel{margin:18px 0 0;padding:14px 0;border:0;border-top:1px solid var(--mi-line);border-radius:0;background:transparent;box-shadow:none}
+.product-entity-page .source-panel.verified{border-color:var(--mi-line);background:transparent}
+.product-entity-page .product-hero>.entity-media{width:100%;height:360px;display:grid;place-items:center;overflow:hidden;border-radius:16px;background:#f8fafc}
+.product-entity-page .product-hero>.entity-media img{width:100%;height:100%;padding:24px;object-fit:contain;background:transparent}
+.product-entity-page .product-hero-card{min-height:360px;border-radius:16px;background:linear-gradient(145deg,#f8fafc,#eef2f7);color:#334155;box-shadow:none}
+.product-entity-page .product-hero-card>span{color:#94a3b8}.product-entity-page .product-hero-card strong{color:#cbd5e1}
+.product-entity-page .entity-price-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--mi-line);border-bottom:1px solid var(--mi-line)}
+.product-entity-page .entity-price-grid>article{min-height:0;padding:18px;border:0;border-right:1px solid var(--mi-line);border-radius:0;background:transparent;box-shadow:none}.product-entity-page .entity-price-grid>article:last-child{border-right:0}
+.product-entity-page .entity-price-grid span,.product-entity-page .entity-spec-table span{color:#94a3b8;font-size:8px}.product-entity-page .entity-price-grid strong{font-size:15px;color:#334155}
+.product-entity-page .entity-spec-table{border-top:1px solid var(--mi-line)}
+.product-entity-page .entity-spec-table>div{min-height:58px;padding:13px 2px;border:0;border-bottom:1px solid var(--mi-line);border-radius:0;background:transparent}
+.product-entity-page .entity-spec-table strong{color:#334155;font-size:13px;line-height:1.45}
+.product-entity-page .size-chips{gap:0;border-top:1px solid var(--mi-line)}
+.product-entity-page .size-chips span{padding:11px 14px;border:0;border-right:1px solid var(--mi-line);border-bottom:1px solid var(--mi-line);border-radius:0;background:transparent;color:#475569}
+.product-entity-page .match-grid,.product-entity-page .fitment-evidence-grid{gap:0;border-top:1px solid var(--mi-line)}
+.product-entity-page .match-grid>a,.product-entity-page .fitment-evidence-grid>article{padding:17px 2px;border:0;border-bottom:1px solid var(--mi-line);border-radius:0;background:transparent;box-shadow:none}
+.product-entity-page .product-editorial{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:0;border-top:1px solid var(--mi-line);border-bottom:1px solid var(--mi-line)}
+.product-entity-page .product-editorial>article{min-height:0;padding:22px;border:0;border-right:1px solid var(--mi-line);border-radius:0;background:transparent;box-shadow:none}.product-entity-page .product-editorial>article:last-child{border-right:0}
+.product-entity-page .product-editorial h2{font-size:24px;letter-spacing:-.04em}.product-entity-page .product-editorial p,.product-entity-page .product-editorial li{color:var(--mi-copy);font-size:12px;line-height:1.55}
+.product-entity-page .mini-compare-table{overflow:hidden;border:1px solid var(--mi-line);border-radius:12px;box-shadow:none}
+.product-entity-page .note-box{border:0;border-top:1px solid var(--mi-line);border-bottom:1px solid var(--mi-line);border-radius:0;background:#fafafa;box-shadow:none}
+
+/* Buyer calculators: remove nested cards while keeping results prominent and controls easy to scan. */
+.loan-tool,.fee-tool,.insurance-tool,.ownership-calculator.v18,.commute-calculator,.calculator-card{margin:12px 0 30px;padding:28px 0;border:0;border-top:1px solid var(--mi-line);border-bottom:1px solid var(--mi-line);border-radius:0;background:transparent;box-shadow:none}
+.loan-copy h2,.fee-copy h2,.insurance-copy h2,.ownership-calculator-copy h2,.commute-calculator-copy h2{color:var(--mi-ink);font-size:clamp(27px,3.1vw,36px);letter-spacing:-.045em}
+.loan-copy p,.fee-copy p,.insurance-copy p,.ownership-calculator-copy p,.commute-calculator-copy p{color:var(--mi-copy);font-size:12px;line-height:1.6}
+.loan-primary,.fee-primary,.insurance-primary,.ownership-total,.commute-total{margin-top:20px;padding:18px;border-radius:14px;background:#111827;box-shadow:none}
+.loan-primary strong,.fee-primary strong,.insurance-primary strong,.ownership-total strong,.commute-total strong{font-size:clamp(28px,3.5vw,38px)}
+.loan-fields label,.fee-fields label,.insurance-fields label,.ownership-fields label,.commute-fields label{min-width:0;padding:11px 0;border:0;border-bottom:1px solid var(--mi-line);border-radius:0;background:transparent;color:#64748b;font-size:10px;letter-spacing:.04em}
+.loan-fields input,.fee-fields input,.insurance-fields input,.ownership-fields input,.ownership-fields select,.commute-fields input,.commute-fields select{min-height:40px}
+.loan-fields input[type="range"],.insurance-fields input[type="range"],.ownership-fields input[type="range"],.commute-fields input[type="range"]{min-height:28px;accent-color:#4f46e5}
+.loan-breakdown,.fee-breakdown,.insurance-breakdown,.ownership-breakdown,.commute-breakdown{gap:0;border-top:1px solid var(--mi-line);padding-top:0}
+.loan-breakdown span,.fee-breakdown span,.insurance-breakdown span,.ownership-breakdown span,.commute-breakdown span{min-height:58px;padding:13px 4px;border-radius:0;border-bottom:1px solid var(--mi-line);background:transparent}
+.loan-breakdown small,.fee-breakdown small,.insurance-breakdown small,.ownership-breakdown small,.commute-breakdown small{color:#94a3b8;font-size:8px}.loan-breakdown b,.fee-breakdown b,.insurance-breakdown b,.ownership-breakdown b,.commute-breakdown b{color:#334155;font-size:14px}
+.calc-presets{display:flex;gap:6px;flex-wrap:wrap}.calc-presets button{min-height:34px;padding:0 10px;border:1px solid var(--mi-line);border-radius:8px;background:#fff;color:#64748b;font-size:10px}.calc-presets button.active{border-color:#4f46e5;background:#eef2ff;color:#3730a3}
+.calculator-card .calculator-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--mi-line)}
+.calculator-card .calculator-grid label{min-width:0;padding:16px;border-right:1px solid var(--mi-line);border-bottom:1px solid var(--mi-line);background:transparent}.calculator-card .calculator-grid label:last-child{border-right:0}
+.calculator-card .calculator-grid label>span{display:block;margin-bottom:7px;color:#64748b;font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.calculator-card .calculator-grid input,.calculator-card .calculator-grid select{width:100%;min-height:42px;border:1px solid var(--mi-line);border-radius:9px;background:#fff;color:#334155}
+.calculator-card .calculator-results{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:18px;border-top:1px solid var(--mi-line);border-bottom:1px solid var(--mi-line)}
+.calculator-card .calculator-results>article{min-height:0;padding:17px;border:0;border-right:1px solid var(--mi-line);border-radius:0;background:transparent;box-shadow:none}.calculator-card .calculator-results>article:last-child{border-right:0}
+.calculator-card .calculator-results span,.calculator-card .calculator-results small{display:block;color:#94a3b8;font-size:9px}.calculator-card .calculator-results strong{display:block;margin:6px 0;color:#334155;font-size:22px;letter-spacing:-.035em}.calculator-card .calculator-note{max-width:780px;margin:16px 0 0;color:var(--mi-copy);font-size:11px;line-height:1.55}
+
+@media(max-width:900px){
+  .tire-master-page .topic-grid,.accessories-master-page .topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tire-master-page .topic-grid>article:nth-child(2),.accessories-master-page .topic-grid>article:nth-child(2){border-right:0}
+  .product-card-shell:nth-child(3n){border-right:1px solid var(--mi-line)}.product-card-shell:nth-child(2n){border-right:0}
+  .product-entity-page .product-hero{grid-template-columns:1fr;gap:28px}.product-entity-page .product-hero>.entity-media{height:320px}
+  .product-entity-page .product-editorial{grid-template-columns:1fr}.product-entity-page .product-editorial>article{border-right:0;border-bottom:1px solid var(--mi-line)}.product-entity-page .product-editorial>article:last-child{border-bottom:0}
+  .calculator-card .calculator-grid,.calculator-card .calculator-results{grid-template-columns:repeat(2,minmax(0,1fr))}.calculator-card .calculator-grid label:nth-child(2n),.calculator-card .calculator-results>article:nth-child(2n){border-right:0}
+}
+@media(max-width:650px){
+  .tire-master-page,.accessories-master-page,.product-entity-page{padding-top:42px}
+  .tire-master-page>.page-head h1,.accessories-master-page>.page-head h1,.product-entity-page .product-hero h1{font-size:clamp(38px,11.5vw,50px)}
+  .tire-master-section,.accessories-master-page .motorcycle-entity-section,.product-entity-page .product-entity-section{padding:38px 0}
+  .tire-master-page .topic-grid,.accessories-master-page .topic-grid,.accessories-master-page .method-steps{grid-template-columns:1fr}.tire-master-page .topic-grid>article,.accessories-master-page .topic-grid>article,.accessories-master-page .method-steps>article{border-right:0}
+  .product-grid{grid-template-columns:1fr;border-bottom:0}.product-card-shell,.product-card-shell:nth-child(2n),.product-card-shell:nth-child(3n){border-right:0;border-bottom:1px solid var(--mi-line)}
+  .product-card{display:grid;grid-template-columns:112px minmax(0,1fr);align-items:stretch}.product-card-media,.product-card .product-art{height:122px}.product-card-media img{padding:10px}.product-card-copy{padding:13px 14px}.product-card h3{font-size:17px}.product-card p{font-size:10px}.product-card-foot{margin-top:10px;padding-top:8px}
+  .product-entity-page .product-hero{padding-bottom:34px}.product-entity-page .product-hero>.entity-media,.product-entity-page .product-hero-card{height:260px;min-height:260px}.product-entity-page .product-facts{grid-template-columns:1fr 1fr}.product-entity-page .entity-price-grid{grid-template-columns:1fr}.product-entity-page .entity-price-grid>article{border-right:0;border-bottom:1px solid var(--mi-line)}.product-entity-page .entity-price-grid>article:last-child{border-bottom:0}
+  .loan-tool,.fee-tool,.insurance-tool,.ownership-calculator.v18,.commute-calculator,.calculator-card{padding:22px 0}.loan-primary,.fee-primary,.insurance-primary,.ownership-total,.commute-total{border-radius:12px}
+  .calculator-card .calculator-grid,.calculator-card .calculator-results{grid-template-columns:1fr}.calculator-card .calculator-grid label,.calculator-card .calculator-grid label:nth-child(2n),.calculator-card .calculator-results>article,.calculator-card .calculator-results>article:nth-child(2n){border-right:0}
+}
+@media(prefers-reduced-motion:reduce){.product-card{transition:none}.product-card:hover{transform:none}}
