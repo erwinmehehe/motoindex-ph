@@ -1,15 +1,14 @@
 .path{
   display:grid!important;
-  grid-template-columns:minmax(0,1fr) minmax(480px,.95fr)!important;
-  gap:40px!important;
-  align-items:center!important;
-  margin:34px 0 0!important;
-  padding:28px 0!important;
-  border:0!important;
-  border-top:1px solid rgba(148,163,184,.20)!important;
-  border-bottom:1px solid rgba(148,163,184,.20)!important;
-  border-radius:0!important;
-  background:transparent!important;
+  grid-template-columns:minmax(260px,.78fr) minmax(0,1.22fr)!important;
+  gap:28px!important;
+  align-items:start!important;
+  max-width:1180px!important;
+  margin:34px auto 0!important;
+  padding:28px!important;
+  border:1px solid rgba(148,163,184,.20)!important;
+  border-radius:24px!important;
+  background:#fff!important;
   box-shadow:none!important;
   color:#0f172a!important;
 }
@@ -33,17 +32,17 @@
 }
 
 .path :global(.decision-path-copy) h2{
-  max-width:620px!important;
+  max-width:520px!important;
   margin:0!important;
   color:#0f172a!important;
-  font-size:clamp(24px,2.6vw,34px)!important;
+  font-size:clamp(24px,2.2vw,32px)!important;
   font-weight:800!important;
   line-height:1.08!important;
   letter-spacing:-.04em!important;
 }
 
 .path :global(.decision-path-copy) p{
-  max-width:620px!important;
+  max-width:520px!important;
   margin:10px 0 0!important;
   color:#64748b!important;
   font-size:12px!important;
@@ -53,7 +52,7 @@
 .path :global(.decision-path-steps){
   display:grid!important;
   grid-template-columns:repeat(3,minmax(0,1fr))!important;
-  gap:0!important;
+  gap:10px!important;
   min-width:0!important;
   padding:0!important;
   border:0!important;
@@ -64,30 +63,23 @@
 .path :global(.decision-path-steps)>article{
   display:flex!important;
   min-width:0!important;
-  min-height:0!important;
+  min-height:150px!important;
   flex-direction:column!important;
   align-items:flex-start!important;
   justify-content:flex-start!important;
-  gap:4px!important;
-  padding:2px 16px!important;
-  border:0!important;
-  border-left:1px solid rgba(148,163,184,.20)!important;
-  border-radius:0!important;
-  background:transparent!important;
+  gap:5px!important;
+  padding:16px!important;
+  border:1px solid rgba(148,163,184,.18)!important;
+  border-radius:16px!important;
+  background:#f8fafc!important;
   box-shadow:none!important;
   transform:none!important;
-}
-
-.path :global(.decision-path-steps)>article:first-child{
-  border-left:0!important;
-  padding-left:0!important;
 }
 
 .path :global(.decision-path-steps) b{
   margin:0 0 3px!important;
   padding:0!important;
   border:0!important;
-  border-radius:0!important;
   background:transparent!important;
   color:#94a3b8!important;
   font-size:9px!important;
@@ -103,7 +95,7 @@
 }
 
 .path :global(.decision-path-steps) small{
-  color:#94a3b8!important;
+  color:#64748b!important;
   font-size:9.5px!important;
   line-height:1.45!important;
 }
@@ -112,10 +104,9 @@
   display:inline-flex!important;
   min-height:32px!important;
   align-items:center!important;
-  margin-top:5px!important;
-  padding:0!important;
+  margin-top:auto!important;
+  padding-top:8px!important;
   border:0!important;
-  border-radius:0!important;
   background:transparent!important;
   color:#444CE7!important;
   font-size:10px!important;
@@ -132,7 +123,7 @@
   .path{
     grid-template-columns:1fr!important;
     gap:22px!important;
-    padding:24px 0!important;
+    padding:24px!important;
   }
 }
 
@@ -140,7 +131,8 @@
   .path{
     gap:18px!important;
     margin-top:26px!important;
-    padding:22px 0!important;
+    padding:20px!important;
+    border-radius:20px!important;
   }
 
   .path :global(.decision-path-copy) h2{
@@ -155,16 +147,9 @@
     grid-template-columns:1fr!important;
   }
 
-  .path :global(.decision-path-steps)>article,
-  .path :global(.decision-path-steps)>article:first-child{
-    padding:11px 0!important;
-    border-left:0!important;
-    border-top:1px solid rgba(148,163,184,.18)!important;
-  }
-
-  .path :global(.decision-path-steps)>article:first-child{
-    border-top:0!important;
-    padding-top:0!important;
+  .path :global(.decision-path-steps)>article{
+    min-height:0!important;
+    padding:14px!important;
   }
 }
 
