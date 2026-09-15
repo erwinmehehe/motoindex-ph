@@ -135,41 +135,30 @@ try {
   results.push({ check: "search-index", ...apiAudit });
   if (apiAudit?.status !== 200 || !apiAudit?.isArray || apiAudit?.count < 20) failures.push(`Search index endpoint returned ${apiAudit?.status} with ${apiAudit?.count || 0} items.`);
 
-  const trigger = await evaluate(cdp.send, `(() => { const el=document.querySelector('.nav-actions .nav-search'); if(!el)return false; el.click(); return true; })()`);
-  if (!trigger) failures.push("Desktop command-search trigger was not found.");
-  const dialogReady = await waitFor(cdp.send, `Boolean(document.querySelector('[role="dialog"][aria-label="Search MotoIndex"]'))`);
-  if (!dialogReady) failures.push("Command-search dialog did not open.");
-
-  const dialogAudit = await evaluate(cdp.send, `(() => {
-    const dialog=document.querySelector('[role="dialog"][aria-label="Search MotoIndex"]');
-    const input=dialog?.querySelector('input');
-    return {dialog:Boolean(dialog),focused:document.activeElement===input,overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth};
-  })()`);
-  results.push({ check: "dialog", ...dialogAudit });
-  if (!dialogAudit?.focused) failures.push("Command-search input was not focused after opening.");
-  if ((dialogAudit?.overflow || 0) > 5) failures.push(`Homepage overflows by ${dialogAudit.overflow}px while command search is open.`);
-
-  await evaluate(cdp.send, `(() => {
-    const input=document.querySelector('[role="dialog"][aria-label="Search MotoIndex"] input');
-    if(!input)return false;
-    const setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;
-    setter.call(input,'Aerox');
-    input.dispatchEvent(new Event('input',{bubbles:true}));
-    return true;
-  })()`);
-  const hasResult = await waitFor(cdp.send, `document.querySelectorAll('[role="dialog"][aria-label="Search MotoIndex"] [role="option"]').length>0`);
-  if (!hasResult) failures.push("Command search returned no instant result for Aerox.");
-  const resultAudit = await evaluate(cdp.send, `(() => ({
-    options:document.querySelectorAll('[role="dialog"][aria-label="Search MotoIndex"] [role="option"]').length,
-    text:document.querySelector('[role="dialog"][aria-label="Search MotoIndex"] [role="option"]')?.textContent||''
+  const headerAudit = await evaluate(cdp.send, `(() => ({
+    desktopSearch:Boolean(document.querySelector('.nav-actions .nav-search')),
+    finderCta:document.querySelector('.nav-actions a[href="/finder"]')?.textContent?.trim()||'',
+    overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
   }))()`);
-  results.push({ check: "aerox-results", ...resultAudit });
-  if (!/Aerox/i.test(resultAudit?.text || "")) failures.push("The first Aerox command-search result is not relevant.");
-  await screenshot("desktop-command-search");
-  await cdp.send("Input.dispatchKeyEvent", { type: "keyDown", key: "Escape", code: "Escape", windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
-  await cdp.send("Input.dispatchKeyEvent", { type: "keyUp", key: "Escape", code: "Escape", windowsVirtualKeyCode: 27, nativeVirtualKeyCode: 27 });
-  const closed = await waitFor(cdp.send, `!document.querySelector('[role="dialog"][aria-label="Search MotoIndex"]')`, 3000);
-  if (!closed) failures.push("Escape did not close command search.");
+  results.push({ check: "desktop-header", ...headerAudit });
+  if (headerAudit?.desktopSearch) failures.push("Desktop header still exposes the removed command-search control.");
+  if (!/Find my bike/i.test(headerAudit?.finderCta || "")) failures.push("Desktop header is missing the compact Find my bike CTA.");
+  if ((headerAudit?.overflow || 0) > 5) failures.push(`Homepage overflows by ${headerAudit.overflow}px after header cleanup.`);
+  await screenshot("desktop-header");
+
+  await navigate("/search?q=Aerox");
+  const searchReady = await waitFor(cdp.send, `document.querySelector('.search-box input')?.value==='Aerox' && document.querySelectorAll('.search-results a').length>0`);
+  if (!searchReady) failures.push("Dedicated search page did not return results for Aerox.");
+  const resultAudit = await evaluate(cdp.send, `(() => ({
+    input:document.querySelector('.search-box input')?.value||'',
+    options:document.querySelectorAll('.search-results a').length,
+    text:document.querySelector('.search-results a')?.textContent||'',
+    overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
+  }))()`);
+  results.push({ check: "aerox-search-page", ...resultAudit });
+  if (!/Aerox/i.test(resultAudit?.text || "")) failures.push("The first Aerox search-page result is not relevant.");
+  if ((resultAudit?.overflow || 0) > 5) failures.push(`Search page overflows by ${resultAudit.overflow}px.`);
+  await screenshot("desktop-search-page");
 
   await navigate("/motorcycles");
   const catalogTrust = await evaluate(cdp.send, `(() => {
@@ -202,6 +191,7 @@ try {
   results.push({ check: "mobile-header", ...mobileAudit });
   if ((mobileAudit?.overflow || 0) > 5) failures.push(`390px homepage overflows horizontally by ${mobileAudit.overflow}px.`);
   if (!mobileAudit?.mobileSearch) failures.push("Mobile menu lost the Search fallback link.");
+  if (mobileAudit?.navTriggerVisible) failures.push("Removed Search control is still visible in the mobile top bar.");
   await screenshot("mobile-home");
 
   fs.writeFileSync(path.join(outputDir, "search-trust-qa.json"), JSON.stringify({ results, failures }, null, 2));
@@ -210,7 +200,7 @@ try {
     failures.forEach(failure => console.error(`- ${failure}`));
     process.exitCode = 1;
   } else {
-    console.log(`Search and trust QA passed: ${results.length} checks, command search and provenance are responsive.`);
+    console.log(`Search and trust QA passed: ${results.length} checks, dedicated search access and provenance are responsive.`);
   }
 
   cdp.ws.close();
