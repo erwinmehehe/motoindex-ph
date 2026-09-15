@@ -45,6 +45,11 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
         run: npm run visual:qa
 
+      - name: Homepage visual regression guard
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: node scripts/homepage-visual-qa.mjs
+
       - name: Motorcycle Compare Selection QA
         env:
           BASE_URL: http://127.0.0.1:3000
