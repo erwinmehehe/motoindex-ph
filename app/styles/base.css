@@ -1,5 +1,7 @@
 /* Stable application foundations only. Avoid route-specific experiments here. */
 @import "../globals.css";
 @import "../tailwind.css";
+@import "../research-ux.css";
 @import "../hardening.css";
+@import "../responsive-polish.css";
 @import "../premium-light.css";
