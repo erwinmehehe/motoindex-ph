@@ -40,6 +40,7 @@
 @import "./buyer-flow-final-cleanup.css";
 @import "./product-system.css";
 @import "./image-stage-cleanup.css";
+@import "./recommendations-polish.css";
 
 /* The old redesign-fonts.css referenced Manrope/Sora variables that are no
    longer loaded. Use the actual next/font variables from app/layout.tsx. */
