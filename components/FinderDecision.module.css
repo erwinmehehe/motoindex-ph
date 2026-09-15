@@ -1,0 +1,14 @@
+.decision{width:100%}
+/* Existing FinderClient.module.css owns structure. This file only styles the new decision states. */
+.decision :global(.finder-stage-card>h2){font-size:clamp(28px,3vw,38px)!important}
+.decision :global(.finder-live-preview.pending){background:#f8fafc!important}
+.decision :global(.finder-answer-summary){display:grid!important;margin:8px 0 12px!important;border-top:1px solid rgba(148,163,184,.18)!important}
+.decision :global(.finder-answer-summary>div){display:flex!important;justify-content:space-between!important;gap:10px!important;padding:8px 0!important;border-bottom:1px solid rgba(148,163,184,.18)!important}
+.decision :global(.finder-answer-summary small){color:#94a3b8!important;font-size:8px!important;text-transform:uppercase!important}
+.decision :global(.finder-answer-summary strong){color:#0f172a!important;font-size:10px!important;text-align:right!important}
+.decision :global(.finder-result-intro){max-width:700px!important;margin-bottom:18px!important}
+.decision :global(.finder-result-intro h2){margin:5px 0!important;color:#0f172a!important;font-size:clamp(28px,3vw,38px)!important}
+.decision :global(.finder-result-intro p){margin:0!important;color:#64748b!important;font-size:12px!important}
+.decision :global(.finder-results-footer){display:flex!important;justify-content:space-between!important;gap:14px!important;margin-top:22px!important;padding-top:16px!important;border-top:1px solid rgba(148,163,184,.2)!important}
+.decision :global(.finder-results-footer button),.decision :global(.finder-results-footer a){border:0!important;background:none!important;color:#444CE7!important;font-size:10px!important;font-weight:800!important;text-decoration:none!important}
+@media(max-width:620px){.decision :global(.finder-results-footer){flex-direction:column!important}}

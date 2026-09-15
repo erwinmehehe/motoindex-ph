@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Motorcycle } from "@/lib/types";
 import { MotorcycleFinder, type FinderInitialFilters } from "@/components/MotorcycleFinder";
 import type { DecisionUseCase } from "@/lib/decisionEngine";
 import styles from "./FinderClient.module.css";
 import resultStyles from "./FinderResultsPolish.module.css";
+import decisionStyles from "./FinderDecision.module.css";
 
 const budgets = new Set(["80000", "100000", "125000", "150000", "200000", "300000", "500000", "any"]);
 const uses = new Set<DecisionUseCase>(["city", "short", "work", "performance", "touring"]);
@@ -43,14 +44,17 @@ function intFrom(params: URLSearchParams, key: string, allowed: number[], fallba
 }
 
 export function FinderClient({ models }: { models: Motorcycle[] }) {
-  // Render the default Finder immediately. Previously the server emitted a tiny
-  // loading placeholder and hydration replaced it with the full workspace,
-  // producing a large cumulative layout shift on /finder.
   const [initial, setInitial] = useState<FinderInitialFilters>(defaultInitial);
+  const [sharedState, setSharedState] = useState(false);
+  const [urlReady, setUrlReady] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (!params.size) return;
+    if (!params.size) {
+      setSharedState(false);
+      setUrlReady(true);
+      return;
+    }
     const makes = new Set(models.map(model => model.make));
     const categories = new Set(models.map(model => model.category));
     const useValue = params.get("use") as DecisionUseCase | null;
@@ -84,8 +88,16 @@ export function FinderClient({ models }: { models: Motorcycle[] }) {
       termMonths: intFrom(params, "term", [12,24,36,48,60], 36),
       annualRatePct: intFrom(params, "rate", [0,8,12,18,24], 12),
     });
+    setSharedState(true);
+    setUrlReady(true);
   }, [models]);
 
-  const className = `${styles.refined} ${resultStyles.results}`;
-  return <div className={className}><MotorcycleFinder models={models} initialFilters={initial} /></div>;
+  const finderKey = useMemo(() => `${sharedState ? "shared" : "fresh"}:${JSON.stringify(initial)}`, [initial, sharedState]);
+  const className = `${styles.refined} ${resultStyles.results} ${decisionStyles.decision}`;
+
+  if (!urlReady) {
+    return <div className={className} aria-busy="true"><div className="decision-finder finder-v4"><section className="finder-stage-shell"><div className="finder-stage-main"><div className="finder-stage-card"><div className="finder-stage-kicker">Preparing your Finder</div><h2>Find the motorcycles that fit your ride.</h2><p>Loading your saved answers and current motorcycle data.</p></div></div><aside className="finder-live-preview pending"><span>Your answers</span><h3>Getting the decision flow ready.</h3></aside></section></div></div>;
+  }
+
+  return <div className={className}><MotorcycleFinder key={finderKey} models={models} initialFilters={initial} initiallyComplete={sharedState} /></div>;
 }
