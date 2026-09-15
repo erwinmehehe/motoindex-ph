@@ -16,6 +16,16 @@ export const metadata: Metadata = pageMetadata({
   index: true
 });
 
+function compactHelmetMeta(product: (typeof helmetProducts)[number]) {
+  const certification = product.certification || "";
+  let certificationLabel: string | undefined;
+  if (/(?:ECE\s*)?(?:R?22[.\s-]?06|22\.06)/i.test(certification)) certificationLabel = "ECE 22.06";
+  else if (/ECE/i.test(certification)) certificationLabel = "ECE";
+  else if (/DOT/i.test(certification)) certificationLabel = "DOT";
+  else if (/\b(?:PS|ICC)\b/i.test(certification)) certificationLabel = "PS/ICC check";
+  return [certificationLabel, product.intercomReady ? "Intercom-ready" : undefined].filter(Boolean).join(" · ");
+}
+
 function ProductGrid({ products, limit = 6 }: { products: typeof helmetProducts; limit?: number }) {
   const visible = products.slice(0, limit);
   if (!visible.length) return <div className="note-box compact-note"><p>No matching verified helmet is published right now.</p></div>;
@@ -25,7 +35,7 @@ function ProductGrid({ products, limit = 6 }: { products: typeof helmetProducts;
     category:p.helmetType,
     brand:p.brand,
     model:p.model,
-    meta:[p.certification,p.intercomReady?"Intercom-ready":undefined].filter(Boolean).join(" · "),
+    meta:compactHelmetMeta(p),
     status:p.status,
     priceFromPhp:p.priceFromPhp
   }}/>)}</div>;
