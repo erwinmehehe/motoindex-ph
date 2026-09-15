@@ -17,8 +17,12 @@ type SearchParams = Promise<{ bikes?: string | string[] }>;
 export default async function SelectedComparePage({ searchParams }: { searchParams: SearchParams }){
   const params = await searchParams;
   const raw = Array.isArray(params.bikes) ? params.bikes[0] : params.bikes || "";
-  const validSlugs = new Set(publicMotorcycles.map(model => model.slug));
-  const initialSlugs = [...new Set(raw.split(",").map(slug => slug.trim()).filter(slug => validSlugs.has(slug)))].slice(0,3);
+  const compareTokens = new Map<string,string>();
+  for (const model of publicMotorcycles) {
+    compareTokens.set(model.slug, model.slug);
+    compareTokens.set(model.id, model.slug);
+  }
+  const initialSlugs = [...new Set(raw.split(",").map(token => compareTokens.get(token.trim())).filter((slug): slug is string => Boolean(slug)))].slice(0,3);
 
   return <section className={`${styles.page} page shell`}>
     <div className={`${styles.head} page-head`}>
