@@ -3,6 +3,11 @@ import { entityMedia } from "./media";
 import { generatedProductMedia } from "./generatedProductMedia";
 
 const allRenderableMedia: EntityMedia[] = [...entityMedia, ...generatedProductMedia];
+const SUPPRESSED_MEDIA_IDS = new Set([
+  // This asset resolves to an unrelated Suzuki gallery photo rather than a Raider PRO product image.
+  // Keep the provenance record in media.ts, but do not show it until a correct product image is verified.
+  "suzuki-raider-pro-manufacturer"
+]);
 const PRODUCT_PLACEHOLDERS = {
   helmet: "/media/placeholders/helmet.svg",
   tire: "/media/placeholders/tire.svg",
@@ -10,6 +15,10 @@ const PRODUCT_PLACEHOLDERS = {
 } as const;
 
 type ProductEntityType = keyof typeof PRODUCT_PLACEHOLDERS;
+
+function isRenderableAsset(asset: EntityMedia) {
+  return asset.rightsStatus !== "pending" && !SUPPRESSED_MEDIA_IDS.has(asset.id);
+}
 
 function isProductEntityType(entityType: EntityMedia["entityType"]): entityType is ProductEntityType {
   return entityType === "helmet" || entityType === "tire" || entityType === "topbox";
@@ -35,7 +44,7 @@ function productPlaceholder(entityType: ProductEntityType, entityId: string): En
 
 export function getRenderableMedia(entityType: EntityMedia["entityType"], entityId: string): EntityMedia[] {
   const exact = allRenderableMedia
-    .filter((asset) => asset.entityType === entityType && asset.entityId === entityId && asset.rightsStatus !== "pending")
+    .filter((asset) => asset.entityType === entityType && asset.entityId === entityId && isRenderableAsset(asset))
     .sort((a, b) => {
       if (a.role === b.role) return a.id.localeCompare(b.id);
       return a.role === "primary" ? -1 : 1;
@@ -49,6 +58,6 @@ export function hasRenderableProductMedia(entityId: string) {
   return allRenderableMedia.some((asset) =>
     (asset.entityType === "helmet" || asset.entityType === "tire" || asset.entityType === "topbox") &&
     asset.entityId === entityId &&
-    asset.rightsStatus !== "pending"
+    isRenderableAsset(asset)
   );
 }
