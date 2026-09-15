@@ -45,8 +45,16 @@ export function Header() {
         {hasModels && <details className="nav-more nav-motorcycles">
           <summary>Motorcycles <span>⌄</span></summary>
           <div className="nav-popover nav-popover-menu">
-            <Link className="nav-popover-primary" href="/motorcycles">All motorcycles</Link>
-            <Link className="nav-popover-secondary" href="/motorcycles/electric">Electric motorcycles</Link>
+            <div className="nav-popover-featured">
+              <Link className="nav-popover-primary" href="/motorcycles">
+                <strong>All motorcycles</strong>
+                <small>Browse current Philippine models</small>
+              </Link>
+              <Link className="nav-popover-electric" href="/motorcycles/electric">
+                <strong>Electric motorcycles</strong>
+                <small>Battery, range and charging research</small>
+              </Link>
+            </div>
             <span className="nav-popover-label">Browse by brand</span>
             <div className="nav-brand-grid">
               {motorcycleBrands.map(([slug, label]) => <Link href={`/motorcycles/${slug}`} key={slug}>{label}</Link>)}
