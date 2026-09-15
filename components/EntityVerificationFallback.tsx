@@ -7,8 +7,8 @@ export function EntityVerificationFallback({ brand, model, href, className = "me
   className?: string;
 }) {
   const content = <>
-    <span className="sr-only">{brand} {model}</span>
     <div aria-hidden="true">◇</div>
+    <strong><span>{brand}</span><b>{model}</b></strong>
     <small>Image being verified</small>
   </>;
   return href
