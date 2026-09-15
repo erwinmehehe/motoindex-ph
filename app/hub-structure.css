@@ -4,3 +4,8 @@
 .product-entity-nav::-webkit-scrollbar{display:none!important}
 .product-entity-nav a{flex:0 0 auto!important;display:inline-flex!important;align-items:center!important;min-height:32px!important;padding:0 9px!important;border:0!important;border-radius:8px!important;background:transparent!important;color:#64748b!important;font-size:10px!important;font-weight:750!important;white-space:nowrap!important}
 .product-entity-nav a:hover,.product-entity-nav a:focus-visible{background:rgba(68,76,231,.06)!important;color:#3038bd!important}
+
+/* Preserve the dark commute hero supplied by public-hubs-v2.css. A shared
+   component rule was repainting this inner panel white while its typography
+   remained white, making the context copy disappear at every tested width. */
+.commute-master-page .commute-hero-grid .commute-context{min-width:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#fff!important}
