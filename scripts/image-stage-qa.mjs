@@ -4,8 +4,10 @@ import { spawn, spawnSync } from "node:child_process";
 
 const base = new URL(process.env.BASE_URL || "http://127.0.0.1:3000");
 const checks = [
-  { name: "catalog", path: "/motorcycles", selector: ".model-card-media" },
-  { name: "comparison", path: "/compare/selection?bikes=aerox-v3,nmax-v3", selector: ".compare-product-media" },
+  { name: "catalog", path: "/motorcycles", selector: ".model-card-media", maxHeight: { 390: 190, 1440: 205 } },
+  { name: "comparison media", path: "/compare/selection?bikes=aerox-v3,nmax-v3", selector: ".compare-product-media", maxHeight: { 390: 125, 1440: 160 } },
+  { name: "comparison card", path: "/compare/selection?bikes=aerox-v3,nmax-v3", selector: ".compare-product-card", requireWhite: true, maxHeight: { 390: 220, 1440: 230 } },
+  { name: "motorcycle hero", path: "/motorcycles/yamaha/aerox-v3", selector: ".motorcycle-hero-media", maxHeight: { 390: 270, 1440: 430 } },
 ];
 const widths = [390, 1440];
 
@@ -113,35 +115,48 @@ try {
       const result = await evaluate(cdp.send, `(() => {
         const stage=document.querySelector(${JSON.stringify(check.selector)});
         const image=stage?.querySelector('img');
-        const placeholder=stage?.matches('.model-media-placeholder') ? stage : document.querySelector('.model-media-placeholder');
+        const placeholder=stage?.matches('.model-media-placeholder,.media-unavailable') ? stage : stage?.querySelector('.model-media-placeholder,.media-unavailable');
         const root=document.documentElement;
         const rect=stage?.getBoundingClientRect();
+        const section=document.querySelector('.motorcycle-entity-section');
+        const sectionStyle=section ? getComputedStyle(section) : null;
+        const heading=document.querySelector('.section-head h2');
         return {
           found:Boolean(stage),
           background:stage ? getComputedStyle(stage).backgroundColor : '',
           imageBackground:image ? getComputedStyle(image).backgroundColor : '',
           overflow:root.scrollWidth-root.clientWidth,
           right:rect?.right||0,
+          height:rect?.height||0,
           viewport:innerWidth,
           placeholderBackground:placeholder ? getComputedStyle(placeholder).backgroundColor : '',
-          placeholderText:placeholder ? (placeholder.textContent||'').trim().slice(0,100) : ''
+          sectionPaddingTop:sectionStyle ? parseFloat(sectionStyle.paddingTop)||0 : 0,
+          sectionPaddingBottom:sectionStyle ? parseFloat(sectionStyle.paddingBottom)||0 : 0,
+          headingSize:heading ? parseFloat(getComputedStyle(heading).fontSize)||0 : 0
         };
       })()`);
       results.push({ width, ...check, ...result });
-      if (!result?.found) failures.push(`${width}px ${check.name}: image stage is missing`);
-      if (result?.background !== "rgb(255, 255, 255)") failures.push(`${width}px ${check.name}: image stage background is ${result?.background || "missing"}, expected white`);
+      if (!result?.found) failures.push(`${width}px ${check.name}: shared product surface is missing`);
+      const expectsWhite = check.requireWhite !== false;
+      if (expectsWhite && result?.background !== "rgb(255, 255, 255)") failures.push(`${width}px ${check.name}: background is ${result?.background || "missing"}, expected white`);
       if (result?.imageBackground && result.imageBackground !== "rgb(255, 255, 255)") failures.push(`${width}px ${check.name}: image background is ${result.imageBackground}, expected white`);
       if ((result?.overflow||0) > 5) failures.push(`${width}px ${check.name}: page overflows horizontally by ${result.overflow}px`);
-      if ((result?.right||0) > (result?.viewport||width) + 5) failures.push(`${width}px ${check.name}: image stage leaves the viewport`);
+      if ((result?.right||0) > (result?.viewport||width) + 5) failures.push(`${width}px ${check.name}: surface leaves the viewport`);
+      const maxHeight = check.maxHeight?.[width];
+      if (maxHeight && (result?.height||0) > maxHeight + 1) failures.push(`${width}px ${check.name}: ${Math.round(result.height)}px tall, expected no more than ${maxHeight}px`);
       if (result?.placeholderBackground && result.placeholderBackground !== "rgb(255, 255, 255)") failures.push(`${width}px ${check.name}: missing-photo placeholder is not white`);
+      if (check.name === "motorcycle hero") {
+        if ((result?.sectionPaddingTop||0) > 50 || (result?.sectionPaddingBottom||0) > 50) failures.push(`${width}px detail page: section spacing is oversized (${result.sectionPaddingTop}/${result.sectionPaddingBottom}px)`);
+        if ((result?.headingSize||0) > 41) failures.push(`${width}px detail page: section heading is ${result.headingSize}px, expected compact product hierarchy`);
+      }
     }
   }
 
   if (failures.length) {
-    console.error(`Image stage QA failed:\n${failures.map(item=>`- ${item}`).join("\n")}`);
+    console.error(`Shared product visual QA failed:\n${failures.map(item=>`- ${item}`).join("\n")}`);
     process.exitCode = 1;
   } else {
-    console.log(`Image stage QA passed: ${results.length} catalog/comparison viewport checks use white media stages.`);
+    console.log(`Shared product visual QA passed: ${results.length} catalog, comparison and detail checks use compact white product surfaces.`);
   }
 } finally {
   proc.kill("SIGTERM");
