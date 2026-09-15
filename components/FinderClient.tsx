@@ -46,11 +46,13 @@ function intFrom(params: URLSearchParams, key: string, allowed: number[], fallba
 export function FinderClient({ models }: { models: Motorcycle[] }) {
   const [initial, setInitial] = useState<FinderInitialFilters>(defaultInitial);
   const [sharedState, setSharedState] = useState(false);
+  const [urlReady, setUrlReady] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (!params.size) {
       setSharedState(false);
+      setUrlReady(true);
       return;
     }
     const makes = new Set(models.map(model => model.make));
@@ -87,9 +89,10 @@ export function FinderClient({ models }: { models: Motorcycle[] }) {
       annualRatePct: intFrom(params, "rate", [0,8,12,18,24], 12),
     });
     setSharedState(true);
+    setUrlReady(true);
   }, [models]);
 
   const finderKey = useMemo(() => `${sharedState ? "shared" : "fresh"}:${JSON.stringify(initial)}`, [initial, sharedState]);
   const className = `${styles.refined} ${resultStyles.results} ${decisionStyles.decision}`;
-  return <div className={className}><MotorcycleFinder key={finderKey} models={models} initialFilters={initial} initiallyComplete={sharedState} /></div>;
+  return <div className={className}><MotorcycleFinder key={finderKey} models={models} initialFilters={initial} initiallyComplete={sharedState} urlReady={urlReady} /></div>;
 }
