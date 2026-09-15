@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { MotoIndexLogo } from "@/components/MotoIndexLogo";
-import { comparisons, motorcycles, recommendationGuides, isIndexableComparison, isIndexableModel, isIndexableRecommendation } from "@/lib/data";
+import { comparisons, motorcycles, isIndexableComparison, isIndexableModel } from "@/lib/data";
 import styles from "./Footer.module.css";
 
 const hasModels = motorcycles.some(isIndexableModel);
 const hasComparisons = comparisons.some((comparison) => isIndexableComparison(comparison.slug));
-const hasGuides = recommendationGuides.some((guide) => isIndexableRecommendation(guide.slug));
 
 export function Footer() {
   return <footer className={styles.footer}>
@@ -20,8 +19,7 @@ export function Footer() {
         {hasModels && <Link href="/motorcycles">Motorcycles</Link>}
         {hasModels && <Link href="/finder">Finder</Link>}
         {hasComparisons && <Link href="/compare">Compare</Link>}
-        {hasGuides && <Link href="/recommendations">Guides</Link>}
-        <Link href="/commute">Commute</Link>
+        <Link href="/guides">Guides</Link>
       </div>
       <div className={styles.column}>
         <strong>Gear</strong>
@@ -30,26 +28,20 @@ export function Footer() {
         <Link href="/accessories">Accessories</Link>
       </div>
       <div className={styles.column}>
-        <strong>Ownership & tools</strong>
-        <Link href="/ownership">Ownership</Link>
-        {hasModels && <Link href="/fitment">Fitment finder</Link>}
-        <Link href="/tools">All tools</Link>
-        <Link href="/tools/motorcycle-loan-calculator">Loan calculator</Link>
-        <Link href="/tools/lto-registration-fee-calculator">LTO fee calculator</Link>
-        <Link href="/tools/motorcycle-insurance-calculator">Insurance calculator</Link>
+        <strong>Ownership</strong>
+        <Link href="/ownership">Ownership hub</Link>
+        <Link href="/tools">Tools</Link>
         <Link href="/maintenance">Maintenance</Link>
-        <Link href="/ownership/registration-renewal">Registration renewal</Link>
+        {hasModels && <Link href="/fitment">Fitment finder</Link>}
       </div>
       <div className={styles.column}>
-        <strong>About MotoIndex</strong>
-        <Link href="/about">About</Link>
+        <strong>About</strong>
+        <Link href="/about">About MotoIndex</Link>
         <Link href="/authors/erwin-valles">Author: Erwin Valles</Link>
         <Link href="/methodology">Methodology</Link>
-        <Link href="/data-sources">Data sources</Link>
         <Link href="/editorial-policy">Editorial policy</Link>
         <Link href="/affiliate-disclosure">Affiliate disclosure</Link>
         <Link href="/privacy">Privacy</Link>
-        <Link href="/corrections">Corrections</Link>
         <Link href="/contact">Contact</Link>
       </div>
     </div>
