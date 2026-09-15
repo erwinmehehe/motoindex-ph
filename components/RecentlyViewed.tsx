@@ -23,6 +23,28 @@ function readIds() {
   }
 }
 
+function RecentlyViewedMediaFallback({ make, model }: Pick<ViewedModel, "make" | "model">) {
+  return <div
+    role="img"
+    aria-label={`${make} ${model} image being verified`}
+    style={{
+      display: "grid",
+      placeItems: "center",
+      width: "100%",
+      height: "100%",
+      padding: 18,
+      background: "linear-gradient(145deg,#ffffff,#f8faff)",
+      textAlign: "center"
+    }}
+  >
+    <div style={{ display: "grid", justifyItems: "center", gap: 4 }}>
+      <span aria-hidden="true" style={{ color: "#444CE7", fontSize: 18, lineHeight: 1 }}>◇</span>
+      <strong style={{ color: "#101828", fontSize: 13, lineHeight: 1.2 }}>{make} {model}</strong>
+      <small style={{ color: "#98A2B3", fontSize: 9, fontWeight: 700 }}>Image being verified</small>
+    </div>
+  </div>;
+}
+
 export function RecentlyViewedTracker({ model }: { model: ViewedModel }) {
   useEffect(() => {
     const ids = readIds().filter((id) => id !== model.id);
@@ -54,7 +76,7 @@ export function RecentlyViewedRail({ models }: { models: ViewedModel[] }) {
     <div className="recently-viewed-rail">{rows.map((model) => {
       const href = `/motorcycles/${model.makeSlug}/${model.slug}`;
       return <Link href={href} key={model.id} className="recently-viewed-card">
-        <div className="recently-viewed-media"><EntityMedia entityType="motorcycle" entityId={model.id} showCredit={false} fallback={<div className="recently-viewed-fallback">{model.make.slice(0, 2).toUpperCase()}</div>} /></div>
+        <div className="recently-viewed-media"><EntityMedia entityType="motorcycle" entityId={model.id} sizes="(max-width: 700px) 78vw, 230px" showCredit={false} fallback={<RecentlyViewedMediaFallback make={model.make} model={model.model} />} /></div>
         <span>{model.make}</span><strong>{model.model}</strong><small>Continue →</small>
       </Link>;
     })}</div>
