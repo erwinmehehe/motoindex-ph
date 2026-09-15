@@ -41,6 +41,7 @@
 @import "./product-system.css";
 @import "./image-stage-cleanup.css";
 @import "./recommendations-polish.css";
+@import "./product-experience-v2.css";
 
 /* The old redesign-fonts.css referenced Manrope/Sora variables that are no
    longer loaded. Use the actual next/font variables from app/layout.tsx. */
