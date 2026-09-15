@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { Freshness } from "@/components/Freshness";
 import { EntityMedia } from "@/components/EntityMedia";
+import { EntityVerificationFallback } from "@/components/EntityVerificationFallback";
 import { CompareButton } from "@/components/CompareButton";
 import { SaveToShortlistButton } from "@/components/SaveToShortlistButton";
 import { ProductEntityNav } from "@/components/ProductEntityNav";
@@ -19,7 +20,6 @@ import { FitmentSummary } from "@/components/FitmentSummary";
 import { ProductCard } from "@/components/ProductCard";
 import { SimilarMotorcycles } from "@/components/SimilarMotorcycles";
 import { CommuteSnapshot } from "@/components/CommuteSnapshot";
-import { RelatedLinks } from "@/components/RelatedLinks";
 import { FaqSection } from "@/components/FaqSection";
 import { UsedMarketSummary } from "@/components/UsedMarketSummary";
 import { UsedListingTable } from "@/components/UsedListingTable";
@@ -35,7 +35,6 @@ import { safetyNoticesForModel, safetyResourceForModel } from "@/lib/safety";
 import { listingsForModel, marketSummary } from "@/lib/usedMarket";
 import { usedValueCurve } from "@/lib/ownership";
 import { php } from "@/lib/utils";
-import { modelInternalLinks } from "@/lib/internalLinks";
 import { motorcycleEntityEditorial, motorcycleEntityFaqs, motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
 import { absoluteUrl } from "@/lib/site";
 import { getRenderableMedia } from "@/lib/media";
@@ -57,26 +56,14 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const availabilityUncertain = model.marketStatus === "uncertain";
   const successor = model.successorId ? getModelById(model.successorId) : undefined;
   const seo = motorcycleEntitySeo(model);
-  // Keywords keep every spelling, but the visible line drops any alias that is
-  // just a shorter piece of another ("PG1" inside "Yamaha PG1"), which otherwise
-  // reads as the same name listed twice.
-  const akaDisplay = (model.alsoKnownAs || []).filter(
-    (a, _i, arr) => !arr.some((b) => b !== a && b.toLowerCase().includes(a.toLowerCase()))
-  );
   const editorial = motorcycleEntityEditorial(model);
   const performance = performanceAnswerFor(model.id);
-  const faqs = [
-    ...motorcycleEntityFaqs(model),
-    ...(performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])
-  ];
   const range = observedMarketRange(model);
   const priceChecks = priceChecksForModel(model.id);
   const verifiedVariants = getVerifiedVariantsForModel(model.id);
   const allColors = [...new Set([...model.colors, ...verifiedVariants.flatMap((variant) => variant.colors || [])])];
   const gearGuide = getModelGearGuide(model.id);
-  const helmetCandidates = (gearGuide?.helmetIds || [])
-    .map((id) => helmetProducts.find((product) => product.id === id))
-    .filter((product): product is NonNullable<typeof product> => Boolean(product && product.status === "verified"));
+  const helmetCandidates = (gearGuide?.helmetIds || []).map((id) => helmetProducts.find((product) => product.id === id)).filter((product): product is NonNullable<typeof product> => Boolean(product && product.status === "verified"));
   const tireCandidates = getTireProductsForModel(model.id).filter((p) => !isIndexableModel(model) || p.status === "verified");
   const topBoxCandidates = getTopBoxProductsForModel(model.id).filter((p) => !isIndexableModel(model) || p.status === "verified");
   const topBoxFitments = getTopBoxFitmentsForModel(model.id);
@@ -93,12 +80,10 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const brandSupport = phBrandSupportFor(model.makeSlug);
   const quality = modelAuthorityQuality(model);
   const authorityComparisons = authority?.comparisonIds.map((id) => getModelById(id)).filter((item): item is Motorcycle => Boolean(item)) || [];
-  const priceSourceCount = new Set([model.marketPriceSourceUrl || model.sourceUrl, ...priceChecks.map((row) => row.sourceUrl)].filter(Boolean)).size;
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}`;
+  const faqs = [...motorcycleEntityFaqs(model), ...(performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])];
   const officialPriceChecks = priceChecks.filter((row) => row.sourceType === "manufacturer");
-  const officialPricePoints = officialPriceChecks.flatMap((row) =>
-    [row.priceFromPhp, row.priceToPhp].filter((value): value is number => typeof value === "number")
-  );
+  const officialPricePoints = officialPriceChecks.flatMap((row) => [row.priceFromPhp, row.priceToPhp].filter((value): value is number => typeof value === "number"));
   const officialLow = officialPricePoints.length ? Math.min(...officialPricePoints) : undefined;
   const officialHigh = officialPricePoints.length ? Math.max(...officialPricePoints) : undefined;
   const offer = !isPrevious && !availabilityUncertain && isIndexableModel(model) && typeof officialLow === "number"
@@ -128,8 +113,6 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
     ],
   };
   const loanToolHref = { pathname: "/tools/motorcycle-loan-calculator", query: { price: range.from, model: `${model.make} ${model.model}` } };
-  const insuranceToolHref = { pathname: "/tools/motorcycle-insurance-calculator", query: { value: range.from, model: `${model.make} ${model.model}` } };
-  const registrationToolHref = { pathname: "/tools/lto-registration-fee-calculator", query: { model: `${model.make} ${model.model}` } };
 
   return <article className="motorcycle-entity-page">
     <section className="motorcycle-entity-hero" id="overview">
@@ -140,32 +123,25 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
             <span className="entity-kicker">Philippines model guide · {model.generation} · {model.category}{availabilityUncertain ? " · availability to verify" : ""}</span>
             <h1>{seo.heading}</h1>
             <p className="entity-lede">{seo.intro}</p>
-            {akaDisplay.length ? <p className="entity-aka">
-              Also sold and searched as {akaDisplay.map((a, i, arr) =>
-                <span key={a}><strong>{a}</strong>{i < arr.length - 2 ? ", " : i === arr.length - 2 ? " and " : ""}</span>)}
-              {" "}— the same motorcycle, not a different model.
-            </p> : null}
             <div className="motorcycle-price-lockup">
-              <span>{isPrevious ? "Historical launch reference" : availabilityUncertain ? "Published PH price · availability to verify" : model.marketPriceSourceLabel ? "Published PH price range" : "Published Philippine price"}</span>
+              <span>{isPrevious ? "Historical launch reference" : availabilityUncertain ? "Published PH price · availability to verify" : "Published Philippine price"}</span>
               <strong>{observedMarketPriceLabel(model)}</strong>
-              <small>{isPrevious ? "Historical context — not a current new-bike quote." : `Price checked ${model.marketPriceCheckedAt || model.verifiedAt}. Final dealer pricing can vary.`}</small>
+              <small>{isPrevious ? "Historical context, not a current new-bike quote." : `Checked ${model.marketPriceCheckedAt || model.verifiedAt}. Final dealer pricing can vary.`}</small>
             </div>
             <div className="hero-actions entity-hero-actions">
               {!isPrevious && !availabilityUncertain && <Link className="button" href={`/get-quote/${model.makeSlug}/${model.slug}`}>Get dealer price</Link>}
               <a className={isPrevious ? "button" : "button ghost on-light"} href={isPrevious ? "#used" : "#installment"}>{isPrevious ? "Check used value" : "Estimate monthly"}</a>
-              <a className="button ghost on-light" href="#price">See prices</a>
-              <CompareButton modelId={model.id} />
-              <SaveToShortlistButton modelId={model.id} />
             </div>
+            <div className="entity-hero-utilities"><SaveToShortlistButton modelId={model.id} /><CompareButton modelId={model.id} /></div>
             <Freshness model={model} />
           </div>
           <div className="motorcycle-hero-visual">
-            <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" priority sizes="(max-width: 900px) 100vw, 48vw" fallback={authority ? <div className="authority-media-fallback"><span>Model photo pending</span><strong>{model.make}<b>{model.model}</b></strong><div><em>{model.engineCc} cc</em><em>{model.powerHp} hp</em><em>{model.curbWeightKg} kg</em><em>{model.seatHeightMm} mm seat</em></div><small>{model.category} · {model.generation}</small></div> : <div className="bike-art big"><span className="wheel wheel-a"/><span className="wheel wheel-b"/><span className="bike-body"/><div className="art-caption">{model.generation} · {model.category}</div></div>} />
+            <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" priority sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} className="authority-media-fallback" />} />
             <div className="motorcycle-hero-facts">
               <HeroFact label="Engine" value={`${model.engineCc} cc`} note={`${model.powerHp} hp · ${model.torqueNm} Nm`} />
-              <HeroFact label="Seat / weight" value={`${model.seatHeightMm} mm`} note={`${model.curbWeightKg} kg curb`} />
-              <HeroFact label="Fuel" value={`${model.fuelTankL} L tank`} note={`${efficiency.kmPerL} km/L ${efficiency.status === "listed" ? "listed" : "estimate"}`} />
-              <HeroFact label="Tires" value={model.frontTire} note={`Rear ${model.rearTire}`} />
+              <HeroFact label="Seat" value={`${model.seatHeightMm} mm`} note={`${model.curbWeightKg} kg curb weight`} />
+              <HeroFact label="Transmission" value={model.transmission || "Check model source"} note={model.category} />
+              <HeroFact label="Fuel" value={`${model.fuelTankL} L tank`} note={`${efficiency.kmPerL} km/L ${efficiency.status === "listed" ? "listed" : "planning estimate"}`} />
             </div>
           </div>
         </div>
@@ -174,226 +150,100 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
     <div className="shell motorcycle-entity-nav-wrap">
       <ProductEntityNav items={[
-        { href: "#price", label: "Price" },
-        ...(authority ? [{ href: "#buyer-guide", label: "Buyer guide" }] : []),
-        ...(!isPrevious ? [{ href: "#installment", label: "Installment" }] : []),
-        { href: "#specs", label: "Specs" },
-        ...(performance ? [{ href: "#performance", label: "Top speed" }] : []),
+        { href: "#price", label: "Price & variants" },
+        { href: "#specs", label: "Key specs" },
+        ...(authority ? [{ href: "#buyer-guide", label: "Who it suits" }] : []),
+        ...(!isPrevious ? [{ href: "#installment", label: "Monthly" }] : []),
         { href: "#rider-fit", label: "Rider fit" },
-        { href: "#tires-fitment", label: "Tires & fitment" },
-        { href: "#fuel", label: "Fuel" },
         ...(!isPrevious ? [{ href: "#ownership", label: "Ownership" }] : []),
-        { href: "#maintenance", label: "Maintenance" },
-        { href: "#safety", label: "Safety" },
-        { href: "#used", label: "Used value" },
-        { href: "#alternatives", label: "Alternatives" },
-        { href: "#faq", label: "FAQ" },
+        ...(!isPrevious ? [{ href: "#alternatives", label: "Alternatives" }] : []),
+        { href: "#detailed-research", label: "Detailed research" },
       ]} />
     </div>
 
     <div className="shell motorcycle-entity-body">
-      {availabilityUncertain && <section className="entity-alert-card"><div><span>Availability to verify</span><h2>Confirm current new-bike availability before relying on this price</h2><p>This motorcycle still has Philippine price and specification references, but it is not shown in the manufacturer&apos;s current lineup we checked. Confirm stock, model year and final pricing with an authorized dealer.</p></div></section>}
-
-      {isPrevious && successor && <section className="entity-alert-card">
-        <div><span>Previous generation</span><h2>Looking for the current model?</h2><p>{model.model} stays live for owners and used-bike research. Current new-bike pricing belongs to {successor.make} {successor.model}.</p></div>
-        <Link className="button small" href={`/motorcycles/${successor.makeSlug}/${successor.slug}`}>View {successor.model} →</Link>
-      </section>}
+      {availabilityUncertain && <section className="entity-alert-card"><div><span>Availability needs verification</span><h2>Confirm current new-bike availability before relying on this price</h2><p>This model has Philippine price and specification references but is not treated as part of the current shopping catalog until present-day availability is confirmed.</p></div></section>}
+      {isPrevious && successor && <section className="entity-alert-card"><div><span>Previous generation</span><h2>Looking for the current model?</h2><p>{model.model} stays live for owners and used-bike research. Current new-bike pricing belongs to {successor.make} {successor.model}.</p></div><Link className="button small" href={`/motorcycles/${successor.makeSlug}/${successor.slug}`}>View {successor.model} →</Link></section>}
 
       <section className="motorcycle-entity-section entity-overview-section" aria-labelledby="overview-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Decision summary</span><h2 id="overview-heading">What the {model.make} {model.model} is like on paper</h2><p>Price, fit, running cost, maintenance and used-value context are brought together so you can judge the motorcycle without jumping between disconnected pages.</p></div></div>
-        <div className="motorcycle-editorial-grid">
-          <article className="editorial-best"><span>Best fit for</span><h3>{editorial.bestFor}</h3><p>{model.summary}</p></article>
-          <article><span>Strong facts</span><ul>{editorial.strengths.map((item) => <li key={item}>{item}</li>)}</ul></article>
-          <article><span>Watch-outs</span><ul>{editorial.watchOuts.map((item) => <li key={item}>{item}</li>)}</ul></article>
+        <div className="section-head compact"><div><span className="section-kicker">Decision summary</span><h2 id="overview-heading">Is the {model.make} {model.model} worth shortlisting?</h2><p>Start with who it suits and the important trade-offs. The deeper evidence stays lower on the page.</p></div></div>
+        <div className="motorcycle-editorial-grid"><article className="editorial-best"><span>Best fit for</span><h3>{editorial.bestFor}</h3><p>{model.summary}</p></article><article><span>Pros</span><ul>{editorial.strengths.map((item) => <li key={item}>{item}</li>)}</ul></article><article><span>Trade-offs</span><ul>{editorial.watchOuts.map((item) => <li key={item}>{item}</li>)}</ul></article></div>
+      </section>
+
+      <section id="price" className="motorcycle-entity-section" aria-labelledby="price-heading">
+        <div className="section-head compact"><div><span className="section-kicker">Price & variants</span><h2 id="price-heading">{model.make} {model.model} price in the Philippines</h2><p>{isPrevious ? "Historical launch pricing is kept separate from used value." : "Start with the published price and exact variant. Source-level evidence is available below when you need it."}</p></div></div>
+        <div className="entity-price-grid motorcycle-price-grid"><article><span>{isPrevious ? "Historical launch SRP" : "Published price"}</span><strong>{observedMarketPriceLabel(model)}</strong><small>{model.priceContext || `Checked ${model.marketPriceCheckedAt || model.verifiedAt}`}</small></article><article><span>Model status</span><strong>{isPrevious ? "Previous generation" : availabilityUncertain ? "Availability needs verification" : "Current model"}</strong><small>{model.generation} · {model.category}</small></article></div>
+        {!isPrevious && <VariantMatrix model={model} />}
+        {!isPrevious && <PriceIntelligence model={model} />}
+        {!isPrevious && <details className="entity-disclosure"><summary>Show published price-source checks</summary><MarketPriceChecks model={model} /></details>}
+      </section>
+
+      <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
+        <div className="section-head compact"><div><span className="section-kicker">Key specifications</span><h2 id="specs-heading">The numbers most buyers need first</h2><p>Keep the first pass to engine, power, fit, weight, transmission, braking and stock tires.</p></div></div>
+        <div className="entity-spec-table motorcycle-spec-table" role="table" aria-label={`${model.make} ${model.model} key specifications`}>
+          <div role="row"><span role="cell">Engine</span><strong role="cell">{model.engineCc} cc · {model.powerHp} hp · {model.torqueNm} Nm</strong></div>
+          <div role="row"><span role="cell">Transmission</span><strong role="cell">{model.transmission || "Check current model source"}</strong></div>
+          <div role="row"><span role="cell">Seat / curb weight</span><strong role="cell">{model.seatHeightMm} mm · {model.curbWeightKg} kg</strong></div>
+          <div role="row"><span role="cell">Fuel tank</span><strong role="cell">{model.fuelTankL} L</strong></div>
+          <div role="row"><span role="cell">Brakes / ABS</span><strong role="cell">{model.abs}</strong></div>
+          <div role="row"><span role="cell">Tires</span><strong role="cell">{model.frontTire} front · {model.rearTire} rear</strong></div>
+          {model.groundClearanceMm ? <div role="row"><span role="cell">Ground clearance</span><strong role="cell">{model.groundClearanceMm} mm</strong></div> : null}
         </div>
       </section>
 
       {authority && <section id="buyer-guide" className="motorcycle-entity-section authority-decision-section" aria-labelledby="buyer-guide-heading">
-        <div className="authority-verdict">
-          <div><span className="section-kicker">Buyer verdict</span><h2 id="buyer-guide-heading">Should you buy the {model.make} {model.model} in the Philippines?</h2><p>{authority.verdict}</p></div>
-          <aside><span>What to know</span><p>{authority.researchAngle}</p></aside>
-        </div>
-        <div className="authority-grid">
-          <article className="authority-buy"><span>Buy it if</span><ul>{authority.buyIf.map((item) => <li key={item}>{item}</li>)}</ul></article>
-          <article className="authority-skip"><span>Skip it if</span><ul>{authority.skipIf.map((item) => <li key={item}>{item}</li>)}</ul></article>
-          <article className="authority-ph"><span>Philippine ownership</span><ul>{authority.phContext.map((item) => <li key={item}>{item}</li>)}</ul></article>
-        </div>
-        {authorityComparisons.length > 0 && <div className="authority-comparisons"><div><span>Compare alternatives</span><strong>See the motorcycles most likely to change your decision</strong></div><div>{authorityComparisons.map((item) => <Link key={item.id} href={`/motorcycles/${item.makeSlug}/${item.slug}`}>{item.make} {item.model}<small>{item.engineCc} cc · {observedMarketPriceLabel(item)}</small></Link>)}</div></div>}
+        <div className="authority-verdict"><div><span className="section-kicker">Who this bike is for</span><h2 id="buyer-guide-heading">Should you buy the {model.make} {model.model}?</h2><p>{authority.verdict}</p></div><aside><span>Important context</span><p>{authority.researchAngle}</p></aside></div>
+        <div className="authority-grid"><article className="authority-buy"><span>Buy it if</span><ul>{authority.buyIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-skip"><span>Skip it if</span><ul>{authority.skipIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-ph"><span>Philippine ownership</span><ul>{authority.phContext.map((item) => <li key={item}>{item}</li>)}</ul></article></div>
       </section>}
-
-      <section id="price" className="motorcycle-entity-section" aria-labelledby="price-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Price</span><h2 id="price-heading">{model.make} {model.model} price in the Philippines</h2><p>{isPrevious ? "Historical launch-price context is kept separate from current used value." : "Compare the published prices we found, see where each one came from, and confirm the exact dealer quote before buying."}</p></div></div>
-        <div className="entity-price-grid motorcycle-price-grid">
-          <article><span>{isPrevious ? "Historical launch SRP" : "Published price range"}</span><strong>{observedMarketPriceLabel(model)}</strong><small>{model.priceContext || `Checked ${model.marketPriceCheckedAt || model.verifiedAt}`}</small></article>
-          <article><span>Price sources</span><strong>{priceSourceCount}</strong><small>{priceChecks.length ? "Open the published price sources below." : "One published price source is available below."}</small></article>
-          <article><span>Model status</span><strong>{isPrevious ? "Previous generation" : availabilityUncertain ? "Availability to verify" : "Current model"}</strong><small>{model.generation} · {model.category}</small></article>
-        </div>
-        {!isPrevious && <VariantMatrix model={model} />}
-        {!isPrevious && <PriceIntelligence model={model} />}
-        {!isPrevious && <MarketPriceChecks model={model} />}
-        {!isPrevious && !availabilityUncertain && <div className="entity-tool-grid">
-          <Link href={`/get-quote/${model.makeSlug}/${model.slug}`}><span>Dealer quote</span><strong>Get the latest dealer price</strong><small>Request a current cash or installment quote for your city or province.</small></Link>
-          <Link href="/dealers"><span>Dealers</span><strong>Browse verified motorcycle dealers</strong><small>Use the dealer directory for local coverage, then request the exact {model.model} quote.</small></Link>
-        </div>}
-        {isPrevious && <div className="note-box compact-note"><h3>Do not use the launch SRP as today&apos;s used-bike value</h3><p>Condition, year, mileage, registration, service history, modifications and location can move the actual used price materially.</p></div>}
-      </section>
 
       {!isPrevious && <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Financing</span><h2 id="installment-heading">{model.make} {model.model} installment calculator</h2><p>Start with the published price, then replace the assumptions with the actual dealer or lender quote you receive.</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">Monthly payment</span><h2 id="installment-heading">Estimate the monthly commitment</h2><p>Start from the published price, then replace the assumptions with the actual dealer or lender quote.</p></div></div>
         <InstallmentCalculator price={range.from} priceOptions={variantPriceOptions(model.id)} />
         <FinancingSnapshot modelName={`${model.make} ${model.model}`} price={range.from} />
-        <div className="entity-tool-grid">
-          <Link href={loanToolHref}><span>Loan scenario</span><strong>Standalone loan calculator</strong><small>Change price, down payment, term and rate with a shareable URL.</small></Link>
-          <Link href={insuranceToolHref}><span>Insurance</span><strong>Insurance estimate</strong><small>Prefill insured value from this model&apos;s published price.</small></Link>
-          <Link href={registrationToolHref}><span>Registration</span><strong>LTO fee estimate</strong><small>Add editable registration, CTPL and assessed fees.</small></Link>
-        </div>
-      </section>}
-
-      <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Specifications</span><h2 id="specs-heading">{model.make} {model.model} specs and dimensions</h2><p>Engine, power, torque, dimensions, weight, seat height, tires, braking and colors are kept together on this page.</p></div></div>
-        <div className="entity-spec-table motorcycle-spec-table" role="table" aria-label={`${model.make} ${model.model} specifications`}>
-          <div role="row"><span role="cell">Engine</span><strong role="cell">{model.engineCc} cc</strong></div>
-          <div role="row"><span role="cell">Transmission</span><strong role="cell">{model.transmission || "Check current model source"}</strong></div>
-          <div role="row"><span role="cell">Power</span><strong role="cell">{model.powerHp} hp</strong></div>
-          <div role="row"><span role="cell">Torque</span><strong role="cell">{model.torqueNm} Nm</strong></div>
-          <div role="row"><span role="cell">Curb weight</span><strong role="cell">{model.curbWeightKg} kg</strong></div>
-          <div role="row"><span role="cell">Seat height</span><strong role="cell">{model.seatHeightMm} mm</strong></div>
-          <div role="row"><span role="cell">Fuel tank</span><strong role="cell">{model.fuelTankL} L</strong></div>
-          <div role="row"><span role="cell">Fuel economy</span><strong role="cell">{efficiency.kmPerL} km/L · {efficiency.status === "listed" ? "listed" : "planning estimate"}</strong></div>
-          <div role="row"><span role="cell">Ground clearance</span><strong role="cell">{model.groundClearanceMm ? `${model.groundClearanceMm} mm` : "Not stored"}</strong></div>
-          <div role="row"><span role="cell">Brakes / ABS</span><strong role="cell">{model.abs}</strong></div>
-          <div role="row"><span role="cell">Front tire</span><strong role="cell">{model.frontTire}</strong></div>
-          <div role="row"><span role="cell">Rear tire</span><strong role="cell">{model.rearTire}</strong></div>
-          <div role="row"><span role="cell">Generation</span><strong role="cell">{model.generation}</strong></div>
-          <div role="row"><span role="cell">Colors recorded</span><strong role="cell">{model.colors.length ? model.colors.join(" · ") : "Check current source"}</strong></div>
-        </div>
-        <div className="entity-tool-grid">
-          <a href="#rider-fit"><span>Rider fit</span><strong>Check seat height and low-speed fit</strong><small>Use your inseam with the recorded seat height and curb weight.</small></a>
-          <a href="#tires-fitment"><span>Tires</span><strong>Check stock sizes and compatible products</strong><small>{model.frontTire} front · {model.rearTire} rear.</small></a>
-        </div>
-      </section>
-
-      {allColors.length > 0 && <section id="colors" className="motorcycle-entity-section" aria-labelledby="colors-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Colors</span><h2 id="colors-heading">{model.make} {model.model} colors in the Philippines</h2><p>Color names are kept on the model page so you can compare finishes without opening a separate SEO page. Availability can still change by variant, model year and dealer stock.</p></div></div>
-        <div className="entity-color-grid">
-          {allColors.map((color) => <article key={color}><strong>{color}</strong><small>Recorded color option</small></article>)}
-        </div>
-        {verifiedVariants.some((variant) => variant.colors?.length) && <div className="variant-color-list">
-          {verifiedVariants.filter((variant) => variant.colors?.length).map((variant) => <article key={variant.id}><span>{variant.name}</span><strong>{variant.colors!.join(" · ")}</strong><SourceRef url={variant.sourceUrl} label={`Source checked ${variant.checkedAt}`} /></article>)}
-        </div>}
-      </section>}
-
-      {performance && <section id="performance" className="motorcycle-entity-section" aria-labelledby="performance-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Performance evidence</span><h2 id="performance-heading">{model.make} {model.model} top speed</h2><p>Manufacturer specifications, independent tests and rider reports are not treated as interchangeable evidence.</p></div></div>
-        <div className="source-panel entity-source-panel">
-          <span>{performance.evidence}</span>
-          <h3>{performance.observedRangeKph ? `${performance.observedRangeKph[0]}–${performance.observedRangeKph[1]} km/h observed range` : performance.observedTopSpeedKph ? `About ${performance.observedTopSpeedKph} km/h, editorial estimate` : "No verified numeric claim published"}</h3>
-          <p>{performance.answer}</p>
-          <small>{performance.caution}</small><br/>
-          <SourceRef url={performance.sourceUrl} label={performance.sourceLabel} />
-        </div>
+        <div className="entity-tool-grid"><Link href={loanToolHref}><span>Need more control?</span><strong>Open the full loan calculator</strong><small>Change price, down payment, term and rate with a shareable URL.</small></Link></div>
       </section>}
 
       <section id="rider-fit" className="motorcycle-entity-section" aria-labelledby="fit-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Ergonomics</span><h2 id="fit-heading">Will the {model.make} {model.model} fit your height and use?</h2><p>Seat height alone cannot predict actual foot reach. Combine published dimensions with your inseam, traffic, passenger and luggage needs.</p></div></div>
-        <div className="entity-fit-kpis">
-          <HeroFact label="Seat height" value={`${model.seatHeightMm} mm`} note="Published specification" />
-          <HeroFact label="Curb weight" value={`${model.curbWeightKg} kg`} note="Published specification" />
-          <HeroFact label="Power" value={`${model.powerHp} hp`} note={`${model.engineCc} cc`} />
-          <HeroFact label="Transmission" value={model.transmission || "—"} note={model.category} />
-        </div>
+        <div className="section-head compact"><div><span className="section-kicker">Rider fit</span><h2 id="fit-heading">Will the {model.make} {model.model} fit you?</h2><p>Seat height is only a starting point. Use your inseam with the recorded seat height and curb weight, then sit on the exact motorcycle when possible.</p></div></div>
+        <div className="entity-fit-kpis"><HeroFact label="Seat height" value={`${model.seatHeightMm} mm`} /><HeroFact label="Curb weight" value={`${model.curbWeightKg} kg`} /><HeroFact label="Power" value={`${model.powerHp} hp`} note={`${model.engineCc} cc`} /><HeroFact label="Transmission" value={model.transmission || "Check source"} /></div>
         <RiderFitCalculator model={forClient(model)} />
-        <div className="note-box compact-note"><h3>Test the exact motorcycle</h3><p>Seat width, suspension sag, footwear, rider weight, road camber and technique all change real foot reach and low-speed confidence.</p></div>
-      </section>
-
-      <section id="tires-fitment" className="motorcycle-entity-section" aria-labelledby="tires-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Tires + accessories</span><h2 id="tires-heading">{model.make} {model.model} tire size and fitment</h2><p>Stock tire sizes, pressure evidence where available, compatible product candidates and bike-specific mounting records live together.</p></div></div>
-        <div className="entity-fit-kpis tire-fit-kpis">
-          <HeroFact label="Front tire" value={model.frontTire} note="Stock specification" />
-          <HeroFact label="Rear tire" value={model.rearTire} note="Stock specification" />
-          {maintenance?.tirePressure && <HeroFact label="Solo pressure" value={`${maintenance.tirePressure.soloFrontPsi} / ${maintenance.tirePressure.soloRearPsi} psi`} note="Front / rear · owner manual" />}
-          {maintenance?.tirePressure && <HeroFact label="With passenger" value={`${maintenance.tirePressure.passengerFrontPsi} / ${maintenance.tirePressure.passengerRearPsi} psi`} note="Front / rear · owner manual" />}
-        </div>
-        {(tireCandidates.length > 0 || topBoxCandidates.length > 0) && <div className="entity-product-cluster">
-          <div className="section-head compact"><div><h3>Products worth checking for this model</h3><p>Tire cards start from stock-size matches. Top-box cards distinguish bike-specific rack evidence from general fit-to-confirm options.</p></div></div>
-          <div className="product-grid">{tireCandidates.map((p) => <ProductCard key={p.id} item={{ entityId: p.id, href: `/tires/${p.brandSlug}/${p.slug}`, category: "Tire", brand: p.brand, model: p.model, meta: `Size match · ${p.useCase}`, status: p.status, priceFromPhp: p.priceFromPhp }} />)}{topBoxCandidates.map((p) => { const edge = topBoxFitments.find((f) => f.topBoxId === p.id); return <ProductCard key={p.id} item={{ entityId: p.id, href: `/accessories/top-box/${p.slug}`, category: "Top box", brand: p.brand, model: p.model, meta: edge ? `${edge.rackCode} · ${edge.status === "verified" ? "model-specific rack" : "fit to confirm"}` : `${p.capacityL}L · fit to confirm`, status: edge?.status === "verified" ? "verified" : "research", priceFromPhp: p.priceFromPhp }} />; })}</div>
-        </div>}
-        {topBoxFitments.length > 0 && <div className="fitment-evidence-grid entity-fitment-evidence">{topBoxFitments.map((f) => <article key={f.id}><span className={`catalog-status ${f.status === "verified" ? "verified" : ""}`}>{f.status === "verified" ? "Manufacturer-listed" : "Needs checking"}</span><h3>{f.topBoxLabel}</h3><p><b>Rack:</b> {f.rackCode} · {f.rackLabel}</p><p><b>Years:</b> {f.modelYears}</p><p>{f.plateRequirement}</p>{f.marketNote && <small>{f.marketNote}</small>}<div className="fitment-card-links"><Link href={f.productHref}>Open product →</Link><SourceRef url={f.sourceUrl} label="Fitment source" /></div></article>)}</div>}
-        <FitmentSummary model={model} />
-      </section>
-
-      {gearGuide && <section id="gear" className="motorcycle-entity-section" aria-labelledby="gear-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Rider gear</span><h2 id="gear-heading">Helmet options for {model.make} {model.model} riders</h2><p>{gearGuide.intro} Helmet fit is rider-specific, so these are shopping options rather than motorcycle-fitment claims.</p></div></div>
-        {helmetCandidates.length > 0 ? <div className="product-grid">{helmetCandidates.map((p) => <ProductCard key={p.id} item={{ entityId:p.id, href:`/gear/helmets/${p.brandSlug}/${p.slug}`, category:p.helmetType, brand:p.brand, model:p.model, meta:[p.certification,p.intercomReady?"Intercom-ready":undefined].filter(Boolean).join(" · "), status:p.status, priceFromPhp:p.priceFromPhp }} />)}</div> : <div className="note-box compact-note"><h3>Choose the helmet by your head fit</h3><p>Use the helmet finder and exact model size chart rather than matching a helmet to the motorcycle name.</p><Link href="/gear/helmets/finder">Open helmet finder →</Link></div>}
-      </section>}
-
-      <section id="fuel" className="motorcycle-entity-section" aria-labelledby="fuel-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Running cost</span><h2 id="fuel-heading">{model.make} {model.model} fuel consumption and range</h2><p>{efficiency.status === "listed" ? `The ${efficiency.kmPerL} km/L basis comes from the model data on file.` : "No model-specific listed economy figure is stored, so the tool starts from a labeled planning estimate."}</p></div></div>
-        <FuelRangeCalculator model={forClient(model)} />
-        {efficiency.sourceUrl && <div className="source-panel entity-source-panel"><span>Fuel-economy source</span><p>{efficiency.label} · checked {efficiency.checkedAt}</p><SourceRef url={efficiency.sourceUrl} label="Open model source" /></div>}
       </section>
 
       {!isPrevious && <section id="ownership" className="motorcycle-entity-section" aria-labelledby="ownership-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Total cost</span><h2 id="ownership-heading">{model.make} {model.model} cost of ownership</h2><p>Purchase, financing, fuel, maintenance, insurance, registration, tires and resale are adjustable in one model-specific ownership view.</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">Ownership estimate</span><h2 id="ownership-heading">What could the {model.model} cost to own?</h2><p>See the monthly picture first. Open advanced assumptions only when you want to model financing, fuel, maintenance, insurance, registration, tires and resale in detail.</p></div></div>
         <CommuteSnapshot model={model} />
-        <OwnershipCostCalculator model={forClient(model)} />
+        <details className="entity-disclosure"><summary>Adjust full ownership assumptions</summary><OwnershipCostCalculator model={forClient(model)} /></details>
       </section>}
 
-      <section id="maintenance" className="motorcycle-entity-section" aria-labelledby="maintenance-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Service</span><h2 id="maintenance-heading">{model.make} {model.model} maintenance schedule</h2><p>{maintenance ? "Model-specific intervals below are transcribed from the linked official owner-manual source." : "No exact model-specific schedule is published here until an official source is parsed; use the manufacturer resource instead."}</p></div></div>
-        {maintenance ? <>
-          <div className="entity-maintenance-table" role="table" aria-label={`${model.make} ${model.model} maintenance schedule`}>
-            <div className="head" role="row"><span role="columnheader">Item</span><span role="columnheader">Action</span><span role="columnheader">Interval</span></div>
-            {maintenance.items.map((item) => <div role="row" key={item.item}><span role="cell"><strong>{item.item}</strong>{item.note && <small>{item.note}</small>}</span><span role="cell">{item.action}</span><span role="cell">{item.interval}</span></div>)}
-          </div>
-          <div className="source-panel entity-source-panel"><span>Official maintenance source</span><h3>{maintenance.sourceLabel}</h3><p>Checked {maintenance.lastChecked}. Always confirm the schedule for your exact model year and market.</p><SourceRef url={maintenance.sourceUrl} label="Open official manual" /></div>
-        </> : <div className="entity-alert-card subdued"><div><span>Exact schedule not stored</span><h3>Use the official service resource</h3><p>A generic oil, CVT, valve or coolant interval could be wrong for this model.</p></div>{serviceResource ? <a className="button small" href={serviceResource.url} target="_blank" rel="noreferrer">{serviceResource.label} ↗</a> : brandSupport?.serviceUrl ? <a className="button small" href={brandSupport.serviceUrl} target="_blank" rel="noreferrer">Official {model.make} service resource ↗</a> : null}</div>}
-      </section>
-
-      <section id="safety" className="motorcycle-entity-section" aria-labelledby="safety-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Recall + campaign checks</span><h2 id="safety-heading">{model.make} {model.model} recall and service-campaign resources</h2><p>VIN/frame-specific eligibility belongs with the manufacturer. An empty notice list is never treated as proof that no campaign applies.</p></div></div>
-        {safetyNotices.length > 0 ? <div className="safety-notice-list entity-safety-list">{safetyNotices.map((notice) => <article key={`${notice.modelId}-${notice.publishedAt}`}><span>{notice.publishedAt}</span><h3>{notice.title}</h3><p>{notice.summary}</p><SourceRef url={notice.sourceUrl} label={notice.sourceLabel} /></article>)}</div> : <div className="note-box compact-note"><h3>No model-specific notice is listed here right now</h3><p>This does not prove that no recall, product update or service campaign applies to your motorcycle.</p></div>}
-        {safetyResource && <div className="source-panel entity-source-panel"><span>Official campaign resource</span><h3>{safetyResource.label}</h3><p>{safetyResource.method}</p><small>Checked {safetyResource.lastChecked}</small><br/><SourceRef url={safetyResource.url} label="Open official resource" /></div>}
-        {!safetyResource && brandSupport?.recallUrl && <div className="source-panel entity-source-panel"><span>Brand safety / owner resource</span><h3>{brandSupport.officialName}</h3><p>Use the official brand resource with the exact model year and VIN/frame number. An empty local notice list is not treated as proof that no recall or safety campaign exists.</p><small>Checked {brandSupport.checkedAt}</small><br/><SourceRef url={brandSupport.recallUrl} label="Open official resource" /></div>}
-      </section>
-
-      {(brandSupport || authority) && <section id="research-quality" className="motorcycle-entity-section research-quality-section" aria-labelledby="research-quality-heading">
-        <div className="section-head compact"><div><span className="section-kicker">What we checked</span><h2 id="research-quality-heading">What we verified and what you should still confirm</h2><p>Use the verified details as a starting point, then confirm anything that can change by variant, dealer, location or model year.</p></div></div>
-        <div className="research-quality-panel">
-          <article><span>Verified on this page</span><ul>{quality.strengths.slice(0, 7).map((item) => <li key={item}>{item}</li>)}</ul></article>
-          <article><span>Still worth confirming</span><ul>{quality.gaps.slice(0, 7).map((item) => <li key={item}>{item}</li>)}</ul></article>
-        </div>
-        {brandSupport && <div className="ph-brand-support">
-          <div><span>Philippine ownership support</span><h3>{brandSupport.officialName}</h3><p>{brandSupport.supportNote}</p><small>Resource check: {brandSupport.checkedAt}</small></div>
-          <div className="ph-brand-support-links"><SourceRef url={brandSupport.officialUrl} label="Official brand" />{brandSupport.dealerUrl && <SourceRef url={brandSupport.dealerUrl} label="Dealer network" />}{brandSupport.serviceUrl && <SourceRef url={brandSupport.serviceUrl} label="Service / after-sales" />}{brandSupport.ownerUrl && <SourceRef url={brandSupport.ownerUrl} label="Owner resources" />}</div>
-        </div>}
+      {!isPrevious && <section id="alternatives" className="motorcycle-entity-section" aria-labelledby="alternatives-heading">
+        <div className="section-head compact"><div><span className="section-kicker">Alternatives</span><h2 id="alternatives-heading">What else should you consider?</h2><p>Compare the motorcycles most likely to change the decision before you focus on deep technical research.</p></div></div>
+        {authorityComparisons.length > 0 && <div className="authority-comparisons"><div><span>Buyer-guide alternatives</span><strong>Start with these direct cross-shopping choices</strong></div><div>{authorityComparisons.slice(0,3).map((item) => <Link key={item.id} href={`/motorcycles/${item.makeSlug}/${item.slug}`}>{item.make} {item.model}<small>{item.engineCc} cc · {observedMarketPriceLabel(item)}</small></Link>)}</div></div>}
+        <SimilarMotorcycles model={model} />
       </section>}
 
-      <section id="used" className="motorcycle-entity-section" aria-labelledby="used-heading">
-        <div className="section-head compact"><div><span className="section-kicker">Used market</span><h2 id="used-heading">Used {model.make} {model.model} price and value</h2><p>Listing samples and depreciation estimates are shown separately so a small sample is not mistaken for a live market appraisal.</p></div></div>
-        {usedListings.length === 0 && <div className="note-box compact-note"><h3>No verified used listings yet</h3><p>The used-value calculator below is an estimate, not a live appraisal. Verified listing samples will appear here when available.</p></div>}
-        {usedListings.length > 0 && <>
-          <UsedMarketSummary modelId={model.id} />
-          {!isPrevious && <div className="new-used-grid entity-new-used-grid"><article><span>New reference</span><strong>{observedMarketPriceLabel(model)}</strong><p>Published new-bike price for comparison.</p></article><article><span>Used median ask</span><strong>{php(usedSummary.medianPrice)}</strong><p>{usedSummary.included} listing samples after outlier filtering.</p></article><article className="difference"><span>Gap vs reference</span><strong>{php(Math.max(0, range.from - usedSummary.medianPrice))}</strong><p>Before transfer costs, repairs, financing differences and condition adjustments.</p></article></div>}
-          <details className="entity-disclosure"><summary>Show used listing samples</summary><UsedListingTable items={usedListings} /></details>
-        </>}
-        <UsedValueCalculator model={forClient(model)} />
-        <div className="entity-tool-grid">
-          <a href="#used"><span>Used listings</span><strong>Check verified used {model.model} listings</strong><small>Verified listings and depreciation estimates stay on this model page.</small></a>
-          <Link href="/used-motorcycles/buying-checklist"><span>Buying used</span><strong>Open the used-bike checklist</strong><small>Check documents, condition, service history and the actual unit before paying.</small></Link>
-        </div>
-        <details className="entity-disclosure"><summary>Show illustrative depreciation table</summary><div className="depreciation-table"><div className="depreciation-row head"><span>Age</span><span>Fair</span><span>Good</span><span>Excellent</span></div>{usedCurve.map((row) => <div className="depreciation-row" key={row.age}><strong>{row.age} year{row.age === 1 ? "" : "s"}</strong><span>{php(row.fair)}</span><span>{php(row.good)}</span><span>{php(row.excellent)}</span></div>)}</div></details>
-      </section>
+      <div id="detailed-research" className="section-head compact entity-research-divider"><div><span className="section-kicker">Detailed research</span><h2>Evidence for the deeper check</h2><p>Open these sections when the motorcycle is already on your shortlist.</p></div></div>
 
-      {!isPrevious && <section id="alternatives" className="motorcycle-entity-section" aria-labelledby="alternatives-heading"><div className="section-head compact"><div><span className="section-kicker">Cross-shopping</span><h2 id="alternatives-heading">Alternatives to the {model.make} {model.model}</h2><p>Similar current models are grouped by price, engine size, category, transmission and seat height.</p></div></div><SimilarMotorcycles model={model} /></section>}
+      {performance && <section id="performance" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Performance and top-speed evidence</summary><div className="source-panel entity-source-panel"><span>{performance.evidence}</span><h3>{performance.observedRangeKph ? `${performance.observedRangeKph[0]}–${performance.observedRangeKph[1]} km/h observed range` : performance.observedTopSpeedKph ? `About ${performance.observedTopSpeedKph} km/h editorial estimate` : "No manufacturer-published top-speed figure"}</h3><p>{performance.answer}</p><small>{performance.caution}</small><br/><SourceRef url={performance.sourceUrl} label={performance.sourceLabel} /></div></details></section>}
+
+      <section id="fuel" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Fuel economy and range</summary><div className="section-head compact"><div><h2>{model.make} {model.model} fuel consumption</h2><p>{efficiency.status === "listed" ? `The ${efficiency.kmPerL} km/L basis comes from the model data on file.` : "MotoIndex starts from a labeled planning estimate when a model-specific published figure is unavailable."}</p></div></div><FuelRangeCalculator model={forClient(model)} />{efficiency.sourceUrl && <div className="source-panel entity-source-panel"><span>Fuel-economy source</span><p>{efficiency.label} · checked {efficiency.checkedAt}</p><SourceRef url={efficiency.sourceUrl} label="Open model source" /></div>}</details></section>
+
+      <section id="tires-fitment" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Tires, fitment and accessories</summary><div className="section-head compact"><div><h2>{model.make} {model.model} tire sizes and fitment</h2><p>Stock sizes come first. Product and mounting research stays secondary.</p></div></div><div className="entity-fit-kpis tire-fit-kpis"><HeroFact label="Front tire" value={model.frontTire} /><HeroFact label="Rear tire" value={model.rearTire} />{maintenance?.tirePressure && <HeroFact label="Solo pressure" value={`${maintenance.tirePressure.soloFrontPsi} / ${maintenance.tirePressure.soloRearPsi} psi`} note="Front / rear" />}</div><FitmentSummary model={model} />{(tireCandidates.length > 0 || topBoxCandidates.length > 0) && <div className="product-grid">{tireCandidates.slice(0,3).map((p) => <ProductCard key={p.id} item={{ entityId:p.id, href:`/tires/${p.brandSlug}/${p.slug}`, category:"Tire", brand:p.brand, model:p.model, meta:p.useCase, status:p.status, priceFromPhp:p.priceFromPhp }} />)}{topBoxCandidates.slice(0,3).map((p) => { const edge=topBoxFitments.find((f)=>f.topBoxId===p.id); return <ProductCard key={p.id} item={{ entityId:p.id, href:`/accessories/top-box/${p.slug}`, category:"Top box", brand:p.brand, model:p.model, meta:edge?.status==="verified"?`${edge.rackCode} · model-specific rack`:`${p.capacityL}L · fit to confirm`, status:edge?.status==="verified"?"verified":"research", priceFromPhp:p.priceFromPhp }} />; })}</div>}</details></section>
+
+      <section id="maintenance" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Maintenance and official service schedule</summary>{maintenance ? <><div className="entity-maintenance-table" role="table" aria-label={`${model.make} ${model.model} maintenance schedule`}><div className="head" role="row"><span role="columnheader">Item</span><span role="columnheader">Action</span><span role="columnheader">Interval</span></div>{maintenance.items.map((item) => <div role="row" key={item.item}><span role="cell"><strong>{item.item}</strong>{item.note && <small>{item.note}</small>}</span><span role="cell">{item.action}</span><span role="cell">{item.interval}</span></div>)}</div><div className="source-panel entity-source-panel"><span>Official maintenance source</span><h3>{maintenance.sourceLabel}</h3><p>Checked {maintenance.lastChecked}. Confirm the schedule for the exact model year and market.</p><SourceRef url={maintenance.sourceUrl} label="Open official manual" /></div></> : <div className="entity-alert-card subdued"><div><span>Official service schedule</span><h3>Use the current manufacturer maintenance documentation</h3><p>MotoIndex does not substitute a generic interval when a model-specific official schedule has not been transcribed.</p></div>{serviceResource ? <a className="button small" href={serviceResource.url} target="_blank" rel="noreferrer">{serviceResource.label} ↗</a> : brandSupport?.serviceUrl ? <a className="button small" href={brandSupport.serviceUrl} target="_blank" rel="noreferrer">Official {model.make} service resource ↗</a> : null}</div>}</details></section>
+
+      <section id="safety" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Safety, recalls and service campaigns</summary>{safetyNotices.length > 0 ? <div className="safety-notice-list entity-safety-list">{safetyNotices.map((notice) => <article key={`${notice.modelId}-${notice.publishedAt}`}><span>{notice.publishedAt}</span><h3>{notice.title}</h3><p>{notice.summary}</p><SourceRef url={notice.sourceUrl} label={notice.sourceLabel} /></article>)}</div> : <div className="note-box compact-note"><h3>No model-specific notice is listed here right now</h3><p>This is not proof that no recall, product update or service campaign applies. Check the exact VIN/frame number with the manufacturer.</p></div>}{safetyResource && <div className="source-panel entity-source-panel"><span>Official campaign resource</span><h3>{safetyResource.label}</h3><p>{safetyResource.method}</p><small>Checked {safetyResource.lastChecked}</small><br/><SourceRef url={safetyResource.url} label="Open official resource" /></div>}</details></section>
+
+      <section id="used" className="motorcycle-entity-section"><details className="entity-disclosure" open={isPrevious}><summary>Used value and depreciation</summary>{usedListings.length === 0 ? <div className="note-box compact-note"><h3>Used-market sample not available yet</h3><p>The calculator below is an estimate, not a live appraisal. Listing samples appear only after they pass verification.</p></div> : <><UsedMarketSummary modelId={model.id} />{!isPrevious && <div className="new-used-grid entity-new-used-grid"><article><span>New reference</span><strong>{observedMarketPriceLabel(model)}</strong></article><article><span>Used median ask</span><strong>{php(usedSummary.medianPrice)}</strong><p>{usedSummary.included} verified listing samples.</p></article></div>}<details className="entity-disclosure"><summary>Show used listing samples</summary><UsedListingTable items={usedListings} /></details></>}<UsedValueCalculator model={forClient(model)} /><details className="entity-disclosure"><summary>Show illustrative depreciation table</summary><div className="depreciation-table"><div className="depreciation-row head"><span>Age</span><span>Fair</span><span>Good</span><span>Excellent</span></div>{usedCurve.map((row) => <div className="depreciation-row" key={row.age}><strong>{row.age} year{row.age===1?"":"s"}</strong><span>{php(row.fair)}</span><span>{php(row.good)}</span><span>{php(row.excellent)}</span></div>)}</div></details></details></section>
+
+      {allColors.length > 0 && <section id="colors" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Colors and variants</summary><div className="entity-color-grid">{allColors.map((color) => <article key={color}><strong>{color}</strong></article>)}</div></details></section>}
+
+      {gearGuide && helmetCandidates.length > 0 && <section id="gear" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Helmet options for this rider profile</summary><p>{gearGuide.intro} Helmet fit is rider-specific, so these are shopping options rather than motorcycle-fitment claims.</p><div className="product-grid">{helmetCandidates.slice(0,3).map((p) => <ProductCard key={p.id} item={{ entityId:p.id, href:`/gear/helmets/${p.brandSlug}/${p.slug}`, category:p.helmetType, brand:p.brand, model:p.model, meta:p.certification, status:p.status, priceFromPhp:p.priceFromPhp }} />)}</div></details></section>}
+
+      {(brandSupport || authority) && <section id="research-quality" className="motorcycle-entity-section research-quality-section"><details className="entity-disclosure"><summary>Sources, verification and what to confirm</summary><div className="research-quality-panel"><article><span>Verified on this page</span><ul>{quality.strengths.slice(0,5).map((item) => <li key={item}>{item}</li>)}</ul></article><article><span>Still worth confirming</span><ul>{quality.gaps.slice(0,5).map((item) => <li key={item}>{item}</li>)}</ul></article></div>{brandSupport && <div className="ph-brand-support"><div><span>Philippine ownership support</span><h3>{brandSupport.officialName}</h3><p>{brandSupport.supportNote}</p><small>Resource check: {brandSupport.checkedAt}</small></div><div className="ph-brand-support-links"><SourceRef url={brandSupport.officialUrl} label="Official brand" />{brandSupport.dealerUrl && <SourceRef url={brandSupport.dealerUrl} label="Dealer network" />}{brandSupport.serviceUrl && <SourceRef url={brandSupport.serviceUrl} label="Service / after-sales" />}{brandSupport.ownerUrl && <SourceRef url={brandSupport.ownerUrl} label="Owner resources" />}</div></div>}</details></section>}
 
       <section id="faq" className="motorcycle-entity-section"><FaqSection title={`${model.make} ${model.model} FAQs`} items={faqs} /></section>
-
       <AuthorBox />
-
-      <section className="motorcycle-entity-section entity-page-footer-block"><RelatedLinks title={`More ${model.model} research`} links={modelInternalLinks(model)} /></section>
     </div>
-
     <JsonLd data={schema} />
   </article>;
 }
