@@ -1,78 +1,11 @@
-/* Compact fallbacks for model imagery and the commute hero. */
+/* Compact fallback for model imagery. Commute layout is authoritative in public-hubs-v2.css. */
 .motorcycle-hero-grid>*,.motorcycle-hero-visual,.motorcycle-hero-copy{min-width:0}
 .motorcycle-hero-copy h1{max-width:100%;word-break:normal!important;overflow-wrap:normal!important;hyphens:none}
-
-.authority-media-fallback{
-  display:grid!important;
-  grid-template-rows:auto 1fr auto auto;
-  gap:14px;
-  width:100%!important;
-  min-width:0!important;
-  min-height:300px!important;
-  padding:24px!important;
-  overflow:hidden!important;
-  border:1px solid rgba(148,163,184,.18)!important;
-  border-radius:22px!important;
-  background:linear-gradient(145deg,#fff,#f8faff)!important;
-  color:#101828!important;
-  box-shadow:none!important;
-}
-.authority-media-fallback>span,.authority-media-fallback>small{
-  color:#98a2b3!important;
-  font-size:9px!important;
-  font-weight:850!important;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-}
-.authority-media-fallback>strong{
-  align-self:end;
-  display:block!important;
-  min-width:0!important;
-  margin:0!important;
-  color:#101828!important;
-  font:800 clamp(30px,3.6vw,48px)/.96 var(--font-jakarta),sans-serif!important;
-  letter-spacing:-.05em!important;
-  word-break:normal!important;
-}
+.authority-media-fallback{display:grid!important;grid-template-rows:auto 1fr auto auto;gap:14px;width:100%!important;min-width:0!important;min-height:300px!important;padding:24px!important;overflow:hidden!important;border:1px solid rgba(148,163,184,.18)!important;border-radius:22px!important;background:linear-gradient(145deg,#fff,#f8faff)!important;color:#101828!important;box-shadow:none!important}
+.authority-media-fallback>span,.authority-media-fallback>small{color:#98a2b3!important;font-size:9px!important;font-weight:850!important;letter-spacing:.08em;text-transform:uppercase}
+.authority-media-fallback>strong{align-self:end;display:block!important;min-width:0!important;margin:0!important;color:#101828!important;font:800 clamp(30px,3.6vw,48px)/.96 var(--font-jakarta),sans-serif!important;letter-spacing:-.05em!important;word-break:normal!important}
 .authority-media-fallback>strong>b{display:block!important;color:#444CE7!important;font:inherit!important}
 .authority-media-fallback>div{display:flex!important;flex-wrap:wrap!important;gap:6px!important}
-.authority-media-fallback>div>em{
-  display:inline-flex!important;
-  align-items:center;
-  min-height:30px;
-  padding:0 9px!important;
-  border:1px solid rgba(148,163,184,.18)!important;
-  border-radius:9px!important;
-  background:#fff!important;
-  color:#475467!important;
-  font-size:9px!important;
-  font-style:normal!important;
-  font-weight:800!important;
-  white-space:nowrap!important;
-}
-
-.commute-master-page .commute-hero-grid .commute-context{
-  display:flex!important;
-  flex-direction:column!important;
-  justify-content:center!important;
-  min-width:0!important;
-  padding:24px 18px 24px 8px!important;
-  border:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-  color:#fff!important;
-}
-.commute-master-page .commute-context h2{max-width:720px;margin:0 0 14px!important;color:#fff!important;font-size:clamp(32px,3.4vw,50px)!important;line-height:.98!important}
-.commute-master-page .commute-context p{max-width:680px;margin:0!important;color:rgba(255,255,255,.60)!important;font-size:14px!important;line-height:1.7!important}
-.commute-master-page .commute-context .source-links{margin-top:28px!important}
-.commute-master-page .commute-context .source-links a{border:1px solid rgba(255,255,255,.12)!important;border-radius:9px!important;background:rgba(255,255,255,.055)!important;color:#ff7a80!important}
-
-@media(max-width:900px){
-  .authority-media-fallback{min-height:270px!important;padding:20px!important}
-  .commute-master-page .commute-hero-grid .commute-context{padding:8px 0 24px!important}
-}
-@media(max-width:520px){
-  .authority-media-fallback{min-height:230px!important;padding:16px!important;border-radius:18px!important}
-  .authority-media-fallback>strong{font-size:32px!important}
-  .commute-master-page .commute-context h2{font-size:32px!important}
-}
+.authority-media-fallback>div>em{display:inline-flex!important;align-items:center;min-height:30px;padding:0 9px!important;border:1px solid rgba(148,163,184,.18)!important;border-radius:9px!important;background:#fff!important;color:#475467!important;font-size:9px!important;font-style:normal!important;font-weight:800!important;white-space:nowrap!important}
+@media(max-width:900px){.authority-media-fallback{min-height:270px!important;padding:20px!important}}
+@media(max-width:520px){.authority-media-fallback{min-height:230px!important;padding:16px!important;border-radius:18px!important}.authority-media-fallback>strong{font-size:32px!important}}
