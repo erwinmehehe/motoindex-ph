@@ -13,7 +13,7 @@ export function CompareBuilder({ models }: { models: Motorcycle[] }) {
   const ready=Boolean(a&&b&&a.slug!==b.slug);
   const ready3=Boolean(ready&&c&&c.slug!==a?.slug&&c.slug!==b?.slug);
 
-  const picker=(label:string,value:string,set:(v:string)=>void,blocked:string[]=[],optional=false)=><label>
+  const picker=(label:string,value:string,set:(v:string)=>void,blocked:string[]=[],optional=false)=><label className={optional?"compare-picker-optional":undefined}>
     <span>{label}</span>
     <select value={value} onChange={e=>set(e.target.value)} aria-label={label}>
       <option value="">{optional?"None / compare two":"Choose a motorcycle"}</option>
@@ -30,7 +30,7 @@ export function CompareBuilder({ models }: { models: Motorcycle[] }) {
   function goThree(){if(!ready3||!a||!b||!c)return;trackEvent("compare_build",{count:3,a:a.id,b:b.id,c:c.id});openSelection([a,b,c])}
 
   return <div className="compare-builder">
-    <div className="compare-builder-head"><div><h2>Choose the motorcycles to compare</h2><p>Select two models, or add a third for a three-way comparison. A motorcycle can only be selected once.</p></div><span className="compare-count">{options.length} models</span></div>
+    <div className="compare-builder-head"><div><h2>Choose the motorcycles to compare</h2><p>Select two models first. Add a third only when you want a three-way comparison.</p></div><span className="compare-count">{options.length} current models</span></div>
     <div className="compare-picker-grid three-picker">
       {picker("Motorcycle A",aSlug,setASlug,[bSlug,cSlug])}
       <div className="compare-vs">VS</div>

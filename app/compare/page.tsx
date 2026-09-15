@@ -20,7 +20,17 @@ function ComparisonLink({ slug, summary }: { slug: string; summary: string }) {
   const data=getComparison(slug);
   if(!data)return null;
   const brief=getComparisonEditorialBrief(slug);
-  return <Link href={`/compare/${slug}`}><span><strong>{brief?.primaryKeyword||`${data.a.model} vs ${data.b.model}`}</strong><small>{brief?.intent||summary}</small></span><b>Compare →</b></Link>;
+  const category=data.a.category===data.b.category?data.a.category:"Buyer comparison";
+  return <Link className={styles.comparisonCard} href={`/compare/${slug}`}>
+    <div className={styles.cardTop}><span>{category}</span><b>Compare →</b></div>
+    <div className={styles.pairModels}>
+      <div><small>{data.a.make}</small><strong>{data.a.model}</strong></div>
+      <em>VS</em>
+      <div><small>{data.b.make}</small><strong>{data.b.model}</strong></div>
+    </div>
+    <h3>{brief?.primaryKeyword||`${data.a.model} vs ${data.b.model}`}</h3>
+    <p>{brief?.intent||summary}</p>
+  </Link>;
 }
 
 export default function CompareIndex(){
@@ -36,7 +46,7 @@ export default function CompareIndex(){
     </div>
 
     {featuredComparisons.length>0&&<section className={styles.popular}>
-      <div className={styles.popularHead}><div><span>Popular comparisons</span><h2>Start with a common pair</h2></div></div>
+      <div className={styles.popularHead}><div><span>Popular comparisons</span><h2>Start with a common pair</h2><p>Choose a proven cross-shop pair, then open the full side-by-side decision view.</p></div></div>
       <div className={styles.popularList}>{featuredComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div>
       {remainingComparisons.length>0&&<details className="compare-more-pairs"><summary>View all comparisons ({publicComparisons.length})</summary><div className={styles.popularList}>{remainingComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div></details>}
     </section>}
