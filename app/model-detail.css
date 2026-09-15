@@ -179,18 +179,49 @@ html body .motorcycle-entity-page .section-head p{
   line-height:1.58!important;
 }
 
+/* ModelPage.module.css is route-local and can load after globals. These selectors
+   intentionally outrank that module so the compact cockpit remains the authority. */
+html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-copy h1{
+  max-width:590px!important;
+  font-size:clamp(42px,4.4vw,58px)!important;
+  line-height:.98!important;
+}
+html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual .motorcycle-hero-media,
+html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual .authority-media-fallback,
+html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual .motorcycle-hero-media .bike-art.big{
+  height:clamp(270px,28vw,330px)!important;
+  min-height:0!important;
+  max-height:330px!important;
+  background:#fff!important;
+}
+html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual .motorcycle-hero-facts{
+  margin-top:10px!important;
+  border:1px solid rgba(148,163,184,.18)!important;
+  border-radius:16px!important;
+  background:#fff!important;
+}
+html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual .motorcycle-hero-facts>div{
+  background:#fff!important;
+  border-left:0!important;
+  border-right:1px solid rgba(148,163,184,.14)!important;
+}
+
 @media(max-width:900px){
   html body .motorcycle-entity-hero{padding:20px 0 28px!important}
   html body .motorcycle-hero-grid{grid-template-columns:1fr!important;gap:22px!important}
   html body .motorcycle-hero-copy{max-width:none!important}
-  html body .motorcycle-hero-copy h1{max-width:700px!important;font-size:clamp(38px,8vw,52px)!important}
-  html body .motorcycle-hero-media{height:300px!important;max-height:300px!important}
+  html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-copy h1{max-width:700px!important;font-size:clamp(38px,8vw,52px)!important}
+  html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual .motorcycle-hero-media,
+  html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual .authority-media-fallback,
+  html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual .motorcycle-hero-media .bike-art.big{height:300px!important;min-height:0!important;max-height:300px!important}
 }
 @media(max-width:600px){
   html body .motorcycle-entity-hero .breadcrumbs{margin-bottom:16px!important}
-  html body .motorcycle-hero-copy h1{font-size:38px!important;line-height:1!important}
+  html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-copy h1{font-size:38px!important;line-height:1!important}
   html body .entity-hero-purpose{font-size:14px!important}
-  html body .motorcycle-hero-media{height:245px!important;max-height:245px!important;border-radius:18px!important}
+  html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual .motorcycle-hero-media,
+  html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual .authority-media-fallback,
+  html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual .motorcycle-hero-media .bike-art.big{height:245px!important;min-height:0!important;max-height:245px!important;border-radius:18px!important}
   html body .motorcycle-hero-media img{padding:12px!important}
   html body .motorcycle-hero-facts{grid-template-columns:repeat(2,minmax(0,1fr))!important}
   html body .motorcycle-hero-facts>div{min-height:62px!important;border-bottom:1px solid rgba(148,163,184,.14)!important}
