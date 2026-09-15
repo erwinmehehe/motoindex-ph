@@ -11,12 +11,15 @@ function phoneHref(phone: string) {
 export function DealerFinder({ dealers, initialBrand = "all" }: { dealers: SellerProfile[]; initialBrand?: string }) {
   const brands=useMemo(()=>[...new Set(dealers.flatMap(d=>d.brands))].sort(),[dealers]);
   const cities=useMemo(()=>[...new Set(dealers.map(d=>d.city))].sort(),[dealers]);
-  const normalizedInitialBrand=brands.find(value=>value.toLowerCase()===initialBrand.toLowerCase())||"all";
+  const matchedInitialBrand=brands.find(value=>value.toLowerCase()===initialBrand.toLowerCase());
+  const normalizedInitialBrand=initialBrand==="all"?"all":matchedInitialBrand||initialBrand;
   const [query,setQuery]=useState("");
   const [brand,setBrand]=useState(normalizedInitialBrand);
   const [city,setCity]=useState("all");
+  const unsupportedBrand=brand!=="all"&&!brands.includes(brand);
 
   const filtered=useMemo(()=>{
+    if(brand!=="all"&&!brands.includes(brand))return [];
     const q=query.trim().toLowerCase();
     return dealers.filter(dealer=>{
       if(brand!=="all"&&!dealer.brands.includes(brand))return false;
@@ -25,7 +28,7 @@ export function DealerFinder({ dealers, initialBrand = "all" }: { dealers: Selle
       return [dealer.name,dealer.addressLabel,dealer.city,dealer.province||"",...dealer.brands]
         .some(value=>value.toLowerCase().includes(q));
     });
-  },[brand,city,dealers,query]);
+  },[brand,brands,city,dealers,query]);
 
   const active=query||brand!=="all"||city!=="all";
 
@@ -39,6 +42,7 @@ export function DealerFinder({ dealers, initialBrand = "all" }: { dealers: Selle
         <span>Brand</span>
         <select value={brand} onChange={e=>setBrand(e.target.value)}>
           <option value="all">All brands</option>
+          {unsupportedBrand?<option value={brand}>{brand} · no checked records yet</option>:null}
           {brands.map(value=><option value={value} key={value}>{value}</option>)}
         </select>
       </label>
@@ -59,7 +63,7 @@ export function DealerFinder({ dealers, initialBrand = "all" }: { dealers: Selle
 
     {filtered.length?<div className="dealer-results">
       {filtered.map(dealer=><article className="dealer-result-card" key={dealer.slug}>
-        <div className="dealer-card-top"><span className="dealer-brand">{dealer.brands.join(" · ")}</span><span className="dealer-checked">Dealer details checked</span></div>
+        <div className="dealer-card-top"><span className="dealer-brand">{dealer.brands.join(" · ")}</span><span className="dealer-checked" aria-label="Dealer details checked">✓</span></div>
         <h3>{dealer.name}</h3>
         <p>{dealer.addressLabel}</p>
         <div className="dealer-card-meta">
@@ -67,13 +71,13 @@ export function DealerFinder({ dealers, initialBrand = "all" }: { dealers: Selle
           {dealer.phoneLabel?<span>{dealer.phoneLabel}</span>:null}
         </div>
         <div className="dealer-card-actions">
-          <Link href={`/sellers/${dealer.slug}`}>View dealer</Link>
-          {dealer.phoneLabel?<a href={phoneHref(dealer.phoneLabel)}>Call branch</a>:null}
+          <Link href={`/sellers/${dealer.slug}`}>View</Link>
+          {dealer.phoneLabel?<a href={phoneHref(dealer.phoneLabel)}>Call</a>:null}
         </div>
       </article>)}
     </div>:<div className="dealer-no-results">
-      <h3>No checked dealer matches</h3>
-      <p>Try another city or brand, or use the official brand locators below for broader coverage.</p>
+      <h3>{unsupportedBrand?`No checked ${brand} dealer records yet`:"No checked dealer matches"}</h3>
+      <p>{unsupportedBrand?"MotoIndex dealer coverage is still expanding. Use the official brand or distributor directories below for broader coverage.":"Try another city or brand, or use the official brand directories below for broader coverage."}</p>
     </div>}
   </div>;
 }
