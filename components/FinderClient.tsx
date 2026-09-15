@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Motorcycle } from "@/lib/types";
 import { MotorcycleFinder, type FinderInitialFilters } from "@/components/MotorcycleFinder";
 import type { DecisionUseCase } from "@/lib/decisionEngine";
@@ -43,14 +43,15 @@ function intFrom(params: URLSearchParams, key: string, allowed: number[], fallba
 }
 
 export function FinderClient({ models }: { models: Motorcycle[] }) {
-  // Render the default Finder immediately. Previously the server emitted a tiny
-  // loading placeholder and hydration replaced it with the full workspace,
-  // producing a large cumulative layout shift on /finder.
   const [initial, setInitial] = useState<FinderInitialFilters>(defaultInitial);
+  const [sharedState, setSharedState] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (!params.size) return;
+    if (!params.size) {
+      setSharedState(false);
+      return;
+    }
     const makes = new Set(models.map(model => model.make));
     const categories = new Set(models.map(model => model.category));
     const useValue = params.get("use") as DecisionUseCase | null;
@@ -84,8 +85,10 @@ export function FinderClient({ models }: { models: Motorcycle[] }) {
       termMonths: intFrom(params, "term", [12,24,36,48,60], 36),
       annualRatePct: intFrom(params, "rate", [0,8,12,18,24], 12),
     });
+    setSharedState(true);
   }, [models]);
 
+  const finderKey = useMemo(() => `${sharedState ? "shared" : "fresh"}:${JSON.stringify(initial)}`, [initial, sharedState]);
   const className = `${styles.refined} ${resultStyles.results}`;
-  return <div className={className}><MotorcycleFinder models={models} initialFilters={initial} /></div>;
+  return <div className={className}><MotorcycleFinder key={finderKey} models={models} initialFilters={initial} initiallyComplete={sharedState} /></div>;
 }
