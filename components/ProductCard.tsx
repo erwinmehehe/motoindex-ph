@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { EntityMedia } from "@/components/EntityMedia";
+import { EntityVerificationFallback } from "@/components/EntityVerificationFallback";
 import { AffiliateOffer } from "@/components/AffiliateOffer";
 
 export type ProductCardItem = {
@@ -23,7 +24,7 @@ function entityTypeForHref(href: string): "helmet" | "tire" | "topbox" | null {
 export function ProductCard({ item }: { item: ProductCardItem }) {
   const entityType = entityTypeForHref(item.href);
   const productName = `${item.brand} ${item.model}`;
-  const missingPhoto = <div className="product-art" aria-label="Product image verification in progress"><span>Image verification in progress</span></div>;
+  const missingPhoto = <EntityVerificationFallback brand={item.brand} model={item.model} />;
   const card = <Link className="product-card" href={item.href}>
     {entityType && item.entityId
       ? <EntityMedia entityType={entityType} entityId={item.entityId} className="product-card-media" showCredit={false} fallback={missingPhoto} />
@@ -35,7 +36,7 @@ export function ProductCard({ item }: { item: ProductCardItem }) {
       </div>
       <h3>{productName}</h3>
       <p>{item.meta}</p>
-      <div className="product-card-foot"><strong>{item.priceFromPhp ? `From ₱${item.priceFromPhp.toLocaleString("en-PH")}` : "Price pending"}</strong><span>View →</span></div>
+      <div className="product-card-foot">{typeof item.priceFromPhp === "number" ? <strong>From ₱{item.priceFromPhp.toLocaleString("en-PH")}</strong> : <span aria-hidden="true" /> }<span>View →</span></div>
     </div>
   </Link>;
   if (!item.entityId) return card;
