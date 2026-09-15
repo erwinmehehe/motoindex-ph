@@ -19,8 +19,9 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
   const query = await searchParams;
   const verifiedDealers = await allVerifiedDealers();
   const availableBrands = [...new Set(verifiedDealers.flatMap(dealer => dealer.brands))];
-  const requestedBrandRaw = first(query.brand) || "";
-  const requestedBrand = availableBrands.find(brand => brand.toLowerCase() === requestedBrandRaw.toLowerCase()) || "all";
+  const requestedBrandRaw = (first(query.brand) || "").trim().slice(0,40);
+  const requestedBrandMatch = availableBrands.find(brand => brand.toLowerCase() === requestedBrandRaw.toLowerCase());
+  const requestedBrand = requestedBrandMatch || requestedBrandRaw || "all";
   const cityCounts = new Map<string, number>();
   for (const dealer of verifiedDealers) cityCounts.set(dealer.city, (cityCounts.get(dealer.city) || 0) + 1);
   const publishedCities = [...cityCounts.entries()].filter(([,count])=>count>=MIN_PUBLIC_DEALERS_PER_CITY).map(([city])=>city).sort();
