@@ -144,7 +144,6 @@ const consolidatedRouteFiles = [
   "app/fitment/[make]/[slug]/page.tsx",
   "app/used-motorcycles/[make]/[slug]/page.tsx",
   "app/motorcycles/[make]/scooters/page.tsx",
-  "app/recommendations/[slug]/page.tsx",
   "app/commute/[slug]/page.tsx",
   "app/maintenance/[slug]/page.tsx",
   "app/ownership/maintenance/page.tsx",
@@ -161,6 +160,13 @@ for (const path of consolidatedRouteFiles) {
   if (!read(path).includes("permanentRedirect(")) {
     failures.push(`${path}: consolidated route must remain a permanent redirect`);
   }
+}
+
+const recommendationGuideRoute = read("app/recommendations/[slug]/page.tsx");
+if (!recommendationGuideRoute.includes("getRecommendationGuide") ||
+    !recommendationGuideRoute.includes("generateMetadata") ||
+    recommendationGuideRoute.includes("permanentRedirect(")) {
+  failures.push("app/recommendations/[slug]/page.tsx: substantive recommendation guides must remain standalone editorial routes");
 }
 
 const forbiddenSitemapFragments = [
