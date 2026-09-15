@@ -8,7 +8,7 @@ export type ProductCardItem = {
   category: string;
   brand: string;
   model: string;
-  meta: string;
+  meta?: string;
   status: "research" | "verified";
   priceFromPhp?: number;
   entityId?: string;
@@ -35,7 +35,7 @@ export function ProductCard({ item }: { item: ProductCardItem }) {
         {item.status !== "verified" && <span className="catalog-status">Check details</span>}
       </div>
       <h3>{productName}</h3>
-      <p>{item.meta}</p>
+      {item.meta && <p>{item.meta}</p>}
       <div className="product-card-foot">{typeof item.priceFromPhp === "number" ? <strong>From ₱{item.priceFromPhp.toLocaleString("en-PH")}</strong> : <span aria-hidden="true" /> }<span>View →</span></div>
     </div>
   </Link>;
