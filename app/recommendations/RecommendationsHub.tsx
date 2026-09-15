@@ -61,14 +61,14 @@ function RankedList({ models, metric }: { models: Motorcycle[]; metric: (model: 
 
 export default function RecommendationsPage() {
   const current = [...publicMotorcycles].sort((a, b) => observedMarketRange(a).from - observedMarketRange(b).from);
-  const under100 = current.filter((m) => observedMarketRange(m).from < 100000).slice(0, 6);
-  const scooters = current.filter((m) => /scooter/i.test(m.category) && m.transmission === "Automatic").slice(0, 6);
-  const shortRider = [...current].sort((a, b) => a.seatHeightMm - b.seatHeightMm || a.curbWeightKg - b.curbWeightKg).slice(0, 5);
-  const lightweight = [...current].sort((a, b) => a.curbWeightKg - b.curbWeightKg).slice(0, 5);
-  const efficient = current.filter((m) => m.fuelConsumptionKmL).sort((a, b) => (b.fuelConsumptionKmL || 0) - (a.fuelConsumptionKmL || 0)).slice(0, 5);
-  const absModels = current.filter((m) => hasConfirmedAbs(m.abs)).slice(0, 5);
-  const longRide = [...current].filter((m) => m.fuelTankL >= 12).sort((a, b) => b.fuelTankL - a.fuelTankL).slice(0, 5);
-  const bigBikes = current.filter((m) => m.engineCc >= 400).slice(0, 5);
+  const under100 = current.filter((m) => observedMarketRange(m).from < 100000).slice(0, 3);
+  const scooters = current.filter((m) => /scooter/i.test(m.category) && m.transmission === "Automatic").slice(0, 3);
+  const shortRider = [...current].sort((a, b) => a.seatHeightMm - b.seatHeightMm || a.curbWeightKg - b.curbWeightKg).slice(0, 3);
+  const lightweight = [...current].sort((a, b) => a.curbWeightKg - b.curbWeightKg).slice(0, 3);
+  const efficient = current.filter((m) => m.fuelConsumptionKmL).sort((a, b) => (b.fuelConsumptionKmL || 0) - (a.fuelConsumptionKmL || 0)).slice(0, 3);
+  const absModels = current.filter((m) => hasConfirmedAbs(m.abs)).slice(0, 3);
+  const longRide = [...current].filter((m) => m.fuelTankL >= 12).sort((a, b) => b.fuelTankL - a.fuelTankL).slice(0, 3);
+  const bigBikes = current.filter((m) => m.engineCc >= 400).slice(0, 3);
   const categories = [...new Map(current.map((m) => [m.category, m])).entries()]
     .map(([category]) => ({ category, count: current.filter((m) => m.category === category).length }))
     .sort((a, b) => b.count - a.count)
@@ -133,36 +133,36 @@ export default function RecommendationsPage() {
       </section>
 
       <section id="budget" className="rec-section rec-section-light">
-        <div className="rec-section-head"><div><span>Budget first</span><h2>Start under ₱100K, then inspect the tradeoffs.</h2><p>These are current researched models below the price threshold, not a universal ranking.</p></div><Link href="/finder">Set a custom budget →</Link></div>
+        <div className="rec-section-head"><div><span>Budget first</span><h2>Three under-₱100K starting points.</h2><p>Start with three current researched models, then use the Finder if you want a wider shortlist with your own budget and use case.</p></div><Link href="/finder">Set a custom budget →</Link></div>
         <BikeRail models={under100} />
       </section>
 
       <section id="commuting" className="rec-section rec-editorial-split">
         <div className="rec-editorial-copy"><span>Daily riding</span><h2>Traffic changes what “good” means.</h2><p>For city use, manageable weight, predictable low-speed behavior and easy controls often matter more than peak power.</p><div className="rec-editorial-points"><div><b>Stop-go</b><small>Automatic transmission can reduce workload.</small></div><div><b>Parking</b><small>Lighter motorcycles are easier to move around tight spaces.</small></div><div><b>Running cost</b><small>Fuel economy only matters alongside service and parts access.</small></div></div><Link className="rec-text-link" href="/finder">Build a commuting shortlist →</Link></div>
-        <div id="scooters" className="rec-editorial-rail"><div className="rec-section-head compact"><div><span>Automatic options</span><h3>Scooters worth comparing</h3></div></div><BikeRail models={scooters} /></div>
+        <div id="scooters" className="rec-editorial-rail"><div className="rec-section-head compact"><div><span>Automatic options</span><h3>Three scooters worth comparing</h3></div></div><BikeRail models={scooters} /></div>
       </section>
 
       <section id="rider-fit" className="rec-section rec-data-section">
         <div className="rec-section-head"><div><span>Physical fit</span><h2>Start with dimensions you can compare.</h2><p>Seat height and curb weight narrow the field. Neither guarantees that a motorcycle will fit your body.</p></div></div>
         <div className="rec-two-column">
-          <div><div className="rec-list-title"><span>Lower seat</span><h3>Published seat heights</h3></div><RankedList models={shortRider} metric={(m) => `${m.seatHeightMm} mm seat · ${m.curbWeightKg} kg`} /></div>
-          <div><div className="rec-list-title"><span>Lower weight</span><h3>Manageable curb weights</h3></div><RankedList models={lightweight} metric={(m) => `${m.curbWeightKg} kg · ${m.seatHeightMm} mm seat`} /></div>
+          <div><div className="rec-list-title"><span>Lower seat</span><h3>Top 3 published seat heights</h3></div><RankedList models={shortRider} metric={(m) => `${m.seatHeightMm} mm seat · ${m.curbWeightKg} kg`} /></div>
+          <div><div className="rec-list-title"><span>Lower weight</span><h3>Top 3 manageable curb weights</h3></div><RankedList models={lightweight} metric={(m) => `${m.curbWeightKg} kg · ${m.seatHeightMm} mm seat`} /></div>
         </div>
       </section>
 
       <section id="safety-efficiency" className="rec-section rec-data-section rec-dark-panel">
         <div className="rec-section-head"><div><span>Equipment & running cost</span><h2>Separate safety equipment from fuel claims.</h2><p>ABS availability is only included here when the source text positively confirms it. Fuel-economy figures remain planning references, not guarantees.</p></div></div>
         <div className="rec-two-column">
-          <div><div className="rec-list-title"><span>Braking</span><h3>Confirmed ABS availability</h3></div><RankedList models={absModels} metric={(m) => m.abs} /></div>
-          <div><div className="rec-list-title"><span>Efficiency</span><h3>Higher published km/L</h3></div><RankedList models={efficient} metric={(m) => `${m.fuelConsumptionKmL} km/L published · ${m.engineCc} cc`} /></div>
+          <div><div className="rec-list-title"><span>Braking</span><h3>3 confirmed ABS starting points</h3></div><RankedList models={absModels} metric={(m) => m.abs} /></div>
+          <div><div className="rec-list-title"><span>Efficiency</span><h3>3 higher published km/L figures</h3></div><RankedList models={efficient} metric={(m) => `${m.fuelConsumptionKmL} km/L published · ${m.engineCc} cc`} /></div>
         </div>
       </section>
 
       <section id="long-rides" className="rec-section rec-data-section">
         <div className="rec-section-head"><div><span>Longer rides</span><h2>Range and displacement are only the start.</h2><p>Tank size can reduce fuel stops. Real touring suitability also depends on ergonomics, wind protection, luggage, passenger needs and service access.</p></div></div>
         <div className="rec-two-column">
-          <div><div className="rec-list-title"><span>Fuel capacity</span><h3>Larger-tank comparisons</h3></div><RankedList models={longRide} metric={(m) => `${m.fuelTankL} L tank · ${m.engineCc} cc`} /></div>
-          <div id="400cc"><div className="rec-list-title"><span>Displacement</span><h3>400cc+ starting points</h3></div><RankedList models={bigBikes} metric={(m) => `${m.engineCc} cc · ${m.powerHp} hp`} /></div>
+          <div><div className="rec-list-title"><span>Fuel capacity</span><h3>3 larger-tank comparisons</h3></div><RankedList models={longRide} metric={(m) => `${m.fuelTankL} L tank · ${m.engineCc} cc`} /></div>
+          <div id="400cc"><div className="rec-list-title"><span>Displacement</span><h3>3 400cc+ starting points</h3></div><RankedList models={bigBikes} metric={(m) => `${m.engineCc} cc · ${m.powerHp} hp`} /></div>
         </div>
       </section>
 
