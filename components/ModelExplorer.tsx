@@ -18,6 +18,39 @@ const budgetChips = [
   ["over200", "₱200K+"]
 ] as const;
 
+const buyerCategoryOptions = [
+  ["scooter", "Scooter"],
+  ["underbone", "Underbone / utility"],
+  ["naked", "Naked / street"],
+  ["sport", "Sport"],
+  ["adventure", "Adventure / dual-sport"],
+  ["cruiser", "Cruiser"],
+  ["classic", "Classic / retro"],
+  ["touring", "Touring"],
+] as const;
+
+type BuyerCategory = typeof buyerCategoryOptions[number][0];
+
+function buyerCategoryFor(category: string): BuyerCategory | "other" {
+  const value = category.toLowerCase();
+  if (value.includes("scooter")) return "scooter";
+  if (value.includes("underbone") || value.includes("business motorcycle") || value.includes("mini street bike")) return "underbone";
+  if (value.includes("touring")) return "touring";
+  if (value.includes("adventure") || value.includes("dual-sport") || value.includes("dual-purpose") || value.includes("scrambler")) return "adventure";
+  if (value.includes("cruiser")) return "cruiser";
+  if (value.includes("classic") || value.includes("retro") || value.includes("cafe")) return "classic";
+  if (value.includes("naked") || value.includes("street") || value.includes("roadster")) return "naked";
+  if (value.includes("sport") || value.includes("hypersport")) return "sport";
+  return "other";
+}
+
+function normalizeCategoryFilter(value?: string) {
+  if (!value || value === "all") return "all";
+  const normalized = value.toLowerCase();
+  const direct = buyerCategoryOptions.find(([key]) => key === normalized)?.[0];
+  return direct || buyerCategoryFor(value);
+}
+
 function peso(value: number) {
   return new Intl.NumberFormat("en-PH", { style: "currency", currency: "PHP", maximumFractionDigits: 0 }).format(value);
 }
@@ -31,10 +64,10 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
   const catalogMax = Math.ceil((Math.max(...prices, 100000) + 25000) / 25000) * 25000;
   const catalogMin = Math.floor(Math.min(...prices, 0) / 25000) * 25000;
   const makes = useMemo(()=>[...new Set(models.map(m=>m.make))].sort(),[models]);
-  const categories = useMemo(()=>[...new Set(models.map(m=>m.category))].sort(),[models]);
+  const categories = useMemo(()=>buyerCategoryOptions.filter(([value])=>models.some(model=>buyerCategoryFor(model.category)===value)),[models]);
   const [q, setQ] = useState(initialFilters.q || "");
   const [make, setMake] = useState(initialFilters.make || "all");
-  const [category, setCategory] = useState(initialFilters.category || "all");
+  const [category, setCategory] = useState(normalizeCategoryFilter(initialFilters.category));
   const [budget, setBudget] = useState(allowedBudgets.has(initialFilters.budget || "") ? initialFilters.budget! : "all");
   const [sort, setSort] = useState(allowedSorts.has(initialFilters.sort || "") ? initialFilters.sort! : "recommended");
   const [maxPrice, setMaxPrice] = useState(Math.min(initialFilters.maxPrice || catalogMax, catalogMax));
@@ -49,9 +82,10 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
     const requestedBudget=params.get("budget")||initialFilters.budget||"all";
     const requestedSort=params.get("sort")||initialFilters.sort||"recommended";
     const requestedMax=Number(params.get("max")||initialFilters.maxPrice||catalogMax);
+    const requestedCategory=normalizeCategoryFilter(params.get("type")||initialFilters.category);
     setQ(params.get("q")||initialFilters.q||"");
     setMake(resolvedMake);
-    setCategory(params.get("type")||initialFilters.category||"all");
+    setCategory(categories.some(([value])=>value===requestedCategory)?requestedCategory:"all");
     setBudget(allowedBudgets.has(requestedBudget)?requestedBudget:"all");
     setSort(allowedSorts.has(requestedSort)?requestedSort:"recommended");
     setMaxPrice(Number.isFinite(requestedMax)&&requestedMax>0?Math.min(requestedMax,catalogMax):catalogMax);
@@ -80,7 +114,7 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
       const text = `${m.make} ${m.model} ${m.category}`.toLowerCase();
       if (q && !text.includes(q.toLowerCase())) return false;
       if (make !== "all" && m.make !== make) return false;
-      if (category !== "all" && m.category !== category) return false;
+      if (category !== "all" && buyerCategoryFor(m.category) !== category) return false;
       const price=observedMarketRange(m).from;
       if (price > maxPrice) return false;
       if (budget === "under100" && price >= 100000) return false;
@@ -106,7 +140,7 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
     <div className="model-filter-panel-head"><div><span>Shopping filters</span><strong>Narrow the catalog</strong></div>{dirty&&<button type="button" onClick={reset}>Reset</button>}</div>
     <label className="model-filter-search"><span>Search</span><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Aerox, Honda, adventure..." /></label>
     <label><span>Brand</span><select value={make} onChange={e=>setMake(e.target.value)}><option value="all">All brands</option>{makes.map(v=><option key={v} value={v}>{v}</option>)}</select></label>
-    <fieldset className="model-filter-group"><legend>Body type</legend><div className="model-filter-chips"><button type="button" className={category==="all"?"active":""} onClick={()=>setCategory("all")}>All</button>{categories.map(v=><button type="button" key={v} className={category===v?"active":""} onClick={()=>setCategory(v)}>{v}</button>)}</div></fieldset>
+    <fieldset className="model-filter-group"><legend>Body type</legend><div className="model-filter-chips"><button type="button" className={category==="all"?"active":""} onClick={()=>setCategory("all")}>All</button>{categories.map(([value,label])=><button type="button" key={value} className={category===value?"active":""} onClick={()=>setCategory(value)}>{label}</button>)}</div></fieldset>
     <fieldset className="model-filter-group"><legend>Budget</legend><div className="model-budget-stack">{budgetChips.map(([value,label])=><button key={value} type="button" className={budget===value?"active":""} aria-pressed={budget===value} onClick={()=>chooseBudget(value)}>{label}</button>)}</div></fieldset>
     <label className="model-price-range"><span>Maximum price <b>{peso(maxPrice)}</b></span><input type="range" min={Math.max(25000,catalogMin)} max={catalogMax} step="25000" value={maxPrice} onChange={(e)=>{setMaxPrice(Number(e.target.value));setBudget("all");}} /><small>Move the slider to set a custom ceiling.</small></label>
     <label><span>Sort</span><select value={sort} onChange={e=>setSort(e.target.value)}><option value="recommended">Recommended order</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option><option value="engine-desc">Largest engine first</option><option value="seat-asc">Lowest seat first</option></select></label>
@@ -118,7 +152,7 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
     <div className="model-explorer-layout">
       <aside className="model-explorer-rail">{filterPanel}</aside>
       <div className="model-explorer-results">
-        <div className="result-meta" aria-live="polite"><div><span><b>{filtered.length}</b> motorcycles</span><small>{dirty ? "Filtered to your current shopping criteria" : `Showing ${visible.length} of ${filtered.length} current model records`}</small></div>{dirty&&<button type="button" className="text-button" onClick={reset}>Clear all</button>}</div>
+        <div className="result-meta" aria-live="polite"><div><span><b>{filtered.length}</b> motorcycles</span><small>{dirty ? "Filtered to your current shopping criteria" : `Showing ${visible.length} of ${filtered.length} current motorcycles`}</small></div>{dirty&&<button type="button" className="text-button" onClick={reset}>Clear all</button>}</div>
         {filtered.length ? <><div className="card-grid motorcycle-catalog-grid">{visible.map(m=><ModelCard key={m.id} model={m}/>)}</div>{hasMore&&<div className="catalog-load-more"><button type="button" onClick={()=>setVisibleCount((count)=>Math.min(count+pageSize,filtered.length))}>Show {Math.min(pageSize,filtered.length-visible.length)} more motorcycles</button><small>{visible.length} of {filtered.length} shown</small></div>}</> : <div className="empty-state large"><strong>No motorcycles match every filter.</strong><span>Try a higher price ceiling, another body type or clear the brand filter.</span><button type="button" className="button small" onClick={reset}>Reset filters</button></div>}
       </div>
     </div>
