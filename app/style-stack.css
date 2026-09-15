@@ -1,64 +1,10 @@
-/* MotoIndex stabilization stack.
-   Restore the last known-good pre-#59 visual cascade instead of continuing to
-   patch regressions one route at a time. Current route authorities stay last so
-   the newer homepage, navigation, and model-detail fixes remain intentional. */
+/* MotoIndex global design architecture.
+   Keep the current four-layer system, but restore the pre-#59 route dependencies
+   through one isolated compatibility bridge. Current component and route layers
+   stay last and remain authoritative. */
 
 @import "./styles/tokens.css";
-@import "./globals.css";
-@import "./research-ux.css";
-@import "./v247.css";
-@import "./v260.css";
-@import "./v261.css";
-@import "./v270.css";
-@import "./v280.css";
-@import "./tailwind.css";
-@import "./dealer-directory.css";
-@import "./redesign.css";
-@import "./redesign-v2.css";
-@import "./arena-sitewide.css";
-@import "./responsive-polish.css";
-@import "./hardening.css";
-@import "./arena-premium-v2.css";
-@import "./experience-v4.css";
-@import "./experience-v4-fixes.css";
-@import "./experience-v5.css";
-@import "./experience-v6.css";
-@import "./experience-v6-fixes.css";
-@import "./experience-v7.css";
-@import "./recommendations-v2.css";
-@import "./public-hubs-v2.css";
-@import "./fitment-v2.css";
-@import "./used-v2.css";
-@import "./model-fallback-fixes.css";
-@import "./premium-light.css";
-@import "./premium-light-fixes.css";
-@import "./premium-light-sticky-fix.css";
-@import "./premium-light-qa-fixes.css";
-@import "./premium-light-final-fixes.css";
-@import "./brand-page-refined.css";
-@import "./buyer-flow-final-cleanup.css";
-@import "./product-system.css";
-@import "./image-stage-cleanup.css";
-@import "./recommendations-polish.css";
-@import "./product-experience-v2.css";
-
-/* Keep the post-#59 route authorities deliberately last. The retired homepage
-   generations are intentionally excluded because they force the old 72px/flex
-   hero over the current self-contained homepage system. */
-@import "./homepage.css";
-@import "./navigation.css";
-@import "./model-detail.css";
-
-body {
-  font-family: var(--font-inter), Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.brand-word {
-  font-family: var(--font-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-}
+@import "./styles/base.css";
+@import "./styles/legacy-compat.css";
+@import "./styles/components.css";
+@import "./styles/routes.css";
