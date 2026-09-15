@@ -66,7 +66,7 @@ try {
   const navigate = async () => { await session.send("Page.navigate", { url:new URL("/finder",base).href }); await waitReady(session.send); };
 
   await setViewport(1440,1000); await navigate();
-  const desktop = await evalJs(session.send, `(()=>{const q=s=>document.querySelector(s),r=e=>e?.getBoundingClientRect(),cs=e=>e?getComputedStyle(e):null;const shell=q('.finder-stage-shell'),main=q('.finder-stage-main'),preview=q('.finder-live-preview'),progress=q('.finder-progress'),choice=q('.finder-choice-grid'),card=q('.finder-stage-card'),winner=q('.decision-winner');return {shellDisplay:cs(shell)?.display,progressDisplay:cs(progress)?.display,choiceDisplay:cs(choice)?.display,shell:r(shell),main:r(main),preview:r(preview),card:r(card),winnerDisplay:cs(winner)?.display,steps:progress?.querySelectorAll('button').length||0,overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,choiceCols:cs(choice)?.gridTemplateColumns};})()`);
+  const desktop = await evalJs(session.send, `(()=>{const q=s=>document.querySelector(s),r=e=>{if(!e)return null;const x=e.getBoundingClientRect();return{left:x.left,right:x.right,top:x.top,bottom:x.bottom,width:x.width,height:x.height}},cs=e=>e?getComputedStyle(e):null;const shell=q('.finder-stage-shell'),main=q('.finder-stage-main'),preview=q('.finder-live-preview'),progress=q('.finder-progress'),choice=q('.finder-choice-grid'),card=q('.finder-stage-card'),winner=q('.decision-winner');return {shellDisplay:cs(shell)?.display,progressDisplay:cs(progress)?.display,choiceDisplay:cs(choice)?.display,shell:r(shell),main:r(main),preview:r(preview),card:r(card),winnerDisplay:cs(winner)?.display,steps:progress?.querySelectorAll('button').length||0,overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,choiceCols:cs(choice)?.gridTemplateColumns};})()`);
   check(desktop.shellDisplay === "grid", `desktop Finder shell must be grid, got ${desktop.shellDisplay}`);
   check(desktop.progressDisplay === "grid", `desktop Finder progress must be grid, got ${desktop.progressDisplay}`);
   check(desktop.choiceDisplay === "grid", `desktop Finder choices must be grid, got ${desktop.choiceDisplay}`);
@@ -79,13 +79,13 @@ try {
   check(desktop.overflow <= 2, `desktop Finder overflows horizontally by ${desktop.overflow}px`);
 
   for (let index=0; index<6; index++) {
-    const state = await evalJs(session.send, `(()=>{const b=document.querySelectorAll('.finder-progress button')[${index}];b?.click();return true;})()`);
-    if (!state) failures.push(`unable to activate Finder step ${index+1}`);
+    const clicked = await evalJs(session.send, `(()=>{const b=document.querySelectorAll('.finder-progress button')[${index}];if(!b)return false;b.click();return true;})()`);
+    check(clicked, `unable to activate Finder step ${index+1}`);
     await new Promise(r=>setTimeout(r,80));
     const text = await evalJs(session.send, "document.querySelector('.finder-stage-kicker')?.textContent || ''");
     check(text.includes(`Step ${index+1} of 6`), `Finder step ${index+1} did not render after progress navigation`);
   }
-  await evalJs(session.send, `(()=>{const b=[...document.querySelectorAll('.finder-advanced-row button')].find(x=>x.textContent.includes('Advanced filters'));b?.click();return true;})()`);
+  await evalJs(session.send, `(()=>{const b=[...document.querySelectorAll('.finder-advanced-row button')].find(x=>x.textContent.includes('Advanced filters'));if(!b)return false;b.click();return true;})()`);
   await new Promise(r=>setTimeout(r,100));
   const advanced = await evalJs(session.send, `(()=>{const e=document.querySelector('.finder-advanced-panel');return e?{display:getComputedStyle(e).display,cols:getComputedStyle(e).gridTemplateColumns,count:e.querySelectorAll('label').length}:null})()`);
   check(advanced?.display === "grid", `advanced filters must be a grid, got ${advanced?.display}`);
@@ -93,7 +93,7 @@ try {
   await screenshot(session.send,"finder-layout-desktop.png");
 
   await setViewport(390,844); await navigate();
-  const mobile = await evalJs(session.send, `(()=>{const q=s=>document.querySelector(s),r=e=>e?.getBoundingClientRect(),cs=e=>e?getComputedStyle(e):null;const shell=q('.finder-stage-shell'),main=q('.finder-stage-main'),preview=q('.finder-live-preview'),choice=q('.finder-choice-grid'),progress=q('.finder-progress');return {shellDisplay:cs(shell)?.display,shellCols:cs(shell)?.gridTemplateColumns,main:r(main),preview:r(preview),choiceCols:cs(choice)?.gridTemplateColumns,progressOverflow:cs(progress)?.overflowX,overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth};})()`);
+  const mobile = await evalJs(session.send, `(()=>{const q=s=>document.querySelector(s),r=e=>{if(!e)return null;const x=e.getBoundingClientRect();return{left:x.left,right:x.right,top:x.top,bottom:x.bottom,width:x.width,height:x.height}},cs=e=>e?getComputedStyle(e):null;const shell=q('.finder-stage-shell'),main=q('.finder-stage-main'),preview=q('.finder-live-preview'),choice=q('.finder-choice-grid'),progress=q('.finder-progress');return {shellDisplay:cs(shell)?.display,shellCols:cs(shell)?.gridTemplateColumns,main:r(main),preview:r(preview),choiceCols:cs(choice)?.gridTemplateColumns,progressOverflow:cs(progress)?.overflowX,overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth};})()`);
   check(mobile.shellDisplay === "grid", `mobile Finder shell must stay grid, got ${mobile.shellDisplay}`);
   check(mobile.shellCols && !mobile.shellCols.includes(" "), `mobile Finder must collapse to one column, got ${mobile.shellCols}`);
   check(mobile.preview && mobile.main && mobile.preview.top >= mobile.main.bottom - 2, "mobile live match must appear after the questionnaire");
@@ -106,5 +106,6 @@ try {
   if (failures.length) { for (const failure of failures) console.error(`- ${failure}`); process.exitCode=1; }
 } finally {
   proc.kill("SIGTERM");
-  fs.rmSync(profile,{recursive:true,force:true});
+  await new Promise(r=>setTimeout(r,300));
+  try { fs.rmSync(profile,{recursive:true,force:true,maxRetries:4,retryDelay:100}); } catch {}
 }
