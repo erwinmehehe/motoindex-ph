@@ -1,0 +1,50 @@
+.decision{width:100%}
+
+/* Finder is a guided decision flow, not a live database dashboard. */
+.decision :global(.finder-stage-shell){grid-template-columns:minmax(0,1fr) 270px!important;gap:20px!important}
+.decision :global(.finder-stage-card){min-height:360px!important;padding:24px!important;border-radius:18px!important;box-shadow:0 10px 28px rgba(15,23,42,.045)!important}
+.decision :global(.finder-stage-card>h2){max-width:620px!important;font-size:clamp(28px,3vw,38px)!important;line-height:1.06!important}
+.decision :global(.finder-stage-card>p){font-size:12px!important;line-height:1.55!important}
+.decision :global(.finder-choice-grid){gap:7px!important;margin-top:18px!important}
+.decision :global(.finder-choice-grid button){min-height:76px!important;padding:13px!important;border-radius:12px!important}
+.decision :global(.finder-choice-grid button span){font-size:14px!important}
+.decision :global(.finder-progress){margin-bottom:10px!important}
+.decision :global(.finder-progress button){position:relative!important;padding:4px 3px 8px!important}
+.decision :global(.finder-progress button:after){content:"";position:absolute;left:3px;right:3px;bottom:0;height:2px;border-radius:999px;background:#e2e8f0}
+.decision :global(.finder-progress button.active:after),.decision :global(.finder-progress button.done:after){background:#444CE7}
+.decision :global(.finder-progress button span){width:22px!important;height:22px!important;font-size:8px!important}
+.decision :global(.finder-progress button b){font-size:8px!important}
+
+.decision :global(.finder-live-preview){padding:16px!important;border-radius:16px!important;box-shadow:0 10px 28px rgba(15,23,42,.045)!important}
+.decision :global(.finder-live-preview.pending){background:#f8fafc!important}
+.decision :global(.finder-live-preview.pending h3){max-width:210px!important;margin:10px 0 14px!important;font-size:22px!important;line-height:1.08!important}
+.decision :global(.finder-answer-summary){display:grid!important;grid-template-columns:1fr!important;gap:0!important;margin:8px 0 12px!important;border-top:1px solid rgba(148,163,184,.18)!important}
+.decision :global(.finder-answer-summary>div){display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;padding:9px 0!important;border-bottom:1px solid rgba(148,163,184,.18)!important}
+.decision :global(.finder-answer-summary small){color:#94a3b8!important;font-size:8px!important;font-weight:800!important;text-transform:uppercase!important}
+.decision :global(.finder-answer-summary strong){color:#0f172a!important;font-size:10px!important;text-align:right!important}
+
+.decision :global(.finder-result-intro){max-width:700px!important;margin:0 0 18px!important}
+.decision :global(.finder-result-intro>span){color:#444CE7!important;font-size:9px!important;font-weight:850!important;letter-spacing:.1em!important;text-transform:uppercase!important}
+.decision :global(.finder-result-intro h2){margin:6px 0!important;color:#0f172a!important;font-size:clamp(28px,3vw,38px)!important;letter-spacing:-.04em!important}
+.decision :global(.finder-result-intro p){margin:0!important;color:#64748b!important;font-size:12px!important;line-height:1.55!important}
+.decision :global(.finder-results-footer){display:flex!important;align-items:center!important;justify-content:space-between!important;gap:14px!important;margin-top:24px!important;padding-top:18px!important;border-top:1px solid rgba(148,163,184,.2)!important}
+.decision :global(.finder-results-footer button),.decision :global(.finder-results-footer a){min-height:38px!important;padding:0!important;border:0!important;background:transparent!important;color:#444CE7!important;font-size:10px!important;font-weight:850!important;text-decoration:none!important}
+.decision :global(.finder-results-footer button){cursor:pointer!important}
+
+@media(max-width:900px){
+  .decision :global(.finder-stage-shell){grid-template-columns:1fr!important}
+  .decision :global(.finder-live-preview.pending){grid-template-columns:1fr!important}
+  .decision :global(.finder-live-preview.pending>span),.decision :global(.finder-live-preview.pending h3),.decision :global(.finder-live-preview.pending p),.decision :global(.finder-live-preview.pending .finder-answer-summary){grid-column:1!important}
+  .decision :global(.finder-answer-summary){grid-template-columns:repeat(2,minmax(0,1fr))!important;column-gap:18px!important}
+}
+
+@media(max-width:620px){
+  .decision :global(.finder-stage-card){padding:18px!important;border-radius:16px!important}
+  .decision :global(.finder-stage-card>h2){font-size:28px!important}
+  .decision :global(.finder-choice-grid button){min-height:68px!important}
+  .decision :global(.finder-live-preview.pending){display:block!important}
+  .decision :global(.finder-answer-summary){grid-template-columns:1fr!important}
+  .decision :global(.finder-results-footer){align-items:flex-start!important;flex-direction:column!important}
+}
+
+@media(prefers-reduced-motion:reduce){.decision *,.decision *:before,.decision *:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
