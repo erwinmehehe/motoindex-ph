@@ -6,6 +6,7 @@ import { MotorcycleFinder, type FinderInitialFilters } from "@/components/Motorc
 import type { DecisionUseCase } from "@/lib/decisionEngine";
 import styles from "./FinderClient.module.css";
 import resultStyles from "./FinderResultsPolish.module.css";
+import decisionStyles from "./FinderDecision.module.css";
 
 const budgets = new Set(["80000", "100000", "125000", "150000", "200000", "300000", "500000", "any"]);
 const uses = new Set<DecisionUseCase>(["city", "short", "work", "performance", "touring"]);
@@ -89,6 +90,6 @@ export function FinderClient({ models }: { models: Motorcycle[] }) {
   }, [models]);
 
   const finderKey = useMemo(() => `${sharedState ? "shared" : "fresh"}:${JSON.stringify(initial)}`, [initial, sharedState]);
-  const className = `${styles.refined} ${resultStyles.results}`;
+  const className = `${styles.refined} ${resultStyles.results} ${decisionStyles.decision}`;
   return <div className={className}><MotorcycleFinder key={finderKey} models={models} initialFilters={initial} initiallyComplete={sharedState} /></div>;
 }
