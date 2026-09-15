@@ -1,0 +1,14 @@
+/* Structural contract lost in #59: research-hub section links must remain a
+   compact horizontal scroller instead of collapsing into a run-on text line. */
+.product-entity-nav{display:flex!important;align-items:center!important;gap:4px!important;max-width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;padding:5px!important;border:1px solid rgba(148,163,184,.18)!important;border-radius:12px!important;background:#fff!important;scrollbar-width:none!important}
+.product-entity-nav::-webkit-scrollbar{display:none!important}
+.product-entity-nav a{flex:0 0 auto!important;display:inline-flex!important;align-items:center!important;min-height:32px!important;padding:0 9px!important;border:0!important;border-radius:8px!important;background:transparent!important;color:#64748b!important;font-size:10px!important;font-weight:750!important;white-space:nowrap!important}
+.product-entity-nav a:hover,.product-entity-nav a:focus-visible{background:rgba(68,76,231,.06)!important;color:#3038bd!important}
+
+/* Mature research hubs should never inherit the old oversized editorial H1 scale. */
+.accessories-master-page>.page-head h1,.tire-master-page>.page-head h1{max-width:900px!important;font-size:clamp(42px,4.5vw,60px)!important;line-height:1!important;letter-spacing:-.045em!important}
+
+/* Preserve the dark commute hero supplied by public-hubs-v2.css. A shared
+   component rule was repainting this inner panel white while its typography
+   remained white, making the context copy disappear at every tested width. */
+.commute-master-page .commute-hero-grid .commute-context{min-width:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#fff!important}

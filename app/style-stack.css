@@ -1,7 +1,7 @@
 /* MotoIndex global design architecture.
    Four layers only: tokens, base/layout, reusable components, route systems.
-   Historical v247/v260/v270/redesign/arena/experience/premium-fix generations
-   are intentionally no longer part of the runtime cascade. */
+   Missing pre-cleanup route contracts are migrated into the current layers
+   instead of restoring the historical cascade wholesale. */
 
 @import "./styles/tokens.css";
 @import "./styles/base.css";

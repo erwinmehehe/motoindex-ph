@@ -107,6 +107,46 @@ try {
     const image = await cdp.send("Page.captureScreenshot", { format: "png", fromSurface: true });
     fs.writeFileSync(path.join(outputDir, `navigation-model-${name}.png`), Buffer.from(image.data, "base64"));
   }
+  async function auditHub(pathname, label, width) {
+    await viewport(width, width <= 768 ? 844 : 900);
+    await navigate(pathname);
+    const audit = await evaluate(cdp.send, `(() => {
+      const nav=document.querySelector('.product-entity-nav');
+      const links=nav?[...nav.querySelectorAll('a')]:[];
+      const first=links[0];
+      const second=links[1];
+      const navStyle=nav?getComputedStyle(nav):null;
+      const firstStyle=first?getComputedStyle(first):null;
+      const firstRect=first?.getBoundingClientRect();
+      const secondRect=second?.getBoundingClientRect();
+      const facts=document.querySelector('.brand-facts');
+      const factsStyle=facts?getComputedStyle(facts):null;
+      const h1=document.querySelector(':scope body .page-head h1');
+      return {
+        nav:Boolean(nav),
+        linkCount:links.length,
+        navDisplay:navStyle?.display||'',
+        navHeight:nav?.getBoundingClientRect().height||0,
+        navOverflowX:navStyle?.overflowX||'',
+        linkDisplay:firstStyle?.display||'',
+        linkHeight:firstRect?.height||0,
+        linkGap:firstRect&&secondRect?Math.max(0,secondRect.left-firstRect.right):0,
+        facts:Boolean(facts),
+        factsColumns:factsStyle?.gridTemplateColumns||'',
+        h1Size:parseFloat(h1?getComputedStyle(h1).fontSize:'0'),
+        overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
+      };
+    })()`);
+    results.push({ check: `hub-${label}-${width}`, ...audit });
+    if (!audit?.nav || audit.linkCount < 3) failures.push(`${label} ${width}px section navigation is missing or incomplete.`);
+    if (audit?.navDisplay !== 'flex') failures.push(`${label} ${width}px section navigation is ${audit?.navDisplay || 'missing'} instead of flex.`);
+    if ((audit?.navHeight || 0) < 38) failures.push(`${label} ${width}px section navigation collapsed to ${audit?.navHeight || 0}px tall.`);
+    if ((audit?.linkHeight || 0) < 28) failures.push(`${label} ${width}px section links collapsed to ${audit?.linkHeight || 0}px tall.`);
+    if ((audit?.overflow || 0) > 5) failures.push(`${label} ${width}px page overflows horizontally by ${audit.overflow}px.`);
+    if (width >= 1000 && (audit?.h1Size || 0) > 62) failures.push(`${label} desktop H1 is oversized at ${audit.h1Size}px.`);
+    if (width <= 768 && (audit?.h1Size || 0) > 48) failures.push(`${label} mobile H1 is oversized at ${audit.h1Size}px.`);
+    await screenshot(`hub-${label}-${width}`);
+  }
 
   await viewport(1440);
   await navigate("/gear/helmets");
@@ -139,6 +179,21 @@ try {
   if ((navAudit?.overflow || 0) > 5) failures.push(`Helmet page overflows horizontally by ${navAudit.overflow}px with motorcycle menu open.`);
   await screenshot("desktop-motorcycle-menu");
 
+  // Regression exposed by the CSS-stack consolidation: public hub section links
+  // must never collapse into one concatenated line again.
+  for (const [pathname, label] of [
+    ["/gear/helmets", "helmets"],
+    ["/ownership", "ownership"],
+    ["/maintenance", "maintenance"],
+    ["/accessories", "accessories"],
+    ["/tires", "tires"]
+  ]) {
+    await auditHub(pathname, label, 1440);
+  }
+  await auditHub("/gear/helmets", "helmets", 390);
+  await auditHub("/ownership", "ownership", 390);
+
+  await viewport(1440);
   await navigate("/motorcycles/yamaha/aerox-v3");
   const modelAudit = await evaluate(cdp.send, `(() => {
     const h1=document.querySelector('.motorcycle-hero-copy h1');
@@ -194,7 +249,7 @@ try {
     failures.forEach(failure => console.error(`- ${failure}`));
     process.exitCode = 1;
   } else {
-    console.log("Navigation/model regression QA passed: electric navigation is visible and model detail sizing is bounded.");
+    console.log("Navigation/model regression QA passed: public hub navigation is structured, electric discovery is visible and model detail sizing is bounded.");
   }
   cdp.ws.close();
 } finally {

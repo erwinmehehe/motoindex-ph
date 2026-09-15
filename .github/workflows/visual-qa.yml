@@ -50,6 +50,11 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
         run: node scripts/homepage-visual-qa.mjs
 
+      - name: Finder layout regression guard
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: node scripts/finder-layout-qa.mjs
+
       - name: Global Search and Trust QA
         env:
           BASE_URL: http://127.0.0.1:3000
