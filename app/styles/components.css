@@ -5,3 +5,34 @@
 @import "../product-experience-v2.css";
 @import "../hub-structure.css";
 @import "../navigation.css";
+
+/* Recently viewed motorcycles use one bounded product stage regardless of
+   upstream image dimensions or whether the model is on the neutral fallback. */
+.recently-viewed-media{
+  height:190px;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  background:#fff;
+  border-bottom:1px solid rgba(15,23,42,.07);
+}
+.recently-viewed-media>.entity-media{
+  width:100%;
+  height:100%;
+  display:grid;
+  place-items:center;
+  background:#fff;
+}
+.recently-viewed-media img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  padding:16px 18px;
+  background:#fff;
+}
+@media(max-width:700px){
+  .recently-viewed-media{height:170px}
+  .recently-viewed-media img{padding:12px 14px}
+}
