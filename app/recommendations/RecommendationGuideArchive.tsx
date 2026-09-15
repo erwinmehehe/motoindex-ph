@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { getIndexableRecommendationGuides } from "@/lib/data";
+import { isIndexableRecommendation, recommendationGuides } from "@/lib/data";
 import styles from "./recommendation-archive.module.css";
 
 export function RecommendationGuideArchive() {
-  const guides = getIndexableRecommendationGuides();
+  const guides = recommendationGuides.filter((guide) => isIndexableRecommendation(guide.slug));
   if (!guides.length) return null;
 
   return <section className={styles.archive} aria-labelledby="recommendation-guides-heading">
