@@ -8,7 +8,7 @@ import { allVerifiedDealers } from "@/lib/persistentSellers";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Dealers Philippines: Find Checked Dealers",
-  description: "Find checked motorcycle dealer records in the Philippines, search by city or brand, and open official Honda, Yamaha, Suzuki and Kawasaki dealer locators.",
+  description: "Find checked motorcycle dealer records in the Philippines, search by city or brand, and open official motorcycle brand directories for broader coverage.",
   path: "/dealers",
   index: true,
 });
@@ -19,8 +19,10 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
   const query = await searchParams;
   const verifiedDealers = await allVerifiedDealers();
   const availableBrands = [...new Set(verifiedDealers.flatMap(dealer => dealer.brands))];
-  const requestedBrandRaw = first(query.brand) || "";
-  const requestedBrand = availableBrands.find(brand => brand.toLowerCase() === requestedBrandRaw.toLowerCase()) || "all";
+  const requestedBrandRaw = (first(query.brand) || "").trim();
+  const matchedBrand = availableBrands.find(brand => brand.toLowerCase() === requestedBrandRaw.toLowerCase());
+  const requestedBrand = requestedBrandRaw ? matchedBrand || requestedBrandRaw.toUpperCase() : "all";
+  const hasCheckedBrand = requestedBrand === "all" || Boolean(matchedBrand);
   const cityCounts = new Map<string, number>();
   for (const dealer of verifiedDealers) cityCounts.set(dealer.city, (cityCounts.get(dealer.city) || 0) + 1);
   const publishedCities = [...cityCounts.entries()].filter(([,count])=>count>=MIN_PUBLIC_DEALERS_PER_CITY).map(([city])=>city).sort();
@@ -30,7 +32,7 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
     <div className="page-head dealer-page-head">
       <span className="entity-kicker">Motorcycle dealer finder</span>
       <h1>{requestedBrand !== "all" ? `${requestedBrand} motorcycle dealers in the Philippines` : "Find motorcycle dealers in the Philippines"}</h1>
-      <p>{requestedBrand !== "all" ? `Start with checked ${requestedBrand} dealer records, then confirm the exact model, variant, stock and complete cash price with the branch before paying a reservation or deposit.` : "Search checked dealer records by city or brand, then confirm stock and the complete cash price with the branch before paying a reservation or deposit."}</p>
+      <p>{requestedBrand !== "all" ? hasCheckedBrand ? `Start with checked ${requestedBrand} dealer records, then confirm the exact model, variant, stock and complete cash price with the branch before paying a reservation or deposit.` : `MotoIndex does not have a checked ${requestedBrand} dealer record yet. Keep the requested brand visible and use the official brand or distributor directories below instead of silently showing unrelated dealers.` : "Search checked dealer records by city or brand, then confirm stock and the complete cash price with the branch before paying a reservation or deposit."}</p>
     </div>
 
     <section className="motorcycle-entity-section dealer-directory-section">
@@ -73,15 +75,15 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
     <section className="motorcycle-entity-section">
       <div className="section-head compact"><div>
         <span className="section-kicker">Official sources</span>
-        <h2>Use the motorcycle brand&apos;s dealer locator</h2>
-        <p>MotoIndex coverage is still growing. These links go directly to the official Philippine dealer directories for broader branch coverage.</p>
+        <h2>Use official motorcycle brand directories</h2>
+        <p>MotoIndex coverage is still growing. These links go to official manufacturer or distributor directories for broader coverage.</p>
       </div></div>
       <div className="dealer-locator-grid">
         {officialDealerLocators.map(locator=><a className="dealer-locator-card" href={locator.href} target="_blank" rel="noopener noreferrer" key={locator.brand}>
           <span>{locator.brand}</span>
-          <h3>{locator.brand} dealer locator</h3>
+          <h3>{locator.brand} official directory</h3>
           <p>{locator.note}</p>
-          <b>Open official locator ↗</b>
+          <b>Open official directory ↗</b>
         </a>)}
       </div>
     </section>
