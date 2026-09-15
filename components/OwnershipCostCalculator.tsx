@@ -38,20 +38,33 @@ export function OwnershipCostCalculator({ model }: { model: Motorcycle }) {
     const threeYearNet=Math.max(0,threeYearCash-resale);
     return {fuelMonthly,runningMonthly,down,financed,payment,year1,threeYearCash,resale,threeYearNet,threeYearMonthly:threeYearNet/36,financeCost:Math.max(0,acquisitionThreeYears-purchasePrice)};
   }, [km, kmpl, fuel, maintenance, insurance, registration, tires, purchasePrice, mode, downPct, apr, term, model]);
+
   return <div className="ownership-calculator v18">
-    <div className="ownership-calculator-copy"><h2>Estimate the 1-year + 3-year cost to own {model.model}</h2><p>Purchase, financing and running costs are shown separately so you can replace the default assumptions with your own numbers.</p><div className="ownership-total"><small>3-year net ownership estimate</small><strong>{php(values.threeYearNet)}</strong><span>{php(values.threeYearMonthly)}/month blended after estimated 3-year resale</span></div></div>
+    <div className="ownership-calculator-copy">
+      <h2>Estimate the 1-year + 3-year cost to own {model.model}</h2>
+      <p>Start with the purchase and riding assumptions that matter most. Fine-tune fuel, service and annual costs only when you need them.</p>
+      <div className="ownership-total"><small>3-year net ownership estimate</small><strong>{php(values.threeYearNet)}</strong><span>{php(values.threeYearMonthly)}/month blended after estimated 3-year resale</span></div>
+    </div>
+
     <div className="ownership-fields wide">
       <label>Purchase price <b>{php(purchasePrice)}</b><input type="number" min="10000" step="100" value={purchasePrice} onChange={e=>setPurchasePrice(Number(e.target.value)||0)}/></label>
       <label>Purchase method <select value={mode} onChange={e=>setMode(e.target.value as "cash"|"finance")}><option value="finance">Financing</option><option value="cash">Cash</option></select></label>
       {mode==="finance"&&<><label>Down payment <b>{downPct}% · {php(values.down)}</b><input type="range" min="0" max="60" step="5" value={downPct} onChange={e=>setDownPct(Number(e.target.value))}/></label><label>APR assumption <b>{apr}%</b><input type="range" min="0" max="36" step="1" value={apr} onChange={e=>setApr(Number(e.target.value))}/></label><label>Loan term <select value={term} onChange={e=>setTerm(Number(e.target.value))}><option value="12">12 months</option><option value="24">24 months</option><option value="36">36 months</option></select></label></>}
       <label>Distance / month <b>{km.toLocaleString()} km</b><input type="range" min="100" max="3000" step="100" value={km} onChange={e=>setKm(Number(e.target.value))}/></label>
-      <label>Fuel economy <b>{kmpl} km/L</b><input type="range" min="15" max="70" step="1" value={kmpl} onChange={e=>setKmpl(Number(e.target.value))}/><small>{efficiency.status==="listed"?"Starts from the listed model figure":"Starts from an estimate"}</small></label>
-      <label>Fuel assumption <b>{php(fuel)}/L</b><input type="range" min="40" max="100" step="1" value={fuel} onChange={e=>setFuel(Number(e.target.value))}/></label>
-      <label>Maintenance / month <b>{php(maintenance)}</b><input type="range" min="0" max="5000" step="100" value={maintenance} onChange={e=>setMaintenance(Number(e.target.value))}/></label>
-      <label>Insurance / year <b>{php(insurance)}</b><input type="range" min="0" max="30000" step="500" value={insurance} onChange={e=>setInsurance(Number(e.target.value))}/></label>
-      <label>Registration / year <b>{php(registration)}</b><input type="range" min="0" max="6000" step="100" value={registration} onChange={e=>setRegistration(Number(e.target.value))}/></label>
-      <label>Tire reserve / year <b>{php(tires)}</b><input type="range" min="0" max="25000" step="500" value={tires} onChange={e=>setTires(Number(e.target.value))}/></label>
     </div>
+
+    <details className="note-box compact-note">
+      <summary><b>Advanced assumptions</b> · Fuel, service, insurance, registration and tires</summary>
+      <div className="ownership-fields wide">
+        <label>Fuel economy <b>{kmpl} km/L</b><input type="range" min="15" max="70" step="1" value={kmpl} onChange={e=>setKmpl(Number(e.target.value))}/><small>{efficiency.status==="listed"?"Starts from the listed model figure":"Starts from an estimate"}</small></label>
+        <label>Fuel assumption <b>{php(fuel)}/L</b><input type="range" min="40" max="100" step="1" value={fuel} onChange={e=>setFuel(Number(e.target.value))}/></label>
+        <label>Maintenance / month <b>{php(maintenance)}</b><input type="range" min="0" max="5000" step="100" value={maintenance} onChange={e=>setMaintenance(Number(e.target.value))}/></label>
+        <label>Insurance / year <b>{php(insurance)}</b><input type="range" min="0" max="30000" step="500" value={insurance} onChange={e=>setInsurance(Number(e.target.value))}/></label>
+        <label>Registration / year <b>{php(registration)}</b><input type="range" min="0" max="6000" step="100" value={registration} onChange={e=>setRegistration(Number(e.target.value))}/></label>
+        <label>Tire reserve / year <b>{php(tires)}</b><input type="range" min="0" max="25000" step="500" value={tires} onChange={e=>setTires(Number(e.target.value))}/></label>
+      </div>
+    </details>
+
     <div className="ownership-breakdown expanded"><span><small>Running cost / month</small><b>{php(values.runningMonthly)}</b></span><span><small>{mode==="finance"?"Finance payment / month":"Cash purchase"}</small><b>{mode==="finance"?php(values.payment):php(purchasePrice)}</b></span><span><small>1-year cash outflow</small><b>{php(values.year1)}</b></span><span><small>3-year cash outflow</small><b>{php(values.threeYearCash)}</b></span><span><small>3-year resale estimate</small><b>− {php(values.resale)}</b></span>{mode==="finance"&&<span><small>Estimated finance cost</small><b>{php(values.financeCost)}</b></span>}</div>
     <div className="note-box compact-note"><p><b>Estimate, not a quote.</b> Financing uses a standard amortization formula and the APR you enter. The resale value is MotoIndex&apos;s generic depreciation estimate, not a guaranteed market value. Dealer fees, accessories, parking, tolls, repairs and opportunity cost are not included.</p></div>
   </div>;
