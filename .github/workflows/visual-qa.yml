@@ -60,6 +60,11 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
         run: node scripts/helmet-tools-qa-ci.mjs
 
+      - name: Core Web Vitals budget
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: node scripts/performance-qa.mjs
+
       - name: Upload visual QA evidence
         if: always()
         uses: actions/upload-artifact@v6
