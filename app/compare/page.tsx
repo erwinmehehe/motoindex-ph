@@ -11,8 +11,17 @@ import styles from "./ComparePage.module.css";
 
 const compareModels=publicMotorcycles;
 const publicComparisons=comparisons.filter(c=>isIndexableComparison(c.slug));
+const featuredComparisons=publicComparisons.slice(0,6);
+const remainingComparisons=publicComparisons.slice(6);
 export const dynamic="force-static";
 export const metadata: Metadata = pageMetadata({ title: "Compare Motorcycles Philippines", description: "Compare two or three current Philippine motorcycles for market price, engine, weight, seat height, fuel tank, tires and brakes.", path: "/compare", index: compareModels.length>=2 });
+
+function ComparisonLink({ slug, summary }: { slug: string; summary: string }) {
+  const data=getComparison(slug);
+  if(!data)return null;
+  const brief=getComparisonEditorialBrief(slug);
+  return <Link href={`/compare/${slug}`}><span><strong>{brief?.primaryKeyword||`${data.a.model} vs ${data.b.model}`}</strong><small>{brief?.intent||summary}</small></span><b>Compare →</b></Link>;
+}
 
 export default function CompareIndex(){
   return <section className={styles.page}>
@@ -26,9 +35,10 @@ export default function CompareIndex(){
       {compareModels.length>=2?<CompareBuilder models={forClient(compareModels)}/>:<div className="note-box"><h2>Not enough current models</h2><p>At least two current motorcycle records are needed to build a comparison.</p></div>}
     </div>
 
-    {publicComparisons.length>0&&<section className={styles.popular}>
+    {featuredComparisons.length>0&&<section className={styles.popular}>
       <div className={styles.popularHead}><div><span>Popular comparisons</span><h2>Start with a common pair</h2></div></div>
-      <div className={styles.popularList}>{publicComparisons.map(c=>{const data=getComparison(c.slug);if(!data)return null;const brief=getComparisonEditorialBrief(c.slug);return <Link key={c.slug} href={`/compare/${c.slug}`}><span><strong>{brief?.primaryKeyword||`${data.a.model} vs ${data.b.model}`}</strong><small>{brief?.intent||c.summary}</small></span><b>Compare →</b></Link>})}</div>
+      <div className={styles.popularList}>{featuredComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div>
+      {remainingComparisons.length>0&&<details className="compare-more-pairs"><summary>View all comparisons ({publicComparisons.length})</summary><div className={styles.popularList}>{remainingComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div></details>}
     </section>}
 
     <DecisionPath stage="compare" />

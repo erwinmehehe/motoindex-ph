@@ -37,6 +37,9 @@ export default function HomePage() {
   const featured = verifiedModels.slice(0, 4);
   const heroModel = verifiedModels.find((model) => model.makeSlug === "yamaha" && model.slug.toLowerCase().includes("aerox")) ?? featured[0];
   const hasComparisons = comparisons.some((comparison) => isIndexableComparison(comparison.slug));
+  const featuredHelmets = helmetProducts.filter((p) => p.status === "verified" && typeof p.priceFromPhp === "number").slice(0, 2);
+  const featuredTires = tireProducts.filter((p) => p.status === "verified" && typeof p.priceFromPhp === "number").slice(0, 2);
+  const featuredTopBoxes = topBoxProducts.filter((p) => p.status === "verified" && typeof p.priceFromPhp === "number").slice(0, 2);
 
   const brandMap = new Map<string, string>();
   for (const model of verifiedModels) brandMap.set(model.makeSlug, model.make);
@@ -70,47 +73,15 @@ export default function HomePage() {
 
           <div className="mi-hero-visual mi-hero-product-visual">
             <div className="mi-research-shell">
-              <div className="mi-research-toolbar">
-                <div><span className="mi-research-dot" aria-hidden="true" /><strong>MotoIndex research snapshot</strong></div>
-                <span className="mi-research-status">Current model data</span>
-              </div>
-
+              <div className="mi-research-toolbar"><div><span className="mi-research-dot" aria-hidden="true" /><strong>MotoIndex research snapshot</strong></div><span className="mi-research-status">Current model data</span></div>
               {heroModel ? <>
-                <div className="mi-research-model-head">
-                  <div>
-                    <span className="mi-research-kicker">Researching now</span>
-                    <h2>{heroModel.make} {heroModel.model}</h2>
-                    <p>Price, key specifications, rider fit and ownership planning in one decision flow.</p>
-                  </div>
-                  <Link className="mi-research-open" href={`/motorcycles/${heroModel.makeSlug}/${heroModel.slug}`}>Open model <span aria-hidden="true">↗</span></Link>
-                </div>
-
-                <div className="mi-research-price-card">
-                  <span>Published price</span>
-                  <strong>{observedMarketPriceLabel(heroModel)}</strong>
-                  <small>Open the model page for source details and the latest checked date.</small>
-                </div>
-
-                <div className="mi-research-metrics" aria-label={`${heroModel.make} ${heroModel.model} key specifications`}>
-                  <div><span>Engine</span><strong>{heroModel.engineCc} cc</strong></div>
-                  <div><span>Power</span><strong>{heroModel.powerHp} hp</strong></div>
-                  <div><span>Seat height</span><strong>{heroModel.seatHeightMm} mm</strong></div>
-                </div>
-
-                <div className="mi-research-flow">
-                  <div className="mi-research-flow-head"><span>Continue the research</span><small>Use the same model across MotoIndex tools</small></div>
-                  <div className="mi-research-actions">
-                    <Link href="/finder"><b>Finder</b><span>Match by budget, use and rider fit</span><i aria-hidden="true">→</i></Link>
-                    {hasComparisons && <Link href="/compare"><b>Compare</b><span>Put up to three motorcycles side by side</span><i aria-hidden="true">→</i></Link>}
-                    <Link href={`/ownership/cost-calculator?bike=${heroModel.id}`}><b>Cost to own</b><span>Estimate the monthly ownership picture</span><i aria-hidden="true">→</i></Link>
-                  </div>
-                </div>
+                <div className="mi-research-model-head"><div><span className="mi-research-kicker">Researching now</span><h2>{heroModel.make} {heroModel.model}</h2><p>Price, key specifications, rider fit and ownership planning in one decision flow.</p></div><Link className="mi-research-open" href={`/motorcycles/${heroModel.makeSlug}/${heroModel.slug}`}>Open model <span aria-hidden="true">↗</span></Link></div>
+                <div className="mi-research-price-card"><span>Published price</span><strong>{observedMarketPriceLabel(heroModel)}</strong><small>Open the model page for source details and the latest checked date.</small></div>
+                <div className="mi-research-metrics" aria-label={`${heroModel.make} ${heroModel.model} key specifications`}><div><span>Engine</span><strong>{heroModel.engineCc} cc</strong></div><div><span>Power</span><strong>{heroModel.powerHp} hp</strong></div><div><span>Seat height</span><strong>{heroModel.seatHeightMm} mm</strong></div></div>
+                <div className="mi-research-flow"><div className="mi-research-flow-head"><span>Continue the research</span><small>Use the same model across MotoIndex tools</small></div><div className="mi-research-actions"><Link href="/finder"><b>Finder</b><span>Match by budget, use and rider fit</span><i aria-hidden="true">→</i></Link>{hasComparisons && <Link href="/compare"><b>Compare</b><span>Put up to three motorcycles side by side</span><i aria-hidden="true">→</i></Link>}<Link href={`/ownership/cost-calculator?bike=${heroModel.id}`}><b>Cost to own</b><span>Estimate the monthly ownership picture</span><i aria-hidden="true">→</i></Link></div></div>
               </> : <div className="mi-research-empty"><strong>Research motorcycles with the numbers that matter.</strong><Link href="/motorcycles">Explore motorcycles →</Link></div>}
             </div>
-
-            <div className="mi-research-chip mi-research-chip-one" aria-hidden="true"><span>01</span><b>Price context</b></div>
-            <div className="mi-research-chip mi-research-chip-two" aria-hidden="true"><span>02</span><b>Rider fit</b></div>
-            <div className="mi-research-chip mi-research-chip-three" aria-hidden="true"><span>03</span><b>Ownership math</b></div>
+            <div className="mi-research-chip mi-research-chip-one" aria-hidden="true"><span>01</span><b>Price context</b></div><div className="mi-research-chip mi-research-chip-two" aria-hidden="true"><span>02</span><b>Rider fit</b></div><div className="mi-research-chip mi-research-chip-three" aria-hidden="true"><span>03</span><b>Ownership math</b></div>
           </div>
         </div>
       </section>
@@ -123,7 +94,7 @@ export default function HomePage() {
 
       <section className="mi-tools"><div className="mi-grid-bg" aria-hidden="true" /><div className="shell"><div className="mi-section-head dark-head"><div><span className="mi-eyebrow">Before you buy</span><h2>Do the math <em>before the dealership.</em></h2><p>Compare the motorcycle, the monthly cost and the budget you actually want to live with.</p></div><Link href="/tools">All tools →</Link></div><div className="mi-tool-grid">{hasComparisons && <Link href="/compare"><span>01</span><h3>Compare motorcycles</h3><p>Price, specs and rider fit side by side.</p><b>Compare →</b></Link>}<Link href="/ownership/cost-calculator"><span>02</span><h3>Cost to own</h3><p>Plan fuel, maintenance, insurance, registration and financing.</p><b>Calculate →</b></Link><Link href="/commute/affordability"><span>03</span><h3>Affordability</h3><p>Set a monthly ceiling before a payment looks deceptively cheap.</p><b>Plan budget →</b></Link></div></div></section>
 
-      <section className="mi-section mi-gear"><div className="shell"><div className="mi-section-head"><div><span className="mi-eyebrow">After the motorcycle</span><h2>Sort the <em>essentials.</em></h2><p>Verified helmet, tire and storage records for the gear decisions that come next.</p></div><Link href="/gear/helmets">Browse gear →</Link></div><div className="mi-product-grid">{helmetProducts.filter((p) => p.status === "verified").slice(0, 2).map((p) => <ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:"Helmet",brand:p.brand,model:p.model,meta:p.helmetType,status:p.status,priceFromPhp:p.priceFromPhp}} />)}{tireProducts.filter((p) => p.status === "verified").slice(0, 2).map((p) => <ProductCard key={p.id} item={{entityId:p.id,href:`/tires/${p.brandSlug}/${p.slug}`,category:"Tire",brand:p.brand,model:p.model,meta:p.useCase,status:p.status,priceFromPhp:p.priceFromPhp}} />)}{topBoxProducts.filter((p) => p.status === "verified").slice(0, 2).map((p) => <ProductCard key={p.id} item={{entityId:p.id,href:`/accessories/top-box/${p.slug}`,category:"Top box",brand:p.brand,model:p.model,meta:`${p.capacityL}L ${p.shell}`,status:p.status,priceFromPhp:p.priceFromPhp}} />)}</div></div></section>
+      <section className="mi-section mi-gear"><div className="shell"><div className="mi-section-head"><div><span className="mi-eyebrow">After the motorcycle</span><h2>Sort the <em>essentials.</em></h2><p>Only priced, verified helmet, tire and storage records appear on this homepage shelf.</p></div><Link href="/gear/helmets">Browse gear →</Link></div><div className="mi-product-grid">{featuredHelmets.map((p) => <ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:"Helmet",brand:p.brand,model:p.model,meta:p.helmetType,status:p.status,priceFromPhp:p.priceFromPhp}} />)}{featuredTires.map((p) => <ProductCard key={p.id} item={{entityId:p.id,href:`/tires/${p.brandSlug}/${p.slug}`,category:"Tire",brand:p.brand,model:p.model,meta:p.useCase,status:p.status,priceFromPhp:p.priceFromPhp}} />)}{featuredTopBoxes.map((p) => <ProductCard key={p.id} item={{entityId:p.id,href:`/accessories/top-box/${p.slug}`,category:"Top box",brand:p.brand,model:p.model,meta:`${p.capacityL}L ${p.shell}`,status:p.status,priceFromPhp:p.priceFromPhp}} />)}</div></div></section>
 
       <section className="mi-final"><div className="mi-grid-bg" aria-hidden="true" /><div className="shell"><span>Start with the shortlist</span><h2>Find the right bike. <em>Then verify it.</em></h2><p>Browse the catalog when you already have a few models in mind. Use the Finder when you only know what the motorcycle needs to do.</p><div><Link className="mi-btn red" href="/motorcycles">Explore motorcycles</Link><Link className="mi-btn glass" href="/finder">Find my motorcycle</Link></div></div></section>
     </div>
