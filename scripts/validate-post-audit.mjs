@@ -8,7 +8,7 @@ const need=(ok,message)=>{if(!ok)errors.push(message)};
 
 const header=read("components/Header.tsx");
 need(header.includes("motorcycleBrands")&&header.includes("/motorcycles/${slug}"),"Motorcycles nav must expose brand catalog links");
-need(header.includes('href="/recommendations"'),"Guides nav must expose the recommendation hub");
+need(/\["Buying",\s*"\/recommendations"\]/.test(header)||header.includes('href="/recommendations"'),"Guides nav must expose the recommendation hub");
 
 const pair=read("app/compare/[slug]/page.tsx");
 const three=read("app/compare/three/page.tsx");
