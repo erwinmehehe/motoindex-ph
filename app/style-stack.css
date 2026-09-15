@@ -1,0 +1,58 @@
+/* MotoIndex global design stack.
+   Keep import order stable: older foundations first, current authority layers last.
+   New global visual work should extend the final system files instead of adding
+   another versioned stylesheet directly to app/layout.tsx. */
+
+@import "./globals.css";
+@import "./research-ux.css";
+@import "./v247.css";
+@import "./v260.css";
+@import "./v261.css";
+@import "./v270.css";
+@import "./v280.css";
+@import "./tailwind.css";
+@import "./dealer-directory.css";
+@import "./redesign.css";
+@import "./redesign-v2.css";
+@import "./arena-sitewide.css";
+@import "./responsive-polish.css";
+@import "./hardening.css";
+@import "./arena-premium-v2.css";
+@import "./experience-v4.css";
+@import "./experience-v4-fixes.css";
+@import "./experience-v5.css";
+@import "./experience-v6.css";
+@import "./experience-v6-fixes.css";
+@import "./experience-v7.css";
+@import "./recommendations-v2.css";
+@import "./public-hubs-v2.css";
+@import "./fitment-v2.css";
+@import "./used-v2.css";
+@import "./model-fallback-fixes.css";
+@import "./homepage-compact-modern.css";
+@import "./premium-light.css";
+@import "./premium-light-fixes.css";
+@import "./premium-light-sticky-fix.css";
+@import "./premium-light-qa-fixes.css";
+@import "./premium-light-final-fixes.css";
+@import "./homepage-feature-hero.css";
+@import "./brand-page-refined.css";
+@import "./buyer-flow-final-cleanup.css";
+@import "./product-system.css";
+@import "./image-stage-cleanup.css";
+
+/* The old redesign-fonts.css referenced Manrope/Sora variables that are no
+   longer loaded. Use the actual next/font variables from app/layout.tsx. */
+body {
+  font-family: var(--font-inter), Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.brand-word {
+  font-family: var(--font-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
