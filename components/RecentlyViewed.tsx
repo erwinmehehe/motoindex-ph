@@ -54,7 +54,7 @@ export function RecentlyViewedRail({ models }: { models: ViewedModel[] }) {
     <div className="recently-viewed-rail">{rows.map((model) => {
       const href = `/motorcycles/${model.makeSlug}/${model.slug}`;
       return <Link href={href} key={model.id} className="recently-viewed-card">
-        <div className="recently-viewed-media"><EntityMedia entityType="motorcycle" entityId={model.id} sizes="(max-width: 700px) 78vw, 230px" showCredit={false} fallback={null} /></div>
+        <div className="recently-viewed-media model-card-media"><EntityMedia entityType="motorcycle" entityId={model.id} sizes="(max-width: 700px) 78vw, 230px" showCredit={false} fallback={null} /></div>
         <span>{model.make}</span><strong>{model.model}</strong><small>Continue →</small>
       </Link>;
     })}</div>
