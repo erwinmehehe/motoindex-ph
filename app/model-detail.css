@@ -1,0 +1,201 @@
+/* Canonical motorcycle model detail route. Keep this semantic and route-scoped. */
+html body .motorcycle-entity-page{
+  background:#fff!important;
+  color:#101828!important;
+}
+html body .motorcycle-entity-hero{
+  min-height:0!important;
+  padding:26px 0 34px!important;
+  background:
+    radial-gradient(circle at 88% 4%,rgba(122,90,248,.08),transparent 25%),
+    radial-gradient(circle at 72% 18%,rgba(68,76,231,.055),transparent 28%),
+    linear-gradient(180deg,#fff 0%,#fbfcff 100%)!important;
+  border-bottom:1px solid rgba(148,163,184,.14)!important;
+}
+html body .motorcycle-entity-hero .breadcrumbs{margin-bottom:22px!important}
+html body .motorcycle-hero-grid{
+  display:grid!important;
+  grid-template-columns:minmax(0,.92fr) minmax(390px,1.08fr)!important;
+  gap:clamp(30px,4vw,52px)!important;
+  align-items:center!important;
+}
+html body .motorcycle-hero-copy{max-width:610px!important}
+html body .motorcycle-hero-copy h1{
+  max-width:590px!important;
+  margin:8px 0 8px!important;
+  color:#101828!important;
+  font-size:clamp(42px,4.4vw,58px)!important;
+  line-height:.98!important;
+  letter-spacing:-.052em!important;
+  text-wrap:balance!important;
+}
+html body .entity-hero-purpose{
+  margin:0 0 12px!important;
+  color:#344054!important;
+  font-size:15px!important;
+  font-weight:760!important;
+  line-height:1.4!important;
+}
+html body .motorcycle-entity-hero .entity-kicker{
+  color:#444CE7!important;
+  font-size:9px!important;
+  font-weight:850!important;
+  letter-spacing:.11em!important;
+}
+html body .motorcycle-entity-hero .entity-lede,
+html body .motorcycle-entity-hero .entity-aka{
+  max-width:590px!important;
+  margin:0!important;
+  color:#667085!important;
+  font-size:13px!important;
+  line-height:1.58!important;
+}
+html body .motorcycle-entity-hero .entity-aka{margin-top:7px!important}
+html body .motorcycle-price-lockup{
+  margin-top:17px!important;
+  padding:14px 0!important;
+  border:0!important;
+  border-top:1px solid rgba(148,163,184,.18)!important;
+  border-bottom:1px solid rgba(148,163,184,.18)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+html body .motorcycle-price-lockup strong{
+  color:#101828!important;
+  font-size:clamp(27px,2.6vw,34px)!important;
+  line-height:1.05!important;
+}
+html body .entity-hero-actions{margin-top:13px!important;gap:7px!important}
+html body .entity-hero-actions .button,
+html body .entity-hero-actions .compare-button,
+html body .entity-hero-actions .shortlist-button{
+  min-height:40px!important;
+  padding:0 13px!important;
+  border-radius:10px!important;
+  font-size:10px!important;
+  box-shadow:none!important;
+}
+html body .motorcycle-hero-copy>.freshness{
+  width:max-content!important;
+  max-width:100%!important;
+  margin-top:12px!important;
+  padding:8px 10px!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+html body .motorcycle-hero-visual{
+  display:grid!important;
+  gap:10px!important;
+  min-height:0!important;
+  align-content:center!important;
+}
+html body .motorcycle-hero-media{
+  position:relative!important;
+  height:clamp(270px,28vw,330px)!important;
+  max-height:330px!important;
+  min-height:0!important;
+  overflow:hidden!important;
+  border:1px solid rgba(148,163,184,.18)!important;
+  border-radius:22px!important;
+  background:#fff!important;
+  box-shadow:0 14px 34px rgba(15,23,42,.045)!important;
+}
+html body .motorcycle-hero-media>*{min-height:0!important}
+html body .motorcycle-hero-media img{
+  width:100%!important;
+  height:100%!important;
+  padding:18px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  opacity:1!important;
+  filter:none!important;
+  mix-blend-mode:normal!important;
+  transform:none!important;
+  background:#fff!important;
+}
+html body .motorcycle-hero-media:before,
+html body .motorcycle-hero-media:after,
+html body .motorcycle-hero-visual:before,
+html body .motorcycle-hero-visual:after{display:none!important;content:none!important}
+html body .motorcycle-hero-facts{
+  position:static!important;
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  border:1px solid rgba(148,163,184,.18)!important;
+  border-radius:16px!important;
+  background:#fff!important;
+  color:#101828!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+}
+html body .motorcycle-hero-facts>div{
+  min-height:68px!important;
+  padding:11px 12px!important;
+  border:0!important;
+  border-right:1px solid rgba(148,163,184,.14)!important;
+  background:#fff!important;
+  color:#101828!important;
+}
+html body .motorcycle-hero-facts>div:last-child{border-right:0!important}
+html body .motorcycle-hero-facts span{color:#98a2b3!important;font-size:8px!important}
+html body .motorcycle-hero-facts strong{color:#101828!important;font-size:13px!important}
+html body .motorcycle-hero-facts small{color:#667085!important;font-size:8px!important}
+
+/* Decision content must never fall back to low-contrast experimental styling. */
+html body .authority-verdict>div,
+html body .authority-verdict>aside,
+html body .authority-grid>article{
+  background:#fff!important;
+  color:#101828!important;
+  border:1px solid rgba(148,163,184,.18)!important;
+  box-shadow:none!important;
+}
+html body .authority-verdict h2,
+html body .authority-verdict p,
+html body .authority-grid h3,
+html body .authority-grid p,
+html body .authority-grid li{color:#344054!important}
+html body .authority-verdict h2{color:#101828!important}
+
+html body .motorcycle-entity-page .motorcycle-entity-section{
+  padding:38px 0!important;
+  border-top:1px solid rgba(148,163,184,.12)!important;
+}
+html body .motorcycle-entity-page .section-head{margin-bottom:18px!important}
+html body .motorcycle-entity-page .section-head h2{
+  max-width:760px!important;
+  font-size:clamp(27px,2.7vw,36px)!important;
+  line-height:1.06!important;
+  letter-spacing:-.04em!important;
+}
+html body .motorcycle-entity-page .section-head p{
+  max-width:720px!important;
+  font-size:12px!important;
+  line-height:1.58!important;
+}
+
+@media(max-width:900px){
+  html body .motorcycle-entity-hero{padding:20px 0 28px!important}
+  html body .motorcycle-hero-grid{grid-template-columns:1fr!important;gap:22px!important}
+  html body .motorcycle-hero-copy{max-width:none!important}
+  html body .motorcycle-hero-copy h1{max-width:700px!important;font-size:clamp(38px,8vw,52px)!important}
+  html body .motorcycle-hero-media{height:300px!important;max-height:300px!important}
+}
+@media(max-width:600px){
+  html body .motorcycle-entity-hero .breadcrumbs{margin-bottom:16px!important}
+  html body .motorcycle-hero-copy h1{font-size:38px!important;line-height:1!important}
+  html body .entity-hero-purpose{font-size:14px!important}
+  html body .motorcycle-hero-media{height:245px!important;max-height:245px!important;border-radius:18px!important}
+  html body .motorcycle-hero-media img{padding:12px!important}
+  html body .motorcycle-hero-facts{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  html body .motorcycle-hero-facts>div{min-height:62px!important;border-bottom:1px solid rgba(148,163,184,.14)!important}
+  html body .motorcycle-hero-facts>div:nth-child(2){border-right:0!important}
+  html body .motorcycle-hero-facts>div:nth-child(3),
+  html body .motorcycle-hero-facts>div:nth-child(4){border-bottom:0!important}
+  html body .motorcycle-entity-page .motorcycle-entity-section{padding:32px 0!important}
+}
