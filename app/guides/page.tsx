@@ -11,31 +11,22 @@ export const metadata: Metadata = pageMetadata({
   index: true
 });
 
-const electricGuides = [
-  {
-    href: "/motorcycles/electric",
-    kicker: "Electric motorcycles",
-    title: "Electric motorcycles in the Philippines",
-    description: "One guide for current models, prices, batteries, range, charging, LTO classification, registration and electric-vs-gas ownership."
-  }
-];
-
 export default function GuidesPage() {
   return <section className="page shell">
     <Breadcrumbs items={[{ label: "Guides" }]} />
-    <div className="page-head"><h1>Motorcycle guides for Philippine riders</h1><p>Practical buying and ownership guides built around checkable product information, fitment and Philippine-market requirements.</p></div>
-    <div className="guide-grid">{editorialGuides.map((guide) => <Link className="guide-card" key={guide.slug} href={`/guides/${guide.slug}`}><span className="section-kicker">{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><strong className="guide-action">Read guide →</strong></Link>)}</div>
+    <div className="page-head"><span className="entity-kicker">Rider guides</span><h1>Motorcycle guides for Philippine riders</h1><p>Start with the task you are trying to solve, then open the detailed guide or tool only when you need it.</p></div>
 
-    <div className="section-head inline-head"><div><span className="section-kicker">Electric ownership</span><h2>Electric motorcycle guides</h2></div></div>
-    <div className="guide-grid">{electricGuides.map((guide) => <Link className="guide-card" key={guide.href} href={guide.href}><span className="section-kicker">{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><strong className="guide-action">Read guide →</strong></Link>)}</div>
-
-    <div className="section-head inline-head"><div><h2>More research tools</h2></div></div>
+    <div className="section-head compact"><div><span className="section-kicker">Choose a starting point</span><h2>What are you trying to do?</h2></div></div>
     <div className="topic-grid">
-      <article><h2>Electric motorcycles</h2><p>Compare verified Philippine models, battery capacity, claimed range, charging time and registration classification.</p><div className="topic-action"><Link href="/motorcycles/electric">Browse electric models →</Link></div></article>
-      <article><h2>Charging-cost calculator</h2><p>Estimate a full charge, cost per 100 km and monthly electricity use from your own rate and riding distance.</p><div className="topic-action"><Link href="/tools/electric-motorcycle-charging-cost">Calculate charging cost →</Link></div></article>
-      <article><h2>Helmet Finder</h2><p>Filter verified helmet models by format, price, size and equipment.</p><div className="topic-action"><Link href="/gear/helmets/finder">Find a helmet →</Link></div></article>
-      <article><h2>Motorcycle buying guides</h2><p>Compare current motorcycles by budget, seat height, category and riding use.</p><div className="topic-action"><Link href="/recommendations">Browse recommendations →</Link></div></article>
-      <article><h2>Maintenance guides</h2><p>Find practical service information and ownership checks for your motorcycle.</p><div className="topic-action"><Link href="/maintenance">Browse maintenance →</Link></div></article>
+      <article><h2>Choose a motorcycle</h2><p>Shortlist current motorcycles by budget, use, rider fit and the tradeoffs that matter to you.</p><div className="topic-action"><Link href="/recommendations">Open buying guides →</Link></div></article>
+      <article><h2>Plan ownership</h2><p>Estimate total cost, insurance and paperwork after you have a realistic motorcycle shortlist.</p><div className="topic-action"><Link href="/ownership">Open ownership hub →</Link></div></article>
+      <article><h2>Maintain a motorcycle</h2><p>Use model schedules, maintenance references and official service resources without mixing generic advice with exact intervals.</p><div className="topic-action"><Link href="/maintenance">Open maintenance guides →</Link></div></article>
+      <article><h2>Check gear and fitment</h2><p>Research helmets, tire sizes and model-specific fitment before ordering riding gear or accessories.</p><div className="topic-action"><Link href="/fitment">Open fitment finder →</Link></div></article>
+      <article><h2>Handle safety and paperwork</h2><p>Check registration, ownership transfer, insurance and manufacturer safety resources from one ownership path.</p><div className="topic-action"><Link href="/ownership#paperwork">Open paperwork guides →</Link></div></article>
+      <article><h2>Research electric motorcycles</h2><p>Compare current electric models, batteries, range, charging and Philippine registration context.</p><div className="topic-action"><Link href="/motorcycles/electric">Open electric research →</Link></div></article>
     </div>
+
+    <div className="section-head inline-head"><div><span className="section-kicker">Published research</span><h2>Detailed MotoIndex guides</h2><p>Use these when you need a focused answer beyond the main buying and ownership tools.</p></div></div>
+    <div className="guide-grid">{editorialGuides.map((guide) => <Link className="guide-card" key={guide.slug} href={`/guides/${guide.slug}`}><span className="section-kicker">{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><strong className="guide-action">Read guide →</strong></Link>)}</div>
   </section>;
 }
