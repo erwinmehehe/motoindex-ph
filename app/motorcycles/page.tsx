@@ -3,6 +3,7 @@ import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
 import { motorcycles, isIndexableModel } from "@/lib/data";
 import { ModelExplorer } from "@/components/ModelExplorer";
+import { MotorcycleCard } from "@/components/MotorcycleCard";
 import { RecentlyViewedRail } from "@/components/RecentlyViewed";
 import { modelFamilies } from "@/lib/families";
 import { modelAuthorityProfile } from "@/lib/modelAuthority";
@@ -15,6 +16,7 @@ const publicModels = motorcycles.filter(isIndexableModel);
 const publicIds = new Set(publicModels.map((m) => m.id));
 const publicFamilies = modelFamilies.filter((f) => f.generationIds.length > 0 && f.generationIds.every((id) => publicIds.has(id)));
 const currentModels = publicModels.filter((m) => !["previous","uncertain","discontinued"].includes(m.marketStatus || ""));
+const previousModels = publicModels.filter((m) => m.marketStatus === "previous");
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Prices Philippines",
   description: "Compare current Philippine motorcycle prices, specifications, tire sizes and ownership information across major motorcycle brands.",
@@ -50,7 +52,7 @@ export default function MotorcyclesPage() {
             </div>
           </div>
           <aside className="motorcycle-index-overview" aria-label="MotoIndex motorcycle catalog overview">
-            <div><span>Verified models</span><strong>{currentModels.length}</strong><small>Published Philippine-market records</small></div>
+            <div><span>Current models</span><strong>{currentModels.length}</strong><small>Published Philippine-market records</small></div>
             <div><span>Brands researched</span><strong>{makes.length}</strong><small>With verified current model records</small></div>
             <div><span>Price span</span><strong>{overallLow && overallHigh ? `${php(overallLow)}–${php(overallHigh)}` : "Updating"}</strong><small>Dated model-level references</small></div>
             <div><span>Buyer briefs</span><strong>{authorityModels.length}</strong><small>Expanded ownership and alternatives context</small></div>
@@ -67,12 +69,17 @@ export default function MotorcyclesPage() {
     </div>
 
     <div className="shell motorcycle-index-body">
-      {publicModels.length === 0 ? <div className="note-box"><h2>Motorcycle data is being updated</h2><p>Prices and specifications are still being checked. Gear and ownership tools remain available in the meantime.</p></div> : <>
+      {currentModels.length === 0 ? <div className="note-box"><h2>Motorcycle data is being updated</h2><p>Prices and specifications are still being checked. Gear and ownership tools remain available in the meantime.</p></div> : <>
         <RecentlyViewedRail models={recentModels} />
         <section id="browse-models" className="motorcycle-catalog-section">
-          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Main shopping experience</span><h2>Filter the catalog without opening twenty tabs</h2><p>Your filters stay in the URL, the compare tray stays persistent, and recently viewed motorcycles remain available when you come back.</p></div></div>
-          <ModelExplorer models={forClient(publicModels)} />
+          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Current motorcycles</span><h2>Filter the current catalog without opening twenty tabs</h2><p>Only current Philippine-market records appear here. Previous generations stay available separately for owners and used-bike research.</p></div></div>
+          <ModelExplorer models={forClient(currentModels)} />
         </section>
+
+        {previousModels.length > 0 && <section className="motorcycle-previous-generations" aria-labelledby="previous-generations-heading">
+          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Previous generations · {previousModels.length}</span><h2 id="previous-generations-heading">Older models for used-bike and ownership research</h2><p>These records are intentionally excluded from the current-model count and default shopping catalog.</p></div></div>
+          <div className="card-grid motorcycle-catalog-grid motorcycle-previous-grid">{previousModels.map((model) => <MotorcycleCard key={model.id} model={model} variant="compact" />)}</div>
+        </section>}
 
         <section className="motorcycle-brand-directory">
           <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Browse by brand</span><h2>Verified brand coverage.</h2><p>Counts show the current Philippine models already checked by MotoIndex. Coverage expands as local availability, pricing and core specifications are verified.</p></div></div>
