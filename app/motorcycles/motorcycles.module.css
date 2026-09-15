@@ -314,8 +314,8 @@
   .page :global(.motorcycle-family-strip),
   .page :global(.motorcycle-index-method){margin-top:42px!important}
   .page :global(.model-explorer-mobile-bar){align-items:stretch!important}
-  .page :global(.model-explorer-mobile-bar)>button),
-  .page :global(.model-explorer-mobile-bar)>label){flex:1 1 0!important;min-width:0!important}
+  .page :global(.model-explorer-mobile-bar)>button,
+  .page :global(.model-explorer-mobile-bar)>label{flex:1 1 0!important;min-width:0!important}
   .page :global(.model-explorer-mobile-bar select){width:100%!important}
   .page :global(.motorcycle-catalog-grid .model-card){grid-template-columns:1fr!important}
   .page :global(.motorcycle-catalog-grid .model-card-media){min-height:205px!important;height:205px!important}
