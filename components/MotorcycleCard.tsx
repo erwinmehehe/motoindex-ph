@@ -5,6 +5,7 @@ import type { DecisionResult } from "@/lib/decisionEngine";
 import { EntityMedia } from "@/components/EntityMedia";
 import { SaveToShortlistButton } from "@/components/SaveToShortlistButton";
 import { CompareButton } from "@/components/CompareButton";
+import { SourceTrustBadge } from "@/components/SourceTrustBadge";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import { lifecycleLabel } from "@/lib/lifecycle";
 import { php } from "@/lib/utils";
@@ -31,6 +32,16 @@ function absAvailable(model: Motorcycle) {
   return /\bABS\b/i.test(model.abs) && !/^No ABS/i.test(model.abs);
 }
 
+function PriceSourceBadge({ model }: { model: Motorcycle }) {
+  return <SourceTrustBadge
+    label={model.marketPriceSourceLabel || model.sourceLabel}
+    url={model.marketPriceSourceUrl || model.sourceUrl}
+    needsRecheck={model.freshness !== "verified"}
+    historical={model.marketStatus === "previous"}
+    compact
+  />;
+}
+
 export function MotorcycleCard({
   model,
   variant = "standard",
@@ -46,7 +57,7 @@ export function MotorcycleCard({
   if (variant === "compare") {
     return <article className="compare-product-card motorcycle-card motorcycle-card-compare">
       <EntityMedia entityType="motorcycle" entityId={model.id} className="compare-product-media" linkHref={href} showCredit={false} fallback={<Link href={href} className="media-unavailable"><span>Image unavailable</span></Link>}/>
-      <div className="compare-product-copy"><span>{model.make}</span><h2>{model.model}</h2><strong>{observedMarketPriceLabel(model)}</strong><small>{model.engineCc} cc · {model.curbWeightKg} kg · {model.seatHeightMm} mm seat</small><Link href={href}>View full research →</Link></div>
+      <div className="compare-product-copy"><span>{model.make}</span><h2>{model.model}</h2><strong>{observedMarketPriceLabel(model)}</strong><PriceSourceBadge model={model}/><small>{model.engineCc} cc · {model.curbWeightKg} kg · {model.seatHeightMm} mm seat</small><Link href={href}>View full research →</Link></div>
     </article>;
   }
 
@@ -55,7 +66,7 @@ export function MotorcycleCard({
       <div className="decision-rank"><span>#{rank || 1}</span><strong>{decision.score}</strong><small>{decision.label}</small></div>
       <div className="decision-result-media"><EntityMedia entityType="motorcycle" entityId={model.id} linkHref={href} showCredit={false} fallback={<Link href={href} className="decision-media-fallback"><span>{model.make}</span><strong>{model.model}</strong><small>{model.engineCc} cc · {model.curbWeightKg} kg</small></Link>} /></div>
       <div className="decision-result-main">
-        <div className="decision-title-row"><div><span>{model.make} · {model.category}</span><h3><Link href={href}>{model.model}</Link></h3></div><strong>{observedMarketPriceLabel(model)}</strong></div>
+        <div className="decision-title-row"><div><span>{model.make} · {model.category}</span><h3><Link href={href}>{model.model}</Link></h3></div><div><strong>{observedMarketPriceLabel(model)}</strong><PriceSourceBadge model={model}/></div></div>
         <div className="decision-chips"><span>{model.engineCc} cc</span><span>{model.seatHeightMm} mm seat</span><span>{model.curbWeightKg} kg</span><span>{model.transmission || "—"}</span>{absAvailable(model) && <span>ABS listed</span>}</div>
         <div className="decision-reason-grid"><div><span>Why it fits</span><ul>{decision.reasons.slice(0,3).map((reason)=><li key={reason}>{reason}</li>)}{decision.reasons.length===0&&<li>Best available score on the selected measurable factors.</li>}</ul></div><div><span>Watch-outs</span><ul>{decision.cautions.slice(0,3).map((reason)=><li key={reason}>{reason}</li>)}{decision.cautions.length===0&&<li>No major score penalty under the selected profile.</li>}</ul></div></div>
         <details className="decision-breakdown"><summary>Show score breakdown</summary><div>{decision.factors.map((factor)=><div key={factor.key} className={`decision-factor ${factor.tone}`}><span>{factor.label}<small>{factor.detail}</small></span><b>{factor.score}/{factor.maxScore}</b></div>)}</div></details>
@@ -71,7 +82,7 @@ export function MotorcycleCard({
       <Link className="mi-bike-media" href={href} aria-label={`View ${model.make} ${model.model}`}>
         <EntityMedia entityType="motorcycle" entityId={model.id} showCredit={false} fallback={<div className="mi-bike-fallback"><span>{model.make}</span><strong>{model.model}</strong></div>}/>
       </Link>
-      <div className="mi-bike-copy"><p>{model.make}</p><h2><Link href={href}>{model.model}</Link></h2><strong className="mi-price">{observedMarketPriceLabel(model)}</strong>{typeof monthlyOwnershipPhp === "number" && <p className="mi-monthly">About <strong>{php(monthlyOwnershipPhp)}</strong> a month{highlightMonthly ? <span> · Lowest estimate</span> : null}</p>}</div>
+      <div className="mi-bike-copy"><p>{model.make}</p><h2><Link href={href}>{model.model}</Link></h2><strong className="mi-price">{observedMarketPriceLabel(model)}</strong><PriceSourceBadge model={model}/>{typeof monthlyOwnershipPhp === "number" && <p className="mi-monthly">About <strong>{php(monthlyOwnershipPhp)}</strong> a month{highlightMonthly ? <span> · Lowest estimate</span> : null}</p>}</div>
       <details className="mi-details"><summary>Key specifications</summary><dl><div><dt>Engine</dt><dd>{model.engineCc ? `${model.engineCc} cc` : "Electric"}</dd></div><div><dt>Seat height</dt><dd>{model.seatHeightMm ? `${model.seatHeightMm} mm` : "Not listed"}</dd></div><div><dt>Weight</dt><dd>{model.curbWeightKg ? `${model.curbWeightKg} kg` : "Not listed"}</dd></div><div><dt>Transmission</dt><dd>{model.transmission || "Not listed"}</dd></div></dl></details>
       <Link className="mi-view-link" href={href}>Explore {model.model} <span aria-hidden="true">→</span></Link>
     </article>;
@@ -82,6 +93,6 @@ export function MotorcycleCard({
   const showLifecycle = Boolean(model.marketStatus && model.marketStatus !== "current");
   return <article className="model-card motorcycle-card motorcycle-card-standard">
     <EntityMedia entityType="motorcycle" entityId={model.id} className="model-card-media" linkHref={href} showCredit={false} fallback={<Link className="model-media-placeholder" href={href} aria-label={`View ${model.make} ${model.model}`}><span>Verified model record</span><strong>{model.make}<b>{model.model}</b></strong><div><em>{model.engineCc} cc</em><em>{model.powerHp} hp</em><em>{model.seatHeightMm} mm seat</em></div><small>Photo pending · open model research →</small></Link>}/>
-    <div className="model-card-body"><div className="model-card-topline"><SaveToShortlistButton modelId={model.id} compact/></div>{needsUpdate&&<span className="catalog-status">Needs update</span>}<h3><Link href={href}>{model.make} {model.model}</Link></h3><div className="price">{observedMarketPriceLabel(model)}</div><small>{previous ? "Historical launch SRP" : model.marketPriceSourceLabel ? `${model.marketPriceSourceLabel} · checked ${model.marketPriceCheckedAt}` : `Checked ${model.verifiedAt}`}</small><div className="mini-stats"><span>{model.engineCc} cc</span><span>{model.powerHp} hp</span><span>{model.seatHeightMm} mm seat</span>{model.transmission&&<span>{model.transmission}</span>}{showLifecycle&&<span>{lifecycleLabel(model)}</span>}</div><div className="card-actions"><Link className="button small" href={href}>View model</Link><CompareButton modelId={model.id} compact/></div></div>
+    <div className="model-card-body"><div className="model-card-topline"><PriceSourceBadge model={model}/><SaveToShortlistButton modelId={model.id} compact/></div>{needsUpdate&&<span className="catalog-status">Needs update</span>}<h3><Link href={href}>{model.make} {model.model}</Link></h3><div className="price">{observedMarketPriceLabel(model)}</div><small>{previous ? "Historical launch SRP" : model.marketPriceSourceLabel ? `${model.marketPriceSourceLabel} · checked ${model.marketPriceCheckedAt}` : `Checked ${model.verifiedAt}`}</small><div className="mini-stats"><span>{model.engineCc} cc</span><span>{model.powerHp} hp</span><span>{model.seatHeightMm} mm seat</span>{model.transmission&&<span>{model.transmission}</span>}{showLifecycle&&<span>{lifecycleLabel(model)}</span>}</div><div className="card-actions"><Link className="button small" href={href}>View model</Link><CompareButton modelId={model.id} compact/></div></div>
   </article>;
 }
