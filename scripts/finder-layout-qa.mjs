@@ -63,19 +63,21 @@ try {
   const page = await tab(port); const session = cdp(page.webSocketDebuggerUrl); await session.ready;
   await session.send("Page.enable"); await session.send("Runtime.enable");
   const setViewport = (width,height) => session.send("Emulation.setDeviceMetricsOverride", { width,height,deviceScaleFactor:1,mobile:width<=768 });
-  const navigate = async () => { await session.send("Page.navigate", { url:new URL("/finder",base).href }); await waitReady(session.send); };
+  const navigate = async (path="/finder") => { await session.send("Page.navigate", { url:new URL(path,base).href }); await waitReady(session.send); };
 
   await setViewport(1440,1000); await navigate();
-  const desktop = await evalJs(session.send, `(()=>{const q=s=>document.querySelector(s),r=e=>{if(!e)return null;const x=e.getBoundingClientRect();return{left:x.left,right:x.right,top:x.top,bottom:x.bottom,width:x.width,height:x.height}},cs=e=>e?getComputedStyle(e):null;const shell=q('.finder-stage-shell'),main=q('.finder-stage-main'),preview=q('.finder-live-preview'),progress=q('.finder-progress'),choice=q('.finder-choice-grid'),card=q('.finder-stage-card'),winner=q('.decision-winner');return {shellDisplay:cs(shell)?.display,progressDisplay:cs(progress)?.display,choiceDisplay:cs(choice)?.display,shell:r(shell),main:r(main),preview:r(preview),card:r(card),winnerDisplay:cs(winner)?.display,steps:progress?.querySelectorAll('button').length||0,overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,choiceCols:cs(choice)?.gridTemplateColumns};})()`);
+  const desktop = await evalJs(session.send, `(()=>{const q=s=>document.querySelector(s),r=e=>{if(!e)return null;const x=e.getBoundingClientRect();return{left:x.left,right:x.right,top:x.top,bottom:x.bottom,width:x.width,height:x.height}},cs=e=>e?getComputedStyle(e):null;const shell=q('.finder-stage-shell'),main=q('.finder-stage-main'),preview=q('.finder-live-preview'),progress=q('.finder-progress'),choice=q('.finder-choice-grid'),card=q('.finder-stage-card');return {shellDisplay:cs(shell)?.display,progressDisplay:cs(progress)?.display,choiceDisplay:cs(choice)?.display,shell:r(shell),main:r(main),preview:r(preview),card:r(card),steps:progress?.querySelectorAll('button').length||0,overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,choiceCols:cs(choice)?.gridTemplateColumns,winner:!!q('.decision-winner'),pending:preview?.classList.contains('pending'),answerRows:q('.finder-answer-summary')?.children.length||0};})()`);
   check(desktop.shellDisplay === "grid", `desktop Finder shell must be grid, got ${desktop.shellDisplay}`);
   check(desktop.progressDisplay === "grid", `desktop Finder progress must be grid, got ${desktop.progressDisplay}`);
   check(desktop.choiceDisplay === "grid", `desktop Finder choices must be grid, got ${desktop.choiceDisplay}`);
   check(desktop.steps === 6, `Finder must expose 6 progress steps, got ${desktop.steps}`);
-  check(desktop.preview && desktop.main && desktop.preview.left >= desktop.main.right - 2, "desktop live match must remain to the right of the questionnaire");
-  check(desktop.preview?.width >= 240 && desktop.preview?.width <= 320, `desktop live match width is out of bounds: ${desktop.preview?.width}`);
-  check(desktop.card?.height >= 280 && desktop.card?.height <= 620, `desktop questionnaire height is unreasonable: ${desktop.card?.height}`);
+  check(desktop.preview && desktop.main && desktop.preview.left >= desktop.main.right - 2, "desktop answer summary must remain to the right of the questionnaire");
+  check(desktop.preview?.width >= 240 && desktop.preview?.width <= 310, `desktop summary width is out of bounds: ${desktop.preview?.width}`);
+  check(desktop.card?.height >= 260 && desktop.card?.height <= 580, `desktop questionnaire height is unreasonable: ${desktop.card?.height}`);
   check(desktop.choiceCols && desktop.choiceCols.split(" ").length >= 2, `desktop choices lost columns: ${desktop.choiceCols}`);
-  check(desktop.winnerDisplay === "grid", `top recommendation must be grid, got ${desktop.winnerDisplay}`);
+  check(!desktop.winner, "Finder must not reveal a winner before the wizard is completed");
+  check(desktop.pending, "Finder should show an answer summary before completion");
+  check(desktop.answerRows === 4, `Finder answer summary should have 4 rows, got ${desktop.answerRows}`);
   check(desktop.overflow <= 2, `desktop Finder overflows horizontally by ${desktop.overflow}px`);
 
   for (let index=0; index<6; index++) {
@@ -85,24 +87,39 @@ try {
     const text = await evalJs(session.send, "document.querySelector('.finder-stage-kicker')?.textContent || ''");
     check(text.includes(`Step ${index+1} of 6`), `Finder step ${index+1} did not render after progress navigation`);
   }
+  const finished = await evalJs(session.send, `(()=>{const b=[...document.querySelectorAll('.finder-stage-actions button')].find(x=>x.textContent.includes('Show my 3 best matches'));if(!b)return false;b.click();return true;})()`);
+  check(finished, "Finder final step must provide a Show my 3 best matches action");
+  await new Promise(r=>setTimeout(r,500));
+  const revealed = await evalJs(session.send, `(()=>{const winner=document.querySelector('.decision-winner');const list=document.querySelectorAll('.decision-result-card');return{winner:!!winner,winnerDisplay:winner?getComputedStyle(winner).display:null,alternatives:list.length,intro:document.querySelector('.finder-result-intro h2')?.textContent||'',complete:document.querySelector('.finder-live-preview')?.classList.contains('complete')};})()`);
+  check(revealed.winner && revealed.winnerDisplay === "grid", `completed Finder must reveal a grid winner, got ${revealed.winnerDisplay}`);
+  check(revealed.alternatives <= 2, `Finder should show no more than 2 alternatives after the winner, got ${revealed.alternatives}`);
+  check(revealed.intro.includes("Start with these motorcycles"), "Finder result hierarchy intro is missing");
+  check(revealed.complete, "Finder side summary should switch to the completed best match state");
+
   await evalJs(session.send, `(()=>{const b=[...document.querySelectorAll('.finder-advanced-row button')].find(x=>x.textContent.includes('Advanced filters'));if(!b)return false;b.click();return true;})()`);
   await new Promise(r=>setTimeout(r,100));
-  const advanced = await evalJs(session.send, `(()=>{const e=document.querySelector('.finder-advanced-panel');return e?{display:getComputedStyle(e).display,cols:getComputedStyle(e).gridTemplateColumns,count:e.querySelectorAll('label').length}:null})()`);
+  const advanced = await evalJs(session.send, `(()=>{const e=document.querySelector('.finder-advanced-panel');return e?{display:getComputedStyle(e).display,count:e.querySelectorAll('label').length}:null})()`);
   check(advanced?.display === "grid", `advanced filters must be a grid, got ${advanced?.display}`);
   check(advanced?.count === 8, `advanced filters should contain 8 controls, got ${advanced?.count}`);
   await screenshot(session.send,"finder-layout-desktop.png");
 
+  await navigate("/finder?budget=100000&use=city&traffic=mixed");
+  const shared = await evalJs(session.send, `(()=>({winner:!!document.querySelector('.decision-winner'),complete:document.querySelector('.finder-live-preview')?.classList.contains('complete'),url:location.search}))()`);
+  check(shared.winner && shared.complete, "shared Finder URLs must restore the completed recommendation state");
+  check(shared.url.includes("budget=100000"), "shared Finder URL lost the budget parameter");
+
   await setViewport(390,844); await navigate();
-  const mobile = await evalJs(session.send, `(()=>{const q=s=>document.querySelector(s),r=e=>{if(!e)return null;const x=e.getBoundingClientRect();return{left:x.left,right:x.right,top:x.top,bottom:x.bottom,width:x.width,height:x.height}},cs=e=>e?getComputedStyle(e):null;const shell=q('.finder-stage-shell'),main=q('.finder-stage-main'),preview=q('.finder-live-preview'),choice=q('.finder-choice-grid'),progress=q('.finder-progress');return {shellDisplay:cs(shell)?.display,shellCols:cs(shell)?.gridTemplateColumns,main:r(main),preview:r(preview),choiceCols:cs(choice)?.gridTemplateColumns,progressOverflow:cs(progress)?.overflowX,overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth};})()`);
+  const mobile = await evalJs(session.send, `(()=>{const q=s=>document.querySelector(s),r=e=>{if(!e)return null;const x=e.getBoundingClientRect();return{left:x.left,right:x.right,top:x.top,bottom:x.bottom,width:x.width,height:x.height}},cs=e=>e?getComputedStyle(e):null;const shell=q('.finder-stage-shell'),main=q('.finder-stage-main'),preview=q('.finder-live-preview'),choice=q('.finder-choice-grid'),progress=q('.finder-progress');return {shellDisplay:cs(shell)?.display,shellCols:cs(shell)?.gridTemplateColumns,main:r(main),preview:r(preview),choiceCols:cs(choice)?.gridTemplateColumns,progressOverflow:cs(progress)?.overflowX,overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,winner:!!q('.decision-winner')};})()`);
   check(mobile.shellDisplay === "grid", `mobile Finder shell must stay grid, got ${mobile.shellDisplay}`);
   check(mobile.shellCols && !mobile.shellCols.includes(" "), `mobile Finder must collapse to one column, got ${mobile.shellCols}`);
-  check(mobile.preview && mobile.main && mobile.preview.top >= mobile.main.bottom - 2, "mobile live match must appear after the questionnaire");
+  check(mobile.preview && mobile.main && mobile.preview.top >= mobile.main.bottom - 2, "mobile answer summary must appear after the questionnaire");
   check(mobile.choiceCols && !mobile.choiceCols.includes(" "), `mobile choices must collapse to one column, got ${mobile.choiceCols}`);
   check(["auto","scroll"].includes(mobile.progressOverflow), `mobile progress must be horizontally scrollable, got ${mobile.progressOverflow}`);
+  check(!mobile.winner, "mobile Finder must not dump results before the wizard is completed");
   check(mobile.overflow <= 2, `mobile Finder overflows horizontally by ${mobile.overflow}px`);
   await screenshot(session.send,"finder-layout-mobile.png");
 
-  console.log(`Finder layout QA: ${failures.length ? failures.length+' failures' : 'passed desktop + mobile structure and 6-step navigation'}`);
+  console.log(`Finder layout QA: ${failures.length ? failures.length+' failures' : 'passed wizard gating, 3-bike shortlist, shared state, desktop and mobile structure'}`);
   if (failures.length) { for (const failure of failures) console.error(`- ${failure}`); process.exitCode=1; }
 } finally {
   proc.kill("SIGTERM");
