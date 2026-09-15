@@ -1,7 +1,6 @@
 /* Current route-level visual systems. Keep one authoritative sheet per route family. */
 @import "../dealer-directory.css";
-@import "../homepage-compact-modern.css";
-@import "../homepage-feature-hero.css";
+@import "../homepage.css";
 @import "../brand-page-refined.css";
 @import "../recommendations-v2.css";
 @import "../recommendations-polish.css";
