@@ -196,12 +196,12 @@ try {
   await navigate("/");
   const mobileAudit = await evaluate(cdp.send, `(() => ({
     overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,
-    mobileSearch:Boolean(document.querySelector('.mobile-search')),
+    mobileSearch:Boolean(document.querySelector('.mobile-menu-panel a[href="/search"]')),
     navTriggerVisible:!!document.querySelector('.nav-actions .nav-search')&&getComputedStyle(document.querySelector('.nav-actions .nav-search')).display!=='none'
   }))()`);
   results.push({ check: "mobile-header", ...mobileAudit });
   if ((mobileAudit?.overflow || 0) > 5) failures.push(`390px homepage overflows horizontally by ${mobileAudit.overflow}px.`);
-  if (!mobileAudit?.mobileSearch) failures.push("Mobile header lost the Search fallback link.");
+  if (!mobileAudit?.mobileSearch) failures.push("Mobile menu lost the Search fallback link.");
   await screenshot("mobile-home");
 
   fs.writeFileSync(path.join(outputDir, "search-trust-qa.json"), JSON.stringify({ results, failures }, null, 2));
