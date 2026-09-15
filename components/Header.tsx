@@ -54,7 +54,7 @@ export function Header() {
         </details>}
         {hasComparisons && <Link href="/compare">Compare</Link>}
         {hasModels && <Link href="/finder">Finder</Link>}
-        <details className="nav-more nav-gear"><summary>Gear <span>⌄</span></summary><div className="nav-popover">{gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</div></details>
+        <details className="nav-more nav-gear"><summary>Gear <span>⌄</span></summary><div className="nav-popover"><Link href="/gear/helmets">Helmets</Link><Link href="/tires">Tires</Link><Link href="/accessories">Accessories</Link></div></details>
         <details className="nav-more nav-guides"><summary>Guides <span>⌄</span></summary><div className="nav-popover nav-popover-menu nav-popover-guides"><Link className="nav-popover-primary" href="/guides">All guides</Link>{guides.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</div></details>
         <details className="nav-more nav-tools"><summary>Tools <span>⌄</span></summary><div className="nav-popover nav-popover-menu"> <Link className="nav-popover-primary" href="/tools">All tools</Link>{tools.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</div></details>
       </nav>
