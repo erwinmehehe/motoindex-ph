@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { coreSitemapEntries } from "@/lib/sitemaps";
+import { recommendationSitemapEntries } from "@/lib/recommendationSitemap";
 
 // Seller quality gate lives in lib/sitemaps.ts: filter(s=>!s.isDemo) and verified status.
 // Motorcycle brandUrls and familyUrls are served from /sitemaps/motorcycles.xml.
@@ -10,4 +11,11 @@ import { coreSitemapEntries } from "@/lib/sitemaps";
 // /gear/helmets/modular
 // /gear/helmets/brands
 // Quality gates live in lib/sitemaps.ts: isIndexableHelmetBrand; helmetProducts.filter(p=>p.status==="verified")
-export default function sitemap(): MetadataRoute.Sitemap { return coreSitemapEntries().map(e=>({url:e.url,lastModified:new Date(e.lastModified),changeFrequency:e.changeFrequency,priority:e.priority})); }
+export default function sitemap(): MetadataRoute.Sitemap {
+  return [...coreSitemapEntries(), ...recommendationSitemapEntries()].map((entry) => ({
+    url: entry.url,
+    lastModified: new Date(entry.lastModified),
+    changeFrequency: entry.changeFrequency,
+    priority: entry.priority
+  }));
+}
