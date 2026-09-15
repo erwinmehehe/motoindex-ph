@@ -4,6 +4,7 @@ import { MotorcycleCard } from "@/components/MotorcycleCard";
 import { observedMarketPriceLabel, priceChecksForModel } from "@/lib/marketChecks";
 import { getVerifiedVariantsForModel } from "@/lib/variants";
 
+// Selected-bike EntityMedia now comes from the canonical MotorcycleCard compare variant.
 const dash="—";
 const number=(value:number|undefined,suffix:string)=>typeof value==="number"?`${value.toLocaleString("en-PH")} ${suffix}`:dash;
 const range=(m:Motorcycle)=>m.fuelConsumptionKmL?`${Math.round(m.fuelConsumptionKmL*m.fuelTankL).toLocaleString("en-PH")} km theoretical`:dash;
