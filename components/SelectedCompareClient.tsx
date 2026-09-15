@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
 import { DetailedMotorcycleCompare } from "@/components/DetailedMotorcycleCompare";
 import { ComparisonHighlights } from "@/components/ComparisonHighlights";
+import { ComparisonDecisionWorkbench } from "@/components/ComparisonDecisionWorkbench";
 import { ThreeWayHighlights } from "@/components/ThreeWayHighlights";
 import styles from "./SelectedCompareClient.module.css";
 
@@ -31,6 +32,7 @@ export function SelectedCompareClient({ models }: { models: Motorcycle[] }) {
       <div>{selected.map(model=><b key={model.id}>{model.make} {model.model}</b>)}</div>
       <Link href="/compare">Change motorcycles</Link>
     </div>
+    {selected.length===2&&<ComparisonDecisionWorkbench a={selected[0]} b={selected[1]}/>} 
     {selected.length===3?<ThreeWayHighlights models={selected}/>:<ComparisonHighlights a={selected[0]} b={selected[1]}/>} 
     <DetailedMotorcycleCompare models={selected}/>
   </div>;
