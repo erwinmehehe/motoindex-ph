@@ -30,13 +30,11 @@
 @import "./fitment-v2.css";
 @import "./used-v2.css";
 @import "./model-fallback-fixes.css";
-@import "./homepage-compact-modern.css";
 @import "./premium-light.css";
 @import "./premium-light-fixes.css";
 @import "./premium-light-sticky-fix.css";
 @import "./premium-light-qa-fixes.css";
 @import "./premium-light-final-fixes.css";
-@import "./homepage-feature-hero.css";
 @import "./brand-page-refined.css";
 @import "./buyer-flow-final-cleanup.css";
 @import "./product-system.css";
@@ -44,8 +42,9 @@
 @import "./recommendations-polish.css";
 @import "./product-experience-v2.css";
 
-/* Post-#59 route authorities. These are deliberately last so we restore the
-   stable site baseline without losing the fixes that were independently QA'd. */
+/* Keep the post-#59 route authorities deliberately last. The retired homepage
+   generations are intentionally excluded because they force the old 72px/flex
+   hero over the current self-contained homepage system. */
 @import "./homepage.css";
 @import "./navigation.css";
 @import "./model-detail.css";
