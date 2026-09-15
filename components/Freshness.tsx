@@ -1,15 +1,8 @@
 import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
-import { checkedAgeDays, modelSourceNeedsRefresh } from "@/lib/freshnessPolicy";
+import { modelSourceNeedsRefresh } from "@/lib/freshnessPolicy";
 import { sourceDisplayName } from "@/components/SourceRef";
 import { SourceTrustBadge } from "@/components/SourceTrustBadge";
-
-function ageLabel(days: number) {
-  if (!Number.isFinite(days)) return "unknown age";
-  if (days === 0) return "today";
-  if (days === 1) return "1 day ago";
-  return `${days} days ago`;
-}
 
 export function Freshness({ model }: { model: Motorcycle }) {
   const sourceOverdue = modelSourceNeedsRefresh(model);
@@ -21,7 +14,7 @@ export function Freshness({ model }: { model: Motorcycle }) {
       <div>
         <strong>{status}</strong>
         <SourceTrustBadge label={model.sourceLabel} url={model.sourceUrl} needsRecheck={sourceOverdue || model.freshness !== "verified"} compact />
-        <small>{model.verifiedAt} ({ageLabel(checkedAgeDays(model.verifiedAt))}) · <span className="freshness-source">{sourceDisplayName(model.sourceLabel, model.sourceUrl)}</span></small>
+        <small>Checked {model.verifiedAt} · <span className="freshness-source">{sourceDisplayName(model.sourceLabel, model.sourceUrl)}</span></small>
         <Link className="freshness-method" href="/methodology">How we check motorcycle data →</Link>
       </div>
     </div>

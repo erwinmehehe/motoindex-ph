@@ -19,7 +19,7 @@ export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Prices Philippines",
   description: "Compare current Philippine motorcycle prices, specifications, tire sizes and ownership information across major motorcycle brands.",
   path: "/motorcycles",
-  index: publicModels.length > 0
+  index: currentModels.length > 0
 });
 
 export default function MotorcyclesPage() {
@@ -67,11 +67,11 @@ export default function MotorcyclesPage() {
     </div>
 
     <div className="shell motorcycle-index-body">
-      {publicModels.length === 0 ? <div className="note-box"><h2>Motorcycle data is being updated</h2><p>Prices and specifications are still being checked. Gear and ownership tools remain available in the meantime.</p></div> : <>
+      {currentModels.length === 0 ? <div className="note-box"><h2>Motorcycle data is being updated</h2><p>Prices and specifications are still being checked. Gear and ownership tools remain available in the meantime.</p></div> : <>
         <RecentlyViewedRail models={recentModels} />
         <section id="browse-models" className="motorcycle-catalog-section">
           <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Main shopping experience</span><h2>Filter the catalog without opening twenty tabs</h2><p>Your filters stay in the URL, the compare tray stays persistent, and recently viewed motorcycles remain available when you come back.</p></div></div>
-          <ModelExplorer models={forClient(publicModels)} />
+          <ModelExplorer models={forClient(currentModels)} />
         </section>
 
         <section className="motorcycle-brand-directory">
