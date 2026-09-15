@@ -5,8 +5,7 @@ import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
 import { observedMarketPriceLabel, planningPurchasePrice } from "@/lib/marketChecks";
 import { EntityMedia } from "@/components/EntityMedia";
-import { SaveToShortlistButton } from "@/components/SaveToShortlistButton";
-import { CompareButton } from "@/components/CompareButton";
+import { MotorcycleCard } from "@/components/MotorcycleCard";
 import { trackEvent } from "@/lib/track";
 import { rankMotorcycles, type DecisionUseCase, type TrafficLevel } from "@/lib/decisionEngine";
 
@@ -37,10 +36,6 @@ function absAvailable(model: Motorcycle) {
 }
 function peso(value: number) {
   return new Intl.NumberFormat("en-PH", { style: "currency", currency: "PHP", maximumFractionDigits: 0 }).format(value);
-}
-function compactPeso(value: number) {
-  if (value >= 1_000_000) return `₱${(value / 1_000_000).toFixed(value >= 10_000_000 ? 0 : 1)}M`;
-  return `₱${Math.round(value / 1000)}K`;
 }
 
 const finderSteps = ["Budget", "Riding use", "Rider fit", "Passenger", "Transmission", "Road use"] as const;
@@ -225,11 +220,7 @@ export function MotorcycleFinder({ models, initialFilters = {} }: { models: Moto
           <div className="decision-winner-actions"><Link className="button" href={`/get-quote/${top.model.makeSlug}/${top.model.slug}`}>Get dealer price</Link><Link className="button ghost on-light" href={`/motorcycles/${top.model.makeSlug}/${top.model.slug}`}>Open model</Link>{second&&<Link className="button ghost on-light" href={compareTopHref}>Compare top two</Link>}<small>Loan and ownership figures are planning estimates. Replace them with actual dealer and lender amounts before buying.</small></div>
         </section>
         <div className="decision-results-head"><div><span>{results.length} matching motorcycles</span><h2>Why these motorcycles fit your answers</h2></div><p>Scores use the measurable fit, road-use and cost inputs you selected.</p></div>
-        <div className="decision-result-list">{results.slice(0,18).map(({model,decision},index)=>{const href=`/motorcycles/${model.makeSlug}/${model.slug}`;return <article className="decision-result-card" key={model.id}>
-          <div className="decision-rank"><span>#{index+1}</span><strong>{decision.score}</strong><small>{decision.label}</small></div>
-          <div className="decision-result-media"><EntityMedia entityType="motorcycle" entityId={model.id} linkHref={href} showCredit={false} fallback={<Link href={href} className="decision-media-fallback"><span>{model.make}</span><strong>{model.model}</strong><small>{model.engineCc} cc · {model.curbWeightKg} kg</small></Link>} /></div>
-          <div className="decision-result-main"><div className="decision-title-row"><div><span>{model.make} · {model.category}</span><h3><Link href={href}>{model.model}</Link></h3></div><strong>{observedMarketPriceLabel(model)}</strong></div><div className="decision-chips"><span>{model.engineCc} cc</span><span>{model.seatHeightMm} mm seat</span><span>{model.curbWeightKg} kg</span><span>{model.transmission||"—"}</span>{absAvailable(model)&&<span>ABS listed</span>}</div><div className="decision-reason-grid"><div><span>Why it fits</span><ul>{decision.reasons.slice(0,3).map((reason)=><li key={reason}>{reason}</li>)}{decision.reasons.length===0&&<li>Best available score on the selected measurable factors.</li>}</ul></div><div><span>Watch-outs</span><ul>{decision.cautions.slice(0,3).map((reason)=><li key={reason}>{reason}</li>)}{decision.cautions.length===0&&<li>No major score penalty under the selected profile.</li>}</ul></div></div><details className="decision-breakdown"><summary>Show score breakdown</summary><div>{decision.factors.map((factor)=><div key={factor.key} className={`decision-factor ${factor.tone}`}><span>{factor.label}<small>{factor.detail}</small></span><b>{factor.score}/{factor.maxScore}</b></div>)}</div></details><div className="decision-cost-strip finder-commute-cost"><span><small>Published price</small><b>{compactPeso(decision.purchasePricePhp)}</b></span><span><small>Estimated loan</small><b>{peso(decision.estimatedLoanMonthlyPhp)}</b></span><span><small>Running costs</small><b>{peso(decision.estimatedRunningMonthlyPhp)}</b></span><span><small>Est. ownership / mo</small><b>{peso(decision.estimatedTotalMonthlyPhp)}</b></span>{monthlyBudget>0&&<span className={decision.affordabilityGapPhp&&decision.affordabilityGapPhp>=0?"within":"over"}><small>Vs ceiling</small><b>{decision.affordabilityGapPhp&&decision.affordabilityGapPhp>=0?"+":""}{peso(decision.affordabilityGapPhp||0)}</b></span>}</div><div className="decision-card-actions"><Link href={`/get-quote/${model.makeSlug}/${model.slug}`} className="button small">Dealer price</Link><Link href={href} className="button ghost small">Model details</Link><CompareButton modelId={model.id} compact/><SaveToShortlistButton modelId={model.id} compact/></div></div>
-        </article>})}</div>
+        <div className="decision-result-list">{results.slice(0,18).map(({model,decision},index)=><MotorcycleCard key={model.id} model={model} variant="decision" decision={decision} rank={index+1} monthlyBudgetPhp={monthlyBudget}/>)}</div>
       </> : <div className="decision-empty"><span>No exact match</span><h2>Those answers do not match a current motorcycle yet.</h2><p>Raise the purchase budget, remove the 400cc+ requirement or relax an advanced filter.</p><button type="button" className="button" onClick={reset}>Start over</button></div>}
     </section>
   </div>;

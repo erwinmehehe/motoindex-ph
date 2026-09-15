@@ -15,16 +15,42 @@ const seatValues = new Set(["any", "760", "780", "800", "820"]);
 const weightValues = new Set(["any", "110", "120", "140", "180"]);
 const trafficValues = new Set(["heavy", "mixed", "light"]);
 
+const defaultInitial: FinderInitialFilters = {
+  budget: "150000",
+  make: "any",
+  transmission: "any",
+  useCase: "city",
+  abs: "any",
+  maxSeat: "any",
+  maxWeight: "any",
+  category: "any",
+  inseam: 30,
+  passenger: false,
+  highway: false,
+  expresswayClass: false,
+  luggage: false,
+  traffic: "heavy",
+  dailyKm: 20,
+  monthlyBudget: 0,
+  downPaymentPct: 20,
+  termMonths: 36,
+  annualRatePct: 12,
+};
+
 function intFrom(params: URLSearchParams, key: string, allowed: number[], fallback: number) {
   const value = Number(params.get(key));
   return Number.isFinite(value) && allowed.includes(value) ? value : fallback;
 }
 
 export function FinderClient({ models }: { models: Motorcycle[] }) {
-  const [initial, setInitial] = useState<FinderInitialFilters | null>(null);
+  // Render the default Finder immediately. Previously the server emitted a tiny
+  // loading placeholder and hydration replaced it with the full workspace,
+  // producing a large cumulative layout shift on /finder.
+  const [initial, setInitial] = useState<FinderInitialFilters>(defaultInitial);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    if (!params.size) return;
     const makes = new Set(models.map(model => model.make));
     const categories = new Set(models.map(model => model.category));
     const useValue = params.get("use") as DecisionUseCase | null;
@@ -61,6 +87,5 @@ export function FinderClient({ models }: { models: Motorcycle[] }) {
   }, [models]);
 
   const className = `${styles.refined} ${resultStyles.results}`;
-  if (!initial) return <div className={className}><div className="finder-loading" aria-busy="true">Preparing the motorcycle finder…</div></div>;
   return <div className={className}><MotorcycleFinder models={models} initialFilters={initial} /></div>;
 }

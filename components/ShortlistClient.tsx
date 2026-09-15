@@ -4,11 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
 import { SHORTLIST_KEY } from "@/components/SaveToShortlistButton";
-import { EntityMedia } from "@/components/EntityMedia";
+import { MotorcycleCard } from "@/components/MotorcycleCard";
 import { trackEvent } from "@/lib/track";
 import { observedMarketRange } from "@/lib/marketChecks";
 import { ownershipDefaults } from "@/lib/ownership";
-import { php } from "@/lib/utils";
 
 const EMPTY_SLUGS:string[]=[];
 
@@ -93,31 +92,14 @@ export function ShortlistClient({models,initialSlugs=EMPTY_SLUGS}:{models:Motorc
     </div>
 
     <section className="mi-comparison" aria-label="Saved motorcycles">
-      {snapshots.map(({model,price,monthly})=>{
-        const href=`/motorcycles/${model.makeSlug}/${model.slug}`;
-        return <article className="mi-bike" key={model.id}>
-          <button className="mi-remove" type="button" onClick={()=>remove(model.id)} aria-label={`Remove ${model.make} ${model.model}`}>Remove</button>
-          <Link className="mi-bike-media" href={href} aria-label={`View ${model.make} ${model.model}`}>
-            <EntityMedia entityType="motorcycle" entityId={model.id} showCredit={false} fallback={<div className="mi-bike-fallback"><span>{model.make}</span><strong>{model.model}</strong></div>}/>
-          </Link>
-          <div className="mi-bike-copy">
-            <p>{model.make}</p>
-            <h2><Link href={href}>{model.model}</Link></h2>
-            <strong className="mi-price">{php(price)}</strong>
-            <p className="mi-monthly">About <strong>{php(monthly)}</strong> a month{monthly===lowestMonthly&&snapshots.length>1?<span> · Lowest estimate</span>:null}</p>
-          </div>
-          <details className="mi-details">
-            <summary>Key specifications</summary>
-            <dl>
-              <div><dt>Engine</dt><dd>{model.engineCc?model.engineCc+" cc":"Electric"}</dd></div>
-              <div><dt>Seat height</dt><dd>{model.seatHeightMm?model.seatHeightMm+" mm":"Not listed"}</dd></div>
-              <div><dt>Weight</dt><dd>{model.curbWeightKg?model.curbWeightKg+" kg":"Not listed"}</dd></div>
-              <div><dt>Transmission</dt><dd>{model.transmission||"Not listed"}</dd></div>
-            </dl>
-          </details>
-          <Link className="mi-view-link" href={href}>Explore {model.model} <span aria-hidden="true">→</span></Link>
-        </article>;
-      })}
+      {snapshots.map(({model,monthly})=><MotorcycleCard
+        key={model.id}
+        model={model}
+        variant="compact"
+        monthlyOwnershipPhp={monthly}
+        highlightMonthly={monthly===lowestMonthly&&snapshots.length>1}
+        leadingAction={<button className="mi-remove" type="button" onClick={()=>remove(model.id)} aria-label={`Remove ${model.make} ${model.model}`}>Remove</button>}
+      />)}
     </section>
 
     <section className="mi-assumption" aria-labelledby="distance-label">

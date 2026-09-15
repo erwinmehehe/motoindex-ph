@@ -5,16 +5,18 @@ import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
 import { DetailedMotorcycleCompare } from "@/components/DetailedMotorcycleCompare";
 import { ComparisonHighlights } from "@/components/ComparisonHighlights";
+import { ComparisonDecisionWorkbench } from "@/components/ComparisonDecisionWorkbench";
 import { ThreeWayHighlights } from "@/components/ThreeWayHighlights";
 import styles from "./SelectedCompareClient.module.css";
 
-export function SelectedCompareClient({ models }: { models: Motorcycle[] }) {
-  const [slugs,setSlugs]=useState<string[]>([]);
+export function SelectedCompareClient({ models, initialSlugs = [] }: { models: Motorcycle[]; initialSlugs?: string[] }) {
+  const [slugs,setSlugs]=useState<string[]>(initialSlugs);
 
   useEffect(()=>{
     const value=new URLSearchParams(window.location.search).get("bikes")||"";
-    setSlugs([...new Set(value.split(",").map(slug=>slug.trim()).filter(Boolean))].slice(0,3));
-  },[]);
+    const fromUrl=[...new Set(value.split(",").map(slug=>slug.trim()).filter(Boolean))].slice(0,3);
+    if(fromUrl.length && fromUrl.join(",")!==initialSlugs.join(",")) setSlugs(fromUrl);
+  },[initialSlugs]);
 
   const selected=useMemo(
     ()=>slugs.map(slug=>models.find(model=>model.slug===slug)).filter((model):model is Motorcycle=>Boolean(model)),
@@ -31,6 +33,7 @@ export function SelectedCompareClient({ models }: { models: Motorcycle[] }) {
       <div>{selected.map(model=><b key={model.id}>{model.make} {model.model}</b>)}</div>
       <Link href="/compare">Change motorcycles</Link>
     </div>
+    {selected.length===2&&<ComparisonDecisionWorkbench a={selected[0]} b={selected[1]}/>} 
     {selected.length===3?<ThreeWayHighlights models={selected}/>:<ComparisonHighlights a={selected[0]} b={selected[1]}/>} 
     <DetailedMotorcycleCompare models={selected}/>
   </div>;

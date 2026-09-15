@@ -5,7 +5,6 @@ import { forClient } from "@/lib/competitors";
 import { SelectedCompareClient } from "@/components/SelectedCompareClient";
 import styles from "./SelectionPage.module.css";
 
-export const dynamic="force-static";
 export const metadata:Metadata=pageMetadata({
   title:"Custom Motorcycle Comparison Philippines",
   description:"Compare two or three current Philippine motorcycles side by side for price, engine, rider fit, fuel, tires and braking.",
@@ -13,13 +12,20 @@ export const metadata:Metadata=pageMetadata({
   index:false
 });
 
-export default function SelectedComparePage(){
+type SearchParams = Promise<{ bikes?: string | string[] }>;
+
+export default async function SelectedComparePage({ searchParams }: { searchParams: SearchParams }){
+  const params = await searchParams;
+  const raw = Array.isArray(params.bikes) ? params.bikes[0] : params.bikes || "";
+  const validSlugs = new Set(publicMotorcycles.map(model => model.slug));
+  const initialSlugs = [...new Set(raw.split(",").map(slug => slug.trim()).filter(slug => validSlugs.has(slug)))].slice(0,3);
+
   return <section className={`${styles.page} page shell`}>
     <div className={`${styles.head} page-head`}>
       <span className="entity-kicker">Side-by-side research</span>
       <h1>Compare your motorcycles.</h1>
       <p>Keep the selected bikes visible while you scan the price, fit and specification differences that matter.</p>
     </div>
-    <SelectedCompareClient models={forClient(publicMotorcycles)}/>
+    <SelectedCompareClient models={forClient(publicMotorcycles)} initialSlugs={initialSlugs}/>
   </section>;
 }

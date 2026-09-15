@@ -1,10 +1,10 @@
 import { Fragment } from "react";
-import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
-import { EntityMedia } from "@/components/EntityMedia";
+import { MotorcycleCard } from "@/components/MotorcycleCard";
 import { observedMarketPriceLabel, priceChecksForModel } from "@/lib/marketChecks";
 import { getVerifiedVariantsForModel } from "@/lib/variants";
 
+// Selected-bike EntityMedia now comes from the canonical MotorcycleCard compare variant.
 const dash="—";
 const number=(value:number|undefined,suffix:string)=>typeof value==="number"?`${value.toLocaleString("en-PH")} ${suffix}`:dash;
 const range=(m:Motorcycle)=>m.fuelConsumptionKmL?`${Math.round(m.fuelConsumptionKmL*m.fuelTankL).toLocaleString("en-PH")} km theoretical`:dash;
@@ -56,10 +56,7 @@ const sections:Section[]=[
 
 export function ComparisonProductCards({models}:{models:Motorcycle[]}){
   return <div className={`compare-product-grid compare-cols-${models.length}`} aria-label="Selected motorcycles">
-    {models.map(model=>{const href=`/motorcycles/${model.makeSlug}/${model.slug}`;return <article className="compare-product-card" key={model.id}>
-      <EntityMedia entityType="motorcycle" entityId={model.id} className="compare-product-media" linkHref={href} showCredit={false} fallback={<Link href={href} className="media-unavailable"><span>Image unavailable</span></Link>}/>
-      <div className="compare-product-copy"><span>{model.make}</span><h2>{model.model}</h2><strong>{observedMarketPriceLabel(model)}</strong><small>{model.engineCc} cc · {model.curbWeightKg} kg · {model.seatHeightMm} mm seat</small><Link href={href}>View full specs →</Link></div>
-    </article>})}
+    {models.map(model=><MotorcycleCard key={model.id} model={model} variant="compare"/>)}
   </div>;
 }
 

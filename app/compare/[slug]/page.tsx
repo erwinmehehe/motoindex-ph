@@ -10,6 +10,7 @@ import { ComparisonEditorial } from "@/components/ComparisonEditorial";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RelatedLinks } from "@/components/RelatedLinks";
 import { ComparisonDecisionMatrix } from "@/components/ComparisonDecisionMatrix";
+import { ComparisonDecisionWorkbench } from "@/components/ComparisonDecisionWorkbench";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
 
@@ -36,7 +37,10 @@ export default async function ComparisonPage({params}:{params:Promise<{slug:stri
   const compareArticle=articleSchema({headline:`${c.a.make} ${c.a.model} vs ${c.b.make} ${c.b.model}`,description:brief?.opening||`Compare the ${c.a.make} ${c.a.model} and ${c.b.make} ${c.b.model} on checked Philippine prices, engine, dimensions, fuel and tires.`,path:`/compare/${c.slug}`,about:`${c.a.model} vs ${c.b.model} Philippines`,keywords:[`${c.a.model} vs ${c.b.model}`,`${c.a.model} or ${c.b.model}`,"motorcycle comparison Philippines"],checkedDates:[c.a.marketPriceCheckedAt||c.a.verifiedAt,c.b.marketPriceCheckedAt||c.b.verifiedAt]});return <section className="page shell comparison-page"><Breadcrumbs items={[{label:"Compare",href:"/compare"},{label:`${c.a.model} vs ${c.b.model}`}]} />
     <div className="page-head comparison-page-head"><h1>{brief?.h1||`${c.a.make} ${c.a.model} vs ${c.b.make} ${c.b.model}`}</h1><p>{brief?.opening||`${c.summary}. Compare the current motorcycles with their prices, fit and grouped specifications.`}</p><div className="hero-actions"><Link className="button" href={`/get-quote/${c.a.makeSlug}/${c.a.slug}`}>Get {c.a.model} dealer price</Link><Link className="button secondary" href={`/get-quote/${c.b.makeSlug}/${c.b.slug}`}>Get {c.b.model} dealer price</Link></div></div>
     {!isIndexableComparison(slug)&&<div className="note-box"><h2>Custom comparison</h2><p>Check the dated price and specification sources on each motorcycle page before buying.</p></div>}
-    <ComparisonProductCards models={[c.a,c.b]}/><ComparisonDecisionMatrix a={c.a} b={c.b}/>{brief?<><ComparisonEditorial a={c.a} b={c.b} brief={brief} phase="pre"/><DetailedMotorcycleCompare models={[c.a,c.b]} showProducts={false}/><ComparisonEditorial a={c.a} b={c.b} brief={brief} phase="post"/></>:<><ComparisonHighlights a={c.a} b={c.b}/><DetailedMotorcycleCompare models={[c.a,c.b]} showProducts={false}/></>}<RelatedLinks title="Open the model pages and sources" links={links}/>
+    <ComparisonProductCards models={[c.a,c.b]}/>
+    <ComparisonDecisionWorkbench a={c.a} b={c.b}/>
+    <ComparisonDecisionMatrix a={c.a} b={c.b}/>
+    {brief?<><ComparisonEditorial a={c.a} b={c.b} brief={brief} phase="pre"/><DetailedMotorcycleCompare models={[c.a,c.b]} showProducts={false}/><ComparisonEditorial a={c.a} b={c.b} brief={brief} phase="post"/></>:<><ComparisonHighlights a={c.a} b={c.b}/><DetailedMotorcycleCompare models={[c.a,c.b]} showProducts={false}/></>}<RelatedLinks title="Open the model pages and sources" links={links}/>
     <JsonLd data={compareArticle} />
   </section>;
 }
