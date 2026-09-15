@@ -131,6 +131,8 @@ html body .motorcycle-entity-page .motorcycle-hero-media img{
    not two giant image panels. */
 html body .detailed-compare{
   margin-top:20px!important;
+  min-width:0!important;
+  max-width:100%!important;
 }
 html body .compare-product-grid{
   display:grid!important;
@@ -138,6 +140,8 @@ html body .compare-product-grid{
   align-items:stretch!important;
   gap:14px!important;
   margin:18px 0 24px!important;
+  min-width:0!important;
+  max-width:100%!important;
 }
 html body .compare-product-card{
   min-width:0!important;
@@ -152,6 +156,8 @@ html body .compare-product-card{
   border-radius:18px!important;
   background:#fff!important;
   box-shadow:none!important;
+  box-sizing:border-box!important;
+  max-width:100%!important;
 }
 html body .compare-cols-3 .compare-product-card{
   grid-template-columns:1fr!important;
@@ -271,7 +277,9 @@ html body .section-head.compact{
   margin-bottom:20px!important;
 }
 html body .section-head h2,
-html body .section-head.compact h2{
+html body .section-head.compact h2,
+html body .motorcycle-entity-page .motorcycle-entity-section .section-head h2,
+html body .motorcycle-entity-page .motorcycle-entity-section .section-head.compact h2{
   max-width:860px!important;
   margin-top:4px!important;
   margin-bottom:8px!important;
@@ -420,9 +428,19 @@ html body .recently-viewed-card .model-card-media{
   html body .motorcycle-entity-page .motorcycle-hero-media img{padding:14px!important}
   html body .motorcycle-entity-page .motorcycle-entity-section{padding:34px 0!important}
   html body .section-head h2,
-  html body .section-head.compact h2{font-size:clamp(25px,7.5vw,32px)!important}
+  html body .section-head.compact h2,
+  html body .motorcycle-entity-page .motorcycle-entity-section .section-head h2,
+  html body .motorcycle-entity-page .motorcycle-entity-section .section-head.compact h2{font-size:clamp(25px,7.5vw,32px)!important}
+  html body .detailed-compare .compare-product-grid{
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+  }
   html body .compare-product-card,
   html body .compare-cols-3 .compare-product-card{
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
     grid-template-columns:minmax(112px,132px) minmax(0,1fr)!important;
     gap:12px!important;
     padding:12px!important;
@@ -448,8 +466,11 @@ html body .recently-viewed-card .model-card-media{
     height:174px!important;
     min-height:174px!important;
   }
-  html body .compare-product-card,
-  html body .compare-cols-3 .compare-product-card{
+  html body .detailed-compare .compare-product-card,
+  html body .detailed-compare .compare-cols-3 .compare-product-card{
+    width:calc(100vw - 32px)!important;
+    max-width:calc(100vw - 32px)!important;
+    justify-self:start!important;
     grid-template-columns:104px minmax(0,1fr)!important;
   }
   html body .compare-product-media,
