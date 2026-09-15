@@ -9,13 +9,14 @@ import { ComparisonDecisionWorkbench } from "@/components/ComparisonDecisionWork
 import { ThreeWayHighlights } from "@/components/ThreeWayHighlights";
 import styles from "./SelectedCompareClient.module.css";
 
-export function SelectedCompareClient({ models }: { models: Motorcycle[] }) {
-  const [slugs,setSlugs]=useState<string[]>([]);
+export function SelectedCompareClient({ models, initialSlugs = [] }: { models: Motorcycle[]; initialSlugs?: string[] }) {
+  const [slugs,setSlugs]=useState<string[]>(initialSlugs);
 
   useEffect(()=>{
     const value=new URLSearchParams(window.location.search).get("bikes")||"";
-    setSlugs([...new Set(value.split(",").map(slug=>slug.trim()).filter(Boolean))].slice(0,3));
-  },[]);
+    const fromUrl=[...new Set(value.split(",").map(slug=>slug.trim()).filter(Boolean))].slice(0,3);
+    if(fromUrl.length && fromUrl.join(",")!==initialSlugs.join(",")) setSlugs(fromUrl);
+  },[initialSlugs]);
 
   const selected=useMemo(
     ()=>slugs.map(slug=>models.find(model=>model.slug===slug)).filter((model):model is Motorcycle=>Boolean(model)),
