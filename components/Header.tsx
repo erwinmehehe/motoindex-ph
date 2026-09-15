@@ -2,6 +2,7 @@ import { HeaderContinuity } from "@/components/HeaderContinuity";
 import Link from "next/link";
 import { ShortlistNav } from "@/components/ShortlistNav";
 import { MotoIndexLogo } from "@/components/MotoIndexLogo";
+import { CommandSearch } from "@/components/CommandSearch";
 import { comparisons, publicMotorcycles, isIndexableComparison } from "@/lib/data";
 
 const hasModels = publicMotorcycles.length > 0;
@@ -44,8 +45,16 @@ export function Header() {
         {hasModels && <details className="nav-more nav-motorcycles">
           <summary>Motorcycles <span>⌄</span></summary>
           <div className="nav-popover nav-popover-menu">
-            <Link className="nav-popover-primary" href="/motorcycles">All motorcycles</Link>
-            <Link className="nav-popover-secondary" href="/motorcycles/electric">Electric motorcycles</Link>
+            <div className="nav-popover-featured">
+              <Link className="nav-popover-primary" href="/motorcycles">
+                <strong>All motorcycles</strong>
+                <small>Browse current Philippine models</small>
+              </Link>
+              <Link className="nav-popover-electric" href="/motorcycles/electric">
+                <strong>Electric motorcycles</strong>
+                <small>Battery, range and charging research</small>
+              </Link>
+            </div>
             <span className="nav-popover-label">Browse by brand</span>
             <div className="nav-brand-grid">
               {motorcycleBrands.map(([slug, label]) => <Link href={`/motorcycles/${slug}`} key={slug}>{label}</Link>)}
@@ -66,7 +75,7 @@ export function Header() {
         </details>
       </nav>
       <Link className="mobile-search" href="/search">Search</Link>
-      <div className="nav-actions"><Link className="nav-search" href="/search">Search</Link><ShortlistNav /><Link className="nav-match" href="/finder">Find my match</Link></div>
+      <div className="nav-actions"><CommandSearch /><ShortlistNav /><Link className="nav-match" href="/finder">Find my match</Link></div>
       <details className="mobile-menu">
         <summary aria-label="Open navigation">Menu</summary>
         <div className="mobile-menu-panel"><nav aria-label="Mobile navigation">

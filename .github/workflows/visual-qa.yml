@@ -50,6 +50,16 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
         run: node scripts/homepage-visual-qa.mjs
 
+      - name: Global Search and Trust QA
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: node scripts/search-trust-qa.mjs
+
+      - name: Navigation and model detail regression QA
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: node scripts/navigation-model-regression-qa.mjs
+
       - name: Motorcycle Compare Selection QA
         env:
           BASE_URL: http://127.0.0.1:3000
