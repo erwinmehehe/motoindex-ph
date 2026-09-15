@@ -38,7 +38,7 @@ const nextConfig = {
       { protocol: "https", hostname: "www.tenplus.ph" },
     ]
   },
-  experimental: { optimizePackageImports: [] },
+  experimental: { optimizePackageImports: [], useLightningcss: true },
   async redirects() {
     return [
       // Keep the electric category as one strong buying guide instead of thin model pages.
