@@ -216,5 +216,14 @@ try {
   cdp.ws.close();
 } finally {
   proc.kill("SIGTERM");
-  fs.rmSync(profile, { recursive: true, force: true });
+  await new Promise(resolve => {
+    if (proc.exitCode !== null) return resolve();
+    proc.once("exit", resolve);
+    setTimeout(resolve, 1500);
+  });
+  try {
+    fs.rmSync(profile, { recursive: true, force: true, maxRetries: 8, retryDelay: 100 });
+  } catch (error) {
+    console.warn(`Chrome QA profile cleanup skipped: ${error instanceof Error ? error.message : String(error)}`);
+  }
 }
