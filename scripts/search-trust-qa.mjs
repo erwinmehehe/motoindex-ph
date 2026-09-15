@@ -173,12 +173,14 @@ try {
 
   await navigate("/motorcycles");
   const catalogTrust = await evaluate(cdp.send, `(() => {
-    const badges=[...document.querySelectorAll('[data-source-trust]')];
-    return {count:badges.length,kinds:[...new Set(badges.map(el=>el.getAttribute('data-source-trust')))].filter(Boolean),overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth};
+    const cardBadges=[...document.querySelectorAll('.model-card [data-source-trust]')];
+    const method=document.querySelector('.motorcycle-index-method');
+    return {cardBadgeCount:cardBadges.length,method:Boolean(method),methodText:method?.textContent?.trim()||'',overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth};
   })()`);
   results.push({ check: "catalog-trust", ...catalogTrust });
-  if ((catalogTrust?.count || 0) < 1) failures.push("Motorcycle catalog has no visible source-trust badge.");
-  if ((catalogTrust?.overflow || 0) > 5) failures.push(`Motorcycle catalog overflows by ${catalogTrust.overflow}px after trust badges.`);
+  if ((catalogTrust?.cardBadgeCount || 0) > 0) failures.push(`Motorcycle browse cards expose ${catalogTrust.cardBadgeCount} source-trust badges instead of deferring evidence to model pages.`);
+  if (!catalogTrust?.method || !/verify|evidence|dated price/i.test(catalogTrust?.methodText || "")) failures.push("Motorcycle catalog no longer explains that detailed verification belongs on model pages.");
+  if ((catalogTrust?.overflow || 0) > 5) failures.push(`Motorcycle catalog overflows by ${catalogTrust.overflow}px.`);
   await screenshot("catalog-trust");
 
   await navigate("/motorcycles/yamaha/aerox-v3");
