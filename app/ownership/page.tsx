@@ -58,11 +58,14 @@ export default function OwnershipPage(){
 
     <section id="safety-campaigns" className="motorcycle-entity-section">
       <div className="section-head compact"><div><span className="section-kicker">Recalls and service campaigns</span><h2>Check the motorcycle at the manufacturer</h2><p>Campaign eligibility can be frame- or VIN-specific. An empty public notice list does not prove a motorcycle is unaffected.</p></div></div>
-      <div className="source-ladder">{safetyResources.map(resource=><article key={resource.makeSlug}>
-        <span>{resource.hasVehicleChecker?"Vehicle checker":"Official support"}</span>
-        <div><h3>{resource.label}</h3><small>Checked {resource.lastChecked}</small></div>
-        <div><p>{resource.method}</p><a className="text-link" href={resource.url} target="_blank" rel="noreferrer">Open official resource ↗</a></div>
-      </article>)}</div>
+      <details className="note-box">
+        <summary><b>Open manufacturer safety resources</b> · {safetyResources.length} checked brand resources</summary>
+        <div className="source-ladder">{safetyResources.map(resource=><article key={resource.makeSlug}>
+          <span>{resource.hasVehicleChecker?"Vehicle checker":"Official support"}</span>
+          <div><h3>{resource.label}</h3><small>Checked {resource.lastChecked}</small></div>
+          <div><p>{resource.method}</p><a className="text-link" href={resource.url} target="_blank" rel="noreferrer">Open official resource ↗</a></div>
+        </article>)}</div>
+      </details>
     </section>
 
     <section id="paperwork" className="motorcycle-entity-section">
