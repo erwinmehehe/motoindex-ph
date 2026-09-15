@@ -8,7 +8,7 @@ const need=(ok,message)=>{if(!ok)errors.push(message)};
 
 const header=read("components/Header.tsx");
 need(header.includes("motorcycleBrands")&&header.includes("/motorcycles/${slug}"),"Motorcycles nav must expose brand catalog links");
-need(header.includes('href="/recommendations"'),"Guides nav must expose the consolidated recommendation hub");
+need(header.includes('href="/recommendations"'),"Guides nav must expose the recommendation hub");
 
 const pair=read("app/compare/[slug]/page.tsx");
 const three=read("app/compare/three/page.tsx");
@@ -37,16 +37,25 @@ need(css.includes("last-child:nth-child(odd)"),"Odd entity spec rows must span t
 const accessory=read("app/accessories/[slug]/page.tsx");
 need(accessory.includes("verifiedBoxesWithImages")&&accessory.includes("verifiedBoxesWithoutImages"),"Top-box hub must distinguish checked records with and without sourced images");
 
-const recHub=read("app/recommendations/page.tsx");
-const recRedirect=read("app/recommendations/[slug]/page.tsx");
+const recPage=read("app/recommendations/page.tsx");
+const recHub=read("app/recommendations/RecommendationsHub.tsx");
+const recRoute=read("app/recommendations/[slug]/page.tsx");
+const recArchive=read("app/recommendations/RecommendationGuideArchive.tsx");
+const recSitemap=read("lib/recommendationSitemap.ts");
+need(recPage.includes("RecommendationsHub")&&recPage.includes("RecommendationGuideArchive"),"Recommendation root must preserve the current hub and expose the restored guide archive");
 need(
-  recRedirect.includes("recommendationGuides.map")&&
-  recRedirect.includes("sectionBySlug")&&
-  recRedirect.includes('permanentRedirect(`/recommendations#${section}`)'),
-  "Legacy recommendation guide URLs must permanently redirect into consolidated recommendation sections"
+  recRoute.includes("getRecommendationGuide")&&
+  recRoute.includes("generateMetadata")&&
+  recRoute.includes("articleSchema")&&
+  recRoute.includes("FaqSection")&&
+  recRoute.includes("AuthorBox")&&
+  !recRoute.includes("permanentRedirect"),
+  "Recommendation guide URLs must render standalone editorial pages instead of redirecting into hub fragments"
 );
+need(recArchive.includes("isIndexableRecommendation")&&recArchive.includes("/recommendations/${guide.slug}"),"Recommendation archive must link only indexable standalone guides");
+need(recSitemap.includes("isIndexableRecommendation")&&recSitemap.includes("/recommendations/${guide.slug}"),"Recommendation sitemap must publish indexable standalone guides");
 for(const section of ["budget","scooters","commuting","rider-fit","safety-efficiency","long-rides","400cc","categories","brands"]){
-  need(recHub.includes(`id="${section}"`),`Consolidated recommendation hub missing #${section}`);
+  need(recHub.includes(`id="${section}"`),`Recommendation hub missing #${section}`);
 }
 const guideTypes=read("lib/types.ts");
 for(const field of ["primaryKeyword","secondaryKeywords","directAnswer","inclusionRules","orderingRule","tieBreakers","sourcePolicy","tableColumns","editorialSections","faqQuestions","relatedGuideSlugs"]){need(guideTypes.includes(field),`RecommendationGuide must include ${field}`)}
@@ -96,4 +105,4 @@ need(read("scripts/validate-v09.mjs").includes("split(path.sep).join")&&read("sc
 for(const file of ["AFFILIATE_SETUP.md","SHOPEE_AFFILIATE_SETUP.md"]){const source=read(file);need(/build[- ]time/i.test(source)&&/redeploy/i.test(source),`${file} must document build-time affiliate configuration and redeploy requirement`)}
 
 if(errors.length){console.error("Post-audit validation failed:\n- "+errors.join("\n- "));process.exit(1)}
-console.log("Post-audit validation passed: navigation, comparisons, consolidated recommendations, product media, dealer publication rules, responsive fixes and route/tooling guards are present.");
+console.log("Post-audit validation passed: navigation, comparisons, restored recommendation guides, product media, dealer publication rules, responsive fixes and route/tooling guards are present.");
