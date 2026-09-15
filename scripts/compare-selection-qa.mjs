@@ -80,11 +80,11 @@ async function waitForPath(send, pathname) {
     if (current === pathname) {
       await waitForComplete(send);
       await new Promise(resolve => setTimeout(resolve, 350));
-      return;
+      return true;
     }
     await new Promise(resolve => setTimeout(resolve, 120));
   }
-  throw new Error(`Timed out waiting for ${pathname}`);
+  return false;
 }
 
 const chrome = findChrome();
@@ -165,74 +165,87 @@ try {
   for (const width of widths) {
     await setViewport(width);
 
-    await navigate('/compare');
-    const builderPair = await evaluate(cdp.send, `(() => {
-      const selects=[...document.querySelectorAll('.compare-builder select')];
-      const first=[...selects[0].options].find(option=>option.value&&!option.disabled)?.value||'';
-      if(first){selects[0].value=first;selects[0].dispatchEvent(new Event('change',{bubbles:true}));}
-      return first;
-    })()`);
-    await new Promise(resolve => setTimeout(resolve, 180));
-    const builderSecond = await evaluate(cdp.send, `(() => {
-      const selects=[...document.querySelectorAll('.compare-builder select')];
-      const second=[...selects[1].options].find(option=>option.value&&!option.disabled&&option.value!==${JSON.stringify(builderPair)})?.value||'';
-      if(second){selects[1].value=second;selects[1].dispatchEvent(new Event('change',{bubbles:true}));}
-      return second;
-    })()`);
-    await new Promise(resolve => setTimeout(resolve, 220));
-    const builderReady = await evaluate(cdp.send, `(() => {
-      const button=[...document.querySelectorAll('.compare-actions button')].find(el=>(el.textContent||'').includes('Compare two'));
-      const ready=Boolean(button&&!button.disabled&&${JSON.stringify(builderPair)}&&${JSON.stringify(builderSecond)});
-      if(ready) button.click();
-      return ready;
-    })()`);
-    if (!builderReady) failures.push(`${width}px builder: could not prepare a valid two-bike selection`);
-    else {
-      await waitForPath(cdp.send, '/compare/selection');
-      await auditSelection(width, 'builder');
+    try {
+      await navigate('/compare');
+      const first = await evaluate(cdp.send, `(() => {
+        const selects=[...document.querySelectorAll('.compare-builder select')];
+        const value=[...selects[0].options].find(option=>option.value&&!option.disabled)?.value||'';
+        if(value){selects[0].value=value;selects[0].dispatchEvent(new Event('change',{bubbles:true}));}
+        return value;
+      })()`);
+      await new Promise(resolve => setTimeout(resolve, 180));
+      const second = await evaluate(cdp.send, `(() => {
+        const selects=[...document.querySelectorAll('.compare-builder select')];
+        const value=[...selects[1].options].find(option=>option.value&&!option.disabled&&option.value!==${JSON.stringify(first)})?.value||'';
+        if(value){selects[1].value=value;selects[1].dispatchEvent(new Event('change',{bubbles:true}));}
+        return value;
+      })()`);
+      await new Promise(resolve => setTimeout(resolve, 220));
+      const clicked = await evaluate(cdp.send, `(() => {
+        const button=[...document.querySelectorAll('.compare-actions button')].find(el=>(el.textContent||'').includes('Compare two'));
+        const ready=Boolean(button&&!button.disabled&&${JSON.stringify(first)}&&${JSON.stringify(second)});
+        if(ready) button.click();
+        return ready;
+      })()`);
+      const arrived = clicked && await waitForPath(cdp.send, '/compare/selection');
+      if (!arrived) failures.push(`${width}px builder: Compare two did not navigate to /compare/selection`);
+      else await auditSelection(width, 'builder');
+    } catch (error) {
+      failures.push(`${width}px builder: ${error instanceof Error ? error.message : String(error)}`);
     }
 
-    await navigate('/motorcycles?q=Click');
-    await evaluate(cdp.send, `(() => { localStorage.removeItem('motoindex-compare-v1'); window.dispatchEvent(new CustomEvent('motoindex-compare')); return true; })()`);
-    await new Promise(resolve => setTimeout(resolve, 120));
-    const clicked = await evaluate(cdp.send, `(() => {
-      const buttons=[...document.querySelectorAll('.model-card .compare-button')].slice(0,2);
-      buttons.forEach(button=>button.click());
-      return buttons.length;
-    })()`);
-    await new Promise(resolve => setTimeout(resolve, 220));
-    const tray = await evaluate(cdp.send, `(() => ({
-      clicked:${clicked},
-      stored:JSON.parse(localStorage.getItem('motoindex-compare-v1')||'[]').length,
-      exists:Boolean(document.querySelector('.compare-tray')),
-      href:document.querySelector('.compare-tray-actions a')?.getAttribute('href')||'',
-      toggle:document.querySelector('.compare-tray-mobile-toggle')?.textContent||''
-    }))()`);
-    results.push({ width, source: 'tray', ...tray });
-    if (tray?.clicked < 2 || tray?.stored < 2 || !tray?.exists || !String(tray?.href||'').startsWith('/compare/selection?bikes=')) failures.push(`${width}px tray: two selected motorcycles did not produce the selection link`);
-    if (width <= 430) {
-      const expanded = await evaluate(cdp.send, `(() => { const button=document.querySelector('.compare-tray-mobile-toggle'); button?.click(); return button?.getAttribute('aria-expanded'); })()`);
-      await new Promise(resolve => setTimeout(resolve, 120));
-      const expandedAfter = await evaluate(cdp.send, `document.querySelector('.compare-tray-mobile-toggle')?.getAttribute('aria-expanded')`);
-      if (expanded === null || expandedAfter !== 'true') failures.push(`${width}px tray: mobile Compare Tray did not expand`);
-    }
-    if (tray?.exists) {
-      await evaluate(cdp.send, `document.querySelector('.compare-tray-actions a')?.click()`);
-      await waitForPath(cdp.send, '/compare/selection');
-      await auditSelection(width, 'tray');
+    try {
+      await navigate('/motorcycles');
+      await evaluate(cdp.send, `(() => { localStorage.removeItem('motoindex-compare-v1'); window.dispatchEvent(new CustomEvent('motoindex-compare')); return true; })()`);
+      await new Promise(resolve => setTimeout(resolve, 180));
+      const clicked = await evaluate(cdp.send, `(() => {
+        const buttons=[...document.querySelectorAll('.model-card .compare-button')].filter(button=>!button.disabled).slice(0,2);
+        buttons.forEach(button=>button.click());
+        return buttons.length;
+      })()`);
+      await new Promise(resolve => setTimeout(resolve, 300));
+      const tray = await evaluate(cdp.send, `(() => ({
+        clicked:${clicked},
+        stored:JSON.parse(localStorage.getItem('motoindex-compare-v1')||'[]').length,
+        exists:Boolean(document.querySelector('.compare-tray')),
+        href:document.querySelector('.compare-tray-actions a')?.getAttribute('href')||''
+      }))()`);
+      results.push({ width, source: 'tray', ...tray });
+      const hasLink = tray?.clicked >= 2 && tray?.stored >= 2 && tray?.exists && String(tray?.href||'').startsWith('/compare/selection?bikes=');
+      if (!hasLink) failures.push(`${width}px tray: two selected motorcycles did not produce the selection link`);
+
+      if (width <= 430 && tray?.exists) {
+        await evaluate(cdp.send, `document.querySelector('.compare-tray-mobile-toggle')?.click()`);
+        await new Promise(resolve => setTimeout(resolve, 160));
+        const expanded = await evaluate(cdp.send, `document.querySelector('.compare-tray-mobile-toggle')?.getAttribute('aria-expanded')`);
+        if (expanded !== 'true') failures.push(`${width}px tray: mobile Compare Tray did not expand`);
+      }
+
+      if (hasLink) {
+        await evaluate(cdp.send, `document.querySelector('.compare-tray-actions a')?.click()`);
+        const arrived = await waitForPath(cdp.send, '/compare/selection');
+        if (!arrived) failures.push(`${width}px tray: Compare link did not navigate to /compare/selection`);
+        else await auditSelection(width, 'tray');
+      }
+    } catch (error) {
+      failures.push(`${width}px tray: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
-  await setViewport(1440);
-  await navigate('/compare/aerox-vs-nmax');
-  const curated = await evaluate(cdp.send, `(() => ({
-    path:location.pathname,
-    h1:(document.querySelector('h1')?.textContent||'').trim(),
-    canonical:document.querySelector('link[rel="canonical"]')?.getAttribute('href')||'',
-    table:Boolean(document.querySelector('.detailed-compare-table'))
-  }))()`);
-  results.push({ width: 1440, source: 'curated', ...curated });
-  if (curated?.path !== '/compare/aerox-vs-nmax' || !curated?.h1 || !curated?.table || !String(curated?.canonical||'').endsWith('/compare/aerox-vs-nmax')) failures.push('Curated comparison URL /compare/aerox-vs-nmax no longer renders in place.');
+  try {
+    await setViewport(1440);
+    await navigate('/compare/aerox-vs-nmax');
+    const curated = await evaluate(cdp.send, `(() => ({
+      path:location.pathname,
+      h1:(document.querySelector('h1')?.textContent||'').trim(),
+      canonical:document.querySelector('link[rel="canonical"]')?.getAttribute('href')||'',
+      table:Boolean(document.querySelector('.detailed-compare-table'))
+    }))()`);
+    results.push({ width: 1440, source: 'curated', ...curated });
+    if (curated?.path !== '/compare/aerox-vs-nmax' || !curated?.h1 || !curated?.table || !String(curated?.canonical||'').endsWith('/compare/aerox-vs-nmax')) failures.push('Curated comparison URL /compare/aerox-vs-nmax no longer renders in place.');
+  } catch (error) {
+    failures.push(`Curated comparison: ${error instanceof Error ? error.message : String(error)}`);
+  }
 
   fs.writeFileSync(path.join(outputDir, 'compare-selection-report.json'), JSON.stringify({ results, failures }, null, 2));
   if (failures.length) {
