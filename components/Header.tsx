@@ -74,7 +74,6 @@ export function Header() {
           </div>
         </details>
       </nav>
-      <Link className="mobile-search" href="/search">Search</Link>
       <div className="nav-actions"><CommandSearch /><ShortlistNav /><Link className="nav-match" href="/finder">Find my match</Link></div>
       <details className="mobile-menu">
         <summary aria-label="Open navigation">Menu</summary>
