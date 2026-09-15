@@ -5,6 +5,9 @@
 .product-entity-nav a{flex:0 0 auto!important;display:inline-flex!important;align-items:center!important;min-height:32px!important;padding:0 9px!important;border:0!important;border-radius:8px!important;background:transparent!important;color:#64748b!important;font-size:10px!important;font-weight:750!important;white-space:nowrap!important}
 .product-entity-nav a:hover,.product-entity-nav a:focus-visible{background:rgba(68,76,231,.06)!important;color:#3038bd!important}
 
+/* Mature research hubs should never inherit the old oversized editorial H1 scale. */
+.accessories-master-page>.page-head h1,.tire-master-page>.page-head h1{max-width:900px!important;font-size:clamp(42px,4.5vw,60px)!important;line-height:1!important;letter-spacing:-.045em!important}
+
 /* Preserve the dark commute hero supplied by public-hubs-v2.css. A shared
    component rule was repainting this inner panel white while its typography
    remained white, making the context copy disappear at every tested width. */
