@@ -1,0 +1,27 @@
+/* Temporary visual-compatibility bridge.
+   PR #59 removed these mature style generations before every public route had
+   been migrated off them. Keep the exact known-good dependency set isolated
+   here while current base/components/routes remain authoritative after it.
+   Do not add new visual work to this file; retire imports only after the
+   affected route family has an equivalent regression-tested current style. */
+
+@import "../v247.css";
+@import "../v260.css";
+@import "../v261.css";
+@import "../v270.css";
+@import "../v280.css";
+@import "../redesign.css";
+@import "../redesign-v2.css";
+@import "../arena-sitewide.css";
+@import "../arena-premium-v2.css";
+@import "../experience-v4.css";
+@import "../experience-v4-fixes.css";
+@import "../experience-v5.css";
+@import "../experience-v6.css";
+@import "../experience-v6-fixes.css";
+@import "../experience-v7.css";
+@import "../premium-light-fixes.css";
+@import "../premium-light-sticky-fix.css";
+@import "../premium-light-qa-fixes.css";
+@import "../premium-light-final-fixes.css";
+@import "../buyer-flow-final-cleanup.css";
