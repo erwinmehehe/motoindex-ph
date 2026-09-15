@@ -1,10 +1,9 @@
 /* MotoIndex global design architecture.
-   Keep the current four-layer system, but restore the pre-#59 route dependencies
-   through one isolated compatibility bridge. Current component and route layers
-   stay last and remain authoritative. */
+   Four layers only: tokens, base/layout, reusable components, route systems.
+   Missing pre-cleanup route contracts are migrated into the current layers
+   instead of restoring the historical cascade wholesale. */
 
 @import "./styles/tokens.css";
 @import "./styles/base.css";
-@import "./styles/legacy-compat.css";
 @import "./styles/components.css";
 @import "./styles/routes.css";
