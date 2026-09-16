@@ -17,6 +17,8 @@ const routes = read("app", "styles", "routes.css");
 const homepage = read("app", "homepage.css");
 const theme = read("app", "premium-light.css");
 const productExperience = read("app", "product-experience-v2.css");
+const recommendationsPage = read("app", "recommendations", "page.tsx");
+const recommendationsStyle = read("app", "recommendations", "RecommendationsHubStyle.tsx");
 const motion = read("components", "MotionEnhancer.tsx");
 const logo = read("public", "brand", "motoindex-mark.svg");
 
@@ -39,7 +41,11 @@ requireText(base, '@import "../premium-light.css";', "Base layer must retain the
 requireText(components, '@import "../product-system.css";', "Component layer must load the canonical product system.");
 requireText(components, '@import "../image-stage-cleanup.css";', "Component layer must load image-stage rules.");
 requireText(components, '@import "../product-experience-v2.css";', "Component layer must load the current buyer experience authority layer.");
-requireText(routes, '@import "../recommendations-polish.css";', "Route layer must retain recommendation polish.");
+forbidText(routes, "recommendations-polish.css", "Recommendations styling should stay route-local instead of re-entering the global CSS bundle.");
+requireText(recommendationsPage, '<RecommendationsHubStyle />', "Recommendations hub must render its route-local visual system.");
+for (const selector of [".rec-hero-actions", ".rec-start-card>a", ".rec-nav", ".rec-principle-grid", ".rec-two-column"]) {
+  requireText(recommendationsStyle, selector, `Recommendations route-local style must retain ${selector}.`);
+}
 requireText(routes, '@import "../homepage.css";', "Route layer must load the single self-contained homepage system.");
 forbidText(routes, "homepage-compact-modern.css", "Retired homepage-compact-modern.css must not be loaded by the route layer.");
 forbidText(routes, "homepage-feature-hero.css", "Retired homepage-feature-hero.css must not be loaded by the route layer.");
