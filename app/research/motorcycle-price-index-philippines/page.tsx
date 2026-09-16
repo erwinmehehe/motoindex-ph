@@ -56,7 +56,7 @@ export default function MotorcyclePriceIndexPage() {
     </section>}
 
     <section className="section" aria-labelledby="price-index-table">
-      <div className="section-head compact"><div><span className="section-kicker">Current price database</span><h2 id="price-index-table">Motorcycle prices tracked by MotoIndex</h2><p>Open any model to check variants, financing estimates and the dated evidence behind the amount.</p></div><Link href="/recommendations/motorcycles-under-100k">Browse motorcycles under ₱100K →</Link></div>
+      <div className="section-head compact"><div><span className="section-kicker">Current price database</span><h2 id="price-index-table">Motorcycle prices tracked by MotoIndex</h2><p>Open any model to check variants, financing estimates and the dated evidence behind the amount.</p></div><Link href="/recommendations#budget">Browse budget buying guidance →</Link></div>
       <div className="ph-brand-price-table" role="table" aria-label="MotoIndex Philippine motorcycle price index">
         <div className="head" role="row"><span>Motorcycle</span><span>Published price</span><span>Engine</span><span>Category</span><span>Checked</span></div>
         {rows.map(({ model, fromPhp, toPhp, checkedAt: modelCheckedAt }) => <Link role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}`} key={model.id}>
