@@ -20,6 +20,7 @@ export function Footer() {
         {hasModels && <Link href="/finder">Finder</Link>}
         {hasComparisons && <Link href="/compare">Compare</Link>}
         <Link href="/guides">Guides</Link>
+        <Link href="/research">Research</Link>
       </div>
       <div className={styles.column}>
         <strong>Gear</strong>
