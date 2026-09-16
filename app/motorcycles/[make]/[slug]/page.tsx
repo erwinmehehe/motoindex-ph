@@ -6,11 +6,13 @@ import { ModelFamilyView } from "@/components/ModelFamilyView";
 import { MotorcycleEntityPage } from "@/components/MotorcycleEntityPage";
 import { PriorityModelBrief } from "@/components/PriorityModelBrief";
 import { GrowthModelBrief } from "@/components/GrowthModelBrief";
+import { PriorityCommercialIntent } from "@/components/PriorityCommercialIntent";
 import { DecisionPath } from "@/components/DecisionPath";
 import { RecentlyViewedTracker } from "@/components/RecentlyViewed";
 import { ShareModelButton } from "@/components/ShareModelButton";
 import { pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
+import { priorityModelGrowthProfile } from "@/lib/priorityModelGrowth";
 import { getRenderableMedia } from "@/lib/renderableMedia";
 import styles from "./ModelPage.module.css";
 
@@ -37,10 +39,11 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const model = getModel(make, slug);
   if (!model) return {};
   const seo = motorcycleEntitySeo(model);
+  const growth = priorityModelGrowthProfile(model.id);
   const image = getRenderableMedia("motorcycle", model.id)[0]?.src;
   const base = pageMetadata({
-    title: seo.title,
-    description: seo.description,
+    title: growth?.seoTitle || seo.title,
+    description: growth?.seoDescription || seo.description,
     path: `/motorcycles/${model.makeSlug}/${model.slug}`,
     index: isIndexableModel(model),
     image
@@ -60,6 +63,7 @@ export default async function ModelPage({ params }: { params: Promise<{ make: st
     <MotorcycleEntityPage model={model} />
     <PriorityModelBrief model={model} />
     <GrowthModelBrief model={model} />
+    <PriorityCommercialIntent model={model} />
     {!model.marketStatus || model.marketStatus === "current" ? <div className="shell model-decision-path-wrap"><DecisionPath stage="model" modelName={`${model.make} ${model.model}`} make={model.make} makeSlug={model.makeSlug} modelSlug={model.slug} /></div> : null}
   </div>;
 }
