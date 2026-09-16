@@ -144,10 +144,13 @@ try {
       };
     })()`);
     results.push({ width, page: "recommendations", ...recommendations });
+    const compactRecommendations = width <= 520;
+    const expectedActionDisplay = compactRecommendations ? "grid" : "flex";
+    const expectedProofDisplay = compactRecommendations ? "grid" : "flex";
     if ((recommendations?.overflow || 0) > 5) failures.push(`${width}px recommendations overflows by ${recommendations.overflow}px`);
-    if (recommendations?.heroActions !== "flex") failures.push(`${width}px recommendations hero actions collapsed (${recommendations?.heroActions})`);
+    if (recommendations?.heroActions !== expectedActionDisplay) failures.push(`${width}px recommendations hero actions should be ${expectedActionDisplay} (${recommendations?.heroActions})`);
     if (recommendations?.startRow !== "grid") failures.push(`${width}px recommendations start card rows collapsed (${recommendations?.startRow})`);
-    if (recommendations?.proof !== "flex") failures.push(`${width}px recommendations proof row collapsed (${recommendations?.proof})`);
+    if (recommendations?.proof !== expectedProofDisplay) failures.push(`${width}px recommendations proof row should be ${expectedProofDisplay} (${recommendations?.proof})`);
     if (recommendations?.nav !== "flex") failures.push(`${width}px recommendations section nav collapsed (${recommendations?.nav})`);
     if (recommendations?.principles !== "grid") failures.push(`${width}px recommendations principle grid collapsed (${recommendations?.principles})`);
     if ((recommendations?.startRows || 0) !== 4) failures.push(`${width}px recommendations start card is incomplete`);
