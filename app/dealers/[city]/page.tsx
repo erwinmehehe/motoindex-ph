@@ -2,14 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { notFound } from "next/navigation";
-import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug } from "@/lib/sellers";
+import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug, publicDealersByCity } from "@/lib/sellers";
 import { staticDealerCities, staticDealersByCity } from "@/lib/staticDealerData";
 import { allVerifiedDealers } from "@/lib/persistentSellers";
 import { activeDealerPlacementsForCity, dealerPlacementLabel, type DealerPlacement } from "@/lib/dealerPlacements";
 import type { SellerProfile } from "@/lib/types";
 import { pageMetadata } from "@/lib/site";
 
-export function generateStaticParams(){return staticDealerCities().filter(city=>staticDealersByCity(citySlug(city)).length>=MIN_PUBLIC_DEALERS_PER_CITY).map(city=>({city:citySlug(city)}));}
+function checkedStaticDealerCount(slug:string){
+  return Math.max(publicDealersByCity(slug).length,staticDealersByCity(slug).length);
+}
+
+export function generateStaticParams(){return staticDealerCities().filter(city=>checkedStaticDealerCount(citySlug(city))>=MIN_PUBLIC_DEALERS_PER_CITY).map(city=>({city:citySlug(city)}));}
 
 export async function generateMetadata({params}:{params:Promise<{city:string}>}):Promise<Metadata>{
   const {city}=await params;const list=(await allVerifiedDealers()).filter(dealer=>citySlug(dealer.city)===city);if(list.length<MIN_PUBLIC_DEALERS_PER_CITY)return {};
