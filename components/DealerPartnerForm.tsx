@@ -6,7 +6,9 @@ type Result={ok:boolean;message?:string;error?:string};
 
 const brands=["Honda","Yamaha","Suzuki","Kawasaki","KTM","CFMOTO","BMW Motorrad","Ducati","Triumph","Royal Enfield","Bristol","Zontes"];
 
-export function DealerPartnerForm(){
+type Props={defaultCity?:string;defaultProvince?:string};
+
+export function DealerPartnerForm({defaultCity="",defaultProvince=""}:Props){
   const [state,setState]=useState<"idle"|"sending"|"success"|"error">("idle");
   const [message,setMessage]=useState("");
 
@@ -51,8 +53,8 @@ export function DealerPartnerForm(){
       <label><span>Business name</span><input name="businessName" required /></label>
       <label><span>Branch name <small>optional</small></span><input name="branchName" /></label>
       <label className="lead-form-wide"><span>Branch address</span><input name="addressLabel" required /></label>
-      <label><span>City</span><input name="city" required /></label>
-      <label><span>Province</span><input name="province" required /></label>
+      <label><span>City</span><input name="city" required defaultValue={defaultCity} /></label>
+      <label><span>Province</span><input name="province" required defaultValue={defaultProvince} /></label>
       <label><span>Region <small>optional</small></span><input name="region" /></label>
       <label><span>Branch phone</span><input name="phone" required inputMode="tel" /></label>
       <label><span>Website <small>optional</small></span><input name="website" type="url" placeholder="https://..." /></label>
