@@ -1,5 +1,5 @@
 import { databaseConfigured, prisma } from "@/lib/db";
-import { publicSellersByType } from "@/lib/sellers";
+import { staticPublicDealers } from "@/lib/staticDealerData";
 import type { SellerProfile } from "@/lib/types";
 
 function fromDb(row:{
@@ -41,7 +41,7 @@ export async function persistentVerifiedDealers(){
 }
 
 export async function allVerifiedDealers(){
-  const staticRows=publicSellersByType("dealer");
+  const staticRows=staticPublicDealers();
   const dbRows=await persistentVerifiedDealers();
   const merged=new Map<string,SellerProfile>();
   for(const row of [...staticRows,...dbRows])merged.set(row.slug,row);
@@ -49,7 +49,7 @@ export async function allVerifiedDealers(){
 }
 
 export async function getVerifiedSellerProfile(slug:string){
-  const staticRow=publicSellersByType("dealer").find(row=>row.slug===slug);
+  const staticRow=staticPublicDealers().find(row=>row.slug===slug);
   if(staticRow)return staticRow;
   if(!databaseConfigured())return undefined;
   const row=await prisma.seller.findFirst({where:{slug,type:"dealer",status:"verified"}});
@@ -61,7 +61,6 @@ export async function getVerifiedSellerProfile(slug:string){
 export function sellerSlug(value:string){
   return value.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,80);
 }
-
 
 export type QuoteEligibleDealer = SellerProfile & { leadEmail:string };
 
