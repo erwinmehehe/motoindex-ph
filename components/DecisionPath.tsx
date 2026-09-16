@@ -52,7 +52,7 @@ export function DecisionPath({ stage, modelName, make, makeSlug, modelSlug }: Pr
     <div className="decision-path-steps">
       <article><b>01</b><strong>Save it</strong><small>Keep it with the other motorcycles you are seriously considering.</small><Link href="/shortlist">Open shortlist →</Link></article>
       <article><b>02</b><strong>Compare alternatives</strong><small>Use the same price and specification records.</small><Link href={compareHref}>Compare motorcycles →</Link></article>
-      <article><b>03</b><strong>Find dealers</strong><small>{make ? `Start with checked ${make} dealer records.` : "Search checked dealer records by brand or city."}</small><Link href={dealerHref}>Find checked dealers →</Link></article>
+      <article><b>03</b><strong>Check ownership gear</strong><small>Price the helmet, tires and luggage you may actually need, then verify the motorcycle with dealers.</small><div><Link href="/gear/helmets">Helmets →</Link> <Link href="/tires">Tires →</Link> <Link href="/accessories/top-box">Top boxes →</Link> <Link href={dealerHref}>Dealers →</Link></div></article>
     </div>
   </section>;
 }
