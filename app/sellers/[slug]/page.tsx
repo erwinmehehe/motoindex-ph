@@ -3,14 +3,15 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { notFound } from "next/navigation";
-import { publicSellers, offersForSeller } from "@/lib/sellers";
+import { offersForSeller } from "@/lib/sellers";
+import { staticPublicSellers } from "@/lib/staticDealerData";
 import { getVerifiedSellerProfile } from "@/lib/persistentSellers";
 import { getVerifiedOffers } from "@/lib/persistentOffers";
 import { entityHref, entityLabel } from "@/lib/entities";
 import { php } from "@/lib/utils";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 
-export function generateStaticParams(){return publicSellers().map(s=>({slug:s.slug}));}
+export function generateStaticParams(){return staticPublicSellers().map(s=>({slug:s.slug}));}
 
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
   const {slug}=await params;
