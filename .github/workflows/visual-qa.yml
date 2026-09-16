@@ -80,6 +80,11 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
         run: node scripts/image-stage-qa.mjs
 
+      - name: Recommendations and helmet hub layout QA
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: node scripts/hub-layout-qa.mjs
+
       - name: Helmet Finder and Compare QA
         env:
           BASE_URL: http://127.0.0.1:3000
