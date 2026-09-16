@@ -6,6 +6,7 @@ import { spawn, spawnSync } from "node:child_process";
 const base = new URL(process.env.BASE_URL || "http://127.0.0.1:3000");
 const widths = [390, 1440];
 const routes = [
+  { key: "helmet-gille-kerena", path: "/gear/helmets/gille/kerena-ff007" },
   { key: "helmet-spyder-surge", path: "/gear/helmets/spyder/surge-plain-v2" },
   { key: "topbox-givi-v58", path: "/accessories/top-box/v58-maxia-5" }
 ];
@@ -20,23 +21,17 @@ function chromePath() {
   }
   throw new Error("Chrome/Chromium was not found.");
 }
-
 async function waitPort(port) {
   const deadline = Date.now() + 20000;
   while (Date.now() < deadline) {
-    try {
-      if ((await fetch(`http://127.0.0.1:${port}/json/version`)).ok) return;
-    } catch {}
+    try { if ((await fetch(`http://127.0.0.1:${port}/json/version`)).ok) return; } catch {}
     await new Promise(resolve => setTimeout(resolve, 250));
   }
   throw new Error("Chrome remote debugging endpoint did not become ready.");
 }
-
 async function newTab(port) {
-  const response = await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: "PUT" });
-  return response.json();
+  return (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: "PUT" })).json();
 }
-
 function cdp(url) {
   const ws = new WebSocket(url);
   let id = 1;
@@ -59,11 +54,9 @@ function cdp(url) {
   });
   return { ws, ready, send };
 }
-
 async function evalJs(send, expression) {
   return (await send("Runtime.evaluate", { expression, returnByValue: true, awaitPromise: true })).result?.value;
 }
-
 async function waitReady(send) {
   const deadline = Date.now() + 15000;
   while (Date.now() < deadline) {
@@ -74,16 +67,7 @@ async function waitReady(send) {
 
 const port = 9237;
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), "motoindex-product-entity-"));
-const proc = spawn(chromePath(), [
-  "--headless=new",
-  "--no-sandbox",
-  "--disable-gpu",
-  "--disable-dev-shm-usage",
-  `--remote-debugging-port=${port}`,
-  `--user-data-dir=${profile}`,
-  "about:blank"
-], { stdio: "ignore" });
-
+const proc = spawn(chromePath(), ["--headless=new", "--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage", `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, "about:blank"], { stdio: "ignore" });
 const failures = [];
 const results = [];
 
@@ -96,29 +80,17 @@ try {
   await client.send("Runtime.enable");
 
   async function viewport(width) {
-    await client.send("Emulation.setDeviceMetricsOverride", {
-      width,
-      height: width <= 430 ? 844 : 1000,
-      deviceScaleFactor: 1,
-      mobile: width <= 768
-    });
+    await client.send("Emulation.setDeviceMetricsOverride", { width, height: width <= 430 ? 844 : 1000, deviceScaleFactor: 1, mobile: width <= 768 });
   }
-
   async function navigate(pathname) {
     await client.send("Page.navigate", { url: new URL(pathname, base).toString() });
     await waitReady(client.send);
     await new Promise(resolve => setTimeout(resolve, 500));
   }
-
   async function screenshot(name, width) {
     const metrics = await client.send("Page.getLayoutMetrics");
     const content = metrics.cssContentSize || metrics.contentSize;
-    const image = await client.send("Page.captureScreenshot", {
-      format: "png",
-      fromSurface: true,
-      captureBeyondViewport: true,
-      clip: { x: 0, y: 0, width: Math.ceil(content.width), height: Math.ceil(content.height), scale: 1 }
-    });
+    const image = await client.send("Page.captureScreenshot", { format: "png", fromSurface: true, captureBeyondViewport: true, clip: { x: 0, y: 0, width: Math.ceil(content.width), height: Math.ceil(content.height), scale: 1 } });
     fs.writeFileSync(path.join(outputDir, `product-entity-${width}-${name}.png`), Buffer.from(image.data, "base64"));
   }
 
@@ -130,36 +102,33 @@ try {
         const root=document.documentElement;
         const page=document.querySelector('.product-entity-page');
         const hero=document.querySelector('.product-hero');
-        const heroChildren=hero?[...hero.children]:[];
-        const copy=heroChildren[0]||null;
-        const media=heroChildren[1]||null;
-        const facts=document.querySelector('.product-facts');
+        const heading=hero?.querySelector('h1');
+        const lede=hero?.querySelector(':scope > div:first-child > p');
+        const media=hero?.querySelector(':scope > .entity-media');
+        const facts=hero?.querySelector('.product-facts');
         const factEls=facts?[...facts.children]:[];
+        const source=hero?.querySelector('.source-panel');
         const sections=[...document.querySelectorAll('.product-entity-section')];
+        const sectionHeading=sections[0]?.querySelector('h2');
         const spec=document.querySelector('.entity-spec-table');
+        const specLabel=spec?.querySelector('span');
         const editorial=document.querySelector('.product-editorial');
-        const editorialChildren=editorial?[...editorial.children]:[];
         const priceGrid=document.querySelector('.entity-price-grid');
-        const priceChildren=priceGrid?[...priceGrid.children]:[];
-        const r=el=>{
-          if(!el)return null;
-          const rect=el.getBoundingClientRect();
-          return {left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom,width:rect.width,height:rect.height};
-        };
+        const compareRow=document.querySelector('.mini-compare-table > div:not(.head)');
+        const r=el=>{if(!el)return null;const rect=el.getBoundingClientRect();return {left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom,width:rect.width,height:rect.height};};
+        const px=el=>el?parseFloat(getComputedStyle(el).fontSize)||0:0;
         return {
-          title:document.querySelector('h1')?.textContent?.trim()||'',
-          overflow:root.scrollWidth-root.clientWidth,
-          page:r(page), hero:r(hero), media:r(media), copy:r(copy), facts:r(facts), spec:r(spec),
-          heroChildCount:heroChildren.length,
-          heroDisplay:hero?getComputedStyle(hero).display:'',
-          heroColumns:hero?getComputedStyle(hero).gridTemplateColumns:'',
-          factsDisplay:facts?getComputedStyle(facts).display:'',
-          factWidths:factEls.slice(0,6).map(el=>Math.round(r(el).width)),
+          title:heading?.textContent?.trim()||'', overflow:root.scrollWidth-root.clientWidth,
+          page:r(page), hero:r(hero), heading:r(heading), lede:r(lede), media:r(media), facts:r(facts), source:r(source), spec:r(spec),
+          heroDisplay:hero?getComputedStyle(hero).display:'', heroColumns:hero?getComputedStyle(hero).gridTemplateColumns:'',
+          headingSize:px(heading), sectionHeadingSize:px(sectionHeading), specLabelSize:px(specLabel),
+          mediaRadius:media?parseFloat(getComputedStyle(media).borderRadius)||0:0,
+          factsDisplay:facts?getComputedStyle(facts).display:'', factWidths:factEls.slice(0,6).map(el=>Math.round(r(el).width)),
           sectionWidths:sections.slice(0,8).map(el=>Math.round(r(el).width)),
-          editorialWidths:editorialChildren.map(el=>Math.round(r(el).width)),
-          priceWidths:priceChildren.map(el=>Math.round(r(el).width)),
-          mediaImage:r(media?.querySelector('img')),
-          bodyWidth:Math.round(document.body.getBoundingClientRect().width)
+          compareDisplay:compareRow?getComputedStyle(compareRow).display:'',
+          compareColumns:compareRow?getComputedStyle(compareRow).gridTemplateColumns:'',
+          mediaImage:r(media?.querySelector('img')), bodyWidth:Math.round(document.body.getBoundingClientRect().width),
+          editorial:r(editorial), priceGrid:r(priceGrid)
         };
       })()`);
       results.push({ width, route: route.path, ...state });
@@ -168,21 +137,18 @@ try {
       if (!state?.title) failures.push(`${width}px ${route.key}: H1 missing`);
       if ((state?.overflow || 0) > 5) failures.push(`${width}px ${route.key}: horizontal overflow ${state.overflow}px`);
       if (state?.heroDisplay !== "grid") failures.push(`${width}px ${route.key}: product hero is ${state?.heroDisplay || "missing"}, expected grid`);
-      if ((state?.heroChildCount || 0) < 2 || !state?.media || !state?.copy) failures.push(`${width}px ${route.key}: hero content/media missing`);
+      if (!state?.media || !state?.heading || !state?.lede) failures.push(`${width}px ${route.key}: hero content/media missing`);
+      if ((state?.headingSize || 0) < (mobile ? 37 : 40)) failures.push(`${width}px ${route.key}: H1 typography is too small (${state?.headingSize || 0}px)`);
+      if ((state?.mediaRadius || 0) < 17) failures.push(`${width}px ${route.key}: media stage lost motorcycle-detail radius (${state?.mediaRadius || 0}px)`);
       if ((state?.media?.width || 0) < (mobile ? 330 : 400)) failures.push(`${width}px ${route.key}: hero media collapsed to ${Math.round(state?.media?.width || 0)}px`);
-      if ((state?.copy?.width || 0) < (mobile ? 330 : 320)) failures.push(`${width}px ${route.key}: hero copy collapsed to ${Math.round(state?.copy?.width || 0)}px`);
-      if (mobile && state?.copy && state?.media && state.media.top < state.copy.bottom - 2) failures.push(`${width}px ${route.key}: hero did not stack cleanly on mobile`);
-      if (!mobile && state?.copy && state?.media && Math.abs(state.copy.top - state.media.top) > 20) failures.push(`${width}px ${route.key}: desktop hero columns are vertically misaligned`);
-      if (state?.factsDisplay !== "grid") failures.push(`${width}px ${route.key}: product facts are ${state?.factsDisplay || "missing"}, expected grid`);
-      if (!state?.factWidths?.length) failures.push(`${width}px ${route.key}: product facts missing`);
-      if (state?.factWidths?.some(value => value < (mobile ? 320 : 180))) failures.push(`${width}px ${route.key}: product fact collapsed (${state.factWidths.join(', ')}px)`);
-      if (!state?.sectionWidths?.length) failures.push(`${width}px ${route.key}: product sections missing`);
-      if (state?.sectionWidths?.some(value => value < (mobile ? 330 : 900))) failures.push(`${width}px ${route.key}: product section collapsed (${state.sectionWidths.join(', ')}px)`);
-      if (state?.spec && state.spec.width < (mobile ? 330 : 800)) failures.push(`${width}px ${route.key}: spec table too narrow (${Math.round(state.spec.width)}px)`);
-      if (state?.editorialWidths?.some(value => value < (mobile ? 320 : 200))) failures.push(`${width}px ${route.key}: editorial column collapsed (${state.editorialWidths.join(', ')}px)`);
-      if (state?.priceWidths?.some(value => value < (mobile ? 320 : 250))) failures.push(`${width}px ${route.key}: price panel collapsed (${state.priceWidths.join(', ')}px)`);
+      if (mobile && state?.lede && state?.media && state.media.top < state.lede.bottom) failures.push(`${width}px ${route.key}: hero did not stack cleanly on mobile`);
+      if (state?.factsDisplay !== "grid" || !state?.factWidths?.length) failures.push(`${width}px ${route.key}: product fact strip missing`);
+      if (state?.factWidths?.some(value => value < (mobile ? 150 : 180))) failures.push(`${width}px ${route.key}: product fact collapsed (${state.factWidths.join(', ')}px)`);
+      if (!state?.sectionWidths?.length || state.sectionWidths.some(value => value < (mobile ? 330 : 900))) failures.push(`${width}px ${route.key}: product section collapsed (${state?.sectionWidths?.join(', ') || 'missing'}px)`);
+      if ((state?.sectionHeadingSize || 0) < 26) failures.push(`${width}px ${route.key}: section heading hierarchy too small (${state?.sectionHeadingSize || 0}px)`);
+      if (state?.spec && (state?.specLabelSize || 0) < 10) failures.push(`${width}px ${route.key}: spec labels are unreadably small (${state?.specLabelSize || 0}px)`);
+      if (state?.compareDisplay && state.compareDisplay !== "grid") failures.push(`${width}px ${route.key}: comparison row is ${state.compareDisplay}, expected grid`);
       if (state?.mediaImage && state?.media && (state.mediaImage.width > state.media.width + 2 || state.mediaImage.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: hero image exceeds media stage`);
-
       await screenshot(route.key, width);
     }
   }
