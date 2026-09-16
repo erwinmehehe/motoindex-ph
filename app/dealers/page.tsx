@@ -26,7 +26,6 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
   for (const dealer of verifiedDealers) cityCounts.set(dealer.city, (cityCounts.get(dealer.city) || 0) + 1);
   const publishedCities = [...cityCounts.entries()].filter(([,count])=>count>=MIN_PUBLIC_DEALERS_PER_CITY).map(([city])=>city).sort();
   const pampangaCount = verifiedDealers.filter(dealer=>dealer.province==="Pampanga").length;
-  const freeJoinHref="/dealers/join?plan=free&source=%2Fdealers";
   const featuredJoinHref="/dealers/join?plan=featured-city&source=%2Fdealers#featured-options";
 
   return <section className="page shell">
@@ -115,7 +114,7 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
         <small>Verification is never sold. Paid placements are clearly labeled and do not change MotoIndex verification standards.</small>
       </div>
       <div className="dealer-city-footer">
-        <Link className="button" href={freeJoinHref}>Get listed free</Link>
+        <Link className="button" href="/dealers/join">Get listed free</Link>
         <Link className="button secondary" href={featuredJoinHref}>See featured options</Link>
       </div>
     </section>
