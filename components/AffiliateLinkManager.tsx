@@ -23,6 +23,8 @@ type ProductRow={
   };
   clicks7:number;
   clicks30:number;
+  merchantNames:string[];
+  merchantOfferCount:number;
 };
 
 function AffiliateRow({row}:{row:ProductRow}){
@@ -32,6 +34,8 @@ function AffiliateRow({row}:{row:ProductRow}){
   const [network,setNetwork]=useState(row.dbLink?.network||row.fallback?.network||"");
   const [saving,setSaving]=useState(false);
   const [message,setMessage]=useState("");
+  const hasMerchant=row.merchantOfferCount>0;
+  const monetized=status==="active"||Boolean(row.fallback);
 
   async function save(nextStatus:"active"|"disabled"){
     setSaving(true);setMessage("");
@@ -60,6 +64,10 @@ function AffiliateRow({row}:{row:ProductRow}){
       <p>{row.detail}</p>
       <small>{row.id}</small>
       <div className="affiliate-admin-links"><Link href={row.slug} target="_blank">Open product page ↗</Link>{status==="active"&&<a href={`/go/affiliate/${encodeURIComponent(row.id)}`} target="_blank" rel="noreferrer">Test redirect ↗</a>}</div>
+      <div className="affiliate-admin-merchant-state">
+        <strong>{hasMerchant?"Merchant checked":"Merchant source missing"}</strong>
+        <small>{hasMerchant?`${row.merchantOfferCount} source-backed offer${row.merchantOfferCount===1?"":"s"} · ${row.merchantNames.join(", ")}`:"Add a current product-specific merchant source before prioritizing an affiliate URL."}</small>
+      </div>
     </div>
 
     <div className="affiliate-admin-form">
@@ -74,6 +82,7 @@ function AffiliateRow({row}:{row:ProductRow}){
 
     <div className="affiliate-admin-state">
       <em className={`affiliate-state ${status}`}>{status}</em>
+      <small>{monetized?"Affiliate CTA ready":"Needs affiliate URL"}</small>
       <small>{network||"No network"}</small>
       {row.dbLink?.approvedAt&&<small>Approved {row.dbLink.approvedAt.slice(0,10)}</small>}
       <small>{row.clicks7} clicks · 7 days</small>
@@ -92,11 +101,14 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
   const filtered=useMemo(()=>{
     const q=query.trim().toLowerCase();
     if(!q)return rows;
-    return rows.filter(row=>[row.id,row.category,row.brand,row.model,row.detail].join(" ").toLowerCase().includes(q));
+    return rows.filter(row=>[row.id,row.category,row.brand,row.model,row.detail,...row.merchantNames].join(" ").toLowerCase().includes(q));
   },[query,rows]);
   const active=rows.filter(row=>row.dbLink?.status==="active").length;
   const disabled=rows.filter(row=>row.dbLink?.status==="disabled").length;
   const fallback=rows.filter(row=>row.fallback).length;
+  const monetized=rows.filter(row=>row.dbLink?.status==="active"||row.fallback).length;
+  const merchantReady=rows.filter(row=>row.merchantOfferCount>0).length;
+  const merchantReadyUnmonetized=rows.filter(row=>row.merchantOfferCount>0&&row.dbLink?.status!=="active"&&!row.fallback).length;
   const clicks7=rows.reduce((sum,row)=>sum+row.clicks7,0);
   const clicks30=rows.reduce((sum,row)=>sum+row.clicks30,0);
 
@@ -137,6 +149,9 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
   return <div className="affiliate-manager">
     <div className="health-summary">
       <div><span>Catalog products</span><strong>{rows.length}</strong></div>
+      <div><span>Merchant-backed</span><strong>{merchantReady}</strong></div>
+      <div><span>Affiliate-ready</span><strong>{monetized}</strong></div>
+      <div><span>Ready for affiliate URL</span><strong>{merchantReadyUnmonetized}</strong></div>
       <div><span>DB active</span><strong>{active}</strong></div>
       <div><span>DB disabled</span><strong>{disabled}</strong></div>
       <div><span>Legacy fallback</span><strong>{fallback}</strong></div>
@@ -153,7 +168,7 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
     </section>
 
     <div className="affiliate-manager-toolbar">
-      <label><span>Find product</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search helmet, tire, top box or product ID"/></label>
+      <label><span>Find product</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search helmet, tire, top box, merchant or product ID"/></label>
       <small>{filtered.length} products shown</small>
     </div>
 
