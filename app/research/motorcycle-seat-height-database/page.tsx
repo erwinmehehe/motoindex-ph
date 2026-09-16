@@ -55,7 +55,7 @@ export default function MotorcycleSeatHeightDatabasePage() {
     </section>}
 
     <section className="section" aria-labelledby="seat-height-table">
-      <div className="section-head compact"><div><span className="section-kicker">Sorted low to high</span><h2 id="seat-height-table">Current motorcycle seat heights</h2><p>Prices are included only to help compare the whole shortlist. Open the model page for the exact price source and rider-fit calculator.</p></div><Link href="/recommendations/best-motorcycles-for-short-riders">Open lower-seat buying guide →</Link></div>
+      <div className="section-head compact"><div><span className="section-kicker">Sorted low to high</span><h2 id="seat-height-table">Current motorcycle seat heights</h2><p>Prices are included only to help compare the whole shortlist. Open the model page for the exact price source and rider-fit calculator.</p></div><Link href="/recommendations#rider-fit">Open rider-fit buying guidance →</Link></div>
       <div className="ph-brand-price-table" role="table" aria-label="Motorcycle seat heights in the Philippines">
         <div className="head" role="row"><span>Motorcycle</span><span>Seat height</span><span>Curb weight</span><span>Category</span><span>Price</span></div>
         {rows.map(({ model, range }) => <Link role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}#rider-fit`} key={model.id}>
