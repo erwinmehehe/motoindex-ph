@@ -1,7 +1,6 @@
 /* Reusable shared surfaces. New cross-route component styling belongs here. */
 @import "../product-system.css";
 @import "../image-stage-cleanup.css";
-@import "../model-fallback-fixes.css";
 @import "../product-experience-v2.css";
 @import "../hub-structure.css";
 @import "../navigation.css";

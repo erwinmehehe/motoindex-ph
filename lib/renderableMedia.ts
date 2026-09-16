@@ -6,9 +6,13 @@ const allRenderableMedia: EntityMedia[] = [...entityMedia, ...generatedProductMe
 const SUPPRESSED_MEDIA_IDS = new Set([
   // This asset resolves to an unrelated Suzuki gallery photo rather than a Raider PRO product image.
   // Keep the provenance record in media.ts, but do not show it until a correct product image is verified.
-  "suzuki-raider-pro-manufacturer"
+  "suzuki-raider-pro-manufacturer",
+  // The dealer image has a baked-in gray studio background that breaks the shared product stage.
+  // Fall back to the neutral motorcycle placeholder until a clean verified Primavera asset is available.
+  "vespa-primavera-150-editorial"
 ]);
 const PRODUCT_PLACEHOLDERS = {
+  motorcycle: "/media/placeholders/motorcycle.svg",
   helmet: "/media/placeholders/helmet.svg",
   tire: "/media/placeholders/tire.svg",
   topbox: "/media/placeholders/topbox.svg"
@@ -21,24 +25,24 @@ function isRenderableAsset(asset: EntityMedia) {
 }
 
 function isProductEntityType(entityType: EntityMedia["entityType"]): entityType is ProductEntityType {
-  return entityType === "helmet" || entityType === "tire" || entityType === "topbox";
+  return entityType === "motorcycle" || entityType === "helmet" || entityType === "tire" || entityType === "topbox";
 }
 
 function productPlaceholder(entityType: ProductEntityType, entityId: string): EntityMedia {
-  const label = entityType === "topbox" ? "Top box" : entityType === "tire" ? "Tire" : "Helmet";
+  const label = entityType === "motorcycle" ? "Motorcycle" : entityType === "topbox" ? "Top box" : entityType === "tire" ? "Tire" : "Helmet";
   return {
     id: `${entityType}-${entityId}-verification-placeholder`,
     entityType,
     entityId,
     role: "primary",
     src: PRODUCT_PLACEHOLDERS[entityType],
-    alt: `${label} product image verification in progress`,
+    alt: `${label} product image placeholder`,
     width: 1200,
     height: 1200,
     rightsStatus: "first-party",
     rightsHolder: "MotoIndex PH",
-    sourceLabel: "MotoIndex PH verification placeholder",
-    lastChecked: "2026-09-12"
+    sourceLabel: "MotoIndex PH product placeholder",
+    lastChecked: "2026-09-16"
   };
 }
 
