@@ -13,8 +13,17 @@ need(header.includes('href="/recommendations"'),"Guides nav must expose the reco
 const pair=read("app/compare/[slug]/page.tsx");
 const three=read("app/compare/three/page.tsx");
 const detailed=read("components/DetailedMotorcycleCompare.tsx");
+const motorcycleCard=read("components/MotorcycleCard.tsx");
 need(pair.includes("DetailedMotorcycleCompare")&&three.includes("DetailedMotorcycleCompare"),"Motorcycle comparisons must use the detailed comparison workspace");
-need(detailed.includes("EntityMedia")&&detailed.includes("compare-diff")&&detailed.includes("Price & market")&&detailed.includes("Fuel & range"),"Detailed comparison must retain selected images, grouped specs and difference highlighting");
+need(
+  detailed.includes("MotorcycleCard")&&
+  motorcycleCard.includes('variant === "compare"')&&
+  motorcycleCard.includes('entityType="motorcycle"')&&
+  detailed.includes("compare-diff")&&
+  detailed.includes("Price & market")&&
+  detailed.includes("Fuel & range"),
+  "Detailed comparison must retain selected images, grouped specs and difference highlighting"
+);
 
 const helmetCompare=read("app/gear/helmets/compare/page.tsx");
 need(helmetCompare.includes("EntityMedia")&&helmetCompare.includes("compare-diff"),"Helmet comparison must retain selected product images and difference highlighting");
