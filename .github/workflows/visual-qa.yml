@@ -65,6 +65,11 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
         run: node scripts/navigation-model-regression-qa.mjs
 
+      - name: Priority model commercial QA
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: node scripts/priority-model-commercial-qa.mjs
+
       - name: Motorcycle Compare Selection QA
         env:
           BASE_URL: http://127.0.0.1:3000
