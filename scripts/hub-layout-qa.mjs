@@ -159,6 +159,45 @@ try {
     if ((recommendations?.headingRight || 0) > (recommendations?.viewport || width) + 5) failures.push(`${width}px recommendations heading is clipped`);
     await screenshot("recommendations", width);
 
+    await navigate("/recommendations/motorcycles-under-100k");
+    const recommendationDetail = await evaluate(cdp.send, `(() => {
+      const display = selector => {
+        const el = document.querySelector(selector);
+        return el ? getComputedStyle(el).display : "missing";
+      };
+      const root = document.documentElement;
+      const heading = document.querySelector('.recommendation-detail-scope .guide-page-head h1');
+      const headingRect = heading?.getBoundingClientRect();
+      const firstModel = document.querySelector('.guide-model-analysis');
+      const firstModelRect = firstModel?.getBoundingClientRect();
+      return {
+        overflow: root.scrollWidth - root.clientWidth,
+        scope: Boolean(document.querySelector('.recommendation-detail-scope')),
+        picks: display('.guide-pick-grid'),
+        method: display('.guide-method-grid'),
+        model: display('.guide-model-analysis'),
+        decision: display('.guide-decision-grid'),
+        related: display('.guide-related-grid'),
+        tableWidth: document.querySelector('.guide-table-wrap')?.getBoundingClientRect().width || 0,
+        firstModelWidth: firstModelRect?.width || 0,
+        headingSize: heading ? parseFloat(getComputedStyle(heading).fontSize) : 0,
+        headingRight: headingRect?.right || 0,
+        viewport: innerWidth
+      };
+    })()`);
+    results.push({ width, page: "recommendation-detail", ...recommendationDetail });
+    if (!recommendationDetail?.scope) failures.push(`${width}px recommendation detail scope is missing`);
+    if ((recommendationDetail?.overflow || 0) > 5) failures.push(`${width}px recommendation detail overflows by ${recommendationDetail.overflow}px`);
+    if (recommendationDetail?.picks !== "grid") failures.push(`${width}px recommendation quick picks collapsed (${recommendationDetail?.picks})`);
+    if (recommendationDetail?.method !== "grid") failures.push(`${width}px recommendation method grid collapsed (${recommendationDetail?.method})`);
+    if (recommendationDetail?.model !== "grid") failures.push(`${width}px recommendation model analysis collapsed (${recommendationDetail?.model})`);
+    if (recommendationDetail?.decision !== "grid") failures.push(`${width}px recommendation decision grid collapsed (${recommendationDetail?.decision})`);
+    if ((recommendationDetail?.tableWidth || 0) < (width <= 430 ? 330 : 900)) failures.push(`${width}px recommendation table wrapper is too narrow (${recommendationDetail?.tableWidth}px)`);
+    if ((recommendationDetail?.firstModelWidth || 0) < (width <= 430 ? 330 : 900)) failures.push(`${width}px recommendation model block is too narrow (${recommendationDetail?.firstModelWidth}px)`);
+    if ((recommendationDetail?.headingSize || 0) < 34) failures.push(`${width}px recommendation detail heading lost route styling`);
+    if ((recommendationDetail?.headingRight || 0) > (recommendationDetail?.viewport || width) + 5) failures.push(`${width}px recommendation detail heading is clipped`);
+    await screenshot("recommendation-detail", width);
+
     await navigate("/gear/helmets");
     const helmets = await evaluate(cdp.send, `(() => {
       const display = selector => {
@@ -168,6 +207,7 @@ try {
       const root = document.documentElement;
       const heading = document.querySelector('.helmet-hub-page>.page-head h1');
       const headingRect = heading?.getBoundingClientRect();
+      const cardWidths = [...document.querySelectorAll('#full-face .hub-product-rail>.product-card-shell')].slice(0,6).map(el => Math.round(el.getBoundingClientRect().width));
       return {
         overflow: root.scrollWidth - root.clientWidth,
         actions: display('.helmet-shop-actions'),
@@ -178,6 +218,7 @@ try {
         factsCount: document.querySelectorAll('.helmet-hub-page .brand-facts>div').length,
         navLinks: document.querySelectorAll('.helmet-master-nav a').length,
         introCards: document.querySelectorAll('.helmet-master-intro .topic-grid>article').length,
+        cardWidths,
         headingSize: heading ? parseFloat(getComputedStyle(heading).fontSize) : 0,
         headingRight: headingRect?.right || 0,
         viewport: innerWidth
@@ -195,6 +236,15 @@ try {
     if ((helmets?.introCards || 0) !== 4) failures.push(`${width}px helmet intro grid is incomplete`);
     if ((helmets?.headingSize || 0) < 32) failures.push(`${width}px helmet hub heading lost route styling`);
     if ((helmets?.headingRight || 0) > (helmets?.viewport || width) + 5) failures.push(`${width}px helmet hub heading is clipped`);
+    const cardWidths = helmets?.cardWidths || [];
+    if (cardWidths.length < 3) failures.push(`${width}px helmet full-face grid has too few cards`);
+    const expectedMinCard = width <= 620 ? 300 : 250;
+    if (cardWidths.some(cardWidth => cardWidth < expectedMinCard)) failures.push(`${width}px helmet card collapsed (${cardWidths.join(', ')}px)`);
+    if (width > 900 && cardWidths.length > 1) {
+      const minCard = Math.min(...cardWidths);
+      const maxCard = Math.max(...cardWidths);
+      if (minCard > 0 && maxCard / minCard > 1.2) failures.push(`${width}px helmet card widths are inconsistent (${cardWidths.join(', ')}px)`);
+    }
     await screenshot("helmets", width);
   }
 } finally {
@@ -217,4 +267,4 @@ if (failures.length) {
   console.error(`Hub layout QA failed:\n${failures.map(item => `- ${item}`).join("\n")}`);
   process.exit(1);
 }
-console.log(`Recommendations + helmet hub layout QA passed: ${results.length} route/viewport checks.`);
+console.log(`Recommendations + recommendation detail + helmet hub layout QA passed: ${results.length} route/viewport checks.`);
