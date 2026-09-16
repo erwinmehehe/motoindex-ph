@@ -13,6 +13,7 @@ export const metadata: Metadata = pageMetadata({
   index: true,
 });
 
+const NCR_CITY_ORDER=["Quezon City","Manila","Caloocan City","Pasig City","Makati City","Taguig City","Paranaque City","Pasay City"];
 function first(value?: string | string[]) { return Array.isArray(value) ? value[0] : value; }
 
 export default async function DealersPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
@@ -25,6 +26,8 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
   const cityCounts = new Map<string, number>();
   for (const dealer of verifiedDealers) cityCounts.set(dealer.city, (cityCounts.get(dealer.city) || 0) + 1);
   const publishedCities = [...cityCounts.entries()].filter(([,count])=>count>=MIN_PUBLIC_DEALERS_PER_CITY).map(([city])=>city).sort();
+  const ncrCities=NCR_CITY_ORDER.filter(city=>publishedCities.includes(city));
+  const otherCities=publishedCities.filter(city=>!NCR_CITY_ORDER.includes(city));
   const pampangaCount = verifiedDealers.filter(dealer=>dealer.province==="Pampanga").length;
   const featuredJoinHref="/dealers/join?plan=featured-city&source=%2Fdealers#featured-options";
 
@@ -44,14 +47,28 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
       <DealerFinder dealers={verifiedDealers} initialBrand={requestedBrand} />
     </section>
 
-    {publishedCities.length?<section className="motorcycle-entity-section">
+    {ncrCities.length?<section className="motorcycle-entity-section">
       <div className="section-head compact"><div>
-        <span className="section-kicker">City guides</span>
-        <h2>Browse dealer coverage by city</h2>
-        <p>City pages open only when at least {MIN_PUBLIC_DEALERS_PER_CITY} checked dealer records are available.</p>
+        <span className="section-kicker">Metro Manila coverage</span>
+        <h2>Motorcycle dealers across NCR</h2>
+        <p>Start with checked dealer directories for major Metro Manila cities. Each city page publishes only after at least {MIN_PUBLIC_DEALERS_PER_CITY} branch records pass the dealer verification gate.</p>
       </div></div>
       <div className="dealer-city-links">
-        {publishedCities.map(city=><Link href={`/dealers/${citySlug(city)}`} key={city}>
+        {ncrCities.map(city=><Link href={`/dealers/${citySlug(city)}`} key={city}>
+          <strong>Motorcycle dealers in {city}</strong>
+          <span>{cityCounts.get(city) || 0} checked branches</span>
+        </Link>)}
+      </div>
+    </section>:null}
+
+    {otherCities.length?<section className="motorcycle-entity-section">
+      <div className="section-head compact"><div>
+        <span className="section-kicker">Major city guides</span>
+        <h2>Browse dealer coverage outside Metro Manila</h2>
+        <p>Use these checked city directories to compare nearby branches before contacting dealers for current stock and final pricing.</p>
+      </div></div>
+      <div className="dealer-city-links">
+        {otherCities.map(city=><Link href={`/dealers/${citySlug(city)}`} key={city}>
           <strong>Motorcycle dealers in {city}</strong>
           <span>{cityCounts.get(city) || 0} checked branches</span>
         </Link>)}
