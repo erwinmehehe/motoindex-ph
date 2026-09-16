@@ -31,7 +31,7 @@ export default async function DealerCityPage({params}:{params:Promise<{city:stri
   const cityName=list[0].city;const province=list[0].province;const brands=[...new Set(list.flatMap(s=>s.brands))].sort();
   const baseQuery={city:cityName,...(province?{province}:{}),source:`/dealers/${city}`};
   const freeJoinHref={pathname:"/dealers/join",query:{...baseQuery,plan:"free"}};
-  const featuredJoinHref={`/dealers/join?${new URLSearchParams({...baseQuery,plan:"featured-city"}).toString()}#featured-options`;
+  const featuredJoinHref=`/dealers/join?${new URLSearchParams({...baseQuery,plan:"featured-city"}).toString()}#featured-options`;
   const sellerBySlug=new Map(list.map(seller=>[seller.slug,seller]));
   const featured=activeDealerPlacementsForCity(city).flatMap(placement=>{const seller=sellerBySlug.get(placement.sellerSlug);if(!seller)return [];if(placement.brand&&!seller.brands.some(brand=>brand.toLowerCase()===placement.brand?.toLowerCase()))return [];return [{seller,placement}];});
   const featuredSlugs=new Set(featured.map(item=>item.seller.slug));const standard=list.filter(seller=>!featuredSlugs.has(seller.slug));
