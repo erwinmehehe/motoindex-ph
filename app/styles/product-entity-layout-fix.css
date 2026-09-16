@@ -32,6 +32,27 @@
   grid-row: auto !important;
 }
 
+.product-entity-page .product-hero > .entity-media {
+  overflow: hidden !important;
+}
+
+.product-entity-page .product-hero > .entity-media .entity-media-link {
+  width: 100% !important;
+  height: 100% !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+.product-entity-page .product-hero > .entity-media img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
 .product-entity-page .product-facts {
   display: grid !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
