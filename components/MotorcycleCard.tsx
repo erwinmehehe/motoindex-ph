@@ -10,6 +10,7 @@ import { SourceTrustBadge } from "@/components/SourceTrustBadge";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import { lifecycleLabel } from "@/lib/lifecycle";
 import { php } from "@/lib/utils";
+import { isGlobalOnlyModel, motorcycleMarketScopes } from "@/lib/marketScope";
 
 type Variant = "standard" | "compare" | "decision" | "compact";
 
@@ -49,6 +50,20 @@ function PriceSourceBadge({ model }: { model: Motorcycle }) {
   />;
 }
 
+function GlobalResearchCard({ model, href }: { model: Motorcycle; href: string }) {
+  const scopes = motorcycleMarketScopes(model);
+  return <article className="model-card motorcycle-card motorcycle-card-standard global-research-model-card">
+    <EntityMedia entityType="motorcycle" entityId={model.id} className="model-card-media" linkHref={href} showCredit={false} fallback={<MotorcycleFallback model={model} href={href} className="model-media-placeholder" />}/>
+    <div className="model-card-body">
+      <div className="model-card-topline"><span className="catalog-status">Global research</span><SaveToShortlistButton modelId={model.id} compact/></div>
+      <h3><Link href={href}>{model.make} {model.model}</Link></h3>
+      <div className="price">Price varies by market</div>
+      <div className="mini-stats"><span>{model.engineCc ? `${model.engineCc} cc` : "Electric"}</span><span>{model.seatHeightMm} mm seat</span>{model.transmission&&<span>{model.transmission}</span>}{scopes.includes("Discontinued / previous generation")&&<span>Previous generation</span>}</div>
+      <div className="card-actions"><Link className="button small" href={href}>Global research</Link></div>
+    </div>
+  </article>;
+}
+
 export function MotorcycleCard({
   model,
   variant = "standard",
@@ -60,6 +75,11 @@ export function MotorcycleCard({
   leadingAction,
 }: Props) {
   const href = `/motorcycles/${model.makeSlug}/${model.slug}`;
+
+  // This guard is intentionally before every card variant. Even if a future
+  // caller accidentally passes a global-only record into a PH shopping list,
+  // the card cannot render a PHP price, loan amount, dealer CTA or PH ranking.
+  if (isGlobalOnlyModel(model)) return <GlobalResearchCard model={model} href={href} />;
 
   if (variant === "compare") {
     return <article className="compare-product-card motorcycle-card motorcycle-card-compare">
