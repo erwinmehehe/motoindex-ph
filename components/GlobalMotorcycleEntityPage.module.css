@@ -1,0 +1,78 @@
+.page{
+  --global-ink:#101828;
+  --global-muted:#667085;
+  --global-line:rgba(148,163,184,.2);
+  --global-primary:#444ce7;
+  background:linear-gradient(180deg,#fff 0%,#f8fafc 46%,#fff 100%);
+  color:var(--global-ink);
+}
+.hero{
+  padding:46px 0 54px;
+  border-bottom:1px solid var(--global-line);
+  background:radial-gradient(circle at 88% 4%,rgba(122,90,248,.12),transparent 30%),radial-gradient(circle at 8% 18%,rgba(68,76,231,.08),transparent 28%),#fff;
+}
+.heroGrid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(380px,.98fr);gap:52px;align-items:center;margin-top:24px}
+.heroCopy{min-width:0}
+.kicker{display:block;margin-bottom:12px;color:var(--global-primary);font-size:10px;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+.heroCopy h1{max-width:790px;margin:0;font-family:var(--font-jakarta),var(--font-inter),sans-serif;font-size:clamp(46px,5.5vw,72px);font-weight:780;line-height:.96;letter-spacing:-.055em}
+.heroCopy>p{max-width:720px;margin:20px 0 0;color:var(--global-muted);font-size:16px;line-height:1.68}
+.scopes{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
+.scopes span{display:inline-flex;min-height:30px;align-items:center;padding:0 10px;border:1px solid rgba(68,76,231,.16);border-radius:999px;background:rgba(68,76,231,.055);color:#344054;font-size:10px;font-weight:800}
+.priceGuard{display:grid;gap:5px;max-width:680px;margin-top:24px;padding:18px 20px;border:1px solid var(--global-line);border-radius:18px;background:#fff;box-shadow:0 12px 36px rgba(15,23,42,.045)}
+.priceGuard span{color:#98a2b3;font-size:9px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+.priceGuard strong{font-size:15px;line-height:1.4}
+.priceGuard small{color:var(--global-muted);font-size:11px;line-height:1.5}
+.media{min-width:0}
+.entityMedia{height:430px;display:grid;place-items:center;overflow:hidden;border:1px solid var(--global-line);border-radius:26px;background:#fff;box-shadow:0 24px 60px rgba(68,76,231,.08)}
+.entityMedia img{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;padding:30px!important;box-sizing:border-box!important}
+.mediaFallback{width:100%;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:30px;background:radial-gradient(circle at 75% 18%,rgba(68,76,231,.12),transparent 35%),linear-gradient(145deg,#f8fafc,#fff)}
+.mediaFallback span{color:var(--global-primary);font-size:10px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+.mediaFallback strong{margin-top:8px;font-family:var(--font-jakarta),sans-serif;font-size:clamp(34px,4vw,52px);line-height:.95;letter-spacing:-.05em}
+.mediaFallback small{margin-top:14px;color:#98a2b3;font-size:10px}
+.body{display:grid;gap:18px;padding-top:28px;padding-bottom:84px}
+.specSection,.marketSection,.sourceSection{padding:32px;border:1px solid var(--global-line);border-radius:24px;background:#fff;box-shadow:0 12px 34px rgba(15,23,42,.035)}
+.sectionHead{max-width:860px;margin-bottom:24px}
+.sectionHead>span,.marketSection>div:first-child>span,.sourceSection>div>span{display:block;margin-bottom:8px;color:var(--global-primary);font-size:9px;font-weight:850;letter-spacing:.11em;text-transform:uppercase}
+.sectionHead h2,.marketSection h2,.sourceSection h2{margin:0;font-family:var(--font-jakarta),sans-serif;font-size:clamp(28px,3vw,39px);line-height:1.04;letter-spacing:-.045em}
+.sectionHead p,.marketSection p,.sourceSection p{max-width:790px;margin:10px 0 0;color:var(--global-muted);font-size:13px;line-height:1.65}
+.specGrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--global-line);border-left:1px solid var(--global-line)}
+.specGrid>div{min-width:0;padding:17px 16px;border-right:1px solid var(--global-line);border-bottom:1px solid var(--global-line)}
+.specGrid span{display:block;color:#98a2b3;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.specGrid strong{display:block;margin-top:6px;font-size:13px;line-height:1.35;overflow-wrap:anywhere}
+.marketSection{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:40px;align-items:start}
+.marketRules{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.marketRules article{padding:20px;border:1px solid var(--global-line);border-radius:17px;background:#f8fafc}
+.marketRules strong{font-size:14px}
+.marketRules p{font-size:11px}
+.sourceSection{display:flex;justify-content:space-between;gap:36px;align-items:center}
+.sourceSection>div{max-width:760px}
+.sourceSection a{flex:0 0 auto;display:inline-flex;min-height:42px;align-items:center;padding:0 15px;border:1px solid rgba(68,76,231,.18);border-radius:11px;background:rgba(68,76,231,.055);color:var(--global-primary);font-size:11px;font-weight:850;text-decoration:none}
+.nextLinks{display:flex;gap:9px;flex-wrap:wrap;padding:12px 0}
+.nextLinks a{display:inline-flex;min-height:42px;align-items:center;padding:0 14px;border:1px solid var(--global-line);border-radius:11px;background:#fff;color:#344054;font-size:11px;font-weight:800;text-decoration:none}
+@media(max-width:980px){
+  .heroGrid{grid-template-columns:1fr;gap:30px}
+  .media{max-width:760px;width:100%}
+  .specGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .marketSection{grid-template-columns:1fr;gap:24px}
+}
+@media(max-width:700px){
+  .hero{padding:30px 0 36px}
+  .heroGrid{margin-top:16px}
+  .heroCopy h1{font-size:clamp(38px,11vw,50px)}
+  .heroCopy>p{font-size:14px}
+  .entityMedia{height:300px;border-radius:20px}
+  .entityMedia img{padding:20px!important}
+  .mediaFallback{padding:22px}
+  .body{padding-top:16px;gap:12px}
+  .specSection,.marketSection,.sourceSection{padding:22px;border-radius:20px}
+  .specGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .marketRules{grid-template-columns:1fr}
+  .sourceSection{align-items:flex-start;flex-direction:column;gap:18px}
+  .sourceSection a{width:100%;justify-content:center}
+}
+@media(max-width:430px){
+  .specGrid{grid-template-columns:1fr}
+  .priceGuard{padding:16px}
+  .entityMedia{height:260px}
+}
+@media(prefers-reduced-motion:reduce){.page *{scroll-behavior:auto!important}}
