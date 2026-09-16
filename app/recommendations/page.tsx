@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import RecommendationsHub from "./RecommendationsHub";
 import { RecommendationGuideArchive } from "./RecommendationGuideArchive";
+import { RecommendationsHubStyle } from "./RecommendationsHubStyle";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
@@ -12,6 +13,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function RecommendationsPage() {
   return <>
+    <RecommendationsHubStyle />
     <RecommendationsHub />
     <RecommendationGuideArchive />
   </>;
