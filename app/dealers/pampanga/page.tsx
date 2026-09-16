@@ -32,6 +32,8 @@ export default async function PampangaDealersPage(){
     .sort();
   const brands=[...new Set(dealers.flatMap(dealer=>dealer.brands))].sort();
   const cities=[...new Set(dealers.map(dealer=>dealer.city))].sort();
+  const freeJoinHref="/dealers/join?province=Pampanga&plan=free&source=%2Fdealers%2Fpampanga";
+  const featuredJoinHref="/dealers/join?province=Pampanga&plan=featured-city&source=%2Fdealers%2Fpampanga#featured-options";
 
   return <section className="page shell">
     <Breadcrumbs items={[{label:"Dealers",href:"/dealers"},{label:"Pampanga"}]} />
@@ -46,6 +48,17 @@ export default async function PampangaDealersPage(){
       <div><strong>{brands.length}</strong><span>brands represented</span></div>
       <div><strong>{cities.length}</strong><span>cities covered</span></div>
     </div>
+
+    <aside className="note-box dealer-listing-callout">
+      <span className="section-kicker">For Pampanga motorcycle dealers</span>
+      <h2>Get your dealership listed on MotoIndex for free.</h2>
+      <p>Approved Pampanga dealers can receive a verified public profile and appear in relevant city and brand searches. Optional Featured Dealer, Brand + City, and City Sponsor placements are available for dealers that want additional visibility.</p>
+      <div className="dealer-city-footer">
+        <Link className="button" href={freeJoinHref}>Get listed free</Link>
+        <Link className="button secondary" href={featuredJoinHref}>See featured options</Link>
+      </div>
+      <small>Verification stays free and independent from advertising. Paid visibility is always labeled.</small>
+    </aside>
 
     {publishedCities.length?<section className="motorcycle-entity-section">
       <div className="section-head compact"><div>
@@ -80,6 +93,16 @@ export default async function PampangaDealersPage(){
         </article>)}
       </div>
     </section>
+
+    <aside className="note-box dealer-listing-callout">
+      <span className="section-kicker">Dealer visibility in Pampanga</span>
+      <h2>Don&apos;t see your dealership here?</h2>
+      <p>Submit your branch for free verification. After approval, you can keep the standard listing free or ask about paid visibility for Angeles City, San Fernando, a motorcycle brand, or a broader Pampanga campaign.</p>
+      <div className="dealer-city-footer">
+        <Link className="button" href={freeJoinHref}>Add your dealership free</Link>
+        <Link className="button secondary" href={featuredJoinHref}>Featured dealer pricing</Link>
+      </div>
+    </aside>
 
     <section className="motorcycle-entity-section">
       <div className="dealer-verification-note">
