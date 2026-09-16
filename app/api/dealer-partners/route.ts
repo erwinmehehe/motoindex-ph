@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
+import { placementInterestLabels, type DealerPlacementTier } from "@/lib/dealerPromotions";
 
 export const runtime="nodejs";
 
@@ -28,7 +29,11 @@ export async function POST(request:Request){
   const contactName=clean(body.contactName,100);
   const contactEmail=clean(body.contactEmail,140).toLowerCase();
   const contactMobile=phone(clean(body.contactMobile,40));
-  const notes=clean(body.notes,1000);
+  const rawPlacement=clean(body.placementInterest,40) as DealerPlacementTier;
+  const placementInterest=(rawPlacement in placementInterestLabels?rawPlacement:"free") as DealerPlacementTier;
+  const userNotes=clean(body.notes,820);
+  const placementNote=`Placement interest: ${placementInterestLabels[placementInterest]}.`;
+  const notes=[placementNote,userNotes].filter(Boolean).join("\n");
   const consent=body.consent===true;
   const presetBrands=Array.isArray(body.brands)?body.brands.map(item=>clean(item,60)).filter(Boolean):[];
   const otherBrands=clean(body.otherBrands,240).split(",").map(item=>item.trim()).filter(Boolean);
@@ -49,8 +54,15 @@ export async function POST(request:Request){
   const application=await prisma.dealerApplication.create({data:{
     businessName,branchName:branchName||null,addressLabel,city,province,region:region||null,brands,
     website:website||null,phone:branchPhone,contactName,contactEmail,contactMobile,
-    officialSourceUrl:officialSourceUrl||null,notes:notes||null,consentedAt:new Date(),status:"new"
+    officialSourceUrl:officialSourceUrl||null,notes,consentedAt:new Date(),status:"new"
   }});
 
-  return NextResponse.json({ok:true,applicationId:application.id,message:"Application saved for verification. MotoIndex will not publish the branch or route buyer leads to it until a reviewer approves the dealer evidence."},{status:201});
+  const paidInterest=placementInterest!=="free";
+  return NextResponse.json({
+    ok:true,
+    applicationId:application.id,
+    message:paidInterest
+      ?`Application saved for verification. Your ${placementInterestLabels[placementInterest]} interest was recorded; commercial terms are discussed only after the branch is verified.`
+      :"Application saved for free listing verification. MotoIndex will not publish the branch or route buyer leads to it until a reviewer approves the dealer evidence."
+  },{status:201});
 }
