@@ -50,7 +50,7 @@ export default function MotorcyclesPage() {
             </div>
           </div>
           <aside className="motorcycle-index-overview" aria-label="MotoIndex motorcycle catalog overview">
-            <div><span>Researched models</span><strong>{currentModels.length}</strong><small>Source-backed motorcycle records</small></div>
+            <div><span>Researched models</span><strong>{currentModels.length}</strong><small>Motorcycle records with checked references</small></div>
             <div><span>Brands researched</span><strong>{makes.length}</strong><small>Philippine and global-interest coverage</small></div>
             <div><span>Price span</span><strong>{overallLow && overallHigh ? `${php(overallLow)}–${php(overallHigh)}` : "Updating"}</strong><small>PHP reference prices where available</small></div>
             <div><span>Buyer briefs</span><strong>{authorityModels.length}</strong><small>Expanded ownership and alternatives context</small></div>
@@ -75,7 +75,7 @@ export default function MotorcyclesPage() {
         </section>
 
         <section className="motorcycle-brand-directory">
-          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Browse by brand</span><h2>Verified brand coverage.</h2><p>Counts show motorcycle models researched by MotoIndex, including Philippine-market bikes and globally searched models. Coverage expands based on search demand, reliable source data and useful buyer intent.</p></div></div>
+          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Browse by brand</span><h2>Verified brand coverage.</h2><p>Counts include Philippine-market motorcycles and widely researched models from other markets. Prices and core specifications are checked before a model is published.</p></div></div>
           <div className="motorcycle-brand-directory-grid">{brandDirectory.map((brand) => <Link href={`/motorcycles/${brand.slug}`} key={brand.slug}><div className="motorcycle-brand-mark" aria-hidden="true">{brand.name.slice(0,2).toUpperCase()}</div><div><strong>{brand.name}</strong><small>{brand.count} researched {brand.count === 1 ? "model" : "models"}</small></div><span>{php(brand.low)}{brand.high > brand.low ? `–${php(brand.high)}` : ""}</span></Link>)}</div>
         </section>
 
