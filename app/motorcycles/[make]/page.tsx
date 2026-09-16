@@ -26,10 +26,10 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const current = publicModels.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued");
   const low = current.length ? Math.min(...current.map((m) => observedMarketRange(m).from)) : undefined;
   const high = current.length ? Math.max(...current.map((m) => observedMarketRange(m).to || observedMarketRange(m).from)) : undefined;
-  const range = low && high ? ` Published prices currently run from ${php(low)} to ${php(high)}.` : "";
+  const priceContext = low && high ? ` Current prices run from ${php(low)} to ${php(high)}.` : "";
   return pageMetadata({
-    title: `${brand} Motorcycle Prices & Models Philippines`,
-    description: `Compare current ${brand} motorcycles in the Philippines with prices, specs, seat heights, tire sizes and model-by-model research.${range}`,
+    title: `${brand} Motorcycle Philippines Price List`,
+    description: `See the ${brand} motorcycle Philippines price list with current model prices, specs, engine sizes, seat heights and key buying details.${priceContext}`,
     path: `/motorcycles/${make}`,
     index: publicModels.length > 0
   });
@@ -50,7 +50,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const priority = getPhBrandPriority(make);
   const support = phBrandSupportFor(make);
   if (!publicModels.length) {
-    return <section className="page shell"><Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} /><div className="page-head"><h1>{brand} motorcycles in the Philippines</h1><p>Model data is being checked before publication.</p></div><div className="note-box"><h2>{brand} model data is being updated</h2><p>Current prices and specifications still need checking before this list is published.</p></div></section>;
+    return <section className="page shell"><Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} /><div className="page-head"><h1>{brand} Motorcycle Philippines Price List</h1><p>Model prices and specifications are being checked before publication.</p></div><div className="note-box"><h2>{brand} price list data is being updated</h2><p>Current prices and specifications still need checking before this list is published.</p></div></section>;
   }
 
   const ranges = current.map((model) => ({ model, ...observedMarketRange(model) }));
@@ -69,16 +69,16 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
   const faq = [
     {
+      question: `What is the current ${brand} motorcycle Philippines price list?`,
+      answer: `Across the current ${brand} models covered on MotoIndex, published pricing runs from ${php(low)} to ${php(high)}. Open the price list below for model-by-model prices and check the dated source before purchase.`
+    },
+    {
       question: `Is this the complete ${brand} motorcycle lineup in the Philippines?`,
       answer: `Not necessarily. This page includes ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} with checked Philippine price and specification sources. The full manufacturer lineup can be broader and can change over time.`
     },
     {
       question: `How many ${brand} motorcycles are covered on this page?`,
       answer: `There are ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} covered here${previous.length ? `, plus ${previous.length} previous-generation ${previous.length === 1 ? "model" : "models"} kept for reference` : ""}.`
-    },
-    {
-      question: `How much are ${brand} motorcycles in the Philippines?`,
-      answer: `Across the current ${brand} models on this page, published pricing runs from ${php(low)} to ${php(high)}. Variant, dealer, location and financing differences can change the amount paid.`
     },
     {
       question: `What is the cheapest ${brand} motorcycle currently tracked?`,
@@ -94,8 +94,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: `${brand} motorcycles in the Philippines`,
-      description: `Current ${brand} motorcycle prices, specifications and research for the Philippines.`,
+      name: `${brand} Motorcycle Philippines Price List`,
+      description: `${brand} motorcycle Philippines price list with current model prices, specifications and buying research.`,
       url: absoluteUrl(`/motorcycles/${make}`),
       mainEntity: {
         "@type": "ItemList",
@@ -125,16 +125,16 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
         <div className="ph-brand-hero-grid">
           <div>
-            <span className="entity-kicker">Philippines · Prices · Specs · Buyer guide</span>
-            <h1>{brand} motorcycles in the Philippines</h1>
-            <p>Compare current {brand} motorcycle prices, engine specs, seat heights and ownership details in one place. Open any model for financing estimates, fitment, maintenance and alternatives.</p>
+            <span className="entity-kicker">Philippines · Price list · Models · Specs</span>
+            <h1>{brand} Motorcycle Philippines Price List</h1>
+            <p>Compare the current {brand} motorcycle Philippines price list by model, published price, engine size, seat height and transmission. Open any motorcycle for detailed specs, financing estimates, fitment, maintenance and alternatives.</p>
             <div className="ph-brand-actions">
-              <Link className="button" href="#models">Browse {brand} models</Link>
-              <Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare motorcycles</Link>
+              <Link className="button" href="#price-list">View {brand} price list</Link>
+              <Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link>
             </div>
             <small className="ph-brand-checked">Latest price/spec source check: {latestChecked}</small>
           </div>
-          <aside className="ph-brand-overview" aria-label={`${brand} catalog overview`}>
+          <aside className="ph-brand-overview" aria-label={`${brand} motorcycle price list overview`}>
             <div><span>Models covered</span><strong>{current.length}</strong><small>Current models on MotoIndex</small></div>
             <div><span>Price range</span><strong>{php(low)}–{php(high)}</strong><small>Published prices across current models</small></div>
             <div><span>Engine range</span><strong>{minEngine}–{maxEngine} cc</strong><small>Across models covered here</small></div>
@@ -147,24 +147,24 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
     <div className="shell">
       <nav className="ph-brand-nav" aria-label={`${brand} page sections`}>
-        <a href="#models">Models</a><a href="#price-list">Price list</a><a href="#categories">Categories</a>{support && <a href="#support">After-sales</a>}<a href="#research">How to use data</a><a href="#faq">FAQ</a>
+        <a href="#price-list">Price list</a><a href="#models">Models</a><a href="#categories">Categories</a>{support && <a href="#support">After-sales</a>}<a href="#research">How to use data</a><a href="#faq">FAQ</a>
       </nav>
 
       {priority && <section className="ph-brand-context">
-        <div><span>{brand} buying guide</span><h2>Choosing a {brand} motorcycle</h2></div>
-        <p>Start with your budget and intended use, then compare engine size, seat height, transmission and local ownership support. Open a model for prices, financing estimates, fitment and alternatives.</p>
+        <div><span>{brand} buying guide</span><h2>How to choose from the {brand} motorcycle price list</h2></div>
+        <p>Use the price list to narrow your budget first, then compare engine size, seat height, transmission and local ownership support. Open a model for detailed specifications, financing estimates, fitment and alternatives.</p>
       </section>}
 
       {families.length > 0 && <div className="guide-strip ph-brand-families">{families.map((f) => <Link key={f.slug} href={`/motorcycles/${f.makeSlug}/${f.slug}`}><span>Model family</span><strong>{f.make} {f.name}</strong><small>Compare generations</small></Link>)}</div>}
 
       <section id="models" className={`ph-brand-section ph-brand-models-section${current.length <= 2 ? " is-sparse" : ""}`}>
-        <div className="section-head compact"><div><span className="section-kicker">Current motorcycles</span><h2>Compare {brand} motorcycles</h2><p>{current.length <= 2 ? `Compare the ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} on this page by price and key specifications.` : `Compare ${current.length} ${brand} models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`}</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">Current motorcycles</span><h2>Compare {brand} motorcycle models in the Philippines</h2><p>{current.length <= 2 ? `Compare the ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} by price and key specifications.` : `Compare ${current.length} current ${brand} motorcycle models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`}</p></div></div>
         <div className="card-grid ph-brand-model-grid">{current.map((m) => <ModelCard key={m.id} model={m} />)}</div>
       </section>
 
       <section id="price-list" className="ph-brand-section">
-        <div className="section-head compact"><div><span className="section-kicker">Decision table</span><h2>{brand} motorcycle price list</h2><p>Use this as a dated comparison starting point, then open the model page to inspect source context, variant range and financing tools.</p></div></div>
-        <div className="ph-brand-price-table" role="table" aria-label={`${brand} motorcycle price list`}>
+        <div className="section-head compact"><div><span className="section-kicker">Current model prices</span><h2>{brand} Motorcycle Philippines Price List</h2><p>Compare current {brand} motorcycle prices in one table. Use these dated price references as a starting point, then open the exact model to check source context, variants and financing details.</p></div></div>
+        <div className="ph-brand-price-table" role="table" aria-label={`${brand} motorcycle Philippines price list`}>
           <div className="head" role="row"><span>Model</span><span>Price reference</span><span>Engine</span><span>Seat</span><span>Transmission</span></div>
           {ranges.map(({ model, from, to }) => <Link role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}`} key={model.id}>
             <strong>{model.model}<small>{model.category}</small></strong><span>{phpRange(from, to)}</span><span>{model.engineCc} cc</span><span>{model.seatHeightMm} mm</span><span>{model.transmission || "—"} →</span>
@@ -174,15 +174,15 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
       <section id="categories" className="ph-brand-section ph-brand-two-col">
         <div>
-          <span className="section-kicker">Shop by use</span><h2>Categories in the current {brand} coverage</h2>
+          <span className="section-kicker">Shop by use</span><h2>{brand} motorcycle models by category</h2>
           {scooters.length >= 3 && <div id="scooters" className="ph-brand-scooter-strip"><strong>{brand} scooters</strong><div>{scooters.map((m) => <Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}`}><span>{m.model}</span><small>{phpRange(observedMarketRange(m).from, observedMarketRange(m).to)}</small></Link>)}</div></div>}
           <div className="ph-brand-category-grid">{categories.map((category) => <Link key={category} href={{ pathname: "/motorcycles", query: { make, type: category } }}><strong>{category}</strong><span>{current.filter((m) => m.category === category).length} covered</span></Link>)}</div>
         </div>
-        <aside className="ph-brand-start-card"><span>Need a faster answer?</span><h3>Start with fit, budget or a side-by-side comparison.</h3><p>The catalog is most useful when you narrow the choice by real constraints rather than by brand alone.</p><div><Link href={{ pathname: "/finder", query: { make } }}>Use motorcycle finder →</Link><Link href="/compare">Open comparison tool →</Link><Link href="/recommendations">Browse PH recommendations →</Link></div></aside>
+        <aside className="ph-brand-start-card"><span>Need a faster answer?</span><h3>Start with price, fit or a side-by-side comparison.</h3><p>Use the {brand} price list to set a realistic budget, then narrow the choice by engine, seat height, transmission and intended use.</p><div><Link href={{ pathname: "/finder", query: { make } }}>Use motorcycle finder →</Link><Link href="/compare">Open comparison tool →</Link><Link href="/recommendations">Browse PH recommendations →</Link></div></aside>
       </section>
 
       {support && <section id="support" className="ph-brand-section ph-brand-support-section">
-        <div className="section-head compact"><div><span className="section-kicker">Philippine ownership support</span><h2>{brand} dealers, service and owner resources</h2><p>The buying decision does not end at the spec sheet. These brand-level links help riders check the actual local network before paying a reservation.</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">Philippine ownership support</span><h2>{brand} dealers, service and owner resources</h2><p>The price list is only the starting point. Check dealer reach, parts, service and warranty support before paying a reservation.</p></div></div>
         <div className="ph-brand-support-panel">
           <article><span>Official resource</span><h3>{support.officialName}</h3><p>{support.supportNote}</p><small>Resource check: {support.checkedAt}</small></article>
           <div><a href={support.officialUrl} target="_blank" rel="noreferrer">Official Philippine brand site ↗</a>{support.dealerUrl && <a href={support.dealerUrl} target="_blank" rel="noreferrer">Find a dealer ↗</a>}{support.serviceUrl && <a href={support.serviceUrl} target="_blank" rel="noreferrer">Service / after-sales ↗</a>}{support.ownerUrl && <a href={support.ownerUrl} target="_blank" rel="noreferrer">Owner resources ↗</a>}{support.recallUrl && <a href={support.recallUrl} target="_blank" rel="noreferrer">Safety / recall resource ↗</a>}</div>
@@ -190,16 +190,16 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       </section>}
 
       <section id="research" className="ph-brand-section">
-        <div className="section-head compact"><div><span className="section-kicker">How to use the data</span><h2>Before choosing a {brand} motorcycle</h2><p>Dated price references and specifications stay visible so you can compare models without treating the page as a guaranteed dealer quote or a complete manufacturer catalog.</p></div></div>
-        <div className="ph-brand-method-grid"><article><span>01</span><h3>Check the price date</h3><p>Prices are dated reference points. Open the model page to see the source and confirm the current cash price, fees and variant with the seller.</p></article><article><span>02</span><h3>Compare fit and use</h3><p>Engine size, seat height, weight, transmission and tire data help narrow the shortlist, but actual rider fit and comfort still need an in-person check.</p></article><article><span>03</span><h3>Confirm local support</h3><p>Dealer reach, parts, service intervals and warranty support matter after purchase. Use the official brand resources linked on this page when available.</p></article></div>
+        <div className="section-head compact"><div><span className="section-kicker">How to use the data</span><h2>How to use this {brand} motorcycle price list</h2><p>Prices are dated reference points, not guaranteed dealer quotes. Compare the model and specification differences here, then open the exact motorcycle page to verify the source date and current selling price.</p></div></div>
+        <div className="ph-brand-method-grid"><article><span>01</span><h3>Check the price date</h3><p>Prices are dated reference points. Open the model page to see the source and confirm the current cash price, fees and variant with the seller.</p></article><article><span>02</span><h3>Compare specs and rider fit</h3><p>Engine size, seat height, weight, transmission and tire data help narrow the shortlist, but actual rider fit and comfort still need an in-person check.</p></article><article><span>03</span><h3>Confirm local support</h3><p>Dealer reach, parts, service intervals and warranty support matter after purchase. Use the official brand resources linked on this page when available.</p></article></div>
       </section>
 
-      {uncertain.length > 0 && <section className="ph-brand-section"><div className="section-head compact"><div><span className="section-kicker">Availability to verify</span><h2>{brand} models needing a current lineup check</h2><p>These model pages remain available for research, but they stay outside the current lineup until present-day official availability is confirmed.</p></div></div><div className="card-grid">{uncertain.map((m) => <ModelCard key={m.id} model={m} />)}</div></section>}
+      {uncertain.length > 0 && <section className="ph-brand-section"><div className="section-head compact"><div><span className="section-kicker">Availability to verify</span><h2>{brand} models needing a current lineup check</h2><p>These model pages remain available for research, but they stay outside the current price list until present-day official availability is confirmed.</p></div></div><div className="card-grid">{uncertain.map((m) => <ModelCard key={m.id} model={m} />)}</div></section>}
 
-      {previous.length > 0 && <section className="ph-brand-section"><div className="section-head compact"><div><span className="section-kicker">Archive</span><h2>Older {brand} models</h2><p>Previous-generation references are kept separate from the current lineup so historical launch pricing is not mistaken for today&apos;s price.</p></div></div><div className="card-grid">{previous.map((m) => <ModelCard key={m.id} model={m} />)}</div></section>}
+      {previous.length > 0 && <section className="ph-brand-section"><div className="section-head compact"><div><span className="section-kicker">Archive</span><h2>Previous {brand} motorcycle models and prices</h2><p>Previous-generation references are kept separate from the current price list so historical launch pricing is not mistaken for today&apos;s price.</p></div></div><div className="card-grid">{previous.map((m) => <ModelCard key={m.id} model={m} />)}</div></section>}
 
       <section id="faq" className="ph-brand-section">
-        <div className="section-head compact"><div><span className="section-kicker">Quick answers</span><h2>{brand} motorcycles FAQ</h2></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">Quick answers</span><h2>{brand} Motorcycle Philippines Price List FAQ</h2></div></div>
         <div className="ph-brand-faq">{faq.map((item) => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div>
       </section>
     </div>
