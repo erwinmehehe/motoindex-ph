@@ -19,6 +19,7 @@ function requireFile(...parts) {
 
 const guidePage = read("app", "guides", "[slug]", "page.tsx");
 const guideMedia = read("lib", "editorialGuideMedia.ts");
+const guideFeaturedArt = read("components", "GuideFeaturedArt.tsx");
 const priorityBrief = read("components", "PriorityModelBrief.tsx");
 const media = read("lib", "media.ts");
 const loan = read("app", "tools", "motorcycle-loan-calculator", "page.tsx");
@@ -33,7 +34,8 @@ requireText(guideMedia, '"motorcycle-helmet-size-guide"', "Helmet size guide mus
 requireText(guideMedia, '"motorcycle-helmet-certification-philippines"', "Helmet certification guide must keep a first-party media record.");
 requireText(guideMedia, 'publishedAt: "2026-09-08"', "Editorial guide publication dates must remain explicit and real.");
 requireText(guidePage, "getEditorialGuideMedia", "Editorial guides must resolve their own media record.");
-requireText(guidePage, "<Image", "Editorial guide hero media must remain visible in the article.");
+requireText(guidePage, "<GuideFeaturedArt", "Editorial guide featured art must remain visible in the article.");
+requireText(guideFeaturedArt, 'viewBox="0 0 1200 630"', "Editorial featured art must keep the 1200x630 social/editorial aspect ratio.");
 requireText(guidePage, "datePublished: guideMedia?.publishedAt", "Article schema must use the guide publication date.");
 requireText(guidePage, "image: schemaImage", "Article schema must retain the guide hero image.");
 requireText(guidePage, "Last source check", "Editorial guides must keep visible source-check dates.");
@@ -76,4 +78,4 @@ for (const [name, source] of [
   requireRegex(source, /Related (motorcycles|electric motorcycles|motorcycles and ownership research)/, `${name} calculator must link back to relevant motorcycle research.`);
 }
 
-console.log(`Authority growth validation passed: ${priorityModels.length} priority models, 2 original guide graphics, 5 deepened calculator pages.`);
+console.log(`Authority growth validation passed: ${priorityModels.length} priority models, premium guide art, 2 original source graphics, 5 deepened calculator pages.`);

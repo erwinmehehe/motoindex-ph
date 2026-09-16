@@ -10,6 +10,7 @@ import { observedMarketPriceLabel, observedMarketRange, priceChecksForModel } fr
 import type { Motorcycle, RecommendationGuide, RecommendationQuickPickMetric, RecommendationTableColumn } from "@/lib/types";
 import { evaluateMotorcycle } from "@/lib/decisionEngine";
 import { GuideOwnershipCost } from "@/components/GuideOwnershipCost";
+import { GuideFeaturedArt } from "@/components/GuideFeaturedArt";
 import { JsonLd } from "@/components/JsonLd";
 import { RELEASE_DATE, absoluteUrl } from "@/lib/site";
 import { articleSchema } from "@/lib/articleSchema";
@@ -272,10 +273,6 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
   const editorialSummaries = guide.editorialSections
     .map((title)=>({title,summary:sectionSummary(title,models)}))
     .filter((item,index,all)=>all.findIndex((other)=>other.summary===item.summary)===index);
-  // Article + ItemList for the buying guides. dateModified uses the newest source
-  // check across the models in the guide, so it reflects a real verification date
-  // rather than a build timestamp. keywords carries the page title alongside the
-  // record's own primary/secondary keywords.
   const newestCheck = models
     .map(m => m.marketPriceCheckedAt || m.verifiedAt)
     .filter(Boolean)
@@ -309,6 +306,7 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
   return <section className="page shell">
     <Breadcrumbs items={[{label:"Buying guides",href:"/recommendations"},{label:guide.title}]} />
     <div className="page-head guide-page-head"><span className="guide-kicker">{guide.kicker}</span><h1>{guide.title}</h1></div>
+    <div style={{margin:"18px 0 28px"}}><GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker}/></div>
     <div className="guide-direct-answer"><p>{guide.directAnswer}</p><strong>Compare {models.length} motorcycle{models.length===1?"":"s"} that match this guide.</strong></div>
     {!isIndexableRecommendation(slug)&&<div className="note-box"><h2>Some entries need a fresh check</h2><p>Open the individual model pages before buying to confirm the latest price and exact variant.</p></div>}
 
