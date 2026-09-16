@@ -16,8 +16,8 @@ const publicIds = new Set(publicModels.map((m) => m.id));
 const publicFamilies = modelFamilies.filter((f) => f.generationIds.length > 0 && f.generationIds.every((id) => publicIds.has(id)));
 const currentModels = publicModels.filter((m) => !["previous","uncertain","discontinued"].includes(m.marketStatus || ""));
 export const metadata: Metadata = pageMetadata({
-  title: "Motorcycle Prices Philippines",
-  description: "Compare current Philippine motorcycle prices, specifications, tire sizes and ownership information across major motorcycle brands.",
+  title: "Motorcycle Prices, Specs & Models | MotoIndex",
+  description: "Compare motorcycle prices, specifications, tire sizes and ownership research across Philippine-market bikes and globally searched motorcycle models.",
   path: "/motorcycles",
   index: currentModels.length > 0
 });
@@ -40,9 +40,9 @@ export default function MotorcyclesPage() {
       <div className="shell">
         <div className={`motorcycle-index-hero-grid ${styles.heroGrid}`}>
           <div className={`motorcycle-index-hero-copy ${styles.heroCopy}`}>
-            <span className="entity-kicker">Philippines motorcycle database</span>
-            <h1>Motorcycle prices in the Philippines</h1>
-            <p>Compare current Philippine motorcycles by price, brand, body type and specifications, then narrow the shortlist with rider fit, financing and ownership costs.</p>
+            <span className="entity-kicker">Motorcycle research database</span>
+            <h1>Motorcycle prices, specs and model research</h1>
+            <p>Compare motorcycles by price, brand, body type and specifications. MotoIndex covers Philippine-market bikes plus globally searched models riders research across countries.</p>
             <div className="motorcycle-index-actions">
               <a className="button" href="#browse-models">Browse motorcycles</a>
               <Link className="button secondary" href="/finder">Find my match</Link>
@@ -50,9 +50,9 @@ export default function MotorcyclesPage() {
             </div>
           </div>
           <aside className="motorcycle-index-overview" aria-label="MotoIndex motorcycle catalog overview">
-            <div><span>Verified models</span><strong>{currentModels.length}</strong><small>Published Philippine-market records</small></div>
-            <div><span>Brands researched</span><strong>{makes.length}</strong><small>With verified current model records</small></div>
-            <div><span>Price span</span><strong>{overallLow && overallHigh ? `${php(overallLow)}–${php(overallHigh)}` : "Updating"}</strong><small>Dated model-level references</small></div>
+            <div><span>Researched models</span><strong>{currentModels.length}</strong><small>Motorcycle records with checked references</small></div>
+            <div><span>Brands researched</span><strong>{makes.length}</strong><small>Philippine and global-interest coverage</small></div>
+            <div><span>Price span</span><strong>{overallLow && overallHigh ? `${php(overallLow)}–${php(overallHigh)}` : "Updating"}</strong><small>PHP reference prices where available</small></div>
             <div><span>Buyer briefs</span><strong>{authorityModels.length}</strong><small>Expanded ownership and alternatives context</small></div>
           </aside>
         </div>
@@ -60,7 +60,7 @@ export default function MotorcyclesPage() {
           <Link href="/recommendations#budget"><span>Budget</span><strong>Under ₱100K</strong><small>Affordable current models →</small></Link>
           <Link href={{ pathname:"/motorcycles", query:{ budget:"100to150" } }}><span>Budget</span><strong>₱100K–₱150K</strong><small>Popular commuter price band →</small></Link>
           <Link href="/recommendations#scooters"><span>Body type</span><strong>Scooters</strong><small>Automatic city-focused choices →</small></Link>
-          <Link href="/recommendations#400cc"><span>Displacement</span><strong>400cc+</strong><small>Bigger bikes and expressway-planning research →</small></Link>
+          <Link href="/recommendations#400cc"><span>Displacement</span><strong>400cc+</strong><small>Bigger bikes and performance research →</small></Link>
           <Link href="/motorcycles/electric"><span>Electric</span><strong>Electric motorcycles</strong><small>Battery, range and charging research →</small></Link>
         </div>
       </div>
@@ -75,7 +75,7 @@ export default function MotorcyclesPage() {
         </section>
 
         <section className="motorcycle-brand-directory">
-          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Browse by brand</span><h2>Verified brand coverage.</h2><p>Counts show the current Philippine models already checked by MotoIndex. Coverage expands as local availability, pricing and core specifications are verified.</p></div></div>
+          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Browse by brand</span><h2>Verified brand coverage.</h2><p>Counts include Philippine-market motorcycles and widely researched models from other markets. Prices and core specifications are checked before a model is published.</p></div></div>
           <div className="motorcycle-brand-directory-grid">{brandDirectory.map((brand) => <Link href={`/motorcycles/${brand.slug}`} key={brand.slug}><div className="motorcycle-brand-mark" aria-hidden="true">{brand.name.slice(0,2).toUpperCase()}</div><div><strong>{brand.name}</strong><small>{brand.count} researched {brand.count === 1 ? "model" : "models"}</small></div><span>{php(brand.low)}{brand.high > brand.low ? `–${php(brand.high)}` : ""}</span></Link>)}</div>
         </section>
 

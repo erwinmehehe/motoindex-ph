@@ -6,6 +6,7 @@ import { efficiencyEvidence } from "./efficiency";
 import { maintenanceForModel } from "./maintenance";
 import { priceFaqsForModel } from "./priceSeo";
 import { modelAuthorityProfile } from "./modelAuthority";
+import { isGlobalDemandModel } from "./globalDemandExpansion2026";
 
 const releaseYear = RELEASE_DATE.slice(0, 4);
 
@@ -104,45 +105,58 @@ export function motorcycleEntityFaqs(model: Motorcycle): FaqItem[] {
 export function motorcycleEntitySeo(model: Motorcycle) {
   const current = model.marketStatus !== "previous" && model.marketStatus !== "uncertain" && model.marketStatus !== "discontinued";
   const uncertain = model.marketStatus === "uncertain";
+  const globalDemand = isGlobalDemandModel(model);
   const authority = modelAuthorityProfile(model.id);
   const name = `${model.make} ${model.model}`;
-  const title = current
+  const title = globalDemand && current
     ? firstTitleThatFits([
-        `${name} Price Philippines ${releaseYear}: Specs & Installment`,
-        `${name} Price Philippines ${releaseYear} | Specs`,
-        `${name} Price Philippines ${releaseYear}`,
+        `${name} Specs, Price & Ownership Guide ${releaseYear}`,
+        `${name} Specs, Price & Review Guide`,
+        `${name} Specs & Price`,
       ])
-    : uncertain
+    : current
       ? firstTitleThatFits([
-          `${name} Price Philippines: Specs & Availability`,
-          `${name} Price Philippines | Availability`,
-          `${name} Price Philippines`,
+          `${name} Price Philippines ${releaseYear}: Specs & Installment`,
+          `${name} Price Philippines ${releaseYear} | Specs`,
+          `${name} Price Philippines ${releaseYear}`,
         ])
-      : firstTitleThatFits([
-          `${name} Historical Price & Specs Philippines`,
-          `${name} Used Price & Specs Philippines`,
-          `${name} Specs & Used Value Philippines`,
-        ]);
-  const description = current
-    ? `${name} price in the Philippines, ${model.engineCc}cc specs, rider fit, installment planning and ownership costs${authority ? ", plus buyer advice and local after-sales context" : ""}.`
-    : uncertain
-      ? `${name} price and specs in the Philippines, with financing tools and a clear note to confirm current dealer availability.`
-      : `${name} Philippines guide with historical price context, ${model.engineCc}cc specs, tire sizes, rider fit, maintenance references and used-value planning.`;
+      : uncertain
+        ? firstTitleThatFits([
+            `${name} Price Philippines: Specs & Availability`,
+            `${name} Price Philippines | Availability`,
+            `${name} Price Philippines`,
+          ])
+        : firstTitleThatFits([
+            `${name} Historical Price & Specs Philippines`,
+            `${name} Used Price & Specs Philippines`,
+            `${name} Specs & Used Value Philippines`,
+          ]);
+  const description = globalDemand && current
+    ? `${name} specs, price reference, seat height, weight, tire sizes, rider fit and ownership research. Philippine pricing is shown when a current source is available.`
+    : current
+      ? `${name} price in the Philippines, ${model.engineCc}cc specs, rider fit, installment planning and ownership costs${authority ? ", plus buyer advice and local after-sales context" : ""}.`
+      : uncertain
+        ? `${name} price and specs in the Philippines, with financing tools and a clear note to confirm current dealer availability.`
+        : `${name} Philippines guide with historical price context, ${model.engineCc}cc specs, tire sizes, rider fit, maintenance references and used-value planning.`;
   const aliasNote = model.alsoKnownAs?.length
     ? ` Also listed as ${model.alsoKnownAs.slice(0, 2).join(" and ")}.`
     : "";
-  const heading = current
-    ? `${name}: price, specs and ownership guide`
-    : uncertain
-      ? `${name}: price, specs and availability guide`
-      : `${name}: historical price, specs and ownership guide`;
-  const intro = current
-    ? authority ? `Compare the ${name} price, specs, rider fit and ownership costs, with clear reasons to buy or skip it, direct alternatives and Philippine after-sales links.` : `Compare the ${name} price, variants, financing, specs, rider fit, tires, fuel use, maintenance, ownership cost and used-value estimates in one place.`
-    : uncertain
-      ? `Check the ${name} price, specifications and financing tools, then confirm current dealer stock and the exact model year before buying.`
-      : `Use this ${name} page for historical launch pricing, specifications, fitment and used-bike ownership research without confusing the old SRP with today's market value.`;
+  const heading = globalDemand && current
+    ? `${name}: specs, price and ownership guide`
+    : current
+      ? `${name}: price, specs and ownership guide`
+      : uncertain
+        ? `${name}: price, specs and availability guide`
+        : `${name}: historical price, specs and ownership guide`;
+  const intro = globalDemand && current
+    ? `Compare the ${name} specifications, price reference, rider fit, tires, fuel use and ownership details in one place. Market availability and pricing vary by country, so the dated source stays attached to the record.`
+    : current
+      ? authority ? `Compare the ${name} price, specs, rider fit and ownership costs, with clear reasons to buy or skip it, direct alternatives and Philippine after-sales links.` : `Compare the ${name} price, variants, financing, specs, rider fit, tires, fuel use, maintenance, ownership cost and used-value estimates in one place.`
+      : uncertain
+        ? `Check the ${name} price, specifications and financing tools, then confirm current dealer stock and the exact model year before buying.`
+        : `Use this ${name} page for historical launch pricing, specifications, fitment and used-bike ownership research without confusing the old SRP with today's market value.`;
   const keywordBase = name.toLowerCase();
-  const keywords = [
+  const phKeywords = [
     `${keywordBase} price philippines`,
     `${keywordBase} price philippines ${releaseYear}`,
     `${keywordBase} specs`,
@@ -162,5 +176,23 @@ export function motorcycleEntitySeo(model: Motorcycle) {
       `${alias.toLowerCase()} specs`
     ]),
   ];
-  return { title, description: description + aliasNote, heading, intro, keywords };
+  const globalKeywords = [
+    `${keywordBase} specs`,
+    `${keywordBase} price`,
+    `${keywordBase} review`,
+    `${keywordBase} top speed`,
+    `${keywordBase} horsepower`,
+    `${keywordBase} weight`,
+    `${keywordBase} seat height`,
+    `${keywordBase} tire size`,
+    `${keywordBase} fuel consumption`,
+    `${keywordBase} maintenance`,
+    `${keywordBase} price philippines`,
+    ...(model.alsoKnownAs || []).flatMap((alias) => [
+      `${alias.toLowerCase()} specs`,
+      `${alias.toLowerCase()} price`,
+      `${alias.toLowerCase()} review`
+    ]),
+  ];
+  return { title, description: description + aliasNote, heading, intro, keywords: globalDemand ? globalKeywords : phKeywords };
 }
