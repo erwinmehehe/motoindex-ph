@@ -48,7 +48,7 @@ export function DecisionPath({ stage, modelName, make, makeSlug, modelSlug }: Pr
   const dealerHref = make ? { pathname: "/dealers", query: { brand: make } } : "/dealers";
   const compareHref = modelSlug ? { pathname: "/compare", query: { model: modelSlug } } : "/compare";
   return <section className={`${styles.path} decision-path model-decision-path`} aria-labelledby="model-decision-path">
-    <div className="decision-path-copy"><span>Ready to narrow it down?</span><h2 id="model-decision-path">Take {modelName || "this motorcycle"} from research to a real dealer check</h2><p>Save it, compare the closest alternative, then confirm the same variant and complete price with checked dealers before paying a reservation.</p></div>
+    <div className="decision-path-copy"><span>Ready to narrow it down?</span><h2 id="model-decision-path">Take {modelName || "this motorcycle"} from research to ownership planning</h2><p>Save it, compare the closest alternative, price the gear you may need, then verify the exact variant and complete price with checked dealers before paying a reservation.</p></div>
     <div className="decision-path-steps">
       <article><b>01</b><strong>Save it</strong><small>Keep it with the other motorcycles you are seriously considering.</small><Link href="/shortlist">Open shortlist →</Link></article>
       <article><b>02</b><strong>Compare alternatives</strong><small>Use the same price and specification records.</small><Link href={compareHref}>Compare motorcycles →</Link></article>
