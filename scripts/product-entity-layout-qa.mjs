@@ -130,21 +130,27 @@ try {
         const root=document.documentElement;
         const page=document.querySelector('.product-entity-page');
         const hero=document.querySelector('.product-hero');
-        const media=document.querySelector('.product-hero-media');
-        const copy=document.querySelector('.product-hero-copy');
+        const heroChildren=hero?[...hero.children]:[];
+        const copy=heroChildren[0]||null;
+        const media=heroChildren[1]||null;
         const facts=document.querySelector('.product-facts');
-        const factEls=[...document.querySelectorAll('.product-facts .product-fact')];
-        const sections=[...document.querySelectorAll('.product-section')];
+        const factEls=facts?[...facts.children]:[];
+        const sections=[...document.querySelectorAll('.product-entity-section')];
         const spec=document.querySelector('.entity-spec-table');
         const editorial=document.querySelector('.product-editorial');
         const editorialChildren=editorial?[...editorial.children]:[];
         const priceGrid=document.querySelector('.entity-price-grid');
         const priceChildren=priceGrid?[...priceGrid.children]:[];
-        const r=el=>el?el.getBoundingClientRect():null;
+        const r=el=>{
+          if(!el)return null;
+          const rect=el.getBoundingClientRect();
+          return {left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom,width:rect.width,height:rect.height};
+        };
         return {
           title:document.querySelector('h1')?.textContent?.trim()||'',
           overflow:root.scrollWidth-root.clientWidth,
           page:r(page), hero:r(hero), media:r(media), copy:r(copy), facts:r(facts), spec:r(spec),
+          heroChildCount:heroChildren.length,
           heroDisplay:hero?getComputedStyle(hero).display:'',
           heroColumns:hero?getComputedStyle(hero).gridTemplateColumns:'',
           factsDisplay:facts?getComputedStyle(facts).display:'',
@@ -152,7 +158,7 @@ try {
           sectionWidths:sections.slice(0,8).map(el=>Math.round(r(el).width)),
           editorialWidths:editorialChildren.map(el=>Math.round(r(el).width)),
           priceWidths:priceChildren.map(el=>Math.round(r(el).width)),
-          mediaImage:r(document.querySelector('.product-hero-media img')),
+          mediaImage:r(media?.querySelector('img')),
           bodyWidth:Math.round(document.body.getBoundingClientRect().width)
         };
       })()`);
@@ -162,19 +168,20 @@ try {
       if (!state?.title) failures.push(`${width}px ${route.key}: H1 missing`);
       if ((state?.overflow || 0) > 5) failures.push(`${width}px ${route.key}: horizontal overflow ${state.overflow}px`);
       if (state?.heroDisplay !== "grid") failures.push(`${width}px ${route.key}: product hero is ${state?.heroDisplay || "missing"}, expected grid`);
-      if (!state?.media || !state?.copy) failures.push(`${width}px ${route.key}: hero media/copy missing`);
+      if ((state?.heroChildCount || 0) < 2 || !state?.media || !state?.copy) failures.push(`${width}px ${route.key}: hero content/media missing`);
       if ((state?.media?.width || 0) < (mobile ? 330 : 400)) failures.push(`${width}px ${route.key}: hero media collapsed to ${Math.round(state?.media?.width || 0)}px`);
       if ((state?.copy?.width || 0) < (mobile ? 330 : 320)) failures.push(`${width}px ${route.key}: hero copy collapsed to ${Math.round(state?.copy?.width || 0)}px`);
-      if (mobile && state?.copy && state?.media && state.copy.top <= state.media.top + 40) failures.push(`${width}px ${route.key}: hero did not stack on mobile`);
+      if (mobile && state?.copy && state?.media && state.media.top < state.copy.bottom - 2) failures.push(`${width}px ${route.key}: hero did not stack cleanly on mobile`);
       if (!mobile && state?.copy && state?.media && Math.abs(state.copy.top - state.media.top) > 20) failures.push(`${width}px ${route.key}: desktop hero columns are vertically misaligned`);
       if (state?.factsDisplay !== "grid") failures.push(`${width}px ${route.key}: product facts are ${state?.factsDisplay || "missing"}, expected grid`);
       if (!state?.factWidths?.length) failures.push(`${width}px ${route.key}: product facts missing`);
       if (state?.factWidths?.some(value => value < (mobile ? 320 : 180))) failures.push(`${width}px ${route.key}: product fact collapsed (${state.factWidths.join(', ')}px)`);
+      if (!state?.sectionWidths?.length) failures.push(`${width}px ${route.key}: product sections missing`);
       if (state?.sectionWidths?.some(value => value < (mobile ? 330 : 900))) failures.push(`${width}px ${route.key}: product section collapsed (${state.sectionWidths.join(', ')}px)`);
       if (state?.spec && state.spec.width < (mobile ? 330 : 800)) failures.push(`${width}px ${route.key}: spec table too narrow (${Math.round(state.spec.width)}px)`);
       if (state?.editorialWidths?.some(value => value < (mobile ? 320 : 200))) failures.push(`${width}px ${route.key}: editorial column collapsed (${state.editorialWidths.join(', ')}px)`);
       if (state?.priceWidths?.some(value => value < (mobile ? 320 : 250))) failures.push(`${width}px ${route.key}: price panel collapsed (${state.priceWidths.join(', ')}px)`);
-      if (state?.mediaImage && (state.mediaImage.width > state.media.width + 2 || state.mediaImage.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: hero image exceeds media stage`);
+      if (state?.mediaImage && state?.media && (state.mediaImage.width > state.media.width + 2 || state.mediaImage.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: hero image exceeds media stage`);
 
       await screenshot(route.key, width);
     }
