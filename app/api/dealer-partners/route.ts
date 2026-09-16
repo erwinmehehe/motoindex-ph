@@ -28,7 +28,12 @@ export async function POST(request:Request){
   const contactName=clean(body.contactName,100);
   const contactEmail=clean(body.contactEmail,140).toLowerCase();
   const contactMobile=phone(clean(body.contactMobile,40));
-  const notes=clean(body.notes,1000);
+  const listingPlan=clean(body.listingPlan,20)==="featured"?"featured":"free";
+  const sourcePath=clean(body.sourcePath,180);
+  const applicantNotes=clean(body.notes,700);
+  const context=[`Listing preference: ${listingPlan==="featured"?"Featured Dealer interest":"Free Verified Listing"}`,sourcePath?`Source page: ${sourcePath}`:""]
+    .filter(Boolean).join("\n");
+  const notes=[context,applicantNotes].filter(Boolean).join("\n").slice(0,1000);
   const consent=body.consent===true;
   const presetBrands=Array.isArray(body.brands)?body.brands.map(item=>clean(item,60)).filter(Boolean):[];
   const otherBrands=clean(body.otherBrands,240).split(",").map(item=>item.trim()).filter(Boolean);
@@ -52,5 +57,8 @@ export async function POST(request:Request){
     officialSourceUrl:officialSourceUrl||null,notes:notes||null,consentedAt:new Date(),status:"new"
   }});
 
-  return NextResponse.json({ok:true,applicationId:application.id,message:"Application saved for verification. MotoIndex will not publish the branch or route buyer leads to it until a reviewer approves the dealer evidence."},{status:201});
+  const message=listingPlan==="featured"
+    ?"Application saved for verification. Your Featured Dealer interest was also recorded; paid placement is reviewed separately and cannot bypass verification."
+    :"Application saved for free verification. MotoIndex will not publish the branch or route buyer leads to it until a reviewer approves the dealer evidence.";
+  return NextResponse.json({ok:true,applicationId:application.id,message},{status:201});
 }
