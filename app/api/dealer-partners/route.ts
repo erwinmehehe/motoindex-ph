@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
+import { dealerPlacementLabels, normalizeDealerPlacementTier } from "@/lib/dealerPlacements";
 
 export const runtime="nodejs";
 
@@ -28,10 +29,10 @@ export async function POST(request:Request){
   const contactName=clean(body.contactName,100);
   const contactEmail=clean(body.contactEmail,140).toLowerCase();
   const contactMobile=phone(clean(body.contactMobile,40));
-  const listingPlan=clean(body.listingPlan,20)==="featured"?"featured":"free";
+  const listingPlan=normalizeDealerPlacementTier(clean(body.listingPlan,40));
   const sourcePath=clean(body.sourcePath,180);
-  const applicantNotes=clean(body.notes,700);
-  const context=[`Listing preference: ${listingPlan==="featured"?"Featured Dealer interest":"Free Verified Listing"}`,sourcePath?`Source page: ${sourcePath}`:""]
+  const applicantNotes=clean(body.notes,680);
+  const context=[`Placement interest: ${dealerPlacementLabels[listingPlan]}.`,sourcePath?`Source page: ${sourcePath}`:""]
     .filter(Boolean).join("\n");
   const notes=[context,applicantNotes].filter(Boolean).join("\n").slice(0,1000);
   const consent=body.consent===true;
@@ -45,20 +46,17 @@ export async function POST(request:Request){
   if(!validUrl(website)||!validUrl(officialSourceUrl))return NextResponse.json({ok:false,error:"Website and verification-source URLs must be valid web addresses."},{status:400});
   if(!consent)return NextResponse.json({ok:false,error:"Authorization and consent are required."},{status:400});
 
-  const recent=await prisma.dealerApplication.findFirst({
-    where:{contactEmail,businessName,createdAt:{gte:new Date(Date.now()-24*60*60*1000)}},
-    orderBy:{createdAt:"desc"}
-  });
+  const recent=await prisma.dealerApplication.findFirst({where:{contactEmail,businessName,createdAt:{gte:new Date(Date.now()-24*60*60*1000)}},orderBy:{createdAt:"desc"}});
   if(recent)return NextResponse.json({ok:true,message:"A recent application for this business is already in the review queue."});
 
   const application=await prisma.dealerApplication.create({data:{
     businessName,branchName:branchName||null,addressLabel,city,province,region:region||null,brands,
     website:website||null,phone:branchPhone,contactName,contactEmail,contactMobile,
-    officialSourceUrl:officialSourceUrl||null,notes:notes||null,consentedAt:new Date(),status:"new"
+    officialSourceUrl:officialSourceUrl||null,notes,consentedAt:new Date(),status:"new"
   }});
 
-  const message=listingPlan==="featured"
-    ?"Application saved for verification. Your Featured Dealer interest was also recorded; paid placement is reviewed separately and cannot bypass verification."
-    :"Application saved for free verification. MotoIndex will not publish the branch or route buyer leads to it until a reviewer approves the dealer evidence.";
+  const message=listingPlan==="free"
+    ?"Application saved for free verification. MotoIndex will not publish the branch or route buyer leads to it until a reviewer approves the dealer evidence."
+    :`Application saved for verification. Your ${dealerPlacementLabels[listingPlan]} interest was recorded; paid placement is discussed separately after verification and cannot bypass approval.`;
   return NextResponse.json({ok:true,applicationId:application.id,message},{status:201});
 }
