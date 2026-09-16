@@ -70,13 +70,13 @@ export default async function TireProductPage({ params }: { params: Promise<{ sl
           <div><span>Use case</span><strong>{p.useCase}</strong></div>
           <div><span>Listed sizes</span><strong>{p.knownSizes.length}</strong></div>
           <div><span>Matching catalog bikes</span><strong>{matches.length}</strong></div>
-          <div><span>Starting price</span><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Check current listing"}</strong></div>
+          <div><span>Starting price</span><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong></div>
         </div>
         <div className={`source-panel ${p.status}`}>
           <span>{p.status === "verified" ? "Product details" : "Needs checking"}</span>
           <p>{p.sourceLabel}</p>
           {p.sourceUrl && <a href={p.sourceUrl} target="_blank" rel="noreferrer">Manufacturer/source page ↗</a>}
-          <small>Updated {p.lastChecked || "date pending"}</small>
+          {p.lastChecked && <small>Updated {p.lastChecked}</small>}
         </div>
       </div>
       <EntityMedia entityType="tire" entityId={p.id} fallback={<div className="product-hero-card"><span>Tire family</span><strong>T</strong><div><small>{p.brand}</small><h2>{p.model}</h2></div></div>} />
@@ -94,7 +94,7 @@ export default async function TireProductPage({ params }: { params: Promise<{ sl
     <section id="price" className="product-entity-section">
       <div className="section-head compact"><div><h2>{p.brand} {p.model} price in the Philippines</h2><p>Tire pricing depends heavily on size. Always compare the exact size, load/speed rating and seller—not just the tire-family name.</p></div></div>
       <div className="entity-price-grid">
-        <article><span>Starting price reference</span><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "No reliable PH price recorded"}</strong><small>{p.lastChecked ? `Updated ${p.lastChecked}` : "Current price check needed"}</small></article>
+        <article><span>Starting price reference</span><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong>{p.lastChecked && <small>Updated {p.lastChecked}</small>}</article>
         <article><span>Construction</span><strong>{p.construction}</strong><small>Check the exact tire sidewall/application before purchase.</small></article>
         <article><span>Primary use</span><strong>{p.useCase}</strong><small>Use the manufacturer's application guidance for the exact size.</small></article>
       </div>
@@ -136,7 +136,7 @@ export default async function TireProductPage({ params }: { params: Promise<{ sl
         <div><span>Use case</span><b>{p.useCase}</b><b>{compareTarget.useCase}</b></div>
         <div><span>Construction</span><b>{p.construction}</b><b>{compareTarget.construction}</b></div>
         <div><span>Sizes recorded</span><b>{p.knownSizes.length}</b><b>{compareTarget.knownSizes.length}</b></div>
-        <div><span>Starting price</span><b>{p.priceFromPhp ? php(p.priceFromPhp) : "Check current listing"}</b><b>{compareTarget.priceFromPhp ? php(compareTarget.priceFromPhp) : "Check current listing"}</b></div>
+        <div><span>Starting price</span><b>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</b><b>{compareTarget.priceFromPhp ? php(compareTarget.priceFromPhp) : "Price not verified yet"}</b></div>
       </div>
     </section>}
 
