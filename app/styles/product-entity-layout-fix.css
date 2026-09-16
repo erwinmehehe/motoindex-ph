@@ -1,0 +1,74 @@
+/* Shared product-detail layout guard for helmet and accessory entity pages. */
+.product-entity-page {
+  width: min(100%, 1180px);
+  min-width: 0;
+}
+
+.product-entity-page .product-hero {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr) !important;
+  align-items: start !important;
+  gap: 36px !important;
+  width: 100%;
+  min-width: 0;
+}
+
+.product-entity-page .product-hero-media,
+.product-entity-page .product-hero-copy,
+.product-entity-page .product-section,
+.product-entity-page .entity-price-grid,
+.product-entity-page .product-editorial,
+.product-entity-page .fitment-evidence-grid,
+.product-entity-page .product-grid,
+.product-entity-page .entity-spec-table,
+.product-entity-page .product-source-panel {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.product-entity-page .product-hero-media {
+  grid-column: auto !important;
+  grid-row: auto !important;
+}
+
+.product-entity-page .product-facts {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  width: 100%;
+  min-width: 0;
+}
+
+.product-entity-page .product-fact,
+.product-entity-page .entity-spec-row > *,
+.product-entity-page .product-editorial > *,
+.product-entity-page .fitment-evidence-grid > *,
+.product-entity-page .entity-price-grid > *,
+.product-entity-page .product-grid > * {
+  min-width: 0;
+}
+
+.product-entity-page img {
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  .product-entity-page .product-hero {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 20px !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .product-entity-page .product-hero {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .product-entity-page .product-facts,
+  .product-entity-page .entity-price-grid,
+  .product-entity-page .product-editorial,
+  .product-entity-page .fitment-evidence-grid,
+  .product-entity-page .product-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
