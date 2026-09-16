@@ -26,7 +26,7 @@ async function ready(send){const end=Date.now()+15000;while(Date.now()<end){if(a
 const port=9231;
 const profile=fs.mkdtempSync(path.join(os.tmpdir(),"motoindex-dealer-commercial-"));
 const proc=spawn(chromePath(),["--headless=new","--no-sandbox","--disable-gpu","--disable-dev-shm-usage",`--remote-debugging-port=${port}`,`--user-data-dir=${profile}`,"about:blank"],{stdio:"ignore"});
-const failures=[];const results=[];
+const failures=[];const results=[];let cityRoutes=[];
 
 try{
   await waitPort(port);const browserTab=await tab(port);const client=cdp(browserTab.webSocketDebuggerUrl);await client.ready;await client.send("Page.enable");await client.send("Runtime.enable");
@@ -35,7 +35,7 @@ try{
   async function shot(name,width){const image=await client.send("Page.captureScreenshot",{format:"png",fromSurface:true});fs.writeFileSync(path.join(outputDir,`dealer-commercial-${width}-${name}.png`),Buffer.from(image.data,"base64"));}
 
   await viewport(1440);await nav("/dealers");
-  const cityRoutes=await evalJs(client.send,`(()=>[...new Set([...document.querySelectorAll('.dealer-city-links a[href^="/dealers/"]')].map(a=>new URL(a.href).pathname).filter(path=>path!=="/dealers/pampanga"&&/^\\/dealers\\/[^/]+$/.test(path)))])()`);
+  cityRoutes=await evalJs(client.send,`(()=>[...new Set([...document.querySelectorAll('.dealer-city-links a[href^="/dealers/"]')].map(a=>new URL(a.href).pathname).filter(path=>path!=="/dealers/pampanga"&&/^\\/dealers\\/[^/]+$/.test(path)))])()`);
   for(const slug of expectedNcrCities){if(!cityRoutes.includes(`/dealers/${slug}`))failures.push(`Expected NCR dealer city missing from directory: ${slug}`);}
   if(cityRoutes.length<12)failures.push(`Dealer city coverage unexpectedly low: ${cityRoutes.length} published city pages`);
 
