@@ -26,6 +26,8 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
   for (const dealer of verifiedDealers) cityCounts.set(dealer.city, (cityCounts.get(dealer.city) || 0) + 1);
   const publishedCities = [...cityCounts.entries()].filter(([,count])=>count>=MIN_PUBLIC_DEALERS_PER_CITY).map(([city])=>city).sort();
   const pampangaCount = verifiedDealers.filter(dealer=>dealer.province==="Pampanga").length;
+  const freeJoinHref="/dealers/join?plan=free&source=%2Fdealers";
+  const featuredJoinHref="/dealers/join?plan=featured-city&source=%2Fdealers#featured-options";
 
   return <section className="page shell">
     <div className="page-head dealer-page-head">
@@ -105,9 +107,17 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
       </div>
     </section>
 
-    <section className="dealer-partner-strip">
-      <div><span className="section-kicker">Dealer partners</span><h2>Own or represent a motorcycle dealership?</h2><p>Apply to add a verified branch, publish checked dealer details and become eligible for relevant buyer quote matching.</p></div>
-      <Link className="button" href="/dealers/join">Join MotoIndex as a dealer</Link>
+    <section className="dealer-partner-strip dealer-listing-callout">
+      <div>
+        <span className="section-kicker">For motorcycle dealers</span>
+        <h2>Get your dealership listed on MotoIndex for free.</h2>
+        <p>Verified dealer listings are free. Approved dealers can publish branch details and appear in city and brand searches. Optional Featured Dealer, Brand + City, and City Sponsor placements are available for dealers that want additional visibility.</p>
+        <small>Verification is never sold. Paid placements are clearly labeled and do not change MotoIndex verification standards.</small>
+      </div>
+      <div className="dealer-city-footer">
+        <Link className="button" href={freeJoinHref}>Get listed free</Link>
+        <Link className="button secondary" href={featuredJoinHref}>See featured options</Link>
+      </div>
     </section>
 
     <section className="motorcycle-entity-section">
