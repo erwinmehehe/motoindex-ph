@@ -7,8 +7,9 @@ export type DealerPlacement = {
 };
 
 // Paid placement is deliberately separate from dealer verification.
-// Add an entry only after a commercial placement is approved. An empty list
-// means no dealer receives sponsored visibility by default.
+// Add an entry only after a commercial placement is approved and paid.
+// Keeping this list empty guarantees that no dealer receives sponsored
+// visibility by default or simply because it passed verification.
 export const dealerPlacements: DealerPlacement[] = [];
 
 export function featuredDealerSlugsForCity(city: string, at = new Date()) {
