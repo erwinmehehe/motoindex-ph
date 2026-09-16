@@ -4,6 +4,7 @@ import { motorcycles, getModel, getModelById, isIndexableModel } from "@/lib/dat
 import { getModelFamily, modelFamilies } from "@/lib/families";
 import { ModelFamilyView } from "@/components/ModelFamilyView";
 import { MotorcycleEntityPage } from "@/components/MotorcycleEntityPage";
+import { GlobalMotorcycleEntityPage } from "@/components/GlobalMotorcycleEntityPage";
 import { PriorityModelBrief } from "@/components/PriorityModelBrief";
 import { GrowthModelBrief } from "@/components/GrowthModelBrief";
 import { PriorityCommercialIntent } from "@/components/PriorityCommercialIntent";
@@ -14,6 +15,7 @@ import { pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
 import { priorityModelGrowthProfile } from "@/lib/priorityModelGrowth";
 import { getRenderableMedia } from "@/lib/renderableMedia";
+import { isGlobalOnlyModel } from "@/lib/marketScope";
 import styles from "./ModelPage.module.css";
 
 export function generateStaticParams() {
@@ -38,9 +40,30 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   }
   const model = getModel(make, slug);
   if (!model) return {};
+  const image = getRenderableMedia("motorcycle", model.id)[0]?.src;
+  if (isGlobalOnlyModel(model)) {
+    const name = `${model.make} ${model.model}`;
+    const displacement = model.engineCc ? `${model.engineCc}cc` : "electric";
+    const base = pageMetadata({
+      title: `${name} Specs, Weight & Seat Height`,
+      description: `${name} global ${displacement} specs, power, weight, seat height, tires and market status. Kept separate from Philippine pricing, financing and dealer tools.`,
+      path: `/motorcycles/${model.makeSlug}/${model.slug}`,
+      index: isIndexableModel(model),
+      image
+    });
+    return {
+      ...base,
+      keywords: [
+        `${name.toLowerCase()} specs`,
+        `${name.toLowerCase()} weight`,
+        `${name.toLowerCase()} seat height`,
+        `${name.toLowerCase()} horsepower`,
+        `${name.toLowerCase()} tire size`
+      ]
+    };
+  }
   const seo = motorcycleEntitySeo(model);
   const growth = priorityModelGrowthProfile(model.id);
-  const image = getRenderableMedia("motorcycle", model.id)[0]?.src;
   const base = pageMetadata({
     title: growth?.seoTitle || seo.title,
     description: growth?.seoDescription || seo.description,
@@ -57,6 +80,13 @@ export default async function ModelPage({ params }: { params: Promise<{ make: st
   if (family) return <ModelFamilyView family={family}/>;
   const model = getModel(make, slug);
   if (!model) return notFound();
+  if (isGlobalOnlyModel(model)) {
+    return <div className={styles.refined}>
+      <RecentlyViewedTracker model={{ id: model.id, make: model.make, model: model.model, makeSlug: model.makeSlug, slug: model.slug }} />
+      <div className="model-floating-share"><ShareModelButton label="Share model" /></div>
+      <GlobalMotorcycleEntityPage model={model} />
+    </div>;
+  }
   return <div className={styles.refined}>
     <RecentlyViewedTracker model={{ id: model.id, make: model.make, model: model.model, makeSlug: model.makeSlug, slug: model.slug }} />
     <div className="model-floating-share"><ShareModelButton label="Share model" /></div>
