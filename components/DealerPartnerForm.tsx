@@ -1,21 +1,25 @@
 "use client";
 
 import { useState } from "react";
+import { dealerPlacementPlans, placementInterestLabels, type DealerPlacementTier } from "@/lib/dealerPromotions";
 
 type Result={ok:boolean;message?:string;error?:string};
 
 const brands=["Honda","Yamaha","Suzuki","Kawasaki","KTM","CFMOTO","BMW Motorrad","Ducati","Triumph","Royal Enfield","Bristol","Zontes"];
 
-type Props={defaultCity?:string;defaultProvince?:string};
+type Props={defaultCity?:string;defaultProvince?:string;defaultPlan?:DealerPlacementTier};
 
-export function DealerPartnerForm({defaultCity="",defaultProvince=""}:Props){
+export function DealerPartnerForm({defaultCity="",defaultProvince="",defaultPlan="free"}:Props){
   const [state,setState]=useState<"idle"|"sending"|"success"|"error">("idle");
   const [message,setMessage]=useState("");
+  const [submittedPlan,setSubmittedPlan]=useState<DealerPlacementTier>(defaultPlan);
 
   async function submit(event:React.FormEvent<HTMLFormElement>){
     event.preventDefault();
     const form=event.currentTarget;
     const data=new FormData(form);
+    const placementInterest=String(data.get("placementInterest")||"free") as DealerPlacementTier;
+    setSubmittedPlan(placementInterest);
     setState("sending");setMessage("");
     const payload={
       businessName:String(data.get("businessName")||""),
@@ -32,6 +36,7 @@ export function DealerPartnerForm({defaultCity="",defaultProvince=""}:Props){
       contactEmail:String(data.get("contactEmail")||""),
       contactMobile:String(data.get("contactMobile")||""),
       officialSourceUrl:String(data.get("officialSourceUrl")||""),
+      placementInterest,
       notes:String(data.get("notes")||""),
       consent:data.get("consent")==="on",
       websiteCheck:String(data.get("websiteCheck")||"")
@@ -44,10 +49,10 @@ export function DealerPartnerForm({defaultCity="",defaultProvince=""}:Props){
     }catch{setState("error");setMessage("Application could not be saved. Please try again.");}
   }
 
-  if(state==="success")return <div className="lead-form lead-form-success" aria-live="polite"><div className="lead-form-head"><span>Application received</span><h2>We saved your dealer application.</h2><p>{message}</p></div><small>Submitting does not automatically publish a dealer profile or activate buyer-lead routing. MotoIndex reviews the branch evidence first.</small></div>;
+  if(state==="success")return <div className="lead-form lead-form-success" aria-live="polite"><div className="lead-form-head"><span>Application received</span><h2>We saved your dealer application.</h2><p>{message}</p></div><small>{submittedPlan==="free"?"Your free listing application will now go through branch verification.":`${placementInterestLabels[submittedPlan]} interest was recorded. Paid placement is discussed only after the branch is verified and does not affect approval.`}</small></div>;
 
   return <form className="lead-form dealer-partner-form" onSubmit={submit} aria-live="polite">
-    <div className="lead-form-head"><span>Dealer partner application</span><h2>Apply to join the MotoIndex dealer network</h2><p>Provide the exact branch details and an official source we can use to verify the dealership.</p></div>
+    <div className="lead-form-head"><span>Dealer application</span><h2>Apply for a free verified dealer listing</h2><p>Provide the exact branch details and an official source we can use to verify the dealership. You can optionally ask about a paid featured placement below.</p></div>
     <input className="form-honeypot" name="websiteCheck" tabIndex={-1} autoComplete="off" aria-hidden="true"/>
     <div className="lead-form-grid">
       <label><span>Business name</span><input name="businessName" required /></label>
@@ -63,6 +68,16 @@ export function DealerPartnerForm({defaultCity="",defaultProvince=""}:Props){
 
     <fieldset className="dealer-brand-fieldset"><legend>Brands sold at this branch</legend><div className="dealer-brand-checks">{brands.map(brand=><label key={brand}><input type="checkbox" name="brands" value={brand}/><span>{brand}</span></label>)}</div><label className="dealer-other-brands"><span>Other brands <small>comma separated</small></span><input name="otherBrands" placeholder="e.g. Kymco, Vespa"/></label></fieldset>
 
+    <fieldset className="dealer-placement-options">
+      <legend>Listing and visibility option</legend>
+      <p>Choose free listing unless you want MotoIndex to contact you about a paid placement after verification.</p>
+      {dealerPlacementPlans.map(plan=><label className="dealer-placement-choice" key={plan.id}>
+        <input type="radio" name="placementInterest" value={plan.id} defaultChecked={plan.id===defaultPlan}/>
+        <span><strong>{plan.name}</strong><small>{plan.description}</small></span>
+        <b>{plan.price}</b>
+      </label>)}
+    </fieldset>
+
     <div className="lead-form-grid">
       <label><span>Contact person</span><input name="contactName" required autoComplete="name"/></label>
       <label><span>Contact mobile</span><input name="contactMobile" required inputMode="tel" autoComplete="tel"/></label>
@@ -73,6 +88,6 @@ export function DealerPartnerForm({defaultCity="",defaultProvince=""}:Props){
     <label className="lead-consent"><input type="checkbox" name="consent" required/><span>I confirm that I am authorized to submit these branch details and agree that MotoIndex may store them, contact me about verification, and publish the business information if the branch is approved.</span></label>
     {state==="error"&&<p className="form-error" role="alert">{message}</p>}
     <button className="button" type="submit" disabled={state==="sending"}>{state==="sending"?"Saving application…":"Submit dealer application"}</button>
-    <small>Applications are reviewed manually. Approval is not guaranteed, and unverified applications never receive buyer contact details.</small>
+    <small>The verified standard listing is free. Selecting a paid option is only an expression of interest and does not create a charge or guarantee placement.</small>
   </form>;
 }
