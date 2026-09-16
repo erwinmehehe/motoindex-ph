@@ -489,3 +489,55 @@ html body .recently-viewed-card .model-card-media{
   html body .product-card,
   html body .product-card img{transition:none!important;transform:none!important}
 }
+
+
+/* Prevent motorcycle artwork from touching or being clipped by media stages.
+   Use an explicit inset box rather than padding on a 100% sized image, which
+   can overflow under content-box sizing. */
+html body .model-card-media img,
+html body .finder-match-media img,
+html body .recommendation-model-media img,
+html body .mobile-hero-bike-media img,
+html body .motorcycle-hero-media img,
+html body .compare-product-media img,
+html body .mi-bike-media img,
+html body .decision-result-media img{
+  box-sizing:border-box!important;
+  width:calc(100% - 28px)!important;
+  height:calc(100% - 28px)!important;
+  max-width:calc(100% - 28px)!important;
+  max-height:calc(100% - 28px)!important;
+  padding:0!important;
+  margin:auto!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+
+html body .motorcycle-entity-page .motorcycle-hero-media img{
+  width:calc(100% - 40px)!important;
+  height:calc(100% - 40px)!important;
+  max-width:calc(100% - 40px)!important;
+  max-height:calc(100% - 40px)!important;
+  padding:0!important;
+}
+
+@media(max-width:700px){
+  html body .model-card-media img,
+  html body .finder-match-media img,
+  html body .recommendation-model-media img,
+  html body .mobile-hero-bike-media img,
+  html body .compare-product-media img,
+  html body .mi-bike-media img,
+  html body .decision-result-media img{
+    width:calc(100% - 24px)!important;
+    height:calc(100% - 24px)!important;
+    max-width:calc(100% - 24px)!important;
+    max-height:calc(100% - 24px)!important;
+  }
+  html body .motorcycle-entity-page .motorcycle-hero-media img{
+    width:calc(100% - 28px)!important;
+    height:calc(100% - 28px)!important;
+    max-width:calc(100% - 28px)!important;
+    max-height:calc(100% - 28px)!important;
+  }
+}
