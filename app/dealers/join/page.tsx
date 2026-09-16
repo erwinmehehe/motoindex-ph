@@ -5,32 +5,51 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata:Metadata=pageMetadata({
-  title:"Join MotoIndex as a Motorcycle Dealer Partner",
-  description:"Apply to add a verified motorcycle dealership to MotoIndex, publish checked branch details and become eligible for model-specific buyer quote matching.",
+  title:"Get Your Motorcycle Dealership Listed on MotoIndex",
+  description:"Apply for a free verified MotoIndex dealer listing, or register interest in paid Featured Dealer placement by city and motorcycle brand.",
   path:"/dealers/join"
 });
 
-export default async function Page({searchParams}:{searchParams:Promise<{city?:string;province?:string}>}){
+type SearchParams={city?:string;province?:string;plan?:string;source?:string};
+
+export default async function Page({searchParams}:{searchParams:Promise<SearchParams>}){
   const params=await searchParams;
   const defaultCity=(params.city||"").slice(0,80);
   const defaultProvince=(params.province||"").slice(0,80);
+  const defaultPlan=params.plan==="featured"?"featured":"free";
+  const sourcePath=(params.source||"").slice(0,180);
   return <section className="page shell quote-page">
-    <Breadcrumbs items={[{label:"Dealers",href:"/dealers"},{label:"Join MotoIndex"}]}/>
+    <Breadcrumbs items={[{label:"Dealers",href:"/dealers"},{label:"Get listed"}]}/>
     <div className="quote-grid">
       <div className="quote-summary">
-        <span className="entity-kicker">Dealer partners</span>
+        <span className="entity-kicker">Dealer listings</span>
         <h1>Get your motorcycle dealership listed on MotoIndex.</h1>
-        <p>Reach riders who are already researching motorcycles, comparing prices and looking for a branch near them. Approved dealers can receive a verified public profile and become eligible for relevant buyer quote matching.</p>
-        <ul className="checklist">
-          <li>Verified public branch profile on MotoIndex</li>
-          <li>Brand and city visibility in dealer search</li>
-          <li>Eligibility for relevant buyer quote matches</li>
-          <li>Dealer contact details shown to high-intent riders</li>
-        </ul>
-        <div className="note-box compact-note"><h3>Verification comes first</h3><p>A submitted application is not treated as a verified dealer. MotoIndex checks the branch evidence before the profile or lead-routing status can go live.</p></div>
+        <p>Start with a verified public branch listing for free. Dealers that want more visibility can request a clearly labeled Featured Dealer placement for selected cities or motorcycle brands.</p>
+        <div className="note-box compact-note">
+          <span className="section-kicker">Free Verified Listing · ₱0</span>
+          <h3>Build your public dealer profile at no cost.</h3>
+          <ul className="checklist">
+            <li>Verified public branch profile</li>
+            <li>Brand and city visibility in dealer search</li>
+            <li>Address, phone and dealership details</li>
+            <li>Eligibility for relevant buyer quote matching after approval</li>
+          </ul>
+        </div>
+        <div className="note-box compact-note">
+          <span className="section-kicker">Featured Dealer · Paid visibility</span>
+          <h3>Get priority placement where local buyers are already searching.</h3>
+          <ul className="checklist">
+            <li>Featured placement in selected city directories</li>
+            <li>Optional brand + city sponsorship opportunities</li>
+            <li>Clearly labeled Featured / Sponsored placement</li>
+            <li>Same verification standard as every free listing</li>
+          </ul>
+          <p><strong>Pilot pricing:</strong> city placement from ₱1,500/month; brand + city placement from ₱3,000/month. Availability is limited by location.</p>
+        </div>
+        <div className="note-box compact-note"><h3>Verification is never for sale</h3><p>Paying for visibility does not make a dealership verified. MotoIndex checks branch evidence first, and sponsored placement is always labeled separately from verification.</p></div>
         <Link className="text-link" href="/dealers">See the public dealer directory →</Link>
       </div>
-      <DealerPartnerForm defaultCity={defaultCity} defaultProvince={defaultProvince}/>
+      <DealerPartnerForm defaultCity={defaultCity} defaultProvince={defaultProvince} defaultPlan={defaultPlan} sourcePath={sourcePath}/>
     </div>
   </section>;
 }
