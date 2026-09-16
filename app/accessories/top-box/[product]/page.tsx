@@ -12,7 +12,6 @@ import { topBoxInternalLinks } from "@/lib/internalLinks";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { EntityMedia } from "@/components/EntityMedia";
 import { CommercePriceComparison } from "@/components/CommercePriceComparison";
-// AffiliateOffer remains rendered by CommercePriceComparison for approved affiliate destinations.
 import { topBoxEditorial } from "@/lib/productEditorial";
 import { topBoxAlternatives, topBoxFaqs } from "@/lib/productSeo";
 import { ProductEntityNav } from "@/components/ProductEntityNav";
@@ -37,6 +36,10 @@ export async function generateMetadata({ params }: { params: Promise<{ product: 
   });
   const name = `${item.brand} ${item.model}`.toLowerCase();
   return { ...base, keywords: [`${name} top box price philippines`, `${name} capacity`, `${name} fitment`, `${name} mounting`, `${name} review`, `${name} top box`] };
+}
+
+function topBoxPriceLabel(price?: number) {
+  return typeof price === "number" ? php(price) : "Price not verified yet";
 }
 
 export default async function TopBoxProductPage({ params }: { params: Promise<{ product: string }> }) {
@@ -71,7 +74,7 @@ export default async function TopBoxProductPage({ params }: { params: Promise<{ 
         <p>{item.description}</p>
         <div className="product-facts">
           <div><span>Capacity</span><strong>{item.capacityL} L</strong></div>
-          <div><span>Starting price</span><strong>{item.priceFromPhp ? php(item.priceFromPhp) : "Check current listing"}</strong></div>
+          <div><span>Starting price</span><strong>{topBoxPriceLabel(item.priceFromPhp)}</strong></div>
           <div><span>Helmet capacity</span><strong>{item.helmetCapacity}</strong></div>
           <div><span>Mounting system</span><strong>{item.mountingSystem || item.shell}</strong></div>
         </div>
@@ -79,7 +82,7 @@ export default async function TopBoxProductPage({ params }: { params: Promise<{ 
           <span>{item.status === "verified" ? "Product details" : "Needs checking"}</span>
           <p>{item.sourceLabel}</p>
           {item.sourceUrl && <a href={item.sourceUrl} target="_blank" rel="noreferrer">Manufacturer/product source ↗</a>}
-          <small>Updated {item.lastChecked || "date pending"}</small>
+          {item.lastChecked && <small>Updated {item.lastChecked}</small>}
         </div>
       </div>
       <EntityMedia entityType="topbox" entityId={item.id} fallback={<div className="product-hero-card"><span>Storage system</span><strong>B</strong><div><small>{item.brand}</small><h2>{item.model}</h2></div></div>} />
@@ -98,9 +101,9 @@ export default async function TopBoxProductPage({ params }: { params: Promise<{ 
     <section id="price" className="product-entity-section">
       <div className="section-head compact"><div><h2>{item.brand} {item.model} price in the Philippines</h2><p>The box price and the installed price are not always the same. A rack, fitting kit or plate may add cost.</p></div></div>
       <div className="entity-price-grid">
-        <article><span>Starting price reference</span><strong>{item.priceFromPhp ? php(item.priceFromPhp) : "No reliable PH price recorded"}</strong><small>{item.lastChecked ? `Updated ${item.lastChecked}` : "Current price check needed"}</small></article>
-        <article><span>Stock</span><strong>{item.stockStatus || "Check current seller"}</strong><small>Availability can change by cover color and bundle.</small></article>
-        <article><span>Finish / colors</span><strong>{item.colors?.length ? item.colors.join(" · ") : "Check current product variants"}</strong><small>Confirm the exact lid/cover included in the listing.</small></article>
+        <article><span>Starting price reference</span><strong>{topBoxPriceLabel(item.priceFromPhp)}</strong>{item.lastChecked && <small>Updated {item.lastChecked}</small>}</article>
+        {item.stockStatus && <article><span>Stock</span><strong>{item.stockStatus}</strong><small>Availability can change by cover color and bundle.</small></article>}
+        {(item.colors?.length || item.variants?.length) ? <article><span>Finish / variants</span><strong>{item.colors?.length ? item.colors.join(" · ") : item.variants!.join(" · ")}</strong><small>Confirm the exact lid, cover and bundle included in the listing.</small></article> : null}
       </div>
       <CommercePriceComparison entityType="topbox" entityId={item.id} productName={`${item.brand} ${item.model}`} />
     </section>
@@ -111,18 +114,18 @@ export default async function TopBoxProductPage({ params }: { params: Promise<{ 
         <div><span>Capacity</span><strong>{item.capacityL} L</strong></div>
         <div><span>Shell</span><strong>{item.shell}</strong></div>
         <div><span>Helmet storage</span><strong>{item.helmetCapacity}</strong></div>
-        <div><span>Dimensions</span><strong>{item.dimensionsCm ? `${item.dimensionsCm.width} × ${item.dimensionsCm.depth} × ${item.dimensionsCm.height} cm` : "Not recorded in the checked source"}</strong></div>
-        <div><span>Box weight</span><strong>{typeof item.weightKg === "number" ? `${item.weightKg} kg` : "Not recorded"}</strong></div>
-        <div><span>Maximum load</span><strong>{typeof item.maxLoadKg === "number" ? `${item.maxLoadKg} kg — rack limit may be lower` : "Check box and rack instructions"}</strong></div>
-        <div><span>Configurations / variants</span><strong>{item.variants?.length ? item.variants.join(" · ") : "Check current product configuration"}</strong></div>
+        {item.dimensionsCm && <div><span>Dimensions</span><strong>{item.dimensionsCm.width} × {item.dimensionsCm.depth} × {item.dimensionsCm.height} cm</strong></div>}
+        {typeof item.weightKg === "number" && <div><span>Box weight</span><strong>{item.weightKg} kg</strong></div>}
+        {typeof item.maxLoadKg === "number" && <div><span>Maximum load</span><strong>{item.maxLoadKg} kg — rack limit may be lower</strong></div>}
+        {item.variants?.length ? <div><span>Configurations / variants</span><strong>{item.variants.join(" · ")}</strong></div> : null}
       </div>
     </section>
 
     <section id="mounting" className="product-entity-section">
       <div className="section-head compact"><div><h2>Mounting system and included hardware</h2><p>Capacity does not determine motorcycle compatibility. The rack, plate and case interface must all match.</p></div></div>
       <div className="entity-spec-table">
-        <div><span>Mounting system</span><strong>{item.mountingSystem || "Check current manufacturer instructions"}</strong></div>
-        <div><span>Included with the case</span><strong>{item.includedHardware || "Check the exact seller bundle"}</strong></div>
+        <div><span>Mounting system</span><strong>{item.mountingSystem || "Confirm the exact mounting system before purchase"}</strong></div>
+        {item.includedHardware && <div><span>Included with the case</span><strong>{item.includedHardware}</strong></div>}
         <div><span>Motorcycle-side requirement</span><strong>{item.mountingNote}</strong></div>
       </div>
       {item.compatibleAccessories?.length ? <div className="entity-accessories"><h3>Compatible accessories</h3>{item.compatibleAccessories.map((accessory) => <div key={`${accessory.name}-${accessory.sku || ""}`}><strong>{accessory.name}</strong>{accessory.sku && <span>{accessory.sku}</span>}</div>)}</div> : null}
@@ -160,10 +163,10 @@ export default async function TopBoxProductPage({ params }: { params: Promise<{ 
       <div className="mini-compare-table wide">
         <div className="head"><span>Feature</span><strong>{item.model}</strong><strong>{compareTarget.model}</strong></div>
         <div><span>Capacity</span><b>{item.capacityL} L</b><b>{compareTarget.capacityL} L</b></div>
-        <div><span>Starting price</span><b>{item.priceFromPhp ? php(item.priceFromPhp) : "Check current listing"}</b><b>{compareTarget.priceFromPhp ? php(compareTarget.priceFromPhp) : "Check current listing"}</b></div>
+        <div><span>Starting price</span><b>{topBoxPriceLabel(item.priceFromPhp)}</b><b>{topBoxPriceLabel(compareTarget.priceFromPhp)}</b></div>
         <div><span>Helmet storage</span><b>{item.helmetCapacity}</b><b>{compareTarget.helmetCapacity}</b></div>
         <div><span>Mounting</span><b>{item.mountingSystem || item.shell}</b><b>{compareTarget.mountingSystem || compareTarget.shell}</b></div>
-        <div><span>Maximum load</span><b>{item.maxLoadKg ? `${item.maxLoadKg} kg` : "Check instructions"}</b><b>{compareTarget.maxLoadKg ? `${compareTarget.maxLoadKg} kg` : "Check instructions"}</b></div>
+        {(typeof item.maxLoadKg === "number" || typeof compareTarget.maxLoadKg === "number") && <div><span>Maximum load</span><b>{typeof item.maxLoadKg === "number" ? `${item.maxLoadKg} kg` : "—"}</b><b>{typeof compareTarget.maxLoadKg === "number" ? `${compareTarget.maxLoadKg} kg` : "—"}</b></div>}
       </div>
     </section>}
 
