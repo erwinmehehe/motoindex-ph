@@ -128,9 +128,17 @@ for (const path of ["/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear
   }
 }
 
-// Keep a small explicit dealer smoke set after the exhaustive crawl has already passed.
+// Explicitly smoke the highest-value dealer location pages after the exhaustive crawl.
 for (const path of [
   "/dealers",
+  "/dealers/quezon-city",
+  "/dealers/manila",
+  "/dealers/caloocan-city",
+  "/dealers/pasig-city",
+  "/dealers/makati-city",
+  "/dealers/taguig-city",
+  "/dealers/paranaque-city",
+  "/dealers/pasay-city",
   "/dealers/san-fernando",
   "/dealers/angeles-city",
   "/dealers/cebu-city",
@@ -143,7 +151,7 @@ if (admin && !admin.headers.get("x-robots-tag")?.includes("noindex")) failures.p
 
 const sellersHub = await get("/sellers", 404);
 if (sellersHub && !sellersHub.headers.get("x-robots-tag")?.includes("noindex")) failures.push("/sellers: prototype 404 missing X-Robots-Tag noindex");
-for (const path of ["/sellers/demo-yamaha-dealer-a", "/dealers/quezon-city"]) await get(path, 404);
+await get("/sellers/demo-yamaha-dealer-a", 404);
 
 for (const path of ["/price-alerts", "/used-motorcycles"]) {
   const response = await get(path);
