@@ -4,6 +4,7 @@ import { observedMarketRange } from "@/lib/marketChecks";
 import type { SearchItem } from "@/lib/searchQuery";
 import { commuteGuides } from "@/lib/commute";
 import { maintenanceSeoTopics } from "@/lib/maintenanceSeo";
+import { globalModelExpansion2026 } from "@/lib/globalModelExpansion2026";
 export type { SearchItem } from "@/lib/searchQuery";
 
 export function getSearchItems(): SearchItem[] {
@@ -11,6 +12,13 @@ export function getSearchItems(): SearchItem[] {
   const models = verifiedModels.map(m=>({
     href:`/motorcycles/${m.makeSlug}/${m.slug}`,title:`${m.make} ${m.model}`,category:"Motorcycle",meta:`${m.category} · ${m.engineCc} cc · ${m.seatHeightMm} mm seat`,keywords:`${m.make} ${m.model} ${m.category} price specs tire size ${m.abs} ${m.transmission||""} fuel economy rider fit maintenance`,
     model:{make:m.make,category:m.category,engineCc:m.engineCc,pricePhp:observedMarketRange(m).from,seatHeightMm:m.seatHeightMm,curbWeightKg:m.curbWeightKg,transmission:m.transmission,abs:/\bABS\b/i.test(m.abs)&&!/^No ABS/i.test(m.abs),fuelConsumptionKmL:m.fuelConsumptionKmL}
+  }));
+  const globalModels = globalModelExpansion2026.map(m=>({
+    href:`/motorcycles/${m.makeSlug}/${m.slug}`,
+    title:`${m.make} ${m.model}`,
+    category:"Global motorcycle",
+    meta:`${m.category} · ${m.engineCc?`${m.engineCc} cc`:"Electric"} · ${m.seatHeightMm} mm seat · Global research`,
+    keywords:`${m.make} ${m.model} ${m.category} global specs horsepower weight seat height tire size ${m.abs} ${m.transmission||""}`
   }));
   const helmets = helmetProducts.filter(p=>p.status==="verified").map(p=>({href:`/gear/helmets/${p.brandSlug}/${p.slug}`,title:`${p.brand} ${p.model}`,category:"Helmet",meta:`${p.helmetType}${p.certification?` · ${p.certification}`:""}`,keywords:`${p.brand} ${p.model} ${p.helmetType} helmet price`}));
   const brands = helmetBrands.filter(b=>isIndexableHelmetBrand(b.slug)).map(b=>({href:`/gear/helmets/${b.slug}`,title:`${b.brand} helmets`,category:"Helmet brand",meta:b.positioning,keywords:`${b.brand} helmet helmets price philippines`}));
@@ -21,6 +29,7 @@ export function getSearchItems(): SearchItem[] {
   const tools: SearchItem[] = [
     ...(comparisons.some(c=>isIndexableComparison(c.slug))?[{href:"/compare",title:"Compare motorcycles",category:"Tool",meta:"Compare verified price, engine, weight, seat height, fuel and tires.",keywords:"compare motorcycles versus vs three way"}]:[]),
     {href:"/finder",title:"Motorcycle finder",category:"Tool",meta:"Filter by budget, rider fit, use case, seat height, weight, ABS and transmission.",keywords:"find motorcycle short rider inseam passenger highway traffic luggage"},
+    {href:"/motorcycles/global",title:"Global motorcycle research",category:"Motorcycle research",meta:"Browse globally searched models without mixing them into Philippine price, financing or dealer results.",keywords:"global motorcycles international motorcycle models specs research"},
     {href:"/ownership/cost-calculator",title:"Motorcycle total cost calculator",category:"Tool",meta:"Estimate purchase, financing, fuel, maintenance, insurance, registration, tires and resale.",keywords:"motorcycle monthly cost ownership calculator finance total cost"},
     {href:"/commute/cost-calculator",title:"Motorcycle commute cost calculator",category:"Tool",meta:"Estimate monthly fuel, maintenance reserve, parking and cost per commute day.",keywords:"commute traffic daily fuel cost work motorcycle philippines"},
     {href:"/commute/affordability",title:"Motorcycle affordability calculator",category:"Tool",meta:"Set your own monthly cap, running-cost reserve, down payment, APR and loan term.",keywords:"affordable motorcycle budget salary financing philippines"},
@@ -30,5 +39,5 @@ export function getSearchItems(): SearchItem[] {
     ...(verifiedModels.length?[{href:"/fitment",title:"Motorcycle fitment finder",category:"Tool",meta:"Start with a motorcycle and check tires and accessories.",keywords:"fitment tire top box accessories"}]:[]),
     {href:"/gear/helmets/brands",title:"Compare helmet brands",category:"Guide",meta:"Compare checked helmet brands, types and observed price ranges.",keywords:"helmet brands philippines best helmet brand"}
   ];
-  return [...models,...helmets,...brands,...guides,...commute,...maintenance,...accessories,...tools];
+  return [...models,...globalModels,...helmets,...brands,...guides,...commute,...maintenance,...accessories,...tools];
 }
