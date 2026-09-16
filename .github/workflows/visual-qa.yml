@@ -85,6 +85,11 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
         run: node scripts/hub-layout-qa.mjs
 
+      - name: Dealer acquisition and pricing QA
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: node scripts/dealer-commercial-qa.mjs
+
       - name: Helmet Finder and Compare QA
         env:
           BASE_URL: http://127.0.0.1:3000
