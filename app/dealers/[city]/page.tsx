@@ -36,6 +36,7 @@ export default async function DealerCityPage({params}:{params:Promise<{city:stri
   const cityName=list[0].city;
   const province=list[0].province;
   const brands=[...new Set(list.flatMap(s=>s.brands))].sort();
+  const joinHref={pathname:"/dealers/join",query:{city:cityName,...(province?{province}: {})}};
 
   return <section className="page shell">
     <Breadcrumbs items={[{label:"Dealers",href:"/dealers"},{label:cityName}]} />
@@ -50,6 +51,16 @@ export default async function DealerCityPage({params}:{params:Promise<{city:stri
       <div><strong>{brands.length}</strong><span>brand{brands.length===1?"":"s"} represented</span></div>
       <div><strong>{province||list[0].region}</strong><span>coverage area</span></div>
     </div>
+
+    <aside className="note-box dealer-listing-callout">
+      <span className="section-kicker">For motorcycle dealers</span>
+      <h2>Are you a motorcycle dealer in {cityName}?</h2>
+      <p>Get your branch listed on MotoIndex so riders can find your dealership while they compare motorcycles, prices and nearby branches. Approved listings can include your brands, address, phone number and a verified dealer profile.</p>
+      <div className="dealer-city-footer">
+        <Link className="button" href={joinHref}>Get listed on MotoIndex</Link>
+        <Link className="button secondary" href="/dealers/join">How dealer listings work</Link>
+      </div>
+    </aside>
 
     <div className="dealer-city-brands" aria-label={`Motorcycle brands represented in ${cityName}`}>
       <span>Brands in this directory</span>
@@ -74,6 +85,13 @@ export default async function DealerCityPage({params}:{params:Promise<{city:stri
         </div>
       </article>)}
     </div>
+
+    <aside className="note-box dealer-listing-callout">
+      <span className="section-kicker">Grow your local visibility</span>
+      <h2>Don&apos;t see your dealership in {cityName}?</h2>
+      <p>Apply for a verified MotoIndex dealer profile. We review branch evidence before publication, and approved dealers can become eligible for relevant buyer quote matches.</p>
+      <Link className="button" href={joinHref}>Add your dealership</Link>
+    </aside>
 
     <div className="dealer-city-footer">
       <Link className="button secondary" href="/dealers">Search all checked dealers</Link>
