@@ -57,15 +57,16 @@ export async function generateMetadata({ params }: { params: Promise<{ brand: st
 
 function helmetCompareRows(base: ReturnType<typeof getHelmetProduct>, other: NonNullable<ReturnType<typeof getHelmetProduct>>) {
   if (!base) return [];
-  return [
+  const rows: Array<readonly [string, string, string]> = [
     ["Type", base.helmetType, other.helmetType],
-    ["Starting price", base.priceFromPhp ? php(base.priceFromPhp) : "Check current listing", other.priceFromPhp ? php(other.priceFromPhp) : "Check current listing"],
-    ["Shell", base.shell || "Not listed", other.shell || "Not listed"],
-    ["Sizes", base.sizes.length ? base.sizes.join(" · ") : "Check source", other.sizes.length ? other.sizes.join(" · ") : "Check source"],
-    ["Visor", base.visor, other.visor],
-    ["Pinlock / anti-fog", base.pinlock || "Not separately recorded", other.pinlock || "Not separately recorded"],
-    ["Intercom provision", base.intercomReady ? "Listed" : "Not listed", other.intercomReady ? "Listed" : "Not listed"],
-  ] as const;
+    ["Starting price", base.priceFromPhp ? php(base.priceFromPhp) : "Price not verified yet", other.priceFromPhp ? php(other.priceFromPhp) : "Price not verified yet"],
+  ];
+  if (base.shell && other.shell) rows.push(["Shell", base.shell, other.shell]);
+  if (base.sizes.length && other.sizes.length) rows.push(["Sizes", base.sizes.join(" · "), other.sizes.join(" · ")]);
+  rows.push(["Visor", base.visor, other.visor]);
+  if (base.pinlock && other.pinlock) rows.push(["Pinlock / anti-fog", base.pinlock, other.pinlock]);
+  if (base.intercomReady && other.intercomReady) rows.push(["Intercom provision", "Listed", "Listed"]);
+  return rows;
 }
 
 export default async function HelmetProductPage({ params }: { params: Promise<{ brand: string; product: string }> }) {
@@ -103,16 +104,16 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
         <p>{p.description}</p>
         <div className="product-facts helmet-product-facts">
           <div><span>Helmet type</span><strong>{p.helmetType}</strong></div>
-          <div><span>Starting price</span><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Check current listing"}</strong></div>
-          <div><span>Sizes listed</span><strong>{p.sizes.length ? p.sizes.join(" · ") : "Check current source"}</strong></div>
-          <div><span>Shell</span><strong>{p.shell || "Not listed"}</strong></div>
+          <div><span>Starting price</span><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong></div>
+          {p.sizes.length > 0 && <div><span>Sizes listed</span><strong>{p.sizes.join(" · ")}</strong></div>}
+          {p.shell && <div><span>Shell</span><strong>{p.shell}</strong></div>}
         </div>
         <div className={`source-panel ${p.status}`}>
           <span>{p.status === "verified" ? "Product details" : "Needs checking"}</span>
           <p>{p.sourceLabel}</p>
           {p.sourceUrl && <SourceRef url={p.sourceUrl} label="Manufacturer/spec source" />}
           {p.priceSourceUrl && p.priceSourceUrl !== p.sourceUrl && <SourceRef url={p.priceSourceUrl} label="Price source" />}
-          <small>Updated {p.lastChecked || "date pending"}</small>
+          {p.lastChecked && <small>Updated {p.lastChecked}</small>}
         </div>
       </div>
       <EntityMedia entityType="helmet" entityId={p.id} fallback={<div className="product-hero-card"><span>Helmet</span><strong>H</strong><div><small>{p.brand}</small><h2>{p.model}</h2></div></div>} />
@@ -132,9 +133,9 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     <section id="price" className="product-entity-section">
       <div className="section-head compact"><div><h2>{p.brand} {p.model} price in the Philippines</h2><p>Use the dated amount as a reference, then check the current seller for the exact size, graphic, bundle and stock.</p></div></div>
       <div className="entity-price-grid">
-        <article><span>Starting price reference</span><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "No reliable PH price recorded"}</strong><small>{p.lastChecked ? `Updated ${p.lastChecked}` : "Current price check needed"}</small></article>
-        <article><span>Availability</span><strong>{p.stockStatus || "Check current seller"}</strong><small>Stock can differ by size and graphic.</small></article>
-        <article><span>Variants / colors</span><strong>{p.colors?.length ? p.colors.join(" · ") : p.variants?.length ? p.variants.join(" · ") : "Varies by current seller"}</strong><small>Do not assume every graphic is available in every size.</small></article>
+        <article><span>Starting price reference</span><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong>{p.lastChecked && <small>Updated {p.lastChecked}</small>}</article>
+        {p.stockStatus && <article><span>Availability</span><strong>{p.stockStatus}</strong><small>Stock can differ by size and graphic.</small></article>}
+        {(p.colors?.length || p.variants?.length) ? <article><span>Variants / colors</span><strong>{p.colors?.length ? p.colors.join(" · ") : p.variants?.join(" · ")}</strong><small>Do not assume every graphic is available in every size.</small></article> : null}
       </div>
       <CommercePriceComparison entityType="helmet" entityId={p.id} productName={`${p.brand} ${p.model}`} />
     </section>
@@ -143,16 +144,16 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
       <div className="section-head compact"><div><h2>{p.brand} {p.model} specifications</h2></div></div>
       <div className="entity-spec-table" role="table" aria-label={`${p.brand} ${p.model} helmet specifications`}>
         <div role="row"><span role="cell">Helmet type</span><strong role="cell">{p.helmetType}</strong></div>
-        <div role="row"><span role="cell">Shell / material</span><strong role="cell">{p.shell || "Not listed in the checked source"}</strong></div>
-        <div role="row"><span role="cell">Weight</span><strong role="cell">{p.weightG ? `${p.weightG.toLocaleString("en-PH")} g` : "No reliable model-specific weight recorded"}</strong></div>
-        <div role="row"><span role="cell">Safety certification</span><strong role="cell">{p.certification || "Check the exact local unit"}</strong></div>
-        <div role="row"><span role="cell">Intercom / speaker provision</span><strong role="cell">{p.intercomReady ? "Listed for this model" : "Not listed; check speaker and clamp clearance"}</strong></div>
+        {p.shell && <div role="row"><span role="cell">Shell / material</span><strong role="cell">{p.shell}</strong></div>}
+        {p.weightG && <div role="row"><span role="cell">Weight</span><strong role="cell">{p.weightG.toLocaleString("en-PH")} g</strong></div>}
+        {p.certification && <div role="row"><span role="cell">Safety certification</span><strong role="cell">{p.certification}</strong></div>}
+        {p.intercomReady && <div role="row"><span role="cell">Intercom / speaker provision</span><strong role="cell">Listed for this model</strong></div>}
       </div>
     </section>
 
     <section id="size" className="product-entity-section">
       <div className="section-head compact"><div><h2>{p.brand} {p.model} size chart and fit</h2><p>Helmet fit is model-specific. Start with the manufacturer chart, then confirm pressure points and stability on your own head shape.</p></div></div>
-      {p.sizeChart?.length ? <div className="entity-size-table">{p.sizeChart.map((row) => <div key={row.size}><strong>{row.size}</strong><span>{row.headCm} cm head circumference</span></div>)}</div> : <div className="size-chips">{p.sizes.length ? p.sizes.map((size) => <span key={size}>{size}</span>) : <span>Current size list not recorded</span>}</div>}
+      {p.sizeChart?.length ? <div className="entity-size-table">{p.sizeChart.map((row) => <div key={row.size}><strong>{row.size}</strong><span>{row.headCm} cm head circumference</span></div>)}</div> : p.sizes.length ? <div className="size-chips">{p.sizes.map((size) => <span key={size}>{size}</span>)}</div> : <div className="note-box compact-note"><h3>Size chart not verified yet</h3><p>Use the manufacturer&apos;s current size chart and measure your head before ordering.</p></div>}
       <div className="note-box compact-note"><h3>Before choosing a size</h3><p>Measure around the widest part of your head using the method shown by the helmet maker. A size letter from another helmet is not a reliable shortcut.</p></div>
     </section>
 
@@ -160,9 +161,10 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
       <div className="section-head compact"><div><h2>Visor, Pinlock and replacement parts</h2></div></div>
       <div className="entity-spec-table">
         <div><span>Visor setup</span><strong>{p.visor}</strong></div>
-        <div><span>Pinlock / anti-fog</span><strong>{p.pinlock || "No separate model-specific record beyond the visor information"}</strong></div>
-        <div><span>Replacement visor</span><strong>{p.replacementVisors?.length ? p.replacementVisors.join(" · ") : "Match the replacement visor to the exact model and visor code before ordering"}</strong></div>
+        {p.pinlock && <div><span>Pinlock / anti-fog</span><strong>{p.pinlock}</strong></div>}
+        {p.replacementVisors?.length ? <div><span>Replacement visor</span><strong>{p.replacementVisors.join(" · ")}</strong></div> : null}
       </div>
+      {!p.replacementVisors?.length && <div className="note-box compact-note"><h3>Replacement visor check</h3><p>Match the visor to the exact helmet model and visor code before ordering.</p></div>}
     </section>
 
     <section id="pros-cons" className="product-entity-section">
