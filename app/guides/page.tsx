@@ -27,6 +27,13 @@ export default function GuidesPage() {
       <article><h2>Research electric motorcycles</h2><p>Compare current electric models, batteries, range, charging and Philippine registration context.</p><div className="topic-action"><Link href="/motorcycles/electric">Open electric research →</Link></div></article>
     </div>
 
+    <div className="section-head compact"><div><span className="section-kicker">MotoIndex data research</span><h2>Compare the underlying motorcycle data</h2><p>Use source-led datasets when you need a market-wide view before narrowing to individual model pages.</p></div><Link href="/research">Open research hub →</Link></div>
+    <div className="topic-grid">
+      <article><h2>Philippine motorcycle price index</h2><p>Compare current published starting prices, median price and budget bands across the public MotoIndex catalog.</p><div className="topic-action"><Link href="/research/motorcycle-price-index-philippines">Explore price data →</Link></div></article>
+      <article><h2>Seat-height database</h2><p>Sort current motorcycles by published seat height and compare curb weight, category and price.</p><div className="topic-action"><Link href="/research/motorcycle-seat-height-database">Explore seat heights →</Link></div></article>
+      <article><h2>Down payment & monthly index</h2><p>Apply one financing scenario across current motorcycle prices, then adjust any model in the full loan calculator.</p><div className="topic-action"><Link href="/research/motorcycle-financing-index-philippines">Explore financing data →</Link></div></article>
+    </div>
+
     <div className="section-head inline-head"><div><span className="section-kicker">Published research</span><h2>Detailed MotoIndex guides</h2><p>Use these when you need a focused answer beyond the main buying and ownership tools.</p></div></div>
     <div className="guide-grid">{editorialGuides.map((guide) => <Link className="guide-card" key={guide.slug} href={`/guides/${guide.slug}`}><div style={{marginBottom:16}}><GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} compact /></div><span className="section-kicker">{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><strong className="guide-action">Read guide →</strong></Link>)}</div>
   </section>;
