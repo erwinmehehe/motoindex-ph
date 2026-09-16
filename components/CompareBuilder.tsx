@@ -30,7 +30,7 @@ export function CompareBuilder({ models }: { models: Motorcycle[] }) {
   function goThree(){if(!ready3||!a||!b||!c)return;trackEvent("compare_build",{count:3,a:a.id,b:b.id,c:c.id});openSelection([a,b,c])}
 
   return <div className="compare-builder">
-    <div className="compare-builder-head"><div><h2>Choose the motorcycles to compare</h2><p>Select two models first. Add a third only when you want a three-way comparison.</p></div><span className="compare-count">{options.length} current models</span></div>
+    <div className="compare-builder-head"><div><h2>Choose motorcycles to compare</h2><p>Select two Philippine-market motorcycles, then add a third if you want a three-way comparison.</p></div><span className="compare-count">{options.length} current models</span></div>
     <div className="compare-picker-grid three-picker">
       {picker("Motorcycle A",aSlug,setASlug,[bSlug,cSlug])}
       <div className="compare-vs">VS</div>

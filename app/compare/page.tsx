@@ -14,7 +14,12 @@ const publicComparisons=comparisons.filter(c=>isIndexableComparison(c.slug));
 const featuredComparisons=publicComparisons.slice(0,6);
 const remainingComparisons=publicComparisons.slice(6);
 export const dynamic="force-static";
-export const metadata: Metadata = pageMetadata({ title: "Compare Motorcycles Philippines", description: "Compare two or three current Philippine motorcycles for market price, engine, weight, seat height, fuel tank, tires and brakes.", path: "/compare", index: compareModels.length>=2 });
+export const metadata: Metadata = pageMetadata({
+  title: "Motorcycle Comparison Philippines | Compare Bikes",
+  description: "Compare motorcycles in the Philippines side by side by price, engine, weight, seat height, fuel tank, tires and brakes. Compare 2 or 3 bikes before buying.",
+  path: "/compare",
+  index: compareModels.length>=2
+});
 
 function ComparisonLink({ slug, summary }: { slug: string; summary: string }) {
   const data=getComparison(slug);
@@ -37,8 +42,8 @@ export default function CompareIndex(){
   return <section className={styles.page}>
     <div className={styles.head}>
       <span className="entity-kicker">{siteStats.currentMotorcycles} current models</span>
-      <h1>Compare motorcycles side by side.</h1>
-      <p>Choose two or three current motorcycles and compare prices, engine, rider fit, fuel, tires and braking from the same model records used across MotoIndex.</p>
+      <h1>Motorcycle Comparison Philippines: Compare Bikes Side by Side</h1>
+      <p>Compare 2 or 3 motorcycles in the Philippines side by side. Check published price, engine, weight, seat height, fuel tank, tires, brakes and rider-fit details before you shortlist a bike.</p>
     </div>
 
     <div className={styles.workspace}>
@@ -46,7 +51,7 @@ export default function CompareIndex(){
     </div>
 
     {featuredComparisons.length>0&&<section className={styles.popular}>
-      <div className={styles.popularHead}><div><span>Popular comparisons</span><h2>Start with a common pair</h2><p>Choose a proven cross-shop pair, then open the full side-by-side decision view.</p></div></div>
+      <div className={styles.popularHead}><div><span>Motorcycle comparison Philippines</span><h2>Popular motorcycle comparisons in the Philippines</h2><p>Start with common model-vs-model searches, then compare the bikes by price, engine performance, rider fit, weight, tires and braking in the full side-by-side view.</p></div></div>
       <div className={styles.popularList}>{featuredComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div>
       {remainingComparisons.length>0&&<details className="compare-more-pairs"><summary>View all comparisons ({publicComparisons.length})</summary><div className={styles.popularList}>{remainingComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div></details>}
     </section>}
