@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AuthorBox } from "@/components/AuthorBox";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection } from "@/components/FaqSection";
+import { GuideFeaturedArt } from "@/components/GuideFeaturedArt";
 import { JsonLd } from "@/components/JsonLd";
 import { RelatedLinks } from "@/components/RelatedLinks";
 import { SourceRef } from "@/components/SourceRef";
@@ -73,10 +73,10 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
       </p>
     </header>
 
-    {guideMedia && <figure className="info-card guide-hero-media">
-      <Image src={guideMedia.image} alt={guideMedia.alt} width={1200} height={630} priority sizes="(max-width: 900px) 100vw, 1120px" />
-      <figcaption><small>{guideMedia.caption}</small></figcaption>
-    </figure>}
+    <figure className="info-card guide-hero-media">
+      <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} />
+      {guideMedia?.caption && <figcaption><small>{guideMedia.caption}</small></figcaption>}
+    </figure>
 
     <section className="split section" aria-labelledby="guide-at-a-glance">
       <div>
