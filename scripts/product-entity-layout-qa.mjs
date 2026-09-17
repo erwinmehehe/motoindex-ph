@@ -14,7 +14,7 @@ function catalogBlock(startMarker, endMarker) {
   return catalogSource.slice(start, end > start ? end : undefined);
 }
 
-function representativeRoutes(block, type) {
+function representativeHelmetRoutes(block) {
   const pattern = /\{\s*id:"[^"]+"\s*,\s*brand:"([^"]+)"\s*,\s*brandSlug:"([^"]+)"\s*,\s*model:"([^"]+)"\s*,\s*slug:"([^"]+)"/g;
   const seen = new Set();
   const routes = [];
@@ -23,8 +23,27 @@ function representativeRoutes(block, type) {
     if (seen.has(brandSlug)) continue;
     seen.add(brandSlug);
     routes.push({
-      key: `${type}-${brandSlug}-${slug}`.replace(/[^a-z0-9-]+/gi, "-").toLowerCase(),
-      path: type === "helmet" ? `/gear/helmets/${brandSlug}/${slug}` : `/accessories/top-box/${slug}`,
+      key: `helmet-${brandSlug}-${slug}`.replace(/[^a-z0-9-]+/gi, "-").toLowerCase(),
+      path: `/gear/helmets/${brandSlug}/${slug}`,
+      brand,
+      model,
+    });
+  }
+  return routes;
+}
+
+function representativeTopBoxRoutes(block) {
+  const recordPattern = /\{\s*id:"[^"]+"[^}]*?brand:"([^"]+)"[^}]*?model:"([^"]+)"[^}]*?slug:"([^"]+)"/gs;
+  const seen = new Set();
+  const routes = [];
+  for (const match of block.matchAll(recordPattern)) {
+    const [, brand, model, slug] = match;
+    const brandKey = brand.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    if (seen.has(brandKey)) continue;
+    seen.add(brandKey);
+    routes.push({
+      key: `topbox-${brandKey}-${slug}`.replace(/[^a-z0-9-]+/gi, "-").toLowerCase(),
+      path: `/accessories/top-box/${slug}`,
       brand,
       model,
     });
@@ -37,8 +56,8 @@ const exactRegressionRoutes = [
   { key: "helmet-spyder-surge", path: "/gear/helmets/spyder/surge-plain-v2" },
   { key: "topbox-givi-v58", path: "/accessories/top-box/v58-maxia-5" },
 ];
-const helmetBrandRoutes = representativeRoutes(catalogBlock("export const helmetProducts", "export const tireProducts"), "helmet");
-const topBoxBrandRoutes = representativeRoutes(catalogBlock("export const topBoxProducts"), "topbox");
+const helmetBrandRoutes = representativeHelmetRoutes(catalogBlock("export const helmetProducts", "export const tireProducts"));
+const topBoxBrandRoutes = representativeTopBoxRoutes(catalogBlock("export const topBoxProducts"));
 const routes = [...new Map([...exactRegressionRoutes, ...helmetBrandRoutes, ...topBoxBrandRoutes].map(route => [route.path, route])).values()];
 
 const outputDir = path.join(process.cwd(), "artifacts", "visual-qa");
@@ -121,7 +140,7 @@ try {
   async function screenshot(name, width) {
     const metrics = await client.send("Page.getLayoutMetrics");
     const content = metrics.cssContentSize || metrics.contentSize;
-    const image = await client.send("Page.captureScreenshot", { format: "png", fromSurface: true, captureBeyondViewport: true, clip: { x: 0, y: 0, width: Math.ceil(content.width), height: Math.ceil(content.height), scale: 1 } });
+    const image = await client.send("Page.captureScreenshot", { format: "png", fromSurface: true, captureBeyondViewport: true, clip: { x: 0, y: 0, width: Math.ceil(content.width), height: Math.min(Math.ceil(content.height), 12000), scale: 1 } });
     fs.writeFileSync(path.join(outputDir, `product-entity-${width}-${name}.png`), Buffer.from(image.data, "base64"));
   }
 
@@ -132,14 +151,17 @@ try {
       const state = await evalJs(client.send, `(()=>{
         const root=document.documentElement;
         const page=document.querySelector('.product-entity-page');
-        const hero=document.querySelector('.product-hero');
-        const heading=hero?.querySelector('h1');
-        const lede=hero?.querySelector(':scope > div:first-child > p');
-        const media=hero?.querySelector(':scope > .entity-media');
+        const hero=document.querySelector('.product-detail-hero');
+        const summary=hero?.querySelector('.product-detail-summary');
+        const heading=summary?.querySelector('h1');
+        const lede=summary?.querySelector('.product-detail-lede');
+        const media=hero?.querySelector('.product-detail-media > .entity-media');
         const fallback=media?.querySelector('.product-hero-card');
-        const facts=hero?.querySelector('.product-facts');
+        const image=media?.querySelector('img');
+        const facts=summary?.querySelector('.product-detail-facts');
         const factEls=facts?[...facts.children]:[];
-        const source=hero?.querySelector('.source-panel');
+        const trust=summary?.querySelector('.product-trust-row');
+        const nav=document.querySelector('.product-entity-nav');
         const sections=[...document.querySelectorAll('.product-entity-section')];
         const sectionHeading=sections[0]?.querySelector('h2');
         const spec=document.querySelector('.entity-spec-table');
@@ -149,38 +171,42 @@ try {
         const compareRow=document.querySelector('.mini-compare-table > div:not(.head)');
         const r=el=>{if(!el)return null;const rect=el.getBoundingClientRect();return {left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom,width:rect.width,height:rect.height};};
         const px=el=>el?parseFloat(getComputedStyle(el).fontSize)||0:0;
+        const objectFit=image?getComputedStyle(image).objectFit:'';
         return {
           title:heading?.textContent?.trim()||'', overflow:root.scrollWidth-root.clientWidth,
-          page:r(page), hero:r(hero), heading:r(heading), lede:r(lede), media:r(media), fallback:r(fallback), facts:r(facts), source:r(source), spec:r(spec),
+          page:r(page), hero:r(hero), summary:r(summary), heading:r(heading), lede:r(lede), media:r(media), fallback:r(fallback), image:r(image), facts:r(facts), trust:r(trust), nav:r(nav), spec:r(spec),
           heroDisplay:hero?getComputedStyle(hero).display:'', heroColumns:hero?getComputedStyle(hero).gridTemplateColumns:'',
           headingSize:px(heading), sectionHeadingSize:px(sectionHeading), specLabelSize:px(specLabel),
-          mediaRadius:media?parseFloat(getComputedStyle(media).borderRadius)||0:0,
+          mediaRadius:media?parseFloat(getComputedStyle(media).borderRadius)||0:0, objectFit,
           factsDisplay:facts?getComputedStyle(facts).display:'', factWidths:factEls.slice(0,6).map(el=>Math.round(r(el).width)),
           sectionWidths:sections.slice(0,8).map(el=>Math.round(r(el).width)),
           compareDisplay:compareRow?getComputedStyle(compareRow).display:'',
           compareColumns:compareRow?getComputedStyle(compareRow).gridTemplateColumns:'',
-          mediaImage:r(media?.querySelector('img')), bodyWidth:Math.round(document.body.getBoundingClientRect().width),
           editorial:r(editorial), priceGrid:r(priceGrid)
         };
       })()`);
       results.push({ width, route: route.path, ...state });
 
       const mobile = width <= 430;
-      if (!state?.title) failures.push(`${width}px ${route.key}: H1 missing`);
+      if (!state?.title) failures.push(`${width}px ${route.key}: redesigned H1 missing`);
       if ((state?.overflow || 0) > 5) failures.push(`${width}px ${route.key}: horizontal overflow ${state.overflow}px`);
-      if (state?.heroDisplay !== "grid") failures.push(`${width}px ${route.key}: product hero is ${state?.heroDisplay || "missing"}, expected grid`);
-      if (!state?.media || !state?.heading || !state?.lede) failures.push(`${width}px ${route.key}: hero content/media missing`);
-      if ((state?.headingSize || 0) < (mobile ? 37 : 40)) failures.push(`${width}px ${route.key}: H1 typography is too small (${state?.headingSize || 0}px)`);
-      if ((state?.mediaRadius || 0) < 17) failures.push(`${width}px ${route.key}: media stage lost motorcycle-detail radius (${state?.mediaRadius || 0}px)`);
+      if (state?.heroDisplay !== "grid") failures.push(`${width}px ${route.key}: product detail hero is ${state?.heroDisplay || "missing"}, expected grid`);
+      if (!state?.media || !state?.summary || !state?.heading || !state?.lede) failures.push(`${width}px ${route.key}: redesigned hero content/media missing`);
+      if (!state?.trust) failures.push(`${width}px ${route.key}: compact product trust row missing`);
+      if (!state?.nav) failures.push(`${width}px ${route.key}: product section navigation missing`);
+      if ((state?.headingSize || 0) < (mobile ? 34 : 40)) failures.push(`${width}px ${route.key}: H1 typography is too small (${state?.headingSize || 0}px)`);
+      if ((state?.mediaRadius || 0) < 17) failures.push(`${width}px ${route.key}: media stage radius regressed (${state?.mediaRadius || 0}px)`);
       if ((state?.media?.width || 0) < (mobile ? 330 : 400)) failures.push(`${width}px ${route.key}: hero media collapsed to ${Math.round(state?.media?.width || 0)}px`);
-      if (mobile && state?.lede && state?.media && state.media.top < state.lede.bottom) failures.push(`${width}px ${route.key}: hero did not stack cleanly on mobile`);
-      if (state?.factsDisplay !== "grid" || !state?.factWidths?.length) failures.push(`${width}px ${route.key}: product fact strip missing`);
-      if (state?.factWidths?.some(value => value < (mobile ? 150 : 180))) failures.push(`${width}px ${route.key}: product fact collapsed (${state.factWidths.join(', ')}px)`);
+      if (mobile && state?.summary && state?.media && state.summary.top < state.media.bottom - 2) failures.push(`${width}px ${route.key}: product summary overlaps the media stage on mobile`);
+      if (!mobile && state?.summary && state?.media && state.summary.left < state.media.right - 2) failures.push(`${width}px ${route.key}: product summary overlaps the media stage on desktop`);
+      if (state?.factsDisplay !== "grid" || !state?.factWidths?.length) failures.push(`${width}px ${route.key}: 2x2 product facts grid missing`);
+      if (state?.factWidths?.some(value => value < (mobile ? 145 : 150))) failures.push(`${width}px ${route.key}: product fact collapsed (${state.factWidths.join(', ')}px)`);
       if (!state?.sectionWidths?.length || state.sectionWidths.some(value => value < (mobile ? 330 : 900))) failures.push(`${width}px ${route.key}: product section collapsed (${state?.sectionWidths?.join(', ') || 'missing'}px)`);
-      if ((state?.sectionHeadingSize || 0) < 26) failures.push(`${width}px ${route.key}: section heading hierarchy too small (${state?.sectionHeadingSize || 0}px)`);
+      if ((state?.sectionHeadingSize || 0) < 24) failures.push(`${width}px ${route.key}: section heading hierarchy too small (${state?.sectionHeadingSize || 0}px)`);
       if (state?.spec && (state?.specLabelSize || 0) < 10) failures.push(`${width}px ${route.key}: spec labels are unreadably small (${state?.specLabelSize || 0}px)`);
       if (state?.compareDisplay && state.compareDisplay !== "grid") failures.push(`${width}px ${route.key}: comparison row is ${state.compareDisplay}, expected grid`);
-      if (state?.mediaImage && state?.media && (state.mediaImage.width > state.media.width + 2 || state.mediaImage.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: hero image exceeds media stage`);
+      if (state?.objectFit && state.objectFit !== "contain") failures.push(`${width}px ${route.key}: product image uses ${state.objectFit}, expected contain`);
+      if (state?.image && state?.media && (state.image.width > state.media.width + 2 || state.image.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: hero image exceeds media stage`);
       if (state?.fallback && state?.media && (state.fallback.width > state.media.width + 2 || state.fallback.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: placeholder exceeds media stage`);
       await screenshot(route.key, width);
     }
