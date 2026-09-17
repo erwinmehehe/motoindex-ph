@@ -22,9 +22,16 @@ export function EntityMedia({ entityType, entityId, fallback, className, priorit
   const credit = asset.sourceLabel || asset.rightsHolder;
   const shouldShowCredit = showCredit ?? (entityType === "motorcycle" && priority);
   const useContainedStage = entityType === "helmet" || entityType === "topbox";
-  const image=<SafeEntityImage src={asset.src} fallbackSrc={isCompetitorSource(asset.sourceImageUrl) ? undefined : asset.sourceImageUrl} alt={asset.alt} width={asset.width} height={asset.height} sizes={sizes} priority={priority} unoptimized={asset.src.endsWith(".svg")} fill={useContainedStage} />;
+  const image=<SafeEntityImage src={asset.src} fallbackSrc={isCompetitorSource(asset.sourceImageUrl) ? undefined : asset.sourceImageUrl} alt={asset.alt} width={asset.width} height={asset.height} sizes={sizes} priority={priority} unoptimized={asset.src.endsWith(".svg")} contained={useContainedStage} />;
   const mediaClass = `${className || "entity-media"}${useContainedStage ? " entity-media-contained" : ""}`;
-  return <div className={mediaClass}>
+  const mediaStyle = useContainedStage ? {
+    position: "relative" as const,
+    width: "100%",
+    height: "clamp(245px, 28vw, 330px)",
+    maxHeight: "330px",
+    overflow: "hidden" as const,
+  } : undefined;
+  return <div className={mediaClass} style={mediaStyle}>
     {linkHref?<Link className="entity-media-link" href={linkHref} aria-label={`View ${asset.alt}`}>{image}</Link>:image}
     {shouldShowCredit&&<small className="entity-media-credit"><SourceRef url={asset.sourceUrl} label={`Image: ${credit}`} />{asset.src.startsWith("/") && asset.sourceImageUrl ? " · locally served with source provenance" : asset.rightsStatus === "external-reference" ? " · external reference" : ` · ${asset.rightsStatus}`}</small>}
   </div>;
