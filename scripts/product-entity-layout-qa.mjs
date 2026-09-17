@@ -5,11 +5,42 @@ import { spawn, spawnSync } from "node:child_process";
 
 const base = new URL(process.env.BASE_URL || "http://127.0.0.1:3000");
 const widths = [390, 1440];
-const routes = [
+const catalogSource = fs.readFileSync(path.join(process.cwd(), "lib", "catalog.ts"), "utf8");
+
+function catalogBlock(startMarker, endMarker) {
+  const start = catalogSource.indexOf(startMarker);
+  if (start < 0) return "";
+  const end = endMarker ? catalogSource.indexOf(endMarker, start) : -1;
+  return catalogSource.slice(start, end > start ? end : undefined);
+}
+
+function representativeRoutes(block, type) {
+  const pattern = /\{\s*id:"[^"]+"\s*,\s*brand:"([^"]+)"\s*,\s*brandSlug:"([^"]+)"\s*,\s*model:"([^"]+)"\s*,\s*slug:"([^"]+)"/g;
+  const seen = new Set();
+  const routes = [];
+  for (const match of block.matchAll(pattern)) {
+    const [, brand, brandSlug, model, slug] = match;
+    if (seen.has(brandSlug)) continue;
+    seen.add(brandSlug);
+    routes.push({
+      key: `${type}-${brandSlug}-${slug}`.replace(/[^a-z0-9-]+/gi, "-").toLowerCase(),
+      path: type === "helmet" ? `/gear/helmets/${brandSlug}/${slug}` : `/accessories/top-box/${slug}`,
+      brand,
+      model,
+    });
+  }
+  return routes;
+}
+
+const exactRegressionRoutes = [
   { key: "helmet-gille-kerena", path: "/gear/helmets/gille/kerena-ff007" },
   { key: "helmet-spyder-surge", path: "/gear/helmets/spyder/surge-plain-v2" },
-  { key: "topbox-givi-v58", path: "/accessories/top-box/v58-maxia-5" }
+  { key: "topbox-givi-v58", path: "/accessories/top-box/v58-maxia-5" },
 ];
+const helmetBrandRoutes = representativeRoutes(catalogBlock("export const helmetProducts", "export const tireProducts"), "helmet");
+const topBoxBrandRoutes = representativeRoutes(catalogBlock("export const topBoxProducts"), "topbox");
+const routes = [...new Map([...exactRegressionRoutes, ...helmetBrandRoutes, ...topBoxBrandRoutes].map(route => [route.path, route])).values()];
+
 const outputDir = path.join(process.cwd(), "artifacts", "visual-qa");
 fs.mkdirSync(outputDir, { recursive: true });
 
@@ -160,9 +191,9 @@ try {
   try { fs.rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 }); } catch (error) { if (error?.code !== "ENOTEMPTY") throw error; }
 }
 
-fs.writeFileSync(path.join(outputDir, "product-entity-layout-report.json"), JSON.stringify({ results, failures }, null, 2));
+fs.writeFileSync(path.join(outputDir, "product-entity-layout-report.json"), JSON.stringify({ routes: routes.map(({ key, path, brand, model }) => ({ key, path, brand, model })), results, failures }, null, 2));
 if (failures.length) {
   console.error(`Product entity layout QA failed:\n${failures.map(item => `- ${item}`).join("\n")}`);
   process.exit(1);
 }
-console.log(`Product entity layout QA passed: ${results.length} helmet/top-box route and viewport checks.`);
+console.log(`Product entity layout QA passed: ${results.length} checks across ${helmetBrandRoutes.length} helmet brands and ${topBoxBrandRoutes.length} top-box brands.`);
