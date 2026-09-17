@@ -136,6 +136,7 @@ try {
         const heading=hero?.querySelector('h1');
         const lede=hero?.querySelector(':scope > div:first-child > p');
         const media=hero?.querySelector(':scope > .entity-media');
+        const mediaImage=media?.querySelector('img');
         const facts=hero?.querySelector('.product-facts');
         const factEls=facts?[...facts.children]:[];
         const source=hero?.querySelector('.source-panel');
@@ -154,11 +155,13 @@ try {
           heroDisplay:hero?getComputedStyle(hero).display:'', heroColumns:hero?getComputedStyle(hero).gridTemplateColumns:'',
           headingSize:px(heading), sectionHeadingSize:px(sectionHeading), specLabelSize:px(specLabel),
           mediaRadius:media?parseFloat(getComputedStyle(media).borderRadius)||0:0,
+          mediaPosition:media?getComputedStyle(media).position:'',
+          mediaImagePosition:mediaImage?getComputedStyle(mediaImage).position:'',
           factsDisplay:facts?getComputedStyle(facts).display:'', factWidths:factEls.slice(0,6).map(el=>Math.round(r(el).width)),
           sectionWidths:sections.slice(0,8).map(el=>Math.round(r(el).width)),
           compareDisplay:compareRow?getComputedStyle(compareRow).display:'',
           compareColumns:compareRow?getComputedStyle(compareRow).gridTemplateColumns:'',
-          mediaImage:r(media?.querySelector('img')), bodyWidth:Math.round(document.body.getBoundingClientRect().width),
+          mediaImage:r(mediaImage), bodyWidth:Math.round(document.body.getBoundingClientRect().width),
           editorial:r(editorial), priceGrid:r(priceGrid)
         };
       })()`);
@@ -172,6 +175,8 @@ try {
       if ((state?.headingSize || 0) < (mobile ? 37 : 40)) failures.push(`${width}px ${route.key}: H1 typography is too small (${state?.headingSize || 0}px)`);
       if ((state?.mediaRadius || 0) < 17) failures.push(`${width}px ${route.key}: media stage lost motorcycle-detail radius (${state?.mediaRadius || 0}px)`);
       if ((state?.media?.width || 0) < (mobile ? 330 : 400)) failures.push(`${width}px ${route.key}: hero media collapsed to ${Math.round(state?.media?.width || 0)}px`);
+      if ((state?.media?.height || 0) > (mobile ? 270 : 350)) failures.push(`${width}px ${route.key}: hero media stage is oversized at ${Math.round(state?.media?.height || 0)}px tall`);
+      if (state?.mediaImagePosition === "absolute") failures.push(`${width}px ${route.key}: hero image reverted to absolute fill positioning`);
       if (mobile && state?.lede && state?.media && state.media.top < state.lede.bottom) failures.push(`${width}px ${route.key}: hero did not stack cleanly on mobile`);
       if (state?.factsDisplay !== "grid" || !state?.factWidths?.length) failures.push(`${width}px ${route.key}: product fact strip missing`);
       if (state?.factWidths?.some(value => value < (mobile ? 150 : 180))) failures.push(`${width}px ${route.key}: product fact collapsed (${state.factWidths.join(', ')}px)`);
