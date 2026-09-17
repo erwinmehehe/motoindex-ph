@@ -18,7 +18,7 @@ export function ProductHero({ media, eyebrow, title, description, price, priceNo
     <div className="product-detail-summary">
       {eyebrow && <div className="product-detail-eyebrow">{eyebrow}</div>}
       <h1>{title}</h1>
-      <div className="product-detail-description">{description}</div>
+      <div className="product-detail-description product-detail-lede">{description}</div>
       {price && <div className="product-detail-price-block">
         <strong className="product-detail-price">{price}</strong>
         {priceNote && <small>{priceNote}</small>}
