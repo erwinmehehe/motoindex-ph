@@ -6,7 +6,7 @@ export type ProductFact = {
 };
 
 export function ProductFactsGrid({ facts }: { facts: ProductFact[] }) {
-  return <div className="product-facts-grid">
+  return <div className="product-facts-grid product-detail-facts">
     {facts.map((fact) => <div className="product-fact" key={fact.label}>
       <span>{fact.label}</span>
       <strong>{fact.value}</strong>
