@@ -22,7 +22,7 @@ export function EntityMedia({ entityType, entityId, fallback, className, priorit
   const credit = asset.sourceLabel || asset.rightsHolder;
   const shouldShowCredit = showCredit ?? (entityType === "motorcycle" && priority);
   const useContainedStage = entityType === "helmet" || entityType === "topbox";
-  const image=<SafeEntityImage src={asset.src} fallbackSrc={isCompetitorSource(asset.sourceImageUrl) ? undefined : asset.sourceImageUrl} alt={asset.alt} width={asset.width} height={asset.height} sizes={sizes} priority={priority} unoptimized={asset.src.endsWith(".svg")} contained={useContainedStage} />;
+  const image=<SafeEntityImage src={asset.src} fallbackSrc={isCompetitorSource(asset.sourceImageUrl) ? undefined : asset.sourceImageUrl} alt={asset.alt} width={asset.width} height={asset.height} sizes={sizes} priority={priority} unoptimized={asset.src.endsWith(".svg")} fill={useContainedStage} />;
   const mediaClass = `${className || "entity-media"}${useContainedStage ? " entity-media-contained" : ""}`;
   const mediaStyle = useContainedStage ? {
     position: "relative" as const,
