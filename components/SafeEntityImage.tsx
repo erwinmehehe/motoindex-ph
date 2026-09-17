@@ -11,9 +11,10 @@ type Props = {
   sizes: string;
   priority?: boolean;
   unoptimized?: boolean;
+  fill?: boolean;
 };
 
-export function SafeEntityImage({src,fallbackSrc,alt,width,height,sizes,priority=false,unoptimized=false}:Props){
+export function SafeEntityImage({src,fallbackSrc,alt,width,height,sizes,priority=false,unoptimized=false,fill=false}:Props){
   const [currentSrc,setCurrentSrc]=useState(src);
   const [failed,setFailed]=useState(false);
 
@@ -24,20 +25,24 @@ export function SafeEntityImage({src,fallbackSrc,alt,width,height,sizes,priority
 
   if(failed)return <div className="media-unavailable" role="img" aria-label={`${alt} image unavailable`}><span>Image unavailable</span></div>;
 
-  return <Image
-    src={currentSrc}
-    alt={alt}
-    width={width}
-    height={height}
-    sizes={sizes}
-    priority={priority}
-    unoptimized={unoptimized || currentSrc.endsWith(".svg")}
-    onError={()=>{
+  const common = {
+    src: currentSrc,
+    alt,
+    sizes,
+    priority,
+    unoptimized: unoptimized || currentSrc.endsWith(".svg"),
+    onError: ()=>{
       if(fallbackSrc && currentSrc !== fallbackSrc){
         setCurrentSrc(fallbackSrc);
         return;
       }
       setFailed(true);
-    }}
-  />;
+    },
+  };
+
+  if(fill){
+    return <Image {...common} fill style={{objectFit:"contain"}} />;
+  }
+
+  return <Image {...common} width={width} height={height} />;
 }
