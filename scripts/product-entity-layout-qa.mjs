@@ -136,6 +136,7 @@ try {
         const heading=hero?.querySelector('h1');
         const lede=hero?.querySelector(':scope > div:first-child > p');
         const media=hero?.querySelector(':scope > .entity-media');
+        const fallback=media?.querySelector('.product-hero-card');
         const facts=hero?.querySelector('.product-facts');
         const factEls=facts?[...facts.children]:[];
         const source=hero?.querySelector('.source-panel');
@@ -150,7 +151,7 @@ try {
         const px=el=>el?parseFloat(getComputedStyle(el).fontSize)||0:0;
         return {
           title:heading?.textContent?.trim()||'', overflow:root.scrollWidth-root.clientWidth,
-          page:r(page), hero:r(hero), heading:r(heading), lede:r(lede), media:r(media), facts:r(facts), source:r(source), spec:r(spec),
+          page:r(page), hero:r(hero), heading:r(heading), lede:r(lede), media:r(media), fallback:r(fallback), facts:r(facts), source:r(source), spec:r(spec),
           heroDisplay:hero?getComputedStyle(hero).display:'', heroColumns:hero?getComputedStyle(hero).gridTemplateColumns:'',
           headingSize:px(heading), sectionHeadingSize:px(sectionHeading), specLabelSize:px(specLabel),
           mediaRadius:media?parseFloat(getComputedStyle(media).borderRadius)||0:0,
@@ -180,6 +181,7 @@ try {
       if (state?.spec && (state?.specLabelSize || 0) < 10) failures.push(`${width}px ${route.key}: spec labels are unreadably small (${state?.specLabelSize || 0}px)`);
       if (state?.compareDisplay && state.compareDisplay !== "grid") failures.push(`${width}px ${route.key}: comparison row is ${state.compareDisplay}, expected grid`);
       if (state?.mediaImage && state?.media && (state.mediaImage.width > state.media.width + 2 || state.mediaImage.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: hero image exceeds media stage`);
+      if (state?.fallback && state?.media && (state.fallback.width > state.media.width + 2 || state.fallback.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: placeholder exceeds media stage`);
       await screenshot(route.key, width);
     }
   }
