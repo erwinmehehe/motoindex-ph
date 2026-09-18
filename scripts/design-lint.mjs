@@ -111,17 +111,17 @@ for(const raw of diff.split(/\r?\n/)){
 
 function styleDebt(source){
   return {
-    rawColor:(source.match(/#[0-9a-fA-F]{3,8}\\b|rgba?\\(|hsla?\\(/g)||[]).length,
+    rawColor:(source.match(/#[0-9a-fA-F]{3,8}\b|rgba?\(|hsla?\(/g)||[]).length,
     important:(source.match(/!important/g)||[]).length,
-    sharedSelectors:(source.match(/\\.(?:product-card(?:-media|-copy|-shell)?|section-head|brand-facts|product-grid|entity-media-contained|model-card)\\b/g)||[]).length,
-    imageMin:(source.match(/\\bimg\\b[^{}]*\\{[^}]*min-(?:height|width)\\s*:/gs)||[]).length,
+    sharedSelectors:(source.match(/\.(?:product-card(?:-media|-copy|-shell)?|section-head|brand-facts|product-grid|entity-media-contained|model-card)\b/g)||[]).length,
+    imageMin:(source.match(/\bimg\b[^{}]*\{[^}]*min-(?:height|width)\s*:/gs)||[]).length,
     globalSelectors:(source.match(/:global\\(/g)||[]).length
   };
 }
 
 let styleFiles=[];
 try{
-  styleFiles=execFileSync("git",["diff","--name-only","HEAD^1","HEAD","--","app/**/*Style.tsx","app/**/*Style.ts"],{encoding:"utf8"}).trim().split(/\\r?\\n/).filter(Boolean);
+  styleFiles=execFileSync("git",["diff","--name-only","HEAD^1","HEAD","--","app/**/*Style.tsx","app/**/*Style.ts"],{encoding:"utf8"}).trim().split(/\r?\n/).filter(Boolean);
 }catch{}
 for(const file of styleFiles){
   const current=fs.existsSync(file)?fs.readFileSync(file,"utf8"):"";
