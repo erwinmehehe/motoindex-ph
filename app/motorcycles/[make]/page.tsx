@@ -51,7 +51,11 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const priority = getPhBrandPriority(make);
   const support = phBrandSupportFor(make);
   if (!publicModels.length) {
-    return <section className="page shell"><Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} /><div className="page-head"><h1>{brand} Motorcycle Philippines Price List</h1><p>Model prices and specifications are being checked before publication.</p></div><div className="note-box"><h2>{brand} price list data is being updated</h2><p>Current prices and specifications still need checking before this list is published.</p></div></section>;
+    return <section className="page shell">
+      <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
+      <PageHero kicker="Philippines motorcycle price list" title={`${brand} Motorcycle Philippines Price List`} description="Model prices and specifications are being checked before publication." />
+      <InfoPanel subtle><h2>{brand} price list data is being updated</h2><p>Current prices and specifications still need checking before this list is published.</p></InfoPanel>
+    </section>;
   }
 
   const ranges = current.map((model) => ({ model, ...observedMarketRange(model) }));
@@ -169,7 +173,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
       <section id="categories" className="ph-brand-section ph-brand-two-col">
         <div>
-          <span className="section-kicker">Shop by use</span><h2>{brand} motorcycle models by category</h2>
+          <SectionHeader kicker="Shop by use" title={`${brand} motorcycle models by category`} />
           {scooters.length >= 3 && <div id="scooters" className="ph-brand-scooter-strip"><strong>{brand} scooters</strong><div>{scooters.map((m) => <Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}`}><span>{m.model}</span><small>{phpRange(observedMarketRange(m).from, observedMarketRange(m).to)}</small></Link>)}</div></div>}
           <div className="ph-brand-category-grid">{categories.map((category) => <Link key={category} href={{ pathname: "/motorcycles", query: { make, type: category } }}><strong>{category}</strong><span>{current.filter((m) => m.category === category).length} covered</span></Link>)}</div>
         </div>
@@ -189,9 +193,9 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <div className="ph-brand-method-grid"><article><span>01</span><h3>Check the price date</h3><p>Prices are dated reference points. Open the model page to see the source and confirm the current cash price, fees and variant with the seller.</p></article><article><span>02</span><h3>Compare specs and rider fit</h3><p>Engine size, seat height, weight, transmission and tire data help narrow the shortlist, but actual rider fit and comfort still need an in-person check.</p></article><article><span>03</span><h3>Confirm local support</h3><p>Dealer reach, parts, service intervals and warranty support matter after purchase. Use the official brand resources linked on this page when available.</p></article></div>
       </section>
 
-      {uncertain.length > 0 && <section className="ph-brand-section"><div><div><span className="section-kicker">Availability to verify</span><h2>{brand} models needing a current lineup check</h2><p>These model pages remain available for research, but they stay outside the current price list until present-day official availability is confirmed.</p></div></div><div className="card-grid">{uncertain.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
+      {uncertain.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Availability to verify" title={`${brand} models needing a current lineup check`} description="These model pages remain available for research, but they stay outside the current price list until present-day official availability is confirmed." /><div className="card-grid">{uncertain.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
 
-      {previous.length > 0 && <section className="ph-brand-section"><div><div><span className="section-kicker">Archive</span><h2>Previous {brand} motorcycle models and prices</h2><p>Previous-generation references are kept separate from the current price list so historical launch pricing is not mistaken for today&apos;s price.</p></div></div><div className="card-grid">{previous.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
+      {previous.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Archive" title={`Previous ${brand} motorcycle models and prices`} description="Previous-generation references are kept separate from the current price list so historical launch pricing is not mistaken for today&apos;s price." /><div className="card-grid">{previous.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
 
       <section id="faq" className="ph-brand-section">
         <SectionHeader kicker="Quick answers" title={`${brand} Motorcycle Philippines Price List FAQ`} />
