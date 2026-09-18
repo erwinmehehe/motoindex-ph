@@ -128,7 +128,6 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
   backdrop-filter:blur(18px) saturate(130%)!important;
   -webkit-backdrop-filter:blur(18px) saturate(130%)!important;
 }
-.product-card,.info-card,.note-box,.price-panel,.source-panel,.compare-wrap,.decision>div,.admin-table{border-radius:22px!important}
 .product-card:hover,.guide-strip>a:hover,.list-cards>a:hover,.fitment-list>a:hover,.search-results>a:hover,.topic-grid article:hover,.helmet-grid article:hover{
   transform:translateY(-4px)!important;
   border-color:rgba(68,76,231,.16)!important;
@@ -341,8 +340,6 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
 .breadcrumbs a:hover{color:#444CE7!important}
 .section-kicker,.panel-label{color:#444CE7!important}
 .text-link,.info-card a,.checked-record-action a{color:#444CE7!important}
-.product-card h3{color:#172033!important}
-.product-card p,.product-card small{color:#64748b!important}
 .bike-art{
   background:
     radial-gradient(circle at 72% 16%,rgba(122,90,248,.10),transparent 30%),
@@ -477,7 +474,6 @@ input:focus,select:focus,textarea:focus{
 @media(max-width:600px){
   .mi-hero{background:radial-gradient(circle at 50% 0%,rgba(68,76,231,.12),transparent 35%),linear-gradient(180deg,#fff,#f8fafc)!important}
   .mi-bike-frame{border-radius:22px!important}
-  .product-card,.info-card,.note-box,.price-panel,.source-panel,.compare-wrap,.decision>div{border-radius:18px!important}
   .mi-category-card,.mi-brand-grid>a{border-radius:16px!important}
   .footer-intro{border-radius:18px!important}
 }
