@@ -1,0 +1,51 @@
+name: Production Visual Audit
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy to Cloudflare Workers
+    types: [completed]
+  workflow_dispatch:
+
+concurrency:
+  group: motoindex-production-visual-audit
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      BASE_URL: https://motoindexph.com
+      EXPECTED_COMMIT_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+    steps:
+      - name: Checkout deployed commit
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Verify production serves the deployed commit
+        run: node scripts/smoke-public-core.mjs
+
+      - name: Run live production visual matrix
+        run: node scripts/visual-regression-matrix.mjs
+
+      - name: Upload production screenshots
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: production-visual-audit
+          path: artifacts/visual-qa/matrix
+          if-no-files-found: warn
+          retention-days: 14
+          compression-level: 6
