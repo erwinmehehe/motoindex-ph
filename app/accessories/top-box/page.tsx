@@ -50,7 +50,7 @@ export default function TopBoxPage(){
       <a href="#products">Products</a><a href="#brands">Brands</a><a href="#capacity">Capacity</a><a href="#fitment">Fitment</a><a href="#lto">LTO note</a>
     </nav>
 
-    <StatRow className="brand-facts" items={[
+    <StatRow items={[
       {label:"Verified boxes",value:verifiedBoxes.length},
       {label:"Bike-specific fitment records",value:verifiedFitments.length},
       {label:"Capacity range",value:`${Math.min(...verifiedBoxes.map(p=>p.capacityL))}–${Math.max(...verifiedBoxes.map(p=>p.capacityL))} L`}
@@ -62,23 +62,23 @@ export default function TopBoxPage(){
     </section>
 
     <section id="products" className="motorcycle-entity-section ui-page-section">
-      <SectionHeader className="section-head inline-head" kicker="Checked products" title="Motorcycle top boxes with catalog records" description="Product cards are shown only when MotoIndex has a checked, renderable product image. Records without a sourced photo stay listed separately." />
-      {verifiedBoxesWithImages.length>0&&<ProductGrid className="product-grid">{verifiedBoxesWithImages.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/accessories/top-box/${p.slug}`,category:"Top box",brand:p.brand,model:p.model,meta:`${p.capacityL}L · ${p.shell}`,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</ProductGrid>}
+      <SectionHeader kicker="Checked products" title="Motorcycle top boxes with catalog records" description="Product cards are shown only when MotoIndex has a checked, renderable product image. Records without a sourced photo stay listed separately." />
+      {verifiedBoxesWithImages.length>0&&<ProductGrid >{verifiedBoxesWithImages.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/accessories/top-box/${p.slug}`,category:"Top box",brand:p.brand,model:p.model,meta:`${p.capacityL}L · ${p.shell}`,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</ProductGrid>}
       {verifiedBoxesWithoutImages.length>0&&<div className="checked-record-list list-cards" aria-label="Checked top-box records awaiting sourced product photos">{verifiedBoxesWithoutImages.map(p=><Link key={p.id} href={`/accessories/top-box/${p.slug}`}><span><strong>{p.brand} {p.model}</strong><small>{p.capacityL}L · {p.shell} · checked product record</small></span><span className="checked-record-action">Photo not yet sourced · View details →</span></Link>)}</div>}
     </section>
 
     <section id="brands" className="motorcycle-entity-section ui-page-section topbox-brand-research" aria-labelledby="topbox-brand-research-title">
-      <SectionHeader className="section-head compact" kicker="Brand research" title={<span id="topbox-brand-research-title">Top-box brands and product families</span>} description="Fully checked models get detailed product pages. Other families stay here until the manufacturer/model/SKU identity and mounting bundle are stable." />
+      <SectionHeader kicker="Brand research" title={<span id="topbox-brand-research-title">Top-box brands and product families</span>} description="Fully checked models get detailed product pages. Other families stay here until the manufacturer/model/SKU identity and mounting bundle are stable." />
       <div className="research-brand-grid ui-content-grid">{topBoxBrandLineups.map(brand=><article className="ui-content-card" key={brand.slug}><div><strong>{brand.brand}</strong><span className={`catalog-status ${brand.status==="verified-catalog"?"verified":"research"}`}>{brand.status==="verified-catalog"?"catalog checked":"research"}</span></div><p>{brand.families.join(" · ")}</p><small>{brand.note}</small>{brand.sourceUrl&&<a className="text-link" href={brand.sourceUrl} target="_blank" rel="noreferrer">Open catalogue source ↗</a>}</article>)}</div>
     </section>
 
     <section id="capacity" className="motorcycle-entity-section ui-page-section">
-      <SectionHeader className="section-head" kicker="Capacity comparison" title="Compare motorcycle top-box capacity" description="Use liters to compare storage only. Mounting compatibility still comes from the exact rack, plate and motorcycle record." />
+      <SectionHeader kicker="Capacity comparison" title="Compare motorcycle top-box capacity" description="Use liters to compare storage only. Mounting compatibility still comes from the exact rack, plate and motorcycle record." />
       <DataTable className="helmet-brand-table" label="Motorcycle top-box capacity comparison"><div className="helmet-brand-row head" role="row"><span>Top box</span><span>Capacity</span><span>Helmet/storage note</span><span>Observed price</span></div>{verifiedBoxes.map(p=><Link role="row" href={`/accessories/top-box/${p.slug}`} className="helmet-brand-row" key={p.id}><strong>{p.brand} {p.model}</strong><span>{p.capacityL} L</span><span>{p.helmetCapacity}</span><span>{p.priceFromPhp?php(p.priceFromPhp):"Check product"}</span></Link>)}</DataTable>
     </section>
 
     <section id="fitment" className="motorcycle-entity-section ui-page-section">
-      <SectionHeader className="section-head" kicker="Verified fitment" title="Motorcycles with a stored rack or bracket record" description="These are product + motorcycle-specific edges, not capacity-based guesses." />
+      <SectionHeader kicker="Verified fitment" title="Motorcycles with a stored rack or bracket record" description="These are product + motorcycle-specific edges, not capacity-based guesses." />
       <div className="fitment-evidence-grid">{verifiedFitments.map(({fitment,motorcycle})=><article key={fitment.id}><span className="catalog-status verified">verified</span><h3>{motorcycle!.make} {motorcycle!.model}</h3><p><b>{fitment.topBoxLabel}</b> · rack {fitment.rackCode}</p><p>{fitment.rackLabel}</p><small>{fitment.modelYears}</small><Link className="text-link" href={`/motorcycles/${motorcycle!.makeSlug}/${motorcycle!.slug}#tires-fitment`}>Open exact fitment →</Link></article>)}</div>
     </section>
 
@@ -89,7 +89,7 @@ export default function TopBoxPage(){
     <FaqSection title="Motorcycle top-box questions" items={topBoxFaqs}/>
 
     <section className="motorcycle-entity-section ui-page-section">
-      <SectionHeader className="section-head inline-head" kicker="Model research" title="Check top-box fitment on the exact motorcycle" />
+      <SectionHeader kicker="Model research" title="Check top-box fitment on the exact motorcycle" />
       <div className="list-cards">{publicMotorcycles.slice(0,8).map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}><span><strong>Top box for {m.make} {m.model}</strong><small>Mounting and fitment notes</small></span><b>View fitment →</b></Link>)}</div>
     </section>
 
