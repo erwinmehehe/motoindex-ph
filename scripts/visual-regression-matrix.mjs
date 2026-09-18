@@ -8,6 +8,7 @@ const widths=[390,768,1440];
 const routes=[
   {name:"home",path:"/"},
   {name:"motorcycles",path:"/motorcycles"},
+  {name:"brand",path:"/motorcycles/honda"},
   {name:"motorcycle-detail",path:"/motorcycles/yamaha/aerox-v3"},
   {name:"compare-index",path:"/compare"},
   {name:"compare",path:"/compare/selection?bikes=aerox-v3,nmax-v3"},
@@ -189,6 +190,13 @@ const inspect=`(() => {
   const compareBuilder=document.querySelector("[data-compare-builder]");
   const compareBuilderRect=compareBuilder?.getBoundingClientRect();
 
+  const standardMotorcycleCards=[...document.querySelectorAll('[data-motorcycle-card="standard"]')];
+  const standardMotorcycleCardModes=standardMotorcycleCards.map(card=>({
+    mode:getComputedStyle(card).display,
+    catalog:Boolean(card.closest(".motorcycle-catalog-grid")),
+    brand:Boolean(card.closest(".ph-brand-model-grid")),
+    home:Boolean(card.closest(".mi-model-grid"))
+  }));
   const cards=[...document.querySelectorAll(".ui-product-card")];
   const collapsedCards=cards.filter(card=>{
     const rect=card.getBoundingClientRect();
@@ -211,6 +219,8 @@ const inspect=`(() => {
     mediaProblems,
     productCards:cards.length,
     collapsedCards,
+    standardMotorcycleCards:standardMotorcycleCards.length,
+    standardMotorcycleCardModes,
     compareBuilderHeight:compareBuilderRect?.height||0,
     cloudflareError:/worker exceeded resource limits|error 1102|error 503|service unavailable/.test(bodyText),
     empty:(document.body?.innerText||"").trim().length<80
@@ -261,6 +271,17 @@ try{
       if((row?.unloadedProductImages||0)>0)failures.push(`${width}px ${route.name}: ${row.unloadedProductImages} product image(s) failed to load after lazy-media warmup`);
       if((row?.unavailableProductMedia||0)>0)failures.push(`${width}px ${route.name}: ${row.unavailableProductMedia} product media fallback(s) rendered as unavailable`);
       if((row?.collapsedCards||0)>0)failures.push(`${width}px ${route.name}: ${row.collapsedCards} canonical product card(s) collapsed`);
+      const motorcycleCardModes=row?.standardMotorcycleCardModes||[];
+      const routeCardModes=route.name==="motorcycles"
+        ? motorcycleCardModes.filter(card=>card.catalog)
+        : route.name==="brand"
+          ? motorcycleCardModes.filter(card=>card.brand)
+          : route.name==="home"
+            ? motorcycleCardModes.filter(card=>card.home)
+            : [];
+      if(["home","motorcycles","brand"].includes(route.name)&&routeCardModes.length<1)failures.push(`${width}px ${route.name}: standard MotorcycleCard did not render in its primary route context`);
+      if(width===1440&&["motorcycles","brand"].includes(route.name)&&routeCardModes.some(card=>card.mode!=="grid"))failures.push(`${width}px ${route.name}: wide MotorcycleCard did not switch to its component-owned row layout`);
+      if(width===390&&["home","motorcycles","brand"].includes(route.name)&&routeCardModes.some(card=>card.mode==="grid"))failures.push(`${width}px ${route.name}: narrow MotorcycleCard stayed in wide row layout`);
       if(route.name==="compare-index"&&width===1440&&(row?.compareBuilderHeight||0)>260)failures.push(`${width}px compare-index: builder is too tall (${row.compareBuilderHeight}px)`);
       if(route.name==="compare-index"&&width===390&&(row?.compareBuilderHeight||0)>620)failures.push(`${width}px compare-index: mobile builder is too tall (${row.compareBuilderHeight}px)`);
 

@@ -10,6 +10,7 @@ import { SourceTrustBadge } from "@/components/SourceTrustBadge";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import { lifecycleLabel } from "@/lib/lifecycle";
 import { php } from "@/lib/utils";
+import styles from "./MotorcycleCard.module.css";
 
 type Variant = "standard" | "compare" | "decision" | "compact";
 
@@ -97,8 +98,17 @@ export function MotorcycleCard({
 
   const needsUpdate = model.freshness !== "verified";
   const showLifecycle = Boolean(model.marketStatus && model.marketStatus !== "current");
-  return <article className="model-card motorcycle-card motorcycle-card-standard">
-    <EntityMedia entityType="motorcycle" entityId={model.id} className="model-card-media" linkHref={href} showCredit={false} fallback={<MotorcycleFallback model={model} href={href} className="model-media-placeholder" />}/>
-    <div className="model-card-body"><div className="model-card-topline"><PriceSourceBadge model={model}/><SaveToShortlistButton modelId={model.id} compact/></div>{needsUpdate&&<span className="catalog-status">Needs update</span>}<h3><Link href={href}>{model.make} {model.model}</Link></h3><div className="price">{observedMarketPriceLabel(model)}</div><div className="mini-stats"><span>{model.engineCc} cc</span><span>{model.seatHeightMm} mm seat</span>{model.transmission&&<span>{model.transmission}</span>}{showLifecycle&&<span>{lifecycleLabel(model)}</span>}</div><div className="card-actions"><Link className="button small" href={href}>View model</Link><CompareButton modelId={model.id} compact/></div></div>
+  return <article className={`${styles.card} model-card motorcycle-card motorcycle-card-standard`}>
+    <div className={styles.standard} data-motorcycle-card="standard">
+      <EntityMedia entityType="motorcycle" entityId={model.id} className={`${styles.standardMedia} model-card-media`} linkHref={href} showCredit={false} fallback={<MotorcycleFallback model={model} href={href} className={`${styles.mediaFallback} model-media-placeholder`} />}/>
+      <div className={`${styles.standardBody} model-card-body`}>
+        <div className={`${styles.topline} model-card-topline`}><PriceSourceBadge model={model}/><SaveToShortlistButton modelId={model.id} compact/></div>
+        {needsUpdate&&<span className={`${styles.status} catalog-status`}>Needs update</span>}
+        <h3 className={styles.title}><Link href={href}>{model.make} {model.model}</Link></h3>
+        <div className={`${styles.price} price`}>{observedMarketPriceLabel(model)}</div>
+        <div className={`${styles.stats} mini-stats`}><span>{model.engineCc} cc</span><span>{model.seatHeightMm} mm seat</span>{model.transmission&&<span>{model.transmission}</span>}{showLifecycle&&<span>{lifecycleLabel(model)}</span>}</div>
+        <div className={`${styles.actions} card-actions`}><Link className="button small" href={href}>View model</Link><CompareButton modelId={model.id} compact/></div>
+      </div>
+    </div>
   </article>;
 }

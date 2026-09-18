@@ -118,7 +118,7 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
 }
 
 /* Shared surfaces */
-.model-card,.product-card,.info-card,.note-box,.price-panel,.source-panel,.compare-wrap,
+.product-card,.info-card,.note-box,.price-panel,.source-panel,.compare-wrap,
 .decision>div,.search-box,.health-summary>div,.admin-table,.freshness,
 .priority-model-brief-grid>article,.guide-strip>a,.checked-record-list>div,
 .list-cards>a,.fitment-list>a,.search-results>a,.topic-grid article,.helmet-grid article{
@@ -128,8 +128,7 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
   backdrop-filter:blur(18px) saturate(130%)!important;
   -webkit-backdrop-filter:blur(18px) saturate(130%)!important;
 }
-.model-card,.product-card,.info-card,.note-box,.price-panel,.source-panel,.compare-wrap,.decision>div,.admin-table{border-radius:22px!important}
-.model-card:hover,.product-card:hover,.guide-strip>a:hover,.list-cards>a:hover,.fitment-list>a:hover,.search-results>a:hover,.topic-grid article:hover,.helmet-grid article:hover{
+.product-card:hover,.guide-strip>a:hover,.list-cards>a:hover,.fitment-list>a:hover,.search-results>a:hover,.topic-grid article:hover,.helmet-grid article:hover{
   transform:translateY(-4px)!important;
   border-color:rgba(68,76,231,.16)!important;
   box-shadow:0 28px 64px rgba(68,76,231,.12),0 10px 30px rgba(15,23,42,.05)!important;
@@ -341,15 +340,13 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
 .breadcrumbs a:hover{color:#444CE7!important}
 .section-kicker,.panel-label{color:#444CE7!important}
 .text-link,.info-card a,.checked-record-action a{color:#444CE7!important}
-.model-card-body h3,.model-card h3,.product-card h3{color:#172033!important}
-.model-card-body p,.product-card p,.model-card small,.product-card small{color:#64748b!important}
-.model-card-media,.bike-art{
+.bike-art{
   background:
     radial-gradient(circle at 72% 16%,rgba(122,90,248,.10),transparent 30%),
     radial-gradient(circle at 16% 84%,rgba(18,183,106,.07),transparent 32%),
     linear-gradient(145deg,#fff,#f7f8ff)!important;
 }
-.mini-stats span,.status,.tire-pair b{
+.status,.tire-pair b{
   border-radius:999px!important;
   background:rgba(68,76,231,.06)!important;
   color:#526078!important;
@@ -477,7 +474,6 @@ input:focus,select:focus,textarea:focus{
 @media(max-width:600px){
   .mi-hero{background:radial-gradient(circle at 50% 0%,rgba(68,76,231,.12),transparent 35%),linear-gradient(180deg,#fff,#f8fafc)!important}
   .mi-bike-frame{border-radius:22px!important}
-  .model-card,.product-card,.info-card,.note-box,.price-panel,.source-panel,.compare-wrap,.decision>div{border-radius:18px!important}
   .mi-category-card,.mi-brand-grid>a{border-radius:16px!important}
   .footer-intro{border-radius:18px!important}
 }
