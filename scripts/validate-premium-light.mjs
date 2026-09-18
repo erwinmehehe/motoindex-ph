@@ -64,8 +64,18 @@ requireText(homepage, ".mi-hero h1", "Homepage system must own hero typography."
 requireText(homepage, "60px", "Homepage desktop H1 must remain restrained to a 60px maximum.");
 forbidText(homepage, "background:#090a0d", "Homepage route must not restore the retired near-black hero background.");
 
-for (const [token, value] of [["--mi-primary", "#444CE7"], ["--mi-success", "#12B76A"], ["--mi-violet", "#7A5AF8"], ["--mi-warning", "#FDB022"]]) {
-  requireText(tokens, `${token}: ${value}`, `Design tokens must retain ${token} ${value}.`);
+for (const [semanticToken, legacyToken, value] of [
+  ["--mi-color-primary", "--mi-primary", "#444CE7"],
+  ["--mi-color-success", "--mi-success", "#12B76A"],
+  ["--mi-color-violet", "--mi-violet", "#7A5AF8"],
+  ["--mi-color-warning", "--mi-warning", "#FDB022"]
+]) {
+  requireText(tokens, `${semanticToken}: ${value}`, `Design tokens must retain ${semanticToken} ${value}.`);
+  requireText(tokens, `${legacyToken}: var(${semanticToken})`, `${legacyToken} must alias ${semanticToken} instead of defining a second color source.`);
+}
+requireText(components, '@import "./ui-system.css";', "Component layer must load the canonical UI system after legacy component layers.");
+for (const component of ["PageHero","SectionHeader","StatRow","ProductGrid","InfoPanel","DataTable","CTAGroup"]) {
+  requireText(read("components", "ui", `${component}.tsx`), "ui-", `${component} must render the canonical ui-* namespace.`);
 }
 requireText(tokens, ".page-head h1", "Tokens must enforce the restrained page-heading hierarchy.");
 requireText(tokens, "60px", "Desktop page headings must be capped at 60px by the shared hierarchy.");
