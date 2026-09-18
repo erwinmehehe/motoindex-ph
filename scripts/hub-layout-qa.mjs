@@ -223,6 +223,7 @@ try {
         factsCount: document.querySelectorAll('.helmet-hub-page .ui-stat-row__item').length,
         navLinks: document.querySelectorAll('.helmet-master-nav a').length,
         introCards: document.querySelectorAll('.helmet-master-intro .ui-content-card').length,
+        placeholderImages: document.querySelectorAll('.helmet-hub-page img[src*="/media/placeholders/"]').length,
         cardWidths,
         mediaPosition:firstMedia?getComputedStyle(firstMedia).position:'missing',
         mediaHeight:mediaRect?.height||0,
@@ -243,6 +244,7 @@ try {
     if ((helmets?.factsCount || 0) !== 4) failures.push(`${width}px helmet hub facts are incomplete`);
     if ((helmets?.navLinks || 0) < 8) failures.push(`${width}px helmet hub nav is incomplete`);
     if ((helmets?.introCards || 0) !== 4) failures.push(`${width}px helmet intro grid is incomplete`);
+    if ((helmets?.placeholderImages || 0) > 0) failures.push(`${width}px helmet hub renders ${helmets.placeholderImages} placeholder product image(s)`);
     if ((helmets?.headingSize || 0) < 32) failures.push(`${width}px helmet hub heading lost route styling`);
     if ((helmets?.headingRight || 0) > (helmets?.viewport || width) + 5) failures.push(`${width}px helmet hub heading is clipped`);
     if (helmets?.mediaPosition !== "relative") failures.push(`${width}px helmet media stage is not positioned (${helmets?.mediaPosition})`);

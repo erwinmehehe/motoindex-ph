@@ -107,7 +107,7 @@ const auditExpression = `(() => {
     const rect = el.getBoundingClientRect();
     return style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity || 1) > 0.05 && rect.width > 2 && rect.height > 2 && rect.bottom > 0 && rect.top < innerHeight;
   };
-  const critical = [...document.querySelectorAll('header, nav, [class*="popover"], [class*="mobile-menu"], [class*="compare-builder"], [class*="product-entity-nav"]')]
+  const critical = [...document.querySelectorAll('header, nav, [class*="popover"], [class*="mobile-menu"], [data-compare-builder], [class*="product-entity-nav"]')]
     .filter(visible)
     .map((el) => {
       const r = el.getBoundingClientRect();
@@ -270,8 +270,8 @@ try {
   await navigate("/compare");
   const compareBuilder = await evaluate(cdp.send, `(() => ({
     selects: document.querySelectorAll('select').length,
-    hasBuilder: Boolean(document.querySelector('.compare-builder')),
-    text: (document.querySelector('.compare-builder')?.textContent || '').slice(0,180)
+    hasBuilder: Boolean(document.querySelector('[data-compare-builder]')),
+    text: (document.querySelector('[data-compare-builder]')?.textContent || '').slice(0,180)
   }))()`);
   functionalResults.push({ test: "compare-builder", ...compareBuilder });
   if (!compareBuilder?.hasBuilder || (compareBuilder?.selects || 0) < 2) functionalFailures.push("Compare page is missing the interactive comparison builder/selectors.");

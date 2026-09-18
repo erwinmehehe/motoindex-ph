@@ -1,0 +1,31 @@
+.builder{display:grid;gap:var(--mi-space-4)}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--mi-space-5)}
+.head h2{margin:0;color:var(--mi-color-ink);font-size:var(--mi-type-xl);line-height:1.1;letter-spacing:var(--mi-tracking-tight)}
+.head p{max-width:620px;margin:var(--mi-space-1) 0 0;color:var(--mi-color-copy);font-size:var(--mi-type-xs);line-height:1.5}
+.count{flex:0 0 auto;display:inline-flex;align-items:center;min-height:32px;padding:0 var(--mi-space-3);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-pill);background:var(--mi-color-surface);color:var(--mi-color-copy);font-size:var(--mi-type-xs);font-weight:750}
+.pickerGrid{display:grid;grid-template-columns:minmax(0,1fr) 32px minmax(0,1fr) minmax(220px,.82fr);gap:var(--mi-space-3);align-items:end}
+.picker{display:block;min-width:0}
+.picker>span{display:block;margin-bottom:var(--mi-space-2);color:var(--mi-color-slate-600);font-size:var(--mi-type-xs);font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.picker select{width:100%;min-height:var(--mi-control-height);padding:0 var(--mi-space-4);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-sm);background:var(--mi-color-surface);color:var(--mi-color-ink);font-size:var(--mi-type-sm);font-weight:700}
+.picker select:focus{outline:0;border-color:var(--mi-color-primary);box-shadow:var(--mi-shadow-focus)}
+.picker small{display:block;min-height:18px;margin-top:var(--mi-space-2);color:var(--mi-color-muted);font-size:var(--mi-type-xs)}
+.optional select{background:var(--mi-color-surface-subtle);color:var(--mi-color-copy)}
+.vs{display:grid;width:32px;height:32px;place-items:center;align-self:center;margin-top:20px;border-radius:var(--mi-radius-pill);background:var(--mi-color-primary-soft);color:var(--mi-color-primary);font-size:var(--mi-type-xs);font-weight:850}
+.actions{display:flex;justify-content:flex-end;gap:var(--mi-space-2);padding-top:var(--mi-space-3);border-top:1px solid var(--mi-color-line-soft)}
+.actions .action{min-height:var(--mi-control-height);padding-inline:var(--mi-space-5)}
+.actions .secondary{background:var(--mi-color-surface);color:var(--mi-color-slate-700);border:1px solid var(--mi-color-line)}
+.actions .action:disabled{opacity:.38;box-shadow:none}
+@media(max-width:900px){
+  .pickerGrid{grid-template-columns:minmax(0,1fr) 32px minmax(0,1fr)}
+  .optional{grid-column:1/-1}
+}
+@media(max-width:620px){
+  .builder{gap:var(--mi-space-3)}
+  .head{display:block}
+  .count{margin-top:var(--mi-space-2)}
+  .pickerGrid{grid-template-columns:1fr}
+  .optional{grid-column:auto}
+  .vs{display:none}
+  .actions{display:grid;grid-template-columns:1fr}
+  .actions .action{width:100%}
+}
