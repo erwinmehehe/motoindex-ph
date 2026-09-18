@@ -3,6 +3,7 @@ import { publicMotorcycles } from "@/lib/data";
 import { pageMetadata } from "@/lib/site";
 import { forClient } from "@/lib/competitors";
 import { SelectedCompareClient } from "@/components/SelectedCompareClient";
+import { PageHero } from "@/components/ui";
 import styles from "./SelectionPage.module.css";
 
 export const metadata:Metadata=pageMetadata({
@@ -25,11 +26,12 @@ export default async function SelectedComparePage({ searchParams }: { searchPara
   const initialSlugs = [...new Set(raw.split(",").map(token => compareTokens.get(token.trim())).filter((slug): slug is string => Boolean(slug)))].slice(0,3);
 
   return <section className={`${styles.page} page shell`}>
-    <div className={`${styles.head} page-head`}>
-      <span className="entity-kicker">Side-by-side research</span>
-      <h1>Compare your motorcycles.</h1>
-      <p>Keep the selected bikes visible while you scan the price, fit and specification differences that matter.</p>
-    </div>
+    <PageHero
+      className={styles.hero}
+      kicker="Side-by-side research"
+      title="Compare your selected motorcycles"
+      description="Keep the bikes visible while you scan price, rider fit and the specification differences that matter."
+    />
     <SelectedCompareClient models={forClient(publicMotorcycles)} initialSlugs={initialSlugs}/>
   </section>;
 }
