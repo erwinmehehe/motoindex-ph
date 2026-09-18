@@ -1,10 +1,13 @@
-.workspace{display:grid;gap:20px}
-.summary{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:12px 14px;border:1px solid rgba(148,163,184,.16);border-radius:14px;background:rgba(255,255,255,.74);box-shadow:0 10px 28px rgba(15,23,42,.035);backdrop-filter:blur(14px)}
-.summary>span{color:#667085;font-size:9px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
-.summary>div{min-width:0;display:flex;flex-wrap:wrap;gap:6px}
-.summary b{padding:5px 8px;border-radius:999px;background:#f8faff;color:#344054;font-size:10px;font-weight:750}
+.workspace{display:grid;gap:var(--mi-space-4)}
+.summary{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:var(--mi-space-3);padding:var(--mi-space-3) 0;border-top:1px solid var(--mi-color-line);border-bottom:1px solid var(--mi-color-line);background:transparent}
+.summary>span{color:var(--mi-color-copy);font-size:var(--mi-type-xs);font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.summary>div{min-width:0;display:flex;flex-wrap:wrap;gap:var(--mi-space-2)}
+.summary b{padding:var(--mi-space-1) var(--mi-space-2);border-radius:var(--mi-radius-pill);background:var(--mi-color-surface-subtle);color:var(--mi-color-slate-700);font-size:var(--mi-type-xs);font-weight:750}
 .summary b+b:before{content:none}
-.summary>a{display:inline-flex;min-height:34px;align-items:center;padding:0 10px;border:1px solid rgba(68,76,231,.16);border-radius:9px;color:#444ce7;font-size:10px;font-weight:850;white-space:nowrap}
-.summary>a:hover{background:rgba(68,76,231,.05)}
+.summary>a{display:inline-flex;min-height:var(--mi-control-height);align-items:center;color:var(--mi-color-primary);font-size:var(--mi-type-xs);font-weight:800;white-space:nowrap}
+.summary>a:hover{text-decoration:underline}
 .empty{margin-top:0}
-@media(max-width:700px){.summary{grid-template-columns:1fr;align-items:flex-start;gap:8px}.summary>div{gap:5px}.summary>a{min-height:40px;width:max-content}}
+@media(max-width:700px){
+  .summary{grid-template-columns:1fr;align-items:flex-start;gap:var(--mi-space-2)}
+  .summary>div{gap:var(--mi-space-1)}
+}
