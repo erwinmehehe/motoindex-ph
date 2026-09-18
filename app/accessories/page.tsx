@@ -43,7 +43,10 @@ export default function AccessoriesPage(){
     </div>
 
     <nav className="product-entity-nav" aria-label="Motorcycle accessory categories">
-      {categoryHubs.map(hub=><Link key={hub.href} href={hub.href}>{hub.title.replace("Motorcycle ","").replace(" in the Philippines","")}</Link>)}
+      <Link href="/accessories/top-box">Top boxes</Link>
+      <Link href="/accessories/phone-holders">Phone holders</Link>
+      <Link href="/accessories/intercoms">Intercoms</Link>
+      <Link href="/accessories/rain-gear">Rain gear</Link>
       <a href="#model-fitment">Model fitment</a>
     </nav>
 
