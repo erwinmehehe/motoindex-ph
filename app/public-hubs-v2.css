@@ -165,13 +165,13 @@
 
 @media(max-width:850px){
   .ownership-master-page #cost,
-  .commute-master-page .commute-hero-grid{padding:26px!important;border-radius:22px!important}
+  .commute-master-page .commute-hero-grid{padding:26px;border-radius:22px}
   .commute-master-page .commute-rank-list,
   .tire-master-page #stock-sizes .fitment-list{grid-template-columns:1fr!important}
 }
 
 @media(max-width:560px){
-    .commute-master-page .commute-rank-card{min-height:0!important;padding:20px!important}
+    .commute-master-page .commute-rank-card{min-height:0;padding:20px}
   .commute-master-page .commute-rank-kpis{grid-template-columns:1fr!important}
   .commute-master-page .commute-rank-kpis>a{grid-column:auto}
   .dealer-directory-section .dealer-finder{padding:14px!important}
