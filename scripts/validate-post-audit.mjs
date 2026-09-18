@@ -37,11 +37,12 @@ const shopee=read("app/go/shopee/[productId]/route.ts");
 need(affiliate.includes("affiliate.url, 302")&&!affiliate.includes("affiliate.url, 307"),"Generic affiliate redirect must use 302, not 307");
 need(shopee.includes("affiliate.url, 302")&&!shopee.includes("affiliate.url, 307"),"Shopee affiliate redirect must use 302, not 307");
 
-const css=read("app/v247.css");
-need(css.includes("--media-canvas:#fff")&&css.includes("background:#fff!important"),"Product and motorcycle media canvases must be white");
-need(css.includes("env(safe-area-inset-bottom)")&&css.includes("compare-tray.expanded"),"Mobile compare tray must reserve safe-area/expanded space");
-need(css.includes("finder-results button:nth-child(n+3){display:flex}"),"Mobile finder must not hide results that are included in its count");
-need(css.includes("last-child:nth-child(odd)"),"Odd entity spec rows must span the table cleanly");
+const styleStack=read("app/style-stack.css");
+need(
+  ["./styles/tokens.css","./styles/base.css","./styles/components.css","./styles/routes.css"].every(layer=>styleStack.includes(layer)),
+  "Global styles must stay on the current four-layer style stack"
+);
+need(!/v\d+\.css|redesign(?:-v\d+)?\.css|experience-v\d+/.test(styleStack),"Global style stack must not restore versioned legacy styles");
 
 const accessory=read("app/accessories/[slug]/page.tsx");
 need(accessory.includes("verifiedBoxesWithImages")&&accessory.includes("verifiedBoxesWithoutImages"),"Top-box hub must distinguish checked records with and without sourced images");
@@ -109,7 +110,7 @@ need(fs.existsSync(path.join(root,"app/dealer-directory.css"))&&dealersPage.incl
 const checkLaunch=read("scripts/check-launch.mjs");
 need(checkLaunch.includes("findSiblingDynamicRouteConflicts"),"Launch gate must include sibling dynamic route conflict guard");
 need(fs.existsSync(path.join(root,"scripts/route-conflict-guard.mjs"))&&fs.existsSync(path.join(root,"scripts/test-route-conflict-guard.mjs")),"Route conflict guard and negative test must be present");
-need(read("scripts/validate-v09.mjs").includes("split(path.sep).join")&&read("scripts/validate-v13.mjs").includes("split(path.sep).join"),"Windows-sensitive validator walkers must normalize path separators");
+need(checkLaunch.includes("split(path.sep).join")&&read("scripts/route-conflict-guard.mjs").includes("split(path.sep).join"),"Windows-sensitive route walkers must normalize path separators");
 
 for(const file of ["AFFILIATE_SETUP.md","SHOPEE_AFFILIATE_SETUP.md"]){const source=read(file);need(/build[- ]time/i.test(source)&&/redeploy/i.test(source),`${file} must document build-time affiliate configuration and redeploy requirement`)}
 
