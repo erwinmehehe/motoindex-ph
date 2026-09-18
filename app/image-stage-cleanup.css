@@ -14,16 +14,16 @@
 }
 
 html body .entity-media-contained{position:relative!important;overflow:hidden!important;isolation:isolate!important}
-html body .entity-media-contained>img,
-html body .entity-media-contained>.entity-media-link>img{
+html body .entity-media-contained.entity-media-contained>img,
+html body .entity-media-contained.entity-media-contained>.entity-media-link>img{
   position:absolute!important;
-  inset:12px!important;
-  width:calc(100% - 24px)!important;
-  height:calc(100% - 24px)!important;
-  max-width:calc(100% - 24px)!important;
-  max-height:calc(100% - 24px)!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
   margin:0!important;
-  padding:0!important;
+  padding:12px!important;
   box-sizing:border-box!important;
   object-fit:contain!important;
   object-position:center!important;
