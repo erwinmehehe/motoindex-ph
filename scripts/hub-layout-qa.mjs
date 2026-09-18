@@ -208,6 +208,11 @@ try {
       const heading = document.querySelector('.helmet-hub-page>.page-head h1');
       const headingRect = heading?.getBoundingClientRect();
       const cardWidths = [...document.querySelectorAll('#full-face .hub-product-rail>.product-card-shell')].slice(0,6).map(el => Math.round(el.getBoundingClientRect().width));
+      const firstMedia=document.querySelector('#full-face .product-card-media');
+      const firstImage=firstMedia?.querySelector('img');
+      const mediaRect=firstMedia?.getBoundingClientRect();
+      const imageRect=firstImage?.getBoundingClientRect();
+      const intro=document.querySelector('.helmet-master-intro');
       return {
         overflow: root.scrollWidth - root.clientWidth,
         actions: display('.helmet-shop-actions'),
@@ -219,6 +224,10 @@ try {
         navLinks: document.querySelectorAll('.helmet-master-nav a').length,
         introCards: document.querySelectorAll('.helmet-master-intro .topic-grid>article').length,
         cardWidths,
+        mediaPosition:firstMedia?getComputedStyle(firstMedia).position:'missing',
+        mediaHeight:mediaRect?.height||0,
+        imageEscapes:Boolean(mediaRect&&imageRect&&(imageRect.left<mediaRect.left-2||imageRect.right>mediaRect.right+2||imageRect.top<mediaRect.top-2||imageRect.bottom>mediaRect.bottom+2)),
+        introBg:intro?getComputedStyle(intro).backgroundColor:'',
         headingSize: heading ? parseFloat(getComputedStyle(heading).fontSize) : 0,
         headingRight: headingRect?.right || 0,
         viewport: innerWidth
@@ -236,6 +245,10 @@ try {
     if ((helmets?.introCards || 0) !== 4) failures.push(`${width}px helmet intro grid is incomplete`);
     if ((helmets?.headingSize || 0) < 32) failures.push(`${width}px helmet hub heading lost route styling`);
     if ((helmets?.headingRight || 0) > (helmets?.viewport || width) + 5) failures.push(`${width}px helmet hub heading is clipped`);
+    if (helmets?.mediaPosition !== "relative") failures.push(`${width}px helmet media stage is not positioned (${helmets?.mediaPosition})`);
+    if ((helmets?.mediaHeight || 0) > 220) failures.push(`${width}px helmet media stage escaped its card height (${helmets?.mediaHeight}px)`);
+    if (helmets?.imageEscapes) failures.push(`${width}px helmet image escapes its media stage`);
+    if (!/rgb\(255, 255, 255\)/.test(helmets?.introBg || "")) failures.push(`${width}px helmet intro is not using the light surface (${helmets?.introBg || "missing"})`);
     const cardWidths = helmets?.cardWidths || [];
     if (cardWidths.length < 3) failures.push(`${width}px helmet full-face grid has too few cards`);
     const expectedMinCard = width <= 620 ? 300 : 250;
@@ -246,6 +259,57 @@ try {
       if (minCard > 0 && maxCard / minCard > 1.2) failures.push(`${width}px helmet card widths are inconsistent (${cardWidths.join(', ')}px)`);
     }
     await screenshot("helmets", width);
+
+    await navigate("/tires");
+    const tires = await evaluate(cdp.send, `(() => {
+      const root=document.documentElement;
+      const grid=document.querySelector('#common-sizes .guide-master-link-grid');
+      const first=grid?.querySelector('article');
+      return {
+        overflow:root.scrollWidth-root.clientWidth,
+        gridDisplay:grid?getComputedStyle(grid).display:'missing',
+        cardCount:grid?.querySelectorAll('article').length||0,
+        firstWidth:first?.getBoundingClientRect().width||0,
+        firstHeight:first?.getBoundingClientRect().height||0,
+        firstPadding:first?parseFloat(getComputedStyle(first).paddingLeft):0,
+        linkCount:first?.querySelectorAll('a').length||0
+      };
+    })()`);
+    results.push({ width, page: "tires", ...tires });
+    if ((tires?.overflow || 0) > 5) failures.push(`${width}px tires page overflows by ${tires.overflow}px`);
+    if (tires?.gridDisplay !== "grid") failures.push(`${width}px common tire sizes are not structured as a grid (${tires?.gridDisplay})`);
+    if ((tires?.cardCount || 0) < 8) failures.push(`${width}px common tire-size index is incomplete`);
+    if ((tires?.firstWidth || 0) < (width <= 430 ? 300 : 180) || (tires?.firstHeight || 0) < 90) failures.push(`${width}px common tire-size card collapsed (${tires?.firstWidth}x${tires?.firstHeight})`);
+    if ((tires?.firstPadding || 0) < 12) failures.push(`${width}px common tire-size card lost padding (${tires?.firstPadding}px)`);
+    if ((tires?.linkCount || 0) < 2) failures.push(`${width}px common tire-size card lost model links`);
+    await screenshot("tires", width);
+
+    await navigate("/accessories/top-box");
+    const topbox = await evaluate(cdp.send, `(() => {
+      const root=document.documentElement;
+      const page=document.querySelector('.topbox-master-page');
+      const records=document.querySelector('.checked-record-list');
+      const firstRecord=records?.querySelector('a');
+      const research=document.querySelector('.research-brand-grid');
+      const firstBrand=research?.querySelector('article');
+      return {
+        overflow:root.scrollWidth-root.clientWidth,
+        scoped:Boolean(page&&page.classList.contains('accessories-master-page')),
+        recordsDisplay:records?getComputedStyle(records).display:'missing',
+        firstRecordHeight:firstRecord?.getBoundingClientRect().height||0,
+        researchDisplay:research?getComputedStyle(research).display:'missing',
+        firstBrandWidth:firstBrand?.getBoundingClientRect().width||0,
+        firstBrandHeight:firstBrand?.getBoundingClientRect().height||0
+      };
+    })()`);
+    results.push({ width, page: "top-box", ...topbox });
+    if ((topbox?.overflow || 0) > 5) failures.push(`${width}px top-box page overflows by ${topbox.overflow}px`);
+    if (!topbox?.scoped) failures.push(`${width}px top-box page is missing accessories layout scope`);
+    if (!["grid","flex","block"].includes(topbox?.recordsDisplay)) failures.push(`${width}px checked top-box records collapsed (${topbox?.recordsDisplay})`);
+    if ((topbox?.firstRecordHeight || 0) < 50) failures.push(`${width}px checked top-box record is visually collapsed (${topbox?.firstRecordHeight}px)`);
+    if (topbox?.researchDisplay !== "grid") failures.push(`${width}px top-box research brands are not a grid (${topbox?.researchDisplay})`);
+    if ((topbox?.firstBrandWidth || 0) < (width <= 430 ? 300 : 180) || (topbox?.firstBrandHeight || 0) < 100) failures.push(`${width}px top-box research card collapsed (${topbox?.firstBrandWidth}x${topbox?.firstBrandHeight})`);
+    await screenshot("top-box", width);
   }
 } finally {
   if (proc.exitCode === null) {
@@ -267,4 +331,4 @@ if (failures.length) {
   console.error(`Hub layout QA failed:\n${failures.map(item => `- ${item}`).join("\n")}`);
   process.exit(1);
 }
-console.log(`Recommendations + recommendation detail + helmet hub layout QA passed: ${results.length} route/viewport checks.`);
+console.log(`Recommendations + recommendation detail + helmet/tire/top-box hub layout QA passed: ${results.length} route/viewport checks.`);
