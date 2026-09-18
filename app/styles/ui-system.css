@@ -35,7 +35,7 @@
 .ui-product-grid--compact .ui-product-media{height:var(--mi-product-media-height-compact)}
 .ui-product-grid--compact .ui-product-card-copy{padding:var(--mi-space-3)}
 .ui-product-grid--compact .ui-product-card-copy h3{font-size:var(--mi-type-lg)}
-.ui-product-grid--compact .product-card-foot{margin-top:var(--mi-space-3);padding-top:var(--mi-space-2)}
+.ui-product-grid--compact .ui-product-card-foot{margin-top:var(--mi-space-3);padding-top:var(--mi-space-2)}
 
 .ui-info-panel{padding:var(--mi-space-5);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md);background:var(--mi-color-surface)}
 .ui-info-panel--subtle{background:var(--mi-color-surface-subtle)}
