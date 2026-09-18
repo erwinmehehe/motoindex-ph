@@ -9,6 +9,7 @@ const routes=[
   {name:"home",path:"/"},
   {name:"motorcycles",path:"/motorcycles"},
   {name:"motorcycle-detail",path:"/motorcycles/yamaha/aerox-v3"},
+  {name:"compare-index",path:"/compare"},
   {name:"compare",path:"/compare/selection?bikes=aerox-v3,nmax-v3"},
   {name:"helmets",path:"/gear/helmets"},
   {name:"helmet-detail",path:"/gear/helmets/gille/kerena-ff007"},
@@ -142,6 +143,9 @@ const inspect=`(() => {
     }
   }
 
+  const compareBuilder=document.querySelector("[data-compare-builder]");
+  const compareBuilderRect=compareBuilder?.getBoundingClientRect();
+
   const cards=[...document.querySelectorAll(".ui-product-card")];
   const collapsedCards=cards.filter(card=>{
     const rect=card.getBoundingClientRect();
@@ -162,6 +166,7 @@ const inspect=`(() => {
     mediaProblems,
     productCards:cards.length,
     collapsedCards,
+    compareBuilderHeight:compareBuilderRect?.height||0,
     cloudflareError:/worker exceeded resource limits|error 1102|error 503|service unavailable/.test(bodyText),
     empty:(document.body?.innerText||"").trim().length<80
   };
@@ -208,6 +213,8 @@ try{
       if(row?.h1Contrast!=null&&row.h1Contrast<3)failures.push(`${width}px ${route.name}: H1 contrast ratio ${row.h1Contrast.toFixed(2)} is below 3:1`);
       if((row?.mediaProblems||[]).length)failures.push(`${width}px ${route.name}: ${row.mediaProblems.length} product image(s) escape their stage or are not object-fit:contain`);
       if((row?.collapsedCards||0)>0)failures.push(`${width}px ${route.name}: ${row.collapsedCards} canonical product card(s) collapsed`);
+      if(route.name==="compare-index"&&width===1440&&(row?.compareBuilderHeight||0)>260)failures.push(`${width}px compare-index: builder is too tall (${row.compareBuilderHeight}px)`);
+      if(route.name==="compare-index"&&width===390&&(row?.compareBuilderHeight||0)>620)failures.push(`${width}px compare-index: mobile builder is too tall (${row.compareBuilderHeight}px)`);
 
       const metrics=await cdp.send("Page.getLayoutMetrics");
       const contentSize=metrics.cssContentSize||metrics.contentSize;
