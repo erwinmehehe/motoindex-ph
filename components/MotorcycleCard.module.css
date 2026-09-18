@@ -1,10 +1,16 @@
-.card{
+.card.card{
+  container:motorcycle-card / inline-size;
   min-width:0;
+  height:100%;
+  overflow:visible;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
   color:var(--mi-color-ink);
 }
 
 .standard{
-  container:motorcycle-card / inline-size;
   display:flex;
   min-width:0;
   height:100%;
