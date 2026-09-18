@@ -1,4 +1,0 @@
-/* Keep sticky in-page navigation and trays working inside the premium light shell. */
-main {
-  overflow: visible !important;
-}
