@@ -55,7 +55,7 @@
   margin:auto;
   object-fit:contain;
   object-position:center;
-  background:transparent;
+  background:var(--mi-color-surface);
 }
 
 .standardBody{
