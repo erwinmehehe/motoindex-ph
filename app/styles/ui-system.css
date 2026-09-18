@@ -7,6 +7,10 @@
 .ui-page-hero__description{max-width:var(--mi-copy-max);margin:var(--mi-space-4) 0 0;color:var(--mi-color-copy);font-size:var(--mi-type-base);line-height:var(--mi-leading-copy)}
 .ui-page-hero__actions{margin-top:var(--mi-space-5)}
 
+.ui-page-section{padding:var(--mi-space-12) 0;border-top:1px solid var(--mi-color-line)}
+.ui-page-section:first-of-type{border-top:0}
+.ui-section-count{display:inline-flex;align-items:center;min-height:32px;padding:0 var(--mi-space-3);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-pill);background:var(--mi-color-surface);color:var(--mi-color-slate-600);font-size:var(--mi-type-xs);font-weight:750}
+
 .ui-section-header{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--mi-space-6);margin-bottom:var(--mi-space-5)}
 .ui-section-header__copy{min-width:0;max-width:820px}
 .ui-section-header h2{margin:0;color:var(--mi-color-ink);font-size:var(--mi-type-section);line-height:var(--mi-leading-tight);letter-spacing:var(--mi-tracking-tight);text-wrap:balance}
