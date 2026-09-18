@@ -93,12 +93,24 @@ function sourceAt(ref,file){
   try{return git(["show",`${ref}:${file}`]);}catch{return "";}
 }
 
+function nonZeroImageMinCount(source){
+  const imageBlocks=source.match(/\bimg\b[^{}]*\{[^}]*\}/gs)||[];
+  let count=0;
+  for(const block of imageBlocks){
+    for(const match of block.matchAll(/min-(?:height|width)\s*:\s*([^;}]+)/g)){
+      const value=match[1].trim();
+      if(!/^0(?:[a-z%]+)?$/i.test(value)) count++;
+    }
+  }
+  return count;
+}
+
 function styleDebt(source){
   return {
     rawColor:(source.match(/#[0-9a-fA-F]{3,8}\b|rgba?\(|hsla?\(/g)||[]).length,
     important:(source.match(/!important/g)||[]).length,
     sharedSelectors:(source.match(/\.(?:product-card(?:-media|-copy|-shell)?|section-head|brand-facts|product-grid|entity-media-contained|model-card)\b/g)||[]).length,
-    imageMin:(source.match(/\bimg\b[^{}]*\{[^}]*min-(?:height|width)\s*:/gs)||[]).length,
+    imageMin:nonZeroImageMinCount(source),
     globalSelectors:(source.match(/:global\(/g)||[]).length
   };
 }
@@ -133,8 +145,8 @@ for(const raw of diff.split(/\r?\n/)){
       const approved=isTokens && allowedImportantInTokens.some(value=>line.includes(value));
       if(!approved) errors.push(`${currentPath}:${newLine}: new !important is not allowed -> ${line.trim()}`);
     }
-    if(/min-(?:height|width)\s*:/.test(line) && /\bimg\b/.test(selector)){
-      errors.push(`${currentPath}:${newLine}: image min-size rule is forbidden; media stage owns image sizing -> ${selector}`);
+    if(/\bimg\b/.test(selector) && nonZeroImageMinCount(`${selector}{${line}}`) > 0){
+      errors.push(`${currentPath}:${newLine}: non-zero image min-size rule is forbidden; media stage owns image sizing -> ${selector}`);
     }
     if(isRoute && sharedSelector.test(selector)){
       errors.push(`${currentPath}:${newLine}: route CSS may not restyle shared component selector -> ${selector}`);
