@@ -129,6 +129,13 @@
   --product-muted: var(--mi-color-slate-500);
   --product-ink: var(--mi-color-slate-900);
   --product-radius: 18px;
+
+  /* Brand-page aliases, centralized here instead of route-local token roots */
+  --brand-ink: var(--mi-color-slate-900);
+  --brand-muted: var(--mi-color-slate-500);
+  --brand-soft: var(--mi-color-slate-400);
+  --brand-line: rgba(148, 163, 184, .20);
+  --brand-accent: var(--mi-color-primary);
 }
 
 html { color-scheme: light; }
