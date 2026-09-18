@@ -79,42 +79,12 @@
 .ownership-master-page #safety-campaigns,
 .ownership-master-page #paperwork{border-top:1px solid var(--hub-line)!important}
 
-/* Tires: keep the useful data without turning the page into a 150-row wall. */
-.tire-master-page .tire-master-section{
-  padding:50px 0!important;
-  border-top:1px solid var(--hub-line)!important;
-}
-.tire-master-page #size-chart{
-  margin:20px 0 8px!important;
-  padding:38px!important;
-  border:0!important;
-  border-radius:28px!important;
-  background:radial-gradient(circle at 90% 12%,rgba(240,68,77,.20),transparent 30%),var(--hub-ink)!important;
-  color:#fff!important;
-}
-.tire-master-page #size-chart .section-head h2,
-.tire-master-page #size-chart .topic-grid h3,
-.tire-master-page #size-chart .note-box h3{color:#fff!important}
-.tire-master-page #size-chart .section-head p,
-.tire-master-page #size-chart .topic-grid p,
-.tire-master-page #size-chart .note-box p{color:rgba(255,255,255,.56)!important}
-.tire-master-page #size-chart .topic-grid>article,
-.tire-master-page #size-chart .note-box{
-  border-color:rgba(255,255,255,.11)!important;
-  background:rgba(255,255,255,.055)!important;
-  box-shadow:none!important;
-}
+/* Tires: route CSS controls composition only. */
 .tire-master-page #stock-sizes .fitment-list{
   display:grid!important;
   grid-template-columns:repeat(2,minmax(0,1fr))!important;
   gap:8px!important;
 }
-.tire-master-page #stock-sizes .fitment-list>a{
-  min-height:74px!important;
-  border-radius:14px!important;
-}
-.tire-master-page .tire-family-master-grid>article,
-.tire-master-page .guide-master-link-grid>article{box-shadow:none!important}
 
 /* Commute: show four strong candidates per use case instead of endless rankings. */
 .commute-master-page .commute-hero-grid{
@@ -185,32 +155,7 @@
 .maintenance-master-page .maintenance-master-section .section-head{margin-bottom:22px!important}
 .maintenance-master-page .maintenance-source-details{margin-top:18px!important}
 
-/* Accessories: create one visual anchor, keep the rest editorial. */
-.accessories-master-page .motorcycle-entity-section{
-  min-height:0!important;
-  padding:50px 0!important;
-  border-top:1px solid var(--hub-line)!important;
-  background:transparent!important;
-  box-shadow:none!important;
-}
-.accessories-master-page #top-box{
-  margin:20px 0 8px!important;
-  padding:38px!important;
-  border:0!important;
-  border-radius:28px!important;
-  background:radial-gradient(circle at 90% 12%,rgba(240,68,77,.20),transparent 31%),var(--hub-ink)!important;
-  color:#fff!important;
-}
-.accessories-master-page #top-box .section-head h2,
-.accessories-master-page #top-box .topic-grid h3{color:#fff!important}
-.accessories-master-page #top-box .section-head p,
-.accessories-master-page #top-box .topic-grid p{color:rgba(255,255,255,.56)!important}
-.accessories-master-page #top-box .topic-grid>article{
-  border-color:rgba(255,255,255,.11)!important;
-  background:rgba(255,255,255,.055)!important;
-  box-shadow:none!important;
-}
-.accessories-master-page #top-box .button{background:var(--hub-red)!important;color:#fff!important}
+/* Accessories use canonical UI primitives; route CSS adds no component skin. */
 
 /* Long sections should not render hundreds of off-screen elements at once. */
 :is(.helmet-hub-page,.tire-master-page,.maintenance-master-page,.commute-master-page,.accessories-master-page,.ownership-master-page) > section{
@@ -220,19 +165,13 @@
 
 @media(max-width:850px){
   .ownership-master-page #cost,
-  .helmet-hub-page .helmet-master-intro,
-  .tire-master-page #size-chart,
-  .commute-master-page .commute-hero-grid,
-  .accessories-master-page #top-box{padding:26px!important;border-radius:22px!important}
+  .commute-master-page .commute-hero-grid{padding:26px!important;border-radius:22px!important}
   .commute-master-page .commute-rank-list,
   .tire-master-page #stock-sizes .fitment-list{grid-template-columns:1fr!important}
-  .helmet-hub-page #models{padding:26px!important;border-radius:22px!important}
 }
 
 @media(max-width:560px){
-  :is(.ownership-master-page,.maintenance-master-page,.commute-master-page,.accessories-master-page,.tire-master-page,.helmet-hub-page) > .page-head{margin-bottom:24px!important}
-  .helmet-hub-page .product-grid.hub-product-rail{grid-auto-columns:82vw!important}
-  .commute-master-page .commute-rank-card{min-height:0!important;padding:20px!important}
+    .commute-master-page .commute-rank-card{min-height:0!important;padding:20px!important}
   .commute-master-page .commute-rank-kpis{grid-template-columns:1fr!important}
   .commute-master-page .commute-rank-kpis>a{grid-column:auto}
   .dealer-directory-section .dealer-finder{padding:14px!important}
