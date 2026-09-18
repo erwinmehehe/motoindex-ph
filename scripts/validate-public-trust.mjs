@@ -210,8 +210,8 @@ const accessoryHubFiles = [
 for (const path of accessoryHubFiles) {
   if (!read(path).includes("pageMetadata")) failures.push(path + ": dedicated accessory hub must own indexable metadata");
 }
-if (!accessoryRoot.includes("/accessories/top-box") || !accessoryRoot.includes("accessorySeoGuides.map") || !accessoryRoot.includes("href:\`/accessories/\${guide.slug}\`")) {
-  failures.push("app/accessories/page.tsx: parent hub must link to the dedicated top-box hub and generate links for all accessory guide routes");
+if (!["/accessories/top-box","/accessories/phone-holders","/accessories/intercoms","/accessories/rain-gear"].every(path=>accessoryRoot.includes(path))) {
+  failures.push("app/accessories/page.tsx: parent hub must link to all dedicated accessory categories");
 }
 if (accessoryRoot.includes("guide.sections.map")) {
   failures.push("app/accessories/page.tsx: parent hub must not duplicate full child-guide content");
