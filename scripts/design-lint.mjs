@@ -115,7 +115,7 @@ function styleDebt(source){
     important:(source.match(/!important/g)||[]).length,
     sharedSelectors:(source.match(/\.(?:product-card(?:-media|-copy|-shell)?|section-head|brand-facts|product-grid|entity-media-contained|model-card)\b/g)||[]).length,
     imageMin:(source.match(/\bimg\b[^{}]*\{[^}]*min-(?:height|width)\s*:/gs)||[]).length,
-    globalSelectors:(source.match(/:global\\(/g)||[]).length
+    globalSelectors:(source.match(/:global\(/g)||[]).length
   };
 }
 
