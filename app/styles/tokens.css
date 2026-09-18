@@ -7,6 +7,7 @@
   --mi-color-surface-subtle: #f8faff;
   --mi-color-canvas: #f5f5f7;
   --mi-color-line: rgba(148, 163, 184, .22);
+  --mi-color-line-medium: rgba(148, 163, 184, .20);
   --mi-color-line-soft: rgba(148, 163, 184, .13);
 
   /* Product/editorial aliases used by existing surfaces */
