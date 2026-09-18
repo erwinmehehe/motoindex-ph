@@ -101,7 +101,7 @@ export default async function TopBoxProductPage({ params }: { params: Promise<{ 
       { href: "#fitment", label: "Fitment" },
       { href: "#pros-cons", label: "Pros & cons" },
       { href: "#alternatives", label: "Alternatives" },
-      { href: "#compare", label: "Compare" },
+      ...(compareTarget ? [{ href: "#compare", label: "Compare" }] : []),
       { href: "#faq", label: "FAQ" },
     ]} />
 
