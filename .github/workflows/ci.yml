@@ -37,6 +37,9 @@ jobs:
           npm run validate:lockfile
           npm run prisma:validate
 
+      - name: Design lint
+        run: npm run validate:design
+
       - name: Lint
         run: npm run lint
 
