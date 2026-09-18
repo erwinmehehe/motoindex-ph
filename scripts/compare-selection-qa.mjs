@@ -168,21 +168,21 @@ try {
     try {
       await navigate('/compare');
       const first = await evaluate(cdp.send, `(() => {
-        const selects=[...document.querySelectorAll('.compare-builder select')];
+        const selects=[...document.querySelectorAll('[data-compare-builder] select')];
         const value=[...selects[0].options].find(option=>option.value&&!option.disabled)?.value||'';
         if(value){selects[0].value=value;selects[0].dispatchEvent(new Event('change',{bubbles:true}));}
         return value;
       })()`);
       await new Promise(resolve => setTimeout(resolve, 180));
       const second = await evaluate(cdp.send, `(() => {
-        const selects=[...document.querySelectorAll('.compare-builder select')];
+        const selects=[...document.querySelectorAll('[data-compare-builder] select')];
         const value=[...selects[1].options].find(option=>option.value&&!option.disabled&&option.value!==${JSON.stringify(first)})?.value||'';
         if(value){selects[1].value=value;selects[1].dispatchEvent(new Event('change',{bubbles:true}));}
         return value;
       })()`);
       await new Promise(resolve => setTimeout(resolve, 220));
       const clicked = await evaluate(cdp.send, `(() => {
-        const button=[...document.querySelectorAll('.compare-actions button')].find(el=>(el.textContent||'').includes('Compare two'));
+        const button=[...document.querySelectorAll('[data-compare-builder] button')].find(el=>(el.textContent||'').includes('Compare two'));
         const ready=Boolean(button&&!button.disabled&&${JSON.stringify(first)}&&${JSON.stringify(second)});
         if(ready) button.click();
         return ready;
