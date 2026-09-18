@@ -201,6 +201,34 @@ try {
     const facts=document.querySelector('.motorcycle-hero-facts');
     const factStrong=facts?.querySelector('strong');
     const verdict=document.querySelector('.authority-verdict');
+    const briefs=[...document.querySelectorAll('.priority-model-brief')];
+    const modelBlocks=[...document.querySelectorAll('.motorcycle-entity-body>.motorcycle-entity-section, .priority-model-brief, .model-decision-path-wrap')];
+    const rgb = value => (value.match(/\d+(?:\.\d+)?/g)||[]).slice(0,3).map(Number);
+    const isDark = value => { const [r=255,g=255,b=255]=rgb(value); return r<70&&g<70&&b<70; };
+    const briefAudit=briefs.map((brief,index)=>{
+      const title=brief.querySelector('h2');
+      const card=brief.querySelector('.priority-model-brief-grid article');
+      const style=getComputedStyle(brief);
+      const titleStyle=title?getComputedStyle(title):null;
+      const cardStyle=card?getComputedStyle(card):null;
+      const rect=brief.getBoundingClientRect();
+      return {
+        index,
+        background:style.backgroundColor,
+        color:style.color,
+        titleColor:titleStyle?.color||'',
+        cardBackground:cardStyle?.backgroundColor||'',
+        darkSurface:isDark(style.backgroundColor),
+        width:rect.width,
+        left:rect.left,
+        right:rect.right
+      };
+    });
+    const gaps=modelBlocks.slice(1).map((block,index)=>{
+      const prev=modelBlocks[index].getBoundingClientRect();
+      const next=block.getBoundingClientRect();
+      return Math.max(0,next.top-prev.bottom);
+    });
     const h1Style=h1?getComputedStyle(h1):null;
     const mediaRect=media?.getBoundingClientRect();
     const factsStyle=facts?getComputedStyle(facts):null;
@@ -216,6 +244,8 @@ try {
       factsBg:factsStyle?.backgroundColor||'',
       factColor:strongStyle?.color||'',
       verdict:Boolean(verdict),
+      briefAudit,
+      maxSectionGap:gaps.length?Math.max(...gaps):0,
       overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
     };
   })()`);
@@ -223,6 +253,12 @@ try {
   if (!modelAudit?.h1 || modelAudit.h1Size > 60) failures.push(`Desktop model H1 is still oversized at ${modelAudit?.h1Size || 0}px.`);
   if (!modelAudit?.media || modelAudit.mediaHeight > 340) failures.push(`Desktop model media stage is still too tall at ${modelAudit?.mediaHeight || 0}px.`);
   if (!modelAudit?.facts || !/rgb\(255, 255, 255\)/.test(modelAudit.factsBg || "")) failures.push(`Model facts surface is not white (${modelAudit?.factsBg || "missing"}).`);
+  if (!Array.isArray(modelAudit?.briefAudit) || modelAudit.briefAudit.length < 1) failures.push("Aerox model page is missing its buyer/commercial brief section.");
+  for (const brief of modelAudit?.briefAudit || []) {
+    if (brief.darkSurface) failures.push(`Buyer brief ${brief.index + 1} has a dark surface (${brief.background}).`);
+    if (!/rgb\((?:15, 23, 42|16, 24, 40|29, 29, 31)\)/.test(brief.titleColor || "")) failures.push(`Buyer brief ${brief.index + 1} heading color is unexpected (${brief.titleColor || "missing"}).`);
+    if (brief.left < -2 || brief.right > 1442) failures.push(`Buyer brief ${brief.index + 1} escapes the desktop viewport.`);
+  }
   if ((modelAudit?.overflow || 0) > 5) failures.push(`Aerox detail page overflows horizontally by ${modelAudit.overflow}px.`);
   await screenshot("desktop-model");
 
@@ -231,15 +267,27 @@ try {
   const mobileModel = await evaluate(cdp.send, `(() => {
     const h1=document.querySelector('.motorcycle-hero-copy h1');
     const media=document.querySelector('.motorcycle-hero-media');
+    const briefs=[...document.querySelectorAll('.priority-model-brief')].map((brief,index)=>({
+      index,
+      background:getComputedStyle(brief).backgroundColor,
+      titleColor:getComputedStyle(brief.querySelector('h2')).color,
+      rect:brief.getBoundingClientRect().toJSON()
+    }));
     return {
       h1Size:parseFloat(h1?getComputedStyle(h1).fontSize:'0'),
       mediaHeight:media?.getBoundingClientRect().height||0,
+      briefs,
       overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
     };
   })()`);
   results.push({ check: "mobile-model", ...mobileModel });
   if ((mobileModel?.h1Size || 0) > 40) failures.push(`390px model H1 is oversized at ${mobileModel.h1Size}px.`);
   if ((mobileModel?.mediaHeight || 0) > 255) failures.push(`390px model media stage is too tall at ${mobileModel.mediaHeight}px.`);
+  for (const brief of mobileModel?.briefs || []) {
+    const nums=(brief.background.match(/\d+(?:\.\d+)?/g)||[]).slice(0,3).map(Number);
+    if (nums.length===3 && nums.every(n=>n<70)) failures.push(`390px buyer brief ${brief.index + 1} has a dark surface (${brief.background}).`);
+    if ((brief.rect?.left || 0) < -2 || (brief.rect?.right || 0) > 392) failures.push(`390px buyer brief ${brief.index + 1} escapes the viewport.`);
+  }
   if ((mobileModel?.overflow || 0) > 5) failures.push(`390px Aerox page overflows horizontally by ${mobileModel.overflow}px.`);
   await screenshot("mobile-model");
 

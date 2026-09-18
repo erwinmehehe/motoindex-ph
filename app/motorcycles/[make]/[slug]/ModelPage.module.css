@@ -582,7 +582,12 @@
   width:min(1120px,calc(100% - 40px))!important;
   margin:0 auto!important;
   padding:54px 0!important;
+  border:0!important;
   border-bottom:1px solid var(--model-line)!important;
+  border-radius:0!important;
+  background:#fff!important;
+  color:var(--model-ink)!important;
+  box-shadow:none!important;
 }
 
 .refined :global(.priority-model-brief-head){
