@@ -157,11 +157,9 @@
 
 /* Accessories use canonical UI primitives; route CSS adds no component skin. */
 
-/* Long sections should not render hundreds of off-screen elements at once. */
-:is(.helmet-hub-page,.tire-master-page,.maintenance-master-page,.commute-master-page,.accessories-master-page,.ownership-master-page) > section{
-  content-visibility:auto;
-  contain-intrinsic-size:1px 760px;
-}
+/* Keep public hub sections in normal document flow.
+   These routes contain bounded editorial/product sets, so reserving large
+   intrinsic placeholders creates visible dead space and unreliable anchors. */
 
 @media(max-width:850px){
   .ownership-master-page #cost,
