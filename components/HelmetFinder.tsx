@@ -49,7 +49,7 @@ function certificationMatch(p:HelmetProduct,filter:string){
   if(filter==="local")return c.includes("icc")||c.includes("ps mark")||c.includes("ps/");
   return true;
 }
-function useScore(p:HelmetProduct,use:string){
+function scoreHelmetUse(p:HelmetProduct,use:string){
   let score=0; const reasons:string[]=[]; const visor=p.visor.toLowerCase();
   const sun=visor.includes("sun visor")||visor.includes("dual visor")||visor.includes("internal sun");
   const pinlock=visor.includes("pinlock");
@@ -97,7 +97,7 @@ export function HelmetFinder({products,initialFilters}:{products:HelmetProduct[]
     .filter(p=>filters.intercom!=="yes"||p.intercomReady)
     .filter(p=>hasFeature(p,filters.feature))
     .filter(p=>certificationMatch(p,filters.certification))
-    .map(p=>({p,...useScore(p,filters.use)}))
+    .map(p=>({p,...scoreHelmetUse(p,filters.use)}))
     .sort((a,b)=>b.score-a.score||(a.p.priceFromPhp??999999)-(b.p.priceFromPhp??999999)),[products,filters]);
 
   const compareHref=selected.length>=2?`/gear/helmets/compare?${selected.map((id,i)=>`${["a","b","c"][i]}=${encodeURIComponent(id)}`).join("&")}`:"";

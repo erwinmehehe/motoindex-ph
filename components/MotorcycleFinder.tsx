@@ -51,7 +51,7 @@ const useChoices: Array<[DecisionUseCase,string,string]> = [
 function budgetLabel(value: string) {
   return budgetChoices.find(([id]) => id === value)?.[1] || "No fixed limit";
 }
-function useLabel(value: DecisionUseCase) {
+function finderUseLabel(value: DecisionUseCase) {
   return useChoices.find(([id]) => id === value)?.[1] || "City commute";
 }
 
@@ -219,7 +219,7 @@ export function MotorcycleFinder({ models, initialFilters = {}, initiallyComplet
       </div>
 
       <aside className={`finder-live-preview ${completed?"complete":"pending"}`} aria-live="polite">
-        {completed&&top?<><span>Your best match</span><div className="finder-preview-media"><EntityMedia entityType="motorcycle" entityId={top.model.id} showCredit={false} fallback={<div className="decision-media-fallback"><strong>{top.model.make} {top.model.model}</strong></div>} /></div><small>{top.model.make} · {top.model.category}</small><h3>{top.model.model}</h3><strong>{observedMarketPriceLabel(top.model)}</strong><div className="finder-preview-score"><b>{top.decision.score}</b><span>/100<br/>{top.decision.label}</span></div><p>{top.decision.reasons.slice(0,2).join(" · ") || "Highest score for your answers."}</p></>:<><span>Your answers</span><h3>Build a useful shortlist first.</h3><div className="finder-answer-summary"><div><small>Budget</small><strong>{budgetLabel(budget)}</strong></div><div><small>Main use</small><strong>{useLabel(useCase)}</strong></div><div><small>Fit</small><strong>{inseam}&quot; inseam</strong></div><div><small>Traffic</small><strong>{traffic === "heavy" ? "Heavy stop-go" : traffic === "mixed" ? "Mixed" : "Mostly open"}</strong></div></div><p>We will reveal the three strongest matches after the final step instead of changing the answer while you are still deciding.</p></>}
+        {completed&&top?<><span>Your best match</span><div className="finder-preview-media"><EntityMedia entityType="motorcycle" entityId={top.model.id} showCredit={false} fallback={<div className="decision-media-fallback"><strong>{top.model.make} {top.model.model}</strong></div>} /></div><small>{top.model.make} · {top.model.category}</small><h3>{top.model.model}</h3><strong>{observedMarketPriceLabel(top.model)}</strong><div className="finder-preview-score"><b>{top.decision.score}</b><span>/100<br/>{top.decision.label}</span></div><p>{top.decision.reasons.slice(0,2).join(" · ") || "Highest score for your answers."}</p></>:<><span>Your answers</span><h3>Build a useful shortlist first.</h3><div className="finder-answer-summary"><div><small>Budget</small><strong>{budgetLabel(budget)}</strong></div><div><small>Main use</small><strong>{finderUseLabel(useCase)}</strong></div><div><small>Fit</small><strong>{inseam}&quot; inseam</strong></div><div><small>Traffic</small><strong>{traffic === "heavy" ? "Heavy stop-go" : traffic === "mixed" ? "Mixed" : "Mostly open"}</strong></div></div><p>We will reveal the three strongest matches after the final step instead of changing the answer while you are still deciding.</p></>}
       </aside>
     </section>
 

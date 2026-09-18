@@ -9,7 +9,7 @@ import {
 } from "@/lib/data";
 import { helmetProducts, tireProducts, topBoxProducts } from "@/lib/catalog";
 import { ProductCard } from "@/components/ProductCard";
-import { ModelCard } from "@/components/ModelCard";
+import { MotorcycleCard } from "@/components/MotorcycleCard";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import { siteStats } from "@/lib/siteStats";
 
@@ -88,7 +88,7 @@ export default function HomePage() {
 
       {featuredBrands.length > 0 && <section className="mi-brand-shelf"><div className="shell"><div className="mi-section-head compact"><div><span className="mi-eyebrow">Browse by brand</span><h2>Start with the names you know.</h2></div><Link href="/motorcycles">All motorcycles →</Link></div><nav className="mi-brand-grid" aria-label="Featured motorcycle brands">{featuredBrands.map(([slug, name]) => <Link key={slug} href={`/motorcycles/${slug}`}><strong>{name}</strong><span>Models and prices ↗</span></Link>)}</nav></div></section>}
 
-      {featured.length > 0 && <section className="mi-section mi-models"><div className="shell"><div className="mi-section-head"><div><span className="mi-eyebrow">Current motorcycles</span><h2>Open a model. <em>See the whole picture.</em></h2><p>Price context, key specs, rider fit and ownership research stay together on one model page.</p></div><Link href="/motorcycles">Explore all motorcycles →</Link></div><div className="mi-model-grid">{featured.map((model) => <ModelCard key={model.id} model={model} />)}</div><div className="mi-showcase-cta"><div><span>Need a shorter list?</span><strong>Tell the Finder how you actually ride.</strong></div><Link className="mi-btn dark" href="/finder">Find my motorcycle</Link>{hasComparisons && <Link className="mi-btn light" href="/compare">Compare models</Link>}</div></div></section>}
+      {featured.length > 0 && <section className="mi-section mi-models"><div className="shell"><div className="mi-section-head"><div><span className="mi-eyebrow">Current motorcycles</span><h2>Open a model. <em>See the whole picture.</em></h2><p>Price context, key specs, rider fit and ownership research stay together on one model page.</p></div><Link href="/motorcycles">Explore all motorcycles →</Link></div><div className="mi-model-grid">{featured.map((model) => <MotorcycleCard key={model.id} model={model} variant="standard" />)}</div><div className="mi-showcase-cta"><div><span>Need a shorter list?</span><strong>Tell the Finder how you actually ride.</strong></div><Link className="mi-btn dark" href="/finder">Find my motorcycle</Link>{hasComparisons && <Link className="mi-btn light" href="/compare">Compare models</Link>}</div></div></section>}
 
       <section className="mi-section mi-categories"><div className="shell"><div className="mi-section-head"><div><span className="mi-eyebrow">Choose your starting point</span><h2>Start with what <em>matters to you.</em></h2><p>Budget, daily use and rider fit are usually more useful than scrolling every motorcycle in the catalog.</p></div><Link href="/recommendations">Buying guides →</Link></div><div className="mi-category-grid">{startPoints.map(([number, title, copy, href]) => <Link key={title} href={href} className="mi-category-card"><span>{number}</span><div><h3>{title}</h3><p>{copy}</p></div><small>Explore →</small></Link>)}</div></div></section>
 

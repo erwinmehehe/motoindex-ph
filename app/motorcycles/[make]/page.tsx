@@ -4,7 +4,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { notFound } from "next/navigation";
 import { motorcycles, isIndexableModel } from "@/lib/data";
-import { ModelCard } from "@/components/ModelCard";
+import { MotorcycleCard } from "@/components/MotorcycleCard";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { modelFamilies } from "@/lib/families";
 import { observedMarketRange } from "@/lib/marketChecks";
@@ -159,7 +159,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
       <section id="models" className={`ph-brand-section ph-brand-models-section${current.length <= 2 ? " is-sparse" : ""}`}>
         <div className="section-head compact"><div><span className="section-kicker">Current motorcycles</span><h2>Compare {brand} motorcycle models in the Philippines</h2><p>{current.length <= 2 ? `Compare the ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} by price and key specifications.` : `Compare ${current.length} current ${brand} motorcycle models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`}</p></div></div>
-        <div className="card-grid ph-brand-model-grid">{current.map((m) => <ModelCard key={m.id} model={m} />)}</div>
+        <div className="card-grid ph-brand-model-grid">{current.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div>
       </section>
 
       <section id="price-list" className="ph-brand-section">
@@ -194,9 +194,9 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <div className="ph-brand-method-grid"><article><span>01</span><h3>Check the price date</h3><p>Prices are dated reference points. Open the model page to see the source and confirm the current cash price, fees and variant with the seller.</p></article><article><span>02</span><h3>Compare specs and rider fit</h3><p>Engine size, seat height, weight, transmission and tire data help narrow the shortlist, but actual rider fit and comfort still need an in-person check.</p></article><article><span>03</span><h3>Confirm local support</h3><p>Dealer reach, parts, service intervals and warranty support matter after purchase. Use the official brand resources linked on this page when available.</p></article></div>
       </section>
 
-      {uncertain.length > 0 && <section className="ph-brand-section"><div className="section-head compact"><div><span className="section-kicker">Availability to verify</span><h2>{brand} models needing a current lineup check</h2><p>These model pages remain available for research, but they stay outside the current price list until present-day official availability is confirmed.</p></div></div><div className="card-grid">{uncertain.map((m) => <ModelCard key={m.id} model={m} />)}</div></section>}
+      {uncertain.length > 0 && <section className="ph-brand-section"><div className="section-head compact"><div><span className="section-kicker">Availability to verify</span><h2>{brand} models needing a current lineup check</h2><p>These model pages remain available for research, but they stay outside the current price list until present-day official availability is confirmed.</p></div></div><div className="card-grid">{uncertain.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
 
-      {previous.length > 0 && <section className="ph-brand-section"><div className="section-head compact"><div><span className="section-kicker">Archive</span><h2>Previous {brand} motorcycle models and prices</h2><p>Previous-generation references are kept separate from the current price list so historical launch pricing is not mistaken for today&apos;s price.</p></div></div><div className="card-grid">{previous.map((m) => <ModelCard key={m.id} model={m} />)}</div></section>}
+      {previous.length > 0 && <section className="ph-brand-section"><div className="section-head compact"><div><span className="section-kicker">Archive</span><h2>Previous {brand} motorcycle models and prices</h2><p>Previous-generation references are kept separate from the current price list so historical launch pricing is not mistaken for today&apos;s price.</p></div></div><div className="card-grid">{previous.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
 
       <section id="faq" className="ph-brand-section">
         <div className="section-head compact"><div><span className="section-kicker">Quick answers</span><h2>{brand} Motorcycle Philippines Price List FAQ</h2></div></div>

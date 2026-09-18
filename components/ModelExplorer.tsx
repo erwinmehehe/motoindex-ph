@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { Motorcycle } from "@/lib/types";
-import { ModelCard } from "@/components/ModelCard";
+import { MotorcycleCard } from "@/components/MotorcycleCard";
 import { observedMarketRange } from "@/lib/marketChecks";
 
 type ExplorerFilters = { q?: string; make?: string; category?: string; budget?: string; sort?: string; maxPrice?: number };
@@ -153,7 +153,7 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
       <aside className="model-explorer-rail">{filterPanel}</aside>
       <div className="model-explorer-results">
         <div className="result-meta" aria-live="polite"><div><span><b>{filtered.length}</b> motorcycles</span><small>{dirty ? "Filtered to your current shopping criteria" : `Showing ${visible.length} of ${filtered.length} current motorcycles`}</small></div>{dirty&&<button type="button" className="text-button" onClick={reset}>Clear all</button>}</div>
-        {filtered.length ? <><div className="card-grid motorcycle-catalog-grid">{visible.map(m=><ModelCard key={m.id} model={m}/>)}</div>{hasMore&&<div className="catalog-load-more"><button type="button" onClick={()=>setVisibleCount((count)=>Math.min(count+pageSize,filtered.length))}>Show {Math.min(pageSize,filtered.length-visible.length)} more motorcycles</button><small>{visible.length} of {filtered.length} shown</small></div>}</> : <div className="empty-state large"><strong>No motorcycles match every filter.</strong><span>Try a higher price ceiling, another body type or clear the brand filter.</span><button type="button" className="button small" onClick={reset}>Reset filters</button></div>}
+        {filtered.length ? <><div className="card-grid motorcycle-catalog-grid">{visible.map(m=><MotorcycleCard key={m.id} model={m} variant="standard"/>)}</div>{hasMore&&<div className="catalog-load-more"><button type="button" onClick={()=>setVisibleCount((count)=>Math.min(count+pageSize,filtered.length))}>Show {Math.min(pageSize,filtered.length-visible.length)} more motorcycles</button><small>{visible.length} of {filtered.length} shown</small></div>}</> : <div className="empty-state large"><strong>No motorcycles match every filter.</strong><span>Try a higher price ceiling, another body type or clear the brand filter.</span><button type="button" className="button small" onClick={reset}>Reset filters</button></div>}
       </div>
     </div>
   </div>;

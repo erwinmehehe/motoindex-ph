@@ -125,19 +125,28 @@ for (const id of promotedHelmetModels) {
   }
 }
 
+const nextConfig = read("next.config.mjs");
+const configRedirects = [
+  ["/motorcycles/:make/:slug/price", "#price"],
+  ["/motorcycles/:make/:slug/specifications", "#specs"],
+  ["/motorcycles/:make/:slug/colors", "#colors"],
+  ["/motorcycles/:make/:slug/installment", "#installment"],
+  ["/motorcycles/:make/:slug/rider-fit", "#rider-fit"],
+  ["/motorcycles/:make/:slug/fuel-economy", "#fuel"],
+  ["/motorcycles/:make/:slug/ownership-cost", "#ownership"],
+  ["/motorcycles/:make/:slug/tire-size", "#tires-fitment"],
+  ["/motorcycles/:make/:slug/maintenance", "#maintenance"],
+  ["/motorcycles/:make/:slug/safety", "#safety"],
+  ["/motorcycles/:make/:slug/used-value", "#used"],
+  ["/motorcycles/:make/:slug/new-vs-used", "#used"]
+];
+for (const [source, anchor] of configRedirects) {
+  if (!nextConfig.includes(`source: "${source}"`) || !nextConfig.includes(anchor)) {
+    failures.push(`next.config.mjs: missing permanent redirect for ${source} to ${anchor}`);
+  }
+}
+
 const consolidatedRouteFiles = [
-  "app/motorcycles/[make]/[slug]/price/page.tsx",
-  "app/motorcycles/[make]/[slug]/installment/page.tsx",
-  "app/motorcycles/[make]/[slug]/specifications/page.tsx",
-  "app/motorcycles/[make]/[slug]/colors/page.tsx",
-  "app/motorcycles/[make]/[slug]/fuel-economy/page.tsx",
-  "app/motorcycles/[make]/[slug]/tire-size/page.tsx",
-  "app/motorcycles/[make]/[slug]/rider-fit/page.tsx",
-  "app/motorcycles/[make]/[slug]/maintenance/page.tsx",
-  "app/motorcycles/[make]/[slug]/ownership-cost/page.tsx",
-  "app/motorcycles/[make]/[slug]/used-value/page.tsx",
-  "app/motorcycles/[make]/[slug]/new-vs-used/page.tsx",
-  "app/motorcycles/[make]/[slug]/safety/page.tsx",
   "app/motorcycles/[make]/[slug]/gear/page.tsx",
   "app/motorcycles/[make]/[slug]/accessories/page.tsx",
   "app/motorcycles/[make]/[slug]/dealers/page.tsx",
