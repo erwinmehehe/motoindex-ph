@@ -32,13 +32,40 @@ const allowedImportantInTokens=[
   "animation-iteration-count: 1 !important"
 ];
 
-function diffText(){
-  try{
-    execFileSync("git",["rev-parse","HEAD^1"],{stdio:"ignore"});
-    return execFileSync("git",["diff","--unified=0","HEAD^1","HEAD","--","app/**/*.css","app/*.css"],{encoding:"utf8"});
-  }catch{
-    return "";
+function git(args,options={}){
+  return execFileSync("git",args,{encoding:"utf8",...options});
+}
+
+function resolveBase(){
+  const explicit=process.env.DESIGN_LINT_BASE?.trim();
+  if(explicit){
+    git(["rev-parse","--verify",explicit],{stdio:"ignore"});
+    return explicit;
   }
+
+  const baseRef=process.env.GITHUB_BASE_REF?.trim();
+  if(baseRef){
+    for(const candidate of [`origin/${baseRef}`,baseRef]){
+      try{
+        git(["rev-parse","--verify",candidate],{stdio:"ignore"});
+        return git(["merge-base",candidate,"HEAD"]).trim();
+      }catch{}
+    }
+    throw new Error(`Design lint could not resolve the pull-request base "${baseRef}". Ensure checkout uses fetch-depth: 0.`);
+  }
+
+  return git(["rev-parse","HEAD^"]).trim();
+}
+
+const base=resolveBase();
+
+function diffText(){
+  return git(["diff","--unified=0",base,"HEAD","--","app/**/*.css","app/*.css"]);
+}
+
+function changedFiles(patterns){
+  const output=git(["diff","--name-only",base,"HEAD","--",...patterns]).trim();
+  return output ? output.split(/\r?\n/).filter(Boolean) : [];
 }
 
 function selectorForLine(filePath,lineNumber){
@@ -62,9 +89,25 @@ function selectorForLine(filePath,lineNumber){
   return selector;
 }
 
+function sourceAt(ref,file){
+  try{return git(["show",`${ref}:${file}`]);}catch{return "";}
+}
+
+function styleDebt(source){
+  return {
+    rawColor:(source.match(/#[0-9a-fA-F]{3,8}\b|rgba?\(|hsla?\(/g)||[]).length,
+    important:(source.match(/!important/g)||[]).length,
+    sharedSelectors:(source.match(/\.(?:product-card(?:-media|-copy|-shell)?|section-head|brand-facts|product-grid|entity-media-contained|model-card)\b/g)||[]).length,
+    imageMin:(source.match(/\bimg\b[^{}]*\{[^}]*min-(?:height|width)\s*:/gs)||[]).length,
+    globalSelectors:(source.match(/:global\(/g)||[]).length
+  };
+}
+
 const diff=diffText();
-if(!diff.trim()){
-  console.log("Design lint: no CSS additions to inspect.");
+const styleFiles=changedFiles(["app/**/*Style.tsx","app/**/*Style.ts"]);
+const cssFiles=changedFiles(["app/**/*.css","app/*.css"]);
+if(!diff.trim() && styleFiles.length===0){
+  console.log(`Design lint: no design-surface changes between ${base.slice(0,8)} and HEAD.`);
   process.exit(0);
 }
 
@@ -75,9 +118,7 @@ for(const raw of diff.split(/\r?\n/)){
   if(raw.startsWith("+++ b/")){currentPath=raw.slice(6);continue;}
   const hunk=raw.match(/^@@ -\d+(?:,\d+)? \+(\d+)(?:,\d+)? @@/);
   if(hunk){newLine=Number(hunk[1]);continue;}
-  if(!currentPath) continue;
-  const isCss=currentPath.endsWith(".css");
-  if(!isCss) continue;
+  if(!currentPath || !currentPath.endsWith(".css")) continue;
 
   if(raw.startsWith("+") && !raw.startsWith("+++")){
     const line=raw.slice(1);
@@ -108,37 +149,32 @@ for(const raw of diff.split(/\r?\n/)){
   if(!raw.startsWith("\\")) newLine++;
 }
 
-
-function styleDebt(source){
-  return {
-    rawColor:(source.match(/#[0-9a-fA-F]{3,8}\b|rgba?\(|hsla?\(/g)||[]).length,
-    important:(source.match(/!important/g)||[]).length,
-    sharedSelectors:(source.match(/\.(?:product-card(?:-media|-copy|-shell)?|section-head|brand-facts|product-grid|entity-media-contained|model-card)\b/g)||[]).length,
-    imageMin:(source.match(/\bimg\b[^{}]*\{[^}]*min-(?:height|width)\s*:/gs)||[]).length,
-    globalSelectors:(source.match(/:global\(/g)||[]).length
-  };
-}
-
-let styleFiles=[];
-try{
-  styleFiles=execFileSync("git",["diff","--name-only","HEAD^1","HEAD","--","app/**/*Style.tsx","app/**/*Style.ts"],{encoding:"utf8"}).trim().split(/\r?\n/).filter(Boolean);
-}catch{}
-for(const file of styleFiles){
-  const current=fs.existsSync(file)?fs.readFileSync(file,"utf8"):"";
-  let previous="";
-  try{previous=execFileSync("git",["show",`HEAD^1:${file}`],{encoding:"utf8"});}catch{}
-  const before=styleDebt(previous);
-  const after=styleDebt(current);
+for(const file of cssFiles){
+  if(file==="app/styles/tokens.css") continue;
+  const before=styleDebt(sourceAt(base,file));
+  const after=styleDebt(fs.existsSync(file)?fs.readFileSync(file,"utf8"):"");
   for(const key of Object.keys(after)){
     if(after[key]>before[key]){
-      errors.push(`${file}: CSS-in-TS ${key} debt increased from ${before[key]} to ${after[key]}`);
+      errors.push(`${file}: ${key} design debt increased from ${before[key]} to ${after[key]} across the PR`);
+    }
+  }
+}
+
+for(const file of styleFiles){
+  const beforeSource=sourceAt(base,file);
+  const current=fs.existsSync(file)?fs.readFileSync(file,"utf8"):"";
+  const before={...styleDebt(beforeSource),rawPx:(beforeSource.match(/\b\d+(?:\.\d+)?px\b/g)||[]).length};
+  const after={...styleDebt(current),rawPx:(current.match(/\b\d+(?:\.\d+)?px\b/g)||[]).length};
+  for(const key of Object.keys(after)){
+    if(after[key]>before[key]){
+      errors.push(`${file}: CSS-in-TS ${key} debt increased from ${before[key]} to ${after[key]} across the PR`);
     }
   }
 }
 
 if(errors.length){
-  console.error("Design lint failed. New visual debt is blocked:");
+  console.error(`Design lint failed against base ${base.slice(0,8)}. New visual debt is blocked:`);
   for(const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log("Design lint passed: this change adds no unapproved raw colors, !important rules, image min-size hacks, route-owned shared-component skins, or :global() overrides.");
+console.log(`Design lint passed against base ${base.slice(0,8)}: no raw-color, !important, shared-selector, image-sizing or global-selector debt increased across the PR.`);
