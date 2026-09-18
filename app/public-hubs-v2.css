@@ -81,9 +81,9 @@
 
 /* Tires: route CSS controls composition only. */
 .tire-master-page #stock-sizes .fitment-list{
-  display:grid!important;
-  grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  gap:8px!important;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--mi-space-2);
 }
 
 /* Commute: show four strong candidates per use case instead of endless rankings. */
