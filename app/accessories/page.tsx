@@ -14,9 +14,15 @@ export const metadata: Metadata = pageMetadata({
   index:true
 });
 
+const phoneGuide=accessorySeoGuides.find(guide=>guide.slug==="phone-holders")!;
+const intercomGuide=accessorySeoGuides.find(guide=>guide.slug==="intercoms")!;
+const rainGuide=accessorySeoGuides.find(guide=>guide.slug==="rain-gear")!;
+
 const categoryHubs=[
   {href:"/accessories/top-box",kicker:"Storage + fitment",title:"Motorcycle top boxes",description:"Compare capacity, mounting plates, bike-specific brackets, product records and verified fitment."},
-  ...accessorySeoGuides.map(guide=>({href:`/accessories/${guide.slug}`,kicker:guide.slug.replaceAll("-"," "),title:guide.title,description:guide.description}))
+  {href:"/accessories/phone-holders",kicker:"Mounting + navigation",title:phoneGuide.title,description:phoneGuide.description},
+  {href:"/accessories/intercoms",kicker:"Helmet communications",title:intercomGuide.title,description:intercomGuide.description},
+  {href:"/accessories/rain-gear",kicker:"Wet-weather riding",title:rainGuide.title,description:rainGuide.description}
 ];
 
 export default function AccessoriesPage(){
