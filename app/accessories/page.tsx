@@ -48,12 +48,12 @@ export default function AccessoriesPage(){
     </nav>
 
     <section className="motorcycle-entity-section ui-page-section">
-      <SectionHeader className="section-head compact" kicker="Choose a category" title="Four accessory decisions, four focused guides" description="Each page owns a distinct search intent and avoids repeating the full guide content on this parent hub." />
+      <SectionHeader kicker="Choose a category" title="Four accessory decisions, four focused guides" description="Each page owns a distinct search intent and avoids repeating the full guide content on this parent hub." />
       <div className="ui-content-grid">{categoryHubs.map(hub=><article className="ui-content-card" key={hub.href}><span className="ui-section-header__kicker">{hub.kicker}</span><h3>{hub.title}</h3><p>{hub.description}</p><Link className="text-link" href={hub.href}>Open guide →</Link></article>)}</div>
     </section>
 
     <section id="model-fitment" className="motorcycle-entity-section ui-page-section">
-      <SectionHeader className="section-head compact" kicker="Fitment" title="Check accessories on the exact motorcycle page" description="Mounting space, tire sizes, top-box racks and model-specific fitment belong on the motorcycle entity, not on hundreds of generated accessory URLs." />
+      <SectionHeader kicker="Fitment" title="Check accessories on the exact motorcycle page" description="Mounting space, tire sizes, top-box racks and model-specific fitment belong on the motorcycle entity, not on hundreds of generated accessory URLs." />
       <div className="list-cards">{publicMotorcycles.slice(0,10).map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}><span><strong>{m.make} {m.model}</strong><small>Tires, mounting and accessory fitment</small></span><b>Open model →</b></Link>)}</div>
       <CTAGroup><Link className="button small" href="/motorcycles">Browse all motorcycles</Link><Link className="button ghost small" href="/fitment">Open fitment finder</Link></CTAGroup>
     </section>
