@@ -35,7 +35,7 @@ const allowedImportantInTokens=[
 function diffText(){
   try{
     execFileSync("git",["rev-parse","HEAD^1"],{stdio:"ignore"});
-    return execFileSync("git",["diff","--unified=0","HEAD^1","HEAD","--","app/**/*.css","app/*.css"],{encoding:"utf8"});
+    return execFileSync("git",["diff","--unified=0","HEAD^1","HEAD","--","app/**/*.css","app/*.css","app/**/*Style.tsx","app/**/*Style.ts"],{encoding:"utf8"});
   }catch{
     return "";
   }
@@ -75,13 +75,16 @@ for(const raw of diff.split(/\r?\n/)){
   if(raw.startsWith("+++ b/")){currentPath=raw.slice(6);continue;}
   const hunk=raw.match(/^@@ -\d+(?:,\d+)? \+(\d+)(?:,\d+)? @@/);
   if(hunk){newLine=Number(hunk[1]);continue;}
-  if(!currentPath || !currentPath.endsWith(".css")) continue;
+  if(!currentPath) continue;
+  const isCss=currentPath.endsWith(".css");
+  const isStyleModule=/Style\.tsx?$/.test(currentPath);
+  if(!isCss&&!isStyleModule) continue;
 
   if(raw.startsWith("+") && !raw.startsWith("+++")){
     const line=raw.slice(1);
-    const selector=selectorForLine(path.join(root,currentPath),newLine);
+    const selector=isCss?selectorForLine(path.join(root,currentPath),newLine):line;
     const isTokens=currentPath==="app/styles/tokens.css";
-    const isRoute=!sharedCss.has(currentPath);
+    const isRoute=isCss?!sharedCss.has(currentPath):isStyleModule;
 
     if(rawColor.test(line) && !isTokens){
       errors.push(`${currentPath}:${newLine}: raw color added outside tokens.css -> ${line.trim()}`);
