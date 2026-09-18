@@ -4,17 +4,17 @@
    routes, structured data or calculator logic. */
 
 :root{
-  --px-ink:#101828;
-  --px-copy:#667085;
-  --px-soft:#98a2b3;
-  --px-line:rgba(148,163,184,.20);
-  --px-line-soft:rgba(148,163,184,.13);
-  --px-indigo:#444CE7;
-  --px-violet:#7A5AF8;
-  --px-green:#12B76A;
-  --px-surface:#fff;
-  --px-tint:#f8faff;
-  --px-radius:20px;
+  --px-ink:var(--mi-color-ink);
+  --px-copy:var(--mi-color-copy);
+  --px-soft:var(--mi-color-muted);
+  --px-line:var(--mi-color-line);
+  --px-line-soft:var(--mi-color-line-soft);
+  --px-indigo:var(--mi-primary);
+  --px-violet:var(--mi-violet);
+  --px-green:var(--mi-success);
+  --px-surface:var(--mi-color-white);
+  --px-tint:var(--mi-color-surface-subtle);
+  --px-radius:var(--mi-radius-lg);
 }
 
 /* ---------- Motorcycle model decision cockpit ---------- */
