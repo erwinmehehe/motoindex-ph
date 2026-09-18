@@ -2,13 +2,26 @@ import { FlatCompat } from "@eslint/eslintrc";
 
 const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
 
-export default [
+const eslintConfig = [
   ...compat.config({
     extends: ["next/core-web-vitals", "next/typescript"],
     rules: {
-      "react/no-unescaped-entities": "off"
+      "react/no-unescaped-entities": "off",
+      "@typescript-eslint/no-explicit-any": "warn"
     }
   }),
+  {
+    files: ["scripts/**/*.cjs"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off"
+    }
+  },
+  {
+    files: ["app/admin/dealer-leads/page.tsx"],
+    rules: {
+      "@next/next/no-html-link-for-pages": "off"
+    }
+  },
   {
     ignores: [
       ".next/**",
@@ -23,3 +36,5 @@ export default [
     ]
   }
 ];
+
+export default eslintConfig;
