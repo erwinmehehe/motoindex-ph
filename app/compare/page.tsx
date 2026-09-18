@@ -7,6 +7,7 @@ import { getComparisonEditorialBrief } from "@/lib/comparisonEditorial";
 import { forClient } from "@/lib/competitors";
 import { pageMetadata } from "@/lib/site";
 import { siteStats } from "@/lib/siteStats";
+import { PageHero, SectionHeader } from "@/components/ui";
 import styles from "./ComparePage.module.css";
 
 const compareModels=publicMotorcycles;
@@ -39,21 +40,25 @@ function ComparisonLink({ slug, summary }: { slug: string; summary: string }) {
 }
 
 export default function CompareIndex(){
-  return <section className={styles.page}>
-    <div className={styles.head}>
-      <span className="entity-kicker">{siteStats.currentMotorcycles} current models</span>
-      <h1>Motorcycle Comparison Philippines: Compare Bikes Side by Side</h1>
-      <p>Compare 2 or 3 motorcycles in the Philippines side by side. Check published price, engine, weight, seat height, fuel tank, tires, brakes and rider-fit details before you shortlist a bike.</p>
-    </div>
+  return <section className={styles.page} data-compare-index>
+    <PageHero
+      kicker={`${siteStats.currentMotorcycles} current models`}
+      title="Compare motorcycles in the Philippines side by side"
+      description="Pick two or three current motorcycles, then compare price, engine, rider fit, weight, fuel, tires and braking without opening multiple tabs."
+    />
 
     <div className={styles.workspace}>
       {compareModels.length>=2?<CompareBuilder models={forClient(compareModels)}/>:<div className="note-box"><h2>Not enough current models</h2><p>At least two current motorcycle records are needed to build a comparison.</p></div>}
     </div>
 
     {featuredComparisons.length>0&&<section className={styles.popular}>
-      <div className={styles.popularHead}><div><span>Motorcycle comparison Philippines</span><h2>Popular motorcycle comparisons in the Philippines</h2><p>Start with common model-vs-model searches, then compare the bikes by price, engine performance, rider fit, weight, tires and braking in the full side-by-side view.</p></div></div>
+      <SectionHeader
+        kicker="Popular comparisons"
+        title="Start with common motorcycle matchups"
+        description="Open a ready-made comparison or build your own above."
+      />
       <div className={styles.popularList}>{featuredComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div>
-      {remainingComparisons.length>0&&<details className="compare-more-pairs"><summary>View all comparisons ({publicComparisons.length})</summary><div className={styles.popularList}>{remainingComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div></details>}
+      {remainingComparisons.length>0&&<details className={styles.morePairs}><summary>View all comparisons ({publicComparisons.length})</summary><div className={styles.popularList}>{remainingComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div></details>}
     </section>}
 
     <DecisionPath stage="compare" />
