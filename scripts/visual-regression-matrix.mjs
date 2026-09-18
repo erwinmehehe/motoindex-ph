@@ -87,18 +87,44 @@ async function waitForComplete(send){
 }
 
 async function warmLazyMedia(send){
+  await evaluate(send,`(() => {
+    for(const image of document.querySelectorAll(".ui-product-media img,.entity-media-contained img")){
+      image.loading="eager";
+      image.setAttribute("fetchpriority","high");
+    }
+    return true;
+  })()`);
+
   const positions=await evaluate(send,`(() => {
     const height=Math.max(document.documentElement.scrollHeight,document.body?.scrollHeight||0);
     const viewport=Math.max(innerHeight,1);
     const max=Math.max(0,height-viewport);
-    return [0,.25,.5,.75,1].map(ratio=>Math.round(max*ratio));
+    return [0,.2,.4,.6,.8,1].map(ratio=>Math.round(max*ratio));
   })()`)||[0];
+
   for(const y of [...new Set(positions)]){
     await evaluate(send,`window.scrollTo({top:${y},behavior:"instant"}); true`);
-    await new Promise(resolve=>setTimeout(resolve,220));
+    await new Promise(resolve=>setTimeout(resolve,260));
   }
+
+  await evaluate(send,`new Promise(resolve => {
+    const images=[...document.querySelectorAll(".ui-product-media img,.entity-media-contained img")];
+    const pending=images.filter(image=>!image.complete);
+    if(!pending.length){resolve(true);return;}
+    let remaining=pending.length;
+    const done=()=>{
+      remaining-=1;
+      if(remaining<=0){clearTimeout(timer);resolve(true);}
+    };
+    const timer=setTimeout(()=>resolve(false),5000);
+    for(const image of pending){
+      image.addEventListener("load",done,{once:true});
+      image.addEventListener("error",done,{once:true});
+    }
+  })`);
+
   await evaluate(send,'window.scrollTo({top:0,behavior:"instant"}); true');
-  await new Promise(resolve=>setTimeout(resolve,300));
+  await new Promise(resolve=>setTimeout(resolve,450));
 }
 
 const inspect=`(() => {
@@ -181,6 +207,7 @@ const inspect=`(() => {
     h1Contrast,
     productImages,
     unloadedProductImages,
+    unavailableProductMedia:document.querySelectorAll(".ui-product-media .media-unavailable,.entity-media-contained .media-unavailable").length,
     mediaProblems,
     productCards:cards.length,
     collapsedCards,
@@ -232,6 +259,7 @@ try{
       if(row?.h1Contrast!=null&&row.h1Contrast<3)failures.push(`${width}px ${route.name}: H1 contrast ratio ${row.h1Contrast.toFixed(2)} is below 3:1`);
       if((row?.mediaProblems||[]).length)failures.push(`${width}px ${route.name}: ${row.mediaProblems.length} product image(s) escape their stage or are not object-fit:contain`);
       if((row?.unloadedProductImages||0)>0)failures.push(`${width}px ${route.name}: ${row.unloadedProductImages} product image(s) failed to load after lazy-media warmup`);
+      if((row?.unavailableProductMedia||0)>0)failures.push(`${width}px ${route.name}: ${row.unavailableProductMedia} product media fallback(s) rendered as unavailable`);
       if((row?.collapsedCards||0)>0)failures.push(`${width}px ${route.name}: ${row.collapsedCards} canonical product card(s) collapsed`);
       if(route.name==="compare-index"&&width===1440&&(row?.compareBuilderHeight||0)>260)failures.push(`${width}px compare-index: builder is too tall (${row.compareBuilderHeight}px)`);
       if(route.name==="compare-index"&&width===390&&(row?.compareBuilderHeight||0)>620)failures.push(`${width}px compare-index: mobile builder is too tall (${row.compareBuilderHeight}px)`);
