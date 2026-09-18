@@ -224,7 +224,16 @@ try{
   }
 }finally{
   proc.kill("SIGTERM");
-  fs.rmSync(profile,{recursive:true,force:true});
+  await new Promise(resolve=>{
+    if(proc.exitCode!==null)return resolve();
+    const timer=setTimeout(resolve,1000);
+    proc.once("exit",()=>{clearTimeout(timer);resolve();});
+  });
+  try{
+    fs.rmSync(profile,{recursive:true,force:true,maxRetries:5,retryDelay:100});
+  }catch(error){
+    console.warn("Visual matrix Chrome profile cleanup skipped:",error instanceof Error?error.message:String(error));
+  }
 }
 
 fs.writeFileSync(path.join(outputDir,"matrix-results.json"),JSON.stringify({results,failures},null,2));
