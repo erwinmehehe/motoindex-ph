@@ -1,10 +1,8 @@
 /* MotoIndex buyer product system. Intentionally scoped to mi-* surfaces. */
 :root{
-  --mi-canvas:var(--mi-color-canvas);
-  --mi-surface:var(--mi-color-white);
-  --mi-ink:var(--mi-color-apple-ink);
-  --mi-copy:var(--mi-color-apple-copy);
-  --mi-line:var(--mi-color-apple-line);
+  --mi-ink:var(--mi-apple-ink);
+  --mi-copy:var(--mi-apple-copy);
+  --mi-line:var(--mi-apple-line);
   --mi-blue:var(--mi-link);
   --mi-blue-hover:var(--mi-link-hover);
 }
