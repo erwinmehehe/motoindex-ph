@@ -166,19 +166,6 @@ html body .motorcycle-entity-page .motorcycle-entity-section{
   padding:38px 0!important;
   border-top:1px solid rgba(148,163,184,.12)!important;
 }
-html body .motorcycle-entity-page .section-head{margin-bottom:18px!important}
-html body .motorcycle-entity-page .section-head h2{
-  max-width:760px!important;
-  font-size:clamp(27px,2.7vw,36px)!important;
-  line-height:1.06!important;
-  letter-spacing:-.04em!important;
-}
-html body .motorcycle-entity-page .section-head p{
-  max-width:720px!important;
-  font-size:12px!important;
-  line-height:1.58!important;
-}
-
 /* ModelPage.module.css is route-local and can load after globals. These selectors
    intentionally outrank that module so the compact cockpit remains the authority. */
 html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-copy h1{

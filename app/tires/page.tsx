@@ -8,6 +8,7 @@ import { AuthorBox } from "@/components/AuthorBox";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
 import { tireFamilyHubs, getTireFamilyModels } from "@/lib/tireSeo";
+import { CTAGroup, InfoPanel, PageHero, ProductGrid, SectionHeader } from "@/components/ui";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Tire Size Chart Philippines: Finder & Fitment Guide",
@@ -44,12 +45,12 @@ export default function TiresPage(){
   });
 
   return <section className="page shell tire-master-page">
-    <div className="page-head">
-      <span className="entity-kicker">Motorcycle tire fitment guide</span>
-      <h1>Motorcycle tire size chart and finder</h1>
-      <p>Start with the exact motorcycle&apos;s stock front and rear size. Then check load index, speed rating, construction, tube or tubeless requirement, rim width and physical clearance. Matching the printed size alone does not guarantee complete fitment.</p>
-      <div className="hero-actions"><Link className="button" href="/fitment">Open fitment finder</Link><a className="button secondary" href="#stock-sizes">Browse stock-size preview</a></div>
-    </div>
+    <PageHero
+      kicker="Motorcycle tire fitment guide"
+      title="Motorcycle tire size chart and finder"
+      description={<>Start with the exact motorcycle&apos;s stock front and rear size. Then check load index, speed rating, construction, tube or tubeless requirement, rim width and physical clearance. Matching the printed size alone does not guarantee complete fitment.</>}
+      actions={<CTAGroup><Link className="button" href="/fitment">Open fitment finder</Link><a className="button secondary" href="#stock-sizes">Browse stock-size preview</a></CTAGroup>}
+    />
 
     <nav className="product-entity-nav tire-master-nav" aria-label="Tire guide sections">
       <a href="#size-chart">Read tire sizes</a>
@@ -59,39 +60,39 @@ export default function TiresPage(){
       <a href="#products">Tire products</a>
     </nav>
 
-    <section id="size-chart" className="tire-master-section">
-      <div className="section-head compact"><div><span className="section-kicker">How to read the number</span><h2>How motorcycle tire sizes work</h2><p>A marking such as 110/80-14 combines tire width, aspect ratio and rim diameter. It does not tell you every fitment requirement.</p></div></div>
-      <div className="topic-grid">
-        <article><h3>110</h3><p>Nominal section width in millimeters. Actual mounted width can vary by tire design and rim width.</p></article>
-        <article><h3>80</h3><p>Aspect ratio. The sidewall height is approximately 80% of the nominal section width.</p></article>
-        <article><h3>14</h3><p>Rim diameter in inches. The rim diameter must match, but matching this number alone is not enough.</p></article>
-        <article><h3>Also check</h3><p>Front/rear application, load index, speed rating, construction, tube or tubeless requirement, approved rim width and clearance.</p></article>
+    <section id="size-chart" className="tire-master-section ui-page-section">
+      <SectionHeader kicker="How to read the number" title="How motorcycle tire sizes work" description="A marking such as 110/80-14 combines tire width, aspect ratio and rim diameter. It does not tell you every fitment requirement." />
+      <div className="ui-content-grid topic-grid">
+        <article className="ui-content-card"><h3>110</h3><p>Nominal section width in millimeters. Actual mounted width can vary by tire design and rim width.</p></article>
+        <article className="ui-content-card"><h3>80</h3><p>Aspect ratio. The sidewall height is approximately 80% of the nominal section width.</p></article>
+        <article className="ui-content-card"><h3>14</h3><p>Rim diameter in inches. The rim diameter must match, but matching this number alone is not enough.</p></article>
+        <article className="ui-content-card"><h3>Also check</h3><p>Front/rear application, load index, speed rating, construction, tube or tubeless requirement, approved rim width and clearance.</p></article>
       </div>
-      <div className="note-box"><h3>Do not assume a wider tire is an upgrade</h3><p>Changing width or aspect ratio can change steering, clearance, overall diameter and speedometer behavior. Use the motorcycle manufacturer guidance or a qualified tire specialist before changing from stock size.</p></div>
+      <InfoPanel subtle><h3>Do not assume a wider tire is an upgrade</h3><p>Changing width or aspect ratio can change steering, clearance, overall diameter and speedometer behavior. Use the motorcycle manufacturer guidance or a qualified tire specialist before changing from stock size.</p></InfoPanel>
     </section>
 
-    <section id="families" className="tire-master-section">
-      <div className="section-head compact"><div><span className="section-kicker">Do not mix generations</span><h2>Aerox, NMAX and Honda Click tire sizes</h2><p>Popular model names span multiple generations. The exact generation matters because front and rear sizes can change.</p></div></div>
+    <section id="families" className="tire-master-section ui-page-section">
+      <SectionHeader kicker="Do not mix generations" title="Aerox, NMAX and Honda Click tire sizes" description="Popular model names span multiple generations. The exact generation matters because front and rear sizes can change." />
       <div className="tire-family-master-grid">{tireFamilyHubs.map(hub=>{
         const models=getTireFamilyModels(hub);
         return <article key={hub.slug}><h3>{hub.shortName}</h3><p>{hub.description}</p><div className="fitment-list compact-fitment-list">{models.map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}><span><strong>{m.model}</strong><small>{m.generation}</small></span><span className="tire-pair"><b>{m.frontTire}</b><b>{m.rearTire}</b></span></Link>)}</div></article>;
       })}</div>
     </section>
 
-    <section id="stock-sizes" className="tire-master-section">
-      <div className="section-head inline-head"><div><span className="section-kicker">Exact motorcycles</span><h2>Stock front and rear tire sizes</h2><p>This is a compact preview. Use the Fitment Finder to search the complete current motorcycle catalog and open the exact model before ordering.</p></div><Link href="/fitment">Search all fitment →</Link></div>
+    <section id="stock-sizes" className="tire-master-section ui-page-section">
+      <SectionHeader kicker="Exact motorcycles" title="Stock front and rear tire sizes" description="This is a compact preview. Use the Fitment Finder to search the complete current motorcycle catalog and open the exact model before ordering." aside={<Link href="/fitment">Search all fitment →</Link>} />
       <div className="fitment-list">{stockPreview.map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}><span><strong>{m.make} {m.model}</strong><small>{m.category}</small></span><span className="tire-pair"><b>{m.frontTire}</b><b>{m.rearTire}</b></span></Link>)}</div>
-      <div className="hero-actions"><Link className="button secondary small" href="/fitment">Search all {publicMotorcycles.length} motorcycles in Fitment Finder</Link></div>
+      <CTAGroup><Link className="button secondary small" href="/fitment">Search all {publicMotorcycles.length} motorcycles in Fitment Finder</Link></CTAGroup>
     </section>
 
-    <section id="common-sizes" className="tire-master-section">
-      <div className="section-head compact"><div><span className="section-kicker">Size index</span><h2>Common stock motorcycle tire sizes</h2><p>These are grouped from the motorcycles currently in the catalog. Use them for discovery only, then open the exact motorcycle before ordering.</p></div></div>
-      <div className="guide-master-link-grid topic-grid">{commonSizes.map(row=><article key={row.label}><h3>{row.label}</h3><p>{row.models.length} motorcycle{row.models.length===1?"":"s"} use this size at the front, rear or both</p><p className="tire-size-model-links">{row.models.slice(0,5).map((m,index)=><span key={m.id}>{index>0?" · ":""}<Link href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}>{m.make} {m.model}</Link></span>)}</p></article>)}</div>
+    <section id="common-sizes" className="tire-master-section ui-page-section">
+      <SectionHeader kicker="Size index" title="Common stock motorcycle tire sizes" description="These are grouped from the motorcycles currently in the catalog. Use them for discovery only, then open the exact motorcycle before ordering." />
+      <div className="guide-master-link-grid ui-content-grid topic-grid">{commonSizes.map(row=><article className="ui-content-card" key={row.label}><h3>{row.label}</h3><p>{row.models.length} motorcycle{row.models.length===1?"":"s"} use this size at the front, rear or both</p><p className="tire-size-model-links">{row.models.slice(0,5).map((m,index)=><span key={m.id}>{index>0?" · ":""}<Link href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}>{m.make} {m.model}</Link></span>)}</p></article>)}</div>
     </section>
 
-    <section id="products" className="tire-master-section">
-      <div className="section-head inline-head"><div><span className="section-kicker">Replacement tires</span><h2>Verified motorcycle tire products</h2><p>Product pages stay separate because each is a real tire family with its own manufacturer size range and use case.</p></div></div>
-      <div className="product-grid">{verifiedProducts.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/tires/${p.brandSlug}/${p.slug}`,category:"Tire",brand:p.brand,model:p.model,meta:`${p.useCase} · ${p.knownSizes.length} listed sizes`,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</div>
+    <section id="products" className="tire-master-section ui-page-section">
+      <SectionHeader kicker="Replacement tires" title="Verified motorcycle tire products" description="Product pages stay separate because each is a real tire family with its own manufacturer size range and use case." />
+      <ProductGrid >{verifiedProducts.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/tires/${p.brandSlug}/${p.slug}`,category:"Tire",brand:p.brand,model:p.model,meta:`${p.useCase} · ${p.knownSizes.length} listed sizes`,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</ProductGrid>
     </section>
 
     <div className="fitment-crosslinks"><Link href="/fitment"><strong>Fitment finder</strong><small>Tires + motorcycle-specific accessories →</small></Link><Link href="/motorcycles"><strong>Motorcycle catalog</strong><small>Open exact model tire sections →</small></Link><Link href="/methodology"><strong>How fitment is checked</strong><small>Evidence and publishing rules →</small></Link></div>

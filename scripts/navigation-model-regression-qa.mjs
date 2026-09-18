@@ -119,9 +119,9 @@ try {
       const firstStyle=first?getComputedStyle(first):null;
       const firstRect=first?.getBoundingClientRect();
       const secondRect=second?.getBoundingClientRect();
-      const facts=document.querySelector('.brand-facts');
+      const facts=document.querySelector('.ui-stat-row,.brand-facts');
       const factsStyle=facts?getComputedStyle(facts):null;
-      const h1=document.querySelector(':scope body .page-head h1');
+      const h1=document.querySelector('h1');
       return {
         nav:Boolean(nav),
         linkCount:links.length,

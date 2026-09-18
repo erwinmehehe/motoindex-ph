@@ -25,11 +25,11 @@ export function ProductCard({ item }: { item: ProductCardItem }) {
   const entityType = entityTypeForHref(item.href);
   const productName = `${item.brand} ${item.model}`;
   const missingPhoto = <EntityVerificationFallback brand={item.brand} model={item.model} />;
-  const card = <Link className="product-card" href={item.href}>
+  const card = <Link className="product-card ui-product-card" href={item.href}>
     {entityType && item.entityId
-      ? <EntityMedia entityType={entityType} entityId={item.entityId} className="product-card-media" showCredit={false} fallback={missingPhoto} />
+      ? <EntityMedia entityType={entityType} entityId={item.entityId} className="product-card-media ui-product-media" showCredit={false} fallback={missingPhoto} />
       : missingPhoto}
-    <div className="product-card-copy">
+    <div className="product-card-copy ui-product-card-copy">
       <div className="product-card-top">
         <span className="product-card-category">{item.category}</span>
         {item.status !== "verified" && <span className="catalog-status">Check details</span>}
@@ -40,5 +40,5 @@ export function ProductCard({ item }: { item: ProductCardItem }) {
     </div>
   </Link>;
   if (!item.entityId) return card;
-  return <article className="product-card-shell">{card}<AffiliateOffer productId={item.entityId} productName={productName} compact /></article>;
+  return <article className="product-card-shell ui-product-card-shell">{card}<AffiliateOffer productId={item.entityId} productName={productName} compact /></article>;
 }

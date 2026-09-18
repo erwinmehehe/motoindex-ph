@@ -13,6 +13,7 @@ import { hasRenderableProductMedia } from "@/lib/media";
 import { AuthorBox } from "@/components/AuthorBox";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
+import { DataTable, InfoPanel, PageHero, ProductGrid, SectionHeader, StatRow } from "@/components/ui";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Top Box Philippines: Sizes, Brackets & Fitment",
@@ -43,51 +44,52 @@ export default function TopBoxPage(){
 
   return <section className="page shell accessories-master-page topbox-master-page">
     <Breadcrumbs items={[{label:"Accessories",href:"/accessories"},{label:category.name}]} />
-    <div className="page-head">
-      <span className="entity-kicker">Storage + fitment</span>
-      <h1>Motorcycle top boxes: sizes, brackets and fitment</h1>
-      <p>Compare storage capacity and mounting systems, then check a motorcycle-specific rack or bracket before buying. Capacity alone never proves fitment.</p>
-    </div>
+    <PageHero kicker="Storage + fitment" title="Motorcycle top boxes: sizes, brackets and fitment" description="Compare storage capacity and mounting systems, then check a motorcycle-specific rack or bracket before buying. Capacity alone never proves fitment." />
 
     <nav className="product-entity-nav" aria-label="Motorcycle top-box sections">
       <a href="#products">Products</a><a href="#brands">Brands</a><a href="#capacity">Capacity</a><a href="#fitment">Fitment</a><a href="#lto">LTO note</a>
     </nav>
 
-    <div className="brand-facts"><div><span>Verified boxes</span><strong>{verifiedBoxes.length}</strong></div><div><span>Bike-specific fitment records</span><strong>{verifiedFitments.length}</strong></div><div><span>Capacity range</span><strong>{Math.min(...verifiedBoxes.map(p=>p.capacityL))}–{Math.max(...verifiedBoxes.map(p=>p.capacityL))} L</strong></div></div>
+    <StatRow items={[
+      {label:"Verified boxes",value:verifiedBoxes.length},
+      {label:"Bike-specific fitment records",value:verifiedFitments.length},
+      {label:"Capacity range",value:`${Math.min(...verifiedBoxes.map(p=>p.capacityL))}–${Math.max(...verifiedBoxes.map(p=>p.capacityL))} L`}
+    ]}/>
 
-    <section className="motorcycle-entity-section">
-      <div className="split"><div><h2>What to check before buying</h2><ul className="checklist">{category.buyerQuestions.map(q=><li key={q}>{q}</li>)}</ul></div><div className="info-card"><h3>Check the motorcycle first</h3><p>Open the exact model to verify rear-carrier, rack and mounting notes before choosing a box.</p><Link href="/fitment">Open fitment finder →</Link></div></div>
+    <section className="motorcycle-entity-section ui-page-section">
+      <SectionHeader kicker="Before you buy" title="What to check before buying" description="Capacity is only one part of the decision. Confirm the mounting system, bike-specific support and load limits before ordering." />
+      <div className="split"><div><ul className="checklist">{category.buyerQuestions.map(q=><li key={q}>{q}</li>)}</ul></div><InfoPanel><h3>Check the motorcycle first</h3><p>Open the exact model to verify rear-carrier, rack and mounting notes before choosing a box.</p><Link href="/fitment">Open fitment finder →</Link></InfoPanel></div>
     </section>
 
-    <section id="products" className="motorcycle-entity-section">
-      <div className="section-head inline-head"><div><span className="section-kicker">Checked products</span><h2>Motorcycle top boxes with catalog records</h2><p>Product cards are shown only when MotoIndex has a checked, renderable product image. Records without a sourced photo stay listed separately.</p></div></div>
-      {verifiedBoxesWithImages.length>0&&<div className="product-grid">{verifiedBoxesWithImages.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/accessories/top-box/${p.slug}`,category:"Top box",brand:p.brand,model:p.model,meta:`${p.capacityL}L · ${p.shell}`,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</div>}
+    <section id="products" className="motorcycle-entity-section ui-page-section">
+      <SectionHeader kicker="Checked products" title="Motorcycle top boxes with catalog records" description="Product cards are shown only when MotoIndex has a checked, renderable product image. Records without a sourced photo stay listed separately." />
+      {verifiedBoxesWithImages.length>0&&<ProductGrid >{verifiedBoxesWithImages.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/accessories/top-box/${p.slug}`,category:"Top box",brand:p.brand,model:p.model,meta:`${p.capacityL}L · ${p.shell}`,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</ProductGrid>}
       {verifiedBoxesWithoutImages.length>0&&<div className="checked-record-list list-cards" aria-label="Checked top-box records awaiting sourced product photos">{verifiedBoxesWithoutImages.map(p=><Link key={p.id} href={`/accessories/top-box/${p.slug}`}><span><strong>{p.brand} {p.model}</strong><small>{p.capacityL}L · {p.shell} · checked product record</small></span><span className="checked-record-action">Photo not yet sourced · View details →</span></Link>)}</div>}
     </section>
 
-    <section id="brands" className="motorcycle-entity-section topbox-brand-research" aria-labelledby="topbox-brand-research-title">
-      <div className="section-head compact"><div><span className="section-kicker">Brand research</span><h2 id="topbox-brand-research-title">Top-box brands and product families</h2><p>Fully checked models get detailed product pages. Other families stay here until the manufacturer/model/SKU identity and mounting bundle are stable.</p></div></div>
-      <div className="research-brand-grid topic-grid">{topBoxBrandLineups.map(brand=><article key={brand.slug}><div><strong>{brand.brand}</strong><span className={`catalog-status ${brand.status==="verified-catalog"?"verified":"research"}`}>{brand.status==="verified-catalog"?"catalog checked":"research"}</span></div><p>{brand.families.join(" · ")}</p><small>{brand.note}</small>{brand.sourceUrl&&<a className="text-link" href={brand.sourceUrl} target="_blank" rel="noreferrer">Open catalogue source ↗</a>}</article>)}</div>
+    <section id="brands" className="motorcycle-entity-section ui-page-section topbox-brand-research" aria-labelledby="topbox-brand-research-title">
+      <SectionHeader kicker="Brand research" title={<span id="topbox-brand-research-title">Top-box brands and product families</span>} description="Fully checked models get detailed product pages. Other families stay here until the manufacturer/model/SKU identity and mounting bundle are stable." />
+      <div className="research-brand-grid ui-content-grid">{topBoxBrandLineups.map(brand=><article className="ui-content-card" key={brand.slug}><div><strong>{brand.brand}</strong><span className={`catalog-status ${brand.status==="verified-catalog"?"verified":"research"}`}>{brand.status==="verified-catalog"?"catalog checked":"research"}</span></div><p>{brand.families.join(" · ")}</p><small>{brand.note}</small>{brand.sourceUrl&&<a className="text-link" href={brand.sourceUrl} target="_blank" rel="noreferrer">Open catalogue source ↗</a>}</article>)}</div>
     </section>
 
-    <section id="capacity" className="motorcycle-entity-section">
-      <div className="section-head"><div><span className="section-kicker">Capacity comparison</span><h2>Compare motorcycle top-box capacity</h2><p>Use liters to compare storage only. Mounting compatibility still comes from the exact rack, plate and motorcycle record.</p></div></div>
-      <div className="helmet-brand-table"><div className="helmet-brand-row head"><span>Top box</span><span>Capacity</span><span>Helmet/storage note</span><span>Observed price</span></div>{verifiedBoxes.map(p=><Link href={`/accessories/top-box/${p.slug}`} className="helmet-brand-row" key={p.id}><strong>{p.brand} {p.model}</strong><span>{p.capacityL} L</span><span>{p.helmetCapacity}</span><span>{p.priceFromPhp?php(p.priceFromPhp):"Check product"}</span></Link>)}</div>
+    <section id="capacity" className="motorcycle-entity-section ui-page-section">
+      <SectionHeader kicker="Capacity comparison" title="Compare motorcycle top-box capacity" description="Use liters to compare storage only. Mounting compatibility still comes from the exact rack, plate and motorcycle record." />
+      <DataTable className="helmet-brand-table" label="Motorcycle top-box capacity comparison"><div className="helmet-brand-row head" role="row"><span>Top box</span><span>Capacity</span><span>Helmet/storage note</span><span>Observed price</span></div>{verifiedBoxes.map(p=><Link role="row" href={`/accessories/top-box/${p.slug}`} className="helmet-brand-row" key={p.id}><strong>{p.brand} {p.model}</strong><span>{p.capacityL} L</span><span>{p.helmetCapacity}</span><span>{p.priceFromPhp?php(p.priceFromPhp):"Check product"}</span></Link>)}</DataTable>
     </section>
 
-    <section id="fitment" className="motorcycle-entity-section">
-      <div className="section-head"><div><span className="section-kicker">Verified fitment</span><h2>Motorcycles with a stored rack or bracket record</h2><p>These are product + motorcycle-specific edges, not capacity-based guesses.</p></div></div>
+    <section id="fitment" className="motorcycle-entity-section ui-page-section">
+      <SectionHeader kicker="Verified fitment" title="Motorcycles with a stored rack or bracket record" description="These are product + motorcycle-specific edges, not capacity-based guesses." />
       <div className="fitment-evidence-grid">{verifiedFitments.map(({fitment,motorcycle})=><article key={fitment.id}><span className="catalog-status verified">verified</span><h3>{motorcycle!.make} {motorcycle!.model}</h3><p><b>{fitment.topBoxLabel}</b> · rack {fitment.rackCode}</p><p>{fitment.rackLabel}</p><small>{fitment.modelYears}</small><Link className="text-link" href={`/motorcycles/${motorcycle!.makeSlug}/${motorcycle!.slug}#tires-fitment`}>Open exact fitment →</Link></article>)}</div>
     </section>
 
-    <section id="lto" className="motorcycle-entity-section">
-      <div className="note-box"><h2>Philippines LTO top-box note</h2><p>LTO announced that the ₱100 registration fee for custom-made motorcycle top boxes and saddle bags was removed. This does not replace safe mounting, load-limit and road-safety checks.</p><a className="text-link" href="https://lto.gov.ph/news/bayad-sa-rehistro-ng-top-box-sa-motorsiklo-inalis-na-ng-lto/" target="_blank" rel="noreferrer">Read the LTO notice ↗</a></div>
+    <section id="lto" className="motorcycle-entity-section ui-page-section">
+      <InfoPanel subtle><h2>Philippines LTO top-box note</h2><p>LTO announced that the ₱100 registration fee for custom-made motorcycle top boxes and saddle bags was removed. This does not replace safe mounting, load-limit and road-safety checks.</p><a className="text-link" href="https://lto.gov.ph/news/bayad-sa-rehistro-ng-top-box-sa-motorsiklo-inalis-na-ng-lto/" target="_blank" rel="noreferrer">Read the LTO notice ↗</a></InfoPanel>
     </section>
 
     <FaqSection title="Motorcycle top-box questions" items={topBoxFaqs}/>
 
-    <section className="motorcycle-entity-section">
-      <div className="section-head inline-head"><div><span className="section-kicker">Model research</span><h2>Check top-box fitment on the exact motorcycle</h2></div></div>
+    <section className="motorcycle-entity-section ui-page-section">
+      <SectionHeader kicker="Model research" title="Check top-box fitment on the exact motorcycle" />
       <div className="list-cards">{publicMotorcycles.slice(0,8).map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}><span><strong>Top box for {m.make} {m.model}</strong><small>Mounting and fitment notes</small></span><b>View fitment →</b></Link>)}</div>
     </section>
 
