@@ -26,14 +26,14 @@ export function AccessoryGuidePage({ guide }: { guide: AccessorySeoGuide }) {
     </nav>
 
     <section className="motorcycle-entity-section ui-page-section">
-      <SectionHeader className="section-head compact" kicker="Buying checks" title="What to confirm before you buy" description="Use these checks before comparing brands or seller listings." />
+      <SectionHeader kicker="Buying checks" title="What to confirm before you buy" description="Use these checks before comparing brands or seller listings." />
       <div className="ui-content-grid">{category.buyerQuestions.map((question,index)=><article className="ui-content-card" key={question}><span className="ui-section-header__kicker">Check {String(index+1).padStart(2,"0")}</span><h3>{question}</h3></article>)}</div>
     </section>
 
     <AccessorySeoGuideContent guide={guide} />
 
     <section className="motorcycle-entity-section ui-page-section">
-      <SectionHeader className="section-head compact" kicker="Fitment" title="Check the exact motorcycle or helmet before ordering" description="Accessory fitment depends on the mounting point, controls, helmet interior or riding setup. Use the relevant MotoIndex entity page before treating a product as compatible." />
+      <SectionHeader kicker="Fitment" title="Check the exact motorcycle or helmet before ordering" description="Accessory fitment depends on the mounting point, controls, helmet interior or riding setup. Use the relevant MotoIndex entity page before treating a product as compatible." />
       <CTAGroup><Link className="button small" href="/motorcycles">Browse motorcycles</Link><Link className="button ghost small" href="/gear/helmets">Browse helmets</Link></CTAGroup>
     </section>
 
