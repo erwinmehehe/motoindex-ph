@@ -3,6 +3,7 @@ import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
 import { helmetBrands } from "@/lib/data";
 import { helmetProducts, isIndexableHelmetBrand } from "@/lib/catalog";
+import { hasRenderableProductMedia } from "@/lib/media";
 import { ProductCard } from "@/components/ProductCard";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { AuthorBox } from "@/components/AuthorBox";
@@ -26,10 +27,10 @@ function compactHelmetMeta(product: (typeof helmetProducts)[number]) {
   return [certificationLabel, product.intercomReady ? "Intercom-ready" : undefined].filter(Boolean).join(" · ");
 }
 
-function HelmetProductGrid({ products, limit = 6 }: { products: typeof helmetProducts; limit?: number }) {
-  const visible = products.slice(0, limit);
+function HelmetProductGrid({ products, limit = 8 }: { products: typeof helmetProducts; limit?: number }) {
+  const visible = products.filter(product=>hasRenderableProductMedia(product.id)).slice(0, limit);
   if (!visible.length) return <InfoPanel subtle><p>No matching verified helmet is published right now.</p></InfoPanel>;
-  return <ProductGrid className="helmet-product-grid">{visible.map(p=><ProductCard key={p.id} item={{
+  return <ProductGrid className="helmet-product-grid" density="compact">{visible.map(p=><ProductCard key={p.id} item={{
     entityId:p.id,
     href:`/gear/helmets/${p.brandSlug}/${p.slug}`,
     category:p.helmetType,
@@ -136,12 +137,12 @@ export default function HelmetsPage(){
     </section>
 
     <section id="commuting" className="ui-page-section helmet-master-section">
-      <SectionHeader kicker="Daily riding" title="Motorcycle helmets for commuting" description="For Philippine stop-go riding, compare coverage with heat, rain, visor fogging, weight and repeated daily comfort. There is no single best format for every route." />
+      <SectionHeader kicker="Daily riding" title="Motorcycle helmets for commuting" description="For daily Philippine riding, balance coverage with heat, rain, visor fogging, weight and repeated comfort." />
       <div className="ui-content-grid topic-grid">
-        <article className="ui-content-card"><h3>Heavy city traffic</h3><p>Prioritize secure fit, low-speed ventilation, usable visor positions and a rain/fog plan. Modular convenience can help at stops, but extra weight may matter on long days.</p></article>
-        <article className="ui-content-card"><h3>Mixed city and highway</h3><p>A full-face or well-homologated modular model is a common starting point because weather protection and fixed coverage matter more as speed increases.</p></article>
-        <article className="ui-content-card"><h3>Daily intercom use</h3><p>Check speaker-pocket depth, microphone placement and controls with gloves. Do not cut the impact liner or shell to force an installation.</p></article>
-        <article className="ui-content-card"><h3>Daily fit check</h3><p>The helmet should stay stable when you move it, without a painful pressure point. Padding settles with use, so a new helmet should not start loose.</p></article>
+        <article className="ui-content-card"><h3>Heavy city traffic</h3><p>Prioritize secure fit, low-speed ventilation and a practical rain or fog plan.</p></article>
+        <article className="ui-content-card"><h3>Mixed city and highway</h3><p>Start with weather protection, stable fit and the coverage you want at higher speeds.</p></article>
+        <article className="ui-content-card"><h3>Daily intercom use</h3><p>Check speaker-pocket depth, microphone placement and glove-friendly controls.</p></article>
+        <article className="ui-content-card"><h3>Daily fit check</h3><p>The helmet should stay stable without painful pressure points or starting loose.</p></article>
       </div>
       <HelmetProductGrid products={commuting} />
     </section>
@@ -153,7 +154,7 @@ export default function HelmetsPage(){
 
     <section id="models" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Model preview" title="Browse a sample of verified helmet models" description="Use the Helmet Finder for the full catalog. Open an exact product page for sizing, shell, visor, certification and current Philippine price information." aside={<Link href="/gear/helmets/finder">Filter the full catalog →</Link>} />
-      <HelmetProductGrid products={verified} limit={18} />
+      <HelmetProductGrid products={verified} limit={16} />
     </section>
 
     <AuthorBox />
