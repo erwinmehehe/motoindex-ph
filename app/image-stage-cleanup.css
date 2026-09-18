@@ -379,17 +379,6 @@ html body .recently-viewed-card .model-card-media{
 }
 
 @media(max-width:700px){
-    html body .motorcycles-index-v300 .motorcycle-catalog-grid .model-card-media,
-  html body .ph-brand-page .ph-brand-model-grid .model-card-media,
-  html body .mi-home .mi-model-grid .model-card-media{
-    height:180px!important;
-    min-height:180px!important;
-  }
-    html body .motorcycles-index-v300 .motorcycle-catalog-grid .model-card-media img,
-  html body .ph-brand-page .ph-brand-model-grid .model-card-media img,
-  html body .mi-home .mi-model-grid .model-card-media img{
-    padding:10px 14px!important;
-  }
   html body .motorcycle-entity-page .motorcycle-hero-media{
     height:260px!important;
     max-height:260px!important;
