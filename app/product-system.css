@@ -10,11 +10,11 @@
 .mi-toolbar>p{margin:0;color:var(--mi-color-product-copy);font-size:.95rem}
 .mi-toolbar>div{display:flex;align-items:center;gap:10px}
 .mi-button{min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:10px 19px;border:0;border-radius:999px;font:650 .9rem/1 var(--font-inter),sans-serif;text-decoration:none}
-.mi-button-primary{background:var(--mi-color-product-link);color:#fff}.mi-button-primary:hover{background:var(--mi-color-product-link-hover);color:#fff}
-.mi-button-quiet{background:#e8e8ed;color:var(--mi-color-product-ink)}.mi-button-quiet:hover{background:#dedee3}
+.mi-button-primary{background:var(--mi-color-product-link);color:var(--mi-color-surface)}.mi-button-primary:hover{background:var(--mi-color-product-link-hover);color:var(--mi-color-surface)}
+.mi-button-quiet{background:var(--mi-color-zinc-100);color:var(--mi-color-product-ink)}.mi-button-quiet:hover{background:var(--mi-color-faint)}
 .mi-link-button{min-height:44px;padding:8px;border:0;background:transparent;color:var(--mi-color-product-copy);font-size:.9rem}.mi-link-button:hover{color:var(--mi-color-product-ink)}
 
-.mi-comparison{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));overflow:hidden;border-radius:32px;background:var(--mi-color-surface);box-shadow:0 1px 2px rgba(0,0,0,.035),0 18px 60px rgba(0,0,0,.045)}
+.mi-comparison{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));overflow:hidden;border-radius:var(--mi-radius-3xl);background:var(--mi-color-surface);box-shadow:var(--mi-shadow-lg)}
 .mi-bike{position:relative;min-width:0;padding:34px 36px 38px}.mi-bike+.mi-bike{border-left:1px solid var(--mi-color-product-line)}
 .mi-remove{position:absolute;z-index:2;top:24px;right:26px;min-height:36px;padding:7px 10px;border:0;background:transparent;color:var(--mi-color-product-copy);font-size:.78rem}.mi-remove:hover{color:var(--mi-color-product-ink);text-decoration:underline}
 .mi-bike-media{height:clamp(230px,26vw,350px);display:grid;place-items:center;margin:-10px -18px 28px;overflow:hidden}
@@ -23,7 +23,7 @@
 .mi-bike-fallback{display:grid;gap:4px;text-align:center}.mi-bike-fallback span,.mi-bike-copy>p{margin:0;color:var(--mi-color-product-copy);font-size:.82rem}.mi-bike-fallback strong{font-size:1.5rem}
 .mi-bike-copy h2{margin:4px 0 22px;font-family:var(--font-jakarta),sans-serif;font-size:clamp(1.9rem,3vw,2.8rem);letter-spacing:-.045em;line-height:1}.mi-bike-copy h2 a{color:inherit;text-decoration:none}
 .mi-price{display:block;font-size:clamp(1.35rem,2.2vw,1.8rem);letter-spacing:-.035em}
-.mi-monthly{margin:8px 0 0!important;color:var(--mi-color-product-copy)!important;font-size:.88rem!important;line-height:1.45}.mi-monthly strong{color:var(--mi-color-product-ink)}.mi-monthly span{color:#248a3d}
+.mi-monthly{margin:var(--mi-space-2) 0 0;color:var(--mi-color-product-copy);font-size:var(--mi-type-sm);line-height:1.45}.mi-monthly strong{color:var(--mi-color-product-ink)}.mi-monthly span{color:var(--mi-color-success-dark)}
 .mi-details{margin-top:30px;padding-top:20px;border-top:1px solid var(--mi-color-product-line)}.mi-details summary{min-height:32px;color:var(--mi-color-product-copy);font-size:.86rem;cursor:pointer}.mi-details dl{display:grid;gap:10px;margin:14px 0 0}.mi-details dl div{display:flex;justify-content:space-between;gap:16px}.mi-details dt,.mi-details dd{font-size:.83rem}.mi-details dt{color:var(--mi-color-product-copy)}.mi-details dd{margin:0;font-weight:600;text-align:right}
 .mi-view-link{display:inline-block;margin-top:28px;color:var(--mi-color-product-link);font-size:.9rem;font-weight:650;text-decoration:none}.mi-view-link:hover{text-decoration:underline}
 
@@ -32,7 +32,7 @@
 .mi-assumption label{width:min(100%,390px);display:grid;gap:10px}.mi-assumption label span{font-size:.86rem;font-weight:650;text-align:right}.mi-assumption input{width:100%;accent-color:var(--mi-color-product-link)}
 .mi-disclaimer{max-width:740px;margin:34px auto 0;color:var(--mi-color-product-copy);font-size:.76rem;line-height:1.55;text-align:center}
 
-.mi-empty{max-width:760px;margin:0 auto;padding:40px 20px 80px;text-align:center}.mi-kicker{margin:0 0 10px!important;color:var(--mi-color-product-link)!important;font-size:.9rem!important;font-weight:650}.mi-empty h2{margin:0 0 18px;font-family:var(--font-jakarta),sans-serif;font-size:clamp(2.7rem,6vw,5rem);letter-spacing:-.055em;line-height:.96}.mi-empty>p:not(.mi-kicker){max-width:570px;margin:0 auto 30px;color:var(--mi-color-product-copy);font-size:1.08rem;line-height:1.55}
+.mi-empty{max-width:var(--mi-copy-max);margin:0 auto;padding:var(--mi-space-10) var(--mi-space-5) var(--mi-space-20);text-align:center}.mi-kicker{margin:0 0 var(--mi-space-3);color:var(--mi-color-product-link);font-size:var(--mi-type-sm);font-weight:650}.mi-empty h2{margin:0 0 18px;font-family:var(--font-jakarta),sans-serif;font-size:clamp(2.7rem,6vw,5rem);letter-spacing:-.055em;line-height:.96}.mi-empty>p:not(.mi-kicker){max-width:570px;margin:0 auto 30px;color:var(--mi-color-product-copy);font-size:1.08rem;line-height:1.55}
 
 @media(max-width:760px){
   .apple-shortlist-page{padding-top:46px}.apple-page-heading{margin-bottom:46px;text-align:left}.apple-page-heading h1{font-size:clamp(2.8rem,14vw,4.5rem)}
@@ -52,7 +52,7 @@
 .tire-master-page .product-entity-nav,.accessories-master-page .product-entity-nav,.product-entity-page .product-entity-nav{display:flex;gap:4px;overflow-x:auto;margin:20px 0 44px;padding:0 0 12px;border:0;border-bottom:1px solid var(--mi-color-product-line);border-radius:0;background:transparent;box-shadow:none;scrollbar-width:none}
 .tire-master-page .product-entity-nav::-webkit-scrollbar,.accessories-master-page .product-entity-nav::-webkit-scrollbar,.product-entity-page .product-entity-nav::-webkit-scrollbar{display:none}
 .tire-master-page .product-entity-nav a,.accessories-master-page .product-entity-nav a,.product-entity-page .product-entity-nav a{min-height:38px;display:inline-flex;align-items:center;padding:0 10px;border:0;border-radius:8px;background:transparent;color:var(--mi-color-product-copy);font-size:11px;font-weight:700;white-space:nowrap}
-.tire-master-page .product-entity-nav a:hover,.accessories-master-page .product-entity-nav a:hover,.product-entity-page .product-entity-nav a:hover{background:#f5f5f7;color:var(--mi-color-product-ink)}
+.tire-master-page .product-entity-nav a:hover,.accessories-master-page .product-entity-nav a:hover,.product-entity-page .product-entity-nav a:hover{background:var(--mi-color-canvas);color:var(--mi-color-product-ink)}
 .tire-master-section,.accessories-master-page .motorcycle-entity-section,.product-entity-page .product-entity-section{padding:52px 0;border-top:1px solid var(--mi-color-product-line)}
 .tire-master-section:first-of-type,.accessories-master-page .motorcycle-entity-section:first-of-type{border-top:0}
 .tire-master-page .section-head,.accessories-master-page .section-head,.product-entity-page .section-head{margin-bottom:22px}
@@ -79,7 +79,7 @@
 
 /* Product cards become image-first catalog rows/columns instead of dashboard tiles. */
 .product-grid{gap:0;border-top:1px solid var(--mi-color-product-line);border-bottom:1px solid var(--mi-color-product-line)}
-.product-card-shell{min-width:0;padding:0;border-right:1px solid var(--mi-color-product-line);background:#fff}
+.product-card-shell{min-width:0;padding:0;border-right:1px solid var(--mi-color-product-line);background:var(--mi-color-surface)}
 .product-card-shell:nth-child(3n){border-right:0}
 .product-card{height:100%;min-height:0;display:flex;flex-direction:column;border:0;border-radius:0;background:#fff;box-shadow:none;overflow:hidden;transition:none}
 .product-card:hover{transform:none;box-shadow:none;background:#fafafa}
@@ -118,14 +118,14 @@
 .product-entity-page .entity-spec-table>div{min-height:58px;padding:13px 2px;border:0;border-bottom:1px solid var(--mi-color-product-line);border-radius:0;background:transparent}
 .product-entity-page .entity-spec-table strong{color:#334155;font-size:13px;line-height:1.45}
 .product-entity-page .size-chips{gap:0;border-top:1px solid var(--mi-color-product-line)}
-.product-entity-page .size-chips span{padding:11px 14px;border:0;border-right:1px solid var(--mi-color-product-line);border-bottom:1px solid var(--mi-color-product-line);border-radius:0;background:transparent;color:#475569}
+.product-entity-page .size-chips span{padding:11px 14px;border:0;border-right:1px solid var(--mi-color-product-line);border-bottom:1px solid var(--mi-color-product-line);border-radius:0;background:transparent;color:var(--mi-color-slate-600)}
 .product-entity-page .match-grid,.product-entity-page .fitment-evidence-grid{gap:0;border-top:1px solid var(--mi-color-product-line)}
 .product-entity-page .match-grid>a,.product-entity-page .fitment-evidence-grid>article{padding:17px 2px;border:0;border-bottom:1px solid var(--mi-color-product-line);border-radius:0;background:transparent;box-shadow:none}
 .product-entity-page .product-editorial{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:0;border-top:1px solid var(--mi-color-product-line);border-bottom:1px solid var(--mi-color-product-line)}
 .product-entity-page .product-editorial>article{min-height:0;padding:22px;border:0;border-right:1px solid var(--mi-color-product-line);border-radius:0;background:transparent;box-shadow:none}.product-entity-page .product-editorial>article:last-child{border-right:0}
 .product-entity-page .product-editorial h2{font-size:24px;letter-spacing:-.04em}.product-entity-page .product-editorial p,.product-entity-page .product-editorial li{color:var(--mi-color-product-copy);font-size:12px;line-height:1.55}
 .product-entity-page .mini-compare-table{overflow:hidden;border:1px solid var(--mi-color-product-line);border-radius:12px;box-shadow:none}
-.product-entity-page .note-box{border:0;border-top:1px solid var(--mi-color-product-line);border-bottom:1px solid var(--mi-color-product-line);border-radius:0;background:#fafafa;box-shadow:none}
+.product-entity-page .note-box{border:0;border-top:1px solid var(--mi-color-product-line);border-bottom:1px solid var(--mi-color-product-line);border-radius:0;background:var(--mi-color-surface-subtle);box-shadow:none}
 
 /* Buyer calculators: remove nested cards while keeping results prominent and controls easy to scan. */
 .loan-tool,.fee-tool,.insurance-tool,.ownership-calculator.v18,.commute-calculator,.calculator-card{margin:12px 0 30px;padding:28px 0;border:0;border-top:1px solid var(--mi-color-product-line);border-bottom:1px solid var(--mi-color-product-line);border-radius:0;background:transparent;box-shadow:none}
@@ -133,19 +133,19 @@
 .loan-copy p,.fee-copy p,.insurance-copy p,.ownership-calculator-copy p,.commute-calculator-copy p{color:var(--mi-color-product-copy);font-size:12px;line-height:1.6}
 .loan-primary,.fee-primary,.insurance-primary,.ownership-total,.commute-total{margin-top:20px;padding:18px;border-radius:14px;background:#111827;box-shadow:none}
 .loan-primary strong,.fee-primary strong,.insurance-primary strong,.ownership-total strong,.commute-total strong{font-size:clamp(28px,3.5vw,38px)}
-.loan-fields label,.fee-fields label,.insurance-fields label,.ownership-fields label,.commute-fields label{min-width:0;padding:11px 0;border:0;border-bottom:1px solid var(--mi-color-product-line);border-radius:0;background:transparent;color:#64748b;font-size:10px;letter-spacing:.04em}
+.loan-fields label,.fee-fields label,.insurance-fields label,.ownership-fields label,.commute-fields label{min-width:0;padding:11px 0;border:0;border-bottom:1px solid var(--mi-color-product-line);border-radius:0;background:transparent;color:var(--mi-color-slate-500);font-size:10px;letter-spacing:.04em}
 .loan-fields input,.fee-fields input,.insurance-fields input,.ownership-fields input,.ownership-fields select,.commute-fields input,.commute-fields select{min-height:40px}
 .loan-fields input[type="range"],.insurance-fields input[type="range"],.ownership-fields input[type="range"],.commute-fields input[type="range"]{min-height:28px;accent-color:#4f46e5}
 .loan-breakdown,.fee-breakdown,.insurance-breakdown,.ownership-breakdown,.commute-breakdown{gap:0;border-top:1px solid var(--mi-color-product-line);padding-top:0}
 .loan-breakdown span,.fee-breakdown span,.insurance-breakdown span,.ownership-breakdown span,.commute-breakdown span{min-height:58px;padding:13px 4px;border-radius:0;border-bottom:1px solid var(--mi-color-product-line);background:transparent}
 .loan-breakdown small,.fee-breakdown small,.insurance-breakdown small,.ownership-breakdown small,.commute-breakdown small{color:#94a3b8;font-size:8px}.loan-breakdown b,.fee-breakdown b,.insurance-breakdown b,.ownership-breakdown b,.commute-breakdown b{color:#334155;font-size:14px}
-.calc-presets{display:flex;gap:6px;flex-wrap:wrap}.calc-presets button{min-height:34px;padding:0 10px;border:1px solid var(--mi-color-product-line);border-radius:8px;background:#fff;color:#64748b;font-size:10px}.calc-presets button.active{border-color:#4f46e5;background:#eef2ff;color:#3730a3}
+.calc-presets{display:flex;gap:6px;flex-wrap:wrap}.calc-presets button{min-height:34px;padding:0 10px;border:1px solid var(--mi-color-product-line);border-radius:8px;background:var(--mi-color-surface);color:var(--mi-color-slate-500);font-size:10px}.calc-presets button.active{border-color:var(--mi-color-primary);background:var(--mi-color-primary-soft);color:var(--mi-color-primary-hover)}
 .calculator-card .calculator-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--mi-color-product-line)}
 .calculator-card .calculator-grid label{min-width:0;padding:16px;border-right:1px solid var(--mi-color-product-line);border-bottom:1px solid var(--mi-color-product-line);background:transparent}.calculator-card .calculator-grid label:last-child{border-right:0}
-.calculator-card .calculator-grid label>span{display:block;margin-bottom:7px;color:#64748b;font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.calculator-card .calculator-grid input,.calculator-card .calculator-grid select{width:100%;min-height:42px;border:1px solid var(--mi-color-product-line);border-radius:9px;background:#fff;color:#334155}
+.calculator-card .calculator-grid label>span{display:block;margin-bottom:7px;color:var(--mi-color-slate-500);font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.calculator-card .calculator-grid input,.calculator-card .calculator-grid select{width:100%;min-height:42px;border:1px solid var(--mi-color-product-line);border-radius:9px;background:var(--mi-color-surface);color:var(--mi-color-slate-700)}
 .calculator-card .calculator-results{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:18px;border-top:1px solid var(--mi-color-product-line);border-bottom:1px solid var(--mi-color-product-line)}
 .calculator-card .calculator-results>article{min-height:0;padding:17px;border:0;border-right:1px solid var(--mi-color-product-line);border-radius:0;background:transparent;box-shadow:none}.calculator-card .calculator-results>article:last-child{border-right:0}
-.calculator-card .calculator-results span,.calculator-card .calculator-results small{display:block;color:#94a3b8;font-size:9px}.calculator-card .calculator-results strong{display:block;margin:6px 0;color:#334155;font-size:22px;letter-spacing:-.035em}.calculator-card .calculator-note{max-width:780px;margin:16px 0 0;color:var(--mi-color-product-copy);font-size:11px;line-height:1.55}
+.calculator-card .calculator-results span,.calculator-card .calculator-results small{display:block;color:var(--mi-color-slate-400);font-size:9px}.calculator-card .calculator-results strong{display:block;margin:6px 0;color:var(--mi-color-slate-700);font-size:22px;letter-spacing:-.035em}.calculator-card .calculator-note{max-width:780px;margin:16px 0 0;color:var(--mi-color-product-copy);font-size:11px;line-height:1.55}
 
 @media(max-width:900px){
   .tire-master-page .topic-grid,.accessories-master-page .topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tire-master-page .topic-grid>article:nth-child(2),.accessories-master-page .topic-grid>article:nth-child(2){border-right:0}
