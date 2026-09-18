@@ -79,57 +79,6 @@
 .ownership-master-page #safety-campaigns,
 .ownership-master-page #paperwork{border-top:1px solid var(--hub-line)!important}
 
-/* Helmet hub: compact browse rails with the shared light product system. */
-.helmet-hub-page .brand-facts{margin-bottom:28px!important}
-.helmet-hub-page .helmet-master-intro{
-  margin:16px 0 26px!important;
-  padding:34px!important;
-  border:1px solid var(--hub-line)!important;
-  border-radius:28px!important;
-  background:#fff!important;
-  color:#101828!important;
-  box-shadow:none!important;
-}
-.helmet-hub-page .helmet-master-intro .section-head h2,
-.helmet-hub-page .helmet-master-intro .topic-grid h3{color:#101828!important}
-.helmet-hub-page .helmet-master-intro .section-head p,
-.helmet-hub-page .helmet-master-intro .topic-grid p{color:#667085!important}
-.helmet-hub-page .helmet-master-intro .topic-grid>article{
-  border-color:var(--hub-line)!important;
-  background:#fff!important;
-  box-shadow:none!important;
-}
-.helmet-hub-page .helmet-master-intro a{color:#444CE7!important}
-.helmet-hub-page .helmet-master-section{
-  padding:52px 0!important;
-  border-top:1px solid var(--hub-line)!important;
-}
-.helmet-hub-page .helmet-master-section .section-head{margin-bottom:22px!important}
-.helmet-hub-page .product-grid.hub-product-rail{
-  display:grid!important;
-  grid-template-columns:none!important;
-  grid-auto-flow:column!important;
-  grid-auto-columns:minmax(280px,320px)!important;
-  gap:14px!important;
-  overflow-x:auto!important;
-  overflow-y:hidden!important;
-  padding:2px 2px 14px!important;
-  scroll-snap-type:x proximity;
-  scrollbar-width:thin;
-}
-.helmet-hub-page .product-grid.hub-product-rail>.product-card-shell,
-.helmet-hub-page .product-grid.hub-product-rail>.product-card{scroll-snap-align:start}
-.helmet-hub-page .product-card{height:100%!important}
-.helmet-hub-page #models{
-  margin-top:12px;
-  padding:42px!important;
-  border:1px solid var(--hub-line)!important;
-  border-radius:28px!important;
-  background:#fff!important;
-}
-.helmet-hub-page .helmet-brand-grid{gap:10px!important}
-.helmet-hub-page .helmet-brand-grid>article{box-shadow:none!important}
-
 /* Tires: keep the useful data without turning the page into a 150-row wall. */
 .tire-master-page .tire-master-section{
   padding:50px 0!important;
