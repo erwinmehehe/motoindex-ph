@@ -205,24 +205,24 @@ try {
         return el ? getComputedStyle(el).display : "missing";
       };
       const root = document.documentElement;
-      const heading = document.querySelector('.helmet-hub-page>.page-head h1');
+      const heading = document.querySelector('.helmet-hub-page .ui-page-hero h1');
       const headingRect = heading?.getBoundingClientRect();
-      const cardWidths = [...document.querySelectorAll('#full-face .hub-product-rail>.product-card-shell')].slice(0,6).map(el => Math.round(el.getBoundingClientRect().width));
-      const firstMedia=document.querySelector('#full-face .product-card-media');
+      const cardWidths = [...document.querySelectorAll('#full-face .ui-product-grid>.ui-product-card-shell')].slice(0,6).map(el => Math.round(el.getBoundingClientRect().width));
+      const firstMedia=document.querySelector('#full-face .ui-product-media');
       const firstImage=firstMedia?.querySelector('img');
       const mediaRect=firstMedia?.getBoundingClientRect();
       const imageRect=firstImage?.getBoundingClientRect();
       const intro=document.querySelector('.helmet-master-intro');
       return {
         overflow: root.scrollWidth - root.clientWidth,
-        actions: display('.helmet-shop-actions'),
-        facts: display('.helmet-hub-page .brand-facts'),
+        actions: display('.helmet-hub-page .ui-cta-group'),
+        facts: display('.helmet-hub-page .ui-stat-row'),
         nav: display('.helmet-master-nav'),
-        introGrid: display('.helmet-master-intro .topic-grid'),
-        productGrid: display('.helmet-master-section .product-grid'),
-        factsCount: document.querySelectorAll('.helmet-hub-page .brand-facts>div').length,
+        introGrid: display('.helmet-master-intro .ui-content-grid'),
+        productGrid: display('.helmet-master-section .ui-product-grid'),
+        factsCount: document.querySelectorAll('.helmet-hub-page .ui-stat-row__item').length,
         navLinks: document.querySelectorAll('.helmet-master-nav a').length,
-        introCards: document.querySelectorAll('.helmet-master-intro .topic-grid>article').length,
+        introCards: document.querySelectorAll('.helmet-master-intro .ui-content-card').length,
         cardWidths,
         mediaPosition:firstMedia?getComputedStyle(firstMedia).position:'missing',
         mediaHeight:mediaRect?.height||0,
