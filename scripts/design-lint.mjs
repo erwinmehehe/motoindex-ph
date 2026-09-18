@@ -73,24 +73,36 @@ function selectorForLine(filePath,lineNumber){
   const lines=fs.readFileSync(filePath,"utf8").split(/\r?\n/);
   let selector="";
   let depth=0;
-  for(let i=0;i<Math.min(lineNumber,lines.length);i++){
+  const targetIndex=Math.max(0,lineNumber-1);
+
+  for(let i=0;i<=targetIndex && i<lines.length;i++){
     const line=lines[i];
-    if(depth===0 && line.includes("{")){
-      selector=line.slice(0,line.indexOf("{")).trim();
-      depth=1;
+    if(depth===0){
+      const brace=line.indexOf("{");
+      if(brace<0) continue;
+      selector=line.slice(0,brace).trim();
+      if(i===targetIndex) return selector;
+      const opens=(line.match(/\{/g)||[]).length;
+      const closes=(line.match(/\}/g)||[]).length;
+      depth=opens-closes;
+      if(depth<=0){depth=0;selector="";}
       continue;
     }
-    if(depth>0){
-      depth+=(line.match(/\{/g)||[]).length;
-      depth-=(line.match(/\}/g)||[]).length;
-      if(depth<=0){depth=0;selector="";}
-    }
+
+    if(i===targetIndex) return selector;
+    depth+=(line.match(/\{/g)||[]).length;
+    depth-=(line.match(/\}/g)||[]).length;
+    if(depth<=0){depth=0;selector="";}
   }
   return selector;
 }
 
 function sourceAt(ref,file){
-  try{return git(["show",`${ref}:${file}`]);}catch{return "";}
+  try{
+    return execFileSync("git",["show",`${ref}:${file}`],{encoding:"utf8",stdio:["ignore","pipe","ignore"]});
+  }catch{
+    return "";
+  }
 }
 
 function nonZeroImageMinCount(source){
