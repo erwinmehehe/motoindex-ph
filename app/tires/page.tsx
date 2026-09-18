@@ -86,7 +86,7 @@ export default function TiresPage(){
 
     <section id="common-sizes" className="tire-master-section">
       <div className="section-head compact"><div><span className="section-kicker">Size index</span><h2>Common stock motorcycle tire sizes</h2><p>These are grouped from the motorcycles currently in the catalog. Use them for discovery only, then open the exact motorcycle before ordering.</p></div></div>
-      <div className="guide-master-link-grid">{commonSizes.map(row=><article key={row.label}><strong>{row.label}</strong><small>{row.models.length} motorcycle{row.models.length===1?"":"s"} use this size at the front, rear or both</small><div>{row.models.slice(0,5).map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}>{m.make} {m.model}</Link>)}</div></article>)}</div>
+      <div className="guide-master-link-grid topic-grid">{commonSizes.map(row=><article key={row.label}><h3>{row.label}</h3><p>{row.models.length} motorcycle{row.models.length===1?"":"s"} use this size at the front, rear or both</p><p className="tire-size-model-links">{row.models.slice(0,5).map((m,index)=><span key={m.id}>{index>0?" · ":""}<Link href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}>{m.make} {m.model}</Link></span>)}</p></article>)}</div>
     </section>
 
     <section id="products" className="tire-master-section">
