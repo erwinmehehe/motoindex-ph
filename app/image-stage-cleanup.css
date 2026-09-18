@@ -13,6 +13,8 @@
   --product-radius:18px;
 }
 
+html body .entity-media-contained{position:relative!important;overflow:hidden!important;isolation:isolate!important}
+
 /* White source images must disappear into the stage instead of looking pasted
    onto gray rectangles. The html/body prefix deliberately beats older
    !important release selectors without adding another stylesheet. */
