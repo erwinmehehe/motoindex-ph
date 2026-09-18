@@ -5,11 +5,11 @@
    canvases, oversized cards or dashboard-style section spacing. */
 
 :root{
-  --product-surface:var(--mi-color-white);
-  --product-line:var(--mi-color-product-line);
-  --product-line-soft:var(--mi-color-product-line-soft);
-  --product-muted:var(--mi-color-product-copy);
-  --product-ink:var(--mi-color-product-ink);
+  --product-surface:var(--mi-surface);
+  --product-line:var(--mi-product-line);
+  --product-line-soft:var(--mi-product-line-soft);
+  --product-muted:var(--mi-product-copy);
+  --product-ink:var(--mi-product-ink);
   --product-radius:var(--mi-radius-product);
 }
 
