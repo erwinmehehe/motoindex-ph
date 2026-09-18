@@ -29,7 +29,7 @@ function compactHelmetMeta(product: (typeof helmetProducts)[number]) {
 function HelmetProductGrid({ products, limit = 6 }: { products: typeof helmetProducts; limit?: number }) {
   const visible = products.slice(0, limit);
   if (!visible.length) return <InfoPanel subtle><p>No matching verified helmet is published right now.</p></InfoPanel>;
-  return <ProductGrid className="product-grid hub-product-rail">{visible.map(p=><ProductCard key={p.id} item={{
+  return <ProductGrid className="helmet-product-grid">{visible.map(p=><ProductCard key={p.id} item={{
     entityId:p.id,
     href:`/gear/helmets/${p.brandSlug}/${p.slug}`,
     category:p.helmetType,
@@ -78,7 +78,7 @@ export default function HelmetsPage(){
       actions={<CTAGroup><Link className="button" href="/gear/helmets/finder">Find my helmet</Link><Link className="button secondary" href="/gear/helmets/compare">Compare exact helmets</Link></CTAGroup>}
     />
 
-    <StatRow className="brand-facts" items={[
+    <StatRow items={[
       {label:"Verified models",value:verified.length},
       {label:"Brands",value:brands.length},
       {label:"Published price span",value:minPrice&&maxPrice?`${php(minPrice)}–${php(maxPrice)}`:"Check products"},
@@ -90,7 +90,7 @@ export default function HelmetsPage(){
     </nav>
 
     <InfoPanel className="helmet-master-intro">
-      <SectionHeader className="section-head compact" kicker="Start here" title="Choose the helmet by fit and riding use first" description="A helmet category is only the starting point. The exact fit, conformity marking, visor system, ventilation, weight and replacement-parts availability decide whether a model works for you day to day." />
+      <SectionHeader kicker="Start here" title="Choose the helmet by fit and riding use first" description="A helmet category is only the starting point. The exact fit, conformity marking, visor system, ventilation, weight and replacement-parts availability decide whether a model works for you day to day." />
       <div className="ui-content-grid topic-grid">
         <article className="ui-content-card"><h3>Full-face</h3><p>A fixed chin bar gives the most complete coverage among the common road formats. Good for riders prioritizing coverage, weather protection and highway use.</p><a href="#full-face">See full-face models →</a></article>
         <article className="ui-content-card"><h3>Modular</h3><p>A flip-up chin bar is convenient at stops and checkpoints but usually adds weight and mechanical complexity.</p><a href="#modular">See modular models →</a></article>
@@ -100,43 +100,43 @@ export default function HelmetsPage(){
     </InfoPanel>
 
     <section id="full-face" className="ui-page-section helmet-master-section">
-      <SectionHeader className="section-head compact" kicker="Helmet type" title="Full-face motorcycle helmets" description="Fixed-chin-bar helmets for commuting, touring and sport riding. Compare fit, visor setup, ventilation, shell construction and certification on the exact model." aside={<Count value={fullFace.length}/>} />
+      <SectionHeader kicker="Helmet type" title="Full-face motorcycle helmets" description="Fixed-chin-bar helmets for commuting, touring and sport riding. Compare fit, visor setup, ventilation, shell construction and certification on the exact model." aside={<Count value={fullFace.length}/>} />
       <HelmetProductGrid products={fullFace} />
     </section>
 
     <section id="modular" className="ui-page-section helmet-master-section">
-      <SectionHeader className="section-head compact" kicker="Helmet type" title="Modular and flip-up motorcycle helmets" description="Useful for riders who want a chin bar that can open at stops. Check P/J homologation where claimed, hinge operation, weight and intercom clearance." aside={<Count value={modular.length}/>} />
+      <SectionHeader kicker="Helmet type" title="Modular and flip-up motorcycle helmets" description="Useful for riders who want a chin bar that can open at stops. Check P/J homologation where claimed, hinge operation, weight and intercom clearance." aside={<Count value={modular.length}/>} />
       <HelmetProductGrid products={modular} />
     </section>
 
     <section id="open-face" className="ui-page-section helmet-master-section">
-      <SectionHeader className="section-head compact" kicker="Helmet type" title="Open-face and half-face motorcycle helmets" description="City-focused choices with more airflow and facial openness. Compare visor coverage, sun visor, fit and local conformity marking before buying." aside={<Count value={openFace.length}/>} />
+      <SectionHeader kicker="Helmet type" title="Open-face and half-face motorcycle helmets" description="City-focused choices with more airflow and facial openness. Compare visor coverage, sun visor, fit and local conformity marking before buying." aside={<Count value={openFace.length}/>} />
       <HelmetProductGrid products={openFace} />
     </section>
 
     <section id="under-3000" className="ui-page-section helmet-master-section">
-      <SectionHeader className="section-head compact" kicker="Budget" title="Motorcycle helmets under ₱3,000" description="This is a price filter, not a safety ranking. Check the exact Philippine unit for PS or ICC marking, correct fit, secure retention and replacement-visor availability." aside={<Count value={under3000.length}/>} />
+      <SectionHeader kicker="Budget" title="Motorcycle helmets under ₱3,000" description="This is a price filter, not a safety ranking. Check the exact Philippine unit for PS or ICC marking, correct fit, secure retention and replacement-visor availability." aside={<Count value={under3000.length}/>} />
       <HelmetProductGrid products={under3000} />
     </section>
 
     <section id="under-5000" className="ui-page-section helmet-master-section">
-      <SectionHeader className="section-head compact" kicker="Budget" title="Motorcycle helmets under ₱5,000" description="Use the wider budget to compare fit, ventilation, visor quality, removable liners and parts availability. A graphic or visor bundle can push a specific variant above the starting price shown." aside={<Count value={under5000.length}/>} />
+      <SectionHeader kicker="Budget" title="Motorcycle helmets under ₱5,000" description="Use the wider budget to compare fit, ventilation, visor quality, removable liners and parts availability. A graphic or visor bundle can push a specific variant above the starting price shown." aside={<Count value={under5000.length}/>} />
       <HelmetProductGrid products={under5000} />
     </section>
 
     <section id="ece-22-06" className="ui-page-section helmet-master-section">
-      <SectionHeader className="section-head compact" kicker="Certification" title="ECE 22.06 motorcycle helmets" description="These models explicitly reference ECE 22.06 or R22.06 in the checked product record. For Philippine use, also inspect the exact helmet for the applicable PS or ICC conformity marking." aside={<Count value={ece2206.length}/>} />
+      <SectionHeader kicker="Certification" title="ECE 22.06 motorcycle helmets" description="These models explicitly reference ECE 22.06 or R22.06 in the checked product record. For Philippine use, also inspect the exact helmet for the applicable PS or ICC conformity marking." aside={<Count value={ece2206.length}/>} />
       <HelmetProductGrid products={ece2206} />
       <p className="helmet-master-note"><Link href="/guides/motorcycle-helmet-certification-philippines">Read the Philippine helmet certification guide →</Link></p>
     </section>
 
     <section id="intercom-ready" className="ui-page-section helmet-master-section">
-      <SectionHeader className="section-head compact" kicker="Communication" title="Intercom-ready motorcycle helmets" description="Speaker pockets or communication-system provision can make installation cleaner, but speaker depth, microphone routing and mount clearance still need to match your exact intercom." aside={<Count value={intercom.length}/>} />
+      <SectionHeader kicker="Communication" title="Intercom-ready motorcycle helmets" description="Speaker pockets or communication-system provision can make installation cleaner, but speaker depth, microphone routing and mount clearance still need to match your exact intercom." aside={<Count value={intercom.length}/>} />
       <HelmetProductGrid products={intercom} />
     </section>
 
     <section id="commuting" className="ui-page-section helmet-master-section">
-      <SectionHeader className="section-head compact" kicker="Daily riding" title="Motorcycle helmets for commuting" description="For Philippine stop-go riding, compare coverage with heat, rain, visor fogging, weight and repeated daily comfort. There is no single best format for every route." />
+      <SectionHeader kicker="Daily riding" title="Motorcycle helmets for commuting" description="For Philippine stop-go riding, compare coverage with heat, rain, visor fogging, weight and repeated daily comfort. There is no single best format for every route." />
       <div className="ui-content-grid topic-grid">
         <article className="ui-content-card"><h3>Heavy city traffic</h3><p>Prioritize secure fit, low-speed ventilation, usable visor positions and a rain/fog plan. Modular convenience can help at stops, but extra weight may matter on long days.</p></article>
         <article className="ui-content-card"><h3>Mixed city and highway</h3><p>A full-face or well-homologated modular model is a common starting point because weather protection and fixed coverage matter more as speed increases.</p></article>
@@ -147,12 +147,12 @@ export default function HelmetsPage(){
     </section>
 
     <section id="brands" className="ui-page-section helmet-master-section">
-      <SectionHeader className="section-head inline-head" kicker="Browse by brand" title="Motorcycle helmet brands" description="Brand pages stay separate because each is a real product family with its own current lineup and source trail." />
+      <SectionHeader kicker="Browse by brand" title="Motorcycle helmet brands" description="Brand pages stay separate because each is a real product family with its own current lineup and source trail." />
       <div className="ui-content-grid helmet-brand-grid">{brands.map(h=><article className="ui-content-card" key={h.slug}><h3>{h.brand}</h3><p>{h.positioning}</p><Link href={`/gear/helmets/${h.slug}`}>View {h.brand} →</Link></article>)}</div>
     </section>
 
     <section id="models" className="ui-page-section helmet-master-section">
-      <SectionHeader className="section-head inline-head" kicker="Model preview" title="Browse a sample of verified helmet models" description="Use the Helmet Finder for the full catalog. Open an exact product page for sizing, shell, visor, certification and current Philippine price information." aside={<Link href="/gear/helmets/finder">Filter the full catalog →</Link>} />
+      <SectionHeader kicker="Model preview" title="Browse a sample of verified helmet models" description="Use the Helmet Finder for the full catalog. Open an exact product page for sizing, shell, visor, certification and current Philippine price information." aside={<Link href="/gear/helmets/finder">Filter the full catalog →</Link>} />
       <HelmetProductGrid products={verified} limit={18} />
     </section>
 
