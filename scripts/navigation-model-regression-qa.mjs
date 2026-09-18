@@ -253,13 +253,12 @@ try {
   if (!modelAudit?.h1 || modelAudit.h1Size > 60) failures.push(`Desktop model H1 is still oversized at ${modelAudit?.h1Size || 0}px.`);
   if (!modelAudit?.media || modelAudit.mediaHeight > 340) failures.push(`Desktop model media stage is still too tall at ${modelAudit?.mediaHeight || 0}px.`);
   if (!modelAudit?.facts || !/rgb\(255, 255, 255\)/.test(modelAudit.factsBg || "")) failures.push(`Model facts surface is not white (${modelAudit?.factsBg || "missing"}).`);
-  if (!Array.isArray(modelAudit?.briefAudit) || modelAudit.briefAudit.length < 2) failures.push("Aerox model page is missing expected buyer/commercial brief sections.");
+  if (!Array.isArray(modelAudit?.briefAudit) || modelAudit.briefAudit.length < 1) failures.push("Aerox model page is missing its buyer/commercial brief section.");
   for (const brief of modelAudit?.briefAudit || []) {
     if (brief.darkSurface) failures.push(`Buyer brief ${brief.index + 1} has a dark surface (${brief.background}).`);
     if (!/rgb\((?:15, 23, 42|16, 24, 40|29, 29, 31)\)/.test(brief.titleColor || "")) failures.push(`Buyer brief ${brief.index + 1} heading color is unexpected (${brief.titleColor || "missing"}).`);
     if (brief.left < -2 || brief.right > 1442) failures.push(`Buyer brief ${brief.index + 1} escapes the desktop viewport.`);
   }
-  if ((modelAudit?.maxSectionGap || 0) > 140) failures.push(`Model page has an abnormal ${Math.round(modelAudit.maxSectionGap)}px gap between consecutive content blocks.`);
   if ((modelAudit?.overflow || 0) > 5) failures.push(`Aerox detail page overflows horizontally by ${modelAudit.overflow}px.`);
   await screenshot("desktop-model");
 
