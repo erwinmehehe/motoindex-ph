@@ -46,7 +46,7 @@ export default async function AccessoryCategoryPage({params}:{params:Promise<{sl
     {question:"Does LTO charge a registration fee for motorcycle top boxes?",answer:"LTO announced that the ₱100 registration fee for custom-made motorcycle top boxes and saddle bags was removed. Riders still need to follow applicable mounting and road-safety requirements."}
   ];
 
-  return <section className="page shell">
+  return <section className={`page shell accessories-master-page${isTopBox ? " topbox-master-page" : ""}`}>
     <Breadcrumbs items={[{label:"Accessories",href:"/accessories"},{label:a.name}]} />
     <div className="page-head"><h1>{isTopBox?"Motorcycle top boxes: sizes, brackets and fitment":seoGuide?.title||`${a.name} for motorcycles`}</h1><p>{isTopBox?"Compare storage capacity and mounting systems, then check a motorcycle-specific rack or bracket before buying. A 32L or 39L box can be useful storage, but capacity alone never proves fitment.":seoGuide?.intro||a.description}</p></div>
 
@@ -57,11 +57,11 @@ export default async function AccessoryCategoryPage({params}:{params:Promise<{sl
     {isTopBox&&<>
       <div className="section-head inline-head"><div><h2>Top boxes with checked catalog records</h2><p>Product cards are shown only when MotoIndex has a checked, renderable product image. Every verified record remains available below instead of pretending a missing photo is verified.</p></div><Link href="/fitment">Open fitment finder →</Link></div>
       {verifiedBoxesWithImages.length>0&&<div className="product-grid">{verifiedBoxesWithImages.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/accessories/top-box/${p.slug}`,category:"Top box",brand:p.brand,model:p.model,meta:`${p.capacityL}L · ${p.shell}`,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</div>}
-      {verifiedBoxesWithoutImages.length>0&&<div className="checked-record-list" aria-label="Checked top-box records awaiting sourced product photos">{verifiedBoxesWithoutImages.map(p=><Link key={p.id} href={`/accessories/top-box/${p.slug}`}><span><strong>{p.brand} {p.model}</strong><small>{p.capacityL}L · {p.shell} · checked product record</small></span><span className="checked-record-action">Photo not yet sourced · View details →</span></Link>)}</div>}
+      {verifiedBoxesWithoutImages.length>0&&<div className="checked-record-list list-cards" aria-label="Checked top-box records awaiting sourced product photos">{verifiedBoxesWithoutImages.map(p=><Link key={p.id} href={`/accessories/top-box/${p.slug}`}><span><strong>{p.brand} {p.model}</strong><small>{p.capacityL}L · {p.shell} · checked product record</small></span><span className="checked-record-action">Photo not yet sourced · View details →</span></Link>)}</div>}
 
       <section className="topbox-brand-research" aria-labelledby="topbox-brand-research-title">
         <div className="section-head compact"><div><h2 id="topbox-brand-research-title">Top-box brands and product families</h2><p>Fully checked models get detailed product pages. Other families stay listed here until we have enough reliable model, specification and mounting information.</p></div></div>
-        <div className="research-brand-grid">{topBoxBrandLineups.map((brand)=><article key={brand.slug}>
+        <div className="research-brand-grid topic-grid">{topBoxBrandLineups.map((brand)=><article key={brand.slug}>
           <div><strong>{brand.brand}</strong><span className={`catalog-status ${brand.status === "verified-catalog" ? "verified" : "research"}`}>{brand.status === "verified-catalog" ? "catalog checked" : "research"}</span></div>
           <p>{brand.families.join(" · ")}</p><small>{brand.note}</small>
           {brand.sourceUrl&&<a className="text-link" href={brand.sourceUrl} target="_blank" rel="noreferrer">Open catalogue source ↗</a>}
