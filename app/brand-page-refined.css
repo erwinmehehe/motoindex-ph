@@ -161,11 +161,7 @@
   box-shadow:none!important;
 }
 
-.ph-brand-page .ph-brand-section>.section-head{margin-bottom:22px!important}
-.ph-brand-page .ph-brand-section .section-kicker{color:var(--brand-accent)!important;font-size:9px!important;letter-spacing:.09em!important}
-.ph-brand-page .ph-brand-section .section-head h2,
 .ph-brand-page .ph-brand-two-col>div>h2{margin:5px 0 0!important;color:var(--brand-ink)!important;font-size:clamp(28px,3.5vw,40px)!important;line-height:1.05!important;letter-spacing:-.045em!important}
-.ph-brand-page .ph-brand-section .section-head p{max-width:700px!important;margin:9px 0 0!important;color:var(--brand-muted)!important;font-size:13px!important;line-height:1.6!important}
 
 .ph-brand-page .ph-brand-model-grid{
   display:grid!important;
