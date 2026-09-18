@@ -49,8 +49,8 @@ export const accessorySeoGuides: AccessorySeoGuide[] = [
       { question: "Can I use the same phone holder on a scooter and a big bike?", answer: "Possibly, but do not assume it. The available bar or mirror mounting points, clamp diameter, clearance and vibration can be different." }
     ],
     related: [
-      { href: "/accessories#intercoms", title: "Motorcycle intercoms", description: "Compare communication-system buying factors." },
-      { href: "/accessories#rain-gear", title: "Motorcycle rain gear", description: "Build a more practical wet-weather commute setup." },
+      { href: "/accessories/intercoms", title: "Motorcycle intercoms", description: "Compare communication-system buying factors." },
+      { href: "/accessories/rain-gear", title: "Motorcycle rain gear", description: "Build a more practical wet-weather commute setup." },
       { href: "/motorcycles", title: "Choose your motorcycle", description: "Open a model page before planning mounting and fitment." }
     ]
   },
@@ -94,7 +94,7 @@ export const accessorySeoGuides: AccessorySeoGuide[] = [
     related: [
       { href: "/gear/helmets#intercom-ready", title: "Intercom-ready helmets", description: "Compare verified helmets with recorded communication-system provision." },
       { href: "/gear/helmets#commuting", title: "Helmets for commuting", description: "Compare helmet formats for daily riding." },
-      { href: "/accessories#phone-holders", title: "Motorcycle phone holders", description: "Plan navigation mounting without blocking controls." }
+      { href: "/accessories/phone-holders", title: "Motorcycle phone holders", description: "Plan navigation mounting without blocking controls." }
     ]
   },
   {
@@ -136,7 +136,7 @@ export const accessorySeoGuides: AccessorySeoGuide[] = [
     ],
     related: [
       { href: "/gear/helmets#commuting", title: "Helmets for commuting", description: "Compare visor, coverage and daily-use helmet tradeoffs." },
-      { href: "/accessories#phone-holders", title: "Motorcycle phone holders", description: "Plan navigation and charging for wet-weather use." },
+      { href: "/accessories/phone-holders", title: "Motorcycle phone holders", description: "Plan navigation and charging for wet-weather use." },
       { href: "/commute/rainy-season", title: "Rainy-season motorcycle commuting", description: "Open MotoIndex rainy-season ownership guidance." }
     ]
   }

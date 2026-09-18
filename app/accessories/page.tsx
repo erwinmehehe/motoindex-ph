@@ -6,20 +6,29 @@ import { accessorySeoGuides } from "@/lib/accessorySeo";
 import { AuthorBox } from "@/components/AuthorBox";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
-import { FaqSection, type FaqItem } from "@/components/FaqSection";
 
 export const metadata: Metadata = pageMetadata({
-  title:"Motorcycle Accessories Philippines: One Buying Guide",
-  description:"One motorcycle accessory guide for top boxes, phone holders, helmet intercoms, rain gear and model-specific fitment in the Philippines.",
+  title:"Motorcycle Accessories Philippines: Top Boxes & Gear",
+  description:"Browse motorcycle top boxes, phone holders, helmet intercoms and rain gear with fitment-focused buying guides for Philippine riders.",
   path:"/accessories",
   index:true
 });
 
+const phoneGuide=accessorySeoGuides.find(guide=>guide.slug==="phone-holders")!;
+const intercomGuide=accessorySeoGuides.find(guide=>guide.slug==="intercoms")!;
+const rainGuide=accessorySeoGuides.find(guide=>guide.slug==="rain-gear")!;
+
+const categoryHubs=[
+  {href:"/accessories/top-box",kicker:"Storage + fitment",title:"Motorcycle top boxes",description:"Compare capacity, mounting plates, bike-specific brackets, product records and verified fitment."},
+  {href:"/accessories/phone-holders",kicker:"Mounting + navigation",title:phoneGuide.title,description:phoneGuide.description},
+  {href:"/accessories/intercoms",kicker:"Helmet communications",title:intercomGuide.title,description:intercomGuide.description},
+  {href:"/accessories/rain-gear",kicker:"Wet-weather riding",title:rainGuide.title,description:rainGuide.description}
+];
+
 export default function AccessoriesPage(){
-  const faqs:FaqItem[]=accessorySeoGuides.flatMap(guide=>guide.faqs);
   const schema=articleSchema({
     headline:"Motorcycle accessories guide for the Philippines",
-    description:"One buyer guide covering motorcycle top boxes, phone holders, intercoms, rain gear and model-specific fitment.",
+    description:"Browse focused buying guides for motorcycle top boxes, phone holders, helmet intercoms and rain gear.",
     path:"/accessories",
     about:"motorcycle accessories Philippines",
     keywords:["motorcycle accessories Philippines","motorcycle top box","motorcycle phone holder","motorcycle intercom","motorcycle rain gear"],
@@ -29,39 +38,22 @@ export default function AccessoriesPage(){
   return <section className="page shell accessories-master-page">
     <div className="page-head">
       <span className="entity-kicker">Motorcycle accessories</span>
-      <h1>Motorcycle accessories in the Philippines: storage, mounts, intercoms and rain gear</h1>
-      <p>Use one guide for the main accessory decisions. Check model-specific mounting before buying anything that attaches to the motorcycle, and check the exact helmet before buying communication hardware.</p>
+      <h1>Motorcycle accessories in the Philippines</h1>
+      <p>Choose the accessory category first, then use the dedicated guide for fitment, mounting, helmet compatibility or wet-weather use. MotoIndex keeps product-fitment decisions separate instead of treating every accessory as universal.</p>
     </div>
 
-    <nav className="product-entity-nav" aria-label="Motorcycle accessory guide sections">
-      <a href="#top-box">Top boxes</a>
-      <a href="#phone-holders">Phone holders</a>
-      <a href="#intercoms">Intercoms</a>
-      <a href="#rain-gear">Rain gear</a>
+    <nav className="product-entity-nav" aria-label="Motorcycle accessory categories">
+      <Link href="/accessories/top-box">Top boxes</Link>
+      <Link href="/accessories/phone-holders">Phone holders</Link>
+      <Link href="/accessories/intercoms">Intercoms</Link>
+      <Link href="/accessories/rain-gear">Rain gear</Link>
       <a href="#model-fitment">Model fitment</a>
     </nav>
 
-    <section id="top-box" className="motorcycle-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Storage</span><h2>Motorcycle top boxes and brackets</h2><p>Top boxes stay as a separate product hub because capacity, mounting plate and bike-specific rack evidence are real product-fitment data, not just editorial advice.</p></div></div>
-      <div className="topic-grid">
-        <article><h3>Capacity is not fitment</h3><p>A 32L, 39L or larger box still needs the correct carrier, plate interface, fasteners and load limit for the motorcycle.</p></article>
-        <article><h3>Check the rack first</h3><p>Open the exact motorcycle page and confirm whether a manufacturer-listed or otherwise verified rack/bracket record exists.</p></article>
-        <article><h3>Keep load limits in mind</h3><p>The box rating does not override the motorcycle rack, subframe or carrier load limit.</p></article>
-      </div>
-      <Link className="button small" href="/accessories/top-box">Compare top boxes and fitment →</Link>
+    <section className="motorcycle-entity-section">
+      <div className="section-head compact"><div><span className="section-kicker">Choose a category</span><h2>Four accessory decisions, four focused guides</h2><p>Each page owns a distinct search intent and avoids repeating the full guide content on this parent hub.</p></div></div>
+      <div className="topic-grid">{categoryHubs.map(hub=><article key={hub.href}><span className="section-kicker">{hub.kicker}</span><h3>{hub.title}</h3><p>{hub.description}</p><Link className="text-link" href={hub.href}>Open guide →</Link></article>)}</div>
     </section>
-
-    {accessorySeoGuides.map(guide=><section id={guide.slug} className="motorcycle-entity-section" key={guide.slug}>
-      <div className="section-head compact"><div><span className="section-kicker">{guide.slug.replaceAll("-"," ")}</span><h2>{guide.title}</h2><p>{guide.intro}</p></div></div>
-      <div className="method-steps ownership-guide-sections">
-        {guide.sections.map((section,index)=><article key={section.heading}>
-          <b>{String(index+1).padStart(2,"0")}</b>
-          <h3>{section.heading}</h3>
-          {section.body.map(paragraph=><p key={paragraph}>{paragraph}</p>)}
-          {section.bullets&&<ul className="checklist">{section.bullets.map(item=><li key={item}>{item}</li>)}</ul>}
-        </article>)}
-      </div>
-    </section>)}
 
     <section id="model-fitment" className="motorcycle-entity-section">
       <div className="section-head compact"><div><span className="section-kicker">Fitment</span><h2>Check accessories on the exact motorcycle page</h2><p>Mounting space, tire sizes, top-box racks and model-specific fitment belong on the motorcycle entity, not on hundreds of generated accessory URLs.</p></div></div>
@@ -70,7 +62,6 @@ export default function AccessoriesPage(){
     </section>
 
     <JsonLd data={schema}/>
-    <FaqSection title="Motorcycle accessory questions" items={faqs}/>
     <AuthorBox/>
   </section>;
 }

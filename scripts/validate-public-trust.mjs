@@ -200,9 +200,21 @@ if (motorcycleEntity.includes("/specifications") || motorcycleEntity.includes("/
   failures.push("components/MotorcycleEntityPage.tsx: do not reintroduce model fragment links");
 }
 
-const accessoryRoute = read("app/accessories/[slug]/page.tsx");
-if (!accessoryRoute.includes('permanentRedirect(`/accessories#${slug}`)')) {
-  failures.push("app/accessories/[slug]/page.tsx: generic accessory categories must redirect to the canonical accessories hub");
+const accessoryRoot = read("app/accessories/page.tsx");
+const accessoryHubFiles = [
+  "app/accessories/top-box/page.tsx",
+  "app/accessories/phone-holders/page.tsx",
+  "app/accessories/intercoms/page.tsx",
+  "app/accessories/rain-gear/page.tsx"
+];
+for (const path of accessoryHubFiles) {
+  if (!read(path).includes("pageMetadata")) failures.push(path + ": dedicated accessory hub must own indexable metadata");
+}
+if (!["/accessories/top-box","/accessories/phone-holders","/accessories/intercoms","/accessories/rain-gear"].every(path=>accessoryRoot.includes(path))) {
+  failures.push("app/accessories/page.tsx: parent hub must link to all dedicated accessory categories");
+}
+if (accessoryRoot.includes("guide.sections.map")) {
+  failures.push("app/accessories/page.tsx: parent hub must not duplicate full child-guide content");
 }
 
 const priceChecks = read("components/MarketPriceChecks.tsx");

@@ -44,8 +44,14 @@ need(
 );
 need(!/v\d+\.css|redesign(?:-v\d+)?\.css|experience-v\d+/.test(styleStack),"Global style stack must not restore versioned legacy styles");
 
-const accessory=read("app/accessories/[slug]/page.tsx");
+const accessory=read("app/accessories/top-box/page.tsx");
 need(accessory.includes("verifiedBoxesWithImages")&&accessory.includes("verifiedBoxesWithoutImages"),"Top-box hub must distinguish checked records with and without sourced images");
+const accessoryGuideRoutes=[
+  "app/accessories/phone-holders/page.tsx",
+  "app/accessories/intercoms/page.tsx",
+  "app/accessories/rain-gear/page.tsx"
+];
+for (const path of accessoryGuideRoutes) need(read(path).includes("AccessoryGuidePage"), path+": dedicated accessory guide must render a standalone page");
 
 const recPage=read("app/recommendations/page.tsx");
 const recHub=read("app/recommendations/RecommendationsHub.tsx");
