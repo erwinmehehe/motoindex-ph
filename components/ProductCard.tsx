@@ -36,7 +36,7 @@ export function ProductCard({ item }: { item: ProductCardItem }) {
       </div>
       <h3>{productName}</h3>
       {item.meta && <p>{item.meta}</p>}
-      <div className="product-card-foot">{typeof item.priceFromPhp === "number" ? <strong>From ₱{item.priceFromPhp.toLocaleString("en-PH")}</strong> : <span aria-hidden="true" /> }<span>View →</span></div>
+      <div className="product-card-foot ui-product-card-foot">{typeof item.priceFromPhp === "number" ? <strong>From ₱{item.priceFromPhp.toLocaleString("en-PH")}</strong> : <span aria-hidden="true" /> }<span>View →</span></div>
     </div>
   </Link>;
   if (!item.entityId) return card;
