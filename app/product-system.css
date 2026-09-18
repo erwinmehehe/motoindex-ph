@@ -1,12 +1,12 @@
 /* MotoIndex buyer product system. Intentionally scoped to mi-* surfaces. */
 :root{
-  --mi-canvas:#f5f5f7;
-  --mi-surface:#fff;
-  --mi-ink:#1d1d1f;
-  --mi-copy:#6e6e73;
-  --mi-line:rgba(29,29,31,.12);
-  --mi-blue:#0066cc;
-  --mi-blue-hover:#0077ed;
+  --mi-canvas:var(--mi-color-canvas);
+  --mi-surface:var(--mi-color-white);
+  --mi-ink:var(--mi-color-apple-ink);
+  --mi-copy:var(--mi-color-apple-copy);
+  --mi-line:var(--mi-color-apple-line);
+  --mi-blue:var(--mi-link);
+  --mi-blue-hover:var(--mi-link-hover);
 }
 
 .apple-shortlist-page{max-width:1320px;padding-top:clamp(56px,8vw,112px);padding-bottom:clamp(80px,10vw,144px)}
