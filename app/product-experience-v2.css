@@ -4,16 +4,16 @@
    routes, structured data or calculator logic. */
 
 :root{
-  --px-ink:var(--mi-color-ink);
-  --px-copy:var(--mi-color-copy);
-  --px-soft:var(--mi-color-muted);
-  --px-line:var(--mi-color-line-medium);
-  --px-line-soft:var(--mi-color-line-soft);
+  --px-ink:var(--mi-core-ink);
+  --px-copy:var(--mi-core-copy);
+  --px-soft:var(--mi-core-muted);
+  --px-line:var(--mi-core-line-medium);
+  --px-line-soft:var(--mi-core-line-soft);
   --px-indigo:var(--mi-primary);
   --px-violet:var(--mi-violet);
   --px-green:var(--mi-success);
-  --px-surface:var(--mi-color-white);
-  --px-tint:var(--mi-color-surface-subtle);
+  --px-surface:var(--mi-surface);
+  --px-tint:var(--mi-surface-subtle);
   --px-radius:var(--mi-radius-lg);
 }
 
