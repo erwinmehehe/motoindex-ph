@@ -19,7 +19,7 @@
     "visual:qa": "node scripts/visual-qa.mjs && node scripts/visual-qa-editorial.mjs && node scripts/visual-qa-model-fallback.mjs",
     "validate:all": "npm run validate:post-audit && npm run validate:seo-hardening && npm run validate:no-competitors && npm run validate:copy-tone && npm run validate:public-trust && node scripts/validate-authority-growth.mjs && node scripts/validate-premium-light.mjs && npm run check:links && npm run check:legacy-links && npm run audit:freshness && node scripts/validate-content.mjs && node scripts/validate-product-layer.mjs && npm run validate:media && npm run validate:media-backfill",
     "prisma:validate": "node scripts/prisma-validate.mjs",
-    "verify": "npm run validate:all && npm run validate:lockfile && npm run prisma:validate && npm run typecheck && npm run build",
+    "verify": "npm run validate:all && npm run validate:lockfile && npm run prisma:validate && npm run lint && npm run typecheck && npm run build",
     "check:launch": "node scripts/check-launch.mjs",
     "smoke:production": "node scripts/smoke-production.mjs",
     "verify:launch": "npm run check:launch && npm run check:affiliate-build && npm run verify",
