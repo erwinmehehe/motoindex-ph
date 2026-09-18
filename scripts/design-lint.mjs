@@ -35,7 +35,7 @@ const allowedImportantInTokens=[
 function diffText(){
   try{
     execFileSync("git",["rev-parse","HEAD^1"],{stdio:"ignore"});
-    return execFileSync("git",["diff","--unified=0","HEAD^1","HEAD","--","app/**/*.css","app/*.css","app/**/*Style.tsx","app/**/*Style.ts"],{encoding:"utf8"});
+    return execFileSync("git",["diff","--unified=0","HEAD^1","HEAD","--","app/**/*.css","app/*.css"],{encoding:"utf8"});
   }catch{
     return "";
   }
@@ -77,14 +77,13 @@ for(const raw of diff.split(/\r?\n/)){
   if(hunk){newLine=Number(hunk[1]);continue;}
   if(!currentPath) continue;
   const isCss=currentPath.endsWith(".css");
-  const isStyleModule=/Style\.tsx?$/.test(currentPath);
-  if(!isCss&&!isStyleModule) continue;
+  if(!isCss) continue;
 
   if(raw.startsWith("+") && !raw.startsWith("+++")){
     const line=raw.slice(1);
-    const selector=isCss?selectorForLine(path.join(root,currentPath),newLine):line;
+    const selector=selectorForLine(path.join(root,currentPath),newLine);
     const isTokens=currentPath==="app/styles/tokens.css";
-    const isRoute=isCss?!sharedCss.has(currentPath):isStyleModule;
+    const isRoute=!sharedCss.has(currentPath);
 
     if(rawColor.test(line) && !isTokens){
       errors.push(`${currentPath}:${newLine}: raw color added outside tokens.css -> ${line.trim()}`);
@@ -107,6 +106,34 @@ for(const raw of diff.split(/\r?\n/)){
   }
   if(raw.startsWith("-") && !raw.startsWith("---")) continue;
   if(!raw.startsWith("\\")) newLine++;
+}
+
+
+function styleDebt(source){
+  return {
+    rawColor:(source.match(/#[0-9a-fA-F]{3,8}\\b|rgba?\\(|hsla?\\(/g)||[]).length,
+    important:(source.match(/!important/g)||[]).length,
+    sharedSelectors:(source.match(/\\.(?:product-card(?:-media|-copy|-shell)?|section-head|brand-facts|product-grid|entity-media-contained|model-card)\\b/g)||[]).length,
+    imageMin:(source.match(/\\bimg\\b[^{}]*\\{[^}]*min-(?:height|width)\\s*:/gs)||[]).length,
+    globalSelectors:(source.match(/:global\\(/g)||[]).length
+  };
+}
+
+let styleFiles=[];
+try{
+  styleFiles=execFileSync("git",["diff","--name-only","HEAD^1","HEAD","--","app/**/*Style.tsx","app/**/*Style.ts"],{encoding:"utf8"}).trim().split(/\\r?\\n/).filter(Boolean);
+}catch{}
+for(const file of styleFiles){
+  const current=fs.existsSync(file)?fs.readFileSync(file,"utf8"):"";
+  let previous="";
+  try{previous=execFileSync("git",["show",`HEAD^1:${file}`],{encoding:"utf8"});}catch{}
+  const before=styleDebt(previous);
+  const after=styleDebt(current);
+  for(const key of Object.keys(after)){
+    if(after[key]>before[key]){
+      errors.push(`${file}: CSS-in-TS ${key} debt increased from ${before[key]} to ${after[key]}`);
+    }
+  }
 }
 
 if(errors.length){
