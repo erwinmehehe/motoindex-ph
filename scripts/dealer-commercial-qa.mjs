@@ -35,14 +35,14 @@ try{
   async function shot(name,width){const image=await client.send("Page.captureScreenshot",{format:"png",fromSurface:true});fs.writeFileSync(path.join(outputDir,`dealer-commercial-${width}-${name}.png`),Buffer.from(image.data,"base64"));}
 
   await viewport(1440);await nav("/dealers");
-  cityRoutes=await evalJs(client.send,`(()=>[...new Set([...document.querySelectorAll('.dealer-city-links a[href^="/dealers/"]')].map(a=>new URL(a.href).pathname).filter(path=>path!=="/dealers/pampanga"&&/^\\/dealers\\/[^/]+$/.test(path)))])()`);
+  cityRoutes=await evalJs(client.send,`(()=>[...new Set([...document.querySelectorAll('[data-dealer-city-section] a[href^="/dealers/"]')].map(a=>new URL(a.href).pathname).filter(path=>path!=="/dealers/pampanga"&&/^\\/dealers\\/[^/]+$/.test(path)))])()`);
   for(const slug of expectedNcrCities){if(!cityRoutes.includes(`/dealers/${slug}`))failures.push(`Expected NCR dealer city missing from directory: ${slug}`);}
   if(cityRoutes.length<12)failures.push(`Dealer city coverage unexpectedly low: ${cityRoutes.length} published city pages`);
 
   for(const width of widths){
     await viewport(width);
     await nav("/dealers");
-    const directory=await evalJs(client.send,`(()=>{const root=document.documentElement;return{overflow:root.scrollWidth-root.clientWidth,cityLinks:[...document.querySelectorAll('.dealer-city-links a[href^="/dealers/"]')].filter(a=>new URL(a.href).pathname!=="/dealers/pampanga").length,free:[...document.querySelectorAll('a')].some(a=>/listed free/i.test(a.textContent||'')),featured:[...document.querySelectorAll('a')].some(a=>/featured/i.test(a.textContent||'')),dealerCards:document.querySelectorAll('.dealer-result-card').length};})()`);
+    const directory=await evalJs(client.send,`(()=>{const root=document.documentElement;return{overflow:root.scrollWidth-root.clientWidth,cityLinks:[...document.querySelectorAll('[data-dealer-city-section] a[href^="/dealers/"]')].filter(a=>new URL(a.href).pathname!=="/dealers/pampanga").length,free:[...document.querySelectorAll('a')].some(a=>/listed free/i.test(a.textContent||'')),featured:[...document.querySelectorAll('a')].some(a=>/featured/i.test(a.textContent||'')),dealerCards:document.querySelectorAll('.dealer-result-card').length};})()`);
     results.push({width,page:"dealer-directory",...directory});
     if((directory?.overflow||0)>5)failures.push(`${width}px main dealer directory overflow`);
     if((directory?.cityLinks||0)!==cityRoutes.length)failures.push(`${width}px dealer city links do not match published city set`);
