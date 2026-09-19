@@ -126,6 +126,7 @@ export default function MotorcyclesPage() {
             <Link className="button secondary" href="/recommendations/250cc-motorcycles-philippines">250cc motorcycles</Link>
             <Link className="button secondary" href="/recommendations/300cc-motorcycles-philippines">300cc motorcycles</Link>
             <Link className="button secondary" href="/recommendations/motorcycles-400cc-plus-philippines">400cc+ motorcycles</Link>
+            <Link className="button secondary" href="/motorcycles/expressway-legal">Expressway legal guide</Link>
           </CTAGroup>
         </section>
 
