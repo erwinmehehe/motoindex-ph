@@ -117,8 +117,8 @@ try {
         const fallbackTitle=fallback?.querySelector('strong');
         const fallbackRect=fallback?.getBoundingClientRect();
         const titleRect=fallbackTitle?.getBoundingClientRect();
-        const commute=document.querySelector('.commute-master-page .commute-context');
-        const commuteHeading=commute?.querySelector('h2');
+        const commute=document.querySelector('.commute-master-page .ui-info-panel');
+        const commuteHeading=commute?.querySelector('h3');
         const pathological=[...document.querySelectorAll('h1,h2,h3,strong')].filter(el=>{
           const text=(el.textContent||'').trim();
           if(text.length<5)return false;
@@ -156,8 +156,7 @@ try {
       }
       if (pathname === "/commute") {
         if (!audit?.commuteHeadingWidth || audit.commuteHeadingWidth < (width <= 430 ? 240 : 400)) failures.push(`${width}px /commute: context heading collapsed to ${audit?.commuteHeadingWidth}px`);
-        if (audit?.commuteBackground === "rgb(255, 255, 255)") failures.push(`${width}px /commute: context panel regressed to white behind white typography`);
-        if (audit?.commuteHeadingColor !== "rgb(255, 255, 255)") failures.push(`${width}px /commute: context heading lost white-on-dark contrast (${audit?.commuteHeadingColor})`);
+        if (!audit?.commuteBackground || !audit?.commuteHeadingColor || audit.commuteBackground === audit.commuteHeadingColor) failures.push(`${width}px /commute: context panel lost readable heading contrast (${audit?.commuteHeadingColor} on ${audit?.commuteBackground})`);
       }
 
       const shot = await cdp.send("Page.captureScreenshot", { format: "png", fromSurface: true, captureBeyondViewport: false });

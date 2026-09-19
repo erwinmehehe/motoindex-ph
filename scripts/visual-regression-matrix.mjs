@@ -20,6 +20,9 @@ const routes=[
   {name:"top-box-detail",path:"/accessories/top-box/v58-maxia-5"},
   {name:"finder",path:"/finder"},
   {name:"recommendations",path:"/recommendations"},
+  {name:"ownership-hub",path:"/ownership"},
+  {name:"commute-hub",path:"/commute"},
+  {name:"tools-hub",path:"/tools"},
   {name:"calculator-ownership",path:"/ownership/cost-calculator"},
   {name:"calculator-commute",path:"/commute/cost-calculator"},
   {name:"calculator-affordability",path:"/commute/affordability"},
@@ -209,6 +212,10 @@ const inspect=`(() => {
   const tireSizeTop=document.querySelector("[data-tire-size-index]")?.getBoundingClientRect().top||0;
   const tireSizeRows=document.querySelectorAll("[data-tire-size-index] > article").length;
   const accessoryCategoryRows=document.querySelectorAll("[data-accessory-category-list] > a").length;
+  const ownershipGuideRows=document.querySelectorAll("[data-ownership-guide-list] > a").length;
+  const commuteUseCases=document.querySelectorAll("[data-commute-use-case]").length;
+  const toolsDecisionRows=document.querySelectorAll("[data-tools-core] a,[data-tools-planning] a").length;
+  const legacyCommuteCards=document.querySelectorAll(".commute-rank-card,.method-card").length;
 
   const standardMotorcycleCards=[...document.querySelectorAll('[data-motorcycle-card="standard"]')];
   const standardMotorcycleCardModes=standardMotorcycleCards.map(card=>({
@@ -255,6 +262,10 @@ const inspect=`(() => {
     tireSizeTop,
     tireSizeRows,
     accessoryCategoryRows,
+    ownershipGuideRows,
+    commuteUseCases,
+    toolsDecisionRows,
+    legacyCommuteCards,
     cloudflareError:/worker exceeded resource limits|error 1102|error 503|service unavailable/.test(bodyText),
     empty:(document.body?.innerText||"").trim().length<80
   };
@@ -329,6 +340,11 @@ try{
       if(route.name==="tires"&&(row?.tireProductTop||0)>=(row?.tireSizeTop||0))failures.push(`${width}px tires: verified tire products no longer appear before the size index`);
       if(route.name==="accessories"&&(row?.genericContentCards||0)>0)failures.push(`${width}px accessories: generic content-card wall returned (${row.genericContentCards} cards)`);
       if(route.name==="accessories"&&(row?.accessoryCategoryRows||0)!==4)failures.push(`${width}px accessories: expected four compact accessory category rows, found ${row.accessoryCategoryRows||0}`);
+      if(route.name==="ownership-hub"&&(row?.ownershipGuideRows||0)<4)failures.push(`${width}px ownership: compact ownership guide list is missing or incomplete`);
+      if(route.name==="commute-hub"&&(row?.commuteUseCases||0)<3)failures.push(`${width}px commute: compact use-case sections are missing`);
+      if(route.name==="commute-hub"&&(row?.legacyCommuteCards||0)>0)failures.push(`${width}px commute: legacy repeated commute card/method blocks returned`);
+      if(route.name==="tools-hub"&&(row?.toolsDecisionRows||0)<8)failures.push(`${width}px tools: calculator decision index is incomplete`);
+      if(["ownership-hub","commute-hub","tools-hub"].includes(route.name)&&(row?.genericContentCards||0)>0)failures.push(`${width}px ${route.name}: generic content-card wall returned`);
 
       const metrics=await cdp.send("Page.getLayoutMetrics");
       const contentSize=metrics.cssContentSize||metrics.contentSize;

@@ -46,87 +46,6 @@
   box-shadow:0 22px 55px rgba(17,19,24,.055)!important;
 }
 
-/* Ownership: one strong opening decision surface, then clean editorial sections. */
-.ownership-master-page .motorcycle-entity-section{
-  min-height:0!important;
-  margin:0!important;
-  padding:50px 0!important;
-  border-radius:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-}
-.ownership-master-page #cost{
-  margin:22px 0 10px!important;
-  padding:38px!important;
-  border:0!important;
-  border-radius:28px!important;
-  background:radial-gradient(circle at 92% 12%,rgba(240,68,77,.23),transparent 31%),var(--hub-ink)!important;
-  color:#fff!important;
-}
-.ownership-master-page #cost .section-head{margin-bottom:24px!important}
-.ownership-master-page #cost .section-head h2{color:#fff!important}
-.ownership-master-page #cost .section-head p{color:rgba(255,255,255,.58)!important}
-.ownership-master-page #cost .ownership-feature-grid>a{
-  border-color:rgba(255,255,255,.11)!important;
-  background:rgba(255,255,255,.06)!important;
-  color:#fff!important;
-  box-shadow:none!important;
-}
-.ownership-master-page #cost .ownership-feature-grid>a p{color:rgba(255,255,255,.55)!important}
-.ownership-master-page #cost .ownership-feature-grid>a span,
-.ownership-master-page #cost .ownership-feature-grid>a b{color:#ff7178!important}
-.ownership-master-page #maintenance,
-.ownership-master-page #safety-campaigns,
-.ownership-master-page #paperwork{border-top:1px solid var(--hub-line)!important}
-
-/* Commute: show four strong candidates per use case instead of endless rankings. */
-.commute-master-page .commute-hero-grid{
-  margin:20px 0 28px!important;
-  padding:34px!important;
-  border:0!important;
-  border-radius:28px!important;
-  background:radial-gradient(circle at 88% 10%,rgba(240,68,77,.22),transparent 33%),var(--hub-ink)!important;
-  color:#fff!important;
-}
-.commute-master-page .commute-context h2{color:#fff!important}
-.commute-master-page .commute-context p{color:rgba(255,255,255,.58)!important}
-.commute-master-page .source-links a{color:#ff7a80!important}
-.commute-master-page .commute-stat-stack>span{
-  border-color:rgba(255,255,255,.11)!important;
-  background:rgba(255,255,255,.055)!important;
-  box-shadow:none!important;
-}
-.commute-master-page .commute-stat-stack small{color:rgba(255,255,255,.46)!important}
-.commute-master-page .commute-stat-stack b{color:#fff!important}
-.commute-master-page .commute-master-section{
-  padding:50px 0!important;
-  border-top:1px solid var(--hub-line)!important;
-}
-.commute-master-page .commute-rank-list{
-  display:grid!important;
-  grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  gap:12px!important;
-}
-.commute-master-page .commute-rank-card{
-  display:grid!important;
-  grid-template-columns:1fr!important;
-  min-height:260px!important;
-  padding:24px!important;
-  border:1px solid var(--hub-line)!important;
-  border-radius:20px!important;
-  background:#fff!important;
-  box-shadow:none!important;
-}
-.commute-master-page .commute-rank-card h2{font-size:24px!important}
-.commute-master-page .commute-rank-kpis{
-  display:grid!important;
-  grid-template-columns:1fr 1fr!important;
-  gap:8px!important;
-  margin-top:auto!important;
-  padding-top:18px!important;
-}
-.commute-master-page .commute-rank-kpis>a{grid-column:1/-1}
-
 /* Maintenance: cleaner reading rhythm and fewer giant shells. */
 .maintenance-master-page>.note-box{
   margin:22px 0 8px!important;
@@ -154,14 +73,6 @@
    These routes contain bounded editorial/product sets, so reserving large
    intrinsic placeholders creates visible dead space and unreliable anchors. */
 
-@media(max-width:850px){
-  .ownership-master-page #cost,
-  .commute-master-page .commute-hero-grid{padding:26px;border-radius:22px}
-}
-
 @media(max-width:560px){
-    .commute-master-page .commute-rank-card{min-height:0;padding:20px}
-  .commute-master-page .commute-rank-kpis{grid-template-columns:1fr!important}
-  .commute-master-page .commute-rank-kpis>a{grid-column:auto}
   .dealer-directory-section .dealer-finder{padding:14px!important}
 }

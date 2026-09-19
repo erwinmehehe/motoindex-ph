@@ -6,6 +6,8 @@ import { pageMetadata } from "@/lib/site";
 import { AuthorBox } from "@/components/AuthorBox";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
+import { CTAGroup, PageHero, SectionHeader, StatRow } from "@/components/ui";
+import styles from "../styles/hub-index.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title:"Motorcycle Ownership Philippines: Cost, Registration & Safety",
@@ -13,6 +15,18 @@ export const metadata: Metadata = pageMetadata({
   path:"/ownership",
   index:true
 });
+
+const costDecisions=[
+  {href:"/ownership/cost-calculator",label:"Total cost",title:"1-year + 3-year ownership cost",description:"Change purchase, finance, fuel, maintenance, insurance, registration, tire and resale assumptions.",meta:"Calculate cost →"},
+  {href:"/commute/cost-calculator",label:"Daily use",title:"Commute cost",description:"Estimate fuel, maintenance reserve and parking for your own route and workdays.",meta:"Calculate commute →"},
+  {href:"/tools/motorcycle-insurance-calculator",label:"Insurance",title:"Insurance planning",description:"Build an editable insured-value scenario, then replace it with a real insurer quote.",meta:"Estimate insurance →"}
+];
+
+const maintenanceDecisions=[
+  {href:"/maintenance",label:"Reference",title:"Motorcycle maintenance guide",description:"Oil, coolant, batteries, CVT, sprockets and common service systems in one reference.",meta:"Open guide →"},
+  {href:"/maintenance#model-schedules",label:"Exact model",title:"Owner-manual service schedules",description:"Open parsed service intervals where MotoIndex has an exact motorcycle source.",meta:"View schedules →"},
+  {href:"/maintenance#official-resources",label:"Official",title:"Manufacturer service resources",description:"Use official maintenance planners and service-network references when an exact schedule is unavailable.",meta:"Open resources →"}
+];
 
 export default function OwnershipPage(){
   const schema=articleSchema({
@@ -25,11 +39,18 @@ export default function OwnershipPage(){
   });
 
   return <section className="page shell ownership-master-page">
-    <div className="page-head">
-      <span className="entity-kicker">Motorcycle ownership</span>
-      <h1>Motorcycle ownership in the Philippines: cost, maintenance, paperwork and safety checks</h1>
-      <p>Use one ownership hub after choosing the motorcycle. Estimate total cost, open exact maintenance schedules, check manufacturer safety campaigns and follow the current registration, transfer and insurance guides.</p>
-    </div>
+    <PageHero
+      kicker="Motorcycle ownership"
+      title="Motorcycle ownership in the Philippines"
+      description="After choosing the motorcycle, use this hub for ownership cost, maintenance, registration, transfer, insurance and manufacturer safety checks."
+      actions={<CTAGroup><Link className="button" href="/ownership/cost-calculator">Calculate ownership cost</Link><Link className="button secondary" href="/maintenance">Open maintenance guide</Link></CTAGroup>}
+    />
+
+    <StatRow items={[
+      {label:"Cost tools",value:"3",note:"Ownership, commute and insurance"},
+      {label:"Ownership guides",value:String(ownershipGuides.length),note:"Registration, transfer and insurance"},
+      {label:"Safety resources",value:String(safetyResources.length),note:"Checked manufacturer sources"}
+    ]}/>
 
     <nav className="product-entity-nav" aria-label="Motorcycle ownership sections">
       <a href="#cost">Cost</a>
@@ -38,39 +59,67 @@ export default function OwnershipPage(){
       <a href="#paperwork">Registration & transfer</a>
     </nav>
 
-    <section id="cost" className="motorcycle-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Total cost</span><h2>What a motorcycle costs after purchase</h2><p>Purchase price is only the start. Financing, fuel, maintenance, insurance, registration, tires and resale all affect the real cost of ownership.</p></div></div>
-      <div className="ownership-feature-grid">
-        <Link href="/ownership/cost-calculator"><span>Calculator</span><h3>1-year + 3-year total cost</h3><p>Change purchase, finance, fuel, maintenance, insurance, registration, tire and resale assumptions.</p><b>Calculate cost →</b></Link>
-        <Link href="/commute/cost-calculator"><span>Daily use</span><h3>Commute cost</h3><p>Estimate fuel, maintenance reserve and parking for your own route and workdays.</p><b>Calculate commute →</b></Link>
-        <Link href="/tools/motorcycle-insurance-calculator"><span>Insurance</span><h3>Insurance planning</h3><p>Estimate an insured-value scenario, then replace it with a real insurer quote.</p><b>Estimate insurance →</b></Link>
+    <section id="cost" className={styles.section} data-ownership-decision-section>
+      <SectionHeader
+        kicker="Total cost"
+        title="What a motorcycle costs after purchase"
+        description="Purchase price is only the start. Financing, fuel, maintenance, insurance, registration, tires and resale all affect the real cost of ownership."
+      />
+      <div className={styles.decisionList}>
+        {costDecisions.map(item=><Link className={styles.decisionRow} href={item.href} key={item.href}>
+          <span className={styles.decisionLabel}>{item.label}</span>
+          <span className={styles.decisionCopy}><h3>{item.title}</h3><p>{item.description}</p></span>
+          <span className={styles.decisionMeta}>{item.meta}</span>
+        </Link>)}
       </div>
     </section>
 
-    <section id="maintenance" className="motorcycle-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Maintenance</span><h2>Use the exact motorcycle schedule</h2><p>Oil, coolant, battery, CVT, chain, sprocket and service intervals are model-specific. The main maintenance guide keeps generic system advice separate from exact owner-manual schedules.</p></div></div>
-      <div className="topic-grid">
-        <Link href="/maintenance"><h3>Motorcycle maintenance guide</h3><p>Oil, coolant, batteries, CVT, sprockets and parts in one reference.</p><b>Open maintenance guide →</b></Link>
-        <Link href="/maintenance#model-schedules"><h3>Exact model schedules</h3><p>Open owner-manual-derived service intervals where the exact motorcycle source has been parsed.</p><b>View model schedules →</b></Link>
-        <Link href="/maintenance#official-resources"><h3>Manufacturer service resources</h3><p>Use official brand maintenance planners and service-network references when an exact schedule is not available.</p><b>Open official resources →</b></Link>
+    <section id="maintenance" className={styles.section}>
+      <SectionHeader
+        kicker="Maintenance"
+        title="Use the exact motorcycle schedule"
+        description="Generic system advice is useful, but oil, coolant, battery, CVT, chain, sprocket and service intervals are model-specific."
+      />
+      <div className={styles.decisionList}>
+        {maintenanceDecisions.map(item=><Link className={styles.decisionRow} href={item.href} key={item.href}>
+          <span className={styles.decisionLabel}>{item.label}</span>
+          <span className={styles.decisionCopy}><h3>{item.title}</h3><p>{item.description}</p></span>
+          <span className={styles.decisionMeta}>{item.meta}</span>
+        </Link>)}
       </div>
     </section>
 
-    <section id="safety-campaigns" className="motorcycle-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Recalls and service campaigns</span><h2>Check the motorcycle at the manufacturer</h2><p>Campaign eligibility can be frame- or VIN-specific. An empty public notice list does not prove a motorcycle is unaffected.</p></div></div>
-      <details className="note-box">
-        <summary><b>Open manufacturer safety resources</b> · {safetyResources.length} checked brand resources</summary>
-        <div className="source-ladder">{safetyResources.map(resource=><article key={resource.makeSlug}>
-          <span>{resource.hasVehicleChecker?"Vehicle checker":"Official support"}</span>
-          <div><h3>{resource.label}</h3><small>Checked {resource.lastChecked}</small></div>
-          <div><p>{resource.method}</p><a className="text-link" href={resource.url} target="_blank" rel="noreferrer">Open official resource ↗</a></div>
-        </article>)}</div>
+    <section id="safety-campaigns" className={styles.section}>
+      <SectionHeader
+        kicker="Recalls and service campaigns"
+        title="Check the motorcycle at the manufacturer"
+        description="Campaign eligibility can be frame- or VIN-specific. An empty public notice list does not prove a motorcycle is unaffected."
+      />
+      <details className={styles.compactDetails}>
+        <summary><span>Manufacturer safety resources</span><span>{safetyResources.length} checked sources</span></summary>
+        <div className={styles.decisionList}>
+          {safetyResources.map(resource=><a className={styles.decisionRow} key={resource.makeSlug} href={resource.url} target="_blank" rel="noreferrer">
+            <span className={styles.decisionLabel}>{resource.hasVehicleChecker?"Vehicle checker":"Official support"}</span>
+            <span className={styles.decisionCopy}><h3>{resource.label}</h3><p>{resource.method}</p></span>
+            <span className={styles.decisionMeta}>Open official source ↗</span>
+          </a>)}
+        </div>
       </details>
     </section>
 
-    <section id="paperwork" className="motorcycle-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Government and insurance guides</span><h2>Registration, ownership transfer and insurance</h2><p>These remain separate because each is a different legal or transaction task with its own official sources and requirements.</p></div></div>
-      <div className="topic-grid ownership-guide-grid">{ownershipGuides.map(guide=><Link className="ownership-guide-card" href={`/ownership/${guide.slug}`} key={guide.slug}><h3>{guide.title}</h3><p>{guide.description}</p><small className="verified-pill">Sources checked {guide.lastChecked}</small></Link>)}</div>
+    <section id="paperwork" className={styles.section}>
+      <SectionHeader
+        kicker="Government and insurance guides"
+        title="Registration, ownership transfer and insurance"
+        description="Each task has its own official sources and requirements, so these remain separate focused guides."
+      />
+      <div className={styles.decisionList} data-ownership-guide-list>
+        {ownershipGuides.map(guide=><Link className={styles.decisionRow} href={`/ownership/${guide.slug}`} key={guide.slug}>
+          <span className={styles.decisionLabel}>Guide</span>
+          <span className={styles.decisionCopy}><h3>{guide.title}</h3><p>{guide.description}</p></span>
+          <span className={styles.decisionMeta}>Checked {guide.lastChecked}</span>
+        </Link>)}
+      </div>
     </section>
 
     <JsonLd data={schema}/>
