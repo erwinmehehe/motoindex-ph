@@ -72,13 +72,12 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const scooters = current.filter((m) => /scooter/i.test(m.category));
   const manual = current.filter((m) => m.transmission === "Manual").length;
   const cheapest = ranges.reduce((best, row) => row.from < best.from ? row : best, ranges[0]);
-  const latestChecked = current.map((m) => m.verifiedAt).sort().at(-1) || "";
   const authorityModels = current.filter((m) => Boolean(modelAuthorityProfile(m.id)));
 
   const faq = [
     {
       question: `What is the current ${brand} motorcycle Philippines price list?`,
-      answer: `Across the current ${brand} models covered on MotoIndex, published pricing runs from ${php(low)} to ${php(high)}. Open the price list below for model-by-model prices and check the dated source before purchase.`
+      answer: `Across the current ${brand} models covered on MotoIndex, published pricing runs from ${php(low)} to ${php(high)}. Open the price list below for model-by-model prices, then confirm the current dealer quote before purchase.`
     },
     {
       question: `Is this the complete ${brand} motorcycle lineup in the Philippines?`,
@@ -90,11 +89,11 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     },
     {
       question: `What is the cheapest ${brand} motorcycle currently tracked?`,
-      answer: `${cheapest.model.make} ${cheapest.model.model} is the lowest-priced current ${brand} model in this published set at ${phpRange(cheapest.from, cheapest.to)}. Recheck the linked dated source before purchase because pricing can change.`
+      answer: `${cheapest.model.make} ${cheapest.model.model} is the lowest-priced current ${brand} model in this published set at ${phpRange(cheapest.from, cheapest.to)}. Confirm the current dealer quote before purchase because pricing can change.`
     },
     {
       question: `Are these ${brand} prices official dealer quotes?`,
-      answer: `No. The prices are dated reference points, not guaranteed transaction quotes. Open a model page to see the source date, then confirm the current cash price, fees and promotions with the seller.`
+      answer: `No. The prices are reference points, not guaranteed transaction quotes. Confirm the current cash price, fees and promotions with the seller before purchase.`
     }
   ];
 
@@ -135,7 +134,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
           kicker="Philippines · Price list · Models · Specs"
           title={brandGrowth?.heroTitle || `${brand} Motorcycle Philippines Price List`}
           description={brandGrowth?.heroDescription || `Compare the current ${brand} motorcycle Philippines price list by model, published price, engine size, seat height and transmission. Open any motorcycle for detailed specs, financing estimates, fitment, maintenance and alternatives.`}
-          actions={<><CTAGroup><Link className="button" href="#price-list">View {brand} price list</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link></CTAGroup><small className="ph-brand-checked">Latest price/spec source check: {latestChecked}</small></>}
+          actions={<><CTAGroup><Link className="button" href="#price-list">View {brand} price list</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link></CTAGroup></>}
         />
         {brandGrowth ? <InfoPanel subtle><p>{brandGrowth.intentNote}</p></InfoPanel> : null}
         <StatRow items={[
