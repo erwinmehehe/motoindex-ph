@@ -75,7 +75,7 @@ export default function MotorcyclesPage() {
         </div>
         <div className="motorcycle-index-quicklinks">
           <Link href="/recommendations#budget"><span>Budget</span><strong>Under ₱100K</strong><small>Affordable current models →</small></Link>
-          <Link href="/recommendations/motorcycles-100k-to-150k"><span>Budget</span><strong>₱100K–₱150K</strong><small>Popular commuter price band →</small></Link>
+          <Link href="/recommendations#budget"><span>Budget</span><strong>₱100K–₱150K</strong><small>Popular commuter price band →</small></Link>
           <Link href="/recommendations#scooters"><span>Body type</span><strong>Scooters</strong><small>Automatic city-focused choices →</small></Link>
           <Link href="/recommendations#400cc"><span>Displacement</span><strong>400cc+</strong><small>Bigger bikes and performance research →</small></Link>
           <Link href="/motorcycles/electric"><span>Electric</span><strong>Electric motorcycles</strong><small>Battery, range and charging research →</small></Link>
