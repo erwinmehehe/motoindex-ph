@@ -9,6 +9,7 @@ const growth = read("lib", "priorityModelGrowth.ts");
 const modelPage = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
 const commercial = read("components", "PriorityCommercialIntent.tsx");
 const data = read("lib", "data.ts");
+const route = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
 
 const priorityModels = [
   "yamaha-aerox-v3",
@@ -97,6 +98,13 @@ for (const keyword of [
   if (!growth.toLowerCase().includes(keyword)) {
     errors.push(`priorityModelGrowth: missing commercial-intent language: ${keyword}`);
   }
+}
+
+if (!commercial.includes("profile.legacyContext") || !commercial.includes("legacyContext.heading")) {
+  errors.push("PriorityCommercialIntent must render optional predecessor/legacy context on canonical model pages");
+}
+if (!route.includes('slug === "crf250-rally"') || !route.includes('permanentRedirect("/motorcycles/honda/crf300-rally")')) {
+  errors.push("CRF250 Rally legacy route must permanently consolidate into the CRF300 Rally canonical");
 }
 
 if (!modelPage.includes("<PriorityCommercialIntent model={model} />")) {
