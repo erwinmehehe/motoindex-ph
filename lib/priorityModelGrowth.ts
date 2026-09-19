@@ -116,6 +116,18 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare maxi scooters"
   },
 
+  "yamaha-yzf-r1m": {
+    seoTitle: "Yamaha YZF-R1M Price Philippines 2026 | R1 Specs",
+    seoDescription: "Yamaha YZF-R1M price in the Philippines, 998cc R1 specs, seat height, weight, tires, financing, ownership costs and Yamaha R1 search context.",
+    intentIntro: "Yamaha Philippines currently exposes the YZF-R1M as its Philippine R1-family supersport product. Searchers often shorten the name to Yamaha R1 or simply R1, so MotoIndex keeps that demand on this one canonical R1M page instead of creating separate thin R1 price, specs or installment URLs.",
+    moneyQuestion: "What does the YZF-R1M cost after the latest dealer quote, down payment, financing, insurance, registration and premium supersport consumables are included?",
+    ownershipQuestion: "Budget 17-inch hypersport tires, chain and sprocket service, insurance, premium fuel, fairing exposure and Yamaha big-bike service access before comparing only the purchase price.",
+    alternativeIds: ["honda-cb650r", "kawasaki-ninja-500", "yamaha-yzf-r3"],
+    relatedIds: ["yamaha-yzf-r3", "yamaha-tmax"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles"
+  },
+
   "honda-crf300-rally": {
     seoTitle: "Honda CRF300 Rally Price Philippines 2026 | Specs",
     seoDescription: "Honda CRF300 Rally price in the Philippines, 286cc specs, seat height, ground clearance, ABS, CRF250 Rally successor context, financing and ownership.",
