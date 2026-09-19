@@ -204,6 +204,11 @@ const inspect=`(() => {
   const calculatorPage=Boolean(document.querySelector("[data-calculator-page]"));
   const calculatorCount=document.querySelectorAll("[data-calculator]").length;
   const calculatorRect=document.querySelector("[data-calculator]")?.getBoundingClientRect();
+  const genericContentCards=document.querySelectorAll(".ui-content-card").length;
+  const tireProductTop=document.querySelector("[data-tire-product-section]")?.getBoundingClientRect().top||0;
+  const tireSizeTop=document.querySelector("[data-tire-size-index]")?.getBoundingClientRect().top||0;
+  const tireSizeRows=document.querySelectorAll("[data-tire-size-index] > article").length;
+  const accessoryCategoryRows=document.querySelectorAll("[data-accessory-category-list] > a").length;
 
   const standardMotorcycleCards=[...document.querySelectorAll('[data-motorcycle-card="standard"]')];
   const standardMotorcycleCardModes=standardMotorcycleCards.map(card=>({
@@ -245,6 +250,11 @@ const inspect=`(() => {
     calculatorCount,
     calculatorTop:calculatorRect?.top||0,
     calculatorWidth:calculatorRect?.width||0,
+    genericContentCards,
+    tireProductTop,
+    tireSizeTop,
+    tireSizeRows,
+    accessoryCategoryRows,
     cloudflareError:/worker exceeded resource limits|error 1102|error 503|service unavailable/.test(bodyText),
     empty:(document.body?.innerText||"").trim().length<80
   };
@@ -314,6 +324,11 @@ try{
       if(route.name.startsWith("calculator-")&&!row?.calculatorPage)failures.push(`${width}px ${route.name}: calculator page composition hook is missing`);
       if(route.name.startsWith("calculator-")&&(row?.calculatorCount||0)<1)failures.push(`${width}px ${route.name}: canonical calculator surface did not render`);
       if(route.name.startsWith("calculator-")&&(row?.calculatorWidth||0)>width+5)failures.push(`${width}px ${route.name}: calculator is wider than the viewport`);
+      if(route.name==="tires"&&(row?.genericContentCards||0)>0)failures.push(`${width}px tires: generic content-card wall returned (${row.genericContentCards} cards)`);
+      if(route.name==="tires"&&(row?.tireSizeRows||0)<6)failures.push(`${width}px tires: compact tire-size index is missing or incomplete`);
+      if(route.name==="tires"&&(row?.tireProductTop||0)>=(row?.tireSizeTop||0))failures.push(`${width}px tires: verified tire products no longer appear before the size index`);
+      if(route.name==="accessories"&&(row?.genericContentCards||0)>0)failures.push(`${width}px accessories: generic content-card wall returned (${row.genericContentCards} cards)`);
+      if(route.name==="accessories"&&(row?.accessoryCategoryRows||0)!==4)failures.push(`${width}px accessories: expected four compact accessory category rows, found ${row.accessoryCategoryRows||0}`);
 
       const metrics=await cdp.send("Page.getLayoutMetrics");
       const contentSize=metrics.cssContentSize||metrics.contentSize;
