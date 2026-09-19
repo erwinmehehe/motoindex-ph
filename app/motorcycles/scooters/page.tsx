@@ -25,7 +25,7 @@ const class150 = scooters.filter((model) => model.engineCc >= 140 && model.engin
 const class160 = scooters.filter((model) => model.engineCc >= 156 && model.engineCc <= 165).length;
 const absModels = scooters.filter(hasAbs).length;
 const tableColumns: CSSProperties = {
-  gridTemplateColumns: "minmax(220px,1.5fr) minmax(150px,1.1fr) .62fr .62fr .62fr minmax(210px,1.25fr)"
+  gridTemplateColumns: "1.6fr 1.15fr .6fr .6fr .6fr 1.3fr"
 };
 
 export const metadata: Metadata = pageMetadata({
