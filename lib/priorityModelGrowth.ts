@@ -78,6 +78,40 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 400cc+ motorcycles"
   },
 
+  "yamaha-mio-gravis": {
+    seoTitle: "Yamaha Mio Gravis Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Yamaha Mio Gravis price in the Philippines, 125cc specs, seat height, tire sizes, down payment, monthly estimate and ownership costs.",
+    intentIntro: "The Mio Gravis sits in Yamaha's practical 125cc scooter lineup, so compare its ₱84,900 current price, 780 mm seat, 12-inch tires, financing and everyday ownership against Mio i 125, Mio Gear and Fazzio rather than choosing from styling alone.",
+    moneyQuestion: "What does the Mio Gravis cost after the down payment, monthly payment, registration, insurance and dealer fees are included?",
+    ownershipQuestion: "Compare CVT service, 12-inch tires, fuel use, storage and Yamaha service access with Mio i 125, Mio Gear and Fazzio.",
+    alternativeIds: ["yamaha-mio-i-125", "yamaha-mio-gear", "yamaha-fazzio"],
+    relatedIds: ["yamaha-mio-i-125", "yamaha-fazzio"],
+    recommendationHref: "/recommendations/125cc-scooters-philippines",
+    recommendationLabel: "Compare 125cc scooters"
+  },
+  "yamaha-mio-i-125": {
+    seoTitle: "Yamaha Mio i 125 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Yamaha Mio i 125 price in the Philippines, 125cc specs, 750mm seat height, tires, down payment, monthly estimate and ownership costs.",
+    intentIntro: "The Mio i 125 remains a light, low-seat Yamaha commuter with current dealer availability. Compare its ₱75,900 dealer price, 750 mm seat, 92 kg wet weight and financing with Mio Gravis, Mio Gear and Click 125i before deciding on headline price alone.",
+    moneyQuestion: "How much does the Mio i 125 cost after down payment, monthly payment, registration, insurance and dealer fees?",
+    ownershipQuestion: "Compare CVT service, 14-inch tires, fuel use and Yamaha support with Mio Gravis, Mio Gear and Click 125i.",
+    alternativeIds: ["yamaha-mio-gravis", "yamaha-mio-gear", "honda-click-125i"],
+    relatedIds: ["yamaha-mio-gravis", "yamaha-fazzio"],
+    recommendationHref: "/recommendations/125cc-scooters-philippines",
+    recommendationLabel: "Compare 125cc scooters"
+  },
+  "yamaha-tmax": {
+    seoTitle: "Yamaha TMAX Price Philippines 2026 | Tech Max Specs",
+    seoDescription: "Yamaha TMAX price in the Philippines, current 562cc Tech Max specs, seat height, tires, financing, ownership costs and maxi-scooter alternatives.",
+    intentIntro: "MotoIndex keeps TMAX search intent on one canonical page. Yamaha Philippines currently exposes the 560-class TMAX, while Motortrade lists the TMAX Tech Max at ₱859,000, so compare that verified configuration against XMAX, ADV350 and X-ADV on price, weight, fit and ownership.",
+    moneyQuestion: "What does the current TMAX Tech Max cost after financing, insurance, registration and premium-scooter ownership expenses are included?",
+    ownershipQuestion: "Compare 15-inch tires, CVT service, insurance, Yamaha big-bike support and 220 kg wet weight with XMAX, ADV350 and X-ADV.",
+    alternativeIds: ["yamaha-xmax", "honda-adv-350", "honda-x-adv"],
+    relatedIds: ["yamaha-xmax"],
+    recommendationHref: "/recommendations/maxi-scooters-philippines",
+    recommendationLabel: "Compare maxi scooters"
+  },
+
   "honda-click-125i": {
     seoTitle: "Honda Click 125i Price Philippines 2026 | Specs & Monthly",
     seoDescription: "Honda Click 125i price in the Philippines, 125cc specs, colors, seat height, tires, down payment, monthly estimate, fuel economy and ownership costs.",
