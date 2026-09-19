@@ -69,8 +69,12 @@ for (const [id, officialDomain] of Object.entries(primarySourcePriorityModels)) 
 }
 
 const ninja400Record = motorcycleRecord(motorcycleData, "kawasaki-ninja-400");
-if (!/freshness:\s*"review"/.test(ninja400Record) || !/pending|recheck/i.test(ninja400Record)) {
-  failures.push("lib/data.ts: Kawasaki Ninja 400 must remain non-indexable until current Philippine manufacturer evidence is reverified");
+if (
+  !/marketStatus:\s*"previous"/.test(ninja400Record) ||
+  !/successorId:\s*"kawasaki-ninja-500"/.test(ninja400Record) ||
+  !ninja400Record.includes("kawasakileisurebikes.ph")
+) {
+  failures.push("lib/data.ts: Kawasaki Ninja 400 must remain historical, use an official Kawasaki PH archive source, and point buyers to Ninja 500");
 }
 
 const usedMarket = read("lib/usedMarket.ts");
