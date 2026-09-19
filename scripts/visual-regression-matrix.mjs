@@ -190,6 +190,9 @@ const inspect=`(() => {
   const compareBuilder=document.querySelector("[data-compare-builder]");
   const compareBuilderRect=compareBuilder?.getBoundingClientRect();
   const deferredSections=[...document.querySelectorAll("section")].filter(section=>getComputedStyle(section).contentVisibility==="auto").length;
+  const recommendationGuideCards=document.querySelectorAll("[data-recommendation-guide-card]").length;
+  const recommendationArchiveLinks=document.querySelectorAll("[data-recommendation-archive-link]").length;
+  const recommendationArchiveGroups=document.querySelectorAll("[data-recommendation-guide-library] details").length;
 
   const standardMotorcycleCards=[...document.querySelectorAll('[data-motorcycle-card="standard"]')];
   const standardMotorcycleCardModes=standardMotorcycleCards.map(card=>({
@@ -224,6 +227,9 @@ const inspect=`(() => {
     standardMotorcycleCardModes,
     compareBuilderHeight:compareBuilderRect?.height||0,
     deferredSections,
+    recommendationGuideCards,
+    recommendationArchiveLinks,
+    recommendationArchiveGroups,
     cloudflareError:/worker exceeded resource limits|error 1102|error 503|service unavailable/.test(bodyText),
     empty:(document.body?.innerText||"").trim().length<80
   };
@@ -287,6 +293,9 @@ try{
       if(route.name==="compare-index"&&width===1440&&(row?.compareBuilderHeight||0)>260)failures.push(`${width}px compare-index: builder is too tall (${row.compareBuilderHeight}px)`);
       if(route.name==="compare-index"&&width===390&&(row?.compareBuilderHeight||0)>620)failures.push(`${width}px compare-index: mobile builder is too tall (${row.compareBuilderHeight}px)`);
       if(["helmets","tires","accessories","top-box"].includes(route.name)&&(row?.deferredSections||0)>0)failures.push(`${width}px ${route.name}: ${row.deferredSections} top-level section(s) still defer rendering with content-visibility:auto`);
+      if(route.name==="recommendations"&&(row?.recommendationGuideCards||0)>6)failures.push(`${width}px recommendations: ${row.recommendationGuideCards} visual guide cards exceed the six-card archive limit`);
+      if(route.name==="recommendations"&&(row?.recommendationArchiveGroups||0)<3)failures.push(`${width}px recommendations: grouped guide library is missing or too flat`);
+      if(route.name==="recommendations"&&(row?.recommendationArchiveLinks||0)<20)failures.push(`${width}px recommendations: compact guide library lost too many indexable guide links (${row.recommendationArchiveLinks})`);
 
       const metrics=await cdp.send("Page.getLayoutMetrics");
       const contentSize=metrics.cssContentSize||metrics.contentSize;
