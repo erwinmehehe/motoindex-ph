@@ -79,13 +79,6 @@
 .ownership-master-page #safety-campaigns,
 .ownership-master-page #paperwork{border-top:1px solid var(--hub-line)!important}
 
-/* Tires: route CSS controls composition only. */
-.tire-master-page #stock-sizes .fitment-list{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:var(--mi-space-2);
-}
-
 /* Commute: show four strong candidates per use case instead of endless rankings. */
 .commute-master-page .commute-hero-grid{
   margin:20px 0 28px!important;
@@ -164,8 +157,6 @@
 @media(max-width:850px){
   .ownership-master-page #cost,
   .commute-master-page .commute-hero-grid{padding:26px;border-radius:22px}
-  .commute-master-page .commute-rank-list,
-  .tire-master-page #stock-sizes .fitment-list{grid-template-columns:1fr!important}
 }
 
 @media(max-width:560px){

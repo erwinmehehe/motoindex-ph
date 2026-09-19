@@ -265,25 +265,28 @@ try {
     await navigate("/tires");
     const tires = await evaluate(cdp.send, `(() => {
       const root=document.documentElement;
-      const grid=document.querySelector('#common-sizes .guide-master-link-grid');
+      const grid=document.querySelector('[data-tire-size-index]');
       const first=grid?.querySelector('article');
+      const products=document.querySelector('[data-tire-product-section]');
       return {
         overflow:root.scrollWidth-root.clientWidth,
         gridDisplay:grid?getComputedStyle(grid).display:'missing',
-        cardCount:grid?.querySelectorAll('article').length||0,
+        rowCount:grid?.querySelectorAll('article').length||0,
         firstWidth:first?.getBoundingClientRect().width||0,
         firstHeight:first?.getBoundingClientRect().height||0,
-        firstPadding:first?parseFloat(getComputedStyle(first).paddingLeft):0,
-        linkCount:first?.querySelectorAll('a').length||0
+        firstPadding:first?parseFloat(getComputedStyle(first).paddingTop):0,
+        linkCount:first?.querySelectorAll('a').length||0,
+        productsBeforeIndex:Boolean(products&&grid&&products.getBoundingClientRect().top<grid.getBoundingClientRect().top)
       };
     })()`);
     results.push({ width, page: "tires", ...tires });
     if ((tires?.overflow || 0) > 5) failures.push(`${width}px tires page overflows by ${tires.overflow}px`);
-    if (tires?.gridDisplay !== "grid") failures.push(`${width}px common tire sizes are not structured as a grid (${tires?.gridDisplay})`);
-    if ((tires?.cardCount || 0) < 8) failures.push(`${width}px common tire-size index is incomplete`);
-    if ((tires?.firstWidth || 0) < (width <= 430 ? 300 : 180) || (tires?.firstHeight || 0) < 90) failures.push(`${width}px common tire-size card collapsed (${tires?.firstWidth}x${tires?.firstHeight})`);
-    if ((tires?.firstPadding || 0) < 12) failures.push(`${width}px common tire-size card lost padding (${tires?.firstPadding}px)`);
-    if ((tires?.linkCount || 0) < 2) failures.push(`${width}px common tire-size card lost model links`);
+    if (tires?.gridDisplay !== "grid") failures.push(`${width}px common tire sizes are not structured as a compact grid (${tires?.gridDisplay})`);
+    if ((tires?.rowCount || 0) < 8) failures.push(`${width}px common tire-size index is incomplete`);
+    if ((tires?.firstWidth || 0) < (width <= 430 ? 300 : 180) || (tires?.firstHeight || 0) < 58) failures.push(`${width}px common tire-size row collapsed (${tires?.firstWidth}x${tires?.firstHeight})`);
+    if ((tires?.firstPadding || 0) < 12) failures.push(`${width}px common tire-size row lost vertical padding (${tires?.firstPadding}px)`);
+    if ((tires?.linkCount || 0) < 2) failures.push(`${width}px common tire-size row lost model links`);
+    if (!tires?.productsBeforeIndex) failures.push(`${width}px verified tire products no longer appear before the common-size index`);
     await screenshot("tires", width);
 
     await navigate("/accessories/top-box");
