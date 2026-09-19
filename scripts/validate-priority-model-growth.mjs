@@ -23,7 +23,10 @@ const priorityModels = [
   "yamaha-sniper-155",
   "honda-adv-350",
   "honda-cb650r",
-  "kawasaki-ninja-500"
+  "kawasaki-ninja-500",
+  "yamaha-mio-gravis",
+  "yamaha-mio-i-125",
+  "yamaha-tmax"
 ];
 
 for (const id of priorityModels) {
@@ -52,7 +55,16 @@ for (const token of [
   'marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/promotions/beyond-expectations-adv350-promo"',
   'id: "kawasaki-ninja-400"',
   'marketStatus: "previous"',
-  'successorId: "kawasaki-ninja-500"'
+  'successorId: "kawasaki-ninja-500"',
+  'id: "yamaha-mio-gravis"',
+  'srp: 84900',
+  'sourceUrl: "https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-gravis"',
+  'id: "yamaha-mio-i-125"',
+  'marketPriceSourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-mio-i-125/"',
+  'id: "yamaha-tmax"',
+  'model: "TMAX Tech Max"',
+  'srp: 859000',
+  'sourceUrl: "https://www.yamaha-motor.com.ph/motorcycles/sport-machines/sport-scooter/tmax"'
 ]) {
   if (!data.includes(token)) {
     errors.push(`priorityModelGrowth: competitor-gap data evidence missing: ${token}`);
