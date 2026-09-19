@@ -288,6 +288,20 @@ if (sitemapSource.includes("/data-sources")) {
   failures.push("lib/sitemaps.ts: retired public data-sources route must not remain in sitemap");
 }
 
+for (const [path, forbidden] of [
+  ["app/motorcycles/page.tsx", ["own source and verification date", "source date"]],
+  ["app/motorcycles/[make]/page.tsx", ["source context", "source date", "Official resource", "Resource check:", "official brand resources"]],
+  ["app/about/page.tsx", ["/data-sources", "underlying source", "Dates and sources"]],
+  ["app/methodology/page.tsx", ["/data-sources", "Prefer first-party sources", "beside the relevant source"]],
+  ["app/editorial-policy/page.tsx", ["source context"]],
+  ["app/contact/page.tsx", ["/data-sources", "outdated source", "accepted sources"]]
+]) {
+  const text = read(...path.split("/"));
+  for (const token of forbidden) {
+    if (text.includes(token)) failures.push(`${path}: public source wording returned via ${token}`);
+  }
+}
+
 if (failures.length) {
   console.error("Public trust validation failed:\n");
   for (const failure of failures) console.error(`- ${failure}`);
