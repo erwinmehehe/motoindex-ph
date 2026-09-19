@@ -11,7 +11,7 @@ export type BrandSeoGrowthProfile = {
 const profiles: Record<string, BrandSeoGrowthProfile> = {
   honda: {
     seoTitle: "Honda Philippines Price List 2026 | Motorcycles & Big Bikes",
-    seoDescription: "Honda Philippines motorcycle price list with current scooters, commuters and big bikes including CB650R, CBR650R, Rebel, X-ADV and Gold Wing.",
+    seoDescription: "Honda Philippines motorcycle price list with current scooters, commuters and big bikes including CB650R, CBR650R, Rebel, X-ADV and Gold Wing for buyers.",
     heroTitle: "Honda Philippines Motorcycle Price List 2026",
     heroDescription: "Compare current Honda motorcycles in the Philippines by price, engine size, seat height and category, from everyday scooters to 400cc+ big bikes.",
     intentNote: "This Honda brand hub owns broad Honda motorcycle, Honda price list and Honda big bike Philippines intent. Model-specific price, specs and financing stay on each canonical model URL.",
@@ -20,7 +20,7 @@ const profiles: Record<string, BrandSeoGrowthProfile> = {
   },
   yamaha: {
     seoTitle: "Yamaha Philippines Price List 2026 | Motorcycles & Big Bikes",
-    seoDescription: "Yamaha Philippines motorcycle price list with current scooters, sport models and 400cc+ big bikes including TMAX, YZF-R7 and YZF-R1M.",
+    seoDescription: "Yamaha Philippines motorcycle price list with current scooters, sport models and 400cc+ big bikes including TMAX, YZF-R7 and YZF-R1M with specs and prices.",
     heroTitle: "Yamaha Philippines Motorcycle Price List 2026",
     heroDescription: "Compare current Yamaha motorcycles in the Philippines by price, engine size, seat height and category, from Mio and NMAX scooters to 400cc+ models.",
     intentNote: "This Yamaha brand hub owns broad Yamaha motorcycle, Yamaha price list and Yamaha big bike Philippines intent. Model-specific price, specs and financing stay on each canonical model URL.",
@@ -29,7 +29,7 @@ const profiles: Record<string, BrandSeoGrowthProfile> = {
   },
   kawasaki: {
     seoTitle: "Kawasaki Philippines Price List 2026 | Big Bikes",
-    seoDescription: "Kawasaki Philippines price list with current big bikes including Z500, Ninja 500, ZX-4RR, Ninja 1000SX and Ninja H2, plus specs and prices.",
+    seoDescription: "Kawasaki Philippines price list with current big bikes including Z500, Ninja 500, ZX-4RR, Ninja 1000SX and Ninja H2, plus specs, prices and buyer tools.",
     heroTitle: "Kawasaki Philippines Motorcycle Price List 2026",
     heroDescription: "Compare current Kawasaki motorcycles and big bikes in the Philippines by price, engine size, seat height and category, from 451cc street bikes to H2.",
     intentNote: "This Kawasaki brand hub owns broad Kawasaki motorcycle, Kawasaki price list and Kawasaki big bike Philippines intent. Z, Ninja and hypersport model details stay on their canonical model URLs.",
