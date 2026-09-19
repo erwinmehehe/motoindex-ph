@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default async function Page({ searchParams }: { searchParams: Promise<{ bike?: string }> }) {
   const { bike } = await searchParams;
-  return <section className="page shell">
+  return <section className="page shell" data-calculator-page>
     <Breadcrumbs items={[{ label: "Commuting", href: "/commute" }, { label: "Cost calculator" }]} />
     <div className="page-head">
       <span className="section-kicker">Commute calculator</span>
