@@ -31,6 +31,7 @@ jobs:
           npm run validate:seo-hardening
           npm run validate:market-hubs
           npm run validate:priority-model-growth
+          npm run validate:expressway-hub
           npm run validate:budget-displacement
           npm run validate:copy-tone
           npm run validate:public-trust
