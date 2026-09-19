@@ -58,6 +58,31 @@ const recHub=read("app/recommendations/RecommendationsHub.tsx");
 const recRoute=read("app/recommendations/[slug]/page.tsx");
 const recArchive=read("app/recommendations/RecommendationGuideArchive.tsx");
 const recSitemap=read("lib/recommendationSitemap.ts");
+const motorcyclesIndex=read("app/motorcycles/page.tsx");
+need(
+  motorcyclesIndex.includes("generateMetadata")&&
+  motorcyclesIndex.includes("searchParams")&&
+  motorcyclesIndex.includes("!hasActiveFilters"),
+  "Filtered motorcycle catalog states must be noindex while the clean /motorcycles hub remains indexable"
+);
+need(
+  motorcyclesIndex.includes('const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const'),
+  "Motorcycle catalog must define the supported filter params that trigger noindex"
+);
+need(
+  !motorcyclesIndex.includes('query:{ budget:"100to150" }'),
+  "Motorcycle hub must not internally promote a crawlable filtered budget URL when a canonical recommendation destination exists"
+);
+const p0SitemapSource=read("lib/sitemaps.ts");
+for(const route of ["/accessories/intercoms","/accessories/phone-holders","/accessories/rain-gear"]){
+  need(p0SitemapSource.includes(`path:"${route}"`),`Core sitemap must include indexable accessory guide ${route}`);
+}
+need(
+  recSitemap.includes("getRecommendationModels")&&
+  recSitemap.includes("marketPriceCheckedAt || model.verifiedAt")&&
+  !recSitemap.includes("lastModified: RELEASE_DATE"),
+  "Recommendation sitemap lastModified must derive from the models included in each guide instead of the global release date"
+);
 need(recPage.includes("RecommendationsHub")&&recPage.includes("RecommendationGuideArchive"),"Recommendation root must preserve the current hub and expose the restored guide archive");
 need(
   recRoute.includes("getRecommendationGuide")&&
