@@ -97,6 +97,28 @@ for (const token of [
   }
 }
 
+for (const token of [
+  'slug: "dual-sport-motorcycles-philippines"',
+  'seoTitle: "Dual-Sport & Trail Motorcycles Philippines 2026"',
+  '"best dual sport motorcycles Philippines"',
+  '"trail bike Philippines"',
+  '"street legal trail bike Philippines"',
+  '"off road motorcycle Philippines"',
+  '"Dual-sport vs trail bike: what the terms mean"',
+  '"21/18-inch wheels and rough-road priorities"',
+  '"What to check before riding on public roads"'
+]) {
+  if (!data.includes(token)) errors.push(`dual-sport authority: missing token ${token}`);
+}
+for (const token of [
+  'guide.slug==="dual-sport-motorcycles-philippines"',
+  'dual-sport and trail bikes the same',
+  'use 21/18-inch wheels',
+  'public roads in the philippines'
+]) {
+  if (!modelPage.includes(token)) errors.push(`dual-sport authority renderer: missing token ${token}`);
+}
+
 if (!growth.includes('"yamaha-yzf-r1m": {') || !growth.includes("Searchers often shorten the name to Yamaha R1 or simply R1")) {
   errors.push("priorityModelGrowth: YZF-R1M must consolidate broad Yamaha R1 search intent on one canonical page");
 }
