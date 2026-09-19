@@ -19,17 +19,19 @@ for (const base of scanRoots) {
   if (!fs.existsSync(dir)) continue;
   for (const file of walk(dir)) {
     const rel = path.relative(root, file).replaceAll(path.sep, "/");
+    // Standalone recommendation pages are canonical destinations. The archive,
+    // editorial route, and approved market authority hubs may link to them
+    // directly. Electric aliases remain separately consolidated.
+    if (rel === "app/recommendations/[slug]/page.tsx") continue;
+    if (rel === "app/recommendations/RecommendationGuideArchive.tsx") continue;
+    if (rel === "app/motorcycles/page.tsx") continue;
+    if (rel === "app/motorcycles/scooters/page.tsx") continue;
+    if (rel.startsWith("app/recommendations/electric-")) continue;
+
     const src = fs.readFileSync(file, "utf8");
-
-    // Standalone /recommendations/[slug] pages are canonical destinations.
-    // What we must prevent from leaking back into entity/category pages is the
-    // older hub-fragment architecture. The hub itself may still use its own
-    // section anchors for in-page navigation.
-    if (rel === "app/recommendations/RecommendationsHub.tsx") continue;
-
-    for (const match of src.matchAll(/["'`](\/recommendations#[^"'`\s]+)["'`]/g)) {
+    for (const match of src.matchAll(/["'`](\/recommendations\/[^"'`?#\s]+)["'`]/g)) {
       failures.push(
-        `${rel}: legacy recommendation-fragment link ${match[1]} should point to the canonical standalone guide or entity hub instead`
+        `${rel}: review recommendation link ${match[1]}; direct standalone-guide links are expected only from approved recommendation/entity hub routes`
       );
     }
   }
@@ -39,4 +41,4 @@ if (failures.length) {
   console.error(failures.join("\n"));
   process.exit(1);
 }
-console.log("Recommendation-link audit passed: no external legacy /recommendations#fragment links remain.");
+console.log("Recommendation-link audit passed.");
