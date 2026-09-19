@@ -45,6 +45,7 @@
     "validate:seo-hardening": "node scripts/validate-seo-hardening.mjs",
     "validate:market-hubs": "node scripts/validate-market-hubs.mjs",
     "validate:priority-model-growth": "node scripts/validate-priority-model-growth.mjs",
+    "validate:expressway-hub": "node scripts/validate-expressway-hub.mjs",
     "validate:budget-displacement": "node scripts/validate-budget-displacement-gaps.mjs",
     "lint": "eslint .",
     "validate:design": "node scripts/design-lint.mjs",
