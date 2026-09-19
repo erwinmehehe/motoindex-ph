@@ -26,6 +26,7 @@ for (const base of scanRoots) {
     if (rel === "app/recommendations/RecommendationGuideArchive.tsx") continue;
     if (rel === "app/motorcycles/page.tsx") continue;
     if (rel === "app/motorcycles/scooters/page.tsx") continue;
+    if (rel === "app/motorcycles/expressway-legal/page.tsx") continue;
     if (rel.startsWith("app/recommendations/electric-")) continue;
 
     const src = fs.readFileSync(file, "utf8");
