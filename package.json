@@ -17,7 +17,7 @@
     "check:legacy-links": "node scripts/check-legacy-recommendation-links.mjs",
     "audit:freshness": "node scripts/audit-freshness.mjs",
     "visual:qa": "node scripts/visual-qa.mjs && node scripts/visual-qa-editorial.mjs && node scripts/visual-qa-model-fallback.mjs",
-    "validate:all": "npm run validate:post-audit && npm run validate:seo-hardening && npm run validate:market-hubs && npm run validate:no-competitors && npm run validate:copy-tone && npm run validate:public-trust && node scripts/validate-authority-growth.mjs && node scripts/validate-premium-light.mjs && npm run check:links && npm run check:legacy-links && npm run audit:freshness && node scripts/validate-content.mjs && node scripts/validate-product-layer.mjs && npm run validate:media && npm run validate:media-backfill",
+    "validate:all": "npm run validate:post-audit && npm run validate:seo-hardening && npm run validate:market-hubs && npm run validate:priority-model-growth && npm run validate:no-competitors && npm run validate:copy-tone && npm run validate:public-trust && node scripts/validate-authority-growth.mjs && node scripts/validate-premium-light.mjs && npm run check:links && npm run check:legacy-links && npm run audit:freshness && node scripts/validate-content.mjs && node scripts/validate-product-layer.mjs && npm run validate:media && npm run validate:media-backfill",
     "prisma:validate": "node scripts/prisma-validate.mjs",
     "verify": "npm run validate:all && npm run validate:lockfile && npm run prisma:validate && npm run validate:design && npm run lint && npm run typecheck && npm run build",
     "check:launch": "node scripts/check-launch.mjs",
@@ -44,6 +44,7 @@
     "validate:post-audit": "node scripts/validate-post-audit.mjs",
     "validate:seo-hardening": "node scripts/validate-seo-hardening.mjs",
     "validate:market-hubs": "node scripts/validate-market-hubs.mjs",
+    "validate:priority-model-growth": "node scripts/validate-priority-model-growth.mjs",
     "lint": "eslint .",
     "validate:design": "node scripts/design-lint.mjs",
     "visual:matrix": "node scripts/visual-regression-matrix.mjs"
