@@ -46,6 +46,13 @@ for (const band of [
   if (!data.includes(band)) errors.push(`displacement class selector missing: ${band}`);
 }
 
+if (!data.includes('id: "cfmoto-300nk"')) {
+  errors.push("300cc class must include the current source-backed CFMOTO 300NK so the collection clears the minimum indexability threshold.");
+}
+if (!data.includes('sourceUrl: "https://www.cfmotoph.com/motorcycle/300nk"')) {
+  errors.push("CFMOTO 300NK must use the current official Philippine product page as its canonical source.");
+}
+
 if (errors.length) {
   console.error("Budget/displacement gap validation failed:");
   for (const error of errors) console.error(`- ${error}`);
