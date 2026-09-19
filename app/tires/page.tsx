@@ -9,7 +9,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
 import { tireFamilyHubs, getTireFamilyModels } from "@/lib/tireSeo";
 import { CTAGroup, InfoPanel, PageHero, ProductGrid, SectionHeader, StatRow } from "@/components/ui";
-import styles from "./TiresPage.module.css";
+import styles from "../styles/hub-index.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Tire Size Chart Philippines: Finder & Fitment Guide",
@@ -81,8 +81,8 @@ export default function TiresPage(){
         title="Common stock motorcycle tire sizes"
         description="A compact discovery index from motorcycles in the current catalog. Open the exact motorcycle before ordering."
       />
-      <div className={styles.sizeIndex} data-tire-size-index>
-        {commonSizes.map(row=><article className={styles.sizeRow} key={row.label}>
+      <div className={styles.twoColList} data-tire-size-index>
+        {commonSizes.map(row=><article className={`${styles.twoColRow} ${styles.sizeRow}`} key={row.label}>
           <div className={styles.sizeValue}>
             <strong>{row.label}</strong>
             <span>{row.models.length} motorcycle{row.models.length===1?"":"s"}</span>
@@ -108,7 +108,7 @@ export default function TiresPage(){
             <h3>{hub.shortName}</h3>
             <p>{hub.description}</p>
             <div className={styles.familyLinks}>
-              {models.map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}>
+              {models.map(m=><Link className={`${styles.twoColRow} ${styles.modelLink}`} key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}>
                 <span><strong>{m.model}</strong><small>{m.generation}</small></span>
                 <span className={styles.tirePair}><b>{m.frontTire}</b><b>{m.rearTire}</b></span>
               </Link>)}
@@ -125,13 +125,13 @@ export default function TiresPage(){
         description="A short preview of current motorcycles. Use Fitment Finder for the complete catalog and open the exact model before ordering."
         aside={<Link href="/fitment">Search all fitment →</Link>}
       />
-      <div className={styles.stockList}>
+      <div className={styles.twoColList}>
         {stockPreview.map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}>
           <span><strong>{m.make} {m.model}</strong><small>{m.category}</small></span>
           <span className={styles.tirePair}><b>{m.frontTire}</b><b>{m.rearTire}</b></span>
         </Link>)}
       </div>
-      <CTAGroup className={styles.stockActions}><Link className="button secondary small" href="/fitment">Search all {publicMotorcycles.length} motorcycles</Link></CTAGroup>
+      <CTAGroup className={styles.actions}><Link className="button secondary small" href="/fitment">Search all {publicMotorcycles.length} motorcycles</Link></CTAGroup>
     </section>
 
     <section id="size-chart" className={styles.section}>
