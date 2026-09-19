@@ -28,6 +28,7 @@ jobs:
       - name: Release validation
         run: |
           npm run validate:post-audit
+          npm run validate:seo-hardening
           npm run validate:copy-tone
           npm run validate:public-trust
           node scripts/validate-authority-growth.mjs
