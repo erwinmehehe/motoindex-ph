@@ -118,7 +118,7 @@ try {
         const fallbackRect=fallback?.getBoundingClientRect();
         const titleRect=fallbackTitle?.getBoundingClientRect();
         const commute=document.querySelector('.commute-master-page .ui-info-panel');
-        const commuteHeading=commute?.querySelector('h2');
+        const commuteHeading=commute?.querySelector('h3');
         const pathological=[...document.querySelectorAll('h1,h2,h3,strong')].filter(el=>{
           const text=(el.textContent||'').trim();
           if(text.length<5)return false;
