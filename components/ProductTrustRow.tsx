@@ -1,5 +1,3 @@
-import { SourceRef } from "@/components/SourceRef";
-
 type TrustSource = {
   url?: string;
   label: string;
@@ -13,14 +11,10 @@ type Props = {
   lastChecked?: string;
 };
 
-export function ProductTrustRow({ status, sourceLabel, source, secondarySource, lastChecked }: Props) {
-  return <div className="product-trust-row" aria-label="Product data source">
+export function ProductTrustRow({ status }: Props) {
+  return <div className="product-trust-row" aria-label="Product data status">
     <span className={`product-trust-status ${status === "verified" ? "verified" : "pending"}`}>
       {status === "verified" ? "Verified product data" : "Needs checking"}
     </span>
-    {sourceLabel && <span className="product-trust-label">{sourceLabel}</span>}
-    {source && <SourceRef url={source.url} label={source.label} />}
-    {secondarySource && <SourceRef url={secondarySource.url} label={secondarySource.label} />}
-    {lastChecked && <small>Updated {lastChecked}</small>}
   </div>;
 }

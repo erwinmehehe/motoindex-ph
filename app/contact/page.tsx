@@ -22,19 +22,19 @@ export default function ContactPage() {
     <Breadcrumbs items={[{ label: "Contact" }]} />
     <div className="page-head">
       <h1>Contact MotoIndex PH</h1>
-      <p>Send a correction, flag an outdated source, suggest a product or motorcycle, or get in touch about a partnership. We read messages sent to the published contact address.</p>
+      <p>Send a correction, flag outdated information, suggest a product or motorcycle, or get in touch about a partnership. We read messages sent to the published contact address.</p>
     </div>
 
     <div className="contact-grid">
       <article className="contact-card">
         <h2>Data correction</h2>
-        <p>Found a wrong price, specification, model year, tire size or source? Send the page URL and the source that supports the correction.</p>
+        <p>Found a wrong price, specification, model year or tire size? Send the MotoIndex page URL and explain what needs correcting.</p>
         {email ? <a className="button small" href={mailto("MotoIndex data correction")}>Send a correction</a> : <Link className="text-link" href="/corrections">See correction guidance →</Link>}
       </article>
       <article className="contact-card">
         <h2>Brand, dealer or product update</h2>
         <p>Brands, dealers and distributors can send current Philippine product pages, official price lists, model launches and fitment documentation for review.</p>
-        {email ? <a className="button small" href={mailto("MotoIndex brand or dealer update")}>Send an update</a> : <Link className="text-link" href="/data-sources">See accepted sources →</Link>}
+        {email ? <a className="button small" href={mailto("MotoIndex brand or dealer update")}>Send an update</a> : <Link className="text-link" href="/methodology">See review methodology →</Link>}
       </article>
       <article className="contact-card">
         <h2>Partnership or commercial inquiry</h2>
@@ -62,9 +62,9 @@ export default function ContactPage() {
         <ul className="checklist">
           <li>The MotoIndex page URL.</li>
           <li>The field or statement that looks wrong.</li>
-          <li>A manufacturer, government, distributor or seller source URL.</li>
-          <li>The date you checked the source.</li>
-          <li>A screenshot only when the source page cannot be linked directly.</li>
+          <li>The correct value or wording you believe should replace it.</li>
+          <li>Any supporting context that helps us reproduce the issue.</li>
+          <li>A screenshot when the problem is visual or difficult to describe.</li>
         </ul>
       </div>
       <div className="info-card">

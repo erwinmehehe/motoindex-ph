@@ -70,7 +70,7 @@ export default function MotorcyclesPage() {
           <div className={`motorcycle-index-hero-copy ${styles.heroCopy}`}>
             <span className="entity-kicker">Philippine motorcycle price list</span>
             <h1>Motorcycle prices in the Philippines</h1>
-            <p>Compare current motorcycle prices, specifications and model research by brand, category, engine size and budget. Every published model keeps its own source and verification date.</p>
+            <p>Compare current motorcycle prices, specifications and model research by brand, category, engine size and budget. Each published model is reviewed before it enters the current catalog.</p>
             <div className="motorcycle-index-actions">
               <a className="button" href="#browse-models">Browse motorcycles</a>
               <Link className="button secondary" href="/finder">Find my match</Link>
@@ -131,7 +131,7 @@ export default function MotorcyclesPage() {
         </section>
 
         <section id="browse-models" className="motorcycle-catalog-section">
-          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Full price list</span><h2>Browse and filter current motorcycle models</h2><p>Use filters to narrow the market, then open a model page for dated prices, specifications, financing context, fitment and ownership information.</p></div></div>
+          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Full price list</span><h2>Browse and filter current motorcycle models</h2><p>Use filters to narrow the market, then open a model page for prices, specifications, financing context, fitment and ownership information.</p></div></div>
           <ModelExplorer models={forClient(currentModels)} />
         </section>
 
@@ -146,11 +146,11 @@ export default function MotorcyclesPage() {
         </section>}
 
         <section className="motorcycle-index-method">
-          <div><span className="section-kicker">A simpler decision path</span><h2>Shortlist first. Verify the details before paying.</h2><p>Use category and budget hubs to narrow the market, then use the model page for dated prices, fit, financing and ownership context.</p></div>
+          <div><span className="section-kicker">A simpler decision path</span><h2>Shortlist first. Verify the details before paying.</h2><p>Use category and budget hubs to narrow the market, then use the model page for price, fit, financing and ownership context.</p></div>
           <div className="motorcycle-index-method-grid">
             <article><b>01</b><strong>Explore</strong><small>Start with category, budget, brand or displacement.</small></article>
             <article><b>02</b><strong>Compare</strong><small>Keep up to three motorcycles in the persistent tray.</small></article>
-            <article><b>03</b><strong>Verify</strong><small>Open the model and check price dates, fit and ownership cost.</small></article>
+            <article><b>03</b><strong>Verify</strong><small>Open the model and confirm price, fit and ownership cost.</small></article>
           </div>
         </section>
       </>}

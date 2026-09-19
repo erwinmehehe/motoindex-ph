@@ -70,6 +70,37 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
     recommendationLabel: "Compare 400cc+ motorcycles"
   },
+  "kawasaki-z500": {
+    seoTitle: "Kawasaki Z500 Price Philippines 2026 | Z400 Legacy",
+    seoDescription: "Kawasaki Z500 price in the Philippines, 451cc specs, seat height, ABS, financing and Z400 legacy context for riders replacing an older Z400 search.",
+    intentIntro: "If you arrived looking for Kawasaki Z400 price information, the Z400 is no longer in Kawasaki Philippines' current sports lineup. The current Z500 is the closest new-bike continuation of that lightweight naked-bike search intent, with a 451cc twin, 785 mm seat and current Philippine MSRP.",
+    moneyQuestion: "Compare the current Z500 purchase price, financing, insurance and registration with used Z400 asking prices rather than treating old Z400 SRP figures as current.",
+    ownershipQuestion: "Compare 17-inch tires, chain and sprocket service, ABS, insurance and Kawasaki service access with other current lightweight naked bikes.",
+    alternativeIds: ["honda-cb650r", "yamaha-yzf-r3", "kawasaki-ninja-500"],
+    relatedIds: ["kawasaki-ninja-500"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles",
+    legacyContext: {
+      heading: "Looking for the Kawasaki Z400?",
+      body: "The Z400 is no longer listed in Kawasaki Philippines' current sports lineup. MotoIndex consolidates Z400 search intent here so older Z400 price/spec research stays separate from the current Z500 buying decision."
+    }
+  },
+  "honda-winner-x": {
+    seoTitle: "Honda Winner X Price Philippines 2026 | RS150R Context",
+    seoDescription: "Honda Winner X price in the Philippines, 150cc specs, ABS variants, seat height, financing and RS150R legacy context for current underbone buyers.",
+    intentIntro: "Honda's current sporty underbone coverage centers on the Winner X. If you arrived looking for RS150R pricing or specs, use that older model as historical context and compare the current Winner X on price, braking package, rider fit and ownership.",
+    moneyQuestion: "Compare the exact Winner X variant, down payment, monthly payment, registration and insurance with used RS150R asking prices before deciding on budget.",
+    ownershipQuestion: "Compare chain and sprocket service, 17-inch tires, ABS availability, insurance and Honda service access with Raider R150 and Sniper 155.",
+    alternativeIds: ["suzuki-raider-r150", "yamaha-sniper-155"],
+    relatedIds: ["suzuki-raider-r150", "yamaha-sniper-155"],
+    recommendationHref: "/recommendations/best-motorcycles-for-daily-commute-philippines",
+    recommendationLabel: "Compare daily-commute motorcycles",
+    legacyContext: {
+      heading: "Looking for the Honda RS150R?",
+      body: "RS150R is legacy Philippine search intent. MotoIndex routes that research into the current Winner X page instead of publishing a stale RS150R as a current model."
+    }
+  },
+
   "kawasaki-ninja-500": {
     seoTitle: "Kawasaki Ninja 500 Price Philippines 2026 | Specs & Monthly",
     seoDescription: "Kawasaki Ninja 500 price in the Philippines, 451cc specs, seat height, tires, down payment, monthly estimate, Ninja 400 context and ownership costs.",
@@ -102,7 +133,11 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     alternativeIds: ["yamaha-mio-gravis", "yamaha-mio-gear", "honda-click-125i"],
     relatedIds: ["yamaha-mio-gravis", "yamaha-fazzio"],
     recommendationHref: "/recommendations/125cc-scooters-philippines",
-    recommendationLabel: "Compare 125cc scooters"
+    recommendationLabel: "Compare 125cc scooters",
+    legacyContext: {
+      heading: "Looking for the Yamaha Mio Sporty?",
+      body: "Mio Sporty is an older 114cc carbureted Mio generation. MotoIndex consolidates that legacy search intent into the current Mio i 125 research page while keeping the older Mio Sporty price from being presented as a current new-bike quote."
+    }
   },
   "yamaha-tmax": {
     seoTitle: "Yamaha TMAX Price Philippines 2026 | Tech Max Specs",
