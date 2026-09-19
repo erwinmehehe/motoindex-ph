@@ -27,6 +27,11 @@ export function PriorityCommercialIntent({ model }: { model: Motorcycle }) {
       <p>{profile.intentIntro}</p>
     </div>
 
+    {profile.legacyContext && <div className="note-box">
+      <h3>{profile.legacyContext.heading}</h3>
+      <p>{profile.legacyContext.body}</p>
+    </div>}
+
     <div className="priority-model-brief-grid">
       <article>
         <span>Published price</span>
