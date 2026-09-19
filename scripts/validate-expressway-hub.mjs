@@ -24,8 +24,11 @@ if (!exists(...pagePath)) {
   ]) {
     if (!page.includes(token)) errors.push(`Expressway hub missing required evidence/structure: ${token}`);
   }
-  if (page.includes("398") && page.includes("eligible")) {
-    errors.push("Expressway hub must not imply a 398cc model is eligible");
+  if (!page.includes("currentPublicMotorcycles.filter((model) => model.engineCc >= 400)")) {
+    errors.push("Expressway qualifying list must use a strict >=400cc filter");
+  }
+  if (!page.includes("model.engineCc >= 350 && model.engineCc < 400")) {
+    errors.push("Expressway hub must separate borderline sub-400cc records from qualifying records");
   }
 }
 
