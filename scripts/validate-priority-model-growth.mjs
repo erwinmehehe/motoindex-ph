@@ -7,6 +7,7 @@ const errors = [];
 
 const growth = read("lib", "priorityModelGrowth.ts");
 const modelPage = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
+const recommendationPage = read("app", "recommendations", "[slug]", "page.tsx");
 const commercial = read("components", "PriorityCommercialIntent.tsx");
 const data = read("lib", "data.ts");
 const route = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
@@ -95,6 +96,28 @@ for (const token of [
   if (!data.includes(token)) {
     errors.push(`priorityModelGrowth: competitor-gap data evidence missing: ${token}`);
   }
+}
+
+for (const token of [
+  'slug: "dual-sport-motorcycles-philippines"',
+  'seoTitle: "Dual-Sport & Trail Motorcycles Philippines 2026"',
+  '"best dual sport motorcycles Philippines"',
+  '"trail bike Philippines"',
+  '"street legal trail bike Philippines"',
+  '"off road motorcycle Philippines"',
+  '"Dual-sport vs trail bike: what the terms mean"',
+  '"21/18-inch wheels and rough-road priorities"',
+  '"What to check before riding on public roads"'
+]) {
+  if (!data.includes(token)) errors.push(`dual-sport authority: missing token ${token}`);
+}
+for (const token of [
+  'guide.slug==="dual-sport-motorcycles-philippines"',
+  'dual-sport and trail bikes the same',
+  'use 21/18-inch wheels',
+  'public roads in the philippines'
+]) {
+  if (!recommendationPage.includes(token)) errors.push(`dual-sport authority renderer: missing token ${token}`);
 }
 
 if (!growth.includes('"yamaha-yzf-r1m": {') || !growth.includes("Searchers often shorten the name to Yamaha R1 or simply R1")) {
