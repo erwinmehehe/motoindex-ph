@@ -26,7 +26,9 @@ export const phTier23Motorcycles: Motorcycle[] = [
     id: "motorstar-cafe-400", make: "MotorStar", makeSlug: "motorstar", model: "Cafe 400", slug: "cafe-400", generation: "Current", category: "Classic road bike",
     srp: 140000, engineCc: 397.2, powerHp: 26.8, torqueNm: 30, curbWeightKg: 150, seatHeightMm: 790, fuelTankL: 13, fuelConsumptionKmL: 20, groundClearanceMm: 160,
     frontTire: "90/90-19", rearTire: "110/80-18", abs: "No ABS confirmed; front disc and rear drum in the referenced specification", colors: ["Green"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Independent PH current MotorStar Cafe 400 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/motorstar/cafe-400/specifications", verifiedAt, freshness: "verified", marketStatus: "current", transmission: "Manual",
+    sourceLabel: "Current Philippine MotorStar Cafe 400 market specification cross-check; MotorStar Philippines brand support is used for ownership verification", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/motorstar/cafe-400/specifications", verifiedAt: "2026-09-19", freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Current Philippine Cafe 400 market listings", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/motorstar/cafe-400/price", marketPriceCheckedAt: "2026-09-19", transmission: "Manual",
+    priceContext: "Current Philippine comparison listings agree on a ₱140,000 reference price. MotoIndex did not locate a model-level MotorStar manufacturer page in this verification pass, so confirm stock and final pricing with MotorStar Philippines.",
     summary: "397.2cc retro road bike with a six-speed manual gearbox, 13 L tank and 19/18-inch wheels."
   },
   {
@@ -189,17 +191,19 @@ export const phTier23Motorcycles: Motorcycle[] = [
 
   {
     id: "vespa-primavera-150", make: "Vespa", makeSlug: "vespa", model: "Primavera 150", slug: "primavera-150", generation: "Current", category: "Retro scooter",
-    srp: 210000, engineCc: 155, powerHp: 12.7, torqueNm: 12.8, curbWeightKg: 130, seatHeightMm: 790, fuelTankL: 7,
+    srp: 210000, engineCc: 155, powerHp: 12.5, torqueNm: 12.5, curbWeightKg: 130, seatHeightMm: 785, fuelTankL: 8,
     frontTire: "110/70-12", rearTire: "120/70-12", abs: "Front-wheel ABS on the current 150-class configuration", colors: [], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Independent PH 2026 Vespa Primavera price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/vespa/primavera/specifications", verifiedAt, freshness: "verified", marketStatus: "current", marketPriceHighPhp: 235000, transmission: "Automatic",
-    summary: "155cc classic Vespa scooter with CVT transmission, a 790 mm seat and 12-inch tubeless wheels."
+    sourceLabel: "Vespa official Primavera 150 technical specification with current Philippine market-price cross-check", sourceUrl: "https://www.vespa.com/en_EN/models/primavera/primavera-150-4s3v-2026/", verifiedAt: "2026-09-19", freshness: "verified", marketStatus: "current", marketPriceHighPhp: 235000,
+    marketPriceSourceLabel: "Current Philippine Primavera market listing", marketPriceSourceUrl: "https://www.carmudi.com.ph/new-motorcycles/vespa/primavera/price/pasig/", marketPriceCheckedAt: "2026-09-19", transmission: "Automatic",
+    summary: "155cc classic Vespa scooter with CVT transmission, a 785 mm seat, 8 L tank and 12-inch tubeless wheels."
   },
   {
     id: "vespa-sprint-150", make: "Vespa", makeSlug: "vespa", model: "Sprint 150", slug: "sprint-150", generation: "Current", category: "Retro scooter",
-    srp: 230000, engineCc: 155, powerHp: 12.7, torqueNm: 12.8, curbWeightKg: 132, seatHeightMm: 790, fuelTankL: 8,
+    srp: 230000, engineCc: 155, powerHp: 12.0, torqueNm: 12.7, curbWeightKg: 132, seatHeightMm: 785, fuelTankL: 8,
     frontTire: "110/70-12", rearTire: "120/70-12", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Independent PH 2026 Vespa Sprint price and specification reference", sourceUrl: "https://www.carmudi.com.ph/new-motorcycles/vespa/sprint/specifications/", verifiedAt, freshness: "verified", marketStatus: "current", marketPriceHighPhp: 275000, transmission: "Automatic",
-    summary: "155cc premium retro scooter with CVT transmission, ABS and a 790 mm seat; current Philippine listings span multiple trims."
+    sourceLabel: "Vespa official Sprint S 150 technical specification with current Philippine market-price cross-check", sourceUrl: "https://www.vespa.com/en_EN/models/sprint/sprint-s-150-4s3v-2026/", verifiedAt: "2026-09-19", freshness: "verified", marketStatus: "current", marketPriceHighPhp: 275000,
+    marketPriceSourceLabel: "Current Philippine Sprint market listing", marketPriceSourceUrl: "https://www.carmudi.com.ph/new-motorcycles/vespa/sprint/specifications/", marketPriceCheckedAt: "2026-09-19", transmission: "Automatic",
+    summary: "155cc premium retro scooter with CVT transmission, single-channel front ABS and a 785 mm seat; current Philippine listings span multiple trims."
   },
 
   {
@@ -580,12 +584,12 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "1043cc inline-four sport-tourer with 142 hp, 111 Nm, a 19 L tank, 820 mm seat and six-speed manual transmission."
   },
   {
-    id: "kawasaki-z1000-r-edition", make: "Kawasaki", makeSlug: "kawasaki", model: "Z1000 R Edition", slug: "z1000-r-edition", generation: "Current Philippine model", category: "Naked street bike",
+    id: "kawasaki-z1000-r-edition", make: "Kawasaki", makeSlug: "kawasaki", model: "Z1000 R Edition", slug: "z1000-r-edition", generation: "2017 Philippine R Edition", category: "Naked street bike",
     srp: 710000, engineCc: 1043, powerHp: 142, torqueNm: 111, curbWeightKg: 221, seatHeightMm: 815, fuelTankL: 17, fuelConsumptionKmL: 15, groundClearanceMm: 125,
-    frontTire: "120/70 ZR17", rearTire: "190/50 ZR17", abs: "ABS with Brembo braking hardware", colors: ["Black"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Kawasaki Leisure Bikes Philippines official Z1000 R Edition specification and MSRP", sourceUrl: "https://www.kawasakileisurebikes.ph/motorcycles/sports/z100r/", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
-    marketPriceSourceLabel: "Kawasaki Philippines current MSRP", marketPriceSourceUrl: "https://www.kawasakileisurebikes.ph/motorcycles/sports/z100r/", marketPriceCheckedAt: "2026-09-09",
-    summary: "1043cc inline-four naked motorcycle with 142 hp, 111 Nm, ABS, a 17 L tank and 815 mm seat height."
+    frontTire: "120/70 ZR17", rearTire: "190/50 ZR17", abs: "ABS with Brembo braking hardware", colors: ["Black"], searchVolume: 4100, keywordDifficulty: 0,
+    sourceLabel: "Kawasaki Leisure Bikes Philippines archived 2017 Z1000 R Edition specification and MSRP", sourceUrl: "https://www.kawasakileisurebikes.ph/motorcycles/sports/z100r/", verifiedAt: "2026-09-19", freshness: "verified", marketStatus: "previous", transmission: "Manual",
+    priceContext: "Historical Philippine MSRP of ₱710,000 from Kawasaki's official 2017 Z1000 R Edition page. Do not treat this as a current 2026 dealer quote.",
+    summary: "Previous 1043cc Z1000 R Edition retained for historical Philippine price and specification research; Kawasaki's official page describes the 2017 model."
   },
   {
     id: "keeway-cafe-racer-152", make: "Keeway", makeSlug: "keeway", model: "Cafe Racer 152", slug: "cafe-racer-152", generation: "Current Philippine model", category: "Cafe racer",

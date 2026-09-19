@@ -10,6 +10,9 @@ const modelPage = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
 const commercial = read("components", "PriorityCommercialIntent.tsx");
 const data = read("lib", "data.ts");
 const route = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
+const tier23 = read("lib", "phTier23ModelsBase.ts");
+const brandGrowth = read("lib", "brandSeoGrowth.ts");
+const brandPage = read("app", "motorcycles", "[make]", "page.tsx");
 
 const priorityModels = [
   "yamaha-aerox-v3",
@@ -29,6 +32,12 @@ const priorityModels = [
   "yamaha-mio-i-125",
   "yamaha-tmax",
   "yamaha-yzf-r1m",
+  "motorstar-cafe-400",
+  "kawasaki-z1000-r-edition",
+  "vespa-gts-supersport-300",
+  "vespa-gtv-300",
+  "vespa-primavera-150",
+  "vespa-sprint-150",
   "honda-crf300-rally"
 ];
 
@@ -91,6 +100,38 @@ if (!growth.includes('"yamaha-yzf-r1m": {') || !growth.includes("Searchers often
 }
 if (data.includes('id: "yamaha-yzf-r1"') || data.includes('id: "yamaha-r1"')) {
   errors.push("priorityModelGrowth: do not create a duplicate Yamaha R1 entity beside the YZF-R1M canonical");
+}
+
+for (const token of [
+  'id: "motorstar-cafe-400"',
+  'marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/motorstar/cafe-400/price"',
+  'id: "kawasaki-z1000-r-edition"',
+  'generation: "2017 Philippine R Edition"',
+  'marketStatus: "previous"',
+  'Historical Philippine MSRP of ₱710,000',
+  'id: "vespa-gts-supersport-300"',
+  'sourceUrl: "https://www.vespa.com/ph_EN/models/gts/gts-supersport-300-hpe-2025/"',
+  'id: "vespa-gtv-300"',
+  'sourceUrl: "https://www.vespa.com/ph_EN/models/gtv/gtv-300-hpe-2025/"',
+  'id: "vespa-primavera-150"',
+  'id: "vespa-sprint-150"'
+]) {
+  if (!tier23.includes(token)) {
+    errors.push(`priorityModelGrowth: tier-2/3 competitor-gap evidence missing: ${token}`);
+  }
+}
+
+if (!brandGrowth.includes('vespa: {') || !brandGrowth.includes("Vespa Philippines Price List 2026") || !brandGrowth.includes("city-price or installment pages")) {
+  errors.push("brandSeoGrowth: Vespa hub must own broad price/model intent without thin city or installment URLs");
+}
+if (!brandPage.includes("brandSeoGrowthProfile(make)") || !brandPage.includes("brandGrowth.intentNote")) {
+  errors.push("brand page must render the focused Vespa authority profile");
+}
+if (!growth.includes('"motorstar-cafe-400": {') || !growth.includes('"kawasaki-z1000-r-edition": {')) {
+  errors.push("priorityModelGrowth: Cafe 400 and Z1000 R Edition must retain focused canonical SEO profiles");
+}
+if (!growth.includes('"vespa-gts-supersport-300": {') || !growth.includes('"vespa-gtv-300": {') || !growth.includes('"vespa-primavera-150": {') || !growth.includes('"vespa-sprint-150": {')) {
+  errors.push("priorityModelGrowth: tracked Vespa models must retain canonical commercial-intent profiles");
 }
 
 if (!growth.includes('heading: "Looking for the Honda CRF250 Rally?"') || !growth.includes("enhanced successor to the CRF250 Rally")) {
