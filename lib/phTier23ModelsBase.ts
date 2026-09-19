@@ -191,19 +191,19 @@ export const phTier23Motorcycles: Motorcycle[] = [
 
   {
     id: "vespa-primavera-150", make: "Vespa", makeSlug: "vespa", model: "Primavera 150", slug: "primavera-150", generation: "Current", category: "Retro scooter",
-    srp: 210000, engineCc: 155, powerHp: 12.7, torqueNm: 12.8, curbWeightKg: 130, seatHeightMm: 790, fuelTankL: 7,
+    srp: 210000, engineCc: 155, powerHp: 12.5, torqueNm: 12.5, curbWeightKg: 130, seatHeightMm: 785, fuelTankL: 8,
     frontTire: "110/70-12", rearTire: "120/70-12", abs: "Front-wheel ABS on the current 150-class configuration", colors: [], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Vespa official Primavera 150 technical specification with current Philippine market-price cross-check", sourceUrl: "https://www.vespa.com/en_EN/models/primavera/primavera-150-4s3v-2026/", verifiedAt: "2026-09-19", freshness: "verified", marketStatus: "current", marketPriceHighPhp: 235000,
     marketPriceSourceLabel: "Current Philippine Primavera market listing", marketPriceSourceUrl: "https://www.carmudi.com.ph/new-motorcycles/vespa/primavera/price/pasig/", marketPriceCheckedAt: "2026-09-19", transmission: "Automatic",
-    summary: "155cc classic Vespa scooter with CVT transmission, a 790 mm seat and 12-inch tubeless wheels."
+    summary: "155cc classic Vespa scooter with CVT transmission, a 785 mm seat, 8 L tank and 12-inch tubeless wheels."
   },
   {
     id: "vespa-sprint-150", make: "Vespa", makeSlug: "vespa", model: "Sprint 150", slug: "sprint-150", generation: "Current", category: "Retro scooter",
-    srp: 230000, engineCc: 155, powerHp: 12.7, torqueNm: 12.8, curbWeightKg: 132, seatHeightMm: 790, fuelTankL: 8,
+    srp: 230000, engineCc: 155, powerHp: 12.0, torqueNm: 12.7, curbWeightKg: 132, seatHeightMm: 785, fuelTankL: 8,
     frontTire: "110/70-12", rearTire: "120/70-12", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Vespa official Sprint S 150 technical specification with current Philippine market-price cross-check", sourceUrl: "https://www.vespa.com/en_EN/models/sprint/sprint-s-150-4s3v-2026/", verifiedAt: "2026-09-19", freshness: "verified", marketStatus: "current", marketPriceHighPhp: 275000,
     marketPriceSourceLabel: "Current Philippine Sprint market listing", marketPriceSourceUrl: "https://www.carmudi.com.ph/new-motorcycles/vespa/sprint/specifications/", marketPriceCheckedAt: "2026-09-19", transmission: "Automatic",
-    summary: "155cc premium retro scooter with CVT transmission, ABS and a 790 mm seat; current Philippine listings span multiple trims."
+    summary: "155cc premium retro scooter with CVT transmission, single-channel front ABS and a 785 mm seat; current Philippine listings span multiple trims."
   },
 
   {
