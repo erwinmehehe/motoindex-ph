@@ -128,6 +128,73 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 400cc+ motorcycles"
   },
 
+  "motorstar-cafe-400": {
+    seoTitle: "MotorStar Cafe 400 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "MotorStar Cafe 400 price in the Philippines, 397.2cc specs, seat height, tire sizes, financing, ownership costs and current price-source checks.",
+    intentIntro: "The Cafe 400 is already a strong value-bike search target, so MotoIndex keeps price, specs, installment and ownership intent on this one canonical page. Current Philippine market listings agree on a ₱140,000 reference price, but MotoIndex did not locate a model-level MotorStar manufacturer page in this verification pass.",
+    moneyQuestion: "What does the Cafe 400 cost after down payment, monthly payment, registration, insurance, dealer fees and first-year maintenance are included?",
+    ownershipQuestion: "Compare its 397.2cc single-cylinder engine, 790 mm seat, 19/18-inch tires, chain service and simpler braking package against current larger-displacement alternatives before deciding on price alone.",
+    alternativeIds: ["triumph-speed-400", "kawasaki-z500", "honda-cb650r"],
+    relatedIds: ["motorstar-xplorer-250r"],
+    recommendationHref: "/recommendations/cafe-racer-motorcycles-philippines",
+    recommendationLabel: "Compare classic and cafe-style motorcycles"
+  },
+  "kawasaki-z1000-r-edition": {
+    seoTitle: "Kawasaki Z1000 R Edition Price Philippines | 2017 Specs",
+    seoDescription: "Historical Kawasaki Z1000 R Edition Philippine price and 2017 specs, including 1043cc engine, seat height, weight, tires and current-model context.",
+    intentIntro: "Kawasaki Philippines still hosts the Z1000 R Edition page, but the manufacturer copy identifies it as the 2017 model. MotoIndex therefore keeps the ₱710,000 figure as historical Philippine MSRP rather than presenting it as a current 2026 dealer price.",
+    moneyQuestion: "Use the ₱710,000 figure as historical context only; current used-bike value, registration, insurance and maintenance costs depend on the specific unit and condition.",
+    ownershipQuestion: "For used-bike research, verify service history, tires, chain and sprockets, brake hardware, cooling-system condition and parts support before relying on the original specification alone.",
+    alternativeIds: ["kawasaki-ninja-1000", "honda-cb650r", "yamaha-yzf-r1m"],
+    relatedIds: ["kawasaki-ninja-1000"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare current 400cc+ motorcycles"
+  },
+  "vespa-gts-supersport-300": {
+    seoTitle: "Vespa GTS SuperSport 300 Price Philippines 2026 | Specs",
+    seoDescription: "Vespa GTS SuperSport 300 price in the Philippines, 278cc specs, ABS, ASR, seat height, fuel use, financing and ownership costs.",
+    intentIntro: "Vespa Philippines currently lists the GTS SuperSport 300 at ₱375,000. Keep price, specs, colors, financing and ownership research on this canonical model page rather than splitting those intents into city-price or installment URLs.",
+    moneyQuestion: "What does the GTS SuperSport 300 cost after financing, registration, insurance, accessories and scheduled maintenance are included?",
+    ownershipQuestion: "Compare Vespa authorized-service access, 12-inch tires, dual-channel ABS, ASR, fuel use and premium-scooter insurance with the GTV 300 and other premium scooters.",
+    alternativeIds: ["vespa-gtv-300", "bmw-c-400-gt", "honda-adv-350"],
+    relatedIds: ["vespa-gtv-300", "vespa-sprint-150"],
+    recommendationHref: "/recommendations/maxi-scooters-philippines",
+    recommendationLabel: "Compare premium and maxi scooters"
+  },
+  "vespa-gtv-300": {
+    seoTitle: "Vespa GTV 300 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Vespa GTV 300 price in the Philippines, 278cc specs, ABS, ASR, seat height, financing, ownership costs and current Vespa PH pricing.",
+    intentIntro: "Vespa Philippines currently lists the GTV 300 at ₱425,000 and notes that the price includes accessories. MotoIndex keeps price, specs, financing and ownership intent consolidated on this canonical model page.",
+    moneyQuestion: "What does the GTV 300 cost after financing, registration, insurance and any dealer-specific fees beyond the published package?",
+    ownershipQuestion: "Compare authorized-service access, 12-inch tires, dual-channel ABS, ASR and premium-scooter running costs with the GTS SuperSport 300 and other current alternatives.",
+    alternativeIds: ["vespa-gts-supersport-300", "bmw-c-400-gt", "honda-adv-350"],
+    relatedIds: ["vespa-gts-supersport-300"],
+    recommendationHref: "/recommendations/maxi-scooters-philippines",
+    recommendationLabel: "Compare premium and maxi scooters"
+  },
+  "vespa-primavera-150": {
+    seoTitle: "Vespa Primavera 150 Price Philippines 2026 | Specs",
+    seoDescription: "Vespa Primavera 150 price in the Philippines, 155cc specs, seat height, tires, ABS, financing and ownership costs.",
+    intentIntro: "Current Philippine market listings place the Primavera 150 around ₱210,000 to ₱235,000, while the model specification is anchored to Vespa's official 150-class product data. Keep variant, price, specs and installment research on this one URL.",
+    moneyQuestion: "What does a Primavera 150 cost after the exact trim, down payment, monthly payment, registration, insurance and accessories are confirmed?",
+    ownershipQuestion: "Compare 12-inch tires, front ABS, CVT service, authorized Vespa support and premium-scooter running costs with Sprint 150 and other retro scooters.",
+    alternativeIds: ["vespa-sprint-150", "kymco-like-150i-abs", "aprilia-sr-gt-200"],
+    relatedIds: ["vespa-sprint-150", "vespa-gts-supersport-300"],
+    recommendationHref: "/recommendations/best-scooters-philippines",
+    recommendationLabel: "Compare scooters in the Philippines"
+  },
+  "vespa-sprint-150": {
+    seoTitle: "Vespa Sprint 150 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Vespa Sprint 150 price in the Philippines, 155cc specs, seat height, tires, ABS, financing, colors and ownership costs.",
+    intentIntro: "Current Philippine market listings place Sprint 150 pricing across multiple trims, while MotoIndex anchors the technical specification to Vespa's official 150-class Sprint data. Price, specs, colors and installment intent stay on this canonical URL.",
+    moneyQuestion: "What does a Sprint 150 cost after the exact trim, dealer quote, down payment, monthly payment, registration and insurance are included?",
+    ownershipQuestion: "Compare 12-inch tires, ABS, CVT service, Vespa support and premium-scooter running costs with Primavera 150 and other retro-scooter alternatives.",
+    alternativeIds: ["vespa-primavera-150", "kymco-like-150i-abs", "aprilia-sr-gt-200"],
+    relatedIds: ["vespa-primavera-150", "vespa-gts-supersport-300"],
+    recommendationHref: "/recommendations/best-scooters-philippines",
+    recommendationLabel: "Compare scooters in the Philippines"
+  },
+
   "honda-crf300-rally": {
     seoTitle: "Honda CRF300 Rally Price Philippines 2026 | Specs",
     seoDescription: "Honda CRF300 Rally price in the Philippines, 286cc specs, seat height, ground clearance, ABS, CRF250 Rally successor context, financing and ownership.",
