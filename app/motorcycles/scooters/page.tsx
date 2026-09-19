@@ -1,4 +1,5 @@
-import type { CSSProperties, Metadata } from "next";
+import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
