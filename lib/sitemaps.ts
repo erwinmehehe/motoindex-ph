@@ -98,8 +98,12 @@ export function motorcycleSitemapEntries(): Entry[] {
     priority:m.marketStatus==="previous"?.82:m.marketStatus==="uncertain"?.78:.92
   }));
   // Electric models are consolidated into one authoritative buying guide rather than separate thin URLs.
+  const scooterModels=indexableModels.filter(m=>/scooter/i.test(m.category)&&!["previous","uncertain","discontinued"].includes(m.marketStatus||""));
+  const categoryPages=scooterModels.length>=5
+    ? [{url:`${SITE_URL}/motorcycles/scooters`,lastModified:newest(scooterModels.map(modelCheckedAt)),changeFrequency:"weekly" as const,priority:.9}]
+    : [];
   const electricPages=[{url:`${SITE_URL}/motorcycles/electric`,lastModified:newest(electricMotorcycles.map(m=>m.checkedAt)),changeFrequency:"weekly" as const,priority:.9}];
-  return [...brands,...families,...models,...electricPages];
+  return [...brands,...families,...categoryPages,...models,...electricPages];
 }
 
 export function gearSitemapEntries(): Entry[] {
