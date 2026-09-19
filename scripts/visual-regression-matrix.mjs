@@ -30,6 +30,7 @@ const routes=[
   {name:"top-box-detail",path:"/accessories/top-box/v58-maxia-5"},
   {name:"finder",path:"/finder"},
   {name:"recommendations",path:"/recommendations"},
+  {name:"dual-sport-guide",path:"/recommendations/dual-sport-motorcycles-philippines"},
   {name:"ownership-hub",path:"/ownership"},
   {name:"commute-hub",path:"/commute"},
   {name:"tools-hub",path:"/tools"},
