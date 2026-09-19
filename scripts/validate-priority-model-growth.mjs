@@ -26,7 +26,8 @@ const priorityModels = [
   "kawasaki-ninja-500",
   "yamaha-mio-gravis",
   "yamaha-mio-i-125",
-  "yamaha-tmax"
+  "yamaha-tmax",
+  "honda-crf300-rally"
 ];
 
 for (const id of priorityModels) {
@@ -39,7 +40,8 @@ for (const href of [
   "/recommendations/125cc-scooters-philippines",
   "/recommendations/150cc-scooters-philippines",
   "/recommendations/160cc-scooters-philippines",
-  "/recommendations/best-motorcycles-for-daily-commute-philippines"
+  "/recommendations/best-motorcycles-for-daily-commute-philippines",
+  "/recommendations/dual-sport-motorcycles-philippines"
 ]) {
   if (!growth.includes(`recommendationHref: "${href}"`)) {
     errors.push(`priorityModelGrowth: expected canonical cluster link ${href}`);
@@ -64,11 +66,22 @@ for (const token of [
   'id: "yamaha-tmax"',
   'model: "TMAX Tech Max"',
   'srp: 859000',
-  'sourceUrl: "https://www.yamaha-motor.com.ph/motorcycles/sport-machines/sport-scooter/tmax"'
+  'sourceUrl: "https://www.yamaha-motor.com.ph/motorcycles/sport-machines/sport-scooter/tmax"',
+  'id: "honda-crf300-rally"',
+  'srp: 309900',
+  'engineCc: 286',
+  'marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/news/honda-philippines-unleashes-power-and-innovation-at-the-action-packed-inside-racing-bikefest-2025"'
 ]) {
   if (!data.includes(token)) {
     errors.push(`priorityModelGrowth: competitor-gap data evidence missing: ${token}`);
   }
+}
+
+if (!growth.includes('heading: "Looking for the Honda CRF250 Rally?"') || !growth.includes("enhanced successor to the CRF250 Rally")) {
+  errors.push("priorityModelGrowth: CRF300 Rally must explicitly consolidate CRF250 Rally predecessor search intent");
+}
+if (data.includes('id: "honda-crf250-rally"')) {
+  errors.push("priorityModelGrowth: do not recreate CRF250 Rally as a current standalone model entity");
 }
 
 if (/recommendationHref:\s*"\/recommendations#/.test(growth)) {
