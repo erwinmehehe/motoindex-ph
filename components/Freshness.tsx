@@ -1,8 +1,6 @@
 import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
 import { modelSourceNeedsRefresh } from "@/lib/freshnessPolicy";
-import { sourceDisplayName } from "@/components/SourceRef";
-import { SourceTrustBadge } from "@/components/SourceTrustBadge";
 
 export function Freshness({ model }: { model: Motorcycle }) {
   const sourceOverdue = modelSourceNeedsRefresh(model);
@@ -13,9 +11,7 @@ export function Freshness({ model }: { model: Motorcycle }) {
       <span className="dot" />
       <div>
         <strong>{status}</strong>
-        <SourceTrustBadge label={model.sourceLabel} url={model.sourceUrl} needsRecheck={sourceOverdue || model.freshness !== "verified"} compact />
-        <small>Checked {model.verifiedAt} · <span className="freshness-source">{sourceDisplayName(model.sourceLabel, model.sourceUrl)}</span></small>
-        <Link className="freshness-method" href="/methodology">How we check motorcycle data →</Link>
+        <Link className="freshness-method" href="/methodology">How MotoIndex checks motorcycle data →</Link>
       </div>
     </div>
   );
