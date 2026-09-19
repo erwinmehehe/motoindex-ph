@@ -32,6 +32,9 @@ export const marketPriceChecks: MarketPriceCheck[] = [
   { modelId:"yamaha-mio-i-125", sourceName:"Motortrade Philippines", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/yamaha-mio-i-125/", priceFromPhp:75900, checkedAt:"2026-09-19", note:"Current dealer listing; Yamaha Philippines still exposes the Mio i125 product and aftersales pages" },
   { modelId:"yamaha-tmax", sourceName:"Motortrade Philippines", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/yamaha-tmax-tech-max/", priceFromPhp:859000, checkedAt:"2026-09-19", note:"Current TMAX Tech Max listing; Yamaha Philippines currently exposes the 560-class TMAX product page" },
 
+  { modelId:"yamaha-yzf-r1m", sourceName:"Motortrade Philippines", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/yamaha-yzf-r1/", priceFromPhp:1689000, checkedAt:"2026-09-19", note:"Current detailed Philippine dealer listing; Yamaha Philippines currently exposes the YZF-R1M product page" },
+  { modelId:"yamaha-yzf-r1m", sourceName:"Motortrade Philippines category index", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycle-type/big-bike/page/3/", priceFromPhp:1799000, checkedAt:"2026-09-19", note:"Motortrade category index still surfaces ₱1,799,000, creating a live dealer-price disagreement that should be confirmed before purchase" },
+
   { modelId:"honda-crf300-rally", sourceName:"Honda Philippines", sourceType:"manufacturer", sourceUrl:"https://www.hondaph.com/motorcycle/news/honda-philippines-unleashes-power-and-innovation-at-the-action-packed-inside-racing-bikefest-2025", priceFromPhp:309900, checkedAt:"2026-09-19", note:"Honda Philippines 2025 CRF300 Rally price reference; CRF300 Rally is the current successor-generation target for CRF250 Rally search intent" },
 
   // Philippine comparison site competitor/reference pages.
