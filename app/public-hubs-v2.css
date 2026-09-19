@@ -3,28 +3,7 @@
    removes the oversized empty section shells that previously passed visual QA. */
 
 :root{
-  --hub-ink:#111318;
-  --hub-red:#f0444d;
-  --hub-paper:#f5f6f7;
   --hub-line:rgba(17,19,24,.11);
-  --hub-muted:#737b85;
-}
-
-/* Keep long editorial hubs compact and clearly sectional. */
-:is(.ownership-master-page,.maintenance-master-page,.commute-master-page,.accessories-master-page,.tire-master-page,.helmet-hub-page) > .page-head{
-  max-width:980px;
-  margin-bottom:30px!important;
-}
-:is(.ownership-master-page,.maintenance-master-page,.commute-master-page,.accessories-master-page,.tire-master-page,.helmet-hub-page) > .page-head h1{
-  text-wrap:balance;
-}
-:is(.ownership-master-page,.maintenance-master-page,.commute-master-page,.accessories-master-page,.tire-master-page,.helmet-hub-page) > .product-entity-nav{
-  margin-bottom:8px;
-  border:1px solid var(--hub-line);
-  border-radius:16px;
-  background:rgba(255,255,255,.72);
-  padding-inline:8px;
-  box-shadow:0 10px 30px rgba(17,19,24,.035);
 }
 
 /* Dealer directory: remove the giant empty rounded shell around the finder. */
