@@ -88,6 +88,18 @@ requireText(
   "National scooter authority page must be included in the motorcycle sitemap."
 );
 
+const recommendationRoute = read("app", "recommendations", "[slug]", "page.tsx");
+requireText(
+  recommendationRoute,
+  'guide.slug === "best-scooters-philippines"',
+  "Best-scooters editorial guide must declare its national scooter parent hub."
+);
+requireText(
+  recommendationRoute,
+  'href="/motorcycles/scooters"',
+  "Best-scooters editorial guide must link back to the national scooter authority hub."
+);
+
 if (errors.length) {
   console.error("Market hub validation failed:");
   for (const error of errors) console.error(`- ${error}`);
