@@ -118,7 +118,7 @@
 .page :global(.motorcycle-index-quicklinks small){display:block!important;margin-top:3px!important;color:#64748b!important;font-size:9px!important;line-height:1.4!important}
 
 .page :global(.motorcycle-index-body){padding-top:42px!important;padding-bottom:84px!important}
-.page :global(.motorcycle-market-snapshot),
+.marketSnapshot{margin-top:var(--mi-space-14)}
 .page :global(.motorcycle-catalog-section),
 .page :global(.motorcycle-brand-directory),
 .page :global(.motorcycle-family-strip),
@@ -234,7 +234,7 @@
   .page :global(.motorcycle-index-quicklinks)>a:nth-child(4){padding:12px 0!important;border-left:0!important;border-bottom:1px solid rgba(148,163,184,.16)!important}
   .page :global(.motorcycle-index-quicklinks)>a:last-child{border-bottom:0!important}
   .page :global(.motorcycle-index-body){padding-top:30px!important;padding-bottom:66px!important}
-  .page :global(.motorcycle-market-snapshot),
+  .marketSnapshot{margin-top:var(--mi-space-12)}
   .page :global(.motorcycle-catalog-section),
   .page :global(.motorcycle-brand-directory),
   .page :global(.motorcycle-family-strip),
