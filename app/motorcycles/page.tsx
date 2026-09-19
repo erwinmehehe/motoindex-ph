@@ -98,7 +98,7 @@ export default function MotorcyclesPage() {
       {currentModels.length === 0 ? <div className="note-box"><h2>Motorcycle data is being updated</h2><p>Prices and specifications are still being checked. Gear and ownership tools remain available in the meantime.</p></div> : <>
         <RecentlyViewedRail models={recentModels} />
 
-        <section className="motorcycle-market-snapshot">
+        <section className={styles.marketSnapshot}>
           <SectionHeader
             kicker="Market snapshot"
             title="What the current MotoIndex dataset shows"
