@@ -262,9 +262,30 @@ if (accessoryRoot.includes("guide.sections.map")) {
   failures.push("app/accessories/page.tsx: parent hub must not duplicate full child-guide content");
 }
 
-const priceChecks = read("components/MarketPriceChecks.tsx");
-if (!priceChecks.includes('href="/dealers"')) {
-  failures.push("components/MarketPriceChecks.tsx: price verification should keep a dealer-directory next step");
+const motorcycleCard = read("components/MotorcycleCard.tsx");
+const freshness = read("components/Freshness.tsx");
+const productTrustRow = read("components/ProductTrustRow.tsx");
+const sourceTrustBadge = read("components/SourceTrustBadge.tsx");
+const dataSourcesRoute = read("app/data-sources/page.tsx");
+
+for (const [path, text, forbidden] of [
+  ["components/MotorcycleEntityPage.tsx", motorcycleEntity, ["MarketPriceChecks", "SourceRef", "Show published price-source checks", "Sources, verification and what to confirm"]],
+  ["components/MotorcycleCard.tsx", motorcycleCard, ["SourceTrustBadge", "PriceSourceBadge"]],
+  ["components/Freshness.tsx", freshness, ["SourceTrustBadge", "sourceDisplayName", "freshness-source"]],
+  ["components/ProductTrustRow.tsx", productTrustRow, ["SourceRef", "sourceLabel &&", "secondarySource &&", "Updated {lastChecked}"]]
+]) {
+  for (const token of forbidden) {
+    if (text.includes(token)) failures.push(`${path}: public source UI returned via ${token}`);
+  }
+}
+if (!sourceTrustBadge.includes("return null")) {
+  failures.push("components/SourceTrustBadge.tsx: public source badge must remain disabled");
+}
+if (!dataSourcesRoute.includes('permanentRedirect("/methodology")')) {
+  failures.push("app/data-sources/page.tsx: retired public source page must redirect to methodology");
+}
+if (sitemapSource.includes("/data-sources")) {
+  failures.push("lib/sitemaps.ts: retired public data-sources route must not remain in sitemap");
 }
 
 if (failures.length) {
