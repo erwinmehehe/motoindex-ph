@@ -11,6 +11,117 @@ export type PriorityModelGrowthProfile = {
 };
 
 const profiles: Record<string, PriorityModelGrowthProfile> = {
+  "yamaha-aerox-v3": {
+    seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Yamaha Aerox V3 price in the Philippines, 155cc specs, colors, seat height, tire sizes, down payment, monthly estimate, fuel and ownership costs.",
+    intentIntro: "The Aerox V3 is one of the highest-demand sport scooters, so the useful decision is not just SRP. Compare the exact variant, braking and traction-control equipment, monthly payment, rider fit and ownership costs against NMAX, Click 160 and ADV160.",
+    moneyQuestion: "Does the Aerox V3 still fit your budget after the exact variant price, down payment, monthly payment, insurance and dealer fees are included?",
+    ownershipQuestion: "Compare CVT service, 14-inch tires, fuel use, insurance, storage and nearby Yamaha support with NMAX V3, Click 160 and ADV160.",
+    alternativeIds: ["yamaha-nmax-v3", "honda-click-160", "honda-adv-160"],
+    relatedIds: ["yamaha-nmax-v3", "yamaha-fazzio"],
+    recommendationHref: "/recommendations/150cc-scooters-philippines",
+    recommendationLabel: "Compare 150cc and 155cc scooters"
+  },
+  "yamaha-nmax-v3": {
+    seoTitle: "Yamaha NMAX V3 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Yamaha NMAX V3 price in the Philippines, 155cc specs, variants, seat height, tire sizes, down payment, monthly estimate and ownership costs.",
+    intentIntro: "The NMAX V3 sits in the premium 155cc scooter tier, where trim choice and total cost matter as much as the base price. Compare Standard and Tech MAX pricing, financing, rider fit, fuel range and ownership against Aerox, PCX160 and ADV160.",
+    moneyQuestion: "How much does the NMAX V3 cost once the exact variant, down payment, monthly payment, registration, insurance and dealer fees are included?",
+    ownershipQuestion: "Compare CVT service, 13-inch tires, fuel range, insurance and local Yamaha support with Aerox V3, PCX160 and ADV160.",
+    alternativeIds: ["yamaha-aerox-v3", "honda-pcx-160", "honda-adv-160"],
+    relatedIds: ["yamaha-aerox-v3", "yamaha-xmax"],
+    recommendationHref: "/recommendations/150cc-scooters-philippines",
+    recommendationLabel: "Compare 150cc and 155cc scooters"
+  },
+  "honda-adv-160": {
+    seoTitle: "Honda ADV160 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Honda ADV160 price in the Philippines, 157cc specs, seat height, tires, ABS, down payment, monthly estimate, fuel planning and ownership costs.",
+    intentIntro: "The ADV160 carries an adventure-scooter premium over simpler commuters, so compare the exact variant, ABS and RoadSync equipment, financing, rider fit and ownership cost rather than treating engine size as the whole decision.",
+    moneyQuestion: "Does the ADV160 premium still make sense after comparing the exact trim, down payment, monthly payment, insurance and final dealer quote?",
+    ownershipQuestion: "Compare CVT service, mixed-size tires, fuel range, bodywork, insurance and Honda support with NMAX V3, PCX160 and Click 160.",
+    alternativeIds: ["yamaha-nmax-v3", "honda-pcx-160", "honda-click-160"],
+    relatedIds: ["honda-pcx-160", "honda-click-160"],
+    recommendationHref: "/recommendations/160cc-scooters-philippines",
+    recommendationLabel: "Compare 160cc scooters"
+  },
+  "honda-click-125i": {
+    seoTitle: "Honda Click 125i Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Honda Click 125i price in the Philippines, 125cc specs, colors, seat height, tires, down payment, monthly estimate, fuel economy and ownership costs.",
+    intentIntro: "The Click 125i is a high-volume commuter choice, so small differences in trim price, fuel use, braking, storage and monthly payment matter more than headline performance. Compare the full daily-use package before reserving.",
+    moneyQuestion: "What does the Click 125i really cost after choosing the exact trim and adding down payment, monthly payment, fees and insurance?",
+    ownershipQuestion: "Compare fuel use, CVT service, 14-inch tires, storage and nearby Honda support with Mio Gear, Fazzio and Burgman Street EX.",
+    alternativeIds: ["yamaha-mio-gear", "yamaha-fazzio", "suzuki-burgman-street-ex"],
+    relatedIds: ["honda-click-160"],
+    recommendationHref: "/recommendations/125cc-scooters-philippines",
+    recommendationLabel: "Compare 125cc scooters"
+  },
+  "honda-click-160": {
+    seoTitle: "Honda Click 160 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Honda Click 160 price in the Philippines, 157cc specs, seat height, tire sizes, down payment, monthly estimate, fuel economy and ownership costs.",
+    intentIntro: "The Click 160 competes directly with sport and premium scooters, so compare its lower weight and commuter focus against ADV160, Aerox V3 and PCX160 on price, financing, braking, fit and ownership.",
+    moneyQuestion: "Does the Click 160 remain the better-value 160-class choice after down payment, monthly payment, insurance and dealer fees are included?",
+    ownershipQuestion: "Compare CVT maintenance, 14-inch tires, fuel economy, storage and Honda service convenience with ADV160, Aerox V3 and PCX160.",
+    alternativeIds: ["honda-adv-160", "yamaha-aerox-v3", "honda-pcx-160"],
+    relatedIds: ["honda-click-125i", "honda-adv-160"],
+    recommendationHref: "/recommendations/160cc-scooters-philippines",
+    recommendationLabel: "Compare 160cc scooters"
+  },
+  "honda-pcx-160": {
+    seoTitle: "Honda PCX160 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Honda PCX160 price in the Philippines, 157cc specs, variants, seat height, tires, down payment, monthly estimate, fuel and ownership costs.",
+    intentIntro: "The PCX160 is a comfort-led premium scooter, so compare Standard and RoadSync pricing, financing, low-seat fit, tank range and ownership costs against NMAX V3 and ADV160 before choosing on styling alone.",
+    moneyQuestion: "How much does the PCX160 cost once the exact variant, down payment, monthly payment, insurance and dealer fees are included?",
+    ownershipQuestion: "Compare CVT service, 14/13-inch tire replacement, fuel range, bodywork, insurance and Honda support with NMAX V3 and ADV160.",
+    alternativeIds: ["yamaha-nmax-v3", "honda-adv-160", "yamaha-aerox-v3"],
+    relatedIds: ["honda-adv-160", "honda-click-160"],
+    recommendationHref: "/recommendations/160cc-scooters-philippines",
+    recommendationLabel: "Compare 160cc scooters"
+  },
+  "yamaha-fazzio": {
+    seoTitle: "Yamaha Fazzio Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Yamaha Fazzio price in the Philippines, 125cc specs, colors, seat height, tires, down payment, monthly estimate, fuel planning and ownership costs.",
+    intentIntro: "The Fazzio is a style-led 125cc commuter, so compare the real dealer price, financing, rider fit, storage, fuel use and everyday ownership against Click 125i and Mio Gear rather than choosing on appearance alone.",
+    moneyQuestion: "Does the Fazzio still fit the budget after the actual dealer quote, down payment, monthly payment, insurance and accessories are included?",
+    ownershipQuestion: "Compare CVT service, tire replacement, fuel use, storage and local Yamaha support with Click 125i and Mio Gear.",
+    alternativeIds: ["honda-click-125i", "yamaha-mio-gear", "suzuki-burgman-street-ex"],
+    relatedIds: ["yamaha-mio-gear", "yamaha-aerox-v3"],
+    recommendationHref: "/recommendations/125cc-scooters-philippines",
+    recommendationLabel: "Compare 125cc scooters"
+  },
+  "suzuki-burgman-street-ex": {
+    seoTitle: "Suzuki Burgman Street EX Price 2026 | Specs & Monthly",
+    seoDescription: "Suzuki Burgman Street EX price in the Philippines, 125cc specs, seat height, tires, down payment, monthly estimate, fuel planning and ownership costs.",
+    intentIntro: "The Burgman Street EX is a comfort-oriented 125cc scooter, so compare its larger-feeling body, final dealer price, financing, rider fit and daily running cost with Click 125i, Fazzio and Mio Gear.",
+    moneyQuestion: "Does the Burgman Street EX comfort package justify the final price once down payment, monthly payment, fees and insurance are included?",
+    ownershipQuestion: "Compare CVT service, tire availability, fuel use, storage and Suzuki service access with Click 125i, Fazzio and Mio Gear.",
+    alternativeIds: ["honda-click-125i", "yamaha-fazzio", "yamaha-mio-gear"],
+    relatedIds: [],
+    recommendationHref: "/recommendations/125cc-scooters-philippines",
+    recommendationLabel: "Compare 125cc scooters"
+  },
+  "suzuki-raider-r150": {
+    seoTitle: "Suzuki Raider R150 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Suzuki Raider R150 price in the Philippines, 147cc specs, seat height, tires, down payment, monthly estimate, fuel planning and ownership costs.",
+    intentIntro: "The Raider R150 is a performance-focused underbone, so compare the full purchase and ownership picture with Sniper 155 and Winner X: financing, insurance, tires, chain service and daily traffic use.",
+    moneyQuestion: "What does the Raider R150 cost after down payment, monthly payment, insurance, registration and dealer fees are included?",
+    ownershipQuestion: "Compare tires, chain and sprocket service, insurance, fuel use and Suzuki support with Sniper 155 and Winner X.",
+    alternativeIds: ["yamaha-sniper-155", "honda-winner-x"],
+    relatedIds: [],
+    recommendationHref: "/recommendations/best-motorcycles-for-daily-commute-philippines",
+    recommendationLabel: "Compare daily-commute motorcycles"
+  },
+  "yamaha-sniper-155": {
+    seoTitle: "Yamaha Sniper 155 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Yamaha Sniper 155 price in the Philippines, 155cc specs, variants, seat height, tires, down payment, monthly estimate and ownership costs.",
+    intentIntro: "The Sniper 155 should be compared as a complete sport-underbone purchase. Check the exact variant, braking package, financing, insurance and chain-driven ownership against Raider R150 and Winner X.",
+    moneyQuestion: "How much does the Sniper 155 cost once the exact variant, down payment, monthly payment, insurance and dealer fees are included?",
+    ownershipQuestion: "Compare chain and sprocket service, tires, insurance, fuel use and Yamaha support with Raider R150 and Winner X.",
+    alternativeIds: ["suzuki-raider-r150", "honda-winner-x"],
+    relatedIds: [],
+    recommendationHref: "/recommendations/best-motorcycles-for-daily-commute-philippines",
+    recommendationLabel: "Compare daily-commute motorcycles"
+  },
+
   "yamaha-lexi-155": {
     seoTitle: "Yamaha Lexi 155 Price Philippines 2026 | Specs & Monthly",
     seoDescription: "Yamaha Lexi 155 price in the Philippines, 155cc specs, seat height, braking, down payment planning, monthly estimate, ownership costs and alternatives.",
@@ -19,8 +130,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     ownershipQuestion: "Compare CVT service, 14-inch tire replacement, insurance and nearby Yamaha support with Aerox V3, NMAX V3 and Click 160.",
     alternativeIds: ["yamaha-aerox-v3", "yamaha-nmax-v3", "honda-click-160"],
     relatedIds: ["yamaha-aerox-v3", "yamaha-nmax-v3"],
-    recommendationHref: "/recommendations#scooters",
-    recommendationLabel: "Compare scooter buying paths"
+    recommendationHref: "/recommendations/150cc-scooters-philippines",
+    recommendationLabel: "Compare 150cc and 155cc scooters"
   },
   "yamaha-yzf-r3": {
     seoTitle: "Yamaha YZF-R3 Price Philippines 2026 | Specs & Monthly",
@@ -30,8 +141,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     ownershipQuestion: "Budget insurance, tires, chain and sprockets, scheduled service and possible fairing repair before deciding from the cash price alone.",
     alternativeIds: ["ktm-rc-390", "kawasaki-ninja-500", "cfmoto-450sr"],
     relatedIds: [],
-    recommendationHref: "/recommendations#explore",
-    recommendationLabel: "Explore sport-bike alternatives"
+    recommendationHref: "/recommendations/motorcycles-under-400cc-philippines",
+    recommendationLabel: "Compare under-400cc motorcycles"
   },
   "honda-rebel-500": {
     seoTitle: "Honda Rebel 500 Price Philippines 2026 | Specs & Monthly",
@@ -41,7 +152,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     ownershipQuestion: "Check low-speed handling, 16-inch tire availability, chain and sprocket service, insurance and Honda big-bike support for your area.",
     alternativeIds: ["honda-rebel-1100", "royal-enfield-hunter-350", "triumph-speed-400"],
     relatedIds: ["honda-rebel-1100"],
-    recommendationHref: "/recommendations#400cc",
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
     recommendationLabel: "Compare 400cc+ motorcycles"
   },
   "zontes-400g": {
@@ -52,8 +163,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     ownershipQuestion: "Verify dealer and service access, 17/14-inch replacement tires, CVT consumables, body-panel availability and the real cost of touring accessories.",
     alternativeIds: ["suzuki-burgman-400", "yamaha-xmax", "bmw-c-400-gt"],
     relatedIds: [],
-    recommendationHref: "/recommendations#long-rides",
-    recommendationLabel: "Compare longer-ride motorcycles"
+    recommendationHref: "/recommendations/maxi-scooters-philippines",
+    recommendationLabel: "Compare maxi scooters"
   },
   "honda-gold-wing": {
     seoTitle: "Honda Gold Wing Price Philippines 2026 | Specs & DCT",
@@ -63,8 +174,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     ownershipQuestion: "Plan for 18/16-inch touring tires, Honda big-bike service access, insurance, battery and electronics care, luggage use and low-speed handling at 385 kg.",
     alternativeIds: ["honda-rebel-1100", "triumph-tiger-sport-660", "bmw-f-900-gs"],
     relatedIds: ["honda-rebel-1100"],
-    recommendationHref: "/recommendations#long-rides",
-    recommendationLabel: "Compare long-distance motorcycles"
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles"
   },
   "ktm-rc-390": {
     seoTitle: "KTM RC 390 Price Philippines 2026 | Specs & Monthly",
@@ -74,8 +185,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     ownershipQuestion: "Confirm the exact Philippine model year, KTM service access, 17-inch tire cost and fairing-repair exposure before choosing it on performance alone.",
     alternativeIds: ["yamaha-yzf-r3", "kawasaki-ninja-500", "cfmoto-450sr"],
     relatedIds: ["ktm-390-duke", "ktm-390-adventure"],
-    recommendationHref: "/recommendations#explore",
-    recommendationLabel: "Explore sport-bike alternatives"
+    recommendationHref: "/recommendations/motorcycles-under-400cc-philippines",
+    recommendationLabel: "Compare under-400cc motorcycles"
   }
 };
 
