@@ -32,6 +32,8 @@ export const marketPriceChecks: MarketPriceCheck[] = [
   { modelId:"yamaha-mio-i-125", sourceName:"Motortrade Philippines", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/yamaha-mio-i-125/", priceFromPhp:75900, checkedAt:"2026-09-19", note:"Current dealer listing; Yamaha Philippines still exposes the Mio i125 product and aftersales pages" },
   { modelId:"yamaha-tmax", sourceName:"Motortrade Philippines", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/yamaha-tmax-tech-max/", priceFromPhp:859000, checkedAt:"2026-09-19", note:"Current TMAX Tech Max listing; Yamaha Philippines currently exposes the 560-class TMAX product page" },
 
+  { modelId:"honda-crf300-rally", sourceName:"Honda Philippines", sourceType:"manufacturer", sourceUrl:"https://www.hondaph.com/motorcycle/news/honda-philippines-unleashes-power-and-innovation-at-the-action-packed-inside-racing-bikefest-2025", priceFromPhp:309900, checkedAt:"2026-09-19", note:"Honda Philippines 2025 CRF300 Rally price reference; CRF300 Rally is the current successor-generation target for CRF250 Rally search intent" },
+
   // Philippine comparison site competitor/reference pages.
   { modelId:"honda-airblade-160", sourceName:"Philippine comparison site", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/honda/airblade-160", priceFromPhp:125900, checkedAt:"2026-09-08", note:"Current 2026 marketplace reference; Honda's live lineup page does not currently surface AirBlade160" },
   { modelId:"yamaha-yzf-r3", sourceName:"Philippine comparison site", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/yamaha/yzf-r3", priceFromPhp:294000, checkedAt:"2026-09-08" },

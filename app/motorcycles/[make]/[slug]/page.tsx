@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { motorcycles, getModel, getModelById, isIndexableModel } from "@/lib/data";
 import { getModelFamily, modelFamilies } from "@/lib/families";
 import { ModelFamilyView } from "@/components/ModelFamilyView";
@@ -19,12 +19,21 @@ import styles from "./ModelPage.module.css";
 export function generateStaticParams() {
   return [
     ...motorcycles.map((m) => ({ make: m.makeSlug, slug: m.slug })),
-    ...modelFamilies.map((f) => ({ make: f.makeSlug, slug: f.slug }))
+    ...modelFamilies.map((f) => ({ make: f.makeSlug, slug: f.slug })),
+    { make: "honda", slug: "crf250-rally" }
   ];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ make: string; slug: string }> }): Promise<Metadata> {
   const { make, slug } = await params;
+  if (make === "honda" && slug === "crf250-rally") {
+    return pageMetadata({
+      title: "Honda CRF250 Rally Successor: CRF300 Rally Philippines",
+      description: "Honda Philippines identifies the CRF300 Rally as the successor-generation model for CRF250 Rally research.",
+      path: "/motorcycles/honda/crf300-rally",
+      index: false
+    });
+  }
   const family = getModelFamily(make, slug);
   if (family) {
     const familyModels = family.generationIds.map(getModelById);
@@ -53,6 +62,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
 
 export default async function ModelPage({ params }: { params: Promise<{ make: string; slug: string }> }) {
   const { make, slug } = await params;
+  if (make === "honda" && slug === "crf250-rally") permanentRedirect("/motorcycles/honda/crf300-rally");
   const family = getModelFamily(make, slug);
   if (family) return <ModelFamilyView family={family}/>;
   const model = getModel(make, slug);
