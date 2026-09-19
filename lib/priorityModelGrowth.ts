@@ -44,6 +44,40 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationHref: "/recommendations/160cc-scooters-philippines",
     recommendationLabel: "Compare 160cc scooters"
   },
+  "honda-adv-350": {
+    seoTitle: "Honda ADV350 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Honda ADV350 price in the Philippines, 330cc specs, colors, seat height, ABS, down payment, monthly estimate, fuel range and ownership costs.",
+    intentIntro: "The ADV350 sits above 160cc scooters but below Honda's larger X-ADV on price and size. Compare the current ₱310,000 Honda SRP, financing, 795 mm seat, 186 kg curb weight and ownership costs against XMAX, X-ADV and other maxi scooters before choosing on displacement alone.",
+    moneyQuestion: "What does the ADV350 cost after the down payment, monthly payment, insurance, registration and dealer fees are included?",
+    ownershipQuestion: "Compare CVT service, 15/14-inch tires, fuel range, insurance and Honda Big Wing or Wing Shop access with XMAX, X-ADV and 400-class maxi scooters.",
+    alternativeIds: ["yamaha-xmax", "honda-x-adv", "zontes-400g"],
+    relatedIds: ["honda-adv-160", "honda-x-adv"],
+    recommendationHref: "/recommendations/maxi-scooters-philippines",
+    recommendationLabel: "Compare maxi scooters"
+  },
+  "honda-cb650r": {
+    seoTitle: "Honda CB650R Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Honda CB650R price in the Philippines, 649cc inline-four specs, seat height, fuel consumption, colors, down payment, monthly estimate and ownership.",
+    intentIntro: "The 2026 CB650R is sold in Standard and E-Clutch forms, so compare the ₱525,000 and ₱565,000 variants, 810 mm seat, inline-four running costs, financing and equipment before deciding from engine sound or styling alone.",
+    moneyQuestion: "How much does the CB650R cost once the chosen Standard or E-Clutch variant, down payment, monthly payment, insurance and dealer fees are included?",
+    ownershipQuestion: "Budget 17-inch tires, chain and sprocket service, insurance, fuel use and Honda Big Wing support, then compare those costs with other middleweight naked bikes.",
+    alternativeIds: ["triumph-trident-660", "kawasaki-z500", "honda-nx500"],
+    relatedIds: ["honda-nx500"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles"
+  },
+  "kawasaki-ninja-500": {
+    seoTitle: "Kawasaki Ninja 500 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Kawasaki Ninja 500 price in the Philippines, 451cc specs, seat height, tires, down payment, monthly estimate, Ninja 400 context and ownership costs.",
+    intentIntro: "If you arrived looking for Ninja 400 price information, Kawasaki Philippines now lists the Ninja 500 as the current 451cc entry in this sport-bike tier. Compare its ₱353,800 MSRP, financing, 785 mm seat and running costs against R3, RC 390 and 450SR while keeping older Ninja 400 pricing historical.",
+    moneyQuestion: "Does the current Ninja 500 fit the budget after down payment, monthly payment, insurance, registration and dealer charges are included?",
+    ownershipQuestion: "Compare 17-inch tires, chain and sprocket service, fairing exposure, insurance and Kawasaki service access with R3, RC 390 and 450SR.",
+    alternativeIds: ["yamaha-yzf-r3", "ktm-rc-390", "cfmoto-450sr"],
+    relatedIds: ["kawasaki-z500"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles"
+  },
+
   "honda-click-125i": {
     seoTitle: "Honda Click 125i Price Philippines 2026 | Specs & Monthly",
     seoDescription: "Honda Click 125i price in the Philippines, 125cc specs, colors, seat height, tires, down payment, monthly estimate, fuel economy and ownership costs.",
