@@ -28,7 +28,7 @@ export function LtoRegistrationCalculator({ modelLabel, initialSidecar=false, in
   function reset(){setSidecar(initialSidecar);setIncludeInspection(initialIncludeInspection);setInspection(safeMoney(initialInspection));setCtpl(safeMoney(initialCtpl));setOther(safeMoney(initialOther));}
   async function copy(){const text=`${modelLabel?`${modelLabel}: `:""}LTO registration planning total ${peso(result.total)} — MVUC ${peso(result.mvuc)}, inspection ${peso(result.inspectionAmount)}, CTPL ${peso(result.insuranceAmount)}, other ${peso(result.otherAmount)}. ${window.location.href}`;await navigator.clipboard?.writeText(text);setCopied(true);window.setTimeout(()=>setCopied(false),1800);}
 
-  return <section className="fee-tool">
+  return <section className="fee-tool" data-calculator="registration">
     <div className="fee-copy"><h2>{modelLabel ? `${modelLabel} registration budget` : "Estimate a motorcycle registration budget"}</h2><p>The calculator anchors the estimate on the current LTO MVUC schedule for motorcycles, then lets you add the inspection, CTPL and transaction-specific amounts that apply to your renewal.</p><div className="fee-primary" aria-live="polite"><span>Planning total</span><strong>{peso(result.total)}</strong><small>Core MVUC is {peso(result.mvuc)} before variable charges.</small></div></div>
     <div className="fee-fields">
       <label className="check-control"><input type="checkbox" checked={sidecar} onChange={(event)=>setSidecar(event.target.checked)}/> Motorcycle has a sidecar</label>
