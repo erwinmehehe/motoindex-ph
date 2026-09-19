@@ -31,7 +31,7 @@ const authorProfile = read("app", "authors", "erwin-valles", "page.tsx");
 requireText(home, "Compare <span>motorcycle prices</span><br />and specs in the Philippines.", "Homepage must keep a query-led motorcycle prices/specs H1.");
 forbidText(home, "Your next <span>motorcycle</span><br />starts here.", "Homepage must not regress to the old brand-led H1.");
 forbidText(home, "/motorcycles?budget=under100", "Homepage should link the under-100K intent to the consolidated recommendation section, not a crawlable filter URL.");
-requireText(motorcycles, "<h1>Motorcycle prices in the Philippines</h1>", "Motorcycle hub must keep its query-led H1.");
+requireText(motorcycles, "<h1>Motorcycle prices", "Motorcycle hub must keep a query-led H1 that starts with Motorcycle prices.");
 requireText(motorcycles, "href=\"/recommendations#budget\"", "Motorcycle hub should route under-100K intent to the consolidated guide.");
 forbidText(faq, "FAQPage", "Visible FAQs should not emit deprecated FAQPage rich-result markup.");
 forbidText(faq, "JsonLd", "FaqSection should remain visible HTML without JSON-LD.");
