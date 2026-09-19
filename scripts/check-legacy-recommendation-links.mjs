@@ -19,15 +19,20 @@ for (const base of scanRoots) {
   if (!fs.existsSync(dir)) continue;
   for (const file of walk(dir)) {
     const rel = path.relative(root, file).replaceAll(path.sep, "/");
-    // The restored editorial guide route and its hub archive intentionally link
-    // to canonical /recommendations/[slug] pages. Electric aliases remain
-    // separately consolidated and are excluded from this legacy-link audit.
+    // Standalone recommendation pages are canonical destinations. The archive,
+    // editorial route, and approved market authority hubs may link to them
+    // directly. Electric aliases remain separately consolidated.
     if (rel === "app/recommendations/[slug]/page.tsx") continue;
     if (rel === "app/recommendations/RecommendationGuideArchive.tsx") continue;
+    if (rel === "app/motorcycles/page.tsx") continue;
+    if (rel === "app/motorcycles/scooters/page.tsx") continue;
     if (rel.startsWith("app/recommendations/electric-")) continue;
+
     const src = fs.readFileSync(file, "utf8");
     for (const match of src.matchAll(/["'`](\/recommendations\/[^"'`?#\s]+)["'`]/g)) {
-      failures.push(`${rel}: review recommendation link ${match[1]}; direct standalone-guide links are only expected from the recommendation archive/editorial route`);
+      failures.push(
+        `${rel}: review recommendation link ${match[1]}; direct standalone-guide links are expected only from approved recommendation/entity hub routes`
+      );
     }
   }
 }
