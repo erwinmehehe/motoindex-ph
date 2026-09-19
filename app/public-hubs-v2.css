@@ -46,27 +46,6 @@
   box-shadow:0 22px 55px rgba(17,19,24,.055)!important;
 }
 
-/* Maintenance: cleaner reading rhythm and fewer giant shells. */
-.maintenance-master-page>.note-box{
-  margin:22px 0 8px!important;
-  padding:28px!important;
-  border:0!important;
-  border-radius:24px!important;
-  background:var(--hub-ink)!important;
-  color:#fff!important;
-}
-.maintenance-master-page>.note-box h2{color:#fff!important}
-.maintenance-master-page>.note-box p{color:rgba(255,255,255,.58)!important}
-.maintenance-master-page .maintenance-master-section{
-  min-height:0!important;
-  padding:52px 0!important;
-  border-top:1px solid var(--hub-line)!important;
-  background:transparent!important;
-  box-shadow:none!important;
-}
-.maintenance-master-page .maintenance-master-section .section-head{margin-bottom:22px!important}
-.maintenance-master-page .maintenance-source-details{margin-top:18px!important}
-
 /* Accessories use canonical UI primitives; route CSS adds no component skin. */
 
 /* Keep public hub sections in normal document flow.
