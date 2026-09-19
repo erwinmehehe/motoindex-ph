@@ -28,6 +28,8 @@ const priorityModels = [
   "honda-adv-350",
   "honda-cb650r",
   "kawasaki-ninja-500",
+  "kawasaki-z500",
+  "honda-winner-x",
   "yamaha-mio-gravis",
   "yamaha-mio-i-125",
   "yamaha-tmax",
@@ -132,6 +134,37 @@ if (!growth.includes('"motorstar-cafe-400": {') || !growth.includes('"kawasaki-z
 }
 if (!growth.includes('"vespa-gts-supersport-300": {') || !growth.includes('"vespa-gtv-300": {') || !growth.includes('"vespa-primavera-150": {') || !growth.includes('"vespa-sprint-150": {')) {
   errors.push("priorityModelGrowth: tracked Vespa models must retain canonical commercial-intent profiles");
+}
+
+for (const token of [
+  '"kawasaki-z500": {',
+  'heading: "Looking for the Kawasaki Z400?"',
+  '"honda-winner-x": {',
+  'heading: "Looking for the Honda RS150R?"',
+  'heading: "Looking for the Yamaha Mio Sporty?"'
+]) {
+  if (!growth.includes(token)) {
+    errors.push(`priorityModelGrowth: missing legacy-demand consolidation token: ${token}`);
+  }
+}
+
+for (const token of [
+  '"honda/rs150r"',
+  'slug: "winner-x"',
+  '"kawasaki/z400"',
+  'slug: "z500"',
+  '"yamaha/mio-sporty"',
+  'slug: "mio-i-125"'
+]) {
+  if (!route.includes(token)) {
+    errors.push(`model route: missing legacy redirect mapping: ${token}`);
+  }
+}
+
+for (const legacyId of ["honda-rs150r", "kawasaki-z400", "yamaha-mio-sporty"]) {
+  if (data.includes(`id: "${legacyId}"`)) {
+    errors.push(`priorityModelGrowth: do not recreate ${legacyId} as a standalone model entity; consolidate it into the current canonical target`);
+  }
 }
 
 if (!growth.includes('heading: "Looking for the Honda CRF250 Rally?"') || !growth.includes("enhanced successor to the CRF250 Rally")) {
