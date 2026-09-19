@@ -13,6 +13,7 @@ import { phBrandSupportFor } from "@/lib/phBrandSupport";
 import { modelAuthorityProfile } from "@/lib/modelAuthority";
 import { php, phpRange } from "@/lib/utils";
 import { CTAGroup, DataTable, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
+import { brandSeoGrowthProfile } from "@/lib/brandSeoGrowth";
 
 export function generateStaticParams() {
   return [...new Set(motorcycles.map((m) => m.makeSlug))].map((make) => ({ make }));
@@ -24,13 +25,14 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   if (!models.length) return {};
   const brand = models[0].make;
   const publicModels = models.filter(isIndexableModel);
+  const brandGrowth = brandSeoGrowthProfile(make);
   const current = publicModels.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued");
   const low = current.length ? Math.min(...current.map((m) => observedMarketRange(m).from)) : undefined;
   const high = current.length ? Math.max(...current.map((m) => observedMarketRange(m).to || observedMarketRange(m).from)) : undefined;
   const priceContext = low && high ? ` Current prices run from ${php(low)} to ${php(high)}.` : "";
   return pageMetadata({
-    title: `${brand} Motorcycle Philippines Price List`,
-    description: `See the ${brand} motorcycle Philippines price list with current model prices, specs, engine sizes, seat heights and key buying details.${priceContext}`,
+    title: brandGrowth?.seoTitle || `${brand} Motorcycle Philippines Price List`,
+    description: brandGrowth?.seoDescription || `See the ${brand} motorcycle Philippines price list with current model prices, specs, engine sizes, seat heights and key buying details.${priceContext}`,
     path: `/motorcycles/${make}`,
     index: publicModels.length > 0
   });
@@ -43,6 +45,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
   const brand = models[0].make;
   const publicModels = models.filter(isIndexableModel);
+  const brandGrowth = brandSeoGrowthProfile(make);
   const publicIds = new Set(publicModels.map((m) => m.id));
   const current = publicModels.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued").sort((a, b) => a.srp - b.srp || a.model.localeCompare(b.model));
   const uncertain = publicModels.filter((m) => m.marketStatus === "uncertain").sort((a, b) => a.model.localeCompare(b.model));
@@ -130,10 +133,11 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
         <PageHero
           kicker="Philippines · Price list · Models · Specs"
-          title={`${brand} Motorcycle Philippines Price List`}
-          description={`Compare the current ${brand} motorcycle Philippines price list by model, published price, engine size, seat height and transmission. Open any motorcycle for detailed specs, financing estimates, fitment, maintenance and alternatives.`}
+          title={brandGrowth?.heroTitle || `${brand} Motorcycle Philippines Price List`}
+          description={brandGrowth?.heroDescription || `Compare the current ${brand} motorcycle Philippines price list by model, published price, engine size, seat height and transmission. Open any motorcycle for detailed specs, financing estimates, fitment, maintenance and alternatives.`}
           actions={<><CTAGroup><Link className="button" href="#price-list">View {brand} price list</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link></CTAGroup><small className="ph-brand-checked">Latest price/spec source check: {latestChecked}</small></>}
         />
+        {brandGrowth ? <InfoPanel subtle><p>{brandGrowth.intentNote}</p></InfoPanel> : null}
         <StatRow items={[
           {label:"Models covered",value:current.length,note:"Current models on MotoIndex"},
           {label:"Price range",value:`${php(low)}–${php(high)}`,note:"Published prices across current models"},
