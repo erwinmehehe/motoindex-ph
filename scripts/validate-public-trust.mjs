@@ -47,7 +47,11 @@ const primarySourcePriorityModels = {
   "honda-pcx-160": "hondaph.com",
   "suzuki-raider-r150": "mc.suzuki.com.ph",
   "honda-click-160": "hondaph.com",
-  "yamaha-nmax-v3": "yamaha-motor.com.ph"
+  "yamaha-nmax-v3": "yamaha-motor.com.ph",
+  "yamaha-fazzio": "yamaha-motor.com.ph",
+  "yamaha-yzf-r3": "yamaha-motor.com.ph",
+  "yamaha-lexi-155": "yamaha-motor.com.ph",
+  "honda-airblade-160": "hondaph.com"
 };
 
 for (const [id, officialDomain] of Object.entries(primarySourcePriorityModels)) {
@@ -66,6 +70,18 @@ for (const [id, officialDomain] of Object.entries(primarySourcePriorityModels)) 
   if (!primaryMarketCheck) {
     failures.push(`lib/marketChecks.ts: ${id} must include a manufacturer or dealer price/source observation`);
   }
+}
+
+for (const id of ["yamaha-fazzio", "yamaha-yzf-r3", "yamaha-lexi-155", "honda-airblade-160"]) {
+  const weakMarketCheck = new RegExp(`modelId:"${id}"[^\\n]+sourceType:"comparison-site"`).test(marketChecksSource);
+  if (weakMarketCheck) {
+    failures.push(`lib/marketChecks.ts: ${id} must not retain a comparison-site market check after the trust sweep`);
+  }
+}
+
+const airBladeRecord = motorcycleRecord(motorcycleData, "honda-airblade-160");
+if (!/marketStatus:\s*"uncertain"/.test(airBladeRecord) || !airBladeRecord.includes("Do not treat it as a current 2026 dealer quote")) {
+  failures.push("lib/data.ts: AirBlade160 must remain uncertain and its historical SRP must not be presented as a current 2026 dealer quote");
 }
 
 const ninja400Record = motorcycleRecord(motorcycleData, "kawasaki-ninja-400");
