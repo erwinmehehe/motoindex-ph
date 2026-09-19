@@ -25,6 +25,8 @@ const routes=[
   {name:"tools-hub",path:"/tools"},
   {name:"research-hub",path:"/research"},
   {name:"maintenance-hub",path:"/maintenance"},
+  {name:"used-hub",path:"/used-motorcycles"},
+  {name:"fitment-hub",path:"/fitment"},
   {name:"calculator-ownership",path:"/ownership/cost-calculator"},
   {name:"calculator-commute",path:"/commute/cost-calculator"},
   {name:"calculator-affordability",path:"/commute/affordability"},
@@ -223,6 +225,10 @@ const inspect=`(() => {
   const maintenanceDetails=document.querySelectorAll("[data-maintenance-detail]").length;
   const maintenanceScheduleRows=document.querySelectorAll("[data-maintenance-schedule-list] > a").length;
   const maintenanceLegacyCards=document.querySelectorAll(".maintenance-master-page .method-steps,.maintenance-master-page .source-ladder,.maintenance-master-page .list-cards").length;
+  const usedEstimator=Boolean(document.querySelector("[data-used-estimator-section]"));
+  const legacyUsedCards=document.querySelectorAll(".used-market-card,.used-empty-market").length;
+  const fitmentExplorer=Boolean(document.querySelector("[data-fitment-explorer-section] .fitment-explorer"));
+  const legacyFitmentGuide=document.querySelectorAll(".fitment-guide-panel").length;
 
   const standardMotorcycleCards=[...document.querySelectorAll('[data-motorcycle-card="standard"]')];
   const standardMotorcycleCardModes=standardMotorcycleCards.map(card=>({
@@ -278,6 +284,10 @@ const inspect=`(() => {
     maintenanceDetails,
     maintenanceScheduleRows,
     maintenanceLegacyCards,
+    usedEstimator,
+    legacyUsedCards,
+    fitmentExplorer,
+    legacyFitmentGuide,
     cloudflareError:/worker exceeded resource limits|error 1102|error 503|service unavailable/.test(bodyText),
     empty:(document.body?.innerText||"").trim().length<80
   };
@@ -363,6 +373,10 @@ try{
       if(route.name==="maintenance-hub"&&(row?.maintenanceDetails||0)<8)failures.push(`${width}px maintenance: expandable maintenance guidance is incomplete`);
       if(route.name==="maintenance-hub"&&(row?.maintenanceScheduleRows||0)<1)failures.push(`${width}px maintenance: model schedule index is missing`);
       if(route.name==="maintenance-hub"&&(row?.maintenanceLegacyCards||0)>0)failures.push(`${width}px maintenance: legacy maintenance card/list treatment returned`);
+      if(route.name==="used-hub"&&!row?.usedEstimator)failures.push(`${width}px used motorcycles: value estimator section is missing`);
+      if(route.name==="used-hub"&&(row?.legacyUsedCards||0)>0)failures.push(`${width}px used motorcycles: legacy listing/empty-state cards returned`);
+      if(route.name==="fitment-hub"&&!row?.fitmentExplorer)failures.push(`${width}px fitment: exact-model explorer is missing`);
+      if(route.name==="fitment-hub"&&(row?.legacyFitmentGuide||0)>0)failures.push(`${width}px fitment: legacy three-card guide panel returned`);
 
       const metrics=await cdp.send("Page.getLayoutMetrics");
       const contentSize=metrics.cssContentSize||metrics.contentSize;
