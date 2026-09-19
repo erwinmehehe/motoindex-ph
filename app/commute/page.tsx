@@ -3,10 +3,13 @@ import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
 import { commuteGuides, commuteGuideModels } from "@/lib/commute";
 import { publicMotorcycles } from "@/lib/data";
-import { CommuteRankCard } from "@/components/CommuteRankCard";
+import { commuteMonthlyCosts } from "@/lib/commuteMath";
+import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import { AuthorBox } from "@/components/AuthorBox";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
+import { CTAGroup, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
+import styles from "../styles/hub-index.module.css";
 
 export const metadata:Metadata=pageMetadata({
   title:"Motorcycle Commuting Philippines: Traffic, Cost & Daily Use",
@@ -14,6 +17,18 @@ export const metadata:Metadata=pageMetadata({
   path:"/commute",
   index:true
 });
+
+const commuteTools=[
+  {href:"/commute/cost-calculator",label:"Daily use",title:"Commute cost calculator",description:"Estimate fuel, maintenance reserve, parking and cost per workday for your own route.",meta:"Calculate cost →"},
+  {href:"/commute/affordability",label:"Budget",title:"Motorcycle affordability",description:"Set take-home pay, a monthly cap, running-cost reserve, down payment, APR and term.",meta:"Set budget →"},
+  {href:"/finder",label:"Shortlist",title:"Motorcycle Finder",description:"Change budget, inseam, traffic, passenger use, luggage and road needs.",meta:"Build shortlist →"}
+];
+
+const rainySeason=[
+  {label:"Visibility",title:"See and be seen",description:"Keep the visor and lights clear and use rain gear that does not reduce visibility or movement."},
+  {label:"Grip",title:"Tires and braking",description:"Check tread, pressure and braking condition. Wet-road grip depends on more than tire width or motorcycle category."},
+  {label:"Water",title:"Standing water",description:"Do not treat ground clearance as a safe water-depth rating. Hidden potholes, current, intake height and electrical components all matter."}
+];
 
 export default function CommutePage(){
   const schema=articleSchema({
@@ -26,21 +41,23 @@ export default function CommutePage(){
   });
 
   return <section className="page shell commute-master-page">
-    <div className="page-head">
-      <span className="entity-kicker">Daily motorcycle use</span>
-      <h1>Motorcycle commuting in the Philippines: traffic, cost and daily use</h1>
-      <p>Use one guide for stop-go traffic, budget, delivery work, passenger use and wet-season planning. Then use the calculators or Motorcycle Finder with your own distance, budget and rider needs.</p>
-      <div className="hero-actions"><Link className="button" href="/commute/cost-calculator">Calculate commute cost</Link><Link className="button secondary" href="/finder">Build a shortlist</Link></div>
-    </div>
+    <PageHero
+      kicker="Daily motorcycle use"
+      title="Motorcycle commuting in the Philippines"
+      description="Compare measurable traits for traffic, budget, delivery work, passenger use and wet-season riding, then use your own route and budget in the calculators."
+      actions={<CTAGroup><Link className="button" href="/commute/cost-calculator">Calculate commute cost</Link><Link className="button secondary" href="/finder">Build a shortlist</Link></CTAGroup>}
+    />
 
-    <div className="commute-hero-grid">
-      <div className="commute-context">
-        <h2>Traffic changes which motorcycle traits matter most.</h2>
-        <p>Lower weight, automatic transmission and good fuel economy can make daily use easier, but they do not prove one motorcycle is safer or faster through traffic. Fit, route, maintenance access and rider skill still matter.</p>
-        <div className="source-links"><a href="https://legacy.senate.gov.ph/lisdata/4774243764%21.pdf" target="_blank" rel="noreferrer">Senate / traffic source ↗</a><a href="https://new.doe.gov.ph/prices" target="_blank" rel="noreferrer">DOE fuel-price monitors ↗</a></div>
-      </div>
-      <div className="commute-stat-stack"><span><small>Current motorcycles</small><b>{publicMotorcycles.length}</b></span><span><small>Default calculator distance</small><b>20 km/day · 22 days</b></span><span><small>Fuel price</small><b>Editable</b></span></div>
-    </div>
+    <StatRow items={[
+      {label:"Current motorcycles",value:String(publicMotorcycles.length),note:"Catalog candidates"},
+      {label:"Default distance",value:"20 km/day",note:"22 workdays in calculators"},
+      {label:"Fuel price",value:"Editable",note:"Use your current local price"}
+    ]}/>
+
+    <InfoPanel subtle>
+      <h3>Traffic changes which traits matter</h3>
+      <p>Lower weight, automatic transmission and fuel economy can make daily use easier, but they do not prove one motorcycle is safer or faster through traffic. Fit, route, maintenance access and rider skill still matter.</p>
+    </InfoPanel>
 
     <nav className="product-entity-nav commute-master-nav" aria-label="Commuting guide sections">
       {commuteGuides.map(g=><a href={`#${g.slug}`} key={g.slug}>{g.kicker}</a>)}
@@ -50,32 +67,65 @@ export default function CommutePage(){
 
     {commuteGuides.map(g=>{
       const ordered=commuteGuideModels(g.slug).slice(0,4);
-      return <section id={g.slug} className="commute-master-section" key={g.slug}>
-        <div className="section-head compact"><div><span className="section-kicker">{g.kicker}</span><h2>{g.title}</h2><p>{g.description}</p></div></div>
-        <div className="method-card compact-method"><strong>What this shortlist uses</strong><ul>{g.criteria.map(c=><li key={c}>{c}</li>)}</ul><small>These are measurable filters, not a crash-risk or comfort score.</small></div>
-        <div className="commute-rank-list">{ordered.map(r=><CommuteRankCard key={r.model.id} model={r.model} reasons={r.reasons}/>)}</div>
+      return <section id={g.slug} className={styles.section} key={g.slug} data-commute-use-case>
+        <SectionHeader kicker={g.kicker} title={g.title} description={g.description} />
+        <details className={styles.compactDetails}>
+          <summary><span>What this shortlist uses</span><span>{g.criteria.length} measurable filters</span></summary>
+          <ul>{g.criteria.map(c=><li key={c}>{c}</li>)}</ul>
+        </details>
+        <div className={styles.candidateGrid}>
+          {ordered.map(r=>{
+            const costs=commuteMonthlyCosts(r.model);
+            return <Link className={styles.candidateRow} key={r.model.id} href={`/motorcycles/${r.model.makeSlug}/${r.model.slug}`}>
+              <span>
+                <h3>{r.model.make} {r.model.model}</h3>
+                <p>{r.model.summary}</p>
+                <span className={styles.candidateReasons}>{r.reasons.slice(0,3).map(reason=><span key={reason}>{reason}</span>)}</span>
+              </span>
+              <span className={styles.candidateMetrics}>
+                <span><small>Market price</small><strong>{observedMarketPriceLabel(r.model)}</strong></span>
+                <span><small>Fuel + maintenance*</small><strong>₱{Math.round(costs.total).toLocaleString("en-PH")}/mo</strong></span>
+              </span>
+            </Link>;
+          })}
+        </div>
       </section>;
     })}
 
-    <section id="tools" className="commute-master-section">
-      <div className="section-head compact"><div><span className="section-kicker">Use your numbers</span><h2>Commute calculators and finder</h2><p>Tools stay separate because they perform a real task rather than repeating editorial content.</p></div></div>
-      <div className="commute-tool-grid">
-        <Link href="/commute/cost-calculator"><span>01</span><h3>Daily commute cost</h3><p>Estimate fuel, maintenance reserve, parking and cost per workday for any current motorcycle.</p></Link>
-        <Link href="/commute/affordability"><span>02</span><h3>Affordability ceiling</h3><p>Set take-home pay, monthly cap, running-cost reserve, down payment, APR and term.</p></Link>
-        <Link href="/finder"><span>03</span><h3>Motorcycle Finder</h3><p>Change budget, inseam, traffic, passenger use, luggage and road needs.</p></Link>
+    <section id="tools" className={styles.section}>
+      <SectionHeader
+        kicker="Use your numbers"
+        title="Commute calculators and finder"
+        description="Use these when your own distance, budget or riding needs should drive the decision."
+      />
+      <div className={styles.decisionList}>
+        {commuteTools.map(item=><Link className={styles.decisionRow} href={item.href} key={item.href}>
+          <span className={styles.decisionLabel}>{item.label}</span>
+          <span className={styles.decisionCopy}><h3>{item.title}</h3><p>{item.description}</p></span>
+          <span className={styles.decisionMeta}>{item.meta}</span>
+        </Link>)}
       </div>
     </section>
 
-    <section id="rain" className="commute-master-section">
-      <div className="section-head compact"><div><span className="section-kicker">Wet season</span><h2>Rainy-season commuting</h2><p>Visibility, tire condition, braking, waterproof gear and water exposure matter more than one ground-clearance number.</p></div><Link href="/commute/rainy-season">Open rainy-season checklist →</Link></div>
-      <div className="topic-grid">
-        <article><h3>Visibility first</h3><p>Keep visor and lights clear, use suitable rain gear and avoid anything that reduces your ability to see or be seen.</p></article>
-        <article><h3>Tires and braking</h3><p>Check tread, pressure and braking condition. Wet-road grip depends on more than tire width or motorcycle category.</p></article>
-        <article><h3>Standing water</h3><p>Do not treat ground clearance as a safe water-depth rating. Hidden potholes, current, intake height and electrical components can all create risk.</p></article>
+    <section id="rain" className={styles.section}>
+      <SectionHeader
+        kicker="Wet season"
+        title="Rainy-season commuting"
+        description="Visibility, tire condition, braking, waterproof gear and water exposure matter more than one ground-clearance number."
+        aside={<Link href="/commute/rainy-season">Open full checklist →</Link>}
+      />
+      <div className={styles.decisionList}>
+        {rainySeason.map(item=><article className={styles.decisionRow} key={item.label}>
+          <span className={styles.decisionLabel}>{item.label}</span>
+          <span className={styles.decisionCopy}><h3>{item.title}</h3><p>{item.description}</p></span>
+          <span className={styles.decisionMeta}>Daily-use check</span>
+        </article>)}
       </div>
+      <InfoPanel subtle className={styles.notice}>
+        <h3>Specs do not equal safety</h3>
+        <p>Use measurable data to narrow the shortlist, then test ergonomics in person, get proper training and ride within road and traffic rules.</p>
+      </InfoPanel>
     </section>
-
-    <div className="note-box"><h2>Specs do not equal safety</h2><p>Use the measurable data to narrow the shortlist, then test ergonomics in person, get proper training and ride within road and traffic rules.</p></div>
 
     <JsonLd data={schema}/>
     <AuthorBox/>
