@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/site";
 import { motorcycles, isIndexableModel } from "@/lib/data";
 import { ModelExplorer } from "@/components/ModelExplorer";
 import { RecentlyViewedRail } from "@/components/RecentlyViewed";
-import { SectionHeader, StatRow } from "@/components/ui";
+import { CTAGroup, SectionHeader, StatRow } from "@/components/ui";
 import { modelFamilies } from "@/lib/families";
 import { modelAuthorityProfile } from "@/lib/modelAuthority";
 import { forClient } from "@/lib/competitors";
@@ -86,7 +86,7 @@ export default function MotorcyclesPage() {
         </div>
         <div className="motorcycle-index-quicklinks">
           <Link href="/recommendations/motorcycles-under-100k"><span>Budget</span><strong>Under ₱100K</strong><small>Current affordable models →</small></Link>
-          <Link href="/recommendations/motorcycles-100k-to-150k"><span>Budget</span><strong>₱100K–₱150K</strong><small>Compare the middle price band →</small></Link>
+          <Link href="/recommendations/motorcycles-under-150k"><span>Budget</span><strong>Under ₱150K</strong><small>Compare the broader budget market →</small></Link>
           <Link href="/motorcycles/scooters"><span>Category</span><strong>Scooters</strong><small>National scooter price list →</small></Link>
           <Link href="/recommendations/motorcycles-400cc-plus-philippines"><span>Displacement</span><strong>400cc+</strong><small>Big-bike research →</small></Link>
           <Link href="/motorcycles/electric"><span>Electric</span><strong>Electric motorcycles</strong><small>Battery, range and charging research →</small></Link>
@@ -111,6 +111,22 @@ export default function MotorcyclesPage() {
             { label: "Scooters", value: scooters, note: "Current scooter categories" },
             { label: "400cc+", value: fourHundredPlus, note: "Current larger-displacement models" }
           ]} />
+        </section>
+
+        <section className={styles.marketSnapshot}>
+          <SectionHeader
+            kicker="Popular price and engine classes"
+            title="Explore the market by budget or displacement"
+            description="These collection pages reuse the same current model records, prices and specifications as the catalog, so you can narrow the market without creating duplicate model pages."
+          />
+          <CTAGroup>
+            <Link className="button secondary" href="/recommendations/motorcycles-under-80k">Under ₱80K</Link>
+            <Link className="button secondary" href="/recommendations/motorcycles-under-100k">Under ₱100K</Link>
+            <Link className="button secondary" href="/recommendations/motorcycles-under-150k">Under ₱150K</Link>
+            <Link className="button secondary" href="/recommendations/250cc-motorcycles-philippines">250cc motorcycles</Link>
+            <Link className="button secondary" href="/recommendations/300cc-motorcycles-philippines">300cc motorcycles</Link>
+            <Link className="button secondary" href="/recommendations/motorcycles-400cc-plus-philippines">400cc+ motorcycles</Link>
+          </CTAGroup>
         </section>
 
         <section id="browse-models" className="motorcycle-catalog-section">

@@ -843,6 +843,39 @@ export const motorcycles: Motorcycle[] = [
     transmission: "Manual",
     summary: "321cc twin-cylinder sport motorcycle with 41.4 hp, a 780 mm seat, 169 kg curb weight, six-speed transmission and ABS."
   },
+  {
+    id: "cfmoto-300nk",
+    make: "CFMOTO",
+    makeSlug: "cfmoto",
+    model: "300NK",
+    slug: "300nk",
+    generation: "Current",
+    marketStatus: "current",
+    category: "Naked street bike",
+    srp: 146900,
+    engineCc: 292,
+    powerHp: 28.7,
+    torqueNm: 25.3,
+    curbWeightKg: 151,
+    seatHeightMm: 795,
+    fuelTankL: 12.5,
+    groundClearanceMm: 150,
+    frontTire: "110/70 R17",
+    rearTire: "140/60 R17",
+    abs: "Dual-channel ABS",
+    colors: ["Electrosilver", "Nebula Black"],
+    searchVolume: 0,
+    keywordDifficulty: 0,
+    sourceLabel: "CFMOTO Philippines current 300NK product page with official CFMOTO technical brochure cross-check",
+    sourceUrl: "https://www.cfmotoph.com/motorcycle/300nk",
+    verifiedAt: "2026-09-19",
+    freshness: "verified",
+    marketPriceSourceLabel: "CFMOTO Philippines",
+    marketPriceSourceUrl: "https://www.cfmotoph.com/motorcycle/300nk",
+    marketPriceCheckedAt: "2026-09-19",
+    transmission: "Manual",
+    summary: "292cc naked street bike with a 795 mm seat, 151 kg curb weight, 12.5 L tank and dual-channel ABS."
+  },
   ...phTier23Motorcycles,
 
 ];
@@ -974,7 +1007,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Largest engine",metric:"engine"},{label:"Highest published fuel economy",metric:"economy"}],
     editorialSections: ["Cheapest motorcycles under ₱100K", "Automatic vs manual motorcycles under ₱100K", "What do you give up at this price?", "Which sub-₱100K motorcycle suits different riders?"],
     faqQuestions: ["What is the cheapest motorcycle in the Philippines under ₱100,000?", "What automatic motorcycles cost below ₱100K?", "Are there motorcycles with ABS below ₱100K?", "Which motorcycle under ₱100K has the lowest seat?", "Does the ₱100K limit include all variants?", "Are dealer prices the same as SRP?"],
-    relatedGuideSlugs: ["automatic-motorcycles-under-100k", "motorcycles-100k-to-150k", "best-scooters-philippines", "motorcycles-with-abs-philippines", "lightweight-motorcycles-philippines"],
+    relatedGuideSlugs: ["motorcycles-under-80k", "motorcycles-under-150k", "automatic-motorcycles-under-100k", "motorcycles-100k-to-150k", "best-scooters-philippines", "motorcycles-with-abs-philippines", "lightweight-motorcycles-philippines"],
     intent: "budget"
   },
   {
@@ -1016,7 +1049,29 @@ export const recommendationGuides: RecommendationGuide[] = [
     quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Largest engine",metric:"engine"},{label:"Highest power",metric:"power"}],
     editorialSections: ["What changes when you move above ₱100K in the Philippines?", "Scooters from ₱100K–₱150K", "Manual motorcycles from ₱100K–₱150K", "Underbones from ₱100K–₱150K", "Lower-seat options", "Lightweight options", "Motorcycles with ABS in this Philippine range"],
     faqQuestions: ["What motorcycles cost between ₱100K and ₱150K in the Philippines?", "What scooters are available in this price range in the Philippines?", "What motorcycles with ABS cost below ₱150K in the Philippines?", "What is the largest-engine motorcycle below ₱150K in the Philippines?"],
-    relatedGuideSlugs: ["motorcycles-under-100k", "best-scooters-philippines", "best-underbone-motorcycles-philippines", "motorcycles-with-abs-philippines"],
+    relatedGuideSlugs: ["motorcycles-under-150k", "motorcycles-under-100k", "best-scooters-philippines", "best-underbone-motorcycles-philippines", "motorcycles-with-abs-philippines"],
+    intent: "budget"
+  },
+  {
+    slug: "motorcycles-under-150k",
+    kicker: "Budget authority guide",
+    title: "Motorcycles under ₱150K in the Philippines",
+    seoTitle: "Motorcycles Under ₱150K Philippines: Prices 2026",
+    description: "Compare current motorcycles below ₱150,000 in the Philippines by published price, engine, transmission, weight, seat height, ABS and ownership context.",
+    primaryKeyword: "motorcycles under 150k Philippines",
+    secondaryKeywords: ["motorcycles below 150k Philippines", "motorcycle under 150000 Philippines", "affordable motorcycles Philippines", "cheap motorcycles Philippines"],
+    directAnswer: "This is the parent budget guide for current motorcycles with a published starting price at or below ₱150,000. Use the narrower Under ₱80K, Under ₱100K and ₱100K–₱150K guides when you need a tighter shortlist.",
+    inclusionRules: ["Published starting price at or below ₱150,000", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest; this is price order, not an overall quality ranking.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Published prices use dated Philippine manufacturer, dealer or market observations. Core specifications stay attached to each canonical model record.",
+    caveats: ["A higher variant can exceed ₱150,000 even when the entry model qualifies.", "Registration, insurance, financing charges, dealer fees and promotions can change the final amount paid.", "Very different motorcycle categories can share the same price band, so use case and rider fit still matter."],
+    tableColumns: ["price","engine","transmission","weight","seat","abs","power","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Largest engine",metric:"engine"},{label:"Highest power",metric:"power"}],
+    editorialSections: ["Cheapest motorcycles below ₱150K", "Motorcycles under ₱80K", "Motorcycles under ₱100K", "Motorcycles from ₱100K to ₱150K", "Automatic and manual choices", "What to budget beyond the purchase price"],
+    faqQuestions: ["What motorcycles cost below ₱150,000 in the Philippines?", "What is the cheapest motorcycle under ₱150K?", "Which automatic motorcycles are below ₱150K?", "What motorcycles with ABS are under ₱150K?", "Does the ₱150K budget include higher variants and dealer fees?"],
+    relatedGuideSlugs: ["motorcycles-under-80k","motorcycles-under-100k","motorcycles-100k-to-150k","best-scooters-philippines","motorcycles-with-abs-philippines"],
     intent: "budget"
   },
   {
@@ -1211,14 +1266,58 @@ export const recommendationGuides: RecommendationGuide[] = [
     intent: "fit"
   },
   {
+    slug: "250cc-motorcycles-philippines",
+    kicker: "250cc class",
+    title: "250cc motorcycles in the Philippines",
+    seoTitle: "250cc Motorcycles Philippines 2026: Prices & Specs",
+    description: "Compare current 250cc-class motorcycles in the Philippines by published price, actual displacement, power, weight, seat height, ABS and use case.",
+    primaryKeyword: "250cc motorcycles Philippines",
+    secondaryKeywords: ["250cc motorcycle price Philippines", "250cc bikes Philippines", "best 250cc motorcycle Philippines", "250cc motorcycle Philippines 2026"],
+    directAnswer: "MotoIndex treats the 250cc class as current motorcycles from 225cc through 275cc so buyers can compare models marketed around the 250cc segment without pretending every engine is exactly 250cc.",
+    inclusionRules: ["Recorded engine displacement from 225cc through 275cc", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Actual displacement, output, dimensions and braking equipment come from each model record; published prices use dated Philippine observations.",
+    caveats: ["250cc is used as a market class, so actual engine displacement can sit above or below exactly 250cc.", "Engine class alone does not establish performance, rider suitability or tollway access."],
+    tableColumns: ["price","engine","power","weight","seat","abs","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced 250cc-class motorcycles", "Lighter 250cc choices", "Lower-seat 250cc motorcycles", "Sport and adventure options", "What to compare beyond engine size"],
+    faqQuestions: ["What 250cc motorcycles are available in the Philippines?", "Which 250cc-class motorcycle is cheapest?", "Which 250cc motorcycle is lightest?", "Which has the lowest seat?", "Are all motorcycles on this page exactly 250cc?"],
+    relatedGuideSlugs: ["300cc-motorcycles-philippines","motorcycles-under-400cc-philippines","sport-motorcycles-philippines","adventure-touring-motorcycles-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "300cc-motorcycles-philippines",
+    kicker: "300cc class",
+    title: "300cc motorcycles in the Philippines",
+    seoTitle: "300cc Motorcycles Philippines 2026: Prices & Specs",
+    description: "Compare current 300cc-class motorcycles in the Philippines by price, actual displacement, power, weight, seat height, ABS, tank size and use case.",
+    primaryKeyword: "300cc motorcycles Philippines",
+    secondaryKeywords: ["300cc motorcycle price Philippines", "300cc bikes Philippines", "best 300cc motorcycle Philippines", "300cc motorcycle Philippines 2026"],
+    directAnswer: "MotoIndex treats the 300cc class as current motorcycles from 280cc through 325cc, covering the common 286cc, 292cc, 300cc, 313cc and 321cc sizes buyers compare in this segment.",
+    inclusionRules: ["Recorded engine displacement from 280cc through 325cc", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Actual displacement, output, dimensions and braking equipment come from model-specific records; published prices use dated Philippine observations.",
+    caveats: ["300cc is a market-class label, not a claim that every engine is exactly 300cc.", "Engine displacement alone does not determine performance, difficulty, ownership cost or legal road access."],
+    tableColumns: ["price","engine","power","weight","seat","abs","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced 300cc-class motorcycles", "Lighter 300cc choices", "Lower-seat 300cc motorcycles", "Sport, naked and adventure options", "What changes from the 250cc class"],
+    faqQuestions: ["What 300cc motorcycles are available in the Philippines?", "Which 300cc-class motorcycle is cheapest?", "Which 300cc motorcycle is lightest?", "Which has the lowest seat?", "Why are 286cc, 292cc, 313cc and 321cc motorcycles grouped here?"],
+    relatedGuideSlugs: ["250cc-motorcycles-philippines","motorcycles-under-400cc-philippines","sport-motorcycles-philippines","adventure-touring-motorcycles-philippines"],
+    intent: "category"
+  },
+  {
     slug: "motorcycles-400cc-plus-philippines",
     kicker: "400cc+ class",
-    title: "Big bikes and 400cc+ motorcycles in the Philippines",
-    seoTitle: "Big Bikes Philippines: 400cc+ Prices & Specs 2026",
-    description: "Compare current big bikes and 400cc+ motorcycles in the Philippines by price, weight, seat height, power, tank size and ABS.",
-    primaryKeyword: "big bikes Philippines",
-    secondaryKeywords: ["400cc motorcycles Philippines", "expressway motorcycle Philippines", "big bike Philippines", "affordable 400cc motorcycle Philippines"],
-    directAnswer: "This guide compares current motorcycles with at least 400cc recorded engine displacement. It is useful for big-bike and expressway-planning research, but displacement alone does not determine legal tollway access, so confirm the motorcycle's registration classification and current tollway rules.",
+    title: "400cc and larger motorcycles in the Philippines",
+    seoTitle: "400cc Motorcycles Philippines 2026: Prices & Specs",
+    description: "Compare current 400cc and larger motorcycles in the Philippines by price, displacement, power, weight, seat height, ABS and ownership context.",
+    primaryKeyword: "400cc motorcycles Philippines",
+    secondaryKeywords: ["400cc+ motorcycles Philippines", "big bikes Philippines", "big bike Philippines", "affordable 400cc motorcycle Philippines"],
+    directAnswer: "This guide compares current motorcycles with at least 400cc recorded engine displacement. It targets the 400cc and big-bike research intent while keeping expressway eligibility separate because legal tollway access depends on current rules and registration details, not a marketing label alone.",
     inclusionRules: ["Recorded engine displacement is at least 400cc", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest within the 400cc+ recorded-displacement set.",
     tieBreakers: ["Lower curb weight"],
@@ -1631,7 +1730,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Largest engine",metric:"engine"},{label:"Highest published fuel economy",metric:"economy"}],
     editorialSections: ["Cheapest motorcycles under ₱80K", "Automatic vs manual options", "Lower-seat budget motorcycles", "What features are available below ₱80K", "What to budget beyond the purchase price"],
     faqQuestions: ["What motorcycles cost below ₱80,000 in the Philippines?", "Which is cheapest?", "Are there automatic motorcycles under ₱80K?", "Which has the lowest seat?", "Do any motorcycles under ₱80K have ABS?"],
-    relatedGuideSlugs: ["motorcycles-under-100k","automatic-motorcycles-under-100k","motorcycles-100k-to-150k","beginner-friendly-motorcycles-philippines"],
+    relatedGuideSlugs: ["motorcycles-under-150k","motorcycles-under-100k","automatic-motorcycles-under-100k","motorcycles-100k-to-150k","beginner-friendly-motorcycles-philippines"],
     intent: "budget"
   },
   {
@@ -1757,6 +1856,7 @@ export function getRecommendationModels(slug: string) {
   const hasAbs = (m: Motorcycle) => /\bABS\b/i.test(m.abs) && !/^No ABS/i.test(m.abs);
   switch (slug) {
     case "motorcycles-under-100k": return byPrice.filter(m => observedMarketRange(m).from < 100000);
+    case "motorcycles-under-150k": return byPrice.filter(m => observedMarketRange(m).from <= 150000);
     case "automatic-motorcycles-under-100k": return byPrice.filter(m => m.transmission === "Automatic" && observedMarketRange(m).from < 100000);
     case "motorcycles-100k-to-150k": return byPrice.filter(m => observedMarketRange(m).from >= 100000 && observedMarketRange(m).from <= 150000);
     case "best-scooters-philippines": return byPrice.filter(m => m.category.toLowerCase().includes("scooter"));
@@ -1769,6 +1869,8 @@ export function getRecommendationModels(slug: string) {
     case "lightweight-motorcycles-philippines": return [...models].sort((a,b) => a.curbWeightKg - b.curbWeightKg || a.seatHeightMm - b.seatHeightMm);
     case "best-motorcycles-for-daily-commute-philippines": return [...models].sort((a,b) => evaluateMotorcycle(b,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score - evaluateMotorcycle(a,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score || observedMarketRange(a).from - observedMarketRange(b).from);
     case "beginner-friendly-motorcycles-philippines": return [...models].sort((a,b) => { const score=(m:Motorcycle)=>Math.max(0,40-Math.max(0,m.curbWeightKg-100)*.35-Math.max(0,m.seatHeightMm-740)*.05-Math.max(0,m.powerHp-20)*.8+(hasAbs(m)?5:0)); return score(b)-score(a)||observedMarketRange(a).from-observedMarketRange(b).from; });
+    case "250cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 225 && m.engineCc <= 275);
+    case "300cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 280 && m.engineCc <= 325);
     case "motorcycles-400cc-plus-philippines": return byPrice.filter(m => m.engineCc >= 400);
     case "motorcycles-under-400cc-philippines": return byPrice.filter(m => m.engineCc < 400);
     case "maxi-scooters-philippines": return byPrice.filter(m => /maxi/i.test(m.category));
