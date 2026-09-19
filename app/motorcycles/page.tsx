@@ -15,12 +15,29 @@ const publicModels = motorcycles.filter(isIndexableModel);
 const publicIds = new Set(publicModels.map((m) => m.id));
 const publicFamilies = modelFamilies.filter((f) => f.generationIds.length > 0 && f.generationIds.every((id) => publicIds.has(id)));
 const currentModels = publicModels.filter((m) => !["previous","uncertain","discontinued"].includes(m.marketStatus || ""));
-export const metadata: Metadata = pageMetadata({
-  title: "Motorcycle Prices, Specs & Models | MotoIndex",
-  description: "Compare motorcycle prices, specifications, tire sizes and ownership research across Philippine-market bikes and globally searched motorcycle models.",
-  path: "/motorcycles",
-  index: currentModels.length > 0
-});
+const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;
+
+function hasCatalogFilters(params: Record<string, string | string[] | undefined>) {
+  return CATALOG_FILTER_PARAMS.some((key) => {
+    const value = params[key];
+    return Array.isArray(value) ? value.some(Boolean) : Boolean(value);
+  });
+}
+
+export async function generateMetadata({
+  searchParams
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}): Promise<Metadata> {
+  const params = await searchParams;
+  const hasActiveFilters = hasCatalogFilters(params);
+  return pageMetadata({
+    title: "Motorcycle Prices, Specs & Models | MotoIndex",
+    description: "Compare motorcycle prices, specifications, tire sizes and ownership research across Philippine-market bikes and globally searched motorcycle models.",
+    path: "/motorcycles",
+    index: currentModels.length > 0 && !hasActiveFilters
+  });
+}
 
 export default function MotorcyclesPage() {
   const makes = [...new Map(currentModels.map((m) => [m.makeSlug, m.make])).entries()];
@@ -58,7 +75,7 @@ export default function MotorcyclesPage() {
         </div>
         <div className="motorcycle-index-quicklinks">
           <Link href="/recommendations#budget"><span>Budget</span><strong>Under ₱100K</strong><small>Affordable current models →</small></Link>
-          <Link href={{ pathname:"/motorcycles", query:{ budget:"100to150" } }}><span>Budget</span><strong>₱100K–₱150K</strong><small>Popular commuter price band →</small></Link>
+          <Link href="/recommendations#budget"><span>Budget</span><strong>₱100K–₱150K</strong><small>Popular commuter price band →</small></Link>
           <Link href="/recommendations#scooters"><span>Body type</span><strong>Scooters</strong><small>Automatic city-focused choices →</small></Link>
           <Link href="/recommendations#400cc"><span>Displacement</span><strong>400cc+</strong><small>Bigger bikes and performance research →</small></Link>
           <Link href="/motorcycles/electric"><span>Electric</span><strong>Electric motorcycles</strong><small>Battery, range and charging research →</small></Link>
