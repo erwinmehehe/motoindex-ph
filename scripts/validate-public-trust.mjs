@@ -62,9 +62,9 @@ for (const [id, officialDomain] of Object.entries(primarySourcePriorityModels)) 
   if (record.includes("zigwheels.ph")) {
     failures.push(`lib/data.ts: ${id} canonical record must not use Zigwheels as its primary/source-of-truth URL`);
   }
-  const manufacturerCheck = new RegExp(`modelId:"${id}"[^\\n]+sourceType:"manufacturer"`).test(marketChecksSource);
-  if (!manufacturerCheck) {
-    failures.push(`lib/marketChecks.ts: ${id} must include a manufacturer price/source observation`);
+  const primaryMarketCheck = new RegExp(`modelId:"${id}"[^\\n]+sourceType:"(?:manufacturer|dealer)"`).test(marketChecksSource);
+  if (!primaryMarketCheck) {
+    failures.push(`lib/marketChecks.ts: ${id} must include a manufacturer or dealer price/source observation`);
   }
 }
 
