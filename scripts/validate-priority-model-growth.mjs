@@ -7,6 +7,7 @@ const errors = [];
 
 const growth = read("lib", "priorityModelGrowth.ts");
 const modelPage = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
+const recommendationPage = read("app", "recommendations", "[slug]", "page.tsx");
 const commercial = read("components", "PriorityCommercialIntent.tsx");
 const data = read("lib", "data.ts");
 const route = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
@@ -116,7 +117,7 @@ for (const token of [
   'use 21/18-inch wheels',
   'public roads in the philippines'
 ]) {
-  if (!modelPage.includes(token)) errors.push(`dual-sport authority renderer: missing token ${token}`);
+  if (!recommendationPage.includes(token)) errors.push(`dual-sport authority renderer: missing token ${token}`);
 }
 
 if (!growth.includes('"yamaha-yzf-r1m": {') || !growth.includes("Searchers often shorten the name to Yamaha R1 or simply R1")) {
