@@ -108,7 +108,7 @@ export default function TiresPage(){
             <h3>{hub.shortName}</h3>
             <p>{hub.description}</p>
             <div className={styles.familyLinks}>
-              {models.map(m=><Link className={`${styles.twoColRow} ${styles.modelLink}`} key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}>
+              {models.map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}>
                 <span><strong>{m.model}</strong><small>{m.generation}</small></span>
                 <span className={styles.tirePair}><b>{m.frontTire}</b><b>{m.rearTire}</b></span>
               </Link>)}
@@ -126,7 +126,7 @@ export default function TiresPage(){
         aside={<Link href="/fitment">Search all fitment →</Link>}
       />
       <div className={styles.twoColList}>
-        {stockPreview.map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}>
+        {stockPreview.map(m=><Link className={`${styles.twoColRow} ${styles.modelLink}`} key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}>
           <span><strong>{m.make} {m.model}</strong><small>{m.category}</small></span>
           <span className={styles.tirePair}><b>{m.frontTire}</b><b>{m.rearTire}</b></span>
         </Link>)}
