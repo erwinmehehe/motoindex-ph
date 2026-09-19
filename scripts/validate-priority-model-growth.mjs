@@ -8,6 +8,7 @@ const errors = [];
 const growth = read("lib", "priorityModelGrowth.ts");
 const modelPage = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
 const commercial = read("components", "PriorityCommercialIntent.tsx");
+const data = read("lib", "data.ts");
 
 const priorityModels = [
   "yamaha-aerox-v3",
@@ -19,7 +20,10 @@ const priorityModels = [
   "yamaha-fazzio",
   "suzuki-burgman-street-ex",
   "suzuki-raider-r150",
-  "yamaha-sniper-155"
+  "yamaha-sniper-155",
+  "honda-adv-350",
+  "honda-cb650r",
+  "kawasaki-ninja-500"
 ];
 
 for (const id of priorityModels) {
@@ -36,6 +40,22 @@ for (const href of [
 ]) {
   if (!growth.includes(`recommendationHref: "${href}"`)) {
     errors.push(`priorityModelGrowth: expected canonical cluster link ${href}`);
+  }
+}
+
+for (const token of [
+  'id: "honda-cb650r"',
+  'marketPriceHighPhp: 565000',
+  'marketPriceSourceUrl: "https://www.hondaph.com/big-bike/news/honda-philippines-launches-three-new-models-elevates-innovation-at-makina-moto-expo-2026"',
+  'id: "honda-adv-350"',
+  'srp: 310000',
+  'marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/promotions/beyond-expectations-adv350-promo"',
+  'id: "kawasaki-ninja-400"',
+  'marketStatus: "previous"',
+  'successorId: "kawasaki-ninja-500"'
+]) {
+  if (!data.includes(token)) {
+    errors.push(`priorityModelGrowth: competitor-gap data evidence missing: ${token}`);
   }
 }
 
