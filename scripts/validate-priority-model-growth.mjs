@@ -28,6 +28,7 @@ const priorityModels = [
   "yamaha-mio-gravis",
   "yamaha-mio-i-125",
   "yamaha-tmax",
+  "yamaha-yzf-r1m",
   "honda-crf300-rally"
 ];
 
@@ -42,7 +43,8 @@ for (const href of [
   "/recommendations/150cc-scooters-philippines",
   "/recommendations/160cc-scooters-philippines",
   "/recommendations/best-motorcycles-for-daily-commute-philippines",
-  "/recommendations/dual-sport-motorcycles-philippines"
+  "/recommendations/dual-sport-motorcycles-philippines",
+  "/recommendations/motorcycles-400cc-plus-philippines"
 ]) {
   if (!growth.includes(`recommendationHref: "${href}"`)) {
     errors.push(`priorityModelGrowth: expected canonical cluster link ${href}`);
@@ -68,6 +70,12 @@ for (const token of [
   'model: "TMAX Tech Max"',
   'srp: 859000',
   'sourceUrl: "https://www.yamaha-motor.com.ph/motorcycles/sport-machines/sport-scooter/tmax"',
+  'id: "yamaha-yzf-r1m"',
+  'srp: 1689000',
+  'marketPriceHighPhp: 1799000',
+  'engineCc: 998',
+  'sourceUrl: "https://www.yamaha-motor.com.ph/motorcycles/sport-machines/supersport/yzf-r1m"',
+  'marketPriceSourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-yzf-r1/"',
   'id: "honda-crf300-rally"',
   'srp: 309900',
   'engineCc: 286',
@@ -76,6 +84,13 @@ for (const token of [
   if (!data.includes(token)) {
     errors.push(`priorityModelGrowth: competitor-gap data evidence missing: ${token}`);
   }
+}
+
+if (!growth.includes('"yamaha-yzf-r1m": {') || !growth.includes("Searchers often shorten the name to Yamaha R1 or simply R1")) {
+  errors.push("priorityModelGrowth: YZF-R1M must consolidate broad Yamaha R1 search intent on one canonical page");
+}
+if (data.includes('id: "yamaha-yzf-r1"') || data.includes('id: "yamaha-r1"')) {
+  errors.push("priorityModelGrowth: do not create a duplicate Yamaha R1 entity beside the YZF-R1M canonical");
 }
 
 if (!growth.includes('heading: "Looking for the Honda CRF250 Rally?"') || !growth.includes("enhanced successor to the CRF250 Rally")) {
