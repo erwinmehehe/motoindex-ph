@@ -23,6 +23,8 @@ const routes=[
   {name:"ownership-hub",path:"/ownership"},
   {name:"commute-hub",path:"/commute"},
   {name:"tools-hub",path:"/tools"},
+  {name:"research-hub",path:"/research"},
+  {name:"maintenance-hub",path:"/maintenance"},
   {name:"calculator-ownership",path:"/ownership/cost-calculator"},
   {name:"calculator-commute",path:"/commute/cost-calculator"},
   {name:"calculator-affordability",path:"/commute/affordability"},
@@ -216,6 +218,11 @@ const inspect=`(() => {
   const commuteUseCases=document.querySelectorAll("[data-commute-use-case]").length;
   const toolsDecisionRows=document.querySelectorAll("[data-tools-core] a,[data-tools-planning] a").length;
   const legacyCommuteCards=document.querySelectorAll(".commute-rank-card,.method-card").length;
+  const researchDatasetRows=document.querySelectorAll("[data-research-dataset-list] > a").length;
+  const maintenanceTopics=document.querySelectorAll("[data-maintenance-topic]").length;
+  const maintenanceDetails=document.querySelectorAll("[data-maintenance-detail]").length;
+  const maintenanceScheduleRows=document.querySelectorAll("[data-maintenance-schedule-list] > a").length;
+  const maintenanceLegacyCards=document.querySelectorAll(".maintenance-master-page .method-steps,.maintenance-master-page .source-ladder,.maintenance-master-page .list-cards").length;
 
   const standardMotorcycleCards=[...document.querySelectorAll('[data-motorcycle-card="standard"]')];
   const standardMotorcycleCardModes=standardMotorcycleCards.map(card=>({
@@ -266,6 +273,11 @@ const inspect=`(() => {
     commuteUseCases,
     toolsDecisionRows,
     legacyCommuteCards,
+    researchDatasetRows,
+    maintenanceTopics,
+    maintenanceDetails,
+    maintenanceScheduleRows,
+    maintenanceLegacyCards,
     cloudflareError:/worker exceeded resource limits|error 1102|error 503|service unavailable/.test(bodyText),
     empty:(document.body?.innerText||"").trim().length<80
   };
@@ -345,6 +357,12 @@ try{
       if(route.name==="commute-hub"&&(row?.legacyCommuteCards||0)>0)failures.push(`${width}px commute: legacy repeated commute card/method blocks returned`);
       if(route.name==="tools-hub"&&(row?.toolsDecisionRows||0)<8)failures.push(`${width}px tools: calculator decision index is incomplete`);
       if(["ownership-hub","commute-hub","tools-hub"].includes(route.name)&&(row?.genericContentCards||0)>0)failures.push(`${width}px ${route.name}: generic content-card wall returned`);
+      if(route.name==="research-hub"&&(row?.researchDatasetRows||0)!==3)failures.push(`${width}px research: expected three compact dataset rows, found ${row.researchDatasetRows||0}`);
+      if(route.name==="research-hub"&&(row?.genericContentCards||0)>0)failures.push(`${width}px research: generic content-card wall returned`);
+      if(route.name==="maintenance-hub"&&(row?.maintenanceTopics||0)<4)failures.push(`${width}px maintenance: topic sections are missing`);
+      if(route.name==="maintenance-hub"&&(row?.maintenanceDetails||0)<8)failures.push(`${width}px maintenance: expandable maintenance guidance is incomplete`);
+      if(route.name==="maintenance-hub"&&(row?.maintenanceScheduleRows||0)<1)failures.push(`${width}px maintenance: model schedule index is missing`);
+      if(route.name==="maintenance-hub"&&(row?.maintenanceLegacyCards||0)>0)failures.push(`${width}px maintenance: legacy maintenance card/list treatment returned`);
 
       const metrics=await cdp.send("Page.getLayoutMetrics");
       const contentSize=metrics.cssContentSize||metrics.contentSize;
