@@ -28,7 +28,7 @@ export default async function MotorcycleInsuranceCalculatorPage({ searchParams }
   const rate = Number(one(query.rate));
   const ctpl = Number(one(query.ctpl));
 
-  return <section className="page shell">
+  return <section className="page shell" data-calculator-page>
     <Breadcrumbs items={[{ label: "Tools", href: "/tools" }, { label: "Insurance calculator" }]} />
     <div className="page-head">
       <h1>Motorcycle insurance calculator Philippines</h1>
