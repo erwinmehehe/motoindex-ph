@@ -114,7 +114,7 @@ export default function MotorcyclesPage() {
         </section>
 
         <section id="browse-models" className="motorcycle-catalog-section">
-          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Full price list</span><h2>Browse and filter current motorcycle models</h2><p>Use filters for research, then open the canonical model page for dated prices, specifications, financing context, fitment and ownership information.</p></div></div>
+          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Full price list</span><h2>Browse and filter current motorcycle models</h2><p>Use filters to narrow the market, then open a model page for dated prices, specifications, financing context, fitment and ownership information.</p></div></div>
           <ModelExplorer models={forClient(currentModels)} />
         </section>
 
