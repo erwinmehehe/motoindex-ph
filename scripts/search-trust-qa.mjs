@@ -166,7 +166,7 @@ try {
     return {count:badges.length,kinds:[...new Set(badges.map(el=>el.getAttribute('data-source-trust')))].filter(Boolean),overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth};
   })()`);
   results.push({ check: "catalog-trust", ...catalogTrust });
-  if ((catalogTrust?.count || 0) < 1) failures.push("Motorcycle catalog has no visible source-trust badge.");
+  if ((catalogTrust?.count || 0) !== 0) failures.push(`Motorcycle catalog still exposes ${catalogTrust.count} source-trust badge(s).`);
   if ((catalogTrust?.overflow || 0) > 5) failures.push(`Motorcycle catalog overflows by ${catalogTrust.overflow}px after trust badges.`);
   await screenshot("catalog-trust");
 
@@ -177,7 +177,8 @@ try {
     return {freshness:Boolean(freshness),kind:badge?.getAttribute('data-source-trust')||'',text:badge?.textContent?.trim()||'',overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth};
   })()`);
   results.push({ check: "model-trust", ...modelTrust });
-  if (!modelTrust?.freshness || !modelTrust?.kind) failures.push("Aerox model freshness block is missing source-trust provenance.");
+  if (!modelTrust?.freshness) failures.push("Aerox model freshness status is missing.");
+  if (modelTrust?.kind) failures.push("Aerox model page still exposes a public source-trust badge.");
   if ((modelTrust?.overflow || 0) > 5) failures.push(`Aerox detail page overflows by ${modelTrust.overflow}px after trust badge.`);
   await screenshot("model-trust");
 
@@ -200,7 +201,7 @@ try {
     failures.forEach(failure => console.error(`- ${failure}`));
     process.exitCode = 1;
   } else {
-    console.log(`Search and trust QA passed: ${results.length} checks, dedicated search access and provenance are responsive.`);
+    console.log(`Search and trust QA passed: ${results.length} checks, search access and source-free public trust UI are responsive.`);
   }
 
   cdp.ws.close();
