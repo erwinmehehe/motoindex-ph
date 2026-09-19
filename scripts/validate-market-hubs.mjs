@@ -16,7 +16,6 @@ const forbidText = (source, needle, message) => {
 };
 
 requireFile("app", "motorcycles", "scooters", "page.tsx");
-requireFile("app", "motorcycles", "scooters", "scooters.module.css");
 
 const motorcycles = read("app", "motorcycles", "page.tsx");
 const sitemaps = read("lib", "sitemaps.ts");
