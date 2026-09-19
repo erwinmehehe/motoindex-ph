@@ -71,6 +71,14 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const manual = current.filter((m) => m.transmission === "Manual").length;
   const cheapest = ranges.reduce((best, row) => row.from < best.from ? row : best, ranges[0]);
   const authorityModels = current.filter((m) => Boolean(modelAuthorityProfile(m.id)));
+  const bigBikes = current.filter((m) => m.engineCc >= 400);
+  const bigBikeHub = Boolean(brandGrowth?.bigBikeTitle && bigBikes.length >= 2);
+  const bigBikeRanges = bigBikes.map((model) => ({ model, ...observedMarketRange(model) }));
+  const bigBikeLow = bigBikeRanges.length ? Math.min(...bigBikeRanges.map((row) => row.from)) : 0;
+  const bigBikeHigh = bigBikeRanges.length ? Math.max(...bigBikeRanges.map((row) => row.to || row.from)) : 0;
+  const bigBikeMinEngine = bigBikes.length ? Math.min(...bigBikes.map((m) => m.engineCc)) : 0;
+  const bigBikeMaxEngine = bigBikes.length ? Math.max(...bigBikes.map((m) => m.engineCc)) : 0;
+  const cheapestBigBike = bigBikeRanges[0];
 
   const faq = [
     {
@@ -94,6 +102,23 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       answer: `No. The prices are reference points, not guaranteed transaction quotes. Confirm the current cash price, fees and promotions with the seller before purchase.`
     }
   ];
+
+  if (bigBikeHub && cheapestBigBike) {
+    faq.push(
+      {
+        question: `What ${brand} big bikes are currently covered in the Philippines?`,
+        answer: `MotoIndex currently covers ${bigBikes.length} current ${brand} motorcycles at 400cc and above: ${bigBikes.map((m) => m.model).join(", ")}. Use the big-bike section below to compare price, displacement, seat height and category.`
+      },
+      {
+        question: `What is the cheapest ${brand} big bike in this price list?`,
+        answer: `${cheapestBigBike.model.make} ${cheapestBigBike.model.model} is the lowest-priced current 400cc+ ${brand} model in this set at ${phpRange(cheapestBigBike.from, cheapestBigBike.to)}. Confirm the exact variant and current dealer quote before purchase.`
+      },
+      {
+        question: `Are all ${brand} big bikes expressway legal in the Philippines?`,
+        answer: `Do not treat the “big bike” label alone as proof of tollway eligibility. Check the exact motorcycle's registered displacement and OR/CR details, then verify the current rules for the expressway you plan to use.`
+      }
+    );
+  }
 
   const schema = [
     {
@@ -147,7 +172,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
     <div className="shell">
       <nav className="ph-brand-nav" aria-label={`${brand} page sections`}>
-        <a href="#price-list">Price list</a><a href="#models">Models</a><a href="#categories">Categories</a><a href="#research">How to use data</a><a href="#faq">FAQ</a>
+        <a href="#price-list">Price list</a><a href="#models">Models</a>{bigBikeHub && <a href="#big-bikes">Big bikes</a>}<a href="#categories">Categories</a><a href="#research">How to use data</a><a href="#faq">FAQ</a>
       </nav>
 
       {priority && <section className="ph-brand-context">
@@ -171,6 +196,33 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
           </Link>)}
         </DataTable>
       </section>
+
+      {bigBikeHub && <section id="big-bikes" className="ph-brand-section">
+        <SectionHeader
+          kicker={`${brand} 400cc+ motorcycles`}
+          title={brandGrowth?.bigBikeTitle || `${brand} big bikes in the Philippines`}
+          description={brandGrowth?.bigBikeDescription || `Compare current ${brand} motorcycles at 400cc and above by price, engine size, seat height and category.`}
+        />
+        <StatRow items={[
+          {label:"Big bikes covered",value:bigBikes.length,note:"Current 400cc+ models in this brand hub"},
+          {label:"Price range",value:`${php(bigBikeLow)}–${php(bigBikeHigh)}`,note:"Across current 400cc+ models"},
+          {label:"Engine range",value:`${bigBikeMinEngine}–${bigBikeMaxEngine} cc`,note:"Recorded engine displacement"}
+        ]}/>
+        <DataTable className="ph-brand-price-table" label={`${brand} big bikes Philippines price list`}>
+          <div className="head" role="row"><span>Big bike</span><span>Price reference</span><span>Engine</span><span>Seat</span><span>Category</span></div>
+          {bigBikeRanges.map(({ model, from, to }) => <Link role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}`} key={model.id}>
+            <strong>{model.model}<small>{model.category}</small></strong><span>{phpRange(from, to)}</span><span>{model.engineCc} cc</span><span>{model.seatHeightMm} mm</span><span>{model.category} →</span>
+          </Link>)}
+        </DataTable>
+        <InfoPanel subtle>
+          <h3>400cc+ is a comparison filter, not an automatic expressway guarantee.</h3>
+          <p>For tollway planning, check the exact unit&apos;s registered displacement and OR/CR details and verify the current rules for the expressway you plan to use.</p>
+          <CTAGroup>
+            <Link className="button secondary" href="/recommendations/motorcycles-400cc-plus-philippines">Compare 400cc+ motorcycles</Link>
+            <Link className="button ghost" href="/motorcycles/expressway-legal">Check expressway guidance</Link>
+          </CTAGroup>
+        </InfoPanel>
+      </section>}
 
       <section id="categories" className="ph-brand-section ph-brand-two-col">
         <div>
