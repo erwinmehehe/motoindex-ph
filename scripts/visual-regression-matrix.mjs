@@ -19,7 +19,15 @@ const routes=[
   {name:"top-box",path:"/accessories/top-box"},
   {name:"top-box-detail",path:"/accessories/top-box/v58-maxia-5"},
   {name:"finder",path:"/finder"},
-  {name:"recommendations",path:"/recommendations"}
+  {name:"recommendations",path:"/recommendations"},
+  {name:"calculator-ownership",path:"/ownership/cost-calculator"},
+  {name:"calculator-commute",path:"/commute/cost-calculator"},
+  {name:"calculator-affordability",path:"/commute/affordability"},
+  {name:"calculator-loan",path:"/tools/motorcycle-loan-calculator"},
+  {name:"calculator-insurance",path:"/tools/motorcycle-insurance-calculator"},
+  {name:"calculator-registration",path:"/tools/lto-registration-fee-calculator"},
+  {name:"calculator-electric-charge",path:"/tools/electric-motorcycle-charging-cost"},
+  {name:"calculator-electric-range",path:"/tools/electric-motorcycle-range-calculator"}
 ];
 
 const outputDir=path.join(process.cwd(),"artifacts","visual-qa","matrix");
@@ -193,6 +201,9 @@ const inspect=`(() => {
   const recommendationGuideCards=document.querySelectorAll("[data-recommendation-guide-card]").length;
   const recommendationArchiveLinks=document.querySelectorAll("[data-recommendation-archive-link]").length;
   const recommendationArchiveGroups=document.querySelectorAll("[data-recommendation-guide-library] details").length;
+  const calculatorPage=Boolean(document.querySelector("[data-calculator-page]"));
+  const calculatorCount=document.querySelectorAll("[data-calculator]").length;
+  const calculatorRect=document.querySelector("[data-calculator]")?.getBoundingClientRect();
 
   const standardMotorcycleCards=[...document.querySelectorAll('[data-motorcycle-card="standard"]')];
   const standardMotorcycleCardModes=standardMotorcycleCards.map(card=>({
@@ -230,6 +241,10 @@ const inspect=`(() => {
     recommendationGuideCards,
     recommendationArchiveLinks,
     recommendationArchiveGroups,
+    calculatorPage,
+    calculatorCount,
+    calculatorTop:calculatorRect?.top||0,
+    calculatorWidth:calculatorRect?.width||0,
     cloudflareError:/worker exceeded resource limits|error 1102|error 503|service unavailable/.test(bodyText),
     empty:(document.body?.innerText||"").trim().length<80
   };
@@ -296,6 +311,9 @@ try{
       if(route.name==="recommendations"&&(row?.recommendationGuideCards||0)>6)failures.push(`${width}px recommendations: ${row.recommendationGuideCards} visual guide cards exceed the six-card archive limit`);
       if(route.name==="recommendations"&&(row?.recommendationArchiveGroups||0)<3)failures.push(`${width}px recommendations: grouped guide library is missing or too flat`);
       if(route.name==="recommendations"&&(row?.recommendationArchiveLinks||0)<20)failures.push(`${width}px recommendations: compact guide library lost too many indexable guide links (${row.recommendationArchiveLinks})`);
+      if(route.name.startsWith("calculator-")&&!row?.calculatorPage)failures.push(`${width}px ${route.name}: calculator page composition hook is missing`);
+      if(route.name.startsWith("calculator-")&&(row?.calculatorCount||0)<1)failures.push(`${width}px ${route.name}: canonical calculator surface did not render`);
+      if(route.name.startsWith("calculator-")&&(row?.calculatorWidth||0)>width+5)failures.push(`${width}px ${route.name}: calculator is wider than the viewport`);
 
       const metrics=await cdp.send("Page.getLayoutMetrics");
       const contentSize=metrics.cssContentSize||metrics.contentSize;

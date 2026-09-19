@@ -21,7 +21,7 @@ export function ElectricRangeCalculator() {
 
   if(!model||!result)return null;
 
-  return <div className="calculator-card electric-range-calculator">
+  return <div className="calculator-card electric-range-calculator" data-calculator="electric-range">
     <div className="calculator-grid">
       <label><span>Motorcycle</span><select value={slug} onChange={e=>setSlug(e.target.value)}>{electricMotorcycles.map(item=><option key={item.slug} value={item.slug}>{item.make} {item.model}</option>)}</select></label>
       <label><span>Battery setup</span><select value={batterySetup} onChange={e=>setBatterySetup(e.target.value as "one"|"two")}><option value="one">One battery</option><option value="two">Two batteries</option></select></label>

@@ -1,0 +1,745 @@
+/* Canonical MotoIndex calculator surfaces.
+   All calculator routes and embedded tools share this visual language. */
+
+/* Calculator route composition */
+[data-calculator-page] > .page-head{
+  max-width:880px;
+  margin-bottom:var(--mi-space-7);
+}
+
+[data-calculator-page] > .page-head h1{
+  max-width:860px;
+  font-size:var(--mi-type-page);
+  line-height:.98;
+  letter-spacing:var(--mi-tracking-page);
+}
+
+[data-calculator-page] > .page-head>p{
+  max-width:740px;
+  margin:var(--mi-space-4) 0 0;
+  color:var(--mi-color-copy);
+  font-size:var(--mi-type-base);
+  line-height:var(--mi-leading-copy);
+}
+
+[data-calculator-page] > .breadcrumbs{
+  margin-bottom:var(--mi-space-6);
+}
+
+[data-calculator]{
+  margin:var(--mi-space-4) 0 var(--mi-space-10);
+  overflow:hidden;
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-xl);
+  background:var(--mi-color-surface);
+  box-shadow:var(--mi-shadow-sm);
+  color:var(--mi-color-ink);
+}
+
+[data-calculator] h2,
+[data-calculator] h3{
+  color:var(--mi-color-ink);
+}
+
+[data-calculator] p{
+  color:var(--mi-color-copy);
+  line-height:var(--mi-leading-copy);
+}
+
+[data-calculator] label{
+  min-width:0;
+  color:var(--mi-color-slate-700);
+  font-size:var(--mi-type-xs);
+  font-weight:800;
+  letter-spacing:0;
+  text-transform:none;
+}
+
+[data-calculator] label>b,
+[data-calculator] label>strong{
+  float:right;
+  color:var(--mi-color-ink);
+  font-weight:800;
+  letter-spacing:0;
+  text-transform:none;
+}
+
+[data-calculator] input:not([type="range"]):not([type="checkbox"]),
+[data-calculator] select{
+  width:100%;
+  min-height:var(--mi-control-height);
+  margin-top:var(--mi-space-2);
+  padding:0 var(--mi-space-3);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-sm);
+  background:var(--mi-color-surface);
+  color:var(--mi-color-ink);
+  outline:0;
+}
+
+[data-calculator] input:not([type="range"]):not([type="checkbox"]):focus,
+[data-calculator] select:focus{
+  border-color:var(--mi-color-primary);
+  box-shadow:var(--mi-shadow-focus);
+}
+
+[data-calculator] input[type="range"]{
+  width:100%;
+  min-height:28px;
+  margin-top:var(--mi-space-2);
+  accent-color:var(--mi-color-primary);
+}
+
+[data-calculator] input[type="checkbox"]{
+  width:auto;
+  margin:0;
+  accent-color:var(--mi-color-primary);
+}
+
+[data-calculator] .check-control{
+  display:flex;
+  min-height:var(--mi-control-height);
+  align-items:center;
+  gap:var(--mi-space-2);
+  padding:0;
+}
+
+[data-calculator] .calc-presets{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--mi-space-2);
+  margin:0;
+}
+
+[data-calculator] .calc-presets button{
+  min-height:34px;
+  padding:0 var(--mi-space-3);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-pill);
+  background:var(--mi-color-surface);
+  color:var(--mi-color-slate-600);
+  font-size:var(--mi-type-xs);
+  font-weight:800;
+  cursor:pointer;
+}
+
+[data-calculator] .calc-presets button:hover,
+[data-calculator] .calc-presets button.active{
+  border-color:var(--mi-color-primary);
+  background:var(--mi-color-primary-soft);
+  color:var(--mi-color-primary-hover);
+}
+
+[data-calculator] .calc-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--mi-space-2);
+  margin-top:var(--mi-space-2);
+}
+
+[data-calculator] .calc-actions .button{
+  min-height:38px;
+}
+
+/* Primary planning calculators */
+[data-calculator="ownership"],
+[data-calculator="commute"],
+[data-calculator="affordability"],
+[data-calculator="loan"],
+[data-calculator="insurance"],
+[data-calculator="registration"]{
+  display:grid;
+  grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr);
+  gap:0;
+  padding:0;
+}
+
+[data-calculator] :is(
+  .ownership-calculator-copy,
+  .commute-calculator-copy,
+  .affordability-copy,
+  .loan-copy,
+  .insurance-copy,
+  .fee-copy
+){
+  min-width:0;
+  padding:var(--mi-space-8);
+  border-right:1px solid var(--mi-color-line);
+  background:var(--mi-color-surface-subtle);
+}
+
+[data-calculator] :is(
+  .ownership-calculator-copy,
+  .commute-calculator-copy,
+  .affordability-copy,
+  .loan-copy,
+  .insurance-copy,
+  .fee-copy
+) h2{
+  margin:0;
+  font-size:var(--mi-type-2xl);
+  line-height:var(--mi-leading-tight);
+  letter-spacing:var(--mi-tracking-tight);
+}
+
+[data-calculator] :is(
+  .ownership-calculator-copy,
+  .commute-calculator-copy,
+  .affordability-copy,
+  .loan-copy,
+  .insurance-copy,
+  .fee-copy
+) p{
+  margin:var(--mi-space-3) 0 0;
+  font-size:var(--mi-type-sm);
+}
+
+[data-calculator] :is(
+  .ownership-total,
+  .commute-total,
+  .affordability-total,
+  .loan-primary,
+  .insurance-primary,
+  .fee-primary
+){
+  margin-top:var(--mi-space-6);
+  padding:var(--mi-space-5);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-md);
+  background:var(--mi-color-surface);
+  color:var(--mi-color-ink);
+}
+
+[data-calculator] :is(
+  .ownership-total,
+  .commute-total,
+  .affordability-total,
+  .loan-primary,
+  .insurance-primary,
+  .fee-primary
+) span,
+[data-calculator] :is(
+  .ownership-total,
+  .commute-total,
+  .affordability-total,
+  .loan-primary,
+  .insurance-primary,
+  .fee-primary
+) small{
+  display:block;
+  color:var(--mi-color-muted);
+  font-size:var(--mi-type-xs);
+}
+
+[data-calculator] :is(
+  .ownership-total,
+  .commute-total,
+  .affordability-total,
+  .loan-primary,
+  .insurance-primary,
+  .fee-primary
+) strong{
+  display:block;
+  margin:var(--mi-space-2) 0 var(--mi-space-1);
+  color:var(--mi-color-primary);
+  font-size:clamp(1.75rem,3vw,2.5rem);
+  line-height:1;
+  letter-spacing:var(--mi-tracking-tight);
+}
+
+[data-calculator] :is(
+  .ownership-fields,
+  .commute-fields,
+  .affordability-fields,
+  .loan-fields,
+  .insurance-fields,
+  .fee-fields
+){
+  min-width:0;
+  align-content:start;
+  padding:var(--mi-space-8);
+  background:var(--mi-color-surface);
+}
+
+[data-calculator] :is(.ownership-fields,.commute-fields,.affordability-fields){
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--mi-space-5);
+}
+
+[data-calculator] :is(.loan-fields,.insurance-fields,.fee-fields){
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--mi-space-4);
+}
+
+[data-calculator] :is(
+  .ownership-fields,
+  .commute-fields,
+  .affordability-fields,
+  .loan-fields,
+  .insurance-fields,
+  .fee-fields
+) label{
+  padding:0;
+  border:0;
+  background:transparent;
+}
+
+[data-calculator] :is(
+  .ownership-breakdown,
+  .commute-breakdown,
+  .affordability-kpis,
+  .loan-breakdown,
+  .insurance-breakdown,
+  .fee-breakdown
+){
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:0;
+  padding:0 var(--mi-space-8) var(--mi-space-8);
+  border-top:1px solid var(--mi-color-line);
+  background:var(--mi-color-surface);
+}
+
+[data-calculator] :is(
+  .ownership-breakdown,
+  .commute-breakdown,
+  .affordability-kpis,
+  .loan-breakdown,
+  .insurance-breakdown,
+  .fee-breakdown
+)>span{
+  min-width:0;
+  padding:var(--mi-space-4);
+  border-right:1px solid var(--mi-color-line);
+  background:transparent;
+}
+
+[data-calculator] :is(
+  .ownership-breakdown,
+  .commute-breakdown,
+  .affordability-kpis,
+  .loan-breakdown,
+  .insurance-breakdown,
+  .fee-breakdown
+)>span:last-child{
+  border-right:0;
+}
+
+[data-calculator] :is(
+  .ownership-breakdown,
+  .commute-breakdown,
+  .affordability-kpis,
+  .loan-breakdown,
+  .insurance-breakdown,
+  .fee-breakdown
+) small{
+  display:block;
+  color:var(--mi-color-muted);
+  font-size:var(--mi-type-xs);
+  font-weight:700;
+  letter-spacing:0;
+  text-transform:none;
+}
+
+[data-calculator] :is(
+  .ownership-breakdown,
+  .commute-breakdown,
+  .affordability-kpis,
+  .loan-breakdown,
+  .insurance-breakdown,
+  .fee-breakdown
+) b{
+  display:block;
+  margin-top:var(--mi-space-1);
+  color:var(--mi-color-ink);
+  font-size:var(--mi-type-base);
+}
+
+[data-calculator] > .note-box{
+  grid-column:1/-1;
+  margin:0 var(--mi-space-8) var(--mi-space-8);
+  padding:var(--mi-space-4);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-md);
+  background:var(--mi-color-surface-subtle);
+}
+
+[data-calculator] > .note-box p{
+  margin:0;
+  font-size:var(--mi-type-xs);
+}
+
+/* Affordability results keep recommendations secondary to the calculator */
+[data-calculator="affordability"] .affordable-models{
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--mi-space-2);
+  padding:0 var(--mi-space-8) var(--mi-space-8);
+}
+
+[data-calculator="affordability"] .affordable-models a{
+  min-width:0;
+  padding:var(--mi-space-3);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-sm);
+  background:var(--mi-color-surface-subtle);
+}
+
+/* Electric calculators */
+[data-calculator="electric-range"],
+[data-calculator="electric-charging"]{
+  display:grid;
+  gap:var(--mi-space-6);
+  padding:var(--mi-space-8);
+}
+
+[data-calculator="electric-range"] .calculator-grid,
+[data-calculator="electric-charging"] .calculator-inputs{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:var(--mi-space-4);
+  border:0;
+}
+
+[data-calculator="electric-range"] .calculator-grid label,
+[data-calculator="electric-charging"] .calculator-inputs label{
+  padding:0;
+  border:0;
+  background:transparent;
+}
+
+[data-calculator="electric-range"] .calculator-results,
+[data-calculator="electric-charging"] .calculator-results{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:0;
+  margin:0;
+  overflow:hidden;
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-md);
+  background:var(--mi-color-surface-subtle);
+}
+
+[data-calculator="electric-charging"] .calculator-results{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+[data-calculator="electric-range"] .calculator-results>article,
+[data-calculator="electric-charging"] .calculator-results>div{
+  min-width:0;
+  padding:var(--mi-space-4);
+  border:0;
+  border-right:1px solid var(--mi-color-line);
+  background:transparent;
+}
+
+[data-calculator="electric-range"] .calculator-results>article:last-child,
+[data-calculator="electric-charging"] .calculator-results>div:last-child{
+  border-right:0;
+}
+
+[data-calculator="electric-range"] .calculator-results span,
+[data-calculator="electric-range"] .calculator-results small,
+[data-calculator="electric-charging"] .calculator-results span{
+  display:block;
+  color:var(--mi-color-muted);
+  font-size:var(--mi-type-xs);
+}
+
+[data-calculator="electric-range"] .calculator-results strong,
+[data-calculator="electric-charging"] .calculator-results strong{
+  display:block;
+  margin-top:var(--mi-space-1);
+  color:var(--mi-color-ink);
+  font-size:var(--mi-type-xl);
+  letter-spacing:var(--mi-tracking-tight);
+}
+
+[data-calculator] :is(.calculator-note,.muted-copy){
+  max-width:var(--mi-copy-max);
+  margin:0;
+  color:var(--mi-color-copy);
+  font-size:var(--mi-type-xs);
+  line-height:var(--mi-leading-copy);
+}
+
+/* Embedded model calculators */
+[data-calculator="installment"]{
+  display:grid;
+  grid-template-columns:minmax(220px,.8fr) minmax(0,1.1fr) minmax(220px,.7fr);
+  gap:var(--mi-space-6);
+  align-items:center;
+  padding:var(--mi-space-8);
+}
+
+[data-calculator="installment"]>div:first-child h2{
+  margin:0;
+  font-size:var(--mi-type-2xl);
+  line-height:var(--mi-leading-tight);
+  letter-spacing:var(--mi-tracking-tight);
+}
+
+[data-calculator="installment"] .calc-grid{
+  display:grid;
+  gap:var(--mi-space-4);
+}
+
+[data-calculator="installment"] .calc-result,
+[data-calculator="used-value"] .used-estimate,
+[data-calculator="rider-fit"] .rider-fit-score,
+[data-calculator="fuel-range"] .fuel-result{
+  padding:var(--mi-space-5);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-md);
+  background:var(--mi-color-primary-soft);
+  color:var(--mi-color-ink);
+}
+
+[data-calculator="installment"] .calc-result span,
+[data-calculator="installment"] .calc-result small,
+[data-calculator="used-value"] .used-estimate small,
+[data-calculator="used-value"] .used-estimate span,
+[data-calculator="rider-fit"] .rider-fit-score span,
+[data-calculator="rider-fit"] .rider-fit-score small,
+[data-calculator="fuel-range"] .fuel-result span,
+[data-calculator="fuel-range"] .fuel-result small{
+  display:block;
+  color:var(--mi-color-copy);
+  font-size:var(--mi-type-xs);
+}
+
+[data-calculator="installment"] .calc-result strong,
+[data-calculator="used-value"] .used-estimate strong,
+[data-calculator="rider-fit"] .rider-fit-score strong,
+[data-calculator="fuel-range"] .fuel-result strong{
+  display:block;
+  margin:var(--mi-space-2) 0;
+  color:var(--mi-color-primary);
+  font-size:var(--mi-type-3xl);
+  line-height:1;
+  letter-spacing:var(--mi-tracking-tight);
+}
+
+[data-calculator="fuel-range"]{
+  padding:var(--mi-space-8);
+}
+
+[data-calculator="fuel-range"] .fuel-kpis{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--mi-space-3);
+  margin-bottom:var(--mi-space-6);
+}
+
+[data-calculator="fuel-range"] .fuel-kpis>div{
+  padding:var(--mi-space-4);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-md);
+  background:var(--mi-color-surface-subtle);
+}
+
+[data-calculator="fuel-range"] .fuel-controls{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--mi-space-5);
+  margin-bottom:var(--mi-space-5);
+}
+
+[data-calculator="rider-fit"]{
+  display:grid;
+  grid-template-columns:minmax(200px,.7fr) minmax(0,1.2fr) minmax(220px,1fr);
+  gap:var(--mi-space-5);
+  padding:var(--mi-space-8);
+}
+
+[data-calculator="rider-fit"] .rider-fit-fields{
+  display:grid;
+  gap:var(--mi-space-3);
+}
+
+[data-calculator="rider-fit"] .rider-fit-notes{
+  display:grid;
+  align-content:start;
+  gap:var(--mi-space-2);
+}
+
+[data-calculator="rider-fit"] .rider-fit-notes span{
+  padding:var(--mi-space-2) var(--mi-space-3);
+  border:1px solid var(--mi-color-line-soft);
+  border-radius:var(--mi-radius-sm);
+  background:var(--mi-color-surface-subtle);
+  color:var(--mi-color-slate-700);
+  font-size:var(--mi-type-xs);
+}
+
+[data-calculator="used-value"]{
+  display:grid;
+  grid-template-columns:minmax(240px,1fr) minmax(220px,.85fr) minmax(220px,.7fr);
+  gap:var(--mi-space-5);
+  align-items:center;
+  padding:var(--mi-space-8);
+}
+
+[data-calculator="used-value"]>div:first-child h2{
+  margin:0;
+  font-size:var(--mi-type-2xl);
+  line-height:var(--mi-leading-tight);
+  letter-spacing:var(--mi-tracking-tight);
+}
+
+[data-calculator="used-value"] .used-controls{
+  display:grid;
+  gap:var(--mi-space-4);
+}
+
+@media(max-width:980px){
+  [data-calculator="ownership"],
+  [data-calculator="commute"],
+  [data-calculator="affordability"],
+  [data-calculator="loan"],
+  [data-calculator="insurance"],
+  [data-calculator="registration"]{
+    grid-template-columns:1fr;
+  }
+
+  [data-calculator] :is(
+    .ownership-calculator-copy,
+    .commute-calculator-copy,
+    .affordability-copy,
+    .loan-copy,
+    .insurance-copy,
+    .fee-copy
+  ){
+    border-right:0;
+    border-bottom:1px solid var(--mi-color-line);
+  }
+
+  [data-calculator] :is(
+    .ownership-breakdown,
+    .commute-breakdown,
+    .affordability-kpis,
+    .loan-breakdown,
+    .insurance-breakdown,
+    .fee-breakdown
+  ){
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  [data-calculator="electric-range"] .calculator-grid,
+  [data-calculator="electric-range"] .calculator-results,
+  [data-calculator="electric-charging"] .calculator-inputs,
+  [data-calculator="electric-charging"] .calculator-results{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  [data-calculator="installment"],
+  [data-calculator="rider-fit"],
+  [data-calculator="used-value"]{
+    grid-template-columns:1fr 1fr;
+  }
+
+  [data-calculator="installment"] .calc-result,
+  [data-calculator="rider-fit"] .rider-fit-notes,
+  [data-calculator="used-value"] .used-estimate{
+    grid-column:1/-1;
+  }
+}
+
+@media(max-width:620px){
+  [data-calculator]{
+    margin-bottom:var(--mi-space-8);
+    border-radius:var(--mi-radius-lg);
+  }
+
+  [data-calculator] :is(
+    .ownership-calculator-copy,
+    .commute-calculator-copy,
+    .affordability-copy,
+    .loan-copy,
+    .insurance-copy,
+    .fee-copy,
+    .ownership-fields,
+    .commute-fields,
+    .affordability-fields,
+    .loan-fields,
+    .insurance-fields,
+    .fee-fields
+  ){
+    padding:var(--mi-space-5);
+  }
+
+  [data-calculator] :is(.ownership-fields,.commute-fields,.affordability-fields){
+    grid-template-columns:1fr;
+  }
+
+  [data-calculator] :is(
+    .ownership-breakdown,
+    .commute-breakdown,
+    .affordability-kpis,
+    .loan-breakdown,
+    .insurance-breakdown,
+    .fee-breakdown
+  ){
+    grid-template-columns:1fr 1fr;
+    padding:0 var(--mi-space-5) var(--mi-space-5);
+  }
+
+  [data-calculator] :is(
+    .ownership-breakdown,
+    .commute-breakdown,
+    .affordability-kpis,
+    .loan-breakdown,
+    .insurance-breakdown,
+    .fee-breakdown
+  )>span:nth-child(2n){
+    border-right:0;
+  }
+
+  [data-calculator] > .note-box{
+    margin:0 var(--mi-space-5) var(--mi-space-5);
+  }
+
+  [data-calculator="affordability"] .affordable-models{
+    grid-template-columns:1fr;
+    padding:0 var(--mi-space-5) var(--mi-space-5);
+  }
+
+  [data-calculator="electric-range"],
+  [data-calculator="electric-charging"],
+  [data-calculator="fuel-range"],
+  [data-calculator="installment"],
+  [data-calculator="rider-fit"],
+  [data-calculator="used-value"]{
+    padding:var(--mi-space-5);
+  }
+
+  [data-calculator="electric-range"] .calculator-grid,
+  [data-calculator="electric-range"] .calculator-results,
+  [data-calculator="electric-charging"] .calculator-inputs,
+  [data-calculator="electric-charging"] .calculator-results,
+  [data-calculator="fuel-range"] .fuel-kpis,
+  [data-calculator="fuel-range"] .fuel-controls,
+  [data-calculator="installment"],
+  [data-calculator="rider-fit"],
+  [data-calculator="used-value"]{
+    grid-template-columns:1fr;
+  }
+
+  [data-calculator="installment"] .calc-result,
+  [data-calculator="rider-fit"] .rider-fit-notes,
+  [data-calculator="used-value"] .used-estimate{
+    grid-column:auto;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  [data-calculator] *,
+  [data-calculator] *::before,
+  [data-calculator] *::after{
+    transition:none;
+  }
+}

@@ -20,7 +20,7 @@ const examplePlanningRange = Math.round(exampleClaim * exampleFactor / 100);
 const exampleDailyShare = Math.round(exampleDailyKm / examplePlanningRange * 100);
 
 export default function Page() {
-  return <section className="page shell">
+  return <section className="page shell" data-calculator-page>
     <Breadcrumbs items={[{ label: "Tools", href: "/tools" }, { label: "Electric range calculator" }]} />
     <div className="page-head">
       <span className="entity-kicker">Electric motorcycle tool</span>

@@ -22,7 +22,7 @@ export default async function LtoRegistrationFeeCalculatorPage({ searchParams }:
   const money = (v?: string | string[], fallback = 0) => { const n = Number(one(v)); return Number.isFinite(n) && n >= 0 && n <= 100000 ? n : fallback; };
   const inspectionRaw = one(query.inspection);
 
-  return <section className="page shell">
+  return <section className="page shell" data-calculator-page>
     <Breadcrumbs items={[{ label: "Tools", href: "/tools" }, { label: "LTO registration calculator" }]} />
     <div className="page-head">
       <h1>LTO motorcycle registration fee calculator</h1>

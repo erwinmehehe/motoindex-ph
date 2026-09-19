@@ -35,7 +35,7 @@ export default async function MotorcycleLoanCalculatorPage({ searchParams }: { s
   const rate = number(one(query.rate), 0, 60, 12);
   const safeModel = one(query.model)?.slice(0, 80);
 
-  return <section className="page shell">
+  return <section className="page shell" data-calculator-page>
     <Breadcrumbs items={[{ label: "Tools", href: "/tools" }, { label: "Loan calculator" }]} />
     <div className="page-head">
       <h1>Motorcycle loan calculator Philippines</h1>

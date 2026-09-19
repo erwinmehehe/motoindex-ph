@@ -19,6 +19,7 @@ const sharedCss=new Set([
   "app/styles/components.css",
   "app/styles/routes.css",
   "app/styles/ui-system.css",
+  "app/styles/calculator-system.css",
   "app/styles/motorcycles-index-fix.css",
   "app/styles/product-entity-layout-fix.css"
 ]);

@@ -39,7 +39,7 @@ export function OwnershipCostCalculator({ model }: { model: Motorcycle }) {
     return {fuelMonthly,runningMonthly,down,financed,payment,year1,threeYearCash,resale,threeYearNet,threeYearMonthly:threeYearNet/36,financeCost:Math.max(0,acquisitionThreeYears-purchasePrice)};
   }, [km, kmpl, fuel, maintenance, insurance, registration, tires, purchasePrice, mode, downPct, apr, term, model]);
 
-  return <div className="ownership-calculator v18">
+  return <div className="ownership-calculator v18" data-calculator="ownership">
     <div className="ownership-calculator-copy">
       <h2>Estimate the 1-year + 3-year cost to own {model.model}</h2>
       <p>Start with the purchase and riding assumptions that matter most. Fine-tune fuel, service and annual costs only when you need them.</p>
