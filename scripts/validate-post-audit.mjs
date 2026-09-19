@@ -111,7 +111,7 @@ const robotsSource=read("app/robots.ts");
 need(robotsSource.includes("commerceSitemapEntries().length")&&robotsSource.includes("/sitemaps/commerce.xml"),"Robots must advertise commerce sitemap only when it has verified public URLs");
 const smoke=read("scripts/smoke-production.mjs");
 need(["/dealers","/dealers/san-fernando","/dealers/angeles-city","/dealers/cebu-city","/dealers/davao-city","/dealers/pampanga"].every(route=>smoke.includes(`"${route}"`))&&smoke.includes('"/sellers/demo-yamaha-dealer-a"')&&smoke.includes("populated commerce sitemap"),"Production smoke test must cover published dealer cities, Pampanga hub, hidden demo routes and populated commerce URLs");
-need(fs.existsSync(path.join(root,"app/dealer-directory.css"))&&dealersPage.includes("dealer-checklist")&&read("app/dealer-directory.css").includes(".dealer-filter-bar")&&read("app/dealer-directory.css").includes(".dealer-city-brands")&&read("app/dealer-directory.css").includes("@media(max-width:650px)"),"Dealer directory must retain finder, brand coverage and mobile styling");
+need(fs.existsSync(path.join(root,"app/dealer-directory.css"))&&dealersPage.includes("data-dealer-search-section")&&dealersPage.includes("data-official-dealer-locators")&&read("app/dealer-directory.css").includes(".dealer-filter-bar")&&read("app/dealer-directory.css").includes(".dealer-city-brands")&&read("app/dealer-directory.css").includes("@media(max-width:650px)"),"Dealer directory must retain finder, brand coverage and mobile styling");
 
 const checkLaunch=read("scripts/check-launch.mjs");
 need(checkLaunch.includes("findSiblingDynamicRouteConflicts"),"Launch gate must include sibling dynamic route conflict guard");

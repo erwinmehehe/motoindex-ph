@@ -5,6 +5,8 @@ import { pageMetadata } from "@/lib/site";
 import { officialDealerLocators } from "@/lib/dealerLocators";
 import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug } from "@/lib/sellers";
 import { allVerifiedDealers } from "@/lib/persistentSellers";
+import { CTAGroup, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
+import styles from "../styles/hub-index.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Dealers Philippines: Find Checked Dealers",
@@ -25,127 +27,119 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
   const requestedBrand = requestedBrandMatch || requestedBrandRaw || "all";
   const cityCounts = new Map<string, number>();
   for (const dealer of verifiedDealers) cityCounts.set(dealer.city, (cityCounts.get(dealer.city) || 0) + 1);
-  const publishedCities = [...cityCounts.entries()].filter(([,count])=>count>=MIN_PUBLIC_DEALERS_PER_CITY).map(([city])=>city).sort();
+
+  const publishedCities = [...cityCounts.entries()]
+    .filter(([,count])=>count>=MIN_PUBLIC_DEALERS_PER_CITY)
+    .map(([city])=>city)
+    .sort();
+
   const ncrCities=NCR_CITY_ORDER.filter(city=>publishedCities.includes(city));
   const otherCities=publishedCities.filter(city=>!NCR_CITY_ORDER.includes(city));
   const pampangaCount = verifiedDealers.filter(dealer=>dealer.province==="Pampanga").length;
   const featuredJoinHref="/dealers/join?plan=featured-city&source=%2Fdealers#featured-options";
+  const pageTitle=requestedBrand!=="all"
+    ? `${requestedBrand} motorcycle dealers in the Philippines`
+    : "Find motorcycle dealers in the Philippines";
+  const pageDescription=requestedBrand!=="all"
+    ? `Start with checked ${requestedBrand} dealer records, then confirm the exact model, variant, stock and complete cash price with the branch before paying a reservation or deposit.`
+    : "Search checked dealer records by city or brand, then confirm stock and the complete cash price with the branch before paying a reservation or deposit.";
 
-  return <section className="page shell">
-    <div className="page-head dealer-page-head">
-      <span className="entity-kicker">Motorcycle dealer finder</span>
-      <h1>{requestedBrand !== "all" ? `${requestedBrand} motorcycle dealers in the Philippines` : "Find motorcycle dealers in the Philippines"}</h1>
-      <p>{requestedBrand !== "all" ? `Start with checked ${requestedBrand} dealer records, then confirm the exact model, variant, stock and complete cash price with the branch before paying a reservation or deposit.` : "Search checked dealer records by city or brand, then confirm stock and the complete cash price with the branch before paying a reservation or deposit."}</p>
-    </div>
+  return <section className="page shell dealer-master-page">
+    <PageHero
+      kicker="Motorcycle dealer finder"
+      title={pageTitle}
+      description={pageDescription}
+      actions={<CTAGroup><a className="button" href="#dealer-search">Search checked dealers</a><Link className="button secondary" href="/motorcycles">Choose a motorcycle first</Link></CTAGroup>}
+    />
 
-    <section className="motorcycle-entity-section dealer-directory-section">
-      <div className="section-head compact"><div>
-        <span className="section-kicker">Checked records</span>
-        <h2>Search the dealer directory</h2>
-        <p>We publish a branch only when its dealer relationship and business details can be checked against a trustworthy current verification source.</p>
-      </div></div>
+    <StatRow items={[
+      {label:"Checked dealers",value:String(verifiedDealers.length),note:"Published verification records"},
+      {label:"Published cities",value:String(publishedCities.length),note:`Minimum ${MIN_PUBLIC_DEALERS_PER_CITY} checked branches`},
+      {label:"Brands represented",value:String(availableBrands.length),note:"From current checked dealer records"}
+    ]}/>
+
+    <section id="dealer-search" className={styles.section} data-dealer-search-section>
+      <SectionHeader
+        kicker="Checked records"
+        title="Search the dealer directory"
+        description="MotoIndex publishes a branch only when its dealer relationship and business details can be checked against a current verification source."
+      />
       <DealerFinder dealers={verifiedDealers} initialBrand={requestedBrand} />
     </section>
 
-    {ncrCities.length?<section className="motorcycle-entity-section">
-      <div className="section-head compact"><div>
-        <span className="section-kicker">Metro Manila coverage</span>
-        <h2>Motorcycle dealers across NCR</h2>
-        <p>Start with checked dealer directories for major Metro Manila cities. Each city page publishes only after at least {MIN_PUBLIC_DEALERS_PER_CITY} branch records pass the dealer verification gate.</p>
-      </div></div>
-      <div className="dealer-city-links">
-        {ncrCities.map(city=><Link href={`/dealers/${citySlug(city)}`} key={city}>
-          <strong>Motorcycle dealers in {city}</strong>
-          <span>{cityCounts.get(city) || 0} checked branches</span>
+    {(ncrCities.length||otherCities.length||pampangaCount>=5)?<section className={styles.section} data-dealer-city-section>
+      <SectionHeader
+        kicker="Local dealer guides"
+        title="Browse checked dealer coverage by area"
+        description={`City pages publish only after at least ${MIN_PUBLIC_DEALERS_PER_CITY} dealer records pass the verification gate.`}
+      />
+      <div className={styles.decisionList}>
+        {ncrCities.map(city=><Link className={styles.decisionRow} href={`/dealers/${citySlug(city)}`} key={city}>
+          <span className={styles.decisionLabel}>Metro Manila</span>
+          <span className={styles.decisionCopy}><h3>Motorcycle dealers in {city}</h3><p>Checked branch directory for {city}.</p></span>
+          <span className={styles.decisionMeta}>{cityCounts.get(city)||0} branches →</span>
         </Link>)}
-      </div>
-    </section>:null}
-
-    {otherCities.length?<section className="motorcycle-entity-section">
-      <div className="section-head compact"><div>
-        <span className="section-kicker">Major city guides</span>
-        <h2>Browse dealer coverage outside Metro Manila</h2>
-        <p>Use these checked city directories to compare nearby branches before contacting dealers for current stock and final pricing.</p>
-      </div></div>
-      <div className="dealer-city-links">
-        {otherCities.map(city=><Link href={`/dealers/${citySlug(city)}`} key={city}>
-          <strong>Motorcycle dealers in {city}</strong>
-          <span>{cityCounts.get(city) || 0} checked branches</span>
+        {otherCities.map(city=><Link className={styles.decisionRow} href={`/dealers/${citySlug(city)}`} key={city}>
+          <span className={styles.decisionLabel}>City guide</span>
+          <span className={styles.decisionCopy}><h3>Motorcycle dealers in {city}</h3><p>Compare checked nearby branches before asking for current stock and final pricing.</p></span>
+          <span className={styles.decisionMeta}>{cityCounts.get(city)||0} branches →</span>
         </Link>)}
+        {pampangaCount>=5?<Link className={styles.decisionRow} href="/dealers/pampanga">
+          <span className={styles.decisionLabel}>Province guide</span>
+          <span className={styles.decisionCopy}><h3>Motorcycle dealers in Pampanga</h3><p>Checked dealer branches across Angeles City and San Fernando in one local directory.</p></span>
+          <span className={styles.decisionMeta}>{pampangaCount} branches →</span>
+        </Link>:null}
       </div>
     </section>:null}
 
-    {pampangaCount>=5?<section className="motorcycle-entity-section">
-      <div className="section-head compact"><div>
-        <span className="section-kicker">Province guide</span>
-        <h2>Browse motorcycle dealers across Pampanga</h2>
-        <p>See checked dealer branches across Angeles City and San Fernando in one local directory.</p>
-      </div></div>
-      <div className="dealer-city-links">
-        <Link href="/dealers/pampanga">
-          <strong>Motorcycle dealers in Pampanga</strong>
-          <span>{pampangaCount} checked branches</span>
-        </Link>
-      </div>
-    </section>:null}
-
-    <section className="motorcycle-entity-section">
-      <div className="section-head compact"><div>
-        <span className="section-kicker">Official sources</span>
-        <h2>Use the motorcycle brand&apos;s dealer locator</h2>
-        <p>MotoIndex coverage is still growing. These links go directly to the official Philippine dealer directories for broader branch coverage.</p>
-      </div></div>
-      <div className="dealer-locator-grid">
-        {officialDealerLocators.map(locator=><a className="dealer-locator-card" href={locator.href} target="_blank" rel="noopener noreferrer" key={locator.brand}>
-          <span>{locator.brand}</span>
-          <h3>{locator.brand} dealer locator</h3>
-          <p>{locator.note}</p>
-          <b>Open official locator ↗</b>
+    <section className={styles.section} data-official-dealer-locators>
+      <SectionHeader
+        kicker="Official sources"
+        title="Use the motorcycle brand's dealer locator"
+        description="MotoIndex coverage is still growing. Use official Philippine brand directories when you need broader branch coverage."
+      />
+      <div className={styles.decisionList}>
+        {officialDealerLocators.map(locator=><a className={styles.decisionRow} href={locator.href} target="_blank" rel="noopener noreferrer" key={locator.brand}>
+          <span className={styles.decisionLabel}>{locator.brand}</span>
+          <span className={styles.decisionCopy}><h3>{locator.brand} dealer locator</h3><p>{locator.note}</p></span>
+          <span className={styles.decisionMeta}>Open official locator ↗</span>
         </a>)}
       </div>
     </section>
 
-    <section className="motorcycle-entity-section">
-      <div className="section-head compact"><div>
-        <span className="section-kicker">Before you pay</span>
-        <h2>What to ask the dealer</h2>
-        <p>Get these details in writing so quotes from different branches are easy to compare.</p>
-      </div></div>
-      <div className="seller-stats dealer-checklist">
-        <div><strong>Cash price</strong><span>Exact variant and color</span></div>
-        <div><strong>Added fees</strong><span>Registration and processing</span></div>
-        <div><strong>Release date</strong><span>Confirmed stock availability</span></div>
-        <div><strong>Warranty</strong><span>Coverage and service location</span></div>
-      </div>
-      <div className="dealer-verification-note">
-        <strong>What “checked” means here</strong>
+    <section className={styles.section}>
+      <SectionHeader
+        kicker="Before you pay"
+        title="What to ask the dealer"
+        description="Get these details in writing so quotes from different branches are easy to compare."
+      />
+      <StatRow items={[
+        {label:"Cash price",value:"Exact variant",note:"Confirm color and complete cash price"},
+        {label:"Added fees",value:"Itemized",note:"Registration and processing"},
+        {label:"Release date",value:"Confirmed",note:"Ask whether stock is physically available"},
+        {label:"Warranty",value:"In writing",note:"Coverage and service location"}
+      ]}/>
+      <InfoPanel subtle className={styles.notice}>
+        <h3>What “checked” means here</h3>
         <p>The dealer relationship has a reviewed verification source on file. For manufacturer-locator records, that source is the official brand directory. Address and contact details are also checked before publication. This does not verify current inventory, financing approval, promo pricing or same-day release.</p>
-      </div>
+      </InfoPanel>
     </section>
 
-    <section className="dealer-partner-strip dealer-listing-callout">
-      <div>
-        <span className="section-kicker">For motorcycle dealers</span>
-        <h2>Get your dealership listed on MotoIndex for free.</h2>
-        <p>Verified dealer listings are free. Approved dealers can publish branch details and appear in city and brand searches. Optional Featured Dealer, Brand + City, and City Sponsor placements are available for dealers that want additional visibility.</p>
-        <small>Verification is never sold. Paid placements are clearly labeled and do not change MotoIndex verification standards.</small>
-      </div>
-      <div className="dealer-city-footer">
-        <Link className="button" href="/dealers/join">Get listed free</Link>
-        <Link className="button secondary" href={featuredJoinHref}>See featured options</Link>
-      </div>
+    <section className={styles.section}>
+      <InfoPanel subtle>
+        <h3>For motorcycle dealers</h3>
+        <p>Verified dealer listings are free. Approved dealers can publish branch details and appear in city and brand searches. Optional paid placements are clearly labeled and do not change MotoIndex verification standards.</p>
+        <CTAGroup><Link className="button" href="/dealers/join">Get listed free</Link><Link className="button secondary" href={featuredJoinHref}>See featured options</Link></CTAGroup>
+      </InfoPanel>
     </section>
 
-    <section className="motorcycle-entity-section">
-      <div className="section-head compact"><div>
-        <h2>Choose the motorcycle before requesting quotes</h2>
-        <p>Compare models and set a budget first, then contact more than one branch for the same exact variant.</p>
-      </div></div>
-      <div className="hero-actions">
-        <Link className="button" href="/motorcycles">Browse motorcycles</Link>
-        <Link className="button secondary" href="/finder">Open motorcycle finder</Link>
-        <Link className="button secondary" href="/compare">Compare motorcycles</Link>
-      </div>
+    <section className={styles.section}>
+      <SectionHeader
+        kicker="Before requesting quotes"
+        title="Choose the motorcycle first"
+        description="Compare models and set a budget first, then contact more than one branch for the same exact variant."
+      />
+      <CTAGroup><Link className="button" href="/motorcycles">Browse motorcycles</Link><Link className="button secondary" href="/finder">Open motorcycle finder</Link><Link className="button secondary" href="/compare">Compare motorcycles</Link></CTAGroup>
     </section>
   </section>;
 }

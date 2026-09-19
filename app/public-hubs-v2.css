@@ -6,31 +6,9 @@
   --hub-line:rgba(17,19,24,.11);
 }
 
-/* Dealer directory: remove the giant empty rounded shell around the finder. */
-.dealer-directory-section{
-  min-height:0!important;
-  margin:0!important;
-  padding:28px 0 48px!important;
-  border:0!important;
-  border-radius:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-}
-.dealer-directory-section>.section-head{margin-bottom:20px!important}
-.dealer-directory-section .dealer-finder{
-  padding:20px!important;
-  border:1px solid var(--hub-line)!important;
-  border-radius:22px!important;
-  background:#fff!important;
-  box-shadow:0 22px 55px rgba(17,19,24,.055)!important;
-}
-
 /* Accessories use canonical UI primitives; route CSS adds no component skin. */
 
 /* Keep public hub sections in normal document flow.
    These routes contain bounded editorial/product sets, so reserving large
    intrinsic placeholders creates visible dead space and unreliable anchors. */
 
-@media(max-width:560px){
-  .dealer-directory-section .dealer-finder{padding:14px!important}
-}
