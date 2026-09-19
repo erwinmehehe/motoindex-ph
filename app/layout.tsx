@@ -27,14 +27,8 @@ export const metadata: Metadata = {
     google: "semQnFpP4-Phz-FitfvqFxwwida4f7PGe-hXc11sUz8"
   },
   icons: {
-    icon: [
-      { url: "/icon-48.png", sizes: "48x48", type: "image/png" },
-      { url: "/icon-96.png", sizes: "96x96", type: "image/png" },
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
-      { url: "/favicon.svg", type: "image/svg+xml" }
-    ],
-    shortcut: "/icon-48.png",
+    icon: [{ url: "/icon-96.png", sizes: "96x96", type: "image/png" }],
+    shortcut: "/icon-96.png",
     apple: "/apple-touch-icon.png"
   },
   openGraph: {
@@ -53,7 +47,13 @@ const organizationSchema = {
   "@type": "Organization",
   name: SITE_NAME,
   url: SITE_URL,
-  logo: `${SITE_URL}/brand/motoindex-mark.svg`,
+  logo: {
+    "@type": "ImageObject",
+    url: `${SITE_URL}/icon-512.png`,
+    width: 512,
+    height: 512
+  },
+  image: `${SITE_URL}/icon-512.png`,
   description: SITE_DESCRIPTION
 };
 
