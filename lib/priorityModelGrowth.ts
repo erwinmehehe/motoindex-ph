@@ -8,6 +8,10 @@ export type PriorityModelGrowthProfile = {
   relatedIds: string[];
   recommendationHref: string;
   recommendationLabel: string;
+  legacyContext?: {
+    heading: string;
+    body: string;
+  };
 };
 
 const profiles: Record<string, PriorityModelGrowthProfile> = {
@@ -110,6 +114,22 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     relatedIds: ["yamaha-xmax"],
     recommendationHref: "/recommendations/maxi-scooters-philippines",
     recommendationLabel: "Compare maxi scooters"
+  },
+
+  "honda-crf300-rally": {
+    seoTitle: "Honda CRF300 Rally Price Philippines 2026 | Specs",
+    seoDescription: "Honda CRF300 Rally price in the Philippines, 286cc specs, seat height, ground clearance, ABS, CRF250 Rally successor context, financing and ownership.",
+    intentIntro: "The CRF300 Rally is the current Honda entity for riders comparing a lightweight road-and-trail adventure bike. Honda Philippines listed it at ₱309,900 in 2025, with a 286cc engine, 12.8 L tank and rally-style long-distance equipment.",
+    moneyQuestion: "What does the CRF300 Rally cost after down payment, monthly payment, registration, insurance, protection parts and dealer fees are included?",
+    ownershipQuestion: "Compare 21/18-inch tire availability, chain and sprocket service, tall-seat fit, crash protection and Honda service access with lighter dual-sport alternatives.",
+    alternativeIds: ["honda-crf150l", "yamaha-wr155r", "kawasaki-klx230"],
+    relatedIds: ["honda-crf150l"],
+    recommendationHref: "/recommendations/dual-sport-motorcycles-philippines",
+    recommendationLabel: "Compare dual-sport motorcycles",
+    legacyContext: {
+      heading: "Looking for the Honda CRF250 Rally?",
+      body: "Honda Philippines identifies the CRF300 Rally as the enhanced successor to the CRF250 Rally. MotoIndex keeps CRF250 Rally search and predecessor context on this CRF300 Rally page instead of publishing the older 250 as a current Philippine model."
+    }
   },
 
   "honda-click-125i": {
