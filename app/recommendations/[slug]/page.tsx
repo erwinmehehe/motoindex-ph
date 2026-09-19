@@ -274,8 +274,6 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
   const models=getRecommendationModels(slug);
   const specDates=models.map(m=>m.verifiedAt).filter(Boolean).sort();
   const priceDates=models.flatMap(m=>priceChecksForModel(m.id).map(row=>row.checkedAt)).sort();
-  const lastSpecUpdated=specDates.at(-1);
-  const lastPriceUpdated=priceDates.at(-1);
   const faqItems:FaqItem[]=guide.faqQuestions.map(question=>({question,answer:faqAnswer(question,models,guide)}));
   const related=guide.relatedGuideSlugs.map(relatedSlug=>recommendationGuides.find(g=>g.slug===relatedSlug)).filter((g):g is RecommendationGuide=>Boolean(g&&isIndexableRecommendation(g.slug)));
   const decisions=decisionCards(guide,models);
