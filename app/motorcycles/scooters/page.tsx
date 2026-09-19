@@ -169,7 +169,7 @@ export default function ScootersPage() {
           kicker="How this page works"
           title="One market hub, model-level evidence"
           titleId="scooter-methodology"
-          description="MotoIndex keeps the category comparison here while price, specifications, colors, installment context and fitment evidence remain on each canonical model page."
+          description="MotoIndex keeps the category comparison here while each model page carries its detailed price, specifications, colors, installment context and fitment evidence."
         />
         <div className={styles.methodGrid}>
           <InfoPanel subtle>
