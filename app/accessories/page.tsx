@@ -73,7 +73,8 @@ export default function AccessoriesPage(){
         {categoryHubs.map(hub=><Link className={styles.categoryRow} key={hub.href} href={hub.href}>
           <span className={styles.categoryKicker}>{hub.kicker}</span>
           <span className={styles.categoryCopy}><h3>{hub.title}</h3><p>{hub.description}</p></span>
-          <span className={styles.categoryArrow} aria-label={hub.meta}>→</span>
+          <span className={styles.categoryMeta}>{hub.meta}</span>
+          <span className={styles.categoryArrow} aria-hidden="true">→</span>
         </Link>)}
       </div>
     </section>
