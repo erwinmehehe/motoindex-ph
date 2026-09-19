@@ -27,6 +27,7 @@ const routes=[
   {name:"maintenance-hub",path:"/maintenance"},
   {name:"used-hub",path:"/used-motorcycles"},
   {name:"fitment-hub",path:"/fitment"},
+  {name:"dealers-hub",path:"/dealers"},
   {name:"calculator-ownership",path:"/ownership/cost-calculator"},
   {name:"calculator-commute",path:"/commute/cost-calculator"},
   {name:"calculator-affordability",path:"/commute/affordability"},
@@ -229,6 +230,10 @@ const inspect=`(() => {
   const legacyUsedCards=document.querySelectorAll(".used-market-card,.used-empty-market").length;
   const fitmentExplorer=Boolean(document.querySelector("[data-fitment-explorer-section] .fitment-explorer"));
   const legacyFitmentGuide=document.querySelectorAll(".fitment-guide-panel").length;
+  const dealerFinder=Boolean(document.querySelector("[data-dealer-search-section] .dealer-finder"));
+  const dealerCityRows=document.querySelectorAll("[data-dealer-city-section] a").length;
+  const officialDealerRows=document.querySelectorAll("[data-official-dealer-locators] a").length;
+  const legacyDealerCards=document.querySelectorAll(".dealer-locator-card,.dealer-partner-strip,.dealer-checklist").length;
 
   const standardMotorcycleCards=[...document.querySelectorAll('[data-motorcycle-card="standard"]')];
   const standardMotorcycleCardModes=standardMotorcycleCards.map(card=>({
@@ -288,6 +293,10 @@ const inspect=`(() => {
     legacyUsedCards,
     fitmentExplorer,
     legacyFitmentGuide,
+    dealerFinder,
+    dealerCityRows,
+    officialDealerRows,
+    legacyDealerCards,
     cloudflareError:/worker exceeded resource limits|error 1102|error 503|service unavailable/.test(bodyText),
     empty:(document.body?.innerText||"").trim().length<80
   };
@@ -377,6 +386,9 @@ try{
       if(route.name==="used-hub"&&(row?.legacyUsedCards||0)>0)failures.push(`${width}px used motorcycles: legacy listing/empty-state cards returned`);
       if(route.name==="fitment-hub"&&!row?.fitmentExplorer)failures.push(`${width}px fitment: exact-model explorer is missing`);
       if(route.name==="fitment-hub"&&(row?.legacyFitmentGuide||0)>0)failures.push(`${width}px fitment: legacy three-card guide panel returned`);
+      if(route.name==="dealers-hub"&&!row?.dealerFinder)failures.push(`${width}px dealers: dealer finder is missing`);
+      if(route.name==="dealers-hub"&&(row?.officialDealerRows||0)<4)failures.push(`${width}px dealers: official dealer locator index is incomplete`);
+      if(route.name==="dealers-hub"&&(row?.legacyDealerCards||0)>0)failures.push(`${width}px dealers: legacy dealer card/partner/checklist layout returned`);
 
       const metrics=await cdp.send("Page.getLayoutMetrics");
       const contentSize=metrics.cssContentSize||metrics.contentSize;
