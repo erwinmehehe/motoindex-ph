@@ -28,7 +28,7 @@ export function InstallmentCalculator({ price, priceOptions = [] }: { price: num
   }
 
   return (
-    <section className="calculator">
+    <section className="calculator" data-calculator="installment">
       <div><h2>Estimate your monthly payment</h2><p>The purchase price starts from MotoIndex&apos;s displayed market-price basis and is editable. When current trim SRPs are available, you can load one directly. Dealer financing, fees and effective rates vary.</p></div>
       {priceOptions.length > 1 && <div className="variant-price-picker"><label>Trim SRP<select value={selectedOption} onChange={(e)=>chooseVariant(e.target.value)}><option value="">Use displayed market basis</option>{priceOptions.map((option)=><option key={`${option.label}-${option.price}`} value={option.label}>{option.label} · {peso(option.price)}</option>)}</select></label><small>Trim SRPs are dated references. The purchase-price field stays editable for an actual dealer quote.</small></div>}
       <div className="calc-grid">
