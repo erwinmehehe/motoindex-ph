@@ -32,6 +32,47 @@ function checkMotorcycleSummaries(path) {
 checkMotorcycleSummaries("lib/data.ts");
 checkMotorcycleSummaries("lib/phTier23Models.ts");
 
+function motorcycleRecord(source, id) {
+  const start = source.indexOf(`id: "${id}"`);
+  if (start < 0) return "";
+  const next = source.indexOf('\n  {', start + 1);
+  return source.slice(start, next < 0 ? source.length : next);
+}
+
+const motorcycleData = read("lib/data.ts");
+const marketChecksSource = read("lib/marketChecks.ts");
+const primarySourcePriorityModels = {
+  "honda-click-125i": "hondaph.com",
+  "yamaha-aerox-v3": "yamaha-motor.com.ph",
+  "honda-pcx-160": "hondaph.com",
+  "suzuki-raider-r150": "mc.suzuki.com.ph",
+  "honda-click-160": "hondaph.com",
+  "yamaha-nmax-v3": "yamaha-motor.com.ph"
+};
+
+for (const [id, officialDomain] of Object.entries(primarySourcePriorityModels)) {
+  const record = motorcycleRecord(motorcycleData, id);
+  if (!record) {
+    failures.push(`lib/data.ts: priority model ${id} is missing`);
+    continue;
+  }
+  if (!record.includes(officialDomain)) {
+    failures.push(`lib/data.ts: ${id} canonical record must use a current manufacturer source on ${officialDomain}`);
+  }
+  if (record.includes("zigwheels.ph")) {
+    failures.push(`lib/data.ts: ${id} canonical record must not use Zigwheels as its primary/source-of-truth URL`);
+  }
+  const manufacturerCheck = new RegExp(`modelId:"${id}"[^\\n]+sourceType:"manufacturer"`).test(marketChecksSource);
+  if (!manufacturerCheck) {
+    failures.push(`lib/marketChecks.ts: ${id} must include a manufacturer price/source observation`);
+  }
+}
+
+const ninja400Record = motorcycleRecord(motorcycleData, "kawasaki-ninja-400");
+if (!/freshness:\s*"review"/.test(ninja400Record) || !/pending|recheck/i.test(ninja400Record)) {
+  failures.push("lib/data.ts: Kawasaki Ninja 400 must remain non-indexable until current Philippine manufacturer evidence is reverified");
+}
+
 const usedMarket = read("lib/usedMarket.ts");
 if (!usedMarket.includes('listingsForModel(modelId:string){return usedListings.filter(x=>x.modelId===modelId&&x.status==="verified");}')) {
   failures.push("lib/usedMarket.ts: public listingsForModel must expose verified listings only");
