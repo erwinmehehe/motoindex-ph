@@ -1,6 +1,31 @@
 /* Canonical MotoIndex calculator surfaces.
    All calculator routes and embedded tools share this visual language. */
 
+/* Calculator route composition */
+[data-calculator-page] > .page-head{
+  max-width:880px;
+  margin-bottom:var(--mi-space-7);
+}
+
+[data-calculator-page] > .page-head h1{
+  max-width:860px;
+  font-size:var(--mi-type-page);
+  line-height:.98;
+  letter-spacing:var(--mi-tracking-page);
+}
+
+[data-calculator-page] > .page-head>p{
+  max-width:740px;
+  margin:var(--mi-space-4) 0 0;
+  color:var(--mi-color-copy);
+  font-size:var(--mi-type-base);
+  line-height:var(--mi-leading-copy);
+}
+
+[data-calculator-page] > .breadcrumbs{
+  margin-bottom:var(--mi-space-6);
+}
+
 [data-calculator]{
   margin:var(--mi-space-4) 0 var(--mi-space-10);
   overflow:hidden;
