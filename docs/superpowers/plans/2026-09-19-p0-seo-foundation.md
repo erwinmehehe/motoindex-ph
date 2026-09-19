@@ -26,7 +26,7 @@
 
 - Filtered URLs with one or multiple parameters must emit `noindex, follow` while clean `/motorcycles` remains indexable; Task 1 pins this.
 - Empty/unknown query parameters must not accidentally noindex the clean hub; Task 1 pins non-empty supported filters only.
-- Indexable accessory guides must appear in a sitemap and redirect-only aliases must not; Task 2 and Task 4 pin this.
+- Indexable accessory guides must appear in a sitemap and redirect-only aliases must not; Task 2 pins sitemap coverage and the existing SEO-hardening/public-trust validators pin redirect exclusions.
 - Recommendation sitemap freshness must follow the newest included model verification date even when one model lacks a date; Task 2 pins fallback behavior.
 - Priority model records must retain manufacturer/dealer provenance without making uncertain/previous models look current; Task 3 pins source domains and Ninja 400 review status.
 
@@ -408,114 +408,92 @@ git commit -m "fix: upgrade priority motorcycle source provenance"
 
 ---
 
-### Task 4: Make Canonical/Anti-Cannibalization Rules Permanent
+### Task 4: Audit Remaining Canonical and Internal-Link Leakage
 
 **Files:**
-- Modify: `scripts/validate-seo-hardening.mjs`
-- Modify: `scripts/check-legacy-recommendation-links.mjs` only if the scan needs a safe explicit exception for canonical recommendation routes.
-- Inspect, modify only if required: `next.config.mjs`, `app/motorcycles/[make]/scooters/page.tsx`, internal links under `app/` and `components/`.
+- Inspect: `scripts/validate-seo-hardening.mjs`
+- Inspect: `scripts/check-legacy-recommendation-links.mjs`
+- Inspect: `next.config.mjs`
+- Inspect: `app/motorcycles/[make]/scooters/page.tsx`
+- Inspect: internal links under `app/` and `components/`
+- Modify only the concrete file(s) implicated by a discovered leak.
 
 **Interfaces:**
-- Consumes: route/source text under `app`, `components`, `lib/sitemaps.ts`.
-- Produces: CI failures when filter URLs, redirect-only brand-scooter aliases, or consolidated model subroutes are reintroduced as crawlable internal targets.
+- Consumes: the canonical/redirect rules already enforced by existing validators plus the new Task 1 filtered-catalog regression.
+- Produces: a zero-leak audit result; if a real leak is found, a new failing validator assertion is added before the production fix.
 
-- [ ] **Step 1: Add failing anti-cannibalization assertions**
-
-Extend `scripts/validate-seo-hardening.mjs`:
-
-```js
-requireText(
-  motorcycles,
-  "generateMetadata",
-  "Motorcycle hub must keep query-aware metadata so filtered catalog states cannot become indexable duplicates."
-);
-
-requireText(
-  motorcycles,
-  "!hasActiveFilters",
-  "Motorcycle hub must noindex active filter states."
-);
-
-forbidText(
-  motorcycles,
-  'query:{ budget:"100to150" }',
-  "Motorcycle hub must not promote raw budget-filter URLs when canonical research destinations exist."
-);
-
-forbidText(
-  sitemaps,
-  "`/motorcycles/${make}/scooters`",
-  "Redirect-only brand scooter aliases must stay out of sitemaps."
-);
-
-forbidText(
-  sitemaps,
-  "`/motorcycles/${m.makeSlug}/${m.slug}/price`",
-  "Consolidated model price aliases must stay out of sitemaps."
-);
-```
-
-Add a source scan for hardcoded legacy brand-scooter links:
-
-```js
-const legacyBrandScooterLinks = [
-  "/motorcycles/honda/scooters",
-  "/motorcycles/yamaha/scooters"
-];
-
-for (const legacyPath of legacyBrandScooterLinks) {
-  forbidText(
-    home,
-    legacyPath,
-    `Homepage must not link redirect-only route ${legacyPath}.`
-  );
-  forbidText(
-    motorcycles,
-    legacyPath,
-    `Motorcycle hub must not link redirect-only route ${legacyPath}.`
-  );
-}
-```
-
-- [ ] **Step 2: Run SEO hardening and confirm RED only where current main violates the new rule**
+- [ ] **Step 1: Run the existing canonical-routing validators**
 
 Run:
 
 ```bash
 npm run validate:seo-hardening
+npm run validate:public-trust
 npm run check:legacy-links
+npm run check:links
 ```
 
-Expected: the new metadata/filter assertions fail before Task 1 changes are present; after Tasks 1–3 they should pass unless an actual legacy internal link remains.
+Expected after Tasks 1–3: PASS. Record any concrete route/link failure exactly as reported.
 
-- [ ] **Step 3: Remove only concrete legacy internal links found by the validator**
-
-If the validator reports a hardcoded redirect-only URL, replace it with the existing canonical recommendation or brand URL defined in the approved spec.
-
-Do not modify the redirect routes themselves. `app/motorcycles/[make]/scooters/page.tsx` should continue to use `permanentRedirect(...)`.
-
-Do not add new recommendation pages during P0.
-
-- [ ] **Step 4: Verify redirect aliases remain consolidated**
+- [ ] **Step 2: Search for known redirect-only/internal-filter patterns**
 
 Run:
 
 ```bash
+git grep -n -E '/motorcycles/(honda|yamaha)/scooters|pathname:[[:space:]]*["'\''`]\/motorcycles["'\''`].*query|\/motorcycles\?[^"'\''` ]+' -- app components lib
+```
+
+Expected:
+- no hardcoded Honda/Yamaha scooter alias links outside redirect route definitions/tests;
+- no internally promoted raw catalog filter URLs that should map to canonical research destinations.
+
+- [ ] **Step 3: If a leak is found, add a failing assertion before fixing it**
+
+Add the narrowest assertion to the validator that owns the behavior. Example for a newly discovered hardcoded legacy path in `app/page.tsx`:
+
+```js
+forbidText(
+  home,
+  "/motorcycles/honda/scooters",
+  "Homepage must not link the redirect-only Honda scooter alias."
+);
+```
+
+Run the owning validator and confirm it fails for the discovered path before changing production code.
+
+If Step 2 finds no leaks, do not add redundant assertions or modify production files.
+
+- [ ] **Step 4: Fix only confirmed leaks**
+
+Replace a confirmed redirect-only or filtered internal target with the canonical destination from the approved spec.
+
+Do not:
+- remove permanent redirects;
+- add new recommendation pages;
+- create model subroutes;
+- broaden the change beyond the concrete leak.
+
+- [ ] **Step 5: Re-run routing validation**
+
+```bash
 npm run validate:seo-hardening
+npm run validate:public-trust
 npm run check:legacy-links
 npm run check:links
 ```
 
 Expected: all PASS.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 6: Commit only if the audit produced changes**
+
+If files changed:
 
 ```bash
-git add scripts/validate-seo-hardening.mjs scripts/check-legacy-recommendation-links.mjs app components next.config.mjs
-git commit -m "test: lock canonical SEO routing rules"
+git add <exact changed validator and route/link files>
+git commit -m "fix: remove remaining SEO canonical leaks"
 ```
 
-Only stage files that actually changed.
+If no files changed, record the audit as clean and proceed without an empty commit.
 
 ---
 
