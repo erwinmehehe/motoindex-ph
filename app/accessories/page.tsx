@@ -8,7 +8,7 @@ import { AuthorBox } from "@/components/AuthorBox";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
 import { CTAGroup, PageHero, SectionHeader, StatRow } from "@/components/ui";
-import styles from "./AccessoriesPage.module.css";
+import styles from "../styles/hub-index.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title:"Motorcycle Accessories Philippines: Top Boxes & Gear",
@@ -86,8 +86,8 @@ export default function AccessoriesPage(){
         description="Mounting space, tire sizes, top-box racks and model-specific fitment belong on the motorcycle entity rather than generic accessory pages."
         aside={<Link href="/motorcycles">Browse all motorcycles →</Link>}
       />
-      <div className={styles.fitmentList}>
-        {fitmentPreview.map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}>
+      <div className={styles.twoColList}>
+        {fitmentPreview.map(m=><Link className={`${styles.twoColRow} ${styles.modelLink}`} key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}>
           <span><strong>{m.make} {m.model}</strong><small>Tires, mounting and accessory fitment</small></span>
           <b>Open model →</b>
         </Link>)}
