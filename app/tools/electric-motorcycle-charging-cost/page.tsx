@@ -22,7 +22,7 @@ const examplePer100 = exampleCharge / exampleRange * 100;
 const exampleMonthly = exampleDailyKm * 30 / exampleRange * exampleCharge;
 
 export default function ElectricChargingCostPage() {
-  return <section className="page shell">
+  return <section className="page shell" data-calculator-page>
     <Breadcrumbs items={[{ label: "Tools", href: "/tools" }, { label: "Electric charging cost" }]} />
     <div className="page-head">
       <span className="entity-kicker">Editable electricity estimate</span>
