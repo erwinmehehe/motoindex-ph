@@ -9,7 +9,6 @@ import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { modelFamilies } from "@/lib/families";
 import { observedMarketRange } from "@/lib/marketChecks";
 import { getPhBrandPriority } from "@/lib/phBrandPriority";
-import { phBrandSupportFor } from "@/lib/phBrandSupport";
 import { modelAuthorityProfile } from "@/lib/modelAuthority";
 import { php, phpRange } from "@/lib/utils";
 import { CTAGroup, DataTable, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
@@ -52,7 +51,6 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const previous = publicModels.filter((m) => m.marketStatus === "previous").sort((a, b) => a.model.localeCompare(b.model));
   const families = modelFamilies.filter((f) => f.makeSlug === make && f.generationIds.length > 0 && f.generationIds.every((id) => publicIds.has(id)));
   const priority = getPhBrandPriority(make);
-  const support = phBrandSupportFor(make);
   if (!publicModels.length) {
     return <section className="page shell">
       <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
@@ -81,7 +79,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     },
     {
       question: `Is this the complete ${brand} motorcycle lineup in the Philippines?`,
-      answer: `Not necessarily. This page includes ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} with checked Philippine price and specification sources. The full manufacturer lineup can be broader and can change over time.`
+      answer: `Not necessarily. This page includes ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} with reviewed Philippine pricing and specifications. The full manufacturer lineup can be broader and can change over time.`
     },
     {
       question: `How many ${brand} motorcycles are covered on this page?`,
@@ -149,7 +147,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
     <div className="shell">
       <nav className="ph-brand-nav" aria-label={`${brand} page sections`}>
-        <a href="#price-list">Price list</a><a href="#models">Models</a><a href="#categories">Categories</a>{support && <a href="#support">After-sales</a>}<a href="#research">How to use data</a><a href="#faq">FAQ</a>
+        <a href="#price-list">Price list</a><a href="#models">Models</a><a href="#categories">Categories</a><a href="#research">How to use data</a><a href="#faq">FAQ</a>
       </nav>
 
       {priority && <section className="ph-brand-context">
@@ -165,7 +163,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       </section>
 
       <section id="price-list" className="ph-brand-section">
-        <SectionHeader kicker="Current model prices" title={`${brand} Motorcycle Philippines Price List`} description={`Compare current ${brand} motorcycle prices in one table. Use these dated price references as a starting point, then open the exact model to check source context, variants and financing details.`} />
+        <SectionHeader kicker="Current model prices" title={`${brand} Motorcycle Philippines Price List`} description={`Compare current ${brand} motorcycle prices in one table. Use these price references as a starting point, then open the exact model to compare variants, financing and ownership details.`} />
         <DataTable className="ph-brand-price-table" label={`${brand} motorcycle Philippines price list`}>
           <div className="head" role="row"><span>Model</span><span>Price reference</span><span>Engine</span><span>Seat</span><span>Transmission</span></div>
           {ranges.map(({ model, from, to }) => <Link role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}`} key={model.id}>
@@ -183,17 +181,10 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <InfoPanel className="ph-brand-start-card"><span>Need a faster answer?</span><h3>Start with price, fit or a side-by-side comparison.</h3><p>Use the {brand} price list to set a realistic budget, then narrow the choice by engine, seat height, transmission and intended use.</p><div><Link href={{ pathname: "/finder", query: { make } }}>Use motorcycle finder →</Link><Link href="/compare">Open comparison tool →</Link><Link href="/recommendations">Browse PH recommendations →</Link></div></InfoPanel>
       </section>
 
-      {support && <section id="support" className="ph-brand-section ph-brand-support-section">
-        <SectionHeader kicker="Philippine ownership support" title={`${brand} dealers, service and owner resources`} description="The price list is only the starting point. Check dealer reach, parts, service and warranty support before paying a reservation." />
-        <div className="ph-brand-support-panel">
-          <article><span>Official resource</span><h3>{support.officialName}</h3><p>{support.supportNote}</p><small>Resource check: {support.checkedAt}</small></article>
-          <div><a href={support.officialUrl} target="_blank" rel="noreferrer">Official Philippine brand site ↗</a>{support.dealerUrl && <a href={support.dealerUrl} target="_blank" rel="noreferrer">Find a dealer ↗</a>}{support.serviceUrl && <a href={support.serviceUrl} target="_blank" rel="noreferrer">Service / after-sales ↗</a>}{support.ownerUrl && <a href={support.ownerUrl} target="_blank" rel="noreferrer">Owner resources ↗</a>}{support.recallUrl && <a href={support.recallUrl} target="_blank" rel="noreferrer">Safety / recall resource ↗</a>}</div>
-        </div>
-      </section>}
 
       <section id="research" className="ph-brand-section">
-        <SectionHeader kicker="How to use the data" title={`How to use this ${brand} motorcycle price list`} description="Prices are dated reference points, not guaranteed dealer quotes. Compare the model and specification differences here, then open the exact motorcycle page to verify the source date and current selling price." />
-        <div className="ph-brand-method-grid"><article><span>01</span><h3>Check the price date</h3><p>Prices are dated reference points. Open the model page to see the source and confirm the current cash price, fees and variant with the seller.</p></article><article><span>02</span><h3>Compare specs and rider fit</h3><p>Engine size, seat height, weight, transmission and tire data help narrow the shortlist, but actual rider fit and comfort still need an in-person check.</p></article><article><span>03</span><h3>Confirm local support</h3><p>Dealer reach, parts, service intervals and warranty support matter after purchase. Use the official brand resources linked on this page when available.</p></article></div>
+        <SectionHeader kicker="How to use the data" title={`How to use this ${brand} motorcycle price list`} description="Prices are reference points, not guaranteed dealer quotes. Compare the model and specification differences here, then confirm the current selling price with the dealer before purchase." />
+        <div className="ph-brand-method-grid"><article><span>01</span><h3>Confirm the final price</h3><p>Published prices are reference points. Confirm the current cash price, fees, promotions and exact variant with the seller before paying a reservation.</p></article><article><span>02</span><h3>Compare specs and rider fit</h3><p>Engine size, seat height, weight, transmission and tire data help narrow the shortlist, but actual rider fit and comfort still need an in-person check.</p></article><article><span>03</span><h3>Check local ownership support</h3><p>Dealer reach, parts availability, service intervals and warranty support all matter after purchase.</p></article></div>
       </section>
 
       {uncertain.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Availability to verify" title={`${brand} models needing a current lineup check`} description="These model pages remain available for research, but they stay outside the current price list until present-day official availability is confirmed." /><div className="card-grid">{uncertain.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
