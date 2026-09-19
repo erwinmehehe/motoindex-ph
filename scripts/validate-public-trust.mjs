@@ -296,7 +296,7 @@ for (const [path, forbidden] of [
   ["app/editorial-policy/page.tsx", ["source context"]],
   ["app/contact/page.tsx", ["/data-sources", "outdated source", "accepted sources"]]
 ]) {
-  const text = read(...path.split("/"));
+  const text = read(path);
   for (const token of forbidden) {
     if (text.includes(token)) failures.push(`${path}: public source wording returned via ${token}`);
   }
