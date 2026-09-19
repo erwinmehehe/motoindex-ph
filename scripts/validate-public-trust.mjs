@@ -278,6 +278,32 @@ if (accessoryRoot.includes("guide.sections.map")) {
   failures.push("app/accessories/page.tsx: parent hub must not duplicate full child-guide content");
 }
 
+const rootLayout = read("app/layout.tsx");
+const webManifest = read("app/manifest.ts");
+const recommendationPage = read("app/recommendations/[slug]/page.tsx");
+
+for (const token of [
+  'icon: [{ url: "/icon-96.png", sizes: "96x96", type: "image/png" }]',
+  'shortcut: "/icon-96.png"',
+  'url: `${SITE_URL}/icon-512.png`',
+  'width: 512',
+  'height: 512'
+]) {
+  if (!rootLayout.includes(token)) failures.push(`app/layout.tsx: Google favicon/logo signal missing ${token}`);
+}
+if (rootLayout.includes('/favicon.svg') || rootLayout.includes('/icon-48.png')) {
+  failures.push("app/layout.tsx: primary favicon signal must stay on one stable 96x96 PNG");
+}
+for (const token of [
+  '{ src: "/icon-192.png", sizes: "192x192", type: "image/png" }',
+  '{ src: "/icon-512.png", sizes: "512x512", type: "image/png" }'
+]) {
+  if (!webManifest.includes(token)) failures.push(`app/manifest.ts: PWA PNG icon missing ${token}`);
+}
+for (const token of ["current price sources", "sourced planning reference", "comparison-site and dealer prices", "when sources disagree"]) {
+  if (recommendationPage.includes(token)) failures.push(`app/recommendations/[slug]/page.tsx: public source wording returned via ${token}`);
+}
+
 const motorcycleCard = read("components/MotorcycleCard.tsx");
 const freshness = read("components/Freshness.tsx");
 const productTrustRow = read("components/ProductTrustRow.tsx");
