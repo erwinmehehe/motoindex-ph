@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { CSSProperties, Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
@@ -14,7 +14,6 @@ import {
 } from "@/lib/motorcycleMarket";
 import { pageMetadata, SITE_URL } from "@/lib/site";
 import { php } from "@/lib/utils";
-import styles from "./scooters.module.css";
 
 const scooters = priceOrdered(currentScooters);
 const priceSpan = marketPriceSpan(scooters);
@@ -24,6 +23,9 @@ const class125 = scooters.filter((model) => model.engineCc >= 100 && model.engin
 const class150 = scooters.filter((model) => model.engineCc >= 140 && model.engineCc <= 155).length;
 const class160 = scooters.filter((model) => model.engineCc >= 156 && model.engineCc <= 165).length;
 const absModels = scooters.filter(hasAbs).length;
+const tableColumns: CSSProperties = {
+  gridTemplateColumns: "minmax(220px,1.5fr) minmax(150px,1.1fr) .62fr .62fr .62fr minmax(210px,1.25fr)"
+};
 
 export const metadata: Metadata = pageMetadata({
   title: "Scooters Philippines 2026: Prices & Models | MotoIndex",
@@ -46,40 +48,16 @@ const itemListSchema = {
 };
 
 const childClusters = [
-  {
-    href: "/recommendations/125cc-scooters-philippines",
-    label: "125cc scooters",
-    note: `${class125} current models in the 100–125cc band`
-  },
-  {
-    href: "/recommendations/150cc-scooters-philippines",
-    label: "150cc & 155cc scooters",
-    note: `${class150} current models in the 140–155cc band`
-  },
-  {
-    href: "/recommendations/160cc-scooters-philippines",
-    label: "160cc scooters",
-    note: `${class160} current models in the 156–165cc band`
-  },
-  {
-    href: "/recommendations/maxi-scooters-philippines",
-    label: "Maxi scooters",
-    note: "Larger scooter and touring-oriented choices"
-  },
-  {
-    href: "/recommendations/honda-scooters-philippines",
-    label: "Honda scooters",
-    note: "Current Honda scooter research and prices"
-  },
-  {
-    href: "/recommendations/yamaha-scooters-philippines",
-    label: "Yamaha scooters",
-    note: "Current Yamaha scooter research and prices"
-  }
+  { href: "/recommendations/125cc-scooters-philippines", label: "125cc scooters", note: `${class125} current models in the 100–125cc band` },
+  { href: "/recommendations/150cc-scooters-philippines", label: "150cc & 155cc scooters", note: `${class150} current models in the 140–155cc band` },
+  { href: "/recommendations/160cc-scooters-philippines", label: "160cc scooters", note: `${class160} current models in the 156–165cc band` },
+  { href: "/recommendations/maxi-scooters-philippines", label: "Maxi scooters", note: "Larger scooter and touring-oriented choices" },
+  { href: "/recommendations/honda-scooters-philippines", label: "Honda scooters", note: "Current Honda scooter research and prices" },
+  { href: "/recommendations/yamaha-scooters-philippines", label: "Yamaha scooters", note: "Current Yamaha scooter research and prices" }
 ];
 
 export default function ScootersPage() {
-  return <main className={styles.page}>
+  return <main className="page">
     <div className="shell">
       <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: "Scooters" }]} />
       <PageHero
@@ -93,7 +71,7 @@ export default function ScootersPage() {
         </CTAGroup>}
       />
 
-      <section className={styles.section} aria-labelledby="scooter-market-snapshot">
+      <section className="section" aria-labelledby="scooter-market-snapshot">
         <SectionHeader
           kicker="Current market"
           title="Scooter market snapshot"
@@ -109,23 +87,22 @@ export default function ScootersPage() {
         ]} />
       </section>
 
-      <section className={styles.section} aria-labelledby="scooter-clusters">
+      <section className="section" aria-labelledby="scooter-clusters">
         <SectionHeader
           kicker="Narrow the market"
           title="Compare scooters by engine size and brand"
           titleId="scooter-clusters"
-          description="These child guides answer narrower search intents without splitting model-level price, specs, colors or installment information into separate pages."
+          description="These child guides answer narrower buying questions without splitting model details across separate pages."
         />
-        <div className={styles.clusterGrid}>
-          {childClusters.map((cluster) => <Link href={cluster.href} key={cluster.href} className={styles.clusterLink}>
-            <strong>{cluster.label}</strong>
-            <small>{cluster.note}</small>
-            <span>Open guide →</span>
+        <div className="ui-content-grid">
+          {childClusters.map((cluster) => <Link href={cluster.href} key={cluster.href} className="ui-content-card">
+            <h3>{cluster.label}</h3>
+            <p>{cluster.note}</p>
           </Link>)}
         </div>
       </section>
 
-      <section id="scooter-price-list" className={styles.section} aria-labelledby="scooter-price-list-title">
+      <section id="scooter-price-list" className="section" aria-labelledby="scooter-price-list-title">
         <SectionHeader
           kicker="Price list"
           title="Current scooter prices and key specifications"
@@ -135,12 +112,12 @@ export default function ScootersPage() {
             : "Rows are ordered by observed starting price, not by an overall quality ranking."}
         />
         <DataTable label="Current scooter prices and specifications">
-          <div className={styles.tableHead} role="row">
+          <div className="head" role="row" style={tableColumns}>
             <span>Model</span><span>Price</span><span>Engine</span><span>Seat</span><span>Weight</span><span>Braking</span>
           </div>
-          {scooters.map((model) => <div className={styles.tableRow} role="row" key={model.id}>
-            <span role="cell"><Link href={`/motorcycles/${model.makeSlug}/${model.slug}`}><strong>{model.make} {model.model}</strong></Link><small>{model.category}</small></span>
-            <span role="cell"><strong>{observedMarketPriceLabel(model)}</strong><small>Checked {model.marketPriceCheckedAt || model.verifiedAt}</small></span>
+          {scooters.map((model) => <div role="row" style={tableColumns} key={model.id}>
+            <span role="cell"><Link href={`/motorcycles/${model.makeSlug}/${model.slug}`}><strong>{model.make} {model.model}</strong></Link><br /><small>{model.category}</small></span>
+            <span role="cell"><strong>{observedMarketPriceLabel(model)}</strong><br /><small>Checked {model.marketPriceCheckedAt || model.verifiedAt}</small></span>
             <span role="cell">{model.engineCc} cc</span>
             <span role="cell">{model.seatHeightMm} mm</span>
             <span role="cell">{model.curbWeightKg} kg</span>
@@ -149,41 +126,33 @@ export default function ScootersPage() {
         </DataTable>
       </section>
 
-      <section className={styles.section} aria-labelledby="scooter-decision-paths">
+      <section className="section" aria-labelledby="scooter-decision-paths">
         <SectionHeader
           kicker="Buyer paths"
           title="Use the scooter data for a specific decision"
           titleId="scooter-decision-paths"
-          description="The broad scooter hub connects into narrower questions that already have canonical MotoIndex destinations."
+          description="The broad scooter hub connects into narrower questions that already have dedicated MotoIndex research."
         />
-        <div className={styles.decisionGrid}>
-          <Link href="/recommendations/motorcycles-under-100k"><strong>Budget scooters</strong><small>Start with motorcycles below ₱100K and compare the automatic options.</small></Link>
-          <Link href="/recommendations/automatic-motorcycles-philippines"><strong>Automatic motorcycles</strong><small>Compare all current automatic records, including scooters and non-scooter automatics.</small></Link>
-          <Link href="/recommendations/fuel-efficient-motorcycles-philippines"><strong>Fuel economy</strong><small>Compare only models with published fuel-consumption figures in the dataset.</small></Link>
-          <Link href="/recommendations/best-motorcycles-for-short-riders"><strong>Lower seat heights</strong><small>Use published seat height and curb weight as measurable fit starting points.</small></Link>
+        <div className="ui-content-grid">
+          <Link href="/recommendations/motorcycles-under-100k" className="ui-content-card"><h3>Budget scooters</h3><p>Start with motorcycles below ₱100K and compare the automatic options.</p></Link>
+          <Link href="/recommendations/automatic-motorcycles-philippines" className="ui-content-card"><h3>Automatic motorcycles</h3><p>Compare all current automatic records, including scooters and non-scooter automatics.</p></Link>
+          <Link href="/recommendations/fuel-efficient-motorcycles-philippines" className="ui-content-card"><h3>Fuel economy</h3><p>Compare models with published fuel-consumption figures in the dataset.</p></Link>
+          <Link href="/recommendations/best-motorcycles-for-short-riders" className="ui-content-card"><h3>Lower seat heights</h3><p>Use published seat height and curb weight as measurable fit starting points.</p></Link>
         </div>
       </section>
 
-      <section className={styles.section} aria-labelledby="scooter-methodology">
+      <section className="section" aria-labelledby="scooter-methodology">
         <SectionHeader
           kicker="How this page works"
           title="One market hub, model-level evidence"
           titleId="scooter-methodology"
           description="MotoIndex keeps the category comparison here while each model page carries its detailed price, specifications, colors, installment context and fitment evidence."
         />
-        <div className={styles.methodGrid}>
-          <InfoPanel subtle>
-            <h3>What counts as a current scooter?</h3>
-            <p>The model must be indexable, currently marketed in the MotoIndex dataset and have a scooter category such as commuter, sport, premium, adventure, lifestyle or maxi scooter.</p>
-          </InfoPanel>
-          <InfoPanel subtle>
-            <h3>How prices are handled</h3>
-            <p>The table uses the observed market-price range attached to each model. Where a model has multiple current trims, the range stays visible instead of averaging them into one artificial price.</p>
-          </InfoPanel>
-          <InfoPanel subtle>
-            <h3>Where the evidence lives</h3>
-            <p>Each model keeps its own dated manufacturer, dealer or other source record. Review the <Link href="/methodology">methodology</Link> and <Link href="/data-sources">data sources</Link> for publication and correction rules.</p>
-          </InfoPanel>
+        <div className="ui-content-grid">
+          <InfoPanel subtle><h3>What counts as a current scooter?</h3><p>The model must be indexable, currently marketed in the MotoIndex dataset and have a scooter category such as commuter, sport, premium, adventure, lifestyle or maxi scooter.</p></InfoPanel>
+          <InfoPanel subtle><h3>How prices are handled</h3><p>The table uses the observed market-price range attached to each model. Where a model has multiple current trims, the range stays visible instead of averaging them into one artificial price.</p></InfoPanel>
+          <InfoPanel subtle><h3>Where the evidence lives</h3><p>Each model keeps its own dated manufacturer, dealer or other source record. Review the <Link href="/methodology">methodology</Link> and <Link href="/data-sources">data sources</Link> for publication and correction rules.</p></InfoPanel>
+          <InfoPanel subtle><h3>What the data cannot decide</h3><p>Specifications cannot fully measure comfort, handling, rider confidence or dealer experience. Use the data to shortlist, then verify fit and the exact unit before buying.</p></InfoPanel>
         </div>
       </section>
 
