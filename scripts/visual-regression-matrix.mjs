@@ -10,7 +10,9 @@ const routes=[
   {name:"motorcycles",path:"/motorcycles"},
   {name:"scooters",path:"/motorcycles/scooters"},
   {name:"expressway-legal",path:"/motorcycles/expressway-legal"},
-  {name:"brand",path:"/motorcycles/honda"},
+  {name:"honda-brand",path:"/motorcycles/honda"},
+  {name:"yamaha-brand",path:"/motorcycles/yamaha"},
+  {name:"kawasaki-brand",path:"/motorcycles/kawasaki"},
   {name:"vespa-brand",path:"/motorcycles/vespa"},
   {name:"motorcycle-detail",path:"/motorcycles/yamaha/aerox-v3"},
   {name:"crf300-rally",path:"/motorcycles/honda/crf300-rally"},
@@ -360,14 +362,14 @@ try{
       const motorcycleCardModes=row?.standardMotorcycleCardModes||[];
       const routeCardModes=route.name==="motorcycles"
         ? motorcycleCardModes.filter(card=>card.catalog)
-        : route.name==="brand"
+        : route.name.endsWith("-brand")
           ? motorcycleCardModes.filter(card=>card.brand)
           : route.name==="home"
             ? motorcycleCardModes.filter(card=>card.home)
             : [];
-      if(["home","motorcycles","brand"].includes(route.name)&&routeCardModes.length<1)failures.push(`${width}px ${route.name}: standard MotorcycleCard did not render in its primary route context`);
-      if(width===1440&&["motorcycles","brand"].includes(route.name)&&routeCardModes.some(card=>card.mode!=="grid"))failures.push(`${width}px ${route.name}: wide MotorcycleCard did not switch to its component-owned row layout`);
-      if(width===390&&["home","motorcycles","brand"].includes(route.name)&&routeCardModes.some(card=>card.mode==="grid"))failures.push(`${width}px ${route.name}: narrow MotorcycleCard stayed in wide row layout`);
+      if((["home","motorcycles"].includes(route.name)||route.name.endsWith("-brand"))&&routeCardModes.length<1)failures.push(`${width}px ${route.name}: standard MotorcycleCard did not render in its primary route context`);
+      if(width===1440&&(["motorcycles"].includes(route.name)||route.name.endsWith("-brand"))&&routeCardModes.some(card=>card.mode!=="grid"))failures.push(`${width}px ${route.name}: wide MotorcycleCard did not switch to its component-owned row layout`);
+      if(width===390&&(["home","motorcycles"].includes(route.name)||route.name.endsWith("-brand"))&&routeCardModes.some(card=>card.mode==="grid"))failures.push(`${width}px ${route.name}: narrow MotorcycleCard stayed in wide row layout`);
       if(route.name==="compare-index"&&width===1440&&(row?.compareBuilderHeight||0)>260)failures.push(`${width}px compare-index: builder is too tall (${row.compareBuilderHeight}px)`);
       if(route.name==="compare-index"&&width===390&&(row?.compareBuilderHeight||0)>620)failures.push(`${width}px compare-index: mobile builder is too tall (${row.compareBuilderHeight}px)`);
       if(["helmets","tires","accessories","top-box"].includes(route.name)&&(row?.deferredSections||0)>0)failures.push(`${width}px ${route.name}: ${row.deferredSections} top-level section(s) still defer rendering with content-visibility:auto`);
