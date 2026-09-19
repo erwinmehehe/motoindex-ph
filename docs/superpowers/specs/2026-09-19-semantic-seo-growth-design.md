@@ -1,7 +1,7 @@
 # MotoIndex Semantic SEO Growth Design
 
 Date: 2026-09-19
-Status: Approved design, pending implementation-plan approval
+Status: Design approved, written spec awaiting user review
 Owner: MotoIndex PH
 
 ## 1. Objective
@@ -62,7 +62,7 @@ Examples that can justify a separate page:
 |---|---|---|
 | [brand] motorcycles Philippines | /motorcycles/[brand] | Improve existing |
 | [brand] price list Philippines | /motorcycles/[brand] | Same URL, expand |
-| [brand] scooters Philippines | Existing recommendation URL | Consolidate |
+| [brand] scooters Philippines | Existing /recommendations/[brand]-scooters-philippines only where a quality-gated guide already exists; otherwise the brand hub | Consolidate, do not auto-create per brand |
 | scooters Philippines | /motorcycles/scooters | New national authority hub |
 | 125cc motorcycles Philippines | Existing displacement/recommendation cluster | Expand first, validate before new URL |
 | 125cc scooters Philippines | Existing recommendation | Strengthen |
@@ -82,7 +82,7 @@ Examples that can justify a separate page:
 | automatic motorcycles Philippines | Existing recommendation/category cluster | Improve |
 | fuel efficient motorcycles Philippines | Existing original-data recommendation | Strengthen |
 | lowest seat motorcycle Philippines | Seat-height research + recommendation relationship | Own topic |
-| motorcycle installment Philippines | Financing authority hub + calculator | New hub |
+| motorcycle installment Philippines | /financing + existing loan calculator + model installment sections | New hub |
 | [model] installment | Canonical model URL | Expand model page |
 | [model] tire size | Canonical model URL | Keep on model page |
 | [model] top speed | Canonical model URL | Strengthen evidence |
@@ -218,8 +218,8 @@ Targets:
 
 Year references belong in content/data, not the permanent URL.
 
-### 6.4 Financing authority
-Create a single financing authority hub that connects:
+### 6.4 /financing
+Create a single financing authority hub at /financing that connects:
 - motorcycle installment Philippines;
 - loan calculator;
 - downpayment examples;
@@ -381,7 +381,7 @@ Do not:
 10. Improve validated budget/displacement clusters.
 11. Build expressway-legal authority content with official legal/regulatory sourcing.
 12. Build /motorcycles/new.
-13. Build financing authority hub.
+13. Build /financing authority hub.
 
 ### Phase D: Entity depth
 14. Expand high-demand model-generation families.
