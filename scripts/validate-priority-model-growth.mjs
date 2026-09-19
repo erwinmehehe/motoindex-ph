@@ -146,6 +146,26 @@ for (const token of [
   }
 }
 
+for (const [brand, title, descriptionToken] of [
+  ["honda", "Honda big bikes in the Philippines", "CB650R, CBR650R, Rebel, X-ADV and Gold Wing"],
+  ["yamaha", "Yamaha big bikes in the Philippines", "TMAX, YZF-R7 and YZF-R1M"],
+  ["kawasaki", "Kawasaki big bikes in the Philippines", "Z500, Ninja 500, ZX-4RR, Ninja 1000SX and Ninja H2"]
+]) {
+  if (!brandGrowth.includes(`${brand}: {`) || !brandGrowth.includes(title) || !brandGrowth.includes(descriptionToken)) {
+    errors.push(`brandSeoGrowth: ${brand} hub must own current big-bike search intent on the existing brand URL`);
+  }
+}
+for (const token of [
+  'const bigBikes = current.filter((m) => m.engineCc >= 400)',
+  'id="big-bikes"',
+  'href="#big-bikes"',
+  'href="/recommendations/motorcycles-400cc-plus-philippines"',
+  'href="/motorcycles/expressway-legal"',
+  '400cc+ is a comparison filter, not an automatic expressway guarantee.'
+]) {
+  if (!brandPage.includes(token)) errors.push(`brand page: missing big-bike authority token ${token}`);
+}
+
 if (!brandGrowth.includes('vespa: {') || !brandGrowth.includes("Vespa Philippines Price List 2026") || !brandGrowth.includes("city-price or installment pages")) {
   errors.push("brandSeoGrowth: Vespa hub must own broad price/model intent without thin city or installment URLs");
 }
