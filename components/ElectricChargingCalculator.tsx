@@ -15,7 +15,7 @@ export function ElectricChargingCalculator() {
     return { fullCharge, costPer100, monthly };
   }, [batteryKwh, rangeKm, rate, distance]);
 
-  return <div className="calculator-shell">
+  return <div className="calculator-shell" data-calculator="electric-charging">
     <div className="calculator-inputs">
       <label>Battery capacity (kWh)<input type="number" min="0.1" step="0.1" value={batteryKwh} onChange={e=>setBatteryKwh(Math.max(.1,Number(e.target.value)||.1))}/></label>
       <label>Claimed range (km)<input type="number" min="1" value={rangeKm} onChange={e=>setRangeKm(Math.max(1,Number(e.target.value)||1))}/></label>
