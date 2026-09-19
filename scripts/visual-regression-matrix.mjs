@@ -9,6 +9,7 @@ const routes=[
   {name:"home",path:"/"},
   {name:"motorcycles",path:"/motorcycles"},
   {name:"scooters",path:"/motorcycles/scooters"},
+  {name:"expressway-legal",path:"/motorcycles/expressway-legal"},
   {name:"brand",path:"/motorcycles/honda"},
   {name:"motorcycle-detail",path:"/motorcycles/yamaha/aerox-v3"},
   {name:"compare-index",path:"/compare"},
