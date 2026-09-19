@@ -69,7 +69,6 @@ export function coreSitemapEntries(): Entry[] {
     {path:"/about",priority:.45,lastModified:RELEASE_DATE},
     {path:"/authors/erwin-valles",priority:.5,lastModified:RELEASE_DATE},
     {path:"/methodology",priority:.52,lastModified:RELEASE_DATE},
-    {path:"/data-sources",priority:.5,lastModified:RELEASE_DATE},
     {path:"/editorial-policy",priority:.42,lastModified:RELEASE_DATE},
     {path:"/privacy",priority:.4,lastModified:RELEASE_DATE},
     ...(process.env.NEXT_PUBLIC_CONTACT_EMAIL ? [{path:"/contact",priority:.35,lastModified:RELEASE_DATE}] : [])
