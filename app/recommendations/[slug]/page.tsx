@@ -85,6 +85,7 @@ function quickPickDetail(m:Motorcycle,metric:RecommendationQuickPickMetric){
 
 function positionReason(guide:RecommendationGuide,m:Motorcycle,index:number){
   const pos=index+1;
+  if(guide.slug==="dual-sport-motorcycles-philippines")return `you want a road-and-trail motorcycle and its ${m.curbWeightKg} kg curb weight, ${m.seatHeightMm} mm seat, ${m.groundClearanceMm||"unlisted"} mm clearance and ${m.frontTire}/${m.rearTire} wheel-and-tire setup fit your priorities.`;
   if(guide.slug==="fuel-efficient-motorcycles-philippines")return `Position ${pos} follows the page rule because its sourced published fuel-economy figure is ${m.fuelConsumptionKmL} km/L${pos===1?", the highest in the current qualifying set":""}.`;
   if(guide.slug==="best-motorcycles-for-short-riders")return `Seat order ${pos} is based on its ${m.seatHeightMm} mm published seat height, with curb weight used only when seat heights tie.`;
   if(guide.slug==="best-motorcycles-for-long-rides")return `Tank order ${pos} is based on its ${m.fuelTankL} L recorded fuel-tank capacity within the current touring-oriented set.`;
@@ -92,6 +93,7 @@ function positionReason(guide:RecommendationGuide,m:Motorcycle,index:number){
   if(guide.slug==="best-motorcycles-for-daily-commute-philippines"){const score=evaluateMotorcycle(m,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score;return `Position ${pos} follows the fixed city-commute decision profile; this model scores ${score}/100 on the stored fit, traffic, use and ownership-planning factors.`;}
   if(guide.slug==="beginner-friendly-motorcycles-philippines")return `Position ${pos} follows the stated beginner-starting method using published curb weight (${m.curbWeightKg} kg), seat height (${m.seatHeightMm} mm), recorded output (${m.powerHp} hp) and ABS context.`;
   if(guide.slug==="motorcycles-400cc-plus-philippines")return `Price order ${pos} is based on its published starting price at ${observedMarketPriceLabel(m)} within the current 400cc+ recorded-displacement set.`;
+  if(guide.slug==="dual-sport-motorcycles-philippines")return `Price order ${pos}: ${observedMarketPriceLabel(m)}. It records a ${m.seatHeightMm} mm seat, ${m.groundClearanceMm||"unlisted"} mm ground clearance and ${m.frontTire}/${m.rearTire} tires, which are more useful trail-planning inputs than displacement alone.`;
   return `${guide.orderLabel} ${pos}: ${observedMarketPriceLabel(m)}. This position follows the price order used for this guide.`;
 }
 
@@ -152,10 +154,17 @@ function sectionSummary(title:string,models:Motorcycle[]){
   const economy=models.filter(m=>m.fuelConsumptionKmL).sort((a,b)=>(b.fuelConsumptionKmL||0)-(a.fuelConsumptionKmL||0));
   const range=models.filter(m=>theoryRange(m)).sort((a,b)=>(theoryRange(b)||0)-(theoryRange(a)||0));
   const abs=models.filter(hasAbs);
+  const clearance=models.filter(m=>typeof m.groundClearanceMm==="number").sort((a,b)=>(b.groundClearanceMm||0)-(a.groundClearanceMm||0));
+  const wheel2118=models.filter(m=>/21/.test(m.frontTire)&&/18/.test(m.rearTire));
   const automatic=models.filter(m=>m.transmission==="Automatic");
   const manual=models.filter(m=>m.transmission!=="Automatic");
   const scooters=models.filter(m=>/scooter/i.test(m.category));
   const underbones=models.filter(m=>/underbone/i.test(m.category));
+  if(lower.includes("dual-sport vs trail bike"))return `MotoIndex uses dual-sport for road-and-trail motorcycles such as ${modelNames(models,6)}. “Trail bike” is a broader search term and can also include off-road-only machines, so this guide keeps motocross-only models out of the comparison.`;
+  if(lower.includes("21/18-inch wheels"))return wheel2118.length?`${modelNames(wheel2118,6)} use a 21-inch front and 18-inch rear wheel setup in the current comparison. That layout is common on trail-oriented dual-sports, but tire construction, suspension, pressure and rider technique still determine how a bike behaves on rough surfaces.`:"No current model in this comparison has a recorded 21/18-inch wheel setup.";
+  if(lower.includes("seat height versus ground clearance"))return clearance.length?`${clearance[0].make} ${clearance[0].model} has the highest recorded ground clearance here at ${clearance[0].groundClearanceMm} mm, while ${seat[0].make} ${seat[0].model} has the lowest published seat at ${seat[0].seatHeightMm} mm. More clearance can help over obstacles, but taller seats can make footing harder at stops.`:"Compare seat height and ground clearance together rather than treating either number as a standalone advantage.";
+  if(lower.includes("abs and trail use"))return abs.length?`${modelNames(abs,6)} explicitly list ABS in the current comparison. ABS configuration matters on pavement, but exact behavior and whether a system can be disabled for loose surfaces varies by model and trim, so confirm the controls on the exact unit.`:"None of the current models in this set explicitly list ABS.";
+  if(lower.includes("public roads"))return `A dual-sport label is not enough to prove that an individual motorcycle is ready for public-road use. Before riding on-road, confirm the exact unit has valid OR/CR and registration, required road equipment, plate or registration documentation, and paperwork matching the motorcycle you are buying.`;
   if(lower.includes("strong city-commute")){const ranked=[...models].sort((a,b)=>evaluateMotorcycle(b,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score-evaluateMotorcycle(a,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score);return `${modelNames(ranked,3)} lead the fixed city-commute profile in the current comparison. The profile rewards measurable fit, stop-go usability and ownership factors rather than a subjective road-test score.`;}
   if(lower.includes("stop-go traffic"))return automatic.length?`${automatic.length} automatic model${automatic.length===1?"":"s"} are in this set, including ${modelNames(automatic)}. Automatic transmission reduces clutch/shift workload, but weight, seat height, wheel size and actual traffic conditions still matter.`:"No current automatic model qualifies in this set.";
   if(lower.includes("daily use"))return `${weight[0].make} ${weight[0].model} is the lightest option here at ${weight[0].curbWeightKg} kg. Lower weight can help during parking and repeated low-speed stops, but it does not measure balance or handlebar width.`;
@@ -189,7 +198,7 @@ function sectionSummary(title:string,models:Motorcycle[]){
   if(lower.includes("fuel economy vs"))return `Published km/L and tank capacity answer different questions. A motorcycle with higher km/L can still have a shorter theoretical fuel range than one with a larger tank, so compare both rather than treating efficiency and refueling frequency as the same thing.`;
   if(lower.includes("real-world fuel")||lower.includes("affects real-world"))return `Traffic, load, throttle use, speed, tire pressure, terrain and maintenance can all change real-world fuel consumption. Published figures are useful reference points, not guarantees.`;
   if(lower.includes("lightweight does not"))return `Low curb weight does not necessarily mean a small engine, low seat or compact dimensions. Compare weight with engine displacement, seat height and the model's category before drawing a fit or performance conclusion.`;
-  return `${modelNames(price,3)} show the main price and specification trade-offs in this section. Use the comparison table to narrow the shortlist, then open the model page for the exact variant and source.`;
+  return `${modelNames(price,3)} show the main price and specification trade-offs in this section. Use the comparison table to narrow the shortlist, then open the model page for the exact variant and ownership details.`;
 }
 
 function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide){
@@ -200,6 +209,10 @@ function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide
   const weight=[...models].sort((a,b)=>a.curbWeightKg-b.curbWeightKg);
   const economy=models.filter(m=>m.fuelConsumptionKmL).sort((a,b)=>(b.fuelConsumptionKmL||0)-(a.fuelConsumptionKmL||0));
   const brandMatch=["honda","yamaha","suzuki","kawasaki"].find(brand=>lower.includes(brand));
+  if(lower.includes("dual-sport and trail bikes the same"))return `Not exactly. “Dual-sport” usually describes motorcycles intended for both public-road and unpaved use, while “trail bike” is broader and can include off-road-only machines. This MotoIndex guide only compares current Philippine-market records categorized as dual-sport.`;
+  if(lower.includes("use 21/18-inch wheels")){const rows=models.filter(m=>/21/.test(m.frontTire)&&/18/.test(m.rearTire));return rows.length?`${modelNames(rows,8)} use a recorded 21-inch front and 18-inch rear setup in this guide. Wheel size alone does not determine off-road ability.`:"No current model in this comparison has a recorded 21/18-inch setup.";}
+  if(lower.includes("dual-sport motorcycles need abs"))return `Not every dual-sport in this comparison lists ABS. On-road braking aids, loose-surface behavior, switchable ABS and trim differences vary by model, so compare the exact braking configuration rather than assuming the category determines it.`;
+  if(lower.includes("public roads in the philippines"))return `Potentially, but the category name alone is not enough. Before using a specific unit on public roads, verify its valid OR/CR and registration, required road equipment, and that the paperwork matches the exact motorcycle.`;
   if(lower.startsWith("does ")&&lower.includes(" abs")){
     const named=models.find(m=>lower.includes(m.model.toLowerCase().replace(/\bv\d+\b/g,"").trim())||lower.includes(`${m.make} ${m.model}`.toLowerCase()));
     if(named)return `${named.make} ${named.model} is recorded as: ${named.abs}. ABS can vary by trim, so open its model page before assuming every configuration is identical.`;
@@ -208,7 +221,7 @@ function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide
     const rows=models.filter(m=>m.make.toLowerCase()===brandMatch&&m.transmission==="Automatic");
     return rows.length?`${rows.length} checked ${rows.length===1?"model qualifies":"models qualify"}: ${modelNames(rows,6)}. Use the table for price, weight and seat-height differences.`:`No current ${brandMatch[0].toUpperCase()+brandMatch.slice(1)} automatic model qualifies in this checked guide set.`;
   }
-  if(lower.includes("cheapest")||lower.includes("lowest observed"))return `${price[0].make} ${price[0].model} has the lowest published starting price in this guide at ${observedMarketPriceLabel(price[0])}. Check its model page for dated price sources and variant notes.`;
+  if(lower.includes("cheapest")||lower.includes("lowest observed"))return `${price[0].make} ${price[0].model} has the lowest published starting price in this guide at ${observedMarketPriceLabel(price[0])}. Check its model page for variant and ownership notes.`;
   if(lower.includes("lowest seat"))return `${seat[0].make} ${seat[0].model} has the lowest published seat height in this guide at ${seat[0].seatHeightMm} mm. Published seat height alone does not guarantee rider fit.`;
   if(lower.includes("lightest"))return `${weight[0].make} ${weight[0].model} is the lightest checked model in this guide at ${weight[0].curbWeightKg} kg.`;
   if(lower.includes("best published fuel")||lower.includes("highest published fuel"))return economy.length?`${economy[0].make} ${economy[0].model} has the highest sourced published figure in this set at ${economy[0].fuelConsumptionKmL} km/L. Different test methods can limit direct real-world comparability.`:"No qualifying model currently has a checked published fuel-economy figure.";
@@ -328,8 +341,8 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
       <div className="guide-method-grid">
         <div><strong>What qualifies</strong><ul>{guide.inclusionRules.map(rule=><li key={rule}>{friendlyRule(rule)}</li>)}</ul></div>
         <div><strong>If two models tie</strong><ul>{guide.tieBreakers.map(rule=><li key={rule}>{rule}</li>)}</ul></div>
-        <div><strong>Prices and specs</strong><p>Prices and specifications come from the sources linked on each motorcycle page. Confirm the exact variant and current dealer quote before buying.</p></div>
-        <div><strong>Latest checks</strong><p>Prices: {lastPriceUpdated||"see model pages"}<br/>Specifications: {lastSpecUpdated||"see model pages"}</p></div>
+        <div><strong>Prices and specs</strong><p>Use the published figures as comparison references, then confirm the exact variant, current dealer quote and paperwork before buying.</p></div>
+        <div><strong>Before paying</strong><p>Confirm the exact unit, final cash or financed price, registration paperwork, warranty coverage and any model-year differences with the seller.</p></div>
       </div>
     </section>
 
