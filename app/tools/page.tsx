@@ -13,6 +13,7 @@ export const metadata: Metadata = pageMetadata({
 const coreTools=[
   {href:"/ownership/cost-calculator",label:"Ownership",title:"Total cost to own",description:"Combine purchase, financing, fuel, maintenance, registration, insurance, tires and resale.",meta:"Full ownership view →"},
   {href:"/tools/motorcycle-loan-calculator",label:"Financing",title:"Motorcycle loan calculator",description:"Estimate monthly payment, financed amount, interest and total cash paid.",meta:"Calculate loan →"},
+  {href:"/tools/motorcycle-down-payment-calculator",label:"Down payment",title:"Motorcycle down payment calculator",description:"Calculate the cash down payment and remaining balance from a motorcycle price and percentage.",meta:"Calculate down payment →"},
   {href:"/tools/lto-registration-fee-calculator",label:"Registration",title:"LTO registration fee calculator",description:"Plan MVUC, inspection, CTPL and transaction-specific charges.",meta:"Estimate fees →"},
   {href:"/tools/motorcycle-insurance-calculator",label:"Insurance",title:"Motorcycle insurance calculator",description:"Build an editable planning estimate before replacing it with a real insurer quote.",meta:"Estimate insurance →"}
 ];
@@ -33,8 +34,8 @@ export default function ToolsPage() {
     />
 
     <StatRow items={[
-      {label:"Planning tools",value:"8",note:"Purchase, ownership and daily use"},
-      {label:"Core cost tools",value:"4",note:"Ownership, loan, LTO and insurance"},
+      {label:"Planning tools",value:"9",note:"Purchase, ownership and daily use"},
+      {label:"Core cost tools",value:"5",note:"Ownership, down payment, loan, LTO and insurance"},
       {label:"Electric tools",value:"2",note:"Charging cost and range"}
     ]}/>
 
@@ -42,7 +43,7 @@ export default function ToolsPage() {
       <SectionHeader
         kicker="Most useful first"
         title="Purchase and ownership calculators"
-        description="These four tools cover the decisions most riders need before paying for a motorcycle."
+        description="These five tools cover the decisions most riders need before paying for a motorcycle."
       />
       <div className={styles.decisionList}>
         {coreTools.map(item=><Link className={styles.decisionRow} href={item.href} key={item.href}>
