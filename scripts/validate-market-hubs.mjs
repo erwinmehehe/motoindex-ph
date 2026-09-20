@@ -178,6 +178,7 @@ for (const token of [
 for (const [slug, label] of [["honda", "Honda"], ["yamaha", "Yamaha"], ["kawasaki", "Kawasaki"]]) {
   for (const route of [
     ["app", "motorcycles", `${slug}-big-bike`],
+    ["app", "motorcycles", `${slug}-big-bikes`],
     ["app", "motorcycles", slug, "big-bike"],
     ["app", "motorcycles", slug, "big-bikes"]
   ]) {
