@@ -2068,6 +2068,28 @@ export const recommendationGuides: RecommendationGuide[] = [
 
 
   {
+    slug: "125cc-motorcycles-philippines",
+    kicker: "125cc motorcycle guide",
+    title: "125cc motorcycles in the Philippines",
+    seoTitle: "125cc Motorcycles Philippines: Prices & Specs 2026",
+    description: "Compare current 125cc-class motorcycles in the Philippines by price, transmission, weight, seat height, braking, fuel economy and everyday use.",
+    primaryKeyword: "125cc motorcycle Philippines",
+    secondaryKeywords: ["125cc motorcycle price Philippines", "125 motorcycle Philippines", "best 125cc motorcycle Philippines", "125cc motor Philippines"],
+    directAnswer: "This guide compares current Philippine-market motorcycles in the 115cc to 130cc class, including scooters, underbones and utility bikes, using the same dated price and specification records as each canonical model page.",
+    inclusionRules: ["Engine displacement is 115cc to 130cc", "Current Philippine-market motorcycle", "All motorcycle categories qualify"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Every model keeps its own dated Philippine price and specification sources; this hub does not create separate price, color or specification URLs.",
+    caveats: ["125cc is treated as a practical displacement class, so models slightly below or above exactly 125cc can qualify.", "Scooters, underbones and manual utility motorcycles have different use cases, so compare transmission and category as well as price."],
+    tableColumns: ["price","engine","transmission","weight","seat","abs","economy","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest published fuel economy",metric:"economy"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced 125cc motorcycles", "125cc scooters vs underbones and manual bikes", "Lightweight 125cc choices", "Lower-seat 125cc motorcycles", "Braking and fuel-economy differences"],
+    faqQuestions: ["What 125cc motorcycles are available in the Philippines?", "Which 125cc motorcycle has the lowest published price?", "Which 125cc motorcycle is lightest?", "Are scooters included in the 125cc motorcycle comparison?", "What should I compare beyond engine size?"],
+    relatedGuideSlugs: ["125cc-scooters-philippines","best-underbone-motorcycles-philippines","automatic-motorcycles-philippines","best-motorcycles-for-daily-commute-philippines"],
+    intent: "category"
+  },
+  {
     slug: "125cc-scooters-philippines",
     kicker: "125cc scooter guide",
     title: "125cc scooters in the Philippines",
@@ -2086,7 +2108,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest published fuel economy",metric:"economy"},{label:"Largest tank",metric:"tank"}],
     editorialSections: ["Lowest-priced 125cc scooters", "Lightweight 125cc choices", "Lower-seat 125cc scooters", "ABS and braking differences", "Which 125cc scooter suits daily commuting"],
     faqQuestions: ["What 125cc scooters are available in the Philippines?", "Which 125cc scooter is cheapest?", "Which 125cc scooter is lightest?", "Which 125cc scooter has the lowest seat?", "Do 125cc scooters come with ABS?"],
-    relatedGuideSlugs: ["best-scooters-philippines","automatic-motorcycles-philippines","scooters-under-150k-philippines","best-motorcycles-for-daily-commute-philippines"],
+    relatedGuideSlugs: ["125cc-motorcycles-philippines","best-scooters-philippines","automatic-motorcycles-philippines","best-motorcycles-for-daily-commute-philippines"],
     intent: "category"
   },
   {
@@ -2328,7 +2350,7 @@ export function getRecommendationModels(slug: string) {
     case "kawasaki-ninja-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "kawasaki" && /^ninja\b/i.test(m.model));
     case "honda-adv-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "honda" && /adv/i.test(m.model));
     case "cafe-racer-motorcycles-philippines": return byPrice.filter(m => /cafe racer|modern classic|classic road bike/i.test(m.category));
-    case "125cc-scooters-philippines": return byPrice.filter(m => /scooter/i.test(m.category) && m.engineCc >= 115 && m.engineCc <= 130);
+    case "125cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 115 && m.engineCc <= 130);\n    case "125cc-scooters-philippines": return byPrice.filter(m => /scooter/i.test(m.category) && m.engineCc >= 115 && m.engineCc <= 130);
     case "150cc-scooters-philippines": return byPrice.filter(m => /scooter/i.test(m.category) && m.engineCc >= 140 && m.engineCc <= 155);
     case "160cc-scooters-philippines": return byPrice.filter(m => /scooter/i.test(m.category) && m.engineCc >= 156 && m.engineCc <= 165);
     case "automatic-motorcycles-philippines": return byPrice.filter(m => m.transmission === "Automatic");
