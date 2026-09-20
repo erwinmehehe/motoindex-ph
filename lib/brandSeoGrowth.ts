@@ -15,7 +15,7 @@ const profiles: Record<string, BrandSeoGrowthProfile> = {
     seoDescription: "Kawasaki Philippines motorcycle price list with current Ninja, Z and big-bike models, 400cc+ prices, engine sizes, seat heights and buyer research.",
     heroTitle: "Kawasaki Motorcycle Philippines Price List 2026",
     heroDescription: "Compare current Kawasaki motorcycles in the Philippines, from commuter and dual-sport models to Ninja and Z big bikes, with published prices, engine sizes, seat heights and ownership research.",
-    intentNote: "This brand hub owns Kawasaki motorcycles Philippines, Kawasaki price list Philippines and Kawasaki big bike Philippines intent. Individual Ninja, Z and other model searches stay on each canonical model page instead of being split into thin price or big-bike URLs.",
+    intentNote: "Start here for Kawasaki motorcycles and big bikes in the Philippines. Compare current prices and key specifications on this page, then open any Ninja, Z, KLX or other model for detailed financing, fitment and ownership research.",
     bigBikeMinCc: 400,
     bigBikeTitle: "Kawasaki big bikes in the Philippines",
     bigBikeDescription: "Compare current Kawasaki motorcycles at 400cc and above by published price, engine size, power, seat height and category. Open any model for its canonical specs, financing and ownership research."
