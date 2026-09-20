@@ -211,6 +211,26 @@ export const pendingComparisonEditorialBriefs: ComparisonEditorialBrief[] = [
     sections: ["Price", "Engines", "Weight and dimensions", "Seat height", "Storage capacity", "Fuel tank", "Fuel economy", "Windscreen and weather protection", "ABS and traction control", "Features", "Longer-ride specifications"],
     faqs: ["Which costs less?", "Which is lighter?", "Which has the larger fuel tank?"],
     note: "Pending: the current MotoIndex dataset does not contain a source-backed Philippine-market Honda Forza 350 record."
+  },
+  {
+    slug: "click-160-vs-airblade-160",
+    primaryKeyword: "Click 160 vs Airblade 160",
+    intent: "Honda 160cc scooter buyer comparing two closely matched automatic models before purchase.",
+    h1: "Honda Click 160 vs Airblade 160: Price and Specs Compared",
+    opening: "The Click 160 and Airblade 160 sit in the same Honda displacement class, so the useful differences are the checked Philippine price, engine output, curb weight, seat height, fuel capacity, tires and braking equipment. This comparison keeps those measurable differences on one canonical page instead of creating separate thin price or specification URLs.",
+    sections: ["Philippine price comparison", "Engine, horsepower and torque", "Curb weight and city handling", "Seat height and rider fit", "Fuel tank and published economy", "Tires and braking equipment", "Everyday commuting differences", "What changes for the extra cost?"],
+    faqs: ["Which is cheaper, Click 160 or Airblade 160?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "How does their engine output compare?", "What braking equipment is listed for each model?"],
+    related: [{ href: "/compare/click-160-vs-pcx-160", label: "Compare Click 160 vs PCX 160 →" }, { href: "/recommendations/160cc-scooters-philippines", label: "See 160cc scooters in the Philippines →" }]
+  },
+  {
+    slug: "click-125i-vs-mio-i-125",
+    primaryKeyword: "Click 125 vs Mio i 125",
+    intent: "Budget commuter buyer comparing two mainstream 125cc automatic scooters.",
+    h1: "Honda Click 125 vs Yamaha Mio i 125: Price and Specs",
+    opening: "The Click 125i and Mio i 125 target the same practical 125cc commuter class. This page compares their current Philippine price records, output, curb weight, seat height, fuel capacity, tires and braking without splitting price and specification intent into duplicate URLs.",
+    sections: ["Philippine price comparison", "125cc engine specifications", "Weight and maneuverability", "Seat height", "Fuel tank and economy", "Tires and brakes", "Daily commuting practicality", "What do you get for the price difference?"],
+    faqs: ["Which is cheaper, Click 125 or Mio i 125?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "Which has stronger published engine output?", "Do either of these records list ABS?"],
+    related: [{ href: "/compare/click-125i-vs-mio-gear", label: "Compare Click 125 vs Mio Gear →" }, { href: "/recommendations/125cc-scooters-philippines", label: "See 125cc scooters in the Philippines →" }]
   }
 ];
 
