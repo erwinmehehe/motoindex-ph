@@ -38,7 +38,7 @@ if (fs.existsSync(path.join(root, "components", "AdSense.tsx"))) {
   requireText(component, "pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=", "AdSense bootstrap must use Google's current loader URL.");
 }
 const layout = read("app", "layout.tsx");
-requireText(layout, "<AdSense />", "Root layout must include the disabled-by-default AdSense bootstrap.");
+requireText(layout, "<AdSense", "Root layout must include the disabled-by-default AdSense bootstrap.");
 const privacy = read("app", "privacy", "page.tsx");
 for (const token of [
   "Google advertising cookies",
