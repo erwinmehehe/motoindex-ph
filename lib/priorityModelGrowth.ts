@@ -38,6 +38,30 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 400cc+ motorcycles"
   },
 
+
+  "yamaha-xmax": {
+    seoTitle: "Yamaha XMAX Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "Yamaha XMAX price in the Philippines, 292cc specs, ABS, seat height, weight, fuel tank, ownership costs and maxi-scooter alternatives.",
+    intentIntro: "The XMAX is a high-demand maxi-scooter search, so keep price, 292cc specifications, rider fit, touring practicality and ownership research on this canonical model page rather than splitting the intent across thin price or specs URLs.",
+    moneyQuestion: "What does the Yamaha XMAX cost once the current dealer quote, insurance, registration and other purchase charges are included?",
+    ownershipQuestion: "Compare CVT service, 15/14-inch tires, 13 L fuel capacity, insurance and Yamaha service access with ADV350, Burgman 400 and other maxi scooters.",
+    alternativeIds: ["honda-adv-350", "suzuki-burgman-400", "zontes-400g"],
+    relatedIds: ["yamaha-nmax-v3", "yamaha-tmax-tech-max"],
+    recommendationHref: "/recommendations/maxi-scooters-philippines",
+    recommendationLabel: "Compare maxi scooters"
+  },
+  "yamaha-xsr155": {
+    seoTitle: "Yamaha XSR155 Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "Yamaha XSR155 price in the Philippines, 155cc specs, 808mm seat, weight, tires, fuel tank, ownership costs and roadster alternatives.",
+    intentIntro: "The XSR155 combines retro-roadster styling with a 155cc manual platform. Keep price, specifications, rider fit, ownership and alternative research on this canonical model page rather than creating separate thin price or specs pages.",
+    moneyQuestion: "What does the XSR155 cost after the current dealer quote, registration, insurance and other purchase charges are included?",
+    ownershipQuestion: "Compare 17-inch tires, chain and sprocket service, fuel use, insurance and Yamaha support with other lightweight manual roadsters.",
+    alternativeIds: ["yamaha-mt-15", "honda-cb150r", "husqvarna-svartpilen-200"],
+    relatedIds: ["yamaha-mt-07", "yamaha-xsr700"],
+    recommendationHref: "/recommendations/naked-motorcycles-philippines",
+    recommendationLabel: "Compare naked and roadster motorcycles"
+  },
+
   "yamaha-aerox-v3": {
     seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Specs & Monthly",
     seoDescription: "Yamaha Aerox V3 price in the Philippines, 155cc specs, colors, seat height, tire sizes, down payment, monthly estimate, fuel and ownership costs.",
@@ -72,7 +96,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 160cc scooters"
   },
   "honda-adv-350": {
-    seoTitle: "Honda ADV350 Price Philippines 2026 | Specs & Monthly",
+    seoTitle: "Honda ADV350 Price Philippines 2026 | Specs & Ownership",
     seoDescription: "Honda ADV350 price in the Philippines, 330cc specs, colors, seat height, ABS, down payment, monthly estimate, fuel range and ownership costs.",
     intentIntro: "The ADV350 sits above 160cc scooters but below Honda's larger X-ADV on price and size. Compare the current ₱310,000 Honda SRP, financing, 795 mm seat, 186 kg curb weight and ownership costs against XMAX, X-ADV and other maxi scooters before choosing on displacement alone.",
     moneyQuestion: "What does the ADV350 cost after the down payment, monthly payment, insurance, registration and dealer fees are included?",
@@ -270,7 +294,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   },
 
   "honda-click-125i": {
-    seoTitle: "Honda Click 125i Price Philippines 2026 | Specs & Monthly",
+    seoTitle: "Honda Click 125i Price Philippines 2026 | Specs & Ownership",
     seoDescription: "Honda Click 125i price in the Philippines, 125cc specs, colors, seat height, tires, down payment, monthly estimate, fuel economy and ownership costs.",
     intentIntro: "The Click 125i is a high-volume commuter choice, so small differences in trim price, fuel use, braking, storage and monthly payment matter more than headline performance. Compare the full daily-use package before reserving.",
     moneyQuestion: "What does the Click 125i really cost after choosing the exact trim and adding down payment, monthly payment, fees and insurance?",
@@ -281,7 +305,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 125cc scooters"
   },
   "honda-click-160": {
-    seoTitle: "Honda Click 160 Price Philippines 2026 | Specs & Monthly",
+    seoTitle: "Honda Click 160 Price Philippines 2026 | Specs & Ownership",
     seoDescription: "Honda Click 160 price in the Philippines, 157cc specs, seat height, tire sizes, down payment, monthly estimate, fuel economy and ownership costs.",
     intentIntro: "The Click 160 competes directly with sport and premium scooters, so compare its lower weight and commuter focus against ADV160, Aerox V3 and PCX160 on price, financing, braking, fit and ownership.",
     moneyQuestion: "Does the Click 160 remain the better-value 160-class choice after down payment, monthly payment, insurance and dealer fees are included?",
@@ -292,7 +316,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 160cc scooters"
   },
   "honda-pcx-160": {
-    seoTitle: "Honda PCX160 Price Philippines 2026 | Specs & Monthly",
+    seoTitle: "Honda PCX160 Price Philippines 2026 | Specs & Ownership",
     seoDescription: "Honda PCX160 price in the Philippines, 157cc specs, variants, seat height, tires, down payment, monthly estimate, fuel and ownership costs.",
     intentIntro: "The PCX160 is a comfort-led premium scooter, so compare Standard and RoadSync pricing, financing, low-seat fit, tank range and ownership costs against NMAX V3 and ADV160 before choosing on styling alone.",
     moneyQuestion: "How much does the PCX160 cost once the exact variant, down payment, monthly payment, insurance and dealer fees are included?",
@@ -325,7 +349,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 125cc scooters"
   },
   "suzuki-raider-r150": {
-    seoTitle: "Suzuki Raider R150 Price Philippines 2026 | Specs & Monthly",
+    seoTitle: "Suzuki Raider R150 Price Philippines 2026 | Specs & Ownership",
     seoDescription: "Suzuki Raider R150 price in the Philippines, 147cc specs, seat height, tires, down payment, monthly estimate, fuel planning and ownership costs.",
     intentIntro: "The Raider R150 is a performance-focused underbone, so compare the full purchase and ownership picture with Sniper 155 and Winner X: financing, insurance, tires, chain service and daily traffic use.",
     moneyQuestion: "What does the Raider R150 cost after down payment, monthly payment, insurance, registration and dealer fees are included?",
