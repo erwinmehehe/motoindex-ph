@@ -85,7 +85,7 @@ export default async function MotorcycleLoanCalculatorPage({ searchParams }: { s
     <section className="section" aria-labelledby="loan-limitations">
       <div className="section-head compact"><div><h2 id="loan-limitations">Assumptions and limitations</h2><p>The output is for budgeting and comparison. It does not predict approval, dealer promotions, credit assessment, add-on packages, late fees or lender-specific payment rules. Replace every default with the numbers from the quote you are actually considering.</p></div></div>
       <div className="tool-crosslinks">
-        <Link href="/ownership/cost-calculator"><b>Full ownership cost</b><small>Add fuel, maintenance, insurance, registration, tires and resale.</small></Link>
+        <Link href="/tools/motorcycle-down-payment-calculator"><b>Down payment calculator</b><small>Calculate cash down and remaining balance before choosing a term.</small></Link>\n        <Link href="/ownership/cost-calculator"><b>Full ownership cost</b><small>Add fuel, maintenance, insurance, registration, tires and resale.</small></Link>
         <Link href="/tools/lto-registration-fee-calculator"><b>LTO registration budget</b><small>Add registration-related costs to your purchase plan.</small></Link>
         <Link href="/tools/motorcycle-insurance-calculator"><b>Insurance budget</b><small>Estimate CTPL and comprehensive planning costs separately.</small></Link>
       </div>
