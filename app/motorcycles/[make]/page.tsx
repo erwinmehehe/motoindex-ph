@@ -186,7 +186,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
           })}
         </DataTable>
         <CTAGroup>
-          <Link className="button secondary" href="/recommendations/motorcycles-400cc-plus-philippines">Compare 400cc+ motorcycles</Link>
+          <Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link>
           <Link className="button secondary" href="/motorcycles/expressway-legal">Check expressway-legal research</Link>
         </CTAGroup>
       </section> : null}
