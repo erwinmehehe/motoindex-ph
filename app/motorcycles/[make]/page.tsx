@@ -174,7 +174,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       {bigBikes.length > 0 && brandGrowth?.bigBikeTitle && brandGrowth.bigBikeDescription ? <section id="big-bikes" className="ph-brand-section">
         <SectionHeader kicker={`${brandGrowth.bigBikeMinCc}cc+ motorcycles`} title={brandGrowth.bigBikeTitle} description={brandGrowth.bigBikeDescription} />
         <InfoPanel subtle>
-          <p>This list is derived from the same current ${brand} dataset used across MotoIndex. A motorcycle appearing here keeps one canonical model page; this section groups the ${brandGrowth.bigBikeMinCc}cc+ choices for faster brand-level research.</p>
+          <p>{`Use this section to compare the current ${brandGrowth.bigBikeMinCc}cc+ ${brand} motorcycles tracked by MotoIndex in one place. Open any model for detailed specifications, financing estimates, ownership costs and alternatives.`}</p>
         </InfoPanel>
         <DataTable className="ph-brand-price-table" label={`${brand} big bikes in the Philippines`}>
           <div className="head" role="row"><span>Model</span><span>Price reference</span><span>Engine</span><span>Power</span><span>Seat</span></div>
