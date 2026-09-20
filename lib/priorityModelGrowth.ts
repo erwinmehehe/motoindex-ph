@@ -15,6 +15,29 @@ export type PriorityModelGrowthProfile = {
 };
 
 const profiles: Record<string, PriorityModelGrowthProfile> = {
+  "yamaha-mt-07": {
+    seoTitle: "Yamaha MT-07 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Yamaha MT-07 price in the Philippines, 689cc specs, horsepower, seat height, weight, tire sizes, down payment, monthly estimate and comparisons.",
+    intentIntro: "The MT-07 attracts both Philippine price searches and global specification research. Compare its 689cc CP2 engine, horsepower, curb weight, seat height, financing and direct middleweight alternatives on one canonical model page.",
+    moneyQuestion: "What does the MT-07 cost after down payment, monthly financing, insurance, registration and the final dealer quote?",
+    ownershipQuestion: "Compare tires, chain service, fuel use, insurance and rider fit with the CB650R and Z650 before choosing on engine character alone.",
+    alternativeIds: ["honda-cb650r", "kawasaki-z650"],
+    relatedIds: ["yamaha-xsr700", "yamaha-yzf-r3"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles"
+  },
+  "yamaha-xsr700": {
+    seoTitle: "Yamaha XSR700 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Yamaha XSR700 price in the Philippines, 689cc specs, horsepower, weight, seat height, tires, financing and CB650R comparison research.",
+    intentIntro: "The XSR700 combines retro styling with Yamaha's 689cc CP2 platform. Keep price, horsepower, weight, seat height, tire size, financing and comparison intent on this canonical model page.",
+    moneyQuestion: "How much does the XSR700 cost after the down payment, monthly payment, insurance, registration and dealer charges?",
+    ownershipQuestion: "Compare 17-inch tires, chain service, fuel use, insurance and rider fit with the CB650R and other middleweight road bikes.",
+    alternativeIds: ["honda-cb650r", "yamaha-mt-07"],
+    relatedIds: ["yamaha-mt-07"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles"
+  },
+
   "yamaha-aerox-v3": {
     seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Specs & Monthly",
     seoDescription: "Yamaha Aerox V3 price in the Philippines, 155cc specs, colors, seat height, tire sizes, down payment, monthly estimate, fuel and ownership costs.",
