@@ -5,6 +5,26 @@ import type { EntityMedia } from "./types";
 // upstream image for provenance and a temporary runtime fallback while local assets are synced.
 export const entityMedia: EntityMedia[] = [
   {
+    id: "yamaha-mt-07-global-reference", entityType: "motorcycle", entityId: "yamaha-mt-07", role: "primary",
+    src: "/media/motorcycles/yamaha-mt-07.webp", sourceImageUrl: "https://www.yamahaba.sk/_Data/produkty/5849_1024_768.jpg", alt: "Yamaha MT-07 motorcycle in Icon Blue", width: 1024, height: 768,
+    rightsStatus: "external-reference", rightsHolder: "Yamaha dealer network", sourceLabel: "Yamaha dealer image reference · 2025 MT-07", sourceUrl: "https://www.yamahaba.sk/mt07iconblue2025", lastChecked: "2026-09-20"
+  },
+  {
+    id: "yamaha-xsr700-global-reference", entityType: "motorcycle", entityId: "yamaha-xsr700", role: "primary",
+    src: "/media/motorcycles/yamaha-xsr700.webp", sourceImageUrl: "https://www.2ri.de/Images/Big/8/News_Yamaha_XSR700_2025.jpg", alt: "Yamaha XSR700 motorcycle", width: 1024, height: 768,
+    rightsStatus: "external-reference", rightsHolder: "External model reference", sourceLabel: "Current Yamaha XSR700 image reference", sourceUrl: "https://www.2ri.de/News/2025-Yamaha-XSR700-Klassisches-Design-trifft-auf-moderne-Performance/28261", lastChecked: "2026-09-20"
+  },
+  {
+    id: "honda-cb650r-market-reference", entityType: "motorcycle", entityId: "honda-cb650r", role: "primary",
+    src: "/media/motorcycles/honda-cb650r.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/73/2029/honda-cb650r-color-331311.jpg", alt: "Honda CB650R motorcycle", width: 1200, height: 900,
+    rightsStatus: "external-reference", rightsHolder: "Zigwheels Philippines", sourceLabel: "Philippine market image reference · Honda CB650R", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/cb650r", lastChecked: "2026-09-20"
+  },
+  {
+    id: "honda-nx500-market-reference", entityType: "motorcycle", entityId: "honda-nx500-e-clutch", role: "primary",
+    src: "/media/motorcycles/honda-nx500-e-clutch.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/73/3297/honda-nx500-color-559223.jpg", alt: "Honda NX500 adventure motorcycle", width: 1200, height: 900,
+    rightsStatus: "external-reference", rightsHolder: "Zigwheels Philippines", sourceLabel: "Philippine market image reference · Honda NX500", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/nx500", lastChecked: "2026-09-20"
+  },
+  {
     id: "site-mark",
     entityType: "site",
     entityId: "motoindex", role: "primary",
