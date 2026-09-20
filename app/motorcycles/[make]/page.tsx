@@ -71,6 +71,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const manual = current.filter((m) => m.transmission === "Manual").length;
   const cheapest = ranges.reduce((best, row) => row.from < best.from ? row : best, ranges[0]);
   const authorityModels = current.filter((m) => Boolean(modelAuthorityProfile(m.id)));
+  const bigBikeMinCc = brandGrowth?.bigBikeMinCc;
+  const bigBikes = bigBikeMinCc ? current.filter((m) => m.engineCc >= bigBikeMinCc) : [];
 
   const faq = [
     {
@@ -94,6 +96,13 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       answer: `No. The prices are reference points, not guaranteed transaction quotes. Confirm the current cash price, fees and promotions with the seller before purchase.`
     }
   ];
+
+  if (bigBikes.length > 0 && bigBikeMinCc) {
+    faq.splice(1, 0, {
+      question: `Which ${brand} motorcycles are ${bigBikeMinCc}cc and above?`,
+      answer: `MotoIndex currently tracks ${bigBikes.length} current ${brand} ${bigBikeMinCc}cc+ ${bigBikes.length === 1 ? "model" : "models"}: ${bigBikes.map((model) => model.model).join(", ")}. Compare their published prices, engine sizes, power and seat heights in the big-bike section below.`
+    });
+  }
 
   const schema = [
     {
@@ -140,14 +149,15 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
           {label:"Price range",value:`${php(low)}–${php(high)}`,note:"Published prices across current models"},
           {label:"Engine range",value:`${minEngine}–${maxEngine} cc`,note:"Across models covered here"},
           {label:"Transmission",value:`${automatic} auto · ${manual} manual`,note:"Across models covered here"},
-          ...(authorityModels.length > 0 ? [{label:"Buyer guides",value:authorityModels.length,note:"Expanded decision briefs with Philippine ownership context"}] : [])
+          ...(authorityModels.length > 0 ? [{label:"Buyer guides",value:authorityModels.length,note:"Expanded decision briefs with Philippine ownership context"}] : []),
+          ...(bigBikes.length > 0 && bigBikeMinCc ? [{label:`${bigBikeMinCc}cc+ models`,value:bigBikes.length,note:"Current big bikes covered on this brand hub"}] : [])
         ]}/>
       </div>
     </div>
 
     <div className="shell">
       <nav className="ph-brand-nav" aria-label={`${brand} page sections`}>
-        <a href="#price-list">Price list</a><a href="#models">Models</a><a href="#categories">Categories</a><a href="#research">How to use data</a><a href="#faq">FAQ</a>
+        <a href="#price-list">Price list</a><a href="#models">Models</a>{bigBikes.length > 0 ? <a href="#big-bikes">Big bikes</a> : null}<a href="#categories">Categories</a><a href="#research">How to use data</a><a href="#faq">FAQ</a>
       </nav>
 
       {priority && <section className="ph-brand-context">
@@ -161,6 +171,26 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <SectionHeader kicker="Current motorcycles" title={`Compare ${brand} motorcycle models in the Philippines`} description={current.length <= 2 ? `Compare the ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} by price and key specifications.` : `Compare ${current.length} current ${brand} motorcycle models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`} />
         <div className="card-grid ph-brand-model-grid">{current.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div>
       </section>
+
+      {bigBikes.length > 0 && brandGrowth?.bigBikeTitle && brandGrowth.bigBikeDescription ? <section id="big-bikes" className="ph-brand-section">
+        <SectionHeader kicker={`${bigBikeMinCc}cc+ motorcycles`} title={brandGrowth.bigBikeTitle} description={brandGrowth.bigBikeDescription} />
+        <InfoPanel subtle>
+          <p>{`Use this section to compare the current ${bigBikeMinCc}cc+ ${brand} motorcycles tracked by MotoIndex in one place. Open any model for detailed specifications, financing estimates, ownership costs and alternatives.`}</p>
+        </InfoPanel>
+        <DataTable className="ph-brand-price-table" label={`${brand} big bikes in the Philippines`}>
+          <div className="head" role="row"><span>Model</span><span>Price reference</span><span>Engine</span><span>Power</span><span>Seat</span></div>
+          {bigBikes.map((model) => {
+            const range = observedMarketRange(model);
+            return <Link role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}`} key={model.id}>
+              <strong>{model.model}<small>{model.category}</small></strong><span>{phpRange(range.from, range.to)}</span><span>{model.engineCc} cc</span><span>{model.powerHp} hp</span><span>{model.seatHeightMm} mm →</span>
+            </Link>;
+          })}
+        </DataTable>
+        <CTAGroup>
+          <Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link>
+          <Link className="button secondary" href="/motorcycles/expressway-legal">Check expressway-legal research</Link>
+        </CTAGroup>
+      </section> : null}
 
       <section id="price-list" className="ph-brand-section">
         <SectionHeader kicker="Current model prices" title={`${brand} Motorcycle Philippines Price List`} description={`Compare current ${brand} motorcycle prices in one table. Use these price references as a starting point, then open the exact model to compare variants, financing and ownership details.`} />

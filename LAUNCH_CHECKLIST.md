@@ -53,6 +53,8 @@ Keep `NEXT_PUBLIC_ANALYTICS_CAPTURE_SEARCH_TERMS=false` unless you deliberately 
 
 Affiliate maps remain optional and fail closed when empty. The site can launch without them, but shopping CTAs and affiliate revenue remain off until approved links are configured through `AFFILIATE_LINKS_JSON` or the legacy Shopee map.
 
+Google AdSense is also optional and fail-closed. Keep `NEXT_PUBLIC_ADSENSE_ENABLED=false` until a real account is approved and the required consent controls are ready. Configure `ADSENSE_PUBLISHER_ID=pub-################` for the root `/ads.txt` seller declaration and `NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-################` for the browser loader. Never commit either as a placeholder. After deployment, verify `https://motoindexph.com/ads.txt` returns HTTP 200 and the exact seller line shown by AdSense before enabling ads.
+
 ## Security gate — preserve the registry-generated lockfile
 MotoIndex remains pinned to **Next.js 15.5.24**. The launch-ready v2.4.7 candidate has a registry-generated npm lockfile with matching Next/@next/SWC 15.5.24 records and npm-published SRI metadata.
 
@@ -89,7 +91,7 @@ The production smoke suite explicitly expects `/used-motorcycles/repo` and `/use
 Then manually verify:
 - TLS certificate and HTTPS redirect.
 - Home, motorcycle hub/model, commuter hub/calculators, comparison/finder, Helmet Finder/comparison, tire, accessory and ownership pages on desktop and mobile.
-- `/robots.txt`, `/sitemap.xml`, `/sitemaps/motorcycles.xml`, `/sitemaps/gear.xml`, `/sitemaps/commerce.xml`.
+- `/robots.txt`, `/ads.txt` (when AdSense is configured), `/sitemap.xml`, `/sitemaps/motorcycles.xml`, `/sitemaps/gear.xml`, `/sitemaps/commerce.xml`.
 - No prototype/demo URLs appear in sitemaps.
 - Unauthenticated `/admin/data-health` returns 401; prototype marketplace routes return 404.
 - `/api/leads`, `/api/price-alerts` and `/api/used-listings` reject requests as expected. `/api/offers` returns 410 without Postgres and verified-only data when persistence is configured.

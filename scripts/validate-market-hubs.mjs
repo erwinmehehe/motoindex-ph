@@ -14,11 +14,17 @@ const requireText = (source, needle, message) => {
 const forbidText = (source, needle, message) => {
   if (source.includes(needle)) errors.push(message);
 };
+const requireRegex = (source, pattern, message) => {
+  if (!pattern.test(source)) errors.push(message);
+};
 
 requireFile("app", "motorcycles", "scooters", "page.tsx");
 
 const motorcycles = read("app", "motorcycles", "page.tsx");
 const sitemaps = read("lib", "sitemaps.ts");
+const brandPage = read("app", "motorcycles", "[make]", "page.tsx");
+const brandGrowth = read("lib", "brandSeoGrowth.ts");
+const tier23Models = read("lib", "phTier23ModelsBase.ts");
 
 requireText(
   motorcycles,
@@ -86,6 +92,47 @@ requireText(
   '/motorcycles/scooters',
   "National scooter authority page must be included in the motorcycle sitemap."
 );
+
+requireText(
+  brandGrowth,
+  'kawasaki: {',
+  "Kawasaki must have a brand SEO growth profile for big-bike intent."
+);
+for (const token of [
+  'bigBikeMinCc: 400',
+  'Kawasaki Big Bikes Philippines',
+  'Kawasaki big bikes in the Philippines'
+]) {
+  requireText(brandGrowth, token, `Kawasaki brand growth profile missing big-bike token: ${token}`);
+}
+for (const token of [
+  "const bigBikeMinCc = brandGrowth?.bigBikeMinCc",
+  'id="big-bikes"',
+  "bigBikeTitle",
+  "bigBikeDescription"
+]) {
+  requireText(brandPage, token, `Brand page missing dataset-driven big-bike behavior: ${token}`);
+}
+requireRegex(
+  tier23Models,
+  /id: "kawasaki-ninja-zx-4rr"[\s\S]{0,800}?srp: 499000[\s\S]{0,1400}?sourceUrl: "https:\/\/kawasakileisurebikes\.ph\/motorcycles\/supersports\/ninja-zx-4rr\//,
+  "Kawasaki ZX-4RR must use the current Kawasaki Philippines MSRP/source."
+);
+requireRegex(
+  tier23Models,
+  /id: "kawasaki-ninja-h2"[\s\S]{0,800}?srp: 1855000[\s\S]{0,1400}?sourceUrl: "https:\/\/www\.kawasakileisurebikes\.ph\/motorcycles\/supersports\/ninja-h2-carbon\//,
+  "Kawasaki Ninja H2 must use the current Kawasaki Philippines Carbon MSRP/source."
+);
+for (const route of [
+  ["app", "motorcycles", "kawasaki-big-bike"],
+  ["app", "motorcycles", "kawasaki", "big-bike"],
+  ["app", "motorcycles", "kawasaki", "big-bikes"]
+]) {
+  if (fs.existsSync(path.join(root, ...route))) {
+    errors.push(`Thin Kawasaki big-bike route must not exist: ${route.join("/")}`);
+  }
+}
+
 
 const recommendationRoute = read("app", "recommendations", "[slug]", "page.tsx");
 requireText(
