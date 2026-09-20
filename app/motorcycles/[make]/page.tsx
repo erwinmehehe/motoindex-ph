@@ -73,6 +73,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const authorityModels = current.filter((m) => Boolean(modelAuthorityProfile(m.id)));
   const bigBikeMinCc = brandGrowth?.bigBikeMinCc;
   const bigBikes = bigBikeMinCc ? current.filter((m) => m.engineCc >= bigBikeMinCc) : [];
+  const categorySpotlight = brandGrowth?.categorySpotlight;
+  const spotlightModels = categorySpotlight ? current.filter((m) => new RegExp(categorySpotlight.pattern, "i").test(m.category)) : [];
 
   const faq = [
     {
@@ -157,7 +159,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
     <div className="shell">
       <nav className="ph-brand-nav" aria-label={`${brand} page sections`}>
-        <a href="#price-list">Price list</a><a href="#models">Models</a>{bigBikes.length > 0 ? <a href="#big-bikes">Big bikes</a> : null}<a href="#categories">Categories</a><a href="#research">How to use data</a><a href="#faq">FAQ</a>
+        <a href="#price-list">Price list</a><a href="#models">Models</a>{bigBikes.length > 0 ? <a href="#big-bikes">Big bikes</a> : null}{spotlightModels.length > 0 ? <a href="#category-spotlight">Featured category</a> : null}<a href="#categories">Categories</a><a href="#research">How to use data</a><a href="#faq">FAQ</a>
       </nav>
 
       {priority && <section className="ph-brand-context">
@@ -190,6 +192,19 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
           <Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link>
           <Link className="button secondary" href="/motorcycles/expressway-legal">Check expressway-legal research</Link>
         </CTAGroup>
+      </section> : null}
+
+      {spotlightModels.length > 0 && categorySpotlight ? <section id="category-spotlight" className="ph-brand-section">
+        <SectionHeader kicker="High-demand category" title={categorySpotlight.title} description={categorySpotlight.description} />
+        <DataTable className="ph-brand-price-table" label={categorySpotlight.title}>
+          <div className="head" role="row"><span>Model</span><span>Price reference</span><span>Engine</span><span>Power</span><span>Seat</span></div>
+          {spotlightModels.map((model) => {
+            const range = observedMarketRange(model);
+            return <Link role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}`} key={model.id}>
+              <strong>{model.model}<small>{model.category}</small></strong><span>{phpRange(range.from, range.to)}</span><span>{model.engineCc} cc</span><span>{model.powerHp} hp</span><span>{model.seatHeightMm} mm →</span>
+            </Link>;
+          })}
+        </DataTable>
       </section> : null}
 
       <section id="price-list" className="ph-brand-section">
