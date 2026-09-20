@@ -22,6 +22,7 @@ const routes=[
   {name:"honda-winner-x-legacy",path:"/motorcycles/honda/winner-x"},
   {name:"yamaha-mio-i125-legacy",path:"/motorcycles/yamaha/mio-i-125"},
   {name:"compare-index",path:"/compare"},
+  {name:"kawasaki-compare",path:"/compare?make=kawasaki"},
   {name:"compare",path:"/compare/selection?bikes=aerox-v3,nmax-v3"},
   {name:"helmets",path:"/gear/helmets"},
   {name:"helmet-detail",path:"/gear/helmets/gille/kerena-ff007"},
@@ -217,6 +218,9 @@ const inspect=`(() => {
 
   const compareBuilder=document.querySelector("[data-compare-builder]");
   const compareBuilderRect=compareBuilder?.getBoundingClientRect();
+  const compareFirstSelect=compareBuilder?.querySelector("select");
+  const compareOptionTexts=compareFirstSelect?[...compareFirstSelect.options].filter(option=>option.value).map(option=>(option.textContent||"").trim()):[];
+  const compareNonKawasakiOptions=compareOptionTexts.filter(text=>!text.startsWith("Kawasaki ")).length;
   const deferredSections=[...document.querySelectorAll("section")].filter(section=>getComputedStyle(section).contentVisibility==="auto").length;
   const recommendationGuideCards=document.querySelectorAll("[data-recommendation-guide-card]").length;
   const recommendationArchiveLinks=document.querySelectorAll("[data-recommendation-archive-link]").length;
@@ -281,6 +285,8 @@ const inspect=`(() => {
     standardMotorcycleCards:standardMotorcycleCards.length,
     standardMotorcycleCardModes,
     compareBuilderHeight:compareBuilderRect?.height||0,
+    compareOptionCount:compareOptionTexts.length,
+    compareNonKawasakiOptions,
     deferredSections,
     recommendationGuideCards,
     recommendationArchiveLinks,
@@ -360,7 +366,8 @@ try{
       if((row?.unloadedProductImages||0)>0)failures.push(`${width}px ${route.name}: ${row.unloadedProductImages} product image(s) failed to load after lazy-media warmup`);
       if((row?.unavailableProductMedia||0)>0)failures.push(`${width}px ${route.name}: ${row.unavailableProductMedia} product media fallback(s) rendered as unavailable`);
       if((row?.collapsedCards||0)>0)failures.push(`${width}px ${route.name}: ${row.collapsedCards} canonical product card(s) collapsed`);
-      if(route.name==="kawasaki-brand"&&(row?.brandBigBikeRows||0)<5)failures.push(`${width}px kawasaki-brand: big-bike section is missing or incomplete (${row?.brandBigBikeRows||0} rows)`);
+      if(route.name==="kawasaki-brand"&&(row?.brandBigBikeRows||0)<12)failures.push(`${width}px kawasaki-brand: big-bike section is missing or incomplete (${row?.brandBigBikeRows||0} rows)`);
+      if(route.name==="kawasaki-compare"&&((row?.compareOptionCount||0)<2||(row?.compareNonKawasakiOptions||0)>0))failures.push(`${width}px kawasaki-compare: make filter leaked non-Kawasaki options or returned too few models (${row?.compareOptionCount||0} options, ${row?.compareNonKawasakiOptions||0} non-Kawasaki)`);
       const motorcycleCardModes=row?.standardMotorcycleCardModes||[];
       const routeCardModes=route.name==="motorcycles"
         ? motorcycleCardModes.filter(card=>card.catalog)

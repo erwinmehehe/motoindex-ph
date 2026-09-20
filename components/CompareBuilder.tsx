@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import type { Motorcycle } from "@/lib/types";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import { trackEvent } from "@/lib/track";
@@ -8,7 +8,15 @@ import styles from "./CompareBuilder.module.css";
 
 export function CompareBuilder({ models }: { models: Motorcycle[] }) {
   const router=useRouter();
-  const options=useMemo(()=>[...models].sort((a,b)=>`${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`)),[models]);
+  const searchParams=useSearchParams();
+  const makeFilter=(searchParams.get("make")||"").trim().toLowerCase();
+  const options=useMemo(()=>{
+    const sorted=[...models].sort((a,b)=>`${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`));
+    if(!makeFilter)return sorted;
+    const filtered=sorted.filter(model=>model.makeSlug===makeFilter);
+    return filtered.length>=2?filtered:sorted;
+  },[models,makeFilter]);
+  const activeMake=makeFilter&&options.length>=2&&options.every(model=>model.makeSlug===makeFilter)?options[0]?.make:null;
   const [aSlug,setASlug]=useState(""),[bSlug,setBSlug]=useState(""),[cSlug,setCSlug]=useState("");
   const a=options.find(m=>m.slug===aSlug),b=options.find(m=>m.slug===bSlug),c=options.find(m=>m.slug===cSlug);
   const ready=Boolean(a&&b&&a.slug!==b.slug);
@@ -31,7 +39,7 @@ export function CompareBuilder({ models }: { models: Motorcycle[] }) {
   function goThree(){if(!ready3||!a||!b||!c)return;trackEvent("compare_build",{count:3,a:a.id,b:b.id,c:c.id});openSelection([a,b,c])}
 
   return <div className={styles.builder} data-compare-builder>
-    <div className={styles.head}><div><h2>Choose motorcycles to compare</h2><p>Pick two current Philippine-market motorcycles. Add a third only when you need a three-way view.</p></div><span className={styles.count}>{options.length} current models</span></div>
+    <div className={styles.head}><div><h2>{activeMake?`Compare ${activeMake} motorcycles`:"Choose motorcycles to compare"}</h2><p>{activeMake?`Pick two current ${activeMake} motorcycles. Add a third only when you need a three-way view.`:"Pick two current Philippine-market motorcycles. Add a third only when you need a three-way view."}</p></div><span className={styles.count}>{options.length} {activeMake?`${activeMake} current models`:"current models"}</span></div>
     <div className={styles.pickerGrid}>
       {picker("Motorcycle A",aSlug,setASlug,[bSlug,cSlug])}
       <div className={styles.vs}>VS</div>

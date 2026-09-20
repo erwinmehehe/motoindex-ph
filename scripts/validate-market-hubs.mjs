@@ -19,12 +19,16 @@ const requireRegex = (source, pattern, message) => {
 };
 
 requireFile("app", "motorcycles", "scooters", "page.tsx");
+requireFile("lib", "kawasakiBigBikeExpansion2026.ts");
 
 const motorcycles = read("app", "motorcycles", "page.tsx");
 const sitemaps = read("lib", "sitemaps.ts");
 const brandPage = read("app", "motorcycles", "[make]", "page.tsx");
 const brandGrowth = read("lib", "brandSeoGrowth.ts");
 const tier23Models = read("lib", "phTier23ModelsBase.ts");
+const tier23Index = read("lib", "phTier23Models.ts");
+const kawasakiExpansion = read("lib", "kawasakiBigBikeExpansion2026.ts");
+const compareBuilder = read("components", "CompareBuilder.tsx");
 
 requireText(
   motorcycles,
@@ -120,9 +124,44 @@ requireRegex(
 );
 requireRegex(
   tier23Models,
-  /id: "kawasaki-ninja-h2"[\s\S]{0,800}?srp: 1855000[\s\S]{0,1400}?sourceUrl: "https:\/\/www\.kawasakileisurebikes\.ph\/motorcycles\/supersports\/ninja-h2-carbon\//,
-  "Kawasaki Ninja H2 must use the current Kawasaki Philippines Carbon MSRP/source."
+  /id: "kawasaki-ninja-h2"[\s\S]{0,500}?model: "Ninja H2 Carbon"[\s\S]{0,800}?srp: 1855000[\s\S]{0,1400}?sourceUrl: "https:\/\/www\.kawasakileisurebikes\.ph\/motorcycles\/supersports\/ninja-h2-carbon\//,
+  "Kawasaki Ninja H2 canonical must display the current Philippine Ninja H2 Carbon name and source."
 );
+requireText(
+  tier23Index,
+  'kawasakiBigBikeExpansion2026',
+  "Kawasaki big-bike expansion must be included in the public motorcycle dataset."
+);
+for (const id of [
+  "kawasaki-ninja-650",
+  "kawasaki-z650",
+  "kawasaki-z900",
+  "kawasaki-z-h2",
+  "kawasaki-versys-650",
+  "kawasaki-vulcan-s",
+  "kawasaki-eliminator"
+]) {
+  requireText(kawasakiExpansion, `id: "${id}"`, `Kawasaki expansion missing verified current model: ${id}`);
+}
+for (const sourcePath of [
+  "/motorcycles/sports/ninja-650/",
+  "/motorcycles/sports/z650/",
+  "/motorcycles/sports/z900-standard/",
+  "/motorcycles/supersports/z-h2/",
+  "/motorcycles/versys/versys-650/",
+  "/motorcycles/cruisers/vulcan-s/",
+  "/motorcycles/cruisers/eliminator/"
+]) {
+  requireText(kawasakiExpansion, sourcePath, `Kawasaki expansion missing current Philippine manufacturer source: ${sourcePath}`);
+}
+for (const token of [
+  'useSearchParams',
+  'searchParams.get("make")',
+  'model.makeSlug===makeFilter',
+  'Compare ${activeMake} motorcycles'
+]) {
+  requireText(compareBuilder, token, `Compare builder must honor brand-filtered entry points: ${token}`);
+}
 for (const route of [
   ["app", "motorcycles", "kawasaki-big-bike"],
   ["app", "motorcycles", "kawasaki", "big-bike"],

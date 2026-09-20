@@ -650,12 +650,12 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "400cc CVT adventure maxi scooter with 38 hp, 40 Nm, 203 kg curb weight, a 770 mm seat, 17.5 L tank, dual-channel ABS and traction control."
   },
   {
-    id: "kawasaki-ninja-h2", alsoKnownAs: ["Kawasaki H2", "Ninja H2 Carbon"], make: "Kawasaki", makeSlug: "kawasaki", model: "Ninja H2", slug: "ninja-h2", generation: "Current Philippine H2 Carbon listing", category: "Hypersport",
+    id: "kawasaki-ninja-h2", alsoKnownAs: ["Kawasaki H2", "Ninja H2", "Kawasaki Ninja H2"], make: "Kawasaki", makeSlug: "kawasaki", model: "Ninja H2 Carbon", slug: "ninja-h2", generation: "Current Philippine H2 Carbon listing", category: "Hypersport",
     srp: 1855000, engineCc: 998, powerHp: 231, torqueNm: 141.7, curbWeightKg: 238, seatHeightMm: 825, fuelTankL: 17, groundClearanceMm: 130,
     frontTire: "120/70 R17", rearTire: "200/55 R17", abs: "KIBS ABS with traction control and launch-control equipment", colors: ["Mirror Coated Matte Spark Black / Candy Flat Blazed Green"], searchVolume: 6400, keywordDifficulty: 0,
     sourceLabel: "Kawasaki Leisure Bikes Philippines current Ninja H2 Carbon specification and MSRP", sourceUrl: "https://www.kawasakileisurebikes.ph/motorcycles/supersports/ninja-h2-carbon/", verifiedAt: "2026-09-20", freshness: "verified", marketStatus: "current", transmission: "Manual",
     marketPriceSourceLabel: "Kawasaki Philippines current MSRP", marketPriceSourceUrl: "https://www.kawasakileisurebikes.ph/motorcycles/supersports/ninja-h2-carbon/", marketPriceCheckedAt: "2026-09-20",
-    summary: "998cc supercharged hypersport motorcycle with 231 hp, 141.7 Nm, 238 kg curb weight, an 825 mm seat and KIBS ABS."
+    summary: "Current Philippine Ninja H2 Carbon with a 998cc supercharged inline-four, 231 hp, 141.7 Nm, 238 kg curb weight, an 825 mm seat and KIBS ABS."
   },
 
 ];

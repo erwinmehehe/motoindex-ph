@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
 import { CompareBuilder } from "@/components/CompareBuilder";
 import { DecisionPath } from "@/components/DecisionPath";
@@ -48,7 +49,7 @@ export default function CompareIndex(){
     />
 
     <div className={styles.workspace}>
-      {compareModels.length>=2?<CompareBuilder models={forClient(compareModels)}/>:<div className="note-box"><h2>Not enough current models</h2><p>At least two current motorcycle records are needed to build a comparison.</p></div>}
+      {compareModels.length>=2?<Suspense fallback={<div className="note-box"><h2>Loading comparison builder</h2><p>Preparing the current motorcycle list.</p></div>}><CompareBuilder models={forClient(compareModels)}/></Suspense>:<div className="note-box"><h2>Not enough current models</h2><p>At least two current motorcycle records are needed to build a comparison.</p></div>}
     </div>
 
     {featuredComparisons.length>0&&<section className={styles.popular}>
