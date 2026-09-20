@@ -293,6 +293,41 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     }
   },
 
+
+  "honda-giorno-plus": {
+    seoTitle: "Honda Giorno+ Price Philippines 2026 | Specs & Colors",
+    seoDescription: "Honda Giorno+ price in the Philippines, 125cc specs, colors, 780mm seat, weight, fuel economy, tires, ownership costs and scooter alternatives.",
+    intentIntro: "The Giorno+ is a style-led 125cc scooter, so compare more than the bodywork. Its current price, 780 mm seat, 116 kg curb weight, 12-inch tires, fuel use and everyday practicality all matter against Fazzio, Click 125i and other lifestyle scooters.",
+    moneyQuestion: "What does the Honda Giorno+ cost after the current dealer quote, registration, insurance and other purchase charges are included?",
+    ownershipQuestion: "Compare fuel use, 12-inch tire replacement, CVT service, storage and Honda support with Fazzio and other 125cc scooters.",
+    alternativeIds: ["yamaha-fazzio", "honda-click-125i", "yamaha-mio-gear"],
+    relatedIds: ["honda-click-125i"],
+    recommendationHref: "/recommendations/125cc-scooters-philippines",
+    recommendationLabel: "Compare 125cc scooters"
+  },
+  "honda-beat": {
+    seoTitle: "Honda BeAT Price Philippines 2026 | Specs & Colors",
+    seoDescription: "Honda BeAT price in the Philippines, 110cc specs, colors, 740mm seat, 90kg weight, tires, ownership costs and lightweight scooter alternatives.",
+    intentIntro: "The Honda BeAT is a lightweight city scooter with a 740 mm seat and 90 kg curb weight. Compare its current price, compact dimensions, 110cc engine and everyday ownership needs with other affordable commuter scooters.",
+    moneyQuestion: "What does the Honda BeAT cost after the current dealer quote, registration, insurance and other purchase charges are included?",
+    ownershipQuestion: "Compare 14-inch tire replacement, CVT service, fuel use, storage and Honda support with Mio Gear, Click 125i and other commuter scooters.",
+    alternativeIds: ["yamaha-mio-gear", "honda-click-125i", "suzuki-avenis"],
+    relatedIds: ["honda-click-125i"],
+    recommendationHref: "/recommendations/best-motorcycles-for-short-riders-philippines",
+    recommendationLabel: "Compare motorcycles for shorter riders"
+  },
+  "yamaha-mio-gear": {
+    seoTitle: "Yamaha Mio Gear Price Philippines 2026 | Specs & Colors",
+    seoDescription: "Yamaha Mio Gear price in the Philippines, 125cc specs, colors, 750mm seat, weight, tire sizes, ownership costs and commuter scooter alternatives.",
+    intentIntro: "The Mio Gear is a light 125cc commuter scooter with a 750 mm seat. Compare its current price range, 96 kg curb weight, 14-inch tires and daily-use practicality with BeAT, Click 125i and Fazzio.",
+    moneyQuestion: "What does the Yamaha Mio Gear cost after the current dealer quote, registration, insurance and other purchase charges are included?",
+    ownershipQuestion: "Compare CVT service, 14-inch tires, fuel use and Yamaha support with BeAT, Click 125i and Fazzio.",
+    alternativeIds: ["honda-beat", "honda-click-125i", "yamaha-fazzio"],
+    relatedIds: ["yamaha-fazzio", "yamaha-mio-i-125"],
+    recommendationHref: "/recommendations/125cc-scooters-philippines",
+    recommendationLabel: "Compare 125cc scooters"
+  },
+
   "honda-click-125i": {
     seoTitle: "Honda Click 125i Price Philippines 2026 | Specs & Ownership",
     seoDescription: "Honda Click 125i price in the Philippines, 125cc specs, colors, seat height, tires, down payment, monthly estimate, fuel economy and ownership costs.",
