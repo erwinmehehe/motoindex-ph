@@ -35,6 +35,7 @@ if (fs.existsSync(path.join(root, "components", "AdSense.tsx"))) {
   const component = read("components", "AdSense.tsx");
   requireText(component, "NEXT_PUBLIC_ADSENSE_ENABLED", "AdSense bootstrap must remain explicitly opt-in.");
   requireText(component, "adsenseClientId", "AdSense bootstrap must use the validated ca-pub client ID.");
+  requireText(component, 'strategy="beforeInteractive"', "AdSense bootstrap must be injected into the document head.");
   requireText(component, "pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=", "AdSense bootstrap must use Google's current loader URL.");
 }
 const layout = read("app", "layout.tsx");
