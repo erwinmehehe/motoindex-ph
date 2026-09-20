@@ -224,7 +224,7 @@ const inspect=`(() => {
   const compareFirstSelect=compareBuilder?.querySelector("select");
   const compareOptionTexts=compareFirstSelect?[...compareFirstSelect.options].filter(option=>option.value).map(option=>(option.textContent||"").trim()):[];
   const compareMakeFilter=(new URLSearchParams(location.search).get("make")||"").trim().toLowerCase();
-  const compareMakeFilterLeaks=compareMakeFilter?compareOptionTexts.filter(text=>!text.toLowerCase().startsWith(`${compareMakeFilter} `)).length:0;
+  const compareMakeFilterLeaks=compareMakeFilter?compareOptionTexts.filter(text=>!text.toLowerCase().startsWith(compareMakeFilter+" ")).length:0;
   const deferredSections=[...document.querySelectorAll("section")].filter(section=>getComputedStyle(section).contentVisibility==="auto").length;
   const recommendationGuideCards=document.querySelectorAll("[data-recommendation-guide-card]").length;
   const recommendationArchiveLinks=document.querySelectorAll("[data-recommendation-archive-link]").length;
