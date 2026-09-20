@@ -1371,6 +1371,8 @@ export const comparisons: Comparison[] = [
   { slug: "winner-x-vs-sniper-155", a: "honda-winner-x", b: "yamaha-sniper-155", summary: "Sport underbone alternatives with different price and brake packages" },
   { slug: "pcx-160-vs-nmax-v3", a: "honda-pcx-160", b: "yamaha-nmax-v3", summary: "Honda maxi-scooter comfort vs Yamaha premium-scooter tech" },
   { slug: "click-160-vs-pcx-160", a: "honda-click-160", b: "honda-pcx-160", summary: "Honda 160cc scooters compared by price, weight, seat height, tank capacity and braking" },
+  { slug: "click-160-vs-airblade-160", a: "honda-click-160", b: "honda-airblade-160", summary: "Honda 160cc automatic scooters compared by Philippine price, output, weight, rider fit, fuel capacity and braking equipment" },
+  { slug: "click-125i-vs-mio-i-125", a: "honda-click-125i", b: "yamaha-mio-i-125", summary: "High-interest 125cc commuter scooters compared by Philippine price, engine output, weight, seat height, fuel capacity and braking" },
   { slug: "ninja-500-vs-450sr", a: "kawasaki-ninja-500", b: "cfmoto-450sr", summary: "Mid-size parallel-twin sport bikes compared by price, output, weight, rider fit and braking" },
   { slug: "390-duke-vs-ninja-500", a: "ktm-390-duke", b: "kawasaki-ninja-500", summary: "Lightweight naked single versus parallel-twin sport bike compared by price, output, weight and fit" },
   { slug: "rc-390-vs-ninja-500", a: "ktm-rc-390", b: "kawasaki-ninja-500", summary: "KTM and Kawasaki sport bikes compared by price, engine output, weight, seat height and braking equipment" },
