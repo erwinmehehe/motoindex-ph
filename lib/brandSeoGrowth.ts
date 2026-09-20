@@ -12,7 +12,7 @@ export type BrandSeoGrowthProfile = {
 const profiles: Record<string, BrandSeoGrowthProfile> = {
   honda: {
     seoTitle: "Honda Big Bikes Philippines 2026 | Motorcycle Price List",
-    seoDescription: "Honda Philippines price list with current motorcycles and tracked big bikes including CB650R, CBR650R, Rebel, X-ADV and Gold Wing, plus specs.",
+    seoDescription: "Honda Philippines price list with current motorcycles and tracked big bikes including CB650R, CBR650R, Rebel, X-ADV and Gold Wing, plus specs and buyer tools.",
     heroTitle: "Honda Motorcycle Philippines Price List 2026",
     heroDescription: "Compare current Honda motorcycles tracked in the Philippines by price, engine size, seat height and category, from everyday scooters and commuters to 400cc+ big bikes.",
     intentNote: "Start here for Honda motorcycles and big bikes in the Philippines. Compare current MotoIndex price and specification coverage on this page, then open any Honda model for its canonical specs, financing, fitment and ownership research.",
