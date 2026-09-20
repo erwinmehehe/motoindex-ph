@@ -11,7 +11,7 @@ export type BrandSeoGrowthProfile = {
 
 const profiles: Record<string, BrandSeoGrowthProfile> = {
   kawasaki: {
-    seoTitle: "Kawasaki Motorcycles Philippines 2026 | Prices & Big Bikes",
+    seoTitle: "Kawasaki Big Bikes Philippines 2026 | Motorcycle Price List",
     seoDescription: "Kawasaki Philippines motorcycle price list with current Ninja, Z and big-bike models, 400cc+ prices, engine sizes, seat heights and buyer research.",
     heroTitle: "Kawasaki Motorcycle Philippines Price List 2026",
     heroDescription: "Compare current Kawasaki motorcycles in the Philippines, from commuter and dual-sport models to Ninja and Z big bikes, with published prices, engine sizes, seat heights and ownership research.",
