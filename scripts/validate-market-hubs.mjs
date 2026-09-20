@@ -97,6 +97,19 @@ requireText(
   "National scooter authority page must be included in the motorcycle sitemap."
 );
 
+for (const [slug, label, title, modelToken] of [
+  ["honda", "Honda", "Honda big bikes in the Philippines", "CB650R, CBR650R, Rebel, X-ADV and Gold Wing"],
+  ["yamaha", "Yamaha", "Yamaha big bikes in the Philippines", "TMAX Tech Max, YZF-R7 and YZF-R1M"]
+]) {
+  requireText(brandGrowth, `${slug}: {`, `${label} must have a brand SEO growth profile for big-bike intent.`);
+  const profileStart = brandGrowth.indexOf(`${slug}: {`);
+  const profileEnd = brandGrowth.indexOf("\n  },", profileStart);
+  const profile = profileStart >= 0 && profileEnd > profileStart ? brandGrowth.slice(profileStart, profileEnd) : "";
+  for (const token of ["bigBikeMinCc: 400", title, modelToken]) {
+    requireText(profile, token, `${label} brand growth profile missing big-bike token: ${token}`);
+  }
+}
+
 requireText(
   brandGrowth,
   'kawasaki: {',
@@ -162,13 +175,16 @@ for (const token of [
 ]) {
   requireText(compareBuilder, token, `Compare builder must honor brand-filtered entry points: ${token}`);
 }
-for (const route of [
-  ["app", "motorcycles", "kawasaki-big-bike"],
-  ["app", "motorcycles", "kawasaki", "big-bike"],
-  ["app", "motorcycles", "kawasaki", "big-bikes"]
-]) {
-  if (fs.existsSync(path.join(root, ...route))) {
-    errors.push(`Thin Kawasaki big-bike route must not exist: ${route.join("/")}`);
+for (const [slug, label] of [["honda", "Honda"], ["yamaha", "Yamaha"], ["kawasaki", "Kawasaki"]]) {
+  for (const route of [
+    ["app", "motorcycles", `${slug}-big-bike`],
+    ["app", "motorcycles", `${slug}-big-bikes`],
+    ["app", "motorcycles", slug, "big-bike"],
+    ["app", "motorcycles", slug, "big-bikes"]
+  ]) {
+    if (fs.existsSync(path.join(root, ...route))) {
+      errors.push(`Thin ${label} big-bike route must not exist: ${route.join("/")}`);
+    }
   }
 }
 
