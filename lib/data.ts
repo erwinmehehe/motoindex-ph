@@ -1350,7 +1350,12 @@ export const helmetBrands: HelmetBrand[] = [
   { brand: "LS2", slug: "ls2", searchVolume: 2700, keywordDifficulty: 28, positioning: "Broad road, modular, adventure and off-road helmet range with strong Philippine retail availability" },
   { brand: "NHK", slug: "nhk", searchVolume: 700, keywordDifficulty: 43, positioning: "Race, street, modular and open-face helmets with a broad Asian-market catalogue" },
   { brand: "SMK", slug: "smk", searchVolume: 500, keywordDifficulty: 0, positioning: "Full-face, modular, flip-back, off-road and open-face helmets" },
-  { brand: "Alpinestars", slug: "alpinestars", searchVolume: 400, keywordDifficulty: 0, positioning: "Premium road-racing and motocross helmets" }
+  { brand: "Alpinestars", slug: "alpinestars", searchVolume: 400, keywordDifficulty: 0, positioning: "Premium road-racing and motocross helmets" ,
+  { slug: "mt-07-vs-cb650r", a: "yamaha-mt-07", b: "honda-cb650r", summary: "Middleweight naked bikes compared by Philippine price, engine output, curb weight, seat height and everyday road specifications" },
+  { slug: "mt-07-vs-z650", a: "yamaha-mt-07", b: "kawasaki-z650", summary: "Popular Japanese middleweight naked bikes compared by price, twin-cylinder output, weight, rider fit and fuel capacity" },
+  { slug: "xsr700-vs-cb650r", a: "yamaha-xsr700", b: "honda-cb650r", summary: "Retro-styled Yamaha twin and Honda four-cylinder naked bike compared by price, power, weight, seat height and road specifications" },
+  { slug: "ninja-500-vs-yzf-r3", a: "kawasaki-ninja-500", b: "yamaha-yzf-r3", summary: "Entry and mid-size Japanese sport bikes compared by Philippine price, output, weight, seat height and braking" },
+  { slug: "nx500-vs-versys-650", a: "honda-nx500-e-clutch", b: "kawasaki-versys-650", summary: "Adventure-touring motorcycles compared by price, engine size, weight, seat height, tank capacity and road-focused touring specifications" }
 ];
 
 export const comparisons: Comparison[] = [
@@ -1373,12 +1378,7 @@ export const comparisons: Comparison[] = [
   { slug: "click-160-vs-pcx-160", a: "honda-click-160", b: "honda-pcx-160", summary: "Honda 160cc scooters compared by price, weight, seat height, tank capacity and braking" },
   { slug: "ninja-500-vs-450sr", a: "kawasaki-ninja-500", b: "cfmoto-450sr", summary: "Mid-size parallel-twin sport bikes compared by price, output, weight, rider fit and braking" },
   { slug: "390-duke-vs-ninja-500", a: "ktm-390-duke", b: "kawasaki-ninja-500", summary: "Lightweight naked single versus parallel-twin sport bike compared by price, output, weight and fit" },
-  { slug: "rc-390-vs-ninja-500", a: "ktm-rc-390", b: "kawasaki-ninja-500", summary: "KTM and Kawasaki sport bikes compared by price, engine output, weight, seat height and braking equipment" },
-  { slug: "mt-07-vs-cb650r", a: "yamaha-mt-07", b: "honda-cb650r", summary: "Middleweight naked bikes compared by Philippine price, engine output, curb weight, seat height and everyday road specifications" },
-  { slug: "mt-07-vs-z650", a: "yamaha-mt-07", b: "kawasaki-z650", summary: "Popular Japanese middleweight naked bikes compared by price, twin-cylinder output, weight, rider fit and fuel capacity" },
-  { slug: "xsr700-vs-cb650r", a: "yamaha-xsr700", b: "honda-cb650r", summary: "Retro-styled Yamaha twin and Honda four-cylinder naked bike compared by price, power, weight, seat height and road specifications" },
-  { slug: "ninja-500-vs-yzf-r3", a: "kawasaki-ninja-500", b: "yamaha-yzf-r3", summary: "Entry and mid-size Japanese sport bikes compared by Philippine price, output, weight, seat height and braking" },
-  { slug: "nx500-vs-versys-650", a: "honda-nx500-e-clutch", b: "kawasaki-versys-650", summary: "Adventure-touring motorcycles compared by price, engine size, weight, seat height, tank capacity and road-focused touring specifications" }
+  { slug: "rc-390-vs-ninja-500", a: "ktm-rc-390", b: "kawasaki-ninja-500", summary: "KTM and Kawasaki sport bikes compared by price, engine output, weight, seat height and braking equipment" }
 ];
 
 export function getModel(make: string, slug: string) {
