@@ -124,6 +124,7 @@ export default function MotorcyclesPage() {
             <Link className="button secondary" href="/recommendations/motorcycles-under-100k">Under ₱100K</Link>
             <Link className="button secondary" href="/recommendations/motorcycles-under-150k">Under ₱150K</Link>
             <Link className="button secondary" href="/recommendations/125cc-motorcycles-philippines">125cc motorcycles</Link>
+            <Link className="button secondary" href="/recommendations/cruiser-motorcycles-philippines">Cruiser motorcycles</Link>
             <Link className="button secondary" href="/recommendations/250cc-motorcycles-philippines">250cc motorcycles</Link>
             <Link className="button secondary" href="/recommendations/300cc-motorcycles-philippines">300cc motorcycles</Link>
             <Link className="button secondary" href="/recommendations/motorcycles-400cc-plus-philippines">400cc+ motorcycles</Link>
