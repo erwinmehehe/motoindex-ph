@@ -1373,7 +1373,12 @@ export const comparisons: Comparison[] = [
   { slug: "click-160-vs-pcx-160", a: "honda-click-160", b: "honda-pcx-160", summary: "Honda 160cc scooters compared by price, weight, seat height, tank capacity and braking" },
   { slug: "ninja-500-vs-450sr", a: "kawasaki-ninja-500", b: "cfmoto-450sr", summary: "Mid-size parallel-twin sport bikes compared by price, output, weight, rider fit and braking" },
   { slug: "390-duke-vs-ninja-500", a: "ktm-390-duke", b: "kawasaki-ninja-500", summary: "Lightweight naked single versus parallel-twin sport bike compared by price, output, weight and fit" },
-  { slug: "rc-390-vs-ninja-500", a: "ktm-rc-390", b: "kawasaki-ninja-500", summary: "KTM and Kawasaki sport bikes compared by price, engine output, weight, seat height and braking equipment" }
+  { slug: "rc-390-vs-ninja-500", a: "ktm-rc-390", b: "kawasaki-ninja-500", summary: "KTM and Kawasaki sport bikes compared by price, engine output, weight, seat height and braking equipment" },
+  { slug: "mt-07-vs-cb650r", a: "yamaha-mt-07", b: "honda-cb650r", summary: "Middleweight naked bikes compared by Philippine price, engine output, curb weight, seat height and everyday road specifications" },
+  { slug: "mt-07-vs-z650", a: "yamaha-mt-07", b: "kawasaki-z650", summary: "Popular Japanese middleweight naked bikes compared by price, twin-cylinder output, weight, rider fit and fuel capacity" },
+  { slug: "xsr700-vs-cb650r", a: "yamaha-xsr700", b: "honda-cb650r", summary: "Retro-styled Yamaha twin and Honda four-cylinder naked bike compared by price, power, weight, seat height and road specifications" },
+  { slug: "ninja-500-vs-yzf-r3", a: "kawasaki-ninja-500", b: "yamaha-yzf-r3", summary: "Entry and mid-size Japanese sport bikes compared by Philippine price, output, weight, seat height and braking" },
+  { slug: "nx500-vs-versys-650", a: "honda-nx500-e-clutch", b: "kawasaki-versys-650", summary: "Adventure-touring motorcycles compared by price, engine size, weight, seat height, tank capacity and road-focused touring specifications" }
 ];
 
 export function getModel(make: string, slug: string) {
