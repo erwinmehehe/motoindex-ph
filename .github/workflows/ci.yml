@@ -35,6 +35,7 @@ jobs:
           npm run validate:budget-displacement
           npm run validate:copy-tone
           npm run validate:public-trust
+          npm run validate:adsense
           node scripts/validate-authority-growth.mjs
           node scripts/validate-premium-light.mjs
           node --check scripts/gsc-opportunity-report.mjs
