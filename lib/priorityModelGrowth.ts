@@ -96,7 +96,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 160cc scooters"
   },
   "honda-adv-350": {
-    seoTitle: "Honda ADV350 Price Philippines 2026 | Specs & Monthly",
+    seoTitle: "Honda ADV350 Price Philippines 2026 | Specs & Ownership",
     seoDescription: "Honda ADV350 price in the Philippines, 330cc specs, colors, seat height, ABS, down payment, monthly estimate, fuel range and ownership costs.",
     intentIntro: "The ADV350 sits above 160cc scooters but below Honda's larger X-ADV on price and size. Compare the current ₱310,000 Honda SRP, financing, 795 mm seat, 186 kg curb weight and ownership costs against XMAX, X-ADV and other maxi scooters before choosing on displacement alone.",
     moneyQuestion: "What does the ADV350 cost after the down payment, monthly payment, insurance, registration and dealer fees are included?",
@@ -294,7 +294,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   },
 
   "honda-click-125i": {
-    seoTitle: "Honda Click 125i Price Philippines 2026 | Specs & Monthly",
+    seoTitle: "Honda Click 125i Price Philippines 2026 | Specs & Ownership",
     seoDescription: "Honda Click 125i price in the Philippines, 125cc specs, colors, seat height, tires, down payment, monthly estimate, fuel economy and ownership costs.",
     intentIntro: "The Click 125i is a high-volume commuter choice, so small differences in trim price, fuel use, braking, storage and monthly payment matter more than headline performance. Compare the full daily-use package before reserving.",
     moneyQuestion: "What does the Click 125i really cost after choosing the exact trim and adding down payment, monthly payment, fees and insurance?",
@@ -305,7 +305,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 125cc scooters"
   },
   "honda-click-160": {
-    seoTitle: "Honda Click 160 Price Philippines 2026 | Specs & Monthly",
+    seoTitle: "Honda Click 160 Price Philippines 2026 | Specs & Ownership",
     seoDescription: "Honda Click 160 price in the Philippines, 157cc specs, seat height, tire sizes, down payment, monthly estimate, fuel economy and ownership costs.",
     intentIntro: "The Click 160 competes directly with sport and premium scooters, so compare its lower weight and commuter focus against ADV160, Aerox V3 and PCX160 on price, financing, braking, fit and ownership.",
     moneyQuestion: "Does the Click 160 remain the better-value 160-class choice after down payment, monthly payment, insurance and dealer fees are included?",
@@ -316,7 +316,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 160cc scooters"
   },
   "honda-pcx-160": {
-    seoTitle: "Honda PCX160 Price Philippines 2026 | Specs & Monthly",
+    seoTitle: "Honda PCX160 Price Philippines 2026 | Specs & Ownership",
     seoDescription: "Honda PCX160 price in the Philippines, 157cc specs, variants, seat height, tires, down payment, monthly estimate, fuel and ownership costs.",
     intentIntro: "The PCX160 is a comfort-led premium scooter, so compare Standard and RoadSync pricing, financing, low-seat fit, tank range and ownership costs against NMAX V3 and ADV160 before choosing on styling alone.",
     moneyQuestion: "How much does the PCX160 cost once the exact variant, down payment, monthly payment, insurance and dealer fees are included?",
@@ -349,7 +349,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 125cc scooters"
   },
   "suzuki-raider-r150": {
-    seoTitle: "Suzuki Raider R150 Price Philippines 2026 | Specs & Monthly",
+    seoTitle: "Suzuki Raider R150 Price Philippines 2026 | Specs & Ownership",
     seoDescription: "Suzuki Raider R150 price in the Philippines, 147cc specs, seat height, tires, down payment, monthly estimate, fuel planning and ownership costs.",
     intentIntro: "The Raider R150 is a performance-focused underbone, so compare the full purchase and ownership picture with Sniper 155 and Winner X: financing, insurance, tires, chain service and daily traffic use.",
     moneyQuestion: "What does the Raider R150 cost after down payment, monthly payment, insurance, registration and dealer fees are included?",
