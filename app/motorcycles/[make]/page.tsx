@@ -71,7 +71,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const manual = current.filter((m) => m.transmission === "Manual").length;
   const cheapest = ranges.reduce((best, row) => row.from < best.from ? row : best, ranges[0]);
   const authorityModels = current.filter((m) => Boolean(modelAuthorityProfile(m.id)));
-  const bigBikes = brandGrowth?.bigBikeMinCc ? current.filter((m) => m.engineCc >= brandGrowth.bigBikeMinCc) : [];
+  const bigBikeMinCc = brandGrowth?.bigBikeMinCc;
+  const bigBikes = bigBikeMinCc ? current.filter((m) => m.engineCc >= bigBikeMinCc) : [];
 
   const faq = [
     {
@@ -96,10 +97,10 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     }
   ];
 
-  if (bigBikes.length > 0 && brandGrowth?.bigBikeMinCc) {
+  if (bigBikes.length > 0 && bigBikeMinCc) {
     faq.splice(1, 0, {
-      question: `Which ${brand} motorcycles are ${brandGrowth.bigBikeMinCc}cc and above?`,
-      answer: `MotoIndex currently tracks ${bigBikes.length} current ${brand} ${brandGrowth.bigBikeMinCc}cc+ ${bigBikes.length === 1 ? "model" : "models"}: ${bigBikes.map((model) => model.model).join(", ")}. Compare their published prices, engine sizes, power and seat heights in the big-bike section below.`
+      question: `Which ${brand} motorcycles are ${bigBikeMinCc}cc and above?`,
+      answer: `MotoIndex currently tracks ${bigBikes.length} current ${brand} ${bigBikeMinCc}cc+ ${bigBikes.length === 1 ? "model" : "models"}: ${bigBikes.map((model) => model.model).join(", ")}. Compare their published prices, engine sizes, power and seat heights in the big-bike section below.`
     });
   }
 
@@ -149,7 +150,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
           {label:"Engine range",value:`${minEngine}–${maxEngine} cc`,note:"Across models covered here"},
           {label:"Transmission",value:`${automatic} auto · ${manual} manual`,note:"Across models covered here"},
           ...(authorityModels.length > 0 ? [{label:"Buyer guides",value:authorityModels.length,note:"Expanded decision briefs with Philippine ownership context"}] : []),
-          ...(bigBikes.length > 0 && brandGrowth?.bigBikeMinCc ? [{label:`${brandGrowth.bigBikeMinCc}cc+ models`,value:bigBikes.length,note:"Current big bikes covered on this brand hub"}] : [])
+          ...(bigBikes.length > 0 && bigBikeMinCc ? [{label:`${bigBikeMinCc}cc+ models`,value:bigBikes.length,note:"Current big bikes covered on this brand hub"}] : [])
         ]}/>
       </div>
     </div>
@@ -172,9 +173,9 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       </section>
 
       {bigBikes.length > 0 && brandGrowth?.bigBikeTitle && brandGrowth.bigBikeDescription ? <section id="big-bikes" className="ph-brand-section">
-        <SectionHeader kicker={`${brandGrowth.bigBikeMinCc}cc+ motorcycles`} title={brandGrowth.bigBikeTitle} description={brandGrowth.bigBikeDescription} />
+        <SectionHeader kicker={`${bigBikeMinCc}cc+ motorcycles`} title={brandGrowth.bigBikeTitle} description={brandGrowth.bigBikeDescription} />
         <InfoPanel subtle>
-          <p>{`Use this section to compare the current ${brandGrowth.bigBikeMinCc}cc+ ${brand} motorcycles tracked by MotoIndex in one place. Open any model for detailed specifications, financing estimates, ownership costs and alternatives.`}</p>
+          <p>{`Use this section to compare the current ${bigBikeMinCc}cc+ ${brand} motorcycles tracked by MotoIndex in one place. Open any model for detailed specifications, financing estimates, ownership costs and alternatives.`}</p>
         </InfoPanel>
         <DataTable className="ph-brand-price-table" label={`${brand} big bikes in the Philippines`}>
           <div className="head" role="row"><span>Model</span><span>Price reference</span><span>Engine</span><span>Power</span><span>Seat</span></div>
