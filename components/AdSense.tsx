@@ -10,7 +10,7 @@ export function AdSense() {
   return <Script
     id="motoindex-adsense"
     async
-    strategy="afterInteractive"
+    strategy="beforeInteractive"
     crossOrigin="anonymous"
     src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${clientId}`}
   />;
