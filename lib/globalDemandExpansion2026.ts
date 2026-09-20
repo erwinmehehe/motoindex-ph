@@ -73,7 +73,21 @@ export const globalDemandExpansion2026: Motorcycle[] = [
   }
 ];
 
-export const globalDemandModelIds = new Set(globalDemandExpansion2026.map((model) => model.id));
+const existingGlobalDemandModelIds = [
+  "yamaha-mt-07",
+  "yamaha-xsr700",
+  "yamaha-yzf-r3",
+  "kawasaki-ninja-500",
+  "kawasaki-z650",
+  "kawasaki-versys-650",
+  "honda-cb650r",
+  "honda-nx500-e-clutch",
+] as const;
+
+export const globalDemandModelIds = new Set([
+  ...globalDemandExpansion2026.map((model) => model.id),
+  ...existingGlobalDemandModelIds,
+]);
 
 export function isGlobalDemandModel(model: Pick<Motorcycle, "id">) {
   return globalDemandModelIds.has(model.id);
