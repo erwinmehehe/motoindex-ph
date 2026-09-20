@@ -15,6 +15,21 @@ export type PriorityModelGrowthProfile = {
 };
 
 const profiles: Record<string, PriorityModelGrowthProfile> = {
+  "kawasaki-ninja-400": {
+    seoTitle: "Kawasaki Ninja 400 Philippines | Price, Specs & Ninja 500",
+    seoDescription: "Kawasaki Ninja 400 Philippines reference with historical price, 399cc specs, seat height and the current Ninja 500 successor for buyers comparing both.",
+    intentIntro: "The Ninja 400 still has substantial search demand, but MotoIndex keeps it clearly labeled as a previous Philippine generation. Use this page for its historical price and 399cc specifications, then compare the current Ninja 500 successor before treating old Ninja 400 listings as today's new-bike lineup.",
+    moneyQuestion: "How does the historical Ninja 400 price reference compare with the current Ninja 500 and used Ninja 400 listings in the Philippines?",
+    ownershipQuestion: "Compare 17-inch tires, chain and sprocket service, insurance, rider fit and parts support while accounting for the Ninja 400's previous-generation status.",
+    alternativeIds: ["kawasaki-ninja-500", "yamaha-yzf-r3", "cfmoto-450sr"],
+    relatedIds: ["kawasaki-ninja-500"],
+    recommendationHref: "/recommendations/motorcycles-under-400cc-philippines",
+    recommendationLabel: "Compare under-400cc motorcycles",
+    legacyContext: {
+      heading: "Ninja 400 vs the current Ninja 500",
+      body: "Kawasaki Philippines now lists the 451cc Ninja 500 as the current successor. Keep the Ninja 400's historical price and specifications in context, and use the Ninja 500 page for current new-bike research."
+    }
+  },
   "yamaha-mt-07": {
     seoTitle: "Yamaha MT-07 Price Philippines 2026 | Specs & Monthly",
     seoDescription: "Yamaha MT-07 price in the Philippines, 689cc specs, horsepower, seat height, weight, tire sizes, down payment, monthly estimate and comparisons.",
