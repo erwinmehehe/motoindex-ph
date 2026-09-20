@@ -15,6 +15,7 @@ const requireText = (source, needle, message) => {
 
 requireFile("app", "ads.txt", "route.ts");
 requireFile("lib", "adsense.ts");
+requireFile("components", "AdSense.tsx");
 
 if (fs.existsSync(path.join(root, "app", "ads.txt", "route.ts"))) {
   const route = read("app", "ads.txt", "route.ts");
@@ -30,6 +31,14 @@ if (fs.existsSync(path.join(root, "lib", "adsense.ts"))) {
   requireText(config, "NEXT_PUBLIC_ADSENSE_CLIENT_ID", "AdSense client config must support the ca-pub client ID separately.");
   requireText(config, "/^ca-pub-\\d{16}$/", "AdSense client ID must be validated as ca-pub plus 16 digits.");
 }
+if (fs.existsSync(path.join(root, "components", "AdSense.tsx"))) {
+  const component = read("components", "AdSense.tsx");
+  requireText(component, "NEXT_PUBLIC_ADSENSE_ENABLED", "AdSense bootstrap must remain explicitly opt-in.");
+  requireText(component, "adsenseClientId", "AdSense bootstrap must use the validated ca-pub client ID.");
+  requireText(component, "pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=", "AdSense bootstrap must use Google's current loader URL.");
+}
+const layout = read("app", "layout.tsx");
+requireText(layout, "<AdSense />", "Root layout must include the disabled-by-default AdSense bootstrap.");
 const privacy = read("app", "privacy", "page.tsx");
 for (const token of [
   "Google advertising cookies",
