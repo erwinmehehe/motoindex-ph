@@ -153,6 +153,51 @@ export const comparisonEditorialBriefs: ComparisonEditorialBrief[] = [
     opening: "The RC 390 and Ninja 500 differ in engine layout, published output, weight, seat height and price. This comparison focuses on those measurable differences and the exact Philippine model records.",
     sections: ["Price", "Engine and output", "Torque", "Curb weight", "Seat height", "Fuel tank", "Tires", "ABS and braking", "Rider-fit considerations"],
     faqs: ["Which is cheaper?", "Which makes more power?", "Which is lighter?", "Which has the lower seat?", "How do the braking packages differ?"]
+  },
+  {
+    slug: "mt-07-vs-cb650r",
+    primaryKeyword: "MT-07 vs CB650R",
+    intent: "Middleweight naked-bike shopper comparing Yamaha's lighter CP2 twin with Honda's larger inline-four.",
+    h1: "Yamaha MT-07 vs Honda CB650R: Price, Power and Specs",
+    opening: "The MT-07 and CB650R are both current Philippine-market naked motorcycles, but their checked records differ in engine layout, published output, curb weight and price. This comparison keeps those measurable differences together without declaring a universal winner.",
+    sections: ["Philippine price", "Engine and displacement", "Horsepower and torque", "Curb weight", "Seat height", "Fuel tank", "Tires", "ABS and braking", "Power-to-weight context", "City and longer-ride considerations"],
+    faqs: ["Which is cheaper, MT-07 or CB650R?", "Which makes more horsepower?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?"]
+  },
+  {
+    slug: "mt-07-vs-z650",
+    primaryKeyword: "MT-07 vs Z650",
+    intent: "Buyer cross-shopping two Japanese middleweight parallel-twin naked motorcycles.",
+    h1: "Yamaha MT-07 vs Kawasaki Z650: Price and Specs Compared",
+    opening: "The MT-07 and Z650 are close enough in format to make price, published power and torque, curb weight, seat height and fuel capacity useful comparison points. MotoIndex uses the current Philippine records rather than mixing specifications from other markets.",
+    sections: ["Philippine price", "Engine displacement", "Power and torque", "Curb weight", "Seat height", "Fuel tank", "Tires", "ABS and brakes", "Power-to-weight context"],
+    faqs: ["Which is cheaper, MT-07 or Z650?", "Which makes more power?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?"]
+  },
+  {
+    slug: "xsr700-vs-cb650r",
+    primaryKeyword: "XSR700 vs CB650R",
+    intent: "Road-bike buyer comparing Yamaha's retro CP2 platform with Honda's inline-four naked bike.",
+    h1: "Yamaha XSR700 vs Honda CB650R: Price and Specs",
+    opening: "The XSR700 and CB650R approach the middleweight road-bike class with different engine layouts. Compare their current Philippine price references, published output, weight, seat height, tank capacity, tires and braking before deciding which format better matches your use.",
+    sections: ["Philippine price", "Engine layout and displacement", "Horsepower and torque", "Weight", "Seat height", "Fuel capacity", "Tires", "ABS and braking"],
+    faqs: ["Which is cheaper?", "Which makes more horsepower?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?"]
+  },
+  {
+    slug: "ninja-500-vs-yzf-r3",
+    primaryKeyword: "Ninja 500 vs Yamaha R3",
+    intent: "Sport-bike shopper comparing two current Japanese faired motorcycles across different displacement and price points.",
+    h1: "Kawasaki Ninja 500 vs Yamaha R3: Price, Power and Specs",
+    opening: "The Ninja 500 and Yamaha YZF-R3 differ in displacement and output but overlap as approachable faired road bikes. This comparison uses current Philippine model records for price, power, weight, seat height, fuel capacity and braking.",
+    sections: ["Philippine price", "Engine and displacement", "Horsepower and torque", "Curb weight", "Seat height", "Fuel tank", "Tires", "ABS and braking"],
+    faqs: ["Which is cheaper, Ninja 500 or Yamaha R3?", "Which makes more power?", "Which is lighter?", "Which has the lower seat?", "Which has the larger engine?"]
+  },
+  {
+    slug: "nx500-vs-versys-650",
+    primaryKeyword: "Honda NX500 vs Kawasaki Versys 650",
+    intent: "Adventure-touring buyer comparing a lighter Honda twin with Kawasaki's larger road-touring platform.",
+    h1: "Honda NX500 vs Kawasaki Versys 650: Price and Specs",
+    opening: "The NX500 and Versys 650 are current Philippine-market adventure-touring options with different engine sizes and weights. Compare price, output, curb weight, seat height, tank capacity, tires and braking using the checked local records.",
+    sections: ["Philippine price", "Engine displacement", "Power and torque", "Curb weight", "Seat height", "Fuel capacity", "Ground clearance", "Tires", "ABS and braking", "Touring specifications"],
+    faqs: ["Which is cheaper, NX500 or Versys 650?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "Which has the larger engine?"]
   }
 ];
 
