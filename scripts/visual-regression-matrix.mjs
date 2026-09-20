@@ -10,7 +10,8 @@ const routes=[
   {name:"motorcycles",path:"/motorcycles"},
   {name:"scooters",path:"/motorcycles/scooters"},
   {name:"expressway-legal",path:"/motorcycles/expressway-legal"},
-  {name:"brand",path:"/motorcycles/honda"},
+  {name:"honda-brand",path:"/motorcycles/honda"},
+  {name:"yamaha-brand",path:"/motorcycles/yamaha"},
   {name:"kawasaki-brand",path:"/motorcycles/kawasaki"},
   {name:"vespa-brand",path:"/motorcycles/vespa"},
   {name:"motorcycle-detail",path:"/motorcycles/yamaha/aerox-v3"},
@@ -22,6 +23,8 @@ const routes=[
   {name:"honda-winner-x-legacy",path:"/motorcycles/honda/winner-x"},
   {name:"yamaha-mio-i125-legacy",path:"/motorcycles/yamaha/mio-i-125"},
   {name:"compare-index",path:"/compare"},
+  {name:"honda-compare",path:"/compare?make=honda"},
+  {name:"yamaha-compare",path:"/compare?make=yamaha"},
   {name:"kawasaki-compare",path:"/compare?make=kawasaki"},
   {name:"compare",path:"/compare/selection?bikes=aerox-v3,nmax-v3"},
   {name:"helmets",path:"/gear/helmets"},
@@ -220,7 +223,8 @@ const inspect=`(() => {
   const compareBuilderRect=compareBuilder?.getBoundingClientRect();
   const compareFirstSelect=compareBuilder?.querySelector("select");
   const compareOptionTexts=compareFirstSelect?[...compareFirstSelect.options].filter(option=>option.value).map(option=>(option.textContent||"").trim()):[];
-  const compareNonKawasakiOptions=compareOptionTexts.filter(text=>!text.startsWith("Kawasaki ")).length;
+  const compareMakeFilter=(new URLSearchParams(location.search).get("make")||"").trim().toLowerCase();
+  const compareMakeFilterLeaks=compareMakeFilter?compareOptionTexts.filter(text=>!text.toLowerCase().startsWith(`${compareMakeFilter} `)).length:0;
   const deferredSections=[...document.querySelectorAll("section")].filter(section=>getComputedStyle(section).contentVisibility==="auto").length;
   const recommendationGuideCards=document.querySelectorAll("[data-recommendation-guide-card]").length;
   const recommendationArchiveLinks=document.querySelectorAll("[data-recommendation-archive-link]").length;
@@ -286,7 +290,7 @@ const inspect=`(() => {
     standardMotorcycleCardModes,
     compareBuilderHeight:compareBuilderRect?.height||0,
     compareOptionCount:compareOptionTexts.length,
-    compareNonKawasakiOptions,
+    compareMakeFilterLeaks,
     deferredSections,
     recommendationGuideCards,
     recommendationArchiveLinks,
@@ -366,19 +370,20 @@ try{
       if((row?.unloadedProductImages||0)>0)failures.push(`${width}px ${route.name}: ${row.unloadedProductImages} product image(s) failed to load after lazy-media warmup`);
       if((row?.unavailableProductMedia||0)>0)failures.push(`${width}px ${route.name}: ${row.unavailableProductMedia} product media fallback(s) rendered as unavailable`);
       if((row?.collapsedCards||0)>0)failures.push(`${width}px ${route.name}: ${row.collapsedCards} canonical product card(s) collapsed`);
-      if(route.name==="kawasaki-brand"&&(row?.brandBigBikeRows||0)<12)failures.push(`${width}px kawasaki-brand: big-bike section is missing or incomplete (${row?.brandBigBikeRows||0} rows)`);
-      if(route.name==="kawasaki-compare"&&((row?.compareOptionCount||0)<2||(row?.compareNonKawasakiOptions||0)>0))failures.push(`${width}px kawasaki-compare: make filter leaked non-Kawasaki options or returned too few models (${row?.compareOptionCount||0} options, ${row?.compareNonKawasakiOptions||0} non-Kawasaki)`);
+      const brandBigBikeMinimums={"honda-brand":6,"yamaha-brand":3,"kawasaki-brand":12};
+      if(brandBigBikeMinimums[route.name]&&(row?.brandBigBikeRows||0)<brandBigBikeMinimums[route.name])failures.push(`${width}px ${route.name}: big-bike section is missing or incomplete (${row?.brandBigBikeRows||0} rows; expected at least ${brandBigBikeMinimums[route.name]})`);
+      if(route.name.endsWith("-compare")&&((row?.compareOptionCount||0)<2||(row?.compareMakeFilterLeaks||0)>0))failures.push(`${width}px ${route.name}: make filter leaked other-brand options or returned too few models (${row?.compareOptionCount||0} options, ${row?.compareMakeFilterLeaks||0} leaks)`);
       const motorcycleCardModes=row?.standardMotorcycleCardModes||[];
       const routeCardModes=route.name==="motorcycles"
         ? motorcycleCardModes.filter(card=>card.catalog)
-        : route.name==="brand"
+        : route.name.endsWith("-brand")
           ? motorcycleCardModes.filter(card=>card.brand)
           : route.name==="home"
             ? motorcycleCardModes.filter(card=>card.home)
             : [];
-      if(["home","motorcycles","brand"].includes(route.name)&&routeCardModes.length<1)failures.push(`${width}px ${route.name}: standard MotorcycleCard did not render in its primary route context`);
-      if(width===1440&&["motorcycles","brand"].includes(route.name)&&routeCardModes.some(card=>card.mode!=="grid"))failures.push(`${width}px ${route.name}: wide MotorcycleCard did not switch to its component-owned row layout`);
-      if(width===390&&["home","motorcycles","brand"].includes(route.name)&&routeCardModes.some(card=>card.mode==="grid"))failures.push(`${width}px ${route.name}: narrow MotorcycleCard stayed in wide row layout`);
+      if((["home","motorcycles"].includes(route.name)||route.name.endsWith("-brand"))&&routeCardModes.length<1)failures.push(`${width}px ${route.name}: standard MotorcycleCard did not render in its primary route context`);
+      if(width===1440&&(route.name==="motorcycles"||route.name.endsWith("-brand"))&&routeCardModes.some(card=>card.mode!=="grid"))failures.push(`${width}px ${route.name}: wide MotorcycleCard did not switch to its component-owned row layout`);
+      if(width===390&&(["home","motorcycles"].includes(route.name)||route.name.endsWith("-brand"))&&routeCardModes.some(card=>card.mode==="grid"))failures.push(`${width}px ${route.name}: narrow MotorcycleCard stayed in wide row layout`);
       if(route.name==="compare-index"&&width===1440&&(row?.compareBuilderHeight||0)>260)failures.push(`${width}px compare-index: builder is too tall (${row.compareBuilderHeight}px)`);
       if(route.name==="compare-index"&&width===390&&(row?.compareBuilderHeight||0)>620)failures.push(`${width}px compare-index: mobile builder is too tall (${row.compareBuilderHeight}px)`);
       if(["helmets","tires","accessories","top-box"].includes(route.name)&&(row?.deferredSections||0)>0)failures.push(`${width}px ${route.name}: ${row.deferredSections} top-level section(s) still defer rendering with content-visibility:auto`);
