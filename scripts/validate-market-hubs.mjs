@@ -106,7 +106,7 @@ for (const token of [
   requireText(brandGrowth, token, `Kawasaki brand growth profile missing big-bike token: ${token}`);
 }
 for (const token of [
-  "const bigBikes = brandGrowth?.bigBikeMinCc",
+  "const bigBikeMinCc = brandGrowth?.bigBikeMinCc",
   'id="big-bikes"',
   "bigBikeTitle",
   "bigBikeDescription"
