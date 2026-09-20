@@ -15,6 +15,17 @@ export type PriorityModelGrowthProfile = {
 };
 
 const profiles: Record<string, PriorityModelGrowthProfile> = {
+  "honda-crf150l": {
+    seoTitle: "Honda CRF150L Price Philippines 2026 | Specs & Trail Use",
+    seoDescription: "Honda CRF150L price in the Philippines, 149cc specs, 863mm seat, 21/18-inch tires, ground clearance, fuel economy and dual-sport alternatives.",
+    intentIntro: "The CRF150L carries strong Philippine trail and off-road search demand. Keep its current price, 149cc specifications, tall 863 mm seat, 285 mm ground clearance and ownership research on this canonical model page instead of splitting CRF price and trail-bike intent across thin URLs.",
+    moneyQuestion: "What does the CRF150L cost after the current dealer quote, registration, insurance and essential trail-use equipment are included?",
+    ownershipQuestion: "Compare 21/18-inch tire availability, chain and sprocket service, 285 mm ground clearance, fuel use and Honda support with other lightweight dual-sport motorcycles.",
+    alternativeIds: ["kawasaki-klx150", "yamaha-wr155r"],
+    relatedIds: [],
+    recommendationHref: "/recommendations/best-off-road-motorcycles-philippines",
+    recommendationLabel: "Compare off-road and trail motorcycles"
+  },
   "kawasaki-ninja-400": {
     seoTitle: "Kawasaki Ninja 400 Philippines | Price, Specs & Ninja 500",
     seoDescription: "Kawasaki Ninja 400 Philippines reference with historical price, 399cc specs, seat height and the current Ninja 500 successor for buyers comparing both.",
