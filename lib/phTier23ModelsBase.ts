@@ -213,13 +213,6 @@ export const phTier23Motorcycles: Motorcycle[] = [
     sourceLabel: "Independent PH 2026 Aprilia SR GT price and specification reference", sourceUrl: "https://www.carmudi.com.ph/new-motorcycles/aprilia/sr-gt/specifications/", verifiedAt, freshness: "verified", marketStatus: "current", marketPriceHighPhp: 258000, transmission: "Automatic",
     summary: "174cc adventure-style scooter with ABS, a 799 mm seat and mixed 14/13-inch road tires."
   },
-  {
-    id: "aprilia-rs-457", make: "Aprilia", makeSlug: "aprilia", model: "RS 457", slug: "rs-457", generation: "Current", category: "Sport bike",
-    srp: 348000, engineCc: 457, powerHp: 47.6, torqueNm: 43.5, curbWeightKg: 175, seatHeightMm: 800, fuelTankL: 13,
-    frontTire: "110/70-17", rearTire: "150/60-17", abs: "Dual-channel ABS with rider-aid electronics", colors: [], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Independent PH current Aprilia RS 457 price/specification reference with Aprilia technical cross-check", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/aprilia/rs-457/specifications", verifiedAt, freshness: "verified", marketStatus: "current", transmission: "Manual",
-    summary: "457cc parallel-twin sport motorcycle with 47.6 hp, a six-speed manual transmission and dual-channel ABS."
-  },
 
   {
     id: "husqvarna-svartpilen-401", make: "Husqvarna", makeSlug: "husqvarna", model: "Svartpilen 401", slug: "svartpilen-401", generation: "Current", category: "Scrambler",
@@ -370,13 +363,6 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "500cc parallel-twin adventure-tourer with 47 hp, ABS, a 20 L tank, 800 mm seat and 17-inch road tires."
   },
   {
-    id: "benelli-302s", make: "Benelli", makeSlug: "benelli", model: "302S", slug: "302s", generation: "Current Philippine model", category: "Naked street bike",
-    srp: 222800, engineCc: 300, powerHp: 38, torqueNm: 25.6, curbWeightKg: 185, seatHeightMm: 795, fuelTankL: 16, fuelConsumptionKmL: 25, groundClearanceMm: 175,
-    frontTire: "120/70 ZR17", rearTire: "160/60 ZR17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Current Philippine Benelli 302S price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/benelli/302-s/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
-    summary: "300cc parallel-twin naked bike with 38 hp, ABS, a 795 mm seat, 16 L tank and six-speed manual transmission."
-  },
-  {
     id: "benelli-leoncino-250", make: "Benelli", makeSlug: "benelli", model: "Leoncino 250", slug: "leoncino-250", generation: "Current Philippine model", category: "Modern classic",
     srp: 188800, engineCc: 249, powerHp: 25, torqueNm: 21, curbWeightKg: 159, seatHeightMm: 800, fuelTankL: 12.5, fuelConsumptionKmL: 24.4, groundClearanceMm: 170,
     frontTire: "110/70 R17", rearTire: "150/60 R17", abs: "ABS is not listed in the referenced Philippine specification", colors: [], searchVolume: 0, keywordDifficulty: 0,
@@ -463,14 +449,6 @@ export const phTier23Motorcycles: Motorcycle[] = [
 
 
   {
-    id: "honda-cb650r", make: "Honda", makeSlug: "honda", model: "CB650R", slug: "cb650r", generation: "2026 Philippine model", category: "Naked street bike",
-    srp: 525000, engineCc: 649, powerHp: 93.9, torqueNm: 63, curbWeightKg: 203, seatHeightMm: 810, fuelTankL: 15.4, fuelConsumptionKmL: 20.9, groundClearanceMm: 148,
-    frontTire: "120/70-17", rearTire: "180/55-17", abs: "2-channel ABS", colors: ["Matte Gunpowder Black Metallic", "Grand Prix Red", "Matte Jeans Blue Metallic"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Honda Philippines CB650R official specification sheet", sourceUrl: "https://www.hondaph.com/honda-bigbikes/files/products/646b1eb380c48.pdf", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current",
-    marketPriceHighPhp: 565000, marketPriceSourceLabel: "Honda Philippines Makina Moto Expo 2026 launch", marketPriceSourceUrl: "https://www.hondaph.com/big-bike/news/honda-philippines-launches-three-new-models-elevates-innovation-at-makina-moto-expo-2026", marketPriceCheckedAt: "2026-09-09", transmission: "Manual",
-    summary: "649cc inline-four naked bike with 93.9 hp, 63 Nm, an 810 mm seat and Standard plus E-Clutch variants in the 2026 Philippine lineup."
-  },
-  {
     id: "honda-x-adv", make: "Honda", makeSlug: "honda", model: "X-ADV", slug: "x-adv", generation: "Current Philippine model", category: "Adventure scooter",
     srp: 1170000, engineCc: 745, powerHp: 57.8, torqueNm: 69, curbWeightKg: 237, seatHeightMm: 820, fuelTankL: 13.2, fuelConsumptionKmL: 28.3, groundClearanceMm: 162,
     frontTire: "120/70 R17", rearTire: "160/60 R15", abs: "2-channel ABS", colors: ["Matte Ballistic Black Metallic", "Iridium Gray Metallic", "Puco Blue"], searchVolume: 0, keywordDifficulty: 0,
@@ -536,26 +514,11 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "400cc parallel-twin naked motorcycle with 40.9 hp, ABS, an 815 mm seat and 17 L fuel tank."
   },
   {
-    id: "yamaha-mio-i-125", alsoKnownAs: ["Yamaha Mio i125", "Mio i 125"], make: "Yamaha", makeSlug: "yamaha", model: "Mio i 125", slug: "mio-i-125", generation: "Current Philippine model", category: "Commuter scooter",
-    srp: 77900, marketPriceHighPhp: 82900, engineCc: 125, powerHp: 9.3, torqueNm: 9.6, curbWeightKg: 92, seatHeightMm: 750, fuelTankL: 4.2, groundClearanceMm: 135,
-    frontTire: "70/90 R14", rearTire: "80/90 R14", abs: "No ABS; front disc and rear drum brake configuration", colors: ["Yellow", "Magenta", "Matt Black", "Cyan Metallic", "Matte Blue"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Current Philippine Yamaha Mio i 125 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/mio-i-125/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Automatic",
-    marketPriceSourceLabel: "Current Philippine Standard/S variant pricing", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/mio-i-125", marketPriceCheckedAt: "2026-09-09",
-    summary: "125cc automatic commuter scooter with a 750 mm seat, 92 kg curb weight, 4.2 L tank and Standard/S price range."
-  },
-  {
     id: "yamaha-yzf-r15m", alsoKnownAs: ["Yamaha R15M", "YZF R15M"], make: "Yamaha", makeSlug: "yamaha", model: "YZF-R15M", slug: "yzf-r15m", generation: "Current Philippine model", category: "Sport bike",
     srp: 204000, engineCc: 155, powerHp: 19, torqueNm: 14.7, curbWeightKg: 140, seatHeightMm: 815, fuelTankL: 11, groundClearanceMm: 170,
     frontTire: "100/80 R17", rearTire: "140/70 R17", abs: "ABS with traction control", colors: ["Icon Performance"], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Current Philippine Yamaha YZF-R15M price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/yzf-r15m/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
     summary: "155cc sport motorcycle with 19 hp, ABS, traction control, an 815 mm seat and six-speed transmission."
-  },
-  {
-    id: "yamaha-yzf-r1m", alsoKnownAs: ["Yamaha R1M", "YZF R1M"], make: "Yamaha", makeSlug: "yamaha", model: "YZF-R1M", slug: "yzf-r1m", generation: "Current Philippine model", category: "Sport bike",
-    srp: 1769000, engineCc: 998, powerHp: 197, torqueNm: 113.3, curbWeightKg: 202, seatHeightMm: 860, fuelTankL: 17, fuelConsumptionKmL: 13.8, groundClearanceMm: 130,
-    frontTire: "120/70 ZR17", rearTire: "200/55 ZR17", abs: "ABS", colors: ["Icon Blue"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Current Philippine Yamaha YZF-R1M price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/yzf-r1m/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
-    summary: "998cc superbike with 197 hp, 113.3 Nm, a 17 L tank, 860 mm seat and six-speed transmission."
   },
   {
     id: "bajaj-dominar-400", alsoKnownAs: ["Kawasaki Dominar 400", "Dominar 400"], make: "Bajaj", makeSlug: "bajaj", model: "Dominar 400", slug: "dominar-400", generation: "Current Philippine model", category: "Sport touring",
