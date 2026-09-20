@@ -479,12 +479,12 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "745cc parallel-twin adventure scooter with six-speed DCT, 2-channel ABS, 28.3 km/L WMTC fuel consumption and a 820 mm seat."
   },
   {
-    id: "kawasaki-ninja-zx-4rr", make: "Kawasaki", makeSlug: "kawasaki", model: "Ninja ZX-4RR", slug: "ninja-zx-4rr", generation: "2026 model", category: "Sport bike",
-    srp: 505000, engineCc: 401, powerHp: 76, torqueNm: 39.6, curbWeightKg: 188, seatHeightMm: 800, fuelTankL: 15, fuelConsumptionKmL: 19.6, groundClearanceMm: 135,
+    id: "kawasaki-ninja-zx-4rr", make: "Kawasaki", makeSlug: "kawasaki", model: "Ninja ZX-4RR", slug: "ninja-zx-4rr", generation: "Current Philippine model", category: "Sport bike",
+    srp: 499000, engineCc: 401, powerHp: 76.43, torqueNm: 39.6, curbWeightKg: 188, seatHeightMm: 800, fuelTankL: 15, fuelConsumptionKmL: 19.6, groundClearanceMm: 135,
     frontTire: "120/70 ZR17", rearTire: "160/60 ZR17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Kawasaki 2026 Ninja ZX-4RR official specification", sourceUrl: "https://www.kawasaki-lifestyle.com/en/motorcycles/ninja/ninja-zx-4rr-2026.html", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current",
-    marketPriceSourceLabel: "Current Philippine 2026 market listing", marketPriceSourceUrl: "https://www.carmudi.com.ph/new-motorcycles/kawasaki/ninja-zx-4rr/price/angeles/", marketPriceCheckedAt: "2026-09-09", transmission: "Manual",
-    summary: "401cc inline-four supersport with approximately 76 hp, an 800 mm seat, 188 kg curb mass and 15 L fuel tank."
+    sourceLabel: "Kawasaki Leisure Bikes Philippines current Ninja ZX-4RR specification and MSRP", sourceUrl: "https://kawasakileisurebikes.ph/motorcycles/supersports/ninja-zx-4rr/", verifiedAt: "2026-09-20", freshness: "verified", marketStatus: "current",
+    marketPriceSourceLabel: "Kawasaki Philippines current MSRP", marketPriceSourceUrl: "https://kawasakileisurebikes.ph/motorcycles/supersports/ninja-zx-4rr/", marketPriceCheckedAt: "2026-09-20", transmission: "Manual",
+    summary: "401cc inline-four supersport with 76.43 hp, an 800 mm seat, 188 kg curb mass and 15 L fuel tank."
   },
   {
     id: "cfmoto-300sr", make: "CFMOTO", makeSlug: "cfmoto", model: "300SR", slug: "300sr", generation: "Current Philippine model", category: "Sport bike",
@@ -650,12 +650,12 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "400cc CVT adventure maxi scooter with 38 hp, 40 Nm, 203 kg curb weight, a 770 mm seat, 17.5 L tank, dual-channel ABS and traction control."
   },
   {
-    id: "kawasaki-ninja-h2", alsoKnownAs: ["Kawasaki H2", "Ninja H2 Carbon"], make: "Kawasaki", makeSlug: "kawasaki", model: "Ninja H2", slug: "ninja-h2", generation: "2026 Carbon Philippine listing", category: "Hypersport",
-    srp: 1917200, engineCc: 998, powerHp: 197.4, torqueNm: 133.5, curbWeightKg: 237, seatHeightMm: 825, fuelTankL: 17, groundClearanceMm: 130,
+    id: "kawasaki-ninja-h2", alsoKnownAs: ["Kawasaki H2", "Ninja H2 Carbon"], make: "Kawasaki", makeSlug: "kawasaki", model: "Ninja H2", slug: "ninja-h2", generation: "Current Philippine H2 Carbon listing", category: "Hypersport",
+    srp: 1855000, engineCc: 998, powerHp: 231, torqueNm: 141.7, curbWeightKg: 238, seatHeightMm: 825, fuelTankL: 17, groundClearanceMm: 130,
     frontTire: "120/70 R17", rearTire: "200/55 R17", abs: "KIBS ABS with traction control and launch-control equipment", colors: ["Mirror Coated Matte Spark Black / Candy Flat Blazed Green"], searchVolume: 6400, keywordDifficulty: 0,
-    sourceLabel: "2026 Kawasaki Ninja H2 Carbon specification with Philippine-market cross-check", sourceUrl: "https://www.kawasaki.com/en-us/motorcycle/ninja/hypersport/ninja-h2/2026-ninja-h2-carbon-abs", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
-    marketPriceSourceLabel: "Current Philippine Ninja H2 Carbon price", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/kawasaki/ninja-h2/price", marketPriceCheckedAt: "2026-09-09",
-    summary: "998cc supercharged hypersport motorcycle with 197.4 hp, 133.5 Nm, 237 kg curb weight, an 825 mm seat and KIBS ABS."
+    sourceLabel: "Kawasaki Leisure Bikes Philippines current Ninja H2 Carbon specification and MSRP", sourceUrl: "https://www.kawasakileisurebikes.ph/motorcycles/supersports/ninja-h2-carbon/", verifiedAt: "2026-09-20", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Kawasaki Philippines current MSRP", marketPriceSourceUrl: "https://www.kawasakileisurebikes.ph/motorcycles/supersports/ninja-h2-carbon/", marketPriceCheckedAt: "2026-09-20",
+    summary: "998cc supercharged hypersport motorcycle with 231 hp, 141.7 Nm, 238 kg curb weight, an 825 mm seat and KIBS ABS."
   },
 
 ];
