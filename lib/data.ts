@@ -1381,28 +1381,7 @@ export const comparisons: Comparison[] = [
   { slug: "nx500-vs-versys-650", a: "honda-nx500-e-clutch", b: "kawasaki-versys-650", summary: "Adventure-touring motorcycles compared by price, engine size, weight, seat height, tank capacity and road-focused touring specifications" }
 ];
 
-export const comparisons: Comparison[] = [
-  { slug: "aerox-vs-nmax", a: "yamaha-aerox-v3", b: "yamaha-nmax-v3", summary: "Current Aerox and NMAX families compared with separate V3-specific context" },
-  { slug: "aerox-v3-vs-nmax-v3", a: "yamaha-aerox-v3", b: "yamaha-nmax-v3", summary: "Current V3 variants, prices and specifications only" },
-  { slug: "adv-160-vs-pcx-160", a: "honda-adv-160", b: "honda-pcx-160", summary: "Premium Honda scooters compared by price, clearance, weight and equipment" },
-  { slug: "click-160-vs-aerox-v3", a: "honda-click-160", b: "yamaha-aerox-v3", summary: "Similar-displacement scooters with different price, weight and output" },
-  { slug: "raider-r150-vs-sniper-155", a: "suzuki-raider-r150", b: "yamaha-sniper-155", summary: "Performance underbones compared by output, weight, transmission and brakes" },
-  { slug: "click-125i-vs-mio-gear", a: "honda-click-125i", b: "yamaha-mio-gear", summary: "Affordable automatic commuters compared for cost and everyday specifications" },
-  { slug: "click-125i-vs-burgman-street", a: "honda-click-125i", b: "suzuki-burgman-street", summary: "Compact commuter and maxi-style scooter compared with factual specifications" },
-  { slug: "adv-160-vs-nmax-v3", a: "honda-adv-160", b: "yamaha-nmax-v3", summary: "Premium cross-brand scooters compared by clearance, size and equipment" },
-  { slug: "adv-160-vs-aerox-v3", a: "honda-adv-160", b: "yamaha-aerox-v3", summary: "Adventure-style and sport-oriented scooters compared with measurable differences" },
-  { slug: "fazzio-vs-giorno-plus", a: "yamaha-fazzio", b: "honda-giorno-plus", summary: "Retro-style scooters compared by price, weight, seat and equipment" },
-  { slug: "tmx125-alpha-vs-ytx-125", a: "honda-tmx125-alpha", b: "yamaha-ytx-125", summary: "Utility motorcycles compared by price, engine, weight and tank size" },
-  { slug: "click-160-vs-nmax-v3", a: "honda-click-160", b: "yamaha-nmax-v3", summary: "Light city scooter vs comfort-focused premium scooter" },
-  { slug: "click-125i-vs-click-160", a: "honda-click-125i", b: "honda-click-160", summary: "Lower-cost 125cc commuting vs stronger 160cc performance" },
-  { slug: "fazzio-vs-mio-gear", a: "yamaha-fazzio", b: "yamaha-mio-gear", summary: "Retro city style vs practical commuter value" },
-  { slug: "winner-x-vs-sniper-155", a: "honda-winner-x", b: "yamaha-sniper-155", summary: "Sport underbone alternatives with different price and brake packages" },
-  { slug: "pcx-160-vs-nmax-v3", a: "honda-pcx-160", b: "yamaha-nmax-v3", summary: "Honda maxi-scooter comfort vs Yamaha premium-scooter tech" },
-  { slug: "click-160-vs-pcx-160", a: "honda-click-160", b: "honda-pcx-160", summary: "Honda 160cc scooters compared by price, weight, seat height, tank capacity and braking" },
-  { slug: "ninja-500-vs-450sr", a: "kawasaki-ninja-500", b: "cfmoto-450sr", summary: "Mid-size parallel-twin sport bikes compared by price, output, weight, rider fit and braking" },
-  { slug: "390-duke-vs-ninja-500", a: "ktm-390-duke", b: "kawasaki-ninja-500", summary: "Lightweight naked single versus parallel-twin sport bike compared by price, output, weight and fit" },
-  { slug: "rc-390-vs-ninja-500", a: "ktm-rc-390", b: "kawasaki-ninja-500", summary: "KTM and Kawasaki sport bikes compared by price, engine output, weight, seat height and braking equipment" }
-];
+
 
 export function getModel(make: string, slug: string) {
   return motorcycles.find((m) => m.makeSlug === make && m.slug === slug);
