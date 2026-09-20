@@ -11,6 +11,7 @@ const routes=[
   {name:"scooters",path:"/motorcycles/scooters"},
   {name:"expressway-legal",path:"/motorcycles/expressway-legal"},
   {name:"brand",path:"/motorcycles/honda"},
+  {name:"kawasaki-brand",path:"/motorcycles/kawasaki"},
   {name:"vespa-brand",path:"/motorcycles/vespa"},
   {name:"motorcycle-detail",path:"/motorcycles/yamaha/aerox-v3"},
   {name:"crf300-rally",path:"/motorcycles/honda/crf300-rally"},
@@ -246,6 +247,7 @@ const inspect=`(() => {
   const officialDealerRows=document.querySelectorAll("[data-official-dealer-locators] a").length;
   const legacyDealerCards=document.querySelectorAll(".dealer-locator-card,.dealer-partner-strip,.dealer-checklist").length;
 
+  const brandBigBikeRows=document.querySelectorAll('#big-bikes a[role="row"]').length;
   const standardMotorcycleCards=[...document.querySelectorAll('[data-motorcycle-card="standard"]')];
   const standardMotorcycleCardModes=standardMotorcycleCards.map(card=>({
     mode:getComputedStyle(card).display,
@@ -275,6 +277,7 @@ const inspect=`(() => {
     mediaProblems,
     productCards:cards.length,
     collapsedCards,
+    brandBigBikeRows,
     standardMotorcycleCards:standardMotorcycleCards.length,
     standardMotorcycleCardModes,
     compareBuilderHeight:compareBuilderRect?.height||0,
@@ -357,6 +360,7 @@ try{
       if((row?.unloadedProductImages||0)>0)failures.push(`${width}px ${route.name}: ${row.unloadedProductImages} product image(s) failed to load after lazy-media warmup`);
       if((row?.unavailableProductMedia||0)>0)failures.push(`${width}px ${route.name}: ${row.unavailableProductMedia} product media fallback(s) rendered as unavailable`);
       if((row?.collapsedCards||0)>0)failures.push(`${width}px ${route.name}: ${row.collapsedCards} canonical product card(s) collapsed`);
+      if(route.name==="kawasaki-brand"&&(row?.brandBigBikeRows||0)<5)failures.push(`${width}px kawasaki-brand: big-bike section is missing or incomplete (${row?.brandBigBikeRows||0} rows)`);
       const motorcycleCardModes=row?.standardMotorcycleCardModes||[];
       const routeCardModes=route.name==="motorcycles"
         ? motorcycleCardModes.filter(card=>card.catalog)
