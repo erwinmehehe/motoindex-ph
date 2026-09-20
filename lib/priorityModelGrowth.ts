@@ -293,6 +293,52 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     }
   },
 
+
+  "suzuki-burgman-street": {
+    seoTitle: "Suzuki Burgman Street Price Philippines 2026 | Specs & Colors",
+    seoDescription: "Suzuki Burgman Street price in the Philippines, 124cc specs, colors, seat height, fuel economy, tires, ownership costs and scooter alternatives.",
+    intentIntro: "The Burgman Street brings maxi-scooter styling to the 125cc commuter class. Compare its current price, 780 mm seat, fuel economy, wheel sizes and ownership needs with the Street EX, Click 125i and other practical scooters.",
+    moneyQuestion: "What does the Burgman Street cost after the current dealer quote, registration, insurance and other purchase charges are included?",
+    ownershipQuestion: "Compare CVT service, tire sizes, fuel use, storage and Suzuki support with Burgman Street EX and other 125cc scooters.",
+    alternativeIds: ["suzuki-burgman-street-ex", "honda-click-125i", "yamaha-mio-gear"],
+    relatedIds: ["suzuki-burgman-street-ex", "suzuki-burgman-400"],
+    recommendationHref: "/recommendations/125cc-scooters-philippines",
+    recommendationLabel: "Compare 125cc scooters"
+  },
+  "suzuki-burgman-400": {
+    seoTitle: "Suzuki Burgman 400 Price Philippines 2026 | Specs & ABS",
+    seoDescription: "Suzuki Burgman 400 price in the Philippines, 400cc specs, ABS, 755mm seat, weight, tires, ownership costs and maxi-scooter alternatives.",
+    intentIntro: "The Burgman 400 is the large-displacement member of Suzuki's Burgman family. Compare its current Philippine price, 400cc engine, 755 mm seat, 218 kg curb weight and ABS with XMAX, ADV350 and other maxi scooters.",
+    moneyQuestion: "What does the Burgman 400 cost after the current dealer quote, registration, insurance and other purchase charges are included?",
+    ownershipQuestion: "Compare CVT service, 15/13-inch tires, insurance, fuel range and Suzuki big-bike support with XMAX, ADV350 and other maxi scooters.",
+    alternativeIds: ["yamaha-xmax", "honda-adv-350", "zontes-400g"],
+    relatedIds: ["suzuki-burgman-street", "suzuki-burgman-street-ex"],
+    recommendationHref: "/recommendations/maxi-scooters-philippines",
+    recommendationLabel: "Compare maxi scooters"
+  },
+  "honda-crf150l": {
+    seoTitle: "Honda CRF150L Price Philippines 2026 | Specs & Seat Height",
+    seoDescription: "Honda CRF150L price in the Philippines, 149cc specs, 863mm seat, ground clearance, tires, fuel economy and dual-sport ownership research.",
+    intentIntro: "The CRF150L is a tall, lightweight dual-sport, so price alone does not tell the full story. Compare its 863 mm seat, 285 mm ground clearance, 21/18-inch tires and 122 kg curb weight for trail access and everyday road use.",
+    moneyQuestion: "What should a CRF150L buyer confirm about the current price and availability before purchase?",
+    ownershipQuestion: "Compare dual-sport tire availability, chain and sprocket service, trail wear, fuel use and Honda service access before choosing it for mixed road and off-road use.",
+    alternativeIds: ["kawasaki-klx150", "yamaha-wr155r", "honda-xr150l"],
+    relatedIds: [],
+    recommendationHref: "/motorcycles/honda",
+    recommendationLabel: "Compare Honda off-road motorcycles"
+  },
+  "kawasaki-ninja-400": {
+    seoTitle: "Kawasaki Ninja 400 Philippines | Previous Model Specs & Used Guide",
+    seoDescription: "Kawasaki Ninja 400 Philippines reference with previous-generation 399cc specs, 785mm seat, ABS, historical price context and current alternatives.",
+    intentIntro: "The Ninja 400 remains heavily searched, but MotoIndex treats it as a previous-generation model rather than a current new-bike listing. Use this page for specifications, historical price context and comparison with current successors and used-market alternatives.",
+    moneyQuestion: "How should a used Ninja 400 price be judged against its historical reference and current replacement models?",
+    ownershipQuestion: "For a used Ninja 400, inspect service history, tires, chain and sprockets, brakes, fairings and crash evidence before comparing asking prices.",
+    alternativeIds: ["kawasaki-ninja-500", "yamaha-yzf-r3", "cfmoto-450sr"],
+    relatedIds: ["kawasaki-ninja-500"],
+    recommendationHref: "/recommendations/motorcycles-under-400cc-philippines",
+    recommendationLabel: "Compare lightweight sport motorcycles"
+  },
+
   "honda-click-125i": {
     seoTitle: "Honda Click 125i Price Philippines 2026 | Specs & Ownership",
     seoDescription: "Honda Click 125i price in the Philippines, 125cc specs, colors, seat height, tires, down payment, monthly estimate, fuel economy and ownership costs.",
