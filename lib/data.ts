@@ -1910,6 +1910,28 @@ export const recommendationGuides: RecommendationGuide[] = [
     intent: "category"
   },
 {
+    slug: "cruiser-motorcycles-philippines",
+    kicker: "Cruiser motorcycles",
+    title: "Cruiser motorcycles in the Philippines",
+    seoTitle: "Cruiser Motorcycles Philippines: Prices & Specs 2026",
+    description: "Compare current cruiser motorcycles in the Philippines by published price, engine size, power, weight, seat height, fuel capacity and ABS equipment.",
+    primaryKeyword: "cruiser motorcycle Philippines",
+    secondaryKeywords: ["cruiser motorcycles Philippines", "cruiser motorcycle price Philippines", "best cruiser motorcycle Philippines", "cruiser bikes Philippines"],
+    directAnswer: "MotoIndex currently tracks Philippine-market cruisers from Honda, Kawasaki and Royal Enfield. This guide compares their dated price records with engine, power, curb-weight, seat-height, fuel-tank and braking specifications on one category page.",
+    inclusionRules: ["Category is Cruiser", "Current Philippine-market motorcycle", "Model has a dated price and specification record"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower seat height", "Lower curb weight"],
+    orderLabel: "Price order",
+    sourcePolicy: "Published prices and specifications come from each model's dated Philippine-market record. Model pages retain the source and verification context used for each value.",
+    caveats: ["Cruiser styling does not determine rider fit; seat width, peg position and handlebar reach also matter.", "A lower seat can improve reach but curb weight still affects low-speed handling.", "Dealer stock, freight, promotions and final on-road prices can differ from the published price record."],
+    tableColumns: ["price", "engine", "power", "weight", "seat", "abs", "tank", "context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lowest seat",metric:"seat"},{label:"Lightest",metric:"weight"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced cruiser motorcycles", "Lower-seat cruiser options", "Lighter cruisers for low-speed handling", "Engine and power differences", "What to compare before choosing a cruiser"],
+    faqQuestions: ["What cruiser motorcycles are available in the Philippines?", "Which cruiser motorcycle has the lowest published price?", "Which cruiser has the lowest seat?", "Which cruiser motorcycle is lightest?", "Which cruiser motorcycles list ABS?"],
+    relatedGuideSlugs: ["motorcycles-400cc-plus-philippines", "best-motorcycles-for-short-riders", "motorcycles-with-abs-philippines", "beginner-friendly-motorcycles-philippines"],
+    intent: "category"
+  },
+  {
     slug: "motorcycles-under-400cc-philippines",
     kicker: "Under 400cc",
     title: "Motorcycles under 400cc in the Philippines",
@@ -2340,6 +2362,7 @@ export function getRecommendationModels(slug: string) {
     case "250cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 225 && m.engineCc <= 275);
     case "300cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 280 && m.engineCc <= 325);
     case "motorcycles-400cc-plus-philippines": return byPrice.filter(m => m.engineCc >= 400);
+    case "cruiser-motorcycles-philippines": return byPrice.filter(m => m.category === "Cruiser");
     case "motorcycles-under-400cc-philippines": return byPrice.filter(m => m.engineCc < 400);
     case "maxi-scooters-philippines": return byPrice.filter(m => /maxi/i.test(m.category));
     case "naked-motorcycles-philippines": return byPrice.filter(m => m.category === "Naked street bike");
