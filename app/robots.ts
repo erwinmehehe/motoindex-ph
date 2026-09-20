@@ -11,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
   const sitemap = [`${SITE_URL}/sitemap.xml`,`${SITE_URL}/sitemaps/motorcycles.xml`,`${SITE_URL}/sitemaps/gear.xml`];
   if (commerceSitemapEntries().length > 0) sitemap.push(`${SITE_URL}/sitemaps/commerce.xml`);
   return {
-    rules:[{userAgent:"*",allow:"/",disallow:["/admin/","/api/","/go/"]}],
+    rules:[{userAgent:"*",allow:["/","/ads.txt"],disallow:["/admin/","/api/","/go/"]}],
     sitemap
   };
 }
