@@ -3,7 +3,7 @@ import type { EntityMedia } from "./types";
 // Entity images use a local-first media policy. The canonical `src` is a self-hosted,
 // standardized derivative under /public/media. `sourceImageUrl` preserves the checked
 // upstream image for provenance and a temporary runtime fallback while local assets are synced.
-export const entityMedia: EntityMedia[] = [
+// Local motorcycle WebP derivatives are art-directed to a 1200x1200 white catalog canvas; source provenance remains below.\nexport const entityMedia: EntityMedia[] = [
   {
     id: "yamaha-mio-gravis-wheeltek", entityType: "motorcycle", entityId: "yamaha-mio-gravis", role: "primary",
     src: "/media/motorcycles/yamaha-mio-gravis.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/03/MIO-GRAVIS-matte-brown.jpg", alt: "Yamaha Mio Gravis motorcycle in Matte Brown", width: 1200, height: 1200,
