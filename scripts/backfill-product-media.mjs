@@ -12,7 +12,8 @@ const motorcycleSources = [
   "lib/phTier23ModelsExpansion2026.ts",
   "lib/phBrandExpansion2026.ts",
   "lib/phCoverageExpansion2026.ts",
-  "lib/globalDemandExpansion2026.ts"
+  "lib/globalDemandExpansion2026.ts",
+  "lib/kawasakiBigBikeExpansion2026.ts"
 ].map((file) => ({ file, source: fs.readFileSync(path.join(root, file), "utf8") }));
 const mediaSource = fs.readFileSync(path.join(root, "lib/media.ts"), "utf8");
 const generatedPath = path.join(root, "lib/generatedProductMedia.ts");
@@ -75,6 +76,9 @@ function sourceSpecificity(url, item) {
   if (!url) return -1000;
   let score = 0;
   if (!/\.pdf(?:$|[?#])/i.test(url)) score += 20;
+  else score -= 80;
+  if (/\/(?:technicaldata|specification|specifications|faq)(?:[/?#]|$)/i.test(url)) score -= 24;
+  if (/\/(?:models?|motorcycles?)\/[^?#]+\/?$/i.test(url)) score += 8;
   try {
     const parsed = new URL(url);
     const haystack = `${parsed.pathname} ${parsed.search}`.toLowerCase().replace(/[^a-z0-9]+/g, " ");
@@ -212,7 +216,8 @@ async function discoverImage(product) {
       if (candidate.reason === "matching img alt") return true;
       const imageText = candidate.url.toLowerCase().replace(/[^a-z0-9]+/g, " ");
       const modelHits = terms.filter((term) => imageText.includes(term)).length;
-      return pageIsSpecific || modelHits >= Math.min(2, Math.max(1, terms.length));
+      const requiredHits = terms.length >= 3 ? 2 : 1;
+      return modelHits >= requiredHits || (pageIsSpecific && modelHits >= 1);
     });
   }
   if (!candidates.length) throw new Error("no trustworthy product image candidate found");
