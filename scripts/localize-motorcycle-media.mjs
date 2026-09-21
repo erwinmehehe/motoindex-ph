@@ -194,7 +194,12 @@ const targets = blocks.map((block) => ({
   src: field(block, "src"),
   sourceImageUrl: field(block, "sourceImageUrl"),
   sourceUrl: field(block, "sourceUrl")
-})).filter((item) => item.entityType === "motorcycle" && item.role === "primary" && item.entityId && /^https?:\/\//i.test(item.src || ""));
+})).filter((item) => {
+  if (item.entityType !== "motorcycle" || item.role !== "primary" || !item.entityId) return false;
+  if (/^https?:\/\//i.test(item.src || "")) return true;
+  if (!item.src?.startsWith("/media/motorcycles/") || !/^https?:\/\//i.test(item.sourceImageUrl || "")) return false;
+  return !fs.existsSync(path.join(root, "public", item.src.slice(1)));
+});
 
 const successes = [];
 const failures = [];
@@ -203,7 +208,7 @@ fs.mkdirSync(outputDir, { recursive: true });
 
 for (const item of targets) {
   try {
-    let remote = item.src;
+    let remote = /^https?:\/\//i.test(item.src || "") ? item.src : item.sourceImageUrl;
     let sourcePage = item.sourceUrl;
     let bytes;
     let override = null;
