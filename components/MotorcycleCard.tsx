@@ -106,7 +106,7 @@ export function MotorcycleCard({
         <h3 className={styles.title}><Link href={href}>{model.make} {model.model}</Link></h3>
         <div className={`${styles.price} price`}>{observedMarketPriceLabel(model)}</div>
         <div className={`${styles.stats} mini-stats`}><span>{model.engineCc} cc</span><span>{model.seatHeightMm} mm seat</span>{model.transmission&&<span>{model.transmission}</span>}{showLifecycle&&<span>{lifecycleLabel(model)}</span>}</div>
-        <div className={`${styles.actions} card-actions`}><Link className="button small" href={href}>View model</Link><div className={styles.compareCluster}><span className={styles.brandMark}>{brandLogos[model.make] ? <Image src={brandLogos[model.make]} alt={`${model.make} logo`} width={84} height={28} /> : <strong>{model.make}</strong>}</span><CompareButton modelId={model.id} compact/></div></div>
+        <div className={`${styles.actions} card-actions`}><Link className="button small" href={href}>View model</Link><div className={styles.compareCluster}><span className={styles.brandMark}>{brandLogos[model.make] ? <Image src={brandLogos[model.make]} alt={`${model.make} logo`} width={84} height={28} unoptimized /> : <strong>{model.make}</strong>}</span><CompareButton modelId={model.id} compact/></div></div>
       </div>
     </div>
   </article>;
