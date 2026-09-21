@@ -2162,5 +2162,5 @@ export const generatedProductMedia: EntityMedia[] = [
     "sourceUrl": "https://www.zigwheels.ph/new-motorcycles/kawasaki/vulcan-s",
     "lastChecked": "2026-09-21",
     "rightsHolder": "Kawasaki"
-  },
+  }
 ];
