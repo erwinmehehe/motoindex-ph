@@ -943,6 +943,36 @@ export const entityMedia: EntityMedia[] = [
     src: "/media/motorcycles/cfmoto-400nk.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/132/2079/cfmoto-400-nk-color-501777.jpg", alt: "CFMoto 400NK naked motorcycle in white and teal", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "ZigWheels Philippines", sourceLabel: "Philippine market image reference · ZigWheels CFMoto 400NK", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/cfmoto/400-nk", lastChecked: "2026-09-22"
   },
+  {
+    id: "kawasaki-ninja-h2-carbon-manufacturer-2025", entityType: "motorcycle", entityId: "kawasaki-ninja-h2", role: "primary",
+    src: "/media/motorcycles/kawasaki-ninja-h2.webp", sourceImageUrl: "https://www.kawasaki-lifestyle.com/content/dam/products/pim/studio/Resource_302994_19ZX1002J_205GY2DRF1CG_Ajpg.jpg/_jcr_content/renditions/cq5dam.thumbnail.600.600.png", alt: "Kawasaki Ninja H2 Carbon supercharged motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Philippines", sourceLabel: "Manufacturer-hosted current image reference · Ninja H2 Carbon", sourceUrl: "https://www.kawasaki-lifestyle.com/en/motorcycles/ninja/ninja-h2-carbon-2025.html", lastChecked: "2026-09-22"
+  },
+  {
+    id: "kawasaki-ninja-650-manufacturer-2026", entityType: "motorcycle", entityId: "kawasaki-ninja-650", role: "primary",
+    src: "/media/motorcycles/kawasaki-ninja-650.webp", sourceImageUrl: "https://www.kawasaki-lifestyle.com/content/dam/products/pim/studio/s/Resource_320280_26EX650P_S_44TGY1DRF3CG_A.jpg/_jcr_content/renditions/cq5dam.thumbnail.600.600.png", alt: "2026 Kawasaki Ninja 650 motorcycle in Metallic Matte Graphenesteel Gray", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Philippines", sourceLabel: "Manufacturer-hosted current image reference · Ninja 650", sourceUrl: "https://www.kawasaki-lifestyle.com/en/motorcycles/ninja/ninja-650-2026.html", lastChecked: "2026-09-22"
+  },
+  {
+    id: "kawasaki-versys-650-manufacturer-2026", entityType: "motorcycle", entityId: "kawasaki-versys-650", role: "primary",
+    src: "/media/motorcycles/kawasaki-versys-650.webp", sourceImageUrl: "https://www.kawasaki-lifestyle.com/content/dam/products/pim/studio/j/Resource_320372_26KLE650H_J_K_44TGY1DRF3CG_A.jpg/_jcr_content/renditions/cq5dam.thumbnail.600.600.png", alt: "2026 Kawasaki Versys 650 adventure touring motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Philippines", sourceLabel: "Manufacturer-hosted current image reference · Versys 650", sourceUrl: "https://www.kawasaki-lifestyle.com/en/motorcycles/versys/versys-650-2026.html", lastChecked: "2026-09-22"
+  },
+  {
+    id: "kawasaki-vulcan-s-manufacturer-2026", entityType: "motorcycle", entityId: "kawasaki-vulcan-s", role: "primary",
+    src: "/media/motorcycles/kawasaki-vulcan-s.webp", sourceImageUrl: "https://www.kawasaki-lifestyle.com/content/dam/products/pim/studio/m/Resource_320137_26EN650D_M_44TGY1DRF1CG_A.jpg/_jcr_content/renditions/cq5dam.thumbnail.600.600.png", alt: "2026 Kawasaki Vulcan S cruiser motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Philippines", sourceLabel: "Manufacturer-hosted current image reference · Vulcan S", sourceUrl: "https://www.kawasaki-lifestyle.com/en/motorcycles/vulcan/vulcan-s-2026.html", lastChecked: "2026-09-22"
+  },
+  {
+    id: "kawasaki-z650-manufacturer-2024", entityType: "motorcycle", entityId: "kawasaki-z650", role: "primary",
+    src: "/media/motorcycles/kawasaki-z650.webp", sourceImageUrl: "https://www.kawasaki-lifestyle.com/content/dam/products/pim/resource/s/Resource_301687_24ER650N_S_44SRD1DRF3CG_A.jpg/_jcr_content/renditions/cq5dam.thumbnail.600.600.png", alt: "Kawasaki Z650 naked motorcycle in Candy Persimmon Red and Ebony", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Philippines", sourceLabel: "Manufacturer-hosted Philippine image reference · Z650", sourceUrl: "https://www.kawasaki-lifestyle.com/en/motorcycles/z/z650-2024.html", lastChecked: "2026-09-22"
+  },
+  {
+    id: "kawasaki-z-h2-manufacturer-2024", entityType: "motorcycle", entityId: "kawasaki-z-h2", role: "primary",
+    src: "/media/motorcycles/kawasaki-z-h2.webp", sourceImageUrl: "https://www.kawasaki-lifestyle.com/content/dam/products/pim/studio/p/Resource_301536_24ZR1000K_P_40RGY1DRF3CG_A.jpg/_jcr_content/renditions/cq5dam.thumbnail.600.600.png", alt: "Kawasaki Z H2 supercharged naked motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Philippines", sourceLabel: "Manufacturer-hosted Philippine image reference · Z H2", sourceUrl: "https://www.kawasaki-lifestyle.com/en/motorcycles/z/z-h2-2024.html", lastChecked: "2026-09-22"
+  },
 ];
 
 export function getRenderableMedia(entityType: EntityMedia["entityType"], entityId: string) {
