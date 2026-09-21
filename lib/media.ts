@@ -918,6 +918,31 @@ export const entityMedia: EntityMedia[] = [
     src: "/media/motorcycles/royal-enfield-bear-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/bear-650/int-bear-650.jpg", alt: "Royal Enfield Bear 650 motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer image · Bear 650", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/bear-650/", lastChecked: "2026-09-21"
   },
+  {
+    id: "honda-adv-150-honda-global", entityType: "motorcycle", entityId: "honda-adv-150", role: "primary",
+    src: "/media/motorcycles/honda-adv-150.webp", sourceImageUrl: "https://global.honda/content/site/global-jp/news-new/pc/2019/2191220-adv150/_jcr_content/par_news-body/newscolumn/par_news-col-1/newsimage_422072922.img.jpg/1715852708564.jpg", alt: "Honda ADV150 adventure scooter in Matte Meteorite Brown Metallic", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Motor Co., Ltd.", sourceLabel: "Manufacturer-hosted historical image reference · Honda ADV150", sourceUrl: "https://global.honda/jp/news/2019/2191220-adv150.html", lastChecked: "2026-09-22"
+  },
+  {
+    id: "kawasaki-ninja-zx-4rr-manufacturer", entityType: "motorcycle", entityId: "kawasaki-ninja-zx-4rr", role: "primary",
+    src: "/media/motorcycles/kawasaki-ninja-zx-4rr.webp", sourceImageUrl: "https://www.kawasaki-lifestyle.com/content/dam/products/pim/studio/Resource_320398_26ZX400S_141GN1DRF3CG_A.jpg/_jcr_content/renditions/cq5dam.thumbnail.600.600.png", alt: "Kawasaki Ninja ZX-4RR motorcycle in Lime Green", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors, Ltd.", sourceLabel: "Manufacturer-hosted current image reference · Kawasaki Ninja ZX-4RR", sourceUrl: "https://www.kawasaki-lifestyle.com/en/motorcycles/ninja/ninja-zx-4rr-2026.html", lastChecked: "2026-09-22"
+  },
+  {
+    id: "honda-x-adv-honda-global", entityType: "motorcycle", entityId: "honda-x-adv", role: "primary",
+    src: "/media/motorcycles/honda-x-adv.webp", sourceImageUrl: "https://global.honda/content/dam/site/global-jp/news-new/cq_img/2026/01/2260130-x-adv/2260130-x-adv_01.jpg", alt: "Honda X-ADV 745cc DCT motorcycle in Matte Pearl Glare White", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Motor Co., Ltd.", sourceLabel: "Manufacturer-hosted current image reference · Honda X-ADV", sourceUrl: "https://global.honda/jp/news/2026/2260130-x-adv.html", lastChecked: "2026-09-22"
+  },
+  {
+    id: "cfmoto-300sr-zigwheels", entityType: "motorcycle", entityId: "cfmoto-300sr", role: "primary",
+    src: "/media/motorcycles/cfmoto-300sr.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/132/2680/cfmoto-300sr-color-803477.jpg", alt: "CFMoto 300SR sport motorcycle in black", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "ZigWheels Philippines", sourceLabel: "Philippine market image reference · ZigWheels CFMoto 300SR", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/cfmoto/300sr/images", lastChecked: "2026-09-22"
+  },
+  {
+    id: "cfmoto-400nk-zigwheels", entityType: "motorcycle", entityId: "cfmoto-400nk", role: "primary",
+    src: "/media/motorcycles/cfmoto-400nk.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/132/2079/cfmoto-400-nk-color-501777.jpg", alt: "CFMoto 400NK naked motorcycle in white and teal", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "ZigWheels Philippines", sourceLabel: "Philippine market image reference · ZigWheels CFMoto 400NK", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/cfmoto/400-nk", lastChecked: "2026-09-22"
+  },
 ];
 
 export function getRenderableMedia(entityType: EntityMedia["entityType"], entityId: string) {
