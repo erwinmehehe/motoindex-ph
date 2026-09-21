@@ -5,6 +5,26 @@ import type { EntityMedia } from "./types";
 // upstream image for provenance and a temporary runtime fallback while local assets are synced.
 export const entityMedia: EntityMedia[] = [
   {
+    id: "yamaha-mio-gravis-wheeltek", entityType: "motorcycle", entityId: "yamaha-mio-gravis", role: "primary",
+    src: "/media/motorcycles/yamaha-mio-gravis.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/03/MIO-GRAVIS-matte-brown.jpg", alt: "Yamaha Mio Gravis motorcycle in Matte Brown", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Mio Gravis", sourceUrl: "https://wheeltek.com.ph/vehicles/mio-gravis/", lastChecked: "2026-09-21"
+  },
+  {
+    id: "yamaha-mio-i-125-wheeltek", entityType: "motorcycle", entityId: "yamaha-mio-i-125", role: "primary",
+    src: "/media/motorcycles/yamaha-mio-i-125.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/03/MIO-i125-cyan.jpg", alt: "Yamaha Mio i 125 motorcycle in Cyan", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Mio i125", sourceUrl: "https://wheeltek.com.ph/vehicles/mio-i125/", lastChecked: "2026-09-21"
+  },
+  {
+    id: "yamaha-tmax-motortrade", entityType: "motorcycle", entityId: "yamaha-tmax", role: "primary",
+    src: "/media/motorcycles/yamaha-tmax.webp", sourceImageUrl: "https://motortrade.com.ph/wp-content/uploads/2021/09/1-20.jpg", alt: "Yamaha TMAX Tech Max motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motortrade Philippines", sourceLabel: "Philippine dealer image reference · Motortrade TMAX Tech Max", sourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-tmax-tech-max/", lastChecked: "2026-09-21"
+  },
+  {
+    id: "honda-crf300-rally-manufacturer", entityType: "motorcycle", entityId: "honda-crf300-rally", role: "primary",
+    src: "/media/motorcycles/honda-crf300-rally.webp", sourceImageUrl: "https://images.ctfassets.net/p4ab844it03t/3GJ0DXBprmXAoC5z9eJjkF/f21bf5df9b934f04df19284e08caa961/67e0ba50a13d0.png?fm=webp&q=80", alt: "Honda CRF300 Rally motorcycle at the 2025 Inside Racing Bikefest", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Philippines", sourceLabel: "Manufacturer-hosted image reference · Honda Philippines CRF300 Rally", sourceUrl: "https://www.hondaph.com/motorcycle/news/honda-philippines-unleashes-power-and-innovation-at-the-action-packed-inside-racing-bikefest-2025", lastChecked: "2026-09-21"
+  },
+  {
     id: "yamaha-mt-07-global-reference", entityType: "motorcycle", entityId: "yamaha-mt-07", role: "primary",
     src: "/media/motorcycles/yamaha-mt-07.webp", sourceImageUrl: "https://www.yamahaba.sk/_Data/produkty/5849_1024_768.jpg", alt: "Yamaha MT-07 motorcycle in Icon Blue", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Yamaha dealer network", sourceLabel: "Yamaha dealer image reference · 2025 MT-07", sourceUrl: "https://www.yamahaba.sk/mt07iconblue2025", lastChecked: "2026-09-20"
