@@ -11,6 +11,8 @@ import { lifecycleLabel } from "@/lib/lifecycle";
 import { php } from "@/lib/utils";
 import styles from "./MotorcycleCard.module.css";
 
+const brandMarks: Record<string, string> = { Honda: "H", Yamaha: "Y", Kawasaki: "K", Suzuki: "S", CFMOTO: "CF", KTM: "KTM", BMW: "BMW", Ducati: "D", Triumph: "T", "Royal Enfield": "RE" };
+
 type Variant = "standard" | "compare" | "decision" | "compact";
 
 type Props = {
@@ -96,7 +98,7 @@ export function MotorcycleCard({
         <h3 className={styles.title}><Link href={href}>{model.make} {model.model}</Link></h3>
         <div className={`${styles.price} price`}>{observedMarketPriceLabel(model)}</div>
         <div className={`${styles.stats} mini-stats`}><span>{model.engineCc} cc</span><span>{model.seatHeightMm} mm seat</span>{model.transmission&&<span>{model.transmission}</span>}{showLifecycle&&<span>{lifecycleLabel(model)}</span>}</div>
-        <div className={`${styles.actions} card-actions`}><Link className="button small" href={href}>View model</Link><CompareButton modelId={model.id} compact/></div>
+        <div className={`${styles.actions} card-actions`}><Link className="button small" href={href}>View model</Link><div className={styles.compareCluster}><span className={styles.brandMark}>{brandMarks[model.make] || model.make.slice(0, 2).toUpperCase()}</span><CompareButton modelId={model.id} compact/></div></div>
       </div>
     </div>
   </article>;
