@@ -13,6 +13,34 @@ The persistent ingestion engine is built but intentionally paused as a product p
 
 The current keyword workbook is `research/ph_motorcycle_seo_300plus_keywords_current_roadmap_v245.xlsx`.
 
+## Competitive SEO benchmark — Motortrade organic visibility
+
+Source snapshot: Semrush organic keyword history export for `motortrade.com.ph`, covering 2024-09-21 through 2026-09-21. This export is aggregate ranking-distribution history, not a query-level keyword list. Use it as a visibility benchmark only; do not infer or create landing pages from this file without query-level demand, SERP-intent confirmation and verified MotoIndex data.
+
+Latest Motortrade benchmark on 2026-09-21:
+- Positions 1–3: **8,068** keywords
+- Positions 4–10: **4,814** keywords
+- Positions 11–20: **349** keywords
+- Top 10 total: **12,882** keywords
+- Top 20 total: **13,231** keywords
+- Top-3 share of top-10 visibility: **62.6%**
+
+Trend context:
+- Versus 2024-09-21, Motortrade's top-3 footprint is up **48.9%**, while its top-10 footprint is up **8.1%**.
+- Its top-20 footprint is down **12.9%** over the same period, showing that raw top-20 breadth is not the metric MotoIndex should optimize in isolation.
+- Versus 2025-09-21, top-3 visibility is up **22.7%**, while top-10 is down **2.9%**.
+- Over the latest 90 days, top-3 visibility is down **11.9%** and top-10 visibility is down **5.6%**, so the benchmark should be monitored monthly rather than treated as a fixed ceiling.
+- Recorded peaks in this export: **9,363** top-3 keywords on 2026-07-03, **14,074** top-10 keywords on 2025-06-25, and **18,092** top-20 keywords on 2025-05-19.
+
+Roadmap implications:
+1. Prioritize moving existing MotoIndex pages from positions 4–20 into the top 3–10 before creating thin new URLs.
+2. Measure ranking depth by cluster: brand hubs, model pages, comparisons, scooter/engine-class hubs, research tools, ownership guides and accessories.
+3. Use Search Console impressions + average position + CTR to find MotoIndex pages already ranking 4–20, then improve those pages with verified data, internal links, entity coverage, media and intent-matched copy.
+4. Keep MotoDeal/ZigWheels/query-level competitor exports as the source for specific content gaps. Motortrade's aggregate history is a competitive strength benchmark, not a page-generation list.
+5. Add a monthly competitor checkpoint: record Motortrade top-3/top-10/top-20 counts alongside MotoIndex Search Console non-brand top-3/top-10 query counts and the number of priority pages that move into top 10.
+6. Do not chase Motortrade's scale with generic financing/dealer/location pages unless MotoIndex has unique intent, verified data and a defensible canonical page.
+7. Near-term SEO success metric: increase MotoIndex's share of priority queries in the top 3 and top 10, not simply the number of indexed pages.
+
 ---
 
 # MotoIndex PH Production Roadmap
