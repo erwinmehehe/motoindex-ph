@@ -64,10 +64,10 @@ for (const id of ["honda-adv-150", "kawasaki-ninja-zx-4rr", "honda-x-adv", "cfmo
 
 for (const token of [
   'heading: "ADV150 vs the current ADV160"',
-  'seoTitle: "Kawasaki Ninja ZX-4RR Price Philippines 2026 | Specs & Ownership"',
+  'seoTitle: "Ninja ZX-4RR Price Philippines 2026 | Specs & Ownership"',
   'seoTitle: "Honda X-ADV Price Philippines 2026 | 745cc DCT Specs"',
-  'seoTitle: "CFMOTO 300SR Price Philippines 2026 | Specs & ABS"',
-  'seoTitle: "CFMOTO 400NK Price Philippines 2026 | Specs & ABS"'
+  'seoTitle: "CFMOTO 300SR Price Philippines 2026 | Specs, ABS & Costs"',
+  'seoTitle: "CFMOTO 400NK Price Philippines 2026 | Specs, ABS & Costs"'
 ]) {
   if (!growth.includes(token)) errors.push(`priorityModelGrowth: ranking-depth wave lost token ${token}`);
 }
