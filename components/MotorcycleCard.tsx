@@ -12,14 +12,26 @@ import { php } from "@/lib/utils";
 import styles from "./MotorcycleCard.module.css";
 
 const brandLogos: Record<string, string> = {
-  Honda: "/brand/motorcycle/honda.svg",
-  Yamaha: "/brand/motorcycle/yamaha.svg",
-  Suzuki: "/brand/motorcycle/suzuki.svg",
-  KTM: "/brand/motorcycle/ktm.svg",
+  Aprilia: "/brand/motorcycle/aprilia.svg",
+  Bajaj: "/brand/motorcycle/bajaj.svg",
+  Benelli: "/brand/motorcycle/benelli.svg",
   "BMW Motorrad": "/brand/motorcycle/bmw-motorrad.svg",
+  Bristol: "/brand/motorcycle/bristol.svg",
+  CFMOTO: "/brand/motorcycle/cfmoto.svg",
   Ducati: "/brand/motorcycle/ducati.svg",
+  Honda: "/brand/motorcycle/honda.svg",
   Husqvarna: "/brand/motorcycle/husqvarna.svg",
-  Vespa: "/brand/motorcycle/vespa.svg"
+  Kawasaki: "/brand/motorcycle/kawasaki.svg",
+  Keeway: "/brand/motorcycle/keeway.svg",
+  KTM: "/brand/motorcycle/ktm.svg",
+  Kymco: "/brand/motorcycle/kymco.svg",
+  "Royal Enfield": "/brand/motorcycle/royal-enfield.svg",
+  Rusi: "/brand/motorcycle/rusi.svg",
+  Suzuki: "/brand/motorcycle/suzuki.svg",
+  Triumph: "/brand/motorcycle/triumph.svg",
+  Vespa: "/brand/motorcycle/vespa.svg",
+  Yamaha: "/brand/motorcycle/yamaha.svg",
+  Zontes: "/brand/motorcycle/zontes.svg"
 };
 
 type Variant = "standard" | "compare" | "decision" | "compact";
