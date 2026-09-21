@@ -28,6 +28,7 @@
   box-shadow:var(--mi-shadow-sm);
 }
 
+/* Motorcycle WebPs are pre-normalized to a white catalog canvas; keep the shared media stage white and uncropped. */
 .standardMedia{
   position:relative;
   display:grid;
@@ -238,3 +239,6 @@
 
 .compareCluster{margin-left:auto;display:grid;justify-items:center;gap:var(--mi-space-1)}
 .brandMark{display:grid;height:26px;place-items:center;color:var(--mi-color-slate-700);font-size:var(--mi-type-xs);font-weight:900}.brandMark img{max-width:80px;max-height:24px;object-fit:contain}
+.brandedFallback{display:grid!important;place-content:center;place-items:center;gap:var(--mi-space-2);padding:var(--mi-space-4);color:var(--mi-color-ink)}
+.fallbackLogo{width:auto!important;height:32px!important;max-width:120px!important;max-height:32px!important;object-fit:contain!important;padding:0!important;background:transparent!important}
+.fallbackModel{font-weight:850}

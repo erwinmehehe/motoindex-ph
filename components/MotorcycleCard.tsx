@@ -12,13 +12,26 @@ import { php } from "@/lib/utils";
 import styles from "./MotorcycleCard.module.css";
 
 const brandLogos: Record<string, string> = {
-  Honda: "/brand/motorcycle/honda.svg",
-  Yamaha: "/brand/motorcycle/yamaha.svg",
-  Suzuki: "/brand/motorcycle/suzuki.svg",
-  KTM: "/brand/motorcycle/ktm.svg",
+  Aprilia: "/brand/motorcycle/aprilia.svg",
+  Bajaj: "/brand/motorcycle/bajaj.svg",
+  Benelli: "/brand/motorcycle/benelli.svg",
   "BMW Motorrad": "/brand/motorcycle/bmw-motorrad.svg",
+  Bristol: "/brand/motorcycle/bristol.svg",
+  CFMOTO: "/brand/motorcycle/cfmoto.svg",
   Ducati: "/brand/motorcycle/ducati.svg",
-  Husqvarna: "/brand/motorcycle/husqvarna.svg"
+  Honda: "/brand/motorcycle/honda.svg",
+  Husqvarna: "/brand/motorcycle/husqvarna.svg",
+  Kawasaki: "/brand/motorcycle/kawasaki.svg",
+  Keeway: "/brand/motorcycle/keeway.svg",
+  KTM: "/brand/motorcycle/ktm.svg",
+  Kymco: "/brand/motorcycle/kymco.svg",
+  "Royal Enfield": "/brand/motorcycle/royal-enfield.svg",
+  Rusi: "/brand/motorcycle/rusi.svg",
+  Suzuki: "/brand/motorcycle/suzuki.svg",
+  Triumph: "/brand/motorcycle/triumph.svg",
+  Vespa: "/brand/motorcycle/vespa.svg",
+  Yamaha: "/brand/motorcycle/yamaha.svg",
+  Zontes: "/brand/motorcycle/zontes.svg"
 };
 
 type Variant = "standard" | "compare" | "decision" | "compact";
@@ -44,8 +57,10 @@ function absAvailable(model: Motorcycle) {
 }
 
 function MotorcycleFallback({ model, href, className }: { model: Motorcycle; href: string; className: string }) {
-  return <Link href={href} className={className} aria-label={`View ${model.make} ${model.model}`}>
-    <Image src="/media/placeholders/motorcycle.svg" alt="" width={1200} height={1200} />
+  return <Link href={href} className={`${className} ${styles.brandedFallback}`} aria-label={`View ${model.make} ${model.model}`}>
+    {brandLogos[model.make] ? <Image className={styles.fallbackLogo} src={brandLogos[model.make]} alt="" width={110} height={36} unoptimized /> : <strong className={styles.fallbackBrand}>{model.make}</strong>}
+    <span className={styles.fallbackModel}>{model.model}</span>
+    <small>Photo verification pending</small>
   </Link>;
 }
 
@@ -87,7 +102,7 @@ export function MotorcycleCard({
     return <article className="mi-bike motorcycle-card motorcycle-card-compact">
       {leadingAction}
       <Link className="mi-bike-media" href={href} aria-label={`View ${model.make} ${model.model}`}>
-        <EntityMedia entityType="motorcycle" entityId={model.id} showCredit={false} fallback={<Image src="/media/placeholders/motorcycle.svg" alt="" width={1200} height={1200} />}/>
+        <EntityMedia entityType="motorcycle" entityId={model.id} showCredit={false} fallback={<MotorcycleFallback model={model} href={href} className="mi-bike-fallback" />}/>
       </Link>
       <div className="mi-bike-copy"><p>{model.make}</p><h2><Link href={href}>{model.model}</Link></h2><strong className="mi-price">{observedMarketPriceLabel(model)}</strong>{typeof monthlyOwnershipPhp === "number" && <p className="mi-monthly">About <strong>{php(monthlyOwnershipPhp)}</strong> a month{highlightMonthly ? <span> · Lowest estimate</span> : null}</p>}</div>
       <details className="mi-details"><summary>Key specifications</summary><dl><div><dt>Engine</dt><dd>{model.engineCc ? `${model.engineCc} cc` : "Electric"}</dd></div><div><dt>Seat height</dt><dd>{model.seatHeightMm ? `${model.seatHeightMm} mm` : "Not listed"}</dd></div><div><dt>Weight</dt><dd>{model.curbWeightKg ? `${model.curbWeightKg} kg` : "Not listed"}</dd></div><div><dt>Transmission</dt><dd>{model.transmission || "Not listed"}</dd></div></dl></details>

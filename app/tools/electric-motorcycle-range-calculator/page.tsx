@@ -5,6 +5,7 @@ import { ElectricRangeCalculator } from "@/components/ElectricRangeCalculator";
 import { FaqSection } from "@/components/FaqSection";
 import { electricMotorcycles, php } from "@/lib/electricMotorcycles";
 import { pageMetadata } from "@/lib/site";
+import { PageHero } from "@/components/ui";
 
 export const metadata: Metadata = pageMetadata({
   title: "Electric Motorcycle Range Calculator Philippines",
@@ -22,11 +23,7 @@ const exampleDailyShare = Math.round(exampleDailyKm / examplePlanningRange * 100
 export default function Page() {
   return <section className="page shell" data-calculator-page>
     <Breadcrumbs items={[{ label: "Tools", href: "/tools" }, { label: "Electric range calculator" }]} />
-    <div className="page-head">
-      <span className="entity-kicker">Electric motorcycle tool</span>
-      <h1>Electric motorcycle range calculator</h1>
-      <p>Start from the published one-battery or two-battery range, then reduce it to a planning figure that fits your riding conditions.</p>
-    </div>
+    <PageHero kicker="Electric motorcycle tool" title="Electric motorcycle range calculator" description="Start with a published one- or two-battery range, then apply a conservative planning factor for your real riding conditions." />
 
     <ElectricRangeCalculator />
 

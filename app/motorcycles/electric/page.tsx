@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
 import { electricMotorcycles, php } from "@/lib/electricMotorcycles";
 import { pageMetadata } from "@/lib/site";
+import { CTAGroup, PageHero, StatRow } from "@/components/ui";
 
 export const metadata: Metadata = pageMetadata({
   title: "Electric Motorcycles Philippines: One Buying Guide",
@@ -31,22 +32,19 @@ export default function ElectricMotorcyclesPage() {
 
   return <section className="page shell electric-master-page">
     <Breadcrumbs items={[{label:"Motorcycles",href:"/motorcycles"},{label:"Electric motorcycles"}]}/>
-    <div className="page-head">
-      <span className="entity-kicker">Electric motorcycle buying guide</span>
-      <h1>Electric motorcycles in the Philippines: prices, range, charging and registration</h1>
-      <p>Use one page for current Philippine electric motorcycle models, battery options, claimed range, charging time, LTO classification and the practical differences between electric and gasoline ownership.</p>
-      <div className="hero-actions">
-        <a className="button" href="#models">Compare electric models</a>
-        <Link className="button secondary" href="/tools/electric-motorcycle-charging-cost">Calculate charging cost</Link>
-      </div>
-    </div>
+    <PageHero
+      kicker="Electric motorcycle buying guide"
+      title="Electric motorcycles in the Philippines"
+      description="Compare current Philippine electric motorcycle prices, battery options, claimed range, charging time and LTO classification in one clear buying guide."
+      actions={<CTAGroup><a className="button" href="#models">Compare electric models</a><Link className="button secondary" href="/tools/electric-motorcycle-charging-cost">Calculate charging cost</Link></CTAGroup>}
+    />
 
-    <div className="seller-stats">
-      <div><strong>{electricMotorcycles.length}</strong><span>Current verified models</span></div>
-      <div><strong>{php(Math.min(...electricMotorcycles.map(m=>m.priceFromPhp)))}</strong><span>Lowest starting price</span></div>
-      <div><strong>{byRange[0].rangeTwoKm} km</strong><span>Longest two-battery claim</span></div>
-      <div><strong>L3</strong><span>LTO motorcycle category</span></div>
-    </div>
+    <StatRow items={[
+      { label: "Current verified models", value: String(electricMotorcycles.length), note: "Philippine records with checked evidence" },
+      { label: "Lowest starting price", value: php(Math.min(...electricMotorcycles.map(m=>m.priceFromPhp))), note: "Published starting price" },
+      { label: "Longest two-battery claim", value: `${byRange[0].rangeTwoKm} km`, note: "Manufacturer range claim" },
+      { label: "LTO category", value: "L3", note: "Motorcycle classification" }
+    ]} />
 
     <nav className="product-entity-nav" aria-label="Electric motorcycle guide sections">
       <a href="#models">Models</a>
