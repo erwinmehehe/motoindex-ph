@@ -4,6 +4,7 @@ import { URL } from "node:url";
 import sharp from "sharp";
 
 const root = process.cwd();
+// Manual verified motorcycle sources are localized through this job.
 const mediaPath = path.join(root, "lib/media.ts");
 let mediaSource = fs.readFileSync(mediaPath, "utf8");
 const userAgent = "Mozilla/5.0 (compatible; MotoIndexMediaVerifier/1.0; +https://motoindexph.com/methodology)";
