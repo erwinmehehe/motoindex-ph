@@ -28,6 +28,7 @@
   box-shadow:var(--mi-shadow-sm);
 }
 
+/* Motorcycle WebPs are pre-normalized to a white catalog canvas; keep the shared media stage white and uncropped. */
 .standardMedia{
   position:relative;
   display:grid;
