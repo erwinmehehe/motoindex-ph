@@ -1,0 +1,108 @@
+name: Motorcycle Media Completeness Wave 2
+
+on:
+  push:
+    branches: [fix/motorcycle-media-completeness-wave-2]
+    paths:
+      - lib/media.ts
+  workflow_dispatch:
+
+concurrency:
+  group: motorcycle-media-wave-2-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Force-sync six manufacturer images
+        run: |
+          for id in \
+            kawasaki-ninja-h2 \
+            kawasaki-ninja-650 \
+            kawasaki-versys-650 \
+            kawasaki-vulcan-s \
+            kawasaki-z650 \
+            kawasaki-z-h2
+          do
+            node scripts/sync-entity-media.mjs --force --only="$id"
+          done
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install image processing tools
+        run: python -m pip install --disable-pip-version-check opencv-python-headless==4.12.0.88 numpy==2.2.6
+
+      - name: Art-direct only wave 2 images
+        run: |
+          python - <<'PY'
+          import importlib.util
+          from pathlib import Path
+
+          script = Path("scripts/art-direct-motorcycle-media.py")
+          spec = importlib.util.spec_from_file_location("motorcycle_art", script)
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+
+          ids = [
+              "kawasaki-ninja-h2",
+              "kawasaki-ninja-650",
+              "kawasaki-versys-650",
+              "kawasaki-vulcan-s",
+              "kawasaki-z650",
+              "kawasaki-z-h2",
+          ]
+          failed = []
+          for entity_id in ids:
+              result = module.process(module.MEDIA_DIR / f"{entity_id}.webp")
+              print(result)
+              if result.get("status") == "error":
+                  failed.append(result)
+          if failed:
+              raise SystemExit(f"Art direction failed for {len(failed)} image(s)")
+          PY
+
+      - name: Audit white backgrounds and composition
+        run: python scripts/audit-motorcycle-media-art-direction.py
+
+      - name: Validate local media records
+        run: MEDIA_STRICT_LOCAL=1 npm run validate:media
+
+      - name: Validate exact motorcycle coverage
+        run: npm run validate:motorcycle-media
+
+      - name: Commit generated motorcycle media
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/media/motorcycles
+          if git diff --cached --quiet; then
+            echo "No motorcycle media changes to commit."
+            exit 0
+          fi
+          git commit -m "Normalize six Kawasaki motorcycle images"
+          git fetch origin "${{ github.ref_name }}"
+          git rebase "origin/${{ github.ref_name }}"
+          git push origin "HEAD:${{ github.ref_name }}"
