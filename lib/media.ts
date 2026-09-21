@@ -5,6 +5,26 @@ import type { EntityMedia } from "./types";
 // upstream image for provenance and a temporary runtime fallback while local assets are synced.
 export const entityMedia: EntityMedia[] = [
   {
+    id: "royal-enfield-meteor-350-manual", entityType: "motorcycle", entityId: "royal-enfield-meteor-350", role: "primary",
+    src: "/media/motorcycles/royal-enfield-meteor-350.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/meteor-350/colours/new/supernova-red/super_nova_red_000.webp", alt: "Royal Enfield Meteor 350 motorcycle in Supernova Red", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer image · Meteor 350", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/meteor-350/", lastChecked: "2026-09-21"
+  },
+  {
+    id: "royal-enfield-interceptor-650-manual", entityType: "motorcycle", entityId: "royal-enfield-interceptor-650", role: "primary",
+    src: "/media/motorcycles/royal-enfield-interceptor-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/mexico/motorcycles/interceptor/colours/new/studio-shots/cali-green/side-view.png", alt: "Royal Enfield Interceptor 650 motorcycle in Cali Green", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer image · Interceptor 650", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/interceptor/", lastChecked: "2026-09-21"
+  },
+  {
+    id: "royal-enfield-continental-gt-650-manual", entityType: "motorcycle", entityId: "royal-enfield-continental-gt-650", role: "primary",
+    src: "/media/motorcycles/royal-enfield-continental-gt-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/mexico/motorcycles/continental-gt/colours/studio-shots/new/apex-grey/side-view.png", alt: "Royal Enfield Continental GT 650 motorcycle in Apex Grey", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer image · Continental GT 650", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/continental-gt/", lastChecked: "2026-09-21"
+  },
+  {
+    id: "royal-enfield-bear-650-manual", entityType: "motorcycle", entityId: "royal-enfield-bear-650", role: "primary",
+    src: "/media/motorcycles/royal-enfield-bear-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/bear-650/int-bear-650.jpg", alt: "Royal Enfield Bear 650 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer image · Bear 650", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/bear-650/", lastChecked: "2026-09-21"
+  },
+  {
     id: "yamaha-mio-gravis-wheeltek", entityType: "motorcycle", entityId: "yamaha-mio-gravis", role: "primary",
     src:"/media/motorcycles/yamaha-mio-gravis.webp", sourceImageUrl:"https://wheeltek.com.ph/wp-content/uploads/2025/03/MIO-GRAVIS-matte-brown.jpg", alt: "Yamaha Mio Gravis motorcycle in Matte Brown", width:1200, height:1200,
     rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Mio Gravis", sourceUrl:"https://wheeltek.com.ph/vehicles/mio-gravis/", lastChecked: "2026-09-21"
