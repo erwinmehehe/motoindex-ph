@@ -1922,5 +1922,53 @@ export const generatedProductMedia: EntityMedia[] = [
     "sourceUrl": "https://nhkhelmet.com/gt-avenger-mark2/",
     "lastChecked": "2026-09-21",
     "rightsHolder": "NHK"
+  },
+  {
+    "id": "ktm-790-duke-generated-product",
+    "entityType": "motorcycle",
+    "entityId": "ktm-790-duke",
+    "role": "primary",
+    "src": "/media/motorcycles/ktm-790-duke.webp",
+    "sourceImageUrl": "https://imgcdn.zigwheels.ph/medium/gallery/exterior/75/1880/ktm-duke-790-marketing-image-546733.jpg",
+    "alt": "KTM 790 Duke product image",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "sourceLabel": "Checked product-page image · KTM 790 Duke",
+    "sourceUrl": "https://www.zigwheels.ph/new-motorcycles/ktm/duke-790/specifications",
+    "lastChecked": "2026-09-21",
+    "rightsHolder": "KTM"
+  },
+  {
+    "id": "royal-enfield-shotgun-650-generated-product",
+    "entityType": "motorcycle",
+    "entityId": "royal-enfield-shotgun-650",
+    "role": "primary",
+    "src": "/media/motorcycles/royal-enfield-shotgun-650.webp",
+    "sourceImageUrl": "https://imgcdn.zigwheels.ph/medium/gallery/exterior/81/3456/royal-enfield-shotgun-650-93079.jpg",
+    "alt": "Royal Enfield Shotgun 650 product image",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "sourceLabel": "Checked product-page image · Royal Enfield Shotgun 650",
+    "sourceUrl": "https://www.zigwheels.ph/new-motorcycles/royal-enfield/shotgun-650/faq/what-is-the-price-of-royal-enfield-shotgun-650",
+    "lastChecked": "2026-09-21",
+    "rightsHolder": "Royal Enfield"
+  },
+  {
+    "id": "yamaha-yzf-r15m-generated-product",
+    "entityType": "motorcycle",
+    "entityId": "yamaha-yzf-r15m",
+    "role": "primary",
+    "src": "/media/motorcycles/yamaha-yzf-r15m.webp",
+    "sourceImageUrl": "https://imgcdn.zigwheels.ph/medium/gallery/exterior/86/2955/yamaha-yzf-r15m-48460.jpg",
+    "alt": "Yamaha YZF-R15M product image",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "sourceLabel": "Checked product-page image · Yamaha YZF-R15M",
+    "sourceUrl": "https://www.zigwheels.ph/new-motorcycles/yamaha/yzf-r15m/specifications",
+    "lastChecked": "2026-09-21",
+    "rightsHolder": "Yamaha"
   }
 ];
