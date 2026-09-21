@@ -12,6 +12,7 @@ MEDIA_DIR = ROOT / "public" / "media" / "motorcycles"
 CANVAS = 1200
 TARGET_MAX_W = 1040
 TARGET_MAX_H = 900
+SEGMENT_MAX = 640
 WHITE = np.array([255, 255, 255], dtype=np.uint8)
 SKIP_IDS = {
     # These assets are intentionally suppressed at runtime until an exact verified photo exists.
@@ -76,7 +77,7 @@ def grabcut_foreground_mask(image: np.ndarray) -> np.ndarray:
 
     bg_model = np.zeros((1, 65), np.float64)
     fg_model = np.zeros((1, 65), np.float64)
-    cv2.grabCut(image, mask, None, bg_model, fg_model, 5, cv2.GC_INIT_WITH_MASK)
+    cv2.grabCut(image, mask, None, bg_model, fg_model, 4, cv2.GC_INIT_WITH_MASK)
     return np.logical_or(mask == cv2.GC_FGD, mask == cv2.GC_PR_FGD)
 
 
@@ -145,11 +146,19 @@ def subject_cutout(image: np.ndarray) -> tuple[np.ndarray, np.ndarray, str]:
     neutral_ratio = float(np.mean((border.max(axis=1) - border.min(axis=1)) <= 18))
     spread = float(np.mean(np.std(border.astype(np.float32), axis=0)))
 
+    segment_scale = min(1.0, SEGMENT_MAX / max(h, w))
+    if segment_scale < 1.0:
+        seg_w = max(2, int(round(w * segment_scale)))
+        seg_h = max(2, int(round(h * segment_scale)))
+        segment_image = cv2.resize(image, (seg_w, seg_h), interpolation=cv2.INTER_AREA)
+    else:
+        segment_image = image
+
     candidates: list[tuple[str, np.ndarray]] = []
     if white_ratio >= 0.38 or (neutral_ratio >= 0.68 and spread <= 38):
-        candidates.append(("edge-background", flood_background_mask(image)))
+        candidates.append(("edge-background", flood_background_mask(segment_image)))
     try:
-        candidates.append(("grabcut", grabcut_foreground_mask(image)))
+        candidates.append(("grabcut", grabcut_foreground_mask(segment_image)))
     except cv2.error:
         pass
 
@@ -159,7 +168,12 @@ def subject_cutout(image: np.ndarray) -> tuple[np.ndarray, np.ndarray, str]:
     method, mask = max(candidates, key=lambda item: mask_quality(item[1]))
     if mask_quality(mask) < -20:
         raise RuntimeError("segmentation confidence too low")
-    alpha = refine_mask(mask)
+    alpha_small = refine_mask(mask)
+    alpha = (
+        cv2.resize(alpha_small, (w, h), interpolation=cv2.INTER_LINEAR)
+        if alpha_small.shape != (h, w)
+        else alpha_small
+    )
 
     hard = alpha >= 40
     ys, xs = np.where(hard)
