@@ -9,6 +9,7 @@ const growth = read("lib", "priorityModelGrowth.ts");
 const modelPage = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
 const recommendationPage = read("app", "recommendations", "[slug]", "page.tsx");
 const commercial = read("components", "PriorityCommercialIntent.tsx");
+const buyerBrief = read("components", "PriorityModelBrief.tsx");
 const data = read("lib", "data.ts");
 const route = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
 const tier23 = read("lib", "phTier23ModelsBase.ts");
@@ -41,13 +42,34 @@ const priorityModels = [
   "vespa-gtv-300",
   "vespa-primavera-150",
   "vespa-sprint-150",
-  "honda-crf300-rally"
+  "honda-crf300-rally",
+  "honda-adv-150",
+  "kawasaki-ninja-zx-4rr",
+  "honda-x-adv",
+  "cfmoto-300sr",
+  "cfmoto-400nk"
 ];
 
 for (const id of priorityModels) {
   if (!growth.includes(`"${id}": {`)) {
     errors.push(`priorityModelGrowth: missing high-demand profile for ${id}`);
   }
+}
+
+for (const id of ["honda-adv-150", "kawasaki-ninja-zx-4rr", "honda-x-adv", "cfmoto-300sr", "cfmoto-400nk"]) {
+  if (!buyerBrief.includes(`"${id}": {`)) {
+    errors.push(`PriorityModelBrief: missing top-10 ranking-depth buyer brief for ${id}`);
+  }
+}
+
+for (const token of [
+  'heading: "ADV150 vs the current ADV160"',
+  'seoTitle: "Ninja ZX-4RR Price Philippines 2026 | Specs & Ownership"',
+  'seoTitle: "Honda X-ADV Price Philippines 2026 | 745cc DCT Specs"',
+  'seoTitle: "CFMOTO 300SR Price Philippines 2026 | Specs, ABS & Costs"',
+  'seoTitle: "CFMOTO 400NK Price Philippines 2026 | Specs, ABS & Costs"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: ranking-depth wave lost token ${token}`);
 }
 
 for (const href of [

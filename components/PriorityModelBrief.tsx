@@ -99,6 +99,66 @@ const briefs: Record<string, Brief> = {
     check: ["Confirm the current Philippine price and exact model-year equipment.", "Compare dealer coverage, parts access, insurance and fairing-repair cost before choosing on specification value alone."],
     ownership: "Run the real quote with 17-inch sport tires, insurance and scheduled service, then compare the total against Ninja 500 and RC 390.",
     alternatives: ["kawasaki-ninja-500", "ktm-rc-390"]
+  },
+  "honda-adv-150": {
+    fit: [
+      "You are researching a previous-generation ADV150 for used-bike ownership and want Honda adventure-scooter ergonomics at a lower entry price than a new ADV160.",
+      "An automatic 150cc scooter with an 8 L tank, 165 mm ground clearance and single-channel ABS fits your city and provincial-road use."
+    ],
+    check: [
+      "Treat the ₱149,000 figure as historical Philippine launch pricing, not a current new-bike quote.",
+      "Inspect CVT service history, tires, brakes, body panels, mileage and registration before comparing used asking prices."
+    ],
+    ownership: "Price transfer costs, insurance, near-term CVT service, 14/13-inch tires and any deferred maintenance, then compare the total with a current ADV160 rather than looking only at the used-bike asking price.",
+    alternatives: ["honda-adv-160", "honda-pcx-160", "yamaha-nmax-v3"]
+  },
+  "kawasaki-ninja-zx-4rr": {
+    fit: [
+      "You specifically want a current 401cc inline-four supersport rather than a twin-cylinder middleweight.",
+      "You are comfortable budgeting for a high-output faired motorcycle, 17-inch sport tires and manual-clutch ownership."
+    ],
+    check: [
+      "Confirm the exact current dealer quote and model-year stock before comparing it with older ZX-4RR listings.",
+      "Test the 800 mm seat and 188 kg curb weight in traffic and parking, not only at speed."
+    ],
+    ownership: "Include insurance, sport tires, chain and sprockets, scheduled service, premium consumables and fairing exposure when comparing the ZX-4RR with Ninja 500, ZX-25R and R7.",
+    alternatives: ["kawasaki-ninja-500", "kawasaki-ninja-zx-25r", "yamaha-yzf-r7"]
+  },
+  "honda-x-adv": {
+    fit: [
+      "You want a 745cc DCT motorcycle with scooter practicality and premium long-distance capability.",
+      "A 13.2 L tank, 2-channel ABS and automatic DCT matter more than minimum curb weight or low purchase price."
+    ],
+    check: [
+      "At 237 kg with an 820 mm seat, test parking, U-turns and low-speed footing before treating the DCT as automatically easy.",
+      "Confirm the exact current Honda big-bike quote and included equipment before comparing financing."
+    ],
+    ownership: "Budget premium insurance, 17/15-inch tires, DCT service, body panels, touring accessories and Honda big-bike service access together with the ₱1.17M purchase reference.",
+    alternatives: ["honda-adv-350", "suzuki-burgman-400", "zontes-400g"]
+  },
+  "cfmoto-300sr": {
+    fit: [
+      "You want a current fully faired sport bike around the ₱165K level with a 780 mm seat and dual-channel ABS.",
+      "A 292.4cc single and lower entry price suit your needs more than moving directly to a 400–500cc twin."
+    ],
+    check: [
+      "Confirm current stock, model year and dealer quote because market pricing can move independently of the specification source.",
+      "Compare local CFMOTO service access, parts lead times and fairing-repair cost before buying only on specification value."
+    ],
+    ownership: "Price insurance, 17-inch tires, chain and sprocket service, scheduled maintenance and fairing exposure, then compare the full ownership cost with R3, RC 390 and 450SR.",
+    alternatives: ["yamaha-yzf-r3", "ktm-rc-390", "cfmoto-450sr"]
+  },
+  "cfmoto-400nk": {
+    fit: [
+      "You want a 400cc parallel-twin naked motorcycle with ABS and a large 17 L tank near the ₱219K recorded price.",
+      "You value engine size and road-bike versatility more than minimum curb weight."
+    ],
+    check: [
+      "At 206 kg with an 815 mm seat, test low-speed handling and parking confidence before choosing from the spec sheet.",
+      "Confirm current dealer stock, final price and model year because the stored price reference comes from a Philippine comparison listing."
+    ],
+    ownership: "Compare 17-inch tire costs, chain and sprockets, insurance, scheduled service, parts access and dealer coverage with 390 Duke, Z500 and MT-07 before choosing on acquisition price alone.",
+    alternatives: ["ktm-390-duke", "kawasaki-z500", "yamaha-mt-07"]
   }
 };
 

@@ -555,6 +555,62 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     relatedIds: ["ktm-390-duke", "ktm-390-adventure"],
     recommendationHref: "/recommendations/motorcycles-under-400cc-philippines",
     recommendationLabel: "Compare under-400cc motorcycles"
+  },
+  "honda-adv-150": {
+    seoTitle: "Honda ADV150 Philippines | Historical Price, Specs & ADV160",
+    seoDescription: "Honda ADV150 Philippines reference with historical ₱149,000 launch price, 150cc specs, ABS, 795mm seat, fuel economy and current ADV160 successor.",
+    intentIntro: "The ADV150 remains a major Philippine search even though it is a previous generation. Keep its historical ₱149,000 launch price and 150cc specifications on this canonical page, then use the ADV160 page for current new-bike pricing.",
+    moneyQuestion: "How does a used ADV150 asking price compare with a current ADV160 after transfer costs, insurance and near-term service are included?",
+    ownershipQuestion: "Check CVT service history, 14/13-inch tires, single-channel ABS, fuel use, body-panel condition and documented maintenance before buying a used ADV150.",
+    alternativeIds: ["honda-adv-160", "honda-pcx-160", "yamaha-nmax-v3"],
+    relatedIds: ["honda-adv-160"],
+    recommendationHref: "/recommendations/150cc-scooters-philippines",
+    recommendationLabel: "Compare 150cc and 155cc scooters",
+    legacyContext: { heading: "ADV150 vs the current ADV160", body: "ADV150 is retained for historical Philippine price, specification and used-bike research. Honda's current adventure-scooter research should continue on the ADV160 page." }
+  },
+  "kawasaki-ninja-zx-4rr": {
+    seoTitle: "Ninja ZX-4RR Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "Kawasaki Ninja ZX-4RR price in the Philippines, 401cc inline-four specs, 76.43hp, ABS, 800mm seat, ownership costs and sport-bike alternatives.",
+    intentIntro: "The Ninja ZX-4RR is a current 401cc inline-four supersport at ₱499,000. Compare its 76.43 hp output, 188 kg curb weight, ABS and 15 L tank with the total cost of other current sport bikes.",
+    moneyQuestion: "What does the ZX-4RR cost after insurance, registration, financing, 17-inch sport tires and first-year service are included?",
+    ownershipQuestion: "Budget chain and sprocket wear, high-performance tires, insurance, premium consumables, fairing exposure and Kawasaki service access before choosing on engine character alone.",
+    alternativeIds: ["kawasaki-ninja-500", "kawasaki-ninja-zx-25r", "yamaha-yzf-r7"],
+    relatedIds: ["kawasaki-ninja-zx-25r", "kawasaki-ninja-500"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles"
+  },
+  "honda-x-adv": {
+    seoTitle: "Honda X-ADV Price Philippines 2026 | 745cc DCT Specs",
+    seoDescription: "Honda X-ADV price in the Philippines, 745cc DCT specs, ABS, 820mm seat, 237kg weight, fuel economy, ownership costs and alternatives.",
+    intentIntro: "The X-ADV is a ₱1.17M 745cc DCT adventure scooter with 2-channel ABS, a 13.2 L tank and 237 kg curb weight. Compare it as a premium touring purchase, not simply as a larger scooter.",
+    moneyQuestion: "What does the X-ADV cost after insurance, registration, financing and premium touring consumables are added?",
+    ownershipQuestion: "Test low-speed handling at 237 kg, then price 17/15-inch tires, DCT service, insurance, bodywork, touring accessories and Honda big-bike support.",
+    alternativeIds: ["honda-adv-350", "suzuki-burgman-400", "zontes-400g"],
+    relatedIds: ["honda-adv-350", "honda-crf1100l-africa-twin"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles"
+  },
+  "cfmoto-300sr": {
+    seoTitle: "CFMOTO 300SR Price Philippines 2026 | Specs, ABS & Costs",
+    seoDescription: "CFMOTO 300SR price in the Philippines, 292.4cc specs, 29hp, 780mm seat, dual-channel ABS, ownership costs and sport-bike alternatives.",
+    intentIntro: "The 300SR is a ₱165,000 current sport bike with a 292.4cc single, 29 hp, a 780 mm seat and Continental dual-channel ABS. Compare its lower entry price with dealer support, insurance and full-fairing ownership costs.",
+    moneyQuestion: "Does the 300SR remain the lower-cost sport-bike choice after financing, insurance, tires and scheduled service are included?",
+    ownershipQuestion: "Confirm current stock and model year, then compare CFMOTO service access, 17-inch tires, chain and sprocket wear and fairing-repair exposure with R3, RC 390 and 450SR.",
+    alternativeIds: ["yamaha-yzf-r3", "ktm-rc-390", "cfmoto-450sr"],
+    relatedIds: ["cfmoto-450sr"],
+    recommendationHref: "/recommendations/motorcycles-under-400cc-philippines",
+    recommendationLabel: "Compare under-400cc motorcycles"
+  },
+  "cfmoto-400nk": {
+    seoTitle: "CFMOTO 400NK Price Philippines 2026 | Specs, ABS & Costs",
+    seoDescription: "CFMOTO 400NK price in the Philippines, 400cc twin specs, 40.9hp, ABS, 815mm seat, 17L tank, ownership costs and naked-bike alternatives.",
+    intentIntro: "The 400NK is a 400cc parallel-twin naked bike with a ₱219,000 recorded Philippine price, 40.9 hp, ABS and a 17 L tank. Compare its value with weight, dealer support and total ownership rather than displacement alone.",
+    moneyQuestion: "What does the 400NK cost after the current dealer quote, insurance, financing, registration and first-year service are included?",
+    ownershipQuestion: "At 206 kg, test low-speed handling and price 17-inch tires, chain and sprockets, insurance, service access and parts availability before choosing on purchase price alone.",
+    alternativeIds: ["ktm-390-duke", "kawasaki-z500", "yamaha-mt-07"],
+    relatedIds: ["cfmoto-450nk"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles"
   }
 };
 
