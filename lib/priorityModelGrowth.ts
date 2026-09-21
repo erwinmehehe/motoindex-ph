@@ -15,6 +15,30 @@ export type PriorityModelGrowthProfile = {
 };
 
 const profiles: Record<string, PriorityModelGrowthProfile> = {
+  "yamaha-aerox-v2": {
+    seoTitle: "Yamaha Aerox V2 Philippines | Price, Specs & Aerox V3",
+    seoDescription: "Yamaha Aerox V2 Philippines reference with historical price, 155cc specs, tire sizes, seat height and the current Aerox V3 successor.",
+    intentIntro: "Aerox V2 still carries major Philippine search demand, but it is a previous generation. Use this canonical page for historical launch pricing and V2 specifications, then compare the current Aerox V3 before treating older pricing as today's new-bike offer.",
+    moneyQuestion: "How does the historical Aerox V2 price compare with current Aerox V3 pricing and used V2 listings?",
+    ownershipQuestion: "Compare CVT service, 14-inch tires, fuel capacity, braking equipment and parts support while accounting for the V2's previous-generation status.",
+    alternativeIds: ["yamaha-aerox-v3", "yamaha-nmax-v3", "honda-click-160"],
+    relatedIds: ["yamaha-aerox-v3"],
+    recommendationHref: "/recommendations/150cc-scooters-philippines",
+    recommendationLabel: "Compare 150cc and 155cc scooters",
+    legacyContext: { heading: "Aerox V2 vs the current Aerox V3", body: "Aerox V2 is retained for historical Philippine price and specification research. Use the Aerox V3 page for current-generation new-bike research and pricing." }
+  },
+  "yamaha-nmax-v2": {
+    seoTitle: "Yamaha NMAX V2 Philippines | Price, Specs & NMAX V3",
+    seoDescription: "Yamaha NMAX V2 Philippines reference with historical price, 155cc specs, tire sizes, seat height and the current NMAX V3 successor.",
+    intentIntro: "NMAX V2 remains a high-demand Philippine search, but it is a previous generation. This canonical page keeps its historical price and specifications useful while directing current new-bike research to NMAX V3.",
+    moneyQuestion: "How does the historical NMAX V2 price compare with current NMAX V3 pricing and used V2 listings?",
+    ownershipQuestion: "Compare CVT service, 13-inch tires, fuel capacity, variant-dependent ABS and parts support while accounting for the V2's previous-generation status.",
+    alternativeIds: ["yamaha-nmax-v3", "honda-pcx-160", "honda-adv-160"],
+    relatedIds: ["yamaha-nmax-v3"],
+    recommendationHref: "/recommendations/150cc-scooters-philippines",
+    recommendationLabel: "Compare 150cc and 155cc scooters",
+    legacyContext: { heading: "NMAX V2 vs the current NMAX V3", body: "NMAX V2 is retained for historical Philippine price and specification research. Use the NMAX V3 page for current-generation new-bike research and pricing." }
+  },
   "honda-crf150l": {
     seoTitle: "Honda CRF150L Price Philippines 2026 | Specs & Trail Use",
     seoDescription: "Honda CRF150L price in the Philippines, 149cc specs, 863mm seat, 21/18-inch tires, ground clearance, fuel economy and dual-sport alternatives.",
