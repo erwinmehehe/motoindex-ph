@@ -3,6 +3,15 @@ import path from "node:path";
 
 const root = process.cwd();
 const catalogSource = fs.readFileSync(path.join(root, "lib/catalog.ts"), "utf8");
+const motorcycleSources = [
+  "lib/data.ts",
+  "lib/phTier23ModelsBase.ts",
+  "lib/phTier23ModelsExpansion2026.ts",
+  "lib/phBrandExpansion2026.ts",
+  "lib/phCoverageExpansion2026.ts",
+  "lib/globalDemandExpansion2026.ts",
+  "lib/kawasakiBigBikeExpansion2026.ts"
+].map((file) => fs.readFileSync(path.join(root, file), "utf8"));
 const generatedPath = path.join(root, "lib/generatedProductMedia.ts");
 const generatedSource = fs.readFileSync(generatedPath, "utf8");
 
@@ -60,6 +69,14 @@ for (const [declaration, entityType] of [
     const id = field(block, "id");
     const brand = field(block, "brand");
     if (id && brand) brandByKey.set(`${entityType}:${id}`, brand);
+  }
+}
+
+for (const source of motorcycleSources) {
+  for (const block of topLevelObjects(source)) {
+    const id = field(block, "id");
+    const make = field(block, "make");
+    if (id && make) brandByKey.set(`motorcycle:${id}`, make);
   }
 }
 
