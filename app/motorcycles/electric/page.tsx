@@ -45,10 +45,6 @@ export default function ElectricMotorcyclesPage() {
       { label: "Longest two-battery claim", value: `${byRange[0].rangeTwoKm} km`, note: "Manufacturer range claim" },
       { label: "LTO category", value: "L3", note: "Motorcycle classification" }
     ]} />
-      <div><strong>{php(Math.min(...electricMotorcycles.map(m=>m.priceFromPhp)))}</strong><span>Lowest starting price</span></div>
-      <div><strong>{byRange[0].rangeTwoKm} km</strong><span>Longest two-battery claim</span></div>
-      <div><strong>L3</strong><span>LTO motorcycle category</span></div>
-    </div>
 
     <nav className="product-entity-nav" aria-label="Electric motorcycle guide sections">
       <a href="#models">Models</a>
