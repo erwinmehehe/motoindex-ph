@@ -5,6 +5,21 @@ import type { EntityMedia } from "./types";
 // upstream image for provenance and a temporary runtime fallback while local assets are synced.
 export const entityMedia: EntityMedia[] = [
   {
+    id: "triumph-speed-twin-900-manual", entityType: "motorcycle", entityId: "triumph-speed-twin-900", role: "primary",
+    src: "/media/motorcycles/triumph-speed-twin-900.webp", sourceImageUrl: "https://media.triumphmotorcycles.co.uk/image/upload/t_/c_limit%2Cw_3840/f_auto/q_auto%3Aeco/v1726581550/ACC_SpeedTwin900_MY25_CW4I2017_GE_fvfq08?_a=BAVMn6ID0", alt: "Triumph Speed Twin 900 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Triumph Motorcycles", sourceLabel: "Manufacturer image · Speed Twin 900", sourceUrl: "https://www.triumphmotorcycles.ph/bikes/classic/speed/speed-twin-900", lastChecked: "2026-09-21"
+  },
+  {
+    id: "suzuki-burgman-400-manual", entityType: "motorcycle", entityId: "suzuki-burgman-400", role: "primary",
+    src: "/media/motorcycles/suzuki-burgman-400.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2023/11/Burgman-400-ABS-Gallery-6.webp", alt: "Suzuki Burgman 400 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer image · Burgman 400", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/big-bike/burgman-400/", lastChecked: "2026-09-21"
+  },
+  {
+    id: "yamaha-yzf-r1m-manual-2024", entityType: "motorcycle", entityId: "yamaha-yzf-r1m", role: "primary",
+    src: "/media/motorcycles/yamaha-yzf-r1m.webp", sourceImageUrl: "https://news.yamaha-motor.co.jp/jp/news/assets_c/2023/11/79555_0001-thumb-4000x2987-251212.jpg", alt: "Yamaha YZF-R1M motorcycle in Carbon", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Yamaha Motor", sourceLabel: "Manufacturer image · YZF-R1M", sourceUrl: "https://global.yamaha-motor.com/jp/news/2023/1121/yzf-r1.html", lastChecked: "2026-09-21"
+  },
+  {
     id: "royal-enfield-meteor-350-manual", entityType: "motorcycle", entityId: "royal-enfield-meteor-350", role: "primary",
     src: "/media/motorcycles/royal-enfield-meteor-350.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/meteor-350/colours/new/supernova-red/super_nova_red_000.webp", alt: "Royal Enfield Meteor 350 motorcycle in Supernova Red", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer image · Meteor 350", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/meteor-350/", lastChecked: "2026-09-21"
