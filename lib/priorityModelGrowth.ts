@@ -15,11 +15,69 @@ export type PriorityModelGrowthProfile = {
 };
 
 const profiles: Record<string, PriorityModelGrowthProfile> = {
+  "suzuki-burgman-street": {
+    seoTitle: "Suzuki Burgman Street Price Philippines 2026 | Specs & Colors",
+    seoDescription: "Suzuki Burgman Street price in the Philippines, 124cc specs, colors, seat height, fuel economy, tires, ownership costs and scooter alternatives.",
+    intentIntro: "The Burgman Street brings maxi-scooter styling to the 125cc commuter class. Compare its current price, 780 mm seat, fuel economy, wheel sizes and ownership needs with the Street EX, Click 125i and other practical scooters.",
+    moneyQuestion: "What does the Burgman Street cost after the current dealer quote, registration, insurance and other purchase charges are included?",
+    ownershipQuestion: "Compare CVT service, tire sizes, fuel use, storage and Suzuki support with Burgman Street EX and other 125cc scooters.",
+    alternativeIds: ["suzuki-burgman-street-ex", "honda-click-125i", "yamaha-mio-gear"],
+    relatedIds: ["suzuki-burgman-street-ex", "suzuki-burgman-400"],
+    recommendationHref: "/recommendations/125cc-scooters-philippines",
+    recommendationLabel: "Compare 125cc scooters"
+  },
+  "suzuki-burgman-400": {
+    seoTitle: "Suzuki Burgman 400 Price Philippines 2026 | Specs & ABS",
+    seoDescription: "Suzuki Burgman 400 price in the Philippines, 400cc specs, ABS, 755mm seat, weight, tires, ownership costs and maxi-scooter alternatives.",
+    intentIntro: "The Burgman 400 is the large-displacement member of Suzuki's Burgman family. Compare its current Philippine price, 400cc engine, 755 mm seat, 218 kg curb weight and ABS with XMAX, ADV350 and other maxi scooters.",
+    moneyQuestion: "What does the Burgman 400 cost after the current dealer quote, registration, insurance and other purchase charges are included?",
+    ownershipQuestion: "Compare CVT service, 15/13-inch tires, insurance, fuel range and Suzuki big-bike support with XMAX, ADV350 and other maxi scooters.",
+    alternativeIds: ["yamaha-xmax", "honda-adv-350", "zontes-400g"],
+    relatedIds: ["suzuki-burgman-street", "suzuki-burgman-street-ex"],
+    recommendationHref: "/recommendations/maxi-scooters-philippines",
+    recommendationLabel: "Compare maxi scooters"
+  },
+  "yamaha-aerox-v2": {
+    seoTitle: "Yamaha Aerox V2 Philippines | Price, Specs & Aerox V3",
+    seoDescription: "Yamaha Aerox V2 Philippines reference with historical price, 155cc specs, tire sizes, seat height and the current Aerox V3 successor.",
+    intentIntro: "Aerox V2 still carries major Philippine search demand, but it is a previous generation. Use this canonical page for historical launch pricing and V2 specifications, then compare the current Aerox V3 before treating older pricing as today's new-bike offer.",
+    moneyQuestion: "How does the historical Aerox V2 price compare with current Aerox V3 pricing and used V2 listings?",
+    ownershipQuestion: "Compare CVT service, 14-inch tires, fuel capacity, braking equipment and parts support while accounting for the V2's previous-generation status.",
+    alternativeIds: ["yamaha-aerox-v3", "yamaha-nmax-v3", "honda-click-160"],
+    relatedIds: ["yamaha-aerox-v3"],
+    recommendationHref: "/recommendations/150cc-scooters-philippines",
+    recommendationLabel: "Compare 150cc and 155cc scooters",
+    legacyContext: { heading: "Aerox V2 vs the current Aerox V3", body: "Aerox V2 is retained for historical Philippine price and specification research. Use the Aerox V3 page for current-generation new-bike research and pricing." }
+  },
+  "yamaha-nmax-v2": {
+    seoTitle: "Yamaha NMAX V2 Philippines | Price, Specs & NMAX V3",
+    seoDescription: "Yamaha NMAX V2 Philippines reference with historical price, 155cc specs, tire sizes, seat height and the current NMAX V3 successor.",
+    intentIntro: "NMAX V2 remains a high-demand Philippine search, but it is a previous generation. This canonical page keeps its historical price and specifications useful while directing current new-bike research to NMAX V3.",
+    moneyQuestion: "How does the historical NMAX V2 price compare with current NMAX V3 pricing and used V2 listings?",
+    ownershipQuestion: "Compare CVT service, 13-inch tires, fuel capacity, variant-dependent ABS and parts support while accounting for the V2's previous-generation status.",
+    alternativeIds: ["yamaha-nmax-v3", "honda-pcx-160", "honda-adv-160"],
+    relatedIds: ["yamaha-nmax-v3"],
+    recommendationHref: "/recommendations/150cc-scooters-philippines",
+    recommendationLabel: "Compare 150cc and 155cc scooters",
+    legacyContext: { heading: "NMAX V2 vs the current NMAX V3", body: "NMAX V2 is retained for historical Philippine price and specification research. Use the NMAX V3 page for current-generation new-bike research and pricing." }
+  },
+  "honda-click-150i": {
+    seoTitle: "Honda Click 150i Philippines | Price, Specs & Click 160",
+    seoDescription: "Honda Click 150i Philippines reference with historical price, 150cc specs, fuel economy, tire sizes and the current Click 160 successor.",
+    intentIntro: "The Click 150i remains useful for Philippine historical and used-bike research, but it is a previous generation. Keep its 2018 launch price, 150cc specifications and ownership context on this canonical page, then use the Click 160 page for current new-bike research.",
+    moneyQuestion: "How does the historical Click 150i launch price compare with current Click 160 pricing and used Click 150i listings?",
+    ownershipQuestion: "Compare CVT service, 14-inch tires, fuel economy, CBS braking and parts support while accounting for the Click 150i's previous-generation status.",
+    alternativeIds: ["honda-click-160", "yamaha-aerox-v3", "yamaha-nmax-v3"],
+    relatedIds: ["honda-click-160", "honda-click-125i"],
+    recommendationHref: "/recommendations/150cc-scooters-philippines",
+    recommendationLabel: "Compare 150cc and 155cc scooters",
+    legacyContext: { heading: "Click 150i vs the current Click 160", body: "Click 150i is retained for historical Philippine price and specification research. Honda introduced the Click 160 as its successor, so use the Click 160 page for current new-bike pricing and research." }
+  },
   "honda-crf150l": {
-    seoTitle: "Honda CRF150L Price Philippines 2026 | Specs & Trail Use",
-    seoDescription: "Honda CRF150L price in the Philippines, 149cc specs, 863mm seat, 21/18-inch tires, ground clearance, fuel economy and dual-sport alternatives.",
-    intentIntro: "The CRF150L carries strong Philippine trail and off-road search demand. Keep its current price, 149cc specifications, tall 863 mm seat, 285 mm ground clearance and ownership research on this canonical model page instead of splitting CRF price and trail-bike intent across thin URLs.",
-    moneyQuestion: "What does the CRF150L cost after the current dealer quote, registration, insurance and essential trail-use equipment are included?",
+    seoTitle: "Honda CRF150L Philippines | Price Reference & Trail Specs",
+    seoDescription: "Honda CRF150L Philippine price reference, 149cc specs, 863mm seat, 21/18-inch tires, ground clearance and dual-sport ownership context.",
+    intentIntro: "The CRF150L carries strong Philippine trail and off-road search demand, but MotoIndex's latest official Honda Philippines price reference is from June 2023 and is under freshness review. Use the canonical page for its 149cc specifications, 863 mm seat, 285 mm ground clearance and ownership research, then confirm current dealer pricing before purchase.",
+    moneyQuestion: "What is the current dealer quote for the CRF150L, and how does it compare with the last official Honda Philippines SRP MotoIndex located?",
     ownershipQuestion: "Compare 21/18-inch tire availability, chain and sprocket service, 285 mm ground clearance, fuel use and Honda support with other lightweight dual-sport motorcycles.",
     alternativeIds: ["kawasaki-klx150", "yamaha-wr155r"],
     relatedIds: [],
@@ -42,10 +100,10 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     }
   },
   "yamaha-mt-07": {
-    seoTitle: "Yamaha MT-07 Price Philippines 2026 | Specs & Monthly",
-    seoDescription: "Yamaha MT-07 price in the Philippines, 689cc specs, horsepower, seat height, weight, tire sizes, down payment, monthly estimate and comparisons.",
-    intentIntro: "The MT-07 attracts both Philippine price searches and global specification research. Compare its 689cc CP2 engine, horsepower, curb weight, seat height, financing and direct middleweight alternatives on one canonical model page.",
-    moneyQuestion: "What does the MT-07 cost after down payment, monthly financing, insurance, registration and the final dealer quote?",
+    seoTitle: "Yamaha MT-07 Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "Yamaha MT-07 price in the Philippines, 689cc specs, horsepower, seat height, weight, tire sizes, ownership costs and direct comparisons.",
+    intentIntro: "The MT-07 attracts both Philippine price searches and global specification research. Compare its 689cc CP2 engine, horsepower, curb weight, seat height, ownership needs and direct middleweight alternatives on one canonical model page.",
+    moneyQuestion: "What does the MT-07 cost after the current dealer quote, registration, insurance and other purchase charges are included?",
     ownershipQuestion: "Compare tires, chain service, fuel use, insurance and rider fit with the CB650R and Z650 before choosing on engine character alone.",
     alternativeIds: ["honda-cb650r", "kawasaki-z650"],
     relatedIds: ["yamaha-xsr700", "yamaha-yzf-r3"],
@@ -53,10 +111,10 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 400cc+ motorcycles"
   },
   "yamaha-xsr700": {
-    seoTitle: "Yamaha XSR700 Price Philippines 2026 | Specs & Monthly",
-    seoDescription: "Yamaha XSR700 price in the Philippines, 689cc specs, horsepower, weight, seat height, tires, financing and CB650R comparison research.",
-    intentIntro: "The XSR700 combines retro styling with Yamaha's 689cc CP2 platform. Keep price, horsepower, weight, seat height, tire size, financing and comparison intent on this canonical model page.",
-    moneyQuestion: "How much does the XSR700 cost after the down payment, monthly payment, insurance, registration and dealer charges?",
+    seoTitle: "Yamaha XSR700 Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "Yamaha XSR700 price in the Philippines, 689cc specs, horsepower, weight, seat height, tires, ownership costs and CB650R comparison research.",
+    intentIntro: "The XSR700 combines retro styling with Yamaha's 689cc CP2 platform. Keep price, horsepower, weight, seat height, tire size, ownership and comparison intent on this canonical model page.",
+    moneyQuestion: "What does the XSR700 cost after the current dealer quote, registration, insurance and other purchase charges are included?",
     ownershipQuestion: "Compare 17-inch tires, chain service, fuel use, insurance and rider fit with the CB650R and other middleweight road bikes.",
     alternativeIds: ["honda-cb650r", "yamaha-mt-07"],
     relatedIds: ["yamaha-mt-07"],
