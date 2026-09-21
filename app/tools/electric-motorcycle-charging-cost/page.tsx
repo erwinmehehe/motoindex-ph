@@ -5,6 +5,7 @@ import { ElectricChargingCalculator } from "@/components/ElectricChargingCalcula
 import { FaqSection } from "@/components/FaqSection";
 import { electricMotorcycles, php } from "@/lib/electricMotorcycles";
 import { pageMetadata } from "@/lib/site";
+import { PageHero } from "@/components/ui";
 
 export const metadata: Metadata = pageMetadata({
   title: "Electric Motorcycle Charging Cost Calculator",
@@ -24,11 +25,7 @@ const exampleMonthly = exampleDailyKm * 30 / exampleRange * exampleCharge;
 export default function ElectricChargingCostPage() {
   return <section className="page shell" data-calculator-page>
     <Breadcrumbs items={[{ label: "Tools", href: "/tools" }, { label: "Electric charging cost" }]} />
-    <div className="page-head">
-      <span className="entity-kicker">Editable electricity estimate</span>
-      <h1>Electric motorcycle charging-cost calculator</h1>
-      <p>Enter the usable battery capacity, your electricity rate and expected range to estimate the cost of a full charge, 100 km and one month of riding.</p>
-    </div>
+    <PageHero kicker="Editable electricity estimate" title="Electric motorcycle charging-cost calculator" description="Estimate the cost of a full charge, 100 km and a month of riding using your battery capacity, electricity rate and expected range." />
 
     <ElectricChargingCalculator />
 
