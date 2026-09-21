@@ -1922,7 +1922,7 @@ export const generatedProductMedia: EntityMedia[] = [
     "sourceUrl": "https://www.triumphmotorcycles.ph/bikes/sport/daytona-660",
     "lastChecked": "2026-09-21",
     "rightsHolder": "Triumph"
-  }
+  },
   {
     "id": "ktm-200-duke-generated-product",
     "entityType": "motorcycle",
