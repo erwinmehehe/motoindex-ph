@@ -173,6 +173,21 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         {!isPrevious && <PriceIntelligence model={model} />}
       </section>
 
+      <section className="motorcycle-entity-section global-spec-intent" aria-labelledby="quick-specs-heading">
+        <SectionHeader kicker="Quick specs" titleId="quick-specs-heading" title={`${model.make} ${model.model} horsepower, weight, seat height and tire size`} description="These core motorcycle specifications are useful across markets. Philippine pricing is shown separately above so local SRP is not confused with globally applicable technical specifications." />
+        <div className="entity-spec-table motorcycle-spec-table" role="table" aria-label={`${model.make} ${model.model} quick specifications`}>
+          <div role="row"><span role="cell">Horsepower</span><strong role="cell">{model.powerHp} hp</strong></div>
+          <div role="row"><span role="cell">Torque</span><strong role="cell">{model.torqueNm} Nm</strong></div>
+          <div role="row"><span role="cell">Curb weight</span><strong role="cell">{model.curbWeightKg} kg</strong></div>
+          <div role="row"><span role="cell">Seat height</span><strong role="cell">{model.seatHeightMm} mm</strong></div>
+          <div role="row"><span role="cell">Fuel capacity</span><strong role="cell">{model.fuelTankL} L</strong></div>
+          <div role="row"><span role="cell">Front tire size</span><strong role="cell">{model.frontTire}</strong></div>
+          <div role="row"><span role="cell">Rear tire size</span><strong role="cell">{model.rearTire}</strong></div>
+          {model.groundClearanceMm ? <div role="row"><span role="cell">Ground clearance</span><strong role="cell">{model.groundClearanceMm} mm</strong></div> : null}
+        </div>
+        <p className="entity-lede">{model.make} {model.model} uses a {model.engineCc} cc engine rated at {model.powerHp} hp and {model.torqueNm} Nm. Recorded curb weight is {model.curbWeightKg} kg, seat height is {model.seatHeightMm} mm, and fuel capacity is {model.fuelTankL} L.</p>
+      </section>
+
       <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
         <SectionHeader kicker="Key specifications" titleId="specs-heading" title="The numbers most buyers need first" description="Keep the first pass to engine, power, fit, weight, transmission, braking and stock tires." />
         <div className="entity-spec-table motorcycle-spec-table" role="table" aria-label={`${model.make} ${model.model} key specifications`}>
