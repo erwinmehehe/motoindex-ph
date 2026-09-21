@@ -90,6 +90,28 @@ function sourceSpecificity(url, item) {
   return score;
 }
 
+const exactMotorcycleSourceOverrides = {
+  "ktm-200-duke": "https://www.zigwheels.ph/new-motorcycles/ktm/duke-200",
+  "honda-x-adv": "https://www.zigwheels.ph/new-motorcycles/honda/x-adv",
+  "honda-adv-150": "https://www.zigwheels.ph/new-motorcycles/honda/adv-150",
+  "kawasaki-ninja-zx-4rr": "https://www.zigwheels.ph/new-motorcycles/kawasaki/ninja-zx-4rr",
+  "kawasaki-ninja-zx-25r": "https://www.zigwheels.ph/new-motorcycles/kawasaki/ninja-zx-25r",
+  "kawasaki-ninja-1000": "https://www.zigwheels.ph/new-motorcycles/kawasaki/ninja-1000",
+  "kawasaki-z1000-r-edition": "https://www.zigwheels.ph/new-motorcycles/kawasaki/z1000-r-edition",
+  "kawasaki-ninja-h2": "https://www.zigwheels.ph/new-motorcycles/kawasaki/ninja-h2",
+  "bmw-f-900-gs": "https://www.zigwheels.ph/new-motorcycles/bmw/f900-gs",
+  "bmw-s-1000-rr": "https://www.zigwheels.ph/new-motorcycles/bmw/s-1000-rr",
+  "bmw-m-1000-rr": "https://www.zigwheels.ph/new-motorcycles/bmw/m-1000-rr",
+  "bmw-s-1000-r": "https://www.zigwheels.ph/new-motorcycles/bmw/s-1000/r",
+  "kawasaki-ninja-650": "https://www.zigwheels.ph/new-motorcycles/kawasaki/ninja-650",
+  "kawasaki-z650": "https://www.zigwheels.ph/new-motorcycles/kawasaki/z650",
+  "kawasaki-z900": "https://www.zigwheels.ph/new-motorcycles/kawasaki/z900",
+  "kawasaki-z-h2": "https://www.zigwheels.ph/new-motorcycles/kawasaki/z-h2",
+  "kawasaki-versys-650": "https://www.zigwheels.ph/new-motorcycles/kawasaki/versys-650",
+  "kawasaki-vulcan-s": "https://www.zigwheels.ph/new-motorcycles/kawasaki/vulcan-s",
+  "kawasaki-eliminator": "https://www.zigwheels.ph/new-motorcycles/kawasaki/eliminator"
+};
+
 function motorcycleRecords() {
   const records = [];
   for (const { file, source } of motorcycleSources) {
@@ -103,7 +125,7 @@ function motorcycleRecords() {
       if (!id || !brand || !model || freshness !== "verified") continue;
       const item = { id, brand, model, entityType: "motorcycle" };
       const candidates = [sourceUrl, marketPriceSourceUrl].filter(Boolean);
-      const selected = candidates.sort((a, b) => sourceSpecificity(b, item) - sourceSpecificity(a, item))[0];
+      const selected = exactMotorcycleSourceOverrides[id] || candidates.sort((a, b) => sourceSpecificity(b, item) - sourceSpecificity(a, item))[0];
       if (!selected) continue;
       records.push({ ...item, sourceUrl: selected, dataFile: file });
     }
