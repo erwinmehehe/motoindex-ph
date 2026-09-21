@@ -60,6 +60,8 @@ export default function AccessoriesPage(){
       <Link href="/accessories/phone-holders">Phone holders</Link>
       <Link href="/accessories/intercoms">Intercoms</Link>
       <Link href="/accessories/rain-gear">Rain gear</Link>
+      <Link href="/gear/helmets">Helmets</Link>
+      <Link href="/tires">Tires</Link>
       <a href="#model-fitment">Model fitment</a>
     </nav>
 
@@ -93,6 +95,14 @@ export default function AccessoriesPage(){
         </Link>)}
       </div>
       <CTAGroup className={styles.actions}><Link className="button small" href="/motorcycles">Browse all motorcycles</Link><Link className="button secondary small" href="/fitment">Open fitment finder</Link></CTAGroup>
+    </section>
+
+    <section className={styles.section}>
+      <SectionHeader kicker="Rider gear" title="Continue into helmets and tires" description="Accessories are only part of the setup. Move into the existing helmet and tire hubs for fit, certification, sizing and exact-model tire research." />
+      <div className={styles.twoColList}>
+        <Link className={styles.twoColRow} href="/gear/helmets"><span><strong>Motorcycle helmets</strong><small>Prices, brands, helmet types, ECE 22.06 and fit</small></span><b>Open helmets →</b></Link>
+        <Link className={styles.twoColRow} href="/tires"><span><strong>Motorcycle tires</strong><small>Sizes, fitment and replacement research by motorcycle</small></span><b>Open tires →</b></Link>
+      </div>
     </section>
 
     <JsonLd data={schema}/>
