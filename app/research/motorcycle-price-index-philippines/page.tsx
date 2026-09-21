@@ -6,6 +6,9 @@ import { AuthorBox } from "@/components/AuthorBox";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { latestResearchCheck, median, researchPriceRows } from "@/lib/researchData";
 import { php, phpRange } from "@/lib/utils";
+import { EntityMedia } from "@/components/EntityMedia";
+import { PageHero, StatRow } from "@/components/ui";
+import styles from "../research-detail.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Price Index Philippines 2026 | MotoIndex PH",
@@ -37,18 +40,9 @@ export default function MotorcyclePriceIndexPage() {
 
   return <section className="page shell">
     <Breadcrumbs items={[{ label: "Research", href: "/research" }, { label: "Motorcycle price index" }]} />
-    <div className="page-head">
-      <span className="entity-kicker">MotoIndex price research</span>
-      <h1>Motorcycle price index Philippines 2026</h1>
-      <p>Compare published starting-price references across current motorcycles tracked by MotoIndex. Use this as a market-research baseline, then open the model page to inspect its exact price range, variants, source and check date.</p>
-    </div>
+    <PageHero kicker="MotoIndex price research" title="Motorcycle price index Philippines 2026" description="Compare published starting-price references across current motorcycles, then open the model page for variants, source dates and the complete specification context." />
 
-    <div className="entity-price-grid">
-      <article><span>Current models</span><strong>{rows.length}</strong><small>Indexable Philippine-market records</small></article>
-      <article><span>Median starting price</span><strong>{php(medianPrice)}</strong><small>Median of published starting-price references</small></article>
-      <article><span>Below ₱100K</span><strong>{under100k}</strong><small>Current models with a starting price below ₱100,000</small></article>
-      <article><span>₱100K–₱150K</span><strong>{band100to150}</strong><small>Current models inside this starting-price band</small></article>
-    </div>
+    <StatRow items={[{label:"Current models",value:String(rows.length),note:"Indexable Philippine-market records"},{label:"Median starting price",value:php(medianPrice),note:"Median published starting price"},{label:"Below ₱100K",value:String(under100k),note:"Current models in this budget"},{label:"₱100K–₱150K",value:String(band100to150),note:"Current models in this band"}]} />
 
     {lowest && highest && <section className="section split" aria-labelledby="price-index-context">
       <div><span className="section-kicker">Price span</span><h2 id="price-index-context">What does the current MotoIndex dataset cover?</h2><p>The lowest published starting-price record in this dataset is <strong>{lowest.model.make} {lowest.model.model}</strong> at {php(lowest.fromPhp)}. The highest starting-price record is <strong>{highest.model.make} {highest.model.model}</strong> at {php(highest.fromPhp)}.</p><p>This is not a claim about every motorcycle sold in the Philippines. It describes the current public MotoIndex dataset after model-quality and freshness gates.</p></div>
@@ -57,11 +51,9 @@ export default function MotorcyclePriceIndexPage() {
 
     <section className="section" aria-labelledby="price-index-table">
       <div className="section-head compact"><div><span className="section-kicker">Current price database</span><h2 id="price-index-table">Motorcycle prices tracked by MotoIndex</h2><p>Open any model to check variants, financing estimates and the dated evidence behind the amount.</p></div><Link href="/recommendations#budget">Browse budget buying guidance →</Link></div>
-      <div className="ph-brand-price-table" role="table" aria-label="MotoIndex Philippine motorcycle price index">
-        <div className="head" role="row"><span>Motorcycle</span><span>Published price</span><span>Engine</span><span>Category</span><span>Checked</span></div>
-        {rows.map(({ model, fromPhp, toPhp, checkedAt: modelCheckedAt }) => <Link role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}`} key={model.id}>
-          <strong>{model.make} {model.model}</strong><span>{phpRange(fromPhp, toPhp)}</span><span>{model.engineCc} cc</span><span>{model.category}</span><span>{modelCheckedAt} →</span>
-        </Link>)}
+      <div className={styles.visualTable} role="table" aria-label="MotoIndex Philippine motorcycle price index">
+        <div className={styles.tableHead} role="row"><span>Motorcycle</span><span>Published price</span><span>Engine</span><span>Category</span><span>Checked</span></div>
+        {rows.map(({ model, fromPhp, toPhp, checkedAt: modelCheckedAt }) => <Link className={styles.tableRow} role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}`} key={model.id}><span className={styles.modelCell}><EntityMedia entityType="motorcycle" entityId={model.id} fallback={<span className={styles.mediaFallback}>{model.make.slice(0,1)}</span>} showCredit={false}/><strong>{model.make} {model.model}</strong></span><b>{phpRange(fromPhp, toPhp)}</b><span>{model.engineCc} cc</span><span>{model.category}</span><span>{modelCheckedAt} →</span></Link>)}
       </div>
     </section>
 
