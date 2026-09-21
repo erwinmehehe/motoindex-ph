@@ -41,6 +41,18 @@ Roadmap implications:
 6. Do not chase Motortrade's scale with generic financing/dealer/location pages unless MotoIndex has unique intent, verified data and a defensible canonical page.
 7. Near-term SEO success metric: increase MotoIndex's share of priority queries in the top 3 and top 10, not simply the number of indexed pages.
 
+### Ranking-depth wave — existing canonical model pages
+
+Built from the competitor-gap backlog without creating duplicate price/spec URLs:
+
+- **Honda ADV150** — consolidate historical price/spec and used-bike intent on the existing previous-generation page, with explicit ADV160 successor routing.
+- **Kawasaki Ninja ZX-4RR** — strengthen price, 401cc inline-four, ownership and cross-shopping intent.
+- **Honda X-ADV** — strengthen Philippine price, 745cc DCT, touring-cost and premium adventure-scooter intent.
+- **CFMOTO 300SR** — strengthen price, specs, ABS and entry sport-bike cross-shopping intent.
+- **CFMOTO 400NK** — strengthen price, 400cc naked-bike, ownership and alternatives intent.
+
+Each page keeps one canonical model URL, adds intent-matched metadata and model-specific buyer context, and is protected by the priority-model growth validator.
+
 ---
 
 # MotoIndex PH Production Roadmap
