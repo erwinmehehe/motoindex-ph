@@ -155,12 +155,20 @@ def subject_cutout(image: np.ndarray) -> tuple[np.ndarray, np.ndarray, str]:
         segment_image = image
 
     candidates: list[tuple[str, np.ndarray]] = []
+    use_grabcut = True
     if white_ratio >= 0.38 or (neutral_ratio >= 0.68 and spread <= 38):
-        candidates.append(("edge-background", flood_background_mask(segment_image)))
-    try:
-        candidates.append(("grabcut", grabcut_foreground_mask(segment_image)))
-    except cv2.error:
-        pass
+        flood = flood_background_mask(segment_image)
+        candidates.append(("edge-background", flood))
+        flood_area = float(flood.mean())
+        # A good studio extraction is compact and leaves the canvas border behind.
+        # Skip GrabCut in that case so thin spokes, mirrors and controls stay crisp.
+        if 0.025 <= flood_area <= 0.45 and mask_quality(flood) >= 2.2:
+            use_grabcut = False
+    if use_grabcut:
+        try:
+            candidates.append(("grabcut", grabcut_foreground_mask(segment_image)))
+        except cv2.error:
+            pass
 
     if not candidates:
         raise RuntimeError("no segmentation candidate")
