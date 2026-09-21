@@ -30,16 +30,18 @@ if (fs.existsSync(path.join(root, "lib", "adsense.ts"))) {
   requireText(config, "/^pub-\\d{16}$/", "AdSense publisher ID must be validated as pub- plus 16 digits.");
   requireText(config, "NEXT_PUBLIC_ADSENSE_CLIENT_ID", "AdSense client config must support the ca-pub client ID separately.");
   requireText(config, "/^ca-pub-\\d{16}$/", "AdSense client ID must be validated as ca-pub plus 16 digits.");
+  requireText(config, "pub-1900865456140693", "Verified MotoIndex AdSense publisher ID must remain configured.");
+  requireText(config, "ca-pub-1900865456140693", "Verified MotoIndex AdSense client ID must remain configured.");
 }
 if (fs.existsSync(path.join(root, "components", "AdSense.tsx"))) {
   const component = read("components", "AdSense.tsx");
-  requireText(component, "NEXT_PUBLIC_ADSENSE_ENABLED", "AdSense bootstrap must remain explicitly opt-in.");
+  requireText(component, "adsenseEnabled", "AdSense bootstrap must use validated activation state.");
   requireText(component, "adsenseClientId", "AdSense bootstrap must use the validated ca-pub client ID.");
   requireText(component, 'strategy="beforeInteractive"', "AdSense bootstrap must be injected into the document head.");
   requireText(component, "pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=", "AdSense bootstrap must use Google's current loader URL.");
 }
 const layout = read("app", "layout.tsx");
-requireText(layout, "<AdSense", "Root layout must include the disabled-by-default AdSense bootstrap.");
+requireText(layout, "<AdSense", "Root layout must include the AdSense bootstrap.");
 const privacy = read("app", "privacy", "page.tsx");
 for (const token of [
   "Google advertising cookies",

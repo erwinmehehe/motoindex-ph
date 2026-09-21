@@ -1,11 +1,10 @@
 import Script from "next/script";
-import { adsenseClientId } from "@/lib/adsense";
+import { adsenseClientId, adsenseEnabled } from "@/lib/adsense";
 
 export function AdSense() {
   const clientId = adsenseClientId();
-  const enabled = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true";
 
-  if (!enabled || !clientId) return null;
+  if (!adsenseEnabled() || !clientId) return null;
 
   return <Script
     id="motoindex-adsense"
