@@ -390,10 +390,10 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 125cc scooters"
   },
   "honda-beat": {
-    seoTitle: "Honda BeAT Price Philippines 2026 | Specs & Colors",
-    seoDescription: "Honda BeAT price in the Philippines, 110cc specs, colors, 740mm seat, 90kg weight, tires, ownership costs and lightweight scooter alternatives.",
-    intentIntro: "The Honda BeAT is a lightweight city scooter with a 740 mm seat and 90 kg curb weight. Compare its current price, compact dimensions, 110cc engine and everyday ownership needs with other affordable commuter scooters.",
-    moneyQuestion: "What does the Honda BeAT cost after the current dealer quote, registration, insurance and other purchase charges are included?",
+    seoTitle: "Honda BeAT Philippines | Price Reference & Specs",
+    seoDescription: "Honda BeAT Philippine price reference, 110cc specs, 740mm seat, 90kg weight, tire sizes, ownership context and commuter alternatives.",
+    intentIntro: "The Honda BeAT is a lightweight city scooter with a 740 mm seat and 90 kg curb weight, but its current MotoIndex manufacturer source is still pending recheck. Use the page for its recorded 110cc specifications and ownership context, then confirm the latest Philippine price and available variant with Honda or a dealer before purchase.",
+    moneyQuestion: "What is the latest Honda BeAT dealer quote, and how does it compare with the recorded MotoIndex price reference once registration and insurance are included?",
     ownershipQuestion: "Compare 14-inch tire replacement, CVT service, fuel use, storage and Honda support with Mio Gear, Click 125i and other commuter scooters.",
     alternativeIds: ["yamaha-mio-gear", "honda-click-125i", "suzuki-avenis"],
     relatedIds: ["honda-click-125i"],
