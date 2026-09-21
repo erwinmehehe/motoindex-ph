@@ -235,3 +235,10 @@
     transition:none;
   }
 }
+
+.compareCluster{margin-left:auto;display:grid;justify-items:center;gap:var(--mi-space-2);min-width:104px}
+.brandMark{display:grid;min-width:42px;height:28px;padding:0 var(--mi-space-2);place-items:center;border:1px solid var(--mi-color-line);border-radius:999px;background:var(--mi-color-surface);color:var(--mi-color-slate-700);font-size:var(--mi-type-xs);font-weight:900;letter-spacing:.04em}
+.standardMedia{padding:var(--mi-space-2)}
+.standardMedia img,.mediaFallback img{filter:drop-shadow(0 12px 18px rgba(15,23,42,.08))}
+@container motorcycle-card (min-width:520px){.actions{justify-content:space-between}.compareCluster{margin-left:auto}}
+@container motorcycle-card (max-width:360px){.compareCluster{width:100%;margin-left:0}.brandMark{display:none}}
