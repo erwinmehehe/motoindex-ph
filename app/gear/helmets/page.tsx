@@ -134,6 +134,7 @@ export default function HelmetsPage(){
     <section id="intercom-ready" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Communication" title="Intercom-ready motorcycle helmets" description="Speaker pockets or communication-system provision can make installation cleaner, but speaker depth, microphone routing and mount clearance still need to match your exact intercom." aside={<Count value={intercom.length}/>} />
       <HelmetProductGrid products={intercom} />
+      <p className="helmet-master-note"><Link href="/accessories/intercoms">Read the motorcycle helmet intercom buying guide →</Link></p>
     </section>
 
     <section id="commuting" className="ui-page-section helmet-master-section">
@@ -145,6 +146,7 @@ export default function HelmetsPage(){
         <article className="ui-content-card"><h3>Daily fit check</h3><p>The helmet should stay stable without painful pressure points or starting loose.</p></article>
       </div>
       <HelmetProductGrid products={commuting} />
+      <p className="helmet-master-note"><Link href="/accessories/rain-gear">Compare motorcycle rain gear for daily commuting →</Link></p>
     </section>
 
     <section id="brands" className="ui-page-section helmet-master-section">
