@@ -6,6 +6,14 @@ import sharp from "sharp";
 
 const root = process.cwd();
 const catalogSource = fs.readFileSync(path.join(root, "lib/catalog.ts"), "utf8");
+const motorcycleSources = [
+  "lib/data.ts",
+  "lib/phTier23ModelsBase.ts",
+  "lib/phTier23ModelsExpansion2026.ts",
+  "lib/phBrandExpansion2026.ts",
+  "lib/phCoverageExpansion2026.ts",
+  "lib/globalDemandExpansion2026.ts"
+].map((file) => ({ file, source: fs.readFileSync(path.join(root, file), "utf8") }));
 const mediaSource = fs.readFileSync(path.join(root, "lib/media.ts"), "utf8");
 const generatedPath = path.join(root, "lib/generatedProductMedia.ts");
 const generatedSource = fs.existsSync(generatedPath) ? fs.readFileSync(generatedPath, "utf8") : "";
@@ -61,6 +69,44 @@ function catalogRecords(declaration, entityType) {
     id: stringField(block, "id"), brand: stringField(block, "brand"), model: stringField(block, "model"),
     status: stringField(block, "status"), sourceUrl: stringField(block, "sourceUrl"), entityType
   })).filter((item) => item.id && item.status === "verified" && item.sourceUrl);
+}
+
+function sourceSpecificity(url, item) {
+  if (!url) return -1000;
+  let score = 0;
+  if (!/\.pdf(?:$|[?#])/i.test(url)) score += 20;
+  try {
+    const parsed = new URL(url);
+    const haystack = `${parsed.pathname} ${parsed.search}`.toLowerCase().replace(/[^a-z0-9]+/g, " ");
+    const terms = [...new Set(words(`${item.brand || ""} ${item.model || ""} ${item.id || ""}`))]
+      .filter((term) => !["motorcycle","motorcycles","philippines","current","model"].includes(term));
+    score += terms.filter((term) => haystack.includes(term)).length * 12;
+    if (parsed.pathname === "/" || /^\/(?:motorcycles?|big-bike|big-bikes|list)?\/?$/i.test(parsed.pathname)) score -= 18;
+  } catch {}
+  return score;
+}
+
+function motorcycleRecords() {
+  const records = [];
+  for (const { file, source } of motorcycleSources) {
+    for (const block of topLevelObjects(source)) {
+      const id = stringField(block, "id");
+      const brand = stringField(block, "make");
+      const model = stringField(block, "model");
+      const freshness = stringField(block, "freshness");
+      const sourceUrl = stringField(block, "sourceUrl");
+      const marketPriceSourceUrl = stringField(block, "marketPriceSourceUrl");
+      if (!id || !brand || !model || freshness !== "verified") continue;
+      const item = { id, brand, model, entityType: "motorcycle" };
+      const candidates = [sourceUrl, marketPriceSourceUrl].filter(Boolean);
+      const selected = candidates.sort((a, b) => sourceSpecificity(b, item) - sourceSpecificity(a, item))[0];
+      if (!selected) continue;
+      records.push({ ...item, sourceUrl: selected, dataFile: file });
+    }
+  }
+  const deduped = new Map();
+  for (const item of records) if (!deduped.has(item.id)) deduped.set(item.id, item);
+  return [...deduped.values()];
 }
 
 function mediaKeys(source, declaration) {
@@ -156,7 +202,19 @@ async function discoverImage(product) {
   const type = response.headers.get("content-type") || "";
   if (type.toLowerCase().startsWith("image/")) return { url: response.url, bytes: Buffer.from(await response.arrayBuffer()), reason: "direct image" };
   const html = await response.text();
-  const candidates = imageCandidates(html, response.url || product.sourceUrl, product);
+  let candidates = imageCandidates(html, response.url || product.sourceUrl, product);
+  if (product.entityType === "motorcycle") {
+    const pageUrl = response.url || product.sourceUrl;
+    const pageIsSpecific = sourceSpecificity(pageUrl, product) >= 24;
+    const terms = [...new Set(words(`${product.brand || ""} ${product.model || ""} ${product.id || ""}`))]
+      .filter((term) => term.length >= 3 && !["motorcycle","motorcycles","philippines","current","model"].includes(term));
+    candidates = candidates.filter((candidate) => {
+      if (candidate.reason === "matching img alt") return true;
+      const imageText = candidate.url.toLowerCase().replace(/[^a-z0-9]+/g, " ");
+      const modelHits = terms.filter((term) => imageText.includes(term)).length;
+      return pageIsSpecific || modelHits >= Math.min(2, Math.max(1, terms.length));
+    });
+  }
   if (!candidates.length) throw new Error("no trustworthy product image candidate found");
   let lastError;
   for (const candidate of candidates.slice(0, 8)) {
@@ -172,6 +230,7 @@ function hasLocalAsset(asset) {
 }
 
 const products = [
+  ...motorcycleRecords(),
   ...catalogRecords("export const helmetProducts", "helmet"),
   ...catalogRecords("export const tireProducts", "tire"),
   ...catalogRecords("export const topBoxProducts", "topbox")
@@ -191,7 +250,7 @@ let outputRecords = [...generated];
 const failures = [];
 const successes = [];
 const newRecordIds = new Set();
-const folders = { helmet: "helmets", tire: "tires", topbox: "topboxes" };
+const folders = { motorcycle: "motorcycles", helmet: "helmets", tire: "tires", topbox: "topboxes" };
 
 async function processProduct(product) {
   try {
