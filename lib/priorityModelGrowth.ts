@@ -15,6 +15,18 @@ export type PriorityModelGrowthProfile = {
 };
 
 const profiles: Record<string, PriorityModelGrowthProfile> = {
+  "honda-click-150i": {
+    seoTitle: "Honda Click 150i Philippines | Price, Specs & Click 160",
+    seoDescription: "Honda Click 150i Philippines reference with historical price, 150cc specs, fuel economy, tire sizes and the current Click 160 successor.",
+    intentIntro: "The Click 150i remains useful for Philippine historical and used-bike research, but it is a previous generation. Keep its 2018 launch price, 150cc specifications and ownership context on this canonical page, then use the Click 160 page for current new-bike research.",
+    moneyQuestion: "How does the historical Click 150i launch price compare with current Click 160 pricing and used Click 150i listings?",
+    ownershipQuestion: "Compare CVT service, 14-inch tires, fuel economy, CBS braking and parts support while accounting for the Click 150i's previous-generation status.",
+    alternativeIds: ["honda-click-160", "yamaha-aerox-v3", "yamaha-nmax-v3"],
+    relatedIds: ["honda-click-160", "honda-click-125i"],
+    recommendationHref: "/recommendations/150cc-scooters-philippines",
+    recommendationLabel: "Compare 150cc and 155cc scooters",
+    legacyContext: { heading: "Click 150i vs the current Click 160", body: "Click 150i is retained for historical Philippine price and specification research. Honda introduced the Click 160 as its successor, so use the Click 160 page for current new-bike pricing and research." }
+  },
   "honda-crf150l": {
     seoTitle: "Honda CRF150L Price Philippines 2026 | Specs & Trail Use",
     seoDescription: "Honda CRF150L price in the Philippines, 149cc specs, 863mm seat, 21/18-inch tires, ground clearance, fuel economy and dual-sport alternatives.",
