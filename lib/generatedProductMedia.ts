@@ -1970,5 +1970,37 @@ export const generatedProductMedia: EntityMedia[] = [
     "sourceUrl": "https://www.zigwheels.ph/new-motorcycles/yamaha/yzf-r15m/specifications",
     "lastChecked": "2026-09-21",
     "rightsHolder": "Yamaha"
+  },
+  {
+    "id": "triumph-tiger-sport-660-generated-product",
+    "entityType": "motorcycle",
+    "entityId": "triumph-tiger-sport-660",
+    "role": "primary",
+    "src": "/media/motorcycles/triumph-tiger-sport-660.webp",
+    "sourceImageUrl": "https://imgcdnblog.carbay.com/wp-content/uploads/2026/08/10101937/MDL04629.jpg",
+    "alt": "Triumph Tiger Sport 660 product image",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "sourceLabel": "Checked product-page image · Triumph Tiger Sport 660",
+    "sourceUrl": "https://www.zigwheels.ph/motorcycle-news/triumph-motorcycles-ph-reveals-2026-660-lineup",
+    "lastChecked": "2026-09-21",
+    "rightsHolder": "Triumph"
+  },
+  {
+    "id": "triumph-daytona-660-generated-product",
+    "entityType": "motorcycle",
+    "entityId": "triumph-daytona-660",
+    "role": "primary",
+    "src": "/media/motorcycles/triumph-daytona-660.webp",
+    "sourceImageUrl": "https://media.triumphmotorcycles.co.uk/image/upload/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/roadsters-supersports/my24/lk2_lj2_daytona_660/bike%20page%20images/bikes-my24-daytona-660-family-hero-1920x1080.jpg",
+    "alt": "Triumph Daytona 660 product image",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "sourceLabel": "Checked product-page image · Triumph Daytona 660",
+    "sourceUrl": "https://www.triumphmotorcycles.ph/bikes/sport/daytona-660",
+    "lastChecked": "2026-09-21",
+    "rightsHolder": "Triumph"
   }
 ];
