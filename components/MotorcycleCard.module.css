@@ -235,3 +235,6 @@
     transition:none;
   }
 }
+
+.compareCluster{margin-left:auto;display:grid;justify-items:center;gap:var(--mi-space-1)}
+.brandMark{display:grid;height:26px;place-items:center;color:var(--mi-color-slate-700);font-size:var(--mi-type-xs);font-weight:900}.brandMark img{max-width:80px;max-height:24px;object-fit:contain}

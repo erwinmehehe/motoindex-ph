@@ -6,6 +6,9 @@ import { AuthorBox } from "@/components/AuthorBox";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { latestResearchCheck, median, researchSeatRows } from "@/lib/researchData";
 import { phpRange } from "@/lib/utils";
+import { EntityMedia } from "@/components/EntityMedia";
+import { PageHero, StatRow, InfoPanel } from "@/components/ui";
+import styles from "../research-detail.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Seat Height Database Philippines | MotoIndex PH",
@@ -36,18 +39,9 @@ export default function MotorcycleSeatHeightDatabasePage() {
 
   return <section className="page shell">
     <Breadcrumbs items={[{ label: "Research", href: "/research" }, { label: "Seat-height database" }]} />
-    <div className="page-head">
-      <span className="entity-kicker">Rider-fit data</span>
-      <h1>Motorcycle seat height database Philippines</h1>
-      <p>Compare published seat heights across current motorcycles tracked by MotoIndex. Seat height is useful for narrowing a shortlist, but actual reach also depends on inseam, seat width, suspension sag, footwear and motorcycle weight.</p>
-    </div>
+    <PageHero kicker="Rider-fit data" title="Motorcycle seat height database Philippines" description="Compare published seat heights with motorcycle weight, category and price. Start with the numbers, then narrow the shortlist around the way the bike actually fits you." />
 
-    <div className="entity-price-grid">
-      <article><span>Current models</span><strong>{rows.length}</strong><small>Current, indexable records in this dataset</small></article>
-      <article><span>Median seat height</span><strong>{medianSeat} mm</strong><small>Median published seat height across the dataset</small></article>
-      <article><span>760 mm or lower</span><strong>{lowSeat}</strong><small>Useful starting pool for lower-seat research</small></article>
-      {lowest && <article><span>Lowest recorded seat</span><strong>{lowest.model.seatHeightMm} mm</strong><small>{lowest.model.make} {lowest.model.model}</small></article>}
-    </div>
+    <StatRow items={[{label:"Current models",value:String(rows.length),note:"Current indexable records"},{label:"Median seat height",value:`${medianSeat} mm`,note:"Across the current dataset"},{label:"760 mm or lower",value:String(lowSeat),note:"Lower-seat starting pool"},{label:"Lowest recorded",value:lowest?`${lowest.model.seatHeightMm} mm`:"—",note:lowest?`${lowest.model.make} ${lowest.model.model}`:""}]} />
 
     {lowest && highest && <section className="section split" aria-labelledby="seat-height-method">
       <div><span className="section-kicker">Fit context</span><h2 id="seat-height-method">Seat height is not the same as rider fit</h2><p>The current database spans from {lowest.model.seatHeightMm} mm on the {lowest.model.make} {lowest.model.model} to {highest.model.seatHeightMm} mm on the {highest.model.make} {highest.model.model}. Those numbers help narrow choices, but they do not measure seat width, balance or how much the suspension compresses under a rider.</p><p>Use the table to identify candidates, then sit on the exact motorcycle before buying when possible.</p></div>
@@ -56,11 +50,9 @@ export default function MotorcycleSeatHeightDatabasePage() {
 
     <section className="section" aria-labelledby="seat-height-table">
       <div className="section-head compact"><div><span className="section-kicker">Sorted low to high</span><h2 id="seat-height-table">Current motorcycle seat heights</h2><p>Prices are included only to help compare the whole shortlist. Open the model page for the exact price source and rider-fit calculator.</p></div><Link href="/recommendations#rider-fit">Open rider-fit buying guidance →</Link></div>
-      <div className="ph-brand-price-table" role="table" aria-label="Motorcycle seat heights in the Philippines">
-        <div className="head" role="row"><span>Motorcycle</span><span>Seat height</span><span>Curb weight</span><span>Category</span><span>Price</span></div>
-        {rows.map(({ model, range }) => <Link role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}#rider-fit`} key={model.id}>
-          <strong>{model.make} {model.model}</strong><span>{model.seatHeightMm} mm</span><span>{model.curbWeightKg} kg</span><span>{model.category}</span><span>{phpRange(range.from, range.to)} →</span>
-        </Link>)}
+      <div className={styles.visualTable} role="table" aria-label="Motorcycle seat heights in the Philippines">
+        <div className={styles.tableHead} role="row"><span>Motorcycle</span><span>Seat height</span><span>Curb weight</span><span>Category</span><span>Price</span></div>
+        {rows.map(({ model, range }) => <Link className={styles.tableRow} role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}#rider-fit`} key={model.id}><span className={styles.modelCell}><EntityMedia entityType="motorcycle" entityId={model.id} fallback={<span className={styles.mediaFallback}>{model.make.slice(0,1)}</span>} showCredit={false}/><strong>{model.make} {model.model}</strong></span><b>{model.seatHeightMm} mm</b><span>{model.curbWeightKg} kg</span><span>{model.category}</span><span>{phpRange(range.from, range.to)} →</span></Link>)}
       </div>
     </section>
 
