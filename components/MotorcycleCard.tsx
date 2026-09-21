@@ -18,7 +18,8 @@ const brandLogos: Record<string, string> = {
   KTM: "/brand/motorcycle/ktm.svg",
   "BMW Motorrad": "/brand/motorcycle/bmw-motorrad.svg",
   Ducati: "/brand/motorcycle/ducati.svg",
-  Husqvarna: "/brand/motorcycle/husqvarna.svg"
+  Husqvarna: "/brand/motorcycle/husqvarna.svg",
+  Vespa: "/brand/motorcycle/vespa.svg"
 };
 
 type Variant = "standard" | "compare" | "decision" | "compact";
@@ -44,8 +45,10 @@ function absAvailable(model: Motorcycle) {
 }
 
 function MotorcycleFallback({ model, href, className }: { model: Motorcycle; href: string; className: string }) {
-  return <Link href={href} className={className} aria-label={`View ${model.make} ${model.model}`}>
-    <Image src="/media/placeholders/motorcycle.svg" alt="" width={1200} height={1200} />
+  return <Link href={href} className={`${className} ${styles.brandedFallback}`} aria-label={`View ${model.make} ${model.model}`}>
+    {brandLogos[model.make] ? <Image className={styles.fallbackLogo} src={brandLogos[model.make]} alt="" width={110} height={36} unoptimized /> : <strong className={styles.fallbackBrand}>{model.make}</strong>}
+    <span className={styles.fallbackModel}>{model.model}</span>
+    <small>Photo verification pending</small>
   </Link>;
 }
 
@@ -87,7 +90,7 @@ export function MotorcycleCard({
     return <article className="mi-bike motorcycle-card motorcycle-card-compact">
       {leadingAction}
       <Link className="mi-bike-media" href={href} aria-label={`View ${model.make} ${model.model}`}>
-        <EntityMedia entityType="motorcycle" entityId={model.id} showCredit={false} fallback={<Image src="/media/placeholders/motorcycle.svg" alt="" width={1200} height={1200} />}/>
+        <EntityMedia entityType="motorcycle" entityId={model.id} showCredit={false} fallback={<MotorcycleFallback model={model} href={href} className="mi-bike-fallback" />}/>
       </Link>
       <div className="mi-bike-copy"><p>{model.make}</p><h2><Link href={href}>{model.model}</Link></h2><strong className="mi-price">{observedMarketPriceLabel(model)}</strong>{typeof monthlyOwnershipPhp === "number" && <p className="mi-monthly">About <strong>{php(monthlyOwnershipPhp)}</strong> a month{highlightMonthly ? <span> · Lowest estimate</span> : null}</p>}</div>
       <details className="mi-details"><summary>Key specifications</summary><dl><div><dt>Engine</dt><dd>{model.engineCc ? `${model.engineCc} cc` : "Electric"}</dd></div><div><dt>Seat height</dt><dd>{model.seatHeightMm ? `${model.seatHeightMm} mm` : "Not listed"}</dd></div><div><dt>Weight</dt><dd>{model.curbWeightKg ? `${model.curbWeightKg} kg` : "Not listed"}</dd></div><div><dt>Transmission</dt><dd>{model.transmission || "Not listed"}</dd></div></dl></details>
