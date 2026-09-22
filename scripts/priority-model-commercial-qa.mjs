@@ -13,7 +13,8 @@ const pages = [
   ["rebel-500", "/motorcycles/honda/rebel-500"],
   ["zontes-400g", "/motorcycles/zontes/400g"],
   ["gold-wing", "/motorcycles/honda/gold-wing"],
-  ["rc-390", "/motorcycles/ktm/rc-390"]
+  ["rc-390", "/motorcycles/ktm/rc-390"],
+  ["honda-navi", "/motorcycles/honda/navi"]
 ];
 const widths = [390, 1440];
 const failures = [];
@@ -125,6 +126,9 @@ try {
           h1:Boolean(h1),
           h1Size:parseFloat(h1?getComputedStyle(h1).fontSize:'0'),
           commercial:Boolean(commercial),
+          authority:Boolean(document.querySelector('.authority-decision-section')),
+          briefCount:sections.length,
+          canonicalPath:document.querySelector('link[rel="canonical"]')?.pathname||'',
           sectionLeft:rect?.left||0,
           sectionRight:rect?.right||0,
           priceLink:links.some(href=>href==='#price'),
@@ -139,6 +143,9 @@ try {
       results.push({ width, pathname, ...audit });
       if (!audit?.h1) failures.push(`${width}px ${pathname}: model H1 is missing.`);
       if (!audit?.commercial) failures.push(`${width}px ${pathname}: priority commercial section is missing.`);
+      if (audit?.canonicalPath !== pathname) failures.push(`${width}px ${pathname}: canonical path is ${audit?.canonicalPath || "missing"}.`);
+      if (name === "honda-navi" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda Navi authority section is missing.`);
+      if (name === "honda-navi" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (!audit?.priceLink || !audit?.installmentLink) failures.push(`${width}px ${pathname}: price/monthly anchor links are incomplete.`);
       if (!audit?.priceIndex || !audit?.financeIndex) failures.push(`${width}px ${pathname}: research dataset links are incomplete.`);
       if (!audit?.quoteLink) failures.push(`${width}px ${pathname}: dealer quote link is missing.`);
