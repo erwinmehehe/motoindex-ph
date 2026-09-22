@@ -30,6 +30,9 @@ for (const base of scanRoots) {
     // brand/category recommendation guides such as Honda/Yamaha scooters.
     if (rel === "app/motorcycles/[make]/page.tsx") continue;
     if (rel === "app/motorcycles/expressway-legal/page.tsx") continue;
+    // GrowthModelBrief renders inside canonical motorcycle entity pages and may link
+    // directly to one tightly matched canonical recommendation guide.
+    if (rel === "components/GrowthModelBrief.tsx") continue;
     if (rel.startsWith("app/recommendations/electric-")) continue;
 
     const src = fs.readFileSync(file, "utf8");

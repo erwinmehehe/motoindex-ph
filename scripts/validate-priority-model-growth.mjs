@@ -10,6 +10,7 @@ const modelPage = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
 const recommendationPage = read("app", "recommendations", "[slug]", "page.tsx");
 const commercial = read("components", "PriorityCommercialIntent.tsx");
 const buyerBrief = read("components", "PriorityModelBrief.tsx");
+const growthBuyerBrief = read("components", "GrowthModelBrief.tsx");
 const authority = read("lib", "modelAuthority.ts");
 const data = read("lib", "data.ts");
 const route = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
@@ -58,7 +59,8 @@ const priorityModels = [
   "kawasaki-ninja-h2",
   "honda-rebel-1100",
   "honda-navi",
-  "honda-beat"
+  "honda-beat",
+  "honda-crf150l"
 ];
 
 for (const id of priorityModels) {
@@ -181,6 +183,49 @@ for (const token of [
   'freshness: "verified"'
 ]) {
   if (!data.includes(token)) errors.push(`Honda BeAT verification: missing token ${token}`);
+}
+
+for (const token of [
+  '"honda-crf150l": {',
+  'seoTitle: "Honda CRF150L Philippines | Price Reference & Specs"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: CRF150L ranking depth lost token ${token}`);
+}
+
+if (buyerBrief.includes('"honda-crf150l": {')) {
+  errors.push("PriorityModelBrief: CRF150L must not duplicate the authority/commercial buyer guidance");
+}
+
+if (!growthBuyerBrief.includes('"honda-crf150l": {')) {
+  errors.push("GrowthModelBrief: missing availability-safe CRF150L buyer brief");
+}
+
+for (const token of [
+  'modelId:"honda-crf150l"',
+  'comparisonIds:["kawasaki-klx150","yamaha-wr155r","honda-crf300-rally"]'
+]) {
+  if (!authority.includes(token)) errors.push(`modelAuthority: CRF150L ranking depth lost token ${token}`);
+}
+
+for (const token of [
+  'id: "honda-crf150l"',
+  'marketStatus: "uncertain"',
+  'srp: 147900',
+  'seatHeightMm: 863',
+  'groundClearanceMm: 285',
+  'sourceUrl: "https://www.hondaph.com/cms/files/products/5f0d09697786a.pdf"',
+  'marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/news/looking-for-the-perfect-fathers-day-adventure-hit-the-road-with-the-new-crf150"',
+  'freshness: "verified"',
+  'transmission: "Manual"'
+]) {
+  if (!data.includes(token)) errors.push(`Honda CRF150L verification: missing token ${token}`);
+}
+
+const crf150lStart = data.indexOf('id: "honda-crf150l"');
+const crf150lEnd = data.indexOf('id: "honda-crf300-rally"', crf150lStart);
+const crf150lBlock = crf150lStart >= 0 ? data.slice(crf150lStart, crf150lEnd > crf150lStart ? crf150lEnd : undefined) : "";
+if (crf150lBlock.includes("fuelConsumptionKmL:")) {
+  errors.push("Honda CRF150L: do not publish a definitive fuel-consumption field while Honda first-party sources conflict");
 }
 
 for (const token of [
