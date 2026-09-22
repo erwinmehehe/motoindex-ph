@@ -47,7 +47,12 @@ const priorityModels = [
   "kawasaki-ninja-zx-4rr",
   "honda-x-adv",
   "cfmoto-300sr",
-  "cfmoto-400nk"
+  "cfmoto-400nk",
+  "yamaha-yzf-r15m",
+  "honda-cbr650r",
+  "yamaha-yzf-r7",
+  "kawasaki-ninja-zx-25r",
+  "bajaj-dominar-400"
 ];
 
 for (const id of priorityModels) {
@@ -70,6 +75,26 @@ for (const token of [
   'seoTitle: "CFMOTO 400NK Price Philippines 2026 | Specs, ABS & Costs"'
 ]) {
   if (!growth.includes(token)) errors.push(`priorityModelGrowth: ranking-depth wave lost token ${token}`);
+}
+
+for (const id of ["yamaha-yzf-r15m", "honda-cbr650r", "yamaha-yzf-r7", "kawasaki-ninja-zx-25r", "bajaj-dominar-400"]) {
+  if (!buyerBrief.includes(`"${id}": {`)) {
+    errors.push(`PriorityModelBrief: missing ranking-depth wave-two buyer brief for ${id}`);
+  }
+}
+
+for (const token of [
+  'seoTitle: "Yamaha YZF-R15M Price Philippines 2026 | Specs & Costs"',
+  'seoTitle: "Honda CBR650R Price Philippines 2026 | Specs & Costs"',
+  'seoTitle: "Yamaha YZF-R7 Price Philippines 2026 | Specs & Costs"',
+  'seoTitle: "Kawasaki ZX-25R Price Philippines 2026 | Specs & Costs"',
+  'seoTitle: "Bajaj Dominar 400 Price Philippines 2026 | Specs & Costs"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: ranking-depth wave two lost token ${token}`);
+}
+
+if (!tier23.includes('sourceUrl: "https://www.hondaph.com/honda-bigbikes/files/products/65faa98599e4d.pdf"')) {
+  errors.push("CBR650R must retain the Honda Philippines primary specification source");
 }
 
 for (const href of [
