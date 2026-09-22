@@ -232,7 +232,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <div>
           <SectionHeader kicker="Shop by use" title={`${brand} motorcycle models by category`} />
           {scooters.length >= 3 && <div id="scooters" className="ph-brand-scooter-strip">
-            <strong>{brand} scooters in the Philippines</strong>
+            <h3>{brand} scooters in the Philippines</h3>
             <p>{scooterLow !== undefined && scooterHigh !== undefined ? `Compare ${scooters.length} current ${brand} scooters from ${php(scooterLow)} to ${php(scooterHigh)} by engine size, price, rider fit and braking equipment.` : `Compare current ${brand} scooters by price and key specifications.`}</p>
             <div>{scooters.map((m) => <Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}`}><span>{m.model}</span><small>{phpRange(observedMarketRange(m).from, observedMarketRange(m).to)}</small></Link>)}</div>
             <nav className="ph-brand-scooter-links" aria-label={`${brand} scooter research`}>
