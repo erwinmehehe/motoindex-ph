@@ -1033,3 +1033,14 @@ Click125 is the next verified current-model demand gap after Fazzio, with roughl
 - Strengthen 769 mm rider fit, 111 kg handling, 50.3 km/L fuel use, CBS, 14-inch tires, financing and CVT ownership intent.
 - Add direct browser QA and permanent 390px, 768px and 1440px visual coverage.
 
+
+
+### Ranking-depth wave 14 — Yamaha YZF-R1M authority
+
+YZF-R1M is the next verified current-model demand gap after Click125, with roughly 5.3K stored monthly search demand.
+
+- Keep /motorcycles/yamaha/yzf-r1m as the only Yamaha R1-family canonical and consolidate broad R1 intent there.
+- Preserve the current ₱1,689,000 detailed dealer reference while retaining the observed ₱1,799,000 upper market reference as a quote-verification warning.
+- Add a distinct decision-authority layer focused on rider experience, 855 mm fit, 200 kg wet weight, premium insurance, hypersport tires and service costs.
+- Do not create thin R1 price, specs, installment or model-year URLs.
+- Add direct browser QA at 390px and 1440px; permanent visual-matrix coverage already includes the canonical R1M route at 390px, 768px and 1440px.

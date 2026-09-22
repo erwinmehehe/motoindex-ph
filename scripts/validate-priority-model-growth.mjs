@@ -586,6 +586,13 @@ for (const token of [
   }
 }
 
+for (const token of ['id: "yamaha-yzf-r1m"','verifiedAt: "2026-09-22"','marketPriceCheckedAt: "2026-09-22"','sourceUrl: "https://www.yamaha-motor.com.ph/motorcycles/sport-machines/supersport/yzf-r1m"','marketPriceSourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-yzf-r1/"']) {
+  if (!data.includes(token)) errors.push(`YZF-R1M authority: missing data token ${token}`);
+}
+if (!authority.includes('modelId:"yamaha-yzf-r1m"')) errors.push("YZF-R1M authority: decision profile missing");
+if (!brandSupport.includes('makeSlug:"yamaha"')) errors.push("YZF-R1M authority: Yamaha Philippine support record missing");
+if (data.includes('id: "yamaha-yzf-r1"') || data.includes('id: "yamaha-r1"')) errors.push("YZF-R1M authority: duplicate R1 entity must not be created");
+
 if (errors.length) {
   console.error("Priority model growth validation failed:");
   for (const error of errors) console.error(`- ${error}`);

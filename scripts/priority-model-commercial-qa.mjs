@@ -23,7 +23,8 @@ const pages = [
   ["honda-click-160", "/motorcycles/honda/click-160"],
   ["honda-pcx-160", "/motorcycles/honda/pcx-160"],
   ["yamaha-fazzio", "/motorcycles/yamaha/fazzio"],
-  ["honda-click-125i", "/motorcycles/honda/click-125i"]
+  ["honda-click-125i", "/motorcycles/honda/click-125i"],
+  ["yamaha-yzf-r1m", "/motorcycles/yamaha/yzf-r1m"]
 ];
 const widths = [390, 1440];
 const failures = [];
