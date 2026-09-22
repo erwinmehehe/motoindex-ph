@@ -15,12 +15,7 @@ const briefs: Record<string, Brief> = {
 
 
 
-  "yamaha-fazzio": {
-    fit: ["You want a small automatic commuter with retro styling and a purchase price below the premium 155–160cc class.", "Ease of daily city use matters more than high output or long-distance bodywork."],
-    check: ["Confirm current variant pricing and color availability.", "Compare storage, braking equipment and actual rider fit with other small automatic scooters."],
-    ownership: "Use the lower purchase price as a starting point, then compare fuel, tires, CVT maintenance and resale expectations with Mio Gear and Click 125i.",
-    alternatives: ["yamaha-mio-gear", "honda-click-125i", "honda-giorno-plus"]
-  },
+
   "honda-click-125i": {
     fit: ["You want a widely used automatic commuter without paying for 160cc-class performance.", "Low daily running cost and simple city use are higher priorities than touring equipment."],
     check: ["Confirm the exact current generation and dealer price before comparing with used or older listings.", "Compare braking equipment, storage and seat fit rather than looking only at engine size."],

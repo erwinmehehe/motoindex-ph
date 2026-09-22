@@ -1013,3 +1013,13 @@ PCX160 is the next verified current-model demand gap after Click160, with roughl
 - Strengthen 764 mm rider fit, 8.1 L range, 46.0 km/L, financing, passenger comfort, mixed tire sizes and CVT ownership intent.
 - Add direct browser QA at 390px and 1440px plus permanent visual coverage at 390px, 768px and 1440px.
 
+### Ranking-depth wave 12 — Yamaha Fazzio authority
+
+Fazzio is the next verified current-model demand gap after PCX160, with roughly 7.6K stored monthly search demand.
+
+- Keep /motorcycles/yamaha/fazzio as the only Fazzio canonical.
+- Preserve the ₱93,900 current new-model reference and distinguish older discounted dealer inventory.
+- Remove duplicate buyer guidance and add a distinct decision-authority layer.
+- Strengthen 750 mm rider fit, 95 kg low-speed handling, 12-inch tires, no-ABS braking, financing and CVT ownership intent.
+- Add direct browser QA and permanent 390px, 768px and 1440px visual coverage.
+

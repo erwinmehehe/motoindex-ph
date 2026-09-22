@@ -301,14 +301,14 @@ export const motorcycles: Motorcycle[] = [
     keywordDifficulty: 0,
     sourceLabel: "Yamaha Motor Philippines current Mio Fazzio model reference with current Motortrade dealer price cross-check",
     sourceUrl: "https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-fazzio",
-    verifiedAt: "2026-09-19",
+    verifiedAt: "2026-09-22",
     freshness: "verified",
-    marketPriceSourceLabel: "Motortrade Philippines",
+    marketPriceSourceLabel: "Motortrade Philippines current New Mio Fazzio cross-check",
     marketPriceSourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-new-mio-fazzio/",
-    marketPriceCheckedAt: "2026-09-19",
-    priceContext: "Current new-model reference is ₱93,900. Older dealer inventory may still surface prior Mio Fazzio model codes at a lower published price, so confirm the exact unit before purchase.",
+    marketPriceCheckedAt: "2026-09-22",
+    priceContext: "Current new-model reference is ₱93,900. Older dealer inventory may still surface prior Mio Fazzio model codes at a lower published price, so confirm the exact unit and branch quote before financing.",
     transmission: "Automatic",
-    summary: "125cc automatic scooter with a 750 mm seat, 95 kg curb weight and 12-inch wheels."
+    summary: "Current 125cc automatic lifestyle scooter with a 750 mm seat, 95 kg curb weight, 5.1 L tank and 12-inch tires."
   },
   {
     id: "yamaha-mio-gravis",

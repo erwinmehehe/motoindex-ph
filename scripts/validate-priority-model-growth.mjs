@@ -185,6 +185,11 @@ for (const token of [
   if (!data.includes(token)) errors.push(`Honda BeAT verification: missing token ${token}`);
 }
 
+for (const token of ['"yamaha-fazzio": {','seoTitle: "Yamaha Fazzio Price Philippines 2026 | Specs & Monthly"']) if (!growth.includes(token)) errors.push(`priorityModelGrowth: Fazzio authority wave lost token ${token}`);
+if (buyerBrief.includes('"yamaha-fazzio": {')) errors.push("PriorityModelBrief: Fazzio must not duplicate authority/commercial buyer guidance");
+for (const token of ['modelId:"yamaha-fazzio"','comparisonIds:["honda-click-125i","yamaha-mio-gear","suzuki-burgman-street-ex"]']) if (!authority.includes(token)) errors.push(`modelAuthority: Fazzio authority wave lost token ${token}`);
+for (const token of ['id: "yamaha-fazzio"','srp: 93900','curbWeightKg: 95','seatHeightMm: 750','fuelTankL: 5.1','frontTire: "110/70-12"','marketPriceCheckedAt: "2026-09-22"']) if (!data.includes(token)) errors.push(`Yamaha Fazzio verification: missing token ${token}`);
+
 for (const token of [
   '"honda-pcx-160": {',
   'seoTitle: "Honda PCX160 Price Philippines 2026 | Standard vs RoadSync"'
