@@ -19,6 +19,7 @@ const requireRegex = (source, pattern, message) => {
 };
 
 requireFile("app", "motorcycles", "scooters", "page.tsx");
+requireFile("app", "motorcycles", "expressway-legal", "page.tsx");
 requireFile("lib", "kawasakiBigBikeExpansion2026.ts");
 
 const motorcycles = read("app", "motorcycles", "page.tsx");
@@ -31,6 +32,7 @@ const kawasakiExpansion = read("lib", "kawasakiBigBikeExpansion2026.ts");
 const compareBuilder = read("components", "CompareBuilder.tsx");
 const recommendationData = read("lib", "data.ts");
 const recommendationRoute = read("app", "recommendations", "[slug]", "page.tsx");
+const expresswayGuide = read("app", "motorcycles", "expressway-legal", "page.tsx");
 
 requireText(
   motorcycles,
@@ -103,6 +105,39 @@ requireText(
   '/motorcycles/scooters',
   "National scooter authority page must be included in the motorcycle sitemap."
 );
+
+for (const token of [
+  'path: "/motorcycles/expressway-legal"',
+  'DOTC Department Order No. 2007-38',
+  'NLEX Corporation',
+  'Toll Regulatory Board',
+  'motorcycles-400cc-plus-philippines',
+  'engineCc >= 400'
+]) {
+  requireText(expresswayGuide, token, `Expressway authority hub missing required token: ${token}`);
+}
+requireText(
+  sitemaps,
+  '/motorcycles/expressway-legal',
+  "Expressway motorcycle authority page must be included in the motorcycle sitemap."
+);
+for (const token of [
+  '"400cc motorcycle price Philippines"',
+  '"expressway legal motorcycles Philippines"',
+  '"400cc motorcycles and expressway planning"',
+  '"What to verify before an expressway trip"',
+  '"Where can I check the Philippine expressway motorcycle rule?"'
+]) {
+  requireText(recommendationData, token, `400cc recommendation cluster missing token: ${token}`);
+}
+for (const token of [
+  '400cc motorcycles and expressway planning',
+  'what to verify before an expressway trip',
+  'where can i check the philippine expressway motorcycle rule',
+  'href="/motorcycles/expressway-legal"'
+]) {
+  requireText(recommendationRoute.toLowerCase(), token.toLowerCase(), `400cc recommendation renderer missing authority behavior: ${token}`);
+}
 
 for (const [slug, label, title, modelToken] of [
   ["honda", "Honda", "Honda big bikes in the Philippines", "CB650R, CBR650R, Rebel, X-ADV and Gold Wing"],
