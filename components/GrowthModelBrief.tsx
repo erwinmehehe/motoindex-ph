@@ -96,6 +96,20 @@ const growthBriefs: Record<string, GrowthBrief> = {
     guideHref: "/recommendations#long-rides",
     guideLabel: "Long-distance buying guide"
   },
+  "honda-crf150l": {
+    fit: [
+      "You specifically want a lightweight road-and-trail motorcycle with a 21-inch front wheel, 18-inch rear wheel and 285 mm ground clearance.",
+      "An 863 mm seat works for your inseam and you are comfortable with tall dual-sport low-speed technique."
+    ],
+    check: [
+      "Treat ₱147,900 as Honda Philippines' last official SRP MotoIndex located from June 2023, not as a confirmed 2026 dealer price.",
+      "Honda first-party CRF150L materials publish different fuel-consumption figures, so verify real-world fuel use instead of buying from one headline km/L number."
+    ],
+    ownership: "Confirm current dealer availability first, then budget 21/18-inch trail tires, chain and sprocket wear, fork and suspension service, brake consumables and protection for off-road use. Compare those costs and the tall-seat fit with KLX150, WR155R and CRF300 Rally.",
+    alternatives: ["kawasaki-klx150", "yamaha-wr155r", "honda-crf300-rally"],
+    guideHref: "/recommendations/dual-sport-motorcycles-philippines",
+    guideLabel: "Dual-sport buying guide"
+  },
   "honda-airblade-160": {
     fit: [
       "You are specifically researching the 157cc AirBlade160 package, including its light 114 kg curb weight and front ABS.",

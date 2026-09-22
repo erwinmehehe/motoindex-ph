@@ -17,6 +17,7 @@ const routes=[
   {name:"motorcycle-detail",path:"/motorcycles/yamaha/aerox-v3"},
   {name:"honda-navi",path:"/motorcycles/honda/navi"},
   {name:"honda-beat",path:"/motorcycles/honda/beat"},
+  {name:"honda-crf150l",path:"/motorcycles/honda/crf150l"},
   {name:"crf300-rally",path:"/motorcycles/honda/crf300-rally"},
   {name:"yamaha-r1m",path:"/motorcycles/yamaha/yzf-r1m"},
   {name:"motorstar-cafe-400",path:"/motorcycles/motorstar/cafe-400"},

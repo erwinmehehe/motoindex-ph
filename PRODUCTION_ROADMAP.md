@@ -126,6 +126,18 @@ Honda BeAT is the next high-demand canonical that was blocked by a stale manufac
 - The existing /motorcycles/honda/beat canonical owns price/spec/fuel-economy/short-rider/commuter intent; no separate BeAT price or fuel-economy URL is created.
 - Buyer content separates regular SRP from temporary promotional pricing and adds model-specific decision context plus responsive browser regression coverage.
 
+### Ranking-depth wave 6 — Honda CRF150L canonical
+
+CRF150L has strong stored Philippine search demand, but the source audit does **not** justify presenting its 2023 price as a current 2026 SRP.
+
+- Honda Philippines' last official SRP located is **₱147,900**, published in June 2023.
+- Official Honda material confirms the core trail specification: **149/150cc PGM-FI single**, **9.13 kW**, **11.94 Nm**, **122 kg curb weight**, **863 mm seat**, **285 mm ground clearance**, **7.2 L tank**, **70/100-21 front / 90/100-18 rear tires**, and hydraulic disc brakes front and rear.
+- Honda first-party materials conflict on fuel consumption (**45.5 km/L vs 54.8 km/L**), so MotoIndex does not publish one as the definitive current figure.
+- The model is marked **availability needs recheck**, while the existing /motorcycles/honda/crf150l canonical owns verified spec, historical price-reference and trail-fit intent.
+- No separate CRF150L price/spec/fuel page is created.
+- Browser and permanent responsive QA now cover the canonical directly.
+
+
 
 ---
 

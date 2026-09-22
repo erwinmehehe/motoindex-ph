@@ -74,16 +74,17 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     legacyContext: { heading: "Click 150i vs the current Click 160", body: "Click 150i is retained for historical Philippine price and specification research. Honda introduced the Click 160 as its successor, so use the Click 160 page for current new-bike pricing and research." }
   },
   "honda-crf150l": {
-    seoTitle: "Honda CRF150L Philippines | Price Reference & Trail Specs",
-    seoDescription: "Honda CRF150L Philippine price reference, 149cc specs, 863mm seat, 21/18-inch tires, ground clearance and dual-sport ownership context.",
-    intentIntro: "The CRF150L carries strong Philippine trail and off-road search demand, but MotoIndex's latest official Honda Philippines price reference is from June 2023 and is under freshness review. Use the canonical page for its 149cc specifications, 863 mm seat, 285 mm ground clearance and ownership research, then confirm current dealer pricing before purchase.",
-    moneyQuestion: "What is the current dealer quote for the CRF150L, and how does it compare with the last official Honda Philippines SRP MotoIndex located?",
-    ownershipQuestion: "Compare 21/18-inch tire availability, chain and sprocket service, 285 mm ground clearance, fuel use and Honda support with other lightweight dual-sport motorcycles.",
-    alternativeIds: ["kawasaki-klx150", "yamaha-wr155r"],
-    relatedIds: [],
-    recommendationHref: "/recommendations/best-off-road-motorcycles-philippines",
-    recommendationLabel: "Compare off-road and trail motorcycles"
+    seoTitle: "Honda CRF150L Philippines | Price Reference & Specs",
+    seoDescription: "Honda CRF150L Philippines reference with last official ₱147,900 SRP, 149cc specs, 863mm seat, 285mm clearance, 21/18 tires and trail ownership context.",
+    intentIntro: "The CRF150L remains a high-interest Philippine dual-sport, but the newest official Honda SRP MotoIndex could verify is ₱147,900 from June 2023. Use this canonical page for Honda-sourced chassis, engine and trail-fit specifications, while treating 2026 stock and dealer pricing as an availability check rather than a confirmed current listing.",
+    moneyQuestion: "Is a CRF150L still available new from an authorized Honda dealer, and how does the dealer quote compare with Honda Philippines' last located ₱147,900 official SRP reference?",
+    ownershipQuestion: "Compare the tall 863 mm seat, 285 mm ground clearance, 21/18-inch trail tires, chain and sprocket service, dual disc brakes and local Honda support with other lightweight dual-sports. Honda sources publish conflicting fuel-consumption figures, so confirm real-world fuel use instead of relying on one headline number.",
+    alternativeIds: ["kawasaki-klx150", "yamaha-wr155r", "honda-crf300-rally"],
+    relatedIds: ["honda-crf300-rally"],
+    recommendationHref: "/recommendations/dual-sport-motorcycles-philippines",
+    recommendationLabel: "Compare dual-sport motorcycles"
   },
+
   "kawasaki-ninja-400": {
     seoTitle: "Kawasaki Ninja 400 Philippines | Price, Specs & Ninja 500",
     seoDescription: "Kawasaki Ninja 400 Philippines reference with historical price, 399cc specs, seat height and the current Ninja 500 successor for buyers comparing both.",

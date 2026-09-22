@@ -15,7 +15,8 @@ const pages = [
   ["gold-wing", "/motorcycles/honda/gold-wing"],
   ["rc-390", "/motorcycles/ktm/rc-390"],
   ["honda-navi", "/motorcycles/honda/navi"],
-  ["honda-beat", "/motorcycles/honda/beat"]
+  ["honda-beat", "/motorcycles/honda/beat"],
+  ["honda-crf150l", "/motorcycles/honda/crf150l"]
 ];
 const widths = [390, 1440];
 const failures = [];
@@ -143,12 +144,15 @@ try {
 
       results.push({ width, pathname, ...audit });
       if (!audit?.h1) failures.push(`${width}px ${pathname}: model H1 is missing.`);
-      if (!audit?.commercial) failures.push(`${width}px ${pathname}: priority commercial section is missing.`);
+      if (!audit?.commercial && name !== "honda-crf150l") failures.push(`${width}px ${pathname}: priority commercial section is missing.`);
       if (audit?.canonicalPath !== pathname) failures.push(`${width}px ${pathname}: canonical path is ${audit?.canonicalPath || "missing"}.`);
       if (name === "honda-navi" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda Navi authority section is missing.`);
       if (name === "honda-navi" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name === "honda-beat" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda BeAT authority section is missing.`);
       if (name === "honda-beat" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
+      if (name === "honda-crf150l" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda CRF150L authority section is missing.`);
+      if (name === "honda-crf150l" && audit?.commercial) failures.push(`${width}px ${pathname}: uncertain CRF150L must not render financing/commercial purchase CTAs.`);
+      if (name === "honda-crf150l" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (!audit?.priceLink || !audit?.installmentLink) failures.push(`${width}px ${pathname}: price/monthly anchor links are incomplete.`);
       if (!audit?.priceIndex || !audit?.financeIndex) failures.push(`${width}px ${pathname}: research dataset links are incomplete.`);
       if (!audit?.quoteLink) failures.push(`${width}px ${pathname}: dealer quote link is missing.`);
