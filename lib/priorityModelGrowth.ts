@@ -666,6 +666,28 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     relatedIds: [],
     recommendationHref: "/recommendations/motorcycles-under-400cc-philippines",
     recommendationLabel: "Compare under-400cc motorcycles"
+  },
+  "kawasaki-ninja-h2": {
+    seoTitle: "Kawasaki Ninja H2 Price Philippines 2026 | Specs & Costs",
+    seoDescription: "Kawasaki Ninja H2 Carbon price in the Philippines, 998cc supercharged specs, 231 hp, seat height, weight, ownership costs, financing and alternatives.",
+    intentIntro: "The Ninja H2 Carbon is a current Philippine hypersport with a supercharged 998cc inline-four, 231 hp and a ₱1.855M recorded MSRP. Compare the complete ownership picture, not only the headline power figure: insurance, 200-section rear tires, servicing, rider aids and low-speed weight all materially affect the decision.",
+    moneyQuestion: "What does the Ninja H2 Carbon cost after financing, insurance, registration and high-performance consumables are included?",
+    ownershipQuestion: "Budget premium sport tires, chain and sprockets, insurance, supercharged-engine service, bodywork exposure and Kawasaki Leisure Bikes support before comparing it with other flagship performance motorcycles.",
+    alternativeIds: ["yamaha-yzf-r1m", "kawasaki-z-h2"],
+    relatedIds: ["kawasaki-z-h2", "kawasaki-ninja-zx-4rr"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles"
+  },
+  "honda-rebel-1100": {
+    seoTitle: "Honda Rebel 1100 Price Philippines 2026 | Specs & Costs",
+    seoDescription: "Honda Rebel 1100 price in the Philippines, 1084cc twin specs, DCT, 709mm seat, weight, ownership costs, financing, tires, service and alternatives.",
+    intentIntro: "The Rebel 1100 combines a low 709 mm seat with an 1084cc parallel twin, DCT and a 237 kg curb weight. Compare its low-seat accessibility with the real purchase, insurance, tire and service costs rather than treating seat height as the whole ownership decision.",
+    moneyQuestion: "How does the Rebel 1100 total purchase cost compare with the Rebel 500 and other large road bikes after financing, insurance and registration?",
+    ownershipQuestion: "Plan for 18/16-inch tires, insurance, DCT service, battery care, low-speed handling at 237 kg and Honda big-bike service access before choosing it from engine size alone.",
+    alternativeIds: ["honda-rebel-500", "triumph-speed-twin-900", "royal-enfield-super-meteor-650"],
+    relatedIds: ["honda-rebel-500", "honda-gold-wing"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles"
   }
 };
 

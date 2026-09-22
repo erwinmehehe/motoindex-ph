@@ -94,6 +94,18 @@ Next SEO sequence after this wave:
 4. Comparison expansion only where both canonical model pages already have verified current data.
 5. Tire/top-box/helmet fitment depth with real compatibility evidence.
 
+
+### Ranking-depth wave 3 — flagship and cruiser canonicals
+
+Next high-volume verified models without the stronger canonical buying layer:
+
+- **Kawasaki Ninja H2 Carbon** — strengthen current Philippine price, supercharged 998cc/231 hp specification intent, insurance/consumables context, ownership cost and cross-shopping with R1M and Z H2.
+- **Honda Rebel 1100** — strengthen current Philippine price, 1084cc DCT, 709 mm seat-height intent, low-speed weight context, ownership cost and cross-shopping with Rebel 500 and other large road bikes.
+- Both retain one canonical model URL and now receive model-specific buyer briefs, decision-authority content, commercial-intent links and CI protection.
+- **Honda Navi is intentionally not promoted in this wave** despite its large keyword estimate because its stored manufacturer record is still marked for source recheck. Re-verify the current Philippine model/price first, then decide whether it deserves a ranking-depth upgrade.
+
+This wave continues the current rule: improve verified canonical pages before creating new price/spec/installment URLs.
+
 ---
 
 # MotoIndex PH Production Roadmap
