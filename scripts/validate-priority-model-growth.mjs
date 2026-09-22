@@ -10,6 +10,7 @@ const modelPage = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
 const recommendationPage = read("app", "recommendations", "[slug]", "page.tsx");
 const commercial = read("components", "PriorityCommercialIntent.tsx");
 const buyerBrief = read("components", "PriorityModelBrief.tsx");
+const authority = read("lib", "modelAuthority.ts");
 const data = read("lib", "data.ts");
 const route = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
 const tier23 = read("lib", "phTier23ModelsBase.ts");
@@ -52,7 +53,9 @@ const priorityModels = [
   "honda-cbr650r",
   "yamaha-yzf-r7",
   "kawasaki-ninja-zx-25r",
-  "bajaj-dominar-400"
+  "bajaj-dominar-400",
+  "kawasaki-ninja-h2",
+  "honda-rebel-1100"
 ];
 
 for (const id of priorityModels) {
@@ -91,6 +94,28 @@ for (const token of [
   'seoTitle: "Bajaj Dominar 400 Price Philippines 2026 | Specs & Costs"'
 ]) {
   if (!growth.includes(token)) errors.push(`priorityModelGrowth: ranking-depth wave two lost token ${token}`);
+}
+
+for (const id of ["kawasaki-ninja-h2", "honda-rebel-1100"]) {
+  if (!buyerBrief.includes(`"${id}": {`)) {
+    errors.push(`PriorityModelBrief: missing ranking-depth wave-three buyer brief for ${id}`);
+  }
+}
+
+for (const token of [
+  'seoTitle: "Kawasaki Ninja H2 Price Philippines 2026 | Specs & Costs"',
+  'seoTitle: "Honda Rebel 1100 Price Philippines 2026 | Specs & Costs"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: ranking-depth wave three lost token ${token}`);
+}
+
+for (const token of [
+  'modelId:"kawasaki-ninja-h2"',
+  'modelId:"honda-rebel-1100"',
+  'comparisonIds:["yamaha-yzf-r1m","kawasaki-z-h2"]',
+  'comparisonIds:["honda-rebel-500","triumph-speed-twin-900","royal-enfield-super-meteor-650"]'
+]) {
+  if (!authority.includes(token)) errors.push(`modelAuthority: ranking-depth wave three lost token ${token}`);
 }
 
 if (!tier23.includes('sourceUrl: "https://www.hondaph.com/honda-bigbikes/files/products/65faa98599e4d.pdf"')) {
@@ -186,7 +211,14 @@ for (const token of [
   'id: "vespa-gtv-300"',
   'sourceUrl: "https://www.vespa.com/ph_EN/models/gtv/gtv-300-hpe-2025/"',
   'id: "vespa-primavera-150"',
-  'id: "vespa-sprint-150"'
+  'id: "vespa-sprint-150"',
+  'id: "kawasaki-ninja-h2"',
+  'sourceUrl: "https://www.kawasakileisurebikes.ph/motorcycles/supersports/ninja-h2-carbon/"',
+  'marketStatus: "current"',
+  'id: "honda-rebel-1100"',
+  'engineCc: 1083',
+  'seatHeightMm: 690'
+
 ]) {
   if (!tier23.includes(token)) {
     errors.push(`priorityModelGrowth: tier-2/3 competitor-gap evidence missing: ${token}`);
