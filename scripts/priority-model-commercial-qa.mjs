@@ -20,7 +20,8 @@ const pages = [
   ["yamaha-aerox-v3", "/motorcycles/yamaha/aerox-v3"],
   ["yamaha-nmax-v3", "/motorcycles/yamaha/nmax-v3"],
   ["honda-adv-160", "/motorcycles/honda/adv-160"],
-  ["honda-click-160", "/motorcycles/honda/click-160"]
+  ["honda-click-160", "/motorcycles/honda/click-160"],
+  ["honda-pcx-160", "/motorcycles/honda/pcx-160"]
 ];
 const widths = [390, 1440];
 const failures = [];
@@ -165,6 +166,8 @@ try {
       if (name === "honda-adv-160" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name === "honda-click-160" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda Click160 authority section is missing.`);
       if (name === "honda-click-160" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
+      if (name === "honda-pcx-160" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda PCX160 authority section is missing.`);
+      if (name === "honda-pcx-160" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name !== "honda-crf150l") {
         if (!audit?.priceLink || !audit?.installmentLink) failures.push(`${width}px ${pathname}: price/monthly anchor links are incomplete.`);
         if (!audit?.priceIndex || !audit?.financeIndex) failures.push(`${width}px ${pathname}: research dataset links are incomplete.`);

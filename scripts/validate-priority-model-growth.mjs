@@ -186,6 +186,20 @@ for (const token of [
 }
 
 for (const token of [
+  '"honda-pcx-160": {',
+  'seoTitle: "Honda PCX160 Price Philippines 2026 | Standard vs RoadSync"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: PCX160 authority wave lost token ${token}`);
+}
+if (buyerBrief.includes('"honda-pcx-160": {')) errors.push("PriorityModelBrief: PCX160 must not duplicate authority/commercial buyer guidance");
+for (const token of ['modelId:"honda-pcx-160"','comparisonIds:["yamaha-nmax-v3","honda-adv-160","yamaha-aerox-v3"]']) {
+  if (!authority.includes(token)) errors.push(`modelAuthority: PCX160 authority wave lost token ${token}`);
+}
+for (const token of ['id: "honda-pcx-160"','srp: 133500','marketPriceHighPhp: 155000','seatHeightMm: 764','fuelTankL: 8.1','fuelConsumptionKmL: 46.0','marketPriceCheckedAt: "2026-09-22"']) {
+  if (!data.includes(token)) errors.push(`Honda PCX160 verification: missing token ${token}`);
+}
+
+for (const token of [
   '"honda-click-160": {',
   'seoTitle: "Honda Click160 Price Philippines 2026 | Specs & Monthly"'
 ]) {

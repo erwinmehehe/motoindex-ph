@@ -437,11 +437,11 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 160cc scooters"
   },
   "honda-pcx-160": {
-    seoTitle: "Honda PCX160 Price Philippines 2026 | Specs & Ownership",
-    seoDescription: "Honda PCX160 price in the Philippines, 157cc specs, variants, seat height, tires, down payment, monthly estimate, fuel and ownership costs.",
-    intentIntro: "The PCX160 is a comfort-led premium scooter, so compare Standard and RoadSync pricing, financing, low-seat fit, tank range and ownership costs against NMAX V3 and ADV160 before choosing on styling alone.",
-    moneyQuestion: "How much does the PCX160 cost once the exact variant, down payment, monthly payment, insurance and dealer fees are included?",
-    ownershipQuestion: "Compare CVT service, 14/13-inch tire replacement, fuel range, bodywork, insurance and Honda support with NMAX V3 and ADV160.",
+    seoTitle: "Honda PCX160 Price Philippines 2026 | Standard vs RoadSync",
+    seoDescription: "Honda PCX160 Philippines: ₱133,500 Standard vs ₱155,000 RoadSync, 157cc specs, 764mm seat, 46 km/L, ABS/HSTC differences, monthly cost and ownership.",
+    intentIntro: "PCX160 is a two-trim premium-scooter decision. Honda's 2026 reference puts Standard at ₱133,500 and RoadSync at ₱155,000, so compare what the ₱21,500 premium changes in braking, HSTC and connectivity before financing either version.",
+    moneyQuestion: "Is the ₱21,500 RoadSync premium worth it after the exact dealer quote, down payment, monthly payment, insurance, registration and the trim-specific safety/connectivity equipment are compared?",
+    ownershipQuestion: "Compare the 764 mm seat, 131 kg curb weight, 8.1 L tank, 46.0 km/L figure, 14/13-inch tires, CVT service and bodywork costs with NMAX V3 and ADV160.",
     alternativeIds: ["yamaha-nmax-v3", "honda-adv-160", "yamaha-aerox-v3"],
     relatedIds: ["honda-adv-160", "honda-click-160"],
     recommendationHref: "/recommendations/160cc-scooters-philippines",

@@ -1002,3 +1002,14 @@ Click160 is the next verified current-model demand gap after ADV160, with roughl
 - Strengthen current-dealer-quote, CBS-vs-ABS, rider-fit, fuel, CVT and Click125/PCX160/Aerox comparison intent.
 - Add direct browser QA at 390px and 1440px plus permanent visual coverage at 390px, 768px and 1440px.
 
+### Ranking-depth wave 11 — Honda PCX160 authority
+
+PCX160 is the next verified current-model demand gap after Click160, with roughly 8.3K stored monthly search demand.
+
+- Keep /motorcycles/honda/pcx-160 as the only PCX160 canonical.
+- Separate 2026 **Standard ₱133,500** from **RoadSync ₱155,000** and explain the ₱21,500 trim premium.
+- Keep RoadSync ABS/HSTC/connectivity claims trim-specific rather than generalizing them to Standard.
+- Remove the duplicate PriorityModelBrief and retain one commercial buyer layer plus one distinct decision-authority layer.
+- Strengthen 764 mm rider fit, 8.1 L range, 46.0 km/L, financing, passenger comfort, mixed tire sizes and CVT ownership intent.
+- Add direct browser QA at 390px and 1440px plus permanent visual coverage at 390px, 768px and 1440px.
+

@@ -14,12 +14,7 @@ const briefs: Record<string, Brief> = {
 
 
 
-  "honda-pcx-160": {
-    fit: ["You want a comfort-led 160cc-class automatic with a larger tank than a basic commuter scooter.", "You are shopping against NMAX rather than only smaller Click/Mio commuters."],
-    check: ["Compare exact trim and braking equipment rather than treating every PCX 160 listing as identical.", "Test low-speed weight, seat width and passenger space in person."],
-    ownership: "Compare the final dealer price, financing and insurance with NMAX V3, then include tires and CVT service in the monthly ownership estimate.",
-    alternatives: ["yamaha-nmax-v3", "honda-adv-160", "honda-click-160"]
-  },
+
   "yamaha-fazzio": {
     fit: ["You want a small automatic commuter with retro styling and a purchase price below the premium 155–160cc class.", "Ease of daily city use matters more than high output or long-distance bodywork."],
     check: ["Confirm current variant pricing and color availability.", "Compare storage, braking equipment and actual rider fit with other small automatic scooters."],

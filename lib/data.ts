@@ -267,14 +267,15 @@ export const motorcycles: Motorcycle[] = [
     keywordDifficulty: 0,
     sourceLabel: "Honda Philippines 2026 PCX160 Standard and RoadSync reference",
     sourceUrl: "https://www.hondaph.com/motorcycle/news/filipino-urban-professionals-are-now-choosing-motorcycles-heres-why",
-    verifiedAt: "2026-09-19",
+    verifiedAt: "2026-09-22",
     freshness: "verified",
     marketPriceHighPhp: 155000,
-    marketPriceSourceLabel: "Honda Philippines",
+    marketPriceSourceLabel: "Honda Philippines 2026 Standard and RoadSync reference",
     marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/news/filipino-urban-professionals-are-now-choosing-motorcycles-heres-why",
-    marketPriceCheckedAt: "2026-09-19",
+    marketPriceCheckedAt: "2026-09-22",
+    priceContext: "Honda's 2026 PCX160 reference separates Standard at ₱133,500 from RoadSync at ₱155,000. RoadSync also changes the braking/electronics package, so compare the exact trim rather than treating the ₱21,500 difference as connectivity alone.",
     transmission: "Automatic",
-    summary: "157cc maxi-scooter with a 764 mm seat, 131 kg curb weight and Standard/RoadSync variants."
+    summary: "Current 157cc comfort-led maxi-scooter with a 764 mm seat, 131 kg curb weight, 8.1 L tank and distinct Standard/RoadSync variants."
   },
   {
     id: "yamaha-fazzio",

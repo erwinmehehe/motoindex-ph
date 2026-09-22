@@ -18,6 +18,7 @@ const routes=[
   {name:"yamaha-nmax-v3",path:"/motorcycles/yamaha/nmax-v3"},
   {name:"honda-adv-160",path:"/motorcycles/honda/adv-160"},
   {name:"honda-click-160",path:"/motorcycles/honda/click-160"},
+  {name:"honda-pcx-160",path:"/motorcycles/honda/pcx-160"},
   {name:"honda-navi",path:"/motorcycles/honda/navi"},
   {name:"honda-beat",path:"/motorcycles/honda/beat"},
   {name:"honda-crf150l",path:"/motorcycles/honda/crf150l"},
