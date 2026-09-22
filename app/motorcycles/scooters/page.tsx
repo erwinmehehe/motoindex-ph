@@ -49,6 +49,7 @@ const itemListSchema = {
 };
 
 const childClusters = [
+  { href: "/recommendations/best-scooters-philippines", label: "Best scooters to compare", note: "Editorial comparison by price, rider fit, braking, fuel data and everyday use" },
   { href: "/recommendations/125cc-scooters-philippines", label: "125cc scooters", note: `${class125} current models in the 100–125cc band` },
   { href: "/recommendations/150cc-scooters-philippines", label: "150cc & 155cc scooters", note: `${class150} current models in the 140–155cc band` },
   { href: "/recommendations/160cc-scooters-philippines", label: "160cc scooters", note: `${class160} current models in the 156–165cc band` },
@@ -91,7 +92,7 @@ export default function ScootersPage() {
       <section className="section" aria-labelledby="scooter-clusters">
         <SectionHeader
           kicker="Narrow the market"
-          title="Compare scooters by engine size and brand"
+          title="Compare scooters by use, engine size and brand"
           titleId="scooter-clusters"
           description="These child guides answer narrower buying questions without splitting model details across separate pages."
         />
