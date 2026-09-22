@@ -16,6 +16,7 @@ const route = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
 const tier23 = read("lib", "phTier23ModelsBase.ts");
 const brandGrowth = read("lib", "brandSeoGrowth.ts");
 const brandPage = read("app", "motorcycles", "[make]", "page.tsx");
+const brandSupport = read("lib", "phBrandSupport.ts");
 
 const priorityModels = [
   "yamaha-aerox-v3",
@@ -116,6 +117,15 @@ for (const token of [
   'comparisonIds:["honda-rebel-500","triumph-speed-twin-900","royal-enfield-super-meteor-650"]'
 ]) {
   if (!authority.includes(token)) errors.push(`modelAuthority: ranking-depth wave three lost token ${token}`);
+}
+
+for (const token of [
+  'makeSlug:"honda"',
+  'serviceUrl:"https://www.hondaph.com/service-calculator"',
+  'makeSlug:"kawasaki"',
+  'serviceUrl:"https://www.kawasakileisurebikes.ph/services/service-network/"'
+]) {
+  if (!brandSupport.includes(token)) errors.push(`priorityModelGrowth: ranking-depth wave three brand support missing token ${token}`);
 }
 
 if (!tier23.includes('sourceUrl: "https://www.hondaph.com/honda-bigbikes/files/products/65faa98599e4d.pdf"')) {
