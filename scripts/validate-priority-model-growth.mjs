@@ -186,6 +186,37 @@ for (const token of [
 }
 
 for (const token of [
+  '"yamaha-nmax-v3": {',
+  'seoTitle: "Yamaha NMAX V3 Price Philippines 2026 | Tech Max Specs"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: NMAX V3 authority wave lost token ${token}`);
+}
+
+if (buyerBrief.includes('"yamaha-nmax-v3": {')) {
+  errors.push("PriorityModelBrief: NMAX V3 must not duplicate the authority/commercial buyer guidance");
+}
+
+for (const token of [
+  'modelId:"yamaha-nmax-v3"',
+  'comparisonIds:["yamaha-aerox-v3","honda-pcx-160","honda-adv-160"]'
+]) {
+  if (!authority.includes(token)) errors.push(`modelAuthority: NMAX V3 authority wave lost token ${token}`);
+}
+
+for (const token of [
+  'id: "yamaha-nmax-v3"',
+  'srp: 155900',
+  'marketPriceHighPhp: 178400',
+  'seatHeightMm: 770',
+  'fuelTankL: 7.1',
+  'sourceUrl: "https://www.yamaha-motor.com.ph/yecvt"',
+  'marketPriceSourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-nmax-techmax/"',
+  'marketPriceCheckedAt: "2026-09-22"'
+]) {
+  if (!data.includes(token)) errors.push(`Yamaha NMAX V3 verification: missing token ${token}`);
+}
+
+for (const token of [
   '"yamaha-aerox-v3": {',
   'seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Specs & Monthly"'
 ]) {

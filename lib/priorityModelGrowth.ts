@@ -159,11 +159,11 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 150cc and 155cc scooters"
   },
   "yamaha-nmax-v3": {
-    seoTitle: "Yamaha NMAX V3 Price Philippines 2026 | Specs & Monthly",
-    seoDescription: "Yamaha NMAX V3 price in the Philippines, 155cc specs, variants, seat height, tire sizes, down payment, monthly estimate and ownership costs.",
-    intentIntro: "The NMAX V3 sits in the premium 155cc scooter tier, where trim choice and total cost matter as much as the base price. Compare Standard and Tech MAX pricing, financing, rider fit, fuel range and ownership against Aerox, PCX160 and ADV160.",
-    moneyQuestion: "How much does the NMAX V3 cost once the exact variant, down payment, monthly payment, registration, insurance and dealer fees are included?",
-    ownershipQuestion: "Compare CVT service, 13-inch tires, fuel range, insurance and local Yamaha support with Aerox V3, PCX160 and ADV160.",
+    seoTitle: "Yamaha NMAX V3 Price Philippines 2026 | Tech Max Specs",
+    seoDescription: "Yamaha NMAX V3 price in the Philippines, Standard vs Tech Max, 155cc specs, YECVT, 770mm seat, monthly estimate, ownership costs and alternatives.",
+    intentIntro: "NMAX V3 buyers need to separate the regular NMAX from the higher-spec Tech Max rather than compare one blended price. The stored regular-line reference is ₱155,900, while current dealer data lists Tech Max at ₱178,400; Yamaha identifies Tech Max as the YECVT-equipped version.",
+    moneyQuestion: "How much does the exact NMAX or NMAX Tech Max cost after the branch quote, down payment, monthly payment, registration, insurance and dealer charges are included?",
+    ownershipQuestion: "Compare CVT/YECVT service by trim, 13-inch tire replacement, the 7.1 L tank, insurance, passenger use and Yamaha service access with Aerox V3, PCX160 and ADV160.",
     alternativeIds: ["yamaha-aerox-v3", "honda-pcx-160", "honda-adv-160"],
     relatedIds: ["yamaha-aerox-v3", "yamaha-xmax"],
     recommendationHref: "/recommendations/150cc-scooters-philippines",

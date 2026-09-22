@@ -11,12 +11,7 @@ type Brief = {
 
 const briefs: Record<string, Brief> = {
 
-  "yamaha-nmax-v3": {
-    fit: ["You want a premium 155cc automatic with a lower 770 mm published seat and larger 7.1 L tank.", "Comfort, weather protection and longer daily rides matter more than minimum weight."],
-    check: ["Confirm Standard versus Tech Max pricing and equipment.", "At 131 kg curb weight, test parking and U-turn confidence rather than judging fit from seat height alone."],
-    ownership: "Compare the final on-road price and financing terms with PCX 160 and Aerox V3, then budget for CVT consumables and model-specific tires.",
-    alternatives: ["honda-pcx-160", "yamaha-aerox-v3", "honda-adv-160"]
-  },
+
   "honda-adv-160": {
     fit: ["You want an automatic scooter with more ground clearance and an 8.1 L tank for mixed city and provincial use.", "You value the ADV layout and current ABS/HSTC equipment more than minimum purchase price."],
     check: ["Confirm the exact ABS/RoadSync variant and current dealer price.", "Test the 780 mm seat and 133 kg curb weight with your normal footwear and luggage plans."],

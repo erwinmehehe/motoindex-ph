@@ -71,9 +71,10 @@ export const motorcycles: Motorcycle[] = [
     marketPriceHighPhp: 178400,
     marketPriceSourceLabel: "Motortrade Philippines dealer listing",
     marketPriceSourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-nmax-techmax/",
-    marketPriceCheckedAt: "2026-09-19",
+    marketPriceCheckedAt: "2026-09-22",
+    priceContext: "The stored ₱155,900 reference represents the regular current NMAX line, while current dealer data lists the higher-spec NMAX Tech Max at ₱178,400. Yamaha identifies Tech Max as the YECVT-equipped trim, so compare exact trim and branch quote before financing.",
     transmission: "Automatic",
-    summary: "155cc maxi-scooter with a 770 mm seat, 131 kg curb weight and Standard/Tech Max variants."
+    summary: "Current 155cc premium scooter with a 770 mm seat, 131 kg curb weight, 7.1 L tank and meaningful Standard/Tech Max equipment differences."
   },
   {
     id: "yamaha-aerox-v2",

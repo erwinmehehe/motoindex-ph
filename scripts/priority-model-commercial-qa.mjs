@@ -17,7 +17,8 @@ const pages = [
   ["honda-navi", "/motorcycles/honda/navi"],
   ["honda-beat", "/motorcycles/honda/beat"],
   ["honda-crf150l", "/motorcycles/honda/crf150l"],
-  ["yamaha-aerox-v3", "/motorcycles/yamaha/aerox-v3"]
+  ["yamaha-aerox-v3", "/motorcycles/yamaha/aerox-v3"],
+  ["yamaha-nmax-v3", "/motorcycles/yamaha/nmax-v3"]
 ];
 const widths = [390, 1440];
 const failures = [];
@@ -156,6 +157,8 @@ try {
       if (name === "honda-crf150l" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name === "yamaha-aerox-v3" && !audit?.authority) failures.push(`${width}px ${pathname}: Yamaha Aerox V3 authority section is missing.`);
       if (name === "yamaha-aerox-v3" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
+      if (name === "yamaha-nmax-v3" && !audit?.authority) failures.push(`${width}px ${pathname}: Yamaha NMAX V3 authority section is missing.`);
+      if (name === "yamaha-nmax-v3" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name !== "honda-crf150l") {
         if (!audit?.priceLink || !audit?.installmentLink) failures.push(`${width}px ${pathname}: price/monthly anchor links are incomplete.`);
         if (!audit?.priceIndex || !audit?.financeIndex) failures.push(`${width}px ${pathname}: research dataset links are incomplete.`);

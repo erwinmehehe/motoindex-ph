@@ -968,3 +968,15 @@ Unless the user gives a different priority, the next monetization work should fo
 Do not start public lead collection until a real dealer/partner workflow is supplied or verified. The required gate is: partner identity, consent copy, lead destination/storage, access control, retention policy, moderation/operations and success/failure measurement.
 
 If that partner workflow is not yet available, continue adding independently verified retailer observations to high-demand accessory products and rechecking stale offers instead of creating a new monetization surface.
+
+### Ranking-depth wave 8 — Yamaha NMAX V3 authority
+
+NMAX V3 is the next largest verified current-model demand gap after Aerox V3 that already has a canonical page but lacks the stronger decision-authority layer.
+
+- Keep /motorcycles/yamaha/nmax-v3 as the only NMAX V3 canonical.
+- Separate the regular NMAX ₱155,900 reference from the current ₱178,400 Tech Max dealer reference.
+- Treat Yamaha YECVT as Tech Max-specific rather than generalizing it across every NMAX trim.
+- Remove the duplicate PriorityModelBrief and keep one commercial buyer layer plus one distinct authority layer.
+- Cover Standard-vs-Tech-Max, YECVT, rider fit, fuel range, financing, passenger use and ownership without creating thin variant URLs.
+- Add direct browser QA at 390px and 1440px and permanent visual coverage at 390px, 768px and 1440px.
+

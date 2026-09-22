@@ -15,6 +15,7 @@ const routes=[
   {name:"kawasaki-brand",path:"/motorcycles/kawasaki"},
   {name:"vespa-brand",path:"/motorcycles/vespa"},
   {name:"motorcycle-detail",path:"/motorcycles/yamaha/aerox-v3"},
+  {name:"yamaha-nmax-v3",path:"/motorcycles/yamaha/nmax-v3"},
   {name:"honda-navi",path:"/motorcycles/honda/navi"},
   {name:"honda-beat",path:"/motorcycles/honda/beat"},
   {name:"honda-crf150l",path:"/motorcycles/honda/crf150l"},
