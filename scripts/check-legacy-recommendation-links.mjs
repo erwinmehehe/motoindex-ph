@@ -26,6 +26,9 @@ for (const base of scanRoots) {
     if (rel === "app/recommendations/RecommendationGuideArchive.tsx") continue;
     if (rel === "app/motorcycles/page.tsx") continue;
     if (rel === "app/motorcycles/scooters/page.tsx") continue;
+    // Brand pages are canonical entity hubs. They may link directly to
+    // brand/category recommendation guides such as Honda/Yamaha scooters.
+    if (rel === "app/motorcycles/[make]/page.tsx") continue;
     if (rel === "app/motorcycles/expressway-legal/page.tsx") continue;
     if (rel.startsWith("app/recommendations/electric-")) continue;
 
