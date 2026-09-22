@@ -426,12 +426,12 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 125cc scooters"
   },
   "honda-click-160": {
-    seoTitle: "Honda Click 160 Price Philippines 2026 | Specs & Ownership",
-    seoDescription: "Honda Click 160 price in the Philippines, 157cc specs, seat height, tire sizes, down payment, monthly estimate, fuel economy and ownership costs.",
-    intentIntro: "The Click 160 competes directly with sport and premium scooters, so compare its lower weight and commuter focus against ADV160, Aerox V3 and PCX160 on price, financing, braking, fit and ownership.",
-    moneyQuestion: "Does the Click 160 remain the better-value 160-class choice after down payment, monthly payment, insurance and dealer fees are included?",
-    ownershipQuestion: "Compare CVT maintenance, 14-inch tires, fuel economy, storage and Honda service convenience with ADV160, Aerox V3 and PCX160.",
-    alternativeIds: ["honda-adv-160", "yamaha-aerox-v3", "honda-pcx-160"],
+    seoTitle: "Honda Click160 Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "Honda Click160 Philippines guide with latest official ₱116,900 price reference, 157cc specs, 778mm seat, 46.7 km/L, CBS, monthly estimate and ownership.",
+    intentIntro: "Honda's 2026 catalog still lists Click160, while the latest explicit Honda SRP MotoIndex located is ₱116,900 from September 2024. Use that as an official price reference, not a guaranteed 2026 dealer quote, then compare the 157cc eSP+ engine, 116 kg curb weight and CBS commuter package with current alternatives.",
+    moneyQuestion: "What is the current dealer quote for Click160, and how does it compare with Honda's latest located ₱116,900 official SRP reference after down payment, monthly payment, insurance, registration and dealer charges?",
+    ownershipQuestion: "Compare the 778 mm seat, 116 kg curb weight, 5.5 L tank, 46.7 km/L WMTC figure, 14-inch tires, CBS braking and CVT service with Click125, PCX160 and Aerox V3.",
+    alternativeIds: ["honda-click-125i", "honda-pcx-160", "yamaha-aerox-v3"],
     relatedIds: ["honda-click-125i", "honda-adv-160"],
     recommendationHref: "/recommendations/160cc-scooters-philippines",
     recommendationLabel: "Compare 160cc scooters"

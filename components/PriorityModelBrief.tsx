@@ -13,12 +13,7 @@ const briefs: Record<string, Brief> = {
 
 
 
-  "honda-click-160": {
-    fit: ["You want a compact 157cc automatic that stays lighter than many premium 160cc scooters.", "City maneuverability and purchase price matter more than a large fuel tank or touring bodywork."],
-    check: ["The stored braking record is CBS rather than ABS, so compare braking equipment deliberately.", "Confirm current dealer price, color and stock instead of relying on an old marketplace listing."],
-    ownership: "Its 14-inch tire sizes and 5.5 L tank are straightforward commuter considerations. Compare fuel, CVT service and insurance with the Click 125i before paying more for the larger engine.",
-    alternatives: ["honda-click-125i", "yamaha-aerox-v3", "honda-pcx-160"]
-  },
+
   "honda-pcx-160": {
     fit: ["You want a comfort-led 160cc-class automatic with a larger tank than a basic commuter scooter.", "You are shopping against NMAX rather than only smaller Click/Mio commuters."],
     check: ["Compare exact trim and braking equipment rather than treating every PCX 160 listing as identical.", "Test low-speed weight, seat width and passenger space in person."],

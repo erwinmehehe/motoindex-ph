@@ -197,15 +197,16 @@ export const motorcycles: Motorcycle[] = [
     colors: ["Matte Gunpowder Black Metallic", "Matte Solar Red Metallic", "Matte Cosmo Silver Metallic"],
     searchVolume: 11000,
     keywordDifficulty: 0,
-    sourceLabel: "Honda Philippines Click160 specification and SRP reference",
+    sourceLabel: "Honda Philippines current 2026 catalog presence plus September 2024 Click160 price/spec reference",
     sourceUrl: "https://www.hondaph.com/motorcycle/news/ready-to-take-on-the-world-step-up-your-game-with-a-sportier-and-more-stylish-the-new-click160",
-    verifiedAt: "2026-09-19",
+    verifiedAt: "2026-09-22",
     freshness: "verified",
-    marketPriceSourceLabel: "Honda Philippines",
+    marketPriceSourceLabel: "Honda Philippines latest explicit Click160 SRP located (September 2024)",
     marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/news/ready-to-take-on-the-world-step-up-your-game-with-a-sportier-and-more-stylish-the-new-click160",
-    marketPriceCheckedAt: "2026-09-19",
+    marketPriceCheckedAt: "2026-09-22",
+    priceContext: "Honda's current 2026 motorcycle catalog still lists Click160, but the latest explicit Honda SRP MotoIndex located is ₱116,900 from September 2024. Treat ₱116,900 as the latest official price reference and confirm the current branch quote before financing.",
     transmission: "Automatic",
-    summary: "157cc automatic scooter weighing 116 kg, with a 778 mm seat and 5.5 L fuel tank."
+    summary: "Current-catalog 157cc automatic commuter scooter weighing 116 kg, with a 778 mm seat, 5.5 L tank, 46.7 km/L WMTC and CBS braking."
   },
   {
     id: "honda-click-150i",

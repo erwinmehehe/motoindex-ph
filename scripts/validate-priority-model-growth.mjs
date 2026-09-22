@@ -186,6 +186,38 @@ for (const token of [
 }
 
 for (const token of [
+  '"honda-click-160": {',
+  'seoTitle: "Honda Click160 Price Philippines 2026 | Specs & Monthly"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: Click160 authority wave lost token ${token}`);
+}
+
+if (buyerBrief.includes('"honda-click-160": {')) {
+  errors.push("PriorityModelBrief: Click160 must not duplicate the authority/commercial buyer guidance");
+}
+
+for (const token of [
+  'modelId:"honda-click-160"',
+  'comparisonIds:["honda-click-125i","honda-pcx-160","yamaha-aerox-v3"]'
+]) {
+  if (!authority.includes(token)) errors.push(`modelAuthority: Click160 authority wave lost token ${token}`);
+}
+
+for (const token of [
+  'id: "honda-click-160"',
+  'srp: 116900',
+  'engineCc: 157',
+  'curbWeightKg: 116',
+  'seatHeightMm: 778',
+  'fuelTankL: 5.5',
+  'fuelConsumptionKmL: 46.7',
+  'abs: "Combined Braking System (CBS)"',
+  'marketPriceCheckedAt: "2026-09-22"'
+]) {
+  if (!data.includes(token)) errors.push(`Honda Click160 verification: missing token ${token}`);
+}
+
+for (const token of [
   '"honda-adv-160": {',
   'seoTitle: "Honda ADV160 Price Philippines 2026 | ABS & RoadSync"'
 ]) {

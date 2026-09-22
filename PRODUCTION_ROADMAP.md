@@ -991,3 +991,14 @@ ADV160 is the next verified current-model demand gap after NMAX V3, with roughly
 - Cover variant value, financing, 780 mm rider fit, 45.0 km/L WMTC, 8.1 L range, mixed tire sizes, accessories and CVT ownership without thin variant URLs.
 - Add direct browser QA at 390px and 1440px plus permanent visual coverage at 390px, 768px and 1440px.
 
+### Ranking-depth wave 10 — Honda Click160 authority
+
+Click160 is the next verified current-model demand gap after ADV160, with roughly 11K stored monthly search demand.
+
+- Keep /motorcycles/honda/click-160 as the only Click160 canonical.
+- Honda's current 2026 catalog still lists Click160, while the latest explicit Honda SRP located is **₱116,900 from September 2024**; do not mislabel that older SRP as a newly published 2026 price.
+- Preserve first-party 157cc, 11.3 kW, 13.8 Nm, 46.7 km/L WMTC, 778 mm seat, 116 kg curb weight, 5.5 L tank and CBS facts.
+- Remove the duplicate PriorityModelBrief and keep one commercial buyer layer plus one distinct decision-authority layer.
+- Strengthen current-dealer-quote, CBS-vs-ABS, rider-fit, fuel, CVT and Click125/PCX160/Aerox comparison intent.
+- Add direct browser QA at 390px and 1440px plus permanent visual coverage at 390px, 768px and 1440px.
+
