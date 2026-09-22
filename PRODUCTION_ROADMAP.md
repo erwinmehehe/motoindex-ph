@@ -77,6 +77,24 @@ Built from the highest remaining competitor topic gap without multiplying thin U
 
 The cluster stays data-driven from current canonical motorcycle records. Price order is explicitly not presented as an overall quality ranking, and all new cross-links are guarded by market-hub validation.
 
+### Expressway + 400cc authority wave
+
+Built on the existing canonical URLs instead of creating duplicate 400cc/expressway pages:
+
+- **/motorcycles/expressway-legal** — strengthened around the official at-least-400cc rule, current NLEX/TRB operator context, borderline sub-400cc warnings, current 400cc+ market data and reciprocal links into the buying guide.
+- **/recommendations/motorcycles-400cc-plus-philippines** — expanded for 400cc price, big-bike and expressway-research intent while keeping legal eligibility separate from a product-specification filter.
+- Added intent-specific answers for expressway planning, trip verification and the official-rule source.
+- Added market-hub CI guards for the expressway page, sitemap inclusion, official-source tokens and reciprocal 400cc-guide architecture.
+- No new thin price/spec/installment URLs were introduced.
+
+Next SEO sequence after this wave:
+1. Search Console ranking-depth pass on high-impression pages already ranking 4–20.
+2. Model-page wave 3 from the remaining query-level competitor gap.
+3. Official maintenance/ownership depth for NMAX, Aerox, ADV and Fazzio where owner-manual data is available.
+4. Comparison expansion only where both canonical model pages already have verified current data.
+5. Tire/top-box/helmet fitment depth with real compatibility evidence.
+
+
 ### Ranking-depth wave 3 — flagship and cruiser canonicals
 
 Next high-volume verified models without the stronger canonical buying layer:
