@@ -10,12 +10,7 @@ type Brief = {
 };
 
 const briefs: Record<string, Brief> = {
-  "yamaha-aerox-v3": {
-    fit: ["You want a light 155cc automatic with a sport-scooter riding position.", "You are comparing stronger acceleration and lower weight against more comfort-led premium scooters."],
-    check: ["Compare Standard and SP equipment before comparing prices.", "Test the 790 mm seat and rear suspension with your normal passenger or luggage load."],
-    ownership: "Price the exact variant, insurance, tires and CVT service together. A low monthly payment can hide a more expensive trim or financing package.",
-    alternatives: ["yamaha-nmax-v3", "honda-click-160", "honda-adv-160"]
-  },
+
   "yamaha-nmax-v3": {
     fit: ["You want a premium 155cc automatic with a lower 770 mm published seat and larger 7.1 L tank.", "Comfort, weather protection and longer daily rides matter more than minimum weight."],
     check: ["Confirm Standard versus Tech Max pricing and equipment.", "At 131 kg curb weight, test parking and U-turn confidence rather than judging fit from seat height alone."],

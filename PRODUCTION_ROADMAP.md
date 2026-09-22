@@ -137,6 +137,18 @@ CRF150L has strong stored Philippine search demand, but the source audit does **
 - No separate CRF150L price/spec/fuel page is created.
 - Browser and permanent responsive QA now cover the canonical directly.
 
+### Ranking-depth wave 7 — Yamaha Aerox V3 authority
+
+Aerox V3 is the largest remaining verified model-demand opportunity that already has a canonical page but lacks the stronger decision-authority layer.
+
+- Yamaha's current Philippine site displays the base **Aerox at ₱125,900**.
+- Current dealer data lists **Aerox SP at ₱163,900**, while Yamaha's YECVT material explicitly identifies the SP as the YECVT-equipped trim.
+- The existing /motorcycles/yamaha/aerox-v3 canonical owns Standard/SP, price, specs, monthly-payment, YECVT, fit and ownership intent.
+- The older duplicate PriorityModelBrief is removed; Aerox now uses one commercial buyer layer plus one distinct decision-authority layer.
+- Direct browser QA verifies the canonical, authority rendering, commercial links and the single-buyer-brief count at 390px and 1440px.
+- No separate Aerox Standard, Aerox SP, price, specs or YECVT SEO URL is created.
+
+
 
 
 ---

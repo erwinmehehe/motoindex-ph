@@ -149,10 +149,10 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
 
   "yamaha-aerox-v3": {
     seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Specs & Monthly",
-    seoDescription: "Yamaha Aerox V3 price in the Philippines, 155cc specs, colors, seat height, tire sizes, down payment, monthly estimate, fuel and ownership costs.",
-    intentIntro: "The Aerox V3 is one of the highest-demand sport scooters, so the useful decision is not just SRP. Compare the exact variant, braking and traction-control equipment, monthly payment, rider fit and ownership costs against NMAX, Click 160 and ADV160.",
-    moneyQuestion: "Does the Aerox V3 still fit your budget after the exact variant price, down payment, monthly payment, insurance and dealer fees are included?",
-    ownershipQuestion: "Compare CVT service, 14-inch tires, fuel use, insurance, storage and nearby Yamaha support with NMAX V3, Click 160 and ADV160.",
+    seoDescription: "Yamaha Aerox V3 price in the Philippines, Standard vs SP, 155cc specs, YECVT, 790mm seat, tires, monthly estimate, ownership costs and alternatives.",
+    intentIntro: "The Aerox V3 has a wide price and equipment spread, so compare the exact trim rather than treating every Aerox listing as the same scooter. Yamaha currently shows the base Aerox at ₱125,900, while current dealer data lists Aerox SP at ₱163,900; Yamaha positions the SP as the YECVT-equipped version with Sport/Touring modes and shift-down control.",
+    moneyQuestion: "Does the exact Aerox Standard or SP still fit the budget after the real branch quote, down payment, monthly payment, insurance, registration and dealer charges are included?",
+    ownershipQuestion: "Compare CVT/YECVT service requirements by trim, wide 14-inch tire replacement, insurance, passenger use, storage and Yamaha service access with NMAX V3, Click160 and ADV160.",
     alternativeIds: ["yamaha-nmax-v3", "honda-click-160", "honda-adv-160"],
     relatedIds: ["yamaha-nmax-v3", "yamaha-fazzio"],
     recommendationHref: "/recommendations/150cc-scooters-philippines",
