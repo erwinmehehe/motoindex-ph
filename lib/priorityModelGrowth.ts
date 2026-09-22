@@ -390,16 +390,17 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 125cc scooters"
   },
   "honda-beat": {
-    seoTitle: "Honda BeAT Philippines | Price Reference & Specs",
-    seoDescription: "Honda BeAT Philippine price reference, 110cc specs, 740mm seat, 90kg weight, tire sizes, ownership context and commuter alternatives.",
-    intentIntro: "The Honda BeAT is a lightweight city scooter with a 740 mm seat and 90 kg curb weight, but its current MotoIndex manufacturer source is still pending recheck. Use the page for its recorded 110cc specifications and ownership context, then confirm the latest Philippine price and available variant with Honda or a dealer before purchase.",
-    moneyQuestion: "What is the latest Honda BeAT dealer quote, and how does it compare with the recorded MotoIndex price reference once registration and insurance are included?",
-    ownershipQuestion: "Compare 14-inch tire replacement, CVT service, fuel use, storage and Honda support with Mio Gear, Click 125i and other commuter scooters.",
-    alternativeIds: ["yamaha-mio-gear", "honda-click-125i", "suzuki-avenis"],
-    relatedIds: ["honda-click-125i"],
-    recommendationHref: "/recommendations/best-motorcycles-for-short-riders-philippines",
-    recommendationLabel: "Compare motorcycles for shorter riders"
+    seoTitle: "Honda BeAT Price Philippines 2026 | Specs & Fuel Economy",
+    seoDescription: "Honda BeAT price in the Philippines, 110cc specs, 58.2 km/L fuel economy, 742mm seat, 90kg weight, CBS, tire sizes and commuter alternatives.",
+    intentIntro: "The Honda BeAT is a current 110cc Philippine commuter scooter with a ₱72,500 Playful starting price, ₱74,700 Premium price, 742 mm seat, 90 kg curb weight and Honda-published 58.2 km/L WMTC fuel-economy figure. Its value case is light, efficient city transport rather than premium-scooter equipment.",
+    moneyQuestion: "What does the BeAT Playful or Premium cost after registration, insurance, dealer fees and any temporary promotion are separated from the regular SRP?",
+    ownershipQuestion: "Compare 14-inch tire replacement, CVT service, fuel use, 12 L storage, CBS braking, insurance and Honda service access with Navi, Mio Gear and Click125.",
+    alternativeIds: ["honda-navi", "yamaha-mio-gear", "honda-click-125i"],
+    relatedIds: ["honda-navi", "honda-click-125i"],
+    recommendationHref: "/recommendations/best-motorcycles-for-daily-commute-philippines",
+    recommendationLabel: "Compare daily commuter motorcycles"
   },
+
   "yamaha-mio-gear": {
     seoTitle: "Yamaha Mio Gear Price Philippines 2026 | Specs & Colors",
     seoDescription: "Yamaha Mio Gear price in the Philippines, 125cc specs, colors, 750mm seat, weight, tire sizes, ownership costs and commuter scooter alternatives.",

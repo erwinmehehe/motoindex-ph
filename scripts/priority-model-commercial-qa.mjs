@@ -14,7 +14,8 @@ const pages = [
   ["zontes-400g", "/motorcycles/zontes/400g"],
   ["gold-wing", "/motorcycles/honda/gold-wing"],
   ["rc-390", "/motorcycles/ktm/rc-390"],
-  ["honda-navi", "/motorcycles/honda/navi"]
+  ["honda-navi", "/motorcycles/honda/navi"],
+  ["honda-beat", "/motorcycles/honda/beat"]
 ];
 const widths = [390, 1440];
 const failures = [];
@@ -146,6 +147,8 @@ try {
       if (audit?.canonicalPath !== pathname) failures.push(`${width}px ${pathname}: canonical path is ${audit?.canonicalPath || "missing"}.`);
       if (name === "honda-navi" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda Navi authority section is missing.`);
       if (name === "honda-navi" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
+      if (name === "honda-beat" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda BeAT authority section is missing.`);
+      if (name === "honda-beat" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (!audit?.priceLink || !audit?.installmentLink) failures.push(`${width}px ${pathname}: price/monthly anchor links are incomplete.`);
       if (!audit?.priceIndex || !audit?.financeIndex) failures.push(`${width}px ${pathname}: research dataset links are incomplete.`);
       if (!audit?.quoteLink) failures.push(`${width}px ${pathname}: dealer quote link is missing.`);

@@ -57,7 +57,8 @@ const priorityModels = [
   "bajaj-dominar-400",
   "kawasaki-ninja-h2",
   "honda-rebel-1100",
-  "honda-navi"
+  "honda-navi",
+  "honda-beat"
 ];
 
 for (const id of priorityModels) {
@@ -149,6 +150,37 @@ for (const token of [
   'freshness: "verified"'
 ]) {
   if (!data.includes(token)) errors.push(`Honda Navi verification: missing token ${token}`);
+}
+
+for (const token of [
+  '"honda-beat": {',
+  'seoTitle: "Honda BeAT Price Philippines 2026 | Specs & Fuel Economy"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: ranking-depth BeAT lost token ${token}`);
+}
+
+if (buyerBrief.includes('"honda-beat": {')) {
+  errors.push("PriorityModelBrief: Honda BeAT must not duplicate the authority/commercial buyer guidance");
+}
+
+for (const token of [
+  'modelId:"honda-beat"',
+  'comparisonIds:["honda-navi","yamaha-mio-gear","honda-click-125i"]'
+]) {
+  if (!authority.includes(token)) errors.push(`modelAuthority: ranking-depth BeAT lost token ${token}`);
+}
+
+for (const token of [
+  'id: "honda-beat"',
+  'srp: 72500',
+  'marketPriceHighPhp: 74700',
+  'seatHeightMm: 742',
+  'fuelConsumptionKmL: 58.2',
+  'sourceUrl: "https://cms.hondaph.com/files/products/650bce64c3201.pdf"',
+  'marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/list"',
+  'freshness: "verified"'
+]) {
+  if (!data.includes(token)) errors.push(`Honda BeAT verification: missing token ${token}`);
 }
 
 for (const token of [

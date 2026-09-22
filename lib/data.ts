@@ -585,11 +585,13 @@ export const motorcycles: Motorcycle[] = [
     summary: "109cc automatic mini-motorcycle with CBS, a 762 mm seat, 104 kg curb weight, 3.5 L tank and 48.4 km/L WMTC fuel-consumption figure."
   },
   {
-    id: "honda-beat", make: "Honda", makeSlug: "honda", model: "BeAT", slug: "beat", generation: "Current", category: "Commuter scooter",
-    srp: 72400, engineCc: 110, powerHp: 8.9, torqueNm: 9.3, curbWeightKg: 90, seatHeightMm: 740, fuelTankL: 4.2,
-    frontTire: "80/90-14", rearTire: "90/90-14", abs: "No ABS", colors: ["Black", "Red"], searchVolume: 12000, keywordDifficulty: 2,
-    sourceLabel: "Manufacturer details pending recheck", sourceUrl: "https://www.hondaph.com/", verifiedAt: "2026-08-24", freshness: "review",
-    summary: "110cc automatic scooter with a low seat, light curb weight and city-focused dimensions."
+    id: "honda-beat", make: "Honda", makeSlug: "honda", model: "BeAT", slug: "beat", generation: "Current Philippine model", category: "Commuter scooter",
+    srp: 72500, marketPriceHighPhp: 74700, engineCc: 110, powerHp: 8.9, torqueNm: 9.3, curbWeightKg: 90, seatHeightMm: 742, fuelTankL: 4.2, fuelConsumptionKmL: 58.2, groundClearanceMm: 147,
+    frontTire: "80/90-14", rearTire: "90/90-14", abs: "Combined Braking System (CBS); front hydraulic disc and rear drum", colors: ["Fighting Red", "Pearl Sylvestris Gray", "Pearl Nightfall Blue", "Clipper Yellow", "Pearl Arctic White", "Matte Axis Gray Metallic"], searchVolume: 12000, keywordDifficulty: 2,
+    sourceLabel: "Honda Philippines BeAT specification sheet with current 2026 Playful/Premium catalog cross-check", sourceUrl: "https://cms.hondaph.com/files/products/650bce64c3201.pdf", verifiedAt: "2026-09-22", freshness: "verified", marketStatus: "current", transmission: "Automatic",
+    marketPriceSourceLabel: "Honda Philippines current motorcycle catalog", marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/list", marketPriceCheckedAt: "2026-09-22",
+    priceContext: "Honda Philippines currently lists the BeAT Playful at ₱72,500 and BeAT Premium at ₱74,700 before temporary promotions or dealer-specific charges.",
+    summary: "Current 110cc Honda commuter scooter with 58.2 km/L WMTC fuel economy, a 742 mm seat, 90 kg curb weight, 4.2 L tank, 14-inch tubeless tires and CBS."
   },
   {
     id: "honda-click-125i", alsoKnownAs: ["Honda Click 125", "Click 125"], make: "Honda", makeSlug: "honda", model: "Click 125i", slug: "click-125i", generation: "Current", category: "Commuter scooter",

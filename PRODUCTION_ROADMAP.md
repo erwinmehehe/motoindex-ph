@@ -117,6 +117,16 @@ Honda Navi had the largest remaining model-demand estimate in the current datase
 
 The next model-ranking pass should again start from verified Search Console/competitor demand, not from unverified seed records.
 
+### Ranking-depth wave 5 — Honda BeAT canonical
+
+Honda BeAT is the next high-demand canonical that was blocked by a stale manufacturer-review record. The source recheck is now resolved with Honda Philippines' current 2026 catalog and official BeAT specification material:
+
+- Current regular SRP is **₱72,500 for BeAT Playful** and **₱74,700 for BeAT Premium**.
+- Official specifications confirm **110cc**, **6.63 kW**, **9.3 Nm**, **58.2 km/L WMTC**, **742 mm seat height**, **90 kg curb weight**, **4.2 L tank**, **CBS**, and **80/90-14 front / 90/90-14 rear tubeless tires**.
+- The existing /motorcycles/honda/beat canonical owns price/spec/fuel-economy/short-rider/commuter intent; no separate BeAT price or fuel-economy URL is created.
+- Buyer content separates regular SRP from temporary promotional pricing and adds model-specific decision context plus responsive browser regression coverage.
+
+
 ---
 
 # MotoIndex PH Production Roadmap
