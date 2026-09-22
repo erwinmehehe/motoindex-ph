@@ -65,6 +65,18 @@ Second pass from the existing-page competitor gap, again without creating separa
 
 All five pages retain their existing canonical URLs and receive regression coverage in the priority-model SEO validator.
 
+### Scooter authority wave — national + Honda/Yamaha cluster
+
+Built from the highest remaining competitor topic gap without multiplying thin URLs:
+
+- **/recommendations/best-scooters-philippines** — upgraded around the ~1,413 competitor-estimated traffic / 224-keyword scooter opportunity with stronger price, rider-fit, braking, engine-class, maxi-scooter and ownership coverage.
+- **/recommendations/honda-scooters-philippines** — deepened Honda scooter price/model/fit intent on the existing canonical guide.
+- **/recommendations/yamaha-scooters-philippines** — deepened Yamaha scooter price/model/fit intent on the existing canonical guide.
+- **/motorcycles/scooters** — now links directly to the national best-scooters editorial guide alongside engine-size and brand child clusters.
+- **Honda and Yamaha brand hubs** — now expose a scooter section that links both to the brand-specific scooter guide and the national scooter authority page.
+
+The cluster stays data-driven from current canonical motorcycle records. Price order is explicitly not presented as an overall quality ranking, and all new cross-links are guarded by market-hub validation.
+
 ---
 
 # MotoIndex PH Production Roadmap

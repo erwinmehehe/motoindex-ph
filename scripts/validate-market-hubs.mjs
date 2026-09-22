@@ -29,6 +29,8 @@ const tier23Models = read("lib", "phTier23ModelsBase.ts");
 const tier23Index = read("lib", "phTier23Models.ts");
 const kawasakiExpansion = read("lib", "kawasakiBigBikeExpansion2026.ts");
 const compareBuilder = read("components", "CompareBuilder.tsx");
+const recommendationData = read("lib", "data.ts");
+const recommendationRoute = read("app", "recommendations", "[slug]", "page.tsx");
 
 requireText(
   motorcycles,
@@ -73,6 +75,11 @@ if (fs.existsSync(path.join(root, "app", "motorcycles", "scooters", "page.tsx"))
   requireText(scooters, "currentScooters", "Scooter hub must derive its inventory from current canonical motorcycle data.");
   requireText(scooters, "StatRow", "Scooter hub must expose dataset summary statistics.");
   requireText(scooters, "DataTable", "Scooter hub must include a compact comparable price/spec table.");
+  requireText(
+    scooters,
+    '/recommendations/best-scooters-philippines',
+    "Scooter hub must link to the national best-scooters editorial authority guide."
+  );
   for (const slug of [
     "125cc-scooters-philippines",
     "150cc-scooters-philippines",
@@ -189,7 +196,6 @@ for (const [slug, label] of [["honda", "Honda"], ["yamaha", "Yamaha"], ["kawasak
 }
 
 
-const recommendationRoute = read("app", "recommendations", "[slug]", "page.tsx");
 requireText(
   recommendationRoute,
   'guide.slug === "best-scooters-philippines"',
@@ -200,6 +206,36 @@ requireText(
   'href="/motorcycles/scooters"',
   "Best-scooters editorial guide must link back to the national scooter authority hub."
 );
+
+for (const token of [
+  'seoTitle: "Best Scooters Philippines 2026: Prices, Specs & Picks"',
+  '"Honda vs Yamaha scooters"',
+  '"125cc scooter choices for city use"',
+  '"150cc to 160cc scooters"',
+  '"Maxi-scooters and larger scooters"',
+  '"honda-scooters-philippines"',
+  '"yamaha-scooters-philippines"',
+  'seoTitle: "Honda Scooters Philippines 2026: Prices, Models & Specs"',
+  'seoTitle: "Yamaha Scooters Philippines 2026: Prices, Models & Specs"'
+]) {
+  requireText(recommendationData, token, `Scooter recommendation architecture missing token: ${token}`);
+}
+for (const token of [
+  'honda vs yamaha scooters',
+  'best scooter in the philippines',
+  '125cc, 150cc and 160cc scooters',
+  'what should i compare before buying a scooter'
+]) {
+  requireText(recommendationRoute.toLowerCase(), token, `Scooter recommendation renderer missing answer logic: ${token}`);
+}
+for (const token of [
+  'const scooterGuideHref = make === "honda" || make === "yamaha"',
+  'href="/recommendations/best-scooters-philippines"',
+  'href="/motorcycles/scooters"',
+  'Best scooters Philippines guide'
+]) {
+  requireText(brandPage, token, `Brand hub missing scooter authority link behavior: ${token}`);
+}
 
 if (errors.length) {
   console.error("Market hub validation failed:");
