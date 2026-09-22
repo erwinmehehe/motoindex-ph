@@ -219,6 +219,30 @@ const briefs: Record<string, Brief> = {
     ],
     ownership: "Price 17-inch tires, chain and sprockets, insurance, scheduled service and TriMotors support before comparing it with 390 Duke, Speed 400 and Z500.",
     alternatives: ["ktm-390-duke", "triumph-speed-400", "kawasaki-z500"]
+  },
+  "kawasaki-ninja-h2": {
+    fit: [
+      "You specifically want a current supercharged flagship hypersport rather than a conventional litre-class sport bike.",
+      "You are prepared for premium insurance, high-performance consumables and the ownership demands that come with 231 hp."
+    ],
+    check: [
+      "Confirm the exact H2 Carbon model year, dealer quote and included equipment before comparing it with older H2 listings.",
+      "Test the 825 mm seat and 238 kg curb weight at parking speed; the headline power figure says very little about low-speed usability."
+    ],
+    ownership: "Budget 200-section rear tires, chain and sprockets, insurance, scheduled service, battery/electronics care and bodywork exposure before comparing the H2 with R1M or Z H2.",
+    alternatives: ["yamaha-yzf-r1m", "kawasaki-z-h2"]
+  },
+  "honda-rebel-1100": {
+    fit: [
+      "You want a large-displacement cruiser with a very low 690 mm published seat and DCT convenience.",
+      "You are comfortable managing a 233 kg motorcycle and want substantially more torque than the Rebel 500."
+    ],
+    check: [
+      "Test low-speed balance and parking confidence; a low seat does not erase the motorcycle's curb weight.",
+      "Confirm the current Philippine dealer quote, exact variant and DCT equipment before comparing monthly payments."
+    ],
+    ownership: "Include 18/16-inch tire costs, insurance, DCT service, battery care and Honda big-bike service access when comparing the Rebel 1100 with the Rebel 500 and other large road bikes.",
+    alternatives: ["honda-rebel-500", "triumph-speed-twin-900", "royal-enfield-super-meteor-650"]
   }
 };
 
