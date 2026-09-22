@@ -159,6 +159,66 @@ const briefs: Record<string, Brief> = {
     ],
     ownership: "Compare 17-inch tire costs, chain and sprockets, insurance, scheduled service, parts access and dealer coverage with 390 Duke, Z500 and MT-07 before choosing on acquisition price alone.",
     alternatives: ["ktm-390-duke", "kawasaki-z500", "yamaha-mt-07"]
+  },
+  "yamaha-yzf-r15m": {
+    fit: [
+      "You want a lightweight manual sport bike and specifically value the R-series riding position, ABS and traction control.",
+      "A 155cc engine, 140 kg curb weight and 815 mm seat fit your intended mix of city riding and sport-bike ownership."
+    ],
+    check: [
+      "Confirm the current dealer quote, color and model year before comparing it with older R15 listings.",
+      "Test the 815 mm seat and forward riding position in traffic before choosing from price and styling alone."
+    ],
+    ownership: "Include insurance, 17-inch tires, chain and sprockets, scheduled service and fairing exposure when comparing the R15M with the R3, RC 390 and 300SR.",
+    alternatives: ["yamaha-yzf-r3", "ktm-rc-390", "cfmoto-300sr"]
+  },
+  "honda-cbr650r": {
+    fit: [
+      "You want an inline-four middleweight sport bike with 2-channel ABS and a full-fairing road-bike package.",
+      "You are comfortable with 208 kg curb weight and want to compare Standard and E-Clutch variants rather than one generic CBR650R price."
+    ],
+    check: [
+      "Confirm the exact current variant, dealer quote and included E-Clutch equipment before comparing payments.",
+      "Test the riding position and low-speed weight, especially if most of your riding is urban."
+    ],
+    ownership: "Budget insurance, 17-inch sport tires, chain and sprockets, bodywork exposure and Honda Big Wing service together with the purchase price.",
+    alternatives: ["honda-cb650r", "yamaha-yzf-r7", "kawasaki-ninja-500"]
+  },
+  "yamaha-yzf-r7": {
+    fit: [
+      "You want a 689cc twin-cylinder sport bike with a focused R-series riding position and full-size 17-inch chassis.",
+      "You are comfortable with an 855 mm seat and are prioritizing sport-road use over relaxed commuting ergonomics."
+    ],
+    check: [
+      "Test seat reach, wrist load and low-speed control before choosing it from engine size and styling alone.",
+      "Confirm the current Philippine dealer quote and model-year stock before comparing financing."
+    ],
+    ownership: "Price insurance, sport tires, chain and sprockets, scheduled service and fairing exposure before comparing the R7 with CBR650R, Ninja 500 and 450SR.",
+    alternatives: ["honda-cbr650r", "kawasaki-ninja-500", "cfmoto-450sr"]
+  },
+  "kawasaki-ninja-zx-25r": {
+    fit: [
+      "You specifically want a small-displacement inline-four supersport rather than a conventional single or twin-cylinder entry sport bike.",
+      "A 785 mm seat, ABS and current Standard/SE model range fit your sport-bike priorities."
+    ],
+    check: [
+      "Confirm Standard versus SE pricing and exact model-year equipment before treating every ZX-25R listing as equivalent.",
+      "Compare the ownership cost with larger-displacement alternatives instead of assuming 250cc automatically means cheaper to run."
+    ],
+    ownership: "Budget high-performance tires, chain and sprockets, insurance, fairing exposure and Kawasaki service access, then compare the total with ZX-4RR, R3 and 450SR.",
+    alternatives: ["kawasaki-ninja-zx-4rr", "yamaha-yzf-r3", "cfmoto-450sr"]
+  },
+  "bajaj-dominar-400": {
+    fit: [
+      "You want a 373.3cc sport-touring motorcycle with twin-channel ABS, an upright road-biased package and a 13 L tank.",
+      "You value purchase price and touring utility more than minimum curb weight."
+    ],
+    check: [
+      "At 192 kg, test parking and low-speed balance before choosing from price and engine size alone.",
+      "Confirm the exact registration details and current tollway rules instead of assuming the Dominar 400 name guarantees expressway access."
+    ],
+    ownership: "Price 17-inch tires, chain and sprockets, insurance, scheduled service and TriMotors support before comparing it with 390 Duke, Speed 400 and Z500.",
+    alternatives: ["ktm-390-duke", "triumph-speed-400", "kawasaki-z500"]
   }
 };
 
