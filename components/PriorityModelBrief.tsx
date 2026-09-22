@@ -243,6 +243,18 @@ const briefs: Record<string, Brief> = {
     ],
     ownership: "Include 18/16-inch tire costs, insurance, DCT service, battery care and Honda big-bike service access when comparing the Rebel 1100 with the Rebel 500 and other large road bikes.",
     alternatives: ["honda-rebel-500", "triumph-speed-twin-900", "royal-enfield-super-meteor-650"]
+  },
+  "honda-navi": {
+    fit: [
+      "You want a compact automatic city motorcycle with a low purchase price and a 762 mm seat.",
+      "A 104 kg curb weight, 48.4 km/L WMTC fuel figure and simple V-Matic operation fit short daily trips."
+    ],
+    check: [
+      "The Navi uses drum brakes with CBS rather than ABS, so compare braking equipment deliberately.",
+      "Its 12-inch front and 10-inch rear tires differ from many 14-inch scooters; check replacement availability and ride feel."
+    ],
+    ownership: "Compare the ₱59,000 current catalog price with registration, insurance, fuel, tire replacement, drum-brake service and accessories before choosing it over BeAT, Mio Gear or Click 125i.",
+    alternatives: ["honda-beat", "yamaha-mio-gear", "honda-click-125i"]
   }
 };
 
