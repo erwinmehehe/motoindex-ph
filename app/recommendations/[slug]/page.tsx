@@ -160,6 +160,61 @@ function sectionSummary(title:string,models:Motorcycle[]){
   const manual=models.filter(m=>m.transmission!=="Automatic");
   const scooters=models.filter(m=>/scooter/i.test(m.category));
   const underbones=models.filter(m=>/underbone/i.test(m.category));
+  if(lower.includes("honda vs yamaha scooters")){
+    const honda=models.filter(m=>m.make==="Honda");
+    const yamaha=models.filter(m=>m.make==="Yamaha");
+    return `Honda has ${honda.length} current scooter${honda.length===1?"":"s"} in this comparison (${modelNames(honda,6)||"none currently qualifying"}), while Yamaha has ${yamaha.length} (${modelNames(yamaha,6)||"none currently qualifying"}). Compare price, engine, seat height, weight, braking and fuel data rather than treating brand alone as the deciding factor.`;
+  }
+  if(lower.includes("125cc scooter choices")){
+    const rows=models.filter(m=>m.engineCc>=100&&m.engineCc<=130);
+    return rows.length?`${rows.length} current scooter${rows.length===1?"":"s"} fall in the roughly 100–130cc band: ${modelNames(rows,8)}. This class is useful for city-use research, but compare weight, seat height, braking and storage needs as well as displacement.`:"No current scooter in this guide falls in the roughly 100–130cc band.";
+  }
+  if(lower.includes("150cc to 160cc scooters")){
+    const rows=models.filter(m=>m.engineCc>=140&&m.engineCc<=165);
+    return rows.length?`${rows.length} current scooter${rows.length===1?"":"s"} fall in the 140–165cc band: ${modelNames(rows,10)}. Compare their published prices, curb weights, seat heights and exact ABS/CBS wording because equipment differs substantially within this engine range.`:"No current scooter in this guide falls in the 140–165cc band.";
+  }
+  if(lower.includes("maxi-scooters and larger scooters")){
+    const rows=models.filter(m=>/maxi/i.test(m.category)||m.engineCc>=300);
+    return rows.length?`Larger scooter choices in the current set include ${modelNames(rows,8)}. Their bigger engines and touring-oriented layouts usually come with higher purchase prices and more mass, so compare insurance, tire sizes, parking weight and service access too.`:"No current scooter in this comparison meets the larger/maxi-scooter filter.";
+  }
+  if(lower.includes("low-seat and lightweight scooters"))return `${seat[0].make} ${seat[0].model} has the lowest published seat in this set at ${seat[0].seatHeightMm} mm, while ${weight[0].make} ${weight[0].model} is the lightest at ${weight[0].curbWeightKg} kg. These are separate fit signals; seat width, suspension sag and weight distribution still matter in person.`;
+  if(lower.includes("how to choose a scooter for daily use"))return `Start with the route you actually ride, then compare purchase price, curb weight, seat height, fuel tank, braking equipment, tire sizes and nearby service support. For daily traffic, a lighter or automatic scooter may reduce workload, but the best shortlist still depends on rider fit, passenger needs and the exact variant.`;
+  if(lower.includes("honda scooter price range")||lower.includes("yamaha scooter price range")){
+    const brand=lower.includes("honda")?"Honda":"Yamaha";
+    const rows=models.filter(m=>m.make===brand);
+    const ranked=[...rows].sort((a,b)=>observedMarketRange(a).from-observedMarketRange(b).from);
+    if(!ranked.length)return `No current ${brand} scooter qualifies in this guide.`;
+    const first=ranked[0], last=ranked.at(-1)!;
+    return `The current ${brand} scooter set in this guide runs from ${observedMarketPriceLabel(first)} for ${first.model} up to ${observedMarketPriceLabel(last)} for ${last.model}. Use those as comparison references and confirm the exact dealer quote and variant before purchase.`;
+  }
+  if(lower.includes("honda 125cc to 160cc scooter choices")){
+    const rows=models.filter(m=>m.make==="Honda"&&m.engineCc>=100&&m.engineCc<=165);
+    return rows.length?`Current Honda scooters in the roughly 100–165cc range include ${modelNames(rows,10)}. Compare the smaller commuter models with 150–160cc options on price, weight, seat height, braking and fuel-tank size rather than assuming the larger engine is automatically the better city choice.`:"No current Honda scooter in this guide falls in the roughly 100–165cc range.";
+  }
+  if(lower.includes("honda scooters with abs or cbs")){
+    const rows=models.filter(m=>m.make==="Honda");
+    return rows.length?`Honda scooter braking equipment varies by model and trim: ${rows.slice(0,6).map(m=>`${m.model}: ${m.abs}`).join("; ")}. Confirm the exact unit because ABS and CBS are not interchangeable and equipment can vary by variant.`:"No current Honda scooter qualifies in this guide.";
+  }
+  if(lower.includes("mio, fazzio, aerox and nmax differences")){
+    const rows=models.filter(m=>m.make==="Yamaha");
+    return rows.length?`The current Yamaha scooter set spans smaller commuter models through sport and premium scooters: ${modelNames(rows,10)}. Compare engine size, published price, curb weight, seat height, tank capacity and braking rather than treating the Mio, Aerox and NMAX names as one class.`:"No current Yamaha scooter qualifies in this guide.";
+  }
+  if(lower.includes("yamaha scooters with abs and variant differences")){
+    const rows=models.filter(m=>m.make==="Yamaha");
+    return rows.length?`Yamaha scooter braking equipment is model- and variant-specific: ${rows.slice(0,6).map(m=>`${m.model}: ${m.abs}`).join("; ")}. Open the exact model page before assuming ABS, traction control or other equipment is standard across every trim.`:"No current Yamaha scooter qualifies in this guide.";
+  }
+  if(lower.includes("honda scooters for city commuting")||lower.includes("yamaha scooters for city commuting")){
+    const brand=lower.includes("honda")?"Honda":"Yamaha";
+    const rows=models.filter(m=>m.make===brand);
+    if(!rows.length)return `No current ${brand} scooter qualifies in this guide.`;
+    const light=[...rows].sort((a,b)=>a.curbWeightKg-b.curbWeightKg)[0];
+    const lowSeat=[...rows].sort((a,b)=>a.seatHeightMm-b.seatHeightMm)[0];
+    return `For city-use research, ${light.model} is the lightest current ${brand} scooter in this set at ${light.curbWeightKg} kg, while ${lowSeat.model} has the lowest published seat at ${lowSeat.seatHeightMm} mm. Also compare braking, tank size, storage needs and dealer support for your route.`;
+  }
+  if(lower.includes("honda scooter rider fit and ownership")||lower.includes("yamaha scooter rider fit and ownership")){
+    const brand=lower.includes("honda")?"Honda":"Yamaha";
+    return `For a ${brand} scooter, rider fit is more than seat height. Check seat width, curb weight, reach to the bars and low-speed balance in person, then budget CVT service, tires, insurance, fuel and nearby dealer support alongside the purchase price.`;
+  }
   if(lower.includes("dual-sport vs trail bike"))return `MotoIndex uses dual-sport for road-and-trail motorcycles such as ${modelNames(models,6)}. “Trail bike” is a broader search term and can also include off-road-only machines, so this guide keeps motocross-only models out of the comparison.`;
   if(lower.includes("21/18-inch wheels"))return wheel2118.length?`${modelNames(wheel2118,6)} use a 21-inch front and 18-inch rear wheel setup in the current comparison. That layout is common on trail-oriented dual-sports, but tire construction, suspension, pressure and rider technique still determine how a bike behaves on rough surfaces.`:"No current model in this comparison has a recorded 21/18-inch wheel setup.";
   if(lower.includes("seat height versus ground clearance"))return clearance.length?`${clearance[0].make} ${clearance[0].model} has the highest recorded ground clearance here at ${clearance[0].groundClearanceMm} mm, while ${seat[0].make} ${seat[0].model} has the lowest published seat at ${seat[0].seatHeightMm} mm. More clearance can help over obstacles, but taller seats can make footing harder at stops.`:"Compare seat height and ground clearance together rather than treating either number as a standalone advantage.";
@@ -209,6 +264,25 @@ function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide
   const weight=[...models].sort((a,b)=>a.curbWeightKg-b.curbWeightKg);
   const economy=models.filter(m=>m.fuelConsumptionKmL).sort((a,b)=>(b.fuelConsumptionKmL||0)-(a.fuelConsumptionKmL||0));
   const brandMatch=["honda","yamaha","suzuki","kawasaki"].find(brand=>lower.includes(brand));
+  if(lower.includes("best scooter in the philippines"))return `There is no universal best scooter. This guide compares ${models.length} current scooters using published price, engine size, curb weight, seat height, braking, fuel capacity and available fuel-economy data so you can choose around budget, rider fit and daily use.`;
+  if(brandMatch&&lower.includes("scooters are available")){
+    const rows=models.filter(m=>m.make.toLowerCase()===brandMatch);
+    const label=brandMatch[0].toUpperCase()+brandMatch.slice(1);
+    return rows.length?`MotoIndex currently includes ${rows.length} current ${label} scooter${rows.length===1?"":"s"} in this guide: ${modelNames(rows,10)}. Open the table or model pages for current price, seat height, weight and braking details.`:`No current ${label} scooter qualifies in this checked guide set.`;
+  }
+  if(brandMatch&&lower.includes("scooter price range")){
+    const rows=models.filter(m=>m.make.toLowerCase()===brandMatch).sort((a,b)=>observedMarketRange(a).from-observedMarketRange(b).from);
+    const label=brandMatch[0].toUpperCase()+brandMatch.slice(1);
+    if(!rows.length)return `No current ${label} scooter qualifies in this checked guide set.`;
+    return `The checked ${label} scooter range on this page runs from ${observedMarketPriceLabel(rows[0])} to ${observedMarketPriceLabel(rows.at(-1)!)}. These are reference prices; confirm the exact variant, fees and current dealer quote before purchase.`;
+  }
+  if(lower.includes("125cc, 150cc and 160cc scooters")){
+    const c125=models.filter(m=>m.engineCc>=100&&m.engineCc<=130);
+    const c150=models.filter(m=>m.engineCc>=140&&m.engineCc<=155);
+    const c160=models.filter(m=>m.engineCc>=156&&m.engineCc<=165);
+    return `The current guide includes ${c125.length} scooter${c125.length===1?"":"s"} in the roughly 100–130cc band, ${c150.length} in the 140–155cc band and ${c160.length} in the 156–165cc band. Use the linked engine-size guides for the exact model lists and compare equipment as well as displacement.`;
+  }
+  if(lower.includes("what should i compare before buying a scooter"))return `Compare the exact purchase price and variant, curb weight, seat height, braking equipment, fuel tank, tire sizes, storage/passenger needs, CVT service requirements and local dealer support. Test rider fit in person before paying a reservation.`;
   if(lower.includes("dual-sport and trail bikes the same"))return `Not exactly. “Dual-sport” usually describes motorcycles intended for both public-road and unpaved use, while “trail bike” is broader and can include off-road-only machines. This MotoIndex guide only compares current motorcycles categorized as dual-sport.`;
   if(lower.includes("use 21/18-inch wheels")){const rows=models.filter(m=>/21/.test(m.frontTire)&&/18/.test(m.rearTire));return rows.length?`${modelNames(rows,8)} use a recorded 21-inch front and 18-inch rear setup in this guide. Wheel size alone does not determine off-road ability.`:"No current model in this comparison has a recorded 21/18-inch setup.";}
   if(lower.includes("dual-sport motorcycles need abs"))return `Not every dual-sport in this comparison lists ABS. On-road braking aids, loose-surface behavior, switchable ABS and trim differences vary by model, so compare the exact braking configuration rather than assuming the category determines it.`;
