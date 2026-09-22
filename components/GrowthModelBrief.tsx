@@ -107,7 +107,7 @@ const growthBriefs: Record<string, GrowthBrief> = {
     ],
     ownership: "Confirm current dealer availability first, then budget 21/18-inch trail tires, chain and sprocket wear, fork and suspension service, brake consumables and protection for off-road use. Compare those costs and the tall-seat fit with KLX150, WR155R and CRF300 Rally.",
     alternatives: ["kawasaki-klx150", "yamaha-wr155r", "honda-crf300-rally"],
-    guideHref: "/recommendations/dual-sport-motorcycles-philippines",
+    guideHref: "/recommendations#categories",
     guideLabel: "Dual-sport buying guide"
   },
   "honda-airblade-160": {
