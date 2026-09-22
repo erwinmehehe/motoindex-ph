@@ -611,6 +611,61 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     relatedIds: ["cfmoto-450nk"],
     recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
     recommendationLabel: "Compare 400cc+ motorcycles"
+  },
+  "yamaha-yzf-r15m": {
+    seoTitle: "Yamaha YZF-R15M Price Philippines 2026 | Specs & Costs",
+    seoDescription: "Yamaha YZF-R15M price in the Philippines, 155cc specs, ABS, traction control, 815mm seat, ownership costs, financing context and sport-bike alternatives.",
+    intentIntro: "The YZF-R15M is a current 155cc manual sport bike with ABS, traction control, an 815 mm seat and 140 kg curb weight. Compare its ₱204,000 recorded Philippine price with the total cost of larger entry sport bikes, not engine size alone.",
+    moneyQuestion: "Does the R15M still fit the budget after financing, insurance, 17-inch tires, chain service and registration are included?",
+    ownershipQuestion: "Compare insurance, 17-inch tire replacement, chain and sprocket service, riding position and Yamaha support with R3, RC 390 and 300SR before buying on styling alone.",
+    alternativeIds: ["yamaha-yzf-r3", "ktm-rc-390", "cfmoto-300sr"],
+    relatedIds: ["yamaha-yzf-r3"],
+    recommendationHref: "/recommendations/sport-motorcycles-philippines",
+    recommendationLabel: "Compare sport motorcycles"
+  },
+  "honda-cbr650r": {
+    seoTitle: "Honda CBR650R Price Philippines 2026 | Specs & Costs",
+    seoDescription: "Honda CBR650R price in the Philippines, 649cc inline-four specs, ABS, 810mm seat, fuel economy, ownership costs, variants and sport-bike alternatives.",
+    intentIntro: "The CBR650R is a current 649cc inline-four sport bike with 2-channel ABS, an 810 mm seat, 15.4 L tank and Standard/E-Clutch pricing context. Compare the exact variant before treating every listing as the same motorcycle.",
+    moneyQuestion: "What does the CBR650R cost after the exact variant, financing, insurance, registration and 17-inch sport-bike consumables are included?",
+    ownershipQuestion: "Budget large sport tires, chain and sprockets, insurance, bodywork exposure and Honda Big Wing service access, then compare the result with CB650R, R7 and other middleweight alternatives.",
+    alternativeIds: ["honda-cb650r", "yamaha-yzf-r7", "kawasaki-ninja-500"],
+    relatedIds: ["honda-cb650r"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles"
+  },
+  "yamaha-yzf-r7": {
+    seoTitle: "Yamaha YZF-R7 Price Philippines 2026 | Specs & Costs",
+    seoDescription: "Yamaha YZF-R7 price in the Philippines, 689cc twin specs, ABS, 855mm seat, 188kg weight, ownership costs, financing context and sport-bike alternatives.",
+    intentIntro: "The YZF-R7 is a current 689cc twin-cylinder sport bike with a tall 855 mm seat, 188 kg curb weight and a ₱598,000 recorded Philippine price. Compare fit and ownership costs before choosing it on engine size or styling alone.",
+    moneyQuestion: "What does the R7 cost after financing, insurance, registration, sport tires and first-year scheduled service are included?",
+    ownershipQuestion: "Test the 855 mm seat and sport riding position, then budget 17-inch tires, chain and sprockets, insurance and Yamaha service access before comparing it with CBR650R, Ninja 500 and 450SR.",
+    alternativeIds: ["honda-cbr650r", "kawasaki-ninja-500", "cfmoto-450sr"],
+    relatedIds: ["yamaha-yzf-r1m", "yamaha-yzf-r3"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles"
+  },
+  "kawasaki-ninja-zx-25r": {
+    seoTitle: "Kawasaki ZX-25R Price Philippines 2026 | Specs & Costs",
+    seoDescription: "Kawasaki Ninja ZX-25R price in the Philippines, 250cc inline-four specs, ABS, 785mm seat, variant pricing, financing context and ownership costs in 2026.",
+    intentIntro: "The Ninja ZX-25R is a current 250cc inline-four supersport with ABS, a 785 mm seat and Standard/SE price range. Its purchase decision is about engine character, equipment and ownership cost, not displacement alone.",
+    moneyQuestion: "How does the ZX-25R total purchase cost compare with larger sport bikes after financing, insurance, registration and tires are included?",
+    ownershipQuestion: "Budget high-performance 17-inch tires, chain and sprockets, insurance, fairing exposure and Kawasaki service access, then compare the full ownership picture with ZX-4RR, R3 and 450SR.",
+    alternativeIds: ["kawasaki-ninja-zx-4rr", "yamaha-yzf-r3", "cfmoto-450sr"],
+    relatedIds: ["kawasaki-ninja-zx-4rr"],
+    recommendationHref: "/recommendations/sport-motorcycles-philippines",
+    recommendationLabel: "Compare sport motorcycles"
+  },
+  "bajaj-dominar-400": {
+    seoTitle: "Bajaj Dominar 400 Price Philippines 2026 | Specs & Costs",
+    seoDescription: "Bajaj Dominar 400 price in the Philippines, 373.3cc specs, twin-channel ABS, 800mm seat, 13L tank, financing context, ownership costs and alternatives.",
+    intentIntro: "The Dominar 400 is a current 373.3cc sport-touring motorcycle with twin-channel ABS, a 13 L tank and 192 kg curb weight. Compare the full purchase and ownership cost rather than treating the 400 name as proof of legal expressway access.",
+    moneyQuestion: "What does the Dominar 400 cost after the current dealer quote, financing, insurance, registration and first-year maintenance are included?",
+    ownershipQuestion: "Price 17-inch tires, chain and sprockets, insurance, touring consumables and TriMotors service access, and confirm registration details before planning any tollway use.",
+    alternativeIds: ["ktm-390-duke", "triumph-speed-400", "kawasaki-z500"],
+    relatedIds: [],
+    recommendationHref: "/recommendations/motorcycles-under-400cc-philippines",
+    recommendationLabel: "Compare under-400cc motorcycles"
   }
 };
 

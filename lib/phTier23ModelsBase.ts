@@ -494,7 +494,7 @@ export const phTier23Motorcycles: Motorcycle[] = [
     id: "honda-cbr650r", make: "Honda", makeSlug: "honda", model: "CBR650R", slug: "cbr650r", generation: "Current Philippine model", category: "Sport bike",
     srp: 554000, marketPriceHighPhp: 594000, engineCc: 649, powerHp: 93.8, torqueNm: 63, curbWeightKg: 208, seatHeightMm: 810, fuelTankL: 15.4, fuelConsumptionKmL: 20.9, groundClearanceMm: 130,
     frontTire: "120/70 ZR17", rearTire: "180/55 ZR17", abs: "2-channel ABS", colors: ["Grand Prix Red", "Matte Gunpowder Black Metallic"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Current Philippine CBR650R price and specification reference with Honda specification cross-check", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/cbr650r/specifications", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    sourceLabel: "Honda Philippines official CBR650R specification sheet; price range checked separately", sourceUrl: "https://www.hondaph.com/honda-bigbikes/files/products/65faa98599e4d.pdf", verifiedAt: "2026-09-22", freshness: "verified", marketStatus: "current", transmission: "Manual",
     marketPriceSourceLabel: "Current Philippine Standard/E-Clutch variant pricing", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/cbr650r", marketPriceCheckedAt: "2026-09-09",
     summary: "649cc inline-four sport motorcycle with 2-channel ABS, 810 mm seat, 15.4 L tank and Standard/E-Clutch price range."
   },
