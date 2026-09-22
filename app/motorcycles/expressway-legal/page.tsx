@@ -18,8 +18,8 @@ const under300k = eligible.filter((model) => observedMarketRange(model).from < 3
 const tableColumns: CSSProperties = { gridTemplateColumns: "1.7fr 1.15fr .55fr .65fr .65fr 1.35fr" };
 
 export const metadata: Metadata = pageMetadata({
-  title: "Expressway-Legal Motorcycles Philippines 2026 | MotoIndex",
-  description: "Compare current 400cc+ motorcycle records for Philippine expressway planning, plus sub-400cc models that should not be assumed eligible from the badge alone.",
+  title: "Expressway-Legal Motorcycles Philippines 2026 | 400cc Guide",
+  description: "Check 400cc+ motorcycles for Philippine expressway planning, the official 400cc threshold, current tollway requirements, prices and sub-400cc models not to round up.",
   path: "/motorcycles/expressway-legal",
   index: eligible.length >= 3
 });
@@ -27,7 +27,7 @@ export const metadata: Metadata = pageMetadata({
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "Expressway-legal motorcycle candidates in the Philippines",
+  name: "400cc+ motorcycle candidates for Philippine expressway planning",
   numberOfItems: eligible.length,
   itemListElement: eligible.map((model, index) => ({
     "@type": "ListItem",
@@ -44,7 +44,7 @@ export default function ExpresswayLegalMotorcyclesPage() {
       <PageHero
         kicker="Philippine expressway planning"
         title="Expressway-legal motorcycles in the Philippines"
-        description="Use this page to shortlist motorcycles whose recorded displacement is at least 400cc, then verify the exact registered motorcycle and current tollway rules before relying on expressway access."
+        description="Shortlist current 400cc+ motorcycles for Philippine expressway planning, compare their prices and specifications, then verify the exact registered motorcycle and current tollway requirements before travel."
         actions={<CTAGroup>
           <a className="button" href="#qualifying-models">View 400cc+ candidates</a>
           <Link className="button secondary" href="/recommendations/motorcycles-400cc-plus-philippines">Compare all 400cc+ models</Link>
@@ -76,6 +76,35 @@ export default function ExpresswayLegalMotorcyclesPage() {
           <InfoPanel>
             <h3>Why this is separate from the 400cc buying guide</h3>
             <p>The 400cc+ guide compares price, weight, seat height and performance. This page focuses on the legal threshold, borderline models and the checks needed before an expressway trip.</p>
+          </InfoPanel>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="current-tollway-evidence">
+        <SectionHeader
+          kicker="Current tollway checks"
+          title="Separate the 400cc legal threshold from current operator requirements"
+          titleId="current-tollway-evidence"
+          description="The legal displacement threshold is only one part of expressway planning. Current operator and Toll Regulatory Board requirements can add payment, RFID and route-specific checks."
+        />
+        <div className="ui-content-grid">
+          <InfoPanel>
+            <h3>NLEX confirms the 400cc+ motorcycle class</h3>
+            <p>NLEX Corporation's official NLEX Connector release states that the road caters to motorcycles with displacement of 400cc and above. That supports using 400cc+ as the expressway-research threshold, while the Department Order remains the legal source.</p>
+            <p><a href="https://nlex.com.ph/wp-content/uploads/2023/03/NLEX-Corporation-SEC-17-C-Inauguration-of-NLEX-Connector-Road.pdf" target="_blank" rel="noreferrer">Read the NLEX Corporation release →</a></p>
+          </InfoPanel>
+          <InfoPanel>
+            <h3>RFID and toll-system requirements can change</h3>
+            <p>The Toll Regulatory Board re-implemented cashless/contactless requirements from March 15, 2025 for toll expressways under its jurisdiction. Check the latest RFID and payment guidance before a trip rather than relying on an old forum post or dealer claim.</p>
+            <p><a href="https://www.trb.gov.ph/index.php/toll-rates/nlex-slex-connector-road-toll-rate/47-press-release" target="_blank" rel="noreferrer">Check the Toll Regulatory Board guidance →</a></p>
+          </InfoPanel>
+          <InfoPanel>
+            <h3>399cc is still below 400cc</h3>
+            <p>MotoIndex uses the recorded displacement field, not the marketing badge. A motorcycle recorded at 398cc or 399cc stays in the caution table even if its model name includes 400.</p>
+          </InfoPanel>
+          <InfoPanel>
+            <h3>Buying guide and legal guide have different jobs</h3>
+            <p><Link href="/recommendations/motorcycles-400cc-plus-philippines">The 400cc+ buying guide</Link> compares price, weight, seat height, power and ABS. This page owns the expressway rule, borderline-displacement and trip-verification intent.</p>
           </InfoPanel>
         </div>
       </section>
@@ -160,7 +189,7 @@ export default function ExpresswayLegalMotorcyclesPage() {
           description="A motorcycle can clear the displacement threshold and still be a poor fit for your budget, height, experience or ownership needs."
         />
         <CTAGroup>
-          <Link className="button secondary" href="/recommendations/motorcycles-400cc-plus-philippines">400cc+ price and specs</Link>
+          <Link className="button secondary" href="/recommendations/motorcycles-400cc-plus-philippines">400cc motorcycle prices and specs</Link>
           <Link className="button secondary" href="/recommendations/best-motorcycles-for-long-rides">Long-ride motorcycles</Link>
           <Link className="button secondary" href="/research/motorcycle-seat-height-database">Seat-height database</Link>
           <Link className="button secondary" href="/tools/motorcycle-loan-calculator">Loan calculator</Link>
