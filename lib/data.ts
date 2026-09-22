@@ -577,11 +577,12 @@ export const motorcycles: Motorcycle[] = [
     summary: "Previous 399cc Ninja generation retained for historical price and specification research; current Philippine buyers should compare the Ninja 500."
   },
   {
-    id: "honda-navi", make: "Honda", makeSlug: "honda", model: "Navi", slug: "navi", generation: "Current", category: "Mini commuter",
-    srp: 53900, engineCc: 109, powerHp: 7.8, torqueNm: 8.9, curbWeightKg: 104, seatHeightMm: 765, fuelTankL: 3.8,
-    frontTire: "90/90-12", rearTire: "90/100-10", abs: "No ABS", colors: ["Red", "Black"], searchVolume: 21000, keywordDifficulty: 0,
-    sourceLabel: "Manufacturer details pending recheck", sourceUrl: "https://www.hondaph.com/", verifiedAt: "2026-08-24", freshness: "review",
-    summary: "109cc automatic mini-motorcycle with a 765 mm seat and compact dimensions for city use."
+    id: "honda-navi", make: "Honda", makeSlug: "honda", model: "Navi", slug: "navi", generation: "Current Philippine model", category: "Mini commuter",
+    srp: 59000, engineCc: 109, powerHp: 7.9, torqueNm: 8.91, curbWeightKg: 104, seatHeightMm: 762, fuelTankL: 3.5, fuelConsumptionKmL: 48.4, groundClearanceMm: 148,
+    frontTire: "90/90-12", rearTire: "90/100-10", abs: "Combined Braking System (CBS) with drum brakes", colors: ["Neon Pink R", "Black", "Patriot Red", "Shasta White", "Ranger Green R"], searchVolume: 21000, keywordDifficulty: 0,
+    sourceLabel: "Honda Philippines NAVi specification and 2026 current catalog", sourceUrl: "https://cms.hondaph.com/files/products/6876164a9f045.pdf", verifiedAt: "2026-09-22", freshness: "verified", marketStatus: "current", transmission: "Automatic",
+    marketPriceSourceLabel: "Honda Philippines current motorcycle catalog", marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/list", marketPriceCheckedAt: "2026-09-22",
+    summary: "109cc automatic mini-motorcycle with CBS, a 762 mm seat, 104 kg curb weight, 3.5 L tank and 48.4 km/L WMTC fuel-consumption figure."
   },
   {
     id: "honda-beat", make: "Honda", makeSlug: "honda", model: "BeAT", slug: "beat", generation: "Current", category: "Commuter scooter",

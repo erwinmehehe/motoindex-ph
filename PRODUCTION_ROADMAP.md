@@ -102,9 +102,20 @@ Next high-volume verified models without the stronger canonical buying layer:
 - **Kawasaki Ninja H2 Carbon** — strengthen current Philippine price, supercharged 998cc/231 hp specification intent, insurance/consumables context, ownership cost and cross-shopping with R1M and Z H2.
 - **Honda Rebel 1100** — strengthen current Philippine price, 1084cc DCT, 709 mm seat-height intent, low-speed weight context, ownership cost and cross-shopping with Rebel 500 and other large road bikes.
 - Both retain one canonical model URL and now receive model-specific buyer briefs, decision-authority content, commercial-intent links and CI protection.
-- **Honda Navi is intentionally not promoted in this wave** despite its large keyword estimate because its stored manufacturer record is still marked for source recheck. Re-verify the current Philippine model/price first, then decide whether it deserves a ranking-depth upgrade.
+- **Honda Navi was intentionally held out of wave 3** until its manufacturer record could be re-verified. That source gap is now resolved in wave 4 using Honda Philippines' current catalog and official specification material.
 
 This wave continues the current rule: improve verified canonical pages before creating new price/spec/installment URLs.
+
+### Ranking-depth wave 4 — Honda Navi canonical
+
+Honda Navi had the largest remaining model-demand estimate in the current dataset but was previously blocked by a stale review-status record. The official-source recheck is now complete:
+
+- Honda Philippines' current 2026 motorcycle catalog lists **Honda NAVi at ₱59,000**.
+- Honda's official Philippine NAVi specification material confirms **109cc**, **5.89 kW**, **8.91 Nm**, **48.4 km/L WMTC**, **762 mm seat height**, **104 kg curb weight**, **3.5 L tank**, **CBS with drum brakes**, and **90/90-12 front / 90/100-10 rear tires**.
+- The existing /motorcycles/honda/navi canonical owns price/spec/fuel-economy/beginner-commuter intent; no separate Navi price, specs or fuel-economy URL is created.
+- The page receives model-specific decision-authority and commercial-intent content, current official-source metadata and browser-level regression coverage at mobile, tablet and desktop widths.
+
+The next model-ranking pass should again start from verified Search Console/competitor demand, not from unverified seed records.
 
 ---
 
