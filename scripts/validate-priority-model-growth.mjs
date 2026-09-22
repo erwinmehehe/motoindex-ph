@@ -56,7 +56,8 @@ const priorityModels = [
   "kawasaki-ninja-zx-25r",
   "bajaj-dominar-400",
   "kawasaki-ninja-h2",
-  "honda-rebel-1100"
+  "honda-rebel-1100",
+  "honda-navi"
 ];
 
 for (const id of priorityModels) {
@@ -126,6 +127,37 @@ for (const token of [
   'serviceUrl:"https://www.kawasakileisurebikes.ph/services/service-network/"'
 ]) {
   if (!brandSupport.includes(token)) errors.push(`priorityModelGrowth: ranking-depth wave three brand support missing token ${token}`);
+}
+
+for (const token of [
+  '"honda-navi": {',
+  'seoTitle: "Honda Navi Price Philippines 2026 | Specs & Fuel Economy"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: ranking-depth Navi lost token ${token}`);
+}
+
+if (!buyerBrief.includes('"honda-navi": {')) {
+  errors.push("PriorityModelBrief: missing ranking-depth Navi buyer brief");
+}
+
+for (const token of [
+  'modelId:"honda-navi"',
+  'comparisonIds:["honda-beat","yamaha-mio-gear","honda-click-125i"]'
+]) {
+  if (!authority.includes(token)) errors.push(`modelAuthority: ranking-depth Navi lost token ${token}`);
+}
+
+for (const token of [
+  'id: "honda-navi"',
+  'srp: 59000',
+  'engineCc: 109',
+  'seatHeightMm: 762',
+  'fuelConsumptionKmL: 48.4',
+  'sourceUrl: "https://cms.hondaph.com/files/products/6876164a9f045.pdf"',
+  'marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/list"',
+  'freshness: "verified"'
+]) {
+  if (!data.includes(token)) errors.push(`Honda Navi verification: missing token ${token}`);
 }
 
 if (!tier23.includes('sourceUrl: "https://www.hondaph.com/honda-bigbikes/files/products/65faa98599e4d.pdf"')) {
