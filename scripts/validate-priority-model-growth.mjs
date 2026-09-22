@@ -186,6 +186,38 @@ for (const token of [
 }
 
 for (const token of [
+  '"honda-adv-160": {',
+  'seoTitle: "Honda ADV160 Price Philippines 2026 | ABS & RoadSync"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: ADV160 authority wave lost token ${token}`);
+}
+
+if (buyerBrief.includes('"honda-adv-160": {')) {
+  errors.push("PriorityModelBrief: ADV160 must not duplicate the authority/commercial buyer guidance");
+}
+
+for (const token of [
+  'modelId:"honda-adv-160"',
+  'comparisonIds:["yamaha-nmax-v3","honda-pcx-160","honda-click-160"]'
+]) {
+  if (!authority.includes(token)) errors.push(`modelAuthority: ADV160 authority wave lost token ${token}`);
+}
+
+for (const token of [
+  'id: "honda-adv-160"',
+  'srp: 167400',
+  'marketPriceHighPhp: 174900',
+  'seatHeightMm: 780',
+  'fuelConsumptionKmL: 45.0',
+  'groundClearanceMm: 165',
+  'sourceUrl: "https://www.hondaph.com/motorcycle/news/experience-the-suv-pride-with-the-adv160"',
+  'marketPriceSourceUrl: "https://trafficnetworkph.com/ride-the-suv-pride-the-new-honda-adv160/"',
+  'marketPriceCheckedAt: "2026-09-22"'
+]) {
+  if (!data.includes(token)) errors.push(`Honda ADV160 verification: missing token ${token}`);
+}
+
+for (const token of [
   '"yamaha-nmax-v3": {',
   'seoTitle: "Yamaha NMAX V3 Price Philippines 2026 | Tech Max Specs"'
 ]) {

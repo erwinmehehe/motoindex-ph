@@ -12,12 +12,7 @@ type Brief = {
 const briefs: Record<string, Brief> = {
 
 
-  "honda-adv-160": {
-    fit: ["You want an automatic scooter with more ground clearance and an 8.1 L tank for mixed city and provincial use.", "You value the ADV layout and current ABS/HSTC equipment more than minimum purchase price."],
-    check: ["Confirm the exact ABS/RoadSync variant and current dealer price.", "Test the 780 mm seat and 133 kg curb weight with your normal footwear and luggage plans."],
-    ownership: "Budget for the exact tire sizes, body panels and routine CVT service, then compare dealer support along the routes you actually use.",
-    alternatives: ["honda-pcx-160", "yamaha-nmax-v3", "yamaha-aerox-v3"]
-  },
+
   "honda-click-160": {
     fit: ["You want a compact 157cc automatic that stays lighter than many premium 160cc scooters.", "City maneuverability and purchase price matter more than a large fuel tank or touring bodywork."],
     check: ["The stored braking record is CBS rather than ABS, so compare braking equipment deliberately.", "Confirm current dealer price, color and stock instead of relying on an old marketplace listing."],

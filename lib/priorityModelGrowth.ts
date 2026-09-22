@@ -170,11 +170,11 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 150cc and 155cc scooters"
   },
   "honda-adv-160": {
-    seoTitle: "Honda ADV160 Price Philippines 2026 | Specs & Monthly",
-    seoDescription: "Honda ADV160 price in the Philippines, 157cc specs, seat height, tires, ABS, down payment, monthly estimate, fuel planning and ownership costs.",
-    intentIntro: "The ADV160 carries an adventure-scooter premium over simpler commuters, so compare the exact variant, ABS and RoadSync equipment, financing, rider fit and ownership cost rather than treating engine size as the whole decision.",
-    moneyQuestion: "Does the ADV160 premium still make sense after comparing the exact trim, down payment, monthly payment, insurance and final dealer quote?",
-    ownershipQuestion: "Compare CVT service, mixed-size tires, fuel range, bodywork, insurance and Honda support with NMAX V3, PCX160 and Click 160.",
+    seoTitle: "Honda ADV160 Price Philippines 2026 | ABS & RoadSync",
+    seoDescription: "Honda ADV160 price in the Philippines: ₱167,400 ABS vs ₱174,900 RoadSync, 157cc specs, 780mm seat, 45 km/L, HSTC, monthly estimate and ownership.",
+    intentIntro: "The 2026 ADV160 is a two-variant decision, not one blended price. Honda's ABS type is ₱167,400 and the RoadSync type is ₱174,900; both use the 157cc eSP+ platform, while RoadSync adds the connectivity-focused equipment Honda reserves for that trim.",
+    moneyQuestion: "Is the ₱7,500 RoadSync premium worth paying after comparing the exact dealer quote, down payment, monthly payment, insurance, registration and whether you will actually use the connectivity features?",
+    ownershipQuestion: "Compare the 780 mm seat, 133 kg curb weight, 8.1 L tank, 45.0 km/L WMTC figure, mixed 14/13-inch tires, CVT service, bodywork and accessory costs with NMAX V3, PCX160 and Click160.",
     alternativeIds: ["yamaha-nmax-v3", "honda-pcx-160", "honda-click-160"],
     relatedIds: ["honda-pcx-160", "honda-click-160"],
     recommendationHref: "/recommendations/160cc-scooters-philippines",

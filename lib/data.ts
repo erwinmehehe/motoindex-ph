@@ -161,16 +161,17 @@ export const motorcycles: Motorcycle[] = [
     colors: ["Matte Gunpowder Black Metallic", "Pearl Fadeless White", "Matte Sabre Green Metallic", "Matte Pearl Crater White", "Quartz Brown Metallic"],
     searchVolume: 13000,
     keywordDifficulty: 0,
-    sourceLabel: "Honda Philippines 2026 ADV160 features and current ABS/RoadSync catalog naming",
+    sourceLabel: "Honda Philippines January 2026 ADV160 launch and current feature reference",
     sourceUrl: "https://www.hondaph.com/motorcycle/news/experience-the-suv-pride-with-the-adv160",
-    verifiedAt: "2026-08-25",
+    verifiedAt: "2026-09-22",
     freshness: "verified",
     marketPriceHighPhp: 174900,
-    marketPriceSourceLabel: "Traffic Network PH / Honda Philippines official release",
+    marketPriceSourceLabel: "Traffic Network PH reproduction of Honda Philippines official 2026 release",
     marketPriceSourceUrl: "https://trafficnetworkph.com/ride-the-suv-pride-the-new-honda-adv160/",
-    marketPriceCheckedAt: "2026-08-25",
+    marketPriceCheckedAt: "2026-09-22",
+    priceContext: "2026 ADV160 SRP is ₱167,400 for ABS and ₱174,900 for RoadSync. Honda states RoadSync connectivity is exclusive to the RoadSync type; confirm final dealer quote and exact variant before purchase.",
     transmission: "Automatic",
-    summary: "157cc adventure-style scooter with a 780 mm seat, 133 kg curb weight and current ABS/RoadSync variants."
+    summary: "Current 157cc adventure-style scooter with a 780 mm seat, 133 kg curb weight, 8.1 L tank, ABS/HSTC and distinct ABS/RoadSync variants."
   },
   {
     id: "honda-click-160",

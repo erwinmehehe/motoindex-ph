@@ -980,3 +980,14 @@ NMAX V3 is the next largest verified current-model demand gap after Aerox V3 tha
 - Cover Standard-vs-Tech-Max, YECVT, rider fit, fuel range, financing, passenger use and ownership without creating thin variant URLs.
 - Add direct browser QA at 390px and 1440px and permanent visual coverage at 390px, 768px and 1440px.
 
+### Ranking-depth wave 9 — Honda ADV160 authority
+
+ADV160 is the next verified current-model demand gap after NMAX V3, with roughly 13K stored monthly search demand and a strong 2026 first-party Honda source.
+
+- Keep /motorcycles/honda/adv-160 as the only ADV160 canonical.
+- Separate 2026 **ABS ₱167,400** from **RoadSync ₱174,900** rather than publishing one blended trim.
+- Keep Honda RoadSync exclusive to the RoadSync type while retaining shared ABS/HSTC, 157cc, rider-fit and ownership facts.
+- Remove the duplicate PriorityModelBrief and keep one commercial buyer layer plus one distinct decision-authority layer.
+- Cover variant value, financing, 780 mm rider fit, 45.0 km/L WMTC, 8.1 L range, mixed tire sizes, accessories and CVT ownership without thin variant URLs.
+- Add direct browser QA at 390px and 1440px plus permanent visual coverage at 390px, 768px and 1440px.
+
