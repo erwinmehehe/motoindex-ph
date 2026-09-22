@@ -128,7 +128,7 @@ try {
           commercial:Boolean(commercial),
           authority:Boolean(document.querySelector('.authority-decision-section')),
           briefCount:sections.length,
-          canonicalPath:document.querySelector('link[rel="canonical"]')?.pathname||'',
+          canonicalPath:(()=>{const href=document.querySelector('link[rel="canonical"]')?.getAttribute('href')||'';try{return href?new URL(href,location.href).pathname:'';}catch{return '';}})(),
           sectionLeft:rect?.left||0,
           sectionRight:rect?.right||0,
           priceLink:links.some(href=>href==='#price'),
