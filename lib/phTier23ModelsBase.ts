@@ -588,12 +588,12 @@ export const phTier23Motorcycles: Motorcycle[] = [
     summary: "1833cc flat-six luxury tourer with seven-speed DCT, 171 Nm, integrated luggage, a 745 mm seat and variant-dependent airbag equipment."
   },
   {
-    id: "honda-rebel-1100", alsoKnownAs: ["Honda Rebel1100"], make: "Honda", makeSlug: "honda", model: "Rebel 1100", slug: "rebel-1100", generation: "Current Philippine listing", category: "Cruiser",
-    srp: 665000, engineCc: 1083, powerHp: 85.8, torqueNm: 98, curbWeightKg: 233, seatHeightMm: 690, fuelTankL: 13.6, groundClearanceMm: 120,
-    frontTire: "130/70 R18", rearTire: "180/70 R16", abs: "Dual-channel ABS with traction-control rider aids", colors: ["Gunmetal Black Metallic"], searchVolume: 3500, keywordDifficulty: 0,
-    sourceLabel: "Current Philippine Honda Rebel 1100 price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/rebel-1100", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Automatic",
+    id: "honda-rebel-1100", alsoKnownAs: ["Honda Rebel1100"], make: "Honda", makeSlug: "honda", model: "Rebel 1100", slug: "rebel-1100", generation: "2025 Philippine model", category: "Cruiser",
+    srp: 665000, engineCc: 1084, powerHp: 87.2, torqueNm: 98, curbWeightKg: 237, seatHeightMm: 709, fuelTankL: 13.6, fuelConsumptionKmL: 20.1, groundClearanceMm: 120,
+    frontTire: "130/70 B18", rearTire: "180/65 B16", abs: "2-channel ABS", colors: ["Matte Ballistic Black Metallic", "Pearl Hawkeye Blue"], searchVolume: 3500, keywordDifficulty: 0,
+    sourceLabel: "Honda Philippines Rebel 1100 2025 model specification sheet", sourceUrl: "https://www.hondaph.com/honda-bigbikes/files/products/69dd92a7e9f6e.pdf", verifiedAt: "2026-09-22", freshness: "verified", marketStatus: "current", transmission: "Automatic",
     marketPriceSourceLabel: "Current Philippine Rebel 1100 starting-price reference", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/rebel-1100", marketPriceCheckedAt: "2026-09-09",
-    summary: "1083cc parallel-twin cruiser with six-speed DCT, 98 Nm, cruise control, a low 690 mm seat and dual-channel ABS."
+    summary: "1084cc parallel-twin cruiser with six-speed DCT, 98 Nm, a 709 mm seat, 237 kg curb weight and 2-channel ABS."
   },
   {
     id: "honda-rebel-500", alsoKnownAs: ["Honda Rebel", "Honda CMX500 Rebel"], make: "Honda", makeSlug: "honda", model: "Rebel 500", slug: "rebel-500", generation: "Current Philippine listing", category: "Cruiser",
