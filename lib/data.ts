@@ -580,7 +580,7 @@ export const motorcycles: Motorcycle[] = [
     id: "honda-navi", make: "Honda", makeSlug: "honda", model: "Navi", slug: "navi", generation: "Current Philippine model", category: "Mini commuter",
     srp: 59000, engineCc: 109, powerHp: 7.9, torqueNm: 8.91, curbWeightKg: 104, seatHeightMm: 762, fuelTankL: 3.5, fuelConsumptionKmL: 48.4, groundClearanceMm: 148,
     frontTire: "90/90-12", rearTire: "90/100-10", abs: "Combined Braking System (CBS) with drum brakes", colors: ["Neon Pink R", "Black", "Patriot Red", "Shasta White", "Ranger Green R"], searchVolume: 21000, keywordDifficulty: 0,
-    sourceLabel: "Honda Philippines NAVi specification and 2026 current catalog", sourceUrl: "https://cms.hondaph.com/files/products/6876164a9f045.pdf", verifiedAt: "2026-09-22", freshness: "verified", marketStatus: "current", transmission: "Automatic (V-Matic)",
+    sourceLabel: "Honda Philippines NAVi specification and 2026 current catalog", sourceUrl: "https://cms.hondaph.com/files/products/6876164a9f045.pdf", verifiedAt: "2026-09-22", freshness: "verified", marketStatus: "current", transmission: "Automatic",
     marketPriceSourceLabel: "Honda Philippines current motorcycle catalog", marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/list", marketPriceCheckedAt: "2026-09-22",
     summary: "109cc automatic mini-motorcycle with CBS, a 762 mm seat, 104 kg curb weight, 3.5 L tank and 48.4 km/L WMTC fuel-consumption figure."
   },
