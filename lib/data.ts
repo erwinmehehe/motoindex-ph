@@ -608,13 +608,14 @@ export const motorcycles: Motorcycle[] = [
     srp: 83000, engineCc: 125, powerHp: 11.0, torqueNm: 10.8, curbWeightKg: 111, seatHeightMm: 769, fuelTankL: 5.5,
     fuelConsumptionKmL: 50.3,
     frontTire: "80/90-14", rearTire: "90/90-14", abs: "Combined Brake System (CBS)", colors: ["Obsidian Black Metallic", "Pearl Sylvestris Gray", "Pearl Arctic White", "Matte Axis Gray Metallic", "Matte Fresco Brown"], searchVolume: 7100, keywordDifficulty: 65,
-    sourceLabel: "Honda Philippines 2026 Click125 launch and current lineup reference", sourceUrl: "https://www.hondaph.com/motorcycle/news/game-changer-upgrade-honda-introduces-the-click125-2026-year-model", verifiedAt: "2026-09-19", freshness: "verified",
+    sourceLabel: "Honda Philippines 2026 Click125 launch and current lineup reference", sourceUrl: "https://www.hondaph.com/motorcycle/news/game-changer-upgrade-honda-introduces-the-click125-2026-year-model", verifiedAt: "2026-09-22", freshness: "verified",
     marketPriceHighPhp: 87700,
-    marketPriceSourceLabel: "Honda Philippines",
+    marketPriceSourceLabel: "Honda Philippines current lineup",
     marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/list",
-    marketPriceCheckedAt: "2026-09-19",
+    marketPriceCheckedAt: "2026-09-22",
+    priceContext: "Honda's 2026 Click125 reference starts at ₱83,000, while the current lineup reaches ₱87,700 depending on the listed variant. Confirm the exact variant, color and branch quote before financing.",
     transmission: "Automatic",
-    summary: "125cc automatic commuter scooter with a 769 mm seat and published fuel-economy data."
+    summary: "Current 125cc automatic commuter with a 769 mm seat, 111 kg curb weight, 5.5 L tank, 50.3 km/L published fuel economy and CBS."
   },
   {
     id: "yamaha-mio-gear", make: "Yamaha", makeSlug: "yamaha", model: "Mio Gear", slug: "mio-gear", generation: "Current", category: "Commuter scooter",

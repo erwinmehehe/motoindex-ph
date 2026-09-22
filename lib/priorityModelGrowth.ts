@@ -416,12 +416,12 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
 
   "honda-click-125i": {
     seoTitle: "Honda Click 125i Price Philippines 2026 | Specs & Ownership",
-    seoDescription: "Honda Click 125i price in the Philippines, 125cc specs, colors, seat height, tires, down payment, monthly estimate, fuel economy and ownership costs.",
-    intentIntro: "The Click 125i is a high-volume commuter choice, so small differences in trim price, fuel use, braking, storage and monthly payment matter more than headline performance. Compare the full daily-use package before reserving.",
-    moneyQuestion: "What does the Click 125i really cost after choosing the exact trim and adding down payment, monthly payment, fees and insurance?",
-    ownershipQuestion: "Compare fuel use, CVT service, 14-inch tires, storage and nearby Honda support with Mio Gear, Fazzio and Burgman Street EX.",
+    seoDescription: "Honda Click125 Philippines guide: ₱83,000–₱87,700 current reference, 125cc specs, 769mm seat, 50.3 km/L, CBS, monthly estimate and ownership.",
+    intentIntro: "The 2026 Click125 is a high-volume commuter where variant price matters more than headline performance. Honda's current references run from ₱83,000 to ₱87,700, so compare the exact unit, CBS package, financing and daily running costs before reserving.",
+    moneyQuestion: "What does the exact Click125 variant cost after the branch quote, down payment, monthly payment, insurance, registration and dealer charges are included?",
+    ownershipQuestion: "Compare the 769 mm seat, 111 kg curb weight, 5.5 L tank, 50.3 km/L figure, 14-inch tires, CBS and CVT service with Fazzio, Mio Gear and Click160.",
     alternativeIds: ["yamaha-mio-gear", "yamaha-fazzio", "suzuki-burgman-street-ex"],
-    relatedIds: ["honda-click-160"],
+    relatedIds: ["honda-click-160", "honda-beat"],
     recommendationHref: "/recommendations/125cc-scooters-philippines",
     recommendationLabel: "Compare 125cc scooters"
   },

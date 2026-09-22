@@ -22,7 +22,8 @@ const pages = [
   ["honda-adv-160", "/motorcycles/honda/adv-160"],
   ["honda-click-160", "/motorcycles/honda/click-160"],
   ["honda-pcx-160", "/motorcycles/honda/pcx-160"],
-  ["yamaha-fazzio", "/motorcycles/yamaha/fazzio"]
+  ["yamaha-fazzio", "/motorcycles/yamaha/fazzio"],
+  ["honda-click-125i", "/motorcycles/honda/click-125i"]
 ];
 const widths = [390, 1440];
 const failures = [];
@@ -171,6 +172,8 @@ try {
       if (name === "honda-pcx-160" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name === "yamaha-fazzio" && !audit?.authority) failures.push(`${width}px ${pathname}: Yamaha Fazzio authority section is missing.`);
       if (name === "yamaha-fazzio" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
+      if (name === "honda-click-125i" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda Click125 authority section is missing.`);
+      if (name === "honda-click-125i" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name !== "honda-crf150l") {
         if (!audit?.priceLink || !audit?.installmentLink) failures.push(`${width}px ${pathname}: price/monthly anchor links are incomplete.`);
         if (!audit?.priceIndex || !audit?.financeIndex) failures.push(`${width}px ${pathname}: research dataset links are incomplete.`);

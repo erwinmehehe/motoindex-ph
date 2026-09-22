@@ -16,12 +16,7 @@ const briefs: Record<string, Brief> = {
 
 
 
-  "honda-click-125i": {
-    fit: ["You want a widely used automatic commuter without paying for 160cc-class performance.", "Low daily running cost and simple city use are higher priorities than touring equipment."],
-    check: ["Confirm the exact current generation and dealer price before comparing with used or older listings.", "Compare braking equipment, storage and seat fit rather than looking only at engine size."],
-    ownership: "This is the kind of model where fuel, routine CVT service, tires and dealer convenience can matter more over time than a small difference in purchase price.",
-    alternatives: ["yamaha-mio-gear", "yamaha-fazzio", "honda-click-160"]
-  },
+
   "yamaha-mio-gear": {
     fit: ["You want an affordable automatic for short daily trips and stop-go traffic.", "A lighter, simpler commuter is more useful to you than premium scooter features."],
     check: ["Confirm the exact variant because pricing and equipment can differ.", "Compare seat reach, under-seat storage and braking equipment with Click 125i and Fazzio."],

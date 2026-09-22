@@ -1023,3 +1023,13 @@ Fazzio is the next verified current-model demand gap after PCX160, with roughly 
 - Strengthen 750 mm rider fit, 95 kg low-speed handling, 12-inch tires, no-ABS braking, financing and CVT ownership intent.
 - Add direct browser QA and permanent 390px, 768px and 1440px visual coverage.
 
+### Ranking-depth wave 13 — Honda Click125 authority
+
+Click125 is the next verified current-model demand gap after Fazzio, with roughly 7.1K stored monthly search demand.
+
+- Keep /motorcycles/honda/click-125i as the only Click125 canonical.
+- Preserve the current ₱83,000–₱87,700 variant price range and require exact-unit quote verification.
+- Remove duplicate buyer guidance and add a distinct decision-authority layer.
+- Strengthen 769 mm rider fit, 111 kg handling, 50.3 km/L fuel use, CBS, 14-inch tires, financing and CVT ownership intent.
+- Add direct browser QA and permanent 390px, 768px and 1440px visual coverage.
+
