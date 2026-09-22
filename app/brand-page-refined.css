@@ -90,12 +90,10 @@
 
 .ph-brand-page .ph-brand-two-col{display:grid!important;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr)!important;gap:48px!important;align-items:start!important}
 .ph-brand-page .ph-brand-scooter-strip{margin-top:20px!important;padding:16px 0!important;border-top:1px solid var(--brand-line)!important;border-bottom:1px solid var(--brand-line)!important;background:transparent!important;border-radius:0!important;box-shadow:none!important}
-.ph-brand-page .ph-brand-scooter-strip>h3{margin:0!important;font-size:15px!important;line-height:1.25!important;color:var(--brand-ink)!important}
-.ph-brand-page .ph-brand-scooter-strip>p{max-width:720px!important;margin:6px 0 0!important;color:var(--brand-muted)!important;font-size:10px!important;line-height:1.6!important}
+.ph-brand-page .ph-brand-scooter-strip>h3{margin:0;font-size:15px;line-height:1.25;color:var(--brand-ink)}
+.ph-brand-page .ph-brand-scooter-strip>p{max-width:720px;margin:6px 0 0;color:var(--brand-muted);font-size:10px;line-height:1.6}
 .ph-brand-page .ph-brand-scooter-strip>div{display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:0 20px!important;margin-top:8px!important}
 .ph-brand-page .ph-brand-scooter-strip a{display:flex!important;justify-content:space-between!important;gap:14px!important;padding:9px 0!important;border-bottom:1px solid rgba(148,163,184,.15)!important;color:var(--brand-muted)!important;font-size:10px!important}
-.ph-brand-page .ph-brand-scooter-links{display:flex!important;flex-wrap:wrap!important;gap:8px 16px!important;margin-top:12px!important}
-.ph-brand-page .ph-brand-scooter-links>a{display:inline-flex!important;justify-content:flex-start!important;padding:0!important;border:0!important;color:var(--brand-accent)!important;font-weight:800!important}
 
 .ph-brand-page .ph-brand-category-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:0 20px!important;margin-top:20px!important;border-top:1px solid var(--brand-line)!important}
 .ph-brand-page .ph-brand-category-grid>a{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:14px!important;padding:13px 0!important;border:0!important;border-bottom:1px solid var(--brand-line)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
