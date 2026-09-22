@@ -53,6 +53,18 @@ Built from the competitor-gap backlog without creating duplicate price/spec URLs
 
 Each page keeps one canonical model URL, adds intent-matched metadata and model-specific buyer context, and is protected by the priority-model growth validator.
 
+### Ranking-depth wave 2 — sport and road-bike canonicals
+
+Second pass from the existing-page competitor gap, again without creating separate price/spec/installment URLs:
+
+- **Yamaha YZF-R15M** — strengthen R15 price/spec/financing intent on the current canonical.
+- **Honda CBR650R** — strengthen inline-four sport-bike, variant, ownership and E-Clutch comparison intent; replace comparison-site spec sourcing with Honda Philippines' official specification sheet.
+- **Yamaha YZF-R7** — strengthen R7 price, rider-fit, ownership and middleweight cross-shop intent.
+- **Kawasaki Ninja ZX-25R** — strengthen price, Standard/SE variant, inline-four and ownership intent.
+- **Bajaj Dominar 400** — strengthen price, touring-cost and alternatives intent while keeping expressway claims separate from the 400 model name.
+
+All five pages retain their existing canonical URLs and receive regression coverage in the priority-model SEO validator.
+
 ---
 
 # MotoIndex PH Production Roadmap
