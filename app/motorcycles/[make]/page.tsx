@@ -68,6 +68,10 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const categories = [...new Set(current.map((m) => m.category))].sort();
   const automatic = current.filter((m) => m.transmission === "Automatic").length;
   const scooters = current.filter((m) => /scooter/i.test(m.category));
+  const scooterGuideHref = make === "honda" || make === "yamaha" ? `/recommendations/${make}-scooters-philippines` : "/recommendations/best-scooters-philippines";
+  const scooterRanges = scooters.map((model) => observedMarketRange(model));
+  const scooterLow = scooterRanges.length ? Math.min(...scooterRanges.map((row) => row.from)) : undefined;
+  const scooterHigh = scooterRanges.length ? Math.max(...scooterRanges.map((row) => row.to || row.from)) : undefined;
   const manual = current.filter((m) => m.transmission === "Manual").length;
   const cheapest = ranges.reduce((best, row) => row.from < best.from ? row : best, ranges[0]);
   const authorityModels = current.filter((m) => Boolean(modelAuthorityProfile(m.id)));
@@ -103,6 +107,13 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     faq.splice(1, 0, {
       question: `Which ${brand} motorcycles are ${bigBikeMinCc}cc and above?`,
       answer: `MotoIndex currently tracks ${bigBikes.length} current ${brand} ${bigBikeMinCc}cc+ ${bigBikes.length === 1 ? "model" : "models"}: ${bigBikes.map((model) => model.model).join(", ")}. Compare their published prices, engine sizes, power and seat heights in the big-bike section below.`
+    });
+  }
+
+  if (scooters.length >= 3 && scooterLow !== undefined && scooterHigh !== undefined) {
+    faq.splice(1, 0, {
+      question: `Which ${brand} scooters are currently tracked in the Philippines?`,
+      answer: `MotoIndex currently tracks ${scooters.length} current ${brand} scooter${scooters.length === 1 ? "" : "s"} on this brand hub: ${scooters.map((model) => model.model).join(", ")}. Published price references across these scooters run from ${php(scooterLow)} to ${php(scooterHigh)}; open the scooter section below for model-by-model details.`
     });
   }
 
@@ -159,7 +170,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
     <div className="shell">
       <nav className="ph-brand-nav" aria-label={`${brand} page sections`}>
-        <a href="#price-list">Price list</a><a href="#models">Models</a>{bigBikes.length > 0 ? <a href="#big-bikes">Big bikes</a> : null}{spotlightModels.length > 0 ? <a href="#category-spotlight">Featured category</a> : null}<a href="#categories">Categories</a><a href="#research">How to use data</a><a href="#faq">FAQ</a>
+        <a href="#price-list">Price list</a><a href="#models">Models</a>{scooters.length >= 3 ? <a href="#scooters">Scooters</a> : null}{bigBikes.length > 0 ? <a href="#big-bikes">Big bikes</a> : null}{spotlightModels.length > 0 ? <a href="#category-spotlight">Featured category</a> : null}<a href="#categories">Categories</a><a href="#research">How to use data</a><a href="#faq">FAQ</a>
       </nav>
 
       {priority && <section className="ph-brand-context">
@@ -220,7 +231,16 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       <section id="categories" className="ph-brand-section ph-brand-two-col">
         <div>
           <SectionHeader kicker="Shop by use" title={`${brand} motorcycle models by category`} />
-          {scooters.length >= 3 && <div id="scooters" className="ph-brand-scooter-strip"><strong>{brand} scooters</strong><div>{scooters.map((m) => <Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}`}><span>{m.model}</span><small>{phpRange(observedMarketRange(m).from, observedMarketRange(m).to)}</small></Link>)}</div></div>}
+          {scooters.length >= 3 && <div id="scooters" className="ph-brand-scooter-strip">
+            <strong>{brand} scooters in the Philippines</strong>
+            <p>{scooterLow !== undefined && scooterHigh !== undefined ? `Compare ${scooters.length} current ${brand} scooters from ${php(scooterLow)} to ${php(scooterHigh)} by engine size, price, rider fit and braking equipment.` : `Compare current ${brand} scooters by price and key specifications.`}</p>
+            <div>{scooters.map((m) => <Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}`}><span>{m.model}</span><small>{phpRange(observedMarketRange(m).from, observedMarketRange(m).to)}</small></Link>)}</div>
+            <nav className="ph-brand-scooter-links" aria-label={`${brand} scooter research`}>
+              {scooterGuideHref !== "/recommendations/best-scooters-philippines" ? <Link href={scooterGuideHref}>Compare {brand} scooters →</Link> : null}
+              <Link href="/recommendations/best-scooters-philippines">Best scooters Philippines guide →</Link>
+              <Link href="/motorcycles/scooters">Full Philippines scooter market →</Link>
+            </nav>
+          </div>}
           <div className="ph-brand-category-grid">{categories.map((category) => <Link key={category} href={{ pathname: "/motorcycles", query: { make, type: category } }}><strong>{category}</strong><span>{current.filter((m) => m.category === category).length} covered</span></Link>)}</div>
         </div>
         <InfoPanel className="ph-brand-start-card"><span>Need a faster answer?</span><h3>Start with price, fit or a side-by-side comparison.</h3><p>Use the {brand} price list to set a realistic budget, then narrow the choice by engine, seat height, transmission and intended use.</p><div><Link href={{ pathname: "/finder", query: { make } }}>Use motorcycle finder →</Link><Link href="/compare">Open comparison tool →</Link><Link href="/recommendations">Browse PH recommendations →</Link></div></InfoPanel>
