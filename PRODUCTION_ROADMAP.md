@@ -139,6 +139,20 @@ CRF150L has strong stored Philippine search demand, but the source audit does **
 
 
 
+### Ownership authority wave 1 — Yamaha Philippines PMS
+
+The next SEO phase moves from model acquisition into ownership depth without inventing model-specific service intervals.
+
+- Added Yamaha Motor Philippines' current **Periodic Maintenance Schedule (PMS) Guide** as a source-backed brand-level maintenance layer.
+- The maintenance hub now separates **exact owner-manual schedules** from **brand-level PMS guidance** so readers can see useful official intervals without confusing them with an exact NMAX, Aerox or Fazzio manual.
+- Yamaha model pages without an exact parsed manual now show the official brand PMS milestones and maintenance items with an explicit warning that the exact owner manual takes precedence.
+- Current Yamaha guidance captured includes the 1,000 / 4,000 / 7,000 / 10,000 / 13,000 km PMS milestones, then a 3,000 km cadence, plus published guidance for gear oil, oil filter, coolant, air filter, spark plug, V-belt/chain, fuel injector and brake fluid.
+- No new thin maintenance URLs were created. Ownership depth is added to the existing /maintenance hub and canonical motorcycle pages.
+- CI guards the Yamaha source, interval data and exact-manual disclosure.
+
+Next: parse exact model-year manuals where a Philippine-market owner manual can be verified, starting with the highest-demand NMAX, Aerox, ADV160 and Fazzio records.
+
+
 ---
 
 # MotoIndex PH Production Roadmap
