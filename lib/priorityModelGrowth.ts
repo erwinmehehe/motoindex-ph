@@ -688,6 +688,17 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     relatedIds: ["honda-rebel-500", "honda-gold-wing"],
     recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
     recommendationLabel: "Compare 400cc+ motorcycles"
+  },
+  "honda-navi": {
+    seoTitle: "Honda Navi Price Philippines 2026 | Specs & Fuel Economy",
+    seoDescription: "Honda Navi price in the Philippines, 109cc specs, 48.4 km/L fuel economy, 762mm seat, CBS, tire sizes, ownership costs and commuter alternatives.",
+    intentIntro: "The Honda Navi is a current Philippine 109cc automatic mini-motorcycle with a ₱59,000 catalog price, 762 mm seat, 104 kg curb weight and Honda-published 48.4 km/L WMTC fuel-consumption figure. Compare it as a compact city machine, not simply as another scooter.",
+    moneyQuestion: "What does the Navi cost after registration, insurance, dealer fees and any accessories are added to the current catalog price?",
+    ownershipQuestion: "Compare fuel use, 12/10-inch tire availability, drum-brake/CBS maintenance, storage, insurance and Honda service access with lightweight automatic commuters.",
+    alternativeIds: ["honda-beat", "yamaha-mio-gear", "honda-click-125i"],
+    relatedIds: ["honda-beat", "honda-click-125i"],
+    recommendationHref: "/recommendations/best-motorcycles-for-daily-commute-philippines",
+    recommendationLabel: "Compare daily commuter motorcycles"
   }
 };
 
