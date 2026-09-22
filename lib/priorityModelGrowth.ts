@@ -680,10 +680,10 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   },
   "honda-rebel-1100": {
     seoTitle: "Honda Rebel 1100 Price Philippines 2026 | Specs & Costs",
-    seoDescription: "Honda Rebel 1100 price in the Philippines, 1083cc twin specs, DCT, 690mm seat, weight, ownership costs, financing, tires, service and alternatives.",
-    intentIntro: "The Rebel 1100 combines an unusually low 690 mm seat with an 1083cc parallel twin, DCT and a 233 kg curb weight. Compare its low-seat accessibility with the real purchase, insurance, tire and service costs rather than treating seat height as the whole ownership decision.",
+    seoDescription: "Honda Rebel 1100 price in the Philippines, 1084cc twin specs, DCT, 709mm seat, weight, ownership costs, financing, tires, service and alternatives.",
+    intentIntro: "The Rebel 1100 combines a low 709 mm seat with an 1084cc parallel twin, DCT and a 237 kg curb weight. Compare its low-seat accessibility with the real purchase, insurance, tire and service costs rather than treating seat height as the whole ownership decision.",
     moneyQuestion: "How does the Rebel 1100 total purchase cost compare with the Rebel 500 and other large road bikes after financing, insurance and registration?",
-    ownershipQuestion: "Plan for 18/16-inch tires, insurance, DCT service, battery care, low-speed handling at 233 kg and Honda big-bike service access before choosing it from engine size alone.",
+    ownershipQuestion: "Plan for 18/16-inch tires, insurance, DCT service, battery care, low-speed handling at 237 kg and Honda big-bike service access before choosing it from engine size alone.",
     alternativeIds: ["honda-rebel-500", "triumph-speed-twin-900", "royal-enfield-super-meteor-650"],
     relatedIds: ["honda-rebel-500", "honda-gold-wing"],
     recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
