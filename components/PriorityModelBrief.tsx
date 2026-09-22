@@ -234,8 +234,8 @@ const briefs: Record<string, Brief> = {
   },
   "honda-rebel-1100": {
     fit: [
-      "You want a large-displacement cruiser with a very low 690 mm published seat and DCT convenience.",
-      "You are comfortable managing a 233 kg motorcycle and want substantially more torque than the Rebel 500."
+      "You want a large-displacement cruiser with a low 709 mm published seat and DCT convenience.",
+      "You are comfortable managing a 237 kg motorcycle and want substantially more torque than the Rebel 500."
     ],
     check: [
       "Test low-speed balance and parking confidence; a low seat does not erase the motorcycle's curb weight.",
