@@ -153,9 +153,11 @@ try {
       if (name === "honda-crf150l" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda CRF150L authority section is missing.`);
       if (name === "honda-crf150l" && audit?.commercial) failures.push(`${width}px ${pathname}: uncertain CRF150L must not render financing/commercial purchase CTAs.`);
       if (name === "honda-crf150l" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
-      if (!audit?.priceLink || !audit?.installmentLink) failures.push(`${width}px ${pathname}: price/monthly anchor links are incomplete.`);
-      if (!audit?.priceIndex || !audit?.financeIndex) failures.push(`${width}px ${pathname}: research dataset links are incomplete.`);
-      if (!audit?.quoteLink) failures.push(`${width}px ${pathname}: dealer quote link is missing.`);
+      if (name !== "honda-crf150l") {
+        if (!audit?.priceLink || !audit?.installmentLink) failures.push(`${width}px ${pathname}: price/monthly anchor links are incomplete.`);
+        if (!audit?.priceIndex || !audit?.financeIndex) failures.push(`${width}px ${pathname}: research dataset links are incomplete.`);
+        if (!audit?.quoteLink) failures.push(`${width}px ${pathname}: dealer quote link is missing.`);
+      }
       if ((audit?.overflow || 0) > 5) failures.push(`${width}px ${pathname}: horizontal overflow is ${audit.overflow}px.`);
       if (audit?.commercial && (audit.sectionLeft < -5 || audit.sectionRight > width + 5)) failures.push(`${width}px ${pathname}: commercial section leaves the viewport.`);
       if (width <= 768 && (audit?.h1Size || 0) > 40) failures.push(`${width}px ${pathname}: mobile H1 is oversized at ${audit.h1Size}px.`);
