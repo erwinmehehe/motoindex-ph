@@ -25,6 +25,16 @@ export type BrandServiceResource = {
   lastChecked: string;
 };
 
+export type BrandMaintenanceGuide = {
+  makeSlug: string;
+  sourceLabel: string;
+  sourceUrl: string;
+  lastChecked: string;
+  applicability: string;
+  pmsMilestones: string;
+  items: MaintenanceItem[];
+};
+
 export const brandServiceResources: BrandServiceResource[] = [
   {
     makeSlug: "honda",
@@ -38,7 +48,7 @@ export const brandServiceResources: BrandServiceResource[] = [
     label: "Yamaha Philippines After Sales",
     description: "Official Yamaha Philippines after-sales hub with owner-manual, maintenance, service and genuine-parts resources.",
     url: "https://aftersales.yamaha-motor.com.ph/",
-    lastChecked: "2026-08-25",
+    lastChecked: "2026-09-22",
   },
   {
     makeSlug: "suzuki",
@@ -55,6 +65,32 @@ export const brandServiceResources: BrandServiceResource[] = [
     lastChecked: "2026-08-25",
   },
 ];
+
+export const brandMaintenanceGuides: BrandMaintenanceGuide[] = [
+  {
+    makeSlug: "yamaha",
+    sourceLabel: "Yamaha Motor Philippines Periodic Maintenance Schedule (PMS) Guide",
+    sourceUrl: "https://aftersales.yamaha-motor.com.ph/",
+    lastChecked: "2026-09-22",
+    applicability: "Brand-level Yamaha Philippines PMS guidance. Use the exact owner manual or authorized Yamaha service advice when it differs for a specific model, generation or riding condition.",
+    pmsMilestones: "1,000 km · 4,000 km · 7,000 km · 10,000 km · 13,000 km; the Yamaha guide then continues on a 3,000 km PMS cadence.",
+    items: [
+      { item: "Engine oil", interval: "After the 13,000 km PMS point, Yamaha lists every 3,000 km", action: "Replace", note: "Use the oil grade and quantity specified for the exact motorcycle." },
+      { item: "Gear oil", interval: "Every 12,000 km", action: "Replace", note: "Applies where the Yamaha motorcycle has a separate gear/final-drive oil service item." },
+      { item: "Engine oil filter", interval: "Every 6,000 km", action: "Replace", note: "Confirm whether the exact model uses the listed service part and procedure." },
+      { item: "Liquid coolant", interval: "Every 12,000 km", action: "Replace", note: "Applies to liquid-cooled models; use the exact coolant specification." },
+      { item: "Air filter", interval: "Every 12,000 km", action: "Replace" },
+      { item: "Spark plug", interval: "Every 6,000 km", action: "Replace" },
+      { item: "V-belt / chain", interval: "Yamaha PMS guide lists 25,000 km", action: "Check", note: "The exact model manual controls inspection/replacement requirements and whether the drivetrain uses a belt or chain." },
+      { item: "Fuel injector", interval: "Every 12,000 km", action: "Check" },
+      { item: "Brake fluid", interval: "Yamaha PMS guide lists 1 year or 12,000 km", action: "Replace", note: "Confirm the exact model/year service requirement with Yamaha." },
+    ],
+  },
+];
+
+export function brandMaintenanceGuideForModel(model: Motorcycle) {
+  return brandMaintenanceGuides.find((guide) => guide.makeSlug === model.makeSlug);
+}
 
 // Exact intervals are published only when the owner-manual evidence has been parsed.
 // Click160 and PCX160 use Philippines owner manuals (PH market) hosted by Honda MotoPub.
