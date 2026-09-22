@@ -4,7 +4,7 @@ import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
 import { AuthorBox } from "@/components/AuthorBox";
 import { maintenanceSeoTopics } from "@/lib/maintenanceSeo";
-import { maintenanceSchedules, brandServiceResources } from "@/lib/maintenance";
+import { maintenanceSchedules, brandMaintenanceGuides, brandServiceResources } from "@/lib/maintenance";
 import { getModelById } from "@/lib/data";
 import { pageMetadata } from "@/lib/site";
 import { articleSchema } from "@/lib/articleSchema";
@@ -47,12 +47,14 @@ export default function MaintenanceGuidePage() {
     <StatRow items={[
       {label:"Maintenance topics",value:String(maintenanceSeoTopics.length),note:"Oil, coolant, battery, CVT and parts"},
       {label:"Model schedules",value:String(maintenanceSchedules.length),note:"Owner-manual-derived records"},
+      {label:"Brand PMS guides",value:String(brandMaintenanceGuides.length),note:"Official brand-level guidance, clearly separated from exact manuals"},
       {label:"Official resources",value:String(brandServiceResources.length),note:"Manufacturer support sources"}
     ]}/>
 
     <nav className="product-entity-nav maintenance-master-nav" aria-label="Maintenance guide sections">
       {maintenanceSeoTopics.map(topic=><a href={`#${topic.slug}`} key={topic.slug}>{topic.primaryKeyword}</a>)}
       <a href="#model-schedules">Model schedules</a>
+      <a href="#brand-pms">Brand PMS guides</a>
       <a href="#official-resources">Official resources</a>
     </nav>
 
@@ -103,6 +105,29 @@ export default function MaintenanceGuidePage() {
           </Link>:null;
         })}
       </div>
+    </section>
+
+    <section id="brand-pms" className={styles.section}>
+      <SectionHeader
+        kicker="Official brand guidance"
+        title="Brand-level periodic maintenance schedules"
+        description="These schedules come from manufacturer after-sales guidance but are not labeled as exact model-year manuals. Use the exact owner manual whenever it gives a different requirement."
+      />
+      {brandMaintenanceGuides.map(guide=><div key={guide.makeSlug} className={styles.detailList} data-brand-maintenance-guide>
+        <details className={styles.detailRow} open>
+          <summary>
+            <span className={styles.detailIndex}>{guide.makeSlug.toUpperCase()}</span>
+            <span className={styles.detailTitle}>{guide.sourceLabel}</span>
+            <span className={styles.detailToggle}>Open</span>
+          </summary>
+          <div className={styles.detailBody}>
+            <p>{guide.applicability}</p>
+            <p><strong>PMS milestones:</strong> {guide.pmsMilestones}</p>
+            <ul>{guide.items.map(item=><li key={item.item}><strong>{item.item}:</strong> {item.interval}{item.note ? <> · {item.note}</> : null}</li>)}</ul>
+            <p><a href={guide.sourceUrl} target="_blank" rel="noreferrer">Open the official manufacturer PMS guide →</a></p>
+          </div>
+        </details>
+      </div>)}
     </section>
 
     <section id="official-resources" className={styles.section}>
