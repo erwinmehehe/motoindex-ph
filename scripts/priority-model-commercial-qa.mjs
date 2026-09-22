@@ -24,6 +24,14 @@ const pages = [
   ["honda-pcx-160", "/motorcycles/honda/pcx-160"],
   ["yamaha-fazzio", "/motorcycles/yamaha/fazzio"],
   ["honda-click-125i", "/motorcycles/honda/click-125i"],
+  ["yamaha-nmax-v2", "/motorcycles/yamaha/nmax-v2"],
+  ["yamaha-aerox-v2", "/motorcycles/yamaha/aerox-v2"],
+  ["kawasaki-ninja-400", "/motorcycles/kawasaki/ninja-400"],
+  ["honda-click-150i", "/motorcycles/honda/click-150i"],
+  ["yamaha-mio-i-125", "/motorcycles/yamaha/mio-i-125"],
+  ["honda-cb650r", "/motorcycles/honda/cb650r"],
+  ["yamaha-tmax", "/motorcycles/yamaha/tmax"],
+  ["honda-adv-350", "/motorcycles/honda/adv-350"],
   ["yamaha-yzf-r1m", "/motorcycles/yamaha/yzf-r1m"]
 ];
 const widths = [390, 1440];

@@ -1044,3 +1044,8 @@ YZF-R1M is the next verified current-model demand gap after Click125, with rough
 - Add a distinct decision-authority layer focused on rider experience, 855 mm fit, 200 kg wet weight, premium insurance, hypersport tires and service costs.
 - Do not create thin R1 price, specs, installment or model-year URLs.
 - Add direct browser QA at 390px and 1440px; permanent visual-matrix coverage already includes the canonical R1M route at 390px, 768px and 1440px.
+
+
+### Approved ranking-depth waves 15–24
+
+The next ten approved authority targets are ADV350, TMAX Tech Max, CB650R, Mio i125, Click150i, Ninja 400, Aerox V2, NMAX V2, Navi and BeAT. Preserve one canonical owner per intent. Previous-generation models must target used/historical research and transition current-new-bike intent to their successor rather than competing with it. All ten routes are included in direct commercial browser QA and the 390/768/1440 visual matrix.

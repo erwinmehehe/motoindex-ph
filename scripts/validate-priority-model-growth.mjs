@@ -593,6 +593,13 @@ if (!authority.includes('modelId:"yamaha-yzf-r1m"')) errors.push("YZF-R1M author
 if (!brandSupport.includes('makeSlug:"yamaha"')) errors.push("YZF-R1M authority: Yamaha Philippine support record missing");
 if (data.includes('id: "yamaha-yzf-r1"') || data.includes('id: "yamaha-r1"')) errors.push("YZF-R1M authority: duplicate R1 entity must not be created");
 
+for (const modelId of ["honda-adv-350","yamaha-tmax","honda-cb650r","yamaha-mio-i-125","honda-click-150i","kawasaki-ninja-400","yamaha-aerox-v2","yamaha-nmax-v2","honda-navi","honda-beat"]) {
+  if (!growth.includes(`"${modelId}": {`)) errors.push(`approved authority wave: missing commercial profile for ${modelId}`);
+}
+for (const modelId of ["honda-adv-350","yamaha-tmax","honda-cb650r","yamaha-mio-i-125","honda-click-150i","kawasaki-ninja-400","yamaha-aerox-v2","yamaha-nmax-v2"]) {
+  if (!authority.includes(`modelId:"${modelId}"`)) errors.push(`approved authority wave: missing decision profile for ${modelId}`);
+}
+
 if (errors.length) {
   console.error("Priority model growth validation failed:");
   for (const error of errors) console.error(`- ${error}`);
