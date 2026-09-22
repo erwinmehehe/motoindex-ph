@@ -216,8 +216,8 @@ for (const token of [
   'sourceUrl: "https://www.kawasakileisurebikes.ph/motorcycles/supersports/ninja-h2-carbon/"',
   'marketStatus: "current"',
   'id: "honda-rebel-1100"',
-  'engineCc: 1083',
-  'seatHeightMm: 690'
+  'engineCc: 1084',
+  'seatHeightMm: 709'
 
 ]) {
   if (!tier23.includes(token)) {
