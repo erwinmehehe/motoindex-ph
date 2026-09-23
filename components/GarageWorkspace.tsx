@@ -319,7 +319,10 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
             <span className="field-label">Current motorcycle</span>
             <strong>{selectedBike.make} {selectedBike.model}{selectedBike.variant ? ` ${selectedBike.variant}` : ""}</strong>
           </div>
-          <button className="button small ghost" type="button" onClick={removeBike}>Remove motorcycle</button>
+          <div className="hero-actions">
+            <a className="button small" href={`/garage/resale?bike=${encodeURIComponent(selectedBike.id)}`}>Prepare resale pack</a>
+            <button className="button small ghost" type="button" onClick={removeBike}>Remove motorcycle</button>
+          </div>
         </div>
 
         <div className="spec-grid">
