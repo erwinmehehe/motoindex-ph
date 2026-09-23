@@ -1093,6 +1093,106 @@ export const entityMedia: EntityMedia[] = [
     src: "/media/motorcycles/royal-enfield-classic-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/classic-650/hotspot/hot-spot.png", alt: "Royal Enfield Classic 650 motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer-hosted Philippine image reference · Classic 650", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/classic-650/", lastChecked: "2026-09-23"
   },
+  {
+    id: "aprilia-tuareg-660-official-wave9", entityType: "motorcycle", entityId: "aprilia-tuareg-660", role: "primary",
+    src: "/media/motorcycles/aprilia-tuareg-660.webp", sourceImageUrl: "https://storeusa.aprilia.com/img/models/Tuareg%20660/model_img_detail_1-Tuareg%20660.jpg", alt: "Aprilia Tuareg 660 adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Aprilia", sourceLabel: "Manufacturer-hosted image reference · Aprilia Tuareg 660", sourceUrl: "https://storeusa.aprilia.com/tuareg660.aspx", lastChecked: "2026-09-23"
+  },
+  {
+    id: "aprilia-tuono-660-official-wave9", entityType: "motorcycle", entityId: "aprilia-tuono-660", role: "primary",
+    src: "/media/motorcycles/aprilia-tuono-660.webp", sourceImageUrl: "https://storeusa.aprilia.com/img/slides/mainimg_tuono-660-factory-dark-banshee.png", alt: "Aprilia Tuono 660 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Aprilia", sourceLabel: "Manufacturer-hosted image reference · Aprilia Tuono 660", sourceUrl: "https://storeusa.aprilia.com/tuono660.aspx", lastChecked: "2026-09-23"
+  },
+  {
+    id: "bajaj-dominar-400-official-wave9", entityType: "motorcycle", entityId: "bajaj-dominar-400", role: "primary",
+    src: "/media/motorcycles/bajaj-dominar-400.webp", sourceImageUrl: "https://cdn.bajajauto.com/en-ph/-/media/globalbajajauto/common-media/features/dominar/400/dtsi-triple-spark-d400bs6.jpg", alt: "Bajaj Dominar 400 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bajaj Auto", sourceLabel: "Manufacturer-hosted image reference · Bajaj Dominar 400", sourceUrl: "https://www.bajajauto.com/en-ph/bikes/dominar-d400", lastChecked: "2026-09-23"
+  },
+  {
+    id: "bajaj-pulsar-n125-official-wave9", entityType: "motorcycle", entityId: "bajaj-pulsar-n125", role: "primary",
+    src: "/media/motorcycles/bajaj-pulsar-n125.webp", sourceImageUrl: "https://www.bajajauto.com/corporate/media-centre/press-releases/-/media/Images/bajajauto/press-release/Purple-Fury.png", alt: "Bajaj Pulsar N125 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bajaj Auto", sourceLabel: "Manufacturer-hosted image reference · Bajaj Pulsar N125", sourceUrl: "https://www.bajajauto.com/corporate/media-centre/press-releases/baja-auto-launches-pulsar-n125-the-most-youthful-pulsar-yet", lastChecked: "2026-09-23"
+  },
+  {
+    id: "bajaj-pulsar-n160-official-wave9", entityType: "motorcycle", entityId: "bajaj-pulsar-n160", role: "primary",
+    src: "/media/motorcycles/bajaj-pulsar-n160.webp", sourceImageUrl: "https://cdn.bajajauto.com/en-ph/-/media/globalbajajauto/common-media/product-detail-page-banners/latam/pulsar-n160.webp", alt: "Bajaj Pulsar N160 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bajaj Auto", sourceLabel: "Manufacturer-hosted image reference · Bajaj Pulsar N160", sourceUrl: "https://www.bajajauto.com/en-ph/bikes/pulsar-n160", lastChecked: "2026-09-23"
+  },
+  {
+    id: "bajaj-pulsar-ns400z-official-wave9", entityType: "motorcycle", entityId: "bajaj-pulsar-ns400z", role: "primary",
+    src: "/media/motorcycles/bajaj-pulsar-ns400z.webp", sourceImageUrl: "https://cdn.bajajauto.com/-/media/assets/bajajauto/bikes/web-header-navigator-images/pulsar-ns400z.webp", alt: "Bajaj Pulsar NS400Z motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bajaj Auto", sourceLabel: "Manufacturer-hosted image reference · Bajaj Pulsar NS400Z", sourceUrl: "https://www.bajajauto.com/en-ph/bikes/pulsar-ns400z", lastChecked: "2026-09-23"
+  },
+  {
+    id: "bajaj-pulsar-rs200-official-wave9", entityType: "motorcycle", entityId: "bajaj-pulsar-rs200", role: "primary",
+    src: "/media/motorcycles/bajaj-pulsar-rs200.webp", sourceImageUrl: "https://cdn.bajajauto.com/-/media/assets/bajajauto/bikes/web-header-navigator-images/pulsar-rs200.webp", alt: "Bajaj Pulsar RS200 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bajaj Auto", sourceLabel: "Manufacturer-hosted image reference · Bajaj Pulsar RS200", sourceUrl: "https://www.bajajauto.com/en-ph/bikes/pulsar-rs200", lastChecked: "2026-09-23"
+  },
+  {
+    id: "benelli-302s-official-wave9", entityType: "motorcycle", entityId: "benelli-302s", role: "primary",
+    src: "/media/motorcycles/benelli-302s.webp", sourceImageUrl: "https://cdn.keeway.com/benelli-3-0/media/5347/conversions/2560x2180-md.png", alt: "Benelli 302S motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Benelli", sourceLabel: "Manufacturer-hosted image reference · Benelli 302S", sourceUrl: "https://www.benelli.com/ph-en/products/302s-2", lastChecked: "2026-09-23"
+  },
+  {
+    id: "benelli-leoncino-250-official-wave9", entityType: "motorcycle", entityId: "benelli-leoncino-250", role: "primary",
+    src: "/media/motorcycles/benelli-leoncino-250.webp", sourceImageUrl: "https://cdn.keeway.com/benelli-3-0/media/69/conversions/2560x2180-copy-2-md.png", alt: "Benelli Leoncino 250 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Benelli", sourceLabel: "Manufacturer-hosted image reference · Benelli Leoncino 250", sourceUrl: "https://www.benelli.com/ph-en/products/leoncino-250", lastChecked: "2026-09-23"
+  },
+  {
+    id: "benelli-tnt-135-official-wave9", entityType: "motorcycle", entityId: "benelli-tnt-135", role: "primary",
+    src: "/media/motorcycles/benelli-tnt-135.webp", sourceImageUrl: "https://cdn.keeway.com/benelli-3-0/media/1628/conversions/2560x2180-md.png", alt: "Benelli TNT 135 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Benelli", sourceLabel: "Manufacturer-hosted image reference · Benelli TNT 135", sourceUrl: "https://www.benelli.com/ph-en/products/tnt-135", lastChecked: "2026-09-23"
+  },
+  {
+    id: "benelli-trk-502-official-wave9", entityType: "motorcycle", entityId: "benelli-trk-502", role: "primary",
+    src: "/media/motorcycles/benelli-trk-502.webp", sourceImageUrl: "https://cdn.keeway.com/benelli-3-0/media/7114/conversions/2560x2180-md.png", alt: "Benelli TRK 502 adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Benelli", sourceLabel: "Manufacturer-hosted image reference · Benelli TRK 502", sourceUrl: "https://www.benelli.com/ph-en/products/trk-502-3/", lastChecked: "2026-09-23"
+  },
+  {
+    id: "cfmoto-300nk-official-wave9", entityType: "motorcycle", entityId: "cfmoto-300nk", role: "primary",
+    src: "/media/motorcycles/cfmoto-300nk.webp", sourceImageUrl: "https://static.wixstatic.com/media/0a0f90_4fd511fbd3fb4f90801ae08e131d327e~mv2.png/v1/fill/w_900,h_600,al_c/300NK.png", alt: "CFMOTO 300NK motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "CFMOTO Philippines", sourceLabel: "Manufacturer-hosted image reference · CFMOTO 300NK", sourceUrl: "https://www.cfmotoph.com/motorcycle/300nk", lastChecked: "2026-09-23"
+  },
+  {
+    id: "husqvarna-norden-901-official-wave9", entityType: "motorcycle", entityId: "husqvarna-norden-901", role: "primary",
+    src: "/media/motorcycles/husqvarna-norden-901.webp", sourceImageUrl: "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_SEGMENT_menu-norden901-my21-01_%23SALL_%23AEPI_%23V1.png", alt: "Husqvarna Norden 901 adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Husqvarna Motorcycles", sourceLabel: "Manufacturer-hosted image reference · Husqvarna Norden 901", sourceUrl: "https://www.husqvarna-motorcycles.com/en-ph/models/travel/norden-901-2022.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "husqvarna-svartpilen-200-official-wave9", entityType: "motorcycle", entityId: "husqvarna-svartpilen-200", role: "primary",
+    src: "/media/motorcycles/husqvarna-svartpilen-200.webp", sourceImageUrl: "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_SEGMENT_menu-svartpilen-200-my22_%23SALL_%23AEPI_%23V1.png", alt: "Husqvarna Svartpilen 200 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Husqvarna Motorcycles", sourceLabel: "Manufacturer-hosted image reference · Husqvarna Svartpilen 200", sourceUrl: "https://www.husqvarna-motorcycles.com/en-ph/models/naked/svartpilen/svartpilen-200-2023.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "kawasaki-ninja-zx-25r-official-wave9", entityType: "motorcycle", entityId: "kawasaki-ninja-zx-25r", role: "primary",
+    src: "/media/motorcycles/kawasaki-ninja-zx-25r.webp", sourceImageUrl: "https://global.kawasaki.com/en/corp/newsroom/news/images/news_191023-Ninja%20ZX-25R.jpg", alt: "Kawasaki Ninja ZX-25R motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Philippines", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Ninja ZX-25R", sourceUrl: "https://global.kawasaki.com/en/corp/newsroom/news/detail/?f=20191023_0946", lastChecked: "2026-09-23"
+  },
+  {
+    id: "keeway-cafe-racer-152-official-wave9", entityType: "motorcycle", entityId: "keeway-cafe-racer-152", role: "primary",
+    src: "/media/motorcycles/keeway-cafe-racer-152.webp", sourceImageUrl: "https://cdn.keeway.com/keeway-3-0/media/887/conversions/Cafe-Racer-152-Green-md.png", alt: "Keeway Cafe Racer 152 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Keeway", sourceLabel: "Manufacturer-hosted image reference · Keeway Cafe Racer 152", sourceUrl: "https://www.keeway.com/ph-en/products/cafe-racer-152", lastChecked: "2026-09-23"
+  },
+  {
+    id: "bristol-maxxie-160-official-wave9", entityType: "motorcycle", entityId: "bristol-maxxie-160", role: "primary",
+    src: "/media/motorcycles/bristol-maxxie-160.webp", sourceImageUrl: "https://static.wixstatic.com/media/5f4a64_6e6cf34d4b994c79b676c22562b93927~mv2.jpg/v1/fill/w_2500,h_1666,al_c/5f4a64_6e6cf34d4b994c79b676c22562b93927~mv2.jpg", alt: "Bristol Maxxie 160 scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bristol Motorcycles", sourceLabel: "Manufacturer-hosted image reference · Bristol Maxxie 160", sourceUrl: "https://www.bristol-motorcycles.com/maxxie-160", lastChecked: "2026-09-23"
+  },
+  {
+    id: "bristol-basilica-125-official-wave9", entityType: "motorcycle", entityId: "bristol-basilica-125", role: "primary",
+    src: "/media/motorcycles/bristol-basilica-125.webp", sourceImageUrl: "https://static.wixstatic.com/media/5f4a64_9b887aa746f24b169c3ab84c11348023~mv2.jpg/v1/fill/w_2500,h_1666,al_c/5f4a64_9b887aa746f24b169c3ab84c11348023~mv2.jpg", alt: "Bristol Basilica 125 scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bristol Motorcycles", sourceLabel: "Manufacturer-hosted image reference · Bristol Basilica 125", sourceUrl: "https://www.bristol-motorcycles.com/basilica", lastChecked: "2026-09-23"
+  },
+  {
+    id: "royal-enfield-shotgun-650-official-wave9", entityType: "motorcycle", entityId: "royal-enfield-shotgun-650", role: "primary",
+    src: "/media/motorcycles/royal-enfield-shotgun-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/shotgun-650/banner/desktop/inspired-by-custom.webp", alt: "Royal Enfield Shotgun 650 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer-hosted image reference · Royal Enfield Shotgun 650", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/shotgun-650/", lastChecked: "2026-09-23"
+  },
+  {
+    id: "vespa-primavera-150-official-wave9", entityType: "motorcycle", entityId: "vespa-primavera-150", role: "primary",
+    src: "/media/motorcycles/vespa-primavera-150.webp", sourceImageUrl: "https://storeusa.vespa.com/img/models/PRIMAVERA%20150/415/mainimg_primavera-150-metallic-orange.png", alt: "Vespa Primavera 150 scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Vespa", sourceLabel: "Manufacturer-hosted image reference · Vespa Primavera 150", sourceUrl: "https://storeusa.vespa.com/primavera/primavera-150.aspx", lastChecked: "2026-09-23"
+  },
 ];
 
 export function getRenderableMedia(entityType: EntityMedia["entityType"], entityId: string) {
