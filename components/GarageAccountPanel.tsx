@@ -13,6 +13,7 @@ type AccountState = {
   authenticated: boolean;
   email?: string;
   reminderEmailsEnabled?: boolean;
+  remindersAvailable?: boolean;
   sessionExpiresAt?: string;
   cloud?: { revision: number; updatedAt: string } | null;
 };
@@ -180,10 +181,10 @@ export function GarageAccountPanel({
     <div className="hero-actions">
       <button className="button small" type="button" onClick={saveCloud} disabled={working}>{working ? "Working…" : "Save this device to cloud"}</button>
       <button className="button small ghost" type="button" onClick={restoreCloud} disabled={working || !cloud.payload}>Restore cloud to this device</button>
-      <button className="button small ghost" type="button" onClick={toggleReminders} disabled={working}>{account.reminderEmailsEnabled ? "Turn off email reminders" : "Turn on email reminders"}</button>
+      <button className="button small ghost" type="button" onClick={toggleReminders} disabled={working || !account.remindersAvailable}>{account.remindersAvailable ? (account.reminderEmailsEnabled ? "Turn off email reminders" : "Turn on email reminders") : "Email reminders unavailable"}</button>
       <button className="button small ghost" type="button" onClick={() => { setCloud({ revision: 0, payload: emptyGarageState() }); void refreshCloud(); }} disabled={working}>Refresh cloud status</button>
     </div>
-    <p className="muted-note">Renewal and PMS emails are opt-in and use only your latest cloud-synced Garage. Save again after changing mileage or due dates so reminders stay current.</p>
+    <p className="muted-note">{account.remindersAvailable ? "Renewal and PMS emails are opt-in and use only your latest cloud-synced Garage. Save again after changing mileage or due dates so reminders stay current." : "Cloud backup is available, but email reminders stay off until the scheduled notification job is configured."}</p>
     {status && <p className="muted-note" role="status">{status}</p>}
   </section>;
 }
