@@ -15,6 +15,7 @@ import {
   daysUntil,
   emptyGarageState,
   estimatedGarageResale,
+  garageOwnershipAnalytics,
   maintenanceReferenceForBike,
   money,
   parseGarageState,
@@ -80,16 +81,14 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
   const selectedCatalog = selectedBike ? catalog.find((model) => model.id === (selectedBike.catalogModelId || `${selectedBike.make.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${selectedBike.model.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`)) : undefined;
   const smartMaintenance = selectedCatalog?.exactMaintenance ? smartMaintenanceDue(selectedCatalog.maintenanceItems, selectedBike?.odometerKm || 0) : [];
   const calculatedResale = selectedCatalog && selectedBike ? estimatedGarageResale(selectedCatalog.srp, selectedBike.year, selectedBike.purchaseDate) : undefined;
+  const effectiveResale = selectedBike?.estimatedResaleValuePhp ?? calculatedResale;
   const bikeRecords = useMemo(() => state.records
     .filter((record) => record.motorcycleId === selectedBike?.id)
     .sort((a, b) => b.date.localeCompare(a.date)), [state.records, selectedBike?.id]);
   const bikeDocuments = useMemo(() => state.documents
     .filter((document) => document.motorcycleId === selectedBike?.id), [state.documents, selectedBike?.id]);
 
-  const totalSpend = bikeRecords.reduce((sum, record) => sum + (record.amountPhp || 0), 0);
-  const fuelRecords = bikeRecords.filter((record) => record.category === "FUEL");
-  const liters = fuelRecords.reduce((sum, record) => sum + (record.liters || 0), 0);
-  const fuelSpend = fuelRecords.reduce((sum, record) => sum + (record.amountPhp || 0), 0);
+  const analytics = selectedBike ? garageOwnershipAnalytics(selectedBike, bikeRecords, effectiveResale) : null;
   const maintenanceReference = selectedBike ? maintenanceReferenceForBike(selectedBike) : null;
 
   const upcoming = useMemo(() => {
@@ -130,10 +129,11 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
       plate: s(form.get("plate")),
       purchaseDate,
       purchasePricePhp: n(form.get("purchasePricePhp")),
+      purchaseOdometerKm: n(form.get("purchaseOdometerKm")),
       odometerKm: n(form.get("odometerKm")) || 0,
       registrationExpiry: s(form.get("registrationExpiry")),
       insuranceExpiry: s(form.get("insuranceExpiry")),
-      estimatedResaleValuePhp: n(form.get("estimatedResaleValuePhp")) ?? estimatedGarageResale(catalogModel.srp, year, purchaseDate),
+      estimatedResaleValuePhp: n(form.get("estimatedResaleValuePhp")),
       createdAt: now,
       updatedAt: now,
     };
@@ -161,6 +161,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
       odometerKm: n(form.get("odometerKm")),
       liters: litersValue,
       pricePerLiterPhp: pricePerLiterValue,
+      fullTank: form.get("fullTank") === "on",
       nextDueKm: n(form.get("nextDueKm")),
       nextDueDate: s(form.get("nextDueDate")),
       notes: s(form.get("notes")),
@@ -185,6 +186,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
       motorcycles: current.motorcycles.map((bike) => bike.id === selectedBike.id ? {
         ...bike,
         plate: s(form.get("plate")),
+        purchaseOdometerKm: n(form.get("purchaseOdometerKm")),
         odometerKm: n(form.get("odometerKm")) ?? bike.odometerKm,
         registrationExpiry: s(form.get("registrationExpiry")),
         insuranceExpiry: s(form.get("insuranceExpiry")),
@@ -293,6 +295,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
         <label>Current odometer (km)<input name="odometerKm" type="number" min="0" step="1" defaultValue="0" /></label>
         <label>Purchase date<input name="purchaseDate" type="date" /></label>
         <label>Purchase price<input name="purchasePricePhp" type="number" min="0" step="1" /></label>
+        <label>Odometer when purchased<input name="purchaseOdometerKm" type="number" min="0" step="1" placeholder="0 for brand new" /></label>
         <label>LTO registration expiry<input name="registrationExpiry" type="date" /></label>
         <label>Insurance expiry<input name="insuranceExpiry" type="date" /></label>
         <label>Resale value override<input name="estimatedResaleValuePhp" type="number" min="0" step="1" placeholder="Leave blank for MotoIndex estimate" /></label>
@@ -321,16 +324,47 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
 
         <div className="spec-grid">
           <div className="garage-summary-item"><span>Odometer</span><strong>{selectedBike.odometerKm.toLocaleString()} km</strong><small>Updates when a higher log reading is saved</small></div>
-          <div className="garage-summary-item"><span>Total logged spend</span><strong>{money(totalSpend)}</strong><small>Fuel, PMS, repairs, parts and other recorded costs</small></div>
-          <div className="garage-summary-item"><span>Fuel</span><strong>{money(fuelSpend)}</strong><small>{liters ? `${liters.toFixed(1)} L logged` : "No fuel volume logged yet"}</small></div>
-          <div className="garage-summary-item"><span>Estimated resale</span><strong>{money(selectedBike.estimatedResaleValuePhp ?? calculatedResale)}</strong><small>{selectedCatalog ? `MotoIndex depreciation estimate from ${money(selectedCatalog.srp)} reference SRP` : selectedBike.purchasePricePhp ? `Bought for ${money(selectedBike.purchasePricePhp)}` : "Add purchase price for context"}</small></div>
+          <div className="garage-summary-item"><span>Total logged spend</span><strong>{money(analytics?.totalSpendPhp)}</strong><small>Fuel, PMS, repairs, parts and other recorded costs</small></div>
+          <div className="garage-summary-item"><span>Fuel</span><strong>{money(analytics?.fuelSpendPhp)}</strong><small>{analytics?.fuelLiters ? `${analytics.fuelLiters.toFixed(1)} L logged` : "No fuel volume logged yet"}</small></div>
+          <div className="garage-summary-item"><span>Estimated resale</span><strong>{money(effectiveResale)}</strong><small>{selectedBike.estimatedResaleValuePhp !== undefined ? "Owner override" : selectedCatalog ? `MotoIndex depreciation estimate from ${money(selectedCatalog.srp)} reference SRP` : "Add a value estimate"}</small></div>
         </div>
+
+        {analytics && <section className="section">
+          <div className="section-head"><div><h2>Ownership analytics</h2><p>Calculated from the records you log in My Garage.</p></div></div>
+          <div className="spec-grid">
+            <div><span>This month</span><strong>{money(analytics.currentMonthSpendPhp)}</strong><small>Logged ownership spend this calendar month</small></div>
+            <div><span>Average / month</span><strong>{money(analytics.averageMonthlySpendPhp)}</strong><small>Since purchase date or first logged record</small></div>
+            <div><span>Logged cost / km</span><strong>{analytics.costPerKmPhp !== undefined ? `₱${analytics.costPerKmPhp.toFixed(2)}` : "Need mileage"}</strong><small>{analytics.distanceBasis === "purchase" ? "Since purchase odometer" : analytics.distanceBasis === "first-log" ? "Since first logged odometer" : "Add purchase odometer or mileage records"}</small></div>
+            <div><span>Actual fuel economy</span><strong>{analytics.fuelEconomyKmL !== undefined ? `${analytics.fuelEconomyKmL.toFixed(1)} km/L` : "Need 2 fills"}</strong><small>{analytics.fuelEconomyKmL !== undefined ? `${analytics.fuelEconomyDistanceKm?.toLocaleString()} km across full-tank fills` : "Mark two consecutive fuel entries as full tank"}</small></div>
+          </div>
+
+          <div className="split section">
+            <section className="garage-panel">
+              <div className="section-head"><div><h2>Where the money goes</h2><p>Logged spending by ownership category.</p></div></div>
+              {analytics.categorySpend.length ? <div className="buyer-quote-list">{analytics.categorySpend.map((item) => <div className="buyer-quote-card" key={item.category}>
+                <div><strong>{item.category}</strong><p>{(item.share * 100).toFixed(0)}% of logged spend</p></div>
+                <div className="buyer-quote-meta"><strong>{money(item.amountPhp)}</strong></div>
+              </div>)}</div> : <div className="note-box"><p>Add expenses to see your ownership cost breakdown.</p></div>}
+            </section>
+
+            <section className="garage-panel">
+              <div className="section-head"><div><h2>Value & depreciation</h2><p>Purchase price compared with the current Garage value estimate.</p></div></div>
+              <div className="buyer-quote-list">
+                <div className="buyer-quote-card"><div><strong>Purchase price</strong></div><div className="buyer-quote-meta"><strong>{selectedBike.purchasePricePhp !== undefined ? money(selectedBike.purchasePricePhp) : "Not set"}</strong></div></div>
+                <div className="buyer-quote-card"><div><strong>Current estimated value</strong></div><div className="buyer-quote-meta"><strong>{effectiveResale !== undefined ? money(effectiveResale) : "Not set"}</strong></div></div>
+                <div className="buyer-quote-card"><div><strong>Estimated depreciation</strong><p>Purchase price minus current estimated value</p></div><div className="buyer-quote-meta"><strong>{analytics.depreciationPhp !== undefined ? money(analytics.depreciationPhp) : "Need purchase price"}</strong>{analytics.depreciationPct !== undefined && <small>{(analytics.depreciationPct * 100).toFixed(1)}%</small>}</div></div>
+                <div className="buyer-quote-card"><div><strong>Net ownership cost</strong><p>Purchase price + logged spend − estimated current value</p></div><div className="buyer-quote-meta"><strong>{analytics.netOwnershipCostPhp !== undefined ? money(analytics.netOwnershipCostPhp) : "Need purchase price"}</strong></div></div>
+              </div>
+            </section>
+          </div>
+        </section>}
 
         <form className="lead-form" onSubmit={updateBike} key={selectedBike.id}>
           <div className="section-head"><div><h2>Update current motorcycle</h2><p>Refresh mileage and renewal dates after every PMS or renewal.</p></div></div>
           <div className="lead-form-grid">
             <label>Plate number<input name="plate" autoComplete="off" defaultValue={selectedBike.plate || ""} /></label>
             <label>Current odometer (km)<input name="odometerKm" type="number" min="0" step="1" defaultValue={selectedBike.odometerKm} /></label>
+            <label>Odometer when purchased<input name="purchaseOdometerKm" type="number" min="0" step="1" defaultValue={selectedBike.purchaseOdometerKm ?? ""} placeholder="0 for brand new" /></label>
             <label>LTO registration expiry<input name="registrationExpiry" type="date" defaultValue={selectedBike.registrationExpiry || ""} /></label>
             <label>Insurance expiry<input name="insuranceExpiry" type="date" defaultValue={selectedBike.insuranceExpiry || ""} /></label>
             <label>Resale value override<input name="estimatedResaleValuePhp" type="number" min="0" step="1" defaultValue={selectedBike.estimatedResaleValuePhp ?? ""} placeholder={calculatedResale ? String(calculatedResale) : ""} /></label>
@@ -387,6 +421,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
                 <label>Odometer (km)<input name="odometerKm" type="number" min="0" step="1" defaultValue={selectedBike.odometerKm} /></label>
                 <label>Fuel liters<input name="liters" type="number" min="0" step="0.01" /></label>
                 <label>Fuel price/L<input name="pricePerLiterPhp" type="number" min="0" step="0.01" /></label>
+                <label>Full-tank fill-up<select name="fullTank" defaultValue=""><option value="">No / not sure</option><option value="on">Yes, filled to full</option></select></label>
                 <label>Next due (km)<input name="nextDueKm" type="number" min="0" step="1" /></label>
                 <label>Next due date<input name="nextDueDate" type="date" /></label>
                 <label className="lead-form-wide">Notes<input name="notes" placeholder="Shop, parts used, warranty details or repair notes" /></label>
