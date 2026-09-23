@@ -287,7 +287,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogMotorcycle[
   return <section className="garage-workspace">
     <div className="note-box">
       <strong>Local-first privacy</strong>
-      <p>Garage records stay in this browser. Link a motorcycle to the MotoIndex catalog to unlock verified maintenance guidance, tire specifications and a model-based resale estimate without uploading your private ownership history.</p>
+      <p>Garage records stay in this browser. Link a motorcycle to the MotoIndex catalog to use verified maintenance guidance, tire specifications and a model-based resale estimate without uploading your private ownership history.</p>
     </div>
 
     <div className="section-head">
@@ -304,7 +304,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogMotorcycle[
     </div>
 
     {showBikeForm && <form className="lead-form" onSubmit={addBike}>
-      <div className="section-head"><div><h2>Add a motorcycle</h2><p>Choose a MotoIndex model to unlock model-aware maintenance and ownership data.</p></div></div>
+      <div className="section-head"><div><h2>Add a motorcycle</h2><p>Choose a MotoIndex model to use model-specific maintenance and ownership data.</p></div></div>
       <div className="lead-form-grid">
         <label className="lead-form-wide">MotoIndex motorcycle
           <select name="catalogModelId" value={newBikeCatalogId} onChange={(event) => setNewBikeCatalogId(event.target.value)}>
