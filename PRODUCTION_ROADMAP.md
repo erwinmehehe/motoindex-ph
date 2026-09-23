@@ -1008,3 +1008,17 @@ Honda Philippines now has a source-backed brand-level maintenance layer for comm
 - CI guards Honda source provenance, service-window wording and the distinction between brand guidance and exact owner-manual requirements.
 
 Next: add an exact ADV160 owner-manual schedule only after the Philippine-market owner-manual maintenance table is directly verified; do not infer it from generic Honda service windows.
+
+
+### Fitment authority wave 1 — verified scooter top-box hardware
+
+MotoIndex now deepens accessory fitment only where the case, rack code and motorcycle family can be tied to manufacturer evidence.
+
+- Added **SHAD SH33** as a verified 33 L top-box entity with the official Philippine product reference, small plate **D1B29PAR**, 3 kg recommended load and current ₱2,999 manufacturer-listed reference.
+- Added verified **Yamaha Fazzio → SHAD SH39** fitment using Top Master **Y0IFZ11ST** for 2022-2026.
+- Added verified **Honda BeAT → SHAD SH33** fitment using Top Master **H0IBT11ST**. The fitment retains SHAD's important restriction: use the small base plate and top cases only up to SH34.
+- The existing **NMAX V3** SHAD edge remains research-only because the manufacturer catalog names the Indonesia-market NMAX Turbo / Neo family; MotoIndex does not silently equate that naming with every Philippine NMAX V3 / Tech Max configuration.
+- Model pages now surface these products automatically through the exact fitment graph; no capacity-only heuristic is promoted to verified compatibility.
+- CI guards the case SKU, rack codes, model years, plate restriction and the continued NMAX uncertainty state.
+
+Next fitment work should continue manufacturer-by-manufacturer, prioritizing high-demand scooters and exact tire SKUs only where the tire maker publishes the required size/load/speed specification. Do not infer accessory fit from dimensions or motorcycle class alone.
