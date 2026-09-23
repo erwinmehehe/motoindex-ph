@@ -10,12 +10,15 @@ import {
   GarageMotorcycle,
   GarageRecord,
   GarageRecordCategory,
+  GarageReminder,
   GarageState,
+  advanceGarageReminder,
   daysUntil,
   emptyGarageState,
   maintenanceReferenceForBike,
   money,
   parseGarageState,
+  verifiedMaintenanceRemindersForBike,
 } from "@/lib/garage";
 
 function id(prefix: string) {
@@ -79,6 +82,8 @@ export function GarageWorkspace() {
     .sort((a, b) => b.date.localeCompare(a.date)), [state.records, selectedBike?.id]);
   const bikeDocuments = useMemo(() => state.documents
     .filter((document) => document.motorcycleId === selectedBike?.id), [state.documents, selectedBike?.id]);
+  const bikeReminders = useMemo(() => state.reminders
+    .filter((reminder) => reminder.motorcycleId === selectedBike?.id), [state.reminders, selectedBike?.id]);
 
   const totalSpend = bikeRecords.reduce((sum, record) => sum + (record.amountPhp || 0), 0);
   const currentYear = new Date().getFullYear();
@@ -106,6 +111,10 @@ export function GarageWorkspace() {
     return distanceKm > 0 && litersUsed > 0 ? distanceKm / litersUsed : null;
   }, [fuelRecords]);
   const maintenanceReference = selectedBike ? maintenanceReferenceForBike(selectedBike) : null;
+  const verifiedSuggestions = useMemo(() => selectedBike
+    ? verifiedMaintenanceRemindersForBike(selectedBike)
+      .filter((suggestion) => !bikeReminders.some((reminder) => reminder.scheduleKey === suggestion.scheduleKey))
+    : [], [selectedBike, bikeReminders]);
 
   const upcoming = useMemo(() => {
     if (!selectedBike) return [] as { label: string; value: string; days: number | null }[];
@@ -117,6 +126,11 @@ export function GarageWorkspace() {
         value: record.nextDueDate,
         days: daysUntil(record.nextDueDate),
       })),
+      ...bikeReminders.filter((reminder) => reminder.dueDate).map((reminder) => ({
+        label: `${reminder.action}: ${reminder.title}`,
+        value: reminder.dueDate,
+        days: daysUntil(reminder.dueDate),
+      })),
       ...bikeDocuments.filter((document) => document.expiryDate).map((document) => ({
         label: document.label,
         value: document.expiryDate,
@@ -124,20 +138,29 @@ export function GarageWorkspace() {
       })),
     ].filter((item) => item.value) as { label: string; value: string; days: number | null }[];
     return items.sort((a, b) => (a.days ?? 999999) - (b.days ?? 999999)).slice(0, 8);
-  }, [selectedBike, bikeRecords, bikeDocuments]);
+  }, [selectedBike, bikeRecords, bikeDocuments, bikeReminders]);
 
   const upcomingMileage = useMemo(() => {
     if (!selectedBike) return [] as { label: string; dueKm: number; remainingKm: number }[];
-    return bikeRecords
-      .filter((record) => record.nextDueKm !== undefined)
-      .map((record) => ({
-        label: record.title,
-        dueKm: record.nextDueKm as number,
-        remainingKm: (record.nextDueKm as number) - selectedBike.odometerKm,
-      }))
+    return [
+      ...bikeRecords
+        .filter((record) => record.nextDueKm !== undefined)
+        .map((record) => ({
+          label: record.title,
+          dueKm: record.nextDueKm as number,
+          remainingKm: (record.nextDueKm as number) - selectedBike.odometerKm,
+        })),
+      ...bikeReminders
+        .filter((reminder) => reminder.dueKm !== undefined)
+        .map((reminder) => ({
+          label: `${reminder.action}: ${reminder.title}`,
+          dueKm: reminder.dueKm as number,
+          remainingKm: (reminder.dueKm as number) - selectedBike.odometerKm,
+        })),
+    ]
       .sort((a, b) => a.remainingKm - b.remainingKm)
       .slice(0, 8);
-  }, [selectedBike, bikeRecords]);
+  }, [selectedBike, bikeRecords, bikeReminders]);
 
   const attentionCount = upcoming.filter((item) => item.days !== null && item.days <= 30).length
     + upcomingMileage.filter((item) => item.remainingKm <= 500).length;
@@ -220,6 +243,49 @@ export function GarageWorkspace() {
     }));
   }
 
+  function addVerifiedReminders() {
+    if (!selectedBike || verifiedSuggestions.length === 0) return;
+    setState((current) => ({
+      ...current,
+      reminders: [
+        ...verifiedSuggestions.map((suggestion) => ({
+          ...suggestion,
+          id: id("reminder"),
+          motorcycleId: selectedBike.id,
+        })),
+        ...current.reminders,
+      ],
+    }));
+  }
+
+  function completeReminder(reminder: GarageReminder) {
+    if (!selectedBike) return;
+    const completedDate = new Date().toISOString().slice(0, 10);
+    const nextReminder = advanceGarageReminder(reminder, selectedBike.odometerKm, completedDate);
+    const record: GarageRecord = {
+      id: id("record"),
+      motorcycleId: selectedBike.id,
+      category: "PMS",
+      date: completedDate,
+      title: `${reminder.action}: ${reminder.title}`,
+      odometerKm: selectedBike.odometerKm,
+      nextDueKm: nextReminder?.dueKm,
+      nextDueDate: nextReminder?.dueDate,
+      notes: `Completed from MotoIndex verified schedule · ${reminder.sourceLabel}`,
+    };
+    setState((current) => ({
+      ...current,
+      records: [record, ...current.records],
+      reminders: current.reminders.flatMap((item) => item.id === reminder.id
+        ? (nextReminder ? [nextReminder] : [])
+        : [item]),
+    }));
+  }
+
+  function removeReminder(reminderId: string) {
+    setState((current) => ({ ...current, reminders: current.reminders.filter((reminder) => reminder.id !== reminderId) }));
+  }
+
   function removeRecord(recordId: string) {
     setState((current) => ({ ...current, records: current.records.filter((record) => record.id !== recordId) }));
   }
@@ -254,6 +320,7 @@ export function GarageWorkspace() {
       motorcycles: nextBikes,
       records: current.records.filter((record) => record.motorcycleId !== selectedBike.id),
       documents: current.documents.filter((document) => document.motorcycleId !== selectedBike.id),
+      reminders: current.reminders.filter((reminder) => reminder.motorcycleId !== selectedBike.id),
     }));
     setSelectedId(nextBikes[0]?.id || "");
     setShowBikeForm(nextBikes.length === 0);
@@ -380,8 +447,31 @@ export function GarageWorkspace() {
           <span className="field-label">{maintenanceReference.level} maintenance source</span>
           <strong>{maintenanceReference.label}</strong>
           <p>{maintenanceReference.summary}</p>
-          <a href={maintenanceReference.sourceUrl} target="_blank" rel="noreferrer">Open verified maintenance source ↗</a>
+          <div className="hero-actions">
+            <a href={maintenanceReference.sourceUrl} target="_blank" rel="noreferrer">Open verified maintenance source ↗</a>
+            {verifiedSuggestions.length > 0 && <button className="button small" type="button" onClick={addVerifiedReminders}>Add {verifiedSuggestions.length} verified reminder{verifiedSuggestions.length === 1 ? "" : "s"}</button>}
+          </div>
         </div>}
+
+        {bikeReminders.length > 0 && <section className="garage-panel section">
+          <div className="section-head"><div><h2>Verified maintenance reminders</h2><p>Generated from the exact model schedule MotoIndex has verified. Mark an item done to add it to ownership history and advance recurring intervals.</p></div></div>
+          <div className="buyer-quote-list">
+            {bikeReminders.map((reminder) => <div className="buyer-quote-card" key={reminder.id}>
+              <div>
+                <span className="field-label">{reminder.action}</span>
+                <strong>{reminder.title}</strong>
+                <p>{reminder.intervalText}{reminder.note ? ` · ${reminder.note}` : ""}</p>
+                <a href={reminder.sourceUrl} target="_blank" rel="noreferrer">{reminder.sourceLabel} ↗</a>
+              </div>
+              <div className="buyer-quote-meta">
+                {reminder.dueKm !== undefined && <strong className={reminder.dueKm < selectedBike.odometerKm ? "buyer-decision declined" : reminder.dueKm - selectedBike.odometerKm <= 500 ? "buyer-decision" : "buyer-decision interested"}>{reminder.dueKm < selectedBike.odometerKm ? `${(selectedBike.odometerKm - reminder.dueKm).toLocaleString()} km overdue` : `Due at ${reminder.dueKm.toLocaleString()} km`}</strong>}
+                {reminder.dueDate && <small>{dateLabel(reminder.dueDate)} · {dueLabel(daysUntil(reminder.dueDate))}</small>}
+                <button className="button small" type="button" onClick={() => completeReminder(reminder)}>Mark done</button>
+                <button className="button small ghost" type="button" onClick={() => removeReminder(reminder.id)}>Remove</button>
+              </div>
+            </div>)}
+          </div>
+        </section>}
 
         <div className="split section">
           <section className="garage-panel">
