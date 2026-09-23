@@ -9,6 +9,7 @@ import {
   formatGarageDocumentAttachmentBytes,
   getGarageDocumentAttachment,
   listGarageDocumentAttachments,
+  pruneGarageDocumentAttachments,
   saveGarageDocumentAttachment,
   type GarageDocumentAttachmentSummary,
 } from "@/lib/garageDocumentStore";
@@ -336,6 +337,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
       event.target.value = "";
       return;
     }
+    await pruneGarageDocumentAttachments(imported.documents.map((item) => item.id)).catch(() => {});
     setState(imported);
     setSelectedId(imported.motorcycles[0]?.id || "");
     setShowBikeForm(imported.motorcycles.length === 0);
@@ -353,6 +355,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
     <GarageAccountPanel
       garageState={state}
       onRestore={(restored) => {
+        void pruneGarageDocumentAttachments(restored.documents.map((item) => item.id)).catch(() => {});
         setState(restored);
         setSelectedId(restored.motorcycles[0]?.id || "");
         setShowBikeForm(restored.motorcycles.length === 0);
