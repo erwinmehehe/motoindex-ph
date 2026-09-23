@@ -76,6 +76,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
   const [listingMessage, setListingMessage] = useState("");
   const [ownerListings, setOwnerListings] = useState<OwnerListingStatus[]>([]);
   const [submitting, setSubmitting] = useState(false);
+  const [withdrawing, setWithdrawing] = useState(false);
 
   useEffect(() => {
     const loaded = parseGarageState(window.localStorage.getItem(GARAGE_STORAGE_KEY));
@@ -195,6 +196,29 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
 
     await refreshOwnerListings();
     setListingMessage("Submitted for MotoIndex review. It stays private until an admin verifies it for publication.");
+  }
+
+  async function withdrawListing() {
+    if (!currentListing) return;
+    if (!window.confirm("Withdraw this listing from MotoIndex? Buyers will no longer be able to open or inquire about it.")) return;
+
+    setWithdrawing(true);
+    setListingMessage("");
+    const response = await fetch("/api/garage/listings", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ listingId: currentListing.id }),
+    });
+    const data = await response.json().catch(() => ({}));
+    setWithdrawing(false);
+
+    if (!response.ok) {
+      setListingMessage(data.error || "Listing could not be withdrawn.");
+      return;
+    }
+
+    await refreshOwnerListings();
+    setListingMessage("Listing withdrawn from MotoIndex.");
   }
 
   function buildReportText() {
@@ -374,6 +398,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
         <div className="hero-actions">
           <button className="button small" type="button" onClick={submitListing} disabled={submitting}>{submitting ? "Submitting…" : "Submit for MotoIndex review"}</button>
           <button className="button small ghost" type="button" onClick={() => copyText(buildListingText(), "Listing draft copied.")}>Copy listing draft</button>
+          {currentListing && currentListing.status !== "expired" && <button className="button small ghost" type="button" onClick={withdrawListing} disabled={withdrawing}>{withdrawing ? "Withdrawing…" : "Withdraw listing"}</button>}
           {model && <a className="button small ghost" href={`/used-motorcycles/${model.makeSlug}/${model.slug}`}>Check used market</a>}
         </div>
       </div>
