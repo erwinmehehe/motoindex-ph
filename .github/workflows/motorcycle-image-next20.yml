@@ -1,0 +1,39 @@
+name: Motorcycle Image Next 20 Backfill
+on:
+  push:
+    branches: [fix/motorcycle-images-next-20]
+    paths:
+      - scripts/backfill-motorcycle-images-next20.mjs
+      - .github/workflows/motorcycle-image-next20.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/motorcycle-images-next-20
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Backfill exact images
+        run: node scripts/backfill-motorcycle-images-next20.mjs
+      - name: Validate exact-image coverage
+        run: node scripts/audit-motorcycle-media-coverage.mjs
+      - name: Commit generated media
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/media.ts scripts/audit-motorcycle-media-coverage.mjs public/media/motorcycles
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Backfill next twenty exact motorcycle images"
+          git push origin HEAD:fix/motorcycle-images-next-20
