@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { garageRemindersConfigured } from "@/lib/garageReminders";
 import { getOwnerSession, ownerAuthConfigured, ownerRequestOriginAllowed } from "@/lib/ownerAuth";
 
 export const runtime = "nodejs";
@@ -13,6 +14,9 @@ export async function PUT(request: Request) {
   }
   if (!ownerAuthConfigured()) {
     return NextResponse.json({ ok: false, error: "Garage accounts are not enabled." }, { status: 503, headers });
+  }
+  if (!garageRemindersConfigured()) {
+    return NextResponse.json({ ok: false, error: "Garage email reminders are not configured yet." }, { status: 503, headers });
   }
   const session = await getOwnerSession();
   if (!session) {
