@@ -84,3 +84,15 @@ if (!reminders.includes("lastNotifiedMarker") || !reminders.includes("notice.mar
 }
 
 console.log("Garage QA passed");
+
+const marketplaceSubmission = fs.readFileSync("app/api/garage/listings/route.ts", "utf8");
+for (const privateField of ["plate:", "documents:", "documentRefs", "includeNotes"]) {
+  if (marketplaceSubmission.includes(privateField)) {
+    throw new Error(`Garage QA failed: marketplace submission must not publish private Garage field ${privateField}`);
+  }
+}
+
+const publicListing = fs.readFileSync("lib/persistentUsedListings.ts", "utf8");
+if (publicListing.includes("owner.email")) {
+  throw new Error("Garage QA failed: public used-listing mapper must not expose owner email.");
+}
