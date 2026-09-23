@@ -45,7 +45,7 @@ jobs:
 
       - name: Normalize target images
         env:
-          MOTORCYCLE_MEDIA_ONLY: aprilia-tuareg-660,aprilia-tuono-660,bajaj-dominar-400,bajaj-pulsar-n125,bajaj-pulsar-n160,bajaj-pulsar-ns400z,bajaj-pulsar-rs200,benelli-302s,benelli-leoncino-250,benelli-tnt-135,benelli-trk-502,cfmoto-300nk,husqvarna-norden-901,husqvarna-svartpilen-200,kawasaki-ninja-zx-25r,kymco-dink-s-150,kymco-dink-r-150,kymco-dtx360-300,royal-enfield-shotgun-650,vespa-primavera-150
+          MOTORCYCLE_MEDIA_ONLY: aprilia-tuareg-660,aprilia-tuono-660,bajaj-dominar-400,bajaj-pulsar-n125,bajaj-pulsar-n160,bajaj-pulsar-ns400z,bajaj-pulsar-rs200,benelli-302s,benelli-leoncino-250,benelli-tnt-135,benelli-trk-502,cfmoto-300nk,husqvarna-norden-901,husqvarna-svartpilen-200,kawasaki-ninja-zx-25r,kymco-dollar-150,kymco-dink-r-150,kymco-dtx360-300,royal-enfield-shotgun-650,vespa-primavera-150
         run: python scripts/art-direct-motorcycle-media.py
 
       - name: Validate exact-image coverage
@@ -74,7 +74,7 @@ jobs:
             public/media/motorcycles/husqvarna-norden-901.webp \
             public/media/motorcycles/husqvarna-svartpilen-200.webp \
             public/media/motorcycles/kawasaki-ninja-zx-25r.webp \
-            public/media/motorcycles/kymco-dink-s-150.webp \
+            public/media/motorcycles/kymco-dollar-150.webp \
             public/media/motorcycles/kymco-dink-r-150.webp \
             public/media/motorcycles/kymco-dtx360-300.webp \
             public/media/motorcycles/royal-enfield-shotgun-650.webp \
