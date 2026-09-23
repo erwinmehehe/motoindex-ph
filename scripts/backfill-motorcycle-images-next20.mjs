@@ -134,10 +134,11 @@ for(const t of targets){
   const localSrc=`/media/motorcycles/${t.entityId}.webp`;
   await sharp(src.bytes).rotate().flatten({background:"#ffffff"}).resize({width:1200,height:1200,fit:"contain",background:"#ffffff"}).webp({quality:88,effort:4}).toFile(path.join(root,"public",localSrc.slice(1)));
 
-  const exists=new RegExp(`entityId\\s*:\\s*["']${escRe(t.entityId)}["']`).test(media);
+  const newRecordId=t.entityId+"-verified-20260923";
+  const exists=new RegExp(`id\\s*:\\s*["']${escRe(newRecordId)}["']`).test(media);
   if(!exists){
     const record=`  {
-    id: ${JSON.stringify(t.entityId+"-official")}, entityType: "motorcycle", entityId: ${JSON.stringify(t.entityId)}, role: "primary",
+    id: ${JSON.stringify(newRecordId)}, entityType: "motorcycle", entityId: ${JSON.stringify(t.entityId)}, role: "primary",
     src: ${JSON.stringify(localSrc)}, sourceImageUrl: ${JSON.stringify(src.url)}, alt: ${JSON.stringify(t.name+" motorcycle")}, width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: ${JSON.stringify(t.rightsHolder)}, sourceLabel: ${JSON.stringify(t.sourceLabel)}, sourceUrl: ${JSON.stringify(src.pageUrl)}, lastChecked: ${JSON.stringify(checkedAt)}
   },`;
