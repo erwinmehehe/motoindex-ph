@@ -993,6 +993,106 @@ export const entityMedia: EntityMedia[] = [
     src: "/media/motorcycles/yamaha-yzf-r15m.webp", sourceImageUrl: "https://shop.yamaha-motor-india.com/cdn/shop/files/metallic_grey.webp?v=1757050338", alt: "Yamaha R15M sport motorcycle in Metallic Grey", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "India Yamaha Motor", sourceLabel: "Manufacturer e-shop image reference · Yamaha R15M", sourceUrl: "https://shop.yamaha-motor-india.com/products/buy-r15m", lastChecked: "2026-09-23"
   },
+  {
+    id: "bmw-f-900-gs-bmw-official", entityType: "motorcycle", entityId: "bmw-f-900-gs", role: "primary",
+    src: "/media/motorcycles/bmw-f-900-gs.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/cache/P9/202402/P90539201/P90539201-the-bmw-f-900-gs-on-road-stills-02-2024-2250px.jpg", alt: "BMW F 900 GS adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "BMW Motorrad", sourceLabel: "Manufacturer-hosted image reference · BMW F 900 GS", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90539201/The-BMW-F-900-GS-On-road-stills-02-2024", lastChecked: "2026-09-23"
+  },
+  {
+    id: "bmw-m-1000-rr-bmw-official", entityType: "motorcycle", entityId: "bmw-m-1000-rr", role: "primary",
+    src: "/media/motorcycles/bmw-m-1000-rr.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/cache/P9/202410/P90572497/P90572497-the-new-bmw-m-1000-rr-10-2024-2248px.jpg", alt: "BMW M 1000 RR superbike", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "BMW Motorrad", sourceLabel: "Manufacturer-hosted image reference · BMW M 1000 RR", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90572497/the-new-bmw-m-1000-rr-10/2024", lastChecked: "2026-09-23"
+  },
+  {
+    id: "bmw-s-1000-r-bmw-official", entityType: "motorcycle", entityId: "bmw-s-1000-r", role: "primary",
+    src: "/media/motorcycles/bmw-s-1000-r.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/cache/P9/202410/P90572565/P90572565-the-new-bmw-s-1000-r-10-2024-2248px.jpg", alt: "BMW S 1000 R roadster motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "BMW Motorrad", sourceLabel: "Manufacturer-hosted image reference · BMW S 1000 R", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90572565/The-new-BMW-S-1000-R-10-2024", lastChecked: "2026-09-23"
+  },
+  {
+    id: "bmw-s-1000-rr-bmw-official", entityType: "motorcycle", entityId: "bmw-s-1000-rr", role: "primary",
+    src: "/media/motorcycles/bmw-s-1000-rr.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/cache/P9/202212/P90490356/P90490356-the-new-bmw-s-1000-rr-12-2022-2250px.jpg", alt: "BMW S 1000 RR superbike", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "BMW Motorrad", sourceLabel: "Manufacturer-hosted image reference · BMW S 1000 RR", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90490356/the-new-bmw-s-1000-rr-12/2022", lastChecked: "2026-09-23"
+  },
+  {
+    id: "ducati-panigale-v4-ducati-official", entityType: "motorcycle", entityId: "ducati-panigale-v4", role: "primary",
+    src: "/media/motorcycles/ducati-panigale-v4.webp", sourceImageUrl: "https://mediahouse.ducati.com/wp-content/uploads/2026/06/dcccaccc6172a7544fc13b2c80e9a0b4-l.jpg", alt: "Ducati Panigale V4 superbike", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Ducati", sourceLabel: "Manufacturer-hosted image reference · Ducati Panigale V4", sourceUrl: "https://mediahouse.ducati.com/new-panigale-v4-my25/?lang=oci", lastChecked: "2026-09-23"
+  },
+  {
+    id: "ducati-streetfighter-v4-ducati-official", entityType: "motorcycle", entityId: "ducati-streetfighter-v4", role: "primary",
+    src: "/media/motorcycles/ducati-streetfighter-v4.webp", sourceImageUrl: "https://mediahouse.ducati.com/wp-content/uploads/2026/06/70765e11d7fa5f0f946d73c85e421c8c-l.jpg", alt: "Ducati Streetfighter V4 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Ducati", sourceLabel: "Manufacturer-hosted image reference · Ducati Streetfighter V4", sourceUrl: "https://mediahouse.ducati.com/new-streetfighter-v4-s-my25/?lang=oci", lastChecked: "2026-09-23"
+  },
+  {
+    id: "honda-cb500-hornet-e-clutch-honda-uk", entityType: "motorcycle", entityId: "honda-cb500-hornet-e-clutch", role: "primary",
+    src: "/media/motorcycles/honda-cb500-hornet-e-clutch.webp", sourceImageUrl: "https://www.honda.co.uk/content/dam/central/motorcycles/street/cb500/2025/desktop/e-clutch-video.jpeg", alt: "Honda CB500 Hornet E-Clutch motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Motor Europe", sourceLabel: "Manufacturer-hosted image reference · Honda CB500 Hornet E-Clutch", sourceUrl: "https://www.honda.co.uk/motorcycles/range/street/cb500-hornet/overview.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "kawasaki-eliminator-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-eliminator", role: "primary",
+    src: "/media/motorcycles/kawasaki-eliminator.webp", sourceImageUrl: "https://www.kawasaki.eu/content/dam/products/pim/studio/Resource_320178_26EL450A_44TRD1DRF3CG_A.jpg/_jcr_content/renditions/cq5dam.thumbnail.600.600.png", alt: "Kawasaki Eliminator cruiser motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Eliminator", sourceUrl: "https://www.kawasaki.eu/en/Motorcycles/A2_Bikes/eliminator_500_2026.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "kawasaki-ninja-650-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-ninja-650", role: "primary",
+    src: "/media/motorcycles/kawasaki-ninja-650.webp", sourceImageUrl: "https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/ninja-650/26EX650P_S_242GN1ALFA2CG_A.jpg", alt: "Kawasaki Ninja 650 sport motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Ninja 650", sourceUrl: "https://www.kawasaki.eu/en/EICMA/Ninja_650.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "kawasaki-ninja-h2-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-ninja-h2", role: "primary",
+    src: "/media/motorcycles/kawasaki-ninja-h2.webp", sourceImageUrl: "https://global.kawasaki.com/en/corp/sustainability/green_products/img/item_004_2015_01.jpg", alt: "Kawasaki Ninja H2 supercharged motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Ninja H2", sourceUrl: "https://global.kawasaki.com/en/corp/sustainability/green_products/ninja_h2.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "kawasaki-versys-650-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-versys-650", role: "primary",
+    src: "/media/motorcycles/kawasaki-versys-650.webp", sourceImageUrl: "https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/versys-650/26KLE650H_J_44TBU1AFA2CG_C.jpg", alt: "Kawasaki Versys 650 touring motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Versys 650", sourceUrl: "https://www.kawasaki.eu/en/EICMA/Versys_650.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "kawasaki-vulcan-s-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-vulcan-s", role: "primary",
+    src: "/media/motorcycles/kawasaki-vulcan-s.webp", sourceImageUrl: "https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/vulcan-s/26EN650D_M_44TGY1ARS2CG_C.jpg", alt: "Kawasaki Vulcan S cruiser motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Vulcan S", sourceUrl: "https://www.kawasaki.eu/en/EICMA/Vulcan_S.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "kawasaki-z-h2-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-z-h2", role: "primary",
+    src: "/media/motorcycles/kawasaki-z-h2.webp", sourceImageUrl: "https://www.kawasaki.eu/content/dam/products/pim/studio/zr/Resource_333614_27_ZR1000K_P_40T_BK1_DA_RF_K.jpg/_jcr_content/renditions/cq5dam.thumbnail.600.600.png", alt: "Kawasaki Z H2 supercharged motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Z H2", sourceUrl: "https://www.kawasaki.eu/en/Motorcycles/Supernaked/Z_H2_2027.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "kawasaki-z650-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-z650", role: "primary",
+    src: "/media/motorcycles/kawasaki-z650.webp", sourceImageUrl: "https://www.kawasaki.eu/content/dam/products/pim/studio/s/Resource_320250_26ER650N_S_44TWT1DRF3CG_A.jpg/_jcr_content/renditions/cq5dam.thumbnail.600.600.png", alt: "Kawasaki Z650 naked motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Z650", sourceUrl: "https://www.kawasaki.eu/en/Motorcycles/A2_Bikes/Z650_2026.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "ktm-200-duke-ktm-ph", entityType: "motorcycle", entityId: "ktm-200-duke", role: "primary",
+    src: "/media/motorcycles/ktm-200-duke.webp", sourceImageUrl: "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_DUKE-200-M23-90-degreerightt-side_%23SALL_%23AEPI_%23V1.png", alt: "KTM 200 Duke naked motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KTM", sourceLabel: "Manufacturer-hosted Philippine image reference · KTM 200 Duke", sourceUrl: "https://www.ktm.com/en-ph/models/naked-bike/2023-ktm-200-duke.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "ktm-790-duke-ktm-official", entityType: "motorcycle", entityId: "ktm-790-duke", role: "primary",
+    src: "/media/motorcycles/ktm-790-duke.webp", sourceImageUrl: "https://s7g10.scene7.com/is/image/ktm/KTM-2025-naked-bike-790-duke-homepage-baner?$ogimage$", alt: "KTM 790 Duke naked motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KTM", sourceLabel: "Manufacturer-hosted image reference · KTM 790 Duke", sourceUrl: "https://www.ktm.com/en-lk/ktm-world/news/the-original-scalpel-gets-a-sharpening-for-2025-.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "triumph-daytona-660-triumph-official", entityType: "motorcycle", entityId: "triumph-daytona-660", role: "primary",
+    src: "/media/motorcycles/triumph-daytona-660.webp", sourceImageUrl: "https://media.triumphmotorcycles.co.uk/image/upload/t_/c_limit,w_3840/f_auto/q_auto:eco/v1770648998/Daytona_660_MY26_4553_JP_dlstgh?_a=BAVMn6ID0", alt: "Triumph Daytona 660 sport motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Triumph Motorcycles", sourceLabel: "Manufacturer-hosted image reference · Triumph Daytona 660", sourceUrl: "https://www.triumphmotorcycles.com/motorcycles/sport/daytona/daytona-660", lastChecked: "2026-09-23"
+  },
+  {
+    id: "triumph-tiger-sport-660-triumph-official", entityType: "motorcycle", entityId: "triumph-tiger-sport-660", role: "primary",
+    src: "/media/motorcycles/triumph-tiger-sport-660.webp", sourceImageUrl: "https://media.triumphmotorcycles.co.uk/image/upload/t_triumph_square/c_limit,w_3840/f_auto/q_auto:eco/v1767708363/TigerSport660_MY26_11_MP_qwlgrp?_a=BAVMn6ID0", alt: "Triumph Tiger Sport 660 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Triumph Motorcycles", sourceLabel: "Manufacturer-hosted image reference · Triumph Tiger Sport 660", sourceUrl: "https://www.triumphmotorcycles.com/motorcycles/adventure/tiger-sport/tiger-sport-660", lastChecked: "2026-09-23"
+  },
+  {
+    id: "royal-enfield-super-meteor-650-re-ph", entityType: "motorcycle", entityId: "royal-enfield-super-meteor-650", role: "primary",
+    src: "/media/motorcycles/royal-enfield-super-meteor-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/super-meteor-650/motorcycles/thematic-banner.webp", alt: "Royal Enfield Super Meteor 650 cruiser motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer-hosted Philippine image reference · Super Meteor 650", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/super-meteor-650/", lastChecked: "2026-09-23"
+  },
+  {
+    id: "royal-enfield-classic-650-re-ph", entityType: "motorcycle", entityId: "royal-enfield-classic-650", role: "primary",
+    src: "/media/motorcycles/royal-enfield-classic-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/classic-650/hotspot/hot-spot.png", alt: "Royal Enfield Classic 650 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer-hosted Philippine image reference · Classic 650", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/classic-650/", lastChecked: "2026-09-23"
+  },
 ];
 
 export function getRenderableMedia(entityType: EntityMedia["entityType"], entityId: string) {
