@@ -1,6 +1,7 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { GarageAccountPanel } from "@/components/GarageAccountPanel";
 import {
   GARAGE_DOCUMENT_TYPES,
   GARAGE_RECORD_CATEGORIES,
@@ -264,8 +265,17 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
   return <section className="garage-workspace">
     <div className="note-box">
       <strong>Local-first privacy</strong>
-      <p>Garage records are stored only in this browser in V1. MotoIndex does not upload your plate, document references or ownership history. Export a backup before clearing browser data or changing devices. Scanned OR/CR files are intentionally not stored until secure MotoIndex accounts and private file storage are available.</p>
+      <p>My Garage still works without an account. Records stay on this browser unless you explicitly save a private cloud copy after signing in. Scanned OR/CR files are not uploaded in this release.</p>
     </div>
+
+    <GarageAccountPanel
+      garageState={state}
+      onRestore={(restored) => {
+        setState(restored);
+        setSelectedId(restored.motorcycles[0]?.id || "");
+        setShowBikeForm(restored.motorcycles.length === 0);
+      }}
+    />
 
     <div className="section-head">
       <div>
