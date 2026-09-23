@@ -44,6 +44,7 @@ export type GarageMotorcycle = {
   plate?: string;
   purchaseDate?: string;
   purchasePricePhp?: number;
+  purchaseOdometerKm?: number;
   odometerKm: number;
   registrationExpiry?: string;
   insuranceExpiry?: string;
@@ -62,6 +63,7 @@ export type GarageRecord = {
   odometerKm?: number;
   liters?: number;
   pricePerLiterPhp?: number;
+  fullTank?: boolean;
   nextDueKm?: number;
   nextDueDate?: string;
   notes?: string;
@@ -237,4 +239,125 @@ export function estimatedGarageResale(srp: number, year?: number, purchaseDate?:
     factor *= 1 - (current === 1 ? .15 : current === 2 ? .10 : current <= 5 ? .08 : .06);
   }
   return Math.round((srp * factor) / 100) * 100;
+}
+
+
+export type GarageOwnershipAnalytics = {
+  totalSpendPhp: number;
+  currentMonthSpendPhp: number;
+  averageMonthlySpendPhp: number;
+  trackedDistanceKm?: number;
+  distanceBasis: "purchase" | "first-log" | "none";
+  costPerKmPhp?: number;
+  fuelSpendPhp: number;
+  fuelLiters: number;
+  fuelEconomyKmL?: number;
+  fuelEconomyDistanceKm?: number;
+  fuelEconomyLiters?: number;
+  categorySpend: { category: GarageRecordCategory; amountPhp: number; share: number }[];
+  depreciationPhp?: number;
+  depreciationPct?: number;
+  netOwnershipCostPhp?: number;
+};
+
+function validDate(value?: string) {
+  if (!value) return undefined;
+  const parsed = new Date(`${value}T00:00:00`);
+  return Number.isNaN(parsed.valueOf()) ? undefined : parsed;
+}
+
+function ownershipMonths(bike: GarageMotorcycle, records: GarageRecord[], now: Date) {
+  const purchase = validDate(bike.purchaseDate);
+  const recordDates = records.map((record) => validDate(record.date)).filter((date): date is Date => Boolean(date));
+  const start = purchase || recordDates.sort((a,b) => a.valueOf() - b.valueOf())[0];
+  if (!start) return 1;
+  const days = Math.max(1, (now.valueOf() - start.valueOf()) / 86400000);
+  return Math.max(1, days / 30.4375);
+}
+
+export function garageOwnershipAnalytics(
+  bike: GarageMotorcycle,
+  records: GarageRecord[],
+  effectiveResaleValuePhp?: number,
+  now = new Date(),
+): GarageOwnershipAnalytics {
+  const totalSpendPhp = records.reduce((sum, record) => sum + (record.amountPhp || 0), 0);
+  const currentMonthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+  const currentMonthSpendPhp = records
+    .filter((record) => record.date.startsWith(currentMonthKey))
+    .reduce((sum, record) => sum + (record.amountPhp || 0), 0);
+
+  const categories = new Map<GarageRecordCategory, number>();
+  for (const record of records) {
+    categories.set(record.category, (categories.get(record.category) || 0) + (record.amountPhp || 0));
+  }
+  const categorySpend = [...categories.entries()]
+    .filter(([, amountPhp]) => amountPhp > 0)
+    .map(([category, amountPhp]) => ({ category, amountPhp, share: totalSpendPhp > 0 ? amountPhp / totalSpendPhp : 0 }))
+    .sort((a,b) => b.amountPhp - a.amountPhp);
+
+  let trackedDistanceKm: number | undefined;
+  let distanceBasis: GarageOwnershipAnalytics["distanceBasis"] = "none";
+  if (
+    bike.purchaseOdometerKm !== undefined &&
+    bike.odometerKm >= bike.purchaseOdometerKm
+  ) {
+    trackedDistanceKm = bike.odometerKm - bike.purchaseOdometerKm;
+    distanceBasis = "purchase";
+  } else {
+    const loggedOdometers = records
+      .map((record) => record.odometerKm)
+      .filter((value): value is number => value !== undefined && Number.isFinite(value) && value <= bike.odometerKm);
+    if (loggedOdometers.length) {
+      trackedDistanceKm = bike.odometerKm - Math.min(...loggedOdometers);
+      distanceBasis = "first-log";
+    }
+  }
+
+  const fuelRecords = records.filter((record) => record.category === "FUEL");
+  const fuelSpendPhp = fuelRecords.reduce((sum, record) => sum + (record.amountPhp || 0), 0);
+  const fuelLiters = fuelRecords.reduce((sum, record) => sum + (record.liters || 0), 0);
+  const fullTankRecords = fuelRecords
+    .filter((record) => record.fullTank && record.odometerKm !== undefined && (record.liters || 0) > 0)
+    .sort((a,b) => (a.odometerKm || 0) - (b.odometerKm || 0) || a.date.localeCompare(b.date));
+
+  let fuelEconomyDistanceKm = 0;
+  let fuelEconomyLiters = 0;
+  for (let index = 1; index < fullTankRecords.length; index += 1) {
+    const previous = fullTankRecords[index - 1];
+    const current = fullTankRecords[index];
+    const distance = (current.odometerKm || 0) - (previous.odometerKm || 0);
+    if (distance > 0 && (current.liters || 0) > 0) {
+      fuelEconomyDistanceKm += distance;
+      fuelEconomyLiters += current.liters || 0;
+    }
+  }
+
+  const depreciationPhp = bike.purchasePricePhp !== undefined && effectiveResaleValuePhp !== undefined
+    ? Math.max(0, bike.purchasePricePhp - effectiveResaleValuePhp)
+    : undefined;
+  const depreciationPct = depreciationPhp !== undefined && bike.purchasePricePhp
+    ? depreciationPhp / bike.purchasePricePhp
+    : undefined;
+  const netOwnershipCostPhp = bike.purchasePricePhp !== undefined && effectiveResaleValuePhp !== undefined
+    ? Math.max(0, bike.purchasePricePhp + totalSpendPhp - effectiveResaleValuePhp)
+    : undefined;
+
+  return {
+    totalSpendPhp,
+    currentMonthSpendPhp,
+    averageMonthlySpendPhp: totalSpendPhp / ownershipMonths(bike, records, now),
+    trackedDistanceKm,
+    distanceBasis,
+    costPerKmPhp: trackedDistanceKm && trackedDistanceKm > 0 ? totalSpendPhp / trackedDistanceKm : undefined,
+    fuelSpendPhp,
+    fuelLiters,
+    fuelEconomyKmL: fuelEconomyDistanceKm > 0 && fuelEconomyLiters > 0 ? fuelEconomyDistanceKm / fuelEconomyLiters : undefined,
+    fuelEconomyDistanceKm: fuelEconomyDistanceKm || undefined,
+    fuelEconomyLiters: fuelEconomyLiters || undefined,
+    categorySpend,
+    depreciationPhp,
+    depreciationPct,
+    netOwnershipCostPhp,
+  };
 }
