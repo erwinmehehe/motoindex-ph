@@ -316,6 +316,42 @@ requireText(topBoxFitmentData, "exact SHAD CB150X fitting page currently stops a
 requireText(topBoxFitmentData, "exact fitting detail table currently stops at 2025", "Z500 SH33 must retain the 2025 exact-page boundary.");
 requireText(topBoxFitmentData, "exact non-Tech XMAX 300 Y0XM33ST table currently stops at 2025", "XMAX SH33 must retain the non-Tech 2026 recheck boundary.");
 
+const fitmentWave7 = [
+  ["sh33-mio-i125", "yamaha-mio-i-125", "Y0MZ16ST", "Mio i125: 2014-2025"],
+  ["sh33-nx500", "honda-nx500-e-clutch", "H0CX55ST", "NX500: 2023-2026"],
+  ["sh33-adv350", "honda-adv-350", "H0FR15IST", "ADV350: 2025-2026"],
+  ["sh33-mio-gravis", "yamaha-mio-gravis", "Y0FG13IST", "2023-2025"],
+  ["sh33-xsr155", "yamaha-xsr155", "Y0IXS19ST", "XSR155: 2019-2025"],
+  ["sh33-mt07", "yamaha-mt-07", "Y0MT75ST", "2025-2026"],
+  ["sh33-transalp-750", "honda-xl750-transalp", "H0TR73ST", "2023-2026"],
+  ["sh33-gixxer-sf250", "suzuki-gixxer-sf250", "S0GX22IST", "2021-2025"],
+  ["sh39-suzuki-access-2026", "suzuki-access", "S0DR16ST", "2026"],
+  ["sh33-suzuki-access-2026", "suzuki-access", "S0DR16ST", "2026"],
+];
+
+if (fitmentWave7.length !== 10) errors.push("Top-box fitment wave 7 must retain exactly ten reviewed relationships.");
+for (const [id, modelId, rackCode, modelYears] of fitmentWave7) {
+  const start = topBoxFitmentData.indexOf(`id: "${id}"`);
+  if (start < 0) {
+    errors.push(`Top-box fitment wave 7 lost ${id}.`);
+    continue;
+  }
+  const end = topBoxFitmentData.indexOf("\n  },", start);
+  const fitmentBlock = topBoxFitmentData.slice(start, end > start ? end : start + 3000);
+  requireText(fitmentBlock, `modelId: "${modelId}"`, `${id} must remain attached to ${modelId}.`);
+  requireText(fitmentBlock, `rackCode: "${rackCode}"`, `${id} lost manufacturer rack code ${rackCode}.`);
+  requireText(fitmentBlock, `modelYears: "${modelYears}"`, `${id} lost reviewed year/generation coverage.`);
+  requireText(fitmentBlock, 'status: "verified"', `${id} must remain manufacturer-backed.`);
+  requireText(fitmentBlock, 'lastChecked: "2026-09-23"', `${id} must retain the September 23 source check.`);
+}
+requireText(topBoxFitmentData, "SHAD currently lists Mio i125 fitment through 2025", "Mio i125 SH33 must retain the later-model-year warning.");
+requireText(topBoxFitmentData, "Philippine E-Clutch trim separately", "NX500 SH33 must retain the family-vs-trim caution.");
+requireText(topBoxFitmentData, "exact SHAD XSR155 fitting table currently stops at 2025", "XSR155 SH33 must retain the 2025 boundary.");
+requireText(topBoxFitmentData, "exact SHAD Gixxer SF 250 rack coverage currently stops at 2025", "Gixxer SF250 SH33 must retain the 2025 boundary.");
+requireText(topBoxFitmentData, "2023-2025 rack is S0DR13ST", "Suzuki Access 2026 relationships must retain the generation-specific rack warning.");
+requireText(topBoxFitmentData, 'id: "sh39-suzuki-access-2026"', "Wave 7 must retain the Suzuki Access SH39 relationship.");
+requireText(topBoxFitmentData, 'id: "sh33-suzuki-access-2026"', "Wave 7 must retain the Suzuki Access SH33 relationship.");
+
 
 if (errors.length) {
   console.error("SEO hardening validation failed:");
