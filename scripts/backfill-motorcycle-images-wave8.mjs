@@ -7,6 +7,7 @@ const mediaPath = path.join(root, "lib/media.ts");
 const coveragePath = path.join(root, "scripts/audit-motorcycle-media-coverage.mjs");
 const outDir = path.join(root, "public/media/motorcycles");
 fs.mkdirSync(outDir, { recursive: true });
+fs.mkdirSync(path.join(root, "artifacts"), { recursive: true });
 
 const UA = "Mozilla/5.0 (compatible; MotoIndexMediaVerifier/1.0; +https://motoindexph.com/methodology)";
 const checkedAt = "2026-09-23";
