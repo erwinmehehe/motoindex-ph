@@ -81,9 +81,30 @@ export function GarageWorkspace() {
     .filter((document) => document.motorcycleId === selectedBike?.id), [state.documents, selectedBike?.id]);
 
   const totalSpend = bikeRecords.reduce((sum, record) => sum + (record.amountPhp || 0), 0);
+  const currentYear = new Date().getFullYear();
+  const spendThisYear = bikeRecords
+    .filter((record) => record.date.startsWith(`${currentYear}-`))
+    .reduce((sum, record) => sum + (record.amountPhp || 0), 0);
   const fuelRecords = bikeRecords.filter((record) => record.category === "FUEL");
   const liters = fuelRecords.reduce((sum, record) => sum + (record.liters || 0), 0);
   const fuelSpend = fuelRecords.reduce((sum, record) => sum + (record.amountPhp || 0), 0);
+  const fuelEconomy = useMemo(() => {
+    const readings = fuelRecords
+      .filter((record) => record.odometerKm !== undefined && record.liters !== undefined && record.liters > 0)
+      .sort((a, b) => (a.odometerKm || 0) - (b.odometerKm || 0));
+    if (readings.length < 2) return null;
+    let distanceKm = 0;
+    let litersUsed = 0;
+    for (let index = 1; index < readings.length; index += 1) {
+      const previous = readings[index - 1];
+      const current = readings[index];
+      const distance = (current.odometerKm || 0) - (previous.odometerKm || 0);
+      if (distance <= 0 || !current.liters) continue;
+      distanceKm += distance;
+      litersUsed += current.liters;
+    }
+    return distanceKm > 0 && litersUsed > 0 ? distanceKm / litersUsed : null;
+  }, [fuelRecords]);
   const maintenanceReference = selectedBike ? maintenanceReferenceForBike(selectedBike) : null;
 
   const upcoming = useMemo(() => {
@@ -104,6 +125,22 @@ export function GarageWorkspace() {
     ].filter((item) => item.value) as { label: string; value: string; days: number | null }[];
     return items.sort((a, b) => (a.days ?? 999999) - (b.days ?? 999999)).slice(0, 8);
   }, [selectedBike, bikeRecords, bikeDocuments]);
+
+  const upcomingMileage = useMemo(() => {
+    if (!selectedBike) return [] as { label: string; dueKm: number; remainingKm: number }[];
+    return bikeRecords
+      .filter((record) => record.nextDueKm !== undefined)
+      .map((record) => ({
+        label: record.title,
+        dueKm: record.nextDueKm as number,
+        remainingKm: (record.nextDueKm as number) - selectedBike.odometerKm,
+      }))
+      .sort((a, b) => a.remainingKm - b.remainingKm)
+      .slice(0, 8);
+  }, [selectedBike, bikeRecords]);
+
+  const attentionCount = upcoming.filter((item) => item.days !== null && item.days <= 30).length
+    + upcomingMileage.filter((item) => item.remainingKm <= 500).length;
 
   function addBike(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -306,10 +343,26 @@ export function GarageWorkspace() {
 
         <div className="spec-grid">
           <div className="garage-summary-item"><span>Odometer</span><strong>{selectedBike.odometerKm.toLocaleString()} km</strong><small>Updates when a higher log reading is saved</small></div>
-          <div className="garage-summary-item"><span>Total logged spend</span><strong>{money(totalSpend)}</strong><small>Fuel, PMS, repairs, parts and other recorded costs</small></div>
-          <div className="garage-summary-item"><span>Fuel</span><strong>{money(fuelSpend)}</strong><small>{liters ? `${liters.toFixed(1)} L logged` : "No fuel volume logged yet"}</small></div>
+          <div className="garage-summary-item"><span>Needs attention</span><strong>{attentionCount}</strong><small>Due within 30 days or 500 km, including overdue items</small></div>
+          <div className="garage-summary-item"><span>Spend this year</span><strong>{money(spendThisYear)}</strong><small>{currentYear} fuel, PMS, repairs, parts and other logged costs</small></div>
+          <div className="garage-summary-item"><span>Total logged spend</span><strong>{money(totalSpend)}</strong><small>All ownership costs saved for this motorcycle</small></div>
+          <div className="garage-summary-item"><span>Fuel economy</span><strong>{fuelEconomy ? `${fuelEconomy.toFixed(1)} km/L` : "Not enough data"}</strong><small>{fuelEconomy ? `${liters.toFixed(1)} L across comparable fuel readings` : "Log fuel with odometer readings at two fill-ups"}</small></div>
           <div className="garage-summary-item"><span>Estimated resale</span><strong>{money(selectedBike.estimatedResaleValuePhp)}</strong><small>{selectedBike.purchasePricePhp ? `Bought for ${money(selectedBike.purchasePricePhp)}` : "Add purchase price for context"}</small></div>
         </div>
+
+        {upcomingMileage.length > 0 && <section className="garage-panel section">
+          <div className="section-head"><div><h2>Maintenance by mileage</h2><p>Service and replacement items tied to the odometer, not just a calendar date.</p></div></div>
+          <div className="buyer-quote-list">
+            {upcomingMileage.map((item, index) => <div className="buyer-quote-card" key={`${item.label}-${item.dueKm}-${index}`}>
+              <div><strong>{item.label}</strong><p>Due at {item.dueKm.toLocaleString()} km</p></div>
+              <div className="buyer-quote-meta">
+                <strong className={item.remainingKm < 0 ? "buyer-decision declined" : item.remainingKm <= 500 ? "buyer-decision" : "buyer-decision interested"}>
+                  {item.remainingKm < 0 ? `${Math.abs(item.remainingKm).toLocaleString()} km overdue` : item.remainingKm === 0 ? "Due now" : `${item.remainingKm.toLocaleString()} km left`}
+                </strong>
+              </div>
+            </div>)}
+          </div>
+        </section>}
 
         <form className="lead-form" onSubmit={updateBike} key={selectedBike.id}>
           <div className="section-head"><div><h2>Update current motorcycle</h2><p>Refresh mileage and renewal dates after every PMS or renewal.</p></div></div>
