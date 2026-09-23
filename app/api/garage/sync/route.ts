@@ -1,6 +1,8 @@
 import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { parseGarageState } from "@/lib/garage";
+import { syncOwnerGarageReminders } from "@/lib/garageReminders";
 import { getOwnerSession, ownerAuthConfigured, ownerRequestOriginAllowed } from "@/lib/ownerAuth";
 
 export const runtime = "nodejs";
@@ -63,6 +65,7 @@ export async function PUT(request: Request) {
     return NextResponse.json({ ok: false, error: "Garage data is too large to sync." }, { status: 413, headers });
   }
 
+  const garageState = parseGarageState(serialized);
   const ownerId = auth.session.ownerId;
   const existing = await prisma.garageSnapshot.findUnique({ where: { ownerId } });
 
@@ -74,7 +77,8 @@ export async function PUT(request: Request) {
       const created = await prisma.garageSnapshot.create({
         data: { ownerId, payload: payload as Prisma.InputJsonValue, revision: 1 },
       });
-      return NextResponse.json({ ok: true, revision: created.revision, updatedAt: created.updatedAt.toISOString() }, { headers });
+      const reminderCount = await syncOwnerGarageReminders(ownerId, garageState).catch(() => null);
+      return NextResponse.json({ ok: true, revision: created.revision, updatedAt: created.updatedAt.toISOString(), reminderCount }, { headers });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
         const latest = await prisma.garageSnapshot.findUnique({ where: { ownerId } });
@@ -110,9 +114,11 @@ export async function PUT(request: Request) {
   }
 
   const latest = await prisma.garageSnapshot.findUnique({ where: { ownerId } });
+  const reminderCount = await syncOwnerGarageReminders(ownerId, garageState).catch(() => null);
   return NextResponse.json({
     ok: true,
     revision: latest?.revision,
     updatedAt: latest?.updatedAt.toISOString(),
+    reminderCount,
   }, { headers });
 }
