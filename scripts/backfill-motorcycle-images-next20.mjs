@@ -12,8 +12,8 @@ const UA = "Mozilla/5.0 (compatible; MotoIndexMediaVerifier/1.0; +https://motoin
 const checkedAt = "2026-09-23";
 
 const targets = [
-  ["aprilia-tuareg-660","Aprilia Tuareg 660","https://www.aprilia.com/sg_EN/models/tuareg/tuareg-660/",["tuareg 660","tuareg"],"Aprilia","Manufacturer-hosted image reference · Aprilia Tuareg 660"],
-  ["aprilia-tuono-660","Aprilia Tuono 660","https://www.aprilia.com/sg_EN/models/tuono/tuono-660/",["tuono 660","tuono"],"Aprilia","Manufacturer-hosted image reference · Aprilia Tuono 660"],
+  ["cfmoto-300nk","CFMOTO 300NK","https://www.cfmotoph.com/motorcycle/300nk",["300nk","300 nk"],"CFMOTO Philippines","Official Philippine distributor image reference · CFMOTO 300NK"],
+  ["keeway-cafe-racer-152","Keeway Cafe Racer 152","https://www.keeway.com/ph-en/products/cafe-racer-152",["cafe racer 152","cafe-racer-152"],"Keeway","Manufacturer-hosted image reference · Keeway Cafe Racer 152"],
   ["bajaj-dominar-400","Bajaj Dominar 400","https://www.bajajauto.com/bikes/dominar/dominar-400",["dominar 400","dominar-400"],"Bajaj Auto","Manufacturer-hosted image reference · Bajaj Dominar 400"],
   ["bajaj-pulsar-n125","Bajaj Pulsar N125","https://www.bajajauto.com/en-ph/bikes/pulsar-n125",["pulsar n125","n125"],"Bajaj Auto","Manufacturer-hosted image reference · Bajaj Pulsar N125"],
   ["bajaj-pulsar-n160","Bajaj Pulsar N160","https://www.bajajauto.com/bikes/pulsar/pulsar-n160",["pulsar n160","n160"],"Bajaj Auto","Manufacturer-hosted image reference · Bajaj Pulsar N160"],
@@ -23,8 +23,8 @@ const targets = [
   ["benelli-leoncino-250","Benelli Leoncino 250","https://www.benelli.com/ph-en/products/leoncino-250",["leoncino 250","leoncino"],"Benelli","Manufacturer-hosted image reference · Benelli Leoncino 250"],
   ["benelli-tnt-135","Benelli TNT 135","https://www.benelli.com/ph-en/products/tnt-135",["tnt 135","tnt135"],"Benelli","Manufacturer-hosted image reference · Benelli TNT 135"],
   ["benelli-trk-502","Benelli TRK 502","https://www.benelli.com/ph-en/products/trk-502-3/",["trk 502","trk502"],"Benelli","Manufacturer-hosted image reference · Benelli TRK 502"],
-  ["husqvarna-norden-901","Husqvarna Norden 901","https://www.husqvarna-motorcycles.com/en-ph/models.html",["norden 901","norden-901"],"Husqvarna Mobility","Manufacturer-hosted image reference · Husqvarna Norden 901"],
-  ["husqvarna-svartpilen-200","Husqvarna Svartpilen 200","https://www.husqvarna-motorcycles.com/en-ph/models.html",["svartpilen 200","svartpilen-200"],"Husqvarna Mobility","Manufacturer-hosted image reference · Husqvarna Svartpilen 200"],
+  ["vespa-primavera-150","Vespa Primavera 150","https://www.vespa.com/us_EN/models/primavera/primavera-150-4s3v-2026/",["primavera 150","primavera-150"],"Piaggio Group","Manufacturer-hosted image reference · Vespa Primavera 150"],
+  ["suzuki-raider-pro","Suzuki Raider PRO","https://mc.suzuki.com.ph/motorcycles/underbone/raider-pro/",["raider pro","raider-pro"],"Suzuki Philippines","Manufacturer-hosted image reference · Suzuki Raider PRO"],
   ["royal-enfield-shotgun-650","Royal Enfield Shotgun 650","https://www.royalenfield.com/ph/en/motorcycles/shotgun-650/",["shotgun 650","shotgun-650"],"Royal Enfield","Manufacturer-hosted image reference · Royal Enfield Shotgun 650"],
   ["kymco-agility-eco-125i","Kymco Agility Eco 125i","https://kymco.com.ph/product/agility-eco-125i/",["agility eco 125i","agility-eco-125i"],"Kymco Philippines","Manufacturer-hosted image reference · Kymco Agility Eco 125i"],
   ["kymco-dink-r-150","Kymco Dink R 150","https://kymco.com.ph/product/dink-r-150/",["dink r 150","dink-r-150"],"Kymco Philippines","Manufacturer-hosted image reference · Kymco Dink R 150"],
