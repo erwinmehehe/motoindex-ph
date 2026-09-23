@@ -2,8 +2,8 @@ import fs from "node:fs";
 
 const required = [
   ["app/garage/page.tsx", ["robots: { index: false", "GarageWorkspace"]],
-  ["components/GarageWorkspace.tsx", ["GARAGE_STORAGE_KEY", "REGISTRATION", "INSURANCE", "RESALE", "DEED_OF_SALE", "Export backup"]],
-  ["lib/garage.ts", ["maintenanceReferenceForBike", "GARAGE_DOCUMENT_TYPES"]],
+  ["components/GarageWorkspace.tsx", ["GARAGE_STORAGE_KEY", "Export backup", "Document wallet"]],
+  ["lib/garage.ts", ["maintenanceReferenceForBike", "GARAGE_DOCUMENT_TYPES", "\"REGISTRATION\"", "\"INSURANCE\"", "\"RESALE\"", "\"DEED_OF_SALE\""]],
   ["middleware.ts", ["/garage"]],
 ];
 
