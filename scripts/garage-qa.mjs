@@ -5,15 +5,18 @@ const required = [
   ["app/garage/resale/page.tsx", ["robots: { index: false", "GarageResalePack", "Private plate and document references stay hidden"]],
   ["app/garage/sign-in/verify/[token]/page.tsx", ["force-dynamic", "GarageMagicLinkConfirm", "Opening this page does not consume the link"]],
   ["components/GarageWorkspace.tsx", ["GarageAccountPanel", "Local-first privacy", "Prepare resale pack", "Ownership analytics", "Smart maintenance"]],
-  ["components/GarageAccountPanel.tsx", ["Save this device to cloud", "Restore cloud to this device", "revision", "explicit", "sign-in link"]],
+  ["components/GarageAccountPanel.tsx", ["Save this device to cloud", "Restore cloud to this device", "Turn on email reminders", "latest cloud-synced Garage", "revision", "explicit", "sign-in link"]],
   ["components/GarageResalePack.tsx", ["Private by default", "Print / save PDF", "Copy listing draft", "Export seller pack", "No accident records logged in My Garage", "This is not a claim that the motorcycle is accident-free.", "includePlate", "includeDocumentRefs", "includeAmounts", "includeNotes", "shareableRecord"]],
   ["lib/garage.ts", ["maintenanceReferenceForBike", "GARAGE_DOCUMENT_TYPES", "smartMaintenanceDue", "estimatedGarageResale", "garageOwnershipAnalytics", "distanceBasis", "fullTankRecords", "netOwnershipCostPhp"]],
   ["lib/ownerAuth.ts", ["httpOnly: true", "sameSite: \"lax\"", "hashOwnerToken", "ownerRequestOriginAllowed", "GARAGE_CLOUD_SYNC_ENABLED"]],
+  ["lib/garageReminders.ts", ["deriveGarageReminders", "syncOwnerGarageReminders", "reminderEmailsEnabled: true", "lastNotifiedMarker", "PRICE_ALERT_CRON_SECRET", "escapeHtml", "mileageNotice"]],
+  ["app/api/garage/reminders/preferences/route.ts", ["typeof body.enabled !== \"boolean\"", "reminderEmailsEnabled: body.enabled"]],
+  ["app/api/cron/price-alerts/route.ts", ["garageRemindersConfigured", "runGarageReminderCheck", "garageReminders"]],
   ["app/api/garage/auth/request/route.ts", ["recent >= 3", "ownerMagicLinkExpiry", "sendOwnerMagicLink"]],
   ["app/api/garage/auth/verify/[token]/route.ts", ["updateMany", "usedAt: null", "setOwnerSessionCookie"]],
   ["app/api/garage/sync/route.ts", ["expectedRevision", "conflict: true", "MAX_PAYLOAD_BYTES", "ownerId: auth.session.ownerId"]],
   [".env.example", ["GARAGE_CLOUD_SYNC_ENABLED=false", "OWNER_AUTH_FROM_EMAIL", "OWNER_SESSION_DAYS=30"]],
-  ["prisma/schema.prisma", ["model OwnerAccount", "model OwnerMagicLink", "model OwnerSession", "model GarageSnapshot"]],
+  ["prisma/schema.prisma", ["model OwnerAccount", "reminderEmailsEnabled Boolean @default(false)", "model OwnerMagicLink", "model OwnerSession", "model GarageSnapshot", "model GarageReminder"]],
   ["middleware.ts", ["/garage", "Referrer-Policy", "no-referrer"]],
 ];
 
@@ -65,8 +68,19 @@ if (!sync.includes("existing.revision !== expectedRevision") || !sync.includes("
 }
 
 const migration = fs.readFileSync("prisma/migrations/20260923173000_add_owner_accounts_and_garage_sync/migration.sql", "utf8");
-if (!migration.includes('CREATE UNIQUE INDEX "OwnerSession_tokenHash_key"') || !migration.includes('CREATE UNIQUE INDEX "GarageSnapshot_ownerId_key"')) {
-  throw new Error("Garage QA failed: owner session and snapshot uniqueness constraints are missing.");
+if (!migration.includes('CREATE UNIQUE INDEX "OwnerSession_tokenHash_key"') || !migration.includes('CREATE UNIQUE INDEX "GarageSnapshot_ownerId_key"') || !migration.includes('CREATE UNIQUE INDEX "GarageReminder_ownerId_reminderKey_key"')) {
+  throw new Error("Garage QA failed: owner session, snapshot, or reminder uniqueness constraints are missing.");
+}
+if (!migration.includes('"reminderEmailsEnabled" BOOLEAN NOT NULL DEFAULT false')) {
+  throw new Error("Garage QA failed: reminder emails must be opt-in by default.");
+}
+
+const reminders = fs.readFileSync("lib/garageReminders.ts", "utf8");
+if (!reminders.includes('(reminder.dueDate ? dateNotice(reminder.dueDate) : null) || mileageNotice')) {
+  throw new Error("Garage QA failed: mileage reminders must still work when a future date exists.");
+}
+if (!reminders.includes("lastNotifiedMarker") || !reminders.includes("notice.marker === reminder.lastNotifiedMarker")) {
+  throw new Error("Garage QA failed: reminder emails need deduplication markers.");
 }
 
 console.log("Garage QA passed");
