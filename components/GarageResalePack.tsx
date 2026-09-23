@@ -63,6 +63,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
   const [includeAmounts, setIncludeAmounts] = useState(false);
   const [includeNotes, setIncludeNotes] = useState(false);
   const [message, setMessage] = useState("");
+  const [listingMessage, setListingMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -125,24 +126,24 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
 
   async function submitListing() {
     if (!model || !bike.catalogModelId) {
-      setMessage("Match this motorcycle to a MotoIndex catalog model in My Garage before submitting.");
+      setListingMessage("Match this motorcycle to a MotoIndex catalog model in My Garage before submitting.");
       return;
     }
     if (!bike.year) {
-      setMessage("Add the motorcycle model year in My Garage before submitting.");
+      setListingMessage("Add the motorcycle model year in My Garage before submitting.");
       return;
     }
     if (!listingPrice || listingPrice < 3000) {
-      setMessage("Add a realistic asking price before submitting.");
+      setListingMessage("Add a realistic asking price before submitting.");
       return;
     }
     if (location.trim().length < 2) {
-      setMessage("Add the city or province where buyers can inspect the motorcycle.");
+      setListingMessage("Add the city or province where buyers can inspect the motorcycle.");
       return;
     }
 
     setSubmitting(true);
-    setMessage("");
+    setListingMessage("");
     const response = await fetch("/api/garage/listings", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -158,14 +159,14 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
 
     if (!response.ok) {
       if (response.status === 401) {
-        setMessage("Sign in from My Garage, save this bike to the private cloud, then submit again.");
+        setListingMessage("Sign in from My Garage, save this bike to the private cloud, then submit again.");
         return;
       }
-      setMessage(data.error || "Listing submission failed.");
+      setListingMessage(data.error || "Listing submission failed.");
       return;
     }
 
-    setMessage("Submitted for MotoIndex review. It stays private until an admin verifies it for publication.");
+    setListingMessage("Submitted for MotoIndex review. It stays private until an admin verifies it for publication.");
   }
 
   function buildReportText() {
@@ -347,6 +348,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
           {model && <a className="button small ghost" href={`/used-motorcycles/${model.makeSlug}/${model.slug}`}>Check used market</a>}
         </div>
       </div>
+      {listingMessage && <p className="muted-note" role="status">{listingMessage}</p>}
     </section>
 
     <section className="section">
