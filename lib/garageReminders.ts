@@ -165,12 +165,30 @@ function mileageNotice(dueKm?: number | null, currentKm?: number | null) {
   return { marker: "km:1000", phrase: `due in ${remaining.toLocaleString()} km` };
 }
 
+function escapeHtml(value: string) {
+  return value.replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  }[char] || char));
+}
+
+function cleanHeader(value: string) {
+  return value.replace(/[\r\n]+/g, " ").trim();
+}
+
 async function sendReminderEmail(input: { email: string; motorcycleLabel: string; title: string; phrase: string }) {
   const apiKey = process.env.RESEND_API_KEY;
   const from = senderEmail();
   if (!apiKey || !from) throw new Error("Garage reminder email is not configured.");
   const garageUrl = absoluteUrl("/garage");
-  const subject = `${input.motorcycleLabel}: ${input.title} reminder`;
+  const subject = cleanHeader(`${input.motorcycleLabel}: ${input.title} reminder`);
+  const safeLabel = escapeHtml(input.motorcycleLabel);
+  const safeTitle = escapeHtml(input.title);
+  const safePhrase = escapeHtml(input.phrase);
+  const safeGarageUrl = escapeHtml(garageUrl);
   const text = `${input.motorcycleLabel} — ${input.title} is ${input.phrase}.\n\nOpen My Garage: ${garageUrl}\n\nThis reminder is based on your latest cloud-synced Garage data. You can turn reminder emails off in My Garage.`;
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -180,7 +198,7 @@ async function sendReminderEmail(input: { email: string; motorcycleLabel: string
       to: [input.email],
       subject,
       text,
-      html: `<p><strong>${input.motorcycleLabel}</strong> — ${input.title} is <strong>${input.phrase}</strong>.</p><p><a href="${garageUrl}">Open My Garage</a></p><p>This reminder is based on your latest cloud-synced Garage data. You can turn reminder emails off in My Garage.</p>`,
+      html: `<p><strong>${safeLabel}</strong> — ${safeTitle} is <strong>${safePhrase}</strong>.</p><p><a href="${safeGarageUrl}">Open My Garage</a></p><p>This reminder is based on your latest cloud-synced Garage data. You can turn reminder emails off in My Garage.</p>`,
     }),
   });
   if (!response.ok) throw new Error(`Garage reminder delivery failed (${response.status})`);
@@ -204,7 +222,7 @@ export async function runGarageReminderCheck(limit = 300) {
 
   for (const reminder of reminders) {
     checked += 1;
-    const notice = reminder.dueDate ? dateNotice(reminder.dueDate) : mileageNotice(reminder.dueKm, reminder.currentOdometerKm);
+    const notice = (reminder.dueDate ? dateNotice(reminder.dueDate) : null) || mileageNotice(reminder.dueKm, reminder.currentOdometerKm);
     if (!notice || notice.marker === reminder.lastNotifiedMarker) continue;
     try {
       await sendReminderEmail({
