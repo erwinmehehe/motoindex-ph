@@ -41,7 +41,7 @@ function attrs(tag) {
   return out;
 }
 function absolute(raw, base) { try { return new URL(decode(raw), base).href; } catch { return null; } }
-function bad(url) { return /(?:logo|favicon|sprite|icon|payment|placeholder|spinner|loading|badge|avatar|tracking|pixel|qr|newsletter|flag|footer|header|map|banner|engine|power|torque|speedometer|display|console|brake|suspension|headlight|tail.?light|feature|metric|performance|technology|specification|specs|bike-bg|background|promo)/i.test(url); }
+function bad(url) { return /(?:logo|favicon|sprite|icon|payment|placeholder|spinner|loading|badge|avatar|tracking|pixel|qr|newsletter|flag|footer|header|map|banner|engine|power|torque|speedometer|display|console|brake|suspension|headlight|tail.?light|feature|metric|performance|technology|specification|specs|bike-bg|background|promo|360-bg|sports-shift|shift)/i.test(url); }
 
 async function fetchImage(url, referer) {
   const response = await fetch(url,{redirect:"follow",signal:AbortSignal.timeout(30000),headers:{"user-agent":UA,accept:"image/avif,image/webp,image/png,image/jpeg,image/*,*/*;q=0.8",...(referer?{referer}:{})}});
@@ -67,7 +67,12 @@ async function discover(target) {
     if(!url||!/^https?:/i.test(url)||bad(url)) return;
     const hay=`${url} ${label}`.toLowerCase();
     const matches=target.terms.filter(t=>hay.includes(t.toLowerCase())).length;
-    candidates.push({url,score:base+matches*80,matches,label});
+    const productBoost=/(?:360degree|360-degree|16-axis|variant|colour|color|colors|colours|\/00\.(?:png|webp|jpg|jpeg))/i.test(url)?60:0;
+    candidates.push({url,score:base+matches*80+productBoost,matches,label});
+    if(/static\.wixstatic\.com\/media\//i.test(url)&&/\/v1\//i.test(url)){
+      const original=url.replace(/\/v1\/.*$/,"");
+      if(original!==url&&!bad(original)) candidates.push({url:original,score:base+matches*80+productBoost+90,matches,label});
+    }
   };
   for(const tag of html.match(/<img\b[^>]*>/gi)||[]){
     const a=attrs(tag), label=`${a.alt||""} ${a.title||""}`;
