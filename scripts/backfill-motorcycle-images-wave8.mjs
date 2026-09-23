@@ -15,6 +15,7 @@ const targets = [
   {
     entityId: "honda-airblade-160",
     id: "honda-airblade-160-honda-official",
+    imageUrl: "https://cdn.honda.com.vn/motorbike-versions/Image360/November2025/1762148885/0.png",
     pageUrl: "https://www.honda.com.vn/xe-may/san-pham/air-blade-160125",
     terms: ["air blade", "airblade", "160"],
     alt: "Honda AirBlade 160 scooter",
@@ -104,7 +105,7 @@ const targets = [
   {
     entityId: "kawasaki-ninja-650",
     id: "kawasaki-ninja-650-kawasaki-official",
-    pageUrl: "https://www.kawasaki.com/en-us/motorcycle/ninja/sport/ninja-650/2026-ninja-650",
+    pageUrl: "https://hawaii.kawasaki.com/en-la/motorcycle/ninja/sport/ninja-650/2026-ninja-650",
     terms: ["ninja 650", "ninja-650", "ex650"],
     alt: "Kawasaki Ninja 650 sport motorcycle",
     rightsHolder: "Kawasaki Motors Corp., U.S.A.",
