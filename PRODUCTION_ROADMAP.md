@@ -1148,3 +1148,28 @@ Important boundaries:
 - The batch excludes racks where SHAD explicitly blocks the small D1B29PAR plate.
 
 CI guards all ten SH33 IDs, model relationships, rack codes, year/generation scopes, verification states and source-check dates.
+
+
+### Fitment authority wave 7 — ten more verified relationships
+
+This wave finishes the remaining safe SH33 alternatives on reviewed racks and adds the current Suzuki Access / Address 125 rack for 2026.
+
+1. Yamaha Mio i125 → SHAD SH33 / Y0MZ16ST
+2. Honda NX500 E-Clutch → SHAD SH33 / H0CX55ST
+3. Honda ADV350 → SHAD SH33 / H0FR15IST
+4. Yamaha Mio Gravis → SHAD SH33 / Y0FG13IST
+5. Yamaha XSR155 → SHAD SH33 / Y0IXS19ST
+6. Yamaha MT-07 → SHAD SH33 / Y0MT75ST
+7. Honda XL750 Transalp → SHAD SH33 / H0TR73ST
+8. Suzuki Gixxer SF250 → SHAD SH33 / S0GX22IST
+9. Suzuki Access → SHAD SH39 / S0DR16ST
+10. Suzuki Access → SHAD SH33 / S0DR16ST
+
+Important boundaries:
+- Mio i125, Mio Gravis, XSR155 and Gixxer SF250 keep their reviewed 2025 cutoffs rather than silently claiming later fitment.
+- NX500 keeps the model-family versus Philippine E-Clutch trim caution.
+- Suzuki Access is pinned to SHAD's 2026 S0DR16ST rack. The 2023-2025 Address 125 rack is S0DR13ST and is not reused for the current relationship.
+- SH33 is added only where the reviewed fitting supports the compact case family.
+- NMAX V3 remains research-only because the exact Philippine NMAX / Tech Max mapping is still not directly verified.
+
+CI guards all ten relationship IDs, model IDs, rack codes, year scopes, verification states and source-check dates.
