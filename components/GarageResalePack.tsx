@@ -21,21 +21,34 @@ function dateLabel(value?: string) {
   return parsed.toLocaleDateString("en-PH", { year: "numeric", month: "short", day: "numeric" });
 }
 
-function recordLine(record: GarageRecord, includeAmounts: boolean) {
+function recordLine(record: GarageRecord, includeAmounts: boolean, includeNotes: boolean) {
   const parts = [dateLabel(record.date), record.title];
   if (record.odometerKm !== undefined) parts.push(`${record.odometerKm.toLocaleString()} km`);
   if (includeAmounts && record.amountPhp !== undefined) parts.push(money(record.amountPhp));
-  if (record.notes) parts.push(record.notes);
+  if (includeNotes && record.notes) parts.push(record.notes);
   return parts.join(" · ");
+}
+
+function shareableRecord(record: GarageRecord, includeAmounts: boolean, includeNotes: boolean) {
+  return {
+    category: record.category,
+    date: record.date,
+    title: record.title,
+    odometerKm: record.odometerKm,
+    nextDueKm: record.nextDueKm,
+    nextDueDate: record.nextDueDate,
+    amountPhp: includeAmounts ? record.amountPhp : undefined,
+    notes: includeNotes ? record.notes : undefined,
+  };
 }
 
 function documentStatus(state: GarageState, bikeId: string, types: string[]) {
   return state.documents.some((document) => document.motorcycleId === bikeId && types.includes(document.type));
 }
 
-function reportSection(title: string, records: GarageRecord[], includeAmounts: boolean) {
+function reportSection(title: string, records: GarageRecord[], includeAmounts: boolean, includeNotes: boolean) {
   if (!records.length) return `${title}\n- No records logged in My Garage\n`;
-  return `${title}\n${records.map((record) => `- ${recordLine(record, includeAmounts)}`).join("\n")}\n`;
+  return `${title}\n${records.map((record) => `- ${recordLine(record, includeAmounts, includeNotes)}`).join("\n")}\n`;
 }
 
 export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] }) {
@@ -48,6 +61,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
   const [includePlate, setIncludePlate] = useState(false);
   const [includeDocumentRefs, setIncludeDocumentRefs] = useState(false);
   const [includeAmounts, setIncludeAmounts] = useState(false);
+  const [includeNotes, setIncludeNotes] = useState(false);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -123,14 +137,14 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
       "OWNERSHIP SUMMARY",
       historySummary,
       "",
-      reportSection("PMS / SERVICE HISTORY", service, includeAmounts),
-      reportSection("TIRE HISTORY", tires, includeAmounts),
-      reportSection("BATTERY HISTORY", battery, includeAmounts),
-      reportSection("REPAIRS", repairs, includeAmounts),
-      reportSection("PARTS / MODIFICATIONS", parts, includeAmounts),
-      reportSection("ACCIDENT RECORDS", accidents, includeAmounts),
-      reportSection("REGISTRATION HISTORY", registration, includeAmounts),
-      reportSection("INSURANCE HISTORY", insurance, includeAmounts),
+      reportSection("PMS / SERVICE HISTORY", service, includeAmounts, includeNotes),
+      reportSection("TIRE HISTORY", tires, includeAmounts, includeNotes),
+      reportSection("BATTERY HISTORY", battery, includeAmounts, includeNotes),
+      reportSection("REPAIRS", repairs, includeAmounts, includeNotes),
+      reportSection("PARTS / MODIFICATIONS", parts, includeAmounts, includeNotes),
+      reportSection("ACCIDENT RECORDS", accidents, includeAmounts, includeNotes),
+      reportSection("REGISTRATION HISTORY", registration, includeAmounts, includeNotes),
+      reportSection("INSURANCE HISTORY", insurance, includeAmounts, includeNotes),
       "DOCUMENT CHECKLIST",
       ...checklist.map((item) => `- ${item.present ? "Tracked" : "Not tracked"}: ${item.label}`),
       "",
@@ -193,14 +207,14 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
         location: location.trim() || undefined,
       },
       history: {
-        service,
-        tires,
-        battery,
-        repairs,
-        parts,
-        accidents,
-        registration,
-        insurance,
+        service: service.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
+        tires: tires.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
+        battery: battery.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
+        repairs: repairs.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
+        parts: parts.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
+        accidents: accidents.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
+        registration: registration.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
+        insurance: insurance.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
       },
       documents: documents.map((document) => ({
         type: document.type,
@@ -247,7 +261,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
   return <section className="garage-workspace">
     <div className="note-box">
       <strong>Private by default</strong>
-      <p>The resale report shows document availability, not private document numbers. Plate number, document references and logged expense amounts are excluded unless you explicitly switch them on below.</p>
+      <p>The resale report shows document availability, not private document numbers. Plate number, document references, logged expense amounts and internal record notes are excluded unless you explicitly switch them on below.</p>
     </div>
 
     {state.motorcycles.length > 1 && <form className="lead-form">
@@ -295,6 +309,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
           <label>Plate number<select value={includePlate ? "yes" : "no"} onChange={(event) => setIncludePlate(event.target.value === "yes")}><option value="no">Hide</option><option value="yes">Include</option></select></label>
           <label>Document references<select value={includeDocumentRefs ? "yes" : "no"} onChange={(event) => setIncludeDocumentRefs(event.target.value === "yes")}><option value="no">Hide</option><option value="yes">Include</option></select></label>
           <label>Expense amounts<select value={includeAmounts ? "yes" : "no"} onChange={(event) => setIncludeAmounts(event.target.value === "yes")}><option value="no">Hide</option><option value="yes">Include</option></select></label>
+          <label>Internal record notes<select value={includeNotes ? "yes" : "no"} onChange={(event) => setIncludeNotes(event.target.value === "yes")}><option value="no">Hide</option><option value="yes">Include</option></select></label>
         </div>
       </form>
 
