@@ -83,7 +83,6 @@ if (!reminders.includes("lastNotifiedMarker") || !reminders.includes("notice.mar
   throw new Error("Garage QA failed: reminder emails need deduplication markers.");
 }
 
-console.log("Garage QA passed");
 
 const marketplaceSubmission = fs.readFileSync("app/api/garage/listings/route.ts", "utf8");
 for (const privateField of ["plate:", "documents:", "documentRefs", "includeNotes"]) {
@@ -96,3 +95,5 @@ const publicListing = fs.readFileSync("lib/persistentUsedListings.ts", "utf8");
 if (publicListing.includes("owner.email")) {
   throw new Error("Garage QA failed: public used-listing mapper must not expose owner email.");
 }
+
+console.log("Garage QA passed");
