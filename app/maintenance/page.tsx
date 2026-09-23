@@ -33,7 +33,7 @@ export default function MaintenanceGuidePage() {
     path:"/maintenance",
     about:"motorcycle maintenance Philippines",
     keywords:["motorcycle maintenance","motorcycle oil","motorcycle battery","motorcycle coolant","motorcycle CVT","motorcycle sprocket"],
-    checkedDates:[...maintenanceSeoTopics.map(t=>t.lastChecked),...maintenanceSchedules.map(s=>s.lastChecked),...brandServiceResources.map(r=>r.lastChecked)]
+    checkedDates:[...maintenanceSeoTopics.map(t=>t.lastChecked),...maintenanceSchedules.map(s=>s.lastChecked),...brandMaintenanceGuides.map(g=>g.lastChecked),...brandServiceResources.map(r=>r.lastChecked)]
   });
 
   return <section className="page shell maintenance-master-page">
@@ -122,7 +122,7 @@ export default function MaintenanceGuidePage() {
           </summary>
           <div className={styles.detailBody}>
             <p>{guide.applicability}</p>
-            <p><strong>PMS milestones:</strong> {guide.pmsMilestones}</p>
+            <p><strong>Service milestones:</strong> {guide.pmsMilestones}</p>
             <ul>{guide.items.map(item=><li key={item.item}><strong>{item.item}:</strong> {item.interval}{item.note ? <> · {item.note}</> : null}</li>)}</ul>
             <p><a href={guide.sourceUrl} target="_blank" rel="noreferrer">Open the official manufacturer PMS guide →</a></p>
           </div>

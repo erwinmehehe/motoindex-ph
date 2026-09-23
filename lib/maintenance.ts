@@ -41,7 +41,7 @@ export const brandServiceResources: BrandServiceResource[] = [
     label: "Honda Philippines Maintenance Planner",
     description: "Official Philippine maintenance planner for recommended inspection and replacement items by motorcycle and kilometer reading.",
     url: "https://www.hondaph.com/service-calculator",
-    lastChecked: "2026-08-25",
+    lastChecked: "2026-09-23",
   },
   {
     makeSlug: "yamaha",
@@ -67,6 +67,19 @@ export const brandServiceResources: BrandServiceResource[] = [
 ];
 
 export const brandMaintenanceGuides: BrandMaintenanceGuide[] = [
+  {
+    makeSlug: "honda",
+    sourceLabel: "Honda Philippines commuter motorcycle free-service PMS guidance",
+    sourceUrl: "https://www.hondaph.com/motorcycle/faq",
+    lastChecked: "2026-09-23",
+    applicability: "Brand-level Honda Philippines commuter-bike service guidance. These are free-service coupon windows, not a complete model-specific maintenance table. Use the exact owner manual or Honda Maintenance Planner for the motorcycle, model year and riding conditions.",
+    pmsMilestones: "Coupon 1: 500–2,000 km or 3 months · Coupon 2: 2,001–6,000 km or 7 months · Coupon 3: 6,001–12,000 km or 12 months, measured from purchase date and subject to Honda's whichever-comes-first guidance.",
+    items: [
+      { item: "Free service coupon 1", interval: "500–2,000 km or 3 months from purchase", action: "Check", note: "Honda describes this as a standard preventive-maintenance service window; parts and engine oil remain chargeable." },
+      { item: "Free service coupon 2", interval: "2,001–6,000 km or 7 months from purchase", action: "Check", note: "This is a coupon eligibility window, not permission to ignore an earlier model-specific service requirement." },
+      { item: "Free service coupon 3", interval: "6,001–12,000 km or 12 months from purchase", action: "Check", note: "Use the exact owner manual and Honda Maintenance Planner for the work items required at the actual mileage." },
+    ],
+  },
   {
     makeSlug: "yamaha",
     sourceLabel: "Yamaha Motor Philippines Periodic Maintenance Schedule (PMS) Guide",

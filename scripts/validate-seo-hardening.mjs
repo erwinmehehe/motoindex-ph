@@ -99,12 +99,24 @@ for (const token of [
 ]) {
   requireText(maintenanceData, token, `Yamaha maintenance authority lost required source-backed token: ${token}`);
 }
+
+for (const token of [
+  'sourceLabel: "Honda Philippines commuter motorcycle free-service PMS guidance"',
+  'sourceUrl: "https://www.hondaph.com/motorcycle/faq"',
+  'Coupon 1: 500–2,000 km or 3 months',
+  'Coupon 2: 2,001–6,000 km or 7 months',
+  'Coupon 3: 6,001–12,000 km or 12 months',
+  'These are free-service coupon windows, not a complete model-specific maintenance table.'
+]) {
+  requireText(maintenanceData, token, `Honda maintenance authority lost required source-backed token: ${token}`);
+}
 requireText(maintenanceData, "Brand-level Yamaha Philippines PMS guidance.", "Yamaha brand-level PMS guidance must stay clearly labeled and must not masquerade as an exact model manual.");
 requireText(modelEntity, "brandMaintenanceGuideForModel(model)", "Motorcycle entity pages must resolve brand-level maintenance guidance when exact model schedules are unavailable.");
-requireText(modelEntity, "This is Yamaha Philippines brand-level PMS guidance, not a substitute for the exact", "Model pages must disclose that Yamaha PMS guidance is not an exact model manual.");
+requireText(modelEntity, "This is {model.make} brand-level maintenance guidance, not a substitute for the exact", "Model pages must disclose that brand-level maintenance guidance is not an exact model manual.");
 requireText(maintenanceHub, 'id="brand-pms"', "Maintenance hub must expose the brand-level PMS section.");
 requireText(maintenanceHub, "Brand-level periodic maintenance schedules", "Maintenance hub must explain the brand-level maintenance layer.");
 requireText(maintenanceHub, "Use the exact owner manual whenever it gives a different requirement.", "Maintenance hub must preserve the exact-manual precedence warning.");
+requireText(maintenanceHub, "...brandMaintenanceGuides.map(g=>g.lastChecked)", "Maintenance hub structured-data freshness must include brand maintenance guide source checks.");
 
 if (errors.length) {
   console.error("SEO hardening validation failed:");
