@@ -74,6 +74,7 @@ export async function POST(request: Request) {
   const condition = typeof body.condition === "string" ? body.condition.trim().toLowerCase() : "";
   const location = typeof body.location === "string" ? body.location.trim().slice(0, 120) : "";
   const askingPricePhp = Number(body.askingPricePhp);
+  const garageMotorcycleUpdatedAt = typeof body.garageMotorcycleUpdatedAt === "string" ? body.garageMotorcycleUpdatedAt.trim() : "";
 
   if (!garageMotorcycleLocalId || !allowedConditions.has(condition) || location.length < 2) {
     return NextResponse.json({ ok: false, error: "Complete the motorcycle, condition and location before submitting." }, { status: 400, headers });
@@ -91,6 +92,9 @@ export async function POST(request: Request) {
   const bike = garage.motorcycles.find((item) => item.id === garageMotorcycleLocalId);
   if (!bike) {
     return NextResponse.json({ ok: false, error: "This motorcycle is not in your latest cloud Garage. Save My Garage again, then retry." }, { status: 409, headers });
+  }
+  if (!garageMotorcycleUpdatedAt || bike.updatedAt !== garageMotorcycleUpdatedAt) {
+    return NextResponse.json({ ok: false, error: "This motorcycle changed after your last cloud save. Save My Garage to the cloud again, then retry." }, { status: 409, headers });
   }
   if (!bike.catalogModelId || !bike.year) {
     return NextResponse.json({ ok: false, error: "Match this motorcycle to a MotoIndex model and add its model year before submitting." }, { status: 400, headers });
