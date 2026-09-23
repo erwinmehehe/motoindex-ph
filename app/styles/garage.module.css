@@ -253,6 +253,18 @@
   font-size:var(--mi-type-xs);
 }
 
+.rowAction{
+  justify-self:end;
+  border:0;
+  padding:0;
+  background:transparent;
+  color:var(--mi-color-danger);
+  font:inherit;
+  font-size:var(--mi-type-xs);
+  font-weight:800;
+  cursor:pointer;
+}
+
 .statusGood{color:var(--mi-color-success-dark);}
 .statusSoon{color:var(--mi-color-warning);}
 .statusLate{color:var(--mi-color-danger);}
@@ -350,5 +362,8 @@
   }
   .rowMeta{
     text-align:left;
+  }
+  .rowAction{
+    justify-self:start;
   }
 }
