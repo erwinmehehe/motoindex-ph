@@ -177,6 +177,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         garageMotorcycleLocalId: bike.id,
+        garageMotorcycleUpdatedAt: bike.updatedAt,
         askingPricePhp: listingPrice,
         condition,
         location: location.trim(),
