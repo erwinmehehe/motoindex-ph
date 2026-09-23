@@ -4,7 +4,6 @@ import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import {
   GARAGE_STORAGE_KEY,
   GarageCatalogModel,
-  GarageMotorcycle,
   GarageRecord,
   GarageState,
   emptyGarageState,
