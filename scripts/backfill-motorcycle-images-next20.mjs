@@ -37,7 +37,7 @@ const targets = [
 const decode = s => (s || "").replace(/&amp;/g,"&").replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,"<").replace(/&gt;/g,">");
 function attrs(tag) {
   const out = {};
-  for (const m of tag.matchAll(/([:\\w-]+)\\s*=\\s*(["'])(.*?)\\2/gs)) out[m[1].toLowerCase()] = decode(m[3]);
+  for (const m of tag.matchAll(/([:\w-]+)\s*=\s*(["'])(.*?)\2/gs)) out[m[1].toLowerCase()] = decode(m[3]);
   return out;
 }
 function absolute(raw, base) { try { return new URL(decode(raw), base).href; } catch { return null; } }
@@ -69,17 +69,17 @@ async function discover(target) {
     const matches=target.terms.filter(t=>hay.includes(t.toLowerCase())).length;
     candidates.push({url,score:base+matches*80,matches,label});
   };
-  for(const tag of html.match(/<img\\b[^>]*>/gi)||[]){
+  for(const tag of html.match(/<img\b[^>]*>/gi)||[]){
     const a=attrs(tag), label=`${a.alt||""} ${a.title||""}`;
-    const srcset=(a.srcset||a["data-srcset"]||"").split(",").map(v=>v.trim().split(/\\s+/)[0]).filter(Boolean);
+    const srcset=(a.srcset||a["data-srcset"]||"").split(",").map(v=>v.trim().split(/\s+/)[0]).filter(Boolean);
     for(const raw of [a.src,a["data-src"],a["data-lazy-src"],a["data-original"],...srcset]) if(raw) add(raw,100,label);
   }
-  for(const tag of html.match(/<meta\\b[^>]*>/gi)||[]){
+  for(const tag of html.match(/<meta\b[^>]*>/gi)||[]){
     const a=attrs(tag), key=(a.property||a.name||"").toLowerCase();
     if(["og:image","og:image:url","og:image:secure_url"].includes(key)) add(a.content,170,key);
     if(["twitter:image","twitter:image:src"].includes(key)) add(a.content,155,key);
   }
-  for(const m of html.matchAll(/<script\\b[^>]*type=["']application\\/ld\\+json["'][^>]*>([\\s\\S]*?)<\\/script>/gi)){
+  for(const m of html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)){
     try{
       const data=JSON.parse(m[1].trim());
       const visit=node=>{
