@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import {
   hashOwnerToken,
   ownerAuthConfigured,
+  ownerRequestOriginAllowed,
   ownerSessionExpiry,
   ownerToken,
   setOwnerSessionCookie,
@@ -13,7 +14,8 @@ export const dynamic = "force-dynamic";
 
 const headers = { "Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow, noarchive" };
 
-export async function POST(_request: Request, { params }: { params: Promise<{ token: string }> }) {
+export async function POST(request: Request, { params }: { params: Promise<{ token: string }> }) {
+  if (!ownerRequestOriginAllowed(request)) return NextResponse.json({ ok: false, error: "Invalid request origin." }, { status: 403, headers });
   if (!ownerAuthConfigured()) {
     return NextResponse.json({ ok: false, error: "Garage accounts are not enabled yet." }, { status: 503, headers });
   }
