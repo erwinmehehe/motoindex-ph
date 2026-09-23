@@ -298,11 +298,11 @@ export function estimatedGarageResaleValue(bike: GarageMotorcycle, catalog?: Gar
   if (!catalog) return undefined;
   const now = new Date();
   let ageYears = 0;
-  if (bike.purchaseDate) {
+  if (bike.year) {
+    ageYears = Math.max(0, now.getFullYear() - bike.year);
+  } else if (bike.purchaseDate) {
     const bought = new Date(`${bike.purchaseDate}T00:00:00`);
     if (!Number.isNaN(bought.valueOf())) ageYears = Math.max(0, (now.valueOf() - bought.valueOf()) / 31557600000);
-  } else if (bike.year) {
-    ageYears = Math.max(0, now.getFullYear() - bike.year);
   }
   return Math.round(catalog.srp * depreciationFactor(ageYears) / 100) * 100;
 }
