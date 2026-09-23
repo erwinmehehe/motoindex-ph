@@ -24,7 +24,7 @@ const targets = [
   ["benelli-tnt-135","Benelli TNT 135","https://www.benelli.com/ph-en/products/tnt-135",["tnt 135","tnt135"],"Benelli","Manufacturer-hosted image reference · Benelli TNT 135"],
   ["benelli-trk-502","Benelli TRK 502","https://www.benelli.com/ph-en/products/trk-502-3/",["trk 502","trk502"],"Benelli","Manufacturer-hosted image reference · Benelli TRK 502"],
   ["bristol-basilica-125","Bristol Basilica 125","https://www.bristol-motorcycles.com/basilica",["basilica 125","basilica"],"Bristol Motorcycles","Philippine distributor image reference · Bristol Basilica 125"],
-  ["suzuki-raider-pro","Suzuki Raider PRO","https://mc.suzuki.com.ph/motorcycles/underbone/raider-pro/",["raider pro","raider-pro"],"Suzuki Philippines","Manufacturer-hosted image reference · Suzuki Raider PRO"],
+  ["kawasaki-ninja-zx-25r","Kawasaki Ninja ZX-25R","https://kawasakileisurebikes.ph/motorcycles/supersports/ninja-zx-25r-standard/",["ninja zx-25r","zx-25r","zx25r"],"Kawasaki Motors Philippines","Manufacturer-hosted image reference · Kawasaki Ninja ZX-25R"],
   ["royal-enfield-shotgun-650","Royal Enfield Shotgun 650","https://www.royalenfield.com/ph/en/motorcycles/shotgun-650/",["shotgun 650","shotgun-650"],"Royal Enfield","Manufacturer-hosted image reference · Royal Enfield Shotgun 650"],
   ["kymco-agility-eco-125i","Kymco Agility Eco 125i","https://kymco.com.ph/product/agility-eco-125i/",["agility eco 125i","agility-eco-125i"],"Kymco Philippines","Manufacturer-hosted image reference · Kymco Agility Eco 125i"],
   ["kymco-dink-r-150","Kymco Dink R 150","https://kymco.com.ph/product/dink-r-150/",["dink r 150","dink-r-150"],"Kymco Philippines","Manufacturer-hosted image reference · Kymco Dink R 150"],
@@ -41,7 +41,7 @@ function attrs(tag) {
   return out;
 }
 function absolute(raw, base) { try { return new URL(decode(raw), base).href; } catch { return null; } }
-function bad(url) { return /(?:logo|favicon|sprite|icon|payment|placeholder|spinner|loading|badge|avatar|tracking|pixel|qr|newsletter|flag|footer|header|map|banner|engine|power|torque|speedometer|display|console|brake|suspension|headlight|tail.?light|feature|metric|performance|technology|specification|specs|bike-bg|background|promo|360-bg|sports-shift|shift)/i.test(url); }
+function bad(url) { return /(?:logo|favicon|sprite|icon|payment|placeholder|spinner|loading|badge|avatar|tracking|pixel|qr|newsletter|flag|footer|header|map|banner|engine|power|torque|speedometer|display|console|brake|suspension|headlight|tail.?light|feature|metric|performance|technology|specification|specs|bike-bg|background|promo|360-bg|sports-shift|shift|whats-new|radial|tyre|tire)/i.test(url); }
 
 async function fetchImage(url, referer) {
   const response = await fetch(url,{redirect:"follow",signal:AbortSignal.timeout(30000),headers:{"user-agent":UA,accept:"image/avif,image/webp,image/png,image/jpeg,image/*,*/*;q=0.8",...(referer?{referer}:{})}});
