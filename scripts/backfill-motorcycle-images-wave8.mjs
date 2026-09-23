@@ -103,13 +103,14 @@ const targets = [
     sourceLabel: "Manufacturer-hosted image reference · Kawasaki Z900"
   },
   {
-    entityId: "kawasaki-ninja-650",
-    id: "kawasaki-ninja-650-kawasaki-official",
-    pageUrl: "https://hawaii.kawasaki.com/en-la/motorcycle/ninja/sport/ninja-650/2026-ninja-650",
-    terms: ["ninja 650", "ninja-650", "ex650"],
-    alt: "Kawasaki Ninja 650 sport motorcycle",
-    rightsHolder: "Kawasaki Motors Corp., U.S.A.",
-    sourceLabel: "Manufacturer-hosted image reference · Kawasaki Ninja 650"
+    entityId: "yamaha-yzf-r15m",
+    id: "yamaha-yzf-r15m-yamaha-india",
+    imageUrl: "https://shop.yamaha-motor-india.com/cdn/shop/files/metallic_grey.webp?v=1757050338",
+    pageUrl: "https://shop.yamaha-motor-india.com/products/buy-r15m",
+    terms: ["r15m", "r15 m"],
+    alt: "Yamaha R15M sport motorcycle in Metallic Grey",
+    rightsHolder: "India Yamaha Motor",
+    sourceLabel: "Manufacturer e-shop image reference · Yamaha R15M"
   }
 ];
 
