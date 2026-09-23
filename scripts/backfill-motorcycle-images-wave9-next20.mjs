@@ -27,12 +27,22 @@ const targets = [
 ["husqvarna-norden-901","https://www.husqvarna-motorcycles.com/en-ph/models/travel/norden-901-2022.html",["norden","901"],"Husqvarna Norden 901 adventure motorcycle","Husqvarna Motorcycles"],
 ["husqvarna-svartpilen-200","https://www.husqvarna-motorcycles.com/en-ph/models/naked/svartpilen/svartpilen-200-2023.html",["svartpilen","200"],"Husqvarna Svartpilen 200 motorcycle","Husqvarna Motorcycles"],
 ["kawasaki-ninja-zx-25r","https://kawasakileisurebikes.ph/motorcycles/supersports/ninja-zx-25r-standard/",["ninja","zx-25r"],"Kawasaki Ninja ZX-25R motorcycle","Kawasaki Motors Philippines"],
-["kawasaki-z1000-r-edition","https://www.kawasakileisurebikes.ph/motorcycles/sports/z100r/",["z1000","z100r"],"Kawasaki Z1000 R Edition motorcycle","Kawasaki Motors Philippines"],
+["kymco-dink-s-150","https://kymco.com.ph/product/dink-s-150/",["dink","150"],"KYMCO Dink S 150 scooter","KYMCO Philippines"],
 ["kymco-dink-r-150","https://kymco.com.ph/product/dink-r-150/",["dink","150"],"KYMCO Dink R 150 scooter","KYMCO Philippines"],
 ["kymco-dtx360-300","https://kymco.com.ph/product/dtx-360-300/",["dtx","360"],"KYMCO DTX360-300 scooter","KYMCO Philippines"],
 ["royal-enfield-shotgun-650","https://www.royalenfield.com/ph/en/motorcycles/shotgun-650/",["shotgun","650"],"Royal Enfield Shotgun 650 motorcycle","Royal Enfield"],
 ["vespa-primavera-150","https://storeusa.vespa.com/primavera/primavera-150.aspx",["primavera","150"],"Vespa Primavera 150 scooter","Vespa"]
 ].map(([entityId,pageUrl,terms,alt,rightsHolder]) => ({entityId,pageUrl,terms,alt,rightsHolder}));
+
+const directImages = {
+  "bajaj-pulsar-n125": {url:"https://cdn.bajajauto.com/-/media/images/bajajauto/bajaj-price-page/header-drop-down/webp/pulasr-n125.webp"},
+  "bajaj-pulsar-ns400z": {url:"https://cdn.bajajauto.com/-/media/assets/bajajauto/bikes/web-header-navigator-images/pulsar-ns400z.webp"},
+  "bajaj-pulsar-rs200": {url:"https://cdn.bajajauto.com/-/media/assets/bajajauto/bikes/web-header-navigator-images/pulsar-rs200.webp"},
+  "kawasaki-ninja-zx-25r": {
+    url:"https://global.kawasaki.com/en/corp/newsroom/news/images/news_191023-Ninja%20ZX-25R.jpg",
+    pageUrl:"https://global.kawasaki.com/en/corp/newsroom/news/detail/?f=20191023_0946"
+  }
+};
 
 function decodeHtml(s) {
   return s.replace(/&amp;/g,"&").replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,"<").replace(/&gt;/g,">");
@@ -80,6 +90,12 @@ function candidates(html, pageUrl, terms) {
 }
 
 async function discover(t) {
+  const direct=directImages[t.entityId];
+  if(direct){
+    const pageUrl=direct.pageUrl||t.pageUrl;
+    const img=await getImage(direct.url,pageUrl);
+    return {...img,pageUrl,matches:t.terms.length,label:"verified direct official asset"};
+  }
   const res=await fetch(t.pageUrl,{redirect:"follow",signal:AbortSignal.timeout(30000),headers:{"user-agent":UA,accept:"text/html,application/xhtml+xml"}});
   if(!res.ok) throw new Error("page HTTP "+res.status);
   const html=await res.text(), pageUrl=res.url||t.pageUrl;
