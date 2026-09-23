@@ -24,6 +24,7 @@ function id(prefix: string) {
 }
 
 function n(value: FormDataEntryValue | null) {
+  if (value === null || String(value).trim() === "") return undefined;
   const parsed = Number(value);
   return Number.isFinite(parsed) && parsed >= 0 ? parsed : undefined;
 }
