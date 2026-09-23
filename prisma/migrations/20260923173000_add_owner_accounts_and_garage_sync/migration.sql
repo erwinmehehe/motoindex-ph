@@ -2,6 +2,7 @@ CREATE TABLE "OwnerAccount" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "verifiedAt" TIMESTAMP(3),
+    "reminderEmailsEnabled" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     CONSTRAINT "OwnerAccount_pkey" PRIMARY KEY ("id")
@@ -56,4 +57,32 @@ FOREIGN KEY ("ownerId") REFERENCES "OwnerAccount"("id") ON DELETE CASCADE ON UPD
 
 ALTER TABLE "GarageSnapshot"
 ADD CONSTRAINT "GarageSnapshot_ownerId_fkey"
+FOREIGN KEY ("ownerId") REFERENCES "OwnerAccount"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+CREATE TABLE "GarageReminder" (
+    "id" TEXT NOT NULL,
+    "ownerId" TEXT NOT NULL,
+    "reminderKey" TEXT NOT NULL,
+    "motorcycleLocalId" TEXT NOT NULL,
+    "motorcycleLabel" TEXT NOT NULL,
+    "kind" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "dueDate" TIMESTAMP(3),
+    "dueKm" INTEGER,
+    "currentOdometerKm" INTEGER,
+    "active" BOOLEAN NOT NULL DEFAULT true,
+    "lastNotifiedMarker" TEXT,
+    "lastSentAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    CONSTRAINT "GarageReminder_pkey" PRIMARY KEY ("id")
+);
+
+CREATE UNIQUE INDEX "GarageReminder_ownerId_reminderKey_key" ON "GarageReminder"("ownerId", "reminderKey");
+CREATE INDEX "GarageReminder_ownerId_active_dueDate_idx" ON "GarageReminder"("ownerId", "active", "dueDate");
+CREATE INDEX "GarageReminder_ownerId_active_dueKm_idx" ON "GarageReminder"("ownerId", "active", "dueKm");
+
+ALTER TABLE "GarageReminder"
+ADD CONSTRAINT "GarageReminder_ownerId_fkey"
 FOREIGN KEY ("ownerId") REFERENCES "OwnerAccount"("id") ON DELETE CASCADE ON UPDATE CASCADE;
