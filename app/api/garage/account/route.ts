@@ -23,6 +23,7 @@ export async function GET() {
     available: true,
     authenticated: true,
     email: session.owner.email,
+    reminderEmailsEnabled: session.owner.reminderEmailsEnabled,
     sessionExpiresAt: session.expiresAt.toISOString(),
     cloud: snapshot ? { revision: snapshot.revision, updatedAt: snapshot.updatedAt.toISOString() } : null,
   }, { headers });
