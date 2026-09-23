@@ -56,7 +56,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/media/motorcycles lib/media.ts scripts/audit-motorcycle-media-coverage.mjs
+          git add lib/media.ts scripts/audit-motorcycle-media-coverage.mjs public/media/motorcycles/honda-airblade-160.webp public/media/motorcycles/honda-cbr150r.webp public/media/motorcycles/honda-cbr650r.webp public/media/motorcycles/honda-crf1100l-africa-twin.webp public/media/motorcycles/honda-xl750-transalp.webp public/media/motorcycles/yamaha-lexi-155.webp public/media/motorcycles/yamaha-yzf-r3.webp public/media/motorcycles/yamaha-yzf-r7.webp public/media/motorcycles/kawasaki-z900.webp public/media/motorcycles/yamaha-yzf-r15m.webp
           if git diff --cached --quiet; then
             echo "No generated media changes to commit."
             exit 0
