@@ -5,6 +5,7 @@ on:
     branches: [fix/motorcycle-images-wave-8]
     paths:
       - scripts/backfill-motorcycle-images-wave8.mjs
+      - scripts/art-direct-motorcycle-media.py
       - .github/workflows/motorcycle-image-wave8.yml
   workflow_dispatch:
 
