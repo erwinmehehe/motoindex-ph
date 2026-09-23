@@ -1,9 +1,10 @@
 import fs from "node:fs";
 
 const required = [
-  ["app/garage/page.tsx", ["robots: { index: false", "GarageWorkspace"]],
-  ["components/GarageWorkspace.tsx", ["GARAGE_STORAGE_KEY", "Export backup", "Document wallet"]],
-  ["lib/garage.ts", ["maintenanceReferenceForBike", "GARAGE_DOCUMENT_TYPES", "\"REGISTRATION\"", "\"INSURANCE\"", "\"RESALE\"", "\"DEED_OF_SALE\""]],
+  ["app/garage/page.tsx", ["robots: { index: false", "publicMotorcycles", "GarageWorkspace", "garageCatalog"]],
+  ["components/GarageWorkspace.tsx", ["catalogModelId", "Smart maintenance", "Actual fuel economy", "MotoIndex motorcycle", "Export backup"]],
+  ["lib/garage.ts", ["smartMaintenanceTasks", "estimatedGarageResaleValue", "actualFuelEconomy", "tireFactsForBike", "\"DEED_OF_SALE\""]],
+  ["lib/maintenance.ts", ["garageRule", "pmsMileageMilestones", "pmsRecurringKm"]],
   ["middleware.ts", ["/garage"]],
 ];
 

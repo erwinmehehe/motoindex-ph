@@ -1,10 +1,18 @@
 import type { Motorcycle } from "./types";
 
+export type MaintenanceScheduleRule = {
+  firstDueKm?: number;
+  intervalKm?: number;
+  dueKm?: number;
+  intervalMonths?: number;
+};
+
 export type MaintenanceItem = {
   item: string;
   interval: string;
   action: "Inspect" | "Replace" | "Check";
   note?: string;
+  garageRule?: MaintenanceScheduleRule;
 };
 
 export type MaintenanceSchedule = {
@@ -32,6 +40,8 @@ export type BrandMaintenanceGuide = {
   lastChecked: string;
   applicability: string;
   pmsMilestones: string;
+  pmsMileageMilestones?: number[];
+  pmsRecurringKm?: number;
   items: MaintenanceItem[];
 };
 
@@ -87,6 +97,8 @@ export const brandMaintenanceGuides: BrandMaintenanceGuide[] = [
     lastChecked: "2026-09-22",
     applicability: "Brand-level Yamaha Philippines PMS guidance. Use the exact owner manual or authorized Yamaha service advice when it differs for a specific model, generation or riding condition.",
     pmsMilestones: "1,000 km · 4,000 km · 7,000 km · 10,000 km · 13,000 km; the Yamaha guide then continues on a 3,000 km PMS cadence.",
+    pmsMileageMilestones: [1000, 4000, 7000, 10000, 13000],
+    pmsRecurringKm: 3000,
     items: [
       { item: "Engine oil", interval: "After the 13,000 km PMS point, Yamaha lists every 3,000 km", action: "Replace", note: "Use the oil grade and quantity specified for the exact motorcycle." },
       { item: "Gear oil", interval: "Every 12,000 km", action: "Replace", note: "Applies where the Yamaha motorcycle has a separate gear/final-drive oil service item." },
@@ -115,11 +127,11 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
     lastChecked: "2026-08-25",
     exact: true,
     items: [
-      { item: "Engine oil", interval: "First at 1,000 km; then every 6,000 km", action: "Replace", note: "The manual's OIL CHANGE indicator calls for the first change at about 1,000 km and every 6,000 km after the first reset." },
-      { item: "Drive belt", interval: "Inspect periodically; replacement point shown at 24,000 km", action: "Inspect" },
-      { item: "Radiator coolant", interval: "Every 3 years", action: "Replace" },
-      { item: "Final drive oil", interval: "Every 2 years", action: "Replace" },
-      { item: "Brake fluid", interval: "Every 2 years", action: "Replace" },
+      { item: "Engine oil", interval: "First at 1,000 km; then every 6,000 km", action: "Replace", note: "The manual's OIL CHANGE indicator calls for the first change at about 1,000 km and every 6,000 km after the first reset.", garageRule: { firstDueKm: 1000, intervalKm: 6000 } },
+      { item: "Drive belt", interval: "Inspect periodically; replacement point shown at 24,000 km", action: "Inspect", garageRule: { dueKm: 24000 } },
+      { item: "Radiator coolant", interval: "Every 3 years", action: "Replace", garageRule: { intervalMonths: 36 } },
+      { item: "Final drive oil", interval: "Every 2 years", action: "Replace", garageRule: { intervalMonths: 24 } },
+      { item: "Brake fluid", interval: "Every 2 years", action: "Replace", garageRule: { intervalMonths: 24 } },
     ],
     tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 33 },
   },
@@ -131,10 +143,10 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
     exact: true,
     items: [
       { item: "Engine oil", interval: "First at 1,000 km; then every 6,000 km", action: "Replace", note: "The manual's oil-change indicator first appears at 1,000 km and then every 6,000 km after reset." },
-      { item: "Drive belt", interval: "Inspect at the manual's periodic schedule; replacement point shown at 24,000 km", action: "Inspect" },
-      { item: "Radiator coolant", interval: "Every 3 years", action: "Replace" },
-      { item: "Final drive oil", interval: "Every 2 years", action: "Replace" },
-      { item: "Brake fluid", interval: "Every 2 years", action: "Replace" },
+      { item: "Drive belt", interval: "Inspect at the manual's periodic schedule; replacement point shown at 24,000 km", action: "Inspect", garageRule: { dueKm: 24000 } },
+      { item: "Radiator coolant", interval: "Every 3 years", action: "Replace", garageRule: { intervalMonths: 36 } },
+      { item: "Final drive oil", interval: "Every 2 years", action: "Replace", garageRule: { intervalMonths: 24 } },
+      { item: "Brake fluid", interval: "Every 2 years", action: "Replace", garageRule: { intervalMonths: 24 } },
     ],
     tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 36 },
   },
