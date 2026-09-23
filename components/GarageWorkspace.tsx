@@ -137,16 +137,20 @@ export function GarageWorkspace() {
     event.preventDefault();
     if (!selectedBike) return;
     const form = new FormData(event.currentTarget);
+    const category = String(form.get("category")) as GarageRecordCategory;
+    const litersValue = n(form.get("liters"));
+    const pricePerLiterValue = n(form.get("pricePerLiterPhp"));
+    const enteredAmount = n(form.get("amountPhp"));
     const record: GarageRecord = {
       id: id("record"),
       motorcycleId: selectedBike.id,
-      category: String(form.get("category")) as GarageRecordCategory,
+      category,
       date: String(form.get("date") || new Date().toISOString().slice(0, 10)),
       title: String(form.get("title") || "").trim(),
-      amountPhp: n(form.get("amountPhp")),
+      amountPhp: enteredAmount ?? (category === "FUEL" && litersValue !== undefined && pricePerLiterValue !== undefined ? litersValue * pricePerLiterValue : undefined),
       odometerKm: n(form.get("odometerKm")),
-      liters: n(form.get("liters")),
-      pricePerLiterPhp: n(form.get("pricePerLiterPhp")),
+      liters: litersValue,
+      pricePerLiterPhp: pricePerLiterValue,
       nextDueKm: n(form.get("nextDueKm")),
       nextDueDate: s(form.get("nextDueDate")),
       notes: s(form.get("notes")),
@@ -160,6 +164,32 @@ export function GarageWorkspace() {
         : bike),
     }));
     event.currentTarget.reset();
+  }
+
+  function updateBike(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!selectedBike) return;
+    const form = new FormData(event.currentTarget);
+    setState((current) => ({
+      ...current,
+      motorcycles: current.motorcycles.map((bike) => bike.id === selectedBike.id ? {
+        ...bike,
+        plate: s(form.get("plate")),
+        odometerKm: n(form.get("odometerKm")) ?? bike.odometerKm,
+        registrationExpiry: s(form.get("registrationExpiry")),
+        insuranceExpiry: s(form.get("insuranceExpiry")),
+        estimatedResaleValuePhp: n(form.get("estimatedResaleValuePhp")),
+        updatedAt: new Date().toISOString(),
+      } : bike),
+    }));
+  }
+
+  function removeRecord(recordId: string) {
+    setState((current) => ({ ...current, records: current.records.filter((record) => record.id !== recordId) }));
+  }
+
+  function removeDocument(documentId: string) {
+    setState((current) => ({ ...current, documents: current.documents.filter((document) => document.id !== documentId) }));
   }
 
   function addDocument(event: FormEvent<HTMLFormElement>) {
@@ -282,6 +312,18 @@ export function GarageWorkspace() {
           <div className={styles.summaryItem}><span>Estimated resale</span><strong>{money(selectedBike.estimatedResaleValuePhp)}</strong><small>{selectedBike.purchasePricePhp ? `Bought for ${money(selectedBike.purchasePricePhp)}` : "Add purchase price for context"}</small></div>
         </div>
 
+        <form className={styles.form} onSubmit={updateBike} key={selectedBike.id}>
+          <div className={styles.panelHead}><div><h2>Update current motorcycle</h2><p>Refresh mileage and renewal dates after every PMS or renewal.</p></div></div>
+          <div className={styles.formGrid}>
+            <label>Plate number<input name="plate" autoComplete="off" defaultValue={selectedBike.plate || ""} /></label>
+            <label>Current odometer (km)<input name="odometerKm" type="number" min="0" step="1" defaultValue={selectedBike.odometerKm} /></label>
+            <label>LTO registration expiry<input name="registrationExpiry" type="date" defaultValue={selectedBike.registrationExpiry || ""} /></label>
+            <label>Insurance expiry<input name="insuranceExpiry" type="date" defaultValue={selectedBike.insuranceExpiry || ""} /></label>
+            <label>Estimated resale value<input name="estimatedResaleValuePhp" type="number" min="0" step="1" defaultValue={selectedBike.estimatedResaleValuePhp ?? ""} /></label>
+          </div>
+          <button className={styles.button} type="submit">Update motorcycle</button>
+        </form>
+
         {maintenanceReference && <div className={styles.reference}>
           <span className={styles.metaLabel}>{maintenanceReference.level} maintenance source</span>
           <strong>{maintenanceReference.label}</strong>
@@ -323,7 +365,7 @@ export function GarageWorkspace() {
             <div className={styles.panelHead}><div><h2>Ownership history</h2><p>Your most recent activity for this motorcycle.</p></div></div>
             {bikeRecords.length ? <div className={styles.list}>{bikeRecords.slice(0, 20).map((record) => <div className={styles.row} key={record.id}>
               <div><span className={styles.metaLabel}>{record.category}</span><strong>{record.title}</strong><p>{dateLabel(record.date)}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}{record.notes ? ` · ${record.notes}` : ""}</p></div>
-              <div className={styles.rowMeta}>{record.amountPhp !== undefined && <strong>{money(record.amountPhp)}</strong>}{record.nextDueKm !== undefined && <small>Next at {record.nextDueKm.toLocaleString()} km</small>}{record.nextDueDate && <small>Next {dateLabel(record.nextDueDate)}</small>}</div>
+              <div className={styles.rowMeta}>{record.amountPhp !== undefined && <strong>{money(record.amountPhp)}</strong>}{record.nextDueKm !== undefined && <small>Next at {record.nextDueKm.toLocaleString()} km</small>}{record.nextDueDate && <small>Next {dateLabel(record.nextDueDate)}</small>}<button className={styles.rowAction} type="button" onClick={() => removeRecord(record.id)}>Delete</button></div>
             </div>)}</div> : <div className={styles.empty}><p>No ownership records yet.</p></div>}
           </section>
 
@@ -342,7 +384,7 @@ export function GarageWorkspace() {
             </form>
             {bikeDocuments.length > 0 && <div className={styles.list}>{bikeDocuments.map((document) => <div className={styles.row} key={document.id}>
               <div><span className={styles.metaLabel}>{document.type.replaceAll("_", " ")}</span><strong>{document.label}</strong><p>{document.reference ? `Reference: ${document.reference}` : "No reference saved"}{document.notes ? ` · ${document.notes}` : ""}</p></div>
-              <div className={styles.rowMeta}>{document.expiryDate && <><strong className={dueClass(daysUntil(document.expiryDate))}>{dateLabel(document.expiryDate)}</strong><small>{dueLabel(daysUntil(document.expiryDate))}</small></>}</div>
+              <div className={styles.rowMeta}>{document.expiryDate && <><strong className={dueClass(daysUntil(document.expiryDate))}>{dateLabel(document.expiryDate)}</strong><small>{dueLabel(daysUntil(document.expiryDate))}</small></>}<button className={styles.rowAction} type="button" onClick={() => removeDocument(document.id)}>Delete</button></div>
             </div>)}</div>}
           </section>
         </div>
