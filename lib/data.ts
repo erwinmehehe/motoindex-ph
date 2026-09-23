@@ -71,9 +71,10 @@ export const motorcycles: Motorcycle[] = [
     marketPriceHighPhp: 178400,
     marketPriceSourceLabel: "Motortrade Philippines dealer listing",
     marketPriceSourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-nmax-techmax/",
-    marketPriceCheckedAt: "2026-09-19",
+    marketPriceCheckedAt: "2026-09-22",
+    priceContext: "The stored ₱155,900 reference represents the regular current NMAX line, while current dealer data lists the higher-spec NMAX Tech Max at ₱178,400. Yamaha identifies Tech Max as the YECVT-equipped trim, so compare exact trim and branch quote before financing.",
     transmission: "Automatic",
-    summary: "155cc maxi-scooter with a 770 mm seat, 131 kg curb weight and Standard/Tech Max variants."
+    summary: "Current 155cc premium scooter with a 770 mm seat, 131 kg curb weight, 7.1 L tank and meaningful Standard/Tech Max equipment differences."
   },
   {
     id: "yamaha-aerox-v2",
@@ -160,16 +161,17 @@ export const motorcycles: Motorcycle[] = [
     colors: ["Matte Gunpowder Black Metallic", "Pearl Fadeless White", "Matte Sabre Green Metallic", "Matte Pearl Crater White", "Quartz Brown Metallic"],
     searchVolume: 13000,
     keywordDifficulty: 0,
-    sourceLabel: "Honda Philippines 2026 ADV160 features and current ABS/RoadSync catalog naming",
+    sourceLabel: "Honda Philippines January 2026 ADV160 launch and current feature reference",
     sourceUrl: "https://www.hondaph.com/motorcycle/news/experience-the-suv-pride-with-the-adv160",
-    verifiedAt: "2026-08-25",
+    verifiedAt: "2026-09-22",
     freshness: "verified",
     marketPriceHighPhp: 174900,
-    marketPriceSourceLabel: "Traffic Network PH / Honda Philippines official release",
+    marketPriceSourceLabel: "Traffic Network PH reproduction of Honda Philippines official 2026 release",
     marketPriceSourceUrl: "https://trafficnetworkph.com/ride-the-suv-pride-the-new-honda-adv160/",
-    marketPriceCheckedAt: "2026-08-25",
+    marketPriceCheckedAt: "2026-09-22",
+    priceContext: "2026 ADV160 SRP is ₱167,400 for ABS and ₱174,900 for RoadSync. Honda states RoadSync connectivity is exclusive to the RoadSync type; confirm final dealer quote and exact variant before purchase.",
     transmission: "Automatic",
-    summary: "157cc adventure-style scooter with a 780 mm seat, 133 kg curb weight and current ABS/RoadSync variants."
+    summary: "Current 157cc adventure-style scooter with a 780 mm seat, 133 kg curb weight, 8.1 L tank, ABS/HSTC and distinct ABS/RoadSync variants."
   },
   {
     id: "honda-click-160",
@@ -195,15 +197,16 @@ export const motorcycles: Motorcycle[] = [
     colors: ["Matte Gunpowder Black Metallic", "Matte Solar Red Metallic", "Matte Cosmo Silver Metallic"],
     searchVolume: 11000,
     keywordDifficulty: 0,
-    sourceLabel: "Honda Philippines Click160 specification and SRP reference",
+    sourceLabel: "Honda Philippines current 2026 catalog presence plus September 2024 Click160 price/spec reference",
     sourceUrl: "https://www.hondaph.com/motorcycle/news/ready-to-take-on-the-world-step-up-your-game-with-a-sportier-and-more-stylish-the-new-click160",
-    verifiedAt: "2026-09-19",
+    verifiedAt: "2026-09-22",
     freshness: "verified",
-    marketPriceSourceLabel: "Honda Philippines",
+    marketPriceSourceLabel: "Honda Philippines latest explicit Click160 SRP located (September 2024)",
     marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/news/ready-to-take-on-the-world-step-up-your-game-with-a-sportier-and-more-stylish-the-new-click160",
-    marketPriceCheckedAt: "2026-09-19",
+    marketPriceCheckedAt: "2026-09-22",
+    priceContext: "Honda's current 2026 motorcycle catalog still lists Click160, but the latest explicit Honda SRP MotoIndex located is ₱116,900 from September 2024. Treat ₱116,900 as the latest official price reference and confirm the current branch quote before financing.",
     transmission: "Automatic",
-    summary: "157cc automatic scooter weighing 116 kg, with a 778 mm seat and 5.5 L fuel tank."
+    summary: "Current-catalog 157cc automatic commuter scooter weighing 116 kg, with a 778 mm seat, 5.5 L tank, 46.7 km/L WMTC and CBS braking."
   },
   {
     id: "honda-click-150i",
@@ -264,14 +267,15 @@ export const motorcycles: Motorcycle[] = [
     keywordDifficulty: 0,
     sourceLabel: "Honda Philippines 2026 PCX160 Standard and RoadSync reference",
     sourceUrl: "https://www.hondaph.com/motorcycle/news/filipino-urban-professionals-are-now-choosing-motorcycles-heres-why",
-    verifiedAt: "2026-09-19",
+    verifiedAt: "2026-09-22",
     freshness: "verified",
     marketPriceHighPhp: 155000,
-    marketPriceSourceLabel: "Honda Philippines",
+    marketPriceSourceLabel: "Honda Philippines 2026 Standard and RoadSync reference",
     marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/news/filipino-urban-professionals-are-now-choosing-motorcycles-heres-why",
-    marketPriceCheckedAt: "2026-09-19",
+    marketPriceCheckedAt: "2026-09-22",
+    priceContext: "Honda's 2026 PCX160 reference separates Standard at ₱133,500 from RoadSync at ₱155,000. RoadSync also changes the braking/electronics package, so compare the exact trim rather than treating the ₱21,500 difference as connectivity alone.",
     transmission: "Automatic",
-    summary: "157cc maxi-scooter with a 764 mm seat, 131 kg curb weight and Standard/RoadSync variants."
+    summary: "Current 157cc comfort-led maxi-scooter with a 764 mm seat, 131 kg curb weight, 8.1 L tank and distinct Standard/RoadSync variants."
   },
   {
     id: "yamaha-fazzio",
@@ -297,14 +301,14 @@ export const motorcycles: Motorcycle[] = [
     keywordDifficulty: 0,
     sourceLabel: "Yamaha Motor Philippines current Mio Fazzio model reference with current Motortrade dealer price cross-check",
     sourceUrl: "https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-fazzio",
-    verifiedAt: "2026-09-19",
+    verifiedAt: "2026-09-22",
     freshness: "verified",
-    marketPriceSourceLabel: "Motortrade Philippines",
+    marketPriceSourceLabel: "Motortrade Philippines current New Mio Fazzio cross-check",
     marketPriceSourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-new-mio-fazzio/",
-    marketPriceCheckedAt: "2026-09-19",
-    priceContext: "Current new-model reference is ₱93,900. Older dealer inventory may still surface prior Mio Fazzio model codes at a lower published price, so confirm the exact unit before purchase.",
+    marketPriceCheckedAt: "2026-09-22",
+    priceContext: "Current new-model reference is ₱93,900. Older dealer inventory may still surface prior Mio Fazzio model codes at a lower published price, so confirm the exact unit and branch quote before financing.",
     transmission: "Automatic",
-    summary: "125cc automatic scooter with a 750 mm seat, 95 kg curb weight and 12-inch wheels."
+    summary: "Current 125cc automatic lifestyle scooter with a 750 mm seat, 95 kg curb weight, 5.1 L tank and 12-inch tires."
   },
   {
     id: "yamaha-mio-gravis",
@@ -604,13 +608,14 @@ export const motorcycles: Motorcycle[] = [
     srp: 83000, engineCc: 125, powerHp: 11.0, torqueNm: 10.8, curbWeightKg: 111, seatHeightMm: 769, fuelTankL: 5.5,
     fuelConsumptionKmL: 50.3,
     frontTire: "80/90-14", rearTire: "90/90-14", abs: "Combined Brake System (CBS)", colors: ["Obsidian Black Metallic", "Pearl Sylvestris Gray", "Pearl Arctic White", "Matte Axis Gray Metallic", "Matte Fresco Brown"], searchVolume: 7100, keywordDifficulty: 65,
-    sourceLabel: "Honda Philippines 2026 Click125 launch and current lineup reference", sourceUrl: "https://www.hondaph.com/motorcycle/news/game-changer-upgrade-honda-introduces-the-click125-2026-year-model", verifiedAt: "2026-09-19", freshness: "verified",
+    sourceLabel: "Honda Philippines 2026 Click125 launch and current lineup reference", sourceUrl: "https://www.hondaph.com/motorcycle/news/game-changer-upgrade-honda-introduces-the-click125-2026-year-model", verifiedAt: "2026-09-22", freshness: "verified",
     marketPriceHighPhp: 87700,
-    marketPriceSourceLabel: "Honda Philippines",
+    marketPriceSourceLabel: "Honda Philippines current lineup",
     marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/list",
-    marketPriceCheckedAt: "2026-09-19",
+    marketPriceCheckedAt: "2026-09-22",
+    priceContext: "Honda's 2026 Click125 reference starts at ₱83,000, while the current lineup reaches ₱87,700 depending on the listed variant. Confirm the exact variant, color and branch quote before financing.",
     transmission: "Automatic",
-    summary: "125cc automatic commuter scooter with a 769 mm seat and published fuel-economy data."
+    summary: "Current 125cc automatic commuter with a 769 mm seat, 111 kg curb weight, 5.5 L tank, 50.3 km/L published fuel economy and CBS."
   },
   {
     id: "yamaha-mio-gear", make: "Yamaha", makeSlug: "yamaha", model: "Mio Gear", slug: "mio-gear", generation: "Current", category: "Commuter scooter",
@@ -1279,12 +1284,12 @@ export const motorcycles: Motorcycle[] = [
     keywordDifficulty: 0,
     sourceLabel: "Yamaha Motor Philippines current YZF-R1M product page with Motortrade Philippine price and specification cross-check",
     sourceUrl: "https://www.yamaha-motor.com.ph/motorcycles/sport-machines/supersport/yzf-r1m",
-    verifiedAt: "2026-09-19",
+    verifiedAt: "2026-09-22",
     freshness: "verified",
     marketPriceSourceLabel: "Motortrade Philippines",
     marketPriceSourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-yzf-r1/",
-    marketPriceCheckedAt: "2026-09-19",
-    priceContext: "Yamaha Philippines currently exposes the YZF-R1M product page. Motortrade's detailed listing shows ₱1,689,000 while some Motortrade category indexes still surface ₱1,799,000, so confirm the latest branch quote before purchase.",
+    marketPriceCheckedAt: "2026-09-22",
+    priceContext: "Yamaha Philippines currently exposes the YZF-R1M product page. Motortrade's detailed listing shows ₱1,689,000 while some Motortrade category indexes still surface ₱1,799,000, so confirm the exact model year, stock and latest branch quote before purchase.",
     transmission: "Manual",
     summary: "Current Philippine 998cc Yamaha supersport with a 855 mm seat, 200 kg wet weight, 17 L tank and one canonical page covering YZF-R1M and broad Yamaha R1 search intent."
   },

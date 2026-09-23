@@ -31,12 +31,15 @@ const authorProfile = read("app", "authors", "erwin-valles", "page.tsx");
 const maintenanceData = read("lib", "maintenance.ts");
 const modelEntity = read("components", "MotorcycleEntityPage.tsx");
 const maintenanceHub = read("app", "maintenance", "page.tsx");
+const nextConfig = read("next.config.mjs");
 
 requireText(home, "Compare <span>motorcycle prices</span><br />and specs in the Philippines.", "Homepage must keep a query-led motorcycle prices/specs H1.");
 forbidText(home, "Your next <span>motorcycle</span><br />starts here.", "Homepage must not regress to the old brand-led H1.");
 forbidText(home, "/motorcycles?budget=under100", "Homepage should link the under-100K intent to the consolidated recommendation section, not a crawlable filter URL.");
 requireText(motorcycles, "<h1>Motorcycle prices", "Motorcycle hub must keep a query-led H1 that starts with Motorcycle prices.");
 requireText(motorcycles, "href=\"/recommendations/motorcycles-under-100k\"", "Motorcycle hub should route under-100K intent to the canonical budget guide.");
+requireText(motorcycles, 'const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;', "Motorcycle catalog must retain the canonical set of faceted filter params.");
+requireText(motorcycles, "index: currentModels.length > 0 && !hasActiveFilters", "Filtered motorcycle catalog states must remain noindex while the clean catalog stays indexable.");
 forbidText(faq, "FAQPage", "Visible FAQs should not emit deprecated FAQPage rich-result markup.");
 forbidText(faq, "JsonLd", "FaqSection should remain visible HTML without JSON-LD.");
 requireText(jsonLd, 'value["@type"] === "FAQPage"', "JsonLd must suppress any legacy/manual FAQPage objects.");
@@ -52,8 +55,14 @@ requireText(modelSeo, "limit = 60", "Model SEO title selection should target a 6
 requireText(sitemaps, "latestModelDate", "Sitemaps should derive hub freshness from model source checks.");
 requireText(sitemaps, "latestHelmetDate", "Sitemaps should derive helmet hub freshness from verified product checks.");
 requireText(sitemaps, "latestSellerDate", "Sitemaps should derive dealer hub freshness from public seller checks.");
+requireText(sitemaps, "latestAccessoryDate", "Accessory sitemap freshness must derive from verified product checks.");
+requireText(sitemaps, "/accessories/top-box/${p.slug}", "Verified top-box product URLs must remain in the segmented gear sitemap.");
+requireText(sitemaps, "lastModified:iso(p.lastChecked)", "Product sitemap entries must retain content-driven lastModified values.");
 forbidText(sitemaps, "`/motorcycles/${make}/scooters`", "Redirect-only brand scooter aliases must stay out of sitemaps.");
 forbidText(sitemaps, "`/motorcycles/${m.makeSlug}/${m.slug}/price`", "Consolidated model price aliases must stay out of sitemaps.");
+requireText(nextConfig, '{ source: "/motorcycles/:make/:slug/price", destination: "/motorcycles/:make/:slug#price", permanent: true }', "Legacy motorcycle price routes must keep a permanent canonical redirect.");
+requireText(nextConfig, '{ source: "/motorcycles/:make/:slug/specifications", destination: "/motorcycles/:make/:slug#specs", permanent: true }', "Legacy motorcycle specification routes must keep a permanent canonical redirect.");
+requireText(nextConfig, '{ source: "/motorcycles/:make/:slug/maintenance", destination: "/motorcycles/:make/:slug#maintenance", permanent: true }', "Legacy motorcycle maintenance routes must keep a permanent canonical redirect.");
 
 requireText(articleSchema, "datePublished?: string;", "Article schema must accept a real page-level publication date.");
 requireText(articleSchema, "image?: string;", "Article schema must accept a representative image.");

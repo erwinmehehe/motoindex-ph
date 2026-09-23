@@ -17,9 +17,25 @@ const pages = [
   ["honda-navi", "/motorcycles/honda/navi"],
   ["honda-beat", "/motorcycles/honda/beat"],
   ["honda-crf150l", "/motorcycles/honda/crf150l"],
-  ["yamaha-aerox-v3", "/motorcycles/yamaha/aerox-v3"]
+  ["yamaha-aerox-v3", "/motorcycles/yamaha/aerox-v3"],
+  ["yamaha-nmax-v3", "/motorcycles/yamaha/nmax-v3"],
+  ["honda-adv-160", "/motorcycles/honda/adv-160"],
+  ["honda-click-160", "/motorcycles/honda/click-160"],
+  ["honda-pcx-160", "/motorcycles/honda/pcx-160"],
+  ["yamaha-fazzio", "/motorcycles/yamaha/fazzio"],
+  ["honda-click-125i", "/motorcycles/honda/click-125i"],
+  ["yamaha-nmax-v2", "/motorcycles/yamaha/nmax-v2"],
+  ["yamaha-aerox-v2", "/motorcycles/yamaha/aerox-v2"],
+  ["kawasaki-ninja-400", "/motorcycles/kawasaki/ninja-400"],
+  ["honda-click-150i", "/motorcycles/honda/click-150i"],
+  ["yamaha-mio-i-125", "/motorcycles/yamaha/mio-i-125"],
+  ["honda-cb650r", "/motorcycles/honda/cb650r"],
+  ["yamaha-tmax", "/motorcycles/yamaha/tmax"],
+  ["honda-adv-350", "/motorcycles/honda/adv-350"],
+  ["yamaha-yzf-r1m", "/motorcycles/yamaha/yzf-r1m"]
 ];
 const widths = [390, 1440];
+const historicalResearchModels = new Set(["yamaha-nmax-v2", "yamaha-aerox-v2", "kawasaki-ninja-400", "honda-click-150i"]);
 const failures = [];
 const results = [];
 
@@ -145,7 +161,9 @@ try {
 
       results.push({ width, pathname, ...audit });
       if (!audit?.h1) failures.push(`${width}px ${pathname}: model H1 is missing.`);
-      if (!audit?.commercial && name !== "honda-crf150l") failures.push(`${width}px ${pathname}: priority commercial section is missing.`);
+      if (!audit?.commercial && name !== "honda-crf150l" && !historicalResearchModels.has(name)) failures.push(`${width}px ${pathname}: priority commercial section is missing.`);
+      if (historicalResearchModels.has(name) && !audit?.authority) failures.push(`${width}px ${pathname}: historical model authority section is missing.`);
+      if (historicalResearchModels.has(name) && audit?.commercial) failures.push(`${width}px ${pathname}: previous-generation model must not render new-bike financing/dealer CTAs.`);
       if (audit?.canonicalPath !== pathname) failures.push(`${width}px ${pathname}: canonical path is ${audit?.canonicalPath || "missing"}.`);
       if (name === "honda-navi" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda Navi authority section is missing.`);
       if (name === "honda-navi" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
@@ -156,7 +174,19 @@ try {
       if (name === "honda-crf150l" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name === "yamaha-aerox-v3" && !audit?.authority) failures.push(`${width}px ${pathname}: Yamaha Aerox V3 authority section is missing.`);
       if (name === "yamaha-aerox-v3" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
-      if (name !== "honda-crf150l") {
+      if (name === "yamaha-nmax-v3" && !audit?.authority) failures.push(`${width}px ${pathname}: Yamaha NMAX V3 authority section is missing.`);
+      if (name === "yamaha-nmax-v3" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
+      if (name === "honda-adv-160" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda ADV160 authority section is missing.`);
+      if (name === "honda-adv-160" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
+      if (name === "honda-click-160" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda Click160 authority section is missing.`);
+      if (name === "honda-click-160" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
+      if (name === "honda-pcx-160" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda PCX160 authority section is missing.`);
+      if (name === "honda-pcx-160" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
+      if (name === "yamaha-fazzio" && !audit?.authority) failures.push(`${width}px ${pathname}: Yamaha Fazzio authority section is missing.`);
+      if (name === "yamaha-fazzio" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
+      if (name === "honda-click-125i" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda Click125 authority section is missing.`);
+      if (name === "honda-click-125i" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
+      if (name !== "honda-crf150l" && !historicalResearchModels.has(name)) {
         if (!audit?.priceLink || !audit?.installmentLink) failures.push(`${width}px ${pathname}: price/monthly anchor links are incomplete.`);
         if (!audit?.priceIndex || !audit?.financeIndex) failures.push(`${width}px ${pathname}: research dataset links are incomplete.`);
         if (!audit?.quoteLink) failures.push(`${width}px ${pathname}: dealer quote link is missing.`);
@@ -177,7 +207,7 @@ try {
     failures.forEach(failure => console.error(`- ${failure}`));
     process.exitCode = 1;
   } else {
-    console.log("Priority model commercial QA passed for six priority pages at 390px and 1440px.");
+    console.log(`Priority model commercial QA passed for ${pages.length} priority pages at 390px and 1440px, including historical-model CTA guards.`);
   }
   cdp.ws.close();
 } finally {

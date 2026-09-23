@@ -11,42 +11,12 @@ type Brief = {
 
 const briefs: Record<string, Brief> = {
 
-  "yamaha-nmax-v3": {
-    fit: ["You want a premium 155cc automatic with a lower 770 mm published seat and larger 7.1 L tank.", "Comfort, weather protection and longer daily rides matter more than minimum weight."],
-    check: ["Confirm Standard versus Tech Max pricing and equipment.", "At 131 kg curb weight, test parking and U-turn confidence rather than judging fit from seat height alone."],
-    ownership: "Compare the final on-road price and financing terms with PCX 160 and Aerox V3, then budget for CVT consumables and model-specific tires.",
-    alternatives: ["honda-pcx-160", "yamaha-aerox-v3", "honda-adv-160"]
-  },
-  "honda-adv-160": {
-    fit: ["You want an automatic scooter with more ground clearance and an 8.1 L tank for mixed city and provincial use.", "You value the ADV layout and current ABS/HSTC equipment more than minimum purchase price."],
-    check: ["Confirm the exact ABS/RoadSync variant and current dealer price.", "Test the 780 mm seat and 133 kg curb weight with your normal footwear and luggage plans."],
-    ownership: "Budget for the exact tire sizes, body panels and routine CVT service, then compare dealer support along the routes you actually use.",
-    alternatives: ["honda-pcx-160", "yamaha-nmax-v3", "yamaha-aerox-v3"]
-  },
-  "honda-click-160": {
-    fit: ["You want a compact 157cc automatic that stays lighter than many premium 160cc scooters.", "City maneuverability and purchase price matter more than a large fuel tank or touring bodywork."],
-    check: ["The stored braking record is CBS rather than ABS, so compare braking equipment deliberately.", "Confirm current dealer price, color and stock instead of relying on an old marketplace listing."],
-    ownership: "Its 14-inch tire sizes and 5.5 L tank are straightforward commuter considerations. Compare fuel, CVT service and insurance with the Click 125i before paying more for the larger engine.",
-    alternatives: ["honda-click-125i", "yamaha-aerox-v3", "honda-pcx-160"]
-  },
-  "honda-pcx-160": {
-    fit: ["You want a comfort-led 160cc-class automatic with a larger tank than a basic commuter scooter.", "You are shopping against NMAX rather than only smaller Click/Mio commuters."],
-    check: ["Compare exact trim and braking equipment rather than treating every PCX 160 listing as identical.", "Test low-speed weight, seat width and passenger space in person."],
-    ownership: "Compare the final dealer price, financing and insurance with NMAX V3, then include tires and CVT service in the monthly ownership estimate.",
-    alternatives: ["yamaha-nmax-v3", "honda-adv-160", "honda-click-160"]
-  },
-  "yamaha-fazzio": {
-    fit: ["You want a small automatic commuter with retro styling and a purchase price below the premium 155–160cc class.", "Ease of daily city use matters more than high output or long-distance bodywork."],
-    check: ["Confirm current variant pricing and color availability.", "Compare storage, braking equipment and actual rider fit with other small automatic scooters."],
-    ownership: "Use the lower purchase price as a starting point, then compare fuel, tires, CVT maintenance and resale expectations with Mio Gear and Click 125i.",
-    alternatives: ["yamaha-mio-gear", "honda-click-125i", "honda-giorno-plus"]
-  },
-  "honda-click-125i": {
-    fit: ["You want a widely used automatic commuter without paying for 160cc-class performance.", "Low daily running cost and simple city use are higher priorities than touring equipment."],
-    check: ["Confirm the exact current generation and dealer price before comparing with used or older listings.", "Compare braking equipment, storage and seat fit rather than looking only at engine size."],
-    ownership: "This is the kind of model where fuel, routine CVT service, tires and dealer convenience can matter more over time than a small difference in purchase price.",
-    alternatives: ["yamaha-mio-gear", "yamaha-fazzio", "honda-click-160"]
-  },
+
+
+
+
+
+
   "yamaha-mio-gear": {
     fit: ["You want an affordable automatic for short daily trips and stop-go traffic.", "A lighter, simpler commuter is more useful to you than premium scooter features."],
     check: ["Confirm the exact variant because pricing and equipment can differ.", "Compare seat reach, under-seat storage and braking equipment with Click 125i and Fazzio."],

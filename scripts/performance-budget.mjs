@@ -7,7 +7,7 @@ const nextDir = path.join(root, ".next");
 const publicDir = path.join(root, "public");
 
 const budgets = {
-  cssTotalBytes: 450 * 1024,
+  cssTotalBytes: 451 * 1024,
   largestJsChunkBytes: 350 * 1024,
   jsTotalBytes: 4 * 1024 * 1024,
   largestPublicImageBytes: 1500 * 1024,

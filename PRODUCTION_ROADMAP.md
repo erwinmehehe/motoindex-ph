@@ -982,3 +982,14 @@ Unless the user gives a different priority, the next monetization work should fo
 Do not start public lead collection until a real dealer/partner workflow is supplied or verified. The required gate is: partner identity, consent copy, lead destination/storage, access control, retention policy, moderation/operations and success/failure measurement.
 
 If that partner workflow is not yet available, continue adding independently verified retailer observations to high-demand accessory products and rechecking stale offers instead of creating a new monetization surface.
+
+
+### Consolidated ranking-depth authority wave — September 23, 2026
+
+The remaining approved canonical-page authority work from the September 22 stack is consolidated onto current main after the Aerox V3 and Yamaha maintenance foundations merged.
+
+- Current-model authority: Yamaha NMAX V3, Honda ADV160, Honda Click160, Honda PCX160, Yamaha Fazzio, Honda Click125i and Yamaha YZF-R1M.
+- Approved follow-on authority: Honda ADV350, Yamaha TMAX Tech Max, Honda CB650R, Yamaha Mio i125, Honda Click150i, Kawasaki Ninja 400, Yamaha Aerox V2, Yamaha NMAX V2, Honda Navi and Honda BeAT.
+- Previous-generation models keep historical/used intent and route current-new-bike intent toward their successors rather than competing with current canonicals.
+- Commercial browser QA and the responsive visual matrix cover the expanded priority-model set.
+- No thin price/spec/installment/model-year routes are introduced; one canonical owner remains responsible for each model intent.

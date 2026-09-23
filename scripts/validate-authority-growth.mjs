@@ -21,6 +21,7 @@ const guidePage = read("app", "guides", "[slug]", "page.tsx");
 const guideMedia = read("lib", "editorialGuideMedia.ts");
 const guideFeaturedArt = read("components", "GuideFeaturedArt.tsx");
 const priorityBrief = read("components", "PriorityModelBrief.tsx");
+const modelAuthority = read("lib", "modelAuthority.ts");
 const media = read("lib", "media.ts");
 const loan = read("app", "tools", "motorcycle-loan-calculator", "page.tsx");
 const insurance = read("app", "tools", "motorcycle-insurance-calculator", "page.tsx");
@@ -40,13 +41,16 @@ requireText(guidePage, "datePublished: guideMedia?.publishedAt", "Article schema
 requireText(guidePage, "image: schemaImage", "Article schema must retain the guide hero image.");
 requireText(guidePage, "Last source check", "Editorial guides must keep visible source-check dates.");
 
-const priorityModels = [
+const authorityModels = [
   "yamaha-aerox-v3",
   "yamaha-nmax-v3",
   "honda-adv-160",
   "honda-click-125i",
   "honda-click-160",
-  "honda-pcx-160",
+  "honda-pcx-160"
+];
+
+const legacyBriefModels = [
   "suzuki-raider-r150",
   "yamaha-sniper-155",
   "kawasaki-ninja-500",
@@ -56,10 +60,17 @@ const priorityModels = [
   "ktm-rc-390"
 ];
 
-for (const id of priorityModels) {
-  requireText(priorityBrief, `"${id}"`, `Priority buyer brief missing for ${id}.`);
+for (const id of authorityModels) {
+  requireRegex(modelAuthority, new RegExp(`modelId\\s*:\\s*["']${id}["']`), `Model authority profile missing for ${id}.`);
   requireRegex(media, new RegExp(`entityId\\s*:\\s*["']${id}["']`), `Priority model media missing for ${id}.`);
 }
+
+for (const id of legacyBriefModels) {
+  requireRegex(priorityBrief, new RegExp(`["']${id}["']\\s*:\\s*\\{`), `Priority buyer brief missing for ${id}.`);
+  requireRegex(media, new RegExp(`entityId\\s*:\\s*["']${id}["']`), `Priority model media missing for ${id}.`);
+}
+
+const priorityModels = [...authorityModels, ...legacyBriefModels];
 
 requireText(priorityBrief, "Buying guide →", "Priority model pages must link into the consolidated buying guide.");
 requireText(priorityBrief, "/ownership/cost-calculator?bike=${model.id}", "Priority model pages must deep-link to ownership cost with the current model.");
