@@ -63,6 +63,7 @@ export type GarageRecord = {
   pricePerLiterPhp?: number;
   nextDueKm?: number;
   nextDueDate?: string;
+  scheduleKey?: string;
   notes?: string;
 };
 
