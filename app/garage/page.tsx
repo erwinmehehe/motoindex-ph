@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { GarageWorkspace } from "@/components/GarageWorkspace";
 import { PageHero } from "@/components/ui";
+import { publicMotorcycles } from "@/lib/data";
+import { maintenanceSchedules } from "@/lib/maintenance";
+import type { GarageCatalogModel } from "@/lib/garage";
 
 export const metadata: Metadata = {
   title: "My Garage | MotoIndex Philippines",
@@ -10,6 +13,31 @@ export const metadata: Metadata = {
 };
 
 export default function GaragePage() {
+  const catalog: GarageCatalogModel[] = publicMotorcycles
+    .map((model) => {
+      const schedule = maintenanceSchedules.find((item) => item.modelId === model.id);
+      return {
+        id: model.id,
+        make: model.make,
+        model: model.model,
+        slug: model.slug,
+        makeSlug: model.makeSlug,
+        marketStatus: model.marketStatus,
+        srp: model.srp,
+        frontTire: model.frontTire,
+        rearTire: model.rearTire,
+        sourceLabel: model.sourceLabel,
+        sourceUrl: model.sourceUrl,
+        exactMaintenance: Boolean(schedule?.exact),
+        maintenanceSourceLabel: schedule?.sourceLabel,
+        maintenanceSourceUrl: schedule?.sourceUrl,
+        maintenanceCheckedAt: schedule?.lastChecked,
+        maintenanceItems: schedule?.items || [],
+        tirePressure: schedule?.tirePressure,
+      };
+    })
+    .sort((a,b) => a.make.localeCompare(b.make) || a.model.localeCompare(b.model));
+
   return <main className="page shell">
     <PageHero
       kicker="MotoIndex My Garage"
@@ -17,6 +45,6 @@ export default function GaragePage() {
       description="Keep your motorcycle, renewal dates, service history, fuel, repairs, parts, expenses and resale records together. Garage data stays on this browser in this first release."
       actions={<Link className="button ghost" href="/ownership">Ownership guides</Link>}
     />
-    <GarageWorkspace />
+    <GarageWorkspace catalog={catalog} />
   </main>;
 }
