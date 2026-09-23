@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { getOwnerSession, ownerAuthConfigured } from "@/lib/ownerAuth";
+import { getOwnerSession, ownerAuthConfigured, ownerRequestOriginAllowed } from "@/lib/ownerAuth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -37,6 +37,7 @@ export async function GET() {
 }
 
 export async function PUT(request: Request) {
+  if (!ownerRequestOriginAllowed(request)) return NextResponse.json({ ok: false, error: "Invalid request origin." }, { status: 403, headers });
   const auth = await ownerOr401();
   if ("error" in auth) return auth.error;
 
