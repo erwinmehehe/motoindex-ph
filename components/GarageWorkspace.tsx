@@ -113,8 +113,14 @@ export function GarageWorkspace() {
   const maintenanceReference = selectedBike ? maintenanceReferenceForBike(selectedBike) : null;
   const verifiedSuggestions = useMemo(() => selectedBike
     ? verifiedMaintenanceRemindersForBike(selectedBike)
-      .filter((suggestion) => !bikeReminders.some((reminder) => reminder.scheduleKey === suggestion.scheduleKey))
-    : [], [selectedBike, bikeReminders]);
+      .filter((suggestion) => {
+        if (bikeReminders.some((reminder) => reminder.scheduleKey === suggestion.scheduleKey)) return false;
+        const oneTimeCompleted = suggestion.intervalKm === undefined
+          && suggestion.intervalMonths === undefined
+          && bikeRecords.some((record) => record.scheduleKey === suggestion.scheduleKey);
+        return !oneTimeCompleted;
+      })
+    : [], [selectedBike, bikeReminders, bikeRecords]);
 
   const upcoming = useMemo(() => {
     if (!selectedBike) return [] as { label: string; value: string; days: number | null }[];
@@ -269,8 +275,7 @@ export function GarageWorkspace() {
       date: completedDate,
       title: `${reminder.action}: ${reminder.title}`,
       odometerKm: selectedBike.odometerKm,
-      nextDueKm: nextReminder?.dueKm,
-      nextDueDate: nextReminder?.dueDate,
+      scheduleKey: reminder.scheduleKey,
       notes: `Completed from MotoIndex verified schedule · ${reminder.sourceLabel}`,
     };
     setState((current) => ({
