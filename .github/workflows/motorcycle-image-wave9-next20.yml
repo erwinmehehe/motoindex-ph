@@ -1,0 +1,87 @@
+name: Motorcycle Image Wave 9 Next 20
+
+on:
+  push:
+    branches: [fix/motorcycle-images-wave-9-next-20]
+    paths:
+      - scripts/backfill-motorcycle-images-wave9-next20.mjs
+      - scripts/art-direct-motorcycle-media.py
+      - .github/workflows/motorcycle-image-wave9-next20.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v7
+        with:
+          ref: fix/motorcycle-images-wave-9-next-20
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Backfill exact model images
+        run: node scripts/backfill-motorcycle-images-wave9-next20.mjs
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install image dependencies
+        run: python -m pip install --disable-pip-version-check opencv-python-headless==4.12.0.88 numpy==2.2.6
+
+      - name: Normalize target images
+        env:
+          MOTORCYCLE_MEDIA_ONLY: aprilia-tuareg-660,aprilia-tuono-660,bajaj-dominar-400,bajaj-pulsar-n125,bajaj-pulsar-n160,bajaj-pulsar-ns400z,bajaj-pulsar-rs200,benelli-302s,benelli-leoncino-250,benelli-tnt-135,benelli-trk-502,cfmoto-300nk,husqvarna-norden-901,husqvarna-svartpilen-200,kawasaki-ninja-zx-25r,kawasaki-z1000-r-edition,kymco-dink-r-150,kymco-dtx360-300,royal-enfield-shotgun-650,vespa-primavera-150
+        run: python scripts/art-direct-motorcycle-media.py
+
+      - name: Validate exact-image coverage
+        run: node scripts/audit-motorcycle-media-coverage.mjs
+
+      - name: Validate image composition
+        run: python scripts/audit-motorcycle-media-art-direction.py
+
+      - name: Commit generated media
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/media.ts scripts/audit-motorcycle-media-coverage.mjs \
+            public/media/motorcycles/aprilia-tuareg-660.webp \
+            public/media/motorcycles/aprilia-tuono-660.webp \
+            public/media/motorcycles/bajaj-dominar-400.webp \
+            public/media/motorcycles/bajaj-pulsar-n125.webp \
+            public/media/motorcycles/bajaj-pulsar-n160.webp \
+            public/media/motorcycles/bajaj-pulsar-ns400z.webp \
+            public/media/motorcycles/bajaj-pulsar-rs200.webp \
+            public/media/motorcycles/benelli-302s.webp \
+            public/media/motorcycles/benelli-leoncino-250.webp \
+            public/media/motorcycles/benelli-tnt-135.webp \
+            public/media/motorcycles/benelli-trk-502.webp \
+            public/media/motorcycles/cfmoto-300nk.webp \
+            public/media/motorcycles/husqvarna-norden-901.webp \
+            public/media/motorcycles/husqvarna-svartpilen-200.webp \
+            public/media/motorcycles/kawasaki-ninja-zx-25r.webp \
+            public/media/motorcycles/kawasaki-z1000-r-edition.webp \
+            public/media/motorcycles/kymco-dink-r-150.webp \
+            public/media/motorcycles/kymco-dtx360-300.webp \
+            public/media/motorcycles/royal-enfield-shotgun-650.webp \
+            public/media/motorcycles/vespa-primavera-150.webp
+          if git diff --cached --quiet; then
+            echo "No generated media changes to commit."
+            exit 0
+          fi
+          git commit -m "Backfill next twenty exact motorcycle images"
+          git push origin HEAD:fix/motorcycle-images-wave-9-next-20
