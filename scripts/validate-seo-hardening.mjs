@@ -28,6 +28,9 @@ const ownershipCalculator = read("app", "ownership", "cost-calculator", "page.ts
 const commuteCalculator = read("app", "commute", "cost-calculator", "page.tsx");
 const priorityBrief = read("components", "PriorityModelBrief.tsx");
 const authorProfile = read("app", "authors", "erwin-valles", "page.tsx");
+const maintenanceData = read("lib", "maintenance.ts");
+const modelEntity = read("components", "MotorcycleEntityPage.tsx");
+const maintenanceHub = read("app", "maintenance", "page.tsx");
 
 requireText(home, "Compare <span>motorcycle prices</span><br />and specs in the Philippines.", "Homepage must keep a query-led motorcycle prices/specs H1.");
 forbidText(home, "Your next <span>motorcycle</span><br />starts here.", "Homepage must not regress to the old brand-led H1.");
@@ -76,6 +79,23 @@ requireText(priorityBrief, '"cfmoto-450sr"', "CFMOTO 450SR should retain a focus
 requireText(authorProfile, 'href="/data-sources"', "Author profile should expose the data-source policy.");
 requireText(authorProfile, 'href="/corrections"', "Author profile should expose the correction path.");
 requireText(authorProfile, "Selected buyer research", "Author profile should connect the author entity to representative research.");
+
+for (const token of [
+  'sourceLabel: "Yamaha Motor Philippines Periodic Maintenance Schedule (PMS) Guide"',
+  'sourceUrl: "https://aftersales.yamaha-motor.com.ph/"',
+  'pmsMilestones: "1,000 km · 4,000 km · 7,000 km · 10,000 km · 13,000 km; the Yamaha guide then continues on a 3,000 km PMS cadence."',
+  '{ item: "Gear oil", interval: "Every 12,000 km"',
+  '{ item: "Spark plug", interval: "Every 6,000 km"',
+  '{ item: "V-belt / chain", interval: "Yamaha PMS guide lists 25,000 km"'
+]) {
+  requireText(maintenanceData, token, `Yamaha maintenance authority lost required source-backed token: ${token}`);
+}
+requireText(maintenanceData, "Brand-level Yamaha Philippines PMS guidance.", "Yamaha brand-level PMS guidance must stay clearly labeled and must not masquerade as an exact model manual.");
+requireText(modelEntity, "brandMaintenanceGuideForModel(model)", "Motorcycle entity pages must resolve brand-level maintenance guidance when exact model schedules are unavailable.");
+requireText(modelEntity, "This is Yamaha Philippines brand-level PMS guidance, not a substitute for the exact", "Model pages must disclose that Yamaha PMS guidance is not an exact model manual.");
+requireText(maintenanceHub, 'id="brand-pms"', "Maintenance hub must expose the brand-level PMS section.");
+requireText(maintenanceHub, "Brand-level periodic maintenance schedules", "Maintenance hub must explain the brand-level maintenance layer.");
+requireText(maintenanceHub, "Use the exact owner manual whenever it gives a different requirement.", "Maintenance hub must preserve the exact-manual precedence warning.");
 
 if (errors.length) {
   console.error("SEO hardening validation failed:");
