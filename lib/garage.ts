@@ -233,10 +233,7 @@ export function smartMaintenanceTasks(bike: GarageMotorcycle, records: GarageRec
         nextDueKm = rule.dueKm;
       } else if (rule.intervalKm !== undefined) {
         if (last?.odometerKm !== undefined) nextDueKm = last.odometerKm + rule.intervalKm;
-        else if (rule.firstDueKm !== undefined) {
-          if (bike.odometerKm <= rule.firstDueKm) nextDueKm = rule.firstDueKm;
-          else nextDueKm = rule.firstDueKm + Math.ceil((bike.odometerKm - rule.firstDueKm) / rule.intervalKm) * rule.intervalKm;
-        }
+        else if (rule.firstDueKm !== undefined) nextDueKm = rule.firstDueKm;
       }
 
       let nextDueDate: string | undefined;
@@ -271,10 +268,17 @@ export function smartMaintenanceTasks(bike: GarageMotorcycle, records: GarageRec
   if (guide?.pmsMileageMilestones?.length) {
     const milestones = guide.pmsMileageMilestones;
     const current = bike.odometerKm;
-    let nextDueKm = milestones.find((value) => value >= current);
-    if (nextDueKm === undefined && guide.pmsRecurringKm) {
+    const latestPms = records
+      .filter((record) => record.category === "PMS" && record.odometerKm !== undefined)
+      .sort((a, b) => (b.odometerKm || 0) - (a.odometerKm || 0))[0];
+    const lastConfirmedKm = latestPms?.odometerKm;
+    let nextDueKm = lastConfirmedKm === undefined
+      ? milestones[0]
+      : milestones.find((value) => value > lastConfirmedKm);
+    if (nextDueKm === undefined && guide.pmsRecurringKm && lastConfirmedKm !== undefined) {
       const lastMilestone = milestones[milestones.length - 1];
-      nextDueKm = lastMilestone + Math.ceil((current - lastMilestone) / guide.pmsRecurringKm) * guide.pmsRecurringKm;
+      const completedSteps = Math.max(0, Math.floor((lastConfirmedKm - lastMilestone) / guide.pmsRecurringKm));
+      nextDueKm = lastMilestone + (completedSteps + 1) * guide.pmsRecurringKm;
     }
     if (nextDueKm !== undefined) {
       const kmRemaining = nextDueKm - current;
@@ -287,7 +291,7 @@ export function smartMaintenanceTasks(bike: GarageMotorcycle, records: GarageRec
         nextDueKm,
         kmRemaining,
         status: mileageStatus(kmRemaining),
-        note: guide.applicability,
+        note: lastConfirmedKm === undefined ? `No PMS history is logged yet. ${guide.applicability}` : guide.applicability,
       }];
     }
   }
