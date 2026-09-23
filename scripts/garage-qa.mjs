@@ -4,7 +4,7 @@ const required = [
   ["app/garage/page.tsx", ["robots: { index: false", "GarageWorkspace", "publicMotorcycles", "maintenanceSchedules"]],
   ["app/garage/resale/page.tsx", ["robots: { index: false", "GarageResalePack", "Private plate and document references stay hidden"]],
   ["components/GarageWorkspace.tsx", ["GARAGE_STORAGE_KEY", "Export backup", "Document wallet", "catalogModelId", "Smart maintenance", "Stock tires", "Ownership analytics", "Actual fuel economy", "Where the money goes", "Value & depreciation", "purchaseOdometerKm", "fullTank", "Prepare resale pack"]],
-  ["components/GarageResalePack.tsx", ["Private by default", "Print / save PDF", "Copy listing draft", "Export seller pack", "No accident records logged in My Garage", "This is not a claim that the motorcycle is accident-free.", "includePlate", "includeDocumentRefs", "includeAmounts"]],
+  ["components/GarageResalePack.tsx", ["Private by default", "Print / save PDF", "Copy listing draft", "Export seller pack", "No accident records logged in My Garage", "This is not a claim that the motorcycle is accident-free.", "includePlate", "includeDocumentRefs", "includeAmounts", "includeNotes", "shareableRecord"]],
   ["lib/garage.ts", ["maintenanceReferenceForBike", "GARAGE_DOCUMENT_TYPES", "smartMaintenanceDue", "estimatedGarageResale", "garageOwnershipAnalytics", "distanceBasis", "fullTankRecords", "netOwnershipCostPhp", "\"REGISTRATION\"", "\"INSURANCE\"", "\"RESALE\"", "\"DEED_OF_SALE\""]],
   ["middleware.ts", ["/garage"]],
 ];
@@ -35,6 +35,9 @@ if (!garage.includes('distanceBasis = "purchase"') || !garage.includes('distance
 const resale = fs.readFileSync("components/GarageResalePack.tsx", "utf8");
 if (!resale.includes('useState(false)') || !resale.includes('Plate: Hidden from this report') || !resale.includes('Private references hidden from this report')) {
   throw new Error("Garage QA failed: resale pack privacy defaults must hide sensitive owner data.");
+}
+if (!resale.includes("amountPhp: includeAmounts ? record.amountPhp : undefined") || !resale.includes("notes: includeNotes ? record.notes : undefined")) {
+  throw new Error("Garage QA failed: seller-pack export must honor amount and internal-note privacy settings.");
 }
 if (resale.includes("accident-free motorcycle")) {
   throw new Error("Garage QA failed: absence of Garage accident records must not be described as accident-free.");
