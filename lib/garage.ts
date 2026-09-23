@@ -36,6 +36,7 @@ export type GarageDocumentType = (typeof GARAGE_DOCUMENT_TYPES)[number];
 
 export type GarageMotorcycle = {
   id: string;
+  catalogModelId?: string;
   make: string;
   model: string;
   variant?: string;
@@ -76,6 +77,42 @@ export type GarageDocument = {
   notes?: string;
 };
 
+export type GarageCatalogMaintenanceItem = {
+  item: string;
+  interval: string;
+  action: "Inspect" | "Replace" | "Check";
+  note?: string;
+};
+
+export type GarageCatalogModel = {
+  id: string;
+  make: string;
+  model: string;
+  slug: string;
+  makeSlug: string;
+  marketStatus?: string;
+  srp: number;
+  frontTire: string;
+  rearTire: string;
+  sourceLabel: string;
+  sourceUrl: string;
+  exactMaintenance: boolean;
+  maintenanceSourceLabel?: string;
+  maintenanceSourceUrl?: string;
+  maintenanceCheckedAt?: string;
+  maintenanceItems: GarageCatalogMaintenanceItem[];
+  tirePressure?: { soloFrontPsi: number; soloRearPsi: number; passengerFrontPsi: number; passengerRearPsi: number };
+};
+
+export type SmartMaintenanceDue = {
+  item: string;
+  action: GarageCatalogMaintenanceItem["action"];
+  interval: string;
+  nextDueKm?: number;
+  remainingKm?: number;
+  note?: string;
+};
+
 export type GarageState = {
   version: typeof GARAGE_VERSION;
   motorcycles: GarageMotorcycle[];
@@ -109,8 +146,8 @@ export function slugifyGaragePart(value: string) {
   return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
-export function guessedCatalogModelId(bike: Pick<GarageMotorcycle, "make" | "model">) {
-  return `${slugifyGaragePart(bike.make)}-${slugifyGaragePart(bike.model)}`;
+export function guessedCatalogModelId(bike: Pick<GarageMotorcycle, "catalogModelId" | "make" | "model">) {
+  return bike.catalogModelId || `${slugifyGaragePart(bike.make)}-${slugifyGaragePart(bike.model)}`;
 }
 
 export function maintenanceReferenceForBike(bike: GarageMotorcycle) {
@@ -150,4 +187,54 @@ export function daysUntil(date?: string) {
 export function money(value?: number) {
   if (!Number.isFinite(value)) return "₱0";
   return new Intl.NumberFormat("en-PH", { style: "currency", currency: "PHP", maximumFractionDigits: 0 }).format(value || 0);
+}
+
+
+function numbersInInterval(interval: string) {
+  return [...interval.matchAll(/(\d[\d,]*)\s*km/gi)].map((match) => Number(match[1].replaceAll(",", ""))).filter(Number.isFinite);
+}
+
+export function smartMaintenanceDue(items: GarageCatalogMaintenanceItem[], odometerKm: number): SmartMaintenanceDue[] {
+  return items.map((item) => {
+    const values = numbersInInterval(item.interval);
+    let nextDueKm: number | undefined;
+
+    const everyMatch = item.interval.match(/every\s+(\d[\d,]*)\s*km/i);
+    if (everyMatch) {
+      const cadence = Number(everyMatch[1].replaceAll(",", ""));
+      const firstMatch = item.interval.match(/first\s+at\s+(\d[\d,]*)\s*km/i);
+      const first = firstMatch ? Number(firstMatch[1].replaceAll(",", "")) : cadence;
+      if (odometerKm < first) nextDueKm = first;
+      else nextDueKm = first + Math.max(1, Math.ceil((odometerKm - first + 1) / cadence)) * cadence;
+    } else if (/replacement point shown at/i.test(item.interval) && values.length) {
+      nextDueKm = values[values.length - 1];
+    } else if (values.length === 1 && /\bat\b/i.test(item.interval)) {
+      nextDueKm = values[0];
+    }
+
+    return {
+      item: item.item,
+      action: item.action,
+      interval: item.interval,
+      nextDueKm,
+      remainingKm: nextDueKm !== undefined ? nextDueKm - odometerKm : undefined,
+      note: item.note,
+    };
+  });
+}
+
+export function estimatedGarageResale(srp: number, year?: number, purchaseDate?: string) {
+  const now = new Date();
+  let age = 0;
+  if (year) age = Math.max(0, now.getFullYear() - year);
+  else if (purchaseDate) {
+    const purchased = new Date(`${purchaseDate}T00:00:00`);
+    if (!Number.isNaN(purchased.valueOf())) age = Math.max(0, Math.floor((now.valueOf() - purchased.valueOf()) / 31557600000));
+  }
+  age = Math.min(10, age);
+  let factor = 1;
+  for (let current = 1; current <= age; current += 1) {
+    factor *= 1 - (current === 1 ? .15 : current === 2 ? .10 : current <= 5 ? .08 : .06);
+  }
+  return Math.round((srp * factor) / 100) * 100;
 }
