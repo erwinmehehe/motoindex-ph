@@ -1121,3 +1121,30 @@ Important boundaries:
 - Lexi 155 retains the Lexi LX 155 regional-name note.
 
 CI guards all ten SH33 relationship IDs, model IDs, rack codes, year/generation scopes, verification states and source-check dates.
+
+
+### Fitment authority wave 6 — ten more verified SH33 alternatives
+
+This wave adds another ten compact-case relationships only where the reviewed SHAD fitting page explicitly lists SH33 compatibility.
+
+1. Yamaha Aerox V3 → SHAD SH33 / Y0AE14IST
+2. Honda ADV160 → SHAD SH33 / H0XD12IST
+3. Honda Click160 → SHAD SH33 / H0VR15IST
+4. Honda PCX160 → SHAD SH33 / H0IPC11ST
+5. Yamaha Sniper 155 → SHAD SH33 / Y0IMX18ST
+6. Honda CB150X → SHAD SH33 / H0ICB16ST
+7. Kawasaki Z500 → SHAD SH33 / K0Z554ST
+8. Suzuki V-Strom 250 SX → SHAD SH33 / S0VS23IST
+9. Suzuki Burgman 400 → SHAD SH33 / S0BR47ST
+10. Yamaha XMAX → SHAD SH33 / Y0XM33ST
+
+Important boundaries:
+- Aerox V3 keeps the Aerox 155 / Aerox Alpha family-generation note rather than treating the rack as proof that every trim is identical.
+- Click160 keeps the Click/Vario cross-market naming boundary.
+- PCX160 keeps the family-vs-Philippines-trim caution.
+- Sniper 155 keeps the MX King 150 regional naming note.
+- CB150X and Z500 retain their exact-page 2025 cutoffs.
+- XMAX retains the non-Tech XMAX 300 2023-2025 scope and 2026 recheck warning.
+- The batch excludes racks where SHAD explicitly blocks the small D1B29PAR plate.
+
+CI guards all ten SH33 IDs, model relationships, rack codes, year/generation scopes, verification states and source-check dates.

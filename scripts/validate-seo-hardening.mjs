@@ -279,6 +279,43 @@ requireText(topBoxFitmentData, "SHAD currently lists Gear fitment through 2025",
 requireText(topBoxFitmentData, "SHAD catalogs this family as Vario 150 in Indonesia", "Click150i SH33 must retain the cross-market naming boundary.");
 requireText(topBoxFitmentData, "SHAD names the regional model Lexi LX 155", "Lexi 155 SH33 must retain the regional naming note.");
 
+const fitmentWave6 = [
+  ["sh33-aerox-v3", "yamaha-aerox-v3", "Y0AE14IST", "Aerox 155: 2021-2026; Aerox Alpha: 2024-2026"],
+  ["sh33-adv160", "honda-adv-160", "H0XD12IST", "2022-2026"],
+  ["sh33-click160", "honda-click-160", "H0VR15IST", "Click/Vario 160: 2022-2026"],
+  ["sh33-pcx160", "honda-pcx-160", "H0IPC11ST", "PCX: 2010-2026"],
+  ["sh33-sniper-155", "yamaha-sniper-155", "Y0IMX18ST", "2015-2026"],
+  ["sh33-cb150x", "honda-cb150x", "H0ICB16ST", "2021-2025"],
+  ["sh33-z500", "kawasaki-z500", "K0Z554ST", "2024-2025"],
+  ["sh33-vstrom-250-sx", "suzuki-v-strom-250-sx", "S0VS23IST", "2023-2026"],
+  ["sh33-burgman-400", "suzuki-burgman-400", "S0BR47ST", "2017-2026"],
+  ["sh33-xmax", "yamaha-xmax", "Y0XM33ST", "XMAX 300: 2023-2025"],
+];
+
+if (fitmentWave6.length !== 10) errors.push("Top-box fitment wave 6 must retain exactly ten reviewed SH33 relationships.");
+for (const [id, modelId, rackCode, modelYears] of fitmentWave6) {
+  const start = topBoxFitmentData.indexOf(`id: "${id}"`);
+  if (start < 0) {
+    errors.push(`Top-box fitment wave 6 lost ${id}.`);
+    continue;
+  }
+  const end = topBoxFitmentData.indexOf("\n  },", start);
+  const fitmentBlock = topBoxFitmentData.slice(start, end > start ? end : start + 2800);
+  requireText(fitmentBlock, 'topBoxId: "shad-sh33"', `${id} must stay attached to SHAD SH33.`);
+  requireText(fitmentBlock, `modelId: "${modelId}"`, `${id} must remain attached to ${modelId}.`);
+  requireText(fitmentBlock, `rackCode: "${rackCode}"`, `${id} lost manufacturer rack code ${rackCode}.`);
+  requireText(fitmentBlock, `modelYears: "${modelYears}"`, `${id} lost reviewed year/generation coverage.`);
+  requireText(fitmentBlock, 'status: "verified"', `${id} must remain manufacturer-backed.`);
+  requireText(fitmentBlock, 'lastChecked: "2026-09-23"', `${id} must retain the September 23 source check.`);
+}
+requireText(topBoxFitmentData, "Aerox 155 / Aerox Alpha family coverage", "Aerox V3 SH33 must retain the family-generation caution.");
+requireText(topBoxFitmentData, "Philippine Click160 naming and year boundary", "Click160 SH33 must retain the Click/Vario market-name boundary.");
+requireText(topBoxFitmentData, "Philippines-specific PCX 160 trim", "PCX160 SH33 must retain the family-vs-trim caution.");
+requireText(topBoxFitmentData, "compatibility table uses the regional MX King 150 name", "Sniper 155 SH33 must retain the regional naming caution.");
+requireText(topBoxFitmentData, "exact SHAD CB150X fitting page currently stops at 2025", "CB150X SH33 must retain the later-model-year recheck boundary.");
+requireText(topBoxFitmentData, "exact fitting detail table currently stops at 2025", "Z500 SH33 must retain the 2025 exact-page boundary.");
+requireText(topBoxFitmentData, "exact non-Tech XMAX 300 Y0XM33ST table currently stops at 2025", "XMAX SH33 must retain the non-Tech 2026 recheck boundary.");
+
 
 if (errors.length) {
   console.error("SEO hardening validation failed:");
