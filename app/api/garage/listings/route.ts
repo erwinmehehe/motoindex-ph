@@ -3,6 +3,7 @@ import { publicMotorcycles } from "@/lib/data";
 import { prisma } from "@/lib/db";
 import { parseGarageState } from "@/lib/garage";
 import { getOwnerSession, ownerAuthConfigured, ownerRequestOriginAllowed } from "@/lib/ownerAuth";
+import { ownerListingUrl } from "@/lib/usedMarketplace";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -30,6 +31,7 @@ export async function GET() {
     take: 25,
     select: {
       id: true,
+      garageMotorcycleLocalId: true,
       title: true,
       askingPricePhp: true,
       mileageKm: true,
@@ -47,6 +49,7 @@ export async function GET() {
       askingPricePhp: item.askingPricePhp.toNumber(),
       postedAt: item.postedAt.toISOString(),
       verifiedAt: item.verifiedAt?.toISOString() || null,
+      publicUrl: item.status === "verified" ? ownerListingUrl(item.id) : null,
     })),
   }, { headers });
 }
@@ -130,6 +133,7 @@ export async function POST(request: Request) {
     ok: true,
     listing: {
       id: listing.id,
+      garageMotorcycleLocalId: listing.garageMotorcycleLocalId,
       title: listing.title,
       status: listing.status,
       askingPricePhp: listing.askingPricePhp.toNumber(),
