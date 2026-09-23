@@ -1,7 +1,6 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import styles from "@/app/styles/garage.module.css";
 import {
   GARAGE_DOCUMENT_TYPES,
   GARAGE_RECORD_CATEGORIES,
@@ -42,9 +41,9 @@ function dateLabel(value?: string) {
 }
 
 function dueClass(days: number | null) {
-  if (days === null || days > 30) return styles.statusGood;
-  if (days >= 0) return styles.statusSoon;
-  return styles.statusLate;
+  if (days === null || days > 30) return "buyer-decision interested";
+  if (days >= 0) return "buyer-decision";
+  return "buyer-decision declined";
 }
 
 function dueLabel(days: number | null) {
@@ -247,30 +246,30 @@ export function GarageWorkspace() {
     event.target.value = "";
   }
 
-  if (!hydrated) return <section className={styles.notice}><strong>Opening My Garage</strong><p>Loading the ownership records stored in this browser.</p></section>;
+  if (!hydrated) return <section className="note-box"><strong>Opening My Garage</strong><p>Loading the ownership records stored in this browser.</p></section>;
 
-  return <section className={styles.workspace}>
-    <div className={styles.notice}>
+  return <section className="garage-workspace">
+    <div className="note-box">
       <strong>Local-first privacy</strong>
       <p>Garage records are stored only in this browser in V1. MotoIndex does not upload your plate, document references or ownership history. Export a backup before clearing browser data or changing devices. Scanned OR/CR files are intentionally not stored until secure MotoIndex accounts and private file storage are available.</p>
     </div>
 
-    <div className={styles.toolbar}>
+    <div className="section-head">
       <div>
-        <span className={styles.metaLabel}>Ownership workspace</span>
+        <span className="field-label">Ownership workspace</span>
         <strong>{state.motorcycles.length} motorcycle{state.motorcycles.length === 1 ? "" : "s"} saved on this device</strong>
       </div>
-      <div className={styles.toolbarActions}>
-        <button className={styles.button} type="button" onClick={() => setShowBikeForm((value) => !value)}>Add motorcycle</button>
-        <button className={`${styles.button} ${styles.buttonSecondary}`} type="button" onClick={exportBackup} disabled={state.motorcycles.length === 0}>Export backup</button>
-        <button className={`${styles.button} ${styles.buttonSecondary}`} type="button" onClick={() => backupInput.current?.click()}>Import backup</button>
+      <div className="hero-actions">
+        <button className="button small" type="button" onClick={() => setShowBikeForm((value) => !value)}>Add motorcycle</button>
+        <button className="button small ghost" type="button" onClick={exportBackup} disabled={state.motorcycles.length === 0}>Export backup</button>
+        <button className="button small ghost" type="button" onClick={() => backupInput.current?.click()}>Import backup</button>
         <input ref={backupInput} type="file" accept="application/json" hidden onChange={importBackup} />
       </div>
     </div>
 
-    {showBikeForm && <form className={styles.form} onSubmit={addBike}>
-      <div className={styles.panelHead}><div><h2>Add a motorcycle</h2><p>Start with the bike and the dates you do not want to miss.</p></div></div>
-      <div className={styles.formGrid}>
+    {showBikeForm && <form className="lead-form" onSubmit={addBike}>
+      <div className="section-head"><div><h2>Add a motorcycle</h2><p>Start with the bike and the dates you do not want to miss.</p></div></div>
+      <div className="lead-form-grid">
         <label>Make<input name="make" required placeholder="Honda" /></label>
         <label>Model<input name="model" required placeholder="Click 160" /></label>
         <label>Variant<input name="variant" placeholder="ABS" /></label>
@@ -283,108 +282,108 @@ export function GarageWorkspace() {
         <label>Insurance expiry<input name="insuranceExpiry" type="date" /></label>
         <label>Estimated resale value<input name="estimatedResaleValuePhp" type="number" min="0" step="1" /></label>
       </div>
-      <div className={styles.toolbarActions}><button className={styles.button} type="submit">Save motorcycle</button>{state.motorcycles.length > 0 && <button className={`${styles.button} ${styles.buttonSecondary}`} type="button" onClick={() => setShowBikeForm(false)}>Cancel</button>}</div>
+      <div className="hero-actions"><button className="button small" type="submit">Save motorcycle</button>{state.motorcycles.length > 0 && <button className="button small ghost" type="button" onClick={() => setShowBikeForm(false)}>Cancel</button>}</div>
     </form>}
 
-    {state.motorcycles.length === 0 ? <div className={styles.empty}>
+    {state.motorcycles.length === 0 ? <div className="note-box">
       <h2>Your Garage is empty.</h2>
       <p>Add your motorcycle to start tracking registration, insurance, PMS, fuel, tires, battery, repairs, parts, warranties, parking, tolls and resale records.</p>
     </div> : <>
-      <div className={styles.bikeTabs} aria-label="Saved motorcycles">
-        {state.motorcycles.map((bike) => <button key={bike.id} type="button" onClick={() => setSelectedId(bike.id)} className={`${styles.bikeTab} ${bike.id === selectedBike?.id ? styles.bikeTabActive : ""}`}>
+      <div className="hero-actions" aria-label="Saved motorcycles">
+        {state.motorcycles.map((bike) => <button key={bike.id} type="button" onClick={() => setSelectedId(bike.id)} className={bike.id === selectedBike?.id ? "button small" : "button small ghost"}>
           {bike.make} {bike.model}{bike.year ? ` · ${bike.year}` : ""}
         </button>)}
       </div>
 
       {selectedBike && <>
-        <div className={styles.toolbar}>
+        <div className="section-head">
           <div>
-            <span className={styles.metaLabel}>Current motorcycle</span>
+            <span className="field-label">Current motorcycle</span>
             <strong>{selectedBike.make} {selectedBike.model}{selectedBike.variant ? ` ${selectedBike.variant}` : ""}</strong>
           </div>
-          <button className={`${styles.button} ${styles.buttonDanger}`} type="button" onClick={removeBike}>Remove motorcycle</button>
+          <button className="button small ghost" type="button" onClick={removeBike}>Remove motorcycle</button>
         </div>
 
-        <div className={styles.summary}>
-          <div className={styles.summaryItem}><span>Odometer</span><strong>{selectedBike.odometerKm.toLocaleString()} km</strong><small>Updates when a higher log reading is saved</small></div>
-          <div className={styles.summaryItem}><span>Total logged spend</span><strong>{money(totalSpend)}</strong><small>Fuel, PMS, repairs, parts and other recorded costs</small></div>
-          <div className={styles.summaryItem}><span>Fuel</span><strong>{money(fuelSpend)}</strong><small>{liters ? `${liters.toFixed(1)} L logged` : "No fuel volume logged yet"}</small></div>
-          <div className={styles.summaryItem}><span>Estimated resale</span><strong>{money(selectedBike.estimatedResaleValuePhp)}</strong><small>{selectedBike.purchasePricePhp ? `Bought for ${money(selectedBike.purchasePricePhp)}` : "Add purchase price for context"}</small></div>
+        <div className="spec-grid">
+          <div className="garage-summary-item"><span>Odometer</span><strong>{selectedBike.odometerKm.toLocaleString()} km</strong><small>Updates when a higher log reading is saved</small></div>
+          <div className="garage-summary-item"><span>Total logged spend</span><strong>{money(totalSpend)}</strong><small>Fuel, PMS, repairs, parts and other recorded costs</small></div>
+          <div className="garage-summary-item"><span>Fuel</span><strong>{money(fuelSpend)}</strong><small>{liters ? `${liters.toFixed(1)} L logged` : "No fuel volume logged yet"}</small></div>
+          <div className="garage-summary-item"><span>Estimated resale</span><strong>{money(selectedBike.estimatedResaleValuePhp)}</strong><small>{selectedBike.purchasePricePhp ? `Bought for ${money(selectedBike.purchasePricePhp)}` : "Add purchase price for context"}</small></div>
         </div>
 
-        <form className={styles.form} onSubmit={updateBike} key={selectedBike.id}>
-          <div className={styles.panelHead}><div><h2>Update current motorcycle</h2><p>Refresh mileage and renewal dates after every PMS or renewal.</p></div></div>
-          <div className={styles.formGrid}>
+        <form className="lead-form" onSubmit={updateBike} key={selectedBike.id}>
+          <div className="section-head"><div><h2>Update current motorcycle</h2><p>Refresh mileage and renewal dates after every PMS or renewal.</p></div></div>
+          <div className="lead-form-grid">
             <label>Plate number<input name="plate" autoComplete="off" defaultValue={selectedBike.plate || ""} /></label>
             <label>Current odometer (km)<input name="odometerKm" type="number" min="0" step="1" defaultValue={selectedBike.odometerKm} /></label>
             <label>LTO registration expiry<input name="registrationExpiry" type="date" defaultValue={selectedBike.registrationExpiry || ""} /></label>
             <label>Insurance expiry<input name="insuranceExpiry" type="date" defaultValue={selectedBike.insuranceExpiry || ""} /></label>
             <label>Estimated resale value<input name="estimatedResaleValuePhp" type="number" min="0" step="1" defaultValue={selectedBike.estimatedResaleValuePhp ?? ""} /></label>
           </div>
-          <button className={styles.button} type="submit">Update motorcycle</button>
+          <button className="button small" type="submit">Update motorcycle</button>
         </form>
 
-        {maintenanceReference && <div className={styles.reference}>
-          <span className={styles.metaLabel}>{maintenanceReference.level} maintenance source</span>
+        {maintenanceReference && <div className="info-card">
+          <span className="field-label">{maintenanceReference.level} maintenance source</span>
           <strong>{maintenanceReference.label}</strong>
           <p>{maintenanceReference.summary}</p>
           <a href={maintenanceReference.sourceUrl} target="_blank" rel="noreferrer">Open verified maintenance source ↗</a>
         </div>}
 
-        <div className={styles.grid}>
-          <section className={styles.panel}>
-            <div className={styles.panelHead}><div><h2>Upcoming</h2><p>Renewals and service dates that need attention.</p></div></div>
-            {upcoming.length ? <div className={styles.list}>{upcoming.map((item, index) => <div className={styles.row} key={`${item.label}-${item.value}-${index}`}>
+        <div className="split section">
+          <section className="garage-panel">
+            <div className="section-head"><div><h2>Upcoming</h2><p>Renewals and service dates that need attention.</p></div></div>
+            {upcoming.length ? <div className="buyer-quote-list">{upcoming.map((item, index) => <div className="buyer-quote-card" key={`${item.label}-${item.value}-${index}`}>
               <div><strong>{item.label}</strong><p>{dateLabel(item.value)}</p></div>
-              <div className={styles.rowMeta}><strong className={dueClass(item.days)}>{dueLabel(item.days)}</strong></div>
-            </div>)}</div> : <div className={styles.empty}><p>No renewal or service due dates saved yet.</p></div>}
+              <div className="buyer-quote-meta"><strong className={dueClass(item.days)}>{dueLabel(item.days)}</strong></div>
+            </div>)}</div> : <div className="note-box"><p>No renewal or service due dates saved yet.</p></div>}
           </section>
 
-          <section className={styles.panel}>
-            <div className={styles.panelHead}><div><h2>Add ownership record</h2><p>PMS, fuel, tires, battery, repairs, accidents, parts and expenses.</p></div></div>
-            <form className={styles.form} onSubmit={addRecord}>
-              <div className={styles.formGrid}>
+          <section className="garage-panel">
+            <div className="section-head"><div><h2>Add ownership record</h2><p>PMS, fuel, tires, battery, repairs, accidents, parts and expenses.</p></div></div>
+            <form className="lead-form" onSubmit={addRecord}>
+              <div className="lead-form-grid">
                 <label>Type<select name="category" defaultValue="PMS">{GARAGE_RECORD_CATEGORIES.map((category) => <option value={category} key={category}>{category}</option>)}</select></label>
                 <label>Date<input name="date" type="date" required defaultValue={new Date().toISOString().slice(0, 10)} /></label>
-                <label className={styles.full}>What happened?<input name="title" required placeholder="Engine oil change" /></label>
+                <label className="lead-form-wide">What happened?<input name="title" required placeholder="Engine oil change" /></label>
                 <label>Amount (₱)<input name="amountPhp" type="number" min="0" step="0.01" /></label>
                 <label>Odometer (km)<input name="odometerKm" type="number" min="0" step="1" defaultValue={selectedBike.odometerKm} /></label>
                 <label>Fuel liters<input name="liters" type="number" min="0" step="0.01" /></label>
                 <label>Fuel price/L<input name="pricePerLiterPhp" type="number" min="0" step="0.01" /></label>
                 <label>Next due (km)<input name="nextDueKm" type="number" min="0" step="1" /></label>
                 <label>Next due date<input name="nextDueDate" type="date" /></label>
-                <label className={styles.full}>Notes<textarea name="notes" placeholder="Shop, parts used, warranty details or repair notes" /></label>
+                <label className="lead-form-wide">Notes<input name="notes" placeholder="Shop, parts used, warranty details or repair notes" /></label>
               </div>
-              <button className={styles.button} type="submit">Add record</button>
+              <button className="button small" type="submit">Add record</button>
             </form>
           </section>
         </div>
 
-        <div className={styles.grid}>
-          <section className={styles.panel}>
-            <div className={styles.panelHead}><div><h2>Ownership history</h2><p>Your most recent activity for this motorcycle.</p></div></div>
-            {bikeRecords.length ? <div className={styles.list}>{bikeRecords.slice(0, 20).map((record) => <div className={styles.row} key={record.id}>
-              <div><span className={styles.metaLabel}>{record.category}</span><strong>{record.title}</strong><p>{dateLabel(record.date)}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}{record.notes ? ` · ${record.notes}` : ""}</p></div>
-              <div className={styles.rowMeta}>{record.amountPhp !== undefined && <strong>{money(record.amountPhp)}</strong>}{record.nextDueKm !== undefined && <small>Next at {record.nextDueKm.toLocaleString()} km</small>}{record.nextDueDate && <small>Next {dateLabel(record.nextDueDate)}</small>}<button className={styles.rowAction} type="button" onClick={() => removeRecord(record.id)}>Delete</button></div>
-            </div>)}</div> : <div className={styles.empty}><p>No ownership records yet.</p></div>}
+        <div className="split section">
+          <section className="garage-panel">
+            <div className="section-head"><div><h2>Ownership history</h2><p>Your most recent activity for this motorcycle.</p></div></div>
+            {bikeRecords.length ? <div className="buyer-quote-list">{bikeRecords.slice(0, 20).map((record) => <div className="buyer-quote-card" key={record.id}>
+              <div><span className="field-label">{record.category}</span><strong>{record.title}</strong><p>{dateLabel(record.date)}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}{record.notes ? ` · ${record.notes}` : ""}</p></div>
+              <div className="buyer-quote-meta">{record.amountPhp !== undefined && <strong>{money(record.amountPhp)}</strong>}{record.nextDueKm !== undefined && <small>Next at {record.nextDueKm.toLocaleString()} km</small>}{record.nextDueDate && <small>Next {dateLabel(record.nextDueDate)}</small>}<button className="button small ghost" type="button" onClick={() => removeRecord(record.id)}>Delete</button></div>
+            </div>)}</div> : <div className="note-box"><p>No ownership records yet.</p></div>}
           </section>
 
-          <section className={styles.panel}>
-            <div className={styles.panelHead}><div><h2>Document wallet</h2><p>Track OR/CR, CTPL, insurance, warranty, receipts and resale paperwork.</p></div></div>
-            <form className={styles.form} onSubmit={addDocument}>
-              <p className={styles.documentWarning}>This V1 stores document metadata only. Do not paste scans or full document contents into notes. Secure file uploads will be added with authenticated accounts and private storage.</p>
-              <div className={styles.formGrid}>
+          <section className="garage-panel">
+            <div className="section-head"><div><h2>Document wallet</h2><p>Track OR/CR, CTPL, insurance, warranty, receipts and resale paperwork.</p></div></div>
+            <form className="lead-form" onSubmit={addDocument}>
+              <p className="muted-note">This V1 stores document metadata only. Do not paste scans or full document contents into notes. Secure file uploads will be added with authenticated accounts and private storage.</p>
+              <div className="lead-form-grid">
                 <label>Document<select name="type" defaultValue="OR">{GARAGE_DOCUMENT_TYPES.map((type) => <option value={type} key={type}>{type.replaceAll("_", " ")}</option>)}</select></label>
                 <label>Label<input name="label" required placeholder="2026 Official Receipt" /></label>
                 <label>Reference / last digits<input name="reference" autoComplete="off" placeholder="Optional" /></label>
                 <label>Expiry date<input name="expiryDate" type="date" /></label>
-                <label className={styles.full}>Notes<textarea name="notes" placeholder="Where the original is kept, renewal notes, buyer transfer checklist" /></label>
+                <label className="lead-form-wide">Notes<input name="notes" placeholder="Where the original is kept, renewal notes, buyer transfer checklist" /></label>
               </div>
-              <button className={styles.button} type="submit">Save document record</button>
+              <button className="button small" type="submit">Save document record</button>
             </form>
-            {bikeDocuments.length > 0 && <div className={styles.list}>{bikeDocuments.map((document) => <div className={styles.row} key={document.id}>
-              <div><span className={styles.metaLabel}>{document.type.replaceAll("_", " ")}</span><strong>{document.label}</strong><p>{document.reference ? `Reference: ${document.reference}` : "No reference saved"}{document.notes ? ` · ${document.notes}` : ""}</p></div>
-              <div className={styles.rowMeta}>{document.expiryDate && <><strong className={dueClass(daysUntil(document.expiryDate))}>{dateLabel(document.expiryDate)}</strong><small>{dueLabel(daysUntil(document.expiryDate))}</small></>}<button className={styles.rowAction} type="button" onClick={() => removeDocument(document.id)}>Delete</button></div>
+            {bikeDocuments.length > 0 && <div className="buyer-quote-list">{bikeDocuments.map((document) => <div className="buyer-quote-card" key={document.id}>
+              <div><span className="field-label">{document.type.replaceAll("_", " ")}</span><strong>{document.label}</strong><p>{document.reference ? `Reference: ${document.reference}` : "No reference saved"}{document.notes ? ` · ${document.notes}` : ""}</p></div>
+              <div className="buyer-quote-meta">{document.expiryDate && <><strong className={dueClass(daysUntil(document.expiryDate))}>{dateLabel(document.expiryDate)}</strong><small>{dueLabel(daysUntil(document.expiryDate))}</small></>}<button className="button small ghost" type="button" onClick={() => removeDocument(document.id)}>Delete</button></div>
             </div>)}</div>}
           </section>
         </div>
