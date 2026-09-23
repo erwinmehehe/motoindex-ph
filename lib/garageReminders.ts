@@ -130,7 +130,8 @@ export function garageRemindersConfigured() {
     ownerAuthConfigured() &&
     process.env.RESEND_API_KEY &&
     senderEmail() &&
-    process.env.PRICE_ALERT_CRON_SECRET
+    process.env.PRICE_ALERT_CRON_SECRET &&
+    process.env.PRICE_ALERT_CRON_CONFIGURED === "true"
   );
 }
 
