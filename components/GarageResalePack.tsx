@@ -13,6 +13,16 @@ import {
 } from "@/lib/garage";
 
 type SellerCondition = "fair" | "good" | "excellent";
+type OwnerListingStatus = {
+  id: string;
+  garageMotorcycleLocalId?: string | null;
+  title: string;
+  status: string;
+  askingPricePhp: number;
+  mileageKm: number;
+  location: string;
+  publicUrl?: string | null;
+};
 
 function dateLabel(value?: string) {
   if (!value) return "Not recorded";
@@ -64,6 +74,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
   const [includeNotes, setIncludeNotes] = useState(false);
   const [message, setMessage] = useState("");
   const [listingMessage, setListingMessage] = useState("");
+  const [ownerListings, setOwnerListings] = useState<OwnerListingStatus[]>([]);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -74,6 +85,21 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
     setSelectedId(selected?.id || "");
     setHydrated(true);
   }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    void refreshOwnerListings();
+  }, [hydrated]);
+
+  async function refreshOwnerListings() {
+    const response = await fetch("/api/garage/listings", { cache: "no-store" }).catch(() => null);
+    if (!response?.ok) {
+      setOwnerListings([]);
+      return;
+    }
+    const data = await response.json().catch(() => ({}));
+    setOwnerListings(Array.isArray(data.listings) ? data.listings : []);
+  }
 
   const bike = state.motorcycles.find((item) => item.id === selectedId) || state.motorcycles[0];
   const model = bike ? catalog.find((item) => item.id === bike.catalogModelId) : undefined;
@@ -123,6 +149,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
     `${parts.length} parts/modification record${parts.length === 1 ? "" : "s"} logged`,
     accidents.length ? `${accidents.length} accident record${accidents.length === 1 ? "" : "s"} logged` : "No accident records logged in My Garage",
   ].join(" · ");
+  const currentListing = ownerListings.find((item) => item.garageMotorcycleLocalId === bike.id);
 
   async function submitListing() {
     if (!model || !bike.catalogModelId) {
@@ -166,6 +193,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
       return;
     }
 
+    await refreshOwnerListings();
     setListingMessage("Submitted for MotoIndex review. It stays private until an admin verifies it for publication.");
   }
 
@@ -342,6 +370,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
         <strong>{title}</strong>
         <p>{listingPrice ? `${money(listingPrice)} · ` : ""}{bike.odometerKm.toLocaleString()} km · {condition}{location.trim() ? ` · ${location.trim()}` : ""}</p>
         <p>{historySummary}</p>
+        {currentListing && <p><strong>Marketplace status: {currentListing.status.replaceAll("_", " ")}</strong>{currentListing.publicUrl ? <> · <a href={currentListing.publicUrl}>View public listing →</a></> : " · Not public yet"}</p>}
         <div className="hero-actions">
           <button className="button small" type="button" onClick={submitListing} disabled={submitting}>{submitting ? "Submitting…" : "Submit for MotoIndex review"}</button>
           <button className="button small ghost" type="button" onClick={() => copyText(buildListingText(), "Listing draft copied.")}>Copy listing draft</button>
