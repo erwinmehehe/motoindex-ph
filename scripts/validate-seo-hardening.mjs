@@ -32,6 +32,8 @@ const maintenanceData = read("lib", "maintenance.ts");
 const modelEntity = read("components", "MotorcycleEntityPage.tsx");
 const maintenanceHub = read("app", "maintenance", "page.tsx");
 const nextConfig = read("next.config.mjs");
+const catalogData = read("lib", "catalog.ts");
+const topBoxFitmentData = read("lib", "topBoxFitment.ts");
 
 requireText(home, "Compare <span>motorcycle prices</span><br />and specs in the Philippines.", "Homepage must keep a query-led motorcycle prices/specs H1.");
 forbidText(home, "Your next <span>motorcycle</span><br />starts here.", "Homepage must not regress to the old brand-led H1.");
@@ -117,6 +119,32 @@ requireText(maintenanceHub, 'id="brand-pms"', "Maintenance hub must expose the b
 requireText(maintenanceHub, "Brand-level periodic maintenance schedules", "Maintenance hub must explain the brand-level maintenance layer.");
 requireText(maintenanceHub, "Use the exact owner manual whenever it gives a different requirement.", "Maintenance hub must preserve the exact-manual precedence warning.");
 requireText(maintenanceHub, "...brandMaintenanceGuides.map(g=>g.lastChecked)", "Maintenance hub structured-data freshness must include brand maintenance guide source checks.");
+
+for (const token of [
+  'id:"shad-sh33"',
+  'model:"SH33"',
+  'mountingSystem:"SHAD small plate D1B29PAR + bike-specific Top Master / fitting kit"',
+  'priceFromPhp:2999',
+  'sourceUrl:"https://www.shad.es/tl/motorcycle-cases/top-cases/top-case-sh33-black/"'
+]) {
+  requireText(catalogData, token, `SHAD SH33 product data lost required verified token: ${token}`);
+}
+
+for (const token of [
+  'id: "sh39-fazzio"',
+  'modelId: "yamaha-fazzio"',
+  'rackCode: "Y0IFZ11ST"',
+  'modelYears: "2022-2026"',
+  'id: "sh33-beat"',
+  'modelId: "honda-beat"',
+  'rackCode: "H0IBT11ST"',
+  'top cases up to SH34',
+  'status: "verified"'
+]) {
+  requireText(topBoxFitmentData, token, `Verified top-box fitment depth lost required token: ${token}`);
+}
+requireText(topBoxFitmentData, 'status: "research"', "NMAX V3 fitment uncertainty must remain represented instead of promoting all SHAD edges to verified.");
+
 
 if (errors.length) {
   console.error("SEO hardening validation failed:");

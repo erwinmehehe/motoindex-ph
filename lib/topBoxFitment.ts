@@ -66,6 +66,37 @@ export const topBoxFitments: TopBoxFitment[] = [
     lastChecked: "2026-08-25"
   },
   {
+    id: "sh39-fazzio",
+    topBoxId: "shad-sh39",
+    topBoxLabel: "SHAD SH39",
+    productHref: "/accessories/top-box/sh39",
+    modelId: "yamaha-fazzio",
+    rackCode: "Y0IFZ11ST",
+    rackLabel: "SHAD Top Master Yamaha Fazzio",
+    plateRequirement: "Use the plate included with the SH39 on the Y0IFZ11ST Top Master fitting. SHAD states this fitting is not compatible with the big or aluminium mounting plates.",
+    modelYears: "2022-2026",
+    status: "verified",
+    sourceLabel: "SHAD official Yamaha Fazzio fitment page",
+    sourceUrl: "https://www.shad.es/en-id/fitting-kits-for-cases-bags-and-moto-backrests/yamaha-fitting-kits-for-cases-bags-and-moto-backrests/top-master-yamaha-fazzio/",
+    lastChecked: "2026-09-23"
+  },
+  {
+    id: "sh33-beat",
+    topBoxId: "shad-sh33",
+    topBoxLabel: "SHAD SH33",
+    productHref: "/accessories/top-box/sh33",
+    modelId: "honda-beat",
+    rackCode: "H0IBT11ST",
+    rackLabel: "SHAD Top Master Honda BeAT / Scoopy / Genio",
+    plateRequirement: "Use the SH33 small mounting plate D1B29PAR on the H0IBT11ST fitting. SHAD limits this fitting to the small base plate and top cases up to SH34.",
+    modelYears: "BeAT family: 2008-2026",
+    marketNote: "SHAD groups BeAT, Scoopy and Genio on this fitting. Confirm the exact Philippine BeAT generation and mounting points before ordering.",
+    status: "verified",
+    sourceLabel: "SHAD official Honda BeAT / Scoopy / Genio fitment page",
+    sourceUrl: "https://www.shad.es/en-id/fitting-kits-for-cases-bags-and-moto-backrests/honda-fitting-kits-for-cases-bags-and-moto-backrests/top-master-honda-beat-scoopy-genio/",
+    lastChecked: "2026-09-23"
+  },
+  {
     id: "sh39-nmax-v3",
     topBoxId: "shad-sh39",
     topBoxLabel: "SHAD SH39",
