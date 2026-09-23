@@ -131,6 +131,18 @@ for (const token of [
 }
 
 for (const token of [
+  'id:"shad-sh29"',
+  'model:"SH29"',
+  'capacityL:29',
+  'maxLoadKg:3',
+  'mountingSystem:"SHAD small plate D1B29PAR + bike-specific Top Master / fitting kit"',
+  'priceFromPhp:2499',
+  'sourceUrl:"https://www.shad.es/tl/motorcycle-cases/top-cases/top-case-sh29-black/"'
+]) {
+  requireText(catalogData, token, `SHAD SH29 product data lost required verified token: ${token}`);
+}
+
+for (const token of [
   'id: "sh39-fazzio"',
   'modelId: "yamaha-fazzio"',
   'rackCode: "Y0IFZ11ST"',
@@ -325,8 +337,8 @@ const fitmentWave7 = [
   ["sh33-mt07", "yamaha-mt-07", "Y0MT75ST", "2025-2026"],
   ["sh33-transalp-750", "honda-xl750-transalp", "H0TR73ST", "2023-2026"],
   ["sh33-gixxer-sf250", "suzuki-gixxer-sf250", "S0GX22IST", "2021-2025"],
-  ["sh39-suzuki-access-2026", "suzuki-access", "S0DR16ST", "2026"],
-  ["sh33-suzuki-access-2026", "suzuki-access", "S0DR16ST", "2026"],
+  ["sh29-fazzio", "yamaha-fazzio", "Y0IFZ11ST", "2022-2026"],
+  ["sh29-aerox-v3", "yamaha-aerox-v3", "Y0AE14IST", "Aerox 155: 2021-2026; Aerox Alpha: 2024-2026"],
 ];
 
 if (fitmentWave7.length !== 10) errors.push("Top-box fitment wave 7 must retain exactly ten reviewed relationships.");
@@ -348,9 +360,11 @@ requireText(topBoxFitmentData, "SHAD currently lists Mio i125 fitment through 20
 requireText(topBoxFitmentData, "Philippine E-Clutch trim separately", "NX500 SH33 must retain the family-vs-trim caution.");
 requireText(topBoxFitmentData, "exact SHAD XSR155 fitting table currently stops at 2025", "XSR155 SH33 must retain the 2025 boundary.");
 requireText(topBoxFitmentData, "exact SHAD Gixxer SF 250 rack coverage currently stops at 2025", "Gixxer SF250 SH33 must retain the 2025 boundary.");
-requireText(topBoxFitmentData, "2023-2025 rack is S0DR13ST", "Suzuki Access 2026 relationships must retain the generation-specific rack warning.");
-requireText(topBoxFitmentData, 'id: "sh39-suzuki-access-2026"', "Wave 7 must retain the Suzuki Access SH39 relationship.");
-requireText(topBoxFitmentData, 'id: "sh33-suzuki-access-2026"', "Wave 7 must retain the Suzuki Access SH33 relationship.");
+requireText(topBoxFitmentData, 'topBoxId: "shad-sh29"', "Wave 7 must retain verified SH29 relationships.");
+requireText(topBoxFitmentData, 'id: "sh29-fazzio"', "Wave 7 must retain the verified Fazzio SH29 relationship.");
+requireText(topBoxFitmentData, 'id: "sh29-aerox-v3"', "Wave 7 must retain the verified Aerox V3 SH29 relationship.");
+forbidText(topBoxFitmentData, 'modelId: "suzuki-access"', "Suzuki Access must not inherit Suzuki Address 125 fitment without direct model evidence.");
+forbidText(topBoxFitmentData, 'rackCode: "S0DR16ST"', "Address 125 rack S0DR16ST must not be reused for Suzuki Access.");
 
 
 if (errors.length) {
