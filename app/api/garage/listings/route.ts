@@ -144,3 +144,33 @@ export async function POST(request: Request) {
     message: "Listing submitted for MotoIndex review.",
   }, { status: existing ? 200 : 201, headers });
 }
+
+export async function DELETE(request: Request) {
+  if (!ownerRequestOriginAllowed(request)) {
+    return NextResponse.json({ ok: false, error: "Invalid request origin." }, { status: 403, headers });
+  }
+  const auth = await ownerOr401();
+  if ("error" in auth) return auth.error;
+
+  let body: Record<string, unknown>;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ ok: false, error: "Invalid listing request." }, { status: 400, headers });
+  }
+
+  const listingId = typeof body.listingId === "string" ? body.listingId.trim() : "";
+  if (!listingId) {
+    return NextResponse.json({ ok: false, error: "Listing ID is required." }, { status: 400, headers });
+  }
+
+  const updated = await prisma.usedListing.updateMany({
+    where: { id: listingId, ownerId: auth.session.ownerId },
+    data: { status: "expired", verifiedAt: null },
+  });
+  if (updated.count !== 1) {
+    return NextResponse.json({ ok: false, error: "Listing not found." }, { status: 404, headers });
+  }
+
+  return NextResponse.json({ ok: true, status: "expired", message: "Listing withdrawn from publication." }, { headers });
+}
