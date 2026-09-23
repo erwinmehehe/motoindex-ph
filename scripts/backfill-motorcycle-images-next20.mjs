@@ -50,7 +50,7 @@ async function fetchImage(url, referer) {
   const bytes=Buffer.from(await response.arrayBuffer());
   let meta;
   try { meta=await sharp(bytes).metadata(); } catch { throw new Error(`not decodable image: ${type||"unknown"}`); }
-  if((meta.width||0)<300 || (meta.height||0)<250) throw new Error(`too small ${meta.width||0}x${meta.height||0}`);
+  if((meta.width||0)<450 || (meta.height||0)<180) throw new Error(`too small ${meta.width||0}x${meta.height||0}`);
   return {bytes,url:response.url||url,width:meta.width||0,height:meta.height||0};
 }
 
