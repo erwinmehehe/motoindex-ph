@@ -47,9 +47,9 @@ async function fetchImage(url, referer) {
   const response = await fetch(url,{redirect:"follow",signal:AbortSignal.timeout(30000),headers:{"user-agent":UA,accept:"image/avif,image/webp,image/png,image/jpeg,image/*,*/*;q=0.8",...(referer?{referer}:{})}});
   if (!response.ok) throw new Error(`HTTP ${response.status} ${url}`);
   const type=(response.headers.get("content-type")||"").toLowerCase();
-  if(!type.startsWith("image/")) throw new Error(`not image: ${type}`);
   const bytes=Buffer.from(await response.arrayBuffer());
-  const meta=await sharp(bytes).metadata();
+  let meta;
+  try { meta=await sharp(bytes).metadata(); } catch { throw new Error(`not decodable image: ${type||"unknown"}`); }
   if((meta.width||0)<300 || (meta.height||0)<250) throw new Error(`too small ${meta.width||0}x${meta.height||0}`);
   return {bytes,url:response.url||url,width:meta.width||0,height:meta.height||0};
 }
