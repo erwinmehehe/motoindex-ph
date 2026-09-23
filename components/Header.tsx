@@ -24,6 +24,7 @@ const gear = [
 ] as const;
 
 const ownership = [
+  ["My Garage", "/garage"] as const,
   ["Ownership", "/ownership"] as const,
   ["Dealers", "/dealers"] as const,
   ["Seller offers", "/deals"] as const,
