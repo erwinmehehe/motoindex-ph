@@ -54,7 +54,7 @@ export function UsedListingInquiryForm({ listingId, listingTitle }: { listingId:
       <label>Email<input name="email" type="email" required maxLength={160} autoComplete="email" /></label>
       <label>Mobile, optional<input name="mobile" maxLength={30} autoComplete="tel" placeholder="09xx xxx xxxx" /></label>
       <label className="lead-form-wide">Message<textarea name="message" required minLength={10} maxLength={1000} rows={5} placeholder="Ask about availability, documents, service history or when you can inspect the motorcycle." /></label>
-      <label className="garage-honeypot" aria-hidden="true">Company<input name="company" tabIndex={-1} autoComplete="off" /></label>
+      <input name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" hidden />
       <label className="lead-form-wide"><input name="consent" type="checkbox" required /> I agree that MotoIndex may send these contact details and this message to the seller for this inquiry.</label>
     </div>
     <button className="button" type="submit" disabled={working}>{working ? "Sending…" : "Send inquiry"}</button>
