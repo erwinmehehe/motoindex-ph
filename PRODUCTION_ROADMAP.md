@@ -1152,7 +1152,7 @@ CI guards all ten SH33 IDs, model relationships, rack codes, year/generation sco
 
 ### Fitment authority wave 7 — ten more verified relationships
 
-This wave finishes the remaining safe SH33 alternatives on reviewed racks and adds the current Suzuki Access / Address 125 rack for 2026.
+This wave finishes the remaining safe SH33 alternatives on reviewed racks and adds SH29 as a verified compact-case option where SHAD explicitly lists it on the exact fitting page.
 
 1. Yamaha Mio i125 → SHAD SH33 / Y0MZ16ST
 2. Honda NX500 E-Clutch → SHAD SH33 / H0CX55ST
@@ -1162,14 +1162,16 @@ This wave finishes the remaining safe SH33 alternatives on reviewed racks and ad
 6. Yamaha MT-07 → SHAD SH33 / Y0MT75ST
 7. Honda XL750 Transalp → SHAD SH33 / H0TR73ST
 8. Suzuki Gixxer SF250 → SHAD SH33 / S0GX22IST
-9. Suzuki Access → SHAD SH39 / S0DR16ST
-10. Suzuki Access → SHAD SH33 / S0DR16ST
+9. Yamaha Fazzio → SHAD SH29 / Y0IFZ11ST
+10. Yamaha Aerox V3 → SHAD SH29 / Y0AE14IST
 
 Important boundaries:
 - Mio i125, Mio Gravis, XSR155 and Gixxer SF250 keep their reviewed 2025 cutoffs rather than silently claiming later fitment.
 - NX500 keeps the model-family versus Philippine E-Clutch trim caution.
-- Suzuki Access is pinned to SHAD's 2026 S0DR16ST rack. The 2023-2025 Address 125 rack is S0DR13ST and is not reused for the current relationship.
-- SH33 is added only where the reviewed fitting supports the compact case family.
+- SH29 is a distinct verified product entity with the small D1B29PAR plate and 3 kg recommended load.
+- Fazzio and Aerox V3 receive SH29 relationships only because their exact SHAD fitting pages explicitly list SH29 as a compatible product.
+- Suzuki Access is not mapped to Suzuki Address 125. Similar displacement and naming are not sufficient evidence for a fitment relationship.
 - NMAX V3 remains research-only because the exact Philippine NMAX / Tech Max mapping is still not directly verified.
 
-CI guards all ten relationship IDs, model IDs, rack codes, year scopes, verification states and source-check dates.
+CI guards all ten relationship IDs, model IDs, rack codes, year scopes, verification states and source-check dates, plus the ban on Access/Address inference.
+
