@@ -63,6 +63,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
   const [includeAmounts, setIncludeAmounts] = useState(false);
   const [includeNotes, setIncludeNotes] = useState(false);
   const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const loaded = parseGarageState(window.localStorage.getItem(GARAGE_STORAGE_KEY));
@@ -121,6 +122,51 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
     `${parts.length} parts/modification record${parts.length === 1 ? "" : "s"} logged`,
     accidents.length ? `${accidents.length} accident record${accidents.length === 1 ? "" : "s"} logged` : "No accident records logged in My Garage",
   ].join(" · ");
+
+  async function submitListing() {
+    if (!model || !bike.catalogModelId) {
+      setMessage("Match this motorcycle to a MotoIndex catalog model in My Garage before submitting.");
+      return;
+    }
+    if (!bike.year) {
+      setMessage("Add the motorcycle model year in My Garage before submitting.");
+      return;
+    }
+    if (!listingPrice || listingPrice < 3000) {
+      setMessage("Add a realistic asking price before submitting.");
+      return;
+    }
+    if (location.trim().length < 2) {
+      setMessage("Add the city or province where buyers can inspect the motorcycle.");
+      return;
+    }
+
+    setSubmitting(true);
+    setMessage("");
+    const response = await fetch("/api/garage/listings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        garageMotorcycleLocalId: bike.id,
+        askingPricePhp: listingPrice,
+        condition,
+        location: location.trim(),
+      }),
+    });
+    const data = await response.json().catch(() => ({}));
+    setSubmitting(false);
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        setMessage("Sign in from My Garage, save this bike to the private cloud, then submit again.");
+        return;
+      }
+      setMessage(data.error || "Listing submission failed.");
+      return;
+    }
+
+    setMessage("Submitted for MotoIndex review. It stays private until an admin verifies it for publication.");
+  }
 
   function buildReportText() {
     const lines = [
@@ -282,7 +328,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
     </div>
 
     <section className="section">
-      <div className="section-head"><div><h2>Seller listing draft</h2><p>Prepare the basic fields now. Publishing to MotoIndex will come after seller accounts and verification are available.</p></div></div>
+      <div className="section-head"><div><h2>Seller listing</h2><p>Prepare the public listing fields, then submit them for MotoIndex review. Your plate, Garage documents, expense history and private notes are not included in the marketplace submission.</p></div></div>
       <form className="lead-form" onSubmit={(event) => event.preventDefault()}>
         <div className="lead-form-grid">
           <label>Asking price<input value={askingPrice} onChange={(event) => setAskingPrice(event.target.value)} type="number" min="0" step="1" placeholder={effectiveValue ? String(effectiveValue) : ""} /></label>
@@ -296,7 +342,8 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
         <p>{listingPrice ? `${money(listingPrice)} · ` : ""}{bike.odometerKm.toLocaleString()} km · {condition}{location.trim() ? ` · ${location.trim()}` : ""}</p>
         <p>{historySummary}</p>
         <div className="hero-actions">
-          <button className="button small" type="button" onClick={() => copyText(buildListingText(), "Listing draft copied.")}>Copy listing draft</button>
+          <button className="button small" type="button" onClick={submitListing} disabled={submitting}>{submitting ? "Submitting…" : "Submit for MotoIndex review"}</button>
+          <button className="button small ghost" type="button" onClick={() => copyText(buildListingText(), "Listing draft copied.")}>Copy listing draft</button>
           {model && <a className="button small ghost" href={`/used-motorcycles/${model.makeSlug}/${model.slug}`}>Check used market</a>}
         </div>
       </div>
