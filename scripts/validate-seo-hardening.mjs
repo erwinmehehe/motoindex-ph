@@ -145,6 +145,37 @@ for (const token of [
 }
 requireText(topBoxFitmentData, 'status: "research"', "NMAX V3 fitment uncertainty must remain represented instead of promoting all SHAD edges to verified.");
 
+const fitmentWave2 = [
+  ["sh39-mio-gear", "yamaha-mio-gear", "Y0MZ16ST", "Gear: 2020-2025"],
+  ["sh39-mio-i125", "yamaha-mio-i-125", "Y0MZ16ST", "Mio i125: 2014-2025"],
+  ["sh39-burgman-street", "suzuki-burgman-street", "S0BR14ST", "2024-2026"],
+  ["sh39-avenis", "suzuki-avenis", "S0AV13IST", "2023-2026"],
+  ["sh39-click125", "honda-click-125i", "H0VR15IST", "Click/Vario 125: 2015-2026"],
+  ["sh39-burgman-400", "suzuki-burgman-400", "S0BR47ST", "2017-2026"],
+  ["sh39-cb650r", "honda-cb650r", "H0CR64ST", "CB650R: 2024-2026"],
+  ["sh39-nx500", "honda-nx500-e-clutch", "H0CX55ST", "NX500: 2023-2026"],
+  ["sh39-adv350", "honda-adv-350", "H0FR15IST", "ADV350: 2025-2026"],
+  ["sh39-tmax-tech-max", "yamaha-tmax", "Y0TX52ST", "TMAX 560 Tech Max: 2022-2026"],
+];
+
+if (fitmentWave2.length !== 10) errors.push("Top-box fitment wave 2 must retain exactly ten reviewed additions.");
+for (const [id, modelId, rackCode, modelYears] of fitmentWave2) {
+  const start = topBoxFitmentData.indexOf(`id: "${id}"`);
+  if (start < 0) {
+    errors.push(`Top-box fitment wave 2 lost ${id}.`);
+    continue;
+  }
+  const end = topBoxFitmentData.indexOf("\n  },", start);
+  const block = topBoxFitmentData.slice(start, end > start ? end : start + 1800);
+  requireText(block, `modelId: "${modelId}"`, `${id} must remain attached to ${modelId}.`);
+  requireText(block, `rackCode: "${rackCode}"`, `${id} lost manufacturer rack code ${rackCode}.`);
+  requireText(block, `modelYears: "${modelYears}"`, `${id} lost reviewed model-year coverage.`);
+  requireText(block, 'status: "verified"', `${id} must remain a reviewed manufacturer-backed fitment edge.`);
+  requireText(block, 'lastChecked: "2026-09-23"', `${id} must retain the September 23 source check.`);
+}
+requireText(topBoxFitmentData, "not compatible with the big or aluminium mounting plates", "Restricted scooter fittings must retain the SHAD plate warning.");
+requireText(topBoxFitmentData, "Reconfirm the rack before ordering for a later Philippine model year.", "Yamaha 2025-only fitment coverage must retain the later-model-year caution.");
+
 
 if (errors.length) {
   console.error("SEO hardening validation failed:");
