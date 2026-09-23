@@ -11,6 +11,16 @@ function senderEmail() {
   return process.env.OWNER_AUTH_FROM_EMAIL || process.env.PRICE_ALERT_FROM_EMAIL || "";
 }
 
+export function ownerRequestOriginAllowed(request: Request) {
+  const origin = request.headers.get("origin");
+  if (!origin) return true;
+  try {
+    return new URL(origin).origin === new URL(request.url).origin;
+  } catch {
+    return false;
+  }
+}
+
 export function ownerAuthConfigured() {
   return Boolean(
     process.env.GARAGE_CLOUD_SYNC_ENABLED === "true" &&
