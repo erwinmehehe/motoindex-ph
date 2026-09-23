@@ -18,6 +18,12 @@ const required = [
   [".env.example", ["GARAGE_CLOUD_SYNC_ENABLED=false", "OWNER_AUTH_FROM_EMAIL", "OWNER_SESSION_DAYS=30"]],
   ["prisma/schema.prisma", ["model OwnerAccount", "reminderEmailsEnabled Boolean @default(false)", "model OwnerMagicLink", "model OwnerSession", "model GarageSnapshot", "model GarageReminder"]],
   ["middleware.ts", ["/garage", "Referrer-Policy", "no-referrer"]],
+  ["components/GarageResalePack.tsx", ["Submit for MotoIndex review", "Marketplace status:", "Withdraw listing", "/api/garage/listings"]],
+  ["app/api/garage/listings/route.ts", ["garageSnapshot", "catalogModelId", 'status: "submitted"', "garageMotorcycleLocalId", "garageMotorcycleUpdatedAt", "export async function DELETE"]],
+  ["app/api/used-listings/[id]/inquiries/route.ts", ["sendUsedListingInquiry", "recentCount >= 5", 'status: "verified"', 'status: "delivery_failed"']],
+  ["app/api/admin/used-listings/[id]/route.ts", ['"verify"', '"reject"', '"expire"', "ownerListingUrl"]],
+  ["app/used-motorcycles/listing/[id]/page.tsx", ["robots: { index: false", "UsedListingInquiryForm", "MotoIndex does not certify ownership"]],
+  ["prisma/schema.prisma", ["model UsedListingInquiry", "garageMotorcycleLocalId", "usedListings   UsedListing[]"]],
 ];
 
 for (const [path, needles] of required) {
