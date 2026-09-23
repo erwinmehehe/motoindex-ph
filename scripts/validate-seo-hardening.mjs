@@ -210,6 +210,41 @@ requireText(topBoxFitmentData, 'id: "sh33-burgman-street-ex"', "Burgman Street E
 requireText(topBoxFitmentData, 'topBoxId: "shad-sh33"', "Wave 3 must preserve the SH33-specific Burgman Street EX compatibility.");
 requireText(topBoxFitmentData, "exact fitting detail table currently stops at 2025", "2025-limited fitments must retain the explicit later-year recheck boundary.");
 
+const fitmentWave4 = [
+  ["sh39-nmax-v2", "yamaha-nmax-v2", "Y0INM19ST", "MotoIndex NMAX V2: 2020-2021; SHAD NMAX 155 rack coverage: 2020-2024"],
+  ["sh33-nmax-v2", "yamaha-nmax-v2", "Y0INM19ST", "MotoIndex NMAX V2: 2020-2021; SHAD NMAX 155 rack coverage: 2020-2024"],
+  ["sh39-aerox-v2", "yamaha-aerox-v2", "Y0AE14IST", "MotoIndex Aerox V2: 2021 generation; SHAD Aerox rack coverage: 2021-2026"],
+  ["sh33-aerox-v2", "yamaha-aerox-v2", "Y0AE14IST", "MotoIndex Aerox V2: 2021 generation; SHAD Aerox rack coverage: 2021-2026"],
+  ["sh39-click150i", "honda-click-150i", "H0VR15IST", "Click150i MotoIndex generation: 2018-2022; SHAD Vario 150 coverage: 2015-2022"],
+  ["sh39-xmax", "yamaha-xmax", "Y0XM33ST", "XMAX 300: 2023-2025"],
+  ["sh39-gixxer-sf250", "suzuki-gixxer-sf250", "S0GX22IST", "2021-2025"],
+  ["sh39-lexi155", "yamaha-lexi-155", "Y0LX14IST", "2024-2026"],
+  ["sh39-klx150", "kawasaki-klx150", "K0IKL18ST", "2015-2026"],
+  ["sh39-cb500-hornet", "honda-cb500-hornet-e-clutch", "H0CB59ST", "CB500 Hornet family: 2023-2026"],
+];
+
+if (fitmentWave4.length !== 10) errors.push("Top-box fitment wave 4 must retain exactly ten reviewed relationships.");
+for (const [id, modelId, rackCode, modelYears] of fitmentWave4) {
+  const start = topBoxFitmentData.indexOf(`id: "${id}"`);
+  if (start < 0) {
+    errors.push(`Top-box fitment wave 4 lost ${id}.`);
+    continue;
+  }
+  const end = topBoxFitmentData.indexOf("\n  },", start);
+  const fitmentBlock = topBoxFitmentData.slice(start, end > start ? end : start + 2600);
+  requireText(fitmentBlock, `modelId: "${modelId}"`, `${id} must remain attached to ${modelId}.`);
+  requireText(fitmentBlock, `rackCode: "${rackCode}"`, `${id} lost manufacturer rack code ${rackCode}.`);
+  requireText(fitmentBlock, `modelYears: "${modelYears}"`, `${id} lost reviewed year/generation coverage.`);
+  requireText(fitmentBlock, 'status: "verified"', `${id} must remain manufacturer-backed.`);
+  requireText(fitmentBlock, 'lastChecked: "2026-09-23"', `${id} must retain the September 23 source check.`);
+}
+requireText(topBoxFitmentData, 'id: "sh33-nmax-v2"', "Wave 4 must preserve the explicit SH33 alternative for NMAX V2.");
+requireText(topBoxFitmentData, 'id: "sh33-aerox-v2"', "Wave 4 must preserve the explicit SH33 alternative for Aerox V2.");
+requireText(topBoxFitmentData, "SHAD Vario 150 coverage: 2015-2022", "Click150i must retain the verified Vario 150 cross-market year boundary.");
+requireText(topBoxFitmentData, "2026 units require a rack recheck before ordering", "XMAX must retain the 2026 recheck warning.");
+requireText(topBoxFitmentData, "Reconfirm fitment for a 2026 Philippine unit", "Gixxer SF250 must retain the 2026 fitment warning.");
+requireText(topBoxFitmentData, "SHAD catalogs the CB500 Hornet family rather than the Philippine E-Clutch trim separately", "CB500 Hornet E-Clutch must retain the trim-level caution.");
+
 
 if (errors.length) {
   console.error("SEO hardening validation failed:");
