@@ -104,7 +104,12 @@ export function GarageAccountPanel({
     }
     setCloud({ revision: Number(data.revision) || cloud.revision + 1, updatedAt: data.updatedAt, payload: garageState });
     setWorking(false);
-    setStatus("This device is saved to your private MotoIndex cloud Garage.");
+    if (account?.reminderEmailsEnabled && data.reminderCount === null) {
+      setStatus("Your Garage was saved, but the reminder schedule could not refresh. Save again later before relying on email reminders.");
+    } else {
+      const reminderNote = account?.reminderEmailsEnabled && Number.isFinite(data.reminderCount) ? ` ${data.reminderCount} reminder${data.reminderCount === 1 ? "" : "s"} refreshed.` : "";
+      setStatus(`This device is saved to your private MotoIndex cloud Garage.${reminderNote}`);
+    }
   }
 
   function restoreCloud() {
