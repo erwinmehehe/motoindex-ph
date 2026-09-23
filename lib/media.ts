@@ -943,6 +943,56 @@ export const entityMedia: EntityMedia[] = [
     src: "/media/motorcycles/cfmoto-400nk.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/132/2079/cfmoto-400-nk-color-501777.jpg", alt: "CFMoto 400NK naked motorcycle in white and teal", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "ZigWheels Philippines", sourceLabel: "Philippine market image reference · ZigWheels CFMoto 400NK", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/cfmoto/400-nk", lastChecked: "2026-09-22"
   },
+  {
+    id: "honda-airblade-160-honda-official", entityType: "motorcycle", entityId: "honda-airblade-160", role: "primary",
+    src: "/media/motorcycles/honda-airblade-160.webp", sourceImageUrl: "https://cdn.honda.com.vn/motorbike-versions/Image360/November2025/1762148885/0.png", alt: "Honda AirBlade 160 scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Vietnam", sourceLabel: "Manufacturer-hosted image reference · Honda AirBlade 160", sourceUrl: "https://www.honda.com.vn/xe-may/san-pham/air-blade-160125", lastChecked: "2026-09-23"
+  },
+  {
+    id: "honda-cbr150r-honda-ph", entityType: "motorcycle", entityId: "honda-cbr150r", role: "primary",
+    src: "/media/motorcycles/honda-cbr150r.webp", sourceImageUrl: "https://images.ctfassets.net/p4ab844it03t/7udRlrxfC4Nqu6blG2EKTY/c7f40fb788d9fe295445bfebfd1b7e48/67e0b720bcd80.png?fm=webp&q=80", alt: "Honda CBR150R sport motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Philippines", sourceLabel: "Manufacturer-hosted image reference · Honda Philippines CBR150R", sourceUrl: "https://www.hondaph.com/motorcycle/news/honda-philippines-unleashes-power-and-innovation-at-the-action-packed-inside-racing-bikefest-2025", lastChecked: "2026-09-23"
+  },
+  {
+    id: "honda-cbr650r-honda-global", entityType: "motorcycle", entityId: "honda-cbr650r", role: "primary",
+    src: "/media/motorcycles/honda-cbr650r.webp", sourceImageUrl: "https://global.honda/content/dam/site/global-en/newsroom-new/cq_img/news/2023/11/dl/c231107a_004H.jpg", alt: "Honda CBR650R E-Clutch sport motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Motor Co., Ltd.", sourceLabel: "Manufacturer-hosted image reference · Honda CBR650R", sourceUrl: "https://global.honda/en/newsroom/news/2023/c231107aeng/image_download.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "honda-crf1100l-africa-twin-honda-global", entityType: "motorcycle", entityId: "honda-crf1100l-africa-twin", role: "primary",
+    src: "/media/motorcycles/honda-crf1100l-africa-twin.webp", sourceImageUrl: "https://global.honda/content/dam/site/global-en/newsroom-new/cq_img/news/2026/01/2260123eng-crf1100l/web/2260123-crf1100l_001L.jpg", alt: "Honda CRF1100L Africa Twin adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Motor Co., Ltd.", sourceLabel: "Manufacturer-hosted image reference · Honda CRF1100L Africa Twin", sourceUrl: "https://global.honda/en/newsroom/news/2026/2260123eng-crf1100l.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "honda-xl750-transalp-honda-global", entityType: "motorcycle", entityId: "honda-xl750-transalp", role: "primary",
+    src: "/media/motorcycles/honda-xl750-transalp.webp", sourceImageUrl: "https://global.honda/content/dam/site/global-en/newsroom-new/cq_img/news/2026/03/2260306eng-xl750/web/2260306-xl750_001L.jpg", alt: "Honda XL750 Transalp adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Motor Co., Ltd.", sourceLabel: "Manufacturer-hosted image reference · Honda XL750 Transalp", sourceUrl: "https://global.honda/en/newsroom/news/2026/2260306eng-xl750.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "yamaha-lexi-155-yamaha-official", entityType: "motorcycle", entityId: "yamaha-lexi-155", role: "primary",
+    src: "/media/motorcycles/yamaha-lexi-155.webp", sourceImageUrl: "https://www.yamaha-motor.co.id/uploads/products/new_product_model_image/202601210136411054B75592.png", alt: "Yamaha LEXi LX 155 scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Yamaha Motor", sourceLabel: "Manufacturer-hosted image reference · Yamaha LEXi LX 155", sourceUrl: "https://www.yamaha-motor.co.id/product/lexi-lx-155/", lastChecked: "2026-09-23"
+  },
+  {
+    id: "yamaha-yzf-r3-yamaha-global", entityType: "motorcycle", entityId: "yamaha-yzf-r3", role: "primary",
+    src: "/media/motorcycles/yamaha-yzf-r3.webp", sourceImageUrl: "https://global.yamaha-motor.com/jp/news/assets_c/2025/03/105849_0001-thumb-1360x1019-260019.jpg", alt: "Yamaha YZF-R3 sport motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Yamaha Motor Co., Ltd.", sourceLabel: "Manufacturer-hosted image reference · Yamaha YZF-R3", sourceUrl: "https://global.yamaha-motor.com/jp/news/2025/0318/yzf-r3.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "yamaha-yzf-r7-yamaha-global", entityType: "motorcycle", entityId: "yamaha-yzf-r7", role: "primary",
+    src: "/media/motorcycles/yamaha-yzf-r7.webp", sourceImageUrl: "https://global.yamaha-motor.com/jp/news/topics_assets/132520_0001.jpg", alt: "Yamaha YZF-R7 sport motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Yamaha Motor Co., Ltd.", sourceLabel: "Manufacturer-hosted image reference · Yamaha YZF-R7", sourceUrl: "https://global.yamaha-motor.com/jp/news/2026/0409/yzf.html", lastChecked: "2026-09-23"
+  },
+  {
+    id: "kawasaki-z900-kawasaki-global", entityType: "motorcycle", entityId: "kawasaki-z900", role: "primary",
+    src: "/media/motorcycles/kawasaki-z900.webp", sourceImageUrl: "https://global.kawasaki.com/en/corp/newsroom/news/images/news_241031-Z900%20.jpg", alt: "Kawasaki Z900 naked motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors, Ltd.", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Z900", sourceUrl: "https://global.kawasaki.com/en/corp/newsroom/news/detail/?f=20241031_1292", lastChecked: "2026-09-23"
+  },
+  {
+    id: "yamaha-yzf-r15m-yamaha-india", entityType: "motorcycle", entityId: "yamaha-yzf-r15m", role: "primary",
+    src: "/media/motorcycles/yamaha-yzf-r15m.webp", sourceImageUrl: "https://shop.yamaha-motor-india.com/cdn/shop/files/metallic_grey.webp?v=1757050338", alt: "Yamaha R15M sport motorcycle in Metallic Grey", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "India Yamaha Motor", sourceLabel: "Manufacturer e-shop image reference · Yamaha R15M", sourceUrl: "https://shop.yamaha-motor-india.com/products/buy-r15m", lastChecked: "2026-09-23"
+  },
 ];
 
 export function getRenderableMedia(entityType: EntityMedia["entityType"], entityId: string) {
