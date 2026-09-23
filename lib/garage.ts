@@ -178,6 +178,13 @@ export function verifiedMaintenanceRemindersForBike(bike: GarageMotorcycle): Omi
     .filter((item) => item.dueKm !== undefined || item.dueDate !== undefined);
 }
 
+export function advanceGarageReminder(reminder: GarageReminder, currentKm: number, completedDate: string) {
+  const dueKm = reminder.intervalKm ? currentKm + reminder.intervalKm : undefined;
+  const dueDate = reminder.intervalMonths ? addMonths(completedDate, reminder.intervalMonths) : undefined;
+  if (dueKm === undefined && dueDate === undefined) return null;
+  return { ...reminder, dueKm, dueDate };
+}
+
 export function maintenanceReferenceForBike(bike: GarageMotorcycle) {
   const guessedId = guessedCatalogModelId(bike);
   const exact = maintenanceSchedules.find((schedule) => schedule.modelId === guessedId);
