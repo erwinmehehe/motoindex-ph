@@ -186,6 +186,38 @@ for (const token of [
 }
 
 for (const token of [
+  '"yamaha-aerox-v3": {',
+  'seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Specs & Monthly"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: Aerox V3 authority wave lost token ${token}`);
+}
+
+if (buyerBrief.includes('"yamaha-aerox-v3": {')) {
+  errors.push("PriorityModelBrief: Aerox V3 must not duplicate the authority/commercial buyer guidance");
+}
+
+for (const token of [
+  'modelId:"yamaha-aerox-v3"',
+  'comparisonIds:["yamaha-nmax-v3","honda-click-160","honda-adv-160"]'
+]) {
+  if (!authority.includes(token)) errors.push(`modelAuthority: Aerox V3 authority wave lost token ${token}`);
+}
+
+for (const token of [
+  'id: "yamaha-aerox-v3"',
+  'srp: 125900',
+  'marketPriceHighPhp: 163900',
+  'seatHeightMm: 790',
+  'frontTire: "110/80-14"',
+  'rearTire: "140/70-14"',
+  'sourceUrl: "https://www.yamaha-motor.com.ph/yecvt"',
+  'marketPriceSourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-aerox-sp/"',
+  'marketPriceCheckedAt: "2026-09-22"'
+]) {
+  if (!data.includes(token)) errors.push(`Yamaha Aerox V3 verification: missing token ${token}`);
+}
+
+for (const token of [
   '"honda-crf150l": {',
   'seoTitle: "Honda CRF150L Philippines | Price Reference & Specs"'
 ]) {

@@ -45,7 +45,7 @@ export function parseSearchIntent(query:string):Intent{
   if(/\bfuel[ -]?efficient\b|\bhigh km\/?l\b/.test(q)){intent.fuelEfficient=true;q=q.replace(/\bfuel[ -]?efficient\b|\bhigh km\/?l\b/g," ")}
   if(/\bheavy traffic\b|\bstop[ -]?go\b|\btraffic friendly\b/.test(q)){intent.trafficFriendly=true;q=q.replace(/\bheavy traffic\b|\bstop[ -]?go\b|\btraffic friendly\b/g," ")}
   if(/\bdelivery rider\b|\bdelivery bike\b|\bwork bike\b|\bgig work\b/.test(q)){intent.delivery=true;q=q.replace(/\bdelivery rider\b|\bdelivery bike\b|\bwork bike\b|\bgig work\b/g," ")}
-  const categories=["scooter","underbone","adventure","sport bike","sport","business","dual-sport","dual sport","naked","roadster"];
+  const categories=["sport bike","dual-sport","dual sport","underbone","adventure","business","naked","roadster","scooter","sport"];
   for(const cat of categories){if(q.includes(cat)){intent.category=cat.replace("dual sport","dual-sport");q=q.replace(cat," ");break}}
   intent.textTerms=q.split(/\s+/).filter(Boolean).filter(t=>!["motorcycle","motorcycles","bike","bikes","philippines","ph","price","specs"].includes(t));
   return intent;

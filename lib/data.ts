@@ -36,9 +36,10 @@ export const motorcycles: Motorcycle[] = [
     marketPriceHighPhp: 163900,
     marketPriceSourceLabel: "Motortrade Philippines dealer listing",
     marketPriceSourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-aerox-sp/",
-    marketPriceCheckedAt: "2026-09-19",
+    marketPriceCheckedAt: "2026-09-22",
+    priceContext: "Yamaha Philippines currently shows the Aerox at ₱125,900. The higher-spec Aerox SP is listed at ₱163,900 by Motortrade, while Yamaha identifies the SP as the YECVT-equipped variant. Confirm the exact trim and branch quote before purchase.",
     transmission: "Automatic",
-    summary: "155cc automatic sport scooter with a 790 mm seat, 124 kg curb weight and Standard/SP variants."
+    summary: "Current 155cc automatic sport scooter with a 790 mm seat, 124 kg base-model curb weight, 5.5 L tank, wide 14-inch tires and Standard/SP variant differences."
   },
   {
     id: "yamaha-nmax-v3",
