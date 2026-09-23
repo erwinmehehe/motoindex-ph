@@ -185,6 +185,125 @@ for (const token of [
   if (!data.includes(token)) errors.push(`Honda BeAT verification: missing token ${token}`);
 }
 
+for (const token of ['"honda-click-125i": {','seoTitle: "Honda Click 125i Price Philippines 2026 | Specs & Ownership"']) if (!growth.includes(token)) errors.push(`priorityModelGrowth: Click125 authority wave lost token ${token}`);
+if (buyerBrief.includes('"honda-click-125i": {')) errors.push("PriorityModelBrief: Click125 must not duplicate authority/commercial buyer guidance");
+for (const token of ['modelId:"honda-click-125i"','comparisonIds:["yamaha-fazzio","yamaha-mio-gear","honda-click-160"]']) if (!authority.includes(token)) errors.push(`modelAuthority: Click125 authority wave lost token ${token}`);
+for (const token of ['id: "honda-click-125i"','srp: 83000','marketPriceHighPhp: 87700','seatHeightMm: 769','fuelTankL: 5.5','fuelConsumptionKmL: 50.3','marketPriceCheckedAt: "2026-09-22"']) if (!data.includes(token)) errors.push(`Honda Click125 verification: missing token ${token}`);
+
+for (const token of ['"yamaha-fazzio": {','seoTitle: "Yamaha Fazzio Price Philippines 2026 | Specs & Monthly"']) if (!growth.includes(token)) errors.push(`priorityModelGrowth: Fazzio authority wave lost token ${token}`);
+if (buyerBrief.includes('"yamaha-fazzio": {')) errors.push("PriorityModelBrief: Fazzio must not duplicate authority/commercial buyer guidance");
+for (const token of ['modelId:"yamaha-fazzio"','comparisonIds:["honda-click-125i","yamaha-mio-gear","suzuki-burgman-street-ex"]']) if (!authority.includes(token)) errors.push(`modelAuthority: Fazzio authority wave lost token ${token}`);
+for (const token of ['id: "yamaha-fazzio"','srp: 93900','curbWeightKg: 95','seatHeightMm: 750','fuelTankL: 5.1','frontTire: "110/70-12"','marketPriceCheckedAt: "2026-09-22"']) if (!data.includes(token)) errors.push(`Yamaha Fazzio verification: missing token ${token}`);
+
+for (const token of [
+  '"honda-pcx-160": {',
+  'seoTitle: "Honda PCX160 Price Philippines 2026 | Standard vs RoadSync"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: PCX160 authority wave lost token ${token}`);
+}
+if (buyerBrief.includes('"honda-pcx-160": {')) errors.push("PriorityModelBrief: PCX160 must not duplicate authority/commercial buyer guidance");
+for (const token of ['modelId:"honda-pcx-160"','comparisonIds:["yamaha-nmax-v3","honda-adv-160","yamaha-aerox-v3"]']) {
+  if (!authority.includes(token)) errors.push(`modelAuthority: PCX160 authority wave lost token ${token}`);
+}
+for (const token of ['id: "honda-pcx-160"','srp: 133500','marketPriceHighPhp: 155000','seatHeightMm: 764','fuelTankL: 8.1','fuelConsumptionKmL: 46.0','marketPriceCheckedAt: "2026-09-22"']) {
+  if (!data.includes(token)) errors.push(`Honda PCX160 verification: missing token ${token}`);
+}
+
+for (const token of [
+  '"honda-click-160": {',
+  'seoTitle: "Honda Click160 Price Philippines 2026 | Specs & Monthly"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: Click160 authority wave lost token ${token}`);
+}
+
+if (buyerBrief.includes('"honda-click-160": {')) {
+  errors.push("PriorityModelBrief: Click160 must not duplicate the authority/commercial buyer guidance");
+}
+
+for (const token of [
+  'modelId:"honda-click-160"',
+  'comparisonIds:["honda-click-125i","honda-pcx-160","yamaha-aerox-v3"]'
+]) {
+  if (!authority.includes(token)) errors.push(`modelAuthority: Click160 authority wave lost token ${token}`);
+}
+
+for (const token of [
+  'id: "honda-click-160"',
+  'srp: 116900',
+  'engineCc: 157',
+  'curbWeightKg: 116',
+  'seatHeightMm: 778',
+  'fuelTankL: 5.5',
+  'fuelConsumptionKmL: 46.7',
+  'abs: "Combined Braking System (CBS)"',
+  'marketPriceCheckedAt: "2026-09-22"'
+]) {
+  if (!data.includes(token)) errors.push(`Honda Click160 verification: missing token ${token}`);
+}
+
+for (const token of [
+  '"honda-adv-160": {',
+  'seoTitle: "Honda ADV160 Price Philippines 2026 | ABS & RoadSync"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: ADV160 authority wave lost token ${token}`);
+}
+
+if (buyerBrief.includes('"honda-adv-160": {')) {
+  errors.push("PriorityModelBrief: ADV160 must not duplicate the authority/commercial buyer guidance");
+}
+
+for (const token of [
+  'modelId:"honda-adv-160"',
+  'comparisonIds:["yamaha-nmax-v3","honda-pcx-160","honda-click-160"]'
+]) {
+  if (!authority.includes(token)) errors.push(`modelAuthority: ADV160 authority wave lost token ${token}`);
+}
+
+for (const token of [
+  'id: "honda-adv-160"',
+  'srp: 167400',
+  'marketPriceHighPhp: 174900',
+  'seatHeightMm: 780',
+  'fuelConsumptionKmL: 45.0',
+  'groundClearanceMm: 165',
+  'sourceUrl: "https://www.hondaph.com/motorcycle/news/experience-the-suv-pride-with-the-adv160"',
+  'marketPriceSourceUrl: "https://trafficnetworkph.com/ride-the-suv-pride-the-new-honda-adv160/"',
+  'marketPriceCheckedAt: "2026-09-22"'
+]) {
+  if (!data.includes(token)) errors.push(`Honda ADV160 verification: missing token ${token}`);
+}
+
+for (const token of [
+  '"yamaha-nmax-v3": {',
+  'seoTitle: "Yamaha NMAX V3 Price Philippines 2026 | Tech Max Specs"'
+]) {
+  if (!growth.includes(token)) errors.push(`priorityModelGrowth: NMAX V3 authority wave lost token ${token}`);
+}
+
+if (buyerBrief.includes('"yamaha-nmax-v3": {')) {
+  errors.push("PriorityModelBrief: NMAX V3 must not duplicate the authority/commercial buyer guidance");
+}
+
+for (const token of [
+  'modelId:"yamaha-nmax-v3"',
+  'comparisonIds:["yamaha-aerox-v3","honda-pcx-160","honda-adv-160"]'
+]) {
+  if (!authority.includes(token)) errors.push(`modelAuthority: NMAX V3 authority wave lost token ${token}`);
+}
+
+for (const token of [
+  'id: "yamaha-nmax-v3"',
+  'srp: 155900',
+  'marketPriceHighPhp: 178400',
+  'seatHeightMm: 770',
+  'fuelTankL: 7.1',
+  'sourceUrl: "https://www.yamaha-motor.com.ph/yecvt"',
+  'marketPriceSourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-nmax-techmax/"',
+  'marketPriceCheckedAt: "2026-09-22"'
+]) {
+  if (!data.includes(token)) errors.push(`Yamaha NMAX V3 verification: missing token ${token}`);
+}
+
 for (const token of [
   '"yamaha-aerox-v3": {',
   'seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Specs & Monthly"'
@@ -465,6 +584,20 @@ for (const token of [
   if (!commercial.includes(token)) {
     errors.push(`PriorityCommercialIntent lost required canonical commercial path: ${token}`);
   }
+}
+
+for (const token of ['id: "yamaha-yzf-r1m"','verifiedAt: "2026-09-22"','marketPriceCheckedAt: "2026-09-22"','sourceUrl: "https://www.yamaha-motor.com.ph/motorcycles/sport-machines/supersport/yzf-r1m"','marketPriceSourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-yzf-r1/"']) {
+  if (!data.includes(token)) errors.push(`YZF-R1M authority: missing data token ${token}`);
+}
+if (!authority.includes('modelId:"yamaha-yzf-r1m"')) errors.push("YZF-R1M authority: decision profile missing");
+if (!brandSupport.includes('makeSlug:"yamaha"')) errors.push("YZF-R1M authority: Yamaha Philippine support record missing");
+if (data.includes('id: "yamaha-yzf-r1"') || data.includes('id: "yamaha-r1"')) errors.push("YZF-R1M authority: duplicate R1 entity must not be created");
+
+for (const modelId of ["honda-adv-350","yamaha-tmax","honda-cb650r","yamaha-mio-i-125","honda-click-150i","kawasaki-ninja-400","yamaha-aerox-v2","yamaha-nmax-v2","honda-navi","honda-beat"]) {
+  if (!growth.includes(`"${modelId}": {`)) errors.push(`approved authority wave: missing commercial profile for ${modelId}`);
+}
+for (const modelId of ["honda-adv-350","yamaha-tmax","honda-cb650r","yamaha-mio-i-125","honda-click-150i","kawasaki-ninja-400","yamaha-aerox-v2","yamaha-nmax-v2"]) {
+  if (!authority.includes(`modelId:"${modelId}"`)) errors.push(`approved authority wave: missing decision profile for ${modelId}`);
 }
 
 if (errors.length) {
