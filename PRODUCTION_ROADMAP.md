@@ -993,3 +993,18 @@ The remaining approved canonical-page authority work from the September 22 stack
 - Previous-generation models keep historical/used intent and route current-new-bike intent toward their successors rather than competing with current canonicals.
 - Commercial browser QA and the responsive visual matrix cover the expanded priority-model set.
 - No thin price/spec/installment/model-year routes are introduced; one canonical owner remains responsible for each model intent.
+
+
+### Ownership authority wave 2 — Honda Philippines commuter PMS guidance
+
+Honda Philippines now has a source-backed brand-level maintenance layer for commuter motorcycles while exact owner-manual schedules remain the preferred source when available.
+
+- Added Honda Philippines' current commuter-bike free-service/PMS windows from the official motorcycle FAQ: **500–2,000 km or 3 months**, **2,001–6,000 km or 7 months**, and **6,001–12,000 km or 12 months** from purchase, subject to Honda's whichever-comes-first guidance.
+- These windows are explicitly labeled as **free-service coupon / preventive-maintenance guidance**, not a complete model-specific maintenance table.
+- Existing exact Honda owner-manual schedules for Click160 and PCX160 continue to take precedence.
+- Honda models without a parsed exact schedule, including ADV160, Navi and BeAT, can now show official Honda brand-level service timing without inventing model-specific replacement intervals.
+- Model-page disclosure is now manufacturer-generic instead of hard-coded to Yamaha.
+- Maintenance-hub structured-data freshness now includes brand-maintenance source-check dates.
+- CI guards Honda source provenance, service-window wording and the distinction between brand guidance and exact owner-manual requirements.
+
+Next: add an exact ADV160 owner-manual schedule only after the Philippine-market owner-manual maintenance table is directly verified; do not infer it from generic Honda service windows.
