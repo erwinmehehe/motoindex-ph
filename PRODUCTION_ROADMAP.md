@@ -1096,3 +1096,28 @@ Important boundaries:
 - SH33 alternatives are only added where SHAD itself lists SH33 as a compatible product on the reviewed rack page.
 
 CI guards all ten relationships, rack codes, year/generation boundaries, verification states and source-check dates.
+
+
+### Fitment authority wave 5 — ten verified SH33 alternatives
+
+This wave deepens existing verified rack relationships with a compact 33 L case option only where SHAD explicitly lists SH33 on the reviewed fitting page.
+
+1. Yamaha Fazzio → SHAD SH33 / Y0IFZ11ST
+2. Yamaha Mio Gear → SHAD SH33 / Y0MZ16ST
+3. Suzuki Burgman Street → SHAD SH33 / S0BR14ST
+4. Suzuki Avenis → SHAD SH33 / S0AV13IST
+5. Honda Click125i → SHAD SH33 / H0VR15IST
+6. Honda Click150i → SHAD SH33 / H0VR15IST
+7. Honda CB650R → SHAD SH33 / H0CR64ST
+8. Yamaha TMAX Tech Max → SHAD SH33 / Y0TX52ST
+9. Yamaha Lexi 155 → SHAD SH33 / Y0LX14IST
+10. Kawasaki KLX150 → SHAD SH33 / K0IKL18ST
+
+Important boundaries:
+- These are alternative case relationships on already-reviewed racks, not new motorcycle-rack claims.
+- Mio Gear retains the 2025 exact-page cutoff and later-model-year recheck warning.
+- Click125i / Click150i retain their Click/Vario regional naming and generation boundaries.
+- Burgman Street, Click and KLX150 keep SHAD's big/aluminium-plate restrictions; the SH33 plate remains the manufacturer-listed compact-case option.
+- Lexi 155 retains the Lexi LX 155 regional-name note.
+
+CI guards all ten SH33 relationship IDs, model IDs, rack codes, year/generation scopes, verification states and source-check dates.

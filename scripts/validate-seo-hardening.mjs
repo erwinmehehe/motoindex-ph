@@ -245,6 +245,40 @@ requireText(topBoxFitmentData, "2026 units require a rack recheck before orderin
 requireText(topBoxFitmentData, "Reconfirm fitment for a 2026 Philippine unit", "Gixxer SF250 must retain the 2026 fitment warning.");
 requireText(topBoxFitmentData, "SHAD catalogs the CB500 Hornet family rather than the Philippine E-Clutch trim separately", "CB500 Hornet E-Clutch must retain the trim-level caution.");
 
+const fitmentWave5 = [
+  ["sh33-fazzio", "yamaha-fazzio", "Y0IFZ11ST", "2022-2026"],
+  ["sh33-mio-gear", "yamaha-mio-gear", "Y0MZ16ST", "Gear: 2020-2025"],
+  ["sh33-burgman-street", "suzuki-burgman-street", "S0BR14ST", "2024-2026"],
+  ["sh33-avenis", "suzuki-avenis", "S0AV13IST", "2023-2026"],
+  ["sh33-click125", "honda-click-125i", "H0VR15IST", "Click/Vario 125: 2015-2026"],
+  ["sh33-click150i", "honda-click-150i", "H0VR15IST", "Click150i MotoIndex generation: 2018-2022; SHAD Vario 150 coverage: 2015-2022"],
+  ["sh33-cb650r", "honda-cb650r", "H0CR64ST", "CB650R: 2024-2026"],
+  ["sh33-tmax-tech-max", "yamaha-tmax", "Y0TX52ST", "TMAX 560 Tech Max: 2022-2026"],
+  ["sh33-lexi155", "yamaha-lexi-155", "Y0LX14IST", "2024-2026"],
+  ["sh33-klx150", "kawasaki-klx150", "K0IKL18ST", "2015-2026"],
+];
+
+if (fitmentWave5.length !== 10) errors.push("Top-box fitment wave 5 must retain exactly ten reviewed SH33 relationships.");
+for (const [id, modelId, rackCode, modelYears] of fitmentWave5) {
+  const start = topBoxFitmentData.indexOf(`id: "${id}"`);
+  if (start < 0) {
+    errors.push(`Top-box fitment wave 5 lost ${id}.`);
+    continue;
+  }
+  const end = topBoxFitmentData.indexOf("\n  },", start);
+  const fitmentBlock = topBoxFitmentData.slice(start, end > start ? end : start + 2600);
+  requireText(fitmentBlock, 'topBoxId: "shad-sh33"', `${id} must stay attached to SHAD SH33.`);
+  requireText(fitmentBlock, `modelId: "${modelId}"`, `${id} must remain attached to ${modelId}.`);
+  requireText(fitmentBlock, `rackCode: "${rackCode}"`, `${id} lost manufacturer rack code ${rackCode}.`);
+  requireText(fitmentBlock, `modelYears: "${modelYears}"`, `${id} lost reviewed year/generation coverage.`);
+  requireText(fitmentBlock, 'status: "verified"', `${id} must remain manufacturer-backed.`);
+  requireText(fitmentBlock, 'lastChecked: "2026-09-23"', `${id} must retain the September 23 source check.`);
+}
+requireText(topBoxFitmentData, "explicitly lists SH33", "Wave 5 must retain manufacturer-explicit SH33 compatibility language.");
+requireText(topBoxFitmentData, "SHAD currently lists Gear fitment through 2025", "Mio Gear SH33 must retain the later-model-year recheck boundary.");
+requireText(topBoxFitmentData, "SHAD catalogs this family as Vario 150 in Indonesia", "Click150i SH33 must retain the cross-market naming boundary.");
+requireText(topBoxFitmentData, "SHAD names the regional model Lexi LX 155", "Lexi 155 SH33 must retain the regional naming note.");
+
 
 if (errors.length) {
   console.error("SEO hardening validation failed:");
