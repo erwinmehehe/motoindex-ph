@@ -1,7 +1,7 @@
 import { brandMaintenanceGuides, maintenanceSchedules } from "@/lib/maintenance";
 
 export const GARAGE_STORAGE_KEY = "motoindex:garage:v1";
-export const GARAGE_VERSION = 1;
+export const GARAGE_VERSION = 2;
 
 export const GARAGE_RECORD_CATEGORIES = [
   "PMS",
@@ -76,15 +76,32 @@ export type GarageDocument = {
   notes?: string;
 };
 
+export type GarageReminder = {
+  id: string;
+  motorcycleId: string;
+  scheduleKey: string;
+  title: string;
+  action: "Inspect" | "Replace" | "Check";
+  intervalText: string;
+  dueKm?: number;
+  dueDate?: string;
+  intervalKm?: number;
+  intervalMonths?: number;
+  sourceLabel: string;
+  sourceUrl: string;
+  note?: string;
+};
+
 export type GarageState = {
   version: typeof GARAGE_VERSION;
   motorcycles: GarageMotorcycle[];
   records: GarageRecord[];
   documents: GarageDocument[];
+  reminders: GarageReminder[];
 };
 
 export function emptyGarageState(): GarageState {
-  return { version: GARAGE_VERSION, motorcycles: [], records: [], documents: [] };
+  return { version: GARAGE_VERSION, motorcycles: [], records: [], documents: [], reminders: [] };
 }
 
 export function parseGarageState(raw: string | null): GarageState {
@@ -99,6 +116,7 @@ export function parseGarageState(raw: string | null): GarageState {
       motorcycles: value.motorcycles,
       records: value.records,
       documents: value.documents,
+      reminders: Array.isArray(value.reminders) ? value.reminders : [],
     };
   } catch {
     return emptyGarageState();
@@ -111,6 +129,53 @@ export function slugifyGaragePart(value: string) {
 
 export function guessedCatalogModelId(bike: Pick<GarageMotorcycle, "make" | "model">) {
   return `${slugifyGaragePart(bike.make)}-${slugifyGaragePart(bike.model)}`;
+}
+
+function addMonths(date: string, months: number) {
+  const parsed = new Date(`${date}T00:00:00`);
+  if (Number.isNaN(parsed.valueOf())) return undefined;
+  const day = parsed.getDate();
+  parsed.setDate(1);
+  parsed.setMonth(parsed.getMonth() + months);
+  const lastDay = new Date(parsed.getFullYear(), parsed.getMonth() + 1, 0).getDate();
+  parsed.setDate(Math.min(day, lastDay));
+  return parsed.toISOString().slice(0, 10);
+}
+
+function nextMileageDue(currentKm: number, firstDueKm: number, intervalKm?: number) {
+  if (currentKm <= firstDueKm) return firstDueKm;
+  if (!intervalKm) return firstDueKm;
+  return firstDueKm + Math.ceil((currentKm - firstDueKm) / intervalKm) * intervalKm;
+}
+
+export function verifiedMaintenanceRemindersForBike(bike: GarageMotorcycle): Omit<GarageReminder, "id" | "motorcycleId">[] {
+  const guessedId = guessedCatalogModelId(bike);
+  const schedule = maintenanceSchedules.find((candidate) => candidate.modelId === guessedId && candidate.exact);
+  if (!schedule) return [];
+
+  return schedule.items
+    .filter((item) => item.firstDueKm !== undefined || item.intervalKm !== undefined || item.firstDueMonths !== undefined || item.intervalMonths !== undefined)
+    .map((item) => {
+      const firstDueMonths = item.firstDueMonths ?? item.intervalMonths;
+      return {
+        scheduleKey: `${schedule.modelId}:${slugifyGaragePart(item.item)}`,
+        title: item.item,
+        action: item.action,
+        intervalText: item.interval,
+        dueKm: item.firstDueKm !== undefined
+          ? nextMileageDue(bike.odometerKm, item.firstDueKm, item.intervalKm)
+          : undefined,
+        dueDate: bike.purchaseDate && firstDueMonths
+          ? addMonths(bike.purchaseDate, firstDueMonths)
+          : undefined,
+        intervalKm: item.intervalKm,
+        intervalMonths: item.intervalMonths,
+        sourceLabel: schedule.sourceLabel,
+        sourceUrl: schedule.sourceUrl,
+        note: item.note,
+      };
+    })
+    .filter((item) => item.dueKm !== undefined || item.dueDate !== undefined);
 }
 
 export function maintenanceReferenceForBike(bike: GarageMotorcycle) {
