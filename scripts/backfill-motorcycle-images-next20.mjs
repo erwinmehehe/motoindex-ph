@@ -11,6 +11,21 @@ fs.mkdirSync(outDir, { recursive: true });
 const UA = "Mozilla/5.0 (compatible; MotoIndexMediaVerifier/1.0; +https://motoindexph.com/methodology)";
 const checkedAt = "2026-09-23";
 
+async function fetchWithRetry(url, options, attempts=3) {
+  let lastError;
+  for (let attempt=1; attempt<=attempts; attempt++) {
+    try {
+      const response=await fetch(url, options);
+      if (response.ok || response.status < 500) return response;
+      lastError=new Error(`HTTP ${response.status} ${url}`);
+    } catch (error) {
+      lastError=error;
+    }
+    if (attempt < attempts) await new Promise(resolve=>setTimeout(resolve, 1200*attempt));
+  }
+  throw lastError || new Error(`fetch failed ${url}`);
+}
+
 const targets = [
   ["cfmoto-300nk","CFMOTO 300NK","https://www.cfmotoph.com/motorcycle/300nk",["300nk","300 nk"],"CFMOTO Philippines","Official Philippine distributor image reference · CFMOTO 300NK"],
   ["keeway-cafe-racer-152","Keeway Cafe Racer 152","https://www.keeway.com/ph-en/products/cafe-racer-152",["cafe racer 152","cafe-racer-152"],"Keeway","Manufacturer-hosted image reference · Keeway Cafe Racer 152"],
@@ -44,7 +59,7 @@ function absolute(raw, base) { try { return new URL(decode(raw), base).href; } c
 function bad(url) { return /(?:logo|favicon|sprite|icon|payment|placeholder|spinner|loading|badge|avatar|tracking|pixel|qr|newsletter|flag|footer|header|map|banner|engine|power|torque|speedometer|display|console|brake|suspension|headlight|tail.?light|feature|metric|performance|technology|specification|specs|bike-bg|background|promo|360-bg|sports-shift|shift|whats-new|radial|tyre|tire)/i.test(url); }
 
 async function fetchImage(url, referer) {
-  const response = await fetch(url,{redirect:"follow",signal:AbortSignal.timeout(30000),headers:{"user-agent":UA,accept:"image/avif,image/webp,image/png,image/jpeg,image/*,*/*;q=0.8",...(referer?{referer}:{})}});
+  const response = await fetchWithRetry(url,{redirect:"follow",signal:AbortSignal.timeout(30000),headers:{"user-agent":UA,accept:"image/avif,image/webp,image/png,image/jpeg,image/*,*/*;q=0.8",...(referer?{referer}:{})}},3);
   if (!response.ok) throw new Error(`HTTP ${response.status} ${url}`);
   const type=(response.headers.get("content-type")||"").toLowerCase();
   const bytes=Buffer.from(await response.arrayBuffer());
@@ -55,7 +70,7 @@ async function fetchImage(url, referer) {
 }
 
 async function discover(target) {
-  const response=await fetch(target.pageUrl,{redirect:"follow",signal:AbortSignal.timeout(30000),headers:{"user-agent":UA,accept:"text/html,application/xhtml+xml"}});
+  const response=await fetchWithRetry(target.pageUrl,{redirect:"follow",signal:AbortSignal.timeout(30000),headers:{"user-agent":UA,accept:"text/html,application/xhtml+xml"}},3);
   if(!response.ok) throw new Error(`page HTTP ${response.status}`);
   const html=await response.text();
   const pageUrl=response.url||target.pageUrl;
