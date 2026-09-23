@@ -14,7 +14,7 @@ const required = [
   ["app/api/garage/sync/route.ts", ["expectedRevision", "conflict: true", "MAX_PAYLOAD_BYTES", "ownerId: auth.session.ownerId"]],
   [".env.example", ["GARAGE_CLOUD_SYNC_ENABLED=false", "OWNER_AUTH_FROM_EMAIL", "OWNER_SESSION_DAYS=30"]],
   ["prisma/schema.prisma", ["model OwnerAccount", "model OwnerMagicLink", "model OwnerSession", "model GarageSnapshot"]],
-  ["middleware.ts", ["/garage"]],
+  ["middleware.ts", ["/garage", "Referrer-Policy", "no-referrer"]],
 ];
 
 for (const [path, needles] of required) {
