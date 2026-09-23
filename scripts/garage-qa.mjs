@@ -3,9 +3,17 @@ import fs from "node:fs";
 const required = [
   ["app/garage/page.tsx", ["robots: { index: false", "GarageWorkspace", "publicMotorcycles", "maintenanceSchedules"]],
   ["app/garage/resale/page.tsx", ["robots: { index: false", "GarageResalePack", "Private plate and document references stay hidden"]],
-  ["components/GarageWorkspace.tsx", ["GARAGE_STORAGE_KEY", "Export backup", "Document wallet", "catalogModelId", "Smart maintenance", "Stock tires", "Ownership analytics", "Actual fuel economy", "Where the money goes", "Value & depreciation", "purchaseOdometerKm", "fullTank", "Prepare resale pack"]],
+  ["app/garage/sign-in/verify/[token]/page.tsx", ["force-dynamic", "GarageMagicLinkConfirm", "Opening this page does not consume the link"]],
+  ["components/GarageWorkspace.tsx", ["GarageAccountPanel", "Local-first privacy", "Prepare resale pack", "Ownership analytics", "Smart maintenance"]],
+  ["components/GarageAccountPanel.tsx", ["Save this device to cloud", "Restore cloud to this device", "revision", "explicit", "sign-in link"]],
   ["components/GarageResalePack.tsx", ["Private by default", "Print / save PDF", "Copy listing draft", "Export seller pack", "No accident records logged in My Garage", "This is not a claim that the motorcycle is accident-free.", "includePlate", "includeDocumentRefs", "includeAmounts", "includeNotes", "shareableRecord"]],
-  ["lib/garage.ts", ["maintenanceReferenceForBike", "GARAGE_DOCUMENT_TYPES", "smartMaintenanceDue", "estimatedGarageResale", "garageOwnershipAnalytics", "distanceBasis", "fullTankRecords", "netOwnershipCostPhp", "\"REGISTRATION\"", "\"INSURANCE\"", "\"RESALE\"", "\"DEED_OF_SALE\""]],
+  ["lib/garage.ts", ["maintenanceReferenceForBike", "GARAGE_DOCUMENT_TYPES", "smartMaintenanceDue", "estimatedGarageResale", "garageOwnershipAnalytics", "distanceBasis", "fullTankRecords", "netOwnershipCostPhp"]],
+  ["lib/ownerAuth.ts", ["httpOnly: true", "sameSite: \"lax\"", "hashOwnerToken", "ownerRequestOriginAllowed", "GARAGE_CLOUD_SYNC_ENABLED"]],
+  ["app/api/garage/auth/request/route.ts", ["recent >= 3", "ownerMagicLinkExpiry", "sendOwnerMagicLink"]],
+  ["app/api/garage/auth/verify/[token]/route.ts", ["updateMany", "usedAt: null", "setOwnerSessionCookie"]],
+  ["app/api/garage/sync/route.ts", ["expectedRevision", "conflict: true", "MAX_PAYLOAD_BYTES", "ownerId: auth.session.ownerId"]],
+  [".env.example", ["GARAGE_CLOUD_SYNC_ENABLED=false", "OWNER_AUTH_FROM_EMAIL", "OWNER_SESSION_DAYS=30"]],
+  ["prisma/schema.prisma", ["model OwnerAccount", "model OwnerMagicLink", "model OwnerSession", "model GarageSnapshot"]],
   ["middleware.ts", ["/garage"]],
 ];
 
@@ -42,4 +50,23 @@ if (!resale.includes("amountPhp: includeAmounts ? record.amountPhp : undefined")
 if (resale.includes("accident-free motorcycle")) {
   throw new Error("Garage QA failed: absence of Garage accident records must not be described as accident-free.");
 }
+
+const auth = fs.readFileSync("lib/ownerAuth.ts", "utf8");
+if (auth.includes("service_role") || auth.includes("SUPABASE_SERVICE")) {
+  throw new Error("Garage QA failed: owner auth must not depend on a browser-exposed privileged key.");
+}
+if (!auth.includes('createHash("sha256")') || !auth.includes('randomBytes(32)')) {
+  throw new Error("Garage QA failed: owner auth tokens must remain opaque and hashed before database storage.");
+}
+
+const sync = fs.readFileSync("app/api/garage/sync/route.ts", "utf8");
+if (!sync.includes("existing.revision !== expectedRevision") || !sync.includes("revision: { increment: 1 }")) {
+  throw new Error("Garage QA failed: cloud writes must use optimistic revision checks.");
+}
+
+const migration = fs.readFileSync("prisma/migrations/20260923173000_add_owner_accounts_and_garage_sync/migration.sql", "utf8");
+if (!migration.includes('CREATE UNIQUE INDEX "OwnerSession_tokenHash_key"') || !migration.includes('CREATE UNIQUE INDEX "GarageSnapshot_ownerId_key"')) {
+  throw new Error("Garage QA failed: owner session and snapshot uniqueness constraints are missing.");
+}
+
 console.log("Garage QA passed");
