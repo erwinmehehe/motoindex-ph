@@ -102,7 +102,6 @@ export async function getGarageDocumentAttachment(documentId: string) {
   try {
     const transaction = database.transaction(STORE_NAME, "readonly");
     const record = await requestResult(transaction.objectStore(STORE_NAME).get(documentId)) as GarageDocumentAttachmentRecord | undefined;
-    await transactionDone(transaction);
     return record || null;
   } finally {
     database.close();
@@ -116,7 +115,6 @@ export async function listGarageDocumentAttachments(documentIds: string[]) {
   try {
     const transaction = database.transaction(STORE_NAME, "readonly");
     const records = await requestResult(transaction.objectStore(STORE_NAME).getAll()) as GarageDocumentAttachmentRecord[];
-    await transactionDone(transaction);
     return records.filter((record) => wanted.has(record.documentId)).map(summary);
   } finally {
     database.close();
@@ -142,6 +140,23 @@ export async function deleteGarageDocumentAttachments(documentIds: string[]) {
     const store = transaction.objectStore(STORE_NAME);
     for (const documentId of documentIds) store.delete(documentId);
     await transactionDone(transaction);
+  } finally {
+    database.close();
+  }
+}
+
+export async function pruneGarageDocumentAttachments(allowedDocumentIds: string[]) {
+  const allowed = new Set(allowedDocumentIds);
+  const database = await openGarageDocumentDb();
+  try {
+    const readTransaction = database.transaction(STORE_NAME, "readonly");
+    const records = await requestResult(readTransaction.objectStore(STORE_NAME).getAll()) as GarageDocumentAttachmentRecord[];
+    const staleIds = records.map((record) => record.documentId).filter((documentId) => !allowed.has(documentId));
+    if (!staleIds.length) return;
+    const writeTransaction = database.transaction(STORE_NAME, "readwrite");
+    const store = writeTransaction.objectStore(STORE_NAME);
+    for (const documentId of staleIds) store.delete(documentId);
+    await transactionDone(writeTransaction);
   } finally {
     database.close();
   }
