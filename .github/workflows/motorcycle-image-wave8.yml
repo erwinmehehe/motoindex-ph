@@ -44,6 +44,8 @@ jobs:
         run: python -m pip install --disable-pip-version-check opencv-python-headless==4.12.0.88 numpy==2.2.6
 
       - name: Normalize white-background catalog composition
+        env:
+          MOTORCYCLE_MEDIA_ONLY: honda-airblade-160,honda-cbr150r,honda-cbr650r,honda-crf1100l-africa-twin,honda-xl750-transalp,yamaha-lexi-155,yamaha-yzf-r3,yamaha-yzf-r7,kawasaki-z900,yamaha-yzf-r15m
         run: python scripts/art-direct-motorcycle-media.py
 
       - name: Validate exact-image coverage
