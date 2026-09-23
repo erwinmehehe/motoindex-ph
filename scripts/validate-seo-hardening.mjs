@@ -176,6 +176,40 @@ for (const [id, modelId, rackCode, modelYears] of fitmentWave2) {
 requireText(topBoxFitmentData, "not compatible with the big or aluminium mounting plates", "Restricted scooter fittings must retain the SHAD plate warning.");
 requireText(topBoxFitmentData, "Reconfirm the rack before ordering for a later Philippine model year.", "Yamaha 2025-only fitment coverage must retain the later-model-year caution.");
 
+const fitmentWave3 = [
+  ["sh39-mio-gravis", "yamaha-mio-gravis", "Y0FG13IST", "2023-2025"],
+  ["sh39-sniper-155", "yamaha-sniper-155", "Y0IMX18ST", "2015-2026"],
+  ["sh39-xsr155", "yamaha-xsr155", "Y0IXS19ST", "XSR155: 2019-2025"],
+  ["sh39-mt07", "yamaha-mt-07", "Y0MT75ST", "2025-2026"],
+  ["sh39-cb150x", "honda-cb150x", "H0ICB16ST", "2021-2025"],
+  ["sh39-transalp-750", "honda-xl750-transalp", "H0TR73ST", "2023-2026"],
+  ["sh39-africa-twin-1100", "honda-crf1100l-africa-twin", "H0DV10ST", "CRF1100L Africa Twin: 2022-2026"],
+  ["sh39-z500", "kawasaki-z500", "K0Z554ST", "2024-2025"],
+  ["sh39-vstrom-250-sx", "suzuki-v-strom-250-sx", "S0VS23IST", "2023-2026"],
+  ["sh33-burgman-street-ex", "suzuki-burgman-street-ex", "S0BR13IST", "2023-2025"],
+];
+
+if (fitmentWave3.length !== 10) errors.push("Top-box fitment wave 3 must retain exactly ten reviewed additions.");
+for (const [id, modelId, rackCode, modelYears] of fitmentWave3) {
+  const start = topBoxFitmentData.indexOf(`id: "${id}"`);
+  if (start < 0) {
+    errors.push(`Top-box fitment wave 3 lost ${id}.`);
+    continue;
+  }
+  const end = topBoxFitmentData.indexOf("\n  },", start);
+  const fitmentBlock = topBoxFitmentData.slice(start, end > start ? end : start + 2200);
+  requireText(fitmentBlock, `modelId: "${modelId}"`, `${id} must remain attached to ${modelId}.`);
+  requireText(fitmentBlock, `rackCode: "${rackCode}"`, `${id} lost manufacturer rack code ${rackCode}.`);
+  requireText(fitmentBlock, `modelYears: "${modelYears}"`, `${id} lost reviewed model-year coverage.`);
+  requireText(fitmentBlock, 'status: "verified"', `${id} must remain a reviewed manufacturer-backed fitment edge.`);
+  requireText(fitmentBlock, 'lastChecked: "2026-09-23"', `${id} must retain the September 23 source check.`);
+}
+requireText(topBoxFitmentData, "compatibility table uses the regional MX King 150 name", "Sniper 155 fitment must retain the regional MX King naming caution.");
+requireText(topBoxFitmentData, "not compatible with the small D1B29PAR plate", "Africa Twin fitment must retain the SHAD small-plate restriction.");
+requireText(topBoxFitmentData, 'id: "sh33-burgman-street-ex"', "Burgman Street EX fitment must remain in wave 3.");
+requireText(topBoxFitmentData, 'topBoxId: "shad-sh33"', "Wave 3 must preserve the SH33-specific Burgman Street EX compatibility.");
+requireText(topBoxFitmentData, "exact fitting detail table currently stops at 2025", "2025-limited fitments must retain the explicit later-year recheck boundary.");
+
 
 if (errors.length) {
   console.error("SEO hardening validation failed:");

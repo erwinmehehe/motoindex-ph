@@ -1046,3 +1046,28 @@ Important boundaries:
 - Existing NMAX V3 fitment remains research-only until the exact Philippine NMAX / Tech Max rack mapping is directly verified.
 
 CI now checks all ten IDs, model relationships, rack codes, reviewed year ranges, verification state and source-check date.
+
+
+### Fitment authority wave 3 — ten more manufacturer-backed top-box edges
+
+MotoIndex adds another ten exact SHAD rack relationships to existing motorcycle canonicals, preserving manufacturer year limits and regional naming cautions instead of inferring fitment.
+
+1. Yamaha Mio Gravis → SHAD SH39 / Y0FG13IST
+2. Yamaha Sniper 155 → SHAD SH39 / Y0IMX18ST
+3. Yamaha XSR155 → SHAD SH39 / Y0IXS19ST
+4. Yamaha MT-07 → SHAD SH39 / Y0MT75ST
+5. Honda CB150X → SHAD SH39 / H0ICB16ST
+6. Honda XL750 Transalp → SHAD SH39 / H0TR73ST
+7. Honda CRF1100L Africa Twin → SHAD SH39 / H0DV10ST
+8. Kawasaki Z500 → SHAD SH39 / K0Z554ST
+9. Suzuki V-Strom 250 SX → SHAD SH39 / S0VS23IST
+10. Suzuki Burgman Street EX → SHAD SH33 / S0BR13IST
+
+Important boundaries:
+- Mio Gravis, XSR155 and CB150X exact fitment pages currently stop at 2025, so later Philippine model years retain a recheck warning.
+- Z500 and Burgman Street EX use the exact fitting-detail page year range through 2025 even though broader current SHAD catalogs surface 2026; MotoIndex keeps the narrower range until the exact detail page catches up.
+- Sniper 155 retains SHAD's regional MX King 150 naming note.
+- Africa Twin retains SHAD's small-plate restriction and D1B40PAR substitution note for cases supplied with D1B29PAR.
+- Burgman Street EX is linked to SH33, not SH39, because the reviewed fitting page explicitly lists SH33 compatibility.
+
+CI guards all ten IDs, model relationships, rack codes, reviewed year ranges, verification states and source-check dates.
