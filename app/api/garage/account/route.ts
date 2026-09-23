@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { garageRemindersConfigured } from "@/lib/garageReminders";
 import { getOwnerSession, ownerAuthConfigured } from "@/lib/ownerAuth";
 
 export const runtime = "nodejs";
@@ -24,6 +25,7 @@ export async function GET() {
     authenticated: true,
     email: session.owner.email,
     reminderEmailsEnabled: session.owner.reminderEmailsEnabled,
+    remindersAvailable: garageRemindersConfigured(),
     sessionExpiresAt: session.expiresAt.toISOString(),
     cloud: snapshot ? { revision: snapshot.revision, updatedAt: snapshot.updatedAt.toISOString() } : null,
   }, { headers });
