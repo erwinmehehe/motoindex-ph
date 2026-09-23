@@ -47,6 +47,12 @@ function isPrototypePath(pathname: string) {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   if (process.env.NODE_ENV === "production" && isPrototypePath(pathname)) return deny("Not found.", 404);
+  if (pathname === "/garage" || pathname.startsWith("/garage/")) {
+    const response = NextResponse.next();
+    response.headers.set("Cache-Control", "no-store");
+    response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+    return response;
+  }
   if (pathname.startsWith("/dealer-lead/") || pathname.startsWith("/api/dealer-lead/") || pathname.startsWith("/quote-status/") || pathname.startsWith("/api/quote-status/") || pathname.startsWith("/price-alerts/confirm/") || pathname.startsWith("/price-alerts/unsubscribe/") || pathname.startsWith("/api/price-alerts/")) {
     const response = NextResponse.next();
     response.headers.set("Cache-Control", "no-store");
@@ -87,7 +93,7 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/admin/:path*", "/api/ingestion/:path*", "/api/admin/:path*", "/price-alerts/confirm/:path*", "/price-alerts/unsubscribe/:path*", "/api/price-alerts/:path*",
+    "/admin/:path*", "/api/ingestion/:path*", "/api/admin/:path*", "/garage/:path*","/garage", "/price-alerts/confirm/:path*", "/price-alerts/unsubscribe/:path*", "/api/price-alerts/:path*",
     "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*", "/quote-status/:path*", "/api/quote-status/:path*",
     "/motorcycles/:make/:slug/used-value", "/motorcycles/:make/:slug/new-vs-used"
   ]

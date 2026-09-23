@@ -17,6 +17,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const costDecisions=[
+  {href:"/garage",label:"My Garage",title:"Track the motorcycle you own",description:"Keep odometer, registration, insurance, PMS, fuel, repairs, expenses and resale records together on this device.",meta:"Open My Garage →"},
   {href:"/ownership/cost-calculator",label:"Total cost",title:"1-year + 3-year ownership cost",description:"Change purchase, finance, fuel, maintenance, insurance, registration, tire and resale assumptions.",meta:"Calculate cost →"},
   {href:"/commute/cost-calculator",label:"Daily use",title:"Commute cost",description:"Estimate fuel, maintenance reserve and parking for your own route and workdays.",meta:"Calculate commute →"},
   {href:"/tools/motorcycle-insurance-calculator",label:"Insurance",title:"Insurance planning",description:"Build an editable insured-value scenario, then replace it with a real insurer quote.",meta:"Estimate insurance →"}
