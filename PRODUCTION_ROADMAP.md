@@ -1071,3 +1071,28 @@ Important boundaries:
 - Burgman Street EX is linked to SH33, not SH39, because the reviewed fitting page explicitly lists SH33 compatibility.
 
 CI guards all ten IDs, model relationships, rack codes, reviewed year ranges, verification states and source-check dates.
+
+
+### Fitment authority wave 4 — ten verified relationships across eight more models
+
+This wave keeps the exact-rack policy and adds two manufacturer-listed SH33 alternatives where the same reviewed SHAD fitting explicitly supports both SH39 and SH33.
+
+1. Yamaha NMAX V2 → SHAD SH39 / Y0INM19ST
+2. Yamaha NMAX V2 → SHAD SH33 / Y0INM19ST
+3. Yamaha Aerox V2 → SHAD SH39 / Y0AE14IST
+4. Yamaha Aerox V2 → SHAD SH33 / Y0AE14IST
+5. Honda Click150i → SHAD SH39 / H0VR15IST
+6. Yamaha XMAX → SHAD SH39 / Y0XM33ST
+7. Suzuki Gixxer SF250 → SHAD SH39 / S0GX22IST
+8. Yamaha Lexi 155 → SHAD SH39 / Y0LX14IST
+9. Kawasaki KLX150 → SHAD SH39 / K0IKL18ST
+10. Honda CB500 Hornet E-Clutch → SHAD SH39 / H0CB59ST
+
+Important boundaries:
+- NMAX V2 and Aerox V2 remain attached to MotoIndex's historical generation canonicals even where SHAD publishes a broader family-year range.
+- Click150i retains the Click/Vario cross-market naming and the manufacturer Vario 150 2015-2022 range.
+- XMAX and Gixxer SF250 keep explicit 2026 recheck warnings because their exact reviewed top-case listings currently stop at 2025.
+- CB500 Hornet keeps a trim-level caution because SHAD lists the CB500 Hornet family rather than the Philippine E-Clutch trim separately.
+- SH33 alternatives are only added where SHAD itself lists SH33 as a compatible product on the reviewed rack page.
+
+CI guards all ten relationships, rack codes, year/generation boundaries, verification states and source-check dates.
