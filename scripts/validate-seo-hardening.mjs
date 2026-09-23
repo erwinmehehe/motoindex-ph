@@ -56,7 +56,7 @@ requireText(sitemaps, "latestModelDate", "Sitemaps should derive hub freshness f
 requireText(sitemaps, "latestHelmetDate", "Sitemaps should derive helmet hub freshness from verified product checks.");
 requireText(sitemaps, "latestSellerDate", "Sitemaps should derive dealer hub freshness from public seller checks.");
 requireText(sitemaps, "latestAccessoryDate", "Accessory sitemap freshness must derive from verified product checks.");
-requireText(sitemaps, "`/accessories/top-box/${p.slug}`", "Verified top-box product URLs must remain in the segmented gear sitemap.");
+requireText(sitemaps, "/accessories/top-box/${p.slug}", "Verified top-box product URLs must remain in the segmented gear sitemap.");
 requireText(sitemaps, "lastModified:iso(p.lastChecked)", "Product sitemap entries must retain content-driven lastModified values.");
 forbidText(sitemaps, "`/motorcycles/${make}/scooters`", "Redirect-only brand scooter aliases must stay out of sitemaps.");
 forbidText(sitemaps, "`/motorcycles/${m.makeSlug}/${m.slug}/price`", "Consolidated model price aliases must stay out of sitemaps.");
