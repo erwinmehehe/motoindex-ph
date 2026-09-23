@@ -1022,3 +1022,27 @@ MotoIndex now deepens accessory fitment only where the case, rack code and motor
 - CI guards the case SKU, rack codes, model years, plate restriction and the continued NMAX uncertainty state.
 
 Next fitment work should continue manufacturer-by-manufacturer, prioritizing high-demand scooters and exact tire SKUs only where the tire maker publishes the required size/load/speed specification. Do not infer accessory fit from dimensions or motorcycle class alone.
+
+
+### Fitment authority wave 2 — ten manufacturer-backed top-box edges
+
+The next fitment pass adds ten exact SHAD rack relationships to existing MotoIndex canonicals. Capacity or visual similarity is still not treated as compatibility.
+
+1. Yamaha Mio Gear → SHAD SH39 / Y0MZ16ST
+2. Yamaha Mio i125 → SHAD SH39 / Y0MZ16ST
+3. Suzuki Burgman Street → SHAD SH39 / S0BR14ST
+4. Suzuki Avenis → SHAD SH39 / S0AV13IST
+5. Honda Click125i → SHAD SH39 / H0VR15IST
+6. Suzuki Burgman 400 → SHAD SH39 / S0BR47ST
+7. Honda CB650R → SHAD SH39 / H0CR64ST
+8. Honda NX500 E-Clutch → SHAD SH39 / H0CX55ST
+9. Honda ADV350 → SHAD SH39 / H0FR15IST
+10. Yamaha TMAX Tech Max → SHAD SH39 / Y0TX52ST
+
+Important boundaries:
+- Mio Gear and Mio i125 manufacturer coverage currently stops at 2025, so later Philippine model years retain a recheck warning.
+- Click125i keeps the Click/Vario market-name caution instead of pretending SHAD uses identical naming everywhere.
+- Restricted SHAD fittings retain their big/aluminium-plate incompatibility warnings.
+- Existing NMAX V3 fitment remains research-only until the exact Philippine NMAX / Tech Max rack mapping is directly verified.
+
+CI now checks all ten IDs, model relationships, rack codes, reviewed year ranges, verification state and source-check date.
