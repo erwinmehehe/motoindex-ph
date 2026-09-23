@@ -27,7 +27,7 @@ const targets = [
 ["husqvarna-norden-901","https://www.husqvarna-motorcycles.com/en-ph/models/travel/norden-901-2022.html",["norden","901"],"Husqvarna Norden 901 adventure motorcycle","Husqvarna Motorcycles"],
 ["husqvarna-svartpilen-200","https://www.husqvarna-motorcycles.com/en-ph/models/naked/svartpilen/svartpilen-200-2023.html",["svartpilen","200"],"Husqvarna Svartpilen 200 motorcycle","Husqvarna Motorcycles"],
 ["kawasaki-ninja-zx-25r","https://kawasakileisurebikes.ph/motorcycles/supersports/ninja-zx-25r-standard/",["ninja","zx-25r"],"Kawasaki Ninja ZX-25R motorcycle","Kawasaki Motors Philippines"],
-["kymco-dink-s-150","https://kymco.com.ph/product/dink-s-150/",["dink","150"],"KYMCO Dink S 150 scooter","KYMCO Philippines"],
+["kymco-dollar-150","https://kymco.com.ph/product/dollar-150/",["dollar","150"],"KYMCO Dollar 150 scooter","KYMCO Philippines"],
 ["kymco-dink-r-150","https://kymco.com.ph/product/dink-r-150/",["dink","150"],"KYMCO Dink R 150 scooter","KYMCO Philippines"],
 ["kymco-dtx360-300","https://kymco.com.ph/product/dtx-360-300/",["dtx","360"],"KYMCO DTX360-300 scooter","KYMCO Philippines"],
 ["royal-enfield-shotgun-650","https://www.royalenfield.com/ph/en/motorcycles/shotgun-650/",["shotgun","650"],"Royal Enfield Shotgun 650 motorcycle","Royal Enfield"],
@@ -41,7 +41,10 @@ const directImages = {
   "kawasaki-ninja-zx-25r": {
     url:"https://global.kawasaki.com/en/corp/newsroom/news/images/news_191023-Ninja%20ZX-25R.jpg",
     pageUrl:"https://global.kawasaki.com/en/corp/newsroom/news/detail/?f=20191023_0946"
-  }
+  },
+  "kymco-dollar-150": {url:"https://kymco.com.ph/wp-content/uploads/2025/04/Dollar-Flat-Black.png.webp"},
+  "kymco-dink-r-150": {url:"https://kymco.com.ph/wp-content/uploads/2024/02/PL_COL11-2-700x467.png"},
+  "kymco-dtx360-300": {url:"https://kymco.com.ph/wp-content/uploads/2024/02/DTX-300cc_1.png"}
 };
 
 function decodeHtml(s) {
@@ -59,7 +62,7 @@ async function getImage(url, referer) {
   const res = await fetch(url, {redirect:"follow", signal:AbortSignal.timeout(30000), headers:{"user-agent":UA, accept:"image/avif,image/webp,image/png,image/jpeg,image/*,*/*;q=0.8", ...(referer?{referer}:{})}});
   if (!res.ok) throw new Error("image HTTP " + res.status);
   const type = (res.headers.get("content-type") || "").toLowerCase();
-  if (!type.startsWith("image/")) throw new Error("not image: " + type);
+  if (!type.startsWith("image/") && type !== "application/octet-stream") throw new Error("not image: " + type);
   const bytes = Buffer.from(await res.arrayBuffer());
   const meta = await sharp(bytes).metadata();
   if (bytes.length < 5000 || (meta.width||0) < 350 || (meta.height||0) < 250) throw new Error("image too small");
