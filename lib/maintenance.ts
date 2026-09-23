@@ -5,6 +5,10 @@ export type MaintenanceItem = {
   interval: string;
   action: "Inspect" | "Replace" | "Check";
   note?: string;
+  firstDueKm?: number;
+  intervalKm?: number;
+  firstDueMonths?: number;
+  intervalMonths?: number;
 };
 
 export type MaintenanceSchedule = {
@@ -115,11 +119,11 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
     lastChecked: "2026-08-25",
     exact: true,
     items: [
-      { item: "Engine oil", interval: "First at 1,000 km; then every 6,000 km", action: "Replace", note: "The manual's OIL CHANGE indicator calls for the first change at about 1,000 km and every 6,000 km after the first reset." },
-      { item: "Drive belt", interval: "Inspect periodically; replacement point shown at 24,000 km", action: "Inspect" },
-      { item: "Radiator coolant", interval: "Every 3 years", action: "Replace" },
-      { item: "Final drive oil", interval: "Every 2 years", action: "Replace" },
-      { item: "Brake fluid", interval: "Every 2 years", action: "Replace" },
+      { item: "Engine oil", interval: "First at 1,000 km; then every 6,000 km", action: "Replace", firstDueKm: 1000, intervalKm: 6000, note: "The manual's OIL CHANGE indicator calls for the first change at about 1,000 km and every 6,000 km after the first reset." },
+      { item: "Drive belt", interval: "Inspect periodically; replacement point shown at 24,000 km", action: "Inspect", firstDueKm: 24000 },
+      { item: "Radiator coolant", interval: "Every 3 years", action: "Replace", intervalMonths: 36 },
+      { item: "Final drive oil", interval: "Every 2 years", action: "Replace", intervalMonths: 24 },
+      { item: "Brake fluid", interval: "Every 2 years", action: "Replace", intervalMonths: 24 },
     ],
     tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 33 },
   },
@@ -130,11 +134,11 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
     lastChecked: "2026-08-25",
     exact: true,
     items: [
-      { item: "Engine oil", interval: "First at 1,000 km; then every 6,000 km", action: "Replace", note: "The manual's oil-change indicator first appears at 1,000 km and then every 6,000 km after reset." },
-      { item: "Drive belt", interval: "Inspect at the manual's periodic schedule; replacement point shown at 24,000 km", action: "Inspect" },
-      { item: "Radiator coolant", interval: "Every 3 years", action: "Replace" },
-      { item: "Final drive oil", interval: "Every 2 years", action: "Replace" },
-      { item: "Brake fluid", interval: "Every 2 years", action: "Replace" },
+      { item: "Engine oil", interval: "First at 1,000 km; then every 6,000 km", action: "Replace", firstDueKm: 1000, intervalKm: 6000, note: "The manual's oil-change indicator first appears at 1,000 km and then every 6,000 km after reset." },
+      { item: "Drive belt", interval: "Inspect at the manual's periodic schedule; replacement point shown at 24,000 km", action: "Inspect", firstDueKm: 24000 },
+      { item: "Radiator coolant", interval: "Every 3 years", action: "Replace", intervalMonths: 36 },
+      { item: "Final drive oil", interval: "Every 2 years", action: "Replace", intervalMonths: 24 },
+      { item: "Brake fluid", interval: "Every 2 years", action: "Replace", intervalMonths: 24 },
     ],
     tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 36 },
   },
