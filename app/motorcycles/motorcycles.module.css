@@ -191,7 +191,9 @@
   box-shadow:none!important;
 }
 .page :global(.motorcycle-brand-directory-grid)>a:hover{transform:none!important}
-.page :global(.motorcycle-brand-mark){width:34px!important;height:34px!important;min-width:34px!important;border-radius:8px!important;background:#f5f6ff!important;color:#444CE7!important;font-size:8px!important}
+.page :global(.motorcycle-brand-mark){width:42px!important;height:42px!important;min-width:42px!important;border-radius:10px!important;background:#fff!important;color:#444CE7!important;font-size:8px!important;display:flex!important;align-items:center!important;justify-content:center!important;border:1px solid rgba(148,163,184,.18)!important;overflow:hidden!important}
+.page :global(.motorcycle-brand-mark img){width:34px!important;height:28px!important;object-fit:contain!important;display:block!important}
+.page :global(.motorcycle-brand-mark span){font-weight:800!important;letter-spacing:.03em!important}
 .page :global(.motorcycle-brand-directory-grid strong){font-size:13px!important;color:#0f172a!important}
 .page :global(.motorcycle-brand-directory-grid small),
 .page :global(.motorcycle-brand-directory-grid>a>span){font-size:9px!important;color:#94a3b8!important}
