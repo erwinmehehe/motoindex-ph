@@ -28,7 +28,6 @@ jobs:
           --only=triumph-speed-twin-900,triumph-tiger-sport-660,triumph-daytona-660,kawasaki-ninja-650,kawasaki-versys-650,kawasaki-vulcan-s,bmw-f-900-gs,bmw-s-1000-rr,bmw-m-1000-rr,bmw-s-1000-r,motorstar-cafe-400
       - name: Validate refreshed media
         run: |
-          npm run audit:media
           node scripts/audit-motorcycle-media-coverage.mjs
           python3 scripts/audit-motorcycle-media-art-direction.py
       - name: Commit refreshed derivatives
