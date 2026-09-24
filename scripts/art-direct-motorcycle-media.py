@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import cv2
@@ -19,6 +20,8 @@ SKIP_IDS = {
     "suzuki-raider-pro",
     "vespa-primavera-150",
 }
+
+ONLY_IDS = {item.strip() for item in os.environ.get("MOTORCYCLE_MEDIA_ONLY", "").split(",") if item.strip()}
 
 
 def border_pixels(image: np.ndarray, band: int) -> np.ndarray:
@@ -234,7 +237,7 @@ def compose_canvas(cutout: np.ndarray, alpha: np.ndarray) -> tuple[np.ndarray, d
 
 def process(path: Path) -> dict:
     entity_id = path.stem
-    if entity_id in SKIP_IDS:
+    if entity_id in SKIP_IDS and not ONLY_IDS:
         return {"file": path.name, "status": "skipped-suppressed"}
 
     image = cv2.imread(str(path), cv2.IMREAD_COLOR)
@@ -253,7 +256,7 @@ def process(path: Path) -> dict:
 
 
 def main() -> int:
-    files = sorted(MEDIA_DIR.glob("*.webp"))
+    files = [p for p in sorted(MEDIA_DIR.glob("*.webp")) if not ONLY_IDS or p.stem in ONLY_IDS]
     results = [process(path) for path in files]
     updated = sum(r["status"] == "updated" for r in results)
     skipped = sum(r["status"].startswith("skipped") for r in results)
