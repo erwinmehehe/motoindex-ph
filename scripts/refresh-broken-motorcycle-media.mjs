@@ -26,8 +26,25 @@ async function fetchImage(url, referer) {
 }
 
 async function writeWhiteCanvas(bytes, output, opts={}) {
-  let image=sharp(bytes).rotate();
-  if (opts.extract) image=image.extract(opts.extract);
+  const rotated = await sharp(bytes).rotate().png().toBuffer({ resolveWithObject: true });
+  let image = sharp(rotated.data);
+
+  if (opts.extractFraction) {
+    const iw = rotated.info.width;
+    const ih = rotated.info.height;
+    const x0 = Math.max(0, Math.min(iw - 1, Math.floor(iw * opts.extractFraction.left)));
+    const y0 = Math.max(0, Math.min(ih - 1, Math.floor(ih * opts.extractFraction.top)));
+    const x1 = Math.max(x0 + 1, Math.min(iw, Math.ceil(iw * opts.extractFraction.right)));
+    const y1 = Math.max(y0 + 1, Math.min(ih, Math.ceil(ih * opts.extractFraction.bottom)));
+    image = image.extract({ left: x0, top: y0, width: x1 - x0, height: y1 - y0 });
+  } else if (opts.extract) {
+    const left = Math.max(0, Math.min(rotated.info.width - 1, opts.extract.left));
+    const top = Math.max(0, Math.min(rotated.info.height - 1, opts.extract.top));
+    const width = Math.max(1, Math.min(rotated.info.width - left, opts.extract.width));
+    const height = Math.max(1, Math.min(rotated.info.height - top, opts.extract.height));
+    image = image.extract({ left, top, width, height });
+  }
+
   if (opts.trim) image=image.trim({ background: {r:255,g:255,b:255,alpha:0}, threshold: 8 });
   const normalized=await image
     .resize({width:1040,height:900,fit:"inside",withoutEnlargement:false})
@@ -64,9 +81,8 @@ await writeWhiteCanvas(air.bytes,path.join(outDir,"honda-airblade-160.webp"),{tr
 const tuaregUrl="https://apriliaindia.com/images/tuareg-660/aprilia_tuareg_660_feature1.png";
 const tuaregPage="https://apriliaindia.com/aprilia-tuareg-660.php";
 const tuareg=await fetchImage(tuaregUrl,tuaregPage);
-const tw=tuareg.meta.width||900, th=tuareg.meta.height||675;
 await writeWhiteCanvas(tuareg.bytes,path.join(outDir,"aprilia-tuareg-660.webp"),{
-  extract:{left:Math.round(tw*0.47),top:Math.round(th*0.10),width:tw-Math.round(tw*0.47),height:Math.round(th*0.80)},
+  extractFraction:{left:0.47,top:0.08,right:0.995,bottom:0.92},
   trim:true
 });
 
