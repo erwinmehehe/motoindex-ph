@@ -14,7 +14,9 @@ TARGET_MAX_W = 900
 TARGET_MAX_H = 900
 SEGMENT_MAX = 640
 WHITE = np.array([255, 255, 255], dtype=np.uint8)
-SKIP_IDS = set()\n\n
+SKIP_IDS = set()
+
+
 def border_pixels(image: np.ndarray, band: int) -> np.ndarray:
     top = image[:band, :, :3].reshape(-1, 3)
     bottom = image[-band:, :, :3].reshape(-1, 3)
