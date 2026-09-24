@@ -1,0 +1,79 @@
+name: High Resolution Media Upgrade
+
+on:
+  push:
+    branches: [fix/media-quality-sweep-sep24]
+    paths:
+      - scripts/upgrade-lowres-source-media.mjs
+      - .github/workflows/high-resolution-media-upgrade.yml
+  workflow_dispatch:
+
+concurrency:
+  group: high-resolution-media-upgrade
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout repair branch
+        uses: actions/checkout@v7
+        with:
+          ref: fix/media-quality-sweep-sep24
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Upgrade verified low-resolution sources
+        run: node scripts/upgrade-lowres-source-media.mjs
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install image audit dependencies
+        run: python -m pip install --disable-pip-version-check opencv-python-headless==4.12.0.88 numpy==2.2.6
+
+      - name: Verify media pipeline safety
+        run: node scripts/validate-media-backfill-safety.mjs
+
+      - name: Audit helmet composition
+        run: python scripts/audit-helmet-media-art-direction.py
+
+      - name: Audit motorcycle composition
+        run: python scripts/audit-motorcycle-media-art-direction.py
+
+      - name: Audit coverage
+        run: |
+          node scripts/audit-product-media-coverage.mjs
+          node scripts/audit-motorcycle-media-coverage.mjs
+
+      - name: Validate media records
+        run: npm run validate:media
+
+      - name: Commit high-resolution upgrades
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/media.ts lib/generatedProductMedia.ts public/media/helmets public/media/motorcycles
+          if git diff --cached --quiet; then
+            echo "No verified high-resolution upgrades found."
+            exit 0
+          fi
+          git commit -m "Upgrade low-resolution product media"
+          git fetch origin fix/media-quality-sweep-sep24
+          git rebase origin/fix/media-quality-sweep-sep24
+          git push origin HEAD:fix/media-quality-sweep-sep24
