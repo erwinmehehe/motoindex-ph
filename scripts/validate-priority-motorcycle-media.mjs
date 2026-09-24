@@ -38,13 +38,29 @@ const targets = [
 ];
 
 const bannedSourceTokens = [
-  "gallery",
   "teaser",
   "action",
   "marketing-image",
   "promotional",
   "feature-shot",
 ];
+
+const noGallerySources = new Set([
+  "honda-crf300-rally",
+  "honda-cb500-hornet-e-clutch",
+  "suzuki-avenis",
+  "suzuki-smash-fi",
+  "suzuki-gixxer-155",
+  "suzuki-gixxer-sf-155",
+  "suzuki-gixxer-250",
+  "suzuki-v-strom-250-sx",
+  "suzuki-v-strom-160",
+  "suzuki-dr160",
+  "suzuki-access",
+  "suzuki-skydrive-sport",
+  "suzuki-burgman-street",
+  "suzuki-burgman-400",
+]);
 
 function blockFor(id) {
   const markers = [`entityId:"${id}"`, `entityId: "${id}"`];
@@ -76,6 +92,9 @@ for (const id of targets) {
   const lower = sourceImageUrl.toLowerCase();
   const banned = bannedSourceTokens.find((token) => lower.includes(token));
   if (banned) failures.push(`${id}: sourceImageUrl still looks editorial/lifestyle (${banned}) -> ${sourceImageUrl}`);
+  if (noGallerySources.has(id) && lower.includes("gallery")) {
+    failures.push(`${id}: sourceImageUrl is still a gallery/editorial source -> ${sourceImageUrl}`);
+  }
 }
 
 if (media.includes("GrabCut") || media.includes("grabCut")) {
