@@ -5,6 +5,7 @@ import sharp from "sharp";
 const root = process.cwd();
 const mediaPath = path.join(root, "lib/media.ts");
 const coveragePath = path.join(root, "scripts/audit-motorcycle-media-coverage.mjs");
+const renderablePath = path.join(root, "lib/renderableMedia.ts");
 const outDir = path.join(root, "public/media/motorcycles");
 const artifactsDir = path.join(root, "artifacts");
 fs.mkdirSync(outDir, { recursive: true });
@@ -20,15 +21,15 @@ const targets = [
   {entityId:"husqvarna-norden-901",id:"husqvarna-norden-901-husqvarna-ph",pageUrl:"https://www.husqvarna-motorcycles.com/en-ph/models/travel/norden-901-2022.html",terms:["norden","901"],alt:"Husqvarna Norden 901 adventure motorcycle",rightsHolder:"Husqvarna Motorcycles",sourceLabel:"Manufacturer-hosted Philippine image reference · Husqvarna Norden 901"},
   {entityId:"husqvarna-svartpilen-200",id:"husqvarna-svartpilen-200-husqvarna-ph",pageUrl:"https://www.husqvarna-motorcycles.com/en-ph/models/naked/svartpilen/svartpilen-200-2023.html",terms:["svartpilen","200"],alt:"Husqvarna Svartpilen 200 motorcycle",rightsHolder:"Husqvarna Motorcycles",sourceLabel:"Manufacturer-hosted Philippine image reference · Husqvarna Svartpilen 200"},
   {entityId:"kawasaki-ninja-1000",id:"kawasaki-ninja-1000-kawasaki-jp",pageUrl:"https://www.kawasaki-motors.com/ja-jp/motorcycle/ninja/sport/ninja-1000sx/2024-ninja-1000sx",terms:["ninja","1000sx","1000"],alt:"Kawasaki Ninja 1000SX sport touring motorcycle",rightsHolder:"Kawasaki Motors Japan",sourceLabel:"Manufacturer-hosted image reference · Kawasaki Ninja 1000SX"},
-  {entityId:"kawasaki-z1000-r-edition",id:"kawasaki-z1000-r-edition-motosport",pageUrl:"https://www.motosport.com.gr/nea-kawasaki-z1000-r-edition-deltio-typou/",terms:["z1000","r edition","z1000 r"],alt:"Kawasaki Z1000 R Edition motorcycle",rightsHolder:"Motosport",sourceLabel:"Exact-model image reference · Kawasaki Z1000 R Edition"},
+  {entityId:"kawasaki-z1000-r-edition",id:"kawasaki-z1000-r-edition-kawasaki-ph",imageUrl:"https://www.kawasakileisurebikes.ph/assets/img-motorcycles/selected/images/22ZR1000J-40RGY1DRS3CG-A.jpg",pageUrl:"https://www.kawasakileisurebikes.ph/motorcycles/sports/z100r/",terms:["z1000","r edition","z1000 r"],alt:"Kawasaki Z1000 R Edition motorcycle",rightsHolder:"Kawasaki Motors (Phils.) Corporation",sourceLabel:"Manufacturer-hosted Philippine image reference · Kawasaki Z1000 R Edition"},
   {entityId:"rusi-adventure-x-150i-v2",id:"rusi-adventure-x-150i-v2-kamote",pageUrl:"https://www.kamote.ph/motorcycle/rusi-adventure-x-150i-v2",terms:["adventure x","150i","v2"],alt:"Rusi Adventure X 150i V2 scooter",rightsHolder:"Kamote.ph",sourceLabel:"Philippine exact-model image reference · Rusi Adventure X 150i V2"},
   {entityId:"rusi-cyclone-400",id:"rusi-cyclone-400-kamote",pageUrl:"https://www.kamote.ph/motorcycle/rusi-cyclone-400",terms:["cyclone","400"],alt:"Rusi Cyclone 400 motorcycle",rightsHolder:"Kamote.ph",sourceLabel:"Philippine exact-model image reference · Rusi Cyclone 400"},
   {entityId:"rusi-flash-150x",id:"rusi-flash-150x-kamote",pageUrl:"https://www.kamote.ph/motorcycle/rusi-flash-150x",terms:["flash","150x"],alt:"Rusi Flash 150X motorcycle",rightsHolder:"Kamote.ph",sourceLabel:"Philippine exact-model image reference · Rusi Flash 150X"},
-  {entityId:"suzuki-raider-pro",id:"suzuki-raider-pro-suzuki-ph-final",pageUrl:"https://mc.suzuki.com.ph/motorcycles/underbone/",terms:["raider pro","raider","pro"],alt:"Suzuki Raider PRO motorcycle",rightsHolder:"Suzuki Philippines",sourceLabel:"Manufacturer-hosted Philippine image reference · Suzuki Raider PRO"},
+  {entityId:"suzuki-raider-pro",id:"suzuki-raider-pro-suzuki-ph-final",imageUrl:"https://mc.suzuki.com.ph/wp-content/uploads/2025/11/RPTYNov11-1.png",pageUrl:"https://mc.suzuki.com.ph/the-progressive-edge-suzuki-launches-the-5th-generation-raider-r150-series-in-the-philippines/",terms:["raider pro","raider","pro"],alt:"Suzuki Raider PRO motorcycle",rightsHolder:"Suzuki Philippines",sourceLabel:"Manufacturer-hosted Philippine image reference · Suzuki Raider PRO"},
   {entityId:"vespa-primavera-150",id:"vespa-primavera-150-vespa-store",pageUrl:"https://storeusa.vespa.com/primavera/primavera-150.aspx",terms:["primavera","150"],alt:"Vespa Primavera 150 scooter",rightsHolder:"Piaggio Group",sourceLabel:"Manufacturer store image reference · Vespa Primavera 150"},
-  {entityId:"zontes-150x",id:"zontes-150x-bristol-ph",pageUrl:"https://www.bristol-motorcycles.com/150x",terms:["150x","zontes"],alt:"Zontes 150X scooter",rightsHolder:"Bristol Motorcycles / Zontes",sourceLabel:"Official Philippine distributor image reference · Zontes 150X"},
-  {entityId:"zontes-400g",id:"zontes-400g-bristol-ph-final",pageUrl:"https://www.bristol-motorcycles.com/400g",terms:["400g","zontes"],alt:"Zontes 400G adventure scooter",rightsHolder:"Bristol Motorcycles / Zontes",sourceLabel:"Official Philippine distributor image reference · Zontes 400G"},
-  {entityId:"zontes-703rr",id:"zontes-703rr-zontes-peru",pageUrl:"https://zontesperu.com/703rr/",terms:["703rr","703 rr","zontes"],alt:"Zontes 703RR sport motorcycle",rightsHolder:"Zontes",sourceLabel:"Official distributor image reference · Zontes 703RR"}
+  {entityId:"zontes-150x",id:"zontes-150x-bristol-ph",imageUrl:"https://static.wixstatic.com/media/fc6fc6_f0f179bd64ef429899c029d40bd8876d~mv2.png",pageUrl:"https://www.bristol-motorcycles.com/150x",terms:["150x","zontes"],alt:"Zontes 150X scooter in Matte Black",rightsHolder:"Bristol Motorcycles / Zontes",sourceLabel:"Official Philippine distributor image reference · Zontes 150X"},
+  {entityId:"zontes-400g",id:"zontes-400g-bristol-ph-final",imageUrl:"https://static.wixstatic.com/media/fc6fc6_f0c468ac8cf34e92a213e2901363cce2~mv2.png",pageUrl:"https://www.bristol-motorcycles.com/400g",terms:["400g","zontes"],alt:"Zontes 400G adventure scooter in Black",rightsHolder:"Bristol Motorcycles / Zontes",sourceLabel:"Official Philippine distributor image reference · Zontes 400G"},
+  {entityId:"zontes-703rr",id:"zontes-703rr-bristol-ph",imageUrl:"https://static.wixstatic.com/media/fc6fc6_653ba8e34ba14041a83275d0ec3a24f0~mv2.png",pageUrl:"https://www.bristol-motorcycles.com/703rr",terms:["703rr","703 rr","zontes"],alt:"Zontes 703RR sport motorcycle in Podium Red",rightsHolder:"Bristol Motorcycles / Zontes",sourceLabel:"Official Philippine distributor image reference · Zontes 703RR"}
 ]
 
 function decodeHtml(s){return s.replace(/&amp;/g,"&").replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,"<").replace(/&gt;/g,">");}
@@ -99,6 +100,18 @@ async function discover(target){
   throw last||new Error("no usable exact-model image candidate");
 }
 
+async function sourceFor(target){
+  if(target.imageUrl){
+    try{
+      const hit=await fetchImage(target.imageUrl,target.pageUrl);
+      return {...hit,pageUrl:target.pageUrl,score:999,label:"explicit exact-model source"};
+    }catch(error){
+      console.log("Direct image failed for "+target.entityId+": "+(error instanceof Error?error.message:String(error))+"; falling back to source page.");
+    }
+  }
+  return discover(target);
+}
+
 function findArrayClose(source,declaration){
   const start=source.indexOf(declaration);if(start<0)throw new Error("Missing "+declaration);
   const open=source.indexOf("[",source.indexOf("=",start));let depth=0,quote="",inString=false,escaped=false;
@@ -110,6 +123,20 @@ function renderRecord(t,sourceImageUrl){
   return '  {\n    id: '+JSON.stringify(t.id)+', entityType: "motorcycle", entityId: '+JSON.stringify(t.entityId)+', role: "primary",\n    src: '+JSON.stringify("/media/motorcycles/"+t.entityId+".webp")+', sourceImageUrl: '+JSON.stringify(sourceImageUrl)+', alt: '+JSON.stringify(t.alt)+', width: 1200, height: 1200,\n    rightsStatus: "external-reference", rightsHolder: '+JSON.stringify(t.rightsHolder)+', sourceLabel: '+JSON.stringify(t.sourceLabel)+', sourceUrl: '+JSON.stringify(t.pageUrl)+', lastChecked: '+JSON.stringify(checkedAt)+'\n  },';
 }
 
+function upsertMediaRecord(source,target,sourceImageUrl){
+  const marker=new RegExp('entityId\\s*:\\s*["\\\']'+esc(target.entityId)+'["\\\']');
+  const match=marker.exec(source);
+  const rendered=renderRecord(target,sourceImageUrl);
+  if(!match){
+    const close=findArrayClose(source,"export const entityMedia");
+    return source.slice(0,close)+rendered+"\n"+source.slice(close);
+  }
+  const start=source.lastIndexOf("\n  {",match.index);
+  const end=source.indexOf("\n  },",match.index);
+  if(start<0||end<0) throw new Error("Could not isolate existing media record for "+target.entityId);
+  return source.slice(0,start+1)+rendered+source.slice(end+5);
+}
+
 let media=fs.readFileSync(mediaPath,"utf8");
 let coverage=fs.readFileSync(coveragePath,"utf8");
 const completed=[],failures=[];
@@ -117,11 +144,10 @@ const completed=[],failures=[];
 for(const target of targets){
   try{
     console.log("Processing "+target.entityId+"...");
-    const source=await discover(target);
+    const source=await sourceFor(target);
     const output=path.join(outDir,target.entityId+".webp");
     await sharp(source.bytes).rotate().resize({width:1200,height:1200,fit:"contain",withoutEnlargement:false,background:{r:255,g:255,b:255,alpha:1}}).webp({quality:86,effort:4}).toFile(output);
-    const existing=new RegExp('entityId\\s*:\\s*["\\\']'+esc(target.entityId)+'["\\\']').test(media);
-    if(!existing){const close=findArrayClose(media,"export const entityMedia");media=media.slice(0,close)+renderRecord(target,source.finalUrl)+"\n"+media.slice(close);}
+    media=upsertMediaRecord(media,target,source.finalUrl);
     coverage=coverage.replace(new RegExp('\\n\\s*"'+esc(target.entityId)+'",?'),"");
     completed.push({entityId:target.entityId,sourceImageUrl:source.finalUrl,sourceUrl:target.pageUrl,width:source.width,height:source.height});
     console.log("✓ "+target.entityId+" <- "+source.finalUrl);
@@ -131,8 +157,12 @@ for(const target of targets){
     console.log("✗ "+target.entityId+": "+message);
   }
 }
+let renderable=fs.readFileSync(renderablePath,"utf8");
+renderable=renderable.replace(/\n\s*"suzuki-raider-pro-manufacturer",?/, "");
+renderable=renderable.replace(/\n\s*"vespa-primavera-150-editorial",?/, "");
 fs.writeFileSync(mediaPath,media);
 fs.writeFileSync(coveragePath,coverage);
+fs.writeFileSync(renderablePath,renderable);
 fs.writeFileSync(path.join(artifactsDir,"motorcycle-image-final15.json"),JSON.stringify({checkedAt,completed,failures},null,2));
 console.log("Final image backlog: completed "+completed.length+"/"+targets.length+"; failures: "+failures.length);
 if(failures.length)process.exit(2);
