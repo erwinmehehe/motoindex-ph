@@ -1075,7 +1075,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "triumph-daytona-660-triumph-official", entityType: "motorcycle", entityId: "triumph-daytona-660", role: "primary",
-    src: "/media/motorcycles/triumph-daytona-660.webp", sourceImageUrl: "https://media.triumphmotorcycles.co.uk/image/upload/t_/c_limit,w_3840/f_auto/q_auto:eco/v1770648998/Daytona_660_MY26_4553_JP_dlstgh?_a=BAVMn6ID0", alt: "Triumph Daytona 660 sport motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/triumph-daytona-660.webp", sourceImageUrl: "https://media.triumphmotorcycles.co.uk/image/upload/w_1080,c_scale/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/roadsters-supersports/my24/lk2_lj2_daytona_660/daytona_660_fixed/web/1080/daytona%20660_my24_satin%20granite_rhs_1080px.png?bc=transparent&mw=1080", alt: "Triumph Daytona 660 sport motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Triumph Motorcycles", sourceLabel: "Manufacturer-hosted image reference · Triumph Daytona 660", sourceUrl: "https://www.triumphmotorcycles.com/motorcycles/sport/daytona/daytona-660", lastChecked: "2026-09-23"
   },
   {
