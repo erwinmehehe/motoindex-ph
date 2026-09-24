@@ -15,6 +15,7 @@ on:
       - scripts/audit-product-media-coverage.mjs
       - scripts/audit-motorcycle-media-coverage.mjs
       - scripts/art-direct-helmet-media.py
+      - scripts/refresh-sourced-product-media.mjs
       - scripts/audit-helmet-media-art-direction.py
       - scripts/validate-media-backfill-safety.mjs
       - components/ProductMedia.tsx
