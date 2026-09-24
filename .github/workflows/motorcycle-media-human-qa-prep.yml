@@ -29,6 +29,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/media/motorcycles/honda-airblade-160.webp public/media/motorcycles/aprilia-tuareg-660.webp lib/media.ts artifacts/motorcycle-media-contact-sheets
-          git commit -m "Fix broken AirBlade and Tuareg media and add QA sheets"
+          git add public/media/motorcycles lib/media.ts artifacts/motorcycle-media-contact-sheets
+          git commit -m "Repair visually damaged motorcycle media and refresh QA sheets"
           git push origin HEAD:fix/motorcycle-media-final-qa
