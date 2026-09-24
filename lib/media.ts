@@ -1185,8 +1185,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "kymco-sky-town-150-verified-20260923", entityType: "motorcycle", entityId: "kymco-sky-town-150", role: "primary",
-    src: "/media/motorcycles/kymco-sky-town-150.webp", sourceImageUrl: "https://kymco.com.ph/wp-content/uploads/2024/11/SKYTOWN1-600x600.png", alt: "Kymco Sky Town 150 motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Kymco Philippines", sourceLabel: "Manufacturer-hosted image reference · Kymco Sky Town 150", sourceUrl: "https://kymco.com.ph/product/sky-town-150/", lastChecked: "2026-09-23"
+    src: "/media/motorcycles/kymco-sky-town-150.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/76/3458/kymco-skytown-150-color-410698.jpg", alt: "Kymco Sky Town 150 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Zigwheels Philippines", sourceLabel: "Philippine catalog product image · Kymco Sky Town 150", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/kymco/skytown-150/colors", lastChecked: "2026-09-23"
   },
   {
     id: "kymco-dtx360-300-verified-20260923", entityType: "motorcycle", entityId: "kymco-dtx360-300", role: "primary",
