@@ -160,10 +160,15 @@ export default function RecommendationsPage() {
 
       <section id="long-rides" className="rec-section rec-data-section">
         <div className="rec-section-head"><div><span>Longer rides</span><h2>Range and displacement are only the start.</h2><p>Tank size can reduce fuel stops. Real touring suitability also depends on ergonomics, wind protection, luggage, passenger needs and service access.</p></div></div>
-        <div className="rec-two-column">
+        <div className="rec-two-column rec-long-ride-grid">
           <div><div className="rec-list-title"><span>Fuel capacity</span><h3>3 larger-tank comparisons</h3></div><RankedList models={longRide} metric={(m) => `${m.fuelTankL} L tank · ${m.engineCc} cc`} /></div>
-          <div id="400cc"><div className="rec-list-title"><span>Displacement</span><h3>3 400cc+ starting points</h3></div><RankedList models={bigBikes} metric={(m) => `${m.engineCc} cc · ${m.powerHp} hp`} /></div>
+          <div className="rec-trip-context"><div className="rec-list-title"><span>Trip planning</span><h3>Check more than tank size</h3></div><p>Wind protection, luggage, passenger comfort, service access and the exact registered motorcycle matter on longer rides.</p><Link className="rec-text-link" href="/recommendations#long-rides">Open the long-distance guide →</Link></div>
         </div>
+      </section>
+
+      <section id="400cc" className="rec-section rec-data-section rec-anchor-section">
+        <div className="rec-section-head"><div><span>400cc and above</span><h2>Start with three current big-bike comparisons.</h2><p>Use recorded displacement as a shortlist filter, then compare price, weight, seat height, power and braking before choosing a model.</p></div><Link href="/motorcycles/expressway-legal">Expressway rule & registration checks →</Link></div>
+        <div className="rec-400cc-panel"><RankedList models={bigBikes} metric={(m) => `${m.engineCc} cc · ${m.powerHp} hp · ${m.curbWeightKg} kg`} /></div>
       </section>
 
       <section id="explore" className="rec-explore">
