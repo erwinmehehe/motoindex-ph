@@ -1,0 +1,31 @@
+name: One-off Ducati Media Repair
+on:
+  push:
+    branches: [fix/motorcycle-media-final-qa]
+    paths:
+      - scripts/fix-ducati-card-media.mjs
+      - .github/workflows/one-off-ducati-media-repair.yml
+permissions:
+  contents: write
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/motorcycle-media-final-qa
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm install --no-save --package-lock=false sharp@0.35.4
+      - run: node scripts/fix-ducati-card-media.mjs
+      - name: Commit corrected Ducati product media
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/media/motorcycles/ducati-monster-937-plus.webp public/media/motorcycles/ducati-scrambler-nightshift.webp lib/media.ts
+          git commit -m "Fix broken Ducati catalog card imagery"
+          git push origin HEAD:fix/motorcycle-media-final-qa
