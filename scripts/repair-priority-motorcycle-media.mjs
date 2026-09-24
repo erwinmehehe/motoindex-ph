@@ -22,22 +22,34 @@ const pageOverride = {
   "honda-xl750-transalp":"https://powersports.honda.com/motorcycle/adventure/transalp",
   "honda-crf1100l-africa-twin":"https://powersports.honda.com/motorcycle/adventure/africa-twin",
   "honda-cbr650r":"https://powersports.honda.com/motorcycle/sport/cbr650r",
-  "royal-enfield-guerrilla-450":"https://www.royalenfield.com/ph/en/motorcycles/guerrilla-450/",
+  "royal-enfield-guerrilla-450":"https://www.royalenfield.com/ph/en/motorcycles/guerrilla-450/campaign/",
   "royal-enfield-classic-350":"https://www.royalenfield.com/ph/en/motorcycles/classic-350/",
   "ktm-790-duke":"https://www.ktm.com/en-int/models/naked-bike/2025-ktm-790-duke.html",
   "ducati-streetfighter-v4":"https://www.ducati.com/us/en/bikes/streetfighter/streetfighter-v4",
   "ducati-panigale-v4":"https://www.ducati.com/us/en/bikes/panigale/panigale-v4",
-  "husqvarna-svartpilen-401":"https://www.husqvarna-motorcycles.com/en-ph/models/naked/svartpilen/svartpilen-401-2023.html",
+  "husqvarna-svartpilen-401":"https://www.husqvarna-motorcycles.com/en-be/models/naked/svartpilen/svartpilen-401-2026.html",
   "bajaj-pulsar-ns400z":"https://www.bajajauto.com/en-ph/bikes/pulsar-ns400z",
   "bmw-s-1000-rr":"https://www.bmwmotorcycles.com/en/models/sport/s1000rr.html",
   "bmw-m-1000-rr":"https://www.bmwmotorcycles.com/en/models/m/m1000rr.html",
-  "bmw-s-1000-r":"https://www.bmwmotorcycles.com/en/models/roadster/s1000r.html",
-  "triumph-speed-twin-900":"https://www.triumphmotorcycles.ph/bikes/classic/speed/speed-twin-900",
+  "bmw-s-1000-r":"https://www.press.bmwgroup.com/global/photo/detail/P90573634/the-new-bmw-s-1000-r-10/2024",
+  "bmw-s-1000-rr":"https://www.press.bmwgroup.com/global/photo/detail/P90573621/the-new-bmw-s-1000-rr-10/2024",
+  "bmw-m-1000-rr":"https://www.press.bmwgroup.com/canada/article/detail/T0404638EN/the-new-bmw-m-1000-rr-and-m-1000-rr-m-competition",
+  "triumph-speed-twin-900":"https://www.triumphmotorcycles.com/motorcycles/classic/bonneville-speed-twin-900",
   "triumph-tiger-sport-660":"https://www.triumphmotorcycles.ph/bikes/adventure/tiger-sport-660",
   "triumph-daytona-660":"https://www.triumphmotorcycles.ph/bikes/sport/daytona-660",
-  "kawasaki-ninja-650":"https://www.kawasaki.com/en-us/motorcycle/ninja/sport/ninja-650",
-  "kawasaki-versys-650":"https://www.kawasaki.com/en-us/motorcycle/versys/adventure-touring/versys-650",
-  "kawasaki-vulcan-s":"https://www.kawasaki.com/en-us/motorcycle/vulcan/sport-cruiser/vulcan-s"
+  "kawasaki-ninja-650":"https://www.kawasaki.eu/en/Motorcycles/A2_Bikes/Ninja_650_2026.html/EX650STFNN/EX650STFNN/MetallicFlatSparkBlackMetallicCarbonGray",
+  "kawasaki-versys-650":"https://www.kawasaki.eu/en/Motorcycles/Adventure_Tourer/Versys_650_2026.html",
+  "kawasaki-vulcan-s":"https://www.kawasaki.eu/en/Motorcycles/A2_Bikes/Vulcan_S_2026.html/EN650MTFNN/EN650MTFNNTR/MetallicFlatSparkBlack"
+};
+
+const forcedImage = {
+  "honda-xl750-transalp":"https://global.honda/content/dam/site/global-en/newsroom-new/cq_img/news/2026/03/2260306eng-xl750/web/2260306-xl750_001L.jpg",
+  "honda-crf1100l-africa-twin":"https://global.honda/content/dam/site/global-en/newsroom-new/cq_img/news/2026/01/2260123eng-crf1100l/web/2260123-crf1100l_001L.jpg",
+  "honda-cbr650r":"https://global.honda/content/dam/site/global-en/newsroom-new/cq_img/news/2023/11/dl/c231107a_004H.jpg",
+  "husqvarna-svartpilen-401":"https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_Svartpilen-401-MY24-90-right_%23SALL_%23AEPI_%23V2.png",
+  "ktm-790-duke":"https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_KTM-naked-bikes-my27-790-duke-orange-right-side-view_%23SALL_%23AEPI_%23V1.png",
+  "bmw-s-1000-rr":"https://mediapool.bmwgroup.com/cache/P9/202410/P90573621/P90573621-the-new-bmw-s-1000-rr-10-2024-2248px.jpg",
+  "bmw-s-1000-r":"https://mediapool.bmwgroup.com/cache/P9/202410/P90573634/P90573634-the-new-bmw-s-1000-r-10-2024-2248px.jpg"
 };
 
 function extractArray(text, declaration){
@@ -73,12 +85,13 @@ function decode(v){return v.replace(/&amp;/g,"&").replace(/&quot;/g,'"').replace
 function attrs(tag){const o={}; for(const m of tag.matchAll(/([:\w-]+)\s*=\s*(["'])(.*?)\2/gs))o[m[1].toLowerCase()]=decode(m[3]);return o;}
 function abs(raw,base){try{return new URL(decode(raw),base).href}catch{return null}}
 function words(v){return [...new Set(v.toLowerCase().replace(/[^a-z0-9]+/g," ").split(/\s+/).filter(x=>x.length>2&&!["motorcycle","bike","official","product","image"].includes(x)))];}
-const good=/(?:product|colour|color|360|studio|cgi|pers|revo|right|left|side|model)/i;
-const bad=/(?:logo|icon|sprite|banner|hero|campaign|action|rider|lifestyle|track|on-road|stills|feature|teaser|social|video|thumbnail)/i;
+const good=/(?:product|colour|color|360|studio|cgi|pers|revo|right|left|side|model|rhs|90-right|profile|spec)/i;
+const bad=/(?:logo|icon|sprite|banner|hero|campaign|action|rider|lifestyle|track|on-road|stills|feature|teaser|social|video|thumbnail|highlight|ride-|cross-gray|loader|warranty)/i;
 
 function candidates(html,pageUrl,terms){
   const arr=[]; const add=(raw,score,label="")=>{const url=raw&&abs(raw,pageUrl);if(!url||!/^https?:/.test(url))return;
-    const hay=(url+" "+label).toLowerCase(); if(/logo|icon|sprite|favicon|payment|badge|avatar|tracking|pixel/.test(hay))return;
+    const hay=(url+" "+label).toLowerCase(); if(/logo|icon|sprite|favicon|payment|badge|avatar|tracking|pixel|cross-gray|loader/.test(hay))return;
+    if(!/\.(?:png|jpe?g|webp)(?:[?#]|$)/i.test(url))return;
     const matches=terms.filter(t=>hay.includes(t)).length; score+=matches*25; if(good.test(hay))score+=22; if(bad.test(hay))score-=45; arr.push({url,score,label});
   };
   for(const tag of html.match(/<img\b[^>]*>/gi)||[]){const a=attrs(tag);const label=(a.alt||"")+" "+(a.title||"");const vals=[a.src,a["data-src"],a["data-lazy-src"],a["data-original"]];
@@ -109,24 +122,72 @@ async function visualScore(bytes){
 async function choose(record){
   const pageUrl=pageOverride[record.entityId]||record.sourceUrl;
   const terms=words(record.alt+" "+record.entityId.replace(/-/g," "));
-  const list=[]; if(record.sourceImageUrl) list.push({url:record.sourceImageUrl,score:30,label:"current"});
+  const list=[];
+  if(forcedImage[record.entityId]) list.push({url:forcedImage[record.entityId],score:260,label:"forced-product"});
+  if(record.sourceImageUrl && !forcedImage[record.entityId]) list.push({url:record.sourceImageUrl,score:20,label:"current"});
   if(pageUrl){
-    try{const r=await fetch(pageUrl,{redirect:"follow",signal:AbortSignal.timeout(10000),headers:{"user-agent":UA,accept:"text/html,application/xhtml+xml"}});if(r.ok){const html=await r.text();list.push(...candidates(html,r.url||pageUrl,terms));}}catch(e){console.warn("page fetch",record.entityId,String(e));}
+    try{
+      const r=await fetch(pageUrl,{redirect:"follow",signal:AbortSignal.timeout(10000),headers:{"user-agent":UA,accept:"text/html,application/xhtml+xml"}});
+      if(r.ok){const html=await r.text();list.push(...candidates(html,r.url||pageUrl,terms));}
+    }catch(e){console.warn("page fetch",record.entityId,String(e));}
   }
-  const seen=new Set(); const uniq=list.filter(x=>!seen.has(x.url)&&seen.add(x.url)).slice(0,12);
+  let filtered=list;
+  if(record.entityId==="husqvarna-svartpilen-401") filtered=filtered.filter(x=>/svartpilen[-_%20]*401/i.test(x.url+" "+x.label)&&!/svartpilen[-_%20]*200/i.test(x.url+" "+x.label));
+  if(record.entityId==="royal-enfield-guerrilla-450") filtered=filtered.filter(x=>!/highlights|ride-lean|banner|desktop|mobile/i.test(x.url));
+  const seen=new Set(); const uniq=filtered.filter(x=>!seen.has(x.url)&&seen.add(x.url)).slice(0,18);
   let best=null;
-  for(const cand of uniq){try{const bytes=await fetchImage(cand.url,pageUrl);const vs=await visualScore(bytes);const total=cand.score+vs;if(!best||total>best.total)best={...cand,bytes,total,vs};}catch{}}
-  if(!best)throw new Error("no usable candidate"); return {...best,pageUrl};
+  for(const cand of uniq){
+    try{
+      const bytes=await fetchImage(cand.url,pageUrl);
+      const vs=await visualScore(bytes);
+      if(vs<0) continue;
+      let total=cand.score+vs;
+      const hay=(cand.url+" "+cand.label).toLowerCase();
+      if(/360|color|colour|studio|90-right|rhs|profile/.test(hay)) total+=60;
+      if(/rider|lifestyle|track|on-road|stills|highlight|banner|ride-lean/.test(hay)) total-=90;
+      if(!best||total>best.total)best={...cand,bytes,total,vs};
+    }catch{}
+  }
+  if(!best)throw new Error("no usable candidate");
+  return {...best,pageUrl};
+}
+
+async function cropLargestForeground(input){
+  const meta=await sharp(input,{failOn:"none"}).metadata();
+  const W=meta.width||0,H=meta.height||0;
+  if(W<200||H<200)return input;
+  const sample=await sharp(input,{failOn:"none"}).rotate().flatten({background:WHITE}).resize(320,320,{fit:"fill"}).raw().toBuffer({resolveWithObject:true});
+  const {data,info}=sample, n=info.width*info.height, mask=new Uint8Array(n);
+  const corners=[[0,0],[info.width-1,0],[0,info.height-1],[info.width-1,info.height-1]];
+  let cornerLum=0; for(const [x,y] of corners){const p=(y*info.width+x)*info.channels;cornerLum+=(data[p]+data[p+1]+data[p+2])/3;}
+  cornerLum/=4;
+  if(cornerLum<220)return input;
+  for(let y=0;y<info.height;y++)for(let x=0;x<info.width;x++){
+    const p=(y*info.width+x)*info.channels,r=data[p],g=data[p+1],b=data[p+2];
+    const lum=(r+g+b)/3,sat=Math.max(r,g,b)-Math.min(r,g,b);
+    if(lum<232||sat>22)mask[y*info.width+x]=1;
+  }
+  const seen=new Uint8Array(n); let best=null;
+  const qx=new Int16Array(n),qy=new Int16Array(n);
+  for(let sy=0;sy<info.height;sy++)for(let sx=0;sx<info.width;sx++){
+    const si=sy*info.width+sx;if(!mask[si]||seen[si])continue;
+    let head=0,tail=0,count=0,minX=sx,maxX=sx,minY=sy,maxY=sy;
+    qx[tail]=sx;qy[tail++]=sy;seen[si]=1;
+    while(head<tail){const x=qx[head],y=qy[head++];count++;if(x<minX)minX=x;if(x>maxX)maxX=x;if(y<minY)minY=y;if(y>maxY)maxY=y;
+      for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=info.width||ny>=info.height)continue;const ni=ny*info.width+nx;if(mask[ni]&&!seen[ni]){seen[ni]=1;qx[tail]=nx;qy[tail++]=ny;}}
+    }
+    if(!best||count>best.count)best={count,minX,maxX,minY,maxY};
+  }
+  if(!best||best.count<n*0.015)return input;
+  const pad=10,minX=Math.max(0,best.minX-pad),minY=Math.max(0,best.minY-pad),maxX=Math.min(info.width-1,best.maxX+pad),maxY=Math.min(info.height-1,best.maxY+pad);
+  const left=Math.floor(minX/info.width*W),top=Math.floor(minY/info.height*H),width=Math.max(1,Math.ceil((maxX-minX+1)/info.width*W)),height=Math.max(1,Math.ceil((maxY-minY+1)/info.height*H));
+  if(width/W>.97&&height/H>.97)return input;
+  return sharp(input,{failOn:"none"}).extract({left,top,width:Math.min(width,W-left),height:Math.min(height,H-top)}).png().toBuffer();
 }
 async function normalize(bytes,dest){
   const rotated=await sharp(bytes,{failOn:"none"}).rotate().png().toBuffer();
-  const flat=await sharp(rotated).flatten({background:WHITE}).removeAlpha().raw().toBuffer({resolveWithObject:true});
-  const {data,info}=flat; const band=Math.max(4,Math.floor(Math.min(info.width,info.height)/100));let near=0,total=0;
-  const check=(x,y)=>{const p=(y*info.width+x)*info.channels;total++;if(data[p]>232&&data[p+1]>232&&data[p+2]>232&&Math.max(data[p],data[p+1],data[p+2])-Math.min(data[p],data[p+1],data[p+2])<18)near++;};
-  for(let x=0;x<info.width;x++){for(let y=0;y<band;y++)check(x,y);for(let y=info.height-band;y<info.height;y++)check(x,y);}
-  for(let y=0;y<info.height;y++){for(let x=0;x<band;x++)check(x,y);for(let x=info.width-band;x<info.width;x++)check(x,y);}
-  let subject=sharp(rotated).flatten({background:WHITE}); if(total&&near/total>.86)subject=subject.trim({background:"#ffffff",threshold:12});
-  const fitted=await subject.resize({width:1000,height:880,fit:"inside",withoutEnlargement:false}).png().toBuffer();
+  const cropped=await cropLargestForeground(rotated);
+  const fitted=await sharp(cropped,{failOn:"none"}).flatten({background:WHITE}).resize({width:1000,height:880,fit:"inside",withoutEnlargement:false}).png().toBuffer();
   await sharp({create:{width:1200,height:1200,channels:4,background:WHITE}}).composite([{input:fitted,gravity:"centre"}]).flatten({background:WHITE}).webp({quality:90,effort:5,smartSubsample:true}).toFile(dest);
 }
 const blocks=objects(extractArray(source,"export const entityMedia"));
