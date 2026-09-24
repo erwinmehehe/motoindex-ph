@@ -32,14 +32,34 @@ const replacements = [
   {
     id: "honda-cb650r",
     file: "honda-cb650r.webp",
-    url: "https://images.ctfassets.net/p4ab844it03t/2QJhmFYoS4Dk4iFfu78qeQ/a96a575c5f6d1ac3b08ac94d647abb14/663311b3dd4c9.png?fm=webp&q=90",
-    crop: { left: 0.0, top: 0.0, width: 0.335, height: 0.81 }
+    url: "https://global.honda/content/dam/site/global-jp/news-new/cq_img/2024/04/dl/2240411-cb650r_005H.jpg"
   },
   {
     id: "honda-nx500-e-clutch",
     file: "honda-nx500-e-clutch.webp",
-    url: "https://images.ctfassets.net/p4ab844it03t/4pg7fV81pYUzq4gfwltBAz/83b7865691fe8646df5e34a5a99978ad/663313b957c73.png?fm=webp&q=90",
-    crop: { left: 0.0, top: 0.0, width: 0.50, height: 0.82 }
+    url: "https://hondabigbike.com.my/wp-content/uploads/2026/09/2026-NX500_studio_A002_E-Clutch_NH-B61P_PearlHorizonWhite_RhSide_M-Photoroom-1-e1786456362968.png"
+  },
+  {
+    id: "kymco-like-150i-abs",
+    file: "kymco-like-150i-abs.webp",
+    url: "https://kymco.com.ph/wp-content/uploads/2024/03/LIKE125_1.png.webp"
+  },
+  {
+    id: "benelli-180s",
+    file: "benelli-180s.webp",
+    url: "https://cdn.keeway.com/benelli-3-0/media/1858/conversions/2560x2180-%2835%29-md.png"
+  },
+  {
+    id: "kawasaki-ninja-400",
+    file: "kawasaki-ninja-400.webp",
+    page: "https://www.kawasaki.ca/en-ca/motorcycle/ninja/sport/ninja-400/2023-ninja-400",
+    meta: "og:image"
+  },
+  {
+    id: "royal-enfield-guerrilla-450",
+    file: "royal-enfield-guerrilla-450.webp",
+    page: "https://www.royalenfield.com/ph/en/motorcycles/guerrilla-450/",
+    alt: "Guerrilla 450 - Brava Blue"
   },
   {
     id: "cfmoto-300sr",
@@ -51,7 +71,7 @@ const replacements = [
     file: "cfmoto-400nk.webp",
     url: "https://cfmotord.com/wp-content/uploads/2020/05/20200312104205.png"
   }
-];
+]
 
 function decodeHtml(value) {
   return value
@@ -104,6 +124,27 @@ async function imageUrlFromAlt(pageUrl, wantedAlt) {
   throw new Error(`Could not find image alt "${wantedAlt}" on ${pageUrl}`);
 }
 
+async function imageUrlFromMeta(pageUrl) {
+  const response = await fetch(pageUrl, {
+    redirect: "follow",
+    headers: { "user-agent": "Mozilla/5.0 MotoIndexMediaQA/1.0" },
+    signal: AbortSignal.timeout(20000)
+  });
+  if (!response.ok) throw new Error(`HTTP ${response.status} for ${pageUrl}`);
+  const html = await response.text();
+  const patterns = [
+    /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i,
+    /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i,
+    /<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i,
+    /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']twitter:image["']/i
+  ];
+  for (const pattern of patterns) {
+    const match = html.match(pattern);
+    if (match?.[1]) return new URL(decodeHtml(match[1]), pageUrl).href;
+  }
+  throw new Error(`Could not find og:image/twitter:image on ${pageUrl}`);
+}
+
 async function normalize(sharp, input, crop) {
   let base = sharp(input, { failOn: "warning" }).rotate();
   const meta = await base.metadata();
@@ -147,7 +188,7 @@ async function main() {
 
   for (const item of replacements) {
     try {
-      const sourceUrl = item.url || await imageUrlFromAlt(item.page, item.alt);
+      const sourceUrl = item.url || (item.meta ? await imageUrlFromMeta(item.page) : await imageUrlFromAlt(item.page, item.alt));
       const input = await fetchBuffer(sourceUrl);
       const output = await normalize(sharp, input, item.crop);
       const dest = path.join(OUT, item.file);
