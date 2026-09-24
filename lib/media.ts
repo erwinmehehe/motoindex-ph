@@ -1035,7 +1035,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "kawasaki-ninja-650-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-ninja-650", role: "primary",
-    src: "/media/motorcycles/kawasaki-ninja-650.webp", sourceImageUrl: "https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/ninja-650/26EX650P_S_242GN1ALFA2CG_A.jpg", alt: "Kawasaki Ninja 650 sport motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/kawasaki-ninja-650.webp", sourceImageUrl: "https://www.kawasaki.eu/en/EICMA/Ninja_650/_jcr_content/root/responsivecontainergrid/kaw_columncontrol_19/col_1/kaw_carousel/image_core_525122719.coreimg.jpeg/1761734427705/26ex650p-s-44tgn1drf3cg-a.jpeg", alt: "Kawasaki Ninja 650 sport motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Ninja 650", sourceUrl: "https://www.kawasaki.eu/en/EICMA/Ninja_650.html", lastChecked: "2026-09-23"
   },
   {
@@ -1045,12 +1045,12 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "kawasaki-versys-650-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-versys-650", role: "primary",
-    src: "/media/motorcycles/kawasaki-versys-650.webp", sourceImageUrl: "https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/versys-650/26KLE650H_J_44TBU1AFA2CG_C.jpg", alt: "Kawasaki Versys 650 touring motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/kawasaki-versys-650.webp", sourceImageUrl: "https://www.kawasaki.eu/en/EICMA/Versys_650/_jcr_content/root/responsivecontainergrid/kaw_columncontrol_19/col_1/kaw_carousel/image_core_525122719.coreimg.jpeg/1762081032826/26my-versys-650-tourer-gy1-front.jpeg", alt: "Kawasaki Versys 650 touring motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Versys 650", sourceUrl: "https://www.kawasaki.eu/en/EICMA/Versys_650.html", lastChecked: "2026-09-23"
   },
   {
     id: "kawasaki-vulcan-s-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-vulcan-s", role: "primary",
-    src: "/media/motorcycles/kawasaki-vulcan-s.webp", sourceImageUrl: "https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/vulcan-s/26EN650D_M_44TGY1ARS2CG_C.jpg", alt: "Kawasaki Vulcan S cruiser motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/kawasaki-vulcan-s.webp", sourceImageUrl: "https://www.kawasaki.eu/en/EICMA/Vulcan_S/_jcr_content/root/responsivecontainergrid/kaw_columncontrol_19/col_1/kaw_carousel/image_core_525122719.coreimg.jpeg/1759331228333/26en650d-m-44tgy1drf1cg-a.jpeg", alt: "Kawasaki Vulcan S cruiser motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Vulcan S", sourceUrl: "https://www.kawasaki.eu/en/EICMA/Vulcan_S.html", lastChecked: "2026-09-23"
   },
   {
