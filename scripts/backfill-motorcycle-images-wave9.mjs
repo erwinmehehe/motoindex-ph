@@ -33,7 +33,7 @@ const targets = [
   {entityId:"kymco-sky-town-150",id:"kymco-sky-town-150-kymco-ph",pageUrl:"https://kymco.com.ph/product/sky-town-150/",terms:["sky town","skytown","150"],alt:"KYMCO Sky Town 150 scooter",rightsHolder:"KYMCO Philippines",sourceLabel:"Manufacturer-hosted Philippine image reference · KYMCO Sky Town 150"},
   {entityId:"kymco-dollar-150",id:"kymco-dollar-150-kymco-ph",pageUrl:"https://kymco.com.ph/product/dollar-150/",terms:["dollar","150"],alt:"KYMCO Dollar 150 scooter",rightsHolder:"KYMCO Philippines",sourceLabel:"Manufacturer-hosted Philippine image reference · KYMCO Dollar 150"},
   {entityId:"royal-enfield-shotgun-650",id:"royal-enfield-shotgun-650-re-ph",pageUrl:"https://www.royalenfield.com/ph/en/motorcycles/shotgun-650/",terms:["shotgun","650"],alt:"Royal Enfield Shotgun 650 motorcycle",rightsHolder:"Royal Enfield",sourceLabel:"Manufacturer-hosted Philippine image reference · Royal Enfield Shotgun 650"},
-  {entityId:"keeway-cafe-racer-152",id:"keeway-cafe-racer-152-keeway-ph",pageUrl:"https://www.keeway.com/ph-en/products/cafe-racer-152",terms:["cafe racer","152"],alt:"Keeway Cafe Racer 152 motorcycle",rightsHolder:"Keeway",sourceLabel:"Manufacturer-hosted Philippine image reference · Keeway Cafe Racer 152"}
+  {entityId:"zontes-400g",id:"zontes-400g-bristol-ph",pageUrl:"https://www.bristol-motorcycles.com/400g",terms:["400g","zontes"],alt:"Zontes 400G adventure scooter",rightsHolder:"Bristol Motorcycles / Zontes",sourceLabel:"Official Philippine distributor image reference · Zontes 400G"}
 ];
 
 function decodeHtml(s){return s.replace(/&amp;/g,"&").replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,"<").replace(/&gt;/g,">");}
