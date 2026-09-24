@@ -950,8 +950,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-cbr150r-honda-ph", entityType: "motorcycle", entityId: "honda-cbr150r", role: "primary",
-    src: "/media/motorcycles/honda-cbr150r.webp", sourceImageUrl: "https://images.ctfassets.net/p4ab844it03t/7udRlrxfC4Nqu6blG2EKTY/c7f40fb788d9fe295445bfebfd1b7e48/67e0b720bcd80.png?fm=webp&q=80", alt: "Honda CBR150R sport motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Honda Philippines", sourceLabel: "Manufacturer-hosted image reference · Honda Philippines CBR150R", sourceUrl: "https://www.hondaph.com/motorcycle/news/honda-philippines-unleashes-power-and-innovation-at-the-action-packed-inside-racing-bikefest-2025", lastChecked: "2026-09-23"
+    src: "/media/motorcycles/honda-cbr150r.webp", sourceImageUrl: "https://asset.astra-honda.com/uploads/product/thumbnail/thumbnail-cbr150r-550x413px-tr-new-2-21112024-100742.png", alt: "Honda CBR150R sport motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Astra Honda Motor", sourceLabel: "Manufacturer-hosted product image · Astra Honda CBR150R", sourceUrl: "https://www.astra-honda.com/product/cbr-150-r", lastChecked: "2026-09-24"
   },
   {
     id: "honda-cbr650r-honda-global", entityType: "motorcycle", entityId: "honda-cbr650r", role: "primary",
@@ -1195,8 +1195,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "aprilia-tuareg-660-aprilia-store", entityType: "motorcycle", entityId: "aprilia-tuareg-660", role: "primary",
-    src: "/media/motorcycles/aprilia-tuareg-660.webp", sourceImageUrl: "https://apriliaindia.com/images/tuareg-660/aprilia_tuareg_660_feature1.png", alt: "Aprilia Tuareg 660 adventure motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Aprilia India", sourceLabel: "Manufacturer-hosted product image · Aprilia India Tuareg 660", sourceUrl: "https://apriliaindia.com/aprilia-tuareg-660.php", lastChecked: "2026-09-24"
+    src: "/media/motorcycles/aprilia-tuareg-660.webp", sourceImageUrl: "https://megabikes.ie/media/catalog/product/0/1/01-aprilia-tuareg-hailstorm-white_1.jpg", alt: "Aprilia Tuareg 660 adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Megabikes Ireland", sourceLabel: "Dealer-hosted exact-model product image · Megabikes Aprilia Tuareg 660", sourceUrl: "https://megabikes.ie/aprilia-tuareg-660-25ym", lastChecked: "2026-09-24"
   },
   {
     id: "aprilia-tuono-660-aprilia-store", entityType: "motorcycle", entityId: "aprilia-tuono-660", role: "primary",
