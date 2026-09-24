@@ -11,17 +11,18 @@ const targets = [
   {
     id: "ducati-monster-937-plus",
     file: "ducati-monster-937-plus.webp",
-    page: "https://www.ducati.com/us/en/bikes/monster/monster-937",
-    altNeedles: ["Monster + - Ducati Red", "Monster +", "Ducati Red"],
-    label: "Manufacturer-hosted product image · Ducati Monster 937 Plus",
+    page: "https://www.ducati.com/br/pt/motos/monster/monster-937",
+    imageUrl: "https://images.ctfassets.net/x7j9qwvpvr5s/6pN73T6u1I1qaq8cizP7qV/b71f8207bba199bff55afb8198559993/Monster-937-Rd-MY22-Model-Preview-1050x650-v06.png",
+    altNeedles: ["Nova Monster - Ducati Red"],
+    label: "Manufacturer-hosted product image · Ducati Monster 937",
     holder: "Ducati"
   },
   {
     id: "ducati-scrambler-nightshift",
     file: "ducati-scrambler-nightshift.webp",
-    page: "https://www.ducati.com/us/en/bikes/scrambler",
-    altNeedles: ["Nightshift - Emerald Green", "Nightshift"],
-    label: "Manufacturer-hosted product image · Ducati Scrambler Nightshift",
+    page: "https://www.ducatiomaha.com/products/2026-ducati-scrambler-nightshift-emerald-green",
+    altNeedles: ["2026 Ducati Scrambler Nightshift - Emerald Green"],
+    label: "Exact product image · Ducati Omaha dealer listing · Scrambler Nightshift",
     holder: "Ducati"
   }
 ];
@@ -102,7 +103,7 @@ function replaceField(source, entityId, field, value) {
 
 let media=await fs.readFile(mediaPath,"utf8");
 for(const target of targets){
-  const found=await pageImage(target.page,target.altNeedles);
+  const found=target.imageUrl ? {url: target.imageUrl, alt: target.altNeedles[0]} : await pageImage(target.page,target.altNeedles);
   console.log(`Found ${target.id}: ${found.alt} -> ${found.url}`);
   const image=await fetchImage(found.url,target.page);
   await normalize(image.bytes,path.join(outDir,target.file));
