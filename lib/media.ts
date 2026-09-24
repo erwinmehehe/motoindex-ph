@@ -174,7 +174,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "yamaha-ytx-125-wheeltek", entityType: "motorcycle", entityId: "yamaha-ytx-125", role: "primary",
-    src: "/media/motorcycles/yamaha-ytx-125.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/03/YTX-125-red-300x300.jpg", alt: "Yamaha YTX 125 motorcycle in red", width: 1200, height: 1200,
+    src: "/media/motorcycles/yamaha-ytx-125.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/03/YTX-125-red.jpg", alt: "Yamaha YTX 125 motorcycle in red", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek YTX 125", sourceUrl: "https://wheeltek.com.ph/products/regular-bikes/page/5/", lastChecked: "2026-08-25"
   },
   {
@@ -225,7 +225,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "suzuki-smash-fi-manufacturer", entityType: "motorcycle", entityId: "suzuki-smash-fi", role: "primary",
-    src: "/media/motorcycles/suzuki-smash-fi.webp", sourceImageUrl: "https://motortrade.com.ph/wp-content/uploads/2025/09/Untitled-design-300x251.png", alt: "Suzuki Smash FI motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/suzuki-smash-fi.webp", sourceImageUrl: "https://motortrade.com.ph/wp-content/uploads/2025/09/Untitled-design.png", alt: "Suzuki Smash FI motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Motortrade / Suzuki", sourceLabel: "Dealer product image · Suzuki Smash FI", sourceUrl: "https://motortrade.com.ph/motorcycles/suzuki-smash-fi/", lastChecked: "2026-09-24"
   },
   {
@@ -492,22 +492,22 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "evo-m2-brand", entityType: "helmet", entityId: "evo-m2", role: "primary",
-    src: "/media/helmets/evo-m2.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2026/02/M2-GLOSSY-PEARL-WHITE-3-768x768.jpg", alt: "EVO M2 full-face motorcycle helmet in glossy pearl white", width: 1200, height: 1200,
+    src: "/media/helmets/evo-m2.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2026/02/M2-GLOSSY-PEARL-WHITE-3.jpg", alt: "EVO M2 full-face motorcycle helmet in glossy pearl white", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "EVO Helmets official M2 product image", sourceUrl: "https://evohelmet.com/product/m2-mono-colors/", lastChecked: "2026-09-04"
   },
   {
     id: "evo-vxr-8000-brand", entityType: "helmet", entityId: "evo-vxr-8000", role: "primary",
-    src: "/media/helmets/evo-vxr-8000.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2026/01/VXR-8000-FRACTION-G-BLACK-BLUE-2-768x768.jpg", alt: "EVO VXR-8000 modular motorcycle helmet in black and blue", width: 1200, height: 1200,
+    src: "/media/helmets/evo-vxr-8000.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2026/01/VXR-8000-FRACTION-G-BLACK-BLUE-2.jpg", alt: "EVO VXR-8000 modular motorcycle helmet in black and blue", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "EVO Helmets official VXR-8000 product image", sourceUrl: "https://evohelmet.com/product/vxr-8000-fraction/", lastChecked: "2026-09-04"
   },
   {
     id: "evo-sr-09-brand", entityType: "helmet", entityId: "evo-sr-09", role: "primary",
-    src: "/media/helmets/evo-sr-09.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2025/10/SR-09-TATAKAI-BLACK-RED-1-768x768.jpg", alt: "EVO SR-09 full-face motorcycle helmet in black and red", width: 1200, height: 1200,
+    src: "/media/helmets/evo-sr-09.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2025/10/SR-09-TATAKAI-BLACK-RED-1.jpg", alt: "EVO SR-09 full-face motorcycle helmet in black and red", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "EVO Helmets official SR-09 product image", sourceUrl: "https://evohelmet.com/product/sr-09-tatakai/", lastChecked: "2026-09-04"
   },
   {
     id: "evo-tr-x-brand", entityType: "helmet", entityId: "evo-tr-x", role: "primary",
-    src: "/media/helmets/evo-tr-x.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2025/09/TR-X-RAVINE-WHITE-TSC-3-768x768.jpg", alt: "EVO TR-X open-face motorcycle helmet in white", width: 1200, height: 1200,
+    src: "/media/helmets/evo-tr-x.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2025/09/TR-X-RAVINE-WHITE-TSC-3.jpg", alt: "EVO TR-X open-face motorcycle helmet in white", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "EVO Helmets official TR-X product image", sourceUrl: "https://evohelmet.com/product/tr-x-ravine/", lastChecked: "2026-09-04"
   },
   {
@@ -614,32 +614,32 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "agv-k1-s-official", entityType: "helmet", entityId: "agv-k1-s", role: "primary",
-    src: "/media/helmets/agv-k1-s.webp", sourceImageUrl: "https://dainese-cdn.thron.com/api/v1/content-delivery/shares/lxnwxt/contents/109ffa08-12a3-4892-a55e-b5b6a5c1c2c9/image/image?format=webp&h=450&q_auto=high&w=450", alt: "AGV K1 S full-face motorcycle helmet", width: 1200, height: 1200,
+    src: "/media/helmets/agv-k1-s.webp", sourceImageUrl: "https://dainese-cdn.thron.com/api/v1/content-delivery/shares/lxnwxt/contents/109ffa08-12a3-4892-a55e-b5b6a5c1c2c9/image/image?format=webp&h=1600&q_auto=high&w=1600", alt: "AGV K1 S full-face motorcycle helmet", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "AGV", sourceLabel: "Official AGV product image · K1 S", sourceUrl: "https://www.agv.com/us/en/k1-s.html", lastChecked: "2026-08-25"
   },
   {
     id: "agv-k3-motoworld", entityType: "helmet", entityId: "agv-k3", role: "primary",
-    src: "/media/helmets/agv-k3.webp", sourceImageUrl: "https://www.motoworld.com.ph/cdn/shop/files/AGV_K3_Striga.jpg?v=1756284976&width=640", alt: "AGV K3 full-face motorcycle helmet", width: 1200, height: 1200,
+    src: "/media/helmets/agv-k3.webp", sourceImageUrl: "https://www.motoworld.com.ph/cdn/shop/files/AGV_K3_Striga.jpg?v=1756284976&width=1600", alt: "AGV K3 full-face motorcycle helmet", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Motoworld Philippines", sourceLabel: "Philippine retailer product image · AGV K3", sourceUrl: "https://www.motoworld.com.ph/products/agv-k3-mono-helmet", lastChecked: "2026-08-25"
   },
   {
     id: "agv-k6-s-official", entityType: "helmet", entityId: "agv-k6-s", role: "primary",
-    src: "/media/helmets/agv-k6-s.webp", sourceImageUrl: "https://dainese-cdn.thron.com/api/v1/content-delivery/shares/lxnwxt/contents/fc1dedcb-9410-43e6-a813-87e79c3859af/image/image?format=webp&h=450&q_auto=high&w=450", alt: "AGV K6 S full-face motorcycle helmet", width: 1200, height: 1200,
+    src: "/media/helmets/agv-k6-s.webp", sourceImageUrl: "https://dainese-cdn.thron.com/api/v1/content-delivery/shares/lxnwxt/contents/fc1dedcb-9410-43e6-a813-87e79c3859af/image/image?format=webp&h=1600&q_auto=high&w=1600", alt: "AGV K6 S full-face motorcycle helmet", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "AGV", sourceLabel: "Official AGV product image · K6 S", sourceUrl: "https://www.agv.com/ee/en/k6-s.html", lastChecked: "2026-08-25"
   },
   {
     id: "agv-eteres-motoworld", entityType: "helmet", entityId: "agv-eteres", role: "primary",
-    src: "/media/helmets/agv-eteres.webp", sourceImageUrl: "https://www.motoworld.com.ph/cdn/shop/files/AGV_ETERES_WHT_3.jpg?v=1752658003&width=640", alt: "AGV Eteres open-face motorcycle helmet in white", width: 1200, height: 1200,
+    src: "/media/helmets/agv-eteres.webp", sourceImageUrl: "https://www.motoworld.com.ph/cdn/shop/files/AGV_ETERES_WHT_3.jpg?v=1752658003&width=1600", alt: "AGV Eteres open-face motorcycle helmet in white", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Motoworld Philippines", sourceLabel: "Philippine retailer product image · AGV Eteres", sourceUrl: "https://www.motoworld.com.ph/products/agv-eteres-mono-motorcycle-open-face-helmet", lastChecked: "2026-08-25"
   },
   {
     id: "agv-streetmodular-motoworld", entityType: "helmet", entityId: "agv-streetmodular", role: "primary",
-    src: "/media/helmets/agv-streetmodular.webp", sourceImageUrl: "https://www.motoworld.com.ph/cdn/shop/files/AGV_Streetmodular_Resia_Matte_black_Gray.jpg?v=1755508384&width=640", alt: "AGV Streetmodular motorcycle helmet", width: 1200, height: 1200,
+    src: "/media/helmets/agv-streetmodular.webp", sourceImageUrl: "https://www.motoworld.com.ph/cdn/shop/files/AGV_Streetmodular_Resia_Matte_black_Gray.jpg?v=1755508384&width=1600", alt: "AGV Streetmodular motorcycle helmet", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Motoworld Philippines", sourceLabel: "Philippine retailer product image · AGV Streetmodular", sourceUrl: "https://www.motoworld.com.ph/products/agv-streetmodular-full-face-helmet", lastChecked: "2026-08-25"
   },
   {
     id: "arai-rapide-neo-motoman", entityType: "helmet", entityId: "arai-rapide-neo", role: "primary",
-    src: "/media/helmets/arai-rapide-neo.webp", sourceImageUrl: "https://shopmotoman.com/cdn/shop/files/IMG-5131.jpg?v=1787537177&width=416", alt: "Arai Rapide Neo full-face motorcycle helmet", width: 1200, height: 1200,
+    src: "/media/helmets/arai-rapide-neo.webp", sourceImageUrl: "https://shopmotoman.com/cdn/shop/files/IMG-5131.jpg?v=1787537177&width=1600", alt: "Arai Rapide Neo full-face motorcycle helmet", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Motoman Philippines", sourceLabel: "Philippine retailer product image · Arai Rapide Neo", sourceUrl: "https://shopmotoman.com/products/arai-rapide-neo", lastChecked: "2026-08-25"
   },
   {
@@ -837,7 +837,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"royal-enfield-guerrilla-450-editorial", entityType:"motorcycle", entityId:"royal-enfield-guerrilla-450", role:"primary",
-    src:"/media/motorcycles/royal-enfield-guerrilla-450.webp", sourceImageUrl:"https://images5.1000ps.net/images_bikekat/2025/15-Royal_Enfield/12583-Guerrilla_450/006-638783978103498301-royal-enfield-guerrilla-450.jpg?format=webp&height=566&mode=crop&width=920", alt:"Royal Enfield Guerrilla 450 motorcycle in studio view", width:1200, height:1200,
+    src:"/media/motorcycles/royal-enfield-guerrilla-450.webp", sourceImageUrl:"https://images5.1000ps.net/images_bikekat/2025/15-Royal_Enfield/12583-Guerrilla_450/006-638783978103498301-royal-enfield-guerrilla-450.jpg?format=webp&height=984&mode=crop&width=1600", alt:"Royal Enfield Guerrilla 450 motorcycle in studio view", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder:"1000PS dealer network", sourceLabel:"Dealer product image · Royal Enfield Guerrilla 450", sourceUrl:"https://www.royal-enfield-sachsen.com/de/motorrad-modell-royal-enfield-guerrilla-450-12583-2025", lastChecked:"2026-09-08"
   },
   {
@@ -873,7 +873,7 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Honda Motor Europe", sourceLabel: "Official Honda media image · Gold Wing Tour", sourceUrl: "https://hondanews.eu/pl/pl/motorcycles/media/pressreleases/453353/honda-gold-wing-tour-na-rok-modelowy-2024", lastChecked: "2026-09-09"
   },
   {
-    id: "honda-rebel-1100-official", entityType: "motorcycle", entityId: "honda-rebel-1100", role: "primary", sourceImageUrl:"https://images.ctfassets.net/p4ab844it03t/1A4vT25I9tDc75WtXAzzIR/a07a61d60d30563082646b8d8f532ac2/10M_Photo1.jpg?w=662&h=426&fm=webp&q=80",
+    id: "honda-rebel-1100-official", entityType: "motorcycle", entityId: "honda-rebel-1100", role: "primary", sourceImageUrl:"https://images.ctfassets.net/p4ab844it03t/1A4vT25I9tDc75WtXAzzIR/a07a61d60d30563082646b8d8f532ac2/10M_Photo1.jpg?w=1600&h=1030&fm=webp&q=80",
     src:"/media/motorcycles/honda-rebel-1100.webp", alt: "Honda Rebel 1100 cruiser in Matte Black Metallic", width:1200, height:1200,
     rightsStatus: "external-reference", rightsHolder:"Honda Philippines", sourceLabel:"Official Honda Philippines product image · Rebel 1100", sourceUrl:"https://www.hondaph.com/big-bike/news/the-all-new-rebel1100-new-modern-street-bobber-style-bike", lastChecked: "2026-09-09"
   },
@@ -1170,7 +1170,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "kymco-dink-r-150-verified-20260923", entityType: "motorcycle", entityId: "kymco-dink-r-150", role: "primary",
-    src: "/media/motorcycles/kymco-dink-r-150.webp", sourceImageUrl: "https://kymco.com.ph/wp-content/uploads/2024/02/PL_COL11-2-700x467.png", alt: "Kymco Dink R 150 motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/kymco-dink-r-150.webp", sourceImageUrl: "https://kymco.com.ph/wp-content/uploads/2024/02/PL_COL11-2.png", alt: "Kymco Dink R 150 motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Kymco Philippines", sourceLabel: "Manufacturer-hosted image reference · Kymco Dink R 150", sourceUrl: "https://kymco.com.ph/product/dink-r-150/", lastChecked: "2026-09-23"
   },
   {
@@ -1190,7 +1190,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "kymco-dtx360-300-verified-20260923", entityType: "motorcycle", entityId: "kymco-dtx360-300", role: "primary",
-    src: "/media/motorcycles/kymco-dtx360-300.webp", sourceImageUrl: "https://kymco.com.ph/wp-content/uploads/2024/02/PL_COL6-700x467.png", alt: "Kymco DTX360 300 motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/kymco-dtx360-300.webp", sourceImageUrl: "https://kymco.com.ph/wp-content/uploads/2024/02/PL_COL6.png", alt: "Kymco DTX360 300 motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Kymco Philippines", sourceLabel: "Manufacturer-hosted image reference · Kymco DTX360 300", sourceUrl: "https://kymco.com.ph/product/dtx-360-300/", lastChecked: "2026-09-23"
   },
   {
@@ -1220,7 +1220,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "kawasaki-ninja-1000-kawasaki-jp", entityType: "motorcycle", entityId: "kawasaki-ninja-1000", role: "primary",
-    src: "/media/motorcycles/kawasaki-ninja-1000.webp", sourceImageUrl: "https://content2.kawasaki.com/ContentStorage/KMJ/Products/5291/0ad33454-8f03-491b-a91b-63a420a284fe.jpg?w=510&h=340&mode=crop", alt: "Kawasaki Ninja 1000SX sport touring motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/kawasaki-ninja-1000.webp", sourceImageUrl: "https://content2.kawasaki.com/ContentStorage/KMJ/Products/5291/0ad33454-8f03-491b-a91b-63a420a284fe.jpg?w=1600&h=1067&mode=crop", alt: "Kawasaki Ninja 1000SX sport touring motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Japan", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Ninja 1000SX", sourceUrl: "https://www.kawasaki-motors.com/ja-jp/motorcycle/ninja/sport/ninja-1000sx/2024-ninja-1000sx", lastChecked: "2026-09-24"
   },
   {
