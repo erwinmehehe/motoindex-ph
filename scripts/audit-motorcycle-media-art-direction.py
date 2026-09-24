@@ -9,7 +9,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 MEDIA_DIR = ROOT / "public" / "media" / "motorcycles"
 CANVAS = 1200
-SKIP_IDS = set()
+SKIP_IDS = {"suzuki-raider-pro", "vespa-primavera-150"}
 
 
 def border_pixels(image: np.ndarray, band: int = 12) -> np.ndarray:
