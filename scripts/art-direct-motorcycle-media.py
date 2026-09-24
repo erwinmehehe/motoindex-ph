@@ -113,7 +113,7 @@ def mask_quality(mask: np.ndarray) -> float:
     return (1.0 - edge_ratio) * 3.0 + center + min(bw, 0.9) + min(bh, 0.9) - abs(area - 0.30)
 
 
-def refine_mask(mask: np.ndarray) -> np.ndarray:
+def refine_mask(mask: np.ndarray, keep_detached_near_bbox: bool = False) -> np.ndarray:
     hard = (mask.astype(np.uint8) * 255)
     kernel = np.ones((3, 3), np.uint8)
     hard = cv2.morphologyEx(hard, cv2.MORPH_CLOSE, kernel, iterations=1)
@@ -122,24 +122,42 @@ def refine_mask(mask: np.ndarray) -> np.ndarray:
     if count > 1:
         areas = stats[1:, cv2.CC_STAT_AREA]
         largest_label = int(np.argmax(areas)) + 1
-        largest_mask = (labels == largest_label).astype(np.uint8)
-        near = cv2.dilate(
-            largest_mask,
-            cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (25, 25)),
-            iterations=1,
-        )
         keep = np.zeros_like(hard)
-        for label in range(1, count):
-            area = int(stats[label, cv2.CC_STAT_AREA])
-            component = labels == label
-            if label == largest_label or (area >= 80 and np.any(near[component] > 0)):
-                keep[component] = 255
+        if keep_detached_near_bbox:
+            largest = stats[largest_label]
+            lx, ly, lw, lh = [int(v) for v in largest[:4]]
+            pad_x = max(16, int(lw * 0.06))
+            pad_y = max(16, int(lh * 0.06))
+            x0, x1 = max(0, lx - pad_x), min(mask.shape[1], lx + lw + pad_x)
+            y0, y1 = max(0, ly - pad_y), min(mask.shape[0], ly + lh + pad_y)
+            for label in range(1, count):
+                x, y, w, h, area = [int(v) for v in stats[label]]
+                if label == largest_label or (
+                    area >= 120
+                    and x < x1
+                    and x + w > x0
+                    and y < y1
+                    and y + h > y0
+                ):
+                    keep[labels == label] = 255
+        else:
+            largest_mask = (labels == largest_label).astype(np.uint8)
+            near = cv2.dilate(
+                largest_mask,
+                cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (25, 25)),
+                iterations=1,
+            )
+            for label in range(1, count):
+                area = int(stats[label, cv2.CC_STAT_AREA])
+                component = labels == label
+                if label == largest_label or (area >= 80 and np.any(near[component] > 0)):
+                    keep[component] = 255
         hard = keep
 
     return cv2.GaussianBlur(hard, (0, 0), 0.75)
 
 
-def subject_cutout(image: np.ndarray) -> tuple[np.ndarray, np.ndarray, str]:
+def subject_cutout(image: np.ndarray, keep_detached_near_bbox: bool = False) -> tuple[np.ndarray, np.ndarray, str]:
     h, w = image.shape[:2]
     band = max(4, min(h, w) // 100)
     border = border_pixels(image, band)
@@ -177,7 +195,7 @@ def subject_cutout(image: np.ndarray) -> tuple[np.ndarray, np.ndarray, str]:
     method, mask = max(candidates, key=lambda item: mask_quality(item[1]))
     if mask_quality(mask) < -20:
         raise RuntimeError("segmentation confidence too low")
-    alpha_small = refine_mask(mask)
+    alpha_small = refine_mask(mask, keep_detached_near_bbox)
     alpha = (
         cv2.resize(alpha_small, (w, h), interpolation=cv2.INTER_LINEAR)
         if alpha_small.shape != (h, w)
@@ -252,7 +270,10 @@ def process(path: Path) -> dict:
         image = image[y0:y1, x0:x1]
 
     try:
-        cutout, alpha, method = subject_cutout(image)
+        cutout, alpha, method = subject_cutout(
+            image,
+            keep_detached_near_bbox=(entity_id == "kawasaki-ninja-400"),
+        )
         canvas, stats = compose_canvas(cutout, alpha)
         ok = cv2.imwrite(str(path), canvas, [cv2.IMWRITE_WEBP_QUALITY, 88])
         if not ok:
