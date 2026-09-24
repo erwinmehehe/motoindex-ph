@@ -1,0 +1,44 @@
+name: Repair Screenshot Motorcycle Media
+
+on:
+  push:
+    branches: [fix/catalog-media-product-shot-sweep-sep25]
+    paths:
+      - "scripts/repair-priority-motorcycle-media.mjs"
+      - ".github/workflows/repair-screenshot-motorcycle-media.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/catalog-media-product-shot-sweep-sep25
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm install --no-save --package-lock=false sharp@0.35.4
+      - name: Refresh screenshot-flagged motorcycle images
+        run: node scripts/repair-priority-motorcycle-media.mjs
+      - name: Validate media
+        run: |
+          npm run validate:media
+          node scripts/validate-priority-motorcycle-media.mjs
+      - name: Commit repaired media
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/media.ts public/media/motorcycles artifacts/priority-media-repair.json
+          if git diff --cached --quiet; then
+            echo "No media changes."
+            exit 0
+          fi
+          git commit -m "Refresh screenshot-flagged motorcycle product images"
+          git push origin HEAD:fix/catalog-media-product-shot-sweep-sep25
