@@ -96,7 +96,7 @@ const tuaregUrl="https://apriliaindia.com/images/tuareg-660/aprilia_tuareg_660_f
 const tuaregPage="https://apriliaindia.com/aprilia-tuareg-660.php";
 const tuareg=await fetchImage(tuaregUrl,tuaregPage);
 await writeWhiteCanvas(tuareg.bytes,path.join(outDir,"aprilia-tuareg-660.webp"),{
-  extractFraction:{left:0.47,top:0.08,right:0.995,bottom:0.92},
+  extractFraction:{left:0.545,top:0.08,right:0.995,bottom:0.92},
   trim:true
 });
 
