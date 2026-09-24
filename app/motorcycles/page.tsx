@@ -23,6 +23,11 @@ const publicIds = new Set(publicModels.map((m) => m.id));
 const publicFamilies = modelFamilies.filter((f) => f.generationIds.length > 0 && f.generationIds.every((id) => publicIds.has(id)));
 const currentModels = currentPublicMotorcycles;
 const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;
+const MOTORCYCLE_BRAND_LOGOS = new Set([
+  "aprilia", "bajaj", "benelli", "bmw-motorrad", "bristol", "cfmoto", "ducati",
+  "honda", "husqvarna", "kawasaki", "keeway", "ktm", "kymco", "royal-enfield",
+  "rusi", "suzuki", "triumph", "vespa", "yamaha", "zontes"
+]);
 
 function hasCatalogFilters(params: Record<string, string | string[] | undefined>) {
   return CATALOG_FILTER_PARAMS.some((key) => {
@@ -139,7 +144,7 @@ export default function MotorcyclesPage() {
 
         <section className="motorcycle-brand-directory">
           <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Browse by brand</span><h2>Motorcycle brands and current price ranges</h2><p>Each brand hub keeps its current models, observed price span and model-family context on one canonical destination.</p></div></div>
-          <div className="motorcycle-brand-directory-grid">{brandDirectory.map((brand) => <Link href={`/motorcycles/${brand.slug}`} key={brand.slug}><div className="motorcycle-brand-mark" aria-hidden="true">{brand.name.slice(0,2).toUpperCase()}</div><div><strong>{brand.name}</strong><small>{brand.count} current {brand.count === 1 ? "model" : "models"}</small></div><span>{php(brand.low)}{brand.high > brand.low ? `–${php(brand.high)}` : ""}</span></Link>)}</div>
+          <div className="motorcycle-brand-directory-grid">{brandDirectory.map((brand) => <Link href={`/motorcycles/${brand.slug}`} key={brand.slug}><div className="motorcycle-brand-mark" aria-hidden="true">{MOTORCYCLE_BRAND_LOGOS.has(brand.slug) ? <img src={`/brand/motorcycle/${brand.slug}.svg`} alt="" loading="lazy" /> : <span>{brand.name.slice(0,2).toUpperCase()}</span>}</div><div><strong>{brand.name}</strong><small>{brand.count} current {brand.count === 1 ? "model" : "models"}</small></div><span>{php(brand.low)}{brand.high > brand.low ? `–${php(brand.high)}` : ""}</span></Link>)}</div>
         </section>
 
         {publicFamilies.length > 0 && <section className="motorcycle-family-strip">
