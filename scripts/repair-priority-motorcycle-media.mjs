@@ -90,7 +90,7 @@ function candidates(html,pageUrl,terms){
   const seen=new Set();return arr.sort((a,b)=>b.score-a.score).filter(x=>!seen.has(x.url)&&seen.add(x.url));
 }
 async function fetchImage(url,referer){
-  const r=await fetch(url,{redirect:"follow",signal:AbortSignal.timeout(20000),headers:{"user-agent":UA,accept:"image/avif,image/webp,image/png,image/jpeg,image/*,*/*;q=0.8",...(referer?{referer}:{})}});
+  const r=await fetch(url,{redirect:"follow",signal:AbortSignal.timeout(10000),headers:{"user-agent":UA,accept:"image/avif,image/webp,image/png,image/jpeg,image/*,*/*;q=0.8",...(referer?{referer}:{})}});
   if(!r.ok)throw new Error("HTTP "+r.status); const type=(r.headers.get("content-type")||"").toLowerCase(); if(!type.startsWith("image/"))throw new Error("not image "+type);
   const bytes=Buffer.from(await r.arrayBuffer()); if(bytes.length<8000)throw new Error("too small"); return bytes;
 }
@@ -111,9 +111,9 @@ async function choose(record){
   const terms=words(record.alt+" "+record.entityId.replace(/-/g," "));
   const list=[]; if(record.sourceImageUrl) list.push({url:record.sourceImageUrl,score:30,label:"current"});
   if(pageUrl){
-    try{const r=await fetch(pageUrl,{redirect:"follow",signal:AbortSignal.timeout(20000),headers:{"user-agent":UA,accept:"text/html,application/xhtml+xml"}});if(r.ok){const html=await r.text();list.push(...candidates(html,r.url||pageUrl,terms));}}catch(e){console.warn("page fetch",record.entityId,String(e));}
+    try{const r=await fetch(pageUrl,{redirect:"follow",signal:AbortSignal.timeout(10000),headers:{"user-agent":UA,accept:"text/html,application/xhtml+xml"}});if(r.ok){const html=await r.text();list.push(...candidates(html,r.url||pageUrl,terms));}}catch(e){console.warn("page fetch",record.entityId,String(e));}
   }
-  const seen=new Set(); const uniq=list.filter(x=>!seen.has(x.url)&&seen.add(x.url)).slice(0,28);
+  const seen=new Set(); const uniq=list.filter(x=>!seen.has(x.url)&&seen.add(x.url)).slice(0,12);
   let best=null;
   for(const cand of uniq){try{const bytes=await fetchImage(cand.url,pageUrl);const vs=await visualScore(bytes);const total=cand.score+vs;if(!best||total>best.total)best={...cand,bytes,total,vs};}catch{}}
   if(!best)throw new Error("no usable candidate"); return {...best,pageUrl};
@@ -142,4 +142,4 @@ for(const id of targets){
   }catch(e){report.push({id,status:"failed",error:String(e)});console.error("✗",id,String(e));}
 }
 fs.writeFileSync(mediaPath,source); fs.mkdirSync(path.join(root,"artifacts"),{recursive:true}); fs.writeFileSync(path.join(root,"artifacts/priority-media-repair.json"),JSON.stringify(report,null,2));
-const failed=report.filter(x=>x.status!=="updated"); console.log("updated",report.length-failed.length,"of",report.length); if(failed.length){console.error(failed);process.exit(1);}
+const failed=report.filter(x=>x.status!=="updated"); console.log("updated",report.length-failed.length,"of",report.length); if(failed.length){console.error("Unresolved targets:",failed);}
