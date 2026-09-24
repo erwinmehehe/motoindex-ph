@@ -28,7 +28,6 @@ jobs:
           --only=bristol-basilica-125,husqvarna-norden-901,husqvarna-svartpilen-200,royal-enfield-shotgun-650,royal-enfield-super-meteor-650,royal-enfield-bear-650,kymco-sky-town-150
       - name: Validate media
         run: |
-          npm run audit:media
           node scripts/audit-motorcycle-media-coverage.mjs
           python3 scripts/audit-motorcycle-media-art-direction.py
       - name: Commit refreshed local derivatives
