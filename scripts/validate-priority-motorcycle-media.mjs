@@ -1,7 +1,14 @@
 import fs from "node:fs";
+import { execFileSync } from "node:child_process";
 
 const media = fs.readFileSync("lib/media.ts", "utf8");
 const targets = [
+  "honda-rebel-1100",
+  "kawasaki-vulcan-s",
+  "kawasaki-ninja-650",
+  "kawasaki-versys-650",
+  "kawasaki-ninja-1000",
+  "kawasaki-ninja-h2",
   "honda-crf300-rally",
   "honda-cb500-hornet-e-clutch",
   "suzuki-avenis",
@@ -95,6 +102,26 @@ for (const id of targets) {
   if (noGallerySources.has(id) && lower.includes("gallery")) {
     failures.push(`${id}: sourceImageUrl is still a gallery/editorial source -> ${sourceImageUrl}`);
   }
+}
+
+
+const knownBadLocalBlobs = {
+  "honda-rebel-1100": "c55a2b4e17ef7f0e9742177ffc39f171437404a4",
+  "kawasaki-vulcan-s": "b2d8567184a4745a3b08b5a03452940cdec3293d",
+  "kawasaki-ninja-650": "fe52f5a3df45faa9f0912312ebf3a38463b85199",
+  "kawasaki-versys-650": "28b0bd7054c5c258eaec13a323e279176250b0e4",
+  "kawasaki-ninja-1000": "63a5651c466d42ddf5c913f36cf583f27098c856",
+  "kawasaki-ninja-h2": "bdfef07bc78c0f11f4c24b454050ef6a2a698cbb",
+};
+
+for (const [id, badSha] of Object.entries(knownBadLocalBlobs)) {
+  const path = `public/media/motorcycles/${id}.webp`;
+  if (!fs.existsSync(path)) {
+    failures.push(`${id}: expected localized asset is missing`);
+    continue;
+  }
+  const blobSha = execFileSync("git", ["hash-object", path], { encoding: "utf8" }).trim();
+  if (blobSha === badSha) failures.push(`${id}: known-bad stale local image is still present`);
 }
 
 if (media.includes("GrabCut") || media.includes("grabCut")) {
