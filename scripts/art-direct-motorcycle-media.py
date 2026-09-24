@@ -23,7 +23,7 @@ SKIP_IDS = {
 CUSTOM_CROPS = {
     # The historical Kawasaki Philippines announcement is first-party but includes headline/caption art.
     # Crop to the actual motorcycle before segmentation.
-    "kawasaki-ninja-400": (0.26, 0.39, 0.51, 0.35),
+    "kawasaki-ninja-400": (0.26, 0.39, 0.51, 0.31),
 }
 
 
@@ -122,23 +122,18 @@ def refine_mask(mask: np.ndarray) -> np.ndarray:
     if count > 1:
         areas = stats[1:, cv2.CC_STAT_AREA]
         largest_label = int(np.argmax(areas)) + 1
-        largest = stats[largest_label]
-        lx, ly, lw, lh = [int(v) for v in largest[:4]]
-        pad_x = max(16, int(lw * 0.06))
-        pad_y = max(16, int(lh * 0.06))
-        x0, x1 = max(0, lx - pad_x), min(mask.shape[1], lx + lw + pad_x)
-        y0, y1 = max(0, ly - pad_y), min(mask.shape[0], ly + lh + pad_y)
+        largest_mask = (labels == largest_label).astype(np.uint8)
+        near = cv2.dilate(
+            largest_mask,
+            cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (25, 25)),
+            iterations=1,
+        )
         keep = np.zeros_like(hard)
         for label in range(1, count):
-            x, y, w, h, area = [int(v) for v in stats[label]]
-            if label == largest_label or (
-                area >= 120
-                and x < x1
-                and x + w > x0
-                and y < y1
-                and y + h > y0
-            ):
-                keep[labels == label] = 255
+            area = int(stats[label, cv2.CC_STAT_AREA])
+            component = labels == label
+            if label == largest_label or (area >= 80 and np.any(near[component] > 0)):
+                keep[component] = 255
         hard = keep
 
     return cv2.GaussianBlur(hard, (0, 0), 0.75)
