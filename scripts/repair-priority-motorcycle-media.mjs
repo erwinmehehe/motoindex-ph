@@ -58,9 +58,14 @@ function objects(text){
     if(ch==="{"){if(depth===0)start=i;depth++;} else if(ch==="}"&&--depth===0&&start>=0){out.push(text.slice(start,i+1));start=-1;}
   } return out;
 }
-function field(block,name){return block.match(new RegExp("\\b"+name+"\\s*:\\s*[\\"']([^\\"']+)[\\"']"))?.[1]||"";}
+function field(block,name){
+  const doubleQuoted=block.match(new RegExp("\\b"+name+"\\s*:\\s*\\\"([^\\\"]+)\\\""));
+  if(doubleQuoted)return doubleQuoted[1];
+  return block.match(new RegExp("\\b"+name+"\\s*:\\s*'([^']+)'"))?.[1]||"";
+}
 function setField(block,name,value){
-  const re=new RegExp("\\b"+name+"\\s*:\\s*[\\"'][^\\"']*[\\"']");
+  let re=new RegExp("\\b"+name+"\\s*:\\s*\\\"[^\\\"]*\\\"");
+  if(!re.test(block)) re=new RegExp("\\b"+name+"\\s*:\\s*'[^']*'");
   if(re.test(block))return block.replace(re,name+":"+JSON.stringify(value));
   return block.replace(/(\brole\s*:\s*["'][^"']+["']\s*,?)/,"$1 "+name+":"+JSON.stringify(value)+",");
 }
