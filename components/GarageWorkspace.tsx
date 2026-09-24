@@ -3,6 +3,17 @@
 import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { GarageAccountPanel } from "@/components/GarageAccountPanel";
 import {
+  GARAGE_DOCUMENT_ATTACHMENT_ACCEPT_ATTR,
+  deleteGarageDocumentAttachment,
+  deleteGarageDocumentAttachments,
+  formatGarageDocumentAttachmentBytes,
+  getGarageDocumentAttachment,
+  listGarageDocumentAttachments,
+  pruneGarageDocumentAttachments,
+  saveGarageDocumentAttachment,
+  type GarageDocumentAttachmentSummary,
+} from "@/lib/garageDocumentStore";
+import {
   GARAGE_DOCUMENT_TYPES,
   GARAGE_RECORD_CATEGORIES,
   GARAGE_STORAGE_KEY,
@@ -63,6 +74,8 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
   const [hydrated, setHydrated] = useState(false);
   const [selectedId, setSelectedId] = useState("");
   const [showBikeForm, setShowBikeForm] = useState(false);
+  const [documentAttachments, setDocumentAttachments] = useState<Record<string, GarageDocumentAttachmentSummary>>({});
+  const [documentFileMessage, setDocumentFileMessage] = useState("");
   const backupInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -77,6 +90,20 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
     if (!hydrated) return;
     window.localStorage.setItem(GARAGE_STORAGE_KEY, JSON.stringify(state));
   }, [hydrated, state]);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    let cancelled = false;
+    listGarageDocumentAttachments(state.documents.map((item) => item.id))
+      .then((items) => {
+        if (cancelled) return;
+        setDocumentAttachments(Object.fromEntries(items.map((item) => [item.documentId, item])));
+      })
+      .catch(() => {
+        if (!cancelled) setDocumentFileMessage("Private document files are unavailable in this browser.");
+      });
+    return () => { cancelled = true; };
+  }, [hydrated, state.documents]);
 
   const selectedBike = state.motorcycles.find((bike) => bike.id === selectedId) || state.motorcycles[0];
   const selectedCatalog = selectedBike ? catalog.find((model) => model.id === (selectedBike.catalogModelId || `${selectedBike.make.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${selectedBike.model.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`)) : undefined;
@@ -201,8 +228,61 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
     setState((current) => ({ ...current, records: current.records.filter((record) => record.id !== recordId) }));
   }
 
-  function removeDocument(documentId: string) {
+  async function removeDocument(documentId: string) {
+    await deleteGarageDocumentAttachment(documentId).catch(() => {});
+    setDocumentAttachments((current) => {
+      const next = { ...current };
+      delete next[documentId];
+      return next;
+    });
     setState((current) => ({ ...current, documents: current.documents.filter((document) => document.id !== documentId) }));
+  }
+
+  async function attachDocumentFile(documentId: string, event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    try {
+      const saved = await saveGarageDocumentAttachment(documentId, file);
+      setDocumentAttachments((current) => ({ ...current, [documentId]: saved }));
+      setDocumentFileMessage(`${file.name} saved privately on this device.`);
+    } catch (error) {
+      setDocumentFileMessage(error instanceof Error ? error.message : "The document file could not be saved.");
+    }
+  }
+
+  async function openDocumentFile(documentId: string) {
+    try {
+      const attachment = await getGarageDocumentAttachment(documentId);
+      if (!attachment) {
+        setDocumentFileMessage("That file is not stored on this device.");
+        return;
+      }
+      const url = URL.createObjectURL(attachment.blob);
+      const anchor = window.document.createElement("a");
+      anchor.href = url;
+      anchor.target = "_blank";
+      anchor.rel = "noopener noreferrer";
+      anchor.click();
+      window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+    } catch {
+      setDocumentFileMessage("The document file could not be opened.");
+    }
+  }
+
+  async function removeDocumentFile(documentId: string) {
+    if (!window.confirm("Remove the attached file from this device? The document record will stay.")) return;
+    try {
+      await deleteGarageDocumentAttachment(documentId);
+      setDocumentAttachments((current) => {
+        const next = { ...current };
+        delete next[documentId];
+        return next;
+      });
+      setDocumentFileMessage("Attached file removed from this device.");
+    } catch {
+      setDocumentFileMessage("The attached file could not be removed.");
+    }
   }
 
   function addDocument(event: FormEvent<HTMLFormElement>) {
@@ -223,8 +303,11 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
     event.currentTarget.reset();
   }
 
-  function removeBike() {
+  async function removeBike() {
     if (!selectedBike || !window.confirm(`Remove ${selectedBike.make} ${selectedBike.model} and all of its local Garage records?`)) return;
+    const removedDocumentIds = state.documents.filter((item) => item.motorcycleId === selectedBike.id).map((item) => item.id);
+    await deleteGarageDocumentAttachments(removedDocumentIds).catch(() => {});
+    setDocumentAttachments((current) => Object.fromEntries(Object.entries(current).filter(([documentId]) => !removedDocumentIds.includes(documentId))));
     const nextBikes = state.motorcycles.filter((bike) => bike.id !== selectedBike.id);
     setState((current) => ({
       ...current,
@@ -254,6 +337,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
       event.target.value = "";
       return;
     }
+    await pruneGarageDocumentAttachments(imported.documents.map((item) => item.id)).catch(() => {});
     setState(imported);
     setSelectedId(imported.motorcycles[0]?.id || "");
     setShowBikeForm(imported.motorcycles.length === 0);
@@ -265,12 +349,13 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
   return <section className="garage-workspace">
     <div className="note-box">
       <strong>Local-first privacy</strong>
-      <p>My Garage still works without an account. Records stay on this browser unless you explicitly save a private cloud copy after signing in. Scanned OR/CR files are not uploaded in this release.</p>
+      <p>My Garage still works without an account. Records stay on this browser unless you explicitly save a private cloud copy after signing in. Document scans stay only in private browser storage on this device and are never included in cloud sync or JSON backups.</p>
     </div>
 
     <GarageAccountPanel
       garageState={state}
       onRestore={(restored) => {
+        void pruneGarageDocumentAttachments(restored.documents.map((item) => item.id)).catch(() => {});
         setState(restored);
         setSelectedId(restored.motorcycles[0]?.id || "");
         setShowBikeForm(restored.motorcycles.length === 0);
@@ -456,7 +541,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
           <section className="garage-panel">
             <div className="section-head"><div><h2>Document wallet</h2><p>Track OR/CR, CTPL, insurance, warranty, receipts and resale paperwork.</p></div></div>
             <form className="lead-form" onSubmit={addDocument}>
-              <p className="muted-note">This V1 stores document metadata only. Do not paste scans or full document contents into notes. Secure file uploads will be added with authenticated accounts and private storage.</p>
+              <p className="muted-note">Attach an optional PDF, JPG, PNG or WebP scan up to 10 MB. Files stay only in private browser storage on this device. Cloud sync and JSON backups include the document record, not the scan.</p>{documentFileMessage && <p className="muted-note" role="status">{documentFileMessage}</p>}
               <div className="lead-form-grid">
                 <label>Document<select name="type" defaultValue="OR">{GARAGE_DOCUMENT_TYPES.map((type) => <option value={type} key={type}>{type.replaceAll("_", " ")}</option>)}</select></label>
                 <label>Label<input name="label" required placeholder="2026 Official Receipt" /></label>
@@ -466,10 +551,10 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
               </div>
               <button className="button small" type="submit">Save document record</button>
             </form>
-            {bikeDocuments.length > 0 && <div className="buyer-quote-list">{bikeDocuments.map((document) => <div className="buyer-quote-card" key={document.id}>
-              <div><span className="field-label">{document.type.replaceAll("_", " ")}</span><strong>{document.label}</strong><p>{document.reference ? `Reference: ${document.reference}` : "No reference saved"}{document.notes ? ` · ${document.notes}` : ""}</p></div>
-              <div className="buyer-quote-meta">{document.expiryDate && <><strong className={dueClass(daysUntil(document.expiryDate))}>{dateLabel(document.expiryDate)}</strong><small>{dueLabel(daysUntil(document.expiryDate))}</small></>}<button className="button small ghost" type="button" onClick={() => removeDocument(document.id)}>Delete</button></div>
-            </div>)}</div>}
+            {bikeDocuments.length > 0 && <div className="buyer-quote-list">{bikeDocuments.map((document) => { const attachment = documentAttachments[document.id]; return <div className="buyer-quote-card" key={document.id}>
+              <div><span className="field-label">{document.type.replaceAll("_", " ")}</span><strong>{document.label}</strong><p>{document.reference ? `Reference: ${document.reference}` : "No reference saved"}{document.notes ? ` · ${document.notes}` : ""}</p>{attachment && <small>{attachment.name} · {formatGarageDocumentAttachmentBytes(attachment.size)} · stored on this device</small>}</div>
+              <div className="buyer-quote-meta">{document.expiryDate && <><strong className={dueClass(daysUntil(document.expiryDate))}>{dateLabel(document.expiryDate)}</strong><small>{dueLabel(daysUntil(document.expiryDate))}</small></>}{attachment ? <><button className="button small ghost" type="button" onClick={() => openDocumentFile(document.id)}>Open file</button><button className="button small ghost" type="button" onClick={() => removeDocumentFile(document.id)}>Remove file</button></> : <label className="button small ghost">Attach file<input type="file" hidden accept={GARAGE_DOCUMENT_ATTACHMENT_ACCEPT_ATTR} onChange={(event) => attachDocumentFile(document.id, event)} /></label>}<button className="button small ghost" type="button" onClick={() => removeDocument(document.id)}>Delete record</button></div>
+            </div>; })}</div>}
           </section>
         </div>
       </>}

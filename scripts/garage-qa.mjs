@@ -4,7 +4,8 @@ const required = [
   ["app/garage/page.tsx", ["robots: { index: false", "GarageWorkspace", "publicMotorcycles", "maintenanceSchedules"]],
   ["app/garage/resale/page.tsx", ["robots: { index: false", "GarageResalePack", "Private plate and document references stay hidden"]],
   ["app/garage/sign-in/verify/[token]/page.tsx", ["force-dynamic", "GarageMagicLinkConfirm", "Opening this page does not consume the link"]],
-  ["components/GarageWorkspace.tsx", ["GarageAccountPanel", "Local-first privacy", "Prepare resale pack", "Ownership analytics", "Smart maintenance"]],
+  ["components/GarageWorkspace.tsx", ["GarageAccountPanel", "Local-first privacy", "Prepare resale pack", "Ownership analytics", "Smart maintenance", "Attach file", "Open file", "stored on this device", "never included in cloud sync or JSON backups"]],
+  ["lib/garageDocumentStore.ts", ["motoindex-garage-documents-v1", "indexedDB.open", "application/pdf", "image/jpeg", "GARAGE_DOCUMENT_ATTACHMENT_MAX_BYTES", "10 MB or smaller", "deleteGarageDocumentAttachments", "pruneGarageDocumentAttachments"]],
   ["components/GarageAccountPanel.tsx", ["Save this device to cloud", "Restore cloud to this device", "Turn on email reminders", "Email reminders unavailable", "latest cloud-synced Garage", "remindersAvailable", "revision", "explicit", "sign-in link"]],
   ["components/GarageResalePack.tsx", ["Private by default", "Print / save PDF", "Copy listing draft", "Export seller pack", "No accident records logged in My Garage", "This is not a claim that the motorcycle is accident-free.", "includePlate", "includeDocumentRefs", "includeAmounts", "includeNotes", "shareableRecord"]],
   ["lib/garage.ts", ["maintenanceReferenceForBike", "GARAGE_DOCUMENT_TYPES", "smartMaintenanceDue", "estimatedGarageResale", "garageOwnershipAnalytics", "distanceBasis", "fullTankRecords", "netOwnershipCostPhp"]],
@@ -58,6 +59,14 @@ if (!resale.includes("amountPhp: includeAmounts ? record.amountPhp : undefined")
 }
 if (resale.includes("accident-free motorcycle")) {
   throw new Error("Garage QA failed: absence of Garage accident records must not be described as accident-free.");
+}
+
+const documentStore = fs.readFileSync("lib/garageDocumentStore.ts", "utf8");
+if (documentStore.includes("fetch(") || documentStore.includes("/api/")) {
+  throw new Error("Garage QA failed: device-only document scans must not be uploaded by the local attachment store.");
+}
+if (!documentStore.includes("10 * 1024 * 1024") || !documentStore.includes("ALLOWED_TYPES") || !documentStore.includes("pruneGarageDocumentAttachments")) {
+  throw new Error("Garage QA failed: document attachments need explicit size and file-type limits.");
 }
 
 const auth = fs.readFileSync("lib/ownerAuth.ts", "utf8");
