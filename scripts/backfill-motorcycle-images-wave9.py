@@ -16,8 +16,8 @@ UA = 'Mozilla/5.0 (compatible; MotoIndexMediaVerifier/1.0; +https://motoindexph.
 DATE = '2026-09-24'
 
 TARGETS = [
-('aprilia-tuareg-660','Aprilia Tuareg 660','https://www.aprilia.com/us_EN/models/tuareg/AP6136500YCT00/',['tuareg','660'],'Aprilia'),
-('aprilia-tuono-660','Aprilia Tuono 660','https://www.aprilia.com/my_EN/models/tuono-660/',['tuono','660'],'Aprilia'),
+('aprilia-tuareg-660','Aprilia Tuareg 660','https://press.piaggiogroup.com/en_EN/post/show/227651/the-piaggio-group-at-eicma-202.html',['tuareg','660'],'Aprilia'),
+('aprilia-tuono-660','Aprilia Tuono 660','https://press.piaggiogroup.com/en_EN/post/show/227150/aprilia-tuono-660-factory.html',['tuono','660'],'Aprilia'),
 ('bajaj-dominar-400','Bajaj Dominar 400','https://www.bajajauto.com/en-ph/bikes/dominar-d400',['dominar','400'],'Bajaj Auto'),
 ('bajaj-pulsar-n125','Bajaj Pulsar N125','https://www.bajajauto.com/en-ph/bikes/pulsar-n125',['pulsar','n125'],'Bajaj Auto'),
 ('bajaj-pulsar-n160','Bajaj Pulsar N160','https://www.bajajauto.com/en-ph/bikes/pulsar-n160',['pulsar','n160'],'Bajaj Auto'),
