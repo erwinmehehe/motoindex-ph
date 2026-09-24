@@ -377,23 +377,46 @@ model OfferImportRow {
 }
 
 model UsedListing {
-  id             String   @id @default(cuid())
-  modelExternalId String
-  title          String
-  modelYear      Int
-  mileageKm      Int
-  askingPricePhp Decimal  @db.Decimal(12, 2)
-  condition      String
-  sellerType     String
-  location       String
-  sourceLabel    String
-  sourceUrl      String?
-  status         String   @default("review")
-  postedAt       DateTime
-  verifiedAt     DateTime?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id                       String               @id @default(cuid())
+  modelExternalId          String
+  title                    String
+  modelYear                Int
+  mileageKm                Int
+  askingPricePhp           Decimal              @db.Decimal(12, 2)
+  condition                String
+  sellerType               String
+  location                 String
+  sourceLabel              String
+  sourceUrl                String?
+  status                   String               @default("review")
+  postedAt                 DateTime
+  verifiedAt               DateTime?
+  ownerId                  String?
+  owner                    OwnerAccount?        @relation(fields: [ownerId], references: [id], onDelete: SetNull)
+  garageMotorcycleLocalId  String?
+  inquiries                UsedListingInquiry[]
+  createdAt                DateTime             @default(now())
+  updatedAt                DateTime             @updatedAt
+
   @@index([modelExternalId, status, postedAt])
+  @@index([ownerId, status, postedAt])
+  @@index([ownerId, garageMotorcycleLocalId])
+}
+
+model UsedListingInquiry {
+  id          String      @id @default(cuid())
+  listingId   String
+  listing     UsedListing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  buyerName   String
+  buyerEmail  String
+  buyerMobile String?
+  message     String
+  consentedAt DateTime
+  status      String      @default("new")
+  createdAt   DateTime    @default(now())
+
+  @@index([listingId, status, createdAt])
+  @@index([buyerEmail, createdAt])
 }
 
 model DealerLead {
@@ -515,6 +538,7 @@ model OwnerAccount {
   sessions       OwnerSession[]
   garageSnapshot GarageSnapshot?
   reminders      GarageReminder[]
+  usedListings   UsedListing[]
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
 }

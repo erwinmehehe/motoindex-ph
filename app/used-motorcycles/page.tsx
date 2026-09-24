@@ -61,7 +61,7 @@ export default async function UsedMotorcyclesPage(){
             </span>
             <span className={styles.decisionMeta}>
               <strong>{php(item.askingPricePhp)}</strong>
-              {item.sourceUrl?<a href={item.sourceUrl} target="_blank" rel="nofollow noreferrer">Original listing ↗</a>:<small>{item.sourceLabel}</small>}
+              {item.contactAvailable&&item.sourceUrl?<Link href={item.sourceUrl}>View owner listing →</Link>:item.sourceUrl?<a href={item.sourceUrl} target="_blank" rel="nofollow noreferrer">Original listing ↗</a>:<small>{item.sourceLabel}</small>}
             </span>
           </article>;
         })}

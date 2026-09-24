@@ -1,4 +1,5 @@
 import { databaseConfigured, prisma } from "@/lib/db";
+import { ownerListingUrl } from "@/lib/usedMarketplace";
 
 export type PublicUsedListing = {
   id: string;
@@ -12,6 +13,7 @@ export type PublicUsedListing = {
   location: string;
   sourceLabel: string;
   sourceUrl?: string;
+  contactAvailable: boolean;
   postedAt: string;
   verifiedAt?: string;
 };
@@ -19,7 +21,7 @@ export type PublicUsedListing = {
 function publicRow(row: {
   id:string; modelExternalId:string; title:string; modelYear:number; mileageKm:number;
   askingPricePhp:{toNumber():number}; condition:string; sellerType:string; location:string;
-  sourceLabel:string; sourceUrl:string|null; postedAt:Date; verifiedAt:Date|null;
+  sourceLabel:string; sourceUrl:string|null; ownerId:string|null; postedAt:Date; verifiedAt:Date|null;
 }): PublicUsedListing {
   return {
     id:row.id,
@@ -32,7 +34,8 @@ function publicRow(row: {
     sellerType:row.sellerType,
     location:row.location,
     sourceLabel:row.sourceLabel,
-    sourceUrl:row.sourceUrl||undefined,
+    sourceUrl:row.sourceUrl|| (row.ownerId ? ownerListingUrl(row.id) : undefined),
+    contactAvailable:Boolean(row.ownerId),
     postedAt:row.postedAt.toISOString(),
     verifiedAt:row.verifiedAt?.toISOString()
   };
@@ -47,6 +50,12 @@ export async function getVerifiedUsedListings(options:{modelId?:string;limit?:nu
     take:limit
   });
   return rows.map(publicRow);
+}
+
+export async function getVerifiedUsedListingById(id:string){
+  if(!databaseConfigured()||!id)return null;
+  const row=await prisma.usedListing.findFirst({where:{id,status:"verified"}});
+  return row?publicRow(row):null;
 }
 
 export async function verifiedUsedListingCount(modelId?:string){
