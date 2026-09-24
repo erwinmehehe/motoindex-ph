@@ -46,7 +46,7 @@ jobs:
 
       - name: Normalize target images
         env:
-          MOTORCYCLE_MEDIA_ONLY: benelli-302s,benelli-leoncino-250,bajaj-dominar-400,bajaj-pulsar-n125,bajaj-pulsar-n160,bajaj-pulsar-ns400z,bajaj-pulsar-rs200,cfmoto-300nk,husqvarna-norden-901,husqvarna-svartpilen-200,benelli-tnt-135,benelli-trk-502,kymco-agility-eco-125i,kymco-dink-r-150,kymco-dink-s-150,kymco-dtx360-300,kymco-sky-town-150,kymco-dollar-150,royal-enfield-shotgun-650,zontes-703rr
+          MOTORCYCLE_MEDIA_ONLY: bristol-basilica-125,bristol-maxxie-160,bajaj-dominar-400,bajaj-pulsar-n125,bajaj-pulsar-n160,bajaj-pulsar-ns400z,bajaj-pulsar-rs200,cfmoto-300nk,husqvarna-norden-901,husqvarna-svartpilen-200,kawasaki-ninja-1000,kawasaki-ninja-zx-25r,kymco-agility-eco-125i,kymco-dink-r-150,kymco-dink-s-150,kymco-dtx360-300,kymco-sky-town-150,kymco-dollar-150,royal-enfield-shotgun-650,keeway-cafe-racer-152
         run: python scripts/art-direct-motorcycle-media.py
 
       - name: Validate exact-image coverage
@@ -60,7 +60,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add lib/media.ts scripts/audit-motorcycle-media-coverage.mjs
-          for id in benelli-302s benelli-leoncino-250 bajaj-dominar-400 bajaj-pulsar-n125 bajaj-pulsar-n160 bajaj-pulsar-ns400z bajaj-pulsar-rs200 cfmoto-300nk husqvarna-norden-901 husqvarna-svartpilen-200 benelli-tnt-135 benelli-trk-502 kymco-agility-eco-125i kymco-dink-r-150 kymco-dink-s-150 kymco-dtx360-300 kymco-sky-town-150 kymco-dollar-150 royal-enfield-shotgun-650 zontes-703rr; do
+          for id in bristol-basilica-125 bristol-maxxie-160 bajaj-dominar-400 bajaj-pulsar-n125 bajaj-pulsar-n160 bajaj-pulsar-ns400z bajaj-pulsar-rs200 cfmoto-300nk husqvarna-norden-901 husqvarna-svartpilen-200 kawasaki-ninja-1000 kawasaki-ninja-zx-25r kymco-agility-eco-125i kymco-dink-r-150 kymco-dink-s-150 kymco-dtx360-300 kymco-sky-town-150 kymco-dollar-150 royal-enfield-shotgun-650 keeway-cafe-racer-152; do
             git add "public/media/motorcycles/$id.webp"
           done
           if git diff --cached --quiet; then
