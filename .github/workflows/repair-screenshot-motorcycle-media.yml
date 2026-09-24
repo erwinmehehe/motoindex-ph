@@ -1,0 +1,31 @@
+name: Repair screenshot motorcycle media
+on:
+  push:
+    branches: [fix/motorcycle-media-screenshot-batch]
+    paths:
+      - scripts/repair-screenshot-motorcycle-media.mjs
+      - .github/workflows/repair-screenshot-motorcycle-media.yml
+permissions:
+  contents: write
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/motorcycle-media-screenshot-batch
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm install --no-save --package-lock=false sharp@0.35.4
+      - run: node scripts/repair-screenshot-motorcycle-media.mjs
+      - name: Commit repaired motorcycle images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/media/motorcycles lib/media.ts artifacts/screenshot-media-contact-sheet.jpg artifacts/screenshot-media-repair.json
+          git commit -m "Repair screenshot-flagged motorcycle media"
+          git push origin HEAD:fix/motorcycle-media-screenshot-batch
