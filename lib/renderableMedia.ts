@@ -6,10 +6,8 @@ const allRenderableMedia: EntityMedia[] = [...entityMedia, ...generatedProductMe
 const SUPPRESSED_MEDIA_IDS = new Set([
   // This asset resolves to an unrelated Suzuki gallery photo rather than a Raider PRO product image.
   // Keep the provenance record in media.ts, but do not show it until a correct product image is verified.
-  "suzuki-raider-pro-manufacturer",
   // The dealer image has a baked-in gray studio background that breaks the shared product stage.
   // Fall back to the neutral motorcycle placeholder until a clean verified Primavera asset is available.
-  "vespa-primavera-150-editorial"
 ]);
 const PRODUCT_PLACEHOLDERS = {
   motorcycle: "/media/placeholders/motorcycle.svg",

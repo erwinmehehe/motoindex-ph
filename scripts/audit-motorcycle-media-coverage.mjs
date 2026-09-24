@@ -14,21 +14,6 @@ const catalogFiles = [
 ];
 
 const knownBacklog = new Set([
-  "aprilia-tuareg-660",
-  "aprilia-tuono-660",
-  "bajaj-pulsar-n125",
-  "husqvarna-norden-901",
-  "husqvarna-svartpilen-200",
-  "kawasaki-ninja-1000",
-  "kawasaki-z1000-r-edition",
-  "rusi-adventure-x-150i-v2",
-  "rusi-cyclone-400",
-  "rusi-flash-150x",
-  "suzuki-raider-pro",
-  "vespa-primavera-150",
-  "zontes-150x",
-  "zontes-400g",
-  "zontes-703rr"
 ]);
 
 function read(relativePath) {
