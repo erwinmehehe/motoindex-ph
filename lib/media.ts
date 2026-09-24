@@ -1093,6 +1093,106 @@ export const entityMedia: EntityMedia[] = [
     src: "/media/motorcycles/royal-enfield-classic-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/classic-650/hotspot/hot-spot.png", alt: "Royal Enfield Classic 650 motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer-hosted Philippine image reference · Classic 650", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/classic-650/", lastChecked: "2026-09-23"
   },
+  {
+    id: "bristol-basilica-125-bristol-official", entityType: "motorcycle", entityId: "bristol-basilica-125", role: "primary",
+    src: "/media/motorcycles/bristol-basilica-125.webp", sourceImageUrl: "https://static.wixstatic.com/media/5f4a64_9b887aa746f24b169c3ab84c11348023~mv2.jpg/v1/fill/w_2500,h_1666,al_c/5f4a64_9b887aa746f24b169c3ab84c11348023~mv2.jpg", alt: "Bristol Basilica 125 scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bristol Motorcycles", sourceLabel: "Official Philippine distributor image reference · Bristol Basilica 125", sourceUrl: "https://www.bristol-motorcycles.com/basilica", lastChecked: "2026-09-24"
+  },
+  {
+    id: "bristol-maxxie-160-bristol-official", entityType: "motorcycle", entityId: "bristol-maxxie-160", role: "primary",
+    src: "/media/motorcycles/bristol-maxxie-160.webp", sourceImageUrl: "https://static.wixstatic.com/media/5f4a64_6e6cf34d4b994c79b676c22562b93927~mv2.jpg/v1/fill/w_2500,h_1666,al_c/5f4a64_6e6cf34d4b994c79b676c22562b93927~mv2.jpg", alt: "Bristol Maxxie 160 scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bristol Motorcycles", sourceLabel: "Official Philippine distributor image reference · Bristol Maxxie 160", sourceUrl: "https://www.bristol-motorcycles.com/maxxie-160", lastChecked: "2026-09-24"
+  },
+  {
+    id: "bajaj-dominar-400-bajaj-ph", entityType: "motorcycle", entityId: "bajaj-dominar-400", role: "primary",
+    src: "/media/motorcycles/bajaj-dominar-400.webp", sourceImageUrl: "https://cdn.bajajauto.com/en-ph/-/media/globalbajajauto/common-media/features/dominar/400/dtsi-triple-spark-d400bs6.jpg", alt: "Bajaj Dominar 400 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bajaj Auto", sourceLabel: "Manufacturer-hosted Philippine image reference · Bajaj Dominar D400", sourceUrl: "https://www.bajajauto.com/en-ph/bikes/dominar-d400", lastChecked: "2026-09-24"
+  },
+  {
+    id: "bajaj-pulsar-n125-bajaj-ph", entityType: "motorcycle", entityId: "bajaj-pulsar-n125", role: "primary",
+    src: "/media/motorcycles/bajaj-pulsar-n125.webp", sourceImageUrl: "https://cdn.bajajauto.com/en-ph/-/media/globalbajajauto/common-media/features/pulsar/n-125/power.webp", alt: "Bajaj Pulsar N125 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bajaj Auto", sourceLabel: "Manufacturer-hosted Philippine image reference · Bajaj Pulsar N125", sourceUrl: "https://www.bajajauto.com/en-ph/bikes/pulsar-n125", lastChecked: "2026-09-24"
+  },
+  {
+    id: "bajaj-pulsar-n160-bajaj-ph", entityType: "motorcycle", entityId: "bajaj-pulsar-n160", role: "primary",
+    src: "/media/motorcycles/bajaj-pulsar-n160.webp", sourceImageUrl: "https://cdn.bajajauto.com/en-ph/-/media/globalbajajauto/common-media/features/pulsar/n160/all-new-bajaj-pulsar-n160-with-oil-cooled-powerful-engine.webp", alt: "Bajaj Pulsar N160 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bajaj Auto", sourceLabel: "Manufacturer-hosted Philippine image reference · Bajaj Pulsar N160", sourceUrl: "https://www.bajajauto.com/en-ph/bikes/pulsar-n160", lastChecked: "2026-09-24"
+  },
+  {
+    id: "bajaj-pulsar-ns400z-bajaj-ph", entityType: "motorcycle", entityId: "bajaj-pulsar-ns400z", role: "primary",
+    src: "/media/motorcycles/bajaj-pulsar-ns400z.webp", sourceImageUrl: "https://cdn.bajajauto.com/en-ph/-/media/globalbajajauto/common-media/features/pulsar/ns-400-z/power.webp", alt: "Bajaj Pulsar NS400Z motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bajaj Auto", sourceLabel: "Manufacturer-hosted Philippine image reference · Bajaj Pulsar NS400Z", sourceUrl: "https://www.bajajauto.com/en-ph/bikes/pulsar-ns400z", lastChecked: "2026-09-24"
+  },
+  {
+    id: "bajaj-pulsar-rs200-bajaj-ph", entityType: "motorcycle", entityId: "bajaj-pulsar-rs200", role: "primary",
+    src: "/media/motorcycles/bajaj-pulsar-rs200.webp", sourceImageUrl: "https://cdn.bajajauto.com/en-ph/-/media/globalbajajauto/common-media/features/pulsar/rs200-fi-abs/twin_sspark_4_vvalve_dtsi_eengine.webp", alt: "Bajaj Pulsar RS200 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bajaj Auto", sourceLabel: "Manufacturer-hosted Philippine image reference · Bajaj Pulsar RS200", sourceUrl: "https://www.bajajauto.com/en-ph/bikes/pulsar-rs200", lastChecked: "2026-09-24"
+  },
+  {
+    id: "cfmoto-300nk-cfmoto-ph", entityType: "motorcycle", entityId: "cfmoto-300nk", role: "primary",
+    src: "/media/motorcycles/cfmoto-300nk.webp", sourceImageUrl: "https://static.wixstatic.com/media/0a0f90_4fd511fbd3fb4f90801ae08e131d327e~mv2.png/v1/fill/w_900,h_600,al_c/300NK.png", alt: "CFMOTO 300NK motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "CFMOTO Philippines", sourceLabel: "Manufacturer-hosted Philippine image reference · CFMOTO 300NK", sourceUrl: "https://www.cfmotoph.com/motorcycle/300nk", lastChecked: "2026-09-24"
+  },
+  {
+    id: "husqvarna-norden-901-husqvarna-ph", entityType: "motorcycle", entityId: "husqvarna-norden-901", role: "primary",
+    src: "/media/motorcycles/husqvarna-norden-901.webp", sourceImageUrl: "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_SEGMENT_menu-norden901-my21-01_%23SALL_%23AEPI_%23V1.png", alt: "Husqvarna Norden 901 adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Husqvarna Motorcycles", sourceLabel: "Manufacturer-hosted Philippine image reference · Husqvarna Norden 901", sourceUrl: "https://www.husqvarna-motorcycles.com/en-ph/models/travel/norden-901-2022.html", lastChecked: "2026-09-24"
+  },
+  {
+    id: "husqvarna-svartpilen-200-husqvarna-ph", entityType: "motorcycle", entityId: "husqvarna-svartpilen-200", role: "primary",
+    src: "/media/motorcycles/husqvarna-svartpilen-200.webp", sourceImageUrl: "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_SEGMENT_menu-svartpilen-200-my22_%23SALL_%23AEPI_%23V1.png", alt: "Husqvarna Svartpilen 200 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Husqvarna Motorcycles", sourceLabel: "Manufacturer-hosted Philippine image reference · Husqvarna Svartpilen 200", sourceUrl: "https://www.husqvarna-motorcycles.com/en-ph/models/naked/svartpilen/svartpilen-200-2023.html", lastChecked: "2026-09-24"
+  },
+  {
+    id: "kawasaki-ninja-1000-kawasaki-jp", entityType: "motorcycle", entityId: "kawasaki-ninja-1000", role: "primary",
+    src: "/media/motorcycles/kawasaki-ninja-1000.webp", sourceImageUrl: "https://content2.kawasaki.com/ContentStorage/KMJ/Products/5291/0ad33454-8f03-491b-a91b-63a420a284fe.jpg?w=510&h=340&mode=crop", alt: "Kawasaki Ninja 1000SX sport touring motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Japan", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Ninja 1000SX", sourceUrl: "https://www.kawasaki-motors.com/ja-jp/motorcycle/ninja/sport/ninja-1000sx/2024-ninja-1000sx", lastChecked: "2026-09-24"
+  },
+  {
+    id: "kawasaki-ninja-zx-25r-kawasaki-jp", entityType: "motorcycle", entityId: "kawasaki-ninja-zx-25r", role: "primary",
+    src: "/media/motorcycles/kawasaki-ninja-zx-25r.webp", sourceImageUrl: "https://content2.kawasaki.com/ContentStorage/KMJ/Products/5532/df2d117e-3e4c-4f9c-a75d-a45024e7f3e2.jpg?w=510&h=340&mode=crop", alt: "Kawasaki Ninja ZX-25R SE motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Japan", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Ninja ZX-25R SE", sourceUrl: "https://www.kawasaki-motors.com/ja-jp/motorcycle/ninja/supersport/ninja-zx-25r/2027-ninja-zx-25r-se", lastChecked: "2026-09-24"
+  },
+  {
+    id: "kymco-agility-eco-125i-kymco-ph", entityType: "motorcycle", entityId: "kymco-agility-eco-125i", role: "primary",
+    src: "/media/motorcycles/kymco-agility-eco-125i.webp", sourceImageUrl: "https://kymco.com.ph/wp-content/uploads/2026/06/AGILITY_ECO_125i_s3_1-scaled.png", alt: "KYMCO Agility Eco 125i scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KYMCO Philippines", sourceLabel: "Manufacturer-hosted Philippine image reference · KYMCO Agility Eco 125i", sourceUrl: "https://kymco.com.ph/product/agility-eco-125i/", lastChecked: "2026-09-24"
+  },
+  {
+    id: "kymco-dink-r-150-kymco-ph", entityType: "motorcycle", entityId: "kymco-dink-r-150", role: "primary",
+    src: "/media/motorcycles/kymco-dink-r-150.webp", sourceImageUrl: "https://kymco.com.ph/wp-content/uploads/2024/02/PL_COL11-2.png", alt: "KYMCO Dink R 150 scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KYMCO Philippines", sourceLabel: "Manufacturer-hosted Philippine image reference · KYMCO Dink R 150", sourceUrl: "https://kymco.com.ph/product/dink-r-150/", lastChecked: "2026-09-24"
+  },
+  {
+    id: "kymco-dink-s-150-kymco-ph", entityType: "motorcycle", entityId: "kymco-dink-s-150", role: "primary",
+    src: "/media/motorcycles/kymco-dink-s-150.webp", sourceImageUrl: "https://kymco.com.ph/wp-content/uploads/2026/06/DINK-S-150-WHITE_1.png", alt: "KYMCO Dink S 150 scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KYMCO Philippines", sourceLabel: "Manufacturer-hosted Philippine image reference · KYMCO Dink S 150", sourceUrl: "https://kymco.com.ph/product/dink-s-150/", lastChecked: "2026-09-24"
+  },
+  {
+    id: "kymco-dtx360-300-kymco-ph", entityType: "motorcycle", entityId: "kymco-dtx360-300", role: "primary",
+    src: "/media/motorcycles/kymco-dtx360-300.webp", sourceImageUrl: "https://kymco.com.ph/wp-content/uploads/2024/02/PL_COL6.png", alt: "KYMCO DTX360 300 scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KYMCO Philippines", sourceLabel: "Manufacturer-hosted Philippine image reference · KYMCO DTX360-300", sourceUrl: "https://kymco.com.ph/product/dtx-360-300/", lastChecked: "2026-09-24"
+  },
+  {
+    id: "kymco-sky-town-150-kymco-ph", entityType: "motorcycle", entityId: "kymco-sky-town-150", role: "primary",
+    src: "/media/motorcycles/kymco-sky-town-150.webp", sourceImageUrl: "https://kymco.com.ph/wp-content/uploads/2024/02/PL_COL22-1.png", alt: "KYMCO Sky Town 150 scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KYMCO Philippines", sourceLabel: "Manufacturer-hosted Philippine image reference · KYMCO Sky Town 150", sourceUrl: "https://kymco.com.ph/product/sky-town-150/", lastChecked: "2026-09-24"
+  },
+  {
+    id: "kymco-dollar-150-kymco-ph", entityType: "motorcycle", entityId: "kymco-dollar-150", role: "primary",
+    src: "/media/motorcycles/kymco-dollar-150.webp", sourceImageUrl: "https://kymco.com.ph/wp-content/uploads/2025/04/ImportedPhoto.765250235.085761.png", alt: "KYMCO Dollar 150 scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KYMCO Philippines", sourceLabel: "Manufacturer-hosted Philippine image reference · KYMCO Dollar 150", sourceUrl: "https://kymco.com.ph/product/dollar-150/", lastChecked: "2026-09-24"
+  },
+  {
+    id: "royal-enfield-shotgun-650-re-ph", entityType: "motorcycle", entityId: "royal-enfield-shotgun-650", role: "primary",
+    src: "/media/motorcycles/royal-enfield-shotgun-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/shotgun-650/colors/stencil-white/stencil-white-000.png", alt: "Royal Enfield Shotgun 650 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer-hosted Philippine image reference · Royal Enfield Shotgun 650", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/shotgun-650/", lastChecked: "2026-09-24"
+  },
+  {
+    id: "zontes-400g-bristol-ph", entityType: "motorcycle", entityId: "zontes-400g", role: "primary",
+    src: "/media/motorcycles/zontes-400g.webp", sourceImageUrl: "https://static.wixstatic.com/media/5f4a64_540209302fe04c068d7c059bcc51f2e8~mv2.jpg/v1/fill/w_2500,h_1666,al_c/5f4a64_540209302fe04c068d7c059bcc51f2e8~mv2.jpg", alt: "Zontes 400G adventure scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bristol Motorcycles / Zontes", sourceLabel: "Official Philippine distributor image reference · Zontes 400G", sourceUrl: "https://www.bristol-motorcycles.com/400g", lastChecked: "2026-09-24"
+  },
 ];
 
 export function getRenderableMedia(entityType: EntityMedia["entityType"], entityId: string) {
