@@ -22,8 +22,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-crf300-rally-manufacturer", entityType: "motorcycle", entityId: "honda-crf300-rally", role: "primary",
-    src: "/media/motorcycles/honda-crf300-rally.webp", sourceImageUrl: "https://images.ctfassets.net/p4ab844it03t/3GJ0DXBprmXAoC5z9eJjkF/f21bf5df9b934f04df19284e08caa961/67e0ba50a13d0.png?fm=webp&q=80", alt: "Honda CRF300 Rally motorcycle at the 2025 Inside Racing Bikefest", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Honda Philippines", sourceLabel: "Manufacturer-hosted image reference · Honda Philippines CRF300 Rally", sourceUrl: "https://www.hondaph.com/motorcycle/news/honda-philippines-unleashes-power-and-innovation-at-the-action-packed-inside-racing-bikefest-2025", lastChecked: "2026-09-21"
+    src: "/media/motorcycles/honda-crf300-rally.webp", sourceImageUrl: "https://powersports.honda.com/motorcycle/dual-sport/crf300l-rally/2026/-/media/products/family/crf300l-rally/trims/trim-main/crf300l-rally/2026/2026-crf300l-rally-red-1505x923.png?imwidth=1600", alt: "Honda CRF300 Rally adventure motorcycle product image", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda", sourceLabel: "Manufacturer product image · Honda CRF300L Rally", sourceUrl: "https://powersports.honda.com/motorcycle/dual-sport/crf300l-rally/2026/crf300l-rally", lastChecked: "2026-09-24"
   },
   {
     id: "yamaha-mt-07-global-reference", entityType: "motorcycle", entityId: "yamaha-mt-07", role: "primary",
@@ -220,18 +220,18 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "suzuki-avenis-manufacturer", entityType: "motorcycle", entityId: "suzuki-avenis", role: "primary",
-    src: "/media/motorcycles/suzuki-avenis.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2023/11/Avenis-gallery-2-360x203.webp", alt: "Suzuki Avenis motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted image reference · Suzuki Philippines Avenis", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/avenis/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/suzuki-avenis.webp", sourceImageUrl: "https://motortrade.com.ph/wp-content/uploads/2022/08/1.jpg", alt: "Suzuki Avenis motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motortrade / Suzuki", sourceLabel: "Dealer product image · Suzuki Avenis", sourceUrl: "https://motortrade.com.ph/motorcycles/suzuki-avenis/", lastChecked: "2026-09-24"
   },
   {
     id: "suzuki-smash-fi-manufacturer", entityType: "motorcycle", entityId: "suzuki-smash-fi", role: "primary",
-    src: "/media/motorcycles/suzuki-smash-fi.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2024/05/image-3-Smash_Fi_Gallery-360x258.png", alt: "Suzuki Smash FI motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted image reference · Suzuki Philippines Smash FI", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/underbone/smash-fi/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/suzuki-smash-fi.webp", sourceImageUrl: "https://motortrade.com.ph/wp-content/uploads/2025/09/Untitled-design-300x251.png", alt: "Suzuki Smash FI motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motortrade / Suzuki", sourceLabel: "Dealer product image · Suzuki Smash FI", sourceUrl: "https://motortrade.com.ph/motorcycles/suzuki-smash-fi/", lastChecked: "2026-09-24"
   },
   {
     id: "suzuki-raider-j-crossover-motortrade", entityType: "motorcycle", entityId: "suzuki-raider-j-crossover", role: "primary",
     src: "/media/motorcycles/suzuki-raider-j-crossover.webp", sourceImageUrl: "https://motortrade.com.ph/wp-content/uploads/2020/10/3-1.jpg", alt: "Suzuki Raider J Crossover motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Philippine dealer network", sourceLabel: "Authorized-dealer image reference · Authorized PH dealer Raider J Crossover", sourceUrl: "https://motortrade.com.ph/motorcycles/suzuki-raider-j-crossover-fj110lb2/", lastChecked: "2026-08-25"
+    rightsStatus: "external-reference", rightsHolder: "Philippine dealer network", sourceLabel: "Authorized-dealer image reference · Authorized PH dealer Raider J Crossover", sourceUrl: "https://motortrade.com.ph/motorcycles/suzuki-raider-j-crossover-fj110lb2/", lastChecked: "2026-09-24"
   },
   {
     id: "suzuki-raider-pro-suzuki-ph-final", entityType: "motorcycle", entityId: "suzuki-raider-pro", role: "primary",
@@ -240,53 +240,53 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "suzuki-gixxer-155-manufacturer", entityType: "motorcycle", entityId: "suzuki-gixxer-155", role: "primary",
-    src: "/media/motorcycles/suzuki-gixxer-155.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2024/10/Mask-group-2-360x147.png", alt: "Suzuki Gixxer 155 motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted image reference · Suzuki Philippines Gixxer 155", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/gixxer-155/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/suzuki-gixxer-155.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2024/10/GIXXER155PrevFeb6.png", alt: "Suzuki Gixxer 155 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer product image · Suzuki Gixxer 155", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/gixxer-155/", lastChecked: "2026-09-24"
   },
   {
     id: "suzuki-gixxer-sf-155-manufacturer", entityType: "motorcycle", entityId: "suzuki-gixxer-sf-155", role: "primary",
-    src: "/media/motorcycles/suzuki-gixxer-sf-155.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2024/10/6144-ACTION-SHOT-TUNNEL-1-360x147.png", alt: "Suzuki Gixxer SF 155 motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted image reference · Suzuki Philippines Gixxer SF 155", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/gixxer-sf-155/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/suzuki-gixxer-sf-155.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2024/10/PMRGSF155Feb6-2.png", alt: "Suzuki Gixxer SF 155 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer product image · Suzuki Gixxer SF 155", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/gixxer-sf155/", lastChecked: "2026-09-24"
   },
   {
     id: "suzuki-gixxer-250-manufacturer", entityType: "motorcycle", entityId: "suzuki-gixxer-250", role: "primary",
-    src: "/media/motorcycles/suzuki-gixxer-250.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2023/11/Gixxer250-Gallery-1-360x240.webp", alt: "Suzuki Gixxer 250 motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted image reference · Suzuki Philippines Gixxer 250", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/gixxer-250/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/suzuki-gixxer-250.webp", sourceImageUrl: "https://motortrade.com.ph/wp-content/uploads/2022/05/GIXXER-GSX250RL-1.jpg", alt: "Suzuki Gixxer 250 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motortrade / Suzuki", sourceLabel: "Dealer product image · Suzuki Gixxer 250", sourceUrl: "https://motortrade.com.ph/motorcycles/suzuki-gixxer-250-2/", lastChecked: "2026-09-24"
   },
   {
     id: "suzuki-gixxer-sf250-motortrade", entityType: "motorcycle", entityId: "suzuki-gixxer-sf250", role: "primary",
     src: "/media/motorcycles/suzuki-gixxer-sf250.webp", sourceImageUrl: "https://motortrade.com.ph/wp-content/uploads/2020/10/1-1.jpg", alt: "Suzuki Gixxer SF250 motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Philippine dealer network", sourceLabel: "Authorized-dealer image reference · Authorized PH dealer Gixxer SF250", sourceUrl: "https://motortrade.com.ph/motorcycles/suzuki-sf-gixxer-250/", lastChecked: "2026-08-25"
+    rightsStatus: "external-reference", rightsHolder: "Philippine dealer network", sourceLabel: "Authorized-dealer image reference · Authorized PH dealer Gixxer SF250", sourceUrl: "https://motortrade.com.ph/motorcycles/suzuki-sf-gixxer-250/", lastChecked: "2026-09-24"
   },
   {
     id: "suzuki-v-strom-250-sx-manufacturer", entityType: "motorcycle", entityId: "suzuki-v-strom-250-sx", role: "primary",
-    src: "/media/motorcycles/suzuki-v-strom-250-sx.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2023/10/V-Strom-250-SX-gallery-1-360x240.webp", alt: "Suzuki V-Strom 250 SX motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted image reference · Suzuki Philippines V-Strom 250 SX", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/v-strom-250-sx/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/suzuki-v-strom-250-sx.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2023/10/V-Strom-250-SX-Champion-Yellow-1.png", alt: "Suzuki V-Strom 250 SX motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer product image · Suzuki V-Strom 250 SX", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/v-strom-250-sx/", lastChecked: "2026-09-24"
   },
   {
     id: "suzuki-v-strom-160-manufacturer", entityType: "motorcycle", entityId: "suzuki-v-strom-160", role: "primary",
-    src: "/media/motorcycles/suzuki-v-strom-160.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2026/04/TEASER-EDITED-DAY3-142A9244-360x240.jpg", alt: "Suzuki V-Strom 160 motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted image reference · Suzuki Philippines V-Strom 160", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/v-strom-160/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/suzuki-v-strom-160.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2026/04/Solid-Cool-Yellow-VS160SCYApr15_5.png", alt: "Suzuki V-Strom 160 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer product image · Suzuki V-Strom 160", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/v-strom-160/", lastChecked: "2026-09-24"
   },
   {
     id: "suzuki-dr160-manufacturer", entityType: "motorcycle", entityId: "suzuki-dr160", role: "primary",
-    src: "/media/motorcycles/suzuki-dr160.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2026/04/TEASER-EDITED-DAY3-J3L04214-360x203.jpg", alt: "Suzuki DR160 motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted image reference · Suzuki Philippines DR160", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/dr160/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/suzuki-dr160.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2026/04/DR160SWApr15-5.png", alt: "Suzuki DR160 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer product image · Suzuki DR160", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/dr-160/", lastChecked: "2026-09-24"
   },
   {
     id: "suzuki-access-manufacturer", entityType: "motorcycle", entityId: "suzuki-access", role: "primary",
-    src: "/media/motorcycles/suzuki-access.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2025/10/Access-Image-1-1-360x191.png", alt: "Suzuki Access motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted image reference · Suzuki Philippines Access", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/access/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/suzuki-access.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2025/10/Access-Standard.png", alt: "Suzuki Access motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer product image · Suzuki Access", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/access/", lastChecked: "2026-09-24"
   },
   {
     id: "suzuki-skydrive-sport-manufacturer", entityType: "motorcycle", entityId: "suzuki-skydrive-sport", role: "primary",
-    src: "/media/motorcycles/suzuki-skydrive-sport.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2023/11/Skydrive-Sport-gallery-4-360x240.webp", alt: "Suzuki Skydrive Sport motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted image reference · Suzuki Philippines Skydrive Sport", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/skydrive-sport/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/suzuki-skydrive-sport.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2024/05/Skydrive_Black_1-1.png", alt: "Suzuki Skydrive Sport motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer product image · Suzuki Skydrive Sport", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/skydrive-sport/", lastChecked: "2026-09-24"
   },
   {
     id: "suzuki-burgman-street-manufacturer", entityType: "motorcycle", entityId: "suzuki-burgman-street", role: "primary",
-    src: "/media/motorcycles/suzuki-burgman-street.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2023/11/burgman-street-highlight-1-360x240.webp", alt: "Suzuki Burgman Street motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted image reference · Suzuki Philippines Burgman Street", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/burgman-street/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/suzuki-burgman-street.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2023/11/Burgman-Street-Standard-Candy-Red.png", alt: "Suzuki Burgman Street motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer product image · Suzuki Burgman Street", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/burgman-street/", lastChecked: "2026-09-24"
   },
   {
     id: "kawasaki-klx150-manufacturer", entityType: "motorcycle", entityId: "kawasaki-klx150", role: "primary",
@@ -665,18 +665,18 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"benelli-180s-benelli-official", entityType:"motorcycle", entityId:"benelli-180s", role:"primary",
-    src:"/media/motorcycles/benelli-180s.webp", sourceImageUrl:"https://cdn.keeway.com/benelli-3-0/media/1858/conversions/2560x2180-%2835%29-md.png", alt:"Benelli 180S naked motorcycle product view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Benelli Q.J.", sourceLabel:"Manufacturer-hosted image reference · Benelli 180S", sourceUrl:"https://www.benelli.com/np-en/products/180s", lastChecked:"2026-09-24"
+    src:"/media/motorcycles/benelli-180s.webp", sourceImageUrl: "https://cdn.keeway.com/benelli-3-0/media/8842/conversions/180S-White-md.png", alt:"Benelli 180S naked motorcycle product view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Benelli", sourceLabel: "Manufacturer product image · Benelli 180S", sourceUrl: "https://www.benelli.com/np-en/products/180s", lastChecked: "2026-09-24"
   },
   {
     id:"benelli-trk-502x-editorial", entityType:"motorcycle", entityId:"benelli-trk-502x", role:"primary",
-    src:"/media/motorcycles/benelli-trk-502x.webp", sourceImageUrl:"https://d1uzk9o9cg136f.cloudfront.net/f/16782548/rc/2024/12/13/e7b4a0a0bd97eb40025afa4e32c7b896fb3151c1_xlarge.jpg", alt:"Benelli TRK 502X adventure motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"web AutoBy", sourceLabel:"Editorial product image · Benelli TRK 502X", sourceUrl:"https://www.autoby.jp/_ct/17738653/album/16827695", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/benelli-trk-502x.webp", sourceImageUrl: "https://cdn.keeway.com/benelli-3-0/media/481/conversions/TRK-502X-%5B2020%5D-45-Blue-md.png", alt:"Benelli TRK 502X adventure motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Benelli", sourceLabel: "Manufacturer product image · Benelli TRK 502X", sourceUrl: "https://www.benelli.com/my-en/products/trk-502x", lastChecked: "2026-09-24"
   },
   {
     id:"bmw-g-310-gs-editorial", entityType:"motorcycle", entityId:"bmw-g-310-gs", role:"primary",
-    src:"/media/motorcycles/bmw-g-310-gs.webp", sourceImageUrl:"https://next-moto.com/products/682/images/bmw-g310gs-2023-682-1718898487.webp", alt:"BMW G 310 GS motorcycle product photo", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Next Moto", sourceLabel:"Motorcycle listing image · BMW G 310 GS", sourceUrl:"https://next-moto.com/bmw", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/bmw-g-310-gs.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=image&attachment=1&dokNo=P90402134", alt:"BMW G 310 GS motorcycle product photo", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "BMW Group", sourceLabel: "Official BMW Motorrad studio image · G 310 GS", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90402134/BMW-G-310-GS-plain-polar-white-10-2020", lastChecked: "2026-09-24"
   },
   {
     id:"bmw-c-400-gt-editorial", entityType:"motorcycle", entityId:"bmw-c-400-gt", role:"primary",
@@ -685,8 +685,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"bristol-adx-160-official", entityType:"motorcycle", entityId:"bristol-adx-160", role:"primary",
-    src:"/media/motorcycles/bristol-adx-160.webp", sourceImageUrl:"https://static.wixstatic.com/media/fc6fc6_3b3250017dc649ce9b52af2c2b95c556~mv2.png/v1/fill/w_570%2Ch_398%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/white.png", alt:"Bristol ADX 160 scooter product image", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Bristol Motorcycles Philippines", sourceLabel:"Manufacturer product image · Bristol ADX 160", sourceUrl:"https://www.bristol-motorcycles.com/adx160", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/bristol-adx-160.webp", sourceImageUrl: "https://static.wixstatic.com/media/fc6fc6_fe7a98c0324d4b33aaa16db8539bff20~mv2.png", alt:"Bristol ADX 160 scooter product image", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Bristol Motorcycles Philippines", sourceLabel: "Manufacturer product image · Bristol ADX 160", sourceUrl: "https://www.bristol-motorcycles.com/adx160", lastChecked: "2026-09-24"
   },
   {
     id:"bristol-maxie-400-editorial", entityType:"motorcycle", entityId:"bristol-maxie-400", role:"primary",
@@ -695,13 +695,13 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"cfmoto-450mt-editorial", entityType:"motorcycle", entityId:"cfmoto-450mt", role:"primary",
-    src:"/media/motorcycles/cfmoto-450mt.webp", sourceImageUrl:"https://www.philharmonicmoto.com/wp-content/uploads/2024/04/cfmoto-450mt_tundra-grey_left-45-copy-1024x763.jpg", alt:"CFMOTO 450MT adventure motorcycle in Tundra Grey", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"PhilharmonicMoto", sourceLabel:"Editorial product image · CFMOTO 450MT", sourceUrl:"https://www.philharmonicmoto.com/product/cfmoto-450mt-2024/", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/cfmoto-450mt.webp", sourceImageUrl: "https://static.wixstatic.com/media/0a0f90_33a69b54405f4f13914f06ee5db819e0~mv2.png", alt:"CFMOTO 450MT adventure motorcycle in Tundra Grey", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "CFMOTO Philippines", sourceLabel: "Manufacturer product image · CFMOTO 450MT", sourceUrl: "https://www.cfmotoph.com/motorcycle/450mt", lastChecked: "2026-09-24"
   },
   {
     id:"cfmoto-450sr-editorial", entityType:"motorcycle", entityId:"cfmoto-450sr", role:"primary",
-    src:"/media/motorcycles/cfmoto-450sr.webp", sourceImageUrl:"https://www.motorrad-bilder.at/slideshows/291/021705/CFMOTO_450SR_StudioRight45_ZirconBlack.jpg", alt:"CFMOTO 450SR sport motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Motorrad Bilder", sourceLabel:"Editorial product image · CFMOTO 450SR", sourceUrl:"https://www.1000ps.at/motorrad-bilder-detail-cfmoto-motorrad-modelle-und-neuheiten-2023-21705", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/cfmoto-450sr.webp", sourceImageUrl: "https://static.wixstatic.com/media/0a0f90_1b3274884ee545a781231cbefcb0d7d9~mv2.png", alt:"CFMOTO 450SR sport motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "CFMOTO Philippines", sourceLabel: "Manufacturer product image · CFMOTO 450SR", sourceUrl: "https://www.cfmotoph.com/motorcycle/450sr", lastChecked: "2026-09-24"
   },
   {
     id:"ducati-monster-937-plus-editorial", entityType:"motorcycle", entityId:"ducati-monster-937-plus", role:"primary",
@@ -720,13 +720,13 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"husqvarna-vitpilen-401-editorial", entityType:"motorcycle", entityId:"husqvarna-vitpilen-401", role:"primary",
-    src:"/media/motorcycles/husqvarna-vitpilen-401.webp", sourceImageUrl:"https://images5.1000ps.net/images_bikekat/2023/42-Husqvarna/8781-Vitpilen_401/004-638098127752526346-husqvarna-vitpilen-401.jpg?bgcolor=rgba_39_42_44_0&format=webp&height=834&mode=pad&quality=80&scale=both&trim.percentpadding=1&trim.threshold=80&width=1182", alt:"Husqvarna Vitpilen 401 2023 motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"1000PS", sourceLabel:"Editorial product image · Husqvarna Vitpilen 401", sourceUrl:"https://www.1000ps.com/en-gb/comparison/491398/bmw-f-450-gs-2026-vs-husqvarna-vitpilen-401-2023", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/husqvarna-vitpilen-401.webp", sourceImageUrl: "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_PERS_REVO_HQV-22-Vitpilen-401-hd_%23SALL_%23AEPI_%23V1.png", alt:"Husqvarna Vitpilen 401 2023 motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Husqvarna Motorcycles", sourceLabel: "Manufacturer product image · Husqvarna Vitpilen 401", sourceUrl: "https://www.husqvarna-motorcycles.com/en-ph/models/naked/vitpilen/vitpilen-401-2023.html", lastChecked: "2026-09-24"
   },
   {
     id:"ktm-390-duke-official", entityType:"motorcycle", entityId:"ktm-390-duke", role:"primary",
-    src:"/media/motorcycles/ktm-390-duke.webp", sourceImageUrl:"https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_PERS_REVO_MY23-KTM-390-DUKE--45-degree-front-right---INDIA-CTG--LIQUID-METAL-India-CTG_%23SALL_%23AEPI_%23V1.png", alt:"KTM 390 Duke 2023 motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"KTM", sourceLabel:"Manufacturer product image · KTM 390 Duke", sourceUrl:"https://www.ktm.com/en-my/models/naked-bike/2023-ktm-390-duke.html", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/ktm-390-duke.webp", sourceImageUrl: "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_PERS_REVO_MY23-KTM-390-DUKE--45-degree-front-right---INDIA-CTG--LIQUID-METAL-India-CTG_%23SALL_%23AEPI_%23V1.png", alt:"KTM 390 Duke 2023 motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "KTM", sourceLabel: "Manufacturer product image · KTM 390 Duke", sourceUrl: "https://www.ktm.com/en-my/models/naked-bike/2023-ktm-390-duke.html", lastChecked: "2026-09-24"
   },
   {
     id:"ktm-390-adventure-editorial", entityType:"motorcycle", entityId:"ktm-390-adventure", role:"primary",
@@ -745,23 +745,23 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"motorstar-cafe-400-editorial", entityType:"motorcycle", entityId:"motorstar-cafe-400", role:"primary",
-    src:"/media/motorcycles/motorstar-cafe-400.webp", sourceImageUrl:"https://imgcdn.zigwheels.ph/large/gallery/exterior/78/1899/motorstar-cafe-400-marketing-image-145459.jpg", alt:"MotorStar Cafe 400 motorcycle product image", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Zigwheels Philippines", sourceLabel:"Philippine catalog image · MotorStar Cafe 400", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/motorstar/cafe-400", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/motorstar-cafe-400.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/exterior/78/1899/motorstar-cafe-400-right-side-viewfull-image-779807.jpg", alt:"MotorStar Cafe 400 motorcycle product image", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Zigwheels Philippines", sourceLabel: "Catalog product image · MotorStar Cafe 400", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/motorstar/cafe-400", lastChecked: "2026-09-24"
   },
   {
     id:"motorstar-xplorer-250r-editorial", entityType:"motorcycle", entityId:"motorstar-xplorer-250r", role:"primary",
-    src:"/media/motorcycles/motorstar-xplorer-250r.webp", sourceImageUrl:"https://imgcdn.zigwheels.ph/large/gallery/exterior/78/1034/motorstar-xplorer-250r-left-side-view-full-image-723608.jpg", alt:"MotorStar Xplorer 250R adventure motorcycle product image", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Zigwheels Philippines", sourceLabel:"Philippine catalog image · MotorStar Xplorer 250R", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/motorstar/xplorer-250r/images", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/motorstar-xplorer-250r.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/78/1034/motorstar-xplorer-250r-color-270316.jpg", alt:"MotorStar Xplorer 250R adventure motorcycle product image", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Zigwheels Philippines", sourceLabel: "Philippine catalog color image · MotorStar Xplorer 250R", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/motorstar/xplorer-250r/images", lastChecked: "2026-09-24"
   },
   {
     id:"royal-enfield-hunter-350-editorial", entityType:"motorcycle", entityId:"royal-enfield-hunter-350", role:"primary",
-    src:"/media/motorcycles/royal-enfield-hunter-350.webp", sourceImageUrl:"https://img.autocarindia.com/Galleries/20250812032243_1%20_31_.jpg", alt:"Royal Enfield Hunter 350 motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Autocar India", sourceLabel:"Editorial product image · Royal Enfield Hunter 350", sourceUrl:"https://www.autocarindia.com/auto-images/royal-enfield-hunter-350-colours-image-gallery-436617", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/royal-enfield-hunter-350.webp", sourceImageUrl: "https://static-cdn.cars24.com/prod/new-bike-cms/Royal-Enfield/Hunter-350/2025/01/01/b9127f64-b4f2-425b-aa82-01bce35d485d-Royal-Enfield_Hunter-350_Dapper-White_-cce0fd.png?dpr=3&format=auto&optimize=low&quality=80&w=1000", alt:"Royal Enfield Hunter 350 motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Bikes24 / Royal Enfield", sourceLabel: "Catalog product image · Royal Enfield Hunter 350", sourceUrl: "https://www.bikes24.com/royal-enfield/hunter-350/", lastChecked: "2026-09-24"
   },
   {
     id:"royal-enfield-himalayan-450-editorial", entityType:"motorcycle", entityId:"royal-enfield-himalayan-450", role:"primary",
-    src:"/media/motorcycles/royal-enfield-himalayan-450.webp", sourceImageUrl:"https://www.motociclismo.es/uploads/s1/12/66/35/31/royal-enfield-himalayan-450-2024-estudio-1.jpeg", alt:"Royal Enfield Himalayan 450 adventure motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Motociclismo", sourceLabel:"Editorial product image · Royal Enfield Himalayan 450", sourceUrl:"https://www.motociclismo.es/fotos-royal-enfield-himalayan-450_70411_113.html", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/royal-enfield-himalayan-450.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/himalayan/colors/new-studio-shots/mana-black/mana-black-000.webp", alt:"Royal Enfield Himalayan 450 adventure motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer studio image · Royal Enfield Himalayan 450", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/new-himalayan/", lastChecked: "2026-09-24"
   },
   {
     id:"rusi-rfi-175-editorial", entityType:"motorcycle", entityId:"rusi-rfi-175", role:"primary",
@@ -781,7 +781,7 @@ export const entityMedia: EntityMedia[] = [
   {
     id:"sym-cruisym-150-editorial", entityType:"motorcycle", entityId:"sym-cruisym-150", role:"primary",
     src:"/media/motorcycles/sym-cruisym-150.webp", sourceImageUrl:"https://www.xsmt.com/upload/202302/06/202302061424135456.png", alt:"SYM Cruisym 150 scooter product image", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"XSMT", sourceLabel:"Motorcycle catalog image · SYM Cruisym 150", sourceUrl:"https://www.xsmt.com/product/show-4288.html", lastChecked:"2026-09-08"
+    rightsStatus:"external-reference", rightsHolder:"XSMT", sourceLabel:"Motorcycle catalog image · SYM Cruisym 150", sourceUrl:"https://www.xsmt.com/product/show-4288.html", lastChecked: "2026-09-24"
   },
   {
     id:"triumph-speed-400-editorial", entityType:"motorcycle", entityId:"triumph-speed-400", role:"primary",
@@ -796,7 +796,7 @@ export const entityMedia: EntityMedia[] = [
   {
     id: "vespa-primavera-150-vespa-store", entityType: "motorcycle", entityId: "vespa-primavera-150", role: "primary",
     src: "/media/motorcycles/vespa-primavera-150.webp", sourceImageUrl: "https://storeusa.vespa.com/img/models/PRIMAVERA%20150/415/mainimg_primavera-150-metallic-orange.png", alt: "Vespa Primavera 150 scooter", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Piaggio Group", sourceLabel: "Manufacturer store image reference · Vespa Primavera 150", sourceUrl: "https://storeusa.vespa.com/primavera/primavera-150.aspx", lastChecked: "2026-09-24"
+    rightsStatus: "external-reference", rightsHolder: "Vespa", sourceLabel: "Manufacturer product image · Vespa Primavera 150", sourceUrl: "https://storeusa.vespa.com/primavera/primavera-150.aspx", lastChecked: "2026-09-24"
   },
   {
     id:"vespa-sprint-150-editorial", entityType:"motorcycle", entityId:"vespa-sprint-150", role:"primary",
@@ -807,13 +807,13 @@ export const entityMedia: EntityMedia[] = [
   // Images for the additional models added in this expansion.
   {
     id:"bmw-g-310-r-editorial", entityType:"motorcycle", entityId:"bmw-g-310-r", role:"primary",
-    src:"/media/motorcycles/bmw-g-310-r.webp", sourceImageUrl:"https://images.motoren-toerisme.be/2022-12/2023_bmw_g310r_01.jpg?auto=format%2Ccompres&fill=solid&fit=fill&h=880&ixlib=php-1.1.0&q=75&s=91ebbd52059cc95d08c4ba0881001f90&w=1320", alt:"BMW G 310 R 2023 motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Motoren & Toerisme", sourceLabel:"Editorial product image · BMW G 310 R", sourceUrl:"https://www.motoren-toerisme.be/motoren/bmw-g-310-r-2023", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/bmw-g-310-r.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=image&attachment=1&dokNo=P90407659", alt:"BMW G 310 R motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "BMW Group", sourceLabel: "Official BMW Motorrad studio image · G 310 R", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90407659/The-new-BMW-G-310-R-base-colour-Polar-White-11-2020", lastChecked: "2026-09-24"
   },
   {
-    id:"bmw-r-1300-gs-editorial", entityType:"motorcycle", entityId:"bmw-r-1300-gs", role:"primary", sourceImageUrl:"https://mediapool.bmwgroup.com/cache/P9/202511/P90624522/P90624522-bmw-r-1300-gs-2250px.jpg",
+    id:"bmw-r-1300-gs-editorial", entityType:"motorcycle", entityId:"bmw-r-1300-gs", role:"primary", sourceImageUrl: "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=image&attachment=1&dokNo=P90524533",
     src:"/media/motorcycles/bmw-r-1300-gs.webp", alt:"BMW R 1300 GS adventure motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"BMW Group", sourceLabel:"Official BMW Motorrad media image · R 1300 GS", sourceUrl:"https://www.press.bmwgroup.com/global/photo/detail/P90624522/BMW-R-1300-GS", lastChecked:"2026-09-08"
+    rightsStatus:"external-reference", rightsHolder: "BMW Group", sourceLabel: "Official BMW Motorrad studio image · R 1300 GS", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90524533/die-neue-bmw-r-1300-gs-trophy-09/2023", lastChecked: "2026-09-24"
   },
   {
     id:"cfmoto-450nk-editorial", entityType:"motorcycle", entityId:"cfmoto-450nk", role:"primary",
@@ -822,8 +822,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"cfmoto-675sr-r-editorial", entityType:"motorcycle", entityId:"cfmoto-675sr-r", role:"primary",
-    src:"/media/motorcycles/cfmoto-675sr-r.webp", sourceImageUrl:"https://editorial.pxcrush.net/bikesales/general/editorial/450549396_780089797612891_7871008111732329732_n.jpg?height=682&width=1024", alt:"CFMOTO 675SR-R sport motorcycle product image", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Bikesales", sourceLabel:"Editorial product image · CFMOTO 675SR-R", sourceUrl:"https://www.bikesales.com.au/editorial/details/cfmoto-675sr-r-triple-is-coming-soon-146944/", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/cfmoto-675sr-r.webp", sourceImageUrl: "https://static.wixstatic.com/media/0a0f90_bcd5406be72d403295a51deca80f557b~mv2.png", alt:"CFMOTO 675SR-R sport motorcycle product image", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "CFMOTO Philippines", sourceLabel: "Manufacturer product image · CFMOTO 675SR-R", sourceUrl: "https://www.cfmotoph.com/motorcycle/675sr", lastChecked: "2026-09-24"
   },
   {
     id:"triumph-trident-660-editorial", entityType:"motorcycle", entityId:"triumph-trident-660", role:"primary",
@@ -885,8 +885,8 @@ export const entityMedia: EntityMedia[] = [
 
   {
     id: "suzuki-burgman-400-manual", entityType: "motorcycle", entityId: "suzuki-burgman-400", role: "primary",
-    src:"/media/motorcycles/suzuki-burgman-400.webp", sourceImageUrl:"https://mc.suzuki.com.ph/wp-content/uploads/2023/11/Burgman-400-ABS-Gallery-6.webp", alt: "Suzuki Burgman 400 motorcycle", width:1200, height:1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer image · Burgman 400", sourceUrl:"https://mc.suzuki.com.ph/motorcycles/big-bike/burgman-400/", lastChecked: "2026-09-21"
+    src:"/media/motorcycles/suzuki-burgman-400.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2023/11/19-17-1024x576.webp", alt: "Suzuki Burgman 400 motorcycle", width:1200, height:1200,
+    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer product image · Suzuki Burgman 400", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/big-bike/burgman-400/", lastChecked: "2026-09-24"
   },
   {
     id: "yamaha-yzf-r1m-manual-2024", entityType: "motorcycle", entityId: "yamaha-yzf-r1m", role: "primary",
@@ -1025,8 +1025,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-cb500-hornet-e-clutch-honda-uk", entityType: "motorcycle", entityId: "honda-cb500-hornet-e-clutch", role: "primary",
-    src: "/media/motorcycles/honda-cb500-hornet-e-clutch.webp", sourceImageUrl: "https://www.honda.co.uk/content/dam/central/motorcycles/street/cb500/2025/desktop/e-clutch-video.jpeg", alt: "Honda CB500 Hornet E-Clutch motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Honda Motor Europe", sourceLabel: "Manufacturer-hosted image reference · Honda CB500 Hornet E-Clutch", sourceUrl: "https://www.honda.co.uk/motorcycles/range/street/cb500-hornet/overview.html", lastChecked: "2026-09-23"
+    src: "/media/motorcycles/honda-cb500-hornet-e-clutch.webp", sourceImageUrl: "https://www.honda.co.uk/content/dam/central/motorcycles/colour-picker/street/cb500_hornet/cb500_hornet_2026/nh-b01_graphite_black/K002_26YM_CB500HORNET_MT_NH-B01_GraphiteBlack_RhSide.png", alt: "Honda CB500 Hornet E-Clutch motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda", sourceLabel: "Manufacturer product image · Honda CB500 Hornet", sourceUrl: "https://www.honda.co.uk/motorcycles/range/street/cb500-hornet/overview.html", lastChecked: "2026-09-24"
   },
   {
     id: "kawasaki-eliminator-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-eliminator", role: "primary",

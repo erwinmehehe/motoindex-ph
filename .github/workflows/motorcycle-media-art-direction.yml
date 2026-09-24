@@ -6,6 +6,8 @@ on:
       - "public/media/motorcycles/**"
       - "lib/media.ts"
       - "scripts/audit-motorcycle-media-art-direction.py"
+      - "scripts/art-direct-motorcycle-media.py"
+      - "scripts/validate-priority-motorcycle-media.mjs"
       - ".github/workflows/motorcycle-media-art-direction.yml"
   push:
     branches: [main]
@@ -37,3 +39,6 @@ jobs:
 
       - name: Audit motorcycle image composition
         run: python scripts/audit-motorcycle-media-art-direction.py
+
+      - name: Guard screenshot-flagged product media
+        run: node scripts/validate-priority-motorcycle-media.mjs

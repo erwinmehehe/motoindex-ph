@@ -11,236 +11,85 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 MEDIA_DIR = ROOT / "public" / "media" / "motorcycles"
 CANVAS = 1200
-TARGET_MAX_W = 1040
-TARGET_MAX_H = 900
-SEGMENT_MAX = 640
-WHITE = np.array([255, 255, 255], dtype=np.uint8)
-SKIP_IDS = {
-    # These assets are intentionally suppressed at runtime until an exact verified photo exists.
-    "suzuki-raider-pro",
-    "vespa-primavera-150",
-}
-CUSTOM_CROPS = {
-    # Honda's newsroom download includes a presentation card around the clean studio image.
-    # Crop to the photo panel before segmentation so labels/date do not survive into catalog media.
-    "honda-cb650r": (0.08, 0.16, 0.84, 0.60),
-}
+TARGET_MAX_W = 1000
+TARGET_MAX_H = 880
+SKIP_IDS = {"suzuki-raider-pro"}
 
 
-def border_pixels(image: np.ndarray, band: int) -> np.ndarray:
-    top = image[:band, :, :3].reshape(-1, 3)
-    bottom = image[-band:, :, :3].reshape(-1, 3)
-    left = image[:, :band, :3].reshape(-1, 3)
-    right = image[:, -band:, :3].reshape(-1, 3)
-    return np.concatenate([top, bottom, left, right], axis=0)
+def safe_subject_crop(image: np.ndarray) -> tuple[np.ndarray, str]:
+    """Crop only transparent or uniform near-white OUTER whitespace.
 
+    This intentionally does not use GrabCut, flood-fill segmentation, or any
+    foreground extraction on opaque photos. Those approaches can erase fairings,
+    wheels, mirrors, windscreens, and white bodywork.
+    """
+    if image.ndim == 3 and image.shape[2] == 4:
+        alpha = image[:, :, 3]
+        ys, xs = np.where(alpha > 8)
+        if len(xs):
+            x0, x1 = int(xs.min()), int(xs.max()) + 1
+            y0, y1 = int(ys.min()), int(ys.max()) + 1
+            pad_x = max(8, int((x1 - x0) * 0.025))
+            pad_y = max(8, int((y1 - y0) * 0.025))
+            x0, x1 = max(0, x0 - pad_x), min(image.shape[1], x1 + pad_x)
+            y0, y1 = max(0, y0 - pad_y), min(image.shape[0], y1 + pad_y)
+            return image[y0:y1, x0:x1], "alpha-bounds"
+        return image, "alpha-empty"
 
-def flood_background_mask(image: np.ndarray) -> np.ndarray:
-    h, w = image.shape[:2]
+    bgr = image[:, :, :3]
+    h, w = bgr.shape[:2]
     band = max(4, min(h, w) // 100)
-    border = border_pixels(image, band).astype(np.float32)
-    spread = float(np.mean(np.std(border, axis=0)))
-    tol = int(np.clip(16 + spread * 1.35, 16, 42))
-
-    flood_mask = np.zeros((h + 2, w + 2), dtype=np.uint8)
-    work = image.copy()
-    step_x = max(32, w // 14)
-    step_y = max(32, h // 14)
-    seeds = (
-        [(x, 0) for x in range(0, w, step_x)]
-        + [(x, h - 1) for x in range(0, w, step_x)]
-        + [(0, y) for y in range(0, h, step_y)]
-        + [(w - 1, y) for y in range(0, h, step_y)]
-        + [(0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1)]
+    border = np.concatenate(
+        [
+            bgr[:band, :, :].reshape(-1, 3),
+            bgr[-band:, :, :].reshape(-1, 3),
+            bgr[:, :band, :].reshape(-1, 3),
+            bgr[:, -band:, :].reshape(-1, 3),
+        ],
+        axis=0,
     )
-    flags = 4 | cv2.FLOODFILL_MASK_ONLY | cv2.FLOODFILL_FIXED_RANGE | (255 << 8)
-    diff = (tol, tol, tol)
-    for seed in seeds:
-        try:
-            cv2.floodFill(work, flood_mask, seed, (0, 0, 0), diff, diff, flags)
-        except cv2.error:
-            pass
-    background = flood_mask[1:-1, 1:-1] > 0
-    return ~background
+    white_border_ratio = float(np.mean(np.all(border >= 238, axis=1)))
+
+    # Only trim a rectangular outer border when the source is clearly a
+    # white-background product image. Internal white pixels are never removed.
+    if white_border_ratio >= 0.92:
+        non_white = np.any(bgr < 245, axis=2)
+        ys, xs = np.where(non_white)
+        if len(xs):
+            x0, x1 = int(xs.min()), int(xs.max()) + 1
+            y0, y1 = int(ys.min()), int(ys.max()) + 1
+            pad_x = max(10, int((x1 - x0) * 0.03))
+            pad_y = max(10, int((y1 - y0) * 0.03))
+            x0, x1 = max(0, x0 - pad_x), min(w, x1 + pad_x)
+            y0, y1 = max(0, y0 - pad_y), min(h, y1 + pad_y)
+            return image[y0:y1, x0:x1], "white-border-bounds"
+
+    return image, "preserve-full-frame"
 
 
-def grabcut_foreground_mask(image: np.ndarray) -> np.ndarray:
+def to_bgr_on_white(image: np.ndarray) -> np.ndarray:
+    if image.ndim == 3 and image.shape[2] == 4:
+        bgr = image[:, :, :3].astype(np.float32)
+        alpha = (image[:, :, 3].astype(np.float32) / 255.0)[..., None]
+        return np.clip(bgr * alpha + 255.0 * (1.0 - alpha), 0, 255).astype(np.uint8)
+    return image[:, :, :3]
+
+
+def compose_canvas(image: np.ndarray) -> tuple[np.ndarray, dict]:
+    image = to_bgr_on_white(image)
     h, w = image.shape[:2]
-    margin = max(3, int(round(min(h, w) * 0.018)))
-    mask = np.full((h, w), cv2.GC_PR_BGD, dtype=np.uint8)
-    mask[:margin, :] = cv2.GC_BGD
-    mask[-margin:, :] = cv2.GC_BGD
-    mask[:, :margin] = cv2.GC_BGD
-    mask[:, -margin:] = cv2.GC_BGD
-
-    x0, x1 = int(w * 0.07), int(w * 0.93)
-    y0, y1 = int(h * 0.06), int(h * 0.94)
-    mask[y0:y1, x0:x1] = cv2.GC_PR_FGD
-    mask[:margin, :] = cv2.GC_BGD
-    mask[-margin:, :] = cv2.GC_BGD
-    mask[:, :margin] = cv2.GC_BGD
-    mask[:, -margin:] = cv2.GC_BGD
-
-    bg_model = np.zeros((1, 65), np.float64)
-    fg_model = np.zeros((1, 65), np.float64)
-    cv2.grabCut(image, mask, None, bg_model, fg_model, 4, cv2.GC_INIT_WITH_MASK)
-    return np.logical_or(mask == cv2.GC_FGD, mask == cv2.GC_PR_FGD)
-
-
-def mask_quality(mask: np.ndarray) -> float:
-    h, w = mask.shape
-    area = float(mask.mean())
-    if area < 0.025 or area > 0.82:
-        return -100.0
-    ys, xs = np.where(mask)
-    if len(xs) == 0:
-        return -100.0
-    bw = (xs.max() - xs.min() + 1) / w
-    bh = (ys.max() - ys.min() + 1) / h
-    edge_ratio = float(
-        np.mean(
-            np.concatenate(
-                [
-                    mask[:4, :].ravel(),
-                    mask[-4:, :].ravel(),
-                    mask[:, :4].ravel(),
-                    mask[:, -4:].ravel(),
-                ]
-            )
-        )
-    )
-    center = float(mask[h // 3 : (2 * h) // 3, w // 3 : (2 * w) // 3].mean())
-    return (1.0 - edge_ratio) * 3.0 + center + min(bw, 0.9) + min(bh, 0.9) - abs(area - 0.30)
-
-
-def refine_mask(mask: np.ndarray, keep_detached_near_bbox: bool = False) -> np.ndarray:
-    hard = (mask.astype(np.uint8) * 255)
-    kernel = np.ones((3, 3), np.uint8)
-    hard = cv2.morphologyEx(hard, cv2.MORPH_CLOSE, kernel, iterations=1)
-
-    count, labels, stats, _ = cv2.connectedComponentsWithStats((hard > 0).astype(np.uint8), 8)
-    if count > 1:
-        areas = stats[1:, cv2.CC_STAT_AREA]
-        largest_label = int(np.argmax(areas)) + 1
-        keep = np.zeros_like(hard)
-        if keep_detached_near_bbox:
-            largest = stats[largest_label]
-            lx, ly, lw, lh = [int(v) for v in largest[:4]]
-            pad_x = max(16, int(lw * 0.06))
-            pad_y = max(16, int(lh * 0.06))
-            x0, x1 = max(0, lx - pad_x), min(mask.shape[1], lx + lw + pad_x)
-            y0, y1 = max(0, ly - pad_y), min(mask.shape[0], ly + lh + pad_y)
-            for label in range(1, count):
-                x, y, w, h, area = [int(v) for v in stats[label]]
-                if label == largest_label or (
-                    area >= 120
-                    and x < x1
-                    and x + w > x0
-                    and y < y1
-                    and y + h > y0
-                ):
-                    keep[labels == label] = 255
-        else:
-            largest_mask = (labels == largest_label).astype(np.uint8)
-            near = cv2.dilate(
-                largest_mask,
-                cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (25, 25)),
-                iterations=1,
-            )
-            for label in range(1, count):
-                area = int(stats[label, cv2.CC_STAT_AREA])
-                component = labels == label
-                if label == largest_label or (area >= 80 and np.any(near[component] > 0)):
-                    keep[component] = 255
-        hard = keep
-
-    return cv2.GaussianBlur(hard, (0, 0), 0.75)
-
-
-def subject_cutout(image: np.ndarray, keep_detached_near_bbox: bool = False) -> tuple[np.ndarray, np.ndarray, str]:
-    h, w = image.shape[:2]
-    band = max(4, min(h, w) // 100)
-    border = border_pixels(image, band)
-    white_ratio = float(np.mean(np.all(border >= 238, axis=1)))
-    neutral_ratio = float(np.mean((border.max(axis=1) - border.min(axis=1)) <= 18))
-    spread = float(np.mean(np.std(border.astype(np.float32), axis=0)))
-
-    segment_scale = min(1.0, SEGMENT_MAX / max(h, w))
-    if segment_scale < 1.0:
-        seg_w = max(2, int(round(w * segment_scale)))
-        seg_h = max(2, int(round(h * segment_scale)))
-        segment_image = cv2.resize(image, (seg_w, seg_h), interpolation=cv2.INTER_AREA)
-    else:
-        segment_image = image
-
-    candidates: list[tuple[str, np.ndarray]] = []
-    use_grabcut = True
-    if white_ratio >= 0.38 or (neutral_ratio >= 0.68 and spread <= 38):
-        flood = flood_background_mask(segment_image)
-        candidates.append(("edge-background", flood))
-        flood_area = float(flood.mean())
-        # A good studio extraction is compact and leaves the canvas border behind.
-        # Skip GrabCut in that case so thin spokes, mirrors and controls stay crisp.
-        if 0.025 <= flood_area <= 0.45 and mask_quality(flood) >= 2.2:
-            use_grabcut = False
-    if use_grabcut:
-        try:
-            candidates.append(("grabcut", grabcut_foreground_mask(segment_image)))
-        except cv2.error:
-            pass
-
-    if not candidates:
-        raise RuntimeError("no segmentation candidate")
-
-    method, mask = max(candidates, key=lambda item: mask_quality(item[1]))
-    if mask_quality(mask) < -20:
-        raise RuntimeError("segmentation confidence too low")
-    alpha_small = refine_mask(mask, keep_detached_near_bbox)
-    alpha = (
-        cv2.resize(alpha_small, (w, h), interpolation=cv2.INTER_LINEAR)
-        if alpha_small.shape != (h, w)
-        else alpha_small
-    )
-
-    hard = alpha >= 40
-    ys, xs = np.where(hard)
-    if len(xs) == 0:
-        raise RuntimeError("empty foreground mask")
-
-    x0, x1 = int(xs.min()), int(xs.max()) + 1
-    y0, y1 = int(ys.min()), int(ys.max()) + 1
-    sw, sh = x1 - x0, y1 - y0
-    pad_x = max(8, int(sw * 0.025))
-    pad_y = max(8, int(sh * 0.025))
-    x0, x1 = max(0, x0 - pad_x), min(w, x1 + pad_x)
-    y0, y1 = max(0, y0 - pad_y), min(h, y1 + pad_y)
-
-    crop = image[y0:y1, x0:x1].astype(np.float32)
-    a = alpha[y0:y1, x0:x1].astype(np.float32) / 255.0
-    a = a[..., None]
-    cutout = np.clip(crop * a + 255.0 * (1.0 - a), 0, 255).astype(np.uint8)
-    return cutout, alpha[y0:y1, x0:x1], method
-
-
-def compose_canvas(cutout: np.ndarray, alpha: np.ndarray) -> tuple[np.ndarray, dict]:
-    h, w = cutout.shape[:2]
-    scale = min(TARGET_MAX_W / w, TARGET_MAX_H / h)
+    scale = min(TARGET_MAX_W / max(w, 1), TARGET_MAX_H / max(h, 1))
     new_w = max(1, int(round(w * scale)))
     new_h = max(1, int(round(h * scale)))
-
-    resized = cv2.resize(cutout, (new_w, new_h), interpolation=cv2.INTER_LANCZOS4 if scale > 1 else cv2.INTER_AREA)
-    resized_alpha = cv2.resize(alpha, (new_w, new_h), interpolation=cv2.INTER_LINEAR)
+    interpolation = cv2.INTER_LANCZOS4 if scale > 1 else cv2.INTER_AREA
+    resized = cv2.resize(image, (new_w, new_h), interpolation=interpolation)
 
     canvas = np.full((CANVAS, CANVAS, 3), 255, dtype=np.uint8)
     x = (CANVAS - new_w) // 2
-    y = min(CANVAS - new_h, max(0, (CANVAS - new_h) // 2 + 18))
+    y = (CANVAS - new_h) // 2
+    canvas[y : y + new_h, x : x + new_w] = resized
 
-    a = (resized_alpha.astype(np.float32) / 255.0)[..., None]
-    region = canvas[y : y + new_h, x : x + new_w].astype(np.float32)
-    fg = resized.astype(np.float32)
-    canvas[y : y + new_h, x : x + new_w] = np.clip(fg * a + region * (1.0 - a), 0, 255).astype(np.uint8)
-
-    stats = {
+    return canvas, {
         "subject_width_ratio": round(new_w / CANVAS, 4),
         "subject_height_ratio": round(new_h / CANVAS, 4),
         "left_margin": x,
@@ -248,7 +97,6 @@ def compose_canvas(cutout: np.ndarray, alpha: np.ndarray) -> tuple[np.ndarray, d
         "top_margin": y,
         "bottom_margin": CANVAS - y - new_h,
     }
-    return canvas, stats
 
 
 def process(path: Path) -> dict:
@@ -256,26 +104,16 @@ def process(path: Path) -> dict:
     if entity_id in SKIP_IDS:
         return {"file": path.name, "status": "skipped-suppressed"}
 
-    image = cv2.imread(str(path), cv2.IMREAD_COLOR)
+    image = cv2.imread(str(path), cv2.IMREAD_UNCHANGED)
     if image is None:
         return {"file": path.name, "status": "error", "error": "decode failed"}
-
-    crop = CUSTOM_CROPS.get(entity_id)
-    if crop:
-        h, w = image.shape[:2]
-        left, top, width, height = crop
-        x0, y0 = int(round(w * left)), int(round(h * top))
-        x1 = min(w, x0 + int(round(w * width)))
-        y1 = min(h, y0 + int(round(h * height)))
-        image = image[y0:y1, x0:x1]
+    if image.ndim != 3 or image.shape[2] not in (3, 4):
+        return {"file": path.name, "status": "error", "error": f"unsupported channels: {image.shape}"}
 
     try:
-        cutout, alpha, method = subject_cutout(
-            image,
-            keep_detached_near_bbox=(entity_id == "kawasaki-ninja-400"),
-        )
-        canvas, stats = compose_canvas(cutout, alpha)
-        ok = cv2.imwrite(str(path), canvas, [cv2.IMWRITE_WEBP_QUALITY, 88])
+        cropped, method = safe_subject_crop(image)
+        canvas, stats = compose_canvas(cropped)
+        ok = cv2.imwrite(str(path), canvas, [cv2.IMWRITE_WEBP_QUALITY, 90])
         if not ok:
             raise RuntimeError("WebP encode failed")
         return {"file": path.name, "status": "updated", "method": method, **stats}
@@ -298,7 +136,8 @@ def main() -> int:
     report = {
         "canvas": f"{CANVAS}x{CANVAS}",
         "background": "#FFFFFF",
-        "target_subject_box": f"{TARGET_MAX_W}x{TARGET_MAX_H}",
+        "target_box": f"{TARGET_MAX_W}x{TARGET_MAX_H}",
+        "policy": "non-destructive rectangular trim only; no opaque-image segmentation",
         "files": len(files),
         "updated": updated,
         "skipped": skipped,
@@ -309,7 +148,7 @@ def main() -> int:
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
 
-    print(f"Motorcycle media art direction: {updated}/{len(files)} updated, {skipped} skipped, {len(errors)} errors.")
+    print(f"Motorcycle media safe normalization: {updated}/{len(files)} updated, {skipped} skipped, {len(errors)} errors.")
     for error in errors:
         print(f"- {error['file']}: {error['error']}")
     return 1 if errors else 0
