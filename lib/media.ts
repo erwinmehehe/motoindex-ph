@@ -564,8 +564,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "evo-gt-pro-rr-official", entityType: "helmet", entityId: "evo-gt-pro-rr", role: "primary",
-    src: "/media/helmets/evo-gt-pro-rr.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2022/08/GT-PRO-RR.jpg", alt: "EVO GT-Pro RR full-face motorcycle helmet", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "Brand-hosted product image · EVO GT-Pro RR", sourceUrl: "https://evohelmet.com/product/gt-pro-rr/", lastChecked: "2026-08-25"
+    src: "/media/helmets/evo-gt-pro-rr.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2022/08/GREEN-1.jpg", alt: "EVO GT-Pro RR full-face motorcycle helmet in green", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "Official EVO product image · GT-Pro RR", sourceUrl: "https://evohelmet.com/product/gt-pro-rr/", lastChecked: "2026-09-24"
   },
   {
     id: "evo-sr-x-mono-official", entityType: "helmet", entityId: "evo-sr-x-mono", role: "primary",
