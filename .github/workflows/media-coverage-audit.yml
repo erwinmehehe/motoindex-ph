@@ -14,6 +14,8 @@ on:
       - scripts/normalize-generated-product-media.mjs
       - scripts/audit-product-media-coverage.mjs
       - scripts/audit-motorcycle-media-coverage.mjs
+      - scripts/art-direct-helmet-media.py
+      - scripts/audit-helmet-media-art-direction.py
       - scripts/validate-media-backfill-safety.mjs
       - components/ProductMedia.tsx
       - app/gear/**
@@ -38,6 +40,12 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install image audit dependencies
+        run: python -m pip install --disable-pip-version-check opencv-python-headless==4.12.0.88 numpy==2.2.6
       - name: Verify non-destructive media pipeline
         run: node scripts/validate-media-backfill-safety.mjs
       - name: Audit verified exact-image coverage
@@ -46,6 +54,8 @@ jobs:
         run: npm run validate:media
       - name: Audit exact motorcycle image coverage
         run: npm run validate:motorcycle-media
+      - name: Audit helmet image composition
+        run: npm run validate:helmet-media
       - name: Security audit
         run: npm audit --audit-level=high
       - name: Typecheck

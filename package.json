@@ -54,7 +54,8 @@
     "visual:matrix": "node scripts/visual-regression-matrix.mjs",
     "validate:catalog-uniqueness": "node scripts/validate-motorcycle-uniqueness.mjs",
     "validate:comparisons": "node scripts/validate-comparison-briefs.mjs",
-    "validate:garage": "node scripts/garage-qa.mjs"
+    "validate:garage": "node scripts/garage-qa.mjs",
+    "validate:helmet-media": "python scripts/audit-helmet-media-art-direction.py"
   },
   "dependencies": {
     "next": "15.5.24",
