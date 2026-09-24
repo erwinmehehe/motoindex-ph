@@ -27,7 +27,7 @@ async function fetchImage(url, referer) {
 
 async function writeWhiteCanvas(bytes, output, opts={}) {
   const rotated = await sharp(bytes).rotate().png().toBuffer({ resolveWithObject: true });
-  let image = sharp(rotated.data);
+  let working = rotated.data;
 
   if (opts.extractFraction) {
     const iw = rotated.info.width;
@@ -36,16 +36,30 @@ async function writeWhiteCanvas(bytes, output, opts={}) {
     const y0 = Math.max(0, Math.min(ih - 1, Math.floor(ih * opts.extractFraction.top)));
     const x1 = Math.max(x0 + 1, Math.min(iw, Math.ceil(iw * opts.extractFraction.right)));
     const y1 = Math.max(y0 + 1, Math.min(ih, Math.ceil(ih * opts.extractFraction.bottom)));
-    image = image.extract({ left: x0, top: y0, width: x1 - x0, height: y1 - y0 });
+    working = await sharp(rotated.data)
+      .extract({ left: x0, top: y0, width: x1 - x0, height: y1 - y0 })
+      .png()
+      .toBuffer();
   } else if (opts.extract) {
     const left = Math.max(0, Math.min(rotated.info.width - 1, opts.extract.left));
     const top = Math.max(0, Math.min(rotated.info.height - 1, opts.extract.top));
     const width = Math.max(1, Math.min(rotated.info.width - left, opts.extract.width));
     const height = Math.max(1, Math.min(rotated.info.height - top, opts.extract.height));
-    image = image.extract({ left, top, width, height });
+    working = await sharp(rotated.data)
+      .extract({ left, top, width, height })
+      .png()
+      .toBuffer();
   }
 
-  if (opts.trim) image=image.trim({ background: {r:255,g:255,b:255,alpha:0}, threshold: 8 });
+  let image = sharp(working);
+  if (opts.trim) {
+    working = await image
+      .trim({ background: {r:255,g:255,b:255,alpha:0}, threshold: 8 })
+      .png()
+      .toBuffer();
+    image = sharp(working);
+  }
+
   const normalized=await image
     .resize({width:1040,height:900,fit:"inside",withoutEnlargement:false})
     .png()
