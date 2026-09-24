@@ -13,6 +13,16 @@ import {
 } from "@/lib/garage";
 
 type SellerCondition = "fair" | "good" | "excellent";
+type OwnerListingStatus = {
+  id: string;
+  garageMotorcycleLocalId?: string | null;
+  title: string;
+  status: string;
+  askingPricePhp: number;
+  mileageKm: number;
+  location: string;
+  publicUrl?: string | null;
+};
 
 function dateLabel(value?: string) {
   if (!value) return "Not recorded";
@@ -63,6 +73,10 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
   const [includeAmounts, setIncludeAmounts] = useState(false);
   const [includeNotes, setIncludeNotes] = useState(false);
   const [message, setMessage] = useState("");
+  const [listingMessage, setListingMessage] = useState("");
+  const [ownerListings, setOwnerListings] = useState<OwnerListingStatus[]>([]);
+  const [submitting, setSubmitting] = useState(false);
+  const [withdrawing, setWithdrawing] = useState(false);
 
   useEffect(() => {
     const loaded = parseGarageState(window.localStorage.getItem(GARAGE_STORAGE_KEY));
@@ -72,6 +86,21 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
     setSelectedId(selected?.id || "");
     setHydrated(true);
   }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    void refreshOwnerListings();
+  }, [hydrated]);
+
+  async function refreshOwnerListings() {
+    const response = await fetch("/api/garage/listings", { cache: "no-store" }).catch(() => null);
+    if (!response?.ok) {
+      setOwnerListings([]);
+      return;
+    }
+    const data = await response.json().catch(() => ({}));
+    setOwnerListings(Array.isArray(data.listings) ? data.listings : []);
+  }
 
   const bike = state.motorcycles.find((item) => item.id === selectedId) || state.motorcycles[0];
   const model = bike ? catalog.find((item) => item.id === bike.catalogModelId) : undefined;
@@ -121,6 +150,77 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
     `${parts.length} parts/modification record${parts.length === 1 ? "" : "s"} logged`,
     accidents.length ? `${accidents.length} accident record${accidents.length === 1 ? "" : "s"} logged` : "No accident records logged in My Garage",
   ].join(" · ");
+  const currentListing = ownerListings.find((item) => item.garageMotorcycleLocalId === bike.id);
+
+  async function submitListing() {
+    if (!model || !bike.catalogModelId) {
+      setListingMessage("Match this motorcycle to a MotoIndex catalog model in My Garage before submitting.");
+      return;
+    }
+    if (!bike.year) {
+      setListingMessage("Add the motorcycle model year in My Garage before submitting.");
+      return;
+    }
+    if (!listingPrice || listingPrice < 3000) {
+      setListingMessage("Add a realistic asking price before submitting.");
+      return;
+    }
+    if (location.trim().length < 2) {
+      setListingMessage("Add the city or province where buyers can inspect the motorcycle.");
+      return;
+    }
+
+    setSubmitting(true);
+    setListingMessage("");
+    const response = await fetch("/api/garage/listings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        garageMotorcycleLocalId: bike.id,
+        garageMotorcycleUpdatedAt: bike.updatedAt,
+        askingPricePhp: listingPrice,
+        condition,
+        location: location.trim(),
+      }),
+    });
+    const data = await response.json().catch(() => ({}));
+    setSubmitting(false);
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        setListingMessage("Sign in from My Garage, save this bike to the private cloud, then submit again.");
+        return;
+      }
+      setListingMessage(data.error || "Listing submission failed.");
+      return;
+    }
+
+    await refreshOwnerListings();
+    setListingMessage("Submitted for MotoIndex review. It stays private until an admin verifies it for publication.");
+  }
+
+  async function withdrawListing() {
+    if (!currentListing) return;
+    if (!window.confirm("Withdraw this listing from MotoIndex? Buyers will no longer be able to open or inquire about it.")) return;
+
+    setWithdrawing(true);
+    setListingMessage("");
+    const response = await fetch("/api/garage/listings", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ listingId: currentListing.id }),
+    });
+    const data = await response.json().catch(() => ({}));
+    setWithdrawing(false);
+
+    if (!response.ok) {
+      setListingMessage(data.error || "Listing could not be withdrawn.");
+      return;
+    }
+
+    await refreshOwnerListings();
+    setListingMessage("Listing withdrawn from MotoIndex.");
+  }
 
   function buildReportText() {
     const lines = [
@@ -282,7 +382,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
     </div>
 
     <section className="section">
-      <div className="section-head"><div><h2>Seller listing draft</h2><p>Prepare the basic fields now. Publishing to MotoIndex will come after seller accounts and verification are available.</p></div></div>
+      <div className="section-head"><div><h2>Seller listing</h2><p>Prepare the public listing fields, then submit them for MotoIndex review. Your plate, Garage documents, expense history and private notes are not included in the marketplace submission.</p></div></div>
       <form className="lead-form" onSubmit={(event) => event.preventDefault()}>
         <div className="lead-form-grid">
           <label>Asking price<input value={askingPrice} onChange={(event) => setAskingPrice(event.target.value)} type="number" min="0" step="1" placeholder={effectiveValue ? String(effectiveValue) : ""} /></label>
@@ -295,11 +395,15 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
         <strong>{title}</strong>
         <p>{listingPrice ? `${money(listingPrice)} · ` : ""}{bike.odometerKm.toLocaleString()} km · {condition}{location.trim() ? ` · ${location.trim()}` : ""}</p>
         <p>{historySummary}</p>
+        {currentListing && <p><strong>Marketplace status: {currentListing.status.replaceAll("_", " ")}</strong>{currentListing.publicUrl ? <> · <a href={currentListing.publicUrl}>View public listing →</a></> : " · Not public yet"}</p>}
         <div className="hero-actions">
-          <button className="button small" type="button" onClick={() => copyText(buildListingText(), "Listing draft copied.")}>Copy listing draft</button>
+          <button className="button small" type="button" onClick={submitListing} disabled={submitting}>{submitting ? "Submitting…" : "Submit for MotoIndex review"}</button>
+          <button className="button small ghost" type="button" onClick={() => copyText(buildListingText(), "Listing draft copied.")}>Copy listing draft</button>
+          {currentListing && currentListing.status !== "expired" && <button className="button small ghost" type="button" onClick={withdrawListing} disabled={withdrawing}>{withdrawing ? "Withdrawing…" : "Withdraw listing"}</button>}
           {model && <a className="button small ghost" href={`/used-motorcycles/${model.makeSlug}/${model.slug}`}>Check used market</a>}
         </div>
       </div>
+      {listingMessage && <p className="muted-note" role="status">{listingMessage}</p>}
     </section>
 
     <section className="section">
