@@ -92,13 +92,10 @@ const airPage="https://www.honda.com.vn/xe-may/san-pham/air-blade-160125?changeV
 const air=await fetchImage(airUrl,airPage);
 await writeWhiteCanvas(air.bytes,path.join(outDir,"honda-airblade-160.webp"),{trim:true});
 
-const tuaregUrl="https://apriliaindia.com/images/tuareg-660/aprilia_tuareg_660_feature1.png";
-const tuaregPage="https://apriliaindia.com/aprilia-tuareg-660.php";
+const tuaregUrl="https://megabikes.ie/media/catalog/product/0/1/01-aprilia-tuareg-hailstorm-white_1.jpg";
+const tuaregPage="https://megabikes.ie/aprilia-tuareg-660-25ym";
 const tuareg=await fetchImage(tuaregUrl,tuaregPage);
-await writeWhiteCanvas(tuareg.bytes,path.join(outDir,"aprilia-tuareg-660.webp"),{
-  extractFraction:{left:0.545,top:0.08,right:0.995,bottom:0.92},
-  trim:true
-});
+await writeWhiteCanvas(tuareg.bytes,path.join(outDir,"aprilia-tuareg-660.webp"),{trim:false});
 
 let media=fs.readFileSync(mediaPath,"utf8");
 media=replaceField(media,"honda-airblade-160","sourceImageUrl",air.url);
@@ -108,9 +105,17 @@ media=replaceField(media,"honda-airblade-160","rightsHolder","Honda Vietnam");
 media=replaceField(media,"honda-airblade-160","lastChecked","2026-09-24");
 media=replaceField(media,"aprilia-tuareg-660","sourceImageUrl",tuareg.url);
 media=replaceField(media,"aprilia-tuareg-660","sourceUrl",tuaregPage);
-media=replaceField(media,"aprilia-tuareg-660","sourceLabel","Manufacturer-hosted product image · Aprilia India Tuareg 660");
-media=replaceField(media,"aprilia-tuareg-660","rightsHolder","Aprilia India");
+media=replaceField(media,"aprilia-tuareg-660","sourceLabel","Dealer-hosted exact-model product image · Megabikes Aprilia Tuareg 660");
+media=replaceField(media,"aprilia-tuareg-660","rightsHolder","Megabikes Ireland");
 media=replaceField(media,"aprilia-tuareg-660","lastChecked","2026-09-24");
+
+const cbr150rUrl="https://asset.astra-honda.com/uploads/product/thumbnail/thumbnail-cbr150r-550x413px-tr-new-2-21112024-100742.png";
+const cbr150rPage="https://www.astra-honda.com/product/cbr-150-r";
+media=replaceField(media,"honda-cbr150r","sourceImageUrl",cbr150rUrl);
+media=replaceField(media,"honda-cbr150r","sourceUrl",cbr150rPage);
+media=replaceField(media,"honda-cbr150r","sourceLabel","Manufacturer-hosted product image · Astra Honda CBR150R");
+media=replaceField(media,"honda-cbr150r","rightsHolder","Astra Honda Motor");
+media=replaceField(media,"honda-cbr150r","lastChecked","2026-09-24");
 fs.writeFileSync(mediaPath,media);
 
 const restoreWithoutSegmentation = [
