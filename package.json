@@ -17,7 +17,7 @@
     "check:legacy-links": "node scripts/check-legacy-recommendation-links.mjs",
     "audit:freshness": "node scripts/audit-freshness.mjs",
     "visual:qa": "node scripts/visual-qa.mjs && node scripts/visual-qa-editorial.mjs && node scripts/visual-qa-model-fallback.mjs",
-    "validate:all": "npm run validate:post-audit && npm run validate:seo-hardening && npm run validate:market-hubs && npm run validate:catalog-uniqueness && npm run validate:priority-model-growth && npm run validate:comparisons && npm run validate:budget-displacement && npm run validate:no-competitors && npm run validate:copy-tone && npm run validate:public-trust && npm run validate:adsense && node scripts/validate-authority-growth.mjs && node scripts/validate-premium-light.mjs && npm run check:links && npm run check:legacy-links && npm run audit:freshness && node scripts/validate-content.mjs && node scripts/validate-product-layer.mjs && npm run validate:media && npm run validate:media-backfill && npm run validate:motorcycle-media",
+    "validate:all": "npm run validate:post-audit && npm run validate:seo-hardening && npm run validate:market-hubs && npm run validate:catalog-uniqueness && npm run validate:priority-model-growth && npm run validate:comparisons && npm run validate:budget-displacement && npm run validate:no-competitors && npm run validate:copy-tone && npm run validate:public-trust && npm run validate:adsense && node scripts/validate-authority-growth.mjs && node scripts/validate-premium-light.mjs && npm run check:links && npm run check:legacy-links && npm run audit:freshness && node scripts/validate-content.mjs && node scripts/validate-product-layer.mjs && npm run validate:media && npm run validate:media-backfill && npm run validate:motorcycle-media && npm run validate:helmet-media",
     "prisma:validate": "node scripts/prisma-validate.mjs",
     "verify": "npm run validate:all && npm run validate:lockfile && npm run prisma:validate && npm run validate:design && npm run validate:garage && npm run lint && npm run typecheck && npm run build",
     "check:launch": "node scripts/check-launch.mjs",
@@ -54,7 +54,8 @@
     "visual:matrix": "node scripts/visual-regression-matrix.mjs",
     "validate:catalog-uniqueness": "node scripts/validate-motorcycle-uniqueness.mjs",
     "validate:comparisons": "node scripts/validate-comparison-briefs.mjs",
-    "validate:garage": "node scripts/garage-qa.mjs"
+    "validate:garage": "node scripts/garage-qa.mjs",
+    "validate:helmet-media": "python scripts/audit-helmet-media-art-direction.py"
   },
   "dependencies": {
     "next": "15.5.24",
