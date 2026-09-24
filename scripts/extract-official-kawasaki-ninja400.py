@@ -44,7 +44,12 @@ def main() -> None:
         round(h * 0.705),
     ))
     crop = trim_near_white(crop)
-    crop.thumbnail(MAX_SIZE, Image.Resampling.LANCZOS)
+    scale = min(MAX_SIZE[0] / crop.width, MAX_SIZE[1] / crop.height)
+    target = (
+        max(1, round(crop.width * scale)),
+        max(1, round(crop.height * scale)),
+    )
+    crop = crop.resize(target, Image.Resampling.LANCZOS)
 
     canvas = Image.new("RGB", (CANVAS, CANVAS), "white")
     x = (CANVAS - crop.width) // 2
