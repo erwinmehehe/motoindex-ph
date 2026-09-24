@@ -1,4 +1,5 @@
 name: Motorcycle Image Wave 9 Backfill
+# Final validation run after scoped art-direction fix
 
 on:
   push:
