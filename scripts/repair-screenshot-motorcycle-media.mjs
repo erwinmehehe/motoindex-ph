@@ -1,3 +1,4 @@
+// Repair retry after QA guards landed.
 import fs from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
