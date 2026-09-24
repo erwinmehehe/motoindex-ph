@@ -715,8 +715,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"husqvarna-svartpilen-401-editorial", entityType:"motorcycle", entityId:"husqvarna-svartpilen-401", role:"primary",
-    src:"/media/motorcycles/husqvarna-svartpilen-401.webp", sourceImageUrl:"https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_svartpilen200-my22-90-right_%23SALL_%23AEPI_%23V1.png", alt:"Husqvarna Svartpilen 401 motorcycle product photo", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Next Moto", sourceLabel:"Refreshed product image · Husqvarna Svartpilen 401 motorcycle product photo", sourceUrl:"https://www.husqvarna-motorcycles.com/en-ph/models/naked/svartpilen/svartpilen-401-2023.html", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/husqvarna-svartpilen-401.webp", sourceImageUrl:"https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_Svartpilen-401-MY24-90-right_%23SALL_%23AEPI_%23V2.png", alt:"Husqvarna Svartpilen 401 motorcycle product photo", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder:"Next Moto", sourceLabel:"Refreshed product image · Husqvarna Svartpilen 401 motorcycle product photo", sourceUrl:"https://www.husqvarna-motorcycles.com/en-be/models/naked/svartpilen/svartpilen-401-2026.html", lastChecked:"2026-09-08"
   },
   {
     id:"husqvarna-vitpilen-401-editorial", entityType:"motorcycle", entityId:"husqvarna-vitpilen-401", role:"primary",
@@ -745,7 +745,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"motorstar-cafe-400-editorial", entityType:"motorcycle", entityId:"motorstar-cafe-400", role:"primary",
-    src:"/media/motorcycles/motorstar-cafe-400.webp", sourceImageUrl:"https://imgcdn.zigwheels.ph/large/gallery/color/78/1899/motorstar-cafe-400-color-385267.jpg", alt:"MotorStar Cafe 400 motorcycle product image", width:1200, height:1200,
+    src:"/media/motorcycles/motorstar-cafe-400.webp", sourceImageUrl:"https://imgcdn.zigwheels.ph/large/gallery/exterior/78/1899/motorstar-cafe-400-right-side-viewfull-image-779807.jpg", alt:"MotorStar Cafe 400 motorcycle product image", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder: "Zigwheels Philippines", sourceLabel:"Refreshed product image · MotorStar Cafe 400 motorcycle product image", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/motorstar/cafe-400", lastChecked: "2026-09-24"
   },
   {
@@ -837,12 +837,12 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"royal-enfield-guerrilla-450-editorial", entityType:"motorcycle", entityId:"royal-enfield-guerrilla-450", role:"primary",
-    src:"/media/motorcycles/royal-enfield-guerrilla-450.webp", sourceImageUrl:"https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/guerrilla-450/new/highlights/ride-lean-repeat-db.jpg", alt:"Royal Enfield Guerrilla 450 motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"1000PS dealer network", sourceLabel:"Refreshed product image · Royal Enfield Guerrilla 450 motorcycle in studio view", sourceUrl:"https://www.royalenfield.com/ph/en/motorcycles/guerrilla-450/", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/royal-enfield-guerrilla-450.webp", sourceImageUrl:"https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/guerrilla-450/new/campaign/apex-black.png", alt:"Royal Enfield Guerrilla 450 motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder:"1000PS dealer network", sourceLabel:"Refreshed product image · Royal Enfield Guerrilla 450 motorcycle in studio view", sourceUrl:"https://www.royalenfield.com/ph/en/motorcycles/guerrilla-450/campaign/", lastChecked:"2026-09-08"
   },
   {
     id:"royal-enfield-classic-350-editorial", entityType:"motorcycle", entityId:"royal-enfield-classic-350", role:"primary",
-    src:"/media/motorcycles/royal-enfield-classic-350.webp", sourceImageUrl:"https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/new-classic-350/studio-shots/stealth-black/stealth-black-000.png", alt:"Royal Enfield Classic 350 motorcycle in studio view", width:1200, height:1200,
+    src:"/media/motorcycles/royal-enfield-classic-350.webp", sourceImageUrl:"https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/new-classic-350/studio-shots/new-360/commando-sand/01.png", alt:"Royal Enfield Classic 350 motorcycle in studio view", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder:"Caradisiac", sourceLabel:"Refreshed product image · Royal Enfield Classic 350 motorcycle in studio view", sourceUrl:"https://www.royalenfield.com/ph/en/motorcycles/classic-350/", lastChecked:"2026-09-08"
   },
   {
@@ -900,8 +900,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "triumph-speed-twin-900-manual", entityType: "motorcycle", entityId: "triumph-speed-twin-900", role: "primary",
-    src:"/media/motorcycles/triumph-speed-twin-900.webp", sourceImageUrl:"https://media.triumphmotorcycles.co.uk/image/upload/t_/c_limit,w_3840/f_auto/q_auto:eco/v1726581552/OE_SpeedTwin900_MY25_CW4I2368_GE_zebxwk?_a=BAVMn6ID0", alt: "Triumph Speed Twin 900 motorcycle", width:1200, height:1200,
-    rightsStatus: "external-reference", rightsHolder: "Triumph Motorcycles", sourceLabel:"Refreshed product image · Triumph Speed Twin 900 motorcycle", sourceUrl:"https://www.triumphmotorcycles.ph/bikes/classic/speed/speed-twin-900", lastChecked: "2026-09-21"
+    src:"/media/motorcycles/triumph-speed-twin-900.webp", sourceImageUrl:"https://media.triumphmotorcycles.co.uk/image/upload/f_auto/c_fill,g_xy_center,h_568,w_1000/q_auto:eco/sitecoremedialibrary/media-library/images/us-can/news/2026/speed%20twin%201200%20tfc/tfc_speedtwin1200_header%201920px.jpg", alt: "Triumph Speed Twin 900 motorcycle", width:1200, height:1200,
+    rightsStatus: "external-reference", rightsHolder: "Triumph Motorcycles", sourceLabel:"Refreshed product image · Triumph Speed Twin 900 motorcycle", sourceUrl:"https://www.triumphmotorcycles.com/motorcycles/classic/bonneville-speed-twin-900", lastChecked: "2026-09-21"
   },
   {
     id: "royal-enfield-interceptor-650-manual", entityType: "motorcycle", entityId: "royal-enfield-interceptor-650", role: "primary",
@@ -930,7 +930,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-x-adv-honda-global", entityType: "motorcycle", entityId: "honda-x-adv", role: "primary",
-    src:"/media/motorcycles/honda-x-adv.webp", sourceImageUrl:"https://global.honda/content/dam/site/global-jp/news-new/cq_img/2026/01/2260130-x-adv/2260130-x-adv_link02.jpg", alt: "Honda X-ADV 745cc DCT motorcycle in Matte Pearl Glare White", width: 1200, height: 1200,
+    src:"/media/motorcycles/honda-x-adv.webp", sourceImageUrl:"https://global.honda/content/dam/site/global-jp/news-new/cq_img/2026/01/2260130-x-adv/2260130-x-adv_01.jpg", alt: "Honda X-ADV 745cc DCT motorcycle in Matte Pearl Glare White", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Honda Motor Co., Ltd.", sourceLabel:"Refreshed product image · Honda X-ADV 745cc DCT motorcycle in Matte Pearl Glare White", sourceUrl:"https://global.honda/jp/news/2026/2260130-x-adv.html", lastChecked: "2026-09-22"
   },
   {
@@ -995,23 +995,23 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "bmw-f-900-gs-bmw-official", entityType: "motorcycle", entityId: "bmw-f-900-gs", role: "primary",
-    src:"/media/motorcycles/bmw-f-900-gs.webp", sourceImageUrl:"https://mediapool.bmwgroup.com/cache/P9/202402/P90539201/P90539201-the-bmw-f-900-gs-on-road-stills-02-2024-2250px.jpg", alt: "BMW F 900 GS adventure motorcycle", width: 1200, height: 1200,
+    src:"/media/motorcycles/bmw-f-900-gs.webp", sourceImageUrl:"https://mediapool.bmwgroup.com/cache/P9/202609/P90657540/P90657540-product-sustainability-bmw-3-series-599px.jpg", alt: "BMW F 900 GS adventure motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "BMW Motorrad", sourceLabel:"Refreshed product image · BMW F 900 GS adventure motorcycle", sourceUrl:"https://www.press.bmwgroup.com/global/photo/detail/P90539201/The-BMW-F-900-GS-On-road-stills-02-2024", lastChecked: "2026-09-23"
   },
   {
     id: "bmw-m-1000-rr-bmw-official", entityType: "motorcycle", entityId: "bmw-m-1000-rr", role: "primary",
-    src:"/media/motorcycles/bmw-m-1000-rr.webp", sourceImageUrl:"https://mediapool.bmwgroup.com/cache/P9/202410/P90572497/P90572497-the-new-bmw-m-1000-rr-10-2024-2248px.jpg", alt: "BMW M 1000 RR superbike", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "BMW Motorrad", sourceLabel:"Refreshed product image · BMW M 1000 RR superbike", sourceUrl:"https://www.bmwmotorcycles.com/en/models/m/m1000rr.html", lastChecked: "2026-09-23"
+    src:"/media/motorcycles/bmw-m-1000-rr.webp", sourceImageUrl:"https://mediapool.bmwgroup.com/cache/P9/202209/P90481287/P90481287-the-new-bmw-m-1000-rr-10-2022-2121px.jpg", alt: "BMW M 1000 RR superbike", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "BMW Motorrad", sourceLabel:"Refreshed product image · BMW M 1000 RR superbike", sourceUrl:"https://www.press.bmwgroup.com/canada/article/detail/T0404638EN/the-new-bmw-m-1000-rr-and-m-1000-rr-m-competition", lastChecked: "2026-09-23"
   },
   {
     id: "bmw-s-1000-r-bmw-official", entityType: "motorcycle", entityId: "bmw-s-1000-r", role: "primary",
-    src:"/media/motorcycles/bmw-s-1000-r.webp", sourceImageUrl:"https://mediapool.bmwgroup.com/cache/P9/202410/P90572565/P90572565-the-new-bmw-s-1000-r-10-2024-2248px.jpg", alt: "BMW S 1000 R roadster motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "BMW Motorrad", sourceLabel:"Refreshed product image · BMW S 1000 R roadster motorcycle", sourceUrl:"https://www.bmwmotorcycles.com/en/models/roadster/s1000r.html", lastChecked: "2026-09-23"
+    src:"/media/motorcycles/bmw-s-1000-r.webp", sourceImageUrl:"https://mediapool.bmwgroup.com/cache/P9/202410/P90573634/P90573634-the-new-bmw-s-1000-r-10-2024-2121px.jpg", alt: "BMW S 1000 R roadster motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "BMW Motorrad", sourceLabel:"Refreshed product image · BMW S 1000 R roadster motorcycle", sourceUrl:"https://www.press.bmwgroup.com/global/photo/detail/P90573634/the-new-bmw-s-1000-r-10/2024", lastChecked: "2026-09-23"
   },
   {
     id: "bmw-s-1000-rr-bmw-official", entityType: "motorcycle", entityId: "bmw-s-1000-rr", role: "primary",
-    src:"/media/motorcycles/bmw-s-1000-rr.webp", sourceImageUrl:"https://mediapool.bmwgroup.com/cache/P9/202212/P90490356/P90490356-the-new-bmw-s-1000-rr-12-2022-2250px.jpg", alt: "BMW S 1000 RR superbike", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "BMW Motorrad", sourceLabel:"Refreshed product image · BMW S 1000 RR superbike", sourceUrl:"https://www.bmwmotorcycles.com/en/models/sport/s1000rr.html", lastChecked: "2026-09-23"
+    src:"/media/motorcycles/bmw-s-1000-rr.webp", sourceImageUrl:"https://mediapool.bmwgroup.com/cache/P9/202410/P90573621/P90573621-the-new-bmw-s-1000-rr-10-2024-2666px.jpg", alt: "BMW S 1000 RR superbike", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "BMW Motorrad", sourceLabel:"Refreshed product image · BMW S 1000 RR superbike", sourceUrl:"https://www.press.bmwgroup.com/global/photo/detail/P90573621/the-new-bmw-s-1000-rr-10/2024", lastChecked: "2026-09-23"
   },
   {
     id: "ducati-panigale-v4-ducati-official", entityType: "motorcycle", entityId: "ducati-panigale-v4", role: "primary",
@@ -1035,8 +1035,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "kawasaki-ninja-650-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-ninja-650", role: "primary",
-    src:"/media/motorcycles/kawasaki-ninja-650.webp", sourceImageUrl:"https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/ninja-650/26EX650P_S_242GN1ALFA2CG_A.jpg", alt: "Kawasaki Ninja 650 sport motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel:"Refreshed product image · Kawasaki Ninja 650 sport motorcycle", sourceUrl:"https://www.kawasaki.com/en-us/motorcycle/ninja/sport/ninja-650", lastChecked: "2026-09-23"
+    src:"/media/motorcycles/kawasaki-ninja-650.webp", sourceImageUrl:"https://www.kawasaki.eu/content/dam/products/pim/studio/Resource_313066_258EXP0114.jpg", alt: "Kawasaki Ninja 650 sport motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel:"Refreshed product image · Kawasaki Ninja 650 sport motorcycle", sourceUrl:"https://www.kawasaki.eu/en/Motorcycles/A2_Bikes/Ninja_650_2026.html/EX650STFNN/EX650STFNN/MetallicFlatSparkBlackMetallicCarbonGray", lastChecked: "2026-09-23"
   },
   {
     id: "kawasaki-ninja-h2-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-ninja-h2", role: "primary",
@@ -1046,12 +1046,12 @@ export const entityMedia: EntityMedia[] = [
   {
     id: "kawasaki-versys-650-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-versys-650", role: "primary",
     src:"/media/motorcycles/kawasaki-versys-650.webp", sourceImageUrl:"https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/versys-650/26KLE650H_J_44TBU1AFA2CG_C.jpg", alt: "Kawasaki Versys 650 touring motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel:"Refreshed product image · Kawasaki Versys 650 touring motorcycle", sourceUrl:"https://www.kawasaki.com/en-us/motorcycle/versys/adventure-touring/versys-650", lastChecked: "2026-09-23"
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel:"Refreshed product image · Kawasaki Versys 650 touring motorcycle", sourceUrl:"https://www.kawasaki.eu/en/Motorcycles/Adventure_Tourer/Versys_650_2026.html", lastChecked: "2026-09-23"
   },
   {
     id: "kawasaki-vulcan-s-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-vulcan-s", role: "primary",
     src:"/media/motorcycles/kawasaki-vulcan-s.webp", sourceImageUrl:"https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/vulcan-s/26EN650D_M_44TGY1ARS2CG_C.jpg", alt: "Kawasaki Vulcan S cruiser motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel:"Refreshed product image · Kawasaki Vulcan S cruiser motorcycle", sourceUrl:"https://www.kawasaki.com/en-us/motorcycle/vulcan/sport-cruiser/vulcan-s", lastChecked: "2026-09-23"
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel:"Refreshed product image · Kawasaki Vulcan S cruiser motorcycle", sourceUrl:"https://www.kawasaki.eu/en/Motorcycles/A2_Bikes/Vulcan_S_2026.html/EN650MTFNN/EN650MTFNNTR/MetallicFlatSparkBlack", lastChecked: "2026-09-23"
   },
   {
     id: "kawasaki-z-h2-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-z-h2", role: "primary",
@@ -1075,12 +1075,12 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "triumph-daytona-660-triumph-official", entityType: "motorcycle", entityId: "triumph-daytona-660", role: "primary",
-    src:"/media/motorcycles/triumph-daytona-660.webp", sourceImageUrl:"https://media.triumphmotorcycles.co.uk/image/upload/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/roadsters-supersports/my24/lk2_lj2_daytona_660/daytona_660_fixed/web/629/daytona%20660_my24_snowdonia%20white_rhs_629px.png", alt: "Triumph Daytona 660 sport motorcycle", width: 1200, height: 1200,
+    src:"/media/motorcycles/triumph-daytona-660.webp", sourceImageUrl:"https://media.triumphmotorcycles.co.uk/image/upload/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/roadsters-supersports/my24/lk2_lj2_daytona_660/daytona_660_fixed/web/472/daytona%20660_my24_snowdonia%20white_rhs_472px.png", alt: "Triumph Daytona 660 sport motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Triumph Motorcycles", sourceLabel:"Refreshed product image · Triumph Daytona 660 sport motorcycle", sourceUrl:"https://www.triumphmotorcycles.ph/bikes/sport/daytona-660", lastChecked: "2026-09-23"
   },
   {
     id: "triumph-tiger-sport-660-triumph-official", entityType: "motorcycle", entityId: "triumph-tiger-sport-660", role: "primary",
-    src:"/media/motorcycles/triumph-tiger-sport-660.webp", sourceImageUrl:"https://media.triumphmotorcycles.co.uk/image/upload/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/adventure-touring/my25/my25%20colours/ll1_tiger_sport_660/web/537/tiger%20sport_my25_baja%20orange_rhs_537px.jpg", alt: "Triumph Tiger Sport 660 motorcycle", width: 1200, height: 1200,
+    src:"/media/motorcycles/triumph-tiger-sport-660.webp", sourceImageUrl:"https://media.triumphmotorcycles.co.uk/image/upload/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/adventure-touring/my25/my25%20colours/ll1_tiger_sport_660/web/446/tiger%20sport_my25_baja%20orange_rhs_446px.jpg", alt: "Triumph Tiger Sport 660 motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Triumph Motorcycles", sourceLabel:"Refreshed product image · Triumph Tiger Sport 660 motorcycle", sourceUrl:"https://www.triumphmotorcycles.ph/bikes/adventure/tiger-sport-660", lastChecked: "2026-09-23"
   },
   {

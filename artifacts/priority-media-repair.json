@@ -2,7 +2,7 @@
   {
     "id": "honda-xl750-transalp",
     "status": "updated",
-    "score": 80,
+    "score": 310,
     "visual": 50,
     "url": "https://global.honda/content/dam/site/global-en/newsroom-new/cq_img/news/2026/03/2260306eng-xl750/web/2260306-xl750_001L.jpg",
     "page": "https://powersports.honda.com/motorcycle/adventure/transalp"
@@ -10,7 +10,7 @@
   {
     "id": "honda-crf1100l-africa-twin",
     "status": "updated",
-    "score": 74,
+    "score": 304,
     "visual": 44,
     "url": "https://global.honda/content/dam/site/global-en/newsroom-new/cq_img/news/2026/01/2260123eng-crf1100l/web/2260123-crf1100l_001L.jpg",
     "page": "https://powersports.honda.com/motorcycle/adventure/africa-twin"
@@ -18,39 +18,39 @@
   {
     "id": "motorstar-cafe-400",
     "status": "updated",
-    "score": 261,
-    "visual": 94,
-    "url": "https://imgcdn.zigwheels.ph/large/gallery/color/78/1899/motorstar-cafe-400-color-385267.jpg",
+    "score": 177,
+    "visual": 10,
+    "url": "https://imgcdn.zigwheels.ph/large/gallery/exterior/78/1899/motorstar-cafe-400-right-side-viewfull-image-779807.jpg",
     "page": "https://www.zigwheels.ph/new-motorcycles/motorstar/cafe-400"
   },
   {
     "id": "husqvarna-svartpilen-401",
     "status": "updated",
-    "score": 206,
-    "visual": 89,
-    "url": "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_svartpilen200-my22-90-right_%23SALL_%23AEPI_%23V1.png",
-    "page": "https://www.husqvarna-motorcycles.com/en-ph/models/naked/svartpilen/svartpilen-401-2023.html"
+    "score": 414,
+    "visual": 94,
+    "url": "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_Svartpilen-401-MY24-90-right_%23SALL_%23AEPI_%23V2.png",
+    "page": "https://www.husqvarna-motorcycles.com/en-be/models/naked/svartpilen/svartpilen-401-2026.html"
   },
   {
     "id": "royal-enfield-guerrilla-450",
     "status": "updated",
-    "score": 240,
-    "visual": 70,
-    "url": "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/guerrilla-450/new/highlights/ride-lean-repeat-db.jpg",
-    "page": "https://www.royalenfield.com/ph/en/motorcycles/guerrilla-450/"
+    "score": 220,
+    "visual": 95,
+    "url": "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/guerrilla-450/new/campaign/apex-black.png",
+    "page": "https://www.royalenfield.com/ph/en/motorcycles/guerrilla-450/campaign/"
   },
   {
     "id": "royal-enfield-classic-350",
     "status": "updated",
-    "score": 311,
+    "score": 371,
     "visual": 94,
-    "url": "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/new-classic-350/studio-shots/stealth-black/stealth-black-000.png",
+    "url": "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/new-classic-350/studio-shots/new-360/commando-sand/01.png",
     "page": "https://www.royalenfield.com/ph/en/motorcycles/classic-350/"
   },
   {
     "id": "ktm-790-duke",
     "status": "updated",
-    "score": 277,
+    "score": 345,
     "visual": 85,
     "url": "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_KTM-naked-bikes-my27-790-duke-orange-right-side-view_%23SALL_%23AEPI_%23V1.png",
     "page": "https://www.ktm.com/en-int/models/naked-bike/2025-ktm-790-duke.html"
@@ -58,7 +58,7 @@
   {
     "id": "ducati-streetfighter-v4",
     "status": "updated",
-    "score": 59,
+    "score": 49,
     "visual": 29,
     "url": "https://mediahouse.ducati.com/wp-content/uploads/2026/06/70765e11d7fa5f0f946d73c85e421c8c-l.jpg",
     "page": "https://www.ducati.com/us/en/bikes/streetfighter/streetfighter-v4"
@@ -66,7 +66,7 @@
   {
     "id": "ducati-panigale-v4",
     "status": "updated",
-    "score": 56,
+    "score": 46,
     "visual": 26,
     "url": "https://mediahouse.ducati.com/wp-content/uploads/2026/06/dcccaccc6172a7544fc13b2c80e9a0b4-l.jpg",
     "page": "https://www.ducati.com/us/en/bikes/panigale/panigale-v4"
@@ -74,113 +74,107 @@
   {
     "id": "honda-x-adv",
     "status": "updated",
-    "score": 215,
-    "visual": 95,
-    "url": "https://global.honda/content/dam/site/global-jp/news-new/cq_img/2026/01/2260130-x-adv/2260130-x-adv_link02.jpg",
+    "score": 181,
+    "visual": 61,
+    "url": "https://global.honda/content/dam/site/global-jp/news-new/cq_img/2026/01/2260130-x-adv/2260130-x-adv_01.jpg",
     "page": "https://global.honda/jp/news/2026/2260130-x-adv.html"
   },
   {
     "id": "honda-cbr650r",
     "status": "updated",
-    "score": 76,
+    "score": 306,
     "visual": 46,
     "url": "https://global.honda/content/dam/site/global-en/newsroom-new/cq_img/news/2023/11/dl/c231107a_004H.jpg",
     "page": "https://powersports.honda.com/motorcycle/sport/cbr650r"
   },
   {
     "id": "kawasaki-ninja-1000",
-    "status": "updated",
-    "score": -807,
-    "visual": -999,
-    "url": "https://kawasaki-global-admin.com/ContentStorage/KMJ/Products/5291/0ad33454-8f03-491b-a91b-63a420a284fe.jpg?w=510&h=340&mode=crop",
-    "page": "https://www.kawasaki-motors.com/ja-jp/motorcycle/ninja/sport/ninja-1000sx/2024-ninja-1000sx"
+    "status": "failed",
+    "error": "Error: no usable candidate"
   },
   {
     "id": "bajaj-pulsar-ns400z",
-    "status": "updated",
-    "score": -904,
-    "visual": -999,
-    "url": "https://cdn.bajajauto.com/Images/BajajAuto/GlobalBajaj/cross-gray.svg#cross-gray",
-    "page": "https://www.bajajauto.com/en-ph/bikes/pulsar-ns400z"
+    "status": "failed",
+    "error": "Error: no usable candidate"
   },
   {
     "id": "bmw-f-900-gs",
     "status": "updated",
-    "score": 106,
-    "visual": 76,
-    "url": "https://mediapool.bmwgroup.com/cache/P9/202402/P90539201/P90539201-the-bmw-f-900-gs-on-road-stills-02-2024-2250px.jpg",
+    "score": 113,
+    "visual": 46,
+    "url": "https://mediapool.bmwgroup.com/cache/P9/202609/P90657540/P90657540-product-sustainability-bmw-3-series-599px.jpg",
     "page": "https://www.press.bmwgroup.com/global/photo/detail/P90539201/The-BMW-F-900-GS-On-road-stills-02-2024"
   },
   {
     "id": "triumph-speed-twin-900",
     "status": "updated",
-    "score": 216,
-    "visual": 24,
-    "url": "https://media.triumphmotorcycles.co.uk/image/upload/t_/c_limit,w_3840/f_auto/q_auto:eco/v1726581552/OE_SpeedTwin900_MY25_CW4I2368_GE_zebxwk?_a=BAVMn6ID0",
-    "page": "https://www.triumphmotorcycles.ph/bikes/classic/speed/speed-twin-900"
+    "score": 125,
+    "visual": 30,
+    "url": "https://media.triumphmotorcycles.co.uk/image/upload/f_auto/c_fill,g_xy_center,h_568,w_1000/q_auto:eco/sitecoremedialibrary/media-library/images/us-can/news/2026/speed%20twin%201200%20tfc/tfc_speedtwin1200_header%201920px.jpg",
+    "page": "https://www.triumphmotorcycles.com/motorcycles/classic/bonneville-speed-twin-900"
   },
   {
     "id": "triumph-tiger-sport-660",
     "status": "updated",
-    "score": 287,
+    "score": 297,
     "visual": 95,
-    "url": "https://media.triumphmotorcycles.co.uk/image/upload/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/adventure-touring/my25/my25%20colours/ll1_tiger_sport_660/web/537/tiger%20sport_my25_baja%20orange_rhs_537px.jpg",
+    "url": "https://media.triumphmotorcycles.co.uk/image/upload/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/adventure-touring/my25/my25%20colours/ll1_tiger_sport_660/web/446/tiger%20sport_my25_baja%20orange_rhs_446px.jpg",
     "page": "https://www.triumphmotorcycles.ph/bikes/adventure/tiger-sport-660"
   },
   {
     "id": "bmw-s-1000-rr",
     "status": "updated",
-    "score": 53,
-    "visual": 23,
-    "url": "https://mediapool.bmwgroup.com/cache/P9/202212/P90490356/P90490356-the-new-bmw-s-1000-rr-12-2022-2250px.jpg",
-    "page": "https://www.bmwmotorcycles.com/en/models/sport/s1000rr.html"
+    "score": 190,
+    "visual": 95,
+    "url": "https://mediapool.bmwgroup.com/cache/P9/202410/P90573621/P90573621-the-new-bmw-s-1000-rr-10-2024-2666px.jpg",
+    "page": "https://www.press.bmwgroup.com/global/photo/detail/P90573621/the-new-bmw-s-1000-rr-10/2024"
   },
   {
     "id": "bmw-m-1000-rr",
     "status": "updated",
-    "score": 40,
-    "visual": 10,
-    "url": "https://mediapool.bmwgroup.com/cache/P9/202410/P90572497/P90572497-the-new-bmw-m-1000-rr-10-2024-2248px.jpg",
-    "page": "https://www.bmwmotorcycles.com/en/models/m/m1000rr.html"
+    "score": 215,
+    "visual": 95,
+    "url": "https://mediapool.bmwgroup.com/cache/P9/202209/P90481287/P90481287-the-new-bmw-m-1000-rr-10-2022-2121px.jpg",
+    "page": "https://www.press.bmwgroup.com/canada/article/detail/T0404638EN/the-new-bmw-m-1000-rr-and-m-1000-rr-m-competition"
   },
   {
     "id": "bmw-s-1000-r",
     "status": "updated",
-    "score": 57,
-    "visual": 27,
-    "url": "https://mediapool.bmwgroup.com/cache/P9/202410/P90572565/P90572565-the-new-bmw-s-1000-r-10-2024-2248px.jpg",
-    "page": "https://www.bmwmotorcycles.com/en/models/roadster/s1000r.html"
+    "score": 190,
+    "visual": 95,
+    "url": "https://mediapool.bmwgroup.com/cache/P9/202410/P90573634/P90573634-the-new-bmw-s-1000-r-10-2024-2121px.jpg",
+    "page": "https://www.press.bmwgroup.com/global/photo/detail/P90573634/the-new-bmw-s-1000-r-10/2024"
   },
   {
     "id": "triumph-daytona-660",
     "status": "updated",
-    "score": 287,
+    "score": 297,
     "visual": 95,
-    "url": "https://media.triumphmotorcycles.co.uk/image/upload/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/roadsters-supersports/my24/lk2_lj2_daytona_660/daytona_660_fixed/web/629/daytona%20660_my24_snowdonia%20white_rhs_629px.png",
+    "url": "https://media.triumphmotorcycles.co.uk/image/upload/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/roadsters-supersports/my24/lk2_lj2_daytona_660/daytona_660_fixed/web/472/daytona%20660_my24_snowdonia%20white_rhs_472px.png",
     "page": "https://www.triumphmotorcycles.ph/bikes/sport/daytona-660"
   },
   {
     "id": "kawasaki-ninja-650",
     "status": "updated",
-    "score": 54,
-    "visual": 24,
-    "url": "https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/ninja-650/26EX650P_S_242GN1ALFA2CG_A.jpg",
-    "page": "https://www.kawasaki.com/en-us/motorcycle/ninja/sport/ninja-650"
+    "score": 308,
+    "visual": 81,
+    "url": "https://www.kawasaki.eu/content/dam/products/pim/studio/Resource_313066_258EXP0114.jpg",
+    "page": "https://www.kawasaki.eu/en/Motorcycles/A2_Bikes/Ninja_650_2026.html/EX650STFNN/EX650STFNN/MetallicFlatSparkBlackMetallicCarbonGray"
   },
   {
     "id": "kawasaki-versys-650",
     "status": "updated",
-    "score": 52,
+    "score": 42,
     "visual": 22,
     "url": "https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/versys-650/26KLE650H_J_44TBU1AFA2CG_C.jpg",
-    "page": "https://www.kawasaki.com/en-us/motorcycle/versys/adventure-touring/versys-650"
+    "page": "https://www.kawasaki.eu/en/Motorcycles/Adventure_Tourer/Versys_650_2026.html"
   },
   {
     "id": "kawasaki-vulcan-s",
     "status": "updated",
-    "score": 53,
+    "score": 43,
     "visual": 23,
     "url": "https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/vulcan-s/26EN650D_M_44TGY1ARS2CG_C.jpg",
-    "page": "https://www.kawasaki.com/en-us/motorcycle/vulcan/sport-cruiser/vulcan-s"
+    "page": "https://www.kawasaki.eu/en/Motorcycles/A2_Bikes/Vulcan_S_2026.html/EN650MTFNN/EN650MTFNNTR/MetallicFlatSparkBlack"
   }
 ]
