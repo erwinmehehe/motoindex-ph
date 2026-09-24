@@ -22,7 +22,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-crf300-rally-manufacturer", entityType: "motorcycle", entityId: "honda-crf300-rally", role: "primary",
-    src: "/media/motorcycles/honda-crf300-rally.webp", sourceImageUrl: "https://powersports.honda.com/motorcycle/dual-sport/crf300l-rally/2026/-/media/products/family/crf300l-rally/trims/trim-main/crf300l-rally/2026/2026-crf300l-rally-red-1505x923.png?imwidth=1600", alt: "Honda CRF300 Rally motorcycle at the 2025 Inside Racing Bikefest", width: 1200, height: 1200,
+    src: "/media/motorcycles/honda-crf300-rally.webp", sourceImageUrl: "https://powersports.honda.com/motorcycle/dual-sport/crf300l-rally/2026/-/media/products/family/crf300l-rally/trims/trim-main/crf300l-rally/2026/2026-crf300l-rally-red-1505x923.png?imwidth=1600", alt: "Honda CRF300 Rally adventure motorcycle product image", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Honda", sourceLabel: "Manufacturer product image · Honda CRF300L Rally", sourceUrl: "https://powersports.honda.com/motorcycle/dual-sport/crf300l-rally/2026/crf300l-rally", lastChecked: "2026-09-24"
   },
   {
@@ -807,7 +807,7 @@ export const entityMedia: EntityMedia[] = [
   // Images for the additional models added in this expansion.
   {
     id:"bmw-g-310-r-editorial", entityType:"motorcycle", entityId:"bmw-g-310-r", role:"primary",
-    src:"/media/motorcycles/bmw-g-310-r.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=image&attachment=1&dokNo=P90407659", alt:"BMW G 310 R 2023 motorcycle in studio view", width:1200, height:1200,
+    src:"/media/motorcycles/bmw-g-310-r.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=image&attachment=1&dokNo=P90407659", alt:"BMW G 310 R motorcycle in studio view", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder: "BMW Group", sourceLabel: "Official BMW Motorrad studio image · G 310 R", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90407659/The-new-BMW-G-310-R-base-colour-Polar-White-11-2020", lastChecked: "2026-09-24"
   },
   {
