@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
 import { motorcycles, isIndexableModel } from "@/lib/data";
@@ -144,7 +145,7 @@ export default function MotorcyclesPage() {
 
         <section className="motorcycle-brand-directory">
           <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Browse by brand</span><h2>Motorcycle brands and current price ranges</h2><p>Each brand hub keeps its current models, observed price span and model-family context on one canonical destination.</p></div></div>
-          <div className="motorcycle-brand-directory-grid">{brandDirectory.map((brand) => <Link href={`/motorcycles/${brand.slug}`} key={brand.slug}><div className="motorcycle-brand-mark" aria-hidden="true">{MOTORCYCLE_BRAND_LOGOS.has(brand.slug) ? <img src={`/brand/motorcycle/${brand.slug}.svg`} alt="" loading="lazy" /> : <span>{brand.name.slice(0,2).toUpperCase()}</span>}</div><div><strong>{brand.name}</strong><small>{brand.count} current {brand.count === 1 ? "model" : "models"}</small></div><span>{php(brand.low)}{brand.high > brand.low ? `–${php(brand.high)}` : ""}</span></Link>)}</div>
+          <div className="motorcycle-brand-directory-grid">{brandDirectory.map((brand) => <Link href={`/motorcycles/${brand.slug}`} key={brand.slug}><div className="motorcycle-brand-mark" aria-hidden="true">{MOTORCYCLE_BRAND_LOGOS.has(brand.slug) ? <Image src={`/brand/motorcycle/${brand.slug}.svg`} alt="" width={28} height={24} /> : <span>{brand.name.slice(0,2).toUpperCase()}</span>}</div><div><strong>{brand.name}</strong><small>{brand.count} current {brand.count === 1 ? "model" : "models"}</small></div><span>{php(brand.low)}{brand.high > brand.low ? `–${php(brand.high)}` : ""}</span></Link>)}</div>
         </section>
 
         {publicFamilies.length > 0 && <section className="motorcycle-family-strip">
