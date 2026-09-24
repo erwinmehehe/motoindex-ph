@@ -1,0 +1,72 @@
+name: Final Motorcycle Image Backfill
+
+on:
+  push:
+    branches: [fix/motorcycle-images-final-15]
+    paths:
+      - scripts/backfill-motorcycle-images-final15.mjs
+      - scripts/art-direct-motorcycle-media.py
+      - scripts/audit-motorcycle-media-art-direction.py
+      - .github/workflows/motorcycle-image-final15.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v7
+        with:
+          ref: fix/motorcycle-images-final-15
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install app dependencies
+        run: npm ci
+
+      - name: Backfill final exact model images
+        run: node scripts/backfill-motorcycle-images-final15.mjs
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install image dependencies
+        run: python -m pip install --disable-pip-version-check opencv-python-headless==4.12.0.88 numpy==2.2.6
+
+      - name: Normalize final target images
+        env:
+          MOTORCYCLE_MEDIA_ONLY: aprilia-tuareg-660,aprilia-tuono-660,bajaj-pulsar-n125,husqvarna-norden-901,husqvarna-svartpilen-200,kawasaki-ninja-1000,kawasaki-z1000-r-edition,rusi-adventure-x-150i-v2,rusi-cyclone-400,rusi-flash-150x,suzuki-raider-pro,vespa-primavera-150,zontes-150x,zontes-400g,zontes-703rr
+        run: python scripts/art-direct-motorcycle-media.py
+
+      - name: Validate exact-image coverage
+        run: node scripts/audit-motorcycle-media-coverage.mjs
+
+      - name: Validate all motorcycle image composition
+        run: python scripts/audit-motorcycle-media-art-direction.py
+
+      - name: Commit generated media
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/media.ts scripts/audit-motorcycle-media-coverage.mjs
+          for id in aprilia-tuareg-660 aprilia-tuono-660 bajaj-pulsar-n125 husqvarna-norden-901 husqvarna-svartpilen-200 kawasaki-ninja-1000 kawasaki-z1000-r-edition rusi-adventure-x-150i-v2 rusi-cyclone-400 rusi-flash-150x suzuki-raider-pro vespa-primavera-150 zontes-150x zontes-400g zontes-703rr; do
+            git add "public/media/motorcycles/$id.webp"
+          done
+          if git diff --cached --quiet; then
+            echo "No generated media changes."
+            exit 0
+          fi
+          git commit -m "Complete exact motorcycle image backlog"
+          git push origin HEAD:fix/motorcycle-images-final-15
