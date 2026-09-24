@@ -68,6 +68,11 @@ def candidates(page_url, terms):
             add(img.get(key),120,label)
         for bit in (img.get('srcset') or '').split(','):
             if bit.strip(): add(bit.strip().split()[0],120,label)
+    for a in soup.find_all('a', href=True):
+        label=' '.join(a.stripped_strings)
+        hay=label.lower()
+        if any(t.lower() in hay for t in terms):
+            add(a.get('href'),180,label)
     for meta in soup.find_all('meta'):
         k=(meta.get('property') or meta.get('name') or '').lower()
         if k in ('og:image','og:image:url','og:image:secure_url'): add(meta.get('content'),80,k+' '+title)
@@ -81,6 +86,101 @@ def get_image(page_url, terms):
     last=None
     for score,u,label in items[:40]:
         try:
+            if 'media.lulop.com/media/getimage/' in u:
+                u=re.sub(r'/\\d+%2C\\d+
+            ctype=(r.headers.get('content-type') or '').lower()
+            if not ctype.startswith('image/'): continue
+            im=Image.open(BytesIO(r.content)); im.load()
+            if im.width<400 or im.height<250: continue
+            return final_page,u,r.content,im.width,im.height,score,label
+        except Exception as e: last=e
+    raise RuntimeError(f'no usable image for {page_url}: {last}')
+
+def array_close(src, marker):
+    s=src.index(marker); open_i=src.index('[',src.index('=',s)); d=0; q=None; esc=False
+    for i,ch in enumerate(src[open_i:],open_i):
+        if q:
+            if esc: esc=False
+            elif ch=='\\': esc=True
+            elif ch==q: q=None
+            continue
+        if ch in ('"',"'",'`'): q=ch
+        elif ch=='[': d+=1
+        elif ch==']':
+            d-=1
+            if d==0:return i
+    raise RuntimeError('array close not found')
+
+def record(eid,name,page,holder,imgurl):
+    return f'''  {{\n    id: {json.dumps(eid+'-manufacturer')}, entityType: "motorcycle", entityId: {json.dumps(eid)}, role: "primary",\n    src: {json.dumps('/media/motorcycles/'+eid+'.webp')}, sourceImageUrl: {json.dumps(imgurl)}, alt: {json.dumps(name+' motorcycle')}, width: 1200, height: 1200,\n    rightsStatus: "external-reference", rightsHolder: {json.dumps(holder)}, sourceLabel: {json.dumps('Manufacturer-hosted image reference Â· '+name)}, sourceUrl: {json.dumps(page)}, lastChecked: {json.dumps(DATE)}\n  }},'''
+
+media=MEDIA.read_text('utf-8'); coverage=COVERAGE.read_text('utf-8'); done=[]
+for eid,name,page,terms,holder in TARGETS:
+    print('Processing',eid,flush=True)
+    final_page,imgurl,data,w,h,score,label=get_image(page,terms)
+    print('candidate',w,h,score,label,imgurl,flush=True)
+    im=Image.open(BytesIO(data)).convert('RGB')
+    im.thumbnail((1040,900),Image.Resampling.LANCZOS)
+    canvas=Image.new('RGB',(1200,1200),'white')
+    canvas.paste(im,((1200-im.width)//2,(1200-im.height)//2))
+    canvas.save(OUT/f'{eid}.webp','WEBP',quality=88,method=6)
+    if not re.search(r'entityId\s*:\s*["\']'+re.escape(eid)+r'["\']',media):
+        c=array_close(media,'export const entityMedia')
+        media=media[:c]+record(eid,name,page,holder,imgurl)+'\n'+media[c:]
+    coverage=re.sub(r'\n\s*"'+re.escape(eid)+r'",?', '', coverage)
+    done.append({'entityId':eid,'sourceImageUrl':imgurl,'sourceUrl':page,'finalPage':final_page,'width':w,'height':h,'score':score,'label':label})
+    print('OK',eid,flush=True)
+MEDIA.write_text(media,'utf-8'); COVERAGE.write_text(coverage,'utf-8')
+(ART/'motorcycle-image-wave9.json').write_text(json.dumps({'checkedAt':DATE,'done':done},indent=2),'utf-8')
+print('Completed',len(done),'/',len(TARGETS))
+, '/1600%2C1200', u)
+                u=re.sub(r'/\\d+,\\d+
+            ctype=(r.headers.get('content-type') or '').lower()
+            if not ctype.startswith('image/'): continue
+            im=Image.open(BytesIO(r.content)); im.load()
+            if im.width<400 or im.height<250: continue
+            return final_page,u,r.content,im.width,im.height,score,label
+        except Exception as e: last=e
+    raise RuntimeError(f'no usable image for {page_url}: {last}')
+
+def array_close(src, marker):
+    s=src.index(marker); open_i=src.index('[',src.index('=',s)); d=0; q=None; esc=False
+    for i,ch in enumerate(src[open_i:],open_i):
+        if q:
+            if esc: esc=False
+            elif ch=='\\': esc=True
+            elif ch==q: q=None
+            continue
+        if ch in ('"',"'",'`'): q=ch
+        elif ch=='[': d+=1
+        elif ch==']':
+            d-=1
+            if d==0:return i
+    raise RuntimeError('array close not found')
+
+def record(eid,name,page,holder,imgurl):
+    return f'''  {{\n    id: {json.dumps(eid+'-manufacturer')}, entityType: "motorcycle", entityId: {json.dumps(eid)}, role: "primary",\n    src: {json.dumps('/media/motorcycles/'+eid+'.webp')}, sourceImageUrl: {json.dumps(imgurl)}, alt: {json.dumps(name+' motorcycle')}, width: 1200, height: 1200,\n    rightsStatus: "external-reference", rightsHolder: {json.dumps(holder)}, sourceLabel: {json.dumps('Manufacturer-hosted image reference Â· '+name)}, sourceUrl: {json.dumps(page)}, lastChecked: {json.dumps(DATE)}\n  }},'''
+
+media=MEDIA.read_text('utf-8'); coverage=COVERAGE.read_text('utf-8'); done=[]
+for eid,name,page,terms,holder in TARGETS:
+    print('Processing',eid,flush=True)
+    final_page,imgurl,data,w,h,score,label=get_image(page,terms)
+    print('candidate',w,h,score,label,imgurl,flush=True)
+    im=Image.open(BytesIO(data)).convert('RGB')
+    im.thumbnail((1040,900),Image.Resampling.LANCZOS)
+    canvas=Image.new('RGB',(1200,1200),'white')
+    canvas.paste(im,((1200-im.width)//2,(1200-im.height)//2))
+    canvas.save(OUT/f'{eid}.webp','WEBP',quality=88,method=6)
+    if not re.search(r'entityId\s*:\s*["\']'+re.escape(eid)+r'["\']',media):
+        c=array_close(media,'export const entityMedia')
+        media=media[:c]+record(eid,name,page,holder,imgurl)+'\n'+media[c:]
+    coverage=re.sub(r'\n\s*"'+re.escape(eid)+r'",?', '', coverage)
+    done.append({'entityId':eid,'sourceImageUrl':imgurl,'sourceUrl':page,'finalPage':final_page,'width':w,'height':h,'score':score,'label':label})
+    print('OK',eid,flush=True)
+MEDIA.write_text(media,'utf-8'); COVERAGE.write_text(coverage,'utf-8')
+(ART/'motorcycle-image-wave9.json').write_text(json.dumps({'checkedAt':DATE,'done':done},indent=2),'utf-8')
+print('Completed',len(done),'/',len(TARGETS))
+, '/1600,1200', u)
             r=fetch(u,'image/avif,image/webp,image/png,image/jpeg,image/*,*/*;q=0.8',final_page)
             ctype=(r.headers.get('content-type') or '').lower()
             if not ctype.startswith('image/'): continue
