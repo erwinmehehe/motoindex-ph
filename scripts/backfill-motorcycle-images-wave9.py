@@ -87,13 +87,16 @@ def get_image(page_url, terms):
     for score,u,label in items[:40]:
         try:
             if 'media.lulop.com/media/getimage/' in u:
-                u=re.sub(r'/\\d+%2C\\d+
+                u=re.sub(r'/\\d+%2C\\d+$', '/1600%2C1200', u)
+                u=re.sub(r'/\\d+,\\d+$', '/1600,1200', u)
+            r=fetch(u,'image/avif,image/webp,image/png,image/jpeg,image/*,*/*;q=0.8',final_page)
             ctype=(r.headers.get('content-type') or '').lower()
             if not ctype.startswith('image/'): continue
             im=Image.open(BytesIO(r.content)); im.load()
             if im.width<400 or im.height<250: continue
             return final_page,u,r.content,im.width,im.height,score,label
-        except Exception as e: last=e
+        except Exception as e:
+            last=e
     raise RuntimeError(f'no usable image for {page_url}: {last}')
 
 def array_close(src, marker):
