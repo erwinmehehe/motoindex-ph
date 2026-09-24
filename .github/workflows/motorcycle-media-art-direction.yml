@@ -56,8 +56,8 @@ jobs:
           git fetch origin main
           git checkout origin/main -- public/media/motorcycles/honda-adv-160.webp
 
-      - name: Remove remaining ADV160 promotional art
-        run: python scripts/art-direct-motorcycle-media.py --only=honda-adv-160
+      - name: Remove remaining promotional presentation art
+        run: python scripts/art-direct-motorcycle-media.py --only=honda-adv-160,honda-cb650r
 
       - name: Audit full motorcycle catalog composition
         run: python scripts/audit-motorcycle-media-art-direction.py
