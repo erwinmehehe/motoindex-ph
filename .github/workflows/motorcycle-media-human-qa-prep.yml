@@ -1,0 +1,34 @@
+name: Motorcycle Media Human QA Prep
+on:
+  push:
+    branches: [fix/motorcycle-media-final-qa]
+    paths:
+      - scripts/refresh-broken-motorcycle-media.mjs
+      - .github/workflows/motorcycle-media-human-qa-prep.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  prepare:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: fix/motorcycle-media-final-qa
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Refresh broken media and build contact sheets
+        run: node scripts/refresh-broken-motorcycle-media.mjs
+      - name: Commit corrected media and review sheets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/media/motorcycles/honda-airblade-160.webp public/media/motorcycles/aprilia-tuareg-660.webp lib/media.ts artifacts/motorcycle-media-contact-sheets
+          git commit -m "Fix broken AirBlade and Tuareg media and add QA sheets"
+          git push origin HEAD:fix/motorcycle-media-final-qa
