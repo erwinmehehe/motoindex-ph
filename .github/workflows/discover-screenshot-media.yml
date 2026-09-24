@@ -1,0 +1,19 @@
+name: Discover screenshot motorcycle media
+on:
+  push:
+    branches: [fix/motorcycle-media-screenshot-batch]
+    paths:
+      - scripts/discover-screenshot-media.mjs
+      - .github/workflows/discover-screenshot-media.yml
+permissions:
+  contents: read
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: node scripts/discover-screenshot-media.mjs
