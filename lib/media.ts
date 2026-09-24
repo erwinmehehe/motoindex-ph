@@ -946,7 +946,7 @@ export const entityMedia: EntityMedia[] = [
   {
     id: "honda-airblade-160-honda-official", entityType: "motorcycle", entityId: "honda-airblade-160", role: "primary",
     src: "/media/motorcycles/honda-airblade-160.webp", sourceImageUrl: "https://cdn.honda.com.vn/motorbike-versions/Image360/November2025/1762148885/0.png", alt: "Honda AirBlade 160 scooter", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Honda Vietnam", sourceLabel: "Manufacturer-hosted image reference · Honda AirBlade 160", sourceUrl: "https://www.honda.com.vn/xe-may/san-pham/air-blade-160125", lastChecked: "2026-09-23"
+    rightsStatus: "external-reference", rightsHolder: "Honda Vietnam", sourceLabel: "Manufacturer-hosted transparent product image · Honda AirBlade 160", sourceUrl: "https://www.honda.com.vn/xe-may/san-pham/air-blade-160125?changeVersionFlag=2025", lastChecked: "2026-09-24"
   },
   {
     id: "honda-cbr150r-honda-ph", entityType: "motorcycle", entityId: "honda-cbr150r", role: "primary",
@@ -1195,8 +1195,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "aprilia-tuareg-660-aprilia-store", entityType: "motorcycle", entityId: "aprilia-tuareg-660", role: "primary",
-    src: "/media/motorcycles/aprilia-tuareg-660.webp", sourceImageUrl: "https://storeusa.aprilia.com/img/models/Tuareg%20660/model_img_detail_1-Tuareg%20660.jpg", alt: "Aprilia Tuareg 660 adventure motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Aprilia", sourceLabel: "Manufacturer store image reference · Aprilia Tuareg 660", sourceUrl: "https://storeusa.aprilia.com/tuareg660.aspx", lastChecked: "2026-09-24"
+    src: "/media/motorcycles/aprilia-tuareg-660.webp", sourceImageUrl: "https://apriliaindia.com/images/tuareg-660/aprilia_tuareg_660_feature1.png", alt: "Aprilia Tuareg 660 adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Aprilia India", sourceLabel: "Manufacturer-hosted product image · Aprilia India Tuareg 660", sourceUrl: "https://apriliaindia.com/aprilia-tuareg-660.php", lastChecked: "2026-09-24"
   },
   {
     id: "aprilia-tuono-660-aprilia-store", entityType: "motorcycle", entityId: "aprilia-tuono-660", role: "primary",
