@@ -61,10 +61,14 @@ const airPage="https://www.honda.com.vn/xe-may/san-pham/air-blade-160125?changeV
 const air=await fetchImage(airUrl,airPage);
 await writeWhiteCanvas(air.bytes,path.join(outDir,"honda-airblade-160.webp"),{trim:true});
 
-const tuaregUrl="https://www.tiempodemotos.cl/wp-content/uploads/2025/03/Tuareg-660-Verde-1024x683.png";
-const tuaregPage="https://www.tiempodemotos.cl/product/aprilia-tuareg-660/";
+const tuaregUrl="https://apriliaindia.com/images/tuareg-660/aprilia_tuareg_660_feature1.png";
+const tuaregPage="https://apriliaindia.com/aprilia-tuareg-660.php";
 const tuareg=await fetchImage(tuaregUrl,tuaregPage);
-await writeWhiteCanvas(tuareg.bytes,path.join(outDir,"aprilia-tuareg-660.webp"),{trim:true});
+const tw=tuareg.meta.width||900, th=tuareg.meta.height||675;
+await writeWhiteCanvas(tuareg.bytes,path.join(outDir,"aprilia-tuareg-660.webp"),{
+  extract:{left:Math.round(tw*0.47),top:Math.round(th*0.10),width:tw-Math.round(tw*0.47),height:Math.round(th*0.80)},
+  trim:true
+});
 
 let media=fs.readFileSync(mediaPath,"utf8");
 media=replaceField(media,"honda-airblade-160","sourceImageUrl",air.url);
@@ -74,8 +78,8 @@ media=replaceField(media,"honda-airblade-160","rightsHolder","Honda Vietnam");
 media=replaceField(media,"honda-airblade-160","lastChecked","2026-09-24");
 media=replaceField(media,"aprilia-tuareg-660","sourceImageUrl",tuareg.url);
 media=replaceField(media,"aprilia-tuareg-660","sourceUrl",tuaregPage);
-media=replaceField(media,"aprilia-tuareg-660","sourceLabel","Dealer-hosted exact-model product image · Aprilia Tuareg 660");
-media=replaceField(media,"aprilia-tuareg-660","rightsHolder","Tiempo de Motos");
+media=replaceField(media,"aprilia-tuareg-660","sourceLabel","Manufacturer-hosted product image · Aprilia India Tuareg 660");
+media=replaceField(media,"aprilia-tuareg-660","rightsHolder","Aprilia India");
 media=replaceField(media,"aprilia-tuareg-660","lastChecked","2026-09-24");
 fs.writeFileSync(mediaPath,media);
 
