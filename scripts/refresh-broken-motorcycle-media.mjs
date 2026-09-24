@@ -18,10 +18,15 @@ async function fetchImage(url, referer) {
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`);
   const type=(res.headers.get("content-type")||"").toLowerCase();
-  if (!type.startsWith("image/")) throw new Error(`Not image: ${type}`);
+  if (!type.startsWith("image/") && type !== "application/octet-stream") throw new Error(`Not image: ${type}`);
   const bytes=Buffer.from(await res.arrayBuffer());
-  const meta=await sharp(bytes).metadata();
-  if ((meta.width||0)<400 || (meta.height||0)<300) throw new Error(`Image too small ${meta.width}x${meta.height}`);
+  let meta;
+  try {
+    meta=await sharp(bytes).metadata();
+  } catch {
+    throw new Error(`Undecodable image payload: ${type || "unknown"}`);
+  }
+  if ((meta.width||0)<250 || (meta.height||0)<140) throw new Error(`Image too small ${meta.width}x${meta.height}`);
   return {bytes,url:res.url||url,meta};
 }
 
