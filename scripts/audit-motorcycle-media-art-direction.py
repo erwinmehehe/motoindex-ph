@@ -51,8 +51,11 @@ def inspect(path: Path) -> tuple[list[str], list[str]]:
     left, right = x0, CANVAS - x1
     top, bottom = y0, CANVAS - y1
 
-    if max(wr, hr) < 0.62:
+    subject_scale = max(wr, hr)
+    if subject_scale < 0.56:
         failures.append(f"{path.name}: subject is too small ({wr:.1%}w x {hr:.1%}h)")
+    elif subject_scale < 0.62:
+        warnings.append(f"{path.name}: subject is slightly small ({wr:.1%}w x {hr:.1%}h)")
     if wr > 0.94 or hr > 0.94:
         failures.append(f"{path.name}: subject is too close to clipping ({wr:.1%}w x {hr:.1%}h)")
     if min(left, right, top, bottom) < 28:

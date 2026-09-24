@@ -31,19 +31,19 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Yamaha dealer network", sourceLabel: "Yamaha dealer image reference · 2025 MT-07", sourceUrl: "https://www.yamahaba.sk/mt07iconblue2025", lastChecked: "2026-09-20"
   },
   {
-    id: "yamaha-xsr700-global-reference", entityType: "motorcycle", entityId: "yamaha-xsr700", role: "primary",
-    src: "/media/motorcycles/yamaha-xsr700.webp", sourceImageUrl: "https://www.2ri.de/Images/Big/8/News_Yamaha_XSR700_2025.jpg", alt: "Yamaha XSR700 motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "External model reference", sourceLabel: "Current Yamaha XSR700 image reference", sourceUrl: "https://www.2ri.de/News/2025-Yamaha-XSR700-Klassisches-Design-trifft-auf-moderne-Performance/28261", lastChecked: "2026-09-20"
+    id: "yamaha-xsr700-yamaha-eu", entityType: "motorcycle", entityId: "yamaha-xsr700", role: "primary",
+    src: "/media/motorcycles/yamaha-xsr700.webp", sourceImageUrl: "https://cdn2.yamaha-motor.eu/prod/product-assets/2022/XS700/2022-Yamaha-XS700-EU-Historic_White-Studio-001-03.jpg", alt: "Yamaha XSR700 motorcycle in Historic White", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Yamaha Motor Europe N.V.", sourceLabel: "Manufacturer-hosted studio image reference · Yamaha XSR700", sourceUrl: "https://www.yamaha-motor.eu/is/en/motorcycles/sport-heritage/pdp/xsr700/", lastChecked: "2026-09-24"
   },
   {
-    id: "honda-cb650r-market-reference", entityType: "motorcycle", entityId: "honda-cb650r", role: "primary",
-    src: "/media/motorcycles/honda-cb650r.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/73/2029/honda-cb650r-color-331311.jpg", alt: "Honda CB650R motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Zigwheels Philippines", sourceLabel: "Philippine market image reference · Honda CB650R", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/cb650r", lastChecked: "2026-09-20"
+    id: "honda-cb650r-honda-global", entityType: "motorcycle", entityId: "honda-cb650r", role: "primary",
+    src: "/media/motorcycles/honda-cb650r.webp", sourceImageUrl: "https://global.honda/content/dam/site/global-jp/news-new/cq_img/2024/04/dl/2240411-cb650r_005H.jpg", alt: "Honda CB650R motorcycle in Matte Ballistic Black Metallic", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Motor Co., Ltd.", sourceLabel: "Manufacturer-hosted image reference · Honda CB650R", sourceUrl: "https://global.honda/jp/news/2024/2240411-cb650r/image_download.html", lastChecked: "2026-09-24"
   },
   {
-    id: "honda-nx500-market-reference", entityType: "motorcycle", entityId: "honda-nx500-e-clutch", role: "primary",
-    src: "/media/motorcycles/honda-nx500-e-clutch.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/73/3297/honda-nx500-color-559223.jpg", alt: "Honda NX500 adventure motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Zigwheels Philippines", sourceLabel: "Philippine market image reference · Honda NX500", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/nx500", lastChecked: "2026-09-20"
+    id: "honda-nx500-e-clutch-bsh-2026", entityType: "motorcycle", entityId: "honda-nx500-e-clutch", role: "primary",
+    src: "/media/motorcycles/honda-nx500-e-clutch.webp", sourceImageUrl: "https://hondabigbike.com.my/wp-content/uploads/2026/09/2026-NX500_studio_A002_E-Clutch_NH-B61P_PearlHorizonWhite_RhSide_M-Photoroom-1-e1786456362968.png", alt: "2026 Honda NX500 E-Clutch motorcycle in Pearl Horizon White", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Boon Siew Honda / Honda BigBike Malaysia", sourceLabel: "Manufacturer-hosted image reference · 2026 Honda NX500 E-Clutch", sourceUrl: "https://hondabigbike.com.my/model/nx500/", lastChecked: "2026-09-24"
   },
   {
     id: "site-mark",
@@ -123,9 +123,9 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Honda NAVi", sourceUrl: "https://wheeltek.com.ph/products/regular-bikes/", lastChecked: "2026-08-25"
   },
   {
-    id: "honda-beat-wheeltek", entityType: "motorcycle", entityId: "honda-beat", role: "primary",
-    src: "/media/motorcycles/honda-beat.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/02/honda-beat-premium-white-300x280.jpg", alt: "Honda BeAT Premium motorcycle in white", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Honda BeAT", sourceUrl: "https://wheeltek.com.ph/motorcycles/beat-limited-edition/", lastChecked: "2026-08-25"
+    id: "honda-beat-honda-ph", entityType: "motorcycle", entityId: "honda-beat", role: "primary",
+    src: "/media/motorcycles/honda-beat.webp", sourceImageUrl: "https://images.ctfassets.net/p4ab844it03t/73zDTyHHl8VZiWLSoDjZo4/349c2c309b4aa57320b48ac64448f9b7/6510e11420665.png?fm=webp&q=90", alt: "Honda BeAT Premium motorcycle in Pearl Arctic White", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Philippines, Inc.", sourceLabel: "Manufacturer-hosted image reference · Honda BeAT Premium", sourceUrl: "https://www.hondaph.com/motorcycle/news/honda-philippines-launches-the-all-new-beat-and-the-50th-anniversary-limited-edition-designed-especially-for-the-all-new-beat-and-click125", lastChecked: "2026-09-24"
   },
   {
     id: "honda-click-125i-wheeltek", entityType: "motorcycle", entityId: "honda-click-125i", role: "primary",
@@ -664,9 +664,9 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus:"external-reference", rightsHolder:"Ginzinger", sourceLabel:"Dealer/editorial product image · Aprilia RS 457", sourceUrl:"https://www.ginzinger.at/blog/aprilia/rs-457.html", lastChecked:"2026-09-08"
   },
   {
-    id:"benelli-180s-editorial", entityType:"motorcycle", entityId:"benelli-180s", role:"primary",
-    src:"/media/motorcycles/benelli-180s.webp", sourceImageUrl:"https://globalgo-catalogo.s3.amazonaws.com/BEN180S-GALERIA-1.webp", alt:"Benelli 180S naked motorcycle product view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"GlobalGo", sourceLabel:"Dealer product image · Benelli 180S", sourceUrl:"https://www.globalgo.com.pe/motos/BEN-180S/", lastChecked:"2026-09-08"
+    id:"benelli-180s-benelli-official", entityType:"motorcycle", entityId:"benelli-180s", role:"primary",
+    src:"/media/motorcycles/benelli-180s.webp", sourceImageUrl:"https://cdn.keeway.com/benelli-3-0/media/1858/conversions/2560x2180-%2835%29-md.png", alt:"Benelli 180S naked motorcycle product view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder:"Benelli Q.J.", sourceLabel:"Manufacturer-hosted image reference · Benelli 180S", sourceUrl:"https://www.benelli.com/np-en/products/180s", lastChecked:"2026-09-24"
   },
   {
     id:"benelli-trk-502x-editorial", entityType:"motorcycle", entityId:"benelli-trk-502x", role:"primary",
@@ -705,13 +705,13 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"ducati-monster-937-plus-editorial", entityType:"motorcycle", entityId:"ducati-monster-937-plus", role:"primary",
-    src:"/media/motorcycles/ducati-monster-937-plus.webp", sourceImageUrl:"https://img2.stcrm.it/images/23721531/HOR_STD/1000x/my21-ducati-monster-plus-1-uc214632-mid.jpg", alt:"Ducati Monster 937 Plus naked motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Moto.it", sourceLabel:"Editorial product image · Ducati Monster Plus", sourceUrl:"https://www.moto.it/listino/ducati/monster-937/monster-937-plus-2021/dQ0yxQ", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/ducati-monster-937-plus.webp", sourceImageUrl: "https://images.ctfassets.net/x7j9qwvpvr5s/6pN73T6u1I1qaq8cizP7qV/b71f8207bba199bff55afb8198559993/Monster-937-Rd-MY22-Model-Preview-1050x650-v06.png", alt:"Ducati Monster 937 Plus naked motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Ducati", sourceLabel: "Manufacturer-hosted product image · Ducati Monster 937", sourceUrl: "https://www.ducati.com/br/pt/motos/monster/monster-937", lastChecked: "2026-09-24"
   },
   {
     id:"ducati-scrambler-nightshift-editorial", entityType:"motorcycle", entityId:"ducati-scrambler-nightshift", role:"primary",
-    src:"/media/motorcycles/ducati-scrambler-nightshift.webp", sourceImageUrl:"https://bxrepsol.s3.eu-west-1.amazonaws.com/static/2023/08/01042843/Foto-8-Ducati-Scrambler-Nighshift-1024x819.jpg", alt:"Ducati Scrambler Nightshift motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Box Repsol", sourceLabel:"Editorial product image · Ducati Scrambler Nightshift", sourceUrl:"https://www.boxrepsol.com/es/vive-tu-moto/motos-scrambler-cuales-son-y-sus-caracteristicas-principales/", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/ducati-scrambler-nightshift.webp", sourceImageUrl: "https://www.ducatiomaha.com/cdn/shop/files/Scrambler-Ducati_Nightshift-Emerald.png?v=1759436541", alt:"Ducati Scrambler Nightshift motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Ducati", sourceLabel: "Exact product image · Ducati Omaha dealer listing · Scrambler Nightshift", sourceUrl: "https://www.ducatiomaha.com/products/2026-ducati-scrambler-nightshift-emerald-green", lastChecked: "2026-09-24"
   },
   {
     id:"husqvarna-svartpilen-401-editorial", entityType:"motorcycle", entityId:"husqvarna-svartpilen-401", role:"primary",
@@ -734,14 +734,14 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus:"external-reference", rightsHolder:"1000PS", sourceLabel:"Editorial product image · KTM 390 Adventure", sourceUrl:"https://www.1000ps.de/motorradvergleich-ktm-390-adventure-2023-vs-ktm-690-enduro-r-2020-448389", lastChecked:"2026-09-08"
   },
   {
-    id:"kymco-like-150i-editorial", entityType:"motorcycle", entityId:"kymco-like-150i-abs", role:"primary",
-    src:"/media/motorcycles/kymco-like-150i-abs.webp", sourceImageUrl:"https://cdn.accentuate.io/9517636616493/1732219160890/slide-7-%281%29.jpg?v=1732219160890", alt:"Kymco Like 150i ABS scooter product image", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"The Scooter King", sourceLabel:"Dealer product image · Kymco Like 150i ABS", sourceUrl:"https://thescooterking.com/products/2025-kymco-like-150i-abs", lastChecked:"2026-09-08"
+    id:"kymco-like-150i-kymco-ph", entityType:"motorcycle", entityId:"kymco-like-150i-abs", role:"primary",
+    src:"/media/motorcycles/kymco-like-150i-abs.webp", sourceImageUrl:"https://kymco.com.ph/wp-content/uploads/2024/03/LIKE125_1.png.webp", alt:"Kymco Like 150i ABS scooter product image", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder:"Kymco Philippines", sourceLabel:"Manufacturer-hosted Philippine image reference · Kymco Like 150i ABS", sourceUrl:"https://kymco.com.ph/product/like-150i-abs/", lastChecked:"2026-09-24"
   },
   {
-    id:"kymco-krv-180i-editorial", entityType:"motorcycle", entityId:"kymco-krv-180i-tcs", role:"primary",
-    src:"/media/motorcycles/kymco-krv-180i-tcs.webp", sourceImageUrl:"https://imgcdn.zigwheels.ph/large/gallery/exterior/76/2913/kymco-krv-180i-tcs-slant-rear-view-full-image-709623.jpg", alt:"Kymco KRV 180i TCS scooter product image", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Zigwheels Philippines", sourceLabel:"Philippine catalog image · Kymco KRV 180i TCS", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/kymco/krv-180i-tcs/colors", lastChecked:"2026-09-08"
+    id:"kymco-krv-180i-kymco-ph", entityType:"motorcycle", entityId:"kymco-krv-180i-tcs", role:"primary",
+    src:"/media/motorcycles/kymco-krv-180i-tcs.webp", sourceImageUrl:"https://kymco.com.ph/wp-content/uploads/2024/02/KRV-Belt_1.png", alt:"Kymco KRV 180 Belt scooter in blue", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder:"KYMCO Philippines", sourceLabel:"Manufacturer-hosted product image · Kymco KRV 180 Belt", sourceUrl:"https://kymco.com.ph/product/krv-180-belt/", lastChecked:"2026-09-24"
   },
   {
     id:"motorstar-cafe-400-editorial", entityType:"motorcycle", entityId:"motorstar-cafe-400", role:"primary",
@@ -934,24 +934,24 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Honda Motor Co., Ltd.", sourceLabel: "Manufacturer-hosted current image reference · Honda X-ADV", sourceUrl: "https://global.honda/jp/news/2026/2260130-x-adv.html", lastChecked: "2026-09-22"
   },
   {
-    id: "cfmoto-300sr-zigwheels", entityType: "motorcycle", entityId: "cfmoto-300sr", role: "primary",
-    src: "/media/motorcycles/cfmoto-300sr.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/132/2680/cfmoto-300sr-color-803477.jpg", alt: "CFMoto 300SR sport motorcycle in black", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "ZigWheels Philippines", sourceLabel: "Philippine market image reference · ZigWheels CFMoto 300SR", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/cfmoto/300sr/images", lastChecked: "2026-09-22"
+    id: "cfmoto-300sr-cfmoto-sg", entityType: "motorcycle", entityId: "cfmoto-300sr", role: "primary",
+    src: "/media/motorcycles/cfmoto-300sr.webp", sourceImageUrl: "https://static.wixstatic.com/media/496e53_d972b01b15424f42a22810fb38393614~mv2.png", alt: "CFMOTO 300SR sport motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "CFMOTO Singapore", sourceLabel: "Regional CFMOTO product image reference · 300SR", sourceUrl: "https://www.cfmoto.com.sg/sr-series", lastChecked: "2026-09-24"
   },
   {
-    id: "cfmoto-400nk-zigwheels", entityType: "motorcycle", entityId: "cfmoto-400nk", role: "primary",
-    src: "/media/motorcycles/cfmoto-400nk.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/132/2079/cfmoto-400-nk-color-501777.jpg", alt: "CFMoto 400NK naked motorcycle in white and teal", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "ZigWheels Philippines", sourceLabel: "Philippine market image reference · ZigWheels CFMoto 400NK", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/cfmoto/400-nk", lastChecked: "2026-09-22"
+    id: "cfmoto-400nk-regional-reference", entityType: "motorcycle", entityId: "cfmoto-400nk", role: "primary",
+    src: "/media/motorcycles/cfmoto-400nk.webp", sourceImageUrl: "https://cfmotord.com/wp-content/uploads/2020/05/20200312104205.png", alt: "CFMOTO 400NK naked motorcycle in white and teal", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "CFMOTO regional distributor", sourceLabel: "Regional CFMOTO product image reference · 400NK", sourceUrl: "https://cfmotord.com/motocicletas/400nk/", lastChecked: "2026-09-24"
   },
   {
     id: "honda-airblade-160-honda-official", entityType: "motorcycle", entityId: "honda-airblade-160", role: "primary",
     src: "/media/motorcycles/honda-airblade-160.webp", sourceImageUrl: "https://cdn.honda.com.vn/motorbike-versions/Image360/November2025/1762148885/0.png", alt: "Honda AirBlade 160 scooter", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Honda Vietnam", sourceLabel: "Manufacturer-hosted image reference · Honda AirBlade 160", sourceUrl: "https://www.honda.com.vn/xe-may/san-pham/air-blade-160125", lastChecked: "2026-09-23"
+    rightsStatus: "external-reference", rightsHolder: "Honda Vietnam", sourceLabel: "Manufacturer-hosted transparent product image · Honda AirBlade 160", sourceUrl: "https://www.honda.com.vn/xe-may/san-pham/air-blade-160125?changeVersionFlag=2025", lastChecked: "2026-09-24"
   },
   {
     id: "honda-cbr150r-honda-ph", entityType: "motorcycle", entityId: "honda-cbr150r", role: "primary",
-    src: "/media/motorcycles/honda-cbr150r.webp", sourceImageUrl: "https://images.ctfassets.net/p4ab844it03t/7udRlrxfC4Nqu6blG2EKTY/c7f40fb788d9fe295445bfebfd1b7e48/67e0b720bcd80.png?fm=webp&q=80", alt: "Honda CBR150R sport motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Honda Philippines", sourceLabel: "Manufacturer-hosted image reference · Honda Philippines CBR150R", sourceUrl: "https://www.hondaph.com/motorcycle/news/honda-philippines-unleashes-power-and-innovation-at-the-action-packed-inside-racing-bikefest-2025", lastChecked: "2026-09-23"
+    src: "/media/motorcycles/honda-cbr150r.webp", sourceImageUrl: "https://asset.astra-honda.com/uploads/product/thumbnail/thumbnail-cbr150r-550x413px-tr-new-2-21112024-100742.png", alt: "Honda CBR150R sport motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Astra Honda Motor", sourceLabel: "Manufacturer-hosted product image · Astra Honda CBR150R", sourceUrl: "https://www.astra-honda.com/product/cbr-150-r", lastChecked: "2026-09-24"
   },
   {
     id: "honda-cbr650r-honda-global", entityType: "motorcycle", entityId: "honda-cbr650r", role: "primary",
@@ -1195,8 +1195,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "aprilia-tuareg-660-aprilia-store", entityType: "motorcycle", entityId: "aprilia-tuareg-660", role: "primary",
-    src: "/media/motorcycles/aprilia-tuareg-660.webp", sourceImageUrl: "https://storeusa.aprilia.com/img/models/Tuareg%20660/model_img_detail_1-Tuareg%20660.jpg", alt: "Aprilia Tuareg 660 adventure motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Aprilia", sourceLabel: "Manufacturer store image reference · Aprilia Tuareg 660", sourceUrl: "https://storeusa.aprilia.com/tuareg660.aspx", lastChecked: "2026-09-24"
+    src: "/media/motorcycles/aprilia-tuareg-660.webp", sourceImageUrl: "https://megabikes.ie/media/catalog/product/0/1/01-aprilia-tuareg-hailstorm-white_1.jpg", alt: "Aprilia Tuareg 660 adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Megabikes Ireland", sourceLabel: "Dealer-hosted exact-model product image · Megabikes Aprilia Tuareg 660", sourceUrl: "https://megabikes.ie/aprilia-tuareg-660-25ym", lastChecked: "2026-09-24"
   },
   {
     id: "aprilia-tuono-660-aprilia-store", entityType: "motorcycle", entityId: "aprilia-tuono-660", role: "primary",
