@@ -166,7 +166,7 @@ export default function RecommendationsPage() {
         </div>
       </section>
 
-      <section id="400cc" className="rec-section rec-data-section rec-400cc-section">
+      <section id="400cc" className="rec-section rec-data-section rec-anchor-section">
         <div className="rec-section-head"><div><span>400cc and above</span><h2>Start with three current big-bike comparisons.</h2><p>Use recorded displacement as a shortlist filter, then compare price, weight, seat height, power and braking before choosing a model.</p></div><Link href="/motorcycles/expressway-legal">Expressway rule & registration checks →</Link></div>
         <div className="rec-400cc-panel"><RankedList models={bigBikes} metric={(m) => `${m.engineCc} cc · ${m.powerHp} hp · ${m.curbWeightKg} kg`} /></div>
       </section>
