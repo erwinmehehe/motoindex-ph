@@ -21,9 +21,9 @@ SKIP_IDS = {
     "vespa-primavera-150",
 }
 CUSTOM_CROPS = {
-    # The historical Kawasaki Philippines announcement is first-party but includes headline/caption art.
-    # Crop to the actual motorcycle before segmentation.
-    "kawasaki-ninja-400": (0.26, 0.39, 0.51, 0.31),
+    # Honda's newsroom download includes a presentation card around the clean studio image.
+    # Crop to the photo panel before segmentation so labels/date do not survive into catalog media.
+    "honda-cb650r": (0.08, 0.16, 0.84, 0.60),
 }
 
 
