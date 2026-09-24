@@ -67,6 +67,7 @@ for(const [id,page] of targets){
     if(!res.ok)continue;
     const html=await res.text();
     const urls=imageUrls(html,page).slice(0,120);
+    if(id.startsWith("triumph-")) console.log("RAW_CANDIDATES", JSON.stringify(urls.filter(u=>/triumph|media\./i.test(u)).slice(0,40),null,2));
     const scored=[];
     for(const url of urls){
       try{
