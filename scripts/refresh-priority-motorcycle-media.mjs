@@ -37,7 +37,8 @@ const replacements = [
   {
     id: "honda-nx500-e-clutch",
     file: "honda-nx500-e-clutch.webp",
-    url: "https://hondabigbike.com.my/wp-content/uploads/2026/09/2026-NX500_studio_A002_E-Clutch_NH-B61P_PearlHorizonWhite_RhSide_M-Photoroom-1-e1786456362968.png"
+    url: "https://hondabigbike.com.my/wp-content/uploads/2026/09/2026-NX500_studio_A002_E-Clutch_NH-B61P_PearlHorizonWhite_RhSide_M-Photoroom-1-e1786456362968.png",
+    referer: "https://hondabigbike.com.my/model/nx500/"
   },
   {
     id: "kymco-like-150i-abs",
@@ -48,18 +49,6 @@ const replacements = [
     id: "benelli-180s",
     file: "benelli-180s.webp",
     url: "https://cdn.keeway.com/benelli-3-0/media/1858/conversions/2560x2180-%2835%29-md.png"
-  },
-  {
-    id: "kawasaki-ninja-400",
-    file: "kawasaki-ninja-400.webp",
-    page: "https://www.kawasaki.ca/en-ca/motorcycle/ninja/sport/ninja-400/2023-ninja-400",
-    meta: "og:image"
-  },
-  {
-    id: "royal-enfield-guerrilla-450",
-    file: "royal-enfield-guerrilla-450.webp",
-    page: "https://www.royalenfield.com/ph/en/motorcycles/guerrilla-450/",
-    alt: "Guerrilla 450 - Brava Blue"
   },
   {
     id: "cfmoto-300sr",
@@ -83,13 +72,15 @@ function decodeHtml(value) {
     .replaceAll("&gt;", ">");
 }
 
-async function fetchBuffer(url) {
+async function fetchBuffer(url, referer) {
+  const headers = {
+    "user-agent": "Mozilla/5.0 MotoIndexMediaQA/1.0",
+    accept: "image/avif,image/webp,image/png,image/jpeg,*/*;q=0.8"
+  };
+  if (referer) headers.referer = referer;
   const response = await fetch(url, {
     redirect: "follow",
-    headers: {
-      "user-agent": "Mozilla/5.0 MotoIndexMediaQA/1.0",
-      accept: "image/avif,image/webp,image/png,image/jpeg,*/*;q=0.8"
-    },
+    headers,
     signal: AbortSignal.timeout(20000)
   });
   if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
@@ -189,7 +180,7 @@ async function main() {
   for (const item of replacements) {
     try {
       const sourceUrl = item.url || (item.meta ? await imageUrlFromMeta(item.page) : await imageUrlFromAlt(item.page, item.alt));
-      const input = await fetchBuffer(sourceUrl);
+      const input = await fetchBuffer(sourceUrl, item.referer);
       const output = await normalize(sharp, input, item.crop);
       const dest = path.join(OUT, item.file);
       await fs.writeFile(dest, output);
