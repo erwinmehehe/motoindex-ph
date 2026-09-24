@@ -3,7 +3,7 @@ import sharp from "sharp";
 const targets = [
   ["triumph-speed-twin-900","https://www.triumphmotorcycles.com/motorcycles/classic/bonneville-speed-twin-900/models"],
   ["triumph-tiger-sport-660","https://www.triumphmotorcycles.com/motorcycles/adventure/tiger-sport-660/models"],
-  ["triumph-daytona-660","https://www.triumphmotorcycles.com/motorcycles/sport/daytona/daytona-660"],
+  ["triumph-daytona-660","https://es.triumphmotorcycles.com/motorcycles/sport/daytona-660/models"],
   ["kawasaki-ninja-650","https://www.kawasaki.eu/en/EICMA/Ninja_650.html"],
   ["kawasaki-versys-650","https://www.kawasaki.eu/en/EICMA/Versys_650.html"],
   ["kawasaki-vulcan-s","https://www.kawasaki.eu/en/EICMA/Vulcan_S.html"],
@@ -66,6 +66,7 @@ for(const [id,page] of targets){
     console.log("\n###",id,"PAGE",res.status,page);
     if(!res.ok)continue;
     const html=await res.text();
+    if(id==="triumph-daytona-660") { const matches=[...new Set(decode(html).split(/\s+/).filter(s=>/daytona/i.test(s)&&/\.(?:png|jpe?g|webp)/i.test(s)))]; console.log("RAW_DAYTONA_MATCHES", JSON.stringify(matches.slice(0,60),null,2)); }
     const urls=imageUrls(html,page).slice(0,120);
     if(id.startsWith("triumph-")) console.log("RAW_CANDIDATES", JSON.stringify(urls.filter(u=>/triumph|media\./i.test(u)).slice(0,40),null,2));
     const scored=[];
