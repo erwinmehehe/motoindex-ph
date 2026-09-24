@@ -31,19 +31,19 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Yamaha dealer network", sourceLabel: "Yamaha dealer image reference · 2025 MT-07", sourceUrl: "https://www.yamahaba.sk/mt07iconblue2025", lastChecked: "2026-09-20"
   },
   {
-    id: "yamaha-xsr700-global-reference", entityType: "motorcycle", entityId: "yamaha-xsr700", role: "primary",
-    src: "/media/motorcycles/yamaha-xsr700.webp", sourceImageUrl: "https://www.2ri.de/Images/Big/8/News_Yamaha_XSR700_2025.jpg", alt: "Yamaha XSR700 motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "External model reference", sourceLabel: "Current Yamaha XSR700 image reference", sourceUrl: "https://www.2ri.de/News/2025-Yamaha-XSR700-Klassisches-Design-trifft-auf-moderne-Performance/28261", lastChecked: "2026-09-20"
+    id: "yamaha-xsr700-yamaha-eu", entityType: "motorcycle", entityId: "yamaha-xsr700", role: "primary",
+    src: "/media/motorcycles/yamaha-xsr700.webp", sourceImageUrl: "https://cdn2.yamaha-motor.eu/prod/product-assets/2022/XS700/2022-Yamaha-XS700-EU-Historic_White-Studio-001-03.jpg", alt: "Yamaha XSR700 motorcycle in Historic White", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Yamaha Motor Europe N.V.", sourceLabel: "Manufacturer-hosted studio image reference · Yamaha XSR700", sourceUrl: "https://www.yamaha-motor.eu/is/en/motorcycles/sport-heritage/pdp/xsr700/", lastChecked: "2026-09-24"
   },
   {
-    id: "honda-cb650r-market-reference", entityType: "motorcycle", entityId: "honda-cb650r", role: "primary",
-    src: "/media/motorcycles/honda-cb650r.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/73/2029/honda-cb650r-color-331311.jpg", alt: "Honda CB650R motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Zigwheels Philippines", sourceLabel: "Philippine market image reference · Honda CB650R", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/cb650r", lastChecked: "2026-09-20"
+    id: "honda-cb650r-honda-ph", entityType: "motorcycle", entityId: "honda-cb650r", role: "primary",
+    src: "/media/motorcycles/honda-cb650r.webp", sourceImageUrl: "https://images.ctfassets.net/p4ab844it03t/2QJhmFYoS4Dk4iFfu78qeQ/a96a575c5f6d1ac3b08ac94d647abb14/663311b3dd4c9.png?fm=webp&q=90", alt: "Honda CB650R motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Philippines, Inc.", sourceLabel: "Manufacturer-hosted Philippine image reference · Honda CB650R", sourceUrl: "https://www.hondaph.com/big-bike/news/honda-philippines-flexes-new-big-bikes-at-the-2024-makina-moto-show", lastChecked: "2026-09-24"
   },
   {
-    id: "honda-nx500-market-reference", entityType: "motorcycle", entityId: "honda-nx500-e-clutch", role: "primary",
-    src: "/media/motorcycles/honda-nx500-e-clutch.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/73/3297/honda-nx500-color-559223.jpg", alt: "Honda NX500 adventure motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Zigwheels Philippines", sourceLabel: "Philippine market image reference · Honda NX500", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/nx500", lastChecked: "2026-09-20"
+    id: "honda-nx500-honda-ph", entityType: "motorcycle", entityId: "honda-nx500-e-clutch", role: "primary",
+    src: "/media/motorcycles/honda-nx500-e-clutch.webp", sourceImageUrl: "https://images.ctfassets.net/p4ab844it03t/4pg7fV81pYUzq4gfwltBAz/83b7865691fe8646df5e34a5a99978ad/663313b957c73.png?fm=webp&q=90", alt: "Honda NX500 adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Philippines, Inc.", sourceLabel: "Manufacturer-hosted Philippine image reference · Honda NX500", sourceUrl: "https://www.hondaph.com/big-bike/news/honda-philippines-flexes-new-big-bikes-at-the-2024-makina-moto-show", lastChecked: "2026-09-24"
   },
   {
     id: "site-mark",
@@ -123,9 +123,9 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Honda NAVi", sourceUrl: "https://wheeltek.com.ph/products/regular-bikes/", lastChecked: "2026-08-25"
   },
   {
-    id: "honda-beat-wheeltek", entityType: "motorcycle", entityId: "honda-beat", role: "primary",
-    src: "/media/motorcycles/honda-beat.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/02/honda-beat-premium-white-300x280.jpg", alt: "Honda BeAT Premium motorcycle in white", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Honda BeAT", sourceUrl: "https://wheeltek.com.ph/motorcycles/beat-limited-edition/", lastChecked: "2026-08-25"
+    id: "honda-beat-honda-ph", entityType: "motorcycle", entityId: "honda-beat", role: "primary",
+    src: "/media/motorcycles/honda-beat.webp", sourceImageUrl: "https://images.ctfassets.net/p4ab844it03t/73zDTyHHl8VZiWLSoDjZo4/349c2c309b4aa57320b48ac64448f9b7/6510e11420665.png?fm=webp&q=90", alt: "Honda BeAT Premium motorcycle in Pearl Arctic White", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Philippines, Inc.", sourceLabel: "Manufacturer-hosted image reference · Honda BeAT Premium", sourceUrl: "https://www.hondaph.com/motorcycle/news/honda-philippines-launches-the-all-new-beat-and-the-50th-anniversary-limited-edition-designed-especially-for-the-all-new-beat-and-click125", lastChecked: "2026-09-24"
   },
   {
     id: "honda-click-125i-wheeltek", entityType: "motorcycle", entityId: "honda-click-125i", role: "primary",
@@ -739,9 +739,9 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus:"external-reference", rightsHolder:"The Scooter King", sourceLabel:"Dealer product image · Kymco Like 150i ABS", sourceUrl:"https://thescooterking.com/products/2025-kymco-like-150i-abs", lastChecked:"2026-09-08"
   },
   {
-    id:"kymco-krv-180i-editorial", entityType:"motorcycle", entityId:"kymco-krv-180i-tcs", role:"primary",
-    src:"/media/motorcycles/kymco-krv-180i-tcs.webp", sourceImageUrl:"https://imgcdn.zigwheels.ph/large/gallery/exterior/76/2913/kymco-krv-180i-tcs-slant-rear-view-full-image-709623.jpg", alt:"Kymco KRV 180i TCS scooter product image", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Zigwheels Philippines", sourceLabel:"Philippine catalog image · Kymco KRV 180i TCS", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/kymco/krv-180i-tcs/colors", lastChecked:"2026-09-08"
+    id:"kymco-krv-180i-kymco-ph", entityType:"motorcycle", entityId:"kymco-krv-180i-tcs", role:"primary",
+    src:"/media/motorcycles/kymco-krv-180i-tcs.webp", sourceImageUrl:"https://kymco.com.ph/wp-content/uploads/2024/02/KRV-Belt_1.png", alt:"Kymco KRV 180 Belt scooter in blue", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder:"KYMCO Philippines", sourceLabel:"Manufacturer-hosted product image · Kymco KRV 180 Belt", sourceUrl:"https://kymco.com.ph/product/krv-180-belt/", lastChecked:"2026-09-24"
   },
   {
     id:"motorstar-cafe-400-editorial", entityType:"motorcycle", entityId:"motorstar-cafe-400", role:"primary",
@@ -934,14 +934,14 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Honda Motor Co., Ltd.", sourceLabel: "Manufacturer-hosted current image reference · Honda X-ADV", sourceUrl: "https://global.honda/jp/news/2026/2260130-x-adv.html", lastChecked: "2026-09-22"
   },
   {
-    id: "cfmoto-300sr-zigwheels", entityType: "motorcycle", entityId: "cfmoto-300sr", role: "primary",
-    src: "/media/motorcycles/cfmoto-300sr.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/132/2680/cfmoto-300sr-color-803477.jpg", alt: "CFMoto 300SR sport motorcycle in black", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "ZigWheels Philippines", sourceLabel: "Philippine market image reference · ZigWheels CFMoto 300SR", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/cfmoto/300sr/images", lastChecked: "2026-09-22"
+    id: "cfmoto-300sr-cfmoto-sg", entityType: "motorcycle", entityId: "cfmoto-300sr", role: "primary",
+    src: "/media/motorcycles/cfmoto-300sr.webp", sourceImageUrl: "https://static.wixstatic.com/media/496e53_d972b01b15424f42a22810fb38393614~mv2.png", alt: "CFMOTO 300SR sport motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "CFMOTO Singapore", sourceLabel: "Regional CFMOTO product image reference · 300SR", sourceUrl: "https://www.cfmoto.com.sg/sr-series", lastChecked: "2026-09-24"
   },
   {
-    id: "cfmoto-400nk-zigwheels", entityType: "motorcycle", entityId: "cfmoto-400nk", role: "primary",
-    src: "/media/motorcycles/cfmoto-400nk.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/132/2079/cfmoto-400-nk-color-501777.jpg", alt: "CFMoto 400NK naked motorcycle in white and teal", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "ZigWheels Philippines", sourceLabel: "Philippine market image reference · ZigWheels CFMoto 400NK", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/cfmoto/400-nk", lastChecked: "2026-09-22"
+    id: "cfmoto-400nk-regional-reference", entityType: "motorcycle", entityId: "cfmoto-400nk", role: "primary",
+    src: "/media/motorcycles/cfmoto-400nk.webp", sourceImageUrl: "https://cfmotord.com/wp-content/uploads/2020/05/20200312104205.png", alt: "CFMOTO 400NK naked motorcycle in white and teal", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "CFMOTO regional distributor", sourceLabel: "Regional CFMOTO product image reference · 400NK", sourceUrl: "https://cfmotord.com/motocicletas/400nk/", lastChecked: "2026-09-24"
   },
   {
     id: "honda-airblade-160-honda-official", entityType: "motorcycle", entityId: "honda-airblade-160", role: "primary",
