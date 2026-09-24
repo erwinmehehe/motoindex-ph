@@ -113,6 +113,117 @@ media=replaceField(media,"aprilia-tuareg-660","rightsHolder","Aprilia India");
 media=replaceField(media,"aprilia-tuareg-660","lastChecked","2026-09-24");
 fs.writeFileSync(mediaPath,media);
 
+const restoreWithoutSegmentation = [
+  "bajaj-pulsar-n125",
+  "bajaj-pulsar-ns400z",
+  "bmw-g-310-gs",
+  "bmw-m-1000-rr",
+  "bmw-r-1300-gs",
+  "bmw-s-1000-r",
+  "bmw-s-1000-rr",
+  "bristol-basilica-125",
+  "cfmoto-450sr",
+  "cfmoto-675sr-r",
+  "ducati-monster-937-plus",
+  "ducati-panigale-v4",
+  "ducati-scrambler-nightshift",
+  "ducati-streetfighter-v4",
+  "honda-adv-150",
+  "honda-cb500-hornet-e-clutch",
+  "honda-cbr150r",
+  "honda-crf300-rally",
+  "honda-rebel-1100",
+  "honda-x-adv",
+  "husqvarna-norden-901",
+  "husqvarna-svartpilen-200",
+  "husqvarna-svartpilen-401",
+  "kawasaki-ninja-1000",
+  "kawasaki-ninja-650",
+  "kawasaki-ninja-h2",
+  "kawasaki-versys-650",
+  "kawasaki-vulcan-s",
+  "ktm-790-duke",
+  "kymco-sky-town-150",
+  "motorstar-cafe-400",
+  "motorstar-xplorer-250r",
+  "royal-enfield-bear-650",
+  "royal-enfield-classic-650",
+  "royal-enfield-continental-gt-650",
+  "royal-enfield-guerrilla-450",
+  "royal-enfield-hunter-350",
+  "royal-enfield-interceptor-650",
+  "royal-enfield-shotgun-650",
+  "royal-enfield-super-meteor-650",
+  "rusi-classic-250i",
+  "suzuki-access",
+  "suzuki-avenis",
+  "suzuki-burgman-400",
+  "suzuki-burgman-street",
+  "suzuki-dr160",
+  "suzuki-gixxer-155",
+  "suzuki-gixxer-250",
+  "suzuki-gixxer-sf-155",
+  "suzuki-skydrive-sport",
+  "suzuki-smash-fi",
+  "suzuki-v-strom-160",
+  "suzuki-v-strom-250-sx",
+  "sym-cruisym-150",
+  "triumph-daytona-660",
+  "triumph-speed-twin-900",
+  "triumph-tiger-sport-660",
+  "yamaha-lexi-155",
+  "yamaha-yzf-r15m",
+  "zontes-400g"
+];
+
+function mediaBlockFor(source, entityId) {
+  const needle = `entityId: "${entityId}"`;
+  const i = source.indexOf(needle);
+  if (i < 0) return null;
+  const start = source.lastIndexOf("{", i);
+  const end = source.indexOf("\n  },", i) + 5;
+  return end > start ? source.slice(start, end) : null;
+}
+function stringField(block, name) {
+  return block?.match(new RegExp(`\\b${name}\\s*:\\s*"([^"]+)"`))?.[1] || null;
+}
+async function writeSourceAsIs(bytes, output) {
+  const normalized = await sharp(bytes)
+    .rotate()
+    .resize({ width: 1040, height: 900, fit: "inside", withoutEnlargement: false, background: {r:255,g:255,b:255,alpha:1} })
+    .png()
+    .toBuffer();
+  const meta = await sharp(normalized).metadata();
+  const left = Math.max(0, Math.floor((1200 - (meta.width || 0)) / 2));
+  const top = Math.max(0, Math.floor((1200 - (meta.height || 0)) / 2) + 18);
+  await sharp({ create:{width:1200,height:1200,channels:4,background:{r:255,g:255,b:255,alpha:1}} })
+    .composite([{input:normalized,left,top:Math.min(1200-(meta.height||0),top)}])
+    .webp({quality:90,effort:4})
+    .toFile(output);
+}
+
+let restored=0, failedRestore=0;
+for (const entityId of restoreWithoutSegmentation) {
+  const block = mediaBlockFor(media, entityId);
+  const sourceImageUrl = stringField(block, "sourceImageUrl");
+  const sourceUrl = stringField(block, "sourceUrl");
+  if (!sourceImageUrl) {
+    console.log(`RESTORE SKIP ${entityId}: no sourceImageUrl`);
+    failedRestore++;
+    continue;
+  }
+  try {
+    const original = await fetchImage(sourceImageUrl, sourceUrl);
+    await writeSourceAsIs(original.bytes, path.join(outDir, `${entityId}.webp`));
+    console.log(`RESTORED ${entityId} <- ${original.url}`);
+    restored++;
+  } catch (error) {
+    console.log(`RESTORE FAILED ${entityId}: ${error.message}`);
+    failedRestore++;
+  }
+}
+console.log(`Source-preserving restore: ${restored}/${restoreWithoutSegmentation.length} restored, ${failedRestore} unresolved.`);
+
 const files=fs.readdirSync(outDir).filter(f=>f.endsWith(".webp")).sort();
 const perSheet=30, cellW=260, cellH=245, cols=5, rows=6;
 for(let s=0;s<Math.ceil(files.length/perSheet);s++){
