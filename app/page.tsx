@@ -28,7 +28,7 @@ const startPoints = [
   ["02", "Scooters", "Automatic choices built around easy city use.", "/recommendations#scooters"],
   ["03", "Beginner friendly", "Approachable choices with fit and weight kept in view.", "/recommendations#rider-fit"],
   ["04", "Under ₱100K", "Current models that fit an entry-level purchase budget.", "/recommendations#budget"],
-  ["05", "400cc and above", "Bigger-displacement options with the important numbers side by side.", "/recommendations#400cc"],
+  ["05", "400cc and above", "Bigger-displacement options with the important numbers side by side.", "/recommendations/motorcycles-400cc-plus-philippines"],
   ["06", "Electric", "Battery, range, charging and registration research.", "/motorcycles/electric"],
 ] as const;
 
