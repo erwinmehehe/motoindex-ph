@@ -33,7 +33,7 @@ const replacements = [
     id: "honda-cb650r",
     file: "honda-cb650r.webp",
     url: "https://images.ctfassets.net/p4ab844it03t/2QJhmFYoS4Dk4iFfu78qeQ/a96a575c5f6d1ac3b08ac94d647abb14/663311b3dd4c9.png?fm=webp&q=90",
-    crop: { left: 0.0, top: 0.0, width: 0.37, height: 0.81 }
+    crop: { left: 0.0, top: 0.0, width: 0.335, height: 0.81 }
   },
   {
     id: "honda-nx500-e-clutch",
