@@ -36,14 +36,14 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Yamaha Motor Europe N.V.", sourceLabel: "Manufacturer-hosted studio image reference · Yamaha XSR700", sourceUrl: "https://www.yamaha-motor.eu/is/en/motorcycles/sport-heritage/pdp/xsr700/", lastChecked: "2026-09-24"
   },
   {
-    id: "honda-cb650r-honda-ph", entityType: "motorcycle", entityId: "honda-cb650r", role: "primary",
-    src: "/media/motorcycles/honda-cb650r.webp", sourceImageUrl: "https://images.ctfassets.net/p4ab844it03t/2QJhmFYoS4Dk4iFfu78qeQ/a96a575c5f6d1ac3b08ac94d647abb14/663311b3dd4c9.png?fm=webp&q=90", alt: "Honda CB650R motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Honda Philippines, Inc.", sourceLabel: "Manufacturer-hosted Philippine image reference · Honda CB650R", sourceUrl: "https://www.hondaph.com/big-bike/news/honda-philippines-flexes-new-big-bikes-at-the-2024-makina-moto-show", lastChecked: "2026-09-24"
+    id: "honda-cb650r-honda-global", entityType: "motorcycle", entityId: "honda-cb650r", role: "primary",
+    src: "/media/motorcycles/honda-cb650r.webp", sourceImageUrl: "https://global.honda/content/dam/site/global-jp/news-new/cq_img/2024/04/dl/2240411-cb650r_005H.jpg", alt: "Honda CB650R motorcycle in Matte Ballistic Black Metallic", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda Motor Co., Ltd.", sourceLabel: "Manufacturer-hosted image reference · Honda CB650R", sourceUrl: "https://global.honda/jp/news/2024/2240411-cb650r/image_download.html", lastChecked: "2026-09-24"
   },
   {
-    id: "honda-nx500-honda-ph", entityType: "motorcycle", entityId: "honda-nx500-e-clutch", role: "primary",
-    src: "/media/motorcycles/honda-nx500-e-clutch.webp", sourceImageUrl: "https://images.ctfassets.net/p4ab844it03t/4pg7fV81pYUzq4gfwltBAz/83b7865691fe8646df5e34a5a99978ad/663313b957c73.png?fm=webp&q=90", alt: "Honda NX500 adventure motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Honda Philippines, Inc.", sourceLabel: "Manufacturer-hosted Philippine image reference · Honda NX500", sourceUrl: "https://www.hondaph.com/big-bike/news/honda-philippines-flexes-new-big-bikes-at-the-2024-makina-moto-show", lastChecked: "2026-09-24"
+    id: "honda-nx500-e-clutch-bsh-2026", entityType: "motorcycle", entityId: "honda-nx500-e-clutch", role: "primary",
+    src: "/media/motorcycles/honda-nx500-e-clutch.webp", sourceImageUrl: "https://hondabigbike.com.my/wp-content/uploads/2026/09/2026-NX500_studio_A002_E-Clutch_NH-B61P_PearlHorizonWhite_RhSide_M-Photoroom-1-e1786456362968.png", alt: "2026 Honda NX500 E-Clutch motorcycle in Pearl Horizon White", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Boon Siew Honda / Honda BigBike Malaysia", sourceLabel: "Manufacturer-hosted image reference · 2026 Honda NX500 E-Clutch", sourceUrl: "https://hondabigbike.com.my/model/nx500/", lastChecked: "2026-09-24"
   },
   {
     id: "site-mark",
@@ -664,9 +664,9 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus:"external-reference", rightsHolder:"Ginzinger", sourceLabel:"Dealer/editorial product image · Aprilia RS 457", sourceUrl:"https://www.ginzinger.at/blog/aprilia/rs-457.html", lastChecked:"2026-09-08"
   },
   {
-    id:"benelli-180s-editorial", entityType:"motorcycle", entityId:"benelli-180s", role:"primary",
-    src:"/media/motorcycles/benelli-180s.webp", sourceImageUrl:"https://globalgo-catalogo.s3.amazonaws.com/BEN180S-GALERIA-1.webp", alt:"Benelli 180S naked motorcycle product view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"GlobalGo", sourceLabel:"Dealer product image · Benelli 180S", sourceUrl:"https://www.globalgo.com.pe/motos/BEN-180S/", lastChecked:"2026-09-08"
+    id:"benelli-180s-benelli-official", entityType:"motorcycle", entityId:"benelli-180s", role:"primary",
+    src:"/media/motorcycles/benelli-180s.webp", sourceImageUrl:"https://cdn.keeway.com/benelli-3-0/media/1858/conversions/2560x2180-%2835%29-md.png", alt:"Benelli 180S naked motorcycle product view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder:"Benelli Q.J.", sourceLabel:"Manufacturer-hosted image reference · Benelli 180S", sourceUrl:"https://www.benelli.com/np-en/products/180s", lastChecked:"2026-09-24"
   },
   {
     id:"benelli-trk-502x-editorial", entityType:"motorcycle", entityId:"benelli-trk-502x", role:"primary",
@@ -734,9 +734,9 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus:"external-reference", rightsHolder:"1000PS", sourceLabel:"Editorial product image · KTM 390 Adventure", sourceUrl:"https://www.1000ps.de/motorradvergleich-ktm-390-adventure-2023-vs-ktm-690-enduro-r-2020-448389", lastChecked:"2026-09-08"
   },
   {
-    id:"kymco-like-150i-editorial", entityType:"motorcycle", entityId:"kymco-like-150i-abs", role:"primary",
-    src:"/media/motorcycles/kymco-like-150i-abs.webp", sourceImageUrl:"https://cdn.accentuate.io/9517636616493/1732219160890/slide-7-%281%29.jpg?v=1732219160890", alt:"Kymco Like 150i ABS scooter product image", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"The Scooter King", sourceLabel:"Dealer product image · Kymco Like 150i ABS", sourceUrl:"https://thescooterking.com/products/2025-kymco-like-150i-abs", lastChecked:"2026-09-08"
+    id:"kymco-like-150i-kymco-ph", entityType:"motorcycle", entityId:"kymco-like-150i-abs", role:"primary",
+    src:"/media/motorcycles/kymco-like-150i-abs.webp", sourceImageUrl:"https://kymco.com.ph/wp-content/uploads/2024/03/LIKE125_1.png.webp", alt:"Kymco Like 150i ABS scooter product image", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder:"Kymco Philippines", sourceLabel:"Manufacturer-hosted Philippine image reference · Kymco Like 150i ABS", sourceUrl:"https://kymco.com.ph/product/like-150i-abs/", lastChecked:"2026-09-24"
   },
   {
     id:"kymco-krv-180i-kymco-ph", entityType:"motorcycle", entityId:"kymco-krv-180i-tcs", role:"primary",
