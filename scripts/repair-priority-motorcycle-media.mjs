@@ -47,9 +47,27 @@ const forcedImage = {
   "honda-crf1100l-africa-twin":"https://global.honda/content/dam/site/global-en/newsroom-new/cq_img/news/2026/01/2260123eng-crf1100l/web/2260123-crf1100l_001L.jpg",
   "honda-cbr650r":"https://global.honda/content/dam/site/global-en/newsroom-new/cq_img/news/2023/11/dl/c231107a_004H.jpg",
   "husqvarna-svartpilen-401":"https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_Svartpilen-401-MY24-90-right_%23SALL_%23AEPI_%23V2.png",
-  "ktm-790-duke":"https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_KTM-naked-bikes-my27-790-duke-orange-right-side-view_%23SALL_%23AEPI_%23V1.png",
-  "bmw-s-1000-rr":"https://mediapool.bmwgroup.com/cache/P9/202410/P90573621/P90573621-the-new-bmw-s-1000-rr-10-2024-2248px.jpg",
-  "bmw-s-1000-r":"https://mediapool.bmwgroup.com/cache/P9/202410/P90573634/P90573634-the-new-bmw-s-1000-r-10-2024-2248px.jpg"
+  "ktm-790-duke":"https://cdn.visordown.com/field/image/422060_MY22%20KTM%20790%20DUKE%20_45_%20right%20front_.jpg?aspect_ratio=1%3A1&width=1600",
+  "bmw-f-900-gs":"https://mediapool.bmwgroup.com/cache/P9/202402/P90539201/P90539201-the-bmw-f-900-gs-on-road-stills-02-2024-2250px.jpg",
+  "bmw-s-1000-rr":"https://mediapool.bmwgroup.com/cache/P9/202410/P90573621/P90573621-the-new-bmw-s-1000-rr-10-2024-2666px.jpg",
+  "bmw-s-1000-r":"https://mediapool.bmwgroup.com/cache/P9/202410/P90573634/P90573634-the-new-bmw-s-1000-r-10-2024-2121px.jpg",
+  "triumph-speed-twin-900":"https://images5.1000ps.net/images_bikekat/2026/37-Triumph/11248-Speed_Twin_900/006-639008772224739700-triumph-speed-twin-900.jpg",
+  "kawasaki-ninja-1000":"https://images5.1000ps.net/images_bikekat/2024/6-Kawasaki/9954-Ninja_1000SX/015-638384932469909422-kawasaki-ninja-1000sx.jpg",
+  "bajaj-pulsar-ns400z":"https://cdn.bajajauto.com/-/media/assets/bajajauto/bikes/web-header-navigator-images/pulsar-ns400z.webp",
+  "kawasaki-ninja-650":"https://www.kawasaki.eu/content/dam/products/pim/studio/s/Resource_320285_26EX650P_S_44TBK1DRF3CG_A.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.png",
+  "kawasaki-versys-650":"https://www.kawasaki.eu/content/dam/products/pim/studio/j/Resource_329910_27KLE650H_J_K_44TGN1DRF3CG_A.jpg/_jcr_content/renditions/cq5dam.thumbnail.600.600.png",
+  "kawasaki-vulcan-s":"https://www.kawasaki.eu/content/dam/products/pim/studio/m/Resource_329865_27EN650D_M_44TGY1DRF1CG_A.jpg/_jcr_content/renditions/cq5dam.thumbnail.600.600.png"
+};
+
+const forcedMeta = {
+  "ktm-790-duke":{rightsHolder:"KTM / Visordown",sourceUrl:"https://press.ktm.com/news-2022-ktm-790-duke-the-original-scalpel-returns?id=152835&l=uk&menueid=5904",sourceLabel:"Clean exact-model product image · KTM 790 Duke"},
+  "triumph-speed-twin-900":{rightsHolder:"1000PS / Triumph",sourceUrl:"https://www.1000ps.com/en-us/model/11248/triumph-speed-twin-900",sourceLabel:"Exact-model studio image · Triumph Speed Twin 900"},
+  "kawasaki-ninja-1000":{rightsHolder:"1000PS / Kawasaki",sourceUrl:"https://www.1000ps.com/en-us/model/9954/kawasaki-ninja-1000sx",sourceLabel:"Exact-model studio image · Kawasaki Ninja 1000SX"},
+  "kawasaki-ninja-650":{rightsHolder:"Kawasaki Motors Europe",sourceUrl:"https://www.kawasaki.eu/en/Motorcycles/A2_Bikes/Ninja_650_2026.html/EX650STFNN/EX650STFNN/MetallicFlatSparkBlackMetallicCarbonGray",sourceLabel:"Manufacturer studio image · Kawasaki Ninja 650"},
+  "kawasaki-versys-650":{rightsHolder:"Kawasaki Motors Europe",sourceUrl:"https://www.kawasaki.eu/en/Motorcycles/Adventure_Tourer/Versys_650_2027.html",sourceLabel:"Manufacturer studio image · Kawasaki Versys 650"},
+  "kawasaki-vulcan-s":{rightsHolder:"Kawasaki Motors Europe",sourceUrl:"https://www.kawasaki.eu/en/Motorcycles/Urban_Cruiser/Vulcan_S_2027.html",sourceLabel:"Manufacturer studio image · Kawasaki Vulcan S"},
+  "bajaj-pulsar-ns400z":{rightsHolder:"Bajaj Auto",sourceUrl:"https://www.bajajauto.com/booking/pulsar-ns400",sourceLabel:"Manufacturer product image · Bajaj Pulsar NS400Z"},
+  "bmw-f-900-gs":{rightsHolder:"BMW Motorrad",sourceUrl:"https://www.press.bmwgroup.com/global/photo/detail/P90539201/The-BMW-F-900-GS-On-road-stills-02-2024",sourceLabel:"Manufacturer image · BMW F 900 GS"}
 };
 
 function extractArray(text, declaration){
@@ -184,8 +202,13 @@ async function cropLargestForeground(input){
   if(width/W>.97&&height/H>.97)return input;
   return sharp(input,{failOn:"none"}).extract({left,top,width:Math.min(width,W-left),height:Math.min(height,H-top)}).png().toBuffer();
 }
-async function normalize(bytes,dest){
-  const rotated=await sharp(bytes,{failOn:"none"}).rotate().png().toBuffer();
+async function normalize(bytes,dest,id){
+  let rotated=await sharp(bytes,{failOn:"none"}).rotate().png().toBuffer();
+  if(["honda-xl750-transalp","honda-crf1100l-africa-twin","honda-cbr650r"].includes(id)){
+    const meta=await sharp(rotated).metadata();
+    const W=meta.width||0,H=meta.height||0;
+    if(W>0&&H>0) rotated=await sharp(rotated).extract({left:0,top:0,width:W,height:Math.max(1,Math.floor(H*0.75))}).png().toBuffer();
+  }
   const cropped=await cropLargestForeground(rotated);
   const fitted=await sharp(cropped,{failOn:"none"}).flatten({background:WHITE}).resize({width:1000,height:880,fit:"inside",withoutEnlargement:false}).png().toBuffer();
   await sharp({create:{width:1200,height:1200,channels:4,background:WHITE}}).composite([{input:fitted,gravity:"centre"}]).flatten({background:WHITE}).webp({quality:90,effort:5,smartSubsample:true}).toFile(dest);
@@ -197,8 +220,11 @@ for(const id of targets){
   if(!block){report.push({id,status:"missing-record"});continue;}
   const rec={entityId:id,sourceImageUrl:field(block,"sourceImageUrl"),sourceUrl:field(block,"sourceUrl"),alt:field(block,"alt")};
   try{
-    const chosen=await choose(rec); const dest=path.join(root,"public/media/motorcycles",id+".webp"); fs.mkdirSync(path.dirname(dest),{recursive:true}); await normalize(chosen.bytes,dest);
-    let updated=block; updated=setField(updated,"src","/media/motorcycles/"+id+".webp"); updated=setField(updated,"sourceImageUrl",chosen.url); updated=setField(updated,"sourceUrl",chosen.pageUrl); updated=setField(updated,"sourceLabel","Refreshed product image · "+(rec.alt||id));
+    const chosen=await choose(rec); const dest=path.join(root,"public/media/motorcycles",id+".webp"); fs.mkdirSync(path.dirname(dest),{recursive:true}); await normalize(chosen.bytes,dest,id);
+    let updated=block; updated=setField(updated,"src","/media/motorcycles/"+id+".webp"); updated=setField(updated,"sourceImageUrl",chosen.url); updated=setField(updated,"sourceUrl",chosen.pageUrl); const meta=forcedMeta[id];
+    updated=setField(updated,"sourceLabel",meta?.sourceLabel||("Refreshed product image · "+(rec.alt||id)));
+    if(meta?.sourceUrl) updated=setField(updated,"sourceUrl",meta.sourceUrl);
+    if(meta?.rightsHolder) updated=setField(updated,"rightsHolder",meta.rightsHolder);
     source=source.replace(block,updated); report.push({id,status:"updated",score:Math.round(chosen.total),visual:Math.round(chosen.vs),url:chosen.url,page:chosen.pageUrl}); console.log("✓",id,Math.round(chosen.total),chosen.url);
   }catch(e){report.push({id,status:"failed",error:String(e)});console.error("✗",id,String(e));}
 }
