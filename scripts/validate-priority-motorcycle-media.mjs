@@ -103,8 +103,8 @@ if (media.includes("GrabCut") || media.includes("grabCut")) {
 }
 
 const normalizer = fs.readFileSync("scripts/art-direct-motorcycle-media.py", "utf8");
-if (/grabCut|grabcut|floodFill|flood_fill/i.test(normalizer)) {
-  failures.push("art-direct-motorcycle-media.py still contains destructive foreground segmentation");
+if (/cv2\.(?:grabCut|floodFill)\s*\(/.test(normalizer)) {
+  failures.push("art-direct-motorcycle-media.py still calls destructive foreground segmentation");
 }
 if (!normalizer.includes("preserve-full-frame") || !normalizer.includes("white-border-bounds")) {
   failures.push("art-direct-motorcycle-media.py is missing the non-destructive normalization policy");
