@@ -39,9 +39,9 @@ def main() -> None:
     # in the lower-left white product panel on the Ninja 400 page.
     crop = image.crop((
         round(w * 0.018),
-        round(h * 0.423),
-        round(w * 0.305),
-        round(h * 0.705),
+        round(h * 0.455),
+        round(w * 0.308),
+        round(h * 0.695),
     ))
     crop = trim_near_white(crop)
     scale = min(MAX_SIZE[0] / crop.width, MAX_SIZE[1] / crop.height)
