@@ -504,3 +504,77 @@ model DealerQuoteResponse {
 
   @@index([submittedAt])
 }
+
+
+model OwnerAccount {
+  id             String           @id @default(cuid())
+  email          String           @unique
+  verifiedAt     DateTime?
+  reminderEmailsEnabled Boolean @default(false)
+  magicLinks     OwnerMagicLink[]
+  sessions       OwnerSession[]
+  garageSnapshot GarageSnapshot?
+  reminders      GarageReminder[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}
+
+model OwnerMagicLink {
+  id        String       @id @default(cuid())
+  ownerId   String
+  owner     OwnerAccount @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  tokenHash String       @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime     @default(now())
+
+  @@index([ownerId, createdAt])
+  @@index([expiresAt])
+}
+
+model OwnerSession {
+  id         String       @id @default(cuid())
+  ownerId    String
+  owner      OwnerAccount @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  tokenHash  String       @unique
+  expiresAt  DateTime
+  lastSeenAt DateTime     @default(now())
+  createdAt  DateTime     @default(now())
+
+  @@index([ownerId, expiresAt])
+  @@index([expiresAt])
+}
+
+model GarageSnapshot {
+  id        String       @id @default(cuid())
+  ownerId   String       @unique
+  owner     OwnerAccount @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  payload   Json
+  revision  Int          @default(1)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+
+model GarageReminder {
+  id                 String       @id @default(cuid())
+  ownerId            String
+  owner              OwnerAccount @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  reminderKey        String
+  motorcycleLocalId  String
+  motorcycleLabel    String
+  kind               String
+  title              String
+  dueDate            DateTime?
+  dueKm              Int?
+  currentOdometerKm  Int?
+  active             Boolean      @default(true)
+  lastNotifiedMarker String?
+  lastSentAt         DateTime?
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  @@unique([ownerId, reminderKey])
+  @@index([ownerId, active, dueDate])
+  @@index([ownerId, active, dueKm])
+}

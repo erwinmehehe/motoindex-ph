@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { GarageWorkspace } from "@/components/GarageWorkspace";
+import { GarageResalePack } from "@/components/GarageResalePack";
 import { PageHero } from "@/components/ui";
 import { publicMotorcycles } from "@/lib/data";
 import { maintenanceSchedules } from "@/lib/maintenance";
 import type { GarageCatalogModel } from "@/lib/garage";
 
 export const metadata: Metadata = {
-  title: "My Garage | MotoIndex Philippines",
-  description: "Track motorcycle renewals, PMS, fuel, repairs, actual ownership costs, fuel economy and resale value in MotoIndex My Garage.",
+  title: "Resale Pack | MotoIndex My Garage",
+  description: "Prepare a private motorcycle ownership-history report and seller listing draft from MotoIndex My Garage records.",
   robots: { index: false, follow: false, noarchive: true },
 };
 
-export default function GaragePage() {
+export default function GarageResalePage() {
   const catalog: GarageCatalogModel[] = publicMotorcycles
     .map((model) => {
       const schedule = maintenanceSchedules.find((item) => item.modelId === model.id);
@@ -41,10 +41,10 @@ export default function GaragePage() {
   return <main className="page shell">
     <PageHero
       kicker="MotoIndex My Garage"
-      title="Own the motorcycle, not the paperwork."
-      description="Keep renewals, service history, fuel, repairs and resale records together, then turn those logs into actual monthly spend, cost per kilometer and full-tank fuel economy. Garage data stays on this browser in this first release."
-      actions={<Link className="button ghost" href="/ownership">Ownership guides</Link>}
+      title="Prepare your motorcycle for resale."
+      description="Turn the records already in My Garage into a seller-ready ownership history and listing draft. Private plate and document references stay hidden unless you explicitly include them."
+      actions={<Link className="button ghost" href="/garage">Back to My Garage</Link>}
     />
-    <GarageWorkspace catalog={catalog} />
+    <GarageResalePack catalog={catalog} />
   </main>;
 }
