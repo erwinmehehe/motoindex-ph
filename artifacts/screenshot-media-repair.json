@@ -104,7 +104,7 @@
   {
     "id": "motorstar-xplorer-250r",
     "status": "updated",
-    "source": "https://imgcdn.zigwheels.ph/large/gallery/exterior/78/1034/motorstar-xplorer-250r-left-side-view-full-image-723608.jpg",
+    "source": "https://imgcdn.zigwheels.ph/large/gallery/color/78/1034/motorstar-xplorer-250r-color-270316.jpg",
     "dimensions": "930x620"
   },
   {
@@ -158,8 +158,8 @@
   {
     "id": "royal-enfield-hunter-350",
     "status": "updated",
-    "source": "https://www.royalenfield.com/content/dam/royal-enfield-revamp/header/shop/configure/hunter-350.webp",
-    "dimensions": "700x550"
+    "source": "https://static-cdn.cars24.com/prod/new-bike-cms/Royal-Enfield/Hunter-350/2025/01/01/b9127f64-b4f2-425b-aa82-01bce35d485d-Royal-Enfield_Hunter-350_Dapper-White_-cce0fd.png?dpr=3&format=auto&optimize=low&quality=80&w=1000",
+    "dimensions": "1000x600"
   },
   {
     "id": "royal-enfield-himalayan-450",
@@ -170,20 +170,20 @@
   {
     "id": "bmw-g-310-gs",
     "status": "updated",
-    "source": "https://next-moto.com/products/682/images/bmw-g310gs-2023-682-1718898487.webp",
-    "dimensions": "2250x1500"
+    "source": "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=image&attachment=1&dokNo=P90402134",
+    "dimensions": "4096x2896"
   },
   {
     "id": "bmw-g-310-r",
     "status": "updated",
-    "source": "https://www.bmwmotorrad.com.ph/content/dam/bmwmotorradnsc/common/multiimages/images/models/roadster/g310r-2020/2023/productstage/nsc-g310r-P0N2L-multiimage-2560x1440.jpg.asset.1732605080282.jpg",
-    "dimensions": "2560x1440"
+    "source": "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=image&attachment=1&dokNo=P90407659",
+    "dimensions": "4096x2896"
   },
   {
     "id": "bmw-r-1300-gs",
     "status": "updated",
-    "source": "https://mediapool.bmwgroup.com/cache/P9/202511/P90624522/P90624522-bmw-r-1300-gs-2250px.jpg",
-    "dimensions": "2250x1500"
+    "source": "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=image&attachment=1&dokNo=P90524533",
+    "dimensions": "5120x2880"
   },
   {
     "id": "vespa-primavera-150",

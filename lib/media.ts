@@ -675,8 +675,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"bmw-g-310-gs-editorial", entityType:"motorcycle", entityId:"bmw-g-310-gs", role:"primary",
-    src:"/media/motorcycles/bmw-g-310-gs.webp", sourceImageUrl:"https://next-moto.com/products/682/images/bmw-g310gs-2023-682-1718898487.webp", alt:"BMW G 310 GS motorcycle product photo", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Next Moto", sourceLabel:"Motorcycle listing image · BMW G 310 GS", sourceUrl:"https://next-moto.com/bmw", lastChecked: "2026-09-24"
+    src:"/media/motorcycles/bmw-g-310-gs.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=image&attachment=1&dokNo=P90402134", alt:"BMW G 310 GS motorcycle product photo", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "BMW Group", sourceLabel: "Official BMW Motorrad studio image · G 310 GS", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90402134/BMW-G-310-GS-plain-polar-white-10-2020", lastChecked: "2026-09-24"
   },
   {
     id:"bmw-c-400-gt-editorial", entityType:"motorcycle", entityId:"bmw-c-400-gt", role:"primary",
@@ -750,13 +750,13 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"motorstar-xplorer-250r-editorial", entityType:"motorcycle", entityId:"motorstar-xplorer-250r", role:"primary",
-    src:"/media/motorcycles/motorstar-xplorer-250r.webp", sourceImageUrl:"https://imgcdn.zigwheels.ph/large/gallery/exterior/78/1034/motorstar-xplorer-250r-left-side-view-full-image-723608.jpg", alt:"MotorStar Xplorer 250R adventure motorcycle product image", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Zigwheels Philippines", sourceLabel:"Philippine catalog image · MotorStar Xplorer 250R", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/motorstar/xplorer-250r/images", lastChecked: "2026-09-24"
+    src:"/media/motorcycles/motorstar-xplorer-250r.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/78/1034/motorstar-xplorer-250r-color-270316.jpg", alt:"MotorStar Xplorer 250R adventure motorcycle product image", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Zigwheels Philippines", sourceLabel: "Philippine catalog color image · MotorStar Xplorer 250R", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/motorstar/xplorer-250r/images", lastChecked: "2026-09-24"
   },
   {
     id:"royal-enfield-hunter-350-editorial", entityType:"motorcycle", entityId:"royal-enfield-hunter-350", role:"primary",
-    src:"/media/motorcycles/royal-enfield-hunter-350.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield-revamp/header/shop/configure/hunter-350.webp", alt:"Royal Enfield Hunter 350 motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer product image · Royal Enfield Hunter 350", sourceUrl: "https://www.royalenfield.com/in/en/motorcycles/hunter-350/", lastChecked: "2026-09-24"
+    src:"/media/motorcycles/royal-enfield-hunter-350.webp", sourceImageUrl: "https://static-cdn.cars24.com/prod/new-bike-cms/Royal-Enfield/Hunter-350/2025/01/01/b9127f64-b4f2-425b-aa82-01bce35d485d-Royal-Enfield_Hunter-350_Dapper-White_-cce0fd.png?dpr=3&format=auto&optimize=low&quality=80&w=1000", alt:"Royal Enfield Hunter 350 motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Bikes24 / Royal Enfield", sourceLabel: "Catalog product image · Royal Enfield Hunter 350", sourceUrl: "https://www.bikes24.com/royal-enfield/hunter-350/", lastChecked: "2026-09-24"
   },
   {
     id:"royal-enfield-himalayan-450-editorial", entityType:"motorcycle", entityId:"royal-enfield-himalayan-450", role:"primary",
@@ -807,13 +807,13 @@ export const entityMedia: EntityMedia[] = [
   // Images for the additional models added in this expansion.
   {
     id:"bmw-g-310-r-editorial", entityType:"motorcycle", entityId:"bmw-g-310-r", role:"primary",
-    src:"/media/motorcycles/bmw-g-310-r.webp", sourceImageUrl: "https://www.bmwmotorrad.com.ph/content/dam/bmwmotorradnsc/common/multiimages/images/models/roadster/g310r-2020/2023/productstage/nsc-g310r-P0N2L-multiimage-2560x1440.jpg.asset.1732605080282.jpg", alt:"BMW G 310 R 2023 motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder: "BMW Motorrad", sourceLabel: "Manufacturer product image · BMW G 310 R", sourceUrl: "https://www.bmwmotorrad.com.ph/en/models/roadster/g310r.html", lastChecked: "2026-09-24"
+    src:"/media/motorcycles/bmw-g-310-r.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=image&attachment=1&dokNo=P90407659", alt:"BMW G 310 R 2023 motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "BMW Group", sourceLabel: "Official BMW Motorrad studio image · G 310 R", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90407659/The-new-BMW-G-310-R-base-colour-Polar-White-11-2020", lastChecked: "2026-09-24"
   },
   {
-    id:"bmw-r-1300-gs-editorial", entityType:"motorcycle", entityId:"bmw-r-1300-gs", role:"primary", sourceImageUrl:"https://mediapool.bmwgroup.com/cache/P9/202511/P90624522/P90624522-bmw-r-1300-gs-2250px.jpg",
+    id:"bmw-r-1300-gs-editorial", entityType:"motorcycle", entityId:"bmw-r-1300-gs", role:"primary", sourceImageUrl: "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=image&attachment=1&dokNo=P90524533",
     src:"/media/motorcycles/bmw-r-1300-gs.webp", alt:"BMW R 1300 GS adventure motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"BMW Group", sourceLabel:"Official BMW Motorrad media image · R 1300 GS", sourceUrl:"https://www.press.bmwgroup.com/global/photo/detail/P90624522/BMW-R-1300-GS", lastChecked: "2026-09-24"
+    rightsStatus:"external-reference", rightsHolder: "BMW Group", sourceLabel: "Official BMW Motorrad studio image · R 1300 GS", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90524533/die-neue-bmw-r-1300-gs-trophy-09/2023", lastChecked: "2026-09-24"
   },
   {
     id:"cfmoto-450nk-editorial", entityType:"motorcycle", entityId:"cfmoto-450nk", role:"primary",
