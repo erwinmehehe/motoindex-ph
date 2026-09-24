@@ -900,7 +900,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "triumph-speed-twin-900-manual", entityType: "motorcycle", entityId: "triumph-speed-twin-900", role: "primary",
-    src:"/media/motorcycles/triumph-speed-twin-900.webp", sourceImageUrl:"https://media.triumphmotorcycles.co.uk/image/upload/t_/c_limit%2Cw_3840/f_auto/q_auto%3Aeco/v1726581550/ACC_SpeedTwin900_MY25_CW4I2017_GE_fvfq08?_a=BAVMn6ID0", alt: "Triumph Speed Twin 900 motorcycle", width:1200, height:1200,
+    src:"/media/motorcycles/triumph-speed-twin-900.webp", sourceImageUrl:"https://media.triumphmotorcycles.co.uk/image/upload/w_1080,c_scale/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/speed%20twin%20900%202025/speed%20twin%20900%20my25/speed-twin-900-my25-purewhite-rhs-1080.png?bc=transparent", alt: "Triumph Speed Twin 900 motorcycle", width:1200, height:1200,
     rightsStatus: "external-reference", rightsHolder: "Triumph Motorcycles", sourceLabel: "Manufacturer image · Speed Twin 900", sourceUrl:"https://www.triumphmotorcycles.ph/bikes/classic/speed/speed-twin-900", lastChecked: "2026-09-21"
   },
   {
@@ -1035,7 +1035,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "kawasaki-ninja-650-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-ninja-650", role: "primary",
-    src: "/media/motorcycles/kawasaki-ninja-650.webp", sourceImageUrl: "https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/ninja-650/26EX650P_S_242GN1ALFA2CG_A.jpg", alt: "Kawasaki Ninja 650 sport motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/kawasaki-ninja-650.webp", sourceImageUrl: "https://www.kawasaki.eu/en/EICMA/Ninja_650/_jcr_content/root/responsivecontainergrid/kaw_columncontrol_19/col_1/kaw_carousel/image_core_525122719.coreimg.jpeg/1761734427705/26ex650p-s-44tgn1drf3cg-a.jpeg", alt: "Kawasaki Ninja 650 sport motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Ninja 650", sourceUrl: "https://www.kawasaki.eu/en/EICMA/Ninja_650.html", lastChecked: "2026-09-23"
   },
   {
@@ -1045,12 +1045,12 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "kawasaki-versys-650-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-versys-650", role: "primary",
-    src: "/media/motorcycles/kawasaki-versys-650.webp", sourceImageUrl: "https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/versys-650/26KLE650H_J_44TBU1AFA2CG_C.jpg", alt: "Kawasaki Versys 650 touring motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/kawasaki-versys-650.webp", sourceImageUrl: "https://www.kawasaki.eu/en/EICMA/Versys_650/_jcr_content/root/responsivecontainergrid/kaw_columncontrol_19/col_1/kaw_carousel/image_core_525122719.coreimg.jpeg/1762081032826/26my-versys-650-tourer-gy1-front.jpeg", alt: "Kawasaki Versys 650 touring motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Versys 650", sourceUrl: "https://www.kawasaki.eu/en/EICMA/Versys_650.html", lastChecked: "2026-09-23"
   },
   {
     id: "kawasaki-vulcan-s-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-vulcan-s", role: "primary",
-    src: "/media/motorcycles/kawasaki-vulcan-s.webp", sourceImageUrl: "https://www.kawasaki.eu/content/dam/europe/master/eicma-2025/vulcan-s/26EN650D_M_44TGY1ARS2CG_C.jpg", alt: "Kawasaki Vulcan S cruiser motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/kawasaki-vulcan-s.webp", sourceImageUrl: "https://www.kawasaki.eu/en/EICMA/Vulcan_S/_jcr_content/root/responsivecontainergrid/kaw_columncontrol_19/col_1/kaw_carousel/image_core_525122719.coreimg.jpeg/1759331228333/26en650d-m-44tgy1drf1cg-a.jpeg", alt: "Kawasaki Vulcan S cruiser motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Corp., U.S.A.", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Vulcan S", sourceUrl: "https://www.kawasaki.eu/en/EICMA/Vulcan_S.html", lastChecked: "2026-09-23"
   },
   {
@@ -1075,12 +1075,12 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "triumph-daytona-660-triumph-official", entityType: "motorcycle", entityId: "triumph-daytona-660", role: "primary",
-    src: "/media/motorcycles/triumph-daytona-660.webp", sourceImageUrl: "https://media.triumphmotorcycles.co.uk/image/upload/t_/c_limit,w_3840/f_auto/q_auto:eco/v1770648998/Daytona_660_MY26_4553_JP_dlstgh?_a=BAVMn6ID0", alt: "Triumph Daytona 660 sport motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/triumph-daytona-660.webp", sourceImageUrl: "https://media.triumphmotorcycles.co.uk/image/upload/w_1080,c_scale/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/roadsters-supersports/my24/lk2_lj2_daytona_660/daytona_660_fixed/web/1080/daytona%20660_my24_satin%20granite_rhs_1080px.png?bc=transparent&mw=1080", alt: "Triumph Daytona 660 sport motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Triumph Motorcycles", sourceLabel: "Manufacturer-hosted image reference · Triumph Daytona 660", sourceUrl: "https://www.triumphmotorcycles.com/motorcycles/sport/daytona/daytona-660", lastChecked: "2026-09-23"
   },
   {
     id: "triumph-tiger-sport-660-triumph-official", entityType: "motorcycle", entityId: "triumph-tiger-sport-660", role: "primary",
-    src: "/media/motorcycles/triumph-tiger-sport-660.webp", sourceImageUrl: "https://media.triumphmotorcycles.co.uk/image/upload/t_triumph_square/c_limit,w_3840/f_auto/q_auto:eco/v1767708363/TigerSport660_MY26_11_MP_qwlgrp?_a=BAVMn6ID0", alt: "Triumph Tiger Sport 660 motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/triumph-tiger-sport-660.webp", sourceImageUrl: "https://media.triumphmotorcycles.co.uk/image/upload/w_1080,c_scale/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/tiger%20sport%20660%202025/cgis/tiger-sport-660-my25-roulette-green-rhs-1080.png?bc=transparent", alt: "Triumph Tiger Sport 660 motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Triumph Motorcycles", sourceLabel: "Manufacturer-hosted image reference · Triumph Tiger Sport 660", sourceUrl: "https://www.triumphmotorcycles.com/motorcycles/adventure/tiger-sport/tiger-sport-660", lastChecked: "2026-09-23"
   },
   {
