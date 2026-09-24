@@ -900,7 +900,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "triumph-speed-twin-900-manual", entityType: "motorcycle", entityId: "triumph-speed-twin-900", role: "primary",
-    src:"/media/motorcycles/triumph-speed-twin-900.webp", sourceImageUrl:"https://www.triumphmotorcycles.com/motorcycles/classic/bonneville-speed-twin-900/c_scale/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/speed%20twin%20900%202025/speed%20twin%20900%20my25/speed-twin-900-my25-purewhite-rhs-1080.png?bc=transparent&mw=1080", alt: "Triumph Speed Twin 900 motorcycle", width:1200, height:1200,
+    src:"/media/motorcycles/triumph-speed-twin-900.webp", sourceImageUrl:"https://media.triumphmotorcycles.co.uk/image/upload/w_1080,c_scale/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/speed%20twin%20900%202025/speed%20twin%20900%20my25/speed-twin-900-my25-purewhite-rhs-1080.png?bc=transparent", alt: "Triumph Speed Twin 900 motorcycle", width:1200, height:1200,
     rightsStatus: "external-reference", rightsHolder: "Triumph Motorcycles", sourceLabel: "Manufacturer image · Speed Twin 900", sourceUrl:"https://www.triumphmotorcycles.ph/bikes/classic/speed/speed-twin-900", lastChecked: "2026-09-21"
   },
   {
@@ -1080,7 +1080,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "triumph-tiger-sport-660-triumph-official", entityType: "motorcycle", entityId: "triumph-tiger-sport-660", role: "primary",
-    src: "/media/motorcycles/triumph-tiger-sport-660.webp", sourceImageUrl: "https://www.triumphmotorcycles.com/motorcycles/adventure/tiger-sport-660/c_scale/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/tiger%20sport%20660%202025/cgis/tiger-sport-660-my25-roulette-green-rhs-1080.png?bc=transparent&mw=1080", alt: "Triumph Tiger Sport 660 motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/triumph-tiger-sport-660.webp", sourceImageUrl: "https://media.triumphmotorcycles.co.uk/image/upload/w_1080,c_scale/f_auto/q_auto:eco/sitecoremedialibrary/media-library/images/motorcycles/tiger%20sport%20660%202025/cgis/tiger-sport-660-my25-roulette-green-rhs-1080.png?bc=transparent", alt: "Triumph Tiger Sport 660 motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Triumph Motorcycles", sourceLabel: "Manufacturer-hosted image reference · Triumph Tiger Sport 660", sourceUrl: "https://www.triumphmotorcycles.com/motorcycles/adventure/tiger-sport/tiger-sport-660", lastChecked: "2026-09-23"
   },
   {
