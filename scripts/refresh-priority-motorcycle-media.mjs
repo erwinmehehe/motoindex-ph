@@ -71,7 +71,8 @@ async function fetchBuffer(url) {
     headers: {
       "user-agent": "Mozilla/5.0 MotoIndexMediaQA/1.0",
       accept: "image/avif,image/webp,image/png,image/jpeg,*/*;q=0.8"
-    }
+    },
+    signal: AbortSignal.timeout(20000)
   });
   if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
   const type = response.headers.get("content-type") || "";
@@ -82,7 +83,8 @@ async function fetchBuffer(url) {
 async function imageUrlFromAlt(pageUrl, wantedAlt) {
   const response = await fetch(pageUrl, {
     redirect: "follow",
-    headers: { "user-agent": "Mozilla/5.0 MotoIndexMediaQA/1.0" }
+    headers: { "user-agent": "Mozilla/5.0 MotoIndexMediaQA/1.0" },
+    signal: AbortSignal.timeout(20000)
   });
   if (!response.ok) throw new Error(`HTTP ${response.status} for ${pageUrl}`);
   const html = await response.text();
