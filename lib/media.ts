@@ -234,9 +234,9 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus: "external-reference", rightsHolder: "Philippine dealer network", sourceLabel: "Authorized-dealer image reference · Authorized PH dealer Raider J Crossover", sourceUrl: "https://motortrade.com.ph/motorcycles/suzuki-raider-j-crossover-fj110lb2/", lastChecked: "2026-08-25"
   },
   {
-    id: "suzuki-raider-pro-manufacturer", entityType: "motorcycle", entityId: "suzuki-raider-pro", role: "primary",
-    src: "/media/motorcycles/suzuki-raider-pro.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2025/11/DSC7574-360x240.jpg", alt: "Suzuki Raider PRO motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted image reference · Suzuki Philippines Raider PRO", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/underbone/raider-pro/", lastChecked: "2026-08-25"
+    id: "suzuki-raider-pro-suzuki-ph-final", entityType: "motorcycle", entityId: "suzuki-raider-pro", role: "primary",
+    src: "/media/motorcycles/suzuki-raider-pro.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2025/11/RPTYNov11-1.png", alt: "Suzuki Raider PRO motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted Philippine image reference · Suzuki Raider PRO", sourceUrl: "https://mc.suzuki.com.ph/the-progressive-edge-suzuki-launches-the-5th-generation-raider-r150-series-in-the-philippines/", lastChecked: "2026-09-24"
   },
   {
     id: "suzuki-gixxer-155-manufacturer", entityType: "motorcycle", entityId: "suzuki-gixxer-155", role: "primary",
@@ -794,9 +794,9 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus:"external-reference", rightsHolder:"Motociclismo", sourceLabel:"Editorial product image · Triumph Scrambler 400 X", sourceUrl:"https://www.motociclismo.es/novedades/triumph-speed-scrambler-400-x-nueva-categoria_278903_102.html", lastChecked:"2026-09-08"
   },
   {
-    id:"vespa-primavera-150-editorial", entityType:"motorcycle", entityId:"vespa-primavera-150", role:"primary",
-    src:"/media/motorcycles/vespa-primavera-150.webp", sourceImageUrl:"https://cdn.dealerspike.com/imglib/v1/800x600/imglib/Assets/Inventory/63/C4/63C4AFF1-3775-4831-A49C-B8C5C5FBB69F.jpg", alt:"Vespa Primavera 150 scooter product image", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Rahal Piaggio", sourceLabel:"Dealer product image · Vespa Primavera 150", sourceUrl:"https://www.rahalpiaggio.com/New-Inventory-2025-Vespa-Motorcycle-Scooter-Primavera-150-Rahal-Piaggio-17164839", lastChecked:"2026-09-08"
+    id: "vespa-primavera-150-vespa-store", entityType: "motorcycle", entityId: "vespa-primavera-150", role: "primary",
+    src: "/media/motorcycles/vespa-primavera-150.webp", sourceImageUrl: "https://storeusa.vespa.com/img/models/PRIMAVERA%20150/415/mainimg_primavera-150-metallic-orange.png", alt: "Vespa Primavera 150 scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Piaggio Group", sourceLabel: "Manufacturer store image reference · Vespa Primavera 150", sourceUrl: "https://storeusa.vespa.com/primavera/primavera-150.aspx", lastChecked: "2026-09-24"
   },
   {
     id:"vespa-sprint-150-editorial", entityType:"motorcycle", entityId:"vespa-sprint-150", role:"primary",
@@ -1192,6 +1192,71 @@ export const entityMedia: EntityMedia[] = [
     id: "kymco-dtx360-300-verified-20260923", entityType: "motorcycle", entityId: "kymco-dtx360-300", role: "primary",
     src: "/media/motorcycles/kymco-dtx360-300.webp", sourceImageUrl: "https://kymco.com.ph/wp-content/uploads/2024/02/PL_COL6-700x467.png", alt: "Kymco DTX360 300 motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Kymco Philippines", sourceLabel: "Manufacturer-hosted image reference · Kymco DTX360 300", sourceUrl: "https://kymco.com.ph/product/dtx-360-300/", lastChecked: "2026-09-23"
+  },
+  {
+    id: "aprilia-tuareg-660-aprilia-store", entityType: "motorcycle", entityId: "aprilia-tuareg-660", role: "primary",
+    src: "/media/motorcycles/aprilia-tuareg-660.webp", sourceImageUrl: "https://storeusa.aprilia.com/img/models/Tuareg%20660/model_img_detail_1-Tuareg%20660.jpg", alt: "Aprilia Tuareg 660 adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Aprilia", sourceLabel: "Manufacturer store image reference · Aprilia Tuareg 660", sourceUrl: "https://storeusa.aprilia.com/tuareg660.aspx", lastChecked: "2026-09-24"
+  },
+  {
+    id: "aprilia-tuono-660-aprilia-store", entityType: "motorcycle", entityId: "aprilia-tuono-660", role: "primary",
+    src: "/media/motorcycles/aprilia-tuono-660.webp", sourceImageUrl: "https://storeusa.aprilia.com/img/slides/mainimg_tuono-660-factory-dark-banshee.png", alt: "Aprilia Tuono 660 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Aprilia", sourceLabel: "Manufacturer store image reference · Aprilia Tuono 660", sourceUrl: "https://storeusa.aprilia.com/tuono660.aspx", lastChecked: "2026-09-24"
+  },
+  {
+    id: "bajaj-pulsar-n125-bajaj-official", entityType: "motorcycle", entityId: "bajaj-pulsar-n125", role: "primary",
+    src: "/media/motorcycles/bajaj-pulsar-n125.webp", sourceImageUrl: "https://cdn.bajajauto.com/-/media/assets/bajajauto/bikes/pulsar-k-2024/360-images/mid-variants/caribbean-blue-for-n125/00.png", alt: "Bajaj Pulsar N125 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bajaj Auto", sourceLabel: "Manufacturer-hosted image reference · Bajaj Pulsar N125", sourceUrl: "https://www.bajajauto.com/bikes/pulsar/pulsar-n125", lastChecked: "2026-09-24"
+  },
+  {
+    id: "husqvarna-norden-901-husqvarna-ph", entityType: "motorcycle", entityId: "husqvarna-norden-901", role: "primary",
+    src: "/media/motorcycles/husqvarna-norden-901.webp", sourceImageUrl: "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_SEGMENT_menu-norden901-my21-01_%23SALL_%23AEPI_%23V1.png", alt: "Husqvarna Norden 901 adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Husqvarna Motorcycles", sourceLabel: "Manufacturer-hosted Philippine image reference · Husqvarna Norden 901", sourceUrl: "https://www.husqvarna-motorcycles.com/en-ph/models/travel/norden-901-2022.html", lastChecked: "2026-09-24"
+  },
+  {
+    id: "husqvarna-svartpilen-200-husqvarna-ph", entityType: "motorcycle", entityId: "husqvarna-svartpilen-200", role: "primary",
+    src: "/media/motorcycles/husqvarna-svartpilen-200.webp", sourceImageUrl: "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_SEGMENT_menu-svartpilen-200-my22_%23SALL_%23AEPI_%23V1.png", alt: "Husqvarna Svartpilen 200 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Husqvarna Motorcycles", sourceLabel: "Manufacturer-hosted Philippine image reference · Husqvarna Svartpilen 200", sourceUrl: "https://www.husqvarna-motorcycles.com/en-ph/models/naked/svartpilen/svartpilen-200-2023.html", lastChecked: "2026-09-24"
+  },
+  {
+    id: "kawasaki-ninja-1000-kawasaki-jp", entityType: "motorcycle", entityId: "kawasaki-ninja-1000", role: "primary",
+    src: "/media/motorcycles/kawasaki-ninja-1000.webp", sourceImageUrl: "https://content2.kawasaki.com/ContentStorage/KMJ/Products/5291/0ad33454-8f03-491b-a91b-63a420a284fe.jpg?w=510&h=340&mode=crop", alt: "Kawasaki Ninja 1000SX sport touring motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Japan", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Ninja 1000SX", sourceUrl: "https://www.kawasaki-motors.com/ja-jp/motorcycle/ninja/sport/ninja-1000sx/2024-ninja-1000sx", lastChecked: "2026-09-24"
+  },
+  {
+    id: "kawasaki-z1000-r-edition-motosport", entityType: "motorcycle", entityId: "kawasaki-z1000-r-edition", role: "primary",
+    src: "/media/motorcycles/kawasaki-z1000-r-edition.webp", sourceImageUrl: "https://www.motosport.com.gr/wp-content/uploads/2016/11/c66733db6fd9c6779ab24f57f69f5201_XL.jpg", alt: "Kawasaki Z1000 R Edition motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motosport", sourceLabel: "Exact-model editorial image reference · Kawasaki Z1000 R Edition", sourceUrl: "https://www.motosport.com.gr/nea-kawasaki-z1000-r-edition-deltio-typou/", lastChecked: "2026-09-24"
+  },
+  {
+    id: "rusi-adventure-x-150i-v2-kamote", entityType: "motorcycle", entityId: "rusi-adventure-x-150i-v2", role: "primary",
+    src: "/media/motorcycles/rusi-adventure-x-150i-v2.webp", sourceImageUrl: "https://www.kamote.ph/cdn-cgi/image/lossless=true,w=760,h=760,f=webp,fit=contain/https://www.kamote.ph/Gallery/Rusi/Adventure_X_150i_V2.webp", alt: "Rusi Adventure X 150i V2 scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kamote.ph", sourceLabel: "Philippine exact-model image reference · Rusi Adventure X 150i V2", sourceUrl: "https://www.kamote.ph/motorcycle/rusi-adventure-x-150i-v2", lastChecked: "2026-09-24"
+  },
+  {
+    id: "rusi-cyclone-400-kamote", entityType: "motorcycle", entityId: "rusi-cyclone-400", role: "primary",
+    src: "/media/motorcycles/rusi-cyclone-400.webp", sourceImageUrl: "https://www.kamote.ph/Gallery/Rusi/Cyclone_400.webp", alt: "Rusi Cyclone 400 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kamote.ph", sourceLabel: "Philippine exact-model image reference · Rusi Cyclone 400", sourceUrl: "https://www.kamote.ph/motorcycle/rusi-cyclone-400", lastChecked: "2026-09-24"
+  },
+  {
+    id: "rusi-flash-150x-kamote", entityType: "motorcycle", entityId: "rusi-flash-150x", role: "primary",
+    src: "/media/motorcycles/rusi-flash-150x.webp", sourceImageUrl: "https://www.kamote.ph/Gallery/Rusi/Flash_150X.webp", alt: "Rusi Flash 150X motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kamote.ph", sourceLabel: "Philippine exact-model image reference · Rusi Flash 150X", sourceUrl: "https://www.kamote.ph/motorcycle/rusi-flash-150x", lastChecked: "2026-09-24"
+  },
+  {
+    id: "zontes-150x-bristol-ph", entityType: "motorcycle", entityId: "zontes-150x", role: "primary",
+    src: "/media/motorcycles/zontes-150x.webp", sourceImageUrl: "https://static.wixstatic.com/media/fc6fc6_f0f179bd64ef429899c029d40bd8876d~mv2.png", alt: "Zontes 150X scooter in Matte Black", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bristol Motorcycles / Zontes", sourceLabel: "Official Philippine distributor image reference · Zontes 150X", sourceUrl: "https://www.bristol-motorcycles.com/150x", lastChecked: "2026-09-24"
+  },
+  {
+    id: "zontes-400g-bristol-ph-final", entityType: "motorcycle", entityId: "zontes-400g", role: "primary",
+    src: "/media/motorcycles/zontes-400g.webp", sourceImageUrl: "https://static.wixstatic.com/media/fc6fc6_f0c468ac8cf34e92a213e2901363cce2~mv2.png", alt: "Zontes 400G adventure scooter in Black", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bristol Motorcycles / Zontes", sourceLabel: "Official Philippine distributor image reference · Zontes 400G", sourceUrl: "https://www.bristol-motorcycles.com/400g", lastChecked: "2026-09-24"
+  },
+  {
+    id: "zontes-703rr-bristol-ph", entityType: "motorcycle", entityId: "zontes-703rr", role: "primary",
+    src: "/media/motorcycles/zontes-703rr.webp", sourceImageUrl: "https://static.wixstatic.com/media/fc6fc6_653ba8e34ba14041a83275d0ec3a24f0~mv2.png", alt: "Zontes 703RR sport motorcycle in Podium Red", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bristol Motorcycles / Zontes", sourceLabel: "Official Philippine distributor image reference · Zontes 703RR", sourceUrl: "https://www.bristol-motorcycles.com/703rr", lastChecked: "2026-09-24"
   },
 ];
 
