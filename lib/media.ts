@@ -915,7 +915,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "royal-enfield-bear-650-manual", entityType: "motorcycle", entityId: "royal-enfield-bear-650", role: "primary",
-    src: "/media/motorcycles/royal-enfield-bear-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/bear-650/int-bear-650.jpg", alt: "Royal Enfield Bear 650 motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/royal-enfield-bear-650.webp", sourceImageUrl: "https://cdn.bikedekho.com/upload/userfiles/images/6721ffc56d6e7.jpg", alt: "Royal Enfield Bear 650 motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer image · Bear 650", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/bear-650/", lastChecked: "2026-09-21"
   },
   {
@@ -1085,7 +1085,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "royal-enfield-super-meteor-650-re-ph", entityType: "motorcycle", entityId: "royal-enfield-super-meteor-650", role: "primary",
-    src: "/media/motorcycles/royal-enfield-super-meteor-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/super-meteor-650/motorcycles/thematic-banner.webp", alt: "Royal Enfield Super Meteor 650 cruiser motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/royal-enfield-super-meteor-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/super-meteor-650/motorcycles/colors/studio-shots/astral-black/new/astral_black_000.webp", alt: "Royal Enfield Super Meteor 650 cruiser motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer-hosted Philippine image reference · Super Meteor 650", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/super-meteor-650/", lastChecked: "2026-09-23"
   },
   {
@@ -1150,7 +1150,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "bristol-basilica-125-verified-20260923", entityType: "motorcycle", entityId: "bristol-basilica-125", role: "primary",
-    src: "/media/motorcycles/bristol-basilica-125.webp", sourceImageUrl: "https://static.wixstatic.com/media/fc6fc6_db35aa2647f649d78cc24a614f492230~mv2.png", alt: "Bristol Basilica 125 motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/bristol-basilica-125.webp", sourceImageUrl: "https://static.wixstatic.com/media/fc6fc6_5396efc22a11441299b9025ed3df6364~mv2.png", alt: "Bristol Basilica 125 motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Bristol Motorcycles", sourceLabel: "Philippine distributor image reference · Bristol Basilica 125", sourceUrl: "https://www.bristol-motorcycles.com/basilica", lastChecked: "2026-09-23"
   },
   {
@@ -1160,7 +1160,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "royal-enfield-shotgun-650-verified-20260923", entityType: "motorcycle", entityId: "royal-enfield-shotgun-650", role: "primary",
-    src: "/media/motorcycles/royal-enfield-shotgun-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/shotgun-650/gallery/new/855x480/gallery-855x480-1.jpg", alt: "Royal Enfield Shotgun 650 motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/royal-enfield-shotgun-650.webp", sourceImageUrl: "https://www.royalenfield.com/content/dam/royal-enfield/shotgun-650/colors/stencil-white/stencil-white-000.png", alt: "Royal Enfield Shotgun 650 motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Royal Enfield", sourceLabel: "Manufacturer-hosted image reference · Royal Enfield Shotgun 650", sourceUrl: "https://www.royalenfield.com/ph/en/motorcycles/shotgun-650/", lastChecked: "2026-09-23"
   },
   {
@@ -1185,7 +1185,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "kymco-sky-town-150-verified-20260923", entityType: "motorcycle", entityId: "kymco-sky-town-150", role: "primary",
-    src: "/media/motorcycles/kymco-sky-town-150.webp", sourceImageUrl: "https://kymco.com.ph/wp-content/uploads/2024/10/SKY-TOWN-150.png", alt: "Kymco Sky Town 150 motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/kymco-sky-town-150.webp", sourceImageUrl: "https://kymco.com.ph/wp-content/uploads/2024/11/SKYTOWN1.png", alt: "Kymco Sky Town 150 motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Kymco Philippines", sourceLabel: "Manufacturer-hosted image reference · Kymco Sky Town 150", sourceUrl: "https://kymco.com.ph/product/sky-town-150/", lastChecked: "2026-09-23"
   },
   {
@@ -1210,12 +1210,12 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "husqvarna-norden-901-husqvarna-ph", entityType: "motorcycle", entityId: "husqvarna-norden-901", role: "primary",
-    src: "/media/motorcycles/husqvarna-norden-901.webp", sourceImageUrl: "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_SEGMENT_menu-norden901-my21-01_%23SALL_%23AEPI_%23V1.png", alt: "Husqvarna Norden 901 adventure motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/husqvarna-norden-901.webp", sourceImageUrl: "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_norden901-90-right-my2021_%23SALL_%23AEPI_%23V1.png", alt: "Husqvarna Norden 901 adventure motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Husqvarna Motorcycles", sourceLabel: "Manufacturer-hosted Philippine image reference · Husqvarna Norden 901", sourceUrl: "https://www.husqvarna-motorcycles.com/en-ph/models/travel/norden-901-2022.html", lastChecked: "2026-09-24"
   },
   {
     id: "husqvarna-svartpilen-200-husqvarna-ph", entityType: "motorcycle", entityId: "husqvarna-svartpilen-200", role: "primary",
-    src: "/media/motorcycles/husqvarna-svartpilen-200.webp", sourceImageUrl: "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_SEGMENT_menu-svartpilen-200-my22_%23SALL_%23AEPI_%23V1.png", alt: "Husqvarna Svartpilen 200 motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/husqvarna-svartpilen-200.webp", sourceImageUrl: "https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_svartpilen200-my22-90-right_%23SALL_%23AEPI_%23V1.png", alt: "Husqvarna Svartpilen 200 motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Husqvarna Motorcycles", sourceLabel: "Manufacturer-hosted Philippine image reference · Husqvarna Svartpilen 200", sourceUrl: "https://www.husqvarna-motorcycles.com/en-ph/models/naked/svartpilen/svartpilen-200-2023.html", lastChecked: "2026-09-24"
   },
   {
