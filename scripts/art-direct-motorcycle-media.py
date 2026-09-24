@@ -21,7 +21,7 @@ SKIP_IDS = {
     "vespa-primavera-150",
 }
 
-ONLY_IDS = {item.strip() for item in os.environ.get("MOTORCYCLE_MEDIA_ONLY", "").split(",") if item.strip()}\n\n
+ONLY_IDS = {item.strip() for item in os.environ.get("MOTORCYCLE_MEDIA_ONLY", "").split(",") if item.strip()}
 def border_pixels(image: np.ndarray, band: int) -> np.ndarray:
     top = image[:band, :, :3].reshape(-1, 3)
     bottom = image[-band:, :, :3].reshape(-1, 3)
