@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 import cv2
@@ -18,6 +19,11 @@ SKIP_IDS = {
     # These assets are intentionally suppressed at runtime until an exact verified photo exists.
     "suzuki-raider-pro",
     "vespa-primavera-150",
+}
+CUSTOM_CROPS = {
+    # The historical Kawasaki Philippines announcement is first-party but includes headline/caption art.
+    # Crop to the actual motorcycle before segmentation.
+    "kawasaki-ninja-400": (0.26, 0.39, 0.51, 0.35),
 }
 
 
@@ -118,8 +124,8 @@ def refine_mask(mask: np.ndarray) -> np.ndarray:
         largest_label = int(np.argmax(areas)) + 1
         largest = stats[largest_label]
         lx, ly, lw, lh = [int(v) for v in largest[:4]]
-        pad_x = max(24, int(lw * 0.12))
-        pad_y = max(24, int(lh * 0.12))
+        pad_x = max(16, int(lw * 0.06))
+        pad_y = max(16, int(lh * 0.06))
         x0, x1 = max(0, lx - pad_x), min(mask.shape[1], lx + lw + pad_x)
         y0, y1 = max(0, ly - pad_y), min(mask.shape[0], ly + lh + pad_y)
         keep = np.zeros_like(hard)
@@ -241,6 +247,15 @@ def process(path: Path) -> dict:
     if image is None:
         return {"file": path.name, "status": "error", "error": "decode failed"}
 
+    crop = CUSTOM_CROPS.get(entity_id)
+    if crop:
+        h, w = image.shape[:2]
+        left, top, width, height = crop
+        x0, y0 = int(round(w * left)), int(round(h * top))
+        x1 = min(w, x0 + int(round(w * width)))
+        y1 = min(h, y0 + int(round(h * height)))
+        image = image[y0:y1, x0:x1]
+
     try:
         cutout, alpha, method = subject_cutout(image)
         canvas, stats = compose_canvas(cutout, alpha)
@@ -253,7 +268,12 @@ def process(path: Path) -> dict:
 
 
 def main() -> int:
-    files = sorted(MEDIA_DIR.glob("*.webp"))
+    only_arg = next((arg for arg in sys.argv[1:] if arg.startswith("--only=")), None)
+    only_ids = set(only_arg.split("=", 1)[1].split(",")) if only_arg else None
+    files = sorted(
+        path for path in MEDIA_DIR.glob("*.webp")
+        if only_ids is None or path.stem in only_ids
+    )
     results = [process(path) for path in files]
     updated = sum(r["status"] == "updated" for r in results)
     skipped = sum(r["status"].startswith("skipped") for r in results)
