@@ -144,7 +144,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "yamaha-sniper-155-wheeltek", entityType: "motorcycle", entityId: "yamaha-sniper-155", role: "primary",
-    src: "/media/motorcycles/yamaha-sniper-155.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/03/SNIPER-155-matte-gray-300x300.jpg", alt: "Yamaha Sniper 155 motorcycle in matte gray", width: 1200, height: 1200,
+    src: "/media/motorcycles/yamaha-sniper-155.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/03/SNIPER-155-matte-gray.jpg", alt: "Yamaha Sniper 155 motorcycle in matte gray", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Sniper 155", sourceUrl: "https://wheeltek.com.ph/products/regular-bikes/page/5/", lastChecked: "2026-08-25"
   },
   {
@@ -159,7 +159,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-winner-x-wheeltek", entityType: "motorcycle", entityId: "honda-winner-x", role: "primary",
-    src: "/media/motorcycles/honda-winner-x.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/03/Winner-X-Standard-ABS-Racing-Type-300x300.jpg", alt: "Honda Winner X ABS Racing Type motorcycle", width: 1200, height: 1200,
+    src: "/media/motorcycles/honda-winner-x.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/03/Winner-X-Standard-ABS-Racing-Type.jpg", alt: "Honda Winner X ABS Racing Type motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Winner X", sourceUrl: "https://wheeltek.com.ph/products/regular-bikes/", lastChecked: "2026-08-25"
   },
   {
