@@ -5,12 +5,31 @@ const root = process.cwd();
 const backfillPath = path.join(root, "scripts/backfill-product-media.mjs");
 const workflowPath = path.join(root, ".github/workflows/product-image-backfill.yml");
 const generatedPath = path.join(root, "lib/generatedProductMedia.ts");
+const helmetNormalizerPath = path.join(root, "scripts/art-direct-helmet-media.py");
+const motorcycleNormalizerPath = path.join(root, "scripts/art-direct-motorcycle-media.py");
 
 const backfill = fs.readFileSync(backfillPath, "utf8");
 const workflow = fs.readFileSync(workflowPath, "utf8");
 const generatedSource = fs.readFileSync(generatedPath, "utf8");
+const helmetNormalizer = fs.readFileSync(helmetNormalizerPath, "utf8");
+const motorcycleNormalizer = fs.readFileSync(motorcycleNormalizerPath, "utf8");
 
 const errors = [];
+
+for (const [label, source] of [
+  ["helmet normalizer", helmetNormalizer],
+  ["motorcycle normalizer", motorcycleNormalizer],
+]) {
+  if (/cv2\.(?:grabCut|floodFill)\s*\(/.test(source)) {
+    errors.push(`${label} must not use destructive foreground segmentation`);
+  }
+}
+if (!helmetNormalizer.includes("preserve-full-frame")) {
+  errors.push("helmet normalizer must preserve opaque full-frame sources");
+}
+if (!motorcycleNormalizer.includes("preserve-full-frame")) {
+  errors.push("motorcycle normalizer must preserve opaque full-frame sources");
+}
 
 if (backfill.includes("REBUILD_GENERATED_MEDIA")) {
   errors.push("backfill script must not expose destructive REBUILD_GENERATED_MEDIA behavior");
