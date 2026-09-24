@@ -44,5 +44,5 @@ export function SafeEntityImage({src,fallbackSrc,alt,width,height,sizes,priority
     return <Image {...common} fill style={{objectFit:"contain"}} />;
   }
 
-  return <Image {...common} width={width} height={height} />;
+  return <Image {...common} width={width} height={height} style={{objectFit:"contain",objectPosition:"center",maxWidth:"100%",maxHeight:"100%"}} />;
 }
