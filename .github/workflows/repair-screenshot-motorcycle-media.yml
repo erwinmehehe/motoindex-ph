@@ -7,6 +7,10 @@ on:
       - "scripts/repair-priority-motorcycle-media.mjs"
       - ".github/workflows/repair-screenshot-motorcycle-media.yml"
 
+concurrency:
+  group: screenshot-motorcycle-media-repair
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
