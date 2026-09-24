@@ -1,16 +1,17 @@
-name: Motorcycle Media Art Direction
+name: Motorcycle Media Final QA
 
 on:
   push:
-    branches: [fix/full-catalog-media-electric-ui]
+    branches: [fix/motorcycle-media-final-qa]
     paths:
+      - scripts/refresh-priority-motorcycle-media.mjs
       - scripts/art-direct-motorcycle-media.py
       - scripts/audit-motorcycle-media-art-direction.py
       - .github/workflows/motorcycle-media-art-direction.yml
   workflow_dispatch:
 
 concurrency:
-  group: motorcycle-media-art-direction-${{ github.ref }}
+  group: motorcycle-media-final-qa-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -27,6 +28,17 @@ jobs:
           ref: ${{ github.ref_name }}
           fetch-depth: 0
 
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Install Sharp
+        run: npm install --no-save --package-lock=false --ignore-scripts=false sharp@0.35.4
+
+      - name: Refresh manufacturer-hosted priority media
+        run: node scripts/refresh-priority-motorcycle-media.mjs
+
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
@@ -35,10 +47,10 @@ jobs:
       - name: Install image processing tools
         run: python -m pip install --disable-pip-version-check opencv-python-headless==4.12.0.88 numpy==2.2.6
 
-      - name: Art-direct motorcycle media
-        run: python scripts/art-direct-motorcycle-media.py
+      - name: Remove remaining promotional art from priority assets
+        run: python scripts/art-direct-motorcycle-media.py --only=honda-adv-160,kawasaki-ninja-400
 
-      - name: Audit white backgrounds and composition
+      - name: Audit full motorcycle catalog composition
         run: python scripts/audit-motorcycle-media-art-direction.py
 
       - name: Commit normalized motorcycle media
@@ -50,7 +62,7 @@ jobs:
             echo "No motorcycle media changes to commit."
             exit 0
           fi
-          git commit -m "Art-direct motorcycle images on white backgrounds"
+          git commit -m "Finalize motorcycle media QA assets"
           git fetch origin "${{ github.ref_name }}"
           git rebase "origin/${{ github.ref_name }}"
           git push origin "HEAD:${{ github.ref_name }}"
