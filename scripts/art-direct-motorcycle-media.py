@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
 
 import cv2
@@ -21,7 +20,7 @@ SKIP_IDS = {
     "vespa-primavera-150",
 }
 
-ONLY_IDS = {item.strip() for item in os.environ.get("MOTORCYCLE_MEDIA_ONLY", "").split(",") if item.strip()}
+
 def border_pixels(image: np.ndarray, band: int) -> np.ndarray:
     top = image[:band, :, :3].reshape(-1, 3)
     bottom = image[-band:, :, :3].reshape(-1, 3)
@@ -254,7 +253,7 @@ def process(path: Path) -> dict:
 
 
 def main() -> int:
-    files = [p for p in sorted(MEDIA_DIR.glob("*.webp")) if not ONLY_IDS or p.stem in ONLY_IDS]
+    files = sorted(MEDIA_DIR.glob("*.webp"))
     results = [process(path) for path in files]
     updated = sum(r["status"] == "updated" for r in results)
     skipped = sum(r["status"].startswith("skipped") for r in results)
