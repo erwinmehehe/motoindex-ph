@@ -705,13 +705,13 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"ducati-monster-937-plus-editorial", entityType:"motorcycle", entityId:"ducati-monster-937-plus", role:"primary",
-    src:"/media/motorcycles/ducati-monster-937-plus.webp", sourceImageUrl:"https://img2.stcrm.it/images/23721531/HOR_STD/1000x/my21-ducati-monster-plus-1-uc214632-mid.jpg", alt:"Ducati Monster 937 Plus naked motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Moto.it", sourceLabel:"Editorial product image · Ducati Monster Plus", sourceUrl:"https://www.moto.it/listino/ducati/monster-937/monster-937-plus-2021/dQ0yxQ", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/ducati-monster-937-plus.webp", sourceImageUrl: "https://images.ctfassets.net/x7j9qwvpvr5s/6pN73T6u1I1qaq8cizP7qV/b71f8207bba199bff55afb8198559993/Monster-937-Rd-MY22-Model-Preview-1050x650-v06.png", alt:"Ducati Monster 937 Plus naked motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Ducati", sourceLabel: "Manufacturer-hosted product image · Ducati Monster 937", sourceUrl: "https://www.ducati.com/br/pt/motos/monster/monster-937", lastChecked: "2026-09-24"
   },
   {
     id:"ducati-scrambler-nightshift-editorial", entityType:"motorcycle", entityId:"ducati-scrambler-nightshift", role:"primary",
-    src:"/media/motorcycles/ducati-scrambler-nightshift.webp", sourceImageUrl:"https://bxrepsol.s3.eu-west-1.amazonaws.com/static/2023/08/01042843/Foto-8-Ducati-Scrambler-Nighshift-1024x819.jpg", alt:"Ducati Scrambler Nightshift motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Box Repsol", sourceLabel:"Editorial product image · Ducati Scrambler Nightshift", sourceUrl:"https://www.boxrepsol.com/es/vive-tu-moto/motos-scrambler-cuales-son-y-sus-caracteristicas-principales/", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/ducati-scrambler-nightshift.webp", sourceImageUrl: "https://www.ducatiomaha.com/cdn/shop/files/Scrambler-Ducati_Nightshift-Emerald.png?v=1759436541", alt:"Ducati Scrambler Nightshift motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Ducati", sourceLabel: "Exact product image · Ducati Omaha dealer listing · Scrambler Nightshift", sourceUrl: "https://www.ducatiomaha.com/products/2026-ducati-scrambler-nightshift-emerald-green", lastChecked: "2026-09-24"
   },
   {
     id:"husqvarna-svartpilen-401-editorial", entityType:"motorcycle", entityId:"husqvarna-svartpilen-401", role:"primary",
