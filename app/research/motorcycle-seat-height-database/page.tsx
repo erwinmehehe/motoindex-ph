@@ -60,7 +60,7 @@ export default function MotorcycleSeatHeightDatabasePage() {
       description="Compare published seat height with curb weight, category and price before you shortlist a motorcycle. Use the numbers to narrow the field, then check your inseam and sit on the exact bike when possible."
       actions={<CTAGroup>
         <a className="button" href="#seat-height-table">Browse full database</a>
-        <Link className="button secondary" href="/recommendations/best-motorcycles-for-short-riders">Lower-seat guide</Link>
+        <Link className="button secondary" href="/recommendations#rider-fit">Lower-seat guidance</Link>
         <Link className="button secondary" href="/finder">Find a motorcycle</Link>
       </CTAGroup>}
     />
@@ -181,7 +181,7 @@ export default function MotorcycleSeatHeightDatabasePage() {
 
     <div className={styles.finalCta}>
       <div><span>Need a personal fit estimate?</span><h2>Use your inseam with the actual motorcycle data</h2><p>The finder and each model page combine seat height with other motorcycle data to help narrow choices. They still cannot replace an in-person fit check.</p></div>
-      <CTAGroup><Link className="button" href="/finder">Open motorcycle finder</Link><Link className="button secondary" href="/recommendations/best-motorcycles-for-short-riders">See lower-seat guide</Link></CTAGroup>
+      <CTAGroup><Link className="button" href="/finder">Open motorcycle finder</Link><Link className="button secondary" href="/recommendations#rider-fit">See rider-fit guidance</Link></CTAGroup>
     </div>
     <AuthorBox />
     <JsonLd data={dataset} />
