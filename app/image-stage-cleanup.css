@@ -221,13 +221,13 @@ html body .product-card{
   box-shadow:none!important;
 }
 html body .product-card-media{
-  height:172px!important;
-  min-height:172px!important;
+  height:210px!important;
+  min-height:210px!important;
   border:0!important;
   border-bottom:1px solid var(--product-line-soft)!important;
   background:#fff!important;
 }
-html body .product-card-media img{padding:14px!important}
+html body .product-card-media img{padding:8px!important}
 
 /* Long motorcycle pages: tighter rhythm, quieter separators and consistent
    card density. This is the shared fix for the oversized empty sections. */
