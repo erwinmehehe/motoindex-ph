@@ -60,6 +60,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const range = observedMarketRange(model);
   const priceChecks = priceChecksForModel(model.id);
   const verifiedVariants = getVerifiedVariantsForModel(model.id);
+  const financingPriceOptions = variantPriceOptions(model.id);
   const allColors = [...new Set([...model.colors, ...verifiedVariants.flatMap((variant) => variant.colors || [])])];
   const gearGuide = getModelGearGuide(model.id);
   const helmetCandidates = (gearGuide?.helmetIds || []).map((id) => helmetProducts.find((product) => product.id === id)).filter((product): product is NonNullable<typeof product> => Boolean(product && product.status === "verified"));
@@ -209,8 +210,8 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       {!isPrevious && <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
         <SectionHeader kicker="Monthly payment" titleId="installment-heading" title="Estimate the monthly commitment" description="Start from the published price, then replace the assumptions with the actual dealer or lender quote." />
-        <InstallmentCalculator price={range.from} priceOptions={variantPriceOptions(model.id)} />
-        <FinancingSnapshot modelName={`${model.make} ${model.model}`} price={range.from} />
+        <InstallmentCalculator price={range.from} priceOptions={financingPriceOptions} />
+        <FinancingSnapshot modelName={`${model.make} ${model.model}`} price={range.from} priceOptions={financingPriceOptions} />
         <div className="entity-tool-grid"><Link href={loanToolHref}><span>Need more control?</span><strong>Open the full loan calculator</strong><small>Change price, down payment, term and rate with a shareable URL.</small></Link></div>
       </section>}
 

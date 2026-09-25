@@ -36,6 +36,13 @@ const pages = [
 ];
 const widths = [390, 1440];
 const historicalResearchModels = new Set(["yamaha-nmax-v2", "yamaha-aerox-v2", "kawasaki-ninja-400", "honda-click-150i"]);
+const variantFinanceModels = new Map([
+  ["yamaha-aerox-v3", ["Standard", "SP"]],
+  ["yamaha-nmax-v3", ["Standard", "Tech Max"]],
+  ["honda-adv-160", ["ABS", "RoadSync"]],
+  ["honda-pcx-160", ["Standard", "RoadSync"]],
+  ["honda-cb650r", ["Standard", "E-Clutch"]]
+]);
 const failures = [];
 const results = [];
 
@@ -140,6 +147,8 @@ try {
         const commercial=sections.find(section=>/price, monthly payment and alternatives/i.test(section.querySelector('h2')?.textContent||''));
         const links=commercial?[...commercial.querySelectorAll('a')].map(a=>a.getAttribute('href')||''):[];
         const rect=commercial?.getBoundingClientRect();
+        const financing=document.querySelector('[data-financing-snapshot]');
+        const financingVariants=financing?[...financing.querySelectorAll('[data-financing-variant]')].map(el=>el.getAttribute('data-financing-variant')||''):[];
         return {
           title:document.title,
           h1:Boolean(h1),
@@ -155,6 +164,8 @@ try {
           priceIndex:links.some(href=>href.includes('/research/motorcycle-price-index-philippines')),
           financeIndex:links.some(href=>href.includes('/research/motorcycle-financing-index-philippines')),
           quoteLink:links.some(href=>href.includes('/get-quote/')),
+          financingMode:financing?.getAttribute('data-financing-snapshot')||'',
+          financingVariants,
           overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
         };
       })()`);
@@ -188,6 +199,13 @@ try {
       if (name === "honda-click-125i" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name !== "honda-crf150l" && !historicalResearchModels.has(name)) {
         if (!audit?.priceLink || !audit?.installmentLink) failures.push(`${width}px ${pathname}: price/monthly anchor links are incomplete.`);
+        const expectedVariants=variantFinanceModels.get(name);
+        if (expectedVariants) {
+          if (audit?.financingMode !== "variants") failures.push(`${width}px ${pathname}: financing snapshot is not variant-aware.`);
+          for (const label of expectedVariants) {
+            if (!audit?.financingVariants?.includes(label)) failures.push(`${width}px ${pathname}: financing snapshot missing ${label} variant.`);
+          }
+        }
         if (!audit?.priceIndex || !audit?.financeIndex) failures.push(`${width}px ${pathname}: research dataset links are incomplete.`);
         if (!audit?.quoteLink) failures.push(`${width}px ${pathname}: dealer quote link is missing.`);
       }
