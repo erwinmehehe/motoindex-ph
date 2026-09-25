@@ -489,3 +489,18 @@ html body .motorcycle-entity-page .motorcycle-hero-media img{
     max-height:calc(100% - 28px)!important;
   }
 }
+
+
+/* Model-specific card cleanup for source images with baked-in captions or excessive whitespace. */
+html body .model-card-media[data-entity-id="honda-cb650r"] img,
+html body .model-card-media[data-entity-id="honda-xl750-transalp"] img,
+html body .model-card-media[data-entity-id="honda-crf1100l-africa-twin"] img{
+  object-fit:cover!important;
+  object-position:center 42%!important;
+  padding:0!important;
+}
+html body .model-card-media[data-entity-id="suzuki-raider-pro"] img{
+  object-fit:cover!important;
+  object-position:center!important;
+  padding:0!important;
+}
