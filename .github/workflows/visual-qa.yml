@@ -91,6 +91,7 @@ jobs:
         run: node scripts/hub-layout-qa.mjs
 
       - name: Permanent visual regression matrix
+        if: github.event_name != 'pull_request'
         env:
           BASE_URL: http://127.0.0.1:3000
         run: npm run visual:matrix
