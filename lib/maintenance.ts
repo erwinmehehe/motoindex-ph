@@ -172,6 +172,24 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
     ],
     tirePressure: { soloFrontPsi: 22, soloRearPsi: 36, passengerFrontPsi: 22, passengerRearPsi: 36 },
   },
+  {
+    modelId: "yamaha-aerox-v3",
+    sourceLabel: "Yamaha AEROX current-generation Owner's Manual · GPR155D-A · D13-F8199-E0",
+    sourceUrl: "https://www.yamaha-motor.co.th/docs/owner-manual/commuter/en/d13-f8199-e0.pdf?Status=Master&sfvrsn=ebc82eb6_2",
+    lastChecked: "2026-09-25",
+    exact: true,
+    items: [
+      { item: "Engine oil", interval: "First at 1,000 km; then every 4,000 km", action: "Replace", note: "The manual's maintenance indicator lists the first oil change at 1,000 km and every 4,000 km thereafter." },
+      { item: "Spark plug", interval: "Replace every 8,000 km", action: "Replace", note: "Inspect, clean and regap at the periodic service points; replace at the manual's 8,000 km interval." },
+      { item: "Air filter element", interval: "Every 16,000 km", action: "Replace", note: "Replace more frequently in unusually wet or dusty conditions." },
+      { item: "Final transmission oil", interval: "Every 12,000 km", action: "Replace" },
+      { item: "V-belt", interval: "Inspect first at 8,000 km; then every 4,000 km", action: "Inspect", note: "Replace earlier if damaged or excessively worn; the manual requires replacement every 25,000 km." },
+      { item: "Brake fluid", interval: "Every 2 years", action: "Replace" },
+      { item: "Coolant", interval: "Every 3 years", action: "Replace" },
+      { item: "Fuel filter", interval: "Every 12,000 km", action: "Inspect", note: "Check for clogging or damage and replace if necessary." },
+    ],
+    tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 33 },
+  },
 ];
 
 export function maintenanceForModel(modelId: string) {

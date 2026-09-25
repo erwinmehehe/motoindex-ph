@@ -179,7 +179,16 @@ The next SEO phase moves from model acquisition into ownership depth without inv
 - No duplicate maintenance URL was created; the ownership depth stays on /motorcycles/yamaha/nmax-v3 and the shared /maintenance hub.
 - CI now guards the source, key intervals, V-belt replacement point and tire-pressure values.
 
-Next: verify and parse the current Aerox manual, then Fazzio.
+### Ownership authority wave 4 — Yamaha Aerox V3 exact owner manual
+
+- Parsed Yamaha's official current-generation AEROX owner manual (GPR155D-A, document D13-F8199-E0) into the existing canonical Aerox V3 model page.
+- Added owner-manual intervals for engine oil, spark plug, air filter, final transmission oil, V-belt, brake fluid, coolant and fuel-filter checks.
+- Added the manual-backed 29 / 33 psi front/rear cold tire-pressure reference for both one-person and two-person loading.
+- Kept the source market explicit: this is an official Yamaha regional current-generation manual, while Philippine dealer/service instructions still take precedence where they differ.
+- No duplicate maintenance URL was created; ownership depth stays on /motorcycles/yamaha/aerox-v3 and the shared /maintenance hub.
+- CI guards the source, key intervals, 25,000 km V-belt replacement point and tire-pressure values.
+
+Next: verify and parse the current Fazzio owner manual.
 
 
 ---
