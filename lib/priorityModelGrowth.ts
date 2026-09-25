@@ -691,6 +691,18 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
     recommendationLabel: "Compare 400cc+ motorcycles"
   },
+  "cfmoto-450sr": {
+    seoTitle: "CFMOTO 450SR Price Philippines 2026 | Specs & Monthly",
+    seoDescription: "CFMOTO 450SR price in the Philippines, 449.5cc specs, 51hp, 795mm seat, down payment, monthly estimate, ownership costs and alternatives.",
+    intentIntro: "The CFMOTO 450SR is a value-focused middleweight sport bike with a current Philippine SRP of ₱299,900, a 449.5cc parallel twin, 51 hp, 168 kg curb weight and a 795 mm seat. Compare the real dealer quote, financing and ownership costs against the Ninja 500 and other faired sport bikes before buying on horsepower per peso alone.",
+    moneyQuestion: "What does the 450SR cost after the actual dealer quote, down payment, monthly payment, registration, insurance and any branch charges are included?",
+    ownershipQuestion: "Budget for 17-inch sport tires, chain and sprocket service, insurance, fairing damage risk and CFMOTO parts lead times alongside routine servicing.",
+    alternativeIds: ["kawasaki-ninja-500", "cfmoto-300sr", "cfmoto-675sr-r"],
+    relatedIds: ["cfmoto-300sr", "cfmoto-675sr-r"],
+    recommendationHref: "/recommendations/cfmoto-sr-motorcycles-philippines",
+    recommendationLabel: "Compare CFMOTO SR sport bikes"
+  },
+
   "honda-navi": {
     seoTitle: "Honda Navi Price Philippines 2026 | Specs & Fuel Economy",
     seoDescription: "Honda Navi price in the Philippines, 109cc specs, 48.4 km/L fuel economy, 762mm seat, CBS, tire sizes, ownership costs and commuter alternatives.",
