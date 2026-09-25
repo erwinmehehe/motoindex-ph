@@ -139,6 +139,21 @@ for (const token of [
 ]) {
   requireText(maintenanceData, token, `NMAX V3 exact maintenance lost required owner-manual token: ${token}`);
 }
+for (const token of [
+  'modelId: "yamaha-aerox-v3"',
+  'sourceLabel: "Yamaha AEROX current-generation Owner\'s Manual · GPR155D-A · D13-F8199-E0"',
+  'sourceUrl: "https://www.yamaha-motor.co.th/docs/owner-manual/commuter/en/d13-f8199-e0.pdf?Status=Master&sfvrsn=ebc82eb6_2"',
+  'lastChecked: "2026-09-25"',
+  '{ item: "Engine oil", interval: "First at 1,000 km; then every 4,000 km"',
+  '{ item: "Spark plug", interval: "Replace every 8,000 km"',
+  '{ item: "Air filter element", interval: "Every 16,000 km"',
+  '{ item: "Final transmission oil", interval: "Every 12,000 km"',
+  '{ item: "V-belt", interval: "Inspect first at 8,000 km; then every 4,000 km"',
+  'requires replacement every 25,000 km',
+  'tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 33 }'
+]) {
+  requireText(maintenanceData, token, `Aerox V3 exact maintenance lost required owner-manual token: ${token}`);
+}
 requireText(modelEntity, 'href={maintenance.sourceUrl}', "Exact model maintenance schedules must expose the official owner-manual source link.");
 requireText(modelEntity, "Open the official owner manual →", "Exact model maintenance schedules must label the official manual link clearly.");
 
