@@ -37,31 +37,8 @@
 .ui-product-grid--compact .ui-product-card-copy h3{font-size:var(--mi-type-lg)}
 .ui-product-grid--compact .ui-product-card-foot{margin-top:var(--mi-space-3);padding-top:var(--mi-space-2)}
 
-/* Helmet category cards need a larger, stable image stage instead of CSS zoom.
-   The full bitmap stays contained so product photos cannot escape or clip. */
-.helmet-category-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;border:0}
-.helmet-category-grid .ui-product-card-shell{border:0;background:transparent}
-.helmet-category-grid .ui-product-card{border-radius:18px}
-.helmet-category-grid .ui-product-media{
-  width:100%;
-  height:260px;
-  min-height:260px;
-  background:var(--mi-color-surface);
-  border-bottom:1px solid var(--mi-color-line-soft);
-}
-.helmet-category-grid .ui-product-media img{
-  inset:0;
-  width:100%;
-  height:100%;
-  max-width:100%;
-  max-height:100%;
-  padding:14px;
-  box-sizing:border-box;
-  object-fit:contain;
-  object-position:center;
-}
-.helmet-category-grid .ui-product-card-copy{padding:16px 18px 18px}
-
+.helmet-category-grid{gap:20px}
+.helmet-category-grid .ui-product-media{height:260px;min-height:260px;background:var(--mi-color-surface)}
 .ui-info-panel{padding:var(--mi-space-5);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md);background:var(--mi-color-surface)}
 .ui-info-panel--subtle{background:var(--mi-color-surface-subtle)}
 .ui-info-panel h2,.ui-info-panel h3{margin-top:0;color:var(--mi-color-ink)}
@@ -86,8 +63,6 @@
 }
 @media(max-width:900px){
   .ui-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .helmet-category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .helmet-category-grid .ui-product-media{height:240px;min-height:240px}
   .ui-product-grid--compact{grid-template-columns:repeat(2,minmax(0,1fr))}
   .ui-content-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -102,7 +77,6 @@
   .ui-product-card-copy{padding:var(--mi-space-3)}
   .helmet-category-grid .ui-product-card{display:flex;flex-direction:column}
   .helmet-category-grid .ui-product-media{width:100%;height:220px;min-height:220px}
-  .helmet-category-grid .ui-product-card-copy{padding:14px 16px 16px}
   .ui-cta-group{display:grid;grid-template-columns:1fr;width:100%}
   .ui-cta-group .button{width:100%}
 }
