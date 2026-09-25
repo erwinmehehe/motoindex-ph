@@ -250,6 +250,31 @@
 
 .mi-models{background:#f8fafc}
 .mi-model-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:stretch}
+.mi-model-grid .model-card-media{
+  height:220px!important;
+  min-height:220px!important;
+  overflow:hidden!important;
+  background:#fff!important;
+}
+.mi-model-grid .model-card-media .entity-media-link{
+  width:100%!important;
+  height:100%!important;
+  display:grid!important;
+  place-items:center!important;
+}
+.mi-model-grid .model-card-media img{
+  box-sizing:border-box!important;
+  width:calc(100% - 18px)!important;
+  height:calc(100% - 18px)!important;
+  max-width:calc(100% - 18px)!important;
+  max-height:calc(100% - 18px)!important;
+  margin:auto!important;
+  padding:0!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:scale(1.20);
+  transform-origin:center;
+}
 .mi-showcase-cta{margin-top:20px;padding:21px 22px;display:flex;align-items:center;gap:10px;border:1px solid rgba(148,163,184,.14);border-radius:17px;background:#fff;box-shadow:0 14px 30px rgba(68,76,231,.06)}
 .mi-showcase-cta>div{margin-right:auto}.mi-showcase-cta span{display:block;color:#64748b;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.mi-showcase-cta strong{display:block;margin-top:3px;color:#172033;font-size:18px}.mi-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 15px;border-radius:11px;font-size:10px;font-weight:850}.mi-btn.dark,.mi-btn.red{background:linear-gradient(135deg,#444CE7,#7A5AF8);color:#fff}.mi-btn.light,.mi-btn.glass{border:1px solid rgba(148,163,184,.18);background:#fff;color:#334155}
 
@@ -302,7 +327,7 @@
   .mi-research-toolbar{padding:0 15px}.mi-research-status{display:none}
   .mi-research-model-head{display:block;padding:19px 17px 14px}.mi-research-open{margin-top:12px}
   .mi-research-price-card{margin:0 17px 13px}.mi-research-metrics{margin:0 17px 15px;grid-template-columns:1fr}.mi-research-metrics>div{display:flex;align-items:center;justify-content:space-between;gap:10px}.mi-research-metrics strong{margin-top:0}.mi-research-flow{padding:15px 17px 18px}.mi-research-flow-head{display:block}.mi-research-flow-head small{display:block;margin-top:3px}.mi-research-actions{grid-template-columns:1fr}.mi-research-actions>a{min-height:72px}.mi-research-chip{display:none}
-  .mi-brand-grid,.mi-model-grid,.mi-category-grid,.mi-tool-grid,.mi-product-grid{grid-template-columns:1fr}
+  .mi-brand-grid,.mi-model-grid,.mi-category-grid,.mi-tool-grid,.mi-product-grid{grid-template-columns:1fr}\n  .mi-model-grid .model-card-media{height:230px!important;min-height:230px!important}\n  .mi-model-grid .model-card-media img{transform:scale(1.14)}
   .mi-section{padding:46px 0}.mi-brand-shelf{padding:32px 0}.mi-tools{padding:46px 0}.mi-final{padding:50px 0}
   .mi-section-head h2{font-size:clamp(28px,9vw,38px)}
   .mi-final h2{font-size:clamp(34px,10vw,46px)}
