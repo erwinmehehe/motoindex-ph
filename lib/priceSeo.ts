@@ -54,6 +54,12 @@ const targets: Record<string, PriceSeoTarget> = {
     heading: "Yamaha Fazzio price in the Philippines (2026)",
     intro: "Check the current Yamaha Fazzio price reference and dated market observations, then test a down payment and loan term using the editable installment calculator."
   },
+  "cfmoto-450sr": {
+    title: "CFMOTO 450SR Price Philippines 2026: SRP & Installment",
+    description: "CFMOTO 450SR price in the Philippines with current SRP, financing estimate, specs, ownership costs and direct sport-bike alternatives.",
+    heading: "CFMOTO 450SR price in the Philippines (2026)",
+    intro: "Check the current CFMOTO 450SR Philippine price reference, then test down payment and monthly-payment assumptions before comparing the total ownership picture with other middleweight sport bikes."
+  },
   "honda-adv-350": {
     title: "Honda ADV 350 Price Philippines 2026: SRP & Market Checks",
     description: "Honda ADV 350 price in the Philippines with dated market references, current price context, financing estimate and ownership research.",
