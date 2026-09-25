@@ -112,6 +112,21 @@ for (const token of [
 ]) {
   requireText(maintenanceData, token, `Honda maintenance authority lost required source-backed token: ${token}`);
 }
+for (const token of [
+  'modelId: "honda-adv-160"',
+  'sourceLabel: "Honda ADV160 Philippines Owner\'s Manual · ADV160A PH type · 32K0WA100"',
+  'sourceUrl: "https://2rom-prd-data.hondamotopub.com/om/HPI/ADV160/2023/ADV160_32K0WA100_0.pdf"',
+  'lastChecked: "2026-09-25"',
+  '{ item: "Engine oil", interval: "First at 1,000 km; then every 6,000 km"',
+  '{ item: "Drive belt", interval: "Inspect at 24,000 km; then every 24,000 km"',
+  '{ item: "Valve clearance", interval: "Inspect at 24,000 km; then every 24,000 km"',
+  'tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 33 }'
+]) {
+  requireText(maintenanceData, token, `ADV160 exact maintenance lost required owner-manual token: ${token}`);
+}
+requireText(modelEntity, 'href={maintenance.sourceUrl}', "Exact model maintenance schedules must expose the official owner-manual source link.");
+requireText(modelEntity, "Open the official owner manual →", "Exact model maintenance schedules must label the official manual link clearly.");
+
 requireText(maintenanceData, "Brand-level Yamaha Philippines PMS guidance.", "Yamaha brand-level PMS guidance must stay clearly labeled and must not masquerade as an exact model manual.");
 requireText(modelEntity, "brandMaintenanceGuideForModel(model)", "Motorcycle entity pages must resolve brand-level maintenance guidance when exact model schedules are unavailable.");
 requireText(modelEntity, "This is {model.make} brand-level maintenance guidance, not a substitute for the exact", "Model pages must disclose that brand-level maintenance guidance is not an exact model manual.");

@@ -162,7 +162,15 @@ The next SEO phase moves from model acquisition into ownership depth without inv
 - No new thin maintenance URLs were created. Ownership depth is added to the existing /maintenance hub and canonical motorcycle pages.
 - CI guards the Yamaha source, interval data and exact-manual disclosure.
 
-Next: parse exact model-year manuals where a Philippine-market owner manual can be verified, starting with the highest-demand NMAX, Aerox, ADV160 and Fazzio records.
+### Ownership authority wave 2 — Honda ADV160 exact owner manual
+
+- Parsed Honda's official Philippines-market ADV160 owner manual (ADV160A PH type, document 32K0WA100) into the existing canonical model page.
+- Added exact owner-manual maintenance rows for engine oil, drive-belt inspection, valve-clearance inspection, coolant, final-drive oil and brake fluid.
+- Added the manual-backed 29 / 33 psi front/rear tire-pressure reference to the ownership/fitment section.
+- Exact schedules now link directly to the official owner manual instead of showing an unlinked transcription.
+- No new maintenance SEO URL was created; ownership depth stays on /motorcycles/honda/adv-160 and the shared /maintenance hub.
+
+Next: verify and parse Philippine-market exact manuals for NMAX, Aerox and Fazzio in that order.
 
 
 ---
