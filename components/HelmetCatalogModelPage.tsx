@@ -5,6 +5,10 @@ import { FaqSection } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
 import { ProductCard } from "@/components/ProductCard";
 import { SourceRef } from "@/components/SourceRef";
+import { ProductEntityNav } from "@/components/ProductEntityNav";
+import { ProductEntityShell } from "@/components/ProductEntityShell";
+import { ProductHero } from "@/components/ProductHero";
+import { ProductTrustRow } from "@/components/ProductTrustRow";
 import { getHelmetBrand } from "@/lib/data";
 import { getHelmetProductsForBrand } from "@/lib/catalog";
 import type { HelmetCatalogModel } from "@/lib/helmetBrandLineups";
@@ -47,52 +51,67 @@ export function HelmetCatalogModelPage({ item }: { item: HelmetCatalogModel }) {
     },
   ];
 
-  return <section className="page shell product-entity-page helmet-model-guide-page">
+  const heroFacts = [
+    { label: "Record", value: "Current catalog reference" },
+    { label: "Fit", value: "Use the exact size chart" },
+    { label: "Local marking", value: "Check PS / ICC" },
+    { label: "Parts", value: "Match the exact model" },
+  ];
+
+  return <ProductEntityShell className="helmet-model-guide-page">
     <Breadcrumbs items={[
       { label: "Helmets", href: "/gear/helmets" },
       { label: brandName, href: `/gear/helmets/${item.brandSlug}` },
       { label: item.model },
     ]} />
 
-    <div className="page-head helmet-model-guide-head">
-      <span className="entity-kicker">{brandName} helmet guide</span>
-      <h1>{brandName} {item.model} helmet: price, fit and buying guide</h1>
-      <p>Use this guide to check the exact {item.model} model before buying, including the current seller price, size chart, local certification marking, visor compatibility and replacement-parts availability.</p>
-      <div className="hero-actions">
-        <Link className="button" href={`/gear/helmets/${item.brandSlug}`}>All {brandName} helmets</Link>
-        <Link className="button secondary" href="/gear/helmets/finder">Compare helmet options</Link>
-      </div>
-    </div>
+    <ProductHero
+      media={<div className="entity-media"><div className="product-hero-card"><span>Helmet catalog</span><strong>H</strong><div><small>{brandName}</small><h2>{item.model}</h2></div></div></div>}
+      eyebrow={<><span className="product-type-pill">Helmet</span><span className="product-status-pill research">Catalog reference</span></>}
+      title={<>{brandName} {item.model}</>}
+      description={<p>This page confirms the model in a current catalog reference and gives the buying checks that still need exact-product verification, including price, sizing, certification marking, visor and replacement parts.</p>}
+      price="Check current seller"
+      priceNote="Price is not verified on this catalog-reference page"
+      facts={heroFacts}
+      trust={<ProductTrustRow
+        status="catalog"
+        statusLabel="Catalog reference"
+        sourceLabel={item.sourceLabel}
+        source={{ url: item.sourceUrl, label: "Open catalog source" }}
+        lastChecked={item.checkedAt}
+      />}
+    />
 
-    <div className="entity-price-grid helmet-model-buying-facts">
-      <article><span>Model</span><strong>{brandName} {item.model}</strong><small>Listed in the linked current catalog reference.</small></article>
-      <article><span>Price</span><strong>Check current seller</strong><small>Match the exact size, color or graphic and included visor.</small></article>
-      <article><span>Fit</span><strong>Use the exact size chart</strong><small>Brand-level sizing is not a substitute for model-specific fit.</small></article>
-      <article><span>Local compliance</span><strong>Check PS / ICC marking</strong><small>Inspect the actual helmet offered in the Philippines.</small></article>
-    </div>
+    <ProductEntityNav items={[
+      { href: "#checks", label: "Buying checks" },
+      { href: "#source", label: "Catalog source" },
+      ...(detailed.length ? [{ href: "#alternatives", label: `Other ${brandName} helmets` }] : []),
+      { href: "#faq", label: "FAQ" },
+    ]} />
 
-    <section className="product-entity-section">
-      <div className="section-head compact"><div><h2>What to check on the {brandName} {item.model}</h2><p>These checks matter more than assuming details from another helmet in the same brand.</p></div></div>
-      <div className="topic-grid">
-        <article><h3>Fit and size chart</h3><p>Measure the widest part of your head and use the manufacturer chart for the {item.model}. Confirm cheek-pad pressure, forehead comfort and movement before paying.</p></article>
-        <article><h3>Certification and PH marking</h3><p>Read the certification label on the actual unit and look for the required PS or ICC conformity marking for helmets sold locally.</p></article>
-        <article><h3>Visor and replacement parts</h3><p>Confirm the shield code, Pinlock compatibility, visor mechanism and replacement-liner availability for this exact model before ordering accessories.</p></article>
-        <article><h3>Price and variant</h3><p>Compare the same size, color or graphic across sellers. Replica graphics, bundled visors and promotions can change the asking price without changing the base model.</p></article>
+    <section id="checks" className="product-entity-section">
+      <div className="section-head compact"><div><span className="section-kicker">Before you buy</span><h2>What to verify on the {brandName} {item.model}</h2><p>The catalog confirms the model identity. These purchase details still need to be checked on the exact local product.</p></div></div>
+      <div className="ui-content-grid">
+        <article className="ui-content-card"><h3>Fit and size chart</h3><p>Measure the widest part of your head and use the manufacturer chart for the {item.model}. Confirm cheek-pad pressure, forehead comfort and movement before paying.</p></article>
+        <article className="ui-content-card"><h3>Certification and PH marking</h3><p>Read the certification label on the actual unit and look for the applicable PS or ICC conformity marking for helmets sold locally.</p></article>
+        <article className="ui-content-card"><h3>Visor and replacement parts</h3><p>Confirm the shield code, Pinlock compatibility, visor mechanism and replacement-liner availability for this exact model before ordering accessories.</p></article>
+        <article className="ui-content-card"><h3>Price and variant</h3><p>Compare the same size, color or graphic across sellers. Bundled visors and promotions can change the asking price without changing the base model.</p></article>
       </div>
     </section>
 
-    <section className="product-entity-section">
-      <div className="section-head compact"><div><h2>{brandName} {item.model} catalog reference</h2><p>Use the original catalog reference to confirm the model name and current range, then check the exact local helmet before purchase.</p></div></div>
+    <section id="source" className="product-entity-section">
+      <div className="section-head compact"><div><span className="section-kicker">Evidence</span><h2>{brandName} {item.model} catalog reference</h2><p>Use the original catalog reference to confirm the model name and current range, then check the exact local helmet before purchase.</p></div></div>
       <div className="source-panel verified">
         <span>Model source</span>
         <p>{item.sourceLabel}</p>
         <SourceRef url={item.sourceUrl} label="Open catalog source" />
         <small>Catalog checked {item.checkedAt}.</small>
+        {item.note && <p>{item.note}</p>}
       </div>
     </section>
 
-    {detailed.length > 0 && <section className="product-entity-section">
-      <div className="section-head compact"><div><h2>Compare other {brandName} helmets</h2><p>These {brandName} models have additional price and specification details for side-by-side shopping.</p></div></div>
+    {detailed.length > 0 && <section id="alternatives" className="product-entity-section">
+      <div className="section-head compact"><div><span className="section-kicker">Verified product pages</span><h2>Compare other {brandName} helmets</h2><p>These {brandName} models have additional price and specification details for side-by-side shopping.</p></div></div>
       <div className="product-grid">{detailed.map((product) => <ProductCard key={product.id} item={{
         entityId: product.id,
         href: `/gear/helmets/${product.brandSlug}/${product.slug}`,
@@ -105,8 +124,8 @@ export function HelmetCatalogModelPage({ item }: { item: HelmetCatalogModel }) {
       }} />)}</div>
     </section>}
 
-    <section className="product-entity-section"><FaqSection title={`${brandName} ${item.model} buying questions`} items={faqs} /></section>
+    <section id="faq" className="product-entity-section"><FaqSection title={`${brandName} ${item.model} buying questions`} items={faqs} /></section>
     <AuthorBox />
     <JsonLd data={schema} />
-  </section>;
+  </ProductEntityShell>;
 }

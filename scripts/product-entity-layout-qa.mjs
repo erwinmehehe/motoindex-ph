@@ -51,14 +51,35 @@ function representativeTopBoxRoutes(block) {
   return routes;
 }
 
+
+function representativeTireRoutes(block) {
+  const recordPattern = /\{\s*id:"[^"]+"\s*,\s*brand:"([^"]+)"\s*,\s*brandSlug:"([^"]+)"\s*,\s*model:"([^"]+)"\s*,\s*slug:"([^"]+)"/g;
+  const seen = new Set();
+  const routes = [];
+  for (const match of block.matchAll(recordPattern)) {
+    const [, brand, brandSlug, model, slug] = match;
+    if (seen.has(brandSlug)) continue;
+    seen.add(brandSlug);
+    routes.push({
+      key: `tire-${brandSlug}-${slug}`.replace(/[^a-z0-9-]+/gi, "-").toLowerCase(),
+      path: `/tires/${brandSlug}/${slug}`,
+      brand,
+      model,
+    });
+  }
+  return routes;
+}
+
 const exactRegressionRoutes = [
   { key: "helmet-gille-kerena", path: "/gear/helmets/gille/kerena-ff007" },
   { key: "helmet-spyder-surge", path: "/gear/helmets/spyder/surge-plain-v2" },
   { key: "topbox-givi-v58", path: "/accessories/top-box/v58-maxia-5" },
+  { key: "tire-michelin-city-grip-2", path: "/tires/michelin/city-grip-2" },
 ];
 const helmetBrandRoutes = representativeHelmetRoutes(catalogBlock("export const helmetProducts", "export const tireProducts"));
+const tireBrandRoutes = representativeTireRoutes(catalogBlock("export const tireProducts", "export const topBoxProducts"));
 const topBoxBrandRoutes = representativeTopBoxRoutes(catalogBlock("export const topBoxProducts"));
-const routes = [...new Map([...exactRegressionRoutes, ...helmetBrandRoutes, ...topBoxBrandRoutes].map(route => [route.path, route])).values()];
+const routes = [...new Map([...exactRegressionRoutes, ...helmetBrandRoutes, ...tireBrandRoutes, ...topBoxBrandRoutes].map(route => [route.path, route])).values()];
 
 const outputDir = path.join(process.cwd(), "artifacts", "visual-qa");
 fs.mkdirSync(outputDir, { recursive: true });
@@ -224,4 +245,4 @@ if (failures.length) {
   console.error(`Product entity layout QA failed:\n${failures.map(item => `- ${item}`).join("\n")}`);
   process.exit(1);
 }
-console.log(`Product entity layout QA passed: ${results.length} checks across ${helmetBrandRoutes.length} helmet brands and ${topBoxBrandRoutes.length} top-box brands.`);
+console.log(`Product entity layout QA passed: ${results.length} checks across ${helmetBrandRoutes.length} helmet brands, ${tireBrandRoutes.length} tire brands and ${topBoxBrandRoutes.length} top-box brands.`);
