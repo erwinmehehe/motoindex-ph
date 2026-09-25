@@ -28,11 +28,11 @@ export function HelmetCategoryView({slug}:{slug:CategorySlug}){
     keywords: [`${slug.replace("-", " ")} helmet`, "motorcycle helmet Philippines"],
     checkedDates: products.map(p => p.lastChecked)
   });
-  return <section className="page shell">
+  return <section className="page shell helmet-category-page">
     <Breadcrumbs items={[{label:"Helmets",href:"/gear/helmets"},{label:c.title.replace(" in the Philippines","")}]} />
     <div className="page-head helmet-category-head"><h1>{c.title}</h1><p>{c.intro}</p></div>
     <div className="section-head inline-head"><div><h2>Helmets to compare</h2></div></div>
-    <div className="product-grid">{products.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:p.helmetType,brand:p.brand,model:p.model,meta:[p.certification,p.shell].filter(Boolean).join(" · ")||p.visor,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</div>
+    <div className="product-grid ui-product-grid helmet-category-grid">{products.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:p.helmetType,brand:p.brand,model:p.model,meta:[p.certification,p.shell].filter(Boolean).join(" · ")||p.visor,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</div>
     <HelmetFormatGuide format={slug} products={products} />
     <div className="split section helmet-buying-notes"><div><h2>Choose the format for how you ride</h2><p>{c.tradeoff}</p><p>Do not choose only by price or graphics. A correctly fitted helmet with the required local conformity mark matters more than a long feature list.</p></div><div className="info-card"><h3>Check before buying</h3><ul className="checklist">{c.check.map(x=><li key={x}>{x}</li>)}</ul></div></div><AuthorBox /><RelatedLinks title="More helmet information" links={helmetCategoryInternalLinks(slug)} />
     <JsonLd data={categoryArticle} />

@@ -24,8 +24,8 @@
 .ui-stat-row__value{display:block;margin-top:var(--mi-space-2);color:var(--mi-color-ink);font-size:var(--mi-type-lg);line-height:1.25}
 .ui-stat-row__note{display:block;margin-top:var(--mi-space-1);color:var(--mi-color-copy);font-size:var(--mi-type-xs);line-height:1.45}
 
-.ui-product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--mi-space-4)}
-.ui-product-card-shell{min-width:0}
+.ui-product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--mi-space-4);border:0}
+.ui-product-card-shell{min-width:0;border:0;background:transparent}
 .ui-product-card{height:100%;display:flex;min-width:0;flex-direction:column;overflow:hidden;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md);background:var(--mi-color-surface);box-shadow:none;text-decoration:none}
 .ui-product-card:hover{border-color:var(--mi-color-primary-soft);box-shadow:var(--mi-shadow-sm)}
 .ui-product-media{position:relative;width:100%;height:var(--mi-product-media-height);display:grid;place-items:center;overflow:hidden;background:var(--mi-color-surface-subtle)}
@@ -37,6 +37,8 @@
 .ui-product-grid--compact .ui-product-card-copy h3{font-size:var(--mi-type-lg)}
 .ui-product-grid--compact .ui-product-card-foot{margin-top:var(--mi-space-3);padding-top:var(--mi-space-2)}
 
+.helmet-category-grid{gap:20px}
+.helmet-category-grid .ui-product-media{height:260px;min-height:260px;background:var(--mi-color-surface)}
 .ui-info-panel{padding:var(--mi-space-5);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md);background:var(--mi-color-surface)}
 .ui-info-panel--subtle{background:var(--mi-color-surface-subtle)}
 .ui-info-panel h2,.ui-info-panel h3{margin-top:0;color:var(--mi-color-ink)}
@@ -73,6 +75,8 @@
   .ui-product-card{display:grid;grid-template-columns:112px minmax(0,1fr)}
   .ui-product-media{width:112px;height:100%;min-height:var(--mi-product-media-height-mobile)}
   .ui-product-card-copy{padding:var(--mi-space-3)}
+  .helmet-category-grid .ui-product-card{display:flex;flex-direction:column}
+  .helmet-category-grid .ui-product-media{width:100%;height:220px;min-height:220px}
   .ui-cta-group{display:grid;grid-template-columns:1fr;width:100%}
   .ui-cta-group .button{width:100%}
 }
