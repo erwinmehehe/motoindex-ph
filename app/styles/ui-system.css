@@ -37,6 +37,68 @@
 .ui-product-grid--compact .ui-product-card-copy h3{font-size:var(--mi-type-lg)}
 .ui-product-grid--compact .ui-product-card-foot{margin-top:var(--mi-space-3);padding-top:var(--mi-space-2)}
 
+/* Helmet category cards: give product photography enough room to read as a
+   catalog, not a wall of tiny source thumbnails. Local helmet media is
+   normalized on a safe white canvas, so this controlled zoom removes excess
+   canvas whitespace without cutting into the helmet itself. */
+.helmet-category-page .helmet-category-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:16px!important;
+  border:0!important;
+}
+.helmet-category-page .helmet-category-grid .product-card-shell{
+  overflow:visible!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+}
+.helmet-category-page .helmet-category-grid .product-card{
+  overflow:hidden!important;
+  border:1px solid var(--mi-color-line)!important;
+  border-radius:18px!important;
+  background:#fff!important;
+  box-shadow:0 12px 30px rgba(15,23,42,.045)!important;
+}
+.helmet-category-page .helmet-category-grid .product-card:hover{
+  transform:translateY(-2px)!important;
+  border-color:var(--mi-color-primary-soft)!important;
+  box-shadow:0 18px 38px rgba(68,76,231,.08)!important;
+}
+.helmet-category-page .helmet-category-grid .product-card-media{
+  width:100%!important;
+  height:220px!important;
+  min-height:220px!important;
+  overflow:hidden!important;
+  border:0!important;
+  border-bottom:1px solid var(--mi-color-line)!important;
+  background:#fff!important;
+}
+.helmet-category-page .helmet-category-grid .product-card-media img{
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  margin:0!important;
+  padding:8px!important;
+  box-sizing:border-box!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:scale(1.22)!important;
+  transform-origin:center!important;
+}
+.helmet-category-page .helmet-category-grid .product-card-copy{
+  padding:16px 16px 18px!important;
+}
+.helmet-category-page .helmet-category-grid .product-card h3{
+  margin-top:7px;
+  font-size:20px;
+  line-height:1.08;
+}
+.helmet-category-page .helmet-category-grid .product-card-foot{
+  margin-top:16px;
+}
+
 .ui-info-panel{padding:var(--mi-space-5);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md);background:var(--mi-color-surface)}
 .ui-info-panel--subtle{background:var(--mi-color-surface-subtle)}
 .ui-info-panel h2,.ui-info-panel h3{margin-top:0;color:var(--mi-color-ink)}
