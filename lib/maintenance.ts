@@ -138,6 +138,22 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
     ],
     tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 36 },
   },
+  {
+    modelId: "honda-adv-160",
+    sourceLabel: "Honda ADV160 Philippines Owner's Manual · ADV160A PH type · 32K0WA100",
+    sourceUrl: "https://2rom-prd-data.hondamotopub.com/om/HPI/ADV160/2023/ADV160_32K0WA100_0.pdf",
+    lastChecked: "2026-09-25",
+    exact: true,
+    items: [
+      { item: "Engine oil", interval: "First at 1,000 km; then every 6,000 km", action: "Replace", note: "The manual's oil-change indicator first appears at 1,000 km and then every 6,000 km after the first reset." },
+      { item: "Drive belt", interval: "Inspect at 24,000 km; then every 24,000 km", action: "Inspect", note: "This is an inspection interval, not an automatic 24,000 km replacement claim." },
+      { item: "Valve clearance", interval: "Inspect at 24,000 km; then every 24,000 km", action: "Inspect" },
+      { item: "Radiator coolant", interval: "Every 3 years", action: "Replace" },
+      { item: "Final drive oil", interval: "Every 2 years", action: "Replace" },
+      { item: "Brake fluid", interval: "Every 2 years", action: "Replace" },
+    ],
+    tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 33 },
+  },
 ];
 
 export function maintenanceForModel(modelId: string) {
