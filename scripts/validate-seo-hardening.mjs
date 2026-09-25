@@ -124,6 +124,21 @@ for (const token of [
 ]) {
   requireText(maintenanceData, token, `ADV160 exact maintenance lost required owner-manual token: ${token}`);
 }
+for (const token of [
+  'modelId: "yamaha-nmax-v3"',
+  'sourceLabel: "Yamaha NMAX 155 current-generation Owner\'s Manual · GPD155-A · BTF-FU199-E0"',
+  'sourceUrl: "https://www.yamaha-motor.co.th/docs/default-document-library/btf-fu199-e0.pdf?Status=Master&sfvrsn=d035e32e_0"',
+  'lastChecked: "2026-09-25"',
+  '{ item: "Engine oil", interval: "First at 1,000 km; next at 4,000 km; then every 4,000 km"',
+  '{ item: "Spark plug", interval: "Replace every 8,000 km"',
+  '{ item: "Air filter element", interval: "Every 16,000 km"',
+  '{ item: "Final transmission oil", interval: "Every 12,000 km"',
+  '{ item: "V-belt", interval: "Inspect first at 7,000 km; then every 4,000 km"',
+  'mandatory replacement point at 25,000 km',
+  'tirePressure: { soloFrontPsi: 22, soloRearPsi: 36, passengerFrontPsi: 22, passengerRearPsi: 36 }'
+]) {
+  requireText(maintenanceData, token, `NMAX V3 exact maintenance lost required owner-manual token: ${token}`);
+}
 requireText(modelEntity, 'href={maintenance.sourceUrl}', "Exact model maintenance schedules must expose the official owner-manual source link.");
 requireText(modelEntity, "Open the official owner manual →", "Exact model maintenance schedules must label the official manual link clearly.");
 
