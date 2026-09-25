@@ -33,8 +33,8 @@
   position:relative;
   display:grid;
   width:100%;
-  height:190px;
-  min-height:190px;
+  height:212px;
+  min-height:212px;
   place-items:center;
   overflow:hidden;
   border:0;
@@ -55,15 +55,15 @@
 .standardMedia img,
 .mediaFallback img{
   display:block;
-  width:calc(100% - 28px);
-  height:calc(100% - 28px);
-  max-width:calc(100% - 28px);
-  max-height:calc(100% - 28px);
-  margin:auto;
+  width:100%;
+  height:100%;
+  max-width:100%;
+  max-height:100%;
+  margin:0;
+  padding:12px 14px 18px;
+  box-sizing:border-box;
   object-fit:contain;
   object-position:center;
-  transform:scale(1.18);
-  transform-origin:center;
   background:var(--mi-color-surface);
 }
 
@@ -77,10 +77,11 @@
 
 .topline{
   display:flex;
+  min-width:0;
+  min-height:32px;
   align-items:center;
   justify-content:space-between;
   gap:var(--mi-space-2);
-  min-width:0;
 }
 
 .status{
@@ -136,17 +137,21 @@
 }
 
 .actions{
-  display:flex;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
   align-items:center;
   gap:var(--mi-space-2);
+  width:100%;
   margin-top:auto;
   padding-top:var(--mi-space-4);
-  flex-wrap:wrap;
 }
 
 .actions :global(.button),
 .actions :global(.compare-button){
-  min-height:36px;
+  width:100%;
+  min-width:0;
+  min-height:38px;
+  padding-inline:10px;
   box-shadow:none;
 }
 
@@ -168,7 +173,7 @@
 
   .standardMedia{
     height:100%;
-    min-height:174px;
+    min-height:190px;
     border-bottom:0;
     background:var(--mi-color-surface-subtle);
   }
@@ -208,8 +213,8 @@
 
 @container motorcycle-card (max-width:360px){
   .standardMedia{
-    height:190px;
-    min-height:190px;
+    height:196px;
+    min-height:196px;
   }
 
   .standardBody{
@@ -239,8 +244,7 @@
   }
 }
 
-.compareCluster{margin-left:auto;display:grid;justify-items:center;gap:var(--mi-space-1)}
-.brandMark{display:grid;height:26px;place-items:center;color:var(--mi-color-slate-700);font-size:var(--mi-type-xs);font-weight:900}.brandMark img{max-width:80px;max-height:24px;object-fit:contain}
+.brandMark{display:flex;min-width:0;height:24px;align-items:center;justify-content:flex-start;color:var(--mi-color-slate-700);font-size:var(--mi-type-xs);font-weight:900}.brandMark img{width:auto;height:auto;max-width:72px;max-height:22px;object-fit:contain}
 .brandedFallback{display:grid!important;place-content:center;place-items:center;gap:var(--mi-space-2);padding:var(--mi-space-4);color:var(--mi-color-ink)}
 .fallbackLogo{width:auto!important;height:32px!important;max-width:120px!important;max-height:32px!important;object-fit:contain!important;padding:0!important;background:transparent!important}
 .fallbackModel{font-weight:850}
