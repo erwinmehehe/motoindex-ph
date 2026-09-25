@@ -11,10 +11,14 @@ type Props = {
   lastChecked?: string;
 };
 
-export function ProductTrustRow({ status }: Props) {
-  return <div className="product-trust-row" aria-label="Product data status">
+export function ProductTrustRow({ status, sourceLabel, source, secondarySource, lastChecked }: Props) {
+  return <div className="product-trust-row" aria-label="Product data status and sources">
     <span className={`product-trust-status ${status === "verified" ? "verified" : "pending"}`}>
       {status === "verified" ? "Verified product data" : "Needs checking"}
     </span>
+    {sourceLabel && <span>{sourceLabel}</span>}
+    {source?.url && <a href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a>}
+    {secondarySource?.url && <a href={secondarySource.url} target="_blank" rel="noreferrer">{secondarySource.label} ↗</a>}
+    {lastChecked && <span>Checked {lastChecked}</span>}
   </div>;
 }
