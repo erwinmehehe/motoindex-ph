@@ -155,7 +155,7 @@ try {
       if (check.requireContain && result?.imageRect && result?.stageRect) {
         const tolerance = 1;
         if (result.imageRect.left < result.stageRect.left - tolerance || result.imageRect.right > result.stageRect.right + tolerance || result.imageRect.top < result.stageRect.top - tolerance || result.imageRect.bottom > result.stageRect.bottom + tolerance) {
-          failures.push(`${width}px ${check.name}: image box escapes the media stage`);
+          failures.push(`${width}px ${check.name}: image box escapes the media stage; image=${JSON.stringify(result.imageRect)} stage=${JSON.stringify(result.stageRect)}`);
         }
       }
       if (result?.placeholderBackground && result.placeholderBackground !== "rgb(255, 255, 255)") failures.push(`${width}px ${check.name}: missing-photo placeholder is not white`);
