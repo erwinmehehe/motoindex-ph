@@ -27,7 +27,7 @@ export function ProductCard({ item }: { item: ProductCardItem }) {
   const missingPhoto = <EntityVerificationFallback brand={item.brand} model={item.model} />;
   const card = <Link className="product-card ui-product-card" href={item.href}>
     {entityType && item.entityId
-      ? <EntityMedia entityType={entityType} entityId={item.entityId} className="product-card-media ui-product-media" showCredit={false} fallback={missingPhoto} />
+      ? <EntityMedia entityType={entityType} entityId={item.entityId} className="product-card-media ui-product-media" showCredit={false} fallback={missingPhoto} imageScale={entityType === "helmet" ? 1.22 : 1} />
       : missingPhoto}
     <div className="product-card-copy ui-product-card-copy">
       <div className="product-card-top">
