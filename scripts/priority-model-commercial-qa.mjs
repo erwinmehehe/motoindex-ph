@@ -30,6 +30,7 @@ const pages = [
   ["honda-click-150i", "/motorcycles/honda/click-150i"],
   ["yamaha-mio-i-125", "/motorcycles/yamaha/mio-i-125"],
   ["honda-cb650r", "/motorcycles/honda/cb650r"],
+  ["cfmoto-450sr", "/motorcycles/cfmoto/450sr"],
   ["yamaha-tmax", "/motorcycles/yamaha/tmax"],
   ["honda-adv-350", "/motorcycles/honda/adv-350"],
   ["yamaha-yzf-r1m", "/motorcycles/yamaha/yzf-r1m"]
