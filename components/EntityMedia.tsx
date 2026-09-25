@@ -15,10 +15,11 @@ type Props = {
   sizes?: string;
   linkHref?: string;
   showCredit?: boolean;
+  contained?: boolean;
 };
-export function EntityMedia({ entityType, entityId, fallback, className, priority = false, sizes = "(max-width: 800px) 100vw, 42vw", linkHref, showCredit }: Props) {
+export function EntityMedia({ entityType, entityId, fallback, className, priority = false, sizes = "(max-width: 800px) 100vw, 42vw", linkHref, showCredit, contained = false }: Props) {
   const asset = getRenderableMedia(entityType, entityId)[0];
-  const useContainedStage = entityType === "helmet" || entityType === "topbox";
+  const useContainedStage = contained || entityType === "helmet" || entityType === "topbox";
   const mediaClass = `${className || "entity-media"}${useContainedStage ? " entity-media-contained" : ""}`;
 
   if (!asset) {
