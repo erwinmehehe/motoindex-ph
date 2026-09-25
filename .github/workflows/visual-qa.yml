@@ -80,7 +80,7 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
         run: node scripts/image-stage-qa.mjs
 
-      - name: Helmet and top-box detail layout QA
+      - name: Product detail layout QA
         env:
           BASE_URL: http://127.0.0.1:3000
         run: node scripts/product-entity-layout-qa.mjs
