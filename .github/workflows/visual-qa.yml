@@ -40,7 +40,15 @@ jobs:
           cat /tmp/motoindex-next.log
           exit 1
 
+      - name: PR responsive smoke QA
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_URL: http://127.0.0.1:3000
+          QA_WIDTHS: 390,1440
+        run: node scripts/visual-qa.mjs
+
       - name: Deep responsive template QA
+        if: github.event_name != 'pull_request'
         env:
           BASE_URL: http://127.0.0.1:3000
         run: npm run visual:qa
