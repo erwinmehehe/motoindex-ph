@@ -37,6 +37,9 @@ jobs:
       - name: Verify production serves the deployed commit
         run: node scripts/smoke-public-core.mjs
 
+      - name: Verify live motorcycle image containment
+        run: node scripts/image-stage-qa.mjs
+
       - name: Run live production visual matrix
         run: node scripts/visual-regression-matrix.mjs
 
