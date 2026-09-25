@@ -44,7 +44,15 @@
   box-shadow:none;
 }
 
-.standardMedia :global(.entity-media-link),
+.standardMedia :global(.entity-media-link){
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  box-sizing:border-box;
+}
+
 .mediaFallback{
   position:relative;
   display:grid;
