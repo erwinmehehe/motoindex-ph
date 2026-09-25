@@ -33,8 +33,8 @@
   position:relative;
   display:grid;
   width:100%;
-  height:220px;
-  min-height:220px;
+  height:190px;
+  min-height:190px;
   place-items:center;
   overflow:hidden;
   border:0;
@@ -208,8 +208,8 @@
 
 @container motorcycle-card (max-width:360px){
   .standardMedia{
-    height:205px;
-    min-height:205px;
+    height:190px;
+    min-height:190px;
   }
 
   .standardBody{
