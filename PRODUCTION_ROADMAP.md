@@ -170,7 +170,16 @@ The next SEO phase moves from model acquisition into ownership depth without inv
 - Exact schedules now link directly to the official owner manual instead of showing an unlinked transcription.
 - No new maintenance SEO URL was created; ownership depth stays on /motorcycles/honda/adv-160 and the shared /maintenance hub.
 
-Next: verify and parse Philippine-market exact manuals for NMAX, Aerox and Fazzio in that order.
+### Ownership authority wave 3 — Yamaha NMAX V3 exact owner manual
+
+- Parsed Yamaha's official current-generation NMAX 155 owner manual (GPD155-A, document BTF-FU199-E0) into the existing canonical NMAX V3 model page.
+- Added owner-manual intervals for engine oil, spark plug, air filter, final transmission oil, V-belt, brake fluid, coolant and fuel-filter checks.
+- Added the manual-backed 22 / 36 psi front/rear tire-pressure reference for solo and two-person loading.
+- Kept the source market explicit: the manual is an official Yamaha regional current-generation reference, while Philippine dealer/service instructions still take precedence where they differ.
+- No duplicate maintenance URL was created; the ownership depth stays on /motorcycles/yamaha/nmax-v3 and the shared /maintenance hub.
+- CI now guards the source, key intervals, V-belt replacement point and tire-pressure values.
+
+Next: verify and parse the current Aerox manual, then Fazzio.
 
 
 ---

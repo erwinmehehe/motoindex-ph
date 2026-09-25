@@ -154,6 +154,24 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
     ],
     tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 33 },
   },
+  {
+    modelId: "yamaha-nmax-v3",
+    sourceLabel: "Yamaha NMAX 155 current-generation Owner's Manual · GPD155-A · BTF-FU199-E0",
+    sourceUrl: "https://www.yamaha-motor.co.th/docs/default-document-library/btf-fu199-e0.pdf?Status=Master&sfvrsn=d035e32e_0",
+    lastChecked: "2026-09-25",
+    exact: true,
+    items: [
+      { item: "Engine oil", interval: "First at 1,000 km; next at 4,000 km; then every 4,000 km", action: "Replace", note: "The oil-change indicator appears at 1,000 km, then 3,000 km after reset, and every 4,000 km after that." },
+      { item: "Spark plug", interval: "Replace every 8,000 km", action: "Replace", note: "The manual also calls for inspection, cleaning and regapping at the periodic service points." },
+      { item: "Air filter element", interval: "Every 16,000 km", action: "Replace" },
+      { item: "Final transmission oil", interval: "Every 12,000 km", action: "Replace" },
+      { item: "V-belt", interval: "Inspect first at 7,000 km; then every 4,000 km", action: "Inspect", note: "Replace earlier if damaged or worn; the manual gives a mandatory replacement point at 25,000 km." },
+      { item: "Brake fluid", interval: "Every 2 years", action: "Replace" },
+      { item: "Coolant", interval: "Every 3 years", action: "Replace" },
+      { item: "Fuel filter", interval: "Every 12,000 km", action: "Inspect", note: "Check condition and replace if necessary." },
+    ],
+    tirePressure: { soloFrontPsi: 22, soloRearPsi: 36, passengerFrontPsi: 22, passengerRearPsi: 36 },
+  },
 ];
 
 export function maintenanceForModel(modelId: string) {
