@@ -24,6 +24,7 @@ const nextConfig = {
       { protocol: "https", hostname: "mc.suzuki.com.ph" },
       { protocol: "https", hostname: "motortrade.com.ph" },
       { protocol: "https", hostname: "platincdn.com" },
+      { protocol: "https", hostname: "powersports.honda.com" },
       { protocol: "https", hostname: "secmotosupply.com" },
       { protocol: "https", hostname: "shop.motoworld.com.ph" },
       { protocol: "https", hostname: "shopmotoman.com" },

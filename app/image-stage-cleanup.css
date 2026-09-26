@@ -491,15 +491,7 @@ html body .motorcycle-entity-page .motorcycle-hero-media img{
 }
 
 
-/* Tighten only the known bad source canvases. The wrappers clip the baked-in
-   footer text/whitespace while leaving the rest of the catalog untouched. */
-html body .model-card-media[data-entity-id="honda-cb650r"] img{
-  padding:0!important;transform:scale(1.55) translateY(-4%)!important;transform-origin:center 44%!important;
-}
-html body .model-card-media[data-entity-id="honda-xl750-transalp"] img,
-html body .model-card-media[data-entity-id="honda-crf1100l-africa-twin"] img{
-  padding:0!important;transform:scale(1.5) translateY(-4%)!important;transform-origin:center 44%!important;
-}
+/* Tighten the one remaining source canvas that still has excess whitespace. */
 html body .model-card-media[data-entity-id="suzuki-raider-pro"] img{
   padding:0!important;transform:scale(1.82)!important;transform-origin:center!important;
 }
