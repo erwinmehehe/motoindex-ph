@@ -94,6 +94,14 @@ export type GarageCatalogModel = {
   makeSlug: string;
   marketStatus?: string;
   srp: number;
+  engineCc?: number;
+  powerHp?: number;
+  torqueNm?: number;
+  curbWeightKg?: number;
+  seatHeightMm?: number;
+  fuelTankL?: number;
+  fuelConsumptionKmL?: number;
+  groundClearanceMm?: number;
   frontTire: string;
   rearTire: string;
   sourceLabel: string;
