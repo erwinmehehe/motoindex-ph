@@ -40,7 +40,7 @@
   border:0;
   border-bottom:1px solid var(--mi-color-line-soft);
   border-radius:0;
-  background:var(--mi-color-surface);
+  background:#fff;
   box-shadow:none;
 }
 
@@ -60,11 +60,11 @@
   max-width:100%;
   max-height:100%;
   margin:0;
-  padding:8px 10px 12px;
+  padding:14px 16px 16px;
   box-sizing:border-box;
   object-fit:contain;
   object-position:center;
-  background:var(--mi-color-surface);
+  background:#fff;
 }
 
 .standardBody{
