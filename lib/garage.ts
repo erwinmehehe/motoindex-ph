@@ -8,6 +8,8 @@ export const GARAGE_RECORD_CATEGORIES = [
   "FUEL",
   "TIRE",
   "BATTERY",
+  "OIL",
+  "CVT",
   "REPAIR",
   "ACCIDENT",
   "PART",
@@ -18,6 +20,8 @@ export const GARAGE_RECORD_CATEGORIES = [
   "INSURANCE",
   "RESALE",
 ] as const;
+
+export const GARAGE_COMPONENT_CATEGORIES = ["TIRE", "BATTERY", "OIL", "CVT", "PART"] as const;
 
 export const GARAGE_DOCUMENT_TYPES = [
   "OR",
@@ -32,6 +36,7 @@ export const GARAGE_DOCUMENT_TYPES = [
 ] as const;
 
 export type GarageRecordCategory = (typeof GARAGE_RECORD_CATEGORIES)[number];
+export type GarageComponentCategory = (typeof GARAGE_COMPONENT_CATEGORIES)[number];
 export type GarageDocumentType = (typeof GARAGE_DOCUMENT_TYPES)[number];
 
 export type GarageMotorcycle = {
@@ -66,6 +71,11 @@ export type GarageRecord = {
   fullTank?: boolean;
   nextDueKm?: number;
   nextDueDate?: string;
+  brand?: string;
+  partNumber?: string;
+  supplier?: string;
+  quantity?: number;
+  warrantyExpiry?: string;
   notes?: string;
 };
 

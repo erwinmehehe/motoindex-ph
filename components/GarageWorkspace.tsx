@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from "re
 import { GarageAccountPanel } from "@/components/GarageAccountPanel";
 import { GarageStatDeck } from "@/components/GarageStatDeck";
 import { GarageLifecyclePanel } from "@/components/GarageLifecyclePanel";
+import { GaragePartsPanel, type GarageComponentRecordInput } from "@/components/GaragePartsPanel";
 import {
   GARAGE_DOCUMENT_ATTACHMENT_ACCEPT_ATTR,
   deleteGarageDocumentAttachment,
@@ -139,6 +140,11 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
         value: record.nextDueDate,
         days: daysUntil(record.nextDueDate),
       })),
+      ...bikeRecords.filter((record) => record.warrantyExpiry).map((record) => ({
+        label: `${record.title} warranty`,
+        value: record.warrantyExpiry,
+        days: daysUntil(record.warrantyExpiry),
+      })),
       ...bikeDocuments.filter((document) => document.expiryDate).map((document) => ({
         label: document.label,
         value: document.expiryDate,
@@ -225,6 +231,22 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
       notes: `MotoIndex schedule: ${item.action} · ${item.interval}${item.note ? ` · ${item.note}` : ""}`,
     });
     window.requestAnimationFrame(() => recordForm.current?.scrollIntoView({ behavior: "smooth", block: "center" }));
+  }
+
+  function addComponentRecord(input: GarageComponentRecordInput) {
+    if (!selectedBike) return;
+    const record: GarageRecord = {
+      id: id("record"),
+      motorcycleId: selectedBike.id,
+      ...input,
+    };
+    setState((current) => ({
+      ...current,
+      records: [record, ...current.records],
+      motorcycles: current.motorcycles.map((bike) => bike.id === selectedBike.id && record.odometerKm !== undefined && record.odometerKm > bike.odometerKm
+        ? { ...bike, odometerKm: record.odometerKm, updatedAt: new Date().toISOString() }
+        : bike),
+    }));
   }
 
   function updateBike(event: FormEvent<HTMLFormElement>) {
@@ -456,6 +478,12 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
           records={bikeRecords}
           documents={bikeDocuments}
           smartMaintenance={smartMaintenance}
+        />
+
+        <GaragePartsPanel
+          records={bikeRecords}
+          currentOdometerKm={selectedBike.odometerKm}
+          onAddRecord={addComponentRecord}
         />
 
         {analytics && <section className="section">
