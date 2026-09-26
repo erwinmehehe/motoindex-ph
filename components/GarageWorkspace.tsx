@@ -6,6 +6,7 @@ import { GarageStatDeck } from "@/components/GarageStatDeck";
 import { GarageLifecyclePanel } from "@/components/GarageLifecyclePanel";
 import { GaragePartsPanel, type GarageComponentRecordInput } from "@/components/GaragePartsPanel";
 import { GarageReminderCenter } from "@/components/GarageReminderCenter";
+import { GarageTrendPanel } from "@/components/GarageTrendPanel";
 import {
   GARAGE_DOCUMENT_ATTACHMENT_ACCEPT_ATTR,
   deleteGarageDocumentAttachment,
@@ -473,6 +474,8 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
           documents={bikeDocuments}
           smartMaintenance={smartMaintenance}
         />
+
+        <GarageTrendPanel records={bikeRecords} />
 
         <GaragePartsPanel
           records={bikeRecords}
