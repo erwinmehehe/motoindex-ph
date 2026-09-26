@@ -175,7 +175,7 @@
     height:100%;
     min-height:190px;
     border-bottom:0;
-    background:var(--mi-color-surface-subtle);
+    background:#fff;
   }
 
   .standardBody{
