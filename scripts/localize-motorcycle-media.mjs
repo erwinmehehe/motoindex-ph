@@ -6,7 +6,6 @@ import sharp from "sharp";
 const root = process.cwd();
 const mediaPath = path.join(root, "lib/media.ts");
 let mediaSource = fs.readFileSync(mediaPath, "utf8");
-// Re-run this localizer when verified manufacturer art-direction sources change.
 const userAgent = "Mozilla/5.0 (compatible; MotoIndexMediaVerifier/1.0; +https://motoindexph.com/methodology)";
 
 const fallbackPages = {
