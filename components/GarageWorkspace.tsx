@@ -2,6 +2,7 @@
 
 import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { GarageAccountPanel } from "@/components/GarageAccountPanel";
+import { GarageStatDeck } from "@/components/GarageStatDeck";
 import {
   GARAGE_DOCUMENT_ATTACHMENT_ACCEPT_ATTR,
   deleteGarageDocumentAttachment,
@@ -420,12 +421,14 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
           </div>
         </div>
 
-        <div className="spec-grid">
-          <div className="garage-summary-item"><span>Odometer</span><strong>{selectedBike.odometerKm.toLocaleString()} km</strong><small>Updates when a higher log reading is saved</small></div>
-          <div className="garage-summary-item"><span>Total logged spend</span><strong>{money(analytics?.totalSpendPhp)}</strong><small>Fuel, PMS, repairs, parts and other recorded costs</small></div>
-          <div className="garage-summary-item"><span>Fuel</span><strong>{money(analytics?.fuelSpendPhp)}</strong><small>{analytics?.fuelLiters ? `${analytics.fuelLiters.toFixed(1)} L logged` : "No fuel volume logged yet"}</small></div>
-          <div className="garage-summary-item"><span>Estimated resale</span><strong>{money(effectiveResale)}</strong><small>{selectedBike.estimatedResaleValuePhp !== undefined ? "Owner override" : selectedCatalog ? `MotoIndex depreciation estimate from ${money(selectedCatalog.srp)} reference SRP` : "Add a value estimate"}</small></div>
-        </div>
+        <GarageStatDeck
+          key={selectedBike.id}
+          bike={selectedBike}
+          catalog={selectedCatalog}
+          analytics={analytics}
+          smartMaintenance={smartMaintenance}
+          effectiveResale={effectiveResale}
+        />
 
         {analytics && <section className="section">
           <div className="section-head"><div><h2>Ownership analytics</h2><p>Calculated from the records you log in My Garage.</p></div></div>
