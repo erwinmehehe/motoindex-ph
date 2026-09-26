@@ -120,6 +120,9 @@ export type SmartMaintenanceDue = {
   interval: string;
   nextDueKm?: number;
   remainingKm?: number;
+  lastCompletedDate?: string;
+  lastCompletedOdometerKm?: number;
+  basis: "schedule" | "service-record";
   note?: string;
 };
 
@@ -204,22 +207,56 @@ function numbersInInterval(interval: string) {
   return [...interval.matchAll(/(\d[\d,]*)\s*km/gi)].map((match) => Number(match[1].replaceAll(",", ""))).filter(Number.isFinite);
 }
 
-export function smartMaintenanceDue(items: GarageCatalogMaintenanceItem[], odometerKm: number): SmartMaintenanceDue[] {
+function normalizedMaintenanceTitle(value: string) {
+  return value.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+export function nextMaintenanceDueAfterCompletion(interval: string, completedAtKm: number) {
+  const everyMatch = interval.match(/every\s+(\d[\d,]*)\s*km/i);
+  if (!everyMatch) return undefined;
+  const cadence = Number(everyMatch[1].replaceAll(",", ""));
+  return Number.isFinite(cadence) && cadence > 0 ? completedAtKm + cadence : undefined;
+}
+
+export function smartMaintenanceDue(
+  items: GarageCatalogMaintenanceItem[],
+  odometerKm: number,
+  records: GarageRecord[] = [],
+): SmartMaintenanceDue[] {
   return items.map((item) => {
     const values = numbersInInterval(item.interval);
-    let nextDueKm: number | undefined;
+    const itemTitle = normalizedMaintenanceTitle(item.item);
+    const lastCompleted = records
+      .filter((record) => record.category === "PMS" && normalizedMaintenanceTitle(record.title) === itemTitle)
+      .sort((a, b) => b.date.localeCompare(a.date) || (b.odometerKm || 0) - (a.odometerKm || 0))[0];
 
-    const everyMatch = item.interval.match(/every\s+(\d[\d,]*)\s*km/i);
-    if (everyMatch) {
-      const cadence = Number(everyMatch[1].replaceAll(",", ""));
-      const firstMatch = item.interval.match(/first\s+at\s+(\d[\d,]*)\s*km/i);
-      const first = firstMatch ? Number(firstMatch[1].replaceAll(",", "")) : cadence;
-      if (odometerKm < first) nextDueKm = first;
-      else nextDueKm = first + Math.max(1, Math.ceil((odometerKm - first + 1) / cadence)) * cadence;
-    } else if (/replacement point shown at/i.test(item.interval) && values.length) {
-      nextDueKm = values[values.length - 1];
-    } else if (values.length === 1 && /\bat\b/i.test(item.interval)) {
-      nextDueKm = values[0];
+    let nextDueKm: number | undefined;
+    let basis: SmartMaintenanceDue["basis"] = "schedule";
+
+    if (lastCompleted?.nextDueKm !== undefined) {
+      nextDueKm = lastCompleted.nextDueKm;
+      basis = "service-record";
+    } else if (lastCompleted?.odometerKm !== undefined) {
+      const fromCompletion = nextMaintenanceDueAfterCompletion(item.interval, lastCompleted.odometerKm);
+      if (fromCompletion !== undefined) {
+        nextDueKm = fromCompletion;
+        basis = "service-record";
+      }
+    }
+
+    if (nextDueKm === undefined) {
+      const everyMatch = item.interval.match(/every\s+(\d[\d,]*)\s*km/i);
+      if (everyMatch) {
+        const cadence = Number(everyMatch[1].replaceAll(",", ""));
+        const firstMatch = item.interval.match(/first\s+at\s+(\d[\d,]*)\s*km/i);
+        const first = firstMatch ? Number(firstMatch[1].replaceAll(",", "")) : cadence;
+        if (odometerKm < first) nextDueKm = first;
+        else nextDueKm = first + Math.max(1, Math.ceil((odometerKm - first + 1) / cadence)) * cadence;
+      } else if (/replacement point shown at/i.test(item.interval) && values.length && !lastCompleted) {
+        nextDueKm = values[values.length - 1];
+      } else if (values.length === 1 && /\bat\b/i.test(item.interval) && !lastCompleted) {
+        nextDueKm = values[0];
+      }
     }
 
     return {
@@ -228,6 +265,9 @@ export function smartMaintenanceDue(items: GarageCatalogMaintenanceItem[], odome
       interval: item.interval,
       nextDueKm,
       remainingKm: nextDueKm !== undefined ? nextDueKm - odometerKm : undefined,
+      lastCompletedDate: lastCompleted?.date,
+      lastCompletedOdometerKm: lastCompleted?.odometerKm,
+      basis,
       note: item.note,
     };
   });
