@@ -111,6 +111,11 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
   }, [hydrated, state.documents]);
 
   const selectedBike = state.motorcycles.find((bike) => bike.id === selectedId) || state.motorcycles[0];
+
+  useEffect(() => {
+    setMaintenanceDraft(null);
+  }, [selectedBike?.id]);
+
   const selectedCatalog = selectedBike ? catalog.find((model) => model.id === (selectedBike.catalogModelId || `${selectedBike.make.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${selectedBike.model.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`)) : undefined;
   const bikeRecords = useMemo(() => state.records
     .filter((record) => record.motorcycleId === selectedBike?.id)
