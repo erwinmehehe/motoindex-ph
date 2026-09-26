@@ -2,14 +2,17 @@
    Shared component geometry lives here. Route CSS may compose these primitives,
    but must not restyle their internals. */
 .ui-page-hero{max-width:920px;padding:var(--mi-space-10) 0 var(--mi-space-8)}
-.ui-page-hero__kicker,.ui-section-header__kicker{display:block;margin-bottom:var(--mi-space-2);color:var(--mi-color-primary);font-size:var(--mi-type-xs);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.ui-page-hero__kicker,.ui-section-header__kicker,.ui-stat-row__label,.ui-stat-row__value,.ui-stat-row__note{display:block}
+.ui-page-hero__kicker,.ui-section-header__kicker{margin-bottom:var(--mi-space-2);color:var(--mi-color-primary);font-size:var(--mi-type-xs);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .ui-page-hero h1{max-width:900px;margin:0;color:var(--mi-color-ink);font-size:var(--mi-type-page);line-height:.98;letter-spacing:var(--mi-tracking-page);text-wrap:balance}
 .ui-page-hero__description{max-width:var(--mi-copy-max);margin:var(--mi-space-4) 0 0;color:var(--mi-color-copy);font-size:var(--mi-type-base);line-height:var(--mi-leading-copy)}
 .ui-page-hero__actions{margin-top:var(--mi-space-5)}
 
 .ui-page-section{padding:var(--mi-space-12) 0;border-top:1px solid var(--mi-color-line)}
 .ui-page-section:first-of-type{border-top:0}
-.ui-section-count{display:inline-flex;align-items:center;min-height:32px;padding:0 var(--mi-space-3);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-pill);background:var(--mi-color-surface);color:var(--mi-color-slate-600);font-size:var(--mi-type-xs);font-weight:750}
+.ui-section-count,.ui-product-card,.ui-info-panel,.ui-content-card{border:1px solid var(--mi-color-line)}
+.ui-product-card,.ui-info-panel,.ui-content-card{background:var(--mi-color-surface)}
+.ui-section-count{display:inline-flex;align-items:center;min-height:32px;padding:0 var(--mi-space-3);border-radius:var(--mi-radius-pill);background:var(--mi-color-surface);color:var(--mi-color-slate-600);font-size:var(--mi-type-xs);font-weight:750}
 
 .ui-section-header{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--mi-space-6);margin-bottom:var(--mi-space-5)}
 .ui-section-header__copy{min-width:0;max-width:820px}
@@ -20,12 +23,12 @@
 .ui-stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;margin:0 0 var(--mi-space-8);border-top:1px solid var(--mi-color-line);border-bottom:1px solid var(--mi-color-line)}
 .ui-stat-row__item{min-width:0;padding:var(--mi-space-4);border-right:1px solid var(--mi-color-line)}
 .ui-stat-row__item:last-child{border-right:0}
-.ui-stat-row__label{display:block;color:var(--mi-color-muted);font-size:var(--mi-type-xs);font-weight:750;text-transform:uppercase;letter-spacing:.06em}
-.ui-stat-row__value{display:block;margin-top:var(--mi-space-2);color:var(--mi-color-ink);font-size:var(--mi-type-lg);line-height:1.25}
-.ui-stat-row__note{display:block;margin-top:var(--mi-space-1);color:var(--mi-color-copy);font-size:var(--mi-type-xs);line-height:1.45}
+.ui-stat-row__label{color:var(--mi-color-muted);font-size:var(--mi-type-xs);font-weight:750;text-transform:uppercase;letter-spacing:.06em}
+.ui-stat-row__value{margin-top:var(--mi-space-2);color:var(--mi-color-ink);font-size:var(--mi-type-lg);line-height:1.25}
+.ui-stat-row__note{margin-top:var(--mi-space-1);color:var(--mi-color-copy);font-size:var(--mi-type-xs);line-height:1.45}
 
 .ui-product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--mi-space-4)}
-.ui-product-card{height:100%;display:flex;min-width:0;flex-direction:column;overflow:hidden;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md);background:var(--mi-color-surface)}
+.ui-product-card{height:100%;display:flex;min-width:0;flex-direction:column;overflow:hidden;border-radius:var(--mi-radius-md)}
 .ui-product-card:hover{border-color:var(--mi-color-primary-soft);box-shadow:var(--mi-shadow-sm)}
 .ui-product-media{position:relative;width:100%;height:var(--mi-product-media-height);display:grid;place-items:center;overflow:hidden;background:var(--mi-color-surface-subtle)}
 .ui-product-media img{position:absolute;inset:0;width:100%;height:100%;min-width:0;min-height:0;margin:0;padding:var(--mi-space-4);box-sizing:border-box;object-fit:contain;object-position:center}
@@ -38,7 +41,7 @@
 
 .helmet-category-grid{gap:20px}
 .helmet-category-grid .ui-product-media{height:260px;min-height:260px;background:var(--mi-color-surface)}
-.ui-info-panel{padding:var(--mi-space-5);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md);background:var(--mi-color-surface)}
+.ui-info-panel{padding:var(--mi-space-5);border-radius:var(--mi-radius-md)}
 .ui-info-panel--subtle{background:var(--mi-color-surface-subtle)}
 .ui-info-panel h2,.ui-info-panel h3{margin-top:0;color:var(--mi-color-ink)}
 .ui-info-panel p,.ui-info-panel li{color:var(--mi-color-copy);line-height:var(--mi-leading-copy)}
@@ -53,7 +56,7 @@
 .ui-cta-group .button{min-height:var(--mi-control-height)}
 
 .ui-content-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--mi-space-3)}
-.ui-content-card{min-width:0;padding:var(--mi-space-5);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md);background:var(--mi-color-surface)}
+.ui-content-card{min-width:0;padding:var(--mi-space-5);border-radius:var(--mi-radius-md)}
 .ui-content-card h3{margin:0 0 var(--mi-space-2);color:var(--mi-color-ink);font-size:var(--mi-type-lg)}
 .ui-content-card p{margin:0;color:var(--mi-color-copy);font-size:var(--mi-type-sm);line-height:var(--mi-leading-copy)}
 

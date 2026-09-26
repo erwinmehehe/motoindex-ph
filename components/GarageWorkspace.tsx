@@ -3,6 +3,7 @@
 import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { GarageAccountPanel } from "@/components/GarageAccountPanel";
 import { GarageStatDeck } from "@/components/GarageStatDeck";
+import { GarageLifecyclePanel } from "@/components/GarageLifecyclePanel";
 import {
   GARAGE_DOCUMENT_ATTACHMENT_ACCEPT_ATTR,
   deleteGarageDocumentAttachment,
@@ -428,6 +429,13 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
           analytics={analytics}
           smartMaintenance={smartMaintenance}
           effectiveResale={effectiveResale}
+        />
+
+        <GarageLifecyclePanel
+          bike={selectedBike}
+          records={bikeRecords}
+          documents={bikeDocuments}
+          smartMaintenance={smartMaintenance}
         />
 
         {analytics && <section className="section">
