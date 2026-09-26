@@ -119,8 +119,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-navi-wheeltek", entityType: "motorcycle", entityId: "honda-navi", role: "primary",
-    src: "/media/motorcycles/honda-navi.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2026/06/honda-navi-ranger-green-300x300.jpg", alt: "Honda NAVi motorcycle in Ranger Green", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Honda NAVi", sourceUrl: "https://wheeltek.com.ph/products/regular-bikes/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/honda-navi.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2026/06/honda-navi-ranger-green.jpg", alt: "Honda NAVi motorcycle in Ranger Green", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Honda NAVi", sourceUrl: "https://wheeltek.com.ph/products/regular-bikes/", lastChecked: "2026-09-27"
   },
   {
     id: "honda-beat-honda-ph", entityType: "motorcycle", entityId: "honda-beat", role: "primary",
@@ -236,7 +236,7 @@ export const entityMedia: EntityMedia[] = [
   {
     id: "suzuki-raider-pro-suzuki-ph-final", entityType: "motorcycle", entityId: "suzuki-raider-pro", role: "primary",
     src: "/media/motorcycles/suzuki-raider-pro.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2025/11/RPTYNov11-1.png", alt: "Suzuki Raider PRO motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted Philippine image reference · Suzuki Raider PRO", sourceUrl: "https://mc.suzuki.com.ph/the-progressive-edge-suzuki-launches-the-5th-generation-raider-r150-series-in-the-philippines/", lastChecked: "2026-09-24"
+    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer-hosted Philippine image reference · Suzuki Raider PRO", sourceUrl: "https://mc.suzuki.com.ph/the-progressive-edge-suzuki-launches-the-5th-generation-raider-r150-series-in-the-philippines/", lastChecked: "2026-09-27"
   },
   {
     id: "suzuki-gixxer-155-manufacturer", entityType: "motorcycle", entityId: "suzuki-gixxer-155", role: "primary",
@@ -715,8 +715,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"husqvarna-svartpilen-401-editorial", entityType:"motorcycle", entityId:"husqvarna-svartpilen-401", role:"primary",
-    src:"/media/motorcycles/husqvarna-svartpilen-401.webp", sourceImageUrl:"https://next-moto.com/products/873/images/husqvarna-svartpilen-401-2023-873-1746647954.webp", alt:"Husqvarna Svartpilen 401 motorcycle product photo", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"Next Moto", sourceLabel:"Motorcycle listing image · Husqvarna Svartpilen 401", sourceUrl:"https://next-moto.com/comprar-moto-ocasion", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/husqvarna-svartpilen-401.webp", sourceImageUrl:"https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_Svartpilen-401-MY24-90-right-US_%23SALL_%23AEPI_%23V1.png", alt:"Husqvarna Svartpilen 401 motorcycle product photo", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder:"Husqvarna Mobility", sourceLabel:"Official manufacturer product image · Husqvarna Svartpilen 401", sourceUrl:"https://www.husqvarna-motorcycles.com/en-us/models/naked/svartpilen/svartpilen-401-2024.html", lastChecked:"2026-09-27"
   },
   {
     id:"husqvarna-vitpilen-401-editorial", entityType:"motorcycle", entityId:"husqvarna-vitpilen-401", role:"primary",
@@ -837,8 +837,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"royal-enfield-guerrilla-450-editorial", entityType:"motorcycle", entityId:"royal-enfield-guerrilla-450", role:"primary",
-    src:"/media/motorcycles/royal-enfield-guerrilla-450.webp", sourceImageUrl:"https://images5.1000ps.net/images_bikekat/2025/15-Royal_Enfield/12583-Guerrilla_450/006-638783978103498301-royal-enfield-guerrilla-450.jpg?format=webp&height=566&mode=crop&width=920", alt:"Royal Enfield Guerrilla 450 motorcycle in studio view", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder:"1000PS dealer network", sourceLabel:"Dealer product image · Royal Enfield Guerrilla 450", sourceUrl:"https://www.royal-enfield-sachsen.com/de/motorrad-modell-royal-enfield-guerrilla-450-12583-2025", lastChecked:"2026-09-08"
+    src:"/media/motorcycles/royal-enfield-guerrilla-450.webp", sourceImageUrl:"https://www.royalenfield.com/content/dam/royal-enfield/motorcycles/guerrilla-450/studio-shots/new/brava-blue/brava-blue-000.webp", alt:"Royal Enfield Guerrilla 450 motorcycle in studio view", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder:"Royal Enfield", sourceLabel:"Official manufacturer studio image · Royal Enfield Guerrilla 450", sourceUrl:"https://www.royalenfield.com/ph/en/motorcycles/guerrilla-450/", lastChecked:"2026-09-27"
   },
   {
     id:"royal-enfield-classic-350-editorial", entityType:"motorcycle", entityId:"royal-enfield-classic-350", role:"primary",
