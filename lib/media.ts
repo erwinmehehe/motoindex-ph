@@ -22,7 +22,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-crf300-rally-manufacturer", entityType: "motorcycle", entityId: "honda-crf300-rally", role: "primary",
-    src: "/media/motorcycles/honda-crf300-rally.webp", sourceImageUrl: "https://powersports.honda.com/motorcycle/dual-sport/crf300l-rally/2026/-/media/products/family/crf300l-rally/trims/trim-main/crf300l-rally/2026/2026-crf300l-rally-red-1505x923.png?imwidth=1600", alt: "Honda CRF300 Rally adventure motorcycle product image", width: 1200, height: 1200,
+    src: "https://powersports.honda.com/motorcycle/dual-sport/crf300l-rally/2026/-/media/products/family/crf300l-rally/trims/trim-main/crf300l-rally/2026/2026-crf300l-rally-red-1505x923.png?imwidth=1600", sourceImageUrl: "https://powersports.honda.com/motorcycle/dual-sport/crf300l-rally/2026/-/media/products/family/crf300l-rally/trims/trim-main/crf300l-rally/2026/2026-crf300l-rally-red-1505x923.png?imwidth=1600", alt: "Honda CRF300 Rally adventure motorcycle product image", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Honda", sourceLabel: "Manufacturer product image · Honda CRF300L Rally", sourceUrl: "https://powersports.honda.com/motorcycle/dual-sport/crf300l-rally/2026/crf300l-rally", lastChecked: "2026-09-24"
   },
   {
@@ -37,12 +37,12 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-cb650r-honda-global", entityType: "motorcycle", entityId: "honda-cb650r", role: "primary",
-    src: "/media/motorcycles/honda-cb650r.webp", sourceImageUrl: "https://powersports.honda.com/motorcycle/standard/cb650r/2026/-/media/products/family/cb650r/trims/trim-main/cb650r-e-clutch/2026/2026-cb650r-e-clutch-matte_black_metallic-1505x923.png?imwidth=1600", alt: "Honda CB650R motorcycle in Matte Ballistic Black Metallic", width: 1200, height: 1200,
+    src: "https://powersports.honda.com/motorcycle/standard/cb650r/2026/-/media/products/family/cb650r/trims/trim-main/cb650r-e-clutch/2026/2026-cb650r-e-clutch-matte_black_metallic-1505x923.png?imwidth=1600", sourceImageUrl: "https://powersports.honda.com/motorcycle/standard/cb650r/2026/-/media/products/family/cb650r/trims/trim-main/cb650r-e-clutch/2026/2026-cb650r-e-clutch-matte_black_metallic-1505x923.png?imwidth=1600", alt: "Honda CB650R motorcycle in Matte Ballistic Black Metallic", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "American Honda Motor Co., Inc.", sourceLabel: "Official Honda Powersports product image · 2026 CB650R E-Clutch", sourceUrl: "https://powersports.honda.com/motorcycle/standard/cb650r/2026/cb650r-e-clutch", lastChecked: "2026-09-26"
   },
   {
     id: "honda-nx500-e-clutch-bsh-2026", entityType: "motorcycle", entityId: "honda-nx500-e-clutch", role: "primary",
-    src: "/media/motorcycles/honda-nx500-e-clutch.webp", sourceImageUrl: "https://hondabigbike.com.my/wp-content/uploads/2026/09/2026-NX500_studio_A002_E-Clutch_NH-B61P_PearlHorizonWhite_RhSide_M-Photoroom-1-e1786456362968.png", alt: "2026 Honda NX500 E-Clutch motorcycle in Pearl Horizon White", width: 1200, height: 1200,
+    src: "https://hondabigbike.com.my/wp-content/uploads/2026/09/2026-NX500_studio_A002_E-Clutch_NH-B61P_PearlHorizonWhite_RhSide_M-Photoroom-1-e1786456362968.png", sourceImageUrl: "https://hondabigbike.com.my/wp-content/uploads/2026/09/2026-NX500_studio_A002_E-Clutch_NH-B61P_PearlHorizonWhite_RhSide_M-Photoroom-1-e1786456362968.png", alt: "2026 Honda NX500 E-Clutch motorcycle in Pearl Horizon White", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Boon Siew Honda / Honda BigBike Malaysia", sourceLabel: "Manufacturer-hosted image reference · 2026 Honda NX500 E-Clutch", sourceUrl: "https://hondabigbike.com.my/model/nx500/", lastChecked: "2026-09-24"
   },
   {
@@ -955,17 +955,17 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-cbr650r-honda-global", entityType: "motorcycle", entityId: "honda-cbr650r", role: "primary",
-    src: "/media/motorcycles/honda-cbr650r.webp", sourceImageUrl: "https://powersports.honda.com/motorcycle/sport/cbr650r/2026/-/media/products/family/cbr650r/trims/trim-main/cbr650r-e-clutch/2026/2026-cbr650r-e-clutch-matte_black_metallic-1505x923.png?imwidth=1600", alt: "Honda CBR650R E-Clutch sport motorcycle", width: 1200, height: 1200,
+    src: "https://powersports.honda.com/motorcycle/sport/cbr650r/2026/-/media/products/family/cbr650r/trims/trim-main/cbr650r-e-clutch/2026/2026-cbr650r-e-clutch-matte_black_metallic-1505x923.png?imwidth=1600", sourceImageUrl: "https://powersports.honda.com/motorcycle/sport/cbr650r/2026/-/media/products/family/cbr650r/trims/trim-main/cbr650r-e-clutch/2026/2026-cbr650r-e-clutch-matte_black_metallic-1505x923.png?imwidth=1600", alt: "Honda CBR650R E-Clutch sport motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "American Honda Motor Co., Inc.", sourceLabel: "Official Honda Powersports product image · 2026 CBR650R E-Clutch", sourceUrl: "https://powersports.honda.com/motorcycle/sport/cbr650r/2026/cbr650r-e-clutch", lastChecked: "2026-09-26"
   },
   {
     id: "honda-crf1100l-africa-twin-honda-global", entityType: "motorcycle", entityId: "honda-crf1100l-africa-twin", role: "primary",
-    src: "/media/motorcycles/honda-crf1100l-africa-twin.webp", sourceImageUrl: "https://powersports.honda.com/motorcycle/adventure/-/media/products/family/africa-twin/trims/trim-main/africa-twin/2026/2026-africa-twin-matte_black_metallic-1505x923.png?imwidth=1600", alt: "Honda CRF1100L Africa Twin adventure motorcycle", width: 1200, height: 1200,
+    src: "https://powersports.honda.com/motorcycle/adventure/-/media/products/family/africa-twin/trims/trim-main/africa-twin/2026/2026-africa-twin-matte_black_metallic-1505x923.png?imwidth=1600", sourceImageUrl: "https://powersports.honda.com/motorcycle/adventure/-/media/products/family/africa-twin/trims/trim-main/africa-twin/2026/2026-africa-twin-matte_black_metallic-1505x923.png?imwidth=1600", alt: "Honda CRF1100L Africa Twin adventure motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "American Honda Motor Co., Inc.", sourceLabel: "Official Honda Powersports product image · 2026 Africa Twin", sourceUrl: "https://powersports.honda.com/motorcycle/adventure/africa-twin", lastChecked: "2026-09-26"
   },
   {
     id: "honda-xl750-transalp-honda-global", entityType: "motorcycle", entityId: "honda-xl750-transalp", role: "primary",
-    src: "/media/motorcycles/honda-xl750-transalp.webp", sourceImageUrl: "https://powersports.honda.com/motorcycle/adventure/-/media/products/family/transalp/trims/trim-main/transalp-e-clutch/2026/2026-transalp-e-clutch-white-1505x923.png?imwidth=1600", alt: "Honda XL750 Transalp adventure motorcycle", width: 1200, height: 1200,
+    src: "https://powersports.honda.com/motorcycle/adventure/-/media/products/family/transalp/trims/trim-main/transalp-e-clutch/2026/2026-transalp-e-clutch-white-1505x923.png?imwidth=1600", sourceImageUrl: "https://powersports.honda.com/motorcycle/adventure/-/media/products/family/transalp/trims/trim-main/transalp-e-clutch/2026/2026-transalp-e-clutch-white-1505x923.png?imwidth=1600", alt: "Honda XL750 Transalp adventure motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "American Honda Motor Co., Inc.", sourceLabel: "Official Honda Powersports product image · 2026 Transalp E-Clutch", sourceUrl: "https://powersports.honda.com/motorcycle/adventure/transalp", lastChecked: "2026-09-26"
   },
   {
