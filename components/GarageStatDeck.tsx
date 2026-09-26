@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   daysUntil,
@@ -92,7 +92,7 @@ function Meter({
   percent,
 }: {
   label: string;
-  value: React.ReactNode;
+  value: ReactNode;
   caption: string;
   percent: number;
 }) {
