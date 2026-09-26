@@ -12,9 +12,10 @@ type Props = {
   priority?: boolean;
   unoptimized?: boolean;
   fill?: boolean;
+  neutralizePressBackground?: boolean;
 };
 
-export function SafeEntityImage({src,fallbackSrc,alt,width,height,sizes,priority=false,unoptimized=false,fill=false}:Props){
+export function SafeEntityImage({src,fallbackSrc,alt,width,height,sizes,priority=false,unoptimized=false,fill=false,neutralizePressBackground=false}:Props){
   const [currentSrc,setCurrentSrc]=useState(src);
   const [failed,setFailed]=useState(false);
 
@@ -41,8 +42,8 @@ export function SafeEntityImage({src,fallbackSrc,alt,width,height,sizes,priority
   };
 
   if(fill){
-    return <Image {...common} fill style={{objectFit:"contain"}} />;
+    return <Image {...common} fill style={{objectFit:"contain",filter:neutralizePressBackground?"brightness(1.38) contrast(1.18) saturate(1.08)":undefined,clipPath:neutralizePressBackground?"inset(0 0 10% 0)":undefined}} />;
   }
 
-  return <Image {...common} width={width} height={height} style={{objectFit:"contain",objectPosition:"center",maxWidth:"100%",maxHeight:"100%"}} />;
+  return <Image {...common} width={width} height={height} style={{objectFit:"contain",objectPosition:"center",maxWidth:"100%",maxHeight:"100%",filter:neutralizePressBackground?"brightness(1.38) contrast(1.18) saturate(1.08)":undefined,clipPath:neutralizePressBackground?"inset(0 0 10% 0)":undefined}} />;
 }
