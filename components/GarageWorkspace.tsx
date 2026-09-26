@@ -132,30 +132,6 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
   const analytics = selectedBike ? garageOwnershipAnalytics(selectedBike, bikeRecords, effectiveResale) : null;
   const maintenanceReference = selectedBike ? maintenanceReferenceForBike(selectedBike) : null;
 
-  const upcoming = useMemo(() => {
-    if (!selectedBike) return [] as { label: string; value: string; days: number | null }[];
-    const items = [
-      { label: "LTO registration", value: selectedBike.registrationExpiry, days: daysUntil(selectedBike.registrationExpiry) },
-      { label: "Insurance", value: selectedBike.insuranceExpiry, days: daysUntil(selectedBike.insuranceExpiry) },
-      ...bikeRecords.filter((record) => record.nextDueDate).map((record) => ({
-        label: record.title,
-        value: record.nextDueDate,
-        days: daysUntil(record.nextDueDate),
-      })),
-      ...bikeRecords.filter((record) => record.warrantyExpiry).map((record) => ({
-        label: `${record.title} warranty`,
-        value: record.warrantyExpiry,
-        days: daysUntil(record.warrantyExpiry),
-      })),
-      ...bikeDocuments.filter((document) => document.expiryDate).map((document) => ({
-        label: document.label,
-        value: document.expiryDate,
-        days: daysUntil(document.expiryDate),
-      })),
-    ].filter((item) => item.value) as { label: string; value: string; days: number | null }[];
-    return items.sort((a, b) => (a.days ?? 999999) - (b.days ?? 999999)).slice(0, 8);
-  }, [selectedBike, bikeRecords, bikeDocuments]);
-
   function addBike(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
