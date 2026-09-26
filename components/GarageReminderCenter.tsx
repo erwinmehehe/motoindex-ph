@@ -11,7 +11,7 @@ import {
 
 type ReminderItem = {
   id: string;
-  source: "smart" | "record" | "bike" | "document";
+  source: "smart" | "record" | "bike" | "document" | "warranty";
   label: string;
   detail: string;
   days?: number | null;
@@ -101,6 +101,15 @@ export function GarageReminderCenter({
     }
 
     for (const record of records) {
+      if (record.warrantyExpiry) {
+        items.push({
+          id: `warranty:${record.id}`,
+          source: "warranty",
+          label: `${record.title} warranty`,
+          detail: `${dateLabel(record.warrantyExpiry)} · ${record.category}`,
+          days: daysUntil(record.warrantyExpiry),
+        });
+      }
       if (!record.nextDueDate && record.nextDueKm === undefined) continue;
       const duplicateSmartMileage = record.nextDueKm !== undefined && smartTitles.has(normalized(record.title));
       if (record.nextDueDate) {
@@ -168,7 +177,7 @@ export function GarageReminderCenter({
         const status = state(item);
         return <div className="buyer-quote-card" key={item.id}>
           <div>
-            <span className="field-label">{item.source === "smart" ? "Verified schedule" : item.source === "bike" ? "Renewal" : item.source === "document" ? "Document" : "Saved reminder"}</span>
+            <span className="field-label">{item.source === "smart" ? "Verified schedule" : item.source === "bike" ? "Renewal" : item.source === "document" ? "Document" : item.source === "warranty" ? "Warranty" : "Saved reminder"}</span>
             <strong>{item.label}</strong>
             <p>{item.detail}</p>
             {item.remainingKm !== undefined && <small>{item.remainingKm <= 0 ? `${Math.abs(item.remainingKm).toLocaleString()} km overdue` : `${item.remainingKm.toLocaleString()} km remaining`}</small>}
