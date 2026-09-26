@@ -46,7 +46,7 @@
 
 .ui-data-table{width:100%;overflow-x:auto;border-top:1px solid var(--mi-color-line);border-bottom:1px solid var(--mi-color-line)}
 .ui-data-table__inner{min-width:680px}
-.ui-data-table [role="row"]{display:grid;align-items:center;gap:var(--mi-space-4);min-height:56px;padding:var(--mi-space-3) 0;border-bottom:1px solid var(--mi-color-line);color:var(--mi-color-ink)
+.ui-data-table [role="row"]{display:grid;align-items:center;gap:var(--mi-space-4);min-height:56px;padding:var(--mi-space-3) 0;border-bottom:1px solid var(--mi-color-line);color:var(--mi-color-ink)}
 .ui-data-table [role="row"]:last-child{border-bottom:0}
 .ui-data-table [role="row"].head{color:var(--mi-color-muted);font-size:var(--mi-type-xs);font-weight:800;text-transform:uppercase}
 
