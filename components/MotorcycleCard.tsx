@@ -56,12 +56,14 @@ function absAvailable(model: Motorcycle) {
   return /\bABS\b/i.test(model.abs) && !/^No ABS/i.test(model.abs);
 }
 
-function MotorcycleFallback({ model, href, className }: { model: Motorcycle; href: string; className: string }) {
-  return <Link href={href} className={`${className} ${styles.brandedFallback}`} aria-label={`View ${model.make} ${model.model}`}>
+function MotorcycleFallback({ model, href, className, linked = true }: { model: Motorcycle; href: string; className: string; linked?: boolean }) {
+  const content = <>
     {brandLogos[model.make] ? <Image className={styles.fallbackLogo} src={brandLogos[model.make]} alt="" width={110} height={36} unoptimized /> : <strong className={styles.fallbackBrand}>{model.make}</strong>}
     <span className={styles.fallbackModel}>{model.model}</span>
     <small>Photo verification pending</small>
-  </Link>;
+  </>;
+  if (!linked) return <div className={`${className} ${styles.brandedFallback}`}>{content}</div>;
+  return <Link href={href} className={`${className} ${styles.brandedFallback}`} aria-label={`View ${model.make} ${model.model}`}>{content}</Link>;
 }
 
 export function MotorcycleCard({
@@ -114,7 +116,7 @@ export function MotorcycleCard({
   const showLifecycle = Boolean(model.marketStatus && model.marketStatus !== "current");
   return <article className={`${styles.card} model-card motorcycle-card motorcycle-card-standard`}>
     <div className={styles.standard} data-motorcycle-card="standard">
-      <EntityMedia entityType="motorcycle" entityId={model.id} className={`${styles.standardMedia} model-card-media`} linkHref={href} showCredit={false} fallback={<MotorcycleFallback model={model} href={href} className={`${styles.mediaFallback} model-media-placeholder`} />}/>
+      <Link href={href} className={styles.standardMediaLink} aria-label={`View ${model.make} ${model.model}`}><EntityMedia entityType="motorcycle" entityId={model.id} className={`${styles.standardMedia} model-card-media`} showCredit={false} fallback={<MotorcycleFallback model={model} href={href} linked={false} className={`${styles.mediaFallback} model-media-placeholder`} />}/></Link>
       <div className={`${styles.standardBody} model-card-body`}>
         <div className={`${styles.topline} model-card-topline`}><span className={styles.brandMark}>{brandLogos[model.make] ? <Image src={brandLogos[model.make]} alt={`${model.make} logo`} width={84} height={28} unoptimized /> : <strong>{model.make}</strong>}</span><SaveToShortlistButton modelId={model.id} compact/></div>
         {needsUpdate&&<span className={`${styles.status} catalog-status`}>Needs update</span>}

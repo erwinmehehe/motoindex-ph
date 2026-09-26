@@ -33,8 +33,8 @@
   position:relative;
   display:grid;
   width:100%;
-  height:190px;
-  min-height:190px;
+  height:220px;
+  min-height:220px;
   place-items:center;
   overflow:hidden;
   border:0;
@@ -44,29 +44,10 @@
   box-shadow:none;
 }
 
-.standardMedia :global(.entity-media-link),
-.mediaFallback{
-  display:grid;
-  width:100%;
-  height:100%;
-  place-items:center;
-}
-
-.standardMedia img,
-.mediaFallback img{
-  display:block;
-  width:100%;
-  height:100%;
-  max-width:100%;
-  max-height:100%;
-  margin:0;
-  padding:8px 10px 12px;
-  box-sizing:border-box;
-  object-fit:contain;
-  object-position:center;
-  background:var(--mi-color-surface);
-}
-
+.standardMediaLink{display:block;min-width:0;text-decoration:none}
+.standardMedia img{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;margin:0!important;padding:10px!important;box-sizing:border-box!important;object-fit:contain!important;object-position:center!important;transform:none!important}
+.mediaFallback{display:grid;width:100%;height:100%;place-items:center;overflow:hidden;box-sizing:border-box}
+.mediaFallback img{display:block;max-width:100%;max-height:100%;object-fit:contain}
 .standardBody{
   display:flex;
   min-width:0;
@@ -213,8 +194,8 @@
 
 @container motorcycle-card (max-width:360px){
   .standardMedia{
-    height:190px;
-    min-height:190px;
+    height:205px;
+    min-height:205px;
   }
 
   .standardBody{

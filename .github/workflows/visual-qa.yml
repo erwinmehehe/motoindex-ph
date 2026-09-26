@@ -40,7 +40,20 @@ jobs:
           cat /tmp/motoindex-next.log
           exit 1
 
+      - name: Motorcycle Image Stage QA
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: node scripts/image-stage-qa.mjs
+
+      - name: PR responsive smoke QA
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_URL: http://127.0.0.1:3000
+          QA_WIDTHS: 390,1440
+        run: node scripts/visual-qa.mjs
+
       - name: Deep responsive template QA
+        if: github.event_name != 'pull_request'
         env:
           BASE_URL: http://127.0.0.1:3000
         run: npm run visual:qa
@@ -75,11 +88,6 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
         run: node scripts/compare-selection-qa.mjs
 
-      - name: Motorcycle Image Stage QA
-        env:
-          BASE_URL: http://127.0.0.1:3000
-        run: node scripts/image-stage-qa.mjs
-
       - name: Product detail layout QA
         env:
           BASE_URL: http://127.0.0.1:3000
@@ -91,6 +99,7 @@ jobs:
         run: node scripts/hub-layout-qa.mjs
 
       - name: Permanent visual regression matrix
+        if: github.event_name != 'pull_request'
         env:
           BASE_URL: http://127.0.0.1:3000
         run: npm run visual:matrix
