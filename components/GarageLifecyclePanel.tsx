@@ -63,7 +63,7 @@ function recentWindow(records: GarageRecord[], fromDays: number, toDays = 0) {
   const start = new Date(now.valueOf() - fromDays * 86400000);
   return records.filter((record) => {
     const date = new Date(`${record.date}T00:00:00`);
-    return !Number.isNaN(date.valueOf()) && date >= start && date < end;
+    return !Number.isNaN(date.valueOf()) && date.valueOf() >= start.valueOf() && date.valueOf() < end.valueOf();
   });
 }
 
