@@ -140,6 +140,11 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
         value: record.nextDueDate,
         days: daysUntil(record.nextDueDate),
       })),
+      ...bikeRecords.filter((record) => record.warrantyExpiry).map((record) => ({
+        label: `${record.title} warranty`,
+        value: record.warrantyExpiry,
+        days: daysUntil(record.warrantyExpiry),
+      })),
       ...bikeDocuments.filter((document) => document.expiryDate).map((document) => ({
         label: document.label,
         value: document.expiryDate,
