@@ -18,6 +18,7 @@ const nextConfig = {
       { protocol: "https", hostname: "evohelmet.com" },
       { protocol: "https", hostname: "gbrands.ph" },
       { protocol: "https", hostname: "images.ctfassets.net" },
+      { protocol: "https", hostname: "hondabigbike.com.my" },
       { protocol: "https", hostname: "kawasakileisurebikes.ph" },
       { protocol: "https", hostname: "kranosgears.com" },
       { protocol: "https", hostname: "kytasia.com" },
