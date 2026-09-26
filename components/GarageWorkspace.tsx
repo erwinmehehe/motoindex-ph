@@ -32,6 +32,7 @@ import {
   garageOwnershipAnalytics,
   maintenanceReferenceForBike,
   money,
+  nextMaintenanceDueAfterCompletion,
   parseGarageState,
   smartMaintenanceDue,
 } from "@/lib/garage";
@@ -78,7 +79,9 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
   const [showBikeForm, setShowBikeForm] = useState(false);
   const [documentAttachments, setDocumentAttachments] = useState<Record<string, GarageDocumentAttachmentSummary>>({});
   const [documentFileMessage, setDocumentFileMessage] = useState("");
+  const [maintenanceDraft, setMaintenanceDraft] = useState<{ key: string; title: string; nextDueKm?: number; notes: string } | null>(null);
   const backupInput = useRef<HTMLInputElement>(null);
+  const recordForm = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     const loaded = parseGarageState(window.localStorage.getItem(GARAGE_STORAGE_KEY));
@@ -109,12 +112,12 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
 
   const selectedBike = state.motorcycles.find((bike) => bike.id === selectedId) || state.motorcycles[0];
   const selectedCatalog = selectedBike ? catalog.find((model) => model.id === (selectedBike.catalogModelId || `${selectedBike.make.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${selectedBike.model.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`)) : undefined;
-  const smartMaintenance = selectedCatalog?.exactMaintenance ? smartMaintenanceDue(selectedCatalog.maintenanceItems, selectedBike?.odometerKm || 0) : [];
-  const calculatedResale = selectedCatalog && selectedBike ? estimatedGarageResale(selectedCatalog.srp, selectedBike.year, selectedBike.purchaseDate) : undefined;
-  const effectiveResale = selectedBike?.estimatedResaleValuePhp ?? calculatedResale;
   const bikeRecords = useMemo(() => state.records
     .filter((record) => record.motorcycleId === selectedBike?.id)
     .sort((a, b) => b.date.localeCompare(a.date)), [state.records, selectedBike?.id]);
+  const smartMaintenance = selectedCatalog?.exactMaintenance ? smartMaintenanceDue(selectedCatalog.maintenanceItems, selectedBike?.odometerKm || 0, bikeRecords) : [];
+  const calculatedResale = selectedCatalog && selectedBike ? estimatedGarageResale(selectedCatalog.srp, selectedBike.year, selectedBike.purchaseDate) : undefined;
+  const effectiveResale = selectedBike?.estimatedResaleValuePhp ?? calculatedResale;
   const bikeDocuments = useMemo(() => state.documents
     .filter((document) => document.motorcycleId === selectedBike?.id), [state.documents, selectedBike?.id]);
 
@@ -204,7 +207,19 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
         ? { ...bike, odometerKm: record.odometerKm, updatedAt: new Date().toISOString() }
         : bike),
     }));
+    setMaintenanceDraft(null);
     event.currentTarget.reset();
+  }
+
+  function prepareMaintenanceRecord(item: typeof smartMaintenance[number]) {
+    if (!selectedBike) return;
+    setMaintenanceDraft({
+      key: `${item.item}-${Date.now()}`,
+      title: item.item,
+      nextDueKm: nextMaintenanceDueAfterCompletion(item.interval, selectedBike.odometerKm),
+      notes: `MotoIndex schedule: ${item.action} · ${item.interval}${item.note ? ` · ${item.note}` : ""}`,
+    });
+    window.requestAnimationFrame(() => recordForm.current?.scrollIntoView({ behavior: "smooth", block: "center" }));
   }
 
   function updateBike(event: FormEvent<HTMLFormElement>) {
@@ -492,12 +507,19 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
           <div className="section-head"><div><h2>Smart maintenance</h2><p>Calculated from the verified model schedule and your current odometer.</p></div></div>
           <div className="buyer-quote-list">
             {smartMaintenance.map((item) => <div className="buyer-quote-card" key={item.item}>
-              <div><span className="field-label">{item.action}</span><strong>{item.item}</strong><p>{item.interval}{item.note ? ` · ${item.note}` : ""}</p></div>
+              <div>
+                <span className="field-label">{item.action}</span>
+                <strong>{item.item}</strong>
+                <p>{item.interval}{item.note ? ` · ${item.note}` : ""}</p>
+                {item.lastCompletedDate && <small>Last logged {dateLabel(item.lastCompletedDate)}{item.lastCompletedOdometerKm !== undefined ? ` · ${item.lastCompletedOdometerKm.toLocaleString()} km` : ""}</small>}
+              </div>
               <div className="buyer-quote-meta">
                 {item.nextDueKm !== undefined ? <>
                   <strong className={item.remainingKm !== undefined && item.remainingKm <= 0 ? "buyer-decision declined" : item.remainingKm !== undefined && item.remainingKm <= 1000 ? "buyer-decision" : "buyer-decision interested"}>{item.nextDueKm.toLocaleString()} km</strong>
                   <small>{item.remainingKm !== undefined && item.remainingKm <= 0 ? `${Math.abs(item.remainingKm).toLocaleString()} km overdue` : `${item.remainingKm?.toLocaleString()} km remaining`}</small>
-                </> : <small>Time-based or manual inspection interval. Follow the source schedule.</small>}
+                  {item.basis === "service-record" && <small>Based on your last completed service</small>}
+                </> : <small>{item.lastCompletedDate ? "Completed record saved. Follow the source schedule for the next time-based check." : "Time-based or manual inspection interval. Follow the source schedule."}</small>}
+                <button className="button small ghost" type="button" onClick={() => prepareMaintenanceRecord(item)}>Log completed</button>
               </div>
             </div>)}
           </div>
@@ -521,21 +543,25 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
 
           <section className="garage-panel">
             <div className="section-head"><div><h2>Add ownership record</h2><p>PMS, fuel, tires, battery, repairs, accidents, parts and expenses.</p></div></div>
-            <form className="lead-form" onSubmit={addRecord}>
+            <form className="lead-form" onSubmit={addRecord} ref={recordForm} key={maintenanceDraft?.key || selectedBike.id}>
+              {maintenanceDraft && <div className="note-box"><strong>Maintenance record prepared</strong><p>Review the odometer, add the actual cost or workshop notes if you have them, then save. MotoIndex will use this completion to move the next mileage-based due point forward.</p></div>}
               <div className="lead-form-grid">
-                <label>Type<select name="category" defaultValue="PMS">{GARAGE_RECORD_CATEGORIES.map((category) => <option value={category} key={category}>{category}</option>)}</select></label>
+                <label>Type<select name="category" defaultValue={maintenanceDraft ? "PMS" : "PMS"}>{GARAGE_RECORD_CATEGORIES.map((category) => <option value={category} key={category}>{category}</option>)}</select></label>
                 <label>Date<input name="date" type="date" required defaultValue={new Date().toISOString().slice(0, 10)} /></label>
-                <label className="lead-form-wide">What happened?<input name="title" required placeholder="Engine oil change" /></label>
+                <label className="lead-form-wide">What happened?<input name="title" required placeholder="Engine oil change" defaultValue={maintenanceDraft?.title || ""} /></label>
                 <label>Amount (₱)<input name="amountPhp" type="number" min="0" step="0.01" /></label>
                 <label>Odometer (km)<input name="odometerKm" type="number" min="0" step="1" defaultValue={selectedBike.odometerKm} /></label>
                 <label>Fuel liters<input name="liters" type="number" min="0" step="0.01" /></label>
                 <label>Fuel price/L<input name="pricePerLiterPhp" type="number" min="0" step="0.01" /></label>
                 <label>Full-tank fill-up<select name="fullTank" defaultValue=""><option value="">No / not sure</option><option value="on">Yes, filled to full</option></select></label>
-                <label>Next due (km)<input name="nextDueKm" type="number" min="0" step="1" /></label>
+                <label>Next due (km)<input name="nextDueKm" type="number" min="0" step="1" defaultValue={maintenanceDraft?.nextDueKm ?? ""} /></label>
                 <label>Next due date<input name="nextDueDate" type="date" /></label>
-                <label className="lead-form-wide">Notes<input name="notes" placeholder="Shop, parts used, warranty details or repair notes" /></label>
+                <label className="lead-form-wide">Notes<input name="notes" placeholder="Shop, parts used, warranty details or repair notes" defaultValue={maintenanceDraft?.notes || ""} /></label>
               </div>
-              <button className="button small" type="submit">Add record</button>
+              <div className="hero-actions">
+                <button className="button small" type="submit">{maintenanceDraft ? "Save completed service" : "Add record"}</button>
+                {maintenanceDraft && <button className="button small ghost" type="button" onClick={() => setMaintenanceDraft(null)}>Cancel prepared record</button>}
+              </div>
             </form>
           </section>
         </div>
