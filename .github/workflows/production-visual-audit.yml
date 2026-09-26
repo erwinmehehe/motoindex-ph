@@ -1,10 +1,6 @@
 name: Production Visual Audit
 
 on:
-  workflow_run:
-    workflows:
-      - Deploy to Cloudflare Workers
-    types: [completed]
   workflow_dispatch:
 
 concurrency:
@@ -16,18 +12,15 @@ permissions:
 
 jobs:
   audit:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
       BASE_URL: https://motoindexph.com
-      EXPECTED_COMMIT_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+      EXPECTED_COMMIT_SHA: ${{ github.sha }}
 
     steps:
       - name: Checkout deployed commit
         uses: actions/checkout@v7
-        with:
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Setup Node
         uses: actions/setup-node@v7
