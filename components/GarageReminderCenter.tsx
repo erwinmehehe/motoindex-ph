@@ -112,26 +112,21 @@ export function GarageReminderCenter({
       }
       if (!record.nextDueDate && record.nextDueKm === undefined) continue;
       const duplicateSmartMileage = record.nextDueKm !== undefined && smartTitles.has(normalized(record.title));
-      if (record.nextDueDate) {
-        items.push({
-          id: `record-date:${record.id}`,
-          source: "record",
-          label: record.title,
-          detail: `${dateLabel(record.nextDueDate)} · ${record.category}`,
-          days: daysUntil(record.nextDueDate),
-          record,
-        });
-      }
-      if (record.nextDueKm !== undefined && !duplicateSmartMileage) {
-        items.push({
-          id: `record-km:${record.id}`,
-          source: "record",
-          label: record.title,
-          detail: `${record.nextDueKm.toLocaleString()} km due point · ${record.category}`,
-          remainingKm: record.nextDueKm - bike.odometerKm,
-          record,
-        });
-      }
+      if (!record.nextDueDate && duplicateSmartMileage) continue;
+      const dueParts = [
+        record.nextDueDate ? dateLabel(record.nextDueDate) : "",
+        record.nextDueKm !== undefined && !duplicateSmartMileage ? `${record.nextDueKm.toLocaleString()} km due point` : "",
+        record.category,
+      ].filter(Boolean);
+      items.push({
+        id: `record:${record.id}`,
+        source: "record",
+        label: record.title,
+        detail: dueParts.join(" · "),
+        days: record.nextDueDate ? daysUntil(record.nextDueDate) : undefined,
+        remainingKm: record.nextDueKm !== undefined && !duplicateSmartMileage ? record.nextDueKm - bike.odometerKm : undefined,
+        record,
+      });
     }
 
     for (const document of documents) {
