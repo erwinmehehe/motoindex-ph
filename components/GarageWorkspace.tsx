@@ -5,6 +5,7 @@ import { GarageAccountPanel } from "@/components/GarageAccountPanel";
 import { GarageStatDeck } from "@/components/GarageStatDeck";
 import { GarageLifecyclePanel } from "@/components/GarageLifecyclePanel";
 import { GaragePartsPanel, type GarageComponentRecordInput } from "@/components/GaragePartsPanel";
+import { GarageReminderCenter } from "@/components/GarageReminderCenter";
 import {
   GARAGE_DOCUMENT_ATTACHMENT_ACCEPT_ATTR,
   deleteGarageDocumentAttachment,
@@ -80,9 +81,10 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
   const [showBikeForm, setShowBikeForm] = useState(false);
   const [documentAttachments, setDocumentAttachments] = useState<Record<string, GarageDocumentAttachmentSummary>>({});
   const [documentFileMessage, setDocumentFileMessage] = useState("");
-  const [maintenanceDraft, setMaintenanceDraft] = useState<{ key: string; title: string; nextDueKm?: number; notes: string } | null>(null);
+  const [maintenanceDraft, setMaintenanceDraft] = useState<{ key: string; title: string; category: GarageRecordCategory; nextDueKm?: number; notes: string } | null>(null);
   const backupInput = useRef<HTMLInputElement>(null);
   const recordForm = useRef<HTMLFormElement>(null);
+  const bikeUpdateForm = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     const loaded = parseGarageState(window.localStorage.getItem(GARAGE_STORAGE_KEY));
@@ -227,8 +229,24 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
     setMaintenanceDraft({
       key: `${item.item}-${Date.now()}`,
       title: item.item,
+      category: "PMS",
       nextDueKm: nextMaintenanceDueAfterCompletion(item.interval, selectedBike.odometerKm),
       notes: `MotoIndex schedule: ${item.action} · ${item.interval}${item.note ? ` · ${item.note}` : ""}`,
+    });
+    window.requestAnimationFrame(() => recordForm.current?.scrollIntoView({ behavior: "smooth", block: "center" }));
+  }
+
+  function prepareDueRecord(record: GarageRecord) {
+    if (!selectedBike) return;
+    const intervalKm = record.nextDueKm !== undefined && record.odometerKm !== undefined && record.nextDueKm > record.odometerKm
+      ? record.nextDueKm - record.odometerKm
+      : undefined;
+    setMaintenanceDraft({
+      key: `${record.id}-${Date.now()}`,
+      title: record.title,
+      category: record.category,
+      nextDueKm: intervalKm !== undefined ? selectedBike.odometerKm + intervalKm : undefined,
+      notes: `Previous reminder from ${record.date}${record.nextDueKm !== undefined ? ` · due at ${record.nextDueKm.toLocaleString()} km` : ""}${record.nextDueDate ? ` · due ${record.nextDueDate}` : ""}`,
     });
     window.requestAnimationFrame(() => recordForm.current?.scrollIntoView({ behavior: "smooth", block: "center" }));
   }
@@ -516,7 +534,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
           </div>
         </section>}
 
-        <form className="lead-form" onSubmit={updateBike} key={selectedBike.id}>
+        <form className="lead-form" onSubmit={updateBike} key={selectedBike.id} ref={bikeUpdateForm} id="garage-bike-update">
           <div className="section-head"><div><h2>Update current motorcycle</h2><p>Refresh mileage and renewal dates after every PMS or renewal.</p></div></div>
           <div className="lead-form-grid">
             <label>Plate number<input name="plate" autoComplete="off" defaultValue={selectedBike.plate || ""} /></label>
@@ -566,20 +584,22 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
         </div>}
 
         <div className="split section">
-          <section className="garage-panel">
-            <div className="section-head"><div><h2>Upcoming</h2><p>Renewals and service dates that need attention.</p></div></div>
-            {upcoming.length ? <div className="buyer-quote-list">{upcoming.map((item, index) => <div className="buyer-quote-card" key={`${item.label}-${item.value}-${index}`}>
-              <div><strong>{item.label}</strong><p>{dateLabel(item.value)}</p></div>
-              <div className="buyer-quote-meta"><strong className={dueClass(item.days)}>{dueLabel(item.days)}</strong></div>
-            </div>)}</div> : <div className="note-box"><p>No renewal or service due dates saved yet.</p></div>}
-          </section>
+          <GarageReminderCenter
+            bike={selectedBike}
+            records={bikeRecords}
+            documents={bikeDocuments}
+            smartMaintenance={smartMaintenance}
+            onLogSmart={prepareMaintenanceRecord}
+            onLogRecord={prepareDueRecord}
+            onEditRenewals={() => bikeUpdateForm.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
+          />
 
           <section className="garage-panel">
             <div className="section-head"><div><h2>Add ownership record</h2><p>PMS, fuel, tires, battery, repairs, accidents, parts and expenses.</p></div></div>
             <form className="lead-form" onSubmit={addRecord} ref={recordForm} key={maintenanceDraft?.key || selectedBike.id}>
               {maintenanceDraft && <div className="note-box"><strong>Maintenance record prepared</strong><p>Review the odometer, add the actual cost or workshop notes if you have them, then save. MotoIndex will use this completion to move the next mileage-based due point forward.</p></div>}
               <div className="lead-form-grid">
-                <label>Type<select name="category" defaultValue={maintenanceDraft ? "PMS" : "PMS"}>{GARAGE_RECORD_CATEGORIES.map((category) => <option value={category} key={category}>{category}</option>)}</select></label>
+                <label>Type<select name="category" defaultValue={maintenanceDraft?.category || "PMS"}>{GARAGE_RECORD_CATEGORIES.map((category) => <option value={category} key={category}>{category}</option>)}</select></label>
                 <label>Date<input name="date" type="date" required defaultValue={new Date().toISOString().slice(0, 10)} /></label>
                 <label className="lead-form-wide">What happened?<input name="title" required placeholder="Engine oil change" defaultValue={maintenanceDraft?.title || ""} /></label>
                 <label>Amount (₱)<input name="amountPhp" type="number" min="0" step="0.01" /></label>
@@ -608,7 +628,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
             </div>)}</div> : <div className="note-box"><p>No ownership records yet.</p></div>}
           </section>
 
-          <section className="garage-panel">
+          <section className="garage-panel" id="garage-document-wallet">
             <div className="section-head"><div><h2>Document wallet</h2><p>Track OR/CR, CTPL, insurance, warranty, receipts and resale paperwork.</p></div></div>
             <form className="lead-form" onSubmit={addDocument}>
               <p className="muted-note">Attach an optional PDF, JPG, PNG or WebP scan up to 10 MB. Files stay only in private browser storage on this device. Cloud sync and JSON backups include the document record, not the scan.</p>{documentFileMessage && <p className="muted-note" role="status">{documentFileMessage}</p>}
