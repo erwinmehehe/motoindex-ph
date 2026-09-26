@@ -1,0 +1,63 @@
+name: Honda Product Image Cleanup
+
+on:
+  push:
+    branches: [fix/honda-white-backgrounds-sep26]
+    paths:
+      - "scripts/clean-honda-press-media.py"
+      - ".github/workflows/honda-product-image-cleanup.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: fix/honda-white-backgrounds-sep26
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install image dependencies
+        run: python -m pip install --disable-pip-version-check opencv-python-headless==4.12.0.88 numpy==2.2.6
+
+      - name: Clean Honda press images
+        run: python scripts/clean-honda-press-media.py
+
+      - name: Audit motorcycle image composition
+        run: python scripts/audit-motorcycle-media-art-direction.py
+
+      - name: Upload before-after proof
+        uses: actions/upload-artifact@v6
+        with:
+          name: honda-white-background-proof
+          path: |
+            artifacts/honda-white-background-cleanup.png
+            artifacts/honda-white-background-cleanup.json
+          retention-days: 7
+
+      - name: Commit cleaned images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/media/motorcycles/honda-cb650r.webp \
+                  public/media/motorcycles/honda-cbr650r.webp \
+                  public/media/motorcycles/honda-xl750-transalp.webp \
+                  public/media/motorcycles/honda-crf1100l-africa-twin.webp \
+                  public/media/motorcycles/honda-x-adv.webp \
+                  public/media/motorcycles/honda-adv-150.webp
+          if git diff --cached --quiet; then
+            echo "No Honda image changes generated."
+            exit 1
+          fi
+          git commit -m "Normalize Honda motorcycle images to white backgrounds"
+          git push origin HEAD:fix/honda-white-backgrounds-sep26
