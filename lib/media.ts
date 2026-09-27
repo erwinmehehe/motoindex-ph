@@ -1000,28 +1000,28 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "bmw-m-1000-rr-bmw-official", entityType: "motorcycle", entityId: "bmw-m-1000-rr", role: "primary",
-    src: "/media/motorcycles/bmw-m-1000-rr.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/cache/P9/202410/P90572497/P90572497-the-new-bmw-m-1000-rr-10-2024-2248px.jpg", alt: "BMW M 1000 RR superbike", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "BMW Motorrad", sourceLabel: "Manufacturer-hosted image reference · BMW M 1000 RR", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90572497/the-new-bmw-m-1000-rr-10/2024", lastChecked: "2026-09-23"
+    src: "/media/motorcycles/bmw-m-1000-rr.webp", sourceImageUrl: "https://hydramotto.com/image/catalog/blog/2025-bmw-m-1000-rr-pyrvi-pogled/bmw-m-1000-rr-white.jpg", alt: "BMW M 1000 RR superbike", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Hydra Motto / BMW Motorrad", sourceLabel: "Clean product image reference · BMW M 1000 RR", sourceUrl: "https://hydramotto.com/blog/2025-bmw-m-1000-rr-pyrvi-pogled-novi-modeli", lastChecked: "2026-09-27"
   },
   {
     id: "bmw-s-1000-r-bmw-official", entityType: "motorcycle", entityId: "bmw-s-1000-r", role: "primary",
-    src: "/media/motorcycles/bmw-s-1000-r.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/cache/P9/202410/P90572565/P90572565-the-new-bmw-s-1000-r-10-2024-2248px.jpg", alt: "BMW S 1000 R roadster motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "BMW Motorrad", sourceLabel: "Manufacturer-hosted image reference · BMW S 1000 R", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90572565/The-new-BMW-S-1000-R-10-2024", lastChecked: "2026-09-23"
+    src: "/media/motorcycles/bmw-s-1000-r.webp", sourceImageUrl: "https://www.vertumotors.com/new/vertu/bike/bmw/s1000/BMW-S1000R-Sport-M-Pack-25MY%5E1024x768%5E.jpg", alt: "BMW S 1000 R roadster motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Vertu Motors / BMW Motorrad", sourceLabel: "Dealer-hosted studio image · BMW S 1000 R", sourceUrl: "https://www.vertumotors.com/motorcycles/new-motorcycle-deals/bmw/sport/s1000/302105/bmw-s-1000-r-sport-with-m-pack-25my/", lastChecked: "2026-09-27"
   },
   {
     id: "bmw-s-1000-rr-bmw-official", entityType: "motorcycle", entityId: "bmw-s-1000-rr", role: "primary",
-    src: "/media/motorcycles/bmw-s-1000-rr.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/cache/P9/202212/P90490356/P90490356-the-new-bmw-s-1000-rr-12-2022-2250px.jpg", alt: "BMW S 1000 RR superbike", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "BMW Motorrad", sourceLabel: "Manufacturer-hosted image reference · BMW S 1000 RR", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90490356/the-new-bmw-s-1000-rr-12/2022", lastChecked: "2026-09-23"
+    src: "/media/motorcycles/bmw-s-1000-rr.webp", sourceImageUrl: "https://carroemotos.com.br/wp-content/uploads/2024/03/2-15.jpg", alt: "BMW S 1000 RR superbike", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Carro e Motos / BMW Motorrad", sourceLabel: "Clean product image reference · BMW S 1000 RR", sourceUrl: "https://carroemotos.com.br/complete-guide-to-the-bmw-s1000rr-2024-specifications-reviews-and-whats-new/", lastChecked: "2026-09-27"
   },
   {
     id: "ducati-panigale-v4-ducati-official", entityType: "motorcycle", entityId: "ducati-panigale-v4", role: "primary",
-    src: "/media/motorcycles/ducati-panigale-v4.webp", sourceImageUrl: "https://mediahouse.ducati.com/wp-content/uploads/2026/06/dcccaccc6172a7544fc13b2c80e9a0b4-l.jpg", alt: "Ducati Panigale V4 superbike", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Ducati", sourceLabel: "Manufacturer-hosted image reference · Ducati Panigale V4", sourceUrl: "https://mediahouse.ducati.com/new-panigale-v4-my25/?lang=oci", lastChecked: "2026-09-23"
+    src: "/media/motorcycles/ducati-panigale-v4.webp", sourceImageUrl: "https://www.konigmoto.ru/upload/iblock/afe/i5m70qt8z9gr7xliiasjzogdeid09zdn.jpeg", alt: "Ducati Panigale V4 superbike", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KonigMoto / Ducati", sourceLabel: "Studio product image reference · Ducati Panigale V4", sourceUrl: "https://www.konigmoto.ru/catalog/vykhlopnye-sistemy/glushit-arrow-works-full-titanium-racing-terminal-with-fittings-ducati-panigale-v4-2025-/", lastChecked: "2026-09-27"
   },
   {
     id: "ducati-streetfighter-v4-ducati-official", entityType: "motorcycle", entityId: "ducati-streetfighter-v4", role: "primary",
-    src: "/media/motorcycles/ducati-streetfighter-v4.webp", sourceImageUrl: "https://mediahouse.ducati.com/wp-content/uploads/2026/06/70765e11d7fa5f0f946d73c85e421c8c-l.jpg", alt: "Ducati Streetfighter V4 motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Ducati", sourceLabel: "Manufacturer-hosted image reference · Ducati Streetfighter V4", sourceUrl: "https://mediahouse.ducati.com/new-streetfighter-v4-s-my25/?lang=oci", lastChecked: "2026-09-23"
+    src: "/media/motorcycles/ducati-streetfighter-v4.webp", sourceImageUrl: "https://cdn.luxatic.com/wp-content/uploads/2022/11/Ducati-Streetfighter-V4-S-768x576.jpg", alt: "Ducati Streetfighter V4 motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Luxatic / Ducati", sourceLabel: "Studio product image reference · Ducati Streetfighter V4", sourceUrl: "https://luxatic.com/best-naked-motorcycles/", lastChecked: "2026-09-27"
   },
   {
     id: "honda-cb500-hornet-e-clutch-honda-uk", entityType: "motorcycle", entityId: "honda-cb500-hornet-e-clutch", role: "primary",
@@ -1040,8 +1040,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "kawasaki-ninja-h2-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-ninja-h2", role: "primary",
-    src: "/media/motorcycles/kawasaki-ninja-h2.webp", sourceImageUrl: "https://images5.1000ps.net/images_bikekat/2018/6-Kawasaki/8760-Ninja_H2_Carbon/004.jpg", alt: "Kawasaki Ninja H2 supercharged motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "1000PS / Kawasaki", sourceLabel: "Exact-model studio image · Kawasaki Ninja H2 Carbon", sourceUrl: "https://www.1000ps.ch/de/motorradvergleich-kawasaki-ninja-h2-carbon-2018-vs-kawasaki-ninja-zx-10r-2021-215707", lastChecked: "2026-09-24"
+    src: "/media/motorcycles/kawasaki-ninja-h2.webp", sourceImageUrl: "https://media.caranddriver.gr/filesystem/images/20250904/engine/kawa-ninja-h2-26-6_252864_470592_type15035.jpg", alt: "Kawasaki Ninja H2 supercharged motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Car and Driver Greece / Kawasaki", sourceLabel: "Clean product image reference · Kawasaki Ninja H2", sourceUrl: "https://www.caranddriver.gr/moto_nea_montela/arthro/kawasaki_ninja_h2_h2r_synexizoun_sto_2026_me_240_kai_326_hp-7845983/", lastChecked: "2026-09-27"
   },
   {
     id: "kawasaki-versys-650-kawasaki-official", entityType: "motorcycle", entityId: "kawasaki-versys-650", role: "primary",
@@ -1070,8 +1070,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "ktm-790-duke-ktm-official", entityType: "motorcycle", entityId: "ktm-790-duke", role: "primary",
-    src: "/media/motorcycles/ktm-790-duke.webp", sourceImageUrl: "https://s7g10.scene7.com/is/image/ktm/KTM-2025-naked-bike-790-duke-homepage-baner?$ogimage$", alt: "KTM 790 Duke naked motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "KTM", sourceLabel: "Manufacturer-hosted image reference · KTM 790 Duke", sourceUrl: "https://www.ktm.com/en-lk/ktm-world/news/the-original-scalpel-gets-a-sharpening-for-2025-.html", lastChecked: "2026-09-23"
+    src: "/media/motorcycles/ktm-790-duke.webp", sourceImageUrl: "https://1113070120.rsc.cdn77.org/temp/1719325435_b5f4d04e5c61ff5c43afe474b079fa35.jpg", alt: "KTM 790 Duke naked motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Caismotor / KTM", sourceLabel: "Dealer-hosted studio image · KTM 790 Duke", sourceUrl: "https://www.caismotor.com/pt/motosnovas/ktm-790-duke_p4744.html", lastChecked: "2026-09-27"
   },
   {
     id: "triumph-daytona-660-triumph-official", entityType: "motorcycle", entityId: "triumph-daytona-660", role: "primary",
@@ -1120,8 +1120,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "bajaj-pulsar-ns400z-verified-20260923", entityType: "motorcycle", entityId: "bajaj-pulsar-ns400z", role: "primary",
-    src: "/media/motorcycles/bajaj-pulsar-ns400z.webp", sourceImageUrl: "https://cdn.bajajauto.com/-/media/assets/bajajauto/bikes/pulsar-2025-ns400z/gallery/1.webp", alt: "Bajaj Pulsar NS400Z motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Bajaj Auto", sourceLabel: "Manufacturer-hosted image reference · Bajaj Pulsar NS400Z", sourceUrl: "https://www.bajajauto.com/bikes/pulsar/pulsar-ns400z", lastChecked: "2026-09-23"
+    src: "/media/motorcycles/bajaj-pulsar-ns400z.webp", sourceImageUrl: "https://i5-mx.walmartimages.com/samsmx/images/product-images/img_large/981036531-4l.jpg", alt: "Bajaj Pulsar NS400Z motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Sam's Club / Bajaj Auto", sourceLabel: "Retail product image reference · Bajaj Pulsar NS400Z", sourceUrl: "https://www.sams.com.mx/ip/motocicleta-bajaj-pulsar-ns400z-perla-2025/981036531", lastChecked: "2026-09-27"
   },
   {
     id: "bajaj-pulsar-rs200-verified-20260923", entityType: "motorcycle", entityId: "bajaj-pulsar-rs200", role: "primary",
@@ -1220,8 +1220,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "kawasaki-ninja-1000-kawasaki-jp", entityType: "motorcycle", entityId: "kawasaki-ninja-1000", role: "primary",
-    src: "/media/motorcycles/kawasaki-ninja-1000.webp", sourceImageUrl: "https://content2.kawasaki.com/ContentStorage/KMJ/Products/5291/0ad33454-8f03-491b-a91b-63a420a284fe.jpg?w=510&h=340&mode=crop", alt: "Kawasaki Ninja 1000SX sport touring motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Japan", sourceLabel: "Manufacturer-hosted image reference · Kawasaki Ninja 1000SX", sourceUrl: "https://www.kawasaki-motors.com/ja-jp/motorcycle/ninja/sport/ninja-1000sx/2024-ninja-1000sx", lastChecked: "2026-09-24"
+    src: "/media/motorcycles/kawasaki-ninja-1000.webp", sourceImageUrl: "https://www.motosati.pl/uploads/kawasaki-ninja-1000sx-2022-metallic-diablo-black--pearl-robotic-white-motosati-2994859.jpg", alt: "Kawasaki Ninja 1000SX sport touring motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motosati / Kawasaki", sourceLabel: "Dealer-hosted studio image · Kawasaki Ninja 1000SX", sourceUrl: "https://www.motosati.pl/pojazd/turystyczne/29948-kawasaki-ninja-1000sx-2022-metallic-diablo-black--pearl-robotic-white.html", lastChecked: "2026-09-27"
   },
   {
     id: "kawasaki-z1000-r-edition-motosport", entityType: "motorcycle", entityId: "kawasaki-z1000-r-edition", role: "primary",
