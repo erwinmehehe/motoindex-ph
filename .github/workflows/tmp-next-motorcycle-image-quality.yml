@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - fix/next-motorcycle-image-quality-20260927
+    paths:
+      - "lib/media.ts"
+      - ".github/workflows/tmp-next-motorcycle-image-quality.yml"
   workflow_dispatch:
 
 permissions:
@@ -35,6 +38,10 @@ jobs:
           npm run media:sync -- --force --only=husqvarna-svartpilen-401
           npm run media:sync -- --force --only=royal-enfield-guerrilla-450
           npm run media:sync -- --force --only=suzuki-raider-pro
+          npm run media:sync -- --force --only=yamaha-aerox-v3
+          npm run media:sync -- --force --only=yamaha-nmax-v3
+          npm run media:sync -- --force --only=honda-adv-160
+          npm run media:sync -- --force --only=honda-click-160
 
       - name: Validate refreshed motorcycle assets
         run: |
@@ -46,6 +53,10 @@ jobs:
             'husqvarna-svartpilen-401',
             'royal-enfield-guerrilla-450',
             'suzuki-raider-pro',
+            'yamaha-aerox-v3',
+            'yamaha-nmax-v3',
+            'honda-adv-160',
+            'honda-click-160',
           ];
           (async () => {
             for (const id of ids) {
@@ -59,6 +70,7 @@ jobs:
             }
           })().catch((error) => { console.error(error); process.exit(1); });
           NODE
+          npm run validate:media
           npm run validate:motorcycle-media
 
       - name: Commit refreshed assets
@@ -68,7 +80,11 @@ jobs:
           git add public/media/motorcycles/honda-navi.webp \
                   public/media/motorcycles/husqvarna-svartpilen-401.webp \
                   public/media/motorcycles/royal-enfield-guerrilla-450.webp \
-                  public/media/motorcycles/suzuki-raider-pro.webp
+                  public/media/motorcycles/suzuki-raider-pro.webp \
+                  public/media/motorcycles/yamaha-aerox-v3.webp \
+                  public/media/motorcycles/yamaha-nmax-v3.webp \
+                  public/media/motorcycles/honda-adv-160.webp \
+                  public/media/motorcycles/honda-click-160.webp
           if git diff --cached --quiet; then
             echo "No generated asset changes."
             exit 0
