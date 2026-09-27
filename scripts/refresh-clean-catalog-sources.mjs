@@ -92,7 +92,14 @@ async function normalize(id,urls){
   let normalized;
   try{ normalized=await image.trim({background:"#ffffff",threshold:22}).png().toBuffer(); }
   catch{ normalized=await image.png().toBuffer(); }
-  const fitted=await sharp(normalized).resize({width:920,height:760,fit:"inside",withoutEnlargement:false}).png().toBuffer();
+  const resized=await sharp(normalized).resize({width:920,height:760,fit:"inside",withoutEnlargement:false}).removeAlpha().raw().toBuffer({resolveWithObject:true});
+  const pixels=Buffer.from(resized.data);
+  for(let i=0;i<pixels.length;i+=resized.info.channels){
+    const r=pixels[i],g=pixels[i+1],b=pixels[i+2];
+    const max=Math.max(r,g,b),min=Math.min(r,g,b);
+    if(min>=238 && max-min<=16){pixels[i]=255;pixels[i+1]=255;pixels[i+2]=255;}
+  }
+  const fitted=await sharp(pixels,{raw:resized.info}).png().toBuffer();
   const meta=await sharp(fitted).metadata();
   const left=Math.round((1200-(meta.width||0))/2),top=Math.round((1200-(meta.height||0))/2);
   const out=path.join(root,"public","media","motorcycles",id+".webp");
@@ -102,3 +109,13 @@ async function normalize(id,urls){
   console.log("refreshed "+id+" -> "+(meta.width||0)+"x"+(meta.height||0));
 }
 for(const target of targets) await normalize(target.id,target.urls);
+
+
+async function cleanAdv160Badge(){
+  const file=path.join(root,"public","media","motorcycles","honda-adv-160.webp");
+  const white=await sharp({create:{width:280,height:250,channels:4,background:"#ffffff"}}).png().toBuffer();
+  await sharp(file).composite([{input:white,left:850,top:105}]).flatten({background:"#ffffff"}).webp({quality:90,effort:5,smartSubsample:true}).toFile(file+".tmp.webp");
+  await import("node:fs/promises").then(fs=>fs.rename(file+".tmp.webp",file));
+  console.log("removed standalone ADV160 badge on white canvas");
+}
+await cleanAdv160Badge();
