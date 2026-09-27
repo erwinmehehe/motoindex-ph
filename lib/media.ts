@@ -37,8 +37,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-cb650r-honda-global", entityType: "motorcycle", entityId: "honda-cb650r", role: "primary",
-    src: "/media/motorcycles/honda-cb650r.webp", sourceImageUrl: "https://powersports.honda.com/motorcycle/standard/cb650r/2026/-/media/products/family/cb650r/trims/trim-main/cb650r-e-clutch/2026/2026-cb650r-e-clutch-matte_black_metallic-1505x923.png?imwidth=1600", alt: "Honda CB650R motorcycle in Matte Ballistic Black Metallic", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "American Honda Motor Co., Inc.", sourceLabel: "Official Honda Powersports product image · 2026 CB650R E-Clutch", sourceUrl: "https://powersports.honda.com/motorcycle/standard/cb650r/2026/cb650r-e-clutch", lastChecked: "2026-09-26"
+    src: "/media/motorcycles/honda-cb650r.webp", sourceImageUrl: "https://cdn.powergo.ca/media/catalog/2026/10/63fb5363ca884f88b02c012912cfaf3e_81c2a9c412fc4ca7892c0d472e3847cc_1000/2026-honda-cb650r-e-clutch-matte-black-metallic-2.webp", alt: "Honda CB650R motorcycle in Matte Ballistic Black Metallic", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "MotoMember / PowerGo", sourceLabel: "Dealer-hosted exact-model studio image · 2026 Honda CB650R E-Clutch", sourceUrl: "https://www.motomember.com/en/new/motorcycle/honda/cb650r-e-clutch/", lastChecked: "2026-09-27"
   },
   {
     id: "honda-nx500-e-clutch-bsh-2026", entityType: "motorcycle", entityId: "honda-nx500-e-clutch", role: "primary",
@@ -745,8 +745,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"motorstar-cafe-400-editorial", entityType:"motorcycle", entityId:"motorstar-cafe-400", role:"primary",
-    src:"/media/motorcycles/motorstar-cafe-400.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/exterior/78/1899/motorstar-cafe-400-right-side-viewfull-image-779807.jpg", alt:"MotorStar Cafe 400 motorcycle product image", width:1200, height:1200,
-    rightsStatus:"external-reference", rightsHolder: "Zigwheels Philippines", sourceLabel: "Catalog product image · MotorStar Cafe 400", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/motorstar/cafe-400", lastChecked: "2026-09-24"
+    src:"/media/motorcycles/motorstar-cafe-400.webp", sourceImageUrl: "https://www.kamote.ph/cdn-cgi/image/lossless%3Dtrue%2Cw%3D1200%2Ch%3D1200%2Cf%3Dwebp%2Cfit%3Dcontain/https%3A/www.kamote.ph/Gallery/Motorstar/Cafe_400.webp", alt:"MotorStar Cafe 400 motorcycle product image", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder: "Kamote.ph", sourceLabel: "Philippine exact-model product image reference · MotorStar Cafe 400", sourceUrl: "https://www.kamote.ph/motorcycle/motorstar-cafe-400", lastChecked: "2026-09-27"
   },
   {
     id:"motorstar-xplorer-250r-editorial", entityType:"motorcycle", entityId:"motorstar-xplorer-250r", role:"primary",
@@ -960,13 +960,13 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-crf1100l-africa-twin-honda-global", entityType: "motorcycle", entityId: "honda-crf1100l-africa-twin", role: "primary",
-    src: "/media/motorcycles/honda-crf1100l-africa-twin.webp", sourceImageUrl: "https://powersports.honda.com/motorcycle/adventure/-/media/products/family/africa-twin/trims/trim-main/africa-twin/2026/2026-africa-twin-matte_black_metallic-1505x923.png?imwidth=1600", alt: "Honda CRF1100L Africa Twin adventure motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "American Honda Motor Co., Inc.", sourceLabel: "Official Honda Powersports product image · 2026 Africa Twin", sourceUrl: "https://powersports.honda.com/motorcycle/adventure/africa-twin", lastChecked: "2026-09-26"
+    src: "/media/motorcycles/honda-crf1100l-africa-twin.webp", sourceImageUrl: "https://www.bikesport.cl/cdn/shop/files/Africa_Adv.Sport_Tricolor_2.jpg?v=1732215732&width=1200", alt: "Honda CRF1100L Africa Twin adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bikesport Chile", sourceLabel: "Dealer-hosted exact-model studio image · Honda Africa Twin Adventure Sports", sourceUrl: "https://www.bikesport.cl/products/moto-honda-africa-twin-adventure-sport-automatica-2025", lastChecked: "2026-09-27"
   },
   {
     id: "honda-xl750-transalp-honda-global", entityType: "motorcycle", entityId: "honda-xl750-transalp", role: "primary",
-    src: "/media/motorcycles/honda-xl750-transalp.webp", sourceImageUrl: "https://powersports.honda.com/motorcycle/adventure/-/media/products/family/transalp/trims/trim-main/transalp-e-clutch/2026/2026-transalp-e-clutch-white-1505x923.png?imwidth=1600", alt: "Honda XL750 Transalp adventure motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "American Honda Motor Co., Inc.", sourceLabel: "Official Honda Powersports product image · 2026 Transalp E-Clutch", sourceUrl: "https://powersports.honda.com/motorcycle/adventure/transalp", lastChecked: "2026-09-26"
+    src: "/media/motorcycles/honda-xl750-transalp.webp", sourceImageUrl: "https://mundohonda.cr/cdn/shop/files/2026-XL750_TRANSALP_studio_D002_MT_NH-196_Ross_White_RhSide_S.jpg?v=1779398821&width=940", alt: "Honda XL750 Transalp adventure motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Mundo Honda Costa Rica", sourceLabel: "Honda distributor studio image reference · 2026 XL750 Transalp", sourceUrl: "https://mundohonda.cr/products/translap", lastChecked: "2026-09-27"
   },
   {
     id: "yamaha-lexi-155-yamaha-official", entityType: "motorcycle", entityId: "yamaha-lexi-155", role: "primary",

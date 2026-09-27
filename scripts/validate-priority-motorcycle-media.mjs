@@ -106,6 +106,10 @@ for (const id of targets) {
 
 
 const knownBadLocalBlobs = {
+  "honda-cb650r": "f77fe03df4f7ab737f794797d006102e2661aef2",
+  "honda-xl750-transalp": "47d85bb05396f1ced4080423f051add309059c32",
+  "honda-crf1100l-africa-twin": "b6271d1699cace0c1d67cbeeaea4b8779cc53d43",
+  "motorstar-cafe-400": "07757e7c65c528f577ab44f10f80849eb7f72b69",
   "honda-rebel-1100": "c55a2b4e17ef7f0e9742177ffc39f171437404a4",
   "kawasaki-vulcan-s": "b2d8567184a4745a3b08b5a03452940cdec3293d",
   "kawasaki-ninja-650": "fe52f5a3df45faa9f0912312ebf3a38463b85199",
