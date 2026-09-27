@@ -1,0 +1,57 @@
+name: Temporary next motorcycle image quality refresh
+
+on:
+  push:
+    branches:
+      - fix/next-motorcycle-image-quality-20260927
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: fix/next-motorcycle-image-quality-20260927
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refresh priority motorcycle assets
+        run: |
+          npm run media:sync -- --force --only=honda-navi
+          npm run media:sync -- --force --only=husqvarna-svartpilen-401
+          npm run media:sync -- --force --only=royal-enfield-guerrilla-450
+          npm run media:sync -- --force --only=suzuki-raider-pro
+
+      - name: Validate media records
+        run: |
+          npm run validate:media
+          npm run validate:motorcycle-media
+
+      - name: Commit refreshed assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/media/motorcycles/honda-navi.webp \
+                  public/media/motorcycles/husqvarna-svartpilen-401.webp \
+                  public/media/motorcycles/royal-enfield-guerrilla-450.webp \
+                  public/media/motorcycles/suzuki-raider-pro.webp
+          if git diff --cached --quiet; then
+            echo "No generated asset changes."
+            exit 0
+          fi
+          git commit -m "Rebuild priority motorcycle catalog images"
+          git push origin HEAD:fix/next-motorcycle-image-quality-20260927
