@@ -530,6 +530,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
         />
 
         <GarageMileagePanel
+          key={`${selectedBike.id}-${selectedBike.odometerKm}`}
           bike={selectedBike}
           records={bikeRecords}
           onAddReading={addOdometerReading}
