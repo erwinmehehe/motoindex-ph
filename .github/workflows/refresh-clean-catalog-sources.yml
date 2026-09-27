@@ -1,0 +1,32 @@
+name: Refresh Clean Catalog Sources
+on:
+  push:
+    branches:
+      - fix/catalog-white-canvas-audit-sep27
+permissions:
+  contents: write
+jobs:
+  refresh:
+    if: ${{ !contains(github.event.head_commit.message, '[skip clean-refresh]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: fix/catalog-white-canvas-audit-sep27
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/refresh-clean-catalog-sources.mjs
+      - name: Commit refreshed catalog assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/media/motorcycles/*.webp
+          if git diff --cached --quiet; then
+            echo "No asset changes"
+            exit 0
+          fi
+          git commit -m "Refresh clean catalog source assets [skip clean-refresh]"
+          git push origin HEAD:fix/catalog-white-canvas-audit-sep27
