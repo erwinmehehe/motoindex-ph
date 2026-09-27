@@ -241,7 +241,7 @@ export const entityMedia: EntityMedia[] = [
   {
     id: "suzuki-gixxer-155-manufacturer", entityType: "motorcycle", entityId: "suzuki-gixxer-155", role: "primary",
     src: "/media/motorcycles/suzuki-gixxer-155.webp", sourceImageUrl: "https://mc.suzuki.com.ph/wp-content/uploads/2024/10/GIXXER155PrevFeb6.png", alt: "Suzuki Gixxer 155 motorcycle", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer product image · Suzuki Gixxer 155", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/gixxer-155/", lastChecked: "2026-09-24"
+    rightsStatus: "external-reference", rightsHolder: "Suzuki Philippines", sourceLabel: "Manufacturer product image · Suzuki Gixxer 155", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/gixxer-155/", lastChecked: "2026-09-27"
   },
   {
     id: "suzuki-gixxer-sf-155-manufacturer", entityType: "motorcycle", entityId: "suzuki-gixxer-sf-155", role: "primary",
