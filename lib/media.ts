@@ -37,7 +37,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-cb650r-honda-global", entityType: "motorcycle", entityId: "honda-cb650r", role: "primary",
-    src: "/media/motorcycles/honda-cb650r.webp", sourceImageUrl: "https://m.cdn.autotraderspecialty.com/2026-Honda-CB650R-motorcycle--Motorcycle-201883898-68723cd25e28c7ac8c7a29f9d96332f9.jpg?c=%23ffffff&h=800&r=pad&w=800", alt: "Honda CB650R motorcycle in Matte Ballistic Black Metallic", width: 1200, height: 1200,
+    src: "/media/motorcycles/honda-cb650r.webp", sourceImageUrl: "https://m.cdn.autotraderspecialty.com/2026-Honda-CB650R-motorcycle--Motorcycle-201883898-68723cd25e28c7ac8c7a29f9d96332f9.jpg?c=%23f5f5f5&h=800&r=pad&w=800", alt: "Honda CB650R motorcycle in Matte Ballistic Black Metallic", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "AutoTrader Specialty", sourceLabel: "Current model studio image reference · 2026 Honda CB650R", sourceUrl: "https://motorcycles.autotrader.com/motorcycles-for-sale/honda-cb650r-for-sale", lastChecked: "2026-09-27"
   },
   {
