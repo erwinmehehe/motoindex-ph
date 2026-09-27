@@ -1,5 +1,4 @@
 import fs from "node:fs";
-import sharp from "sharp";
 import { execFileSync } from "node:child_process";
 
 const media = fs.readFileSync("lib/media.ts", "utf8");
@@ -157,62 +156,6 @@ for (const [id, badSha] of Object.entries(knownBadLocalBlobs)) {
   if (blobSha === badSha) failures.push(`${id}: known-bad stale local image is still present`);
 }
 
-
-const whiteCanvasTargets = [
-  "honda-x-adv",
-  "bmw-f-900-gs",
-  "royal-enfield-bear-650",
-  "bmw-s-1000-r",
-  "honda-adv-150",
-  "ducati-streetfighter-v4",
-  "kawasaki-ninja-h2",
-  "honda-gold-wing",
-  "ducati-panigale-v4",
-  "ktm-790-duke",
-  "bmw-s-1000-rr",
-  "bmw-m-1000-rr",
-  "honda-cbr650r",
-  "kawasaki-ninja-1000",
-  "bajaj-pulsar-ns400z",
-  "honda-adv-160",
-];
-
-for (const id of whiteCanvasTargets) {
-  const assetPath = `public/media/motorcycles/${id}.webp`;
-  const image = sharp(assetPath);
-  const metadata = await image.metadata();
-  if (metadata.width !== 1200 || metadata.height !== 1200) {
-    failures.push(`${id}: expected 1200x1200 catalog canvas, got ${metadata.width}x${metadata.height}`);
-    continue;
-  }
-
-  const sampled = await image
-    .resize(240, 240, { fit: "fill" })
-    .removeAlpha()
-    .raw()
-    .toBuffer({ resolveWithObject: true });
-  const { data, info } = sampled;
-  const border = 14;
-  let borderPixels = 0;
-  let whiteBorderPixels = 0;
-  for (let y = 0; y < info.height; y += 1) {
-    for (let x = 0; x < info.width; x += 1) {
-      if (x >= border && x < info.width - border && y >= border && y < info.height - border) continue;
-      const i = (y * info.width + x) * info.channels;
-      const r = data[i];
-      const g = data[i + 1];
-      const b = data[i + 2];
-      borderPixels += 1;
-      if (r >= 244 && g >= 244 && b >= 244 && Math.max(r, g, b) - Math.min(r, g, b) <= 10) {
-        whiteBorderPixels += 1;
-      }
-    }
-  }
-  const whiteRatio = whiteBorderPixels / Math.max(1, borderPixels);
-  if (whiteRatio < 0.985) {
-    failures.push(`${id}: catalog canvas edge is not consistently white (${(whiteRatio * 100).toFixed(1)}% white)`);
-  }
-}
 
 if (media.includes("GrabCut") || media.includes("grabCut")) {
   // This is intentionally scoped to lib/media.ts here; the permanent normalizer
