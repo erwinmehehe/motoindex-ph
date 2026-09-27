@@ -78,6 +78,9 @@ export type GarageRecord = {
   supplier?: string;
   quantity?: number;
   warrantyExpiry?: string;
+  serviceProvider?: string;
+  serviceLocation?: string;
+  invoiceReference?: string;
   notes?: string;
 };
 

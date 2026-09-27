@@ -31,16 +31,19 @@ function dateLabel(value?: string) {
   return parsed.toLocaleDateString("en-PH", { year: "numeric", month: "short", day: "numeric" });
 }
 
-function recordLine(record: GarageRecord, includeAmounts: boolean, includeNotes: boolean, evidenceCount = 0) {
+function recordLine(record: GarageRecord, includeAmounts: boolean, includeNotes: boolean, includeReferences: boolean, evidenceCount = 0) {
   const parts = [dateLabel(record.date), record.title];
   if (record.odometerKm !== undefined) parts.push(`${record.odometerKm.toLocaleString()} km`);
+  if (record.serviceProvider) parts.push(`Provider: ${record.serviceProvider}`);
+  if (record.serviceLocation) parts.push(record.serviceLocation);
+  if (includeReferences && record.invoiceReference) parts.push(`Invoice / receipt: ${record.invoiceReference}`);
   if (evidenceCount > 0) parts.push(`${evidenceCount} supporting document record${evidenceCount === 1 ? "" : "s"} tracked`);
   if (includeAmounts && record.amountPhp !== undefined) parts.push(money(record.amountPhp));
   if (includeNotes && record.notes) parts.push(record.notes);
   return parts.join(" · ");
 }
 
-function shareableRecord(record: GarageRecord, includeAmounts: boolean, includeNotes: boolean, evidenceCount = 0) {
+function shareableRecord(record: GarageRecord, includeAmounts: boolean, includeNotes: boolean, includeReferences: boolean, evidenceCount = 0) {
   return {
     category: record.category,
     date: record.date,
@@ -48,6 +51,9 @@ function shareableRecord(record: GarageRecord, includeAmounts: boolean, includeN
     odometerKm: record.odometerKm,
     nextDueKm: record.nextDueKm,
     nextDueDate: record.nextDueDate,
+    serviceProvider: record.serviceProvider,
+    serviceLocation: record.serviceLocation,
+    invoiceReference: includeReferences ? record.invoiceReference : undefined,
     supportingDocumentRecords: evidenceCount,
     amountPhp: includeAmounts ? record.amountPhp : undefined,
     notes: includeNotes ? record.notes : undefined,
@@ -58,9 +64,9 @@ function documentStatus(state: GarageState, bikeId: string, types: string[]) {
   return state.documents.some((document) => document.motorcycleId === bikeId && types.includes(document.type));
 }
 
-function reportSection(title: string, records: GarageRecord[], includeAmounts: boolean, includeNotes: boolean, evidenceCounts: Map<string, number>) {
+function reportSection(title: string, records: GarageRecord[], includeAmounts: boolean, includeNotes: boolean, includeReferences: boolean, evidenceCounts: Map<string, number>) {
   if (!records.length) return `${title}\n- No records logged in My Garage\n`;
-  return `${title}\n${records.map((record) => `- ${recordLine(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)}`).join("\n")}\n`;
+  return `${title}\n${records.map((record) => `- ${recordLine(record, includeAmounts, includeNotes, includeReferences, evidenceCounts.get(record.id) || 0)}`).join("\n")}\n`;
 }
 
 export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] }) {
@@ -250,14 +256,14 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
       "OWNERSHIP SUMMARY",
       historySummary,
       "",
-      reportSection("PMS / SERVICE HISTORY", service, includeAmounts, includeNotes, evidenceCounts),
-      reportSection("TIRE HISTORY", tires, includeAmounts, includeNotes, evidenceCounts),
-      reportSection("BATTERY HISTORY", battery, includeAmounts, includeNotes, evidenceCounts),
-      reportSection("REPAIRS", repairs, includeAmounts, includeNotes, evidenceCounts),
-      reportSection("PARTS / MODIFICATIONS", parts, includeAmounts, includeNotes, evidenceCounts),
-      reportSection("ACCIDENT RECORDS", accidents, includeAmounts, includeNotes, evidenceCounts),
-      reportSection("REGISTRATION HISTORY", registration, includeAmounts, includeNotes, evidenceCounts),
-      reportSection("INSURANCE HISTORY", insurance, includeAmounts, includeNotes, evidenceCounts),
+      reportSection("PMS / SERVICE HISTORY", service, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts),
+      reportSection("TIRE HISTORY", tires, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts),
+      reportSection("BATTERY HISTORY", battery, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts),
+      reportSection("REPAIRS", repairs, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts),
+      reportSection("PARTS / MODIFICATIONS", parts, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts),
+      reportSection("ACCIDENT RECORDS", accidents, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts),
+      reportSection("REGISTRATION HISTORY", registration, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts),
+      reportSection("INSURANCE HISTORY", insurance, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts),
       "DOCUMENT CHECKLIST",
       ...checklist.map((item) => `- ${item.present ? "Tracked" : "Not tracked"}: ${item.label}`),
       "",
@@ -320,15 +326,15 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
         location: location.trim() || undefined,
       },
       history: {
-        service: service.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
-        tires: tires.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
-        battery: battery.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
-        repairs: repairs.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
-        parts: parts.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
-        accidents: accidents.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
-        registration: registration.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
-        insurance: insurance.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
-        odometer: odometerUpdates.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
+        service: service.map((record) => shareableRecord(record, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts.get(record.id) || 0)),
+        tires: tires.map((record) => shareableRecord(record, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts.get(record.id) || 0)),
+        battery: battery.map((record) => shareableRecord(record, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts.get(record.id) || 0)),
+        repairs: repairs.map((record) => shareableRecord(record, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts.get(record.id) || 0)),
+        parts: parts.map((record) => shareableRecord(record, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts.get(record.id) || 0)),
+        accidents: accidents.map((record) => shareableRecord(record, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts.get(record.id) || 0)),
+        registration: registration.map((record) => shareableRecord(record, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts.get(record.id) || 0)),
+        insurance: insurance.map((record) => shareableRecord(record, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts.get(record.id) || 0)),
+        odometer: odometerUpdates.map((record) => shareableRecord(record, includeAmounts, includeNotes, includeDocumentRefs, evidenceCounts.get(record.id) || 0)),
       },
       documents: documents.map((document) => {
         const linkedRecord = document.linkedRecordId ? records.find((record) => record.id === document.linkedRecordId) : undefined;
@@ -470,7 +476,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
         {records.filter((record) => ["PMS","TIRE","BATTERY","REPAIR","ACCIDENT","PART","WARRANTY","REGISTRATION","INSURANCE","ODOMETER"].includes(record.category)).slice(0, 30).map((record) => {
           const evidenceCount = evidenceCounts.get(record.id) || 0;
           return <div className="buyer-quote-card" key={record.id}>
-            <div><span className="field-label">{record.category}</span><strong>{record.title}</strong><p>{dateLabel(record.date)}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}</p>{evidenceCount > 0 && <small>{evidenceCount} supporting document record{evidenceCount === 1 ? "" : "s"} tracked · owner-maintained</small>}</div>
+            <div><span className="field-label">{record.category}</span><strong>{record.title}</strong><p>{dateLabel(record.date)}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}</p>{(record.serviceProvider || record.serviceLocation) && <small>Serviced by {[record.serviceProvider, record.serviceLocation].filter(Boolean).join(" · ")}</small>}{includeDocumentRefs && record.invoiceReference && <small>Invoice / receipt ref: {record.invoiceReference}</small>}{evidenceCount > 0 && <small>{evidenceCount} supporting document record{evidenceCount === 1 ? "" : "s"} tracked · owner-maintained</small>}</div>
             <div className="buyer-quote-meta">{includeAmounts && record.amountPhp !== undefined && <strong>{money(record.amountPhp)}</strong>}</div>
           </div>;
         })}

@@ -193,6 +193,9 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
       fullTank: form.get("fullTank") === "on",
       nextDueKm: n(form.get("nextDueKm")),
       nextDueDate: s(form.get("nextDueDate")),
+      serviceProvider: s(form.get("serviceProvider")),
+      serviceLocation: s(form.get("serviceLocation")),
+      invoiceReference: s(form.get("invoiceReference")),
       notes: s(form.get("notes")),
     };
     if (!record.title) return;
@@ -657,7 +660,10 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
                 <label>Full-tank fill-up<select name="fullTank" defaultValue=""><option value="">No / not sure</option><option value="on">Yes, filled to full</option></select></label>
                 <label>Next due (km)<input name="nextDueKm" type="number" min="0" step="1" defaultValue={maintenanceDraft?.nextDueKm ?? ""} /></label>
                 <label>Next due date<input name="nextDueDate" type="date" /></label>
-                <label className="lead-form-wide">Notes<input name="notes" placeholder="Shop, parts used, warranty details or repair notes" defaultValue={maintenanceDraft?.notes || ""} /></label>
+                <label>Workshop / provider<input name="serviceProvider" placeholder="Honda dealer, independent shop" /></label>
+                <label>Service location<input name="serviceLocation" placeholder="City / branch" /></label>
+                <label>Invoice / receipt ref<input name="invoiceReference" autoComplete="off" placeholder="Optional reference" /></label>
+                <label className="lead-form-wide">Notes<input name="notes" placeholder="Parts used, warranty details or repair notes" defaultValue={maintenanceDraft?.notes || ""} /></label>
               </div>
               <div className="hero-actions">
                 <button className="button small" type="submit">{maintenanceDraft ? "Save completed service" : "Add record"}</button>
