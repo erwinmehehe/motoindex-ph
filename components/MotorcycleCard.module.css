@@ -2,7 +2,7 @@
   container:motorcycle-card / inline-size;
   min-width:0;
   height:100%;
-  overflow:visible;
+  overflow:hidden;
   border:0;
   border-radius:0;
   background:transparent;
@@ -233,6 +233,30 @@
   .actions :global(.button),
   .actions :global(.compare-button){
     width:100%;
+  }
+}
+
+@media(max-width:620px){
+  .standardMedia{
+    height:190px;
+    min-height:190px;
+  }
+
+  .standardMedia :global(.entity-media),
+  .standardMedia :global(.entity-media-link){
+    min-width:0;
+    max-width:100%;
+    overflow:hidden;
+  }
+
+  .actions{
+    grid-template-columns:1fr;
+  }
+
+  .actions :global(.button),
+  .actions :global(.compare-button){
+    min-height:42px;
+    white-space:normal;
   }
 }
 
