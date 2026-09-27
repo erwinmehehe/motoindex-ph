@@ -4,8 +4,8 @@ import { spawn, spawnSync } from "node:child_process";
 
 const base = new URL(process.env.BASE_URL || "http://127.0.0.1:3000");
 const checks = [
-  { name: "catalog", path: "/motorcycles", selector: ".model-card-media", maxHeight: { 390: 190, 1440: 205 }, requireContain: true },
-  { name: "comparison media", path: "/compare/selection?bikes=aerox-v3,nmax-v3", selector: ".compare-product-media", maxHeight: { 390: 125, 1440: 160 } },
+  { name: "catalog", path: "/motorcycles", selector: ".model-card-media", maxHeight: { 390: 180, 1440: 190 }, requireContain: true, maxImageWidthRatio: 0.9, maxImageHeightRatio: 0.84 },
+  { name: "comparison media", path: "/compare/selection?bikes=aerox-v3,nmax-v3", selector: ".compare-product-media", maxHeight: { 390: 116, 1440: 150 }, maxImageWidthRatio: 0.9, maxImageHeightRatio: 0.84 },
   { name: "comparison card", path: "/compare/selection?bikes=aerox-v3,nmax-v3", selector: ".compare-product-card", requireWhite: true, maxHeight: { 390: 220, 1440: 230 } },
   { name: "motorcycle hero", path: "/motorcycles/yamaha/aerox-v3", selector: ".motorcycle-hero-media", maxHeight: { 390: 270, 1440: 430 } },
 ];
@@ -150,6 +150,12 @@ try {
       if (maxHeight && (result?.height||0) > maxHeight + 1) failures.push(`${width}px ${check.name}: ${Math.round(result.height)}px tall, expected no more than ${maxHeight}px`);
       if (check.requireContain && result?.imageObjectFit !== "contain") failures.push(`${width}px ${check.name}: image object-fit is ${result?.imageObjectFit || "missing"}, expected contain`);
       if (check.requireContain && result?.imageTransform && result.imageTransform !== "none") failures.push(`${width}px ${check.name}: image transform is ${result.imageTransform}, expected none`);
+      if (check.maxImageWidthRatio && result?.imageRect && result?.stageRect && result.imageRect.width > result.stageRect.width * check.maxImageWidthRatio + 1) {
+        failures.push(`${width}px ${check.name}: image width ratio ${(result.imageRect.width / result.stageRect.width).toFixed(2)} exceeds ${check.maxImageWidthRatio}`);
+      }
+      if (check.maxImageHeightRatio && result?.imageRect && result?.stageRect && result.imageRect.height > result.stageRect.height * check.maxImageHeightRatio + 1) {
+        failures.push(`${width}px ${check.name}: image height ratio ${(result.imageRect.height / result.stageRect.height).toFixed(2)} exceeds ${check.maxImageHeightRatio}`);
+      }
       if (check.requireContain && result?.imageRect && result?.stageRect) {
         const tolerance = 1;
         if (result.imageRect.left < result.stageRect.left - tolerance || result.imageRect.right > result.stageRect.right + tolerance || result.imageRect.top < result.stageRect.top - tolerance || result.imageRect.bottom > result.stageRect.bottom + tolerance) {
