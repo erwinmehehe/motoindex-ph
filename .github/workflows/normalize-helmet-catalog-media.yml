@@ -6,6 +6,10 @@ on:
       - fix/helmet-catalog-white-media-sep27
   workflow_dispatch:
 
+concurrency:
+  group: helmet-catalog-normalization
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
