@@ -84,6 +84,7 @@ export type GarageDocument = {
   motorcycleId: string;
   type: GarageDocumentType;
   label: string;
+  linkedRecordId?: string;
   reference?: string;
   expiryDate?: string;
   notes?: string;
