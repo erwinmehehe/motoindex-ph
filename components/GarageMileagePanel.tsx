@@ -103,7 +103,11 @@ export function GarageMileagePanel({
     return point.km < readings[index - 1].km ? count + 1 : count;
   }, 0);
 
-  const cleanReadings = readings.filter((point, index) => index === 0 || point.km >= readings[index - 1].km);
+  const cleanReadings = readings.reduce<typeof readings>((valid, point) => {
+    const previous = valid.at(-1);
+    if (!previous || point.km >= previous.km) valid.push(point);
+    return valid;
+  }, []);
   const first = cleanReadings[0];
   const latest = cleanReadings.at(-1);
   const trackedDistance = first && latest && latest.km >= first.km ? latest.km - first.km : undefined;
@@ -147,6 +151,11 @@ export function GarageMileagePanel({
       setMessage("Choose the date of this odometer reading.");
       return;
     }
+    const today = new Date().toISOString().slice(0, 10);
+    if (dateKey(date) > today) {
+      setMessage("The odometer reading date cannot be in the future.");
+      return;
+    }
     if (records.some((record) => record.odometerKm === odometerKm && dateKey(record.date) === dateKey(date))) {
       setMessage("That mileage is already logged for this date.");
       return;
@@ -173,7 +182,7 @@ export function GarageMileagePanel({
             <input style={s.input} name="odometerKm" type="number" min={bike.odometerKm} step="1" required defaultValue={bike.odometerKm} />
           </label>
           <label style={s.label}>Reading date
-            <input style={s.input} name="date" type="date" required defaultValue={new Date().toISOString().slice(0, 10)} />
+            <input style={s.input} name="date" type="date" required max={new Date().toISOString().slice(0, 10)} defaultValue={new Date().toISOString().slice(0, 10)} />
           </label>
         </div>
         <label style={s.label}>Optional note
