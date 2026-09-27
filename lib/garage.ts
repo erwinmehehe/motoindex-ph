@@ -52,6 +52,7 @@ export type GarageMotorcycle = {
   purchasePricePhp?: number;
   purchaseOdometerKm?: number;
   odometerKm: number;
+  odometerUpdatedAt?: string;
   registrationExpiry?: string;
   insuranceExpiry?: string;
   estimatedResaleValuePhp?: number;
