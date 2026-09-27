@@ -5,50 +5,53 @@ import sharp from "sharp";
 const root=process.cwd();
 const mediaDir=path.join(root,"public","media","motorcycles");
 const files=fs.readdirSync(mediaDir).filter(name=>name.endsWith(".webp")).sort();
+const scored=[];
 
-function percentile(values,p){
-  const a=[...values].sort((x,y)=>x-y);
-  return a[Math.min(a.length-1,Math.max(0,Math.floor((a.length-1)*p)))];
-}
-
-const failures=[];
 for(const file of files){
   const full=path.join(mediaDir,file);
   const {data,info}=await sharp(full).resize(240,240,{fit:"fill"}).removeAlpha().raw().toBuffer({resolveWithObject:true});
   const {width,height,channels}=info;
-  const edge=[];
-  const corner=[];
-  const strip=18;
-  const sample=(x,y,bucket)=>{
-    const i=(y*width+x)*channels;
-    const r=data[i],g=data[i+1],b=data[i+2];
-    const whiteDistance=Math.hypot(255-r,255-g,255-b);
-    bucket.push({whiteDistance,r,g,b});
-  };
+  let nonWhite=0, lightNeutral=0, coloredBg=0, centerCount=0, centerNonWhite=0;
+  const rowRatios=[], colRatios=[];
   for(let y=0;y<height;y++){
+    let rowNonWhite=0;
     for(let x=0;x<width;x++){
-      if(x<strip||x>=width-strip||y<strip||y>=height-strip) sample(x,y,edge);
-      if((x<strip&&y<strip)||(x>=width-strip&&y<strip)||(x<strip&&y>=height-strip)||(x>=width-strip&&y>=height-strip)) sample(x,y,corner);
+      const i=(y*width+x)*channels;
+      const r=data[i],g=data[i+1],b=data[i+2];
+      const max=Math.max(r,g,b),min=Math.min(r,g,b),sat=max-min;
+      const d=Math.hypot(255-r,255-g,255-b);
+      const nw=d>26;
+      if(nw){nonWhite++;rowNonWhite++;}
+      const inCenter=x>=36&&x<204&&y>=36&&y<204;
+      if(inCenter){centerCount++;if(nw)centerNonWhite++;}
+      if(nw && max>150 && sat<22) lightNeutral++;
+      if(nw && max>105 && sat>28) coloredBg++;
     }
+    rowRatios.push(rowNonWhite/width);
   }
-  const edgeDistances=edge.map(v=>v.whiteDistance);
-  const cornerDistances=corner.map(v=>v.whiteDistance);
-  const edgeP90=percentile(edgeDistances,.9);
-  const cornerP90=percentile(cornerDistances,.9);
-  const edgeNonWhite=edgeDistances.filter(v=>v>18).length/edgeDistances.length;
-  const cornerNonWhite=cornerDistances.filter(v=>v>18).length/cornerDistances.length;
-  const edgeDark=edge.filter(v=>Math.max(v.r,v.g,v.b)<225).length/edge.length;
-  const fail=edgeNonWhite>0.08 || cornerNonWhite>0.04 || edgeP90>32 || cornerP90>25 || edgeDark>0.025;
-  if(fail){
-    failures.push({
-      id:file.replace(/\.webp$/,""),
-      edgeNonWhite:+edgeNonWhite.toFixed(3),
-      cornerNonWhite:+cornerNonWhite.toFixed(3),
-      edgeP90:+edgeP90.toFixed(1),
-      cornerP90:+cornerP90.toFixed(1),
-      edgeDark:+edgeDark.toFixed(3)
-    });
+  for(let x=0;x<width;x++){
+    let n=0;
+    for(let y=0;y<height;y++){
+      const i=(y*width+x)*channels;
+      const r=data[i],g=data[i+1],b=data[i+2];
+      if(Math.hypot(255-r,255-g,255-b)>26)n++;
+    }
+    colRatios.push(n/height);
   }
+  const total=width*height;
+  const fullRows=rowRatios.filter(v=>v>.72).length;
+  const fullCols=colRatios.filter(v=>v>.72).length;
+  const score=(nonWhite/total)*1.3+(lightNeutral/total)*1.6+(coloredBg/total)*.9+(fullRows/height)*1.8+(fullCols/width)*1.8;
+  scored.push({
+    id:file.replace(/\.webp$/,""),
+    score:+score.toFixed(3),
+    nonWhite:+(nonWhite/total).toFixed(3),
+    centerNonWhite:+(centerNonWhite/centerCount).toFixed(3),
+    lightNeutral:+(lightNeutral/total).toFixed(3),
+    coloredBg:+(coloredBg/total).toFixed(3),
+    fullRows,
+    fullCols
+  });
 }
-console.log("WHITE_CANVAS_FAILURES="+JSON.stringify(failures));
-console.log("WHITE_CANVAS_FAILURE_COUNT="+failures.length);
+scored.sort((a,b)=>b.score-a.score);
+console.log("WHITE_CANVAS_TOP="+JSON.stringify(scored.slice(0,45)));
