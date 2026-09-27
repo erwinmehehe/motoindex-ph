@@ -328,13 +328,16 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
         registration: registration.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
         insurance: insurance.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
       },
-      documents: documents.map((document) => ({
-        type: document.type,
-        label: document.label,
-        expiryDate: document.expiryDate,
-        linkedRecordId: document.linkedRecordId,
-        reference: includeDocumentRefs ? document.reference : undefined,
-      })),
+      documents: documents.map((document) => {
+        const linkedRecord = document.linkedRecordId ? records.find((record) => record.id === document.linkedRecordId) : undefined;
+        return {
+          type: document.type,
+          label: document.label,
+          expiryDate: document.expiryDate,
+          linkedHistory: linkedRecord ? { category: linkedRecord.category, title: linkedRecord.title, date: linkedRecord.date } : undefined,
+          reference: includeDocumentRefs ? document.reference : undefined,
+        };
+      }),
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
