@@ -59,13 +59,13 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "yamaha-aerox-v3-wheeltek", entityType: "motorcycle", entityId: "yamaha-aerox-v3", role: "primary",
-    src: "https://wheeltek.com.ph/wp-content/uploads/2026/06/mio-aerox-v3-race-blu.jpg", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2026/06/mio-aerox-v3-race-blu.jpg", alt: "Yamaha Mio Aerox V3 motorcycle in Race Blu", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Mio Aerox V3", sourceUrl: "https://wheeltek.com.ph/motorcycles/mio-aerox-v3/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/yamaha-aerox-v3.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2026/06/mio-aerox-v3-race-blu.jpg", alt: "Yamaha Mio Aerox V3 motorcycle in Race Blu", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Mio Aerox V3", sourceUrl: "https://wheeltek.com.ph/motorcycles/mio-aerox-v3/", lastChecked: "2026-09-27"
   },
   {
     id: "yamaha-nmax-v3-wheeltek", entityType: "motorcycle", entityId: "yamaha-nmax-v3", role: "primary",
-    src: "https://wheeltek.com.ph/wp-content/uploads/2026/06/nmax-turbo-black-glossy.jpg", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2026/06/nmax-turbo-black-glossy.jpg", alt: "Current-generation Yamaha NMAX motorcycle in black", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek All-New NMAX Tech Max", sourceUrl: "https://wheeltek.com.ph/motorcycles/all-new-nmax-techmax/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/yamaha-nmax-v3.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2026/06/nmax-turbo-black-glossy.jpg", alt: "Current-generation Yamaha NMAX motorcycle in black", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek All-New NMAX Tech Max", sourceUrl: "https://wheeltek.com.ph/motorcycles/all-new-nmax-techmax/", lastChecked: "2026-09-27"
   },
   {
     id: "yamaha-aerox-v2-wheeltek", entityType: "motorcycle", entityId: "yamaha-aerox-v2", role: "primary",
@@ -79,13 +79,13 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-adv-160-wheeltek", entityType: "motorcycle", entityId: "honda-adv-160", role: "primary",
-    src: "https://wheeltek.com.ph/wp-content/uploads/2025/03/ADV160-white.jpg", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/03/ADV160-white.jpg", alt: "Honda ADV160 motorcycle in white", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek ADV160", sourceUrl: "https://wheeltek.com.ph/motorcycles/adv160/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/honda-adv-160.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/03/ADV160-white.jpg", alt: "Honda ADV160 motorcycle in white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek ADV160", sourceUrl: "https://wheeltek.com.ph/motorcycles/adv160/", lastChecked: "2026-09-27"
   },
   {
     id: "honda-click-160-wheeltek", entityType: "motorcycle", entityId: "honda-click-160", role: "primary",
-    src: "https://wheeltek.com.ph/wp-content/uploads/2025/03/click160-new-model-white.jpg", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/03/click160-new-model-white.jpg", alt: "Honda Click160 motorcycle in white", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Click160", sourceUrl: "https://wheeltek.com.ph/motorcycles/click160-new-model/", lastChecked: "2026-08-25"
+    src: "/media/motorcycles/honda-click-160.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/03/click160-new-model-white.jpg", alt: "Honda Click160 motorcycle in white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek Click160", sourceUrl: "https://wheeltek.com.ph/motorcycles/click160-new-model/", lastChecked: "2026-09-27"
   },
   {
     id: "honda-click-150i-archive", entityType: "motorcycle", entityId: "honda-click-150i", role: "primary",
