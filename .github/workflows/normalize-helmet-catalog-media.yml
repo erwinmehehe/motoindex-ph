@@ -1,0 +1,45 @@
+name: Normalize Helmet Catalog Media
+
+on:
+  push:
+    branches:
+      - fix/helmet-catalog-white-media-sep27
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: fix/helmet-catalog-white-media-sep27
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install image normalization dependencies
+        run: python -m pip install --disable-pip-version-check "rembg[cpu]" pillow
+
+      - name: Normalize helmet media
+        run: python scripts/normalize-helmet-catalog-media.py
+
+      - name: Commit normalized assets
+        run: |
+          if git diff --quiet -- public/media/helmets; then
+            echo "No helmet media changes generated."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/media/helmets
+          git commit -m "Normalize helmet catalog media [skip helmet-normalize]"
+          git push
