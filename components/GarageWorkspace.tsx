@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from "re
 import { GarageAccountPanel } from "@/components/GarageAccountPanel";
 import { GarageStatDeck } from "@/components/GarageStatDeck";
 import { GarageLifecyclePanel } from "@/components/GarageLifecyclePanel";
+import { GarageFuelPanel, type GarageFuelRecordInput } from "@/components/GarageFuelPanel";
 import { GarageHistoryPanel } from "@/components/GarageHistoryPanel";
 import { GarageMileagePanel, type GarageOdometerReadingInput } from "@/components/GarageMileagePanel";
 import { GaragePartsPanel, type GarageComponentRecordInput } from "@/components/GaragePartsPanel";
@@ -247,6 +248,30 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
       label: `${record.title} evidence`,
     });
     window.requestAnimationFrame(() => documentForm.current?.scrollIntoView({ behavior: "smooth", block: "center" }));
+  }
+
+  function addFuelRecord(input: GarageFuelRecordInput) {
+    if (!selectedBike) return;
+    const record: GarageRecord = {
+      id: id("record"),
+      motorcycleId: selectedBike.id,
+      category: "FUEL",
+      date: input.date,
+      title: input.fullTank ? "Full-tank fill-up" : "Fuel fill-up",
+      amountPhp: input.amountPhp,
+      odometerKm: input.odometerKm,
+      liters: input.liters,
+      pricePerLiterPhp: input.pricePerLiterPhp,
+      fullTank: input.fullTank,
+      notes: input.notes,
+    };
+    setState((current) => ({
+      ...current,
+      records: [record, ...current.records],
+      motorcycles: current.motorcycles.map((bike) => bike.id === selectedBike.id && input.odometerKm > bike.odometerKm
+        ? { ...bike, odometerKm: input.odometerKm, odometerUpdatedAt: input.date, updatedAt: new Date().toISOString() }
+        : bike),
+    }));
   }
 
   function addOdometerReading(input: GarageOdometerReadingInput) {
@@ -548,6 +573,14 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
           smartMaintenance={smartMaintenance}
         />
 
+        <GarageFuelPanel
+          key={`${selectedBike.id}-fuel-${selectedBike.odometerKm}`}
+          records={bikeRecords}
+          currentOdometerKm={selectedBike.odometerKm}
+          analytics={analytics}
+          onAddFuel={addFuelRecord}
+        />
+
         <GarageMileagePanel
           key={`${selectedBike.id}-${selectedBike.odometerKm}`}
           bike={selectedBike}
@@ -654,11 +687,11 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
           />
 
           <section className="garage-panel">
-            <div className="section-head"><div><h2>Add ownership record</h2><p>PMS, fuel, tires, battery, repairs, accidents, parts and expenses.</p></div></div>
+            <div className="section-head"><div><h2>Add ownership record</h2><p>PMS, tires, battery, repairs, accidents, parts and other ownership expenses.</p></div></div>
             <form className="lead-form" onSubmit={addRecord} ref={recordForm} key={maintenanceDraft?.key || selectedBike.id}>
               {maintenanceDraft && <div className="note-box"><strong>Maintenance record prepared</strong><p>Review the odometer, add the actual cost or workshop notes if you have them, then save. MotoIndex will use this completion to move the next mileage-based due point forward.</p></div>}
               <div className="lead-form-grid">
-                <label>Type<select name="category" defaultValue={maintenanceDraft?.category || "PMS"}>{GARAGE_RECORD_CATEGORIES.filter((category) => category !== "ODOMETER").map((category) => <option value={category} key={category}>{category}</option>)}</select></label>
+                <label>Type<select name="category" defaultValue={maintenanceDraft?.category || "PMS"}>{GARAGE_RECORD_CATEGORIES.filter((category) => category !== "ODOMETER" && category !== "FUEL").map((category) => <option value={category} key={category}>{category}</option>)}</select></label>
                 <label>Date<input name="date" type="date" required defaultValue={new Date().toISOString().slice(0, 10)} /></label>
                 <label className="lead-form-wide">What happened?<input name="title" required placeholder="Engine oil change" defaultValue={maintenanceDraft?.title || ""} /></label>
                 <label>Amount (₱)<input name="amountPhp" type="number" min="0" step="0.01" /></label>
