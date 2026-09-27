@@ -19,6 +19,7 @@ export const GARAGE_RECORD_CATEGORIES = [
   "REGISTRATION",
   "INSURANCE",
   "RESALE",
+  "ODOMETER",
 ] as const;
 
 export const GARAGE_COMPONENT_CATEGORIES = ["TIRE", "BATTERY", "OIL", "CVT", "PART"] as const;
