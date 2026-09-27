@@ -247,6 +247,9 @@
 .mi-brand-grid>a{min-height:82px;padding:14px 15px;display:flex;flex-direction:column;justify-content:center;gap:4px;border:1px solid rgba(148,163,184,.15);border-radius:14px;background:#fff;box-shadow:0 10px 24px rgba(68,76,231,.04)}
 .mi-brand-grid>a:hover{transform:translateY(-3px);border-color:rgba(68,76,231,.20);box-shadow:0 18px 34px rgba(68,76,231,.08)}
 .mi-brand-grid strong{color:#172033;font-size:15px}.mi-brand-grid span{color:#64748b;font-size:10px}
+.mi-brand-grid>a{min-height:112px;justify-content:flex-start;gap:7px}
+.mi-brand-mark{display:flex;align-items:center;height:38px;margin-bottom:3px}
+.mi-brand-mark img{display:block;width:auto;max-width:112px;height:auto;max-height:34px;object-fit:contain;object-position:left center}
 
 .mi-models{background:#f8fafc}
 .mi-model-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:stretch}
