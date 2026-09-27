@@ -228,6 +228,32 @@
   .page :global(.motorcycle-index-actions .button:first-child){grid-column:1/-1!important}
   .page :global(.motorcycle-index-actions .button){width:100%!important}
   .page :global(.motorcycle-index-overview){grid-template-columns:1fr 1fr!important}
+  .page :global(.model-explorer-mobile-bar){
+    position:sticky!important;
+    top:62px!important;
+    z-index:12!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(130px,.72fr)!important;
+    gap:8px!important;
+    width:100%!important;
+    margin:0 0 14px!important;
+    padding:10px 0!important;
+    background:rgba(255,255,255,.96)!important;
+    backdrop-filter:blur(10px)!important;
+  }
+  .page :global(.model-explorer-mobile-bar)>button,
+  .page :global(.model-explorer-mobile-bar)>label,
+  .page :global(.model-explorer-mobile-bar select){
+    width:100%!important;
+    min-width:0!important;
+  }
+  .page :global(.model-explorer-mobile-bar)>button,
+  .page :global(.model-explorer-mobile-bar select){
+    min-height:44px!important;
+  }
+  .page :global(.model-explorer-results){min-width:0!important;width:100%!important}
+  .page :global(.result-meta){min-width:0!important}
+  .page :global(.motorcycle-catalog-grid){width:100%!important;min-width:0!important}
   .page :global(.motorcycle-index-quicklinks){grid-template-columns:1fr!important}
   .page :global(.motorcycle-index-quicklinks)>a,
   .page :global(.motorcycle-index-quicklinks)>a:first-child,
