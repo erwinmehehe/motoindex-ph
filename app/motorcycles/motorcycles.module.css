@@ -214,12 +214,7 @@
   .page :global(.motorcycle-index-quicklinks)>a:nth-child(4){border-left:0!important}
   .page :global(.model-explorer-layout){grid-template-columns:1fr!important}
   .page :global(.model-explorer-rail){display:none!important}
-  .page :global(.model-explorer-mobile-bar){
-    display:grid!important;
-    grid-template-columns:minmax(0,1fr) minmax(130px,.72fr);
-    gap:var(--mi-space-2);
-    width:100%;
-  }
+  .page :global(.model-explorer-mobile-bar){display:flex!important}
   .page :global(.motorcycle-index-method){grid-template-columns:1fr!important;gap:24px!important}
 }
 
