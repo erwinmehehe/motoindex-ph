@@ -132,7 +132,7 @@ export function GarageFuelPanel({
             <label style={s.label}>Liters<input name="liters" type="number" min="0.01" step="0.01" required /></label>
             <label style={s.label}>Price / liter<input name="pricePerLiterPhp" type="number" min="0" step="0.01" placeholder="Optional if total entered" /></label>
             <label style={s.label}>Total amount (₱)<input name="amountPhp" type="number" min="0" step="0.01" placeholder="Auto from liters × price/L" /></label>
-            <label style={s.label}>Fill type<select name="fullTank" defaultValue="on"><option value="on">Full tank</option><option value="">Partial / not sure</option></select></label>
+            <label style={s.label}>Fill type<select name="fullTank" defaultValue=""><option value="">Partial / not sure</option><option value="on">Full tank</option></select></label>
           </div>
           <label style={{ ...s.label, marginTop: 10 }}>Notes<input name="notes" placeholder="Fuel station, route, traffic or riding notes" /></label>
           <div className="hero-actions"><button className="button small" type="submit">Save fuel entry</button></div>
