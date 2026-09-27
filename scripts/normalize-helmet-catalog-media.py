@@ -74,7 +74,16 @@ def crop_relative(image: Image.Image, box: tuple[float, float, float, float]) ->
     l, t, r, b = box
     return image.crop((round(l*w), round(t*h), round(r*w), round(b*h)))
 
-LARGEST_COMPONENT_ONLY = {"gille-843-circuit.webp"}
+LARGEST_COMPONENT_ONLY = {
+    "gille-843-circuit.webp",
+    "gille-135.webp",
+    "gille-863-medusa.webp",
+    "gille-873-celeste.webp",
+    "gille-a118-2-adira.webp",
+    "zebra-a113-ritzy.webp",
+    "sec-carbon-mamba.webp",
+    "sec-carbon-chronos.webp",
+}
 
 def keep_largest_component(image: Image.Image) -> Image.Image:
     data = np.array(image.convert("RGBA"))
