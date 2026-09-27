@@ -83,8 +83,10 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
   const [documentAttachments, setDocumentAttachments] = useState<Record<string, GarageDocumentAttachmentSummary>>({});
   const [documentFileMessage, setDocumentFileMessage] = useState("");
   const [maintenanceDraft, setMaintenanceDraft] = useState<{ key: string; title: string; category: GarageRecordCategory; nextDueKm?: number; notes: string } | null>(null);
+  const [documentDraft, setDocumentDraft] = useState<{ key: string; linkedRecordId: string; type: GarageDocumentType; label: string } | null>(null);
   const backupInput = useRef<HTMLInputElement>(null);
   const recordForm = useRef<HTMLFormElement>(null);
+  const documentForm = useRef<HTMLFormElement>(null);
   const bikeUpdateForm = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -118,6 +120,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
 
   useEffect(() => {
     setMaintenanceDraft(null);
+    setDocumentDraft(null);
   }, [selectedBike?.id]);
 
   const selectedCatalog = selectedBike ? catalog.find((model) => model.id === (selectedBike.catalogModelId || `${selectedBike.make.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${selectedBike.model.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`)) : undefined;
@@ -228,6 +231,17 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
     window.requestAnimationFrame(() => recordForm.current?.scrollIntoView({ behavior: "smooth", block: "center" }));
   }
 
+  function prepareEvidenceDocument(record: GarageRecord) {
+    if (!selectedBike) return;
+    setDocumentDraft({
+      key: `${record.id}-evidence-${Date.now()}`,
+      linkedRecordId: record.id,
+      type: record.category === "WARRANTY" ? "WARRANTY" : "RECEIPT",
+      label: `${record.title} evidence`,
+    });
+    window.requestAnimationFrame(() => documentForm.current?.scrollIntoView({ behavior: "smooth", block: "center" }));
+  }
+
   function addComponentRecord(input: GarageComponentRecordInput) {
     if (!selectedBike) return;
     const record: GarageRecord = {
@@ -264,7 +278,11 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
   }
 
   function removeRecord(recordId: string) {
-    setState((current) => ({ ...current, records: current.records.filter((record) => record.id !== recordId) }));
+    setState((current) => ({
+      ...current,
+      records: current.records.filter((record) => record.id !== recordId),
+      documents: current.documents.map((document) => document.linkedRecordId === recordId ? { ...document, linkedRecordId: undefined } : document),
+    }));
   }
 
   async function removeDocument(documentId: string) {
@@ -328,17 +346,24 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
     event.preventDefault();
     if (!selectedBike) return;
     const form = new FormData(event.currentTarget);
+    const linkedRecordId = s(form.get("linkedRecordId"));
+    if (linkedRecordId && !bikeRecords.some((record) => record.id === linkedRecordId)) {
+      setDocumentFileMessage("The ownership record selected for this document no longer exists.");
+      return;
+    }
     const document: GarageDocument = {
       id: id("document"),
       motorcycleId: selectedBike.id,
       type: String(form.get("type")) as GarageDocumentType,
       label: String(form.get("label") || "").trim(),
+      linkedRecordId,
       reference: s(form.get("reference")),
       expiryDate: s(form.get("expiryDate")),
       notes: s(form.get("notes")),
     };
     if (!document.label) return;
     setState((current) => ({ ...current, documents: [document, ...current.documents] }));
+    setDocumentDraft(null);
     event.currentTarget.reset();
   }
 
@@ -601,27 +626,40 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
         <div className="split section">
           <section className="garage-panel">
             <div className="section-head"><div><h2>Ownership history</h2><p>Your most recent activity for this motorcycle.</p></div></div>
-            {bikeRecords.length ? <div className="buyer-quote-list">{bikeRecords.slice(0, 20).map((record) => <div className="buyer-quote-card" key={record.id}>
-              <div><span className="field-label">{record.category}</span><strong>{record.title}</strong><p>{dateLabel(record.date)}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}{record.notes ? ` · ${record.notes}` : ""}</p></div>
-              <div className="buyer-quote-meta">{record.amountPhp !== undefined && <strong>{money(record.amountPhp)}</strong>}{record.nextDueKm !== undefined && <small>Next at {record.nextDueKm.toLocaleString()} km</small>}{record.nextDueDate && <small>Next {dateLabel(record.nextDueDate)}</small>}<button className="button small ghost" type="button" onClick={() => removeRecord(record.id)}>Delete</button></div>
-            </div>)}</div> : <div className="note-box"><p>No ownership records yet.</p></div>}
+            {bikeRecords.length ? <div className="buyer-quote-list">{bikeRecords.slice(0, 20).map((record) => {
+              const evidenceCount = bikeDocuments.filter((document) => document.linkedRecordId === record.id).length;
+              return <div className="buyer-quote-card" key={record.id}>
+                <div><span className="field-label">{record.category}</span><strong>{record.title}</strong><p>{dateLabel(record.date)}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}{record.notes ? ` · ${record.notes}` : ""}</p>{evidenceCount > 0 && <small>{evidenceCount} supporting document record{evidenceCount === 1 ? "" : "s"} tracked</small>}</div>
+                <div className="buyer-quote-meta">{record.amountPhp !== undefined && <strong>{money(record.amountPhp)}</strong>}{record.nextDueKm !== undefined && <small>Next at {record.nextDueKm.toLocaleString()} km</small>}{record.nextDueDate && <small>Next {dateLabel(record.nextDueDate)}</small>}<button className="button small ghost" type="button" onClick={() => prepareEvidenceDocument(record)}>{evidenceCount ? "Add more evidence" : "Add evidence"}</button><button className="button small ghost" type="button" onClick={() => removeRecord(record.id)}>Delete</button></div>
+              </div>;
+            })}</div> : <div className="note-box"><p>No ownership records yet.</p></div>}
           </section>
 
           <section className="garage-panel" id="garage-document-wallet">
             <div className="section-head"><div><h2>Document wallet</h2><p>Track OR/CR, CTPL, insurance, warranty, receipts and resale paperwork.</p></div></div>
-            <form className="lead-form" onSubmit={addDocument}>
-              <p className="muted-note">Attach an optional PDF, JPG, PNG or WebP scan up to 10 MB. Files stay only in private browser storage on this device. Cloud sync and JSON backups include the document record, not the scan.</p>{documentFileMessage && <p className="muted-note" role="status">{documentFileMessage}</p>}
+            <form className="lead-form" onSubmit={addDocument} ref={documentForm} key={documentDraft?.key || selectedBike.id}>
+              <p className="muted-note">Attach an optional PDF, JPG, PNG or WebP scan up to 10 MB. Files stay only in private browser storage on this device. Cloud sync and JSON backups include the document record and its service-history link, not the scan.</p>{documentFileMessage && <p className="muted-note" role="status">{documentFileMessage}</p>}
+              {documentDraft && <div className="note-box"><strong>Evidence link prepared</strong><p>This document will be linked to the selected ownership-history entry. That link can be shown in the resale pack without exposing the private file itself.</p></div>}
               <div className="lead-form-grid">
-                <label>Document<select name="type" defaultValue="OR">{GARAGE_DOCUMENT_TYPES.map((type) => <option value={type} key={type}>{type.replaceAll("_", " ")}</option>)}</select></label>
-                <label>Label<input name="label" required placeholder="2026 Official Receipt" /></label>
+                <label>Document<select name="type" defaultValue={documentDraft?.type || "OR"}>{GARAGE_DOCUMENT_TYPES.map((type) => <option value={type} key={type}>{type.replaceAll("_", " ")}</option>)}</select></label>
+                <label>Label<input name="label" required placeholder="2026 Official Receipt" defaultValue={documentDraft?.label || ""} /></label>
+                <label className="lead-form-wide">Link to ownership record
+                  <select name="linkedRecordId" defaultValue={documentDraft?.linkedRecordId || ""}>
+                    <option value="">Not linked to a history entry</option>
+                    {bikeRecords.slice(0, 50).map((record) => <option value={record.id} key={record.id}>{dateLabel(record.date)} · {record.category} · {record.title}</option>)}
+                  </select>
+                </label>
                 <label>Reference / last digits<input name="reference" autoComplete="off" placeholder="Optional" /></label>
                 <label>Expiry date<input name="expiryDate" type="date" /></label>
                 <label className="lead-form-wide">Notes<input name="notes" placeholder="Where the original is kept, renewal notes, buyer transfer checklist" /></label>
               </div>
-              <button className="button small" type="submit">Save document record</button>
+              <div className="hero-actions">
+                <button className="button small" type="submit">{documentDraft ? "Save linked evidence" : "Save document record"}</button>
+                {documentDraft && <button className="button small ghost" type="button" onClick={() => setDocumentDraft(null)}>Cancel evidence link</button>}
+              </div>
             </form>
             {bikeDocuments.length > 0 && <div className="buyer-quote-list">{bikeDocuments.map((document) => { const attachment = documentAttachments[document.id]; return <div className="buyer-quote-card" key={document.id}>
-              <div><span className="field-label">{document.type.replaceAll("_", " ")}</span><strong>{document.label}</strong><p>{document.reference ? `Reference: ${document.reference}` : "No reference saved"}{document.notes ? ` · ${document.notes}` : ""}</p>{attachment && <small>{attachment.name} · {formatGarageDocumentAttachmentBytes(attachment.size)} · stored on this device</small>}</div>
+              <div><span className="field-label">{document.type.replaceAll("_", " ")}</span><strong>{document.label}</strong><p>{document.reference ? `Reference: ${document.reference}` : "No reference saved"}{document.notes ? ` · ${document.notes}` : ""}</p>{document.linkedRecordId && <small>Linked to: {bikeRecords.find((record) => record.id === document.linkedRecordId)?.title || "ownership record not found"}</small>}{attachment && <small>{attachment.name} · {formatGarageDocumentAttachmentBytes(attachment.size)} · stored on this device</small>}</div>
               <div className="buyer-quote-meta">{document.expiryDate && <><strong className={dueClass(daysUntil(document.expiryDate))}>{dateLabel(document.expiryDate)}</strong><small>{dueLabel(daysUntil(document.expiryDate))}</small></>}{attachment ? <><button className="button small ghost" type="button" onClick={() => openDocumentFile(document.id)}>Open file</button><button className="button small ghost" type="button" onClick={() => removeDocumentFile(document.id)}>Remove file</button></> : <label className="button small ghost">Attach file<input type="file" hidden accept={GARAGE_DOCUMENT_ATTACHMENT_ACCEPT_ATTR} onChange={(event) => attachDocumentFile(document.id, event)} /></label>}<button className="button small ghost" type="button" onClick={() => removeDocument(document.id)}>Delete record</button></div>
             </div>; })}</div>}
           </section>
