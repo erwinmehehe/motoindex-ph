@@ -158,6 +158,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
       purchasePricePhp: n(form.get("purchasePricePhp")),
       purchaseOdometerKm: n(form.get("purchaseOdometerKm")),
       odometerKm: n(form.get("odometerKm")) || 0,
+      odometerUpdatedAt: new Date().toISOString().slice(0, 10),
       registrationExpiry: s(form.get("registrationExpiry")),
       insuranceExpiry: s(form.get("insuranceExpiry")),
       estimatedResaleValuePhp: n(form.get("estimatedResaleValuePhp")),
@@ -198,7 +199,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
       ...current,
       records: [record, ...current.records],
       motorcycles: current.motorcycles.map((bike) => bike.id === selectedBike.id && record.odometerKm && record.odometerKm > bike.odometerKm
-        ? { ...bike, odometerKm: record.odometerKm, updatedAt: new Date().toISOString() }
+        ? { ...bike, odometerKm: record.odometerKm, odometerUpdatedAt: record.date, updatedAt: new Date().toISOString() }
         : bike),
     }));
     setMaintenanceDraft(null);
@@ -258,7 +259,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
       ...current,
       records: [record, ...current.records],
       motorcycles: current.motorcycles.map((bike) => bike.id === selectedBike.id
-        ? { ...bike, odometerKm: input.odometerKm, updatedAt: new Date().toISOString() }
+        ? { ...bike, odometerKm: input.odometerKm, odometerUpdatedAt: input.date, updatedAt: new Date().toISOString() }
         : bike),
     }));
   }
@@ -274,7 +275,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
       ...current,
       records: [record, ...current.records],
       motorcycles: current.motorcycles.map((bike) => bike.id === selectedBike.id && record.odometerKm !== undefined && record.odometerKm > bike.odometerKm
-        ? { ...bike, odometerKm: record.odometerKm, updatedAt: new Date().toISOString() }
+        ? { ...bike, odometerKm: record.odometerKm, odometerUpdatedAt: record.date, updatedAt: new Date().toISOString() }
         : bike),
     }));
   }
@@ -283,18 +284,24 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
     event.preventDefault();
     if (!selectedBike) return;
     const form = new FormData(event.currentTarget);
+    const nextOdometerKm = n(form.get("odometerKm"));
     setState((current) => ({
       ...current,
-      motorcycles: current.motorcycles.map((bike) => bike.id === selectedBike.id ? {
-        ...bike,
-        plate: s(form.get("plate")),
-        purchaseOdometerKm: n(form.get("purchaseOdometerKm")),
-        odometerKm: n(form.get("odometerKm")) ?? bike.odometerKm,
-        registrationExpiry: s(form.get("registrationExpiry")),
-        insuranceExpiry: s(form.get("insuranceExpiry")),
-        estimatedResaleValuePhp: n(form.get("estimatedResaleValuePhp")),
-        updatedAt: new Date().toISOString(),
-      } : bike),
+      motorcycles: current.motorcycles.map((bike) => {
+        if (bike.id !== selectedBike.id) return bike;
+        const odometerKm = nextOdometerKm ?? bike.odometerKm;
+        return {
+          ...bike,
+          plate: s(form.get("plate")),
+          purchaseOdometerKm: n(form.get("purchaseOdometerKm")),
+          odometerKm,
+          odometerUpdatedAt: odometerKm !== bike.odometerKm ? new Date().toISOString().slice(0, 10) : bike.odometerUpdatedAt,
+          registrationExpiry: s(form.get("registrationExpiry")),
+          insuranceExpiry: s(form.get("insuranceExpiry")),
+          estimatedResaleValuePhp: n(form.get("estimatedResaleValuePhp")),
+          updatedAt: new Date().toISOString(),
+        };
+      }),
     }));
   }
 
