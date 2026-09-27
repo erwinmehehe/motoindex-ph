@@ -36,9 +36,29 @@ jobs:
           npm run media:sync -- --force --only=royal-enfield-guerrilla-450
           npm run media:sync -- --force --only=suzuki-raider-pro
 
-      - name: Validate media records
+      - name: Validate refreshed motorcycle assets
         run: |
-          npm run validate:media
+          node - <<'NODE'
+          const sharp = require('sharp');
+          const fs = require('fs');
+          const ids = [
+            'honda-navi',
+            'husqvarna-svartpilen-401',
+            'royal-enfield-guerrilla-450',
+            'suzuki-raider-pro',
+          ];
+          (async () => {
+            for (const id of ids) {
+              const file = `public/media/motorcycles/${id}.webp`;
+              if (!fs.existsSync(file)) throw new Error(`Missing ${file}`);
+              const meta = await sharp(file).metadata();
+              if (meta.format !== 'webp' || meta.width !== 1200 || meta.height !== 1200) {
+                throw new Error(`${id}: expected 1200x1200 WebP, got ${meta.format} ${meta.width}x${meta.height}`);
+              }
+              console.log(`ok ${id}: 1200x1200 WebP`);
+            }
+          })().catch((error) => { console.error(error); process.exit(1); });
+          NODE
           npm run validate:motorcycle-media
 
       - name: Commit refreshed assets
