@@ -8,6 +8,8 @@ then centers each helmet on a 1200x1200 white catalog canvas.
 from __future__ import annotations
 
 from pathlib import Path
+from io import BytesIO
+from urllib.request import Request, urlopen
 from PIL import Image, ImageOps
 from rembg import new_session, remove
 import cv2
@@ -20,6 +22,13 @@ MAX_SUBJECT = (960, 900)
 
 # Crops are relative (left, top, right, bottom). They exclude people, poster
 # copy, extra product views and retailer framing before background removal.
+SOURCE_OVERRIDES = {
+    "gille-843-circuit.webp": "https://down-ph.img.susercontent.com/file/sg-11134201-7rd5g-lu8w6q3bz6bhf8",
+    "gille-a5009-phoenix.webp": "https://down-ph.img.susercontent.com/file/ph-11134207-7rasb-m9i8kq3rwzgt0e",
+    "mt-atom-2-sv-pd-pure.webp": "https://data.outletmoto.eu/imgprodotto/casco-moto-modulare-p-j-mt-helmets-atom-2-sv-solid-a0-lucido-bianco_297825_zoom.jpg",
+    "evo-sr-x-mono.webp": "https://evohelmet.com/wp-content/uploads/2024/10/Metallic-Red-Right-768x768.jpg",
+}
+
 CROPS: dict[str, tuple[float, float, float, float]] = {
     "hnj-a119.webp": (0.18, 0.24, 0.86, 0.80),
     "hnj-983.webp": (0.20, 0.18, 0.82, 0.78),
@@ -27,11 +36,11 @@ CROPS: dict[str, tuple[float, float, float, float]] = {
     "zebra-atlas-2026.webp": (0.14, 0.18, 0.86, 0.72),
     "zebra-alistair-2024.webp": (0.18, 0.23, 0.84, 0.73),
     "gille-135.webp": (0.17, 0.24, 0.87, 0.78),
-    "gille-843-circuit.webp": (0.17, 0.24, 0.87, 0.78),
+    "gille-843-circuit.webp": (0.05, 0.03, 0.80, 0.72),
     "gille-863-medusa.webp": (0.17, 0.23, 0.87, 0.79),
     "gille-873-celeste.webp": (0.17, 0.23, 0.87, 0.79),
     "gille-a118-2-adira.webp": (0.17, 0.24, 0.87, 0.79),
-    "gille-a5009-phoenix.webp": (0.17, 0.23, 0.87, 0.79),
+    "gille-a5009-phoenix.webp": (0.08, 0.08, 0.92, 0.90),
     "gille-adira-eclipse.webp": (0.23, 0.08, 0.77, 0.58),
     "gille-vertix-z501.webp": (0.20, 0.13, 0.83, 0.59),
     "gille-883-falcon.webp": (0.17, 0.25, 0.85, 0.74),
@@ -49,9 +58,9 @@ CROPS: dict[str, tuple[float, float, float, float]] = {
     "evo-sr-09.webp": (0.25, 0.15, 0.76, 0.84),
     "evo-tr-x.webp": (0.22, 0.17, 0.79, 0.83),
     "evo-gt-pro-rr.webp": (0.17, 0.16, 0.83, 0.84),
-    "evo-sr-x-mono.webp": (0.22, 0.30, 0.72, 0.88),
+    "evo-sr-x-mono.webp": (0.04, 0.04, 0.96, 0.96),
     "evo-tourer.webp": (0.25, 0.29, 0.70, 0.88),
-    "mt-atom-2-sv-pd-pure.webp": (0.37, 0.10, 0.90, 0.59),
+    "mt-atom-2-sv-pd-pure.webp": (0.03, 0.03, 0.97, 0.97),
     "bell-custom-500.webp": (0.18, 0.16, 0.82, 0.77),
     "rook-v152-mono.webp": (0.14, 0.23, 0.86, 0.77),
     "hjc-c10.webp": (0.15, 0.18, 0.84, 0.80),
@@ -78,8 +87,23 @@ def keep_largest_component(image: Image.Image) -> Image.Image:
     data[:, :, 3] = np.where(labels == largest, alpha, 0).astype(np.uint8)
     return Image.fromarray(data, "RGBA")
 
+def source_image(path: Path) -> Image.Image:
+    url = SOURCE_OVERRIDES.get(path.name)
+    if not url:
+        return ImageOps.exif_transpose(Image.open(path)).convert("RGBA")
+    try:
+        request = Request(url, headers={"User-Agent": "Mozilla/5.0 MotoIndexMediaNormalizer/1.0"})
+        with urlopen(request, timeout=30) as response:
+            data = response.read()
+        image = Image.open(BytesIO(data))
+        print(f"{path.name}: using clean catalog source override")
+        return ImageOps.exif_transpose(image).convert("RGBA")
+    except Exception as error:
+        print(f"{path.name}: override failed ({error}); using local source")
+        return ImageOps.exif_transpose(Image.open(path)).convert("RGBA")
+
 def normalize(path: Path, session) -> None:
-    image = ImageOps.exif_transpose(Image.open(path)).convert("RGBA")
+    image = source_image(path)
     if path.name in CROPS:
         image = crop_relative(image, CROPS[path.name])
 
