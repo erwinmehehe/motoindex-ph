@@ -120,6 +120,8 @@ for (const id of targets) {
 
 
 const knownBadLocalBlobs = {
+  "suzuki-raider-pro": "d40d0eb4f992f3bce6345eb7f75a0f28d2aa91d7",
+  "suzuki-gixxer-155": "384763d2c7023300b06549ffee0cea73af7c0324",
   "honda-cb650r": "f77fe03df4f7ab737f794797d006102e2661aef2",
   "honda-xl750-transalp": "47d85bb05396f1ced4080423f051add309059c32",
   "honda-crf1100l-africa-twin": "b6271d1699cace0c1d67cbeeaea4b8779cc53d43",
