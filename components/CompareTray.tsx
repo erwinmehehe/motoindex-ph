@@ -18,7 +18,7 @@ export function CompareTray({models}:{models:TrayModel[]}){
   function remove(id:string){const next=read().filter(x=>x!==id);localStorage.setItem(COMPARE_KEY,JSON.stringify(next));setIds(next);window.dispatchEvent(new CustomEvent("motoindex-compare"));}
   function clear(){localStorage.removeItem(COMPARE_KEY);setIds([]);window.dispatchEvent(new CustomEvent("motoindex-compare"));}
   return <aside className={`compare-tray ${expanded?"expanded":""}`} aria-label="Motorcycles selected for comparison" aria-live="polite"><div className="compare-tray-inner shell">
-    <button className="compare-tray-mobile-toggle" type="button" aria-expanded={expanded} onClick={()=>setExpanded(v=>!v)}>Compare {selected.length}<span aria-hidden="true">{expanded?"−":"+"}</span></button>
+    <button className="compare-tray-mobile-toggle mi-btn dark" type="button" aria-expanded={expanded} onClick={()=>setExpanded(v=>!v)}>Compare {selected.length}<span aria-hidden="true">{expanded?"−":"+"}</span></button>
     <div className="compare-tray-models"><span className="compare-tray-label">Compare</span>{selected.map(m=><button type="button" key={m.id} onClick={()=>remove(m.id)} aria-label={`Remove ${m.make} ${m.model} from comparison`} title={`Remove ${m.make} ${m.model}`}><b>{m.model}</b><span aria-hidden="true">×</span></button>)}</div>
     <div className="compare-tray-actions"><button type="button" className="compare-tray-clear" onClick={clear}>Clear</button>{href?<Link className="button small" href={href}>Compare {selected.length} →</Link>:<span className="compare-tray-hint">Add one more motorcycle</span>}</div>
   </div></aside>;
