@@ -12,9 +12,10 @@ type Props = {
   priority?: boolean;
   unoptimized?: boolean;
   fill?: boolean;
+  scale?: number;
 };
 
-export function SafeEntityImage({src,fallbackSrc,alt,width,height,sizes,priority=false,unoptimized=false,fill=false}:Props){
+export function SafeEntityImage({src,fallbackSrc,alt,width,height,sizes,priority=false,unoptimized=false,fill=false,scale}:Props){
   const [currentSrc,setCurrentSrc]=useState(src);
   const [failed,setFailed]=useState(false);
 
@@ -41,8 +42,8 @@ export function SafeEntityImage({src,fallbackSrc,alt,width,height,sizes,priority
   };
 
   if(fill){
-    return <Image {...common} fill style={{objectFit:"contain",objectPosition:"center"}} />;
+    return <Image {...common} fill style={{objectFit:"contain",objectPosition:"center",transform:scale ? `scale(${scale})` : undefined}} />;
   }
 
-  return <Image {...common} width={width} height={height} style={{objectFit:"contain",objectPosition:"center",maxWidth:"100%",maxHeight:"100%"}} />;
+  return <Image {...common} width={width} height={height} style={{objectFit:"contain",objectPosition:"center",maxWidth:"100%",maxHeight:"100%",transform:scale ? `scale(${scale})` : undefined}} />;
 }
