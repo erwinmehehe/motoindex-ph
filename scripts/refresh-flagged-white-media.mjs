@@ -5,12 +5,12 @@ import sharp from "sharp";
 const root=process.cwd();
 const WHITE={r:255,g:255,b:255,alpha:1};
 const targets=[
-  {id:"honda-cb650r", localCleanup:true},
+  {id:"honda-cb650r", urls:["https://cdn.powergo.ca/media/catalog/2026/10/63fb5363ca884f88b02c012912cfaf3e_81c2a9c412fc4ca7892c0d472e3847cc_1000/2026-honda-cb650r-e-clutch-matte-black-metallic-2.webp"]},
   {id:"honda-xl750-transalp", urls:[
     "https://mundohonda.cr/cdn/shop/files/2026-XL750_TRANSALP_studio_D002_MT_NH-196_Ross_White_RhSide_S.jpg?v=1779398821&width=940",
     "https://powersports.honda.com/motorcycle/adventure/-/media/products/family/transalp/trims/trim-main/transalp-e-clutch/2026/2026-transalp-e-clutch-white-1505x923.png?imwidth=1600"
   ]},
-  {id:"honda-crf1100l-africa-twin", localCleanup:true},
+  {id:"honda-crf1100l-africa-twin", urls:["https://www.bikesport.cl/cdn/shop/files/Africa_Adv.Sport_Tricolor_2.jpg?v=1732215732&width=1200"]},
   {id:"motorstar-cafe-400", urls:[
     "https://www.kamote.ph/cdn-cgi/image/lossless%3Dtrue%2Cw%3D1200%2Ch%3D1200%2Cf%3Dwebp%2Cfit%3Dcontain/https%3A/www.kamote.ph/Gallery/Motorstar/Cafe_400.webp",
     "https://imgcdn.zigwheels.ph/large/gallery/color/78/1899/motorstar-cafe-400-color-385267.jpg"
