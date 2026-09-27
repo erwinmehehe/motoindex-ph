@@ -1,0 +1,16 @@
+name: Audit Motorcycle White Canvas
+on:
+  push:
+    branches:
+      - fix/catalog-white-canvas-audit-sep27
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/audit-white-catalog-canvas.mjs
