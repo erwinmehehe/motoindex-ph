@@ -11,8 +11,8 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 MEDIA_DIR = ROOT / "public" / "media" / "motorcycles"
 CANVAS = 1200
-TARGET_MAX_W = 1000
-TARGET_MAX_H = 880
+TARGET_MAX_W = 920
+TARGET_MAX_H = 760
 SKIP_IDS = {"suzuki-raider-pro"}
 
 
