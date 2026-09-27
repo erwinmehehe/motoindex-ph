@@ -53,10 +53,8 @@
 }
 
 .card .standardMedia img{
-  width:auto;
-  height:auto;
-  max-width:88%;
-  max-height:82%;
+  width:88%;
+  height:82%;
   object-fit:contain;
 }
 
@@ -210,10 +208,6 @@
     min-height:180px;
   }
 
-  .card .standardMedia img{
-    max-width:86%;
-    max-height:80%;
-  }
 
   .standardBody{
     padding:var(--mi-space-3);
