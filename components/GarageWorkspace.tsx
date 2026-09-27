@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from "re
 import { GarageAccountPanel } from "@/components/GarageAccountPanel";
 import { GarageStatDeck } from "@/components/GarageStatDeck";
 import { GarageLifecyclePanel } from "@/components/GarageLifecyclePanel";
+import { GarageMileagePanel, type GarageOdometerReadingInput } from "@/components/GarageMileagePanel";
 import { GaragePartsPanel, type GarageComponentRecordInput } from "@/components/GaragePartsPanel";
 import { GarageReminderCenter } from "@/components/GarageReminderCenter";
 import { GarageTrendPanel } from "@/components/GarageTrendPanel";
@@ -242,6 +243,26 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
     window.requestAnimationFrame(() => documentForm.current?.scrollIntoView({ behavior: "smooth", block: "center" }));
   }
 
+  function addOdometerReading(input: GarageOdometerReadingInput) {
+    if (!selectedBike) return;
+    const record: GarageRecord = {
+      id: id("record"),
+      motorcycleId: selectedBike.id,
+      category: "ODOMETER",
+      date: input.date,
+      title: "Odometer update",
+      odometerKm: input.odometerKm,
+      notes: input.notes,
+    };
+    setState((current) => ({
+      ...current,
+      records: [record, ...current.records],
+      motorcycles: current.motorcycles.map((bike) => bike.id === selectedBike.id
+        ? { ...bike, odometerKm: input.odometerKm, updatedAt: new Date().toISOString() }
+        : bike),
+    }));
+  }
+
   function addComponentRecord(input: GarageComponentRecordInput) {
     if (!selectedBike) return;
     const record: GarageRecord = {
@@ -472,7 +493,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
 
     {state.motorcycles.length === 0 ? <div className="note-box">
       <h2>Your Garage is empty.</h2>
-      <p>Add your motorcycle to start tracking registration, insurance, PMS, fuel, tires, battery, repairs, parts, warranties, parking, tolls and resale records.</p>
+      <p>Add your motorcycle to start tracking mileage, registration, insurance, PMS, fuel, tires, battery, repairs, parts, warranties, parking, tolls and resale records.</p>
     </div> : <>
       <div className="hero-actions" aria-label="Saved motorcycles">
         {state.motorcycles.map((bike) => <button key={bike.id} type="button" onClick={() => setSelectedId(bike.id)} className={bike.id === selectedBike?.id ? "button small" : "button small ghost"}>
@@ -506,6 +527,12 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
           records={bikeRecords}
           documents={bikeDocuments}
           smartMaintenance={smartMaintenance}
+        />
+
+        <GarageMileagePanel
+          bike={selectedBike}
+          records={bikeRecords}
+          onAddReading={addOdometerReading}
         />
 
         <GarageTrendPanel records={bikeRecords} />
@@ -611,7 +638,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
             <form className="lead-form" onSubmit={addRecord} ref={recordForm} key={maintenanceDraft?.key || selectedBike.id}>
               {maintenanceDraft && <div className="note-box"><strong>Maintenance record prepared</strong><p>Review the odometer, add the actual cost or workshop notes if you have them, then save. MotoIndex will use this completion to move the next mileage-based due point forward.</p></div>}
               <div className="lead-form-grid">
-                <label>Type<select name="category" defaultValue={maintenanceDraft?.category || "PMS"}>{GARAGE_RECORD_CATEGORIES.map((category) => <option value={category} key={category}>{category}</option>)}</select></label>
+                <label>Type<select name="category" defaultValue={maintenanceDraft?.category || "PMS"}>{GARAGE_RECORD_CATEGORIES.filter((category) => category !== "ODOMETER").map((category) => <option value={category} key={category}>{category}</option>)}</select></label>
                 <label>Date<input name="date" type="date" required defaultValue={new Date().toISOString().slice(0, 10)} /></label>
                 <label className="lead-form-wide">What happened?<input name="title" required placeholder="Engine oil change" defaultValue={maintenanceDraft?.title || ""} /></label>
                 <label>Amount (₱)<input name="amountPhp" type="number" min="0" step="0.01" /></label>
@@ -638,7 +665,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
               const evidenceCount = bikeDocuments.filter((document) => document.linkedRecordId === record.id).length;
               return <div className="buyer-quote-card" key={record.id}>
                 <div><span className="field-label">{record.category}</span><strong>{record.title}</strong><p>{dateLabel(record.date)}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}{record.notes ? ` · ${record.notes}` : ""}</p>{evidenceCount > 0 && <small>{evidenceCount} supporting document record{evidenceCount === 1 ? "" : "s"} tracked</small>}</div>
-                <div className="buyer-quote-meta">{record.amountPhp !== undefined && <strong>{money(record.amountPhp)}</strong>}{record.nextDueKm !== undefined && <small>Next at {record.nextDueKm.toLocaleString()} km</small>}{record.nextDueDate && <small>Next {dateLabel(record.nextDueDate)}</small>}<button className="button small ghost" type="button" onClick={() => prepareEvidenceDocument(record)}>{evidenceCount ? "Add more evidence" : "Add evidence"}</button><button className="button small ghost" type="button" onClick={() => removeRecord(record.id)}>Delete</button></div>
+                <div className="buyer-quote-meta">{record.amountPhp !== undefined && <strong>{money(record.amountPhp)}</strong>}{record.nextDueKm !== undefined && <small>Next at {record.nextDueKm.toLocaleString()} km</small>}{record.nextDueDate && <small>Next {dateLabel(record.nextDueDate)}</small>}{record.category !== "ODOMETER" && <button className="button small ghost" type="button" onClick={() => prepareEvidenceDocument(record)}>{evidenceCount ? "Add more evidence" : "Add evidence"}</button>}<button className="button small ghost" type="button" onClick={() => removeRecord(record.id)}>Delete</button></div>
               </div>;
             })}</div> : <div className="note-box"><p>No ownership records yet.</p></div>}
           </section>
