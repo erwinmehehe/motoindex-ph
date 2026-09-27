@@ -139,6 +139,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
   const warranty = records.filter((record) => record.category === "WARRANTY");
   const registration = records.filter((record) => record.category === "REGISTRATION");
   const insurance = records.filter((record) => record.category === "INSURANCE");
+  const odometerUpdates = records.filter((record) => record.category === "ODOMETER");
   const mileageRecords = records.filter((record) => record.odometerKm !== undefined).sort((a,b) => (a.odometerKm || 0) - (b.odometerKm || 0));
   const evidenceLinkedRecords = records.filter((record) => (evidenceCounts.get(record.id) || 0) > 0).length;
 
@@ -327,6 +328,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
         accidents: accidents.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
         registration: registration.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
         insurance: insurance.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
+        odometer: odometerUpdates.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
       },
       documents: documents.map((document) => {
         const linkedRecord = document.linkedRecordId ? records.find((record) => record.id === document.linkedRecordId) : undefined;
@@ -465,7 +467,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
     <section className="section">
       <div className="section-head"><div><h2>History included in the pack</h2><p>Review the records before sharing anything with a buyer.</p></div></div>
       <div className="buyer-quote-list">
-        {records.filter((record) => ["PMS","TIRE","BATTERY","REPAIR","ACCIDENT","PART","WARRANTY","REGISTRATION","INSURANCE"].includes(record.category)).slice(0, 30).map((record) => {
+        {records.filter((record) => ["PMS","TIRE","BATTERY","REPAIR","ACCIDENT","PART","WARRANTY","REGISTRATION","INSURANCE","ODOMETER"].includes(record.category)).slice(0, 30).map((record) => {
           const evidenceCount = evidenceCounts.get(record.id) || 0;
           return <div className="buyer-quote-card" key={record.id}>
             <div><span className="field-label">{record.category}</span><strong>{record.title}</strong><p>{dateLabel(record.date)}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}</p>{evidenceCount > 0 && <small>{evidenceCount} supporting document record{evidenceCount === 1 ? "" : "s"} tracked · owner-maintained</small>}</div>
