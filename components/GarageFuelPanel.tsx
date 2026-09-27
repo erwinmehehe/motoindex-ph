@@ -145,6 +145,7 @@ export function GarageFuelPanel({
         {fuel.length ? <div style={s.history}>
           {fuel.slice(0, 8).map((record) => {
             const intervalEconomy = economyById.get(record.id);
+            const effectivePricePerLiter = record.pricePerLiterPhp ?? (record.amountPhp !== undefined && record.liters ? record.amountPhp / record.liters : undefined);
             return <div style={s.row} key={record.id}>
               <div>
                 <strong>{record.liters !== undefined ? `${record.liters.toFixed(2)} L` : "Fuel entry"}</strong>
@@ -153,7 +154,7 @@ export function GarageFuelPanel({
               </div>
               <div style={{ textAlign: "right" }}>
                 {record.amountPhp !== undefined && <strong>{money(record.amountPhp)}</strong>}
-                {record.pricePerLiterPhp !== undefined && <small style={{ ...s.muted, display: "block", marginTop: 3 }}>₱{record.pricePerLiterPhp.toFixed(2)}/L</small>}
+                {effectivePricePerLiter !== undefined && <small style={{ ...s.muted, display: "block", marginTop: 3 }}>₱{effectivePricePerLiter.toFixed(2)}/L</small>}
               </div>
             </div>;
           })}
