@@ -61,6 +61,9 @@ export function GarageHistoryPanel({
         record.brand,
         record.partNumber,
         record.supplier,
+        record.serviceProvider,
+        record.serviceLocation,
+        record.invoiceReference,
         record.date,
         record.odometerKm?.toString(),
       ].filter(Boolean).join(" ").toLowerCase();
@@ -120,6 +123,8 @@ export function GarageHistoryPanel({
             <strong>{record.title}</strong>
             <p>{dateLabel(record.date)}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}{record.notes ? ` · ${record.notes}` : ""}</p>
             {(record.brand || record.partNumber || record.supplier) && <small>{[record.brand, record.partNumber, record.supplier].filter(Boolean).join(" · ")}</small>}
+            {(record.serviceProvider || record.serviceLocation) && <small>Serviced by {[record.serviceProvider, record.serviceLocation].filter(Boolean).join(" · ")}</small>}
+            {record.invoiceReference && <small>Invoice / receipt ref: {record.invoiceReference}</small>}
             {evidenceCount > 0 && <small>{evidenceCount} supporting document record{evidenceCount === 1 ? "" : "s"} tracked</small>}
           </div>
           <div className="buyer-quote-meta">
