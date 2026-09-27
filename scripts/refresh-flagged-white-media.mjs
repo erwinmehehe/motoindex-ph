@@ -10,10 +10,7 @@ const targets=[
     "https://mundohonda.cr/cdn/shop/files/2026-XL750_TRANSALP_studio_D002_MT_NH-196_Ross_White_RhSide_S.jpg?v=1779398821&width=940",
     "https://powersports.honda.com/motorcycle/adventure/-/media/products/family/transalp/trims/trim-main/transalp-e-clutch/2026/2026-transalp-e-clutch-white-1505x923.png?imwidth=1600"
   ]},
-  {id:"honda-crf1100l-africa-twin", urls:[
-    "https://powersports.honda.com/-/media/products/family/africa-twin/trim-hero/gallery/africa-twin-dct/2026/pearl-white/2026-africa-twin-dct-pearl_white-gallery-01.png",
-    "https://powersports.honda.com/motorcycle/adventure/-/media/products/family/africa-twin/trims/trim-main/africa-twin/2026/2026-africa-twin-matte_black_metallic-1505x923.png?imwidth=1600"
-  ]},
+  {id:"honda-crf1100l-africa-twin", localCleanup:true},
   {id:"motorstar-cafe-400", urls:[
     "https://www.kamote.ph/cdn-cgi/image/lossless%3Dtrue%2Cw%3D1200%2Ch%3D1200%2Cf%3Dwebp%2Cfit%3Dcontain/https%3A/www.kamote.ph/Gallery/Motorstar/Cafe_400.webp",
     "https://imgcdn.zigwheels.ph/large/gallery/color/78/1899/motorstar-cafe-400-color-385267.jpg"
