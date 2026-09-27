@@ -2,7 +2,7 @@
   container:motorcycle-card / inline-size;
   min-width:0;
   height:100%;
-  overflow:visible;
+  overflow:hidden;
   border:0;
   border-radius:0;
   background:transparent;
