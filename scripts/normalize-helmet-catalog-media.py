@@ -10,6 +10,8 @@ from __future__ import annotations
 from pathlib import Path
 from PIL import Image, ImageOps
 from rembg import new_session, remove
+import cv2
+import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 MEDIA_DIR = ROOT / "public" / "media" / "helmets"
@@ -49,7 +51,7 @@ CROPS: dict[str, tuple[float, float, float, float]] = {
     "evo-gt-pro-rr.webp": (0.17, 0.16, 0.83, 0.84),
     "evo-sr-x-mono.webp": (0.22, 0.30, 0.72, 0.88),
     "evo-tourer.webp": (0.25, 0.29, 0.70, 0.88),
-    "mt-atom-2-sv-pd-pure.webp": (0.37, 0.10, 0.90, 0.70),
+    "mt-atom-2-sv-pd-pure.webp": (0.37, 0.10, 0.90, 0.59),
     "bell-custom-500.webp": (0.18, 0.16, 0.82, 0.77),
     "rook-v152-mono.webp": (0.14, 0.23, 0.86, 0.77),
     "hjc-c10.webp": (0.15, 0.18, 0.84, 0.80),
@@ -62,6 +64,19 @@ def crop_relative(image: Image.Image, box: tuple[float, float, float, float]) ->
     w, h = image.size
     l, t, r, b = box
     return image.crop((round(l*w), round(t*h), round(r*w), round(b*h)))
+
+LARGEST_COMPONENT_ONLY = {"gille-843-circuit.webp"}
+
+def keep_largest_component(image: Image.Image) -> Image.Image:
+    data = np.array(image.convert("RGBA"))
+    alpha = data[:, :, 3]
+    mask = (alpha >= 24).astype(np.uint8)
+    count, labels, stats, _ = cv2.connectedComponentsWithStats(mask, 8)
+    if count <= 2:
+        return image
+    largest = 1 + int(np.argmax(stats[1:, cv2.CC_STAT_AREA]))
+    data[:, :, 3] = np.where(labels == largest, alpha, 0).astype(np.uint8)
+    return Image.fromarray(data, "RGBA")
 
 def normalize(path: Path, session) -> None:
     image = ImageOps.exif_transpose(Image.open(path)).convert("RGBA")
@@ -76,15 +91,22 @@ def normalize(path: Path, session) -> None:
     if not isinstance(cutout, Image.Image):
         cutout = Image.open(cutout)
     cutout = cutout.convert("RGBA")
+    if path.name in LARGEST_COMPONENT_ONLY:
+        cutout = keep_largest_component(cutout)
 
     alpha = cutout.getchannel("A")
-    bbox = alpha.getbbox()
+    trim_alpha = alpha.point(lambda value: 255 if value >= 24 else 0)
+    bbox = trim_alpha.getbbox()
     if not bbox:
         raise RuntimeError(f"No foreground found for {path.name}")
     subject = cutout.crop(bbox)
 
-    # Normalize visual scale without cropping the helmet.
-    subject.thumbnail(MAX_SUBJECT, Image.Resampling.LANCZOS)
+    # Normalize visual scale without cropping the helmet. Upscaling is
+    # intentional because the catalog cards are small and consistency matters
+    # more than retaining source-canvas whitespace.
+    scale = min(MAX_SUBJECT[0] / subject.width, MAX_SUBJECT[1] / subject.height)
+    size = (max(1, round(subject.width * scale)), max(1, round(subject.height * scale)))
+    subject = subject.resize(size, Image.Resampling.LANCZOS)
     canvas = Image.new("RGB", CANVAS, "white")
     x = (CANVAS[0] - subject.width) // 2
     y = (CANVAS[1] - subject.height) // 2
