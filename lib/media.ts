@@ -37,8 +37,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-cb650r-honda-global", entityType: "motorcycle", entityId: "honda-cb650r", role: "primary",
-    src: "/media/motorcycles/honda-cb650r.webp", sourceImageUrl: "https://m.cdn.autotraderspecialty.com/2026-Honda-CB650R-motorcycle--Motorcycle-201883898-68723cd25e28c7ac8c7a29f9d96332f9.jpg?c=%23f5f5f5&h=800&r=pad&w=800", alt: "Honda CB650R motorcycle in Matte Ballistic Black Metallic", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "AutoTrader Specialty", sourceLabel: "Current model studio image reference · 2026 Honda CB650R", sourceUrl: "https://motorcycles.autotrader.com/motorcycles-for-sale/honda-cb650r-for-sale", lastChecked: "2026-09-27"
+    src: "/media/motorcycles/honda-cb650r.webp", sourceImageUrl: "https://powersports.honda.com/motorcycle/standard/cb650r/2026/-/media/products/family/cb650r/trims/trim-main/cb650r-e-clutch/2026/2026-cb650r-e-clutch-matte_black_metallic-1505x923.png?imwidth=1600", alt: "Honda CB650R motorcycle in Matte Ballistic Black Metallic", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "American Honda Motor Co., Inc.", sourceLabel: "Official Honda Powersports product image · 2026 CB650R E-Clutch", sourceUrl: "https://powersports.honda.com/motorcycle/standard/cb650r/2026/cb650r-e-clutch", lastChecked: "2026-09-27"
   },
   {
     id: "honda-nx500-e-clutch-bsh-2026", entityType: "motorcycle", entityId: "honda-nx500-e-clutch", role: "primary",
