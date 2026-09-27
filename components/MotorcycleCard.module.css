@@ -10,7 +10,7 @@
   color:var(--mi-color-ink);
 }
 
-.standard{
+.card .standard{
   display:flex;
   min-width:0;
   height:100%;
@@ -23,13 +23,13 @@
   transition:border-color var(--mi-motion-fast) ease,box-shadow var(--mi-motion-fast) ease;
 }
 
-.standard:hover{
+.card .standard:hover{
   border-color:var(--mi-color-primary-soft);
   box-shadow:var(--mi-shadow-sm);
 }
 
 /* Motorcycle WebPs are pre-normalized to a white catalog canvas; keep the shared media stage white and uncropped. */
-.standardMedia{
+.card .standardMedia{
   position:relative;
   display:grid;
   width:100%;
@@ -44,7 +44,7 @@
   box-shadow:none;
 }
 
-.standardMedia :global(.entity-media-link),
+.card .standardMedia :global(.entity-media-link),
 .mediaFallback{
   display:grid;
   width:100%;
@@ -52,7 +52,7 @@
   place-items:center;
 }
 
-.standardMedia img,
+.card .standardMedia img,
 .mediaFallback img{
   display:block;
   width:auto;
@@ -156,7 +156,7 @@
 }
 
 @container motorcycle-card (min-width:520px){
-  .standard{
+  .card .standard{
     display:grid;
     grid-template-columns:220px minmax(0,1fr);
     align-items:stretch;
@@ -166,12 +166,12 @@
     background:transparent;
   }
 
-  .standard:hover{
+  .card .standard:hover{
     border-color:var(--mi-color-line);
     box-shadow:none;
   }
 
-  .standardMedia{
+  .card .standardMedia{
     height:100%;
     min-height:190px;
     border-bottom:0;
@@ -212,12 +212,12 @@
 }
 
 @container motorcycle-card (max-width:360px){
-  .standardMedia{
+  .card .standardMedia{
     height:180px;
     min-height:180px;
   }
 
-  .standardMedia img,
+  .card .standardMedia img,
   .mediaFallback img{
     max-width:86%;
     max-height:80%;
