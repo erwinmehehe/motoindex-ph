@@ -31,15 +31,16 @@ function dateLabel(value?: string) {
   return parsed.toLocaleDateString("en-PH", { year: "numeric", month: "short", day: "numeric" });
 }
 
-function recordLine(record: GarageRecord, includeAmounts: boolean, includeNotes: boolean) {
+function recordLine(record: GarageRecord, includeAmounts: boolean, includeNotes: boolean, evidenceCount = 0) {
   const parts = [dateLabel(record.date), record.title];
   if (record.odometerKm !== undefined) parts.push(`${record.odometerKm.toLocaleString()} km`);
+  if (evidenceCount > 0) parts.push(`${evidenceCount} supporting document record${evidenceCount === 1 ? "" : "s"} tracked`);
   if (includeAmounts && record.amountPhp !== undefined) parts.push(money(record.amountPhp));
   if (includeNotes && record.notes) parts.push(record.notes);
   return parts.join(" · ");
 }
 
-function shareableRecord(record: GarageRecord, includeAmounts: boolean, includeNotes: boolean) {
+function shareableRecord(record: GarageRecord, includeAmounts: boolean, includeNotes: boolean, evidenceCount = 0) {
   return {
     category: record.category,
     date: record.date,
@@ -47,6 +48,7 @@ function shareableRecord(record: GarageRecord, includeAmounts: boolean, includeN
     odometerKm: record.odometerKm,
     nextDueKm: record.nextDueKm,
     nextDueDate: record.nextDueDate,
+    supportingDocumentRecords: evidenceCount,
     amountPhp: includeAmounts ? record.amountPhp : undefined,
     notes: includeNotes ? record.notes : undefined,
   };
@@ -56,9 +58,9 @@ function documentStatus(state: GarageState, bikeId: string, types: string[]) {
   return state.documents.some((document) => document.motorcycleId === bikeId && types.includes(document.type));
 }
 
-function reportSection(title: string, records: GarageRecord[], includeAmounts: boolean, includeNotes: boolean) {
+function reportSection(title: string, records: GarageRecord[], includeAmounts: boolean, includeNotes: boolean, evidenceCounts: Map<string, number>) {
   if (!records.length) return `${title}\n- No records logged in My Garage\n`;
-  return `${title}\n${records.map((record) => `- ${recordLine(record, includeAmounts, includeNotes)}`).join("\n")}\n`;
+  return `${title}\n${records.map((record) => `- ${recordLine(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)}`).join("\n")}\n`;
 }
 
 export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] }) {
@@ -108,6 +110,14 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
     .filter((record) => record.motorcycleId === bike?.id)
     .sort((a,b) => b.date.localeCompare(a.date)), [state.records, bike?.id]);
   const documents = useMemo(() => state.documents.filter((document) => document.motorcycleId === bike?.id), [state.documents, bike?.id]);
+  const evidenceCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const document of documents) {
+      if (!document.linkedRecordId) continue;
+      counts.set(document.linkedRecordId, (counts.get(document.linkedRecordId) || 0) + 1);
+    }
+    return counts;
+  }, [documents]);
 
   const effectiveValue = bike
     ? bike.estimatedResaleValuePhp ?? (model ? estimatedGarageResale(model.srp, bike.year, bike.purchaseDate) : undefined)
@@ -130,6 +140,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
   const registration = records.filter((record) => record.category === "REGISTRATION");
   const insurance = records.filter((record) => record.category === "INSURANCE");
   const mileageRecords = records.filter((record) => record.odometerKm !== undefined).sort((a,b) => (a.odometerKm || 0) - (b.odometerKm || 0));
+  const evidenceLinkedRecords = records.filter((record) => (evidenceCounts.get(record.id) || 0) > 0).length;
 
   const checklist = [
     { label: "Official Receipt (OR)", present: documentStatus(state, bike.id, ["OR"]) },
@@ -148,6 +159,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
     `${service.length} PMS/service record${service.length === 1 ? "" : "s"} logged`,
     `${repairs.length} repair record${repairs.length === 1 ? "" : "s"} logged`,
     `${parts.length} parts/modification record${parts.length === 1 ? "" : "s"} logged`,
+    `${evidenceLinkedRecords} history record${evidenceLinkedRecords === 1 ? "" : "s"} with supporting documents tracked`,
     accidents.length ? `${accidents.length} accident record${accidents.length === 1 ? "" : "s"} logged` : "No accident records logged in My Garage",
   ].join(" · ");
   const currentListing = ownerListings.find((item) => item.garageMotorcycleLocalId === bike.id);
@@ -237,14 +249,14 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
       "OWNERSHIP SUMMARY",
       historySummary,
       "",
-      reportSection("PMS / SERVICE HISTORY", service, includeAmounts, includeNotes),
-      reportSection("TIRE HISTORY", tires, includeAmounts, includeNotes),
-      reportSection("BATTERY HISTORY", battery, includeAmounts, includeNotes),
-      reportSection("REPAIRS", repairs, includeAmounts, includeNotes),
-      reportSection("PARTS / MODIFICATIONS", parts, includeAmounts, includeNotes),
-      reportSection("ACCIDENT RECORDS", accidents, includeAmounts, includeNotes),
-      reportSection("REGISTRATION HISTORY", registration, includeAmounts, includeNotes),
-      reportSection("INSURANCE HISTORY", insurance, includeAmounts, includeNotes),
+      reportSection("PMS / SERVICE HISTORY", service, includeAmounts, includeNotes, evidenceCounts),
+      reportSection("TIRE HISTORY", tires, includeAmounts, includeNotes, evidenceCounts),
+      reportSection("BATTERY HISTORY", battery, includeAmounts, includeNotes, evidenceCounts),
+      reportSection("REPAIRS", repairs, includeAmounts, includeNotes, evidenceCounts),
+      reportSection("PARTS / MODIFICATIONS", parts, includeAmounts, includeNotes, evidenceCounts),
+      reportSection("ACCIDENT RECORDS", accidents, includeAmounts, includeNotes, evidenceCounts),
+      reportSection("REGISTRATION HISTORY", registration, includeAmounts, includeNotes, evidenceCounts),
+      reportSection("INSURANCE HISTORY", insurance, includeAmounts, includeNotes, evidenceCounts),
       "DOCUMENT CHECKLIST",
       ...checklist.map((item) => `- ${item.present ? "Tracked" : "Not tracked"}: ${item.label}`),
       "",
@@ -307,19 +319,20 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
         location: location.trim() || undefined,
       },
       history: {
-        service: service.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
-        tires: tires.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
-        battery: battery.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
-        repairs: repairs.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
-        parts: parts.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
-        accidents: accidents.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
-        registration: registration.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
-        insurance: insurance.map((record) => shareableRecord(record, includeAmounts, includeNotes)),
+        service: service.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
+        tires: tires.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
+        battery: battery.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
+        repairs: repairs.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
+        parts: parts.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
+        accidents: accidents.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
+        registration: registration.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
+        insurance: insurance.map((record) => shareableRecord(record, includeAmounts, includeNotes, evidenceCounts.get(record.id) || 0)),
       },
       documents: documents.map((document) => ({
         type: document.type,
         label: document.label,
         expiryDate: document.expiryDate,
+        linkedRecordId: document.linkedRecordId,
         reference: includeDocumentRefs ? document.reference : undefined,
       })),
     };
@@ -379,6 +392,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
       <div><span>Service records</span><strong>{service.length}</strong><small>PMS entries logged</small></div>
       <div><span>Repairs / accidents</span><strong>{repairs.length} / {accidents.length}</strong><small>Owner-maintained records</small></div>
       <div><span>Documents tracked</span><strong>{checklist.filter((item) => item.present).length} / {checklist.length}</strong><small>Checklist only, not verification</small></div>
+      <div><span>History with evidence</span><strong>{evidenceLinkedRecords}</strong><small>Records linked to supporting document records</small></div>
     </div>
 
     <section className="section">
@@ -431,6 +445,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
             <div className="buyer-quote-card"><div><strong>PMS / service</strong></div><div className="buyer-quote-meta"><strong>{service.length}</strong></div></div>
             <div className="buyer-quote-card"><div><strong>Tires / battery</strong></div><div className="buyer-quote-meta"><strong>{tires.length} / {battery.length}</strong></div></div>
             <div className="buyer-quote-card"><div><strong>Repairs / parts</strong></div><div className="buyer-quote-meta"><strong>{repairs.length} / {parts.length}</strong></div></div>
+            <div className="buyer-quote-card"><div><strong>History with supporting documents</strong><p>Document records are owner-maintained and are not independently verified by MotoIndex.</p></div><div className="buyer-quote-meta"><strong>{evidenceLinkedRecords}</strong></div></div>
             <div className="buyer-quote-card"><div><strong>Accident records</strong><p>{accidents.length ? "Review each logged accident before sharing." : "No accident records are logged. This is not a claim that the motorcycle is accident-free."}</p></div><div className="buyer-quote-meta"><strong>{accidents.length}</strong></div></div>
           </div>
         </section>
@@ -447,10 +462,13 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
     <section className="section">
       <div className="section-head"><div><h2>History included in the pack</h2><p>Review the records before sharing anything with a buyer.</p></div></div>
       <div className="buyer-quote-list">
-        {records.filter((record) => ["PMS","TIRE","BATTERY","REPAIR","ACCIDENT","PART","WARRANTY","REGISTRATION","INSURANCE"].includes(record.category)).slice(0, 30).map((record) => <div className="buyer-quote-card" key={record.id}>
-          <div><span className="field-label">{record.category}</span><strong>{record.title}</strong><p>{dateLabel(record.date)}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}</p></div>
-          <div className="buyer-quote-meta">{includeAmounts && record.amountPhp !== undefined && <strong>{money(record.amountPhp)}</strong>}</div>
-        </div>)}
+        {records.filter((record) => ["PMS","TIRE","BATTERY","REPAIR","ACCIDENT","PART","WARRANTY","REGISTRATION","INSURANCE"].includes(record.category)).slice(0, 30).map((record) => {
+          const evidenceCount = evidenceCounts.get(record.id) || 0;
+          return <div className="buyer-quote-card" key={record.id}>
+            <div><span className="field-label">{record.category}</span><strong>{record.title}</strong><p>{dateLabel(record.date)}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}</p>{evidenceCount > 0 && <small>{evidenceCount} supporting document record{evidenceCount === 1 ? "" : "s"} tracked · owner-maintained</small>}</div>
+            <div className="buyer-quote-meta">{includeAmounts && record.amountPhp !== undefined && <strong>{money(record.amountPhp)}</strong>}</div>
+          </div>;
+        })}
       </div>
     </section>
   </section>;
