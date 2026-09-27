@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from "re
 import { GarageAccountPanel } from "@/components/GarageAccountPanel";
 import { GarageStatDeck } from "@/components/GarageStatDeck";
 import { GarageLifecyclePanel } from "@/components/GarageLifecyclePanel";
+import { GarageHistoryPanel } from "@/components/GarageHistoryPanel";
 import { GarageMileagePanel, type GarageOdometerReadingInput } from "@/components/GarageMileagePanel";
 import { GaragePartsPanel, type GarageComponentRecordInput } from "@/components/GaragePartsPanel";
 import { GarageReminderCenter } from "@/components/GarageReminderCenter";
@@ -667,16 +668,12 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
         </div>
 
         <div className="split section">
-          <section className="garage-panel">
-            <div className="section-head"><div><h2>Ownership history</h2><p>Your most recent activity for this motorcycle.</p></div></div>
-            {bikeRecords.length ? <div className="buyer-quote-list">{bikeRecords.slice(0, 20).map((record) => {
-              const evidenceCount = bikeDocuments.filter((document) => document.linkedRecordId === record.id).length;
-              return <div className="buyer-quote-card" key={record.id}>
-                <div><span className="field-label">{record.category}</span><strong>{record.title}</strong><p>{dateLabel(record.date)}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}{record.notes ? ` · ${record.notes}` : ""}</p>{evidenceCount > 0 && <small>{evidenceCount} supporting document record{evidenceCount === 1 ? "" : "s"} tracked</small>}</div>
-                <div className="buyer-quote-meta">{record.amountPhp !== undefined && <strong>{money(record.amountPhp)}</strong>}{record.nextDueKm !== undefined && <small>Next at {record.nextDueKm.toLocaleString()} km</small>}{record.nextDueDate && <small>Next {dateLabel(record.nextDueDate)}</small>}{record.category !== "ODOMETER" && <button className="button small ghost" type="button" onClick={() => prepareEvidenceDocument(record)}>{evidenceCount ? "Add more evidence" : "Add evidence"}</button>}<button className="button small ghost" type="button" onClick={() => removeRecord(record.id)}>Delete</button></div>
-              </div>;
-            })}</div> : <div className="note-box"><p>No ownership records yet.</p></div>}
-          </section>
+          <GarageHistoryPanel
+            records={bikeRecords}
+            documents={bikeDocuments}
+            onAddEvidence={prepareEvidenceDocument}
+            onDeleteRecord={removeRecord}
+          />
 
           <section className="garage-panel" id="garage-document-wallet">
             <div className="section-head"><div><h2>Document wallet</h2><p>Track OR/CR, CTPL, insurance, warranty, receipts and resale paperwork.</p></div></div>
