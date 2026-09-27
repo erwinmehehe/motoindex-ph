@@ -19,6 +19,7 @@ export const GARAGE_RECORD_CATEGORIES = [
   "REGISTRATION",
   "INSURANCE",
   "RESALE",
+  "ODOMETER",
 ] as const;
 
 export const GARAGE_COMPONENT_CATEGORIES = ["TIRE", "BATTERY", "OIL", "CVT", "PART"] as const;
@@ -51,6 +52,7 @@ export type GarageMotorcycle = {
   purchasePricePhp?: number;
   purchaseOdometerKm?: number;
   odometerKm: number;
+  odometerUpdatedAt?: string;
   registrationExpiry?: string;
   insuranceExpiry?: string;
   estimatedResaleValuePhp?: number;
