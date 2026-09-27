@@ -5,9 +5,9 @@ import { useMemo, useState } from "react";
 import { GARAGE_RECORD_CATEGORIES, money, type GarageDocument, type GarageRecord, type GarageRecordCategory } from "@/lib/garage";
 
 const s = {
-  toolbar: { display: "grid", gridTemplateColumns: "minmax(0,1.4fr) minmax(150px,.7fr) minmax(150px,.7fr)", gap: 10, marginBottom: 14 },
+  toolbar: { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,170px),1fr))", gap: 10, marginBottom: 14 },
   field: { display: "grid", gap: 6, color: "var(--muted)", fontSize: 11, fontWeight: 800 },
-  summary: { display: "grid", gridTemplateColumns: "repeat(3,minmax(0,1fr))", gap: 8, marginBottom: 14 },
+  summary: { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,130px),1fr))", gap: 8, marginBottom: 14 },
   summaryCard: { minWidth: 0, padding: 12, borderRadius: 14, background: "var(--paper)" },
   label: { display: "block", color: "var(--muted)", fontSize: 9, fontWeight: 800, letterSpacing: ".07em", textTransform: "uppercase" },
   value: { display: "block", marginTop: 4, fontSize: 16, lineHeight: 1.2, letterSpacing: "-.02em" },
