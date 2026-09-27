@@ -3,7 +3,7 @@ import sharp from "sharp";
 
 const root=process.cwd();
 const targets=[
-  ["honda-cb650r","https://m.cdn.autotraderspecialty.com/2026-Honda-CB650R-motorcycle--Motorcycle-201883898-68723cd25e28c7ac8c7a29f9d96332f9.jpg?c=%23ffffff&h=800&r=pad&w=800"],
+  ["honda-cb650r","https://m.cdn.autotraderspecialty.com/2026-Honda-CB650R-motorcycle--Motorcycle-201883898-68723cd25e28c7ac8c7a29f9d96332f9.jpg?c=%23f5f5f5&h=800&r=pad&w=800"],
   ["honda-xl750-transalp","https://mundohonda.cr/cdn/shop/files/2026-XL750_TRANSALP_studio_D002_MT_NH-196_Ross_White_RhSide_S.jpg?v=1779398821&width=940"],
   ["honda-crf1100l-africa-twin","https://powersports.honda.com/-/media/products/family/africa-twin/trim-hero/gallery/africa-twin-dct/2026/pearl-white/2026-africa-twin-dct-pearl_white-gallery-01.png"],
   ["motorstar-cafe-400","https://www.kamote.ph/cdn-cgi/image/lossless%3Dtrue%2Cw%3D1200%2Ch%3D1200%2Cf%3Dwebp%2Cfit%3Dcontain/https%3A/www.kamote.ph/Gallery/Motorstar/Cafe_400.webp"],
