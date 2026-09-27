@@ -78,7 +78,7 @@ export function GarageMileagePanel({
       });
     }
 
-    const updatedDate = bike.updatedAt.slice(0, 10);
+    const updatedDate = (bike.odometerUpdatedAt || bike.updatedAt).slice(0, 10);
     if (!points.some((point) => point.km === bike.odometerKm && dateKey(point.date) === updatedDate)) {
       points.push({
         id: "current",
@@ -96,7 +96,7 @@ export function GarageMileagePanel({
     return [...deduped.values()]
       .sort((a, b) => dateKey(a.date).localeCompare(dateKey(b.date)) || a.km - b.km)
       .slice(-24);
-  }, [bike.odometerKm, bike.purchaseDate, bike.purchaseOdometerKm, bike.updatedAt, records]);
+  }, [bike.odometerKm, bike.odometerUpdatedAt, bike.purchaseDate, bike.purchaseOdometerKm, bike.updatedAt, records]);
 
   const regressionCount = readings.reduce((count, point, index) => {
     if (index === 0) return count;
