@@ -8,6 +8,7 @@ import { GarageHistoryPanel } from "@/components/GarageHistoryPanel";
 import { GarageMileagePanel, type GarageOdometerReadingInput } from "@/components/GarageMileagePanel";
 import { GaragePartsPanel, type GarageComponentRecordInput } from "@/components/GaragePartsPanel";
 import { GarageReminderCenter } from "@/components/GarageReminderCenter";
+import { GarageRealityPanel } from "@/components/GarageRealityPanel";
 import { GarageTrendPanel } from "@/components/GarageTrendPanel";
 import {
   GARAGE_DOCUMENT_ATTACHMENT_ACCEPT_ATTR,
@@ -537,6 +538,13 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
           bike={selectedBike}
           records={bikeRecords}
           documents={bikeDocuments}
+          smartMaintenance={smartMaintenance}
+        />
+
+        <GarageRealityPanel
+          catalog={selectedCatalog}
+          analytics={analytics}
+          records={bikeRecords}
           smartMaintenance={smartMaintenance}
         />
 
