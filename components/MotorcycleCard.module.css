@@ -214,7 +214,7 @@
   }
 }
 
-@container motorcycle-card (max-width:360px){
+@container motorcycle-card (max-width:520px){
   .card .standardMedia{
     height:auto;
     min-height:0;
