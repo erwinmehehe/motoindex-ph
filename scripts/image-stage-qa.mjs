@@ -262,7 +262,7 @@ try {
       await navigateAndWait(cdp.send, new URL(page.path, base));
       const renderedCount = await waitForMotorcycleCards(cdp.send);
 
-      const scopedCount = await evaluate(cdp.send, `(() => {
+      const scopedEntityIds = await evaluate(cdp.send, `(() => {
         const all=[...document.querySelectorAll(".model-card-media")];
         return all.filter(stage=>{
           const standard=stage.closest(".motorcycle-card-standard");
@@ -271,9 +271,10 @@ try {
           return ${JSON.stringify(page.scope)}==="catalog"
             ? section?.id==="browse-models"
             : section?.id==="models";
-        }).length;
-      })()`) || 0;
+        }).map(stage=>stage.getAttribute("data-entity-id")).filter(Boolean);
+      })()`) || [];
 
+      const scopedCount = scopedEntityIds.length;
       if (!scopedCount) {
         const debug = await evaluate(cdp.send, `(() => ({
           href:location.href,
@@ -287,17 +288,9 @@ try {
 
       const pageResult = { width, name: `${page.name} all cards`, path: page.path, cards: [] };
       for (let index = 0; index < scopedCount; index += 1) {
+        const entityId = scopedEntityIds[index];
         const prepared = await evaluate(cdp.send, `(() => {
-          const all=[...document.querySelectorAll(".model-card-media")];
-          const stages=all.filter(stage=>{
-            const standard=stage.closest(".motorcycle-card-standard");
-            if(!standard)return false;
-            const section=standard.closest("section");
-            return ${JSON.stringify(page.scope)}==="catalog"
-              ? section?.id==="browse-models"
-              : section?.id==="models";
-          });
-          const stage=stages[${index}];
+          const stage=[...document.querySelectorAll(".model-card-media")].find(node=>node.getAttribute("data-entity-id")===${JSON.stringify(entityId)});
           if(!stage)return false;
           const image=stage.querySelector("img");
           if(image){ image.loading="eager"; image.setAttribute("fetchpriority","high"); }
@@ -312,16 +305,7 @@ try {
         await new Promise(resolve => setTimeout(resolve, 220));
 
         const card = await evaluate(cdp.send, `(() => {
-          const all=[...document.querySelectorAll(".model-card-media")];
-          const stages=all.filter(stage=>{
-            const standard=stage.closest(".motorcycle-card-standard");
-            if(!standard)return false;
-            const section=standard.closest("section");
-            return ${JSON.stringify(page.scope)}==="catalog"
-              ? section?.id==="browse-models"
-              : section?.id==="models";
-          });
-          const stage=stages[${index}];
+          const stage=[...document.querySelectorAll(".model-card-media")].find(node=>node.getAttribute("data-entity-id")===${JSON.stringify(entityId)});
           if(!stage)return null;
           const stageRect=stage.getBoundingClientRect();
           const image=stage.querySelector("img");
@@ -331,6 +315,7 @@ try {
           const imageRect=image?.getBoundingClientRect();
           return {
             index:${index},
+            entityId:${JSON.stringify(entityId)},
             href:stage.closest("a")?.getAttribute("href") || stage.parentElement?.closest("a")?.getAttribute("href") || "",
             label:stage.closest("article")?.innerText?.split("\n").slice(0,2).join(" · ") || "",
             background:getComputedStyle(stage).backgroundColor,
