@@ -60,6 +60,7 @@ html body .product-hero-media .entity-media-link{
   background:#fff!important;
 }
 
+html body .model-card-media img,
 html body .finder-match-media img,
 html body .recommendation-model-media img,
 html body .mobile-hero-bike-media img,
@@ -471,7 +472,8 @@ html body .motorcycle-entity-page .motorcycle-hero-media img{
 }
 
 @media(max-width:700px){
-    html body .finder-match-media img,
+    html body .model-card-media img,
+  html body .finder-match-media img,
   html body .recommendation-model-media img,
   html body .mobile-hero-bike-media img,
   html body .compare-product-media img,
@@ -488,10 +490,4 @@ html body .motorcycle-entity-page .motorcycle-hero-media img{
     max-width:calc(100% - 28px)!important;
     max-height:calc(100% - 28px)!important;
   }
-}
-
-
-/* Tighten the one remaining source canvas that still has excess whitespace. */
-html body .model-card-media[data-entity-id="suzuki-raider-pro"] img{
-  padding:0!important;transform:scale(1.82)!important;transform-origin:center!important;
 }
