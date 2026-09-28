@@ -103,6 +103,16 @@ async function navigateAndWait(send, url) {
   throw new Error(`Navigation did not reach ${target.pathname}${target.search}`);
 }
 
+async function waitForMotorcycleCards(send) {
+  const deadline = Date.now() + 12_000;
+  while (Date.now() < deadline) {
+    const count = await evaluate(send, 'document.querySelectorAll(".model-card-media").length').catch(() => 0);
+    if (count > 0) return count;
+    await new Promise(resolve => setTimeout(resolve, 150));
+  }
+  return 0;
+}
+
 async function warmAllCardMedia(send) {
   await evaluate(send, `(() => {
     for (const image of document.querySelectorAll(".model-card-media img")) {
@@ -250,7 +260,7 @@ try {
 
     for (const page of allCardPages) {
       await navigateAndWait(cdp.send, new URL(page.path, base));
-      await new Promise(resolve => setTimeout(resolve, 250));
+      await waitForMotorcycleCards(cdp.send);
       await warmAllCardMedia(cdp.send);
 
       const audit = await evaluate(cdp.send, `(() => {
