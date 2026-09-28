@@ -32,13 +32,10 @@
 .card .standardMedia{
   position:relative;
   display:grid;
-  width:100%;
   height:180px;
   min-height:180px;
-  aspect-ratio:auto;
   place-items:center;
   overflow:hidden;
-  padding:0;
   border:0;
   border-bottom:1px solid var(--mi-color-line-soft);
   border-radius:0;
@@ -59,12 +56,6 @@
   place-items:center;
 }
 
-.card .standardMedia img{
-  width:100%;
-  height:100%;
-  padding:0;
-  object-fit:contain;
-}
 
 .standardBody{
   display:flex;
@@ -173,7 +164,6 @@
     height:190px;
     min-height:190px;
     align-self:center;
-    padding:0;
     border-bottom:0;
     background:#fff;
   }
