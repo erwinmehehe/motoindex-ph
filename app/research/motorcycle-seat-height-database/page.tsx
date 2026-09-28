@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import type { CSSProperties } from "react";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
@@ -8,7 +7,7 @@ import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { latestResearchCheck, median, researchSeatRows } from "@/lib/researchData";
 import { phpRange } from "@/lib/utils";
 import { EntityMedia } from "@/components/EntityMedia";
-import { CTAGroup, DataTable, PageHero, SectionHeader, StatRow } from "@/components/ui";
+import { CTAGroup, PageHero, SectionHeader, StatRow } from "@/components/ui";
 import styles from "../research-detail.module.css";
 
 export const metadata: Metadata = pageMetadata({
@@ -16,10 +15,6 @@ export const metadata: Metadata = pageMetadata({
   description: "Compare motorcycle seat heights in the Philippines with curb weight, price and category data, plus lower-seat shortlists and rider-fit tools.",
   path: "/research/motorcycle-seat-height-database"
 });
-
-const tableColumns: CSSProperties = {
-  gridTemplateColumns: "minmax(270px,1.6fr) minmax(100px,.65fr) minmax(100px,.65fr) minmax(130px,.8fr)"
-};
 
 export default function MotorcycleSeatHeightDatabasePage() {
   const rows = researchSeatRows();
@@ -50,22 +45,22 @@ export default function MotorcycleSeatHeightDatabasePage() {
     variableMeasured: ["Seat height", "Curb weight", "Published starting price", "Motorcycle category"]
   };
 
-  const shortlist = (items: typeof rows) => <ol>
-    {items.map(({ model, range }) => <li key={model.id}>
-      <Link href={`/motorcycles/${model.makeSlug}/${model.slug}#rider-fit`}><strong>{model.make} {model.model}</strong></Link>
-      <small> · {model.seatHeightMm} mm · {model.curbWeightKg} kg · {phpRange(range.from, range.to)}</small>
-    </li>)}
-  </ol>;
+  const shortlist = (items: typeof rows) => <div className="list-cards">
+    {items.map(({ model, range }) => <Link key={model.id} href={`/motorcycles/${model.makeSlug}/${model.slug}#rider-fit`}>
+      <span><strong>{model.make} {model.model}</strong><small>{model.category}</small></span>
+      <small>{model.seatHeightMm} mm · {model.curbWeightKg} kg · {phpRange(range.from, range.to)}</small>
+    </Link>)}
+  </div>;
 
   return <section className="page shell">
     <Breadcrumbs items={[{ label: "Research", href: "/research" }, { label: "Seat-height database" }]} />
+
     <PageHero
       kicker="Rider-fit data"
       title="Motorcycle seat height database Philippines"
       description="Compare published seat height with curb weight, category and price before you shortlist a motorcycle. Use the numbers to narrow the field, then check your inseam and sit on the exact bike when possible."
       actions={<CTAGroup>
         <a className="button" href="#seat-height-table">Browse full database</a>
-        <Link className="button secondary" href="/recommendations#rider-fit">Lower-seat guidance</Link>
         <Link className="button secondary" href="/finder">Find a motorcycle</Link>
       </CTAGroup>}
     />
@@ -77,17 +72,17 @@ export default function MotorcycleSeatHeightDatabasePage() {
       {label:"Lowest recorded",value:lowest?`${lowest.model.seatHeightMm} mm`:"—",note:lowest?`${lowest.model.make} ${lowest.model.model}`:""}
     ]} />
 
-    <section className="section" aria-labelledby="seat-fit-bands">
+    <section className="ui-page-section" aria-labelledby="seat-fit-bands">
       <SectionHeader
         kicker="Start with a range"
         title="Use seat-height bands to narrow the market"
         titleId="seat-fit-bands"
         description="These bands are navigation aids, not fit guarantees. Seat width, suspension sag, motorcycle weight and your inseam can change how tall the same published number feels."
       />
-      <div className="ui-content-grid">
+      <div className="ui-product-grid">
         <a href="#seat-height-table" className="ui-content-card">
           <h3>760 mm and below</h3>
-          <p>{lowerSeat.length} current models. A useful first pool when easier ground reach is the priority.</p>
+          <p>{lowerSeat.length} current models. Start here when easier ground reach is the priority.</p>
         </a>
         <a href="#seat-height-table" className="ui-content-card">
           <h3>761 to 800 mm</h3>
@@ -95,20 +90,20 @@ export default function MotorcycleSeatHeightDatabasePage() {
         </a>
         <a href="#seat-height-table" className="ui-content-card">
           <h3>Above 800 mm</h3>
-          <p>{tallerSeat.length} current models, including many adventure, dual-sport and performance-focused motorcycles.</p>
+          <p>{tallerSeat.length} current models, including many adventure, dual-sport and performance motorcycles.</p>
         </a>
       </div>
     </section>
 
-    {lowest && highest && <section className="section split" aria-labelledby="seat-height-method">
+    {lowest && highest && <section className="ui-page-section split" aria-labelledby="seat-height-method">
       <div>
         <span className="section-kicker">Fit context</span>
-        <h2 id="seat-height-method">Seat height is not the same as rider fit</h2>
-        <p>The current database spans from {lowest.model.seatHeightMm} mm on the {lowest.model.make} {lowest.model.model} to {highest.model.seatHeightMm} mm on the {highest.model.make} {highest.model.model}. That range helps narrow choices, but it does not measure seat width, balance or how much the suspension compresses under a rider.</p>
-        <p>Use the database to build a shortlist, then compare inseam, curb weight and the exact motorcycle in person when possible.</p>
+        <h2 id="seat-height-method">Seat height is only one part of rider fit</h2>
+        <p>The current database spans from {lowest.model.seatHeightMm} mm on the {lowest.model.make} {lowest.model.model} to {highest.model.seatHeightMm} mm on the {highest.model.make} {highest.model.model}. That range narrows the market, but it does not measure seat width, balance or suspension sag.</p>
+        <p>Use the numbers to build a shortlist, then compare your inseam, curb weight and the exact motorcycle in person when possible.</p>
       </div>
       <div className="info-card">
-        <h3>Check these measurements together</h3>
+        <h3>Check these together</h3>
         <ul className="checklist">
           <li>Published seat height</li>
           <li>Your actual inseam</li>
@@ -120,38 +115,47 @@ export default function MotorcycleSeatHeightDatabasePage() {
       </div>
     </section>}
 
-    <section className="section" aria-labelledby="seat-height-shortlists">
+    <section className="ui-page-section" aria-labelledby="seat-height-shortlists">
       <SectionHeader
         kicker="Quick factual shortlists"
-        title="Three ways to scan the lower-seat end of the database"
+        title="Useful lower-seat starting points"
         titleId="seat-height-shortlists"
-        description="These are direct sorts of the current dataset, not overall motorcycle rankings."
+        description="Direct sorts of the current dataset, not overall motorcycle rankings."
       />
-      <div className="ui-content-grid">
-        <article className="ui-content-card"><h3>Five lowest seat heights</h3><p>Sorted by published seat height from lowest upward.</p>{shortlist(lowestFive)}</article>
+      <div className="ui-product-grid">
+        <article className="ui-content-card"><h3>Five lowest seat heights</h3><p>Lowest published seat heights first.</p>{shortlist(lowestFive)}</article>
         <article className="ui-content-card"><h3>Lighter bikes at 760 mm or below</h3><p>Lower-seat models sorted by curb weight.</p>{shortlist(lowerSeatLightest)}</article>
-        <article className="ui-content-card"><h3>Automatic models at 780 mm or below</h3><p>Automatic motorcycles sorted by published seat height.</p>{shortlist(automaticLowerSeat)}</article>
+        <article className="ui-content-card"><h3>Automatic models at 780 mm or below</h3><p>Automatic motorcycles sorted by seat height.</p>{shortlist(automaticLowerSeat)}</article>
       </div>
     </section>
 
-    <section id="seat-height-table" className="section" aria-labelledby="seat-height-table-title">
+    <section id="seat-height-table" className="ui-page-section" aria-labelledby="seat-height-table-title">
       <SectionHeader
         kicker="Full database · low to high"
         title="Current motorcycle seat heights"
         titleId="seat-height-table-title"
-        description="Price is included only to help compare the complete shortlist. Open a model page for the exact price source, financing estimate and rider-fit calculator."
-        aside={<Link href="/recommendations#rider-fit">Rider-fit buying guidance →</Link>}
+        description="Price is included to help compare the shortlist. Open a model page for its exact price source, financing estimate and rider-fit calculator."
+        aside={<Link href="/recommendations#rider-fit">Rider-fit guidance →</Link>}
       />
-      <p><small>Last research check: {checkedAt}</small></p>
-      <DataTable label="Motorcycle seat heights in the Philippines">
-        <div className="head" role="row" style={tableColumns}><span>Motorcycle</span><span>Seat height</span><span>Curb weight</span><span>Price</span></div>
-        {rows.map(({ model, range }) => <Link role="row" style={tableColumns} href={`/motorcycles/${model.makeSlug}/${model.slug}#rider-fit`} key={model.id}>
-          <span className={styles.modelCell}><EntityMedia entityType="motorcycle" entityId={model.id} fallback={<span className={styles.mediaFallback}>{model.make.slice(0,1)}</span>} showCredit={false}/><span><strong>{model.make} {model.model}</strong><small>{model.category}</small></span></span>
-          <strong>{model.seatHeightMm} mm</strong>
-          <span>{model.curbWeightKg} kg</span>
-          <span>{phpRange(range.from, range.to)} →</span>
-        </Link>)}
-      </DataTable>
+      <p><small>Last research check: {checkedAt} · {rows.length} current models</small></p>
+      <div className="compare-wrap">
+        <table className="compare-table">
+          <thead><tr><th>Motorcycle</th><th>Seat height</th><th>Curb weight</th><th>Price</th></tr></thead>
+          <tbody>
+            {rows.map(({ model, range }) => <tr key={model.id}>
+              <td>
+                <Link className={styles.modelCell} href={`/motorcycles/${model.makeSlug}/${model.slug}#rider-fit`}>
+                  <EntityMedia entityType="motorcycle" entityId={model.id} fallback={<span className={styles.mediaFallback}>{model.make.slice(0,1)}</span>} showCredit={false}/>
+                  <span><strong>{model.make} {model.model}</strong><small>{model.category}</small></span>
+                </Link>
+              </td>
+              <td><strong>{model.seatHeightMm} mm</strong></td>
+              <td>{model.curbWeightKg} kg</td>
+              <td><Link href={`/motorcycles/${model.makeSlug}/${model.slug}#rider-fit`}>{phpRange(range.from, range.to)} →</Link></td>
+            </tr>)}
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <div className="note-box">
