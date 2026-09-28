@@ -11,11 +11,11 @@ const checks = [
 ];
 const widths = [390, 768, 1440];
 const allCardPages = [
-  { name: "motorcycle catalog", path: "/motorcycles" },
-  { name: "Honda brand", path: "/motorcycles/honda" },
-  { name: "Yamaha brand", path: "/motorcycles/yamaha" },
-  { name: "Kawasaki brand", path: "/motorcycles/kawasaki" },
-  { name: "Vespa brand", path: "/motorcycles/vespa" },
+  { name: "motorcycle catalog", path: "/motorcycles", selector: ".motorcycle-catalog-grid .model-card-media" },
+  { name: "Honda brand", path: "/motorcycles/honda", selector: ".ph-brand-model-grid .model-card-media" },
+  { name: "Yamaha brand", path: "/motorcycles/yamaha", selector: ".ph-brand-model-grid .model-card-media" },
+  { name: "Kawasaki brand", path: "/motorcycles/kawasaki", selector: ".ph-brand-model-grid .model-card-media" },
+  { name: "Vespa brand", path: "/motorcycles/vespa", selector: ".ph-brand-model-grid .model-card-media" },
 ];
 
 function findChrome() {
@@ -83,9 +83,10 @@ async function waitForComplete(send) {
   throw new Error("Page did not finish loading.");
 }
 
-async function warmAllCardMedia(send) {
+async function warmAllCardMedia(send, stageSelector) {
+  const imageSelector = `${stageSelector} img`;
   await evaluate(send, `(() => {
-    for (const image of document.querySelectorAll(".model-card-media img")) {
+    for (const image of document.querySelectorAll(${JSON.stringify(imageSelector)})) {
       image.loading = "eager";
       image.setAttribute("fetchpriority", "high");
     }
@@ -109,7 +110,7 @@ async function warmAllCardMedia(send) {
   }
 
   await evaluate(send, `new Promise(resolve => {
-    const images=[...document.querySelectorAll(".model-card-media img")];
+    const images=[...document.querySelectorAll(${JSON.stringify(imageSelector)})];
     const pending=images.filter(image=>!image.complete);
     if(!pending.length){resolve(true);return;}
     let remaining=pending.length;
@@ -232,11 +233,11 @@ try {
     for (const page of allCardPages) {
       await cdp.send("Page.navigate", { url: new URL(page.path, base).toString() });
       await waitForComplete(cdp.send);
-      await warmAllCardMedia(cdp.send);
+      await warmAllCardMedia(cdp.send, page.selector);
 
       const audit = await evaluate(cdp.send, `(() => {
         const root=document.documentElement;
-        const stages=[...document.querySelectorAll(".model-card-media")];
+        const stages=[...document.querySelectorAll(${JSON.stringify(page.selector)})];
         return {
           overflow:root.scrollWidth-root.clientWidth,
           viewport:innerWidth,
@@ -274,7 +275,7 @@ try {
       })()`);
 
       results.push({ width, name: `${page.name} all cards`, path: page.path, ...audit });
-      if (!audit?.cards?.length) failures.push(`${width}px ${page.name}: no .model-card-media cards were rendered`);
+      if (!audit?.cards?.length) failures.push(`${width}px ${page.name}: no scoped motorcycle card media were rendered`);
       if ((audit?.overflow || 0) > 5) failures.push(`${width}px ${page.name}: page overflows horizontally by ${audit.overflow}px`);
 
       for (const card of audit?.cards || []) {
