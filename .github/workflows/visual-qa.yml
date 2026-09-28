@@ -1,10 +1,11 @@
 name: Visual QA
 
 on:
-  workflow_dispatch:
+  pull_request:
+    branches: [main]
   push:
-    branches:
-      - fix/sitewide-ui-stabilization-sep28
+    branches: [main]
+  workflow_dispatch:
 
 concurrency:
   group: visual-qa-${{ github.ref }}
