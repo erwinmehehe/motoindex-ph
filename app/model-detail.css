@@ -291,6 +291,15 @@ html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual 
   html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual .motorcycle-hero-media .bike-art.big{height:300px!important;min-height:0!important;max-height:300px!important}
 }
 @media(max-width:600px){
+  html body .motorcycle-entity-page .priority-model-brief{
+    width:min(100% - 32px,1120px)!important;
+    padding:32px 0!important;
+  }
+  html body .motorcycle-entity-page .priority-model-brief-grid{
+    grid-template-columns:1fr!important;
+    gap:10px!important;
+  }
+  html body .motorcycle-entity-page .priority-model-brief h2{font-size:30px!important}
   html body .motorcycle-entity-hero .breadcrumbs{margin-bottom:16px!important}
   html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-copy h1{font-size:38px!important;line-height:1!important}
   html body .entity-hero-purpose{font-size:14px!important}
