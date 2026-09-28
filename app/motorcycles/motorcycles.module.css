@@ -168,10 +168,10 @@
 .page :global(.result-meta small){display:block!important;color:#94a3b8!important;font-size:9px!important}
 
 .page :global(.motorcycle-catalog-grid){
-  display:grid!important;
-  grid-template-columns:repeat(3,minmax(0,1fr))!important;
-  gap:14px!important;
-  border-top:0!important;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:14px;
+  border-top:0;
 }
 
 .page :global(.motorcycle-brand-directory-grid){
@@ -208,7 +208,6 @@
 .page :global(.motorcycle-index-method-grid)>article:first-child{border-left:0!important;padding-left:0!important}
 
 @media(max-width:1120px){
-  .page :global(.motorcycle-catalog-grid){grid-template-columns:repeat(2,minmax(0,1fr))!important}
   .heroGrid{grid-template-columns:1fr!important;gap:28px!important}
   .page :global(.motorcycle-index-overview){max-width:720px!important}
   .page :global(.motorcycle-index-quicklinks){grid-template-columns:repeat(3,1fr)!important}
@@ -220,7 +219,6 @@
 }
 
 @media(max-width:700px){
-  .page :global(.motorcycle-catalog-grid){grid-template-columns:1fr!important;gap:12px!important}
   .page :global(.motorcycle-index-hero){padding:28px 0 24px!important}
   .heroGrid{grid-template-columns:minmax(0,1fr)!important;gap:22px!important}
   .heroGrid > *{min-width:0}
@@ -231,26 +229,18 @@
   .page :global(.motorcycle-index-actions .button){width:100%!important}
   .page :global(.motorcycle-index-overview){grid-template-columns:1fr 1fr!important}
   .page :global(.motorcycle-index-quicklinks){
-    display:flex!important;
-    gap:8px!important;
-    overflow-x:auto!important;
-    margin-inline:-4px!important;
-    padding:0 4px 10px!important;
-    border:0!important;
-    scrollbar-width:none!important;
-    scroll-snap-type:x proximity;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    border:0;
   }
-  .page :global(.motorcycle-index-quicklinks)::-webkit-scrollbar{display:none!important}
   .page :global(.motorcycle-index-quicklinks)>a,
   .page :global(.motorcycle-index-quicklinks)>a:first-child,
   .page :global(.motorcycle-index-quicklinks)>a:nth-child(4){
-    flex:0 0 184px!important;
-    min-height:86px!important;
-    padding:12px!important;
-    border:1px solid rgba(148,163,184,.18)!important;
-    border-radius:12px!important;
-    background:#fff!important;
-    scroll-snap-align:start;
+    min-height:82px;
+    padding:12px;
+    border:1px solid var(--mi-color-line-soft);
+    border-radius:var(--mi-radius-sm);
+    background:var(--mi-color-surface);
   }
   .page :global(.motorcycle-index-body){padding-top:30px!important;padding-bottom:66px!important}
   .marketSnapshot{margin-top:var(--mi-space-12)}
