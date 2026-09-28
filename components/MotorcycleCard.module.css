@@ -33,9 +33,10 @@
   position:relative;
   display:grid;
   width:100%;
-  height:auto;
-  min-height:0;
-  aspect-ratio:16 / 10;
+  height:180px;
+  min-height:180px;
+  aspect-ratio:auto;
+  box-sizing:border-box;
   place-items:center;
   overflow:hidden;
   padding:16px;
@@ -209,7 +210,7 @@
   }
 }
 
-@container motorcycle-card (max-width:520px){
+@container motorcycle-card (max-width:300px){
   .standardBody{
     padding:var(--mi-space-3);
   }
