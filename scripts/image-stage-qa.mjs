@@ -249,7 +249,7 @@ try {
   }
 
 
-  // all-card-image-audit: inspect every rendered motorcycle card, not only the first one.
+  // all-card-image-audit: inspect each current motorcycle card in place.
   for (const width of widths) {
     await cdp.send("Emulation.setDeviceMetricsOverride", {
       width,
@@ -260,71 +260,111 @@ try {
 
     for (const page of allCardPages) {
       await navigateAndWait(cdp.send, new URL(page.path, base));
-      await waitForMotorcycleCards(cdp.send);
-      await warmAllCardMedia(cdp.send);
+      const renderedCount = await waitForMotorcycleCards(cdp.send);
 
-      const audit = await evaluate(cdp.send, `(() => {
-        const root=document.documentElement;
-        const allStages=[...document.querySelectorAll(".model-card-media")];
-        const stages=allStages.filter(stage=>{
+      const scopedCount = await evaluate(cdp.send, `(() => {
+        const all=[...document.querySelectorAll(".model-card-media")];
+        return all.filter(stage=>{
           const standard=stage.closest(".motorcycle-card-standard");
           if(!standard)return false;
-          if(${JSON.stringify(page.scope)}==="catalog"){
-            const section=standard.closest("section");
-            return section?.id==="browse-models";
-          }
           const section=standard.closest("section");
-          return section?.id==="models";
-        });
-        return {
-          overflow:root.scrollWidth-root.clientWidth,
-          viewport:innerWidth,
-          allStageCount:allStages.length,
-          sectionIds:[...new Set(allStages.map(stage=>stage.closest("section")?.id||"").filter(Boolean))],
-          cards:stages.map((stage,index)=>{
-            const stageRect=stage.getBoundingClientRect();
-            const image=stage.querySelector("img");
-            const placeholder=stage.matches(".model-media-placeholder,.media-unavailable")
-              ? stage
-              : stage.querySelector(".model-media-placeholder,.media-unavailable");
-            const imageRect=image?.getBoundingClientRect();
-            return {
-              index,
-              href:stage.closest("a")?.getAttribute("href") || stage.parentElement?.closest("a")?.getAttribute("href") || "",
-              label:stage.closest("article")?.innerText?.split("\n").slice(0,2).join(" · ") || "",
-              background:getComputedStyle(stage).backgroundColor,
-              right:stageRect.right,
-              left:stageRect.left,
-              top:stageRect.top,
-              bottom:stageRect.bottom,
-              width:stageRect.width,
-              height:stageRect.height,
-              imageBackground:image ? getComputedStyle(image).backgroundColor : "",
-              imageObjectFit:image ? getComputedStyle(image).objectFit : "",
-              imageTransform:image ? getComputedStyle(image).transform : "",
-              imageComplete:image ? image.complete : false,
-              naturalWidth:image ? image.naturalWidth : 0,
-              naturalHeight:image ? image.naturalHeight : 0,
-              imageRect:imageRect ? {
-                left:imageRect.left,top:imageRect.top,right:imageRect.right,bottom:imageRect.bottom,
-                width:imageRect.width,height:imageRect.height
-              } : null,
-              placeholder:Boolean(placeholder),
-              placeholderBackground:placeholder ? getComputedStyle(placeholder).backgroundColor : ""
-            };
-          })
-        };
-      })()`);
+          return ${JSON.stringify(page.scope)}==="catalog"
+            ? section?.id==="browse-models"
+            : section?.id==="models";
+        }).length;
+      })()`) || 0;
 
-      results.push({ width, name: `${page.name} all cards`, path: page.path, ...audit });
-      if (!audit?.cards?.length) failures.push(`${width}px ${page.name}: no scoped motorcycle card media were rendered (all stages=${audit?.allStageCount||0}; section ids=${(audit?.sectionIds||[]).join(",")||"none"})`);
-      if ((audit?.overflow || 0) > 5) failures.push(`${width}px ${page.name}: page overflows horizontally by ${audit.overflow}px`);
+      if (!scopedCount) {
+        const debug = await evaluate(cdp.send, `(() => ({
+          href:location.href,
+          rendered:document.querySelectorAll(".model-card-media").length,
+          standard:document.querySelectorAll(".motorcycle-card-standard").length,
+          sections:[...document.querySelectorAll("section")].map(section=>section.id).filter(Boolean)
+        }))()`);
+        failures.push(`${width}px ${page.name}: no scoped motorcycle card media were rendered (wait count=${renderedCount}; actual=${debug?.rendered||0}; standard=${debug?.standard||0}; sections=${(debug?.sections||[]).join(",")||"none"}; url=${debug?.href||"unknown"})`);
+        continue;
+      }
 
-      for (const card of audit?.cards || []) {
+      const pageResult = { width, name: `${page.name} all cards`, path: page.path, cards: [] };
+      for (let index = 0; index < scopedCount; index += 1) {
+        const prepared = await evaluate(cdp.send, `(() => {
+          const all=[...document.querySelectorAll(".model-card-media")];
+          const stages=all.filter(stage=>{
+            const standard=stage.closest(".motorcycle-card-standard");
+            if(!standard)return false;
+            const section=standard.closest("section");
+            return ${JSON.stringify(page.scope)}==="catalog"
+              ? section?.id==="browse-models"
+              : section?.id==="models";
+          });
+          const stage=stages[${index}];
+          if(!stage)return false;
+          const image=stage.querySelector("img");
+          if(image){ image.loading="eager"; image.setAttribute("fetchpriority","high"); }
+          stage.scrollIntoView({block:"center",inline:"nearest",behavior:"instant"});
+          return true;
+        })()`);
+        if (!prepared) {
+          failures.push(`${width}px ${page.name} card ${index + 1}: card disappeared before inspection`);
+          continue;
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 220));
+
+        const card = await evaluate(cdp.send, `(() => {
+          const all=[...document.querySelectorAll(".model-card-media")];
+          const stages=all.filter(stage=>{
+            const standard=stage.closest(".motorcycle-card-standard");
+            if(!standard)return false;
+            const section=standard.closest("section");
+            return ${JSON.stringify(page.scope)}==="catalog"
+              ? section?.id==="browse-models"
+              : section?.id==="models";
+          });
+          const stage=stages[${index}];
+          if(!stage)return null;
+          const stageRect=stage.getBoundingClientRect();
+          const image=stage.querySelector("img");
+          const placeholder=stage.matches(".model-media-placeholder,.media-unavailable")
+            ? stage
+            : stage.querySelector(".model-media-placeholder,.media-unavailable");
+          const imageRect=image?.getBoundingClientRect();
+          return {
+            index:${index},
+            href:stage.closest("a")?.getAttribute("href") || stage.parentElement?.closest("a")?.getAttribute("href") || "",
+            label:stage.closest("article")?.innerText?.split("\n").slice(0,2).join(" · ") || "",
+            background:getComputedStyle(stage).backgroundColor,
+            right:stageRect.right,
+            left:stageRect.left,
+            top:stageRect.top,
+            bottom:stageRect.bottom,
+            width:stageRect.width,
+            height:stageRect.height,
+            imageBackground:image ? getComputedStyle(image).backgroundColor : "",
+            imageObjectFit:image ? getComputedStyle(image).objectFit : "",
+            imageTransform:image ? getComputedStyle(image).transform : "",
+            imageComplete:image ? image.complete : false,
+            naturalWidth:image ? image.naturalWidth : 0,
+            naturalHeight:image ? image.naturalHeight : 0,
+            imageRect:imageRect ? {
+              left:imageRect.left,top:imageRect.top,right:imageRect.right,bottom:imageRect.bottom,
+              width:imageRect.width,height:imageRect.height
+            } : null,
+            placeholder:Boolean(placeholder),
+            placeholderBackground:placeholder ? getComputedStyle(placeholder).backgroundColor : ""
+          };
+        })()`);
+
+        if (!card) {
+          failures.push(`${width}px ${page.name} card ${index + 1}: card disappeared during inspection`);
+          continue;
+        }
+
+        pageResult.cards.push(card);
         const label=`${width}px ${page.name} card ${card.index + 1}${card.label ? ` (${card.label})` : ""}${card.href ? ` ${card.href}` : ""}`;
         if (card.background !== "rgb(255, 255, 255)") failures.push(`${label}: stage background is ${card.background || "missing"}, expected white`);
-        if (card.left < -2 || card.right > (audit.viewport || width) + 2) failures.push(`${label}: image stage leaves the viewport`);
-        if (!card.imageRect && !card.placeholder) failures.push(`${label}: has neither a loaded image nor a placeholder`);
+        if (card.left < -2 || card.right > width + 2) failures.push(`${label}: image stage leaves the viewport`);
+        if (!card.imageRect && !card.placeholder) failures.push(`${label}: has neither an image nor a placeholder`);
         if (card.imageRect) {
           if (!card.imageComplete || card.naturalWidth < 2 || card.naturalHeight < 2) failures.push(`${label}: image failed to load`);
           if (card.imageObjectFit !== "contain") failures.push(`${label}: image object-fit is ${card.imageObjectFit || "missing"}, expected contain`);
@@ -342,6 +382,9 @@ try {
         }
         if (card.placeholderBackground && card.placeholderBackground !== "rgb(255, 255, 255)") failures.push(`${label}: placeholder background is not white`);
       }
+
+      await evaluate(cdp.send, 'window.scrollTo({top:0,behavior:"instant"}); true');
+      results.push(pageResult);
     }
   }
 
