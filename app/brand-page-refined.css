@@ -79,9 +79,9 @@
 
 .ph-brand-page .ph-brand-model-grid{
   display:grid!important;
-  grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))!important;
-  gap:14px!important;
-  border-top:0!important;
+  grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:14px;
+  border-top:0;
 }
 
 .ph-brand-page .ph-brand-price-table [role="row"]{
