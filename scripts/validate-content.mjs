@@ -10,8 +10,6 @@ const files = [
   "app/page.tsx",
   "app/motorcycles/page.tsx",
   "app/motorcycles/[make]/[slug]/page.tsx",
-  "app/motorcycles/[make]/[slug]/price/page.tsx",
-  "app/motorcycles/[make]/[slug]/tire-size/page.tsx",
   "app/compare/page.tsx",
   "app/compare/[slug]/page.tsx",
   "app/gear/helmets/page.tsx",

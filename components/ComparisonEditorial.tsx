@@ -4,10 +4,10 @@ import type { ComparisonEditorialBrief } from "@/lib/comparisonEditorial";
 import { observedMarketRange, observedMarketPriceLabel } from "@/lib/marketChecks";
 import { getVerifiedVariantsForModel } from "@/lib/variants";
 import { php } from "@/lib/utils";
+import styles from "./ComparisonEditorial.module.css";
 
 const dash = "Not yet normalized";
 const signed=(n:number,unit:string)=>`${Math.abs(n).toLocaleString("en-PH",{maximumFractionDigits:1})} ${unit}`;
-const absListed=(m:Motorcycle)=>/\bABS\b/i.test(m.abs)&&!/^No ABS/i.test(m.abs);
 const ptw=(m:Motorcycle)=>m.curbWeightKg ? m.powerHp/m.curbWeightKg*100 : 0;
 
 function comparisonSentence(label:string,a:Motorcycle,b:Motorcycle,aValue:number|undefined,bValue:number|undefined,unit:string,lowerWins=false){
@@ -97,7 +97,7 @@ function faqAnswer(question:string,a:Motorcycle,b:Motorcycle){
 
 function VariantPanel({model}:{model:Motorcycle}){
   const variants=getVerifiedVariantsForModel(model.id);
-  return <article><h3>{model.make} {model.model}</h3>{variants.length?<div className="comparison-variant-list">{variants.map(v=><div key={v.id}><span>{v.name}</span><strong>{php(v.srpPhp)}</strong><small>{v.braking||v.differentiators.slice(0,2).join(" · ")}</small></div>)}</div>:<p><strong>{observedMarketPriceLabel(model)}</strong><br/><small>No verified multi-variant matrix is stored yet; the model-level observed price is shown instead.</small></p>}</article>;
+  return <article className={styles.variantPanel}><div className={styles.variantHeading}><span>{model.make}</span><h3>{model.model}</h3></div>{variants.length?<div className={styles.variantList}>{variants.map(v=><div className={styles.variantRow} key={v.id}><span>{v.name}</span><strong>{php(v.srpPhp)}</strong><small>{v.braking||v.differentiators.slice(0,2).join(" · ")}</small></div>)}</div>:<p><strong>{observedMarketPriceLabel(model)}</strong><br/><small>No verified multi-variant matrix is stored yet; the model-level observed price is shown instead.</small></p>}</article>;
 }
 
 export function ComparisonEditorial({a,b,brief,phase="all"}:{a:Motorcycle;b:Motorcycle;brief:ComparisonEditorialBrief;phase?:"all"|"pre"|"post"}){
@@ -116,8 +116,8 @@ export function ComparisonEditorial({a,b,brief,phase="all"}:{a:Motorcycle;b:Moto
         <tr><th>ABS / brakes</th><td>{a.abs}</td><td>{b.abs}</td></tr>
       </tbody></table></div>
     </section>
-    <section className="comparison-key-differences"><div className="section-head compact"><div><span>Calculated from current records</span><h2>Key differences</h2></div></div><div className="comparison-difference-list">{diffs.map(d=><div key={d}>{d}</div>)}</div></section>
-    <section className="comparison-variants"><div className="section-head compact"><div><span>Where verified</span><h2>Current variants and prices</h2></div></div><div className="comparison-variant-grid"><VariantPanel model={a}/><VariantPanel model={b}/></div></section>
+    <section className={styles.keyDifferences}><div><span className={styles.eyebrow}>Calculated from current records</span><h2>Key differences</h2></div><div className={styles.differenceList}>{diffs.map((d,index)=><div key={d}><span>{String(index+1).padStart(2,"0")}</span><p>{d}</p></div>)}</div></section>
+    <section className={styles.variants}><div><span className={styles.eyebrow}>Where verified</span><h2>Current variants and prices</h2></div><div className={styles.variantGrid}><VariantPanel model={a}/><VariantPanel model={b}/></div></section>
   </>;
   const post=<>
     <section className="comparison-editorial-sections"><div className="section-head"><div><span>Buyer questions</span><h2>What the differences mean</h2></div></div>{brief.sections.map(title=><article key={title}><h3>{title}</h3><p>{sectionCopy(title,a,b)}</p></article>)}</section>
@@ -126,7 +126,7 @@ export function ComparisonEditorial({a,b,brief,phase="all"}:{a:Motorcycle;b:Moto
     <section className="comparison-faqs"><div className="section-head compact"><div><h2>FAQs</h2></div></div>{brief.faqs.map(q=><details key={q}><summary>{q}</summary><p>{faqAnswer(q,a,b)}</p></details>)}</section>
     {brief.related?.length&&!brief.note?<div className="comparison-related-inline">{brief.related.map(link=><Link key={link.href} href={link.href}>{link.label}</Link>)}</div>:null}
   </>;
-  if(phase==="pre")return pre;
-  if(phase==="post")return post;
-  return <>{pre}{post}</>;
+  if(phase==="pre")return <div className={styles.editorial}>{pre}</div>;
+  if(phase==="post")return <div className={styles.editorial}>{post}</div>;
+  return <div className={styles.editorial}>{pre}{post}</div>;
 }

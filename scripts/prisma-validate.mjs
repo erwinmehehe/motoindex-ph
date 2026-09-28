@@ -8,7 +8,11 @@ if (!env.DATABASE_URL) {
 }
 
 const command = process.platform === "win32" ? "npx.cmd" : "npx";
-const result = spawnSync(command, ["prisma", "validate"], { stdio: "inherit", env });
+const result = spawnSync(command, ["prisma", "validate"], {
+  stdio: "inherit",
+  env,
+  shell: process.platform === "win32",
+});
 if (result.error) {
   console.error(result.error.message);
   process.exit(1);
