@@ -277,7 +277,7 @@ const inspect=`(() => {
   const gridColumnCount=element=>{
     if(!element)return 0;
     const columns=(getComputedStyle(element).gridTemplateColumns||"").trim();
-    return columns?columns.split(/\s+/).length:0;
+    return columns?columns.split(/\\s+/).length:0;
   };
   const standardMotorcycleCards=[...document.querySelectorAll('[data-motorcycle-card="standard"]')];
   const standardMotorcycleCardModes=standardMotorcycleCards.map(card=>({
