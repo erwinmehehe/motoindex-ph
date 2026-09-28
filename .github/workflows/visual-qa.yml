@@ -6,6 +6,10 @@ on:
     branches:
       - fix/sitewide-ui-stabilization-sep28
 
+concurrency:
+  group: visual-qa-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   browser-qa:
     runs-on: ubuntu-latest
