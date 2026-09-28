@@ -60,6 +60,7 @@ html body .product-hero-media .entity-media-link{
   background:#fff!important;
 }
 
+html body .model-card-media img,
 html body .finder-match-media img,
 html body .recommendation-model-media img,
 html body .mobile-hero-bike-media img,
@@ -471,7 +472,8 @@ html body .motorcycle-entity-page .motorcycle-hero-media img{
 }
 
 @media(max-width:700px){
-    html body .finder-match-media img,
+    html body .model-card-media img,
+  html body .finder-match-media img,
   html body .recommendation-model-media img,
   html body .mobile-hero-bike-media img,
   html body .compare-product-media img,
