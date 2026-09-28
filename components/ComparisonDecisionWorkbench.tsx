@@ -63,7 +63,6 @@ export function ComparisonDecisionWorkbench({ a, b }: { a: Motorcycle; b: Motorc
   return <section className={styles.workbench} aria-labelledby="personal-compare-title">
     <div className={styles.head}><div><span>Personalized decision</span><h2 id="personal-compare-title">Which motorcycle fits your use better?</h2></div><p>Change your priorities and MotoIndex recalculates rider fit, use-case score, monthly ownership planning and a three-year ownership estimate.</p></div>
 
-    <div className={styles.workspace}>
     <div className={styles.controls}>
       <label>Primary use<select value={useCase} onChange={e=>setUseCase(e.target.value as DecisionUseCase)}>{useCases.map(([value,label])=><option key={value} value={value}>{label}</option>)}</select></label>
       <label>Inseam<select value={inseam} onChange={e=>setInseam(Number(e.target.value))}>{[26,27,28,29,30,31,32,33,34,35,36,37,38].map(v=><option key={v} value={v}>{v} in</option>)}</select></label>
@@ -83,7 +82,7 @@ export function ComparisonDecisionWorkbench({ a, b }: { a: Motorcycle; b: Motorc
       <div className={styles.metrics}><span><small>Loan estimate</small><b>{php(decision.estimatedLoanMonthlyPhp)}/mo</b></span><span><small>Total monthly</small><b>{php(decision.estimatedTotalMonthlyPhp)}/mo</b></span><span><small>3-year net</small><b>{php(threeYear)}</b></span></div>
       <ul className={styles.reasons}>{decision.reasons.slice(0,3).map(reason=><li key={reason}>{reason}</li>)}{decision.reasons.length===0&&<li>Highest available score on the measurable factors selected.</li>}</ul>
       <div className={styles.foot}><strong>{cheaperThreeYear===model.id?`Lower 3-year estimate by ${php(difference)}`:"Decision score reflects your selected priorities"}</strong><span>{decision.cautions[0]||"No major scoring caution for this profile."}</span></div>
-    </article>)}</div></div>
+    </article>)}</div>
     <p className={styles.disclaimer}>Planning estimates only. Financing uses the APR, down payment and term above. Running costs use MotoIndex defaults and the selected riding distance. Three-year net subtracts an estimated resale value and is not a dealer, lender or resale quote.</p>
   </section>;
 }
