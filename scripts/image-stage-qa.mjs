@@ -9,7 +9,14 @@ const checks = [
   { name: "comparison card", path: "/compare/selection?bikes=aerox-v3,nmax-v3", selector: ".compare-product-card", requireWhite: true, maxHeight: { 390: 220, 1440: 230 } },
   { name: "motorcycle hero", path: "/motorcycles/yamaha/aerox-v3", selector: ".motorcycle-hero-media", maxHeight: { 390: 270, 1440: 430 } },
 ];
-const widths = [390, 1440];
+const widths = [390, 768, 1440];
+const allCardPages = [
+  { name: "motorcycle catalog", path: "/motorcycles" },
+  { name: "Honda brand", path: "/motorcycles/honda" },
+  { name: "Yamaha brand", path: "/motorcycles/yamaha" },
+  { name: "Kawasaki brand", path: "/motorcycles/kawasaki" },
+  { name: "Vespa brand", path: "/motorcycles/vespa" },
+];
 
 function findChrome() {
   if (process.env.CHROME_BIN && fs.existsSync(process.env.CHROME_BIN)) return process.env.CHROME_BIN;
@@ -166,6 +173,86 @@ try {
       if (check.name === "motorcycle hero") {
         if ((result?.sectionPaddingTop||0) > 50 || (result?.sectionPaddingBottom||0) > 50) failures.push(`${width}px detail page: section spacing is oversized (${result.sectionPaddingTop}/${result.sectionPaddingBottom}px)`);
         if ((result?.headingSize||0) > 41) failures.push(`${width}px detail page: section heading is ${result.headingSize}px, expected compact product hierarchy`);
+      }
+    }
+  }
+
+
+  // all-card-image-audit: inspect every rendered motorcycle card, not only the first one.
+  for (const width of widths) {
+    await cdp.send("Emulation.setDeviceMetricsOverride", {
+      width,
+      height: width <= 430 ? 844 : width <= 768 ? 1024 : 900,
+      deviceScaleFactor: 1,
+      mobile: width <= 768,
+    });
+
+    for (const page of allCardPages) {
+      await cdp.send("Page.navigate", { url: new URL(page.path, base).toString() });
+      await waitForComplete(cdp.send);
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      const audit = await evaluate(cdp.send, `(() => {
+        const root=document.documentElement;
+        const stages=[...document.querySelectorAll(".model-card-media")];
+        return {
+          overflow:root.scrollWidth-root.clientWidth,
+          viewport:innerWidth,
+          cards:stages.map((stage,index)=>{
+            const stageRect=stage.getBoundingClientRect();
+            const image=stage.querySelector("img");
+            const placeholder=stage.matches(".model-media-placeholder,.media-unavailable")
+              ? stage
+              : stage.querySelector(".model-media-placeholder,.media-unavailable");
+            const imageRect=image?.getBoundingClientRect();
+            return {
+              index,
+              background:getComputedStyle(stage).backgroundColor,
+              right:stageRect.right,
+              left:stageRect.left,
+              width:stageRect.width,
+              height:stageRect.height,
+              imageBackground:image ? getComputedStyle(image).backgroundColor : "",
+              imageObjectFit:image ? getComputedStyle(image).objectFit : "",
+              imageTransform:image ? getComputedStyle(image).transform : "",
+              imageComplete:image ? image.complete : false,
+              naturalWidth:image ? image.naturalWidth : 0,
+              naturalHeight:image ? image.naturalHeight : 0,
+              imageRect:imageRect ? {
+                left:imageRect.left,top:imageRect.top,right:imageRect.right,bottom:imageRect.bottom,
+                width:imageRect.width,height:imageRect.height
+              } : null,
+              placeholder:Boolean(placeholder),
+              placeholderBackground:placeholder ? getComputedStyle(placeholder).backgroundColor : ""
+            };
+          })
+        };
+      })()`);
+
+      results.push({ width, name: `${page.name} all cards`, path: page.path, ...audit });
+      if (!audit?.cards?.length) failures.push(`${width}px ${page.name}: no .model-card-media cards were rendered`);
+      if ((audit?.overflow || 0) > 5) failures.push(`${width}px ${page.name}: page overflows horizontally by ${audit.overflow}px`);
+
+      for (const card of audit?.cards || []) {
+        const label=`${width}px ${page.name} card ${card.index + 1}`;
+        if (card.background !== "rgb(255, 255, 255)") failures.push(`${label}: stage background is ${card.background || "missing"}, expected white`);
+        if (card.left < -2 || card.right > (audit.viewport || width) + 2) failures.push(`${label}: image stage leaves the viewport`);
+        if (!card.imageRect && !card.placeholder) failures.push(`${label}: has neither a loaded image nor a placeholder`);
+        if (card.imageRect) {
+          if (!card.imageComplete || card.naturalWidth < 2 || card.naturalHeight < 2) failures.push(`${label}: image failed to load`);
+          if (card.imageObjectFit !== "contain") failures.push(`${label}: image object-fit is ${card.imageObjectFit || "missing"}, expected contain`);
+          if (card.imageTransform && card.imageTransform !== "none") failures.push(`${label}: image transform is ${card.imageTransform}, expected none`);
+          if (card.imageBackground && card.imageBackground !== "rgb(255, 255, 255)") failures.push(`${label}: image background is ${card.imageBackground}, expected white`);
+          const tolerance=1;
+          if (
+            card.imageRect.left < card.left - tolerance ||
+            card.imageRect.right > card.right + tolerance ||
+            card.imageRect.top < -tolerance ||
+            card.imageRect.width > card.width * 0.9 + tolerance ||
+            card.imageRect.height > card.height * 0.84 + tolerance
+          ) failures.push(`${label}: image is not safely contained in the white stage`);
+        }
+        if (card.placeholderBackground && card.placeholderBackground !== "rgb(255, 255, 255)") failures.push(`${label}: placeholder background is not white`);
       }
     }
   }
