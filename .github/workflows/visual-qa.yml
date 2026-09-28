@@ -2,6 +2,9 @@ name: Visual QA
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - fix/sitewide-ui-stabilization-sep28
 
 jobs:
   browser-qa:
