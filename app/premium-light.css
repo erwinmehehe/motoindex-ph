@@ -445,6 +445,12 @@ input:focus,select:focus,textarea:focus{
 .footer-grid a:hover{color:#444CE7!important}
 .footer-note{border-color:rgba(148,163,184,.16)!important}
 
+/* Keep the model buyer brief on an explicit light surface at every breakpoint. */
+.priority-model-brief{
+  background:#fff!important;
+  color:#0f172a!important;
+}
+
 /* Colored shadows, not grey-only depth. */
 .source-panel,.priority-model-brief,.author-profile-hero,.author-profile-links{
   box-shadow:0 22px 60px rgba(68,76,231,.07)!important;
