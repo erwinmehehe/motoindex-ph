@@ -166,6 +166,94 @@ html body .motorcycle-entity-page .motorcycle-entity-section{
   padding:38px 0!important;
   border-top:1px solid rgba(148,163,184,.12)!important;
 }
+
+/* Buyer brief is part of the canonical model-detail surface. Keep it explicit
+   here so removing route-local CSS cannot make the section transparent again. */
+html body .motorcycle-entity-page .priority-model-brief{
+  width:min(1120px,calc(100% - 40px))!important;
+  margin:0 auto!important;
+  padding:38px 0!important;
+  background:#fff!important;
+  color:#101828!important;
+  border-top:1px solid rgba(148,163,184,.12)!important;
+}
+html body .motorcycle-entity-page .priority-model-brief-head{
+  max-width:780px!important;
+}
+html body .motorcycle-entity-page .priority-model-brief-head>span{
+  display:block!important;
+  margin-bottom:7px!important;
+  color:#444CE7!important;
+  font-size:9px!important;
+  font-weight:850!important;
+  letter-spacing:.1em!important;
+  text-transform:uppercase!important;
+}
+html body .motorcycle-entity-page .priority-model-brief h2{
+  margin:0!important;
+  color:#101828!important;
+  font-size:clamp(28px,3.2vw,40px)!important;
+  line-height:1.04!important;
+  letter-spacing:-.04em!important;
+}
+html body .motorcycle-entity-page .priority-model-brief-head>p{
+  margin:10px 0 0!important;
+  color:#667085!important;
+  font-size:12px!important;
+  line-height:1.6!important;
+}
+html body .motorcycle-entity-page .priority-model-brief-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:12px!important;
+  margin-top:22px!important;
+}
+html body .motorcycle-entity-page .priority-model-brief-grid>article{
+  min-width:0!important;
+  padding:18px!important;
+  border:1px solid rgba(148,163,184,.18)!important;
+  border-radius:16px!important;
+  background:#fff!important;
+  color:#344054!important;
+  box-shadow:none!important;
+}
+html body .motorcycle-entity-page .priority-model-brief-grid>article>span{
+  display:block!important;
+  margin-bottom:8px!important;
+  color:#444CE7!important;
+  font-size:9px!important;
+  font-weight:850!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+}
+html body .motorcycle-entity-page .priority-model-brief-grid p,
+html body .motorcycle-entity-page .priority-model-brief-grid li{
+  color:#344054!important;
+  font-size:11px!important;
+  line-height:1.58!important;
+}
+html body .motorcycle-entity-page .priority-model-alternatives{
+  display:flex!important;
+  gap:8px 14px!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  margin-top:16px!important;
+  padding-top:14px!important;
+  border-top:1px solid rgba(148,163,184,.14)!important;
+  background:#fff!important;
+  color:#344054!important;
+}
+html body .motorcycle-entity-page .priority-model-alternatives strong{
+  color:#101828!important;
+  font-size:10px!important;
+}
+html body .motorcycle-entity-page .priority-model-alternatives a{
+  color:#444CE7!important;
+  font-size:10px!important;
+  font-weight:760!important;
+  text-decoration:none!important;
+}
+
 /* ModelPage.module.css is route-local and can load after globals. These selectors
    intentionally outrank that module so the compact cockpit remains the authority. */
 html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-copy h1{
