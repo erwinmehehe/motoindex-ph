@@ -24,7 +24,7 @@ function entityTypeForHref(href: string): "helmet" | "tire" | "topbox" | null {
 export function ProductCard({ item }: { item: ProductCardItem }) {
   const entityType = entityTypeForHref(item.href);
   const productName = `${item.brand} ${item.model}`;
-  const missingPhoto = <EntityVerificationFallback brand={item.brand} model={item.model} />;
+  const missingPhoto = <EntityVerificationFallback brand={item.brand} model={item.model} kind={entityType || "motorcycle"} />;
   const card = <Link className="product-card ui-product-card" href={item.href}>
     {entityType && item.entityId
       ? <EntityMedia entityType={entityType} entityId={item.entityId} className="product-card-media ui-product-media" showCredit={false} fallback={missingPhoto} />
