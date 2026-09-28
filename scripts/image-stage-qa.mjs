@@ -262,7 +262,7 @@ try {
       await navigateAndWait(cdp.send, new URL(page.path, base));
       const renderedCount = await waitForMotorcycleCards(cdp.send);
 
-      const scopedEntityIds = await evaluate(cdp.send, `(() => {
+      const scopedHrefs = await evaluate(cdp.send, `(() => {
         const all=[...document.querySelectorAll(".model-card-media")];
         return all.filter(stage=>{
           const standard=stage.closest(".motorcycle-card-standard");
@@ -271,10 +271,10 @@ try {
           return ${JSON.stringify(page.scope)}==="catalog"
             ? section?.id==="browse-models"
             : section?.id==="models";
-        }).map(stage=>stage.getAttribute("data-entity-id")).filter(Boolean);
+        }).map(stage=>stage.querySelector("a.entity-media-link")?.getAttribute("href") || stage.closest("a")?.getAttribute("href")).filter(Boolean);
       })()`) || [];
 
-      const scopedCount = scopedEntityIds.length;
+      const scopedCount = scopedHrefs.length;
       if (!scopedCount) {
         const debug = await evaluate(cdp.send, `(() => ({
           href:location.href,
@@ -288,9 +288,9 @@ try {
 
       const pageResult = { width, name: `${page.name} all cards`, path: page.path, cards: [] };
       for (let index = 0; index < scopedCount; index += 1) {
-        const entityId = scopedEntityIds[index];
+        const modelHref = scopedHrefs[index];
         const prepared = await evaluate(cdp.send, `(() => {
-          const stage=[...document.querySelectorAll(".model-card-media")].find(node=>node.getAttribute("data-entity-id")===${JSON.stringify(entityId)});
+          const stage=[...document.querySelectorAll(".model-card-media")].find(node=>(node.querySelector("a.entity-media-link")?.getAttribute("href") || node.closest("a")?.getAttribute("href"))===${JSON.stringify(modelHref)});
           if(!stage)return false;
           const image=stage.querySelector("img");
           if(image){ image.loading="eager"; image.setAttribute("fetchpriority","high"); }
@@ -305,7 +305,7 @@ try {
         await new Promise(resolve => setTimeout(resolve, 220));
 
         const card = await evaluate(cdp.send, `(() => {
-          const stage=[...document.querySelectorAll(".model-card-media")].find(node=>node.getAttribute("data-entity-id")===${JSON.stringify(entityId)});
+          const stage=[...document.querySelectorAll(".model-card-media")].find(node=>(node.querySelector("a.entity-media-link")?.getAttribute("href") || node.closest("a")?.getAttribute("href"))===${JSON.stringify(modelHref)});
           if(!stage)return null;
           const stageRect=stage.getBoundingClientRect();
           const image=stage.querySelector("img");
@@ -315,7 +315,7 @@ try {
           const imageRect=image?.getBoundingClientRect();
           return {
             index:${index},
-            entityId:${JSON.stringify(entityId)},
+            modelHref:${JSON.stringify(modelHref)},
             href:stage.closest("a")?.getAttribute("href") || stage.parentElement?.closest("a")?.getAttribute("href") || "",
             label:stage.closest("article")?.innerText?.split("\n").slice(0,2).join(" · ") || "",
             background:getComputedStyle(stage).backgroundColor,
