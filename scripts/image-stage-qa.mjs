@@ -356,8 +356,15 @@ try {
         })()`);
 
         if (!card) {
-          failures.push(`${width}px ${page.name} card ${index + 1}: card disappeared during inspection`);
-          continue;
+          const debug = await evaluate(cdp.send, `(() => ({
+            href: location.href,
+            h1: document.querySelector("h1")?.textContent || "",
+            allMedia: document.querySelectorAll(".model-card-media").length,
+            standardCards: document.querySelectorAll(".motorcycle-card-standard").length,
+            unavailable: document.querySelectorAll(".media-unavailable").length
+          }))()`);
+          failures.push(`${width}px ${page.name} card ${index + 1}: card disappeared during inspection (url=${debug?.href||"unknown"}; h1=${debug?.h1||"none"}; media=${debug?.allMedia||0}; standard=${debug?.standardCards||0}; unavailable=${debug?.unavailable||0})`);
+          break;
         }
 
         pageResult.cards.push(card);
