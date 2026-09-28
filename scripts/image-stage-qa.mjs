@@ -250,6 +250,8 @@ try {
             const imageRect=image?.getBoundingClientRect();
             return {
               index,
+              href:stage.closest("a")?.getAttribute("href") || stage.parentElement?.closest("a")?.getAttribute("href") || "",
+              label:stage.closest("article")?.innerText?.split("\n").slice(0,2).join(" · ") || "",
               background:getComputedStyle(stage).backgroundColor,
               right:stageRect.right,
               left:stageRect.left,
@@ -279,7 +281,7 @@ try {
       if ((audit?.overflow || 0) > 5) failures.push(`${width}px ${page.name}: page overflows horizontally by ${audit.overflow}px`);
 
       for (const card of audit?.cards || []) {
-        const label=`${width}px ${page.name} card ${card.index + 1}`;
+        const label=`${width}px ${page.name} card ${card.index + 1}${card.label ? ` (${card.label})` : ""}${card.href ? ` ${card.href}` : ""}`;
         if (card.background !== "rgb(255, 255, 255)") failures.push(`${label}: stage background is ${card.background || "missing"}, expected white`);
         if (card.left < -2 || card.right > (audit.viewport || width) + 2) failures.push(`${label}: image stage leaves the viewport`);
         if (!card.imageRect && !card.placeholder) failures.push(`${label}: has neither a loaded image nor a placeholder`);
@@ -296,7 +298,7 @@ try {
             card.imageRect.bottom > card.bottom + tolerance ||
             card.imageRect.width > card.width * 0.9 + tolerance ||
             card.imageRect.height > card.height * 0.84 + tolerance
-          ) failures.push(`${label}: image is not safely contained in the white stage`);
+          ) failures.push(`${label}: image is not safely contained in the white stage (image ${Math.round(card.imageRect.width)}x${Math.round(card.imageRect.height)}; stage ${Math.round(card.width)}x${Math.round(card.height)})`);
         }
         if (card.placeholderBackground && card.placeholderBackground !== "rgb(255, 255, 255)") failures.push(`${label}: placeholder background is not white`);
       }
