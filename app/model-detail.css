@@ -166,6 +166,91 @@ html body .motorcycle-entity-page .motorcycle-entity-section{
   padding:38px 0!important;
   border-top:1px solid rgba(148,163,184,.12)!important;
 }
+
+/* Buyer brief is part of the canonical model-detail surface. */
+html body .priority-model-brief{
+  width:min(1120px,calc(100% - 40px));
+  margin:0 auto;
+  padding:38px 0;
+  background:var(--mi-color-surface);
+  color:var(--mi-color-ink);
+  border-top:1px solid var(--mi-color-line-soft);
+}
+html body .priority-model-brief-head{max-width:780px}
+html body .priority-model-brief-head>span{
+  display:block;
+  margin-bottom:7px;
+  color:var(--mi-color-primary);
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+html body .priority-model-brief h2{
+  margin:0;
+  color:var(--mi-color-ink);
+  font-size:clamp(28px,3.2vw,40px);
+  line-height:1.04;
+  letter-spacing:-.04em;
+}
+html body .priority-model-brief-head>p{
+  margin:10px 0 0;
+  color:var(--mi-color-copy);
+  font-size:12px;
+  line-height:1.6;
+}
+html body .priority-model-brief-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin-top:22px;
+}
+html body .priority-model-brief-grid>article{
+  min-width:0;
+  padding:18px;
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-md);
+  background:var(--mi-color-surface);
+  color:var(--mi-color-slate-700);
+  box-shadow:none;
+}
+html body .priority-model-brief-grid>article>span{
+  display:block;
+  margin-bottom:8px;
+  color:var(--mi-color-primary);
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+html body .priority-model-brief-grid p,
+html body .priority-model-brief-grid li{
+  color:var(--mi-color-slate-700);
+  font-size:11px;
+  line-height:1.58;
+}
+html body .priority-model-alternatives{
+  display:flex;
+  gap:8px 14px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px solid var(--mi-color-line-soft);
+  background:var(--mi-color-surface);
+  color:var(--mi-color-slate-700);
+}
+html body .priority-model-alternatives strong{
+  color:var(--mi-color-ink);
+  font-size:10px;
+}
+html body .priority-model-alternatives a{
+  color:var(--mi-color-primary);
+  font-size:10px;
+  font-weight:760;
+  text-decoration:none;
+}
+
 /* ModelPage.module.css is route-local and can load after globals. These selectors
    intentionally outrank that module so the compact cockpit remains the authority. */
 html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-copy h1{
@@ -203,6 +288,15 @@ html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual 
   html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual .motorcycle-hero-media .bike-art.big{height:300px!important;min-height:0!important;max-height:300px!important}
 }
 @media(max-width:600px){
+  html body .priority-model-brief{
+    width:min(100% - 32px,1120px);
+    padding:32px 0;
+  }
+  html body .priority-model-brief-grid{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  html body .priority-model-brief h2{font-size:30px}
   html body .motorcycle-entity-hero .breadcrumbs{margin-bottom:16px!important}
   html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-copy h1{font-size:38px!important;line-height:1!important}
   html body .entity-hero-purpose{font-size:14px!important}

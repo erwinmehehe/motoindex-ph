@@ -7,6 +7,7 @@ import { EntityMedia } from "@/components/EntityMedia";
 import { EntityVerificationFallback } from "@/components/EntityVerificationFallback";
 import { CompareButton } from "@/components/CompareButton";
 import { SaveToShortlistButton } from "@/components/SaveToShortlistButton";
+import { ShareModelButton } from "@/components/ShareModelButton";
 import { ProductEntityNav } from "@/components/ProductEntityNav";
 import { VariantMatrix } from "@/components/VariantMatrix";
 import { PriceIntelligence } from "@/components/PriceIntelligence";
@@ -130,11 +131,11 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
               {!isPrevious && !availabilityUncertain && <Link className="button" href={`/get-quote/${model.makeSlug}/${model.slug}`}>Get dealer price</Link>}
               <a className={isPrevious ? "button" : "button ghost on-light"} href={isPrevious ? "#used" : "#installment"}>{isPrevious ? "Check used value" : "Estimate monthly"}</a>
             </CTAGroup>
-            <div className="entity-hero-utilities"><SaveToShortlistButton modelId={model.id} /><CompareButton modelId={model.id} /></div>
+            <div className="entity-hero-utilities"><SaveToShortlistButton modelId={model.id} /><CompareButton modelId={model.id} /><ShareModelButton label="Share" /></div>
             <Freshness model={model} />
           </div>
           <div className="motorcycle-hero-visual">
-            <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" priority sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} className="authority-media-fallback" />} />
+            <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" priority showCredit={false} sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} className="authority-media-fallback" />} />
             <div className="motorcycle-hero-facts">
               <HeroFact label="Engine" value={`${model.engineCc} cc`} note={`${model.powerHp} hp · ${model.torqueNm} Nm`} />
               <HeroFact label="Seat" value={`${model.seatHeightMm} mm`} note={`${model.curbWeightKg} kg curb weight`} />

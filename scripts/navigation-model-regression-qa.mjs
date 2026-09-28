@@ -193,6 +193,34 @@ try {
   await auditHub("/gear/helmets", "helmets", 390);
   await auditHub("/ownership", "ownership", 390);
 
+  async function auditProductGrid(pathname, label, selector, width, minimumColumns, maximumColumns = Infinity) {
+    await viewport(width, width <= 768 ? 1024 : 900);
+    await navigate(pathname);
+    const audit = await evaluate(cdp.send, `(() => {
+      const grid=document.querySelector(${JSON.stringify(selector)});
+      if(!grid)return {found:false};
+      const style=getComputedStyle(grid);
+      const columns=(style.gridTemplateColumns||"").trim();
+      const count=columns && columns!=="none" ? columns.split(/\\s+/).length : 0;
+      const rect=grid.getBoundingClientRect();
+      return {found:true,display:style.display,columns,count,width:rect.width,inlineStyle:grid.getAttribute("style")||""};
+    })()`);
+    results.push({ check: `product-grid-${label}-${width}`, ...audit });
+    if (!audit?.found) failures.push(`${label} ${width}px product grid is missing.`);
+    if (audit?.display !== "grid") failures.push(`${label} ${width}px product grid display is ${audit?.display || "missing"}; columns=${audit?.columns || "none"}; inline=${audit?.inlineStyle || "none"}.`);
+    if ((audit?.count || 0) < minimumColumns) failures.push(`${label} ${width}px product grid has ${audit?.count || 0} columns; expected at least ${minimumColumns}. Computed=${audit?.columns || "none"}; width=${audit?.width || 0}; inline=${audit?.inlineStyle || "none"}.`);
+    if ((audit?.count || 0) > maximumColumns) failures.push(`${label} ${width}px product grid has ${audit.count} columns; expected no more than ${maximumColumns}.`);
+  }
+
+  for (const width of [1440, 768, 390]) {
+    const minColumns = width === 1440 ? 3 : width === 768 ? 2 : 1;
+    const maxColumns = width === 390 ? 1 : Infinity;
+    await auditProductGrid("/motorcycles", "motorcycles", ".motorcycle-catalog-grid", width, minColumns, maxColumns);
+    for (const brand of ["honda", "yamaha", "kawasaki", "vespa"]) {
+      await auditProductGrid(`/motorcycles/${brand}`, `${brand}-brand`, ".ph-brand-model-grid", width, minColumns, maxColumns);
+    }
+  }
+
   await viewport(1440);
   await navigate("/motorcycles/yamaha/aerox-v3");
   const modelAudit = await evaluate(cdp.send, `(() => {
@@ -203,8 +231,8 @@ try {
     const verdict=document.querySelector('.authority-verdict');
     const briefs=[...document.querySelectorAll('.priority-model-brief')];
     const modelBlocks=[...document.querySelectorAll('.motorcycle-entity-body>.motorcycle-entity-section, .priority-model-brief, .model-decision-path-wrap')];
-    const rgb = value => (value.match(/\d+(?:\.\d+)?/g)||[]).slice(0,3).map(Number);
-    const isDark = value => { const [r=255,g=255,b=255]=rgb(value); return r<70&&g<70&&b<70; };
+    const rgba = value => (value.match(/\d+(?:\.\d+)?/g)||[]).map(Number);
+    const isDark = value => { const [r=255,g=255,b=255,a=1]=rgba(value); return a>.5&&r<70&&g<70&&b<70; };
     const briefAudit=briefs.map((brief,index)=>{
       const title=brief.querySelector('h2');
       const card=brief.querySelector('.priority-model-brief-grid article');
@@ -284,8 +312,9 @@ try {
   if ((mobileModel?.h1Size || 0) > 40) failures.push(`390px model H1 is oversized at ${mobileModel.h1Size}px.`);
   if ((mobileModel?.mediaHeight || 0) > 255) failures.push(`390px model media stage is too tall at ${mobileModel.mediaHeight}px.`);
   for (const brief of mobileModel?.briefs || []) {
-    const nums=(brief.background.match(/\d+(?:\.\d+)?/g)||[]).slice(0,3).map(Number);
-    if (nums.length===3 && nums.every(n=>n<70)) failures.push(`390px buyer brief ${brief.index + 1} has a dark surface (${brief.background}).`);
+    const nums=(brief.background.match(/\d+(?:\.\d+)?/g)||[]).map(Number);
+    const alpha=nums.length>3?nums[3]:1;
+    if (nums.length>=3 && alpha>.5 && nums.slice(0,3).every(n=>n<70)) failures.push(`390px buyer brief ${brief.index + 1} has a dark surface (${brief.background}).`);
     if ((brief.rect?.left || 0) < -2 || (brief.rect?.right || 0) > 392) failures.push(`390px buyer brief ${brief.index + 1} escapes the viewport.`);
   }
   if ((mobileModel?.overflow || 0) > 5) failures.push(`390px Aerox page overflows horizontally by ${mobileModel.overflow}px.`);

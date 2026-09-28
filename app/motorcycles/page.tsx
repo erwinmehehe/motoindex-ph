@@ -102,7 +102,10 @@ export default function MotorcyclesPage() {
 
     <div className="shell motorcycle-index-body">
       {currentModels.length === 0 ? <div className="note-box"><h2>Motorcycle data is being updated</h2><p>Prices and specifications are still being checked. Gear and ownership tools remain available in the meantime.</p></div> : <>
-        <RecentlyViewedRail models={recentModels} />
+        <section id="browse-models" className="motorcycle-catalog-section">
+          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Full price list</span><h2>Browse and filter current motorcycle models</h2><p>Use filters to narrow the market, then open a model page for prices, specifications, financing context, fitment and ownership information.</p></div></div>
+          <ModelExplorer models={forClient(currentModels)} />
+        </section>
 
         <section className={styles.marketSnapshot}>
           <SectionHeader
@@ -138,10 +141,7 @@ export default function MotorcyclesPage() {
           </CTAGroup>
         </section>
 
-        <section id="browse-models" className="motorcycle-catalog-section">
-          <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Full price list</span><h2>Browse and filter current motorcycle models</h2><p>Use filters to narrow the market, then open a model page for prices, specifications, financing context, fitment and ownership information.</p></div></div>
-          <ModelExplorer models={forClient(currentModels)} />
-        </section>
+        <RecentlyViewedRail models={recentModels} />
 
         <section className="motorcycle-brand-directory">
           <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Browse by brand</span><h2>Motorcycle brands and current price ranges</h2><p>Each brand hub keeps its current models, observed price span and model-family context on one canonical destination.</p></div></div>

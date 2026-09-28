@@ -272,6 +272,13 @@ const inspect=`(() => {
   const legacyDealerCards=document.querySelectorAll(".dealer-locator-card,.dealer-partner-strip,.dealer-checklist").length;
 
   const brandBigBikeRows=document.querySelectorAll('#big-bikes a[role="row"]').length;
+  const catalogGrid=document.querySelector(".motorcycle-catalog-grid");
+  const brandModelGrid=document.querySelector(".ph-brand-model-grid");
+  const gridColumnCount=element=>{
+    if(!element)return 0;
+    const columns=(getComputedStyle(element).gridTemplateColumns||"").trim();
+    return columns?columns.split(/\\s+/).length:0;
+  };
   const standardMotorcycleCards=[...document.querySelectorAll('[data-motorcycle-card="standard"]')];
   const standardMotorcycleCardModes=standardMotorcycleCards.map(card=>({
     mode:getComputedStyle(card).display,
@@ -302,6 +309,8 @@ const inspect=`(() => {
     productCards:cards.length,
     collapsedCards,
     brandBigBikeRows,
+    catalogGridColumns:gridColumnCount(catalogGrid),
+    brandGridColumns:gridColumnCount(brandModelGrid),
     standardMotorcycleCards:standardMotorcycleCards.length,
     standardMotorcycleCardModes,
     compareBuilderHeight:compareBuilderRect?.height||0,
@@ -398,8 +407,14 @@ try{
             ? motorcycleCardModes.filter(card=>card.home)
             : [];
       if((["home","motorcycles"].includes(route.name)||route.name.endsWith("-brand"))&&routeCardModes.length<1)failures.push(`${width}px ${route.name}: standard MotorcycleCard did not render in its primary route context`);
-      if(width===1440&&(route.name==="motorcycles"||route.name.endsWith("-brand"))&&routeCardModes.some(card=>card.mode!=="grid"))failures.push(`${width}px ${route.name}: wide MotorcycleCard did not switch to its component-owned row layout`);
-      if(width===390&&(["home","motorcycles"].includes(route.name)||route.name.endsWith("-brand"))&&routeCardModes.some(card=>card.mode==="grid"))failures.push(`${width}px ${route.name}: narrow MotorcycleCard stayed in wide row layout`);
+      if(width===1440&&route.name==="motorcycles"&&(row?.catalogGridColumns||0)<3)failures.push(`${width}px motorcycles: catalog did not render as a multi-column product grid (${row?.catalogGridColumns||0} columns)`);
+      if(width===1440&&route.name.endsWith("-brand")&&(row?.brandGridColumns||0)<3)failures.push(`${width}px ${route.name}: brand models did not render as a three-column product grid (${row?.brandGridColumns||0} columns)`);
+      if(width===768&&route.name==="motorcycles"&&(row?.catalogGridColumns||0)<2)failures.push(`${width}px motorcycles: catalog collapsed below two columns (${row?.catalogGridColumns||0} columns)`);
+      if(width===768&&route.name.endsWith("-brand")&&(row?.brandGridColumns||0)<2)failures.push(`${width}px ${route.name}: brand models collapsed below two columns (${row?.brandGridColumns||0} columns)`);
+      if(width===390&&route.name==="motorcycles"&&(row?.catalogGridColumns||0)>1)failures.push(`${width}px motorcycles: catalog did not collapse to one column (${row?.catalogGridColumns||0} columns)`);
+      if(width===390&&route.name.endsWith("-brand")&&(row?.brandGridColumns||0)>1)failures.push(`${width}px ${route.name}: brand models did not collapse to one column (${row?.brandGridColumns||0} columns)`);
+      if((width===1440||width===390)&&(route.name==="motorcycles"||route.name.endsWith("-brand"))&&routeCardModes.some(card=>card.mode==="grid"))failures.push(`${width}px ${route.name}: MotorcycleCard unexpectedly switched to its old wide row layout inside the product grid`);
+      if(width===390&&route.name==="home"&&routeCardModes.some(card=>card.mode==="grid"))failures.push(`${width}px home: narrow MotorcycleCard stayed in wide row layout`);
       if(route.name==="compare-index"&&width===1440&&(row?.compareBuilderHeight||0)>260)failures.push(`${width}px compare-index: builder is too tall (${row.compareBuilderHeight}px)`);
       if(route.name==="compare-index"&&width===390&&(row?.compareBuilderHeight||0)>620)failures.push(`${width}px compare-index: mobile builder is too tall (${row.compareBuilderHeight}px)`);
       if(["helmets","tires","accessories","top-box"].includes(route.name)&&(row?.deferredSections||0)>0)failures.push(`${width}px ${route.name}: ${row.deferredSections} top-level section(s) still defer rendering with content-visibility:auto`);

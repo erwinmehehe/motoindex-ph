@@ -1,13 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
-  <title id="title">Motorcycle image placeholder</title>
-  <desc id="desc">Neutral MotoIndex motorcycle silhouette used while a verified product photo is unavailable.</desc>
-  <rect width="1200" height="1200" rx="96" fill="#fff"/>
-  <circle cx="370" cy="735" r="118" fill="none" stroke="#D0D5DD" stroke-width="34"/>
-  <circle cx="830" cy="735" r="118" fill="none" stroke="#D0D5DD" stroke-width="34"/>
-  <path d="M424 710h140l96-174h102l76 174h-80l-70-111-62 111h-58l-118-166h-72" fill="none" stroke="#667085" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M528 544h182c43 0 78 35 78 78v12H570z" fill="#EEF2FF" stroke="#444CE7" stroke-width="28" stroke-linejoin="round"/>
-  <path d="M705 534l38-82h72" fill="none" stroke="#667085" stroke-width="30" stroke-linecap="round"/>
-  <path d="M444 535h116" fill="none" stroke="#667085" stroke-width="30" stroke-linecap="round"/>
-  <circle cx="370" cy="735" r="20" fill="#444CE7"/>
-  <circle cx="830" cy="735" r="20" fill="#444CE7"/>
+  <title id="title">Motorcycle photo pending</title>
+  <desc id="desc">Clean white MotoIndex placeholder shown until an exact motorcycle product image is available.</desc>
+  <rect width="1200" height="1200" fill="#ffffff"/>
+  <circle cx="365" cy="690" r="112" fill="#ffffff" stroke="#cbd5e1" stroke-width="18"/>
+  <circle cx="835" cy="690" r="112" fill="#ffffff" stroke="#cbd5e1" stroke-width="18"/>
+  <path d="M365 690l150-210h160l160 210M515 480l105 210H365m255 0h215M575 480l78-92m22 92 92-90" fill="none" stroke="#cbd5e1" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M470 505h210l72 92H535Z" fill="#f8fafc" stroke="#cbd5e1" stroke-width="14" stroke-linejoin="round"/>
+  <text x="600" y="960" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#64748b">PHOTO PENDING</text>
 </svg>
