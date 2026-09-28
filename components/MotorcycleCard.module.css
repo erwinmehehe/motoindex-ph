@@ -38,7 +38,7 @@
   aspect-ratio:auto;
   place-items:center;
   overflow:hidden;
-  padding:16px;
+  padding:0;
   border:0;
   border-bottom:1px solid var(--mi-color-line-soft);
   border-radius:0;
@@ -46,7 +46,12 @@
   box-shadow:none;
 }
 
-.card .standardMedia :global(.entity-media-link),
+.card .standardMedia :global(.entity-media-link){
+  position:relative;
+  display:block;
+  width:90%;
+  height:84%;
+}
 .mediaFallback{
   display:grid;
   width:100%;
@@ -168,7 +173,7 @@
     height:190px;
     min-height:190px;
     align-self:center;
-    padding:14px;
+    padding:0;
     border-bottom:0;
     background:#fff;
   }
