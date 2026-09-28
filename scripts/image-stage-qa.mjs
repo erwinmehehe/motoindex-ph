@@ -210,6 +210,8 @@ try {
               background:getComputedStyle(stage).backgroundColor,
               right:stageRect.right,
               left:stageRect.left,
+              top:stageRect.top,
+              bottom:stageRect.bottom,
               width:stageRect.width,
               height:stageRect.height,
               imageBackground:image ? getComputedStyle(image).backgroundColor : "",
@@ -247,7 +249,8 @@ try {
           if (
             card.imageRect.left < card.left - tolerance ||
             card.imageRect.right > card.right + tolerance ||
-            card.imageRect.top < -tolerance ||
+            card.imageRect.top < card.top - tolerance ||
+            card.imageRect.bottom > card.bottom + tolerance ||
             card.imageRect.width > card.width * 0.9 + tolerance ||
             card.imageRect.height > card.height * 0.84 + tolerance
           ) failures.push(`${label}: image is not safely contained in the white stage`);
