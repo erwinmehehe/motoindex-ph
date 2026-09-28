@@ -9,7 +9,6 @@ import { GrowthModelBrief } from "@/components/GrowthModelBrief";
 import { PriorityCommercialIntent } from "@/components/PriorityCommercialIntent";
 import { DecisionPath } from "@/components/DecisionPath";
 import { RecentlyViewedTracker } from "@/components/RecentlyViewed";
-import { ShareModelButton } from "@/components/ShareModelButton";
 import { pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
 import { priorityModelGrowthProfile } from "@/lib/priorityModelGrowth";
@@ -108,7 +107,6 @@ export default async function ModelPage({ params }: { params: Promise<{ make: st
   if (!model) return notFound();
   return <>
     <RecentlyViewedTracker model={{ id: model.id, make: model.make, model: model.model, makeSlug: model.makeSlug, slug: model.slug }} />
-    <div className="model-floating-share"><ShareModelButton label="Share model" /></div>
     <MotorcycleEntityPage model={model} />
     <PriorityModelBrief model={model} />
     <GrowthModelBrief model={model} />
