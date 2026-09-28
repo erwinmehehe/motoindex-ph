@@ -114,7 +114,7 @@ export function MotorcycleCard({
   const showLifecycle = Boolean(model.marketStatus && model.marketStatus !== "current");
   return <article className={`${styles.card} model-card motorcycle-card motorcycle-card-standard`}>
     <div className={styles.standard} data-motorcycle-card="standard">
-      <EntityMedia entityType="motorcycle" entityId={model.id} className={`${styles.standardMedia} model-card-media`} linkHref={href} showCredit={false} forceFill fallback={<MotorcycleFallback model={model} href={href} className={`${styles.mediaFallback} model-media-placeholder`} />}/>
+      <EntityMedia entityType="motorcycle" entityId={model.id} className={`${styles.standardMedia} model-card-media`} linkHref={href} showCredit={false} forceFill mediaStyle={{height:180,minHeight:180,aspectRatio:"auto",padding:0}} linkStyle={{position:"relative",display:"block",width:"90%",height:"84%",minHeight:0}} fallback={<MotorcycleFallback model={model} href={href} className={`${styles.mediaFallback} model-media-placeholder`} />}/>
       <div className={`${styles.standardBody} model-card-body`}>
         <div className={`${styles.topline} model-card-topline`}><span className={styles.brandMark}>{brandLogos[model.make] ? <Image src={brandLogos[model.make]} alt={`${model.make} logo`} width={84} height={28} unoptimized /> : <strong>{model.make}</strong>}</span><SaveToShortlistButton modelId={model.id} compact/></div>
         {needsUpdate&&<span className={`${styles.status} catalog-status`}>Needs update</span>}
