@@ -83,6 +83,48 @@ async function waitForComplete(send) {
   throw new Error("Page did not finish loading.");
 }
 
+async function warmAllCardMedia(send) {
+  await evaluate(send, `(() => {
+    for (const image of document.querySelectorAll(".model-card-media img")) {
+      image.loading = "eager";
+      image.setAttribute("fetchpriority", "high");
+    }
+    return true;
+  })()`);
+
+  const positions = await evaluate(send, `(() => {
+    const height=Math.max(document.documentElement.scrollHeight,document.body?.scrollHeight||0);
+    const viewport=Math.max(innerHeight,1);
+    const max=Math.max(0,height-viewport);
+    const step=Math.max(420,Math.round(viewport*.7));
+    const values=[];
+    for(let y=0;y<=max;y+=step) values.push(y);
+    if(values.at(-1)!==max) values.push(max);
+    return values.slice(0,40);
+  })()`) || [0];
+
+  for (const y of positions) {
+    await evaluate(send, `window.scrollTo({top:${y},behavior:"instant"}); true`);
+    await new Promise(resolve => setTimeout(resolve, 120));
+  }
+
+  await evaluate(send, `new Promise(resolve => {
+    const images=[...document.querySelectorAll(".model-card-media img")];
+    const pending=images.filter(image=>!image.complete);
+    if(!pending.length){resolve(true);return;}
+    let remaining=pending.length;
+    const done=()=>{remaining-=1;if(remaining<=0){clearTimeout(timer);resolve(true);}};
+    const timer=setTimeout(()=>resolve(false),8000);
+    for(const image of pending){
+      image.addEventListener("load",done,{once:true});
+      image.addEventListener("error",done,{once:true});
+    }
+  })`);
+
+  await evaluate(send, 'window.scrollTo({top:0,behavior:"instant"}); true');
+  await new Promise(resolve => setTimeout(resolve, 250));
+}
+
 const chrome = findChrome();
 const port = 9555;
 const profile = fs.mkdtempSync(`${os.tmpdir()}/motoindex-image-stage-`);
@@ -190,7 +232,7 @@ try {
     for (const page of allCardPages) {
       await cdp.send("Page.navigate", { url: new URL(page.path, base).toString() });
       await waitForComplete(cdp.send);
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await warmAllCardMedia(cdp.send);
 
       const audit = await evaluate(cdp.send, `(() => {
         const root=document.documentElement;
