@@ -137,7 +137,7 @@ async function waitForComplete(send){
 
 async function warmLazyMedia(send){
   await evaluate(send,`(() => {
-    for(const image of document.querySelectorAll(".ui-product-media img,.entity-media-contained img")){
+    for(const image of document.querySelectorAll(".ui-product-media img,.entity-media-contained img,.model-card-media img")){
       image.loading="eager";
       image.setAttribute("fetchpriority","high");
     }
@@ -157,7 +157,7 @@ async function warmLazyMedia(send){
   }
 
   await evaluate(send,`new Promise(resolve => {
-    const images=[...document.querySelectorAll(".ui-product-media img,.entity-media-contained img")];
+    const images=[...document.querySelectorAll(".ui-product-media img,.entity-media-contained img,.model-card-media img")];
     const pending=images.filter(image=>!image.complete);
     if(!pending.length){resolve(true);return;}
     let remaining=pending.length;
@@ -211,7 +211,7 @@ const inspect=`(() => {
   const h1Style=h1?getComputedStyle(h1):null;
   const h1Contrast=h1Style?contrast(rgb(h1Style.color),effectiveBackground(h1)):null;
 
-  const media=[...document.querySelectorAll(".ui-product-media,.entity-media-contained")];
+  const media=[...document.querySelectorAll(".ui-product-media,.entity-media-contained,.model-card-media")];
   const mediaProblems=[];
   let productImages=0;
   let unloadedProductImages=0;
