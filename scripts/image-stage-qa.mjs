@@ -11,11 +11,11 @@ const checks = [
 ];
 const widths = [390, 768, 1440];
 const allCardPages = [
-  { name: "motorcycle catalog", path: "/motorcycles", selector: ".motorcycle-catalog-grid .model-card-media" },
-  { name: "Honda brand", path: "/motorcycles/honda", selector: ".ph-brand-model-grid .model-card-media" },
-  { name: "Yamaha brand", path: "/motorcycles/yamaha", selector: ".ph-brand-model-grid .model-card-media" },
-  { name: "Kawasaki brand", path: "/motorcycles/kawasaki", selector: ".ph-brand-model-grid .model-card-media" },
-  { name: "Vespa brand", path: "/motorcycles/vespa", selector: ".ph-brand-model-grid .model-card-media" },
+  { name: "motorcycle catalog", path: "/motorcycles", selector: '#browse-models [data-motorcycle-card="standard"] .model-card-media' },
+  { name: "Honda brand", path: "/motorcycles/honda", selector: 'section#models [data-motorcycle-card="standard"] .model-card-media' },
+  { name: "Yamaha brand", path: "/motorcycles/yamaha", selector: 'section#models [data-motorcycle-card="standard"] .model-card-media' },
+  { name: "Kawasaki brand", path: "/motorcycles/kawasaki", selector: 'section#models [data-motorcycle-card="standard"] .model-card-media' },
+  { name: "Vespa brand", path: "/motorcycles/vespa", selector: 'section#models [data-motorcycle-card="standard"] .model-card-media' },
 ];
 
 function findChrome() {
