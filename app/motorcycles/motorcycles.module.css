@@ -228,20 +228,11 @@
   .page :global(.motorcycle-index-actions .button:first-child){grid-column:1/-1!important}
   .page :global(.motorcycle-index-actions .button){width:100%!important}
   .page :global(.motorcycle-index-overview){grid-template-columns:1fr 1fr!important}
-  .page :global(.motorcycle-index-quicklinks){
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:8px;
-    border:0;
-  }
+  .page :global(.motorcycle-index-quicklinks){grid-template-columns:1fr!important}
   .page :global(.motorcycle-index-quicklinks)>a,
   .page :global(.motorcycle-index-quicklinks)>a:first-child,
-  .page :global(.motorcycle-index-quicklinks)>a:nth-child(4){
-    min-height:82px;
-    padding:12px;
-    border:1px solid var(--mi-color-line-soft);
-    border-radius:var(--mi-radius-sm);
-    background:var(--mi-color-surface);
-  }
+  .page :global(.motorcycle-index-quicklinks)>a:nth-child(4){padding:12px 0!important;border-left:0!important;border-bottom:1px solid rgba(148,163,184,.16)!important}
+  .page :global(.motorcycle-index-quicklinks)>a:last-child{border-bottom:0!important}
   .page :global(.motorcycle-index-body){padding-top:30px!important;padding-bottom:66px!important}
   .marketSnapshot{margin-top:var(--mi-space-12)}
   .page :global(.motorcycle-catalog-section),
