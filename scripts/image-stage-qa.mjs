@@ -290,7 +290,7 @@ try {
       for (let index = 0; index < scopedCount; index += 1) {
         const modelHref = scopedHrefs[index];
         const prepared = await evaluate(cdp.send, `(() => {
-          const stage=[...document.querySelectorAll(".model-card-media")].find(node=>(node.querySelector("a.entity-media-link")?.getAttribute("href") || node.closest("a")?.getAttribute("href"))===${JSON.stringify(modelHref)});
+          const stage=[...document.querySelectorAll(".motorcycle-card-standard .model-card-media")][${index}];
           if(!stage)return false;
           const image=stage.querySelector("img");
           if(image){ image.loading="eager"; image.setAttribute("fetchpriority","high"); }
@@ -305,7 +305,7 @@ try {
         await new Promise(resolve => setTimeout(resolve, 220));
 
         const card = await evaluate(cdp.send, `(() => {
-          const stage=[...document.querySelectorAll(".model-card-media")].find(node=>(node.querySelector("a.entity-media-link")?.getAttribute("href") || node.closest("a")?.getAttribute("href"))===${JSON.stringify(modelHref)});
+          const stage=[...document.querySelectorAll(".motorcycle-card-standard .model-card-media")][${index}];
           if(!stage)return null;
           const stageRect=stage.getBoundingClientRect();
           const image=stage.querySelector("img");
