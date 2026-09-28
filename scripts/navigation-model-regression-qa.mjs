@@ -193,6 +193,34 @@ try {
   await auditHub("/gear/helmets", "helmets", 390);
   await auditHub("/ownership", "ownership", 390);
 
+  async function auditProductGrid(pathname, label, selector, width, minimumColumns, maximumColumns = Infinity) {
+    await viewport(width, width <= 768 ? 1024 : 900);
+    await navigate(pathname);
+    const audit = await evaluate(cdp.send, `(() => {
+      const grid=document.querySelector(${JSON.stringify(selector)});
+      if(!grid)return {found:false};
+      const style=getComputedStyle(grid);
+      const columns=(style.gridTemplateColumns||"").trim();
+      const count=columns && columns!=="none" ? columns.split(/\\s+/).length : 0;
+      const rect=grid.getBoundingClientRect();
+      return {found:true,display:style.display,columns,count,width:rect.width,inlineStyle:grid.getAttribute("style")||""};
+    })()`);
+    results.push({ check: `product-grid-${label}-${width}`, ...audit });
+    if (!audit?.found) failures.push(`${label} ${width}px product grid is missing.`);
+    if (audit?.display !== "grid") failures.push(`${label} ${width}px product grid display is ${audit?.display || "missing"}; columns=${audit?.columns || "none"}; inline=${audit?.inlineStyle || "none"}.`);
+    if ((audit?.count || 0) < minimumColumns) failures.push(`${label} ${width}px product grid has ${audit?.count || 0} columns; expected at least ${minimumColumns}. Computed=${audit?.columns || "none"}; width=${audit?.width || 0}; inline=${audit?.inlineStyle || "none"}.`);
+    if ((audit?.count || 0) > maximumColumns) failures.push(`${label} ${width}px product grid has ${audit.count} columns; expected no more than ${maximumColumns}.`);
+  }
+
+  for (const width of [1440, 768, 390]) {
+    const minColumns = width === 1440 ? 3 : width === 768 ? 2 : 1;
+    const maxColumns = width === 390 ? 1 : Infinity;
+    await auditProductGrid("/motorcycles", "motorcycles", ".motorcycle-catalog-grid", width, minColumns, maxColumns);
+    for (const brand of ["honda", "yamaha", "kawasaki", "vespa"]) {
+      await auditProductGrid(`/motorcycles/${brand}`, `${brand}-brand`, ".ph-brand-model-grid", width, minColumns, maxColumns);
+    }
+  }
+
   await viewport(1440);
   await navigate("/motorcycles/yamaha/aerox-v3");
   const modelAudit = await evaluate(cdp.send, `(() => {
