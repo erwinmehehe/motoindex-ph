@@ -203,8 +203,8 @@ try {
     const verdict=document.querySelector('.authority-verdict');
     const briefs=[...document.querySelectorAll('.priority-model-brief')];
     const modelBlocks=[...document.querySelectorAll('.motorcycle-entity-body>.motorcycle-entity-section, .priority-model-brief, .model-decision-path-wrap')];
-    const rgb = value => (value.match(/\d+(?:\.\d+)?/g)||[]).slice(0,3).map(Number);
-    const isDark = value => { const [r=255,g=255,b=255]=rgb(value); return r<70&&g<70&&b<70; };
+    const rgba = value => (value.match(/\d+(?:\.\d+)?/g)||[]).map(Number);
+    const isDark = value => { const [r=255,g=255,b=255,a=1]=rgba(value); return a>.5&&r<70&&g<70&&b<70; };
     const briefAudit=briefs.map((brief,index)=>{
       const title=brief.querySelector('h2');
       const card=brief.querySelector('.priority-model-brief-grid article');
@@ -284,8 +284,9 @@ try {
   if ((mobileModel?.h1Size || 0) > 40) failures.push(`390px model H1 is oversized at ${mobileModel.h1Size}px.`);
   if ((mobileModel?.mediaHeight || 0) > 255) failures.push(`390px model media stage is too tall at ${mobileModel.mediaHeight}px.`);
   for (const brief of mobileModel?.briefs || []) {
-    const nums=(brief.background.match(/\d+(?:\.\d+)?/g)||[]).slice(0,3).map(Number);
-    if (nums.length===3 && nums.every(n=>n<70)) failures.push(`390px buyer brief ${brief.index + 1} has a dark surface (${brief.background}).`);
+    const nums=(brief.background.match(/\d+(?:\.\d+)?/g)||[]).map(Number);
+    const alpha=nums.length>3?nums[3]:1;
+    if (nums.length>=3 && alpha>.5 && nums.slice(0,3).every(n=>n<70)) failures.push(`390px buyer brief ${brief.index + 1} has a dark surface (${brief.background}).`);
     if ((brief.rect?.left || 0) < -2 || (brief.rect?.right || 0) > 392) failures.push(`390px buyer brief ${brief.index + 1} escapes the viewport.`);
   }
   if ((mobileModel?.overflow || 0) > 5) failures.push(`390px Aerox page overflows horizontally by ${mobileModel.overflow}px.`);
