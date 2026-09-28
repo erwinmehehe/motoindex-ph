@@ -55,7 +55,9 @@
     "validate:catalog-uniqueness": "node scripts/validate-motorcycle-uniqueness.mjs",
     "validate:comparisons": "node scripts/validate-comparison-briefs.mjs",
     "validate:garage": "node scripts/garage-qa.mjs",
-    "validate:helmet-media": "python scripts/audit-helmet-media-art-direction.py"
+    "validate:helmet-media": "python scripts/audit-helmet-media-art-direction.py",
+    "qa:routes": "node scripts/route-behavior-qa.mjs",
+    "visual:key-regression": "node scripts/key-visual-regression.mjs"
   },
   "dependencies": {
     "next": "15.5.24",
