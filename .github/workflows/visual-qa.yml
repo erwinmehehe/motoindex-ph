@@ -69,6 +69,11 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
         run: node scripts/navigation-model-regression-qa.mjs
 
+      - name: Route behavior QA
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: npm run qa:routes
+
       - name: Priority model commercial QA
         env:
           BASE_URL: http://127.0.0.1:3000
@@ -128,3 +133,138 @@ jobs:
         run: |
           if [ -f /tmp/motoindex-next.pid ]; then kill $(cat /tmp/motoindex-next.pid) || true; fi
           tail -100 /tmp/motoindex-next.log || true
+
+
+  cloudflare-runtime-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build OpenNext Worker
+        run: npm run cf:build
+
+      - name: Start local Cloudflare Worker
+        run: |
+          CI=true npx wrangler dev --ip 127.0.0.1 --port 8787 > /tmp/motoindex-worker.log 2>&1 &
+          echo $! > /tmp/motoindex-worker.pid
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8787/ > /dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/motoindex-worker.log
+          exit 1
+
+      - name: Worker route behavior QA
+        env:
+          BASE_URL: http://127.0.0.1:8787
+        run: npm run qa:routes
+
+      - name: Worker motorcycle image QA
+        env:
+          BASE_URL: http://127.0.0.1:8787
+        run: node scripts/image-stage-qa.mjs
+
+      - name: Upload Worker QA evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: motoindex-worker-qa
+          path: |
+            artifacts/visual-qa
+            /tmp/motoindex-worker.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Stop local Cloudflare Worker
+        if: always()
+        run: |
+          if [ -f /tmp/motoindex-worker.pid ]; then kill $(cat /tmp/motoindex-worker.pid) || true; fi
+          tail -100 /tmp/motoindex-worker.log || true
+
+  key-visual-regression:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout base
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: base
+
+      - name: Checkout candidate
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: head
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: head/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          (cd base && npm ci)
+          (cd head && npm ci)
+
+      - name: Build base and candidate
+        run: |
+          (cd base && npm run build)
+          (cd head && npm run build)
+
+      - name: Start base and candidate servers
+        run: |
+          (cd base && npm run start -- -p 3100 > /tmp/motoindex-base.log 2>&1 & echo $! > /tmp/motoindex-base.pid)
+          (cd head && npm run start -- -p 3200 > /tmp/motoindex-head.log 2>&1 & echo $! > /tmp/motoindex-head.pid)
+          for port in 3100 3200; do
+            ready=0
+            for attempt in $(seq 1 20); do
+              if curl --fail --silent http://127.0.0.1:$port/ > /dev/null; then ready=1; break; fi
+              sleep 1
+            done
+            if [ "$ready" -ne 1 ]; then
+              cat /tmp/motoindex-base.log || true
+              cat /tmp/motoindex-head.log || true
+              exit 1
+            fi
+          done
+
+      - name: Compare protected UI surfaces
+        working-directory: head
+        env:
+          BASELINE_URL: http://127.0.0.1:3100
+          CANDIDATE_URL: http://127.0.0.1:3200
+        run: npm run visual:key-regression
+
+      - name: Upload key visual evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: motoindex-key-visual-regression
+          path: head/artifacts/visual-qa/key-regression
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Stop comparison servers
+        if: always()
+        run: |
+          if [ -f /tmp/motoindex-base.pid ]; then kill $(cat /tmp/motoindex-base.pid) || true; fi
+          if [ -f /tmp/motoindex-head.pid ]; then kill $(cat /tmp/motoindex-head.pid) || true; fi
+          tail -50 /tmp/motoindex-base.log || true
+          tail -50 /tmp/motoindex-head.log || true
