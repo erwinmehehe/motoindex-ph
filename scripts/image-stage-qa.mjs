@@ -11,11 +11,11 @@ const checks = [
 ];
 const widths = [390, 768, 1440];
 const allCardPages = [
-  { name: "motorcycle catalog", path: "/motorcycles", selector: '#browse-models [data-motorcycle-card="standard"] .model-card-media' },
-  { name: "Honda brand", path: "/motorcycles/honda", selector: 'section#models [data-motorcycle-card="standard"] .model-card-media' },
-  { name: "Yamaha brand", path: "/motorcycles/yamaha", selector: 'section#models [data-motorcycle-card="standard"] .model-card-media' },
-  { name: "Kawasaki brand", path: "/motorcycles/kawasaki", selector: 'section#models [data-motorcycle-card="standard"] .model-card-media' },
-  { name: "Vespa brand", path: "/motorcycles/vespa", selector: 'section#models [data-motorcycle-card="standard"] .model-card-media' },
+  { name: "motorcycle catalog", path: "/motorcycles", scope: "catalog" },
+  { name: "Honda brand", path: "/motorcycles/honda", scope: "brand-current" },
+  { name: "Yamaha brand", path: "/motorcycles/yamaha", scope: "brand-current" },
+  { name: "Kawasaki brand", path: "/motorcycles/kawasaki", scope: "brand-current" },
+  { name: "Vespa brand", path: "/motorcycles/vespa", scope: "brand-current" },
 ];
 
 function findChrome() {
@@ -83,10 +83,9 @@ async function waitForComplete(send) {
   throw new Error("Page did not finish loading.");
 }
 
-async function warmAllCardMedia(send, stageSelector) {
-  const imageSelector = `${stageSelector} img`;
+async function warmAllCardMedia(send) {
   await evaluate(send, `(() => {
-    for (const image of document.querySelectorAll(${JSON.stringify(imageSelector)})) {
+    for (const image of document.querySelectorAll(".model-card-media img")) {
       image.loading = "eager";
       image.setAttribute("fetchpriority", "high");
     }
@@ -110,7 +109,7 @@ async function warmAllCardMedia(send, stageSelector) {
   }
 
   await evaluate(send, `new Promise(resolve => {
-    const images=[...document.querySelectorAll(${JSON.stringify(imageSelector)})];
+    const images=[...document.querySelectorAll(".model-card-media img")];
     const pending=images.filter(image=>!image.complete);
     if(!pending.length){resolve(true);return;}
     let remaining=pending.length;
@@ -233,14 +232,26 @@ try {
     for (const page of allCardPages) {
       await cdp.send("Page.navigate", { url: new URL(page.path, base).toString() });
       await waitForComplete(cdp.send);
-      await warmAllCardMedia(cdp.send, page.selector);
+      await warmAllCardMedia(cdp.send);
 
       const audit = await evaluate(cdp.send, `(() => {
         const root=document.documentElement;
-        const stages=[...document.querySelectorAll(${JSON.stringify(page.selector)})];
+        const allStages=[...document.querySelectorAll(".model-card-media")];
+        const stages=allStages.filter(stage=>{
+          const standard=stage.closest(".motorcycle-card-standard");
+          if(!standard)return false;
+          if(${JSON.stringify(page.scope)}==="catalog"){
+            const section=standard.closest("section");
+            return section?.id==="browse-models";
+          }
+          const section=standard.closest("section");
+          return section?.id==="models";
+        });
         return {
           overflow:root.scrollWidth-root.clientWidth,
           viewport:innerWidth,
+          allStageCount:allStages.length,
+          sectionIds:[...new Set(allStages.map(stage=>stage.closest("section")?.id||"").filter(Boolean))],
           cards:stages.map((stage,index)=>{
             const stageRect=stage.getBoundingClientRect();
             const image=stage.querySelector("img");
@@ -277,7 +288,7 @@ try {
       })()`);
 
       results.push({ width, name: `${page.name} all cards`, path: page.path, ...audit });
-      if (!audit?.cards?.length) failures.push(`${width}px ${page.name}: no scoped motorcycle card media were rendered`);
+      if (!audit?.cards?.length) failures.push(`${width}px ${page.name}: no scoped motorcycle card media were rendered (all stages=${audit?.allStageCount||0}; section ids=${(audit?.sectionIds||[]).join(",")||"none"})`);
       if ((audit?.overflow || 0) > 5) failures.push(`${width}px ${page.name}: page overflows horizontally by ${audit.overflow}px`);
 
       for (const card of audit?.cards || []) {
