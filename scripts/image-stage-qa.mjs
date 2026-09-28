@@ -83,6 +83,26 @@ async function waitForComplete(send) {
   throw new Error("Page did not finish loading.");
 }
 
+async function navigateAndWait(send, url) {
+  const target = new URL(url);
+  await send("Page.navigate", { url: target.toString() });
+  const deadline = Date.now() + 15_000;
+  while (Date.now() < deadline) {
+    const current = await evaluate(send, "location.href").catch(() => "");
+    if (current) {
+      try {
+        const parsed = new URL(current);
+        if (parsed.pathname === target.pathname && parsed.search === target.search) {
+          await waitForComplete(send);
+          return;
+        }
+      } catch {}
+    }
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
+  throw new Error(`Navigation did not reach ${target.pathname}${target.search}`);
+}
+
 async function warmAllCardMedia(send) {
   await evaluate(send, `(() => {
     for (const image of document.querySelectorAll(".model-card-media img")) {
@@ -158,8 +178,7 @@ try {
     });
 
     for (const check of checks) {
-      await cdp.send("Page.navigate", { url: new URL(check.path, base).toString() });
-      await waitForComplete(cdp.send);
+      await navigateAndWait(cdp.send, new URL(check.path, base));
       await new Promise(resolve => setTimeout(resolve, 350));
       const result = await evaluate(cdp.send, `(() => {
         const stage=document.querySelector(${JSON.stringify(check.selector)});
@@ -230,8 +249,8 @@ try {
     });
 
     for (const page of allCardPages) {
-      await cdp.send("Page.navigate", { url: new URL(page.path, base).toString() });
-      await waitForComplete(cdp.send);
+      await navigateAndWait(cdp.send, new URL(page.path, base));
+      await new Promise(resolve => setTimeout(resolve, 250));
       await warmAllCardMedia(cdp.send);
 
       const audit = await evaluate(cdp.send, `(() => {
