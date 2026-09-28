@@ -3,7 +3,7 @@ import path from 'node:path';
 const root=process.cwd();
 const required=[
   'app/page.tsx','app/motorcycles/page.tsx','components/QuickFinder.tsx','components/ModelExplorer.tsx','components/LeadForm.tsx',
-  'app/accessories/page.tsx','app/accessories/[slug]/page.tsx','app/gear/helmets/[brand]/page.tsx',
+  'app/accessories/page.tsx','app/gear/helmets/[brand]/page.tsx',
   'app/motorcycles/[make]/[slug]/accessories/page.tsx','app/get-quote/[make]/[slug]/page.tsx','app/api/leads/route.ts'
 ];
 let ok=true;
