@@ -293,9 +293,9 @@ try {
       });
       return {found:true,display:style.display,columns:style.gridTemplateColumns||'',rows};
     };
-    const quickSpecs=inspectInfoGrid('.quick-spec-grid');
-    const keySpecs=inspectInfoGrid('.key-spec-grid');
-    const fitKpis=inspectInfoGrid('#rider-fit .entity-fit-kpis');
+    const quickSpecs=inspectInfoGrid('.motorcycle-spec-stats');
+    const keySpecs=inspectInfoGrid('.motorcycle-key-specs');
+    const fitKpis=inspectInfoGrid('#rider-fit .rider-fit-stats');
     const structuredNodes=[...document.querySelectorAll('script[type="application/ld+json"]')].flatMap(script=>{
       try{
         const parsed=JSON.parse(script.textContent||'null');
