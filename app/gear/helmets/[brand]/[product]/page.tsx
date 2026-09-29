@@ -23,6 +23,8 @@ import { ProductEntityShell } from "@/components/ProductEntityShell";
 import { ProductHero } from "@/components/ProductHero";
 import { ProductTrustRow } from "@/components/ProductTrustRow";
 import { getRenderableMedia } from "@/lib/renderableMedia";
+import { authorPersonSchema } from "@/lib/author";
+import styles from "./HelmetProductPage.module.css";
 
 export const revalidate = 3600;
 
@@ -103,22 +105,37 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     category: `Motorcycle helmet — ${p.helmetType}`,
     description: p.description,
   };
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    url: absoluteUrl(`${canonicalPath}#faq`),
+    author: { "@id": `${absoluteUrl("/authors/erwin-valles")}#person` },
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  };
+  const authorSchema = {
+    "@context": "https://schema.org",
+    ...authorPersonSchema(),
+  };
 
   const heroFacts = [
     { label: "Type", value: p.helmetType },
-    { label: "Sizes", value: p.sizes.length ? p.sizes.join(" · ") : "Check size chart" },
+    { label: "Safety", value: p.certification || "Check exact local unit" },
     { label: p.weightG ? "Weight" : "Shell", value: p.weightG ? `${p.weightG.toLocaleString("en-PH")} g` : (p.shell || "See specifications") },
-    { label: "Visor", value: p.pinlock ? `${p.visor} · ${p.pinlock}` : p.visor },
+    { label: "Sizes", value: p.sizes.length ? p.sizes.join(" · ") : "Check size chart" },
   ];
 
-  return <ProductEntityShell>
+  return <ProductEntityShell className={styles.page}>
     <Breadcrumbs items={[{ label: "Helmets", href: "/gear/helmets" }, { label: p.brand, href: `/gear/helmets/${p.brandSlug}` }, { label: p.model }]} />
 
     <ProductHero
       media={<EntityMedia entityType="helmet" entityId={p.id} priority fallback={<div className="product-hero-card"><span>Helmet</span><strong>H</strong><div><small>{p.brand}</small><h2>{p.model}</h2></div></div>} />}
       eyebrow={<><span className="product-type-pill">Helmet</span><span className={`product-status-pill ${p.status}`}>{p.status === "verified" ? "Verified product" : "Needs checking"}</span></>}
       title={<>{p.brand} {p.model}</>}
-      description={<p>{p.description}</p>}
+      description={<><p>{p.description}</p><div className={styles.heroBestFor}><span>Best for</span><strong>{editorial.bestFor}</strong></div></>}
       price={p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}
       priceNote="Starting price reference in the Philippines"
       facts={heroFacts}
@@ -211,6 +228,6 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
 
     <AuthorBox />
     <RelatedLinks title={`More about ${p.brand} and ${p.helmetType.toLowerCase()} helmets`} links={helmetProductInternalLinks(p)} />
-    <JsonLd data={schema} />
+    <JsonLd data={[schema, faqSchema, authorSchema]} />
   </ProductEntityShell>;
 }
