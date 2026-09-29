@@ -79,7 +79,9 @@ requireText(sellerPage, "sellerBusinessSchema(s)", "Seller detail pages must use
 requireText(dealerHub, "motorcycleDealerDirectorySchema(verifiedDealers", "The main dealer directory must expose MotorcycleDealer entities.");
 requireText(dealerCityPage, "motorcycleDealerDirectorySchema(list", "Dealer city directories must expose MotorcycleDealer entities.");
 requireText(dealerPampangaPage, "motorcycleDealerDirectorySchema(dealers", "The Pampanga dealer directory must expose MotorcycleDealer entities.");
-forbidText(rootLayout, '"@type": "MotorcycleDealer"', "MotoIndex itself is a research/directory organization, not a physical motorcycle dealer; do not mark the global site entity as MotorcycleDealer.");
+requireText(rootLayout, '"@type": "MotorcycleDealer"', "MotoIndex must expose MotorcycleDealer as the global site business entity.");
+requireText(rootLayout, '"@id": `${SITE_URL}/#motorcycle-dealer`', "Global MotorcycleDealer schema must keep a stable entity ID.");
+requireText(rootLayout, 'publisher: { "@id": `${SITE_URL}/#motorcycle-dealer` }', "WebSite schema must connect to the global MotorcycleDealer entity.");
 
 
 requireText(articleSchema, "datePublished?: string;", "Article schema must accept a real page-level publication date.");
