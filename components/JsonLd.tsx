@@ -15,10 +15,10 @@ function normalizeStructuredData(value: Record<string, unknown>) {
   return productWithoutAmbiguousOffer;
 }
 
-export function JsonLd({ data }: { data: Record<string, unknown> | Record<string, unknown>[] }) {
+export function JsonLd({ data, allowFaqPage = false }: { data: Record<string, unknown> | Record<string, unknown>[]; allowFaqPage?: boolean }) {
   const filtered = Array.isArray(data)
-    ? data.filter((item) => !isFaqPage(item)).map(normalizeStructuredData)
-    : isFaqPage(data) ? null : normalizeStructuredData(data);
+    ? data.filter((item) => allowFaqPage || !isFaqPage(item)).map(normalizeStructuredData)
+    : isFaqPage(data) && !allowFaqPage ? null : normalizeStructuredData(data);
   if (!filtered || (Array.isArray(filtered) && filtered.length === 0)) return null;
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(filtered) }} />;
 }
