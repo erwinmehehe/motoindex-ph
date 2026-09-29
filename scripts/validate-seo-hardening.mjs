@@ -159,6 +159,9 @@ requireText(modelEntity, "Open the official owner manual →", "Exact model main
 requireText(modelEntity, '"@type": "FAQPage"', "Motorcycle entity pages must emit FAQPage structured data that mirrors the visible FAQ section.");
 requireText(modelEntity, "authorPersonSchema()", "Motorcycle entity pages must emit the shared author Person entity.");
 requireText(modelEntity, "JsonLd data={[schema, faqSchema, authorSchema]}", "Motorcycle entity pages must emit Product, FAQ and author structured data together.");
+requireText(modelEntity, 'className="motorcycle-spec-stats"', "Quick specs must use the canonical StatRow layout.");
+requireText(modelEntity, 'className="motorcycle-key-specs"', "Key specs must use the canonical StatRow layout.");
+requireText(modelEntity, 'className="rider-fit-stats"', "Rider-fit KPIs must use the canonical StatRow layout.");
 
 requireText(maintenanceData, "Brand-level Yamaha Philippines PMS guidance.", "Yamaha brand-level PMS guidance must stay clearly labeled and must not masquerade as an exact model manual.");
 requireText(modelEntity, "brandMaintenanceGuideForModel(model)", "Motorcycle entity pages must resolve brand-level maintenance guidance when exact model schedules are unavailable.");
