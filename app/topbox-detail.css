@@ -33,12 +33,6 @@
 .topbox-spec-grid>div{display:flex;min-width:0;min-height:76px;padding:var(--mi-space-3) var(--mi-space-4);flex-direction:column;justify-content:center;gap:var(--mi-space-1);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-sm);background:var(--mi-color-surface-subtle)}
 .topbox-spec-grid span{color:var(--mi-color-muted);font-size:.5rem;font-weight:800;text-transform:uppercase}
 .topbox-spec-grid strong{font-size:var(--mi-type-xs);line-height:1.45;overflow-wrap:anywhere}
-.topbox-accessories{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:var(--mi-space-2);margin-top:var(--mi-space-4)}
-.topbox-accessories h3{grid-column:1/-1;margin:0;font-size:var(--mi-type-base)}
-.topbox-accessories>div{padding:var(--mi-space-3);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-sm)}
-.topbox-accessories strong,.topbox-accessories span{display:block}
-.topbox-accessories span{margin-top:var(--mi-space-1);color:var(--mi-color-copy);font-size:.5625rem}
-
 .topbox-fitment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--mi-space-3)}
 .topbox-fitment-grid>article,.topbox-editorial-grid>article{min-width:0;padding:var(--mi-space-4);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md);background:var(--mi-color-surface)}
 .topbox-fitment-grid h3,.topbox-editorial-grid h3{margin:var(--mi-space-2) 0;font-size:var(--mi-type-lg);line-height:1.15}
@@ -58,10 +52,6 @@
 .topbox-faq-list details{padding:0 var(--mi-space-4);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-sm)}
 .topbox-faq-list summary{padding:var(--mi-space-3) 0;font-size:var(--mi-type-xs);font-weight:780;cursor:pointer}
 .topbox-faq-list p{margin:0;padding:0 0 var(--mi-space-4);color:var(--mi-color-copy);font-size:var(--mi-type-xs);line-height:1.6}
-.topbox-note{margin-top:var(--mi-space-6);padding:var(--mi-space-4) var(--mi-space-5);border:1px solid var(--mi-color-line);border-left:3px solid var(--mi-color-primary);border-radius:var(--mi-radius-sm);background:var(--mi-color-surface-subtle)}
-.topbox-note h2{margin:0 0 var(--mi-space-2);font-size:var(--mi-type-lg)}
-.topbox-note p{margin:0;color:var(--mi-color-copy);font-size:var(--mi-type-xs);line-height:1.55}
-
 @media(max-width:900px){
   .topbox-product-page .product-detail-hero{grid-template-columns:1fr;gap:var(--mi-space-5)}
   .topbox-product-page .product-detail-media{justify-content:center}
