@@ -1,0 +1,164 @@
+.page {}
+
+.page .specGrid.quickGrid,
+.page .specGrid.keyGrid{
+  display:grid;
+  gap:12px;
+  margin-top:22px;
+}
+
+.page .specGrid.quickGrid{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+
+.page .specGrid.keyGrid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+.page .specGrid>.specCard{
+  display:flex;
+  min-width:0;
+  min-height:104px;
+  padding:18px 20px;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  gap:8px;
+  border:1px solid var(--mi-color-line);
+  border-radius:18px;
+  background:var(--mi-color-surface);
+  box-shadow:var(--mi-shadow-sm);
+}
+
+.page .specGrid .specLabel{
+  display:block;
+  width:100%;
+  color:var(--mi-color-muted);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.075em;
+  line-height:1.2;
+  text-transform:uppercase;
+}
+
+.page .specGrid .specValue{
+  display:block;
+  width:100%;
+  min-width:0;
+  color:var(--mi-color-ink);
+  font-size:18px;
+  font-weight:800;
+  line-height:1.25;
+  letter-spacing:-.025em;
+  overflow-wrap:anywhere;
+}
+
+.page .fitGrid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  margin:22px 0 20px;
+}
+
+.page .fitGrid>.factCard,
+.page .heroFactRow>.factCard{
+  display:flex;
+  min-width:0;
+  padding:16px 18px;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  gap:5px;
+}
+
+.page .fitGrid>.factCard{
+  min-height:96px;
+  border:1px solid var(--mi-color-line);
+  border-radius:18px;
+  background:var(--mi-color-surface);
+  box-shadow:var(--mi-shadow-sm);
+}
+
+.page .factLabel,
+.page .factValue,
+.page .factNote{
+  display:block;
+  width:100%;
+  min-width:0;
+}
+
+.page .factLabel{
+  color:var(--mi-color-muted);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.07em;
+  line-height:1.2;
+  text-transform:uppercase;
+}
+
+.page .factValue{
+  color:var(--mi-color-ink);
+  font-size:18px;
+  font-weight:800;
+  line-height:1.2;
+  letter-spacing:-.025em;
+  overflow-wrap:anywhere;
+}
+
+.page .factNote{
+  color:var(--mi-color-copy);
+  font-size:9px;
+  line-height:1.4;
+}
+
+.page .specIntro{
+  max-width:860px;
+}
+
+@media(max-width:900px){
+  .page .specGrid.quickGrid,
+  .page .specGrid.keyGrid,
+  .page .fitGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:640px){
+  .page .specGrid.quickGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    margin-top:18px;
+  }
+
+  .page .specGrid.keyGrid{
+    grid-template-columns:1fr;
+    gap:8px;
+    margin-top:18px;
+  }
+
+  .page .specGrid>.specCard{
+    min-height:88px;
+    padding:14px 15px;
+    border-radius:16px;
+  }
+
+  .page .specGrid .specValue{
+    font-size:16px;
+  }
+
+  .page .fitGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    margin:18px 0 16px;
+  }
+
+  .page .fitGrid>.factCard{
+    min-height:84px;
+    padding:14px 15px;
+    border-radius:16px;
+  }
+
+  .page .factValue{
+    font-size:16px;
+  }
+}
