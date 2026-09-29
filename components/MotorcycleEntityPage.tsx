@@ -194,30 +194,34 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section className="motorcycle-entity-section global-spec-intent" aria-labelledby="quick-specs-heading">
         <SectionHeader kicker="Quick specs" titleId="quick-specs-heading" title={`${model.make} ${model.model} horsepower, weight, seat height and tire size`} description="These core motorcycle specifications are useful across markets. Philippine pricing is shown separately above so local SRP is not confused with globally applicable technical specifications." />
-        <StatRow className="motorcycle-spec-stats" items={[
-          { label: "Horsepower", value: `${model.powerHp} hp` },
-          { label: "Torque", value: `${model.torqueNm} Nm` },
-          { label: "Curb weight", value: `${model.curbWeightKg} kg` },
-          { label: "Seat height", value: `${model.seatHeightMm} mm` },
-          { label: "Fuel capacity", value: `${model.fuelTankL} L` },
-          { label: "Front tire", value: model.frontTire },
-          { label: "Rear tire", value: model.rearTire },
-          ...(model.groundClearanceMm ? [{ label: "Ground clearance", value: `${model.groundClearanceMm} mm` }] : [])
-        ]} />
+        <div className="entity-spec-table quick-spec-grid" aria-label={`${model.make} ${model.model} quick specifications`}>
+          {[
+            ["Horsepower", `${model.powerHp} hp`],
+            ["Torque", `${model.torqueNm} Nm`],
+            ["Curb weight", `${model.curbWeightKg} kg`],
+            ["Seat height", `${model.seatHeightMm} mm`],
+            ["Fuel capacity", `${model.fuelTankL} L`],
+            ["Front tire", model.frontTire],
+            ["Rear tire", model.rearTire],
+            ...(model.groundClearanceMm ? [["Ground clearance", `${model.groundClearanceMm} mm`]] : [])
+          ].map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}
+        </div>
         <p className="entity-lede">{model.make} {model.model} uses a {model.engineCc} cc engine rated at {model.powerHp} hp and {model.torqueNm} Nm. Recorded curb weight is {model.curbWeightKg} kg, seat height is {model.seatHeightMm} mm, and fuel capacity is {model.fuelTankL} L.</p>
       </section>
 
       <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
         <SectionHeader kicker="Key specifications" titleId="specs-heading" title="The numbers most buyers need first" description="Keep the first pass to engine, power, fit, weight, transmission, braking and stock tires." />
-        <StatRow className="motorcycle-key-specs" items={[
-          { label: "Engine", value: `${model.engineCc} cc`, note: `${model.powerHp} hp · ${model.torqueNm} Nm` },
-          { label: "Transmission", value: model.transmission || "Not listed", note: model.category },
-          { label: "Seat / weight", value: `${model.seatHeightMm} mm`, note: `${model.curbWeightKg} kg curb` },
-          { label: "Fuel tank", value: `${model.fuelTankL} L`, note: `${efficiency.kmPerL} km/L ${efficiency.status === "listed" ? "listed" : "planning estimate"}` },
-          { label: "Brakes / ABS", value: model.abs },
-          { label: "Stock tires", value: model.frontTire, note: `${model.rearTire} rear` },
-          ...(model.groundClearanceMm ? [{ label: "Ground clearance", value: `${model.groundClearanceMm} mm` }] : [])
-        ]} />
+        <div className="entity-spec-table key-spec-grid" aria-label={`${model.make} ${model.model} key specifications`}>
+          {[
+            { label: "Engine", value: `${model.engineCc} cc`, note: `${model.powerHp} hp · ${model.torqueNm} Nm` },
+            { label: "Transmission", value: model.transmission || "Not listed", note: model.category },
+            { label: "Seat / weight", value: `${model.seatHeightMm} mm`, note: `${model.curbWeightKg} kg curb weight` },
+            { label: "Fuel tank", value: `${model.fuelTankL} L`, note: `${efficiency.kmPerL} km/L ${efficiency.status === "listed" ? "listed" : "planning estimate"}` },
+            { label: "Brakes / ABS", value: model.abs },
+            { label: "Stock tires", value: `${model.frontTire} front`, note: `${model.rearTire} rear` },
+            ...(model.groundClearanceMm ? [{ label: "Ground clearance", value: `${model.groundClearanceMm} mm`, note: "" }] : [])
+          ].map((item) => <div key={item.label}><span>{item.label}</span><strong>{item.value}</strong>{item.note && <small>{item.note}</small>}</div>)}
+        </div>
       </section>
 
       {authority && <section id="buyer-guide" className="motorcycle-entity-section authority-decision-section" aria-labelledby="buyer-guide-heading">
@@ -252,12 +256,12 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section id="rider-fit" className="motorcycle-entity-section" aria-labelledby="fit-heading">
         <SectionHeader kicker="Rider fit" titleId="fit-heading" title={<>Will the {model.make} {model.model} fit you?</>} description="Seat height is only a starting point. Use your inseam with the recorded seat height and curb weight, then sit on the exact motorcycle when possible." />
-        <StatRow className="rider-fit-stats" items={[
-          { label: "Seat height", value: `${model.seatHeightMm} mm` },
-          { label: "Curb weight", value: `${model.curbWeightKg} kg` },
-          { label: "Power", value: `${model.powerHp} hp`, note: `${model.engineCc} cc` },
-          { label: "Transmission", value: model.transmission || "Not listed" }
-        ]} />
+        <div className="entity-fit-kpis" aria-label={`${model.make} ${model.model} rider fit specifications`}>
+          <div><span>Seat height</span><strong>{model.seatHeightMm} mm</strong><small>Compare with your inseam</small></div>
+          <div><span>Curb weight</span><strong>{model.curbWeightKg} kg</strong><small>Matters most at low speed</small></div>
+          <div><span>Power</span><strong>{model.powerHp} hp</strong><small>{model.engineCc} cc engine</small></div>
+          <div><span>Transmission</span><strong>{model.transmission || "Not listed"}</strong><small>{model.category}</small></div>
+        </div>
         <RiderFitCalculator model={forClient(model)} />
       </section>
 
