@@ -1,0 +1,33 @@
+name: Temporary Topbox Media Fetch
+
+on:
+  push:
+    branches:
+      - fix/topbox-images-layout-click-meta-sep29
+
+permissions:
+  contents: read
+
+jobs:
+  fetch-media:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --disable-pip-version-check pillow requests
+      - run: python scripts/fetch-topbox-media-temp.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: topbox-media-pack
+          path: |
+            public/media/top-boxes/shad-sh39.webp
+            public/media/top-boxes/shad-sh33.webp
+            public/media/top-boxes/shad-sh29.webp
+            public/media/top-boxes/coocase-s28-vivo.webp
+            public/media/top-boxes/coocase-v28-fusion.webp
+            public/media/top-boxes/coocase-v36-wizard.webp
+            public/media/top-boxes/coocase-s48-astra.webp
+            public/media/top-boxes/coocase-v50-reflex.webp
+          if-no-files-found: error
