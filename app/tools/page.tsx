@@ -12,7 +12,7 @@ export const metadata: Metadata = pageMetadata({
 
 const coreTools=[
   {href:"/ownership/cost-calculator",label:"Ownership",title:"Total cost to own",description:"Combine purchase, financing, fuel, maintenance, registration, insurance, tires and resale.",meta:"Full ownership view →"},
-  {href:"/tools/motorcycle-loan-calculator",label:"Financing",title:"Motorcycle loan calculator",description:"Estimate monthly payment, financed amount, interest and total cash paid.",meta:"Calculate loan →"},
+  {href:"/tools/motorcycle-loan-calculator",label:"Financing",title:"Motorcycle loan calculator Philippines",description:"Estimate monthly payment from the cash price, down payment, loan term and annual interest rate.",meta:"Calculate loan →"},
   {href:"/tools/lto-registration-fee-calculator",label:"Registration",title:"LTO registration fee calculator",description:"Plan MVUC, inspection, CTPL and transaction-specific charges.",meta:"Estimate fees →"},
   {href:"/tools/motorcycle-insurance-calculator",label:"Insurance",title:"Motorcycle insurance calculator",description:"Build an editable planning estimate before replacing it with a real insurer quote.",meta:"Estimate insurance →"}
 ];
