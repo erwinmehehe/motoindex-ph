@@ -134,6 +134,15 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const loanToolHref = { pathname: "/tools/motorcycle-loan-calculator", query: { price: range.from, model: `${model.make} ${model.model}` } };
   const aeroxFinanceTarget = model.id === "yamaha-aerox-v3";
   const tireGuideHref = tireGuideHrefForModel(model.id);
+  const scooterClassGuide = /scooter/i.test(model.category)
+    ? model.engineCc >= 115 && model.engineCc <= 130
+      ? { href: "/recommendations/125cc-scooters-philippines", label: "125cc scooter comparison" }
+      : model.engineCc >= 140 && model.engineCc <= 155
+        ? { href: "/recommendations/150cc-scooters-philippines", label: "150cc & 155cc scooter comparison" }
+        : model.engineCc >= 156 && model.engineCc <= 165
+          ? { href: "/recommendations/160cc-scooters-philippines", label: "160cc scooter comparison" }
+          : undefined
+    : undefined;
 
   return <article className="motorcycle-entity-page">
     <section className="motorcycle-entity-hero" id="overview">
@@ -271,6 +280,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       {!isPrevious && <section id="alternatives" className="motorcycle-entity-section" aria-labelledby="alternatives-heading">
         <SectionHeader kicker="Alternatives" titleId="alternatives-heading" title="What else should you consider?" description="Compare the motorcycles most likely to change the decision before you focus on deep technical research." />
         {authorityComparisons.length > 0 && <div className="authority-comparisons"><div><span>Buyer-guide alternatives</span><strong>Start with these direct cross-shopping choices</strong></div><div>{authorityComparisons.slice(0,3).map((item) => <Link key={item.id} href={`/motorcycles/${item.makeSlug}/${item.slug}`}>{item.make} {item.model}<small>{item.engineCc} cc · {observedMarketPriceLabel(item)}</small></Link>)}</div></div>}
+        {scooterClassGuide && <p className="entity-section-note"><Link href={scooterClassGuide.href}>Compare this model in the {scooterClassGuide.label} →</Link></p>}
         <SimilarMotorcycles model={model} />
       </section>}
 
