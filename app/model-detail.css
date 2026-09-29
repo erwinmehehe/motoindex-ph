@@ -162,6 +162,9 @@ html body .motorcycle-hero-facts>div{
   color:#101828!important;
 }
 html body .motorcycle-hero-facts>div:last-child{border-right:0!important}
+html body .motorcycle-hero-facts span{color:#98a2b3!important;font-size:8px!important}
+html body .motorcycle-hero-facts strong{color:#101828!important;font-size:13px!important}
+html body .motorcycle-hero-facts small{color:#667085!important;font-size:8px!important}
 html body .motorcycle-hero-facts span,
 html body .motorcycle-hero-facts strong,
 html body .motorcycle-hero-facts small{
@@ -170,20 +173,14 @@ html body .motorcycle-hero-facts small{
   min-width:0;
 }
 html body .motorcycle-hero-facts span{
-  color:#98a2b3!important;
-  font-size:8px!important;
   line-height:1.2;
   white-space:nowrap;
 }
 html body .motorcycle-hero-facts strong{
-  color:#101828!important;
-  font-size:13px!important;
   line-height:1.15;
   white-space:nowrap;
 }
 html body .motorcycle-hero-facts small{
-  color:#667085!important;
-  font-size:8px!important;
   line-height:1.35;
 }
 
