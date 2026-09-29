@@ -34,6 +34,12 @@ const maintenanceHub = read("app", "maintenance", "page.tsx");
 const nextConfig = read("next.config.mjs");
 const catalogData = read("lib", "catalog.ts");
 const topBoxFitmentData = read("lib", "topBoxFitment.ts");
+const dealerSchema = read("lib", "dealerSchema.ts");
+const sellerPage = read("app", "sellers", "[slug]", "page.tsx");
+const dealerHub = read("app", "dealers", "page.tsx");
+const dealerCityPage = read("app", "dealers", "[city]", "page.tsx");
+const dealerPampangaPage = read("app", "dealers", "pampanga", "page.tsx");
+const rootLayout = read("app", "layout.tsx");
 
 requireText(home, "Compare <span>motorcycle prices</span><br />and specs in the Philippines.", "Homepage must keep a query-led motorcycle prices/specs H1.");
 forbidText(home, "Your next <span>motorcycle</span><br />starts here.", "Homepage must not regress to the old brand-led H1.");
@@ -65,6 +71,16 @@ forbidText(sitemaps, "`/motorcycles/${m.makeSlug}/${m.slug}/price`", "Consolidat
 requireText(nextConfig, '{ source: "/motorcycles/:make/:slug/price", destination: "/motorcycles/:make/:slug#price", permanent: true }', "Legacy motorcycle price routes must keep a permanent canonical redirect.");
 requireText(nextConfig, '{ source: "/motorcycles/:make/:slug/specifications", destination: "/motorcycles/:make/:slug#specs", permanent: true }', "Legacy motorcycle specification routes must keep a permanent canonical redirect.");
 requireText(nextConfig, '{ source: "/motorcycles/:make/:slug/maintenance", destination: "/motorcycles/:make/:slug#maintenance", permanent: true }', "Legacy motorcycle maintenance routes must keep a permanent canonical redirect.");
+
+requireText(dealerSchema, '"@type": businessType(seller)', "Seller structured data must resolve the business type from the verified seller record.");
+requireText(dealerSchema, 'seller.type === "dealer" ? "MotorcycleDealer" : "Store"', "Verified motorcycle dealer profiles must use Schema.org MotorcycleDealer.");
+requireText(dealerSchema, '"@type": "ItemList"', "Dealer directory pages must publish an ItemList of real dealer entities.");
+requireText(sellerPage, "sellerBusinessSchema(s)", "Seller detail pages must use the shared factual business schema.");
+requireText(dealerHub, "motorcycleDealerDirectorySchema(verifiedDealers", "The main dealer directory must expose MotorcycleDealer entities.");
+requireText(dealerCityPage, "motorcycleDealerDirectorySchema(list", "Dealer city directories must expose MotorcycleDealer entities.");
+requireText(dealerPampangaPage, "motorcycleDealerDirectorySchema(dealers", "The Pampanga dealer directory must expose MotorcycleDealer entities.");
+forbidText(rootLayout, '"@type": "MotorcycleDealer"', "MotoIndex itself is a research/directory organization, not a physical motorcycle dealer; do not mark the global site entity as MotorcycleDealer.");
+
 
 requireText(articleSchema, "datePublished?: string;", "Article schema must accept a real page-level publication date.");
 requireText(articleSchema, "image?: string;", "Article schema must accept a representative image.");
