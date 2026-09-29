@@ -205,6 +205,387 @@ html body .motorcycle-entity-page .motorcycle-entity-section{
   border-top:1px solid rgba(148,163,184,.12)!important;
 }
 
+
+/* Decision summary + price modules lost their route styles during the CSS-stack cleanup.
+   Keep these contracts local to motorcycle detail pages instead of restoring legacy globals. */
+html body .motorcycle-entity-page .motorcycle-editorial-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:20px;
+}
+html body .motorcycle-entity-page .motorcycle-editorial-grid>article{
+  min-width:0;
+  padding:20px;
+  border:1px solid rgba(148,163,184,.20);
+  border-radius:18px;
+  background:#fff;
+  color:#344054;
+  box-shadow:0 10px 28px rgba(15,23,42,.035);
+}
+html body .motorcycle-entity-page .motorcycle-editorial-grid>article.editorial-best{
+  grid-column:1/-1;
+  padding:22px 24px;
+  border-color:rgba(68,76,231,.20);
+  background:
+    radial-gradient(circle at 92% 12%,rgba(122,90,248,.08),transparent 30%),
+    linear-gradient(135deg,#fbfcff 0%,#fff 64%);
+}
+html body .motorcycle-entity-page .motorcycle-editorial-grid>article>span{
+  display:block;
+  margin-bottom:10px;
+  color:#444CE7;
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:.09em;
+  line-height:1.2;
+  text-transform:uppercase;
+}
+html body .motorcycle-entity-page .motorcycle-editorial-grid h3{
+  max-width:900px;
+  margin:0;
+  color:#101828;
+  font-size:clamp(17px,1.55vw,21px);
+  line-height:1.28;
+  letter-spacing:-.025em;
+  text-wrap:balance;
+}
+html body .motorcycle-entity-page .motorcycle-editorial-grid p{
+  max-width:900px;
+  margin:10px 0 0;
+  color:#667085;
+  font-size:12px;
+  line-height:1.62;
+}
+html body .motorcycle-entity-page .motorcycle-editorial-grid ul{
+  display:grid;
+  gap:8px;
+  margin:0;
+  padding:0 0 0 18px;
+}
+html body .motorcycle-entity-page .motorcycle-editorial-grid li{
+  padding-left:2px;
+  color:#344054;
+  font-size:12px;
+  line-height:1.5;
+}
+html body .motorcycle-entity-page .motorcycle-editorial-grid>article:nth-child(2)>span{color:#039855}
+html body .motorcycle-entity-page .motorcycle-editorial-grid>article:nth-child(3)>span{color:#B54708}
+
+html body .motorcycle-entity-page .motorcycle-price-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);
+  gap:12px;
+  margin-top:20px;
+}
+html body .motorcycle-entity-page .motorcycle-price-grid>article{
+  display:flex;
+  min-width:0;
+  min-height:118px;
+  padding:20px 22px;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  border:1px solid rgba(148,163,184,.20);
+  border-radius:18px;
+  background:#fff;
+  color:#101828;
+  box-shadow:0 10px 28px rgba(15,23,42,.03);
+}
+html body .motorcycle-entity-page .motorcycle-price-grid>article:first-child{
+  border-color:rgba(68,76,231,.18);
+  background:linear-gradient(135deg,#fbfcff 0%,#fff 72%);
+}
+html body .motorcycle-entity-page .motorcycle-price-grid span,
+html body .motorcycle-entity-page .motorcycle-price-grid strong,
+html body .motorcycle-entity-page .motorcycle-price-grid small{
+  display:block;
+  width:100%;
+  min-width:0;
+}
+html body .motorcycle-entity-page .motorcycle-price-grid span{
+  margin-bottom:7px;
+  color:#667085;
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:.08em;
+  line-height:1.2;
+  text-transform:uppercase;
+}
+html body .motorcycle-entity-page .motorcycle-price-grid strong{
+  color:#101828;
+  font-size:clamp(20px,2.25vw,30px);
+  font-weight:850;
+  line-height:1.06;
+  letter-spacing:-.035em;
+  font-variant-numeric:tabular-nums;
+}
+html body .motorcycle-entity-page .motorcycle-price-grid>article:first-child strong{
+  white-space:nowrap;
+}
+html body .motorcycle-entity-page .motorcycle-price-grid>article:last-child strong{
+  font-size:clamp(18px,1.75vw,23px);
+}
+html body .motorcycle-entity-page .motorcycle-price-grid small{
+  margin-top:7px;
+  color:#667085;
+  font-size:10px;
+  line-height:1.45;
+}
+
+/* Variants and price history were previously styled only by the retired global sheet. */
+html body .motorcycle-entity-page #price .variant-module,
+html body .motorcycle-entity-page #price .price-history{
+  margin:30px 0 0;
+  padding-top:28px;
+  border-top:1px solid rgba(148,163,184,.14);
+}
+html body .motorcycle-entity-page #price .section-head.compact{
+  display:block;
+  margin:0 0 18px;
+}
+html body .motorcycle-entity-page #price .section-head.compact h2{
+  margin:0;
+  color:#101828;
+  font-size:clamp(25px,2.6vw,34px);
+  line-height:1.08;
+  letter-spacing:-.04em;
+  text-wrap:balance;
+}
+html body .motorcycle-entity-page #price .section-head.compact p{
+  max-width:760px;
+  margin:8px 0 0;
+  color:#667085;
+  font-size:11px;
+  line-height:1.58;
+}
+html body .motorcycle-entity-page #price .section-head.compact .section-kicker{
+  display:block;
+  margin-bottom:7px;
+  color:#444CE7;
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+html body .motorcycle-entity-page #price .variant-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+html body .motorcycle-entity-page #price .variant-card{
+  display:flex;
+  min-width:0;
+  padding:20px;
+  flex-direction:column;
+  gap:13px;
+  border:1px solid rgba(148,163,184,.20);
+  border-radius:18px;
+  background:#fff;
+  color:#344054;
+  box-shadow:0 10px 28px rgba(15,23,42,.03);
+}
+html body .motorcycle-entity-page #price .variant-card-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+}
+html body .motorcycle-entity-page #price .variant-card-head span{
+  display:block;
+  color:#667085;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+html body .motorcycle-entity-page #price .variant-card-head h3{
+  margin:4px 0 0;
+  color:#101828;
+  font-size:22px;
+  line-height:1.1;
+  letter-spacing:-.035em;
+}
+html body .motorcycle-entity-page #price .variant-card-head>strong{
+  color:#101828;
+  font-size:20px;
+  line-height:1.1;
+  letter-spacing:-.025em;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+html body .motorcycle-entity-page #price .variant-card>p{
+  margin:0;
+  color:#667085;
+  font-size:11px;
+  line-height:1.55;
+}
+html body .motorcycle-entity-page #price .variant-card ul{
+  display:grid;
+  gap:7px;
+  margin:0;
+  padding-left:18px;
+  color:#344054;
+  font-size:11px;
+  line-height:1.5;
+}
+html body .motorcycle-entity-page #price .variant-facts{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+}
+html body .motorcycle-entity-page #price .variant-facts span{
+  min-width:0;
+  padding:10px 11px;
+  border-radius:12px;
+  background:#F8FAFC;
+}
+html body .motorcycle-entity-page #price .variant-facts small,
+html body .motorcycle-entity-page #price .variant-facts b{
+  display:block;
+}
+html body .motorcycle-entity-page #price .variant-facts small{
+  color:#98A2B3;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+html body .motorcycle-entity-page #price .variant-facts b{
+  margin-top:4px;
+  color:#344054;
+  font-size:10px;
+  line-height:1.35;
+}
+html body .motorcycle-entity-page #price .variant-card>a{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:14px;
+  margin-top:auto;
+  padding-top:12px;
+  border-top:1px solid rgba(148,163,184,.14);
+  color:#667085;
+  font-size:9px;
+  line-height:1.4;
+}
+html body .motorcycle-entity-page #price .variant-card>a b{
+  color:#444CE7;
+  font-size:10px;
+  white-space:nowrap;
+}
+html body .motorcycle-entity-page #price .variant-footnote{
+  margin:11px 2px 0;
+  color:#667085;
+  font-size:10px;
+  line-height:1.5;
+}
+
+html body .motorcycle-entity-page #price .price-history-summary{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:12px;
+}
+html body .motorcycle-entity-page #price .price-history-summary>div{
+  padding:14px 15px;
+  border:1px solid rgba(148,163,184,.18);
+  border-radius:15px;
+  background:#fff;
+}
+html body .motorcycle-entity-page #price .price-history-summary span,
+html body .motorcycle-entity-page #price .price-history-summary strong{
+  display:block;
+}
+html body .motorcycle-entity-page #price .price-history-summary span{
+  color:#667085;
+  font-size:8px;
+  font-weight:850;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+html body .motorcycle-entity-page #price .price-history-summary strong{
+  margin-top:5px;
+  color:#101828;
+  font-size:16px;
+  line-height:1.2;
+}
+html body .motorcycle-entity-page #price .price-history-change{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin:0 0 12px;
+  padding:13px 15px;
+  border-radius:14px;
+  background:#F8FAFC;
+}
+html body .motorcycle-entity-page #price .price-history-change span{
+  color:#475467;
+  font-size:11px;
+  font-weight:750;
+}
+html body .motorcycle-entity-page #price .price-history-change strong{
+  color:#101828;
+  font-size:17px;
+}
+html body .motorcycle-entity-page #price .price-history-list{
+  display:grid;
+  gap:8px;
+}
+html body .motorcycle-entity-page #price .price-history-row{
+  display:grid;
+  grid-template-columns:135px minmax(150px,.7fr) minmax(220px,1.3fr);
+  gap:18px;
+  align-items:start;
+  padding:15px 16px;
+  border:1px solid rgba(148,163,184,.18);
+  border-radius:15px;
+  background:#fff;
+}
+html body .motorcycle-entity-page #price .price-history-date time,
+html body .motorcycle-entity-page #price .price-history-date span,
+html body .motorcycle-entity-page #price .price-history-price strong,
+html body .motorcycle-entity-page #price .price-history-source small,
+html body .motorcycle-entity-page #price .price-history-source span{
+  display:block;
+}
+html body .motorcycle-entity-page #price .price-history-date time{
+  color:#101828;
+  font-size:11px;
+  font-weight:850;
+}
+html body .motorcycle-entity-page #price .price-history-date span{
+  margin-top:4px;
+  color:#667085;
+  font-size:9px;
+}
+html body .motorcycle-entity-page #price .price-history-price strong{
+  color:#101828;
+  font-size:17px;
+  letter-spacing:-.02em;
+}
+html body .motorcycle-entity-page #price .price-history-price p,
+html body .motorcycle-entity-page #price .price-history-source span{
+  margin:5px 0 0;
+  color:#667085;
+  font-size:10px;
+  line-height:1.45;
+}
+html body .motorcycle-entity-page #price .price-history-source small{
+  color:#98A2B3;
+  font-size:9px;
+  font-weight:800;
+}
+html body .motorcycle-entity-page #price .price-history-source>a{
+  display:inline-flex;
+  margin-top:7px;
+  color:#444CE7;
+  font-size:10px;
+  font-weight:850;
+}
+
+
 /* Buyer brief is part of the canonical model-detail surface. */
 html body .priority-model-brief{
   width:min(1120px,calc(100% - 40px));
