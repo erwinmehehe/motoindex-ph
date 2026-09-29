@@ -55,10 +55,10 @@ requireText(mediaValidator, "rightsHolder", "Media validation must enforce a rig
 requireText(mediaValidator, "sourceLabel and sourceUrl provenance", "External/licensed media must keep visible source provenance metadata.");
 requireText(modelRoute, 'getRenderableMedia("motorcycle", model.id)[0]?.src', "Model metadata should use model-specific social imagery when available.");
 for (const token of [
-  'seoTitle: "Yamaha Aerox Price Philippines 2026 | V2 vs V3"',
-  'seoTitle: "Yamaha NMAX Price Philippines 2026 | V2 vs V3"',
-  'seoTitle: "Honda Click Price Philippines 2026 | 125i, 150i, 160"',
-  'seoTitle: "Honda ADV Price Philippines 2026 | ADV150 vs ADV160"',
+  'seoTitle: "Yamaha Aerox Price Philippines 2026 | V2 vs V3 Price & Specs"',
+  'seoTitle: "Yamaha NMAX Price Philippines 2026 | V2 vs V3 Price & Specs"',
+  'seoTitle: "Honda Click Price Philippines 2026 | 125i vs 150i vs 160"',
+  'seoTitle: "Honda ADV Price Philippines 2026 | ADV150 vs ADV160 Specs"',
   'comparisonHeading: "Yamaha Aerox V2 vs V3: what changed?"',
   'comparisonHeading: "Honda Click 125i vs 150i vs 160: what changed?"'
 ]) {
