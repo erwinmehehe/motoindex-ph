@@ -69,6 +69,11 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
         run: node scripts/navigation-model-regression-qa.mjs
 
+      - name: Route behavior QA
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: npm run qa:routes
+
       - name: Priority model commercial QA
         env:
           BASE_URL: http://127.0.0.1:3000
