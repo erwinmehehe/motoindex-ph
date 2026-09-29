@@ -1,9 +1,9 @@
 name: Temporary Topbox Media Fetch
 
 on:
-  push:
+  pull_request:
     branches:
-      - fix/topbox-images-layout-click-meta-sep29
+      - main
 
 permissions:
   contents: read
