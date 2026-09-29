@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { allVerifiedDealers } from "@/lib/persistentSellers";
 import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug } from "@/lib/sellers";
 import { pageMetadata } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { motorcycleDealerDirectorySchema } from "@/lib/dealerSchema";
 
 const MIN_PAMPANGA_DEALERS = 5;
 
@@ -35,7 +37,10 @@ export default async function PampangaDealersPage(){
   const freeJoinHref="/dealers/join?province=Pampanga&plan=free&source=%2Fdealers%2Fpampanga";
   const featuredJoinHref="/dealers/join?province=Pampanga&plan=featured-city&source=%2Fdealers%2Fpampanga#featured-options";
 
+  const dealerSchema=motorcycleDealerDirectorySchema(dealers,"Motorcycle dealers in Pampanga","/dealers/pampanga");
+
   return <section className="page shell">
+    <JsonLd data={dealerSchema}/>
     <Breadcrumbs items={[{label:"Dealers",href:"/dealers"},{label:"Pampanga"}]} />
     <div className="page-head">
       <span className="entity-kicker">Pampanga dealer directory</span>
