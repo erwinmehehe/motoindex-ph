@@ -114,7 +114,7 @@ function familyFaqs(family: TireFamilyHub, models: Motorcycle[]) {
     },
     {
       question: "Why does MotoIndex keep generations separate?",
-      answer: "Generation-specific pages reduce the risk of mixing specifications from older and current motorcycles. The family guide is for comparison; the exact model page remains the canonical fitment reference."
+      answer: "Generation-specific pages reduce the risk of mixing specifications from older and current motorcycles. The family guide is for comparison; the exact model page remains the best place to confirm that motorcycle's full specification record."
     },
     {
       question: "Should I choose a replacement tire by brand or by specification?",
@@ -224,9 +224,9 @@ export function TireSeoLanding(props: Props) {
                 : `The ${primary.model} uses different front and rear sizes. The rear is not a substitute for the front, even if a wider tire physically appears to fit.`}</p>
           </article>
           <article className={styles.answerCard}>
-            <span>Search intent</span>
+            <span>Why this guide is separate</span>
             <h2>{keywordLabel}</h2>
-            <p>This page is built around the fitment question itself. Price, specs and ownership research stay on the canonical motorcycle page instead of being duplicated here.</p>
+            <p>This page stays focused on tire size, pressure and fitment. Price, performance and ownership details stay in the full motorcycle guide so the information is easier to use.</p>
           </article>
         </div>
       </section>
@@ -235,7 +235,7 @@ export function TireSeoLanding(props: Props) {
         <SectionHeader
           kicker="Generation comparison"
           title={`Compare ${family.shortName} tire sizes`}
-          description="The exact motorcycle generation controls the answer. Use the row that matches your bike, then open its canonical model page for the complete specification record."
+          description="The exact motorcycle generation controls the answer. Use the row that matches your bike, then open its full motorcycle guide for the complete specification record."
         />
         <div className={styles.generationTable} role="table" aria-label={`${family.shortName} tire size comparison`}>
           <div className={styles.tableHead} role="row">
