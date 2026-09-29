@@ -132,6 +132,13 @@ export function getTireModelSeoHub(slug: string) {
   return tireModelSeoHubs.find((hub) => hub.slug === slug);
 }
 
+export function tireGuideHrefForModel(modelId: string) {
+  const modelHub=tireModelSeoHubs.find((hub)=>hub.modelId===modelId);
+  if(modelHub)return `/tires/${modelHub.slug}`;
+  const familyHub=tireFamilyHubs.find((hub)=>hub.modelIds.includes(modelId));
+  return familyHub?`/tires/${familyHub.slug}`:undefined;
+}
+
 export function getTireFamilyHub(slug: string) {
   return tireFamilyHubs.find((hub) => hub.slug === slug);
 }
