@@ -48,9 +48,14 @@ import { authorPersonSchema } from "@/lib/author";
 import { getModelGearGuide } from "@/lib/modelGearGuides";
 import { OwnershipCatalogLinks } from "@/components/OwnershipCatalogLinks";
 import { CTAGroup, ProductGrid as CanonicalProductGrid, SectionHeader } from "@/components/ui";
+import styles from "@/components/MotorcycleEntityPage.module.css";
 
 function HeroFact({ label, value, note }: { label: string; value: string; note?: string }) {
-  return <div><span>{label}</span><strong>{value}</strong>{note && <small>{note}</small>}</div>;
+  return <div className={styles.factCard}><span className={styles.factLabel}>{label}</span><strong className={styles.factValue}>{value}</strong>{note && <small className={styles.factNote}>{note}</small>}</div>;
+}
+
+function SpecItem({ label, value }: { label: string; value: React.ReactNode }) {
+  return <div className={styles.specCard} role="row"><span className={styles.specLabel} role="cell">{label}</span><strong className={styles.specValue} role="cell">{value}</strong></div>;
 }
 
 export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
@@ -135,7 +140,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const aeroxFinanceTarget = model.id === "yamaha-aerox-v3";
   const tireGuideHref = tireGuideHrefForModel(model.id);
 
-  return <article className="motorcycle-entity-page">
+  return <article className={`motorcycle-entity-page ${styles.page}`}>
     <section className="motorcycle-entity-hero" id="overview">
       <div className="shell">
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: model.make, href: `/motorcycles/${model.makeSlug}` }, { label: model.model }]} />
@@ -158,7 +163,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           </div>
           <div className="motorcycle-hero-visual">
             <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" priority showCredit={false} sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} className="authority-media-fallback" />} />
-            <div className="motorcycle-hero-facts">
+            <div className={`motorcycle-hero-facts ${styles.heroFactRow}`}>
               <HeroFact label="Engine" value={`${model.engineCc} cc`} note={`${model.powerHp} hp · ${model.torqueNm} Nm`} />
               <HeroFact label="Seat" value={`${model.seatHeightMm} mm`} note={`${model.curbWeightKg} kg curb weight`} />
               <HeroFact label="Transmission" value={model.transmission || "Not listed"} note={model.category} />
@@ -200,29 +205,29 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section className="motorcycle-entity-section global-spec-intent" aria-labelledby="quick-specs-heading">
         <SectionHeader kicker="Quick specs" titleId="quick-specs-heading" title={`${model.make} ${model.model} horsepower, weight, seat height and tire size`} description="These core motorcycle specifications are useful across markets. Philippine pricing is shown separately above so local SRP is not confused with globally applicable technical specifications." />
-        <div className="entity-spec-table motorcycle-spec-table quick-spec-grid" role="table" aria-label={`${model.make} ${model.model} quick specifications`}>
-          <div role="row"><span role="cell">Horsepower</span><strong role="cell">{model.powerHp} hp</strong></div>
-          <div role="row"><span role="cell">Torque</span><strong role="cell">{model.torqueNm} Nm</strong></div>
-          <div role="row"><span role="cell">Curb weight</span><strong role="cell">{model.curbWeightKg} kg</strong></div>
-          <div role="row"><span role="cell">Seat height</span><strong role="cell">{model.seatHeightMm} mm</strong></div>
-          <div role="row"><span role="cell">Fuel capacity</span><strong role="cell">{model.fuelTankL} L</strong></div>
-          <div role="row"><span role="cell">Front tire size</span><strong role="cell">{model.frontTire}</strong></div>
-          <div role="row"><span role="cell">Rear tire size</span><strong role="cell">{model.rearTire}</strong></div>
-          {model.groundClearanceMm ? <div role="row"><span role="cell">Ground clearance</span><strong role="cell">{model.groundClearanceMm} mm</strong></div> : null}
+        <div className={`entity-spec-table motorcycle-spec-table quick-spec-grid ${styles.specGrid} ${styles.quickGrid}`} role="table" aria-label={`${model.make} ${model.model} quick specifications`}>
+          <SpecItem label="Horsepower" value={`${model.powerHp} hp`} />
+          <SpecItem label="Torque" value={`${model.torqueNm} Nm`} />
+          <SpecItem label="Curb weight" value={`${model.curbWeightKg} kg`} />
+          <SpecItem label="Seat height" value={`${model.seatHeightMm} mm`} />
+          <SpecItem label="Fuel capacity" value={`${model.fuelTankL} L`} />
+          <SpecItem label="Front tire size" value={model.frontTire} />
+          <SpecItem label="Rear tire size" value={model.rearTire} />
+          {model.groundClearanceMm ? <SpecItem label="Ground clearance" value={`${model.groundClearanceMm} mm`} /> : null}
         </div>
-        <p className="entity-lede">{model.make} {model.model} uses a {model.engineCc} cc engine rated at {model.powerHp} hp and {model.torqueNm} Nm. Recorded curb weight is {model.curbWeightKg} kg, seat height is {model.seatHeightMm} mm, and fuel capacity is {model.fuelTankL} L.</p>
+        <p className={`entity-lede ${styles.specIntro}`}>{model.make} {model.model} uses a {model.engineCc} cc engine rated at {model.powerHp} hp and {model.torqueNm} Nm. Recorded curb weight is {model.curbWeightKg} kg, seat height is {model.seatHeightMm} mm, and fuel capacity is {model.fuelTankL} L.</p>
       </section>
 
       <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
         <SectionHeader kicker="Key specifications" titleId="specs-heading" title="The numbers most buyers need first" description="Keep the first pass to engine, power, fit, weight, transmission, braking and stock tires." />
-        <div className="entity-spec-table motorcycle-spec-table key-spec-grid" role="table" aria-label={`${model.make} ${model.model} key specifications`}>
-          <div role="row"><span role="cell">Engine</span><strong role="cell">{model.engineCc} cc · {model.powerHp} hp · {model.torqueNm} Nm</strong></div>
-          <div role="row"><span role="cell">Transmission</span><strong role="cell">{model.transmission || "Not listed"}</strong></div>
-          <div role="row"><span role="cell">Seat / curb weight</span><strong role="cell">{model.seatHeightMm} mm · {model.curbWeightKg} kg</strong></div>
-          <div role="row"><span role="cell">Fuel tank</span><strong role="cell">{model.fuelTankL} L</strong></div>
-          <div role="row"><span role="cell">Brakes / ABS</span><strong role="cell">{model.abs}</strong></div>
-          <div role="row"><span role="cell">Tires</span><strong role="cell">{model.frontTire} front · {model.rearTire} rear</strong></div>
-          {model.groundClearanceMm ? <div role="row"><span role="cell">Ground clearance</span><strong role="cell">{model.groundClearanceMm} mm</strong></div> : null}
+        <div className={`entity-spec-table motorcycle-spec-table key-spec-grid ${styles.specGrid} ${styles.keyGrid}`} role="table" aria-label={`${model.make} ${model.model} key specifications`}>
+          <SpecItem label="Engine" value={<>{model.engineCc} cc · {model.powerHp} hp · {model.torqueNm} Nm</>} />
+          <SpecItem label="Transmission" value={model.transmission || "Not listed"} />
+          <SpecItem label="Seat / curb weight" value={<>{model.seatHeightMm} mm · {model.curbWeightKg} kg</>} />
+          <SpecItem label="Fuel tank" value={`${model.fuelTankL} L`} />
+          <SpecItem label="Brakes / ABS" value={model.abs} />
+          <SpecItem label="Tires" value={<>{model.frontTire} front · {model.rearTire} rear</>} />
+          {model.groundClearanceMm ? <SpecItem label="Ground clearance" value={`${model.groundClearanceMm} mm`} /> : null}
         </div>
       </section>
 
@@ -258,7 +263,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section id="rider-fit" className="motorcycle-entity-section" aria-labelledby="fit-heading">
         <SectionHeader kicker="Rider fit" titleId="fit-heading" title={<>Will the {model.make} {model.model} fit you?</>} description="Seat height is only a starting point. Use your inseam with the recorded seat height and curb weight, then sit on the exact motorcycle when possible." />
-        <div className="entity-fit-kpis"><HeroFact label="Seat height" value={`${model.seatHeightMm} mm`} /><HeroFact label="Curb weight" value={`${model.curbWeightKg} kg`} /><HeroFact label="Power" value={`${model.powerHp} hp`} note={`${model.engineCc} cc`} /><HeroFact label="Transmission" value={model.transmission || "Not listed"} /></div>
+        <div className={`entity-fit-kpis ${styles.fitGrid}`}><HeroFact label="Seat height" value={`${model.seatHeightMm} mm`} /><HeroFact label="Curb weight" value={`${model.curbWeightKg} kg`} /><HeroFact label="Power" value={`${model.powerHp} hp`} note={`${model.engineCc} cc`} /><HeroFact label="Transmission" value={model.transmission || "Not listed"} /></div>
         <RiderFitCalculator model={forClient(model)} />
       </section>
 
