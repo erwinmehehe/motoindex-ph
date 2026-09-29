@@ -1974,11 +1974,11 @@ export const recommendationGuides: RecommendationGuide[] = [
     slug: "yamaha-scooters-philippines",
     kicker: "Yamaha scooters",
     title: "Yamaha scooters in the Philippines",
-    seoTitle: "Yamaha Scooters Philippines 2026: Prices, Models & Specs",
-    description: "Compare current Yamaha scooters in the Philippines by price, engine, weight, seat height, ABS, fuel economy, tank capacity, rider fit and ownership costs.",
+    seoTitle: "Yamaha Scooter Price Philippines 2026: Models & Price List",
+    description: "Compare Yamaha scooter prices in the Philippines for 2026, including Mio, Fazzio, Aerox, NMAX and maxi-scooter models with specs and model links.",
     primaryKeyword: "Yamaha scooters Philippines",
     secondaryKeywords: ["Yamaha scooter price Philippines", "Yamaha scooter price list Philippines", "Yamaha automatic motorcycle Philippines", "Yamaha scooter models 2026", "Yamaha Mio Philippines", "Yamaha Aerox Philippines", "Yamaha NMAX Philippines"],
-    directAnswer: "This guide compares current Yamaha scooters using dated Philippine prices and model-specific engine, weight, seat-height, braking, fuel and ownership data. It keeps Mio, Fazzio, Aerox, NMAX and larger scooter research connected to their canonical model pages.",
+    directAnswer: "This Yamaha scooter price guide compares current Philippine models using dated prices and model-specific engine, weight, seat-height, braking, fuel and ownership data. It keeps Mio, Fazzio, Aerox, NMAX and larger scooter research connected to their canonical model pages and the national scooter price list.",
     inclusionRules: ["Make is Yamaha", "Category contains scooter", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest; price order is not an overall quality ranking.",
     tieBreakers: ["Lower curb weight", "Lower seat height"],
@@ -1989,18 +1989,18 @@ export const recommendationGuides: RecommendationGuide[] = [
     quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest published fuel economy",metric:"economy"},{label:"Largest fuel tank",metric:"tank"}],
     editorialSections: ["Yamaha scooter price range", "Mio, Fazzio, Aerox and NMAX differences", "Yamaha scooters with ABS and variant differences", "Yamaha scooters for city commuting", "Yamaha scooter rider fit and ownership"],
     faqQuestions: ["What Yamaha scooters are available in the Philippines?", "What is the Yamaha scooter price range in the Philippines?", "Which Yamaha scooter has the lowest published price?", "Which Yamaha scooter is lightest?", "Which Yamaha scooter has the lowest seat?", "Which Yamaha scooters list ABS?"],
-    relatedGuideSlugs: ["best-scooters-philippines","125cc-scooters-philippines","150cc-scooters-philippines","160cc-scooters-philippines","yamaha-mio-motorcycles-philippines","best-motorcycles-for-daily-commute-philippines"],
+    relatedGuideSlugs: ["best-scooters-philippines","125cc-scooters-philippines","150cc-scooters-philippines","160cc-scooters-philippines","yamaha-mio-motorcycles-philippines","honda-scooters-philippines","suzuki-scooters-philippines","best-motorcycles-for-daily-commute-philippines"],
     intent: "category"
   },
   {
     slug: "honda-scooters-philippines",
     kicker: "Honda scooters",
     title: "Honda scooters in the Philippines",
-    seoTitle: "Honda Scooters Philippines 2026: Prices, Models & Specs",
-    description: "Compare current Honda scooters in the Philippines by price, engine, weight, seat height, ABS, fuel economy, tank capacity, rider fit and ownership costs.",
+    seoTitle: "Honda Scooter Price Philippines 2026: Models & Price List",
+    description: "Compare Honda scooter prices in the Philippines for 2026, including Click, ADV, PCX and other current models with specs, price references and model links.",
     primaryKeyword: "Honda scooters Philippines",
     secondaryKeywords: ["Honda scooter price Philippines", "Honda scooter price list Philippines", "Honda automatic motorcycle Philippines", "Honda scooter models 2026", "Honda Click Philippines", "Honda PCX 160 Philippines", "Honda ADV160 Philippines"],
-    directAnswer: "This guide compares current Honda scooters using dated Philippine prices and model-specific engine, weight, seat-height, braking, fuel and ownership data. Use the table to separate commuter, premium and adventure-style Honda scooters without splitting model details across duplicate URLs.",
+    directAnswer: "This Honda scooter price guide compares current Philippine models using dated prices and model-specific engine, weight, seat-height, braking, fuel and ownership data. Use the table to separate commuter, premium and adventure-style Honda scooters while keeping each model on its canonical page and linked to the national scooter price list.",
     inclusionRules: ["Make is Honda", "Category contains scooter", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest; price order is not an overall quality ranking.",
     tieBreakers: ["Lower curb weight", "Lower seat height"],
@@ -2011,7 +2011,29 @@ export const recommendationGuides: RecommendationGuide[] = [
     quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest published fuel economy",metric:"economy"},{label:"Largest fuel tank",metric:"tank"}],
     editorialSections: ["Honda scooter price range", "Honda 125cc to 160cc scooter choices", "Honda scooters with ABS or CBS", "Honda scooters for city commuting", "Honda scooter rider fit and ownership"],
     faqQuestions: ["What Honda scooters are available in the Philippines?", "What is the Honda scooter price range in the Philippines?", "Which Honda scooter has the lowest published price?", "Which Honda scooter is lightest?", "Which Honda scooter has the lowest seat?", "Which Honda scooters list ABS or CBS?"],
-    relatedGuideSlugs: ["best-scooters-philippines","125cc-scooters-philippines","150cc-scooters-philippines","160cc-scooters-philippines","honda-adv-motorcycles-philippines","best-motorcycles-for-daily-commute-philippines"],
+    relatedGuideSlugs: ["best-scooters-philippines","125cc-scooters-philippines","150cc-scooters-philippines","160cc-scooters-philippines","honda-adv-motorcycles-philippines","yamaha-scooters-philippines","suzuki-scooters-philippines","best-motorcycles-for-daily-commute-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "suzuki-scooters-philippines",
+    kicker: "Suzuki scooters",
+    title: "Suzuki scooters in the Philippines",
+    seoTitle: "Suzuki Scooter Price Philippines 2026: Models & Price List",
+    description: "Compare Suzuki scooter prices in the Philippines for 2026, including Skydrive, Access, Avenis and Burgman models with specs and current price references.",
+    primaryKeyword: "Suzuki scooters Philippines",
+    secondaryKeywords: ["Suzuki scooter price Philippines", "Suzuki scooter price list Philippines", "Suzuki automatic motorcycle Philippines", "Suzuki scooter models 2026", "Suzuki Skydrive price", "Suzuki Access price", "Suzuki Avenis price", "Suzuki Burgman price Philippines"],
+    directAnswer: "This Suzuki scooter price guide compares current Philippine models using dated prices and model-specific engine, weight, seat-height, braking, fuel and ownership data. It keeps Skydrive, Access, Avenis and Burgman research connected to each canonical model page and the national scooter price list.",
+    inclusionRules: ["Make is Suzuki", "Category contains scooter", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest; price order is not an overall quality ranking.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Published prices and specifications use dated Suzuki Philippines or other model-specific Philippine references stored on each canonical model record.",
+    caveats: ["The Suzuki scooter range spans lightweight commuter scooters and much larger Burgman models.", "Dealer stock, promotions and final on-road pricing can differ by location.", "Published seat height and curb weight do not replace an in-person fit check."],
+    tableColumns: ["price","engine","weight","seat","abs","economy","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest published fuel economy",metric:"economy"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Suzuki scooter price range", "Skydrive, Access and Avenis commuter choices", "Burgman scooter differences", "Suzuki scooter braking and fuel data", "Suzuki scooter rider fit and ownership"],
+    faqQuestions: ["What Suzuki scooters are available in the Philippines?", "What is the Suzuki scooter price range in the Philippines?", "Which Suzuki scooter has the lowest published price?", "Which Suzuki scooter is lightest?", "Which Suzuki scooter has the lowest seat?", "Which Suzuki scooters list ABS or combined braking?"],
+    relatedGuideSlugs: ["best-scooters-philippines","125cc-scooters-philippines","150cc-scooters-philippines","160cc-scooters-philippines","suzuki-burgman-motorcycles-philippines","honda-scooters-philippines","yamaha-scooters-philippines","best-motorcycles-for-daily-commute-philippines"],
     intent: "category"
   },
   {
@@ -2384,6 +2406,7 @@ export function getRecommendationModels(slug: string) {
     case "sport-motorcycles-philippines": return byPrice.filter(m => m.category === "Sport bike");
     case "yamaha-scooters-philippines": return byPrice.filter(m => m.makeSlug === "yamaha" && /scooter/i.test(m.category));
     case "honda-scooters-philippines": return byPrice.filter(m => m.makeSlug === "honda" && /scooter/i.test(m.category));
+    case "suzuki-scooters-philippines": return byPrice.filter(m => m.makeSlug === "suzuki" && /scooter/i.test(m.category));
     case "yamaha-mio-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "yamaha" && /mio|aerox|fazzio/i.test(m.model));
     case "kawasaki-ninja-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "kawasaki" && /^ninja\b/i.test(m.model));
     case "honda-adv-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "honda" && /adv/i.test(m.model));
