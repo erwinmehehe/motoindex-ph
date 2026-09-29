@@ -23,7 +23,7 @@ export const tireFamilyHubs: TireFamilyHub[] = [
   },
   {
     slug: "nmax-tire-size",
-    title: "Yamaha NMAX Tire Size — V2 & V3 Front and Rear",
+    title: "Yamaha NMAX Tire Size Philippines: V2 & V3 Front and Rear",
     shortName: "Yamaha NMAX",
     description: "Compare stock Yamaha NMAX V2 and V3 tire sizes and open the exact generation for pressure, maintenance and replacement-tire checks.",
     modelIds: ["yamaha-nmax-v3", "yamaha-nmax-v2"],
@@ -32,7 +32,7 @@ export const tireFamilyHubs: TireFamilyHub[] = [
   },
   {
     slug: "honda-click-tire-size",
-    title: "Honda Click Tire Size — 125i, 150i & 160 Front and Rear",
+    title: "Honda Click Tire Size Philippines: 125i, 150i & 160",
     shortName: "Honda Click",
     description: "Compare stock Honda Click 125i, Click 150i and Click 160 tire sizes without mixing generations or assuming larger tires automatically fit.",
     modelIds: ["honda-click-160", "honda-click-150i", "honda-click-125i"],
@@ -78,6 +78,66 @@ export const priorityTireModelSeo: Record<string, { title: string; description: 
     keywordLabel: "Honda Click 160 tire size"
   }
 };
+
+export type TireModelSeoHub = {
+  slug: string;
+  modelId: string;
+  title: string;
+  description: string;
+  keywordLabel: string;
+  queryVolume: number;
+  aliases: string[];
+};
+
+export const tireModelSeoHubs: TireModelSeoHub[] = [
+  {
+    slug: "adv-160-tire-size",
+    modelId: "honda-adv-160",
+    title: "Honda ADV 160 Tire Size Philippines: Front & Rear",
+    description: "Honda ADV 160 stock front and rear tire sizes, exact tire-pressure reference, replacement tire families and fitment checks for Philippine riders.",
+    keywordLabel: "Honda ADV 160 tire size",
+    queryVolume: 2200,
+    aliases: ["adv 160 tire size", "honda adv 160 tire size", "adv160 stock tire size", "adv 160 front tire size", "adv 160 rear tire size"]
+  },
+  {
+    slug: "fazzio-tire-size",
+    modelId: "yamaha-fazzio",
+    title: "Yamaha Fazzio Tire Size Philippines: Front & Rear",
+    description: "Yamaha Fazzio stock front and rear tire sizes, 12-inch wheel fitment notes, replacement tire families and size-reading guidance for Philippine riders.",
+    keywordLabel: "Yamaha Fazzio tire size",
+    queryVolume: 700,
+    aliases: ["fazzio tire size", "yamaha fazzio tire size", "mio fazzio tire size", "fazzio stock tire size"]
+  },
+  {
+    slug: "mio-gear-tire-size",
+    modelId: "yamaha-mio-gear",
+    title: "Yamaha Mio Gear Tire Size Philippines: Front & Rear",
+    description: "Yamaha Mio Gear stock front and rear tire sizes, 14-inch wheel fitment notes, verified replacement families and tire-size guidance.",
+    keywordLabel: "Yamaha Mio Gear tire size",
+    queryVolume: 600,
+    aliases: ["mio gear tire size", "yamaha mio gear tire size", "mio gear stock tire size", "mio gear front tire size", "mio gear rear tire size"]
+  },
+  {
+    slug: "sniper-155-tire-size",
+    modelId: "yamaha-sniper-155",
+    title: "Yamaha Sniper 155 Tire Size Philippines: Front & Rear",
+    description: "Yamaha Sniper 155 stock front and rear tire sizes, 17-inch wheel guidance, replacement-fitment checks and tire-size safety notes.",
+    keywordLabel: "Yamaha Sniper 155 tire size",
+    queryVolume: 500,
+    aliases: ["sniper 155 tire size", "yamaha sniper 155 tire size", "sniper 155 stock tire size", "sniper 155 front tire size", "sniper 155 rear tire size"]
+  }
+];
+
+export function getTireModelSeoHub(slug: string) {
+  return tireModelSeoHubs.find((hub) => hub.slug === slug);
+}
+
+export function tireGuideHrefForModel(modelId: string) {
+  const modelHub=tireModelSeoHubs.find((hub)=>hub.modelId===modelId);
+  if(modelHub)return `/tires/${modelHub.slug}`;
+  const familyHub=tireFamilyHubs.find((hub)=>hub.modelIds.includes(modelId));
+  return familyHub?`/tires/${familyHub.slug}`:undefined;
+}
 
 export function getTireFamilyHub(slug: string) {
   return tireFamilyHubs.find((hub) => hub.slug === slug);

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
-import { publicMotorcycles } from "@/lib/data";
+import { getModelById, publicMotorcycles } from "@/lib/data";
 import { tireProducts } from "@/lib/catalog";
 import { ProductCard } from "@/components/ProductCard";
 import { AuthorBox } from "@/components/AuthorBox";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
-import { tireFamilyHubs, getTireFamilyModels } from "@/lib/tireSeo";
+import { tireFamilyHubs, tireModelSeoHubs, getTireFamilyModels } from "@/lib/tireSeo";
 import { CTAGroup, InfoPanel, PageHero, ProductGrid, SectionHeader, StatRow } from "@/components/ui";
 import styles from "../styles/hub-index.module.css";
 
@@ -65,6 +65,27 @@ export default function TiresPage(){
       <a href="#size-chart">Read tire sizes</a>
     </nav>
 
+    <section className={styles.section} aria-labelledby="popular-tire-size-guides">
+      <SectionHeader
+        kicker="Popular tire-size searches"
+        title="Model-specific motorcycle tire size guides"
+        titleId="popular-tire-size-guides"
+        description="Open a dedicated guide when the model name itself is the fitment question. These pages keep the stock size, pressure evidence, replacement options and safety checks together without duplicating the motorcycle price/spec page."
+      />
+      <div className={styles.categoryList}>
+        {tireModelSeoHubs.map(hub=>{
+          const model=getModelById(hub.modelId);
+          if(!model)return null;
+          return <Link className={styles.categoryRow} href={`/tires/${hub.slug}`} key={hub.slug}>
+            <span className={styles.categoryKicker}>{model.make}</span>
+            <div className={styles.categoryCopy}><h3>{model.model} tire size</h3><p>{model.frontTire} front · {model.rearTire} rear · pressure and replacement-fitment guidance</p></div>
+            <span className={styles.categoryMeta}>Front & rear stock sizes</span>
+            <span className={styles.categoryArrow}>→</span>
+          </Link>;
+        })}
+      </div>
+    </section>
+
     <section id="products" className={`${styles.section} ${styles.products}`} data-tire-product-section>
       <SectionHeader
         kicker="Replacement tires"
@@ -105,8 +126,9 @@ export default function TiresPage(){
         {tireFamilyHubs.map(hub=>{
           const models=getTireFamilyModels(hub);
           return <article className={styles.family} key={hub.slug}>
-            <h3>{hub.shortName}</h3>
+            <h3><Link href={`/tires/${hub.slug}`}>{hub.shortName}</Link></h3>
             <p>{hub.description}</p>
+            <Link className={styles.familyGuideLink} href={`/tires/${hub.slug}`}>Open tire-size guide →</Link>
             <div className={styles.familyLinks}>
               {models.map(m=><Link key={m.id} href={`/motorcycles/${m.makeSlug}/${m.slug}#tires-fitment`}>
                 <span><strong>{m.model}</strong><small>{m.generation}</small></span>

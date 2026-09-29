@@ -108,6 +108,18 @@
   line-height:var(--mi-leading-copy);
 }
 
+.familyGuideLink{
+  display:inline-flex;
+  margin-bottom:var(--mi-space-4);
+  color:var(--mi-color-primary);
+  font-size:var(--mi-type-xs);
+  font-weight:800;
+}
+
+.familyGuideLink:hover{
+  color:var(--mi-color-primary-hover);
+}
+
 .familyLinks{
   display:grid;
 }
