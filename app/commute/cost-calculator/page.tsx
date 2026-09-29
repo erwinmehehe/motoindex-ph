@@ -10,7 +10,11 @@ export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Commute Cost Calculator Philippines",
   description: "Estimate monthly motorcycle fuel, maintenance reserve, parking and cost per workday for commuting in the Philippines.",
   path: "/commute/cost-calculator",
-  index: true
+  index: true,
+  image: "/media/motorcycles/yamaha-aerox-v3.webp",
+  imageAlt: "Yamaha Mio Aerox V3 motorcycle in Race Blu",
+  imageWidth: 1200,
+  imageHeight: 1200
 });
 
 export default async function Page({ searchParams }: { searchParams: Promise<{ bike?: string }> }) {
