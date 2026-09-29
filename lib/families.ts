@@ -7,6 +7,10 @@ export type ModelFamily = {
   slug: string;
   searchVolume: number;
   intro: string;
+  seoTitle: string;
+  seoDescription: string;
+  secondaryKeywords: string[];
+  comparisonHeading: string;
   currentModelId: string;
   generationIds: string[];
   /**
@@ -26,6 +30,10 @@ export const modelFamilies: ModelFamily[] = [
     slug: "aerox",
     searchVolume: 14000,
     intro: "Compare the current Yamaha Aerox with the previous V2 generation, including price context, core specifications and stock tire sizes.",
+    seoTitle: "Yamaha Aerox Price Philippines 2026 | V2 vs V3",
+    seoDescription: "Compare Yamaha Aerox V2 vs V3 prices, specs, seat height, weight and tire sizes in the Philippines, with current and historical price context.",
+    secondaryKeywords: ["Yamaha Aerox price Philippines", "Aerox V2 vs V3", "Aerox V3 price", "Aerox V2 price", "Aerox generations Philippines"],
+    comparisonHeading: "Yamaha Aerox V2 vs V3: what changed?",
     currentModelId: "yamaha-aerox-v3",
     generationIds: ["yamaha-aerox-v3", "yamaha-aerox-v2"]
   },
@@ -36,6 +44,10 @@ export const modelFamilies: ModelFamily[] = [
     slug: "nmax",
     searchVolume: 23000,
     intro: "Compare current and previous Yamaha NMAX generations without mixing historical launch prices with the current model.",
+    seoTitle: "Yamaha NMAX Price Philippines 2026 | V2 vs V3",
+    seoDescription: "Compare Yamaha NMAX V2 vs V3 prices, specs, seat height, weight and generation differences in the Philippines before opening the exact model.",
+    secondaryKeywords: ["Yamaha NMAX price Philippines", "NMAX V2 vs V3", "NMAX V3 price", "NMAX V2 price", "NMAX generations Philippines"],
+    comparisonHeading: "Yamaha NMAX V2 vs V3: what changed?",
     currentModelId: "yamaha-nmax-v3",
     generationIds: ["yamaha-nmax-v3", "yamaha-nmax-v2"]
   },
@@ -46,6 +58,10 @@ export const modelFamilies: ModelFamily[] = [
     slug: "click",
     searchVolume: 33000,
     intro: "Compare the Honda Click 160, Click 150i and Click 125i in one place, including what the unofficial V1, V2, V3 and V4 names riders use actually refer to.",
+    seoTitle: "Honda Click Price Philippines 2026 | 125i, 150i, 160",
+    seoDescription: "Compare Honda Click 125i, 150i and Click 160 prices and specs in the Philippines, plus the unofficial V1, V2, V3 and V4 naming used by sellers.",
+    secondaryKeywords: ["Honda Click price Philippines", "Click 125i vs 150i vs 160", "Honda Click V1 V2 V3 V4", "Honda Click generations", "Click 160 price Philippines"],
+    comparisonHeading: "Honda Click 125i vs 150i vs 160: what changed?",
     currentModelId: "honda-click-160",
     generationIds: ["honda-click-160", "honda-click-150i", "honda-click-125i"],
     nicknames: {
@@ -65,6 +81,10 @@ export const modelFamilies: ModelFamily[] = [
     slug: "adv",
     searchVolume: 0,
     intro: "Compare the current Honda ADV160 with the previous ADV150 generation, keeping current new-bike pricing separate from the discontinued model's historical Philippine launch price.",
+    seoTitle: "Honda ADV Price Philippines 2026 | ADV150 vs ADV160",
+    seoDescription: "Compare Honda ADV150 vs ADV160 prices, specs, seat height, weight and generation differences in the Philippines, with current and historical price context.",
+    secondaryKeywords: ["Honda ADV price Philippines", "ADV150 vs ADV160", "Honda ADV160 price", "Honda ADV150 price", "Honda ADV generations Philippines"],
+    comparisonHeading: "Honda ADV150 vs ADV160: what changed?",
     currentModelId: "honda-adv-160",
     generationIds: ["honda-adv-160", "honda-adv-150"]
   },
@@ -77,4 +97,8 @@ export function getModelFamily(makeSlug: string, slug: string) {
 
 export function getFamilyModels(family: ModelFamily) {
   return family.generationIds.map(getModelById).filter(Boolean);
+}
+
+export function getModelFamilyForModel(modelId: string) {
+  return modelFamilies.find((family) => family.generationIds.includes(modelId));
 }
