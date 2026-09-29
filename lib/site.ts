@@ -18,6 +18,8 @@ type PageMetadataOptions = {
   index?: boolean;
   image?: string;
   imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
 };
 
 // Google truncates meta descriptions around 160 characters. Several pages pass
@@ -34,7 +36,7 @@ function metaDescription(text: string, limit = 158) {
   return clean.slice(0, wordEnd > 0 ? wordEnd : limit).replace(/[,;:—-]$/, "") + "…";
 }
 
-export function pageMetadata({ title, description, path, index = true, image = "/brand/motoindex-og.png", imageAlt }: PageMetadataOptions): Metadata {
+export function pageMetadata({ title, description, path, index = true, image = "/brand/motoindex-og.png", imageAlt, imageWidth = 1200, imageHeight = 630 }: PageMetadataOptions): Metadata {
   const canonical = path.startsWith("/") ? path : `/${path}`;
   const trimmed = metaDescription(description);
   return {
@@ -48,7 +50,7 @@ export function pageMetadata({ title, description, path, index = true, image = "
       url: canonical,
       siteName: SITE_NAME,
       type: "website",
-      images: [{ url: image, width: 1200, height: 630, alt: imageAlt || title }]
+      images: [{ url: image, width: imageWidth, height: imageHeight, alt: imageAlt || title }]
     },
     twitter: {
       card: "summary_large_image",
