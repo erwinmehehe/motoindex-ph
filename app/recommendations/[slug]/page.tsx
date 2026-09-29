@@ -341,6 +341,7 @@ function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide
   const seat=[...models].sort((a,b)=>a.seatHeightMm-b.seatHeightMm);
   const weight=[...models].sort((a,b)=>a.curbWeightKg-b.curbWeightKg);
   const economy=models.filter(m=>m.fuelConsumptionKmL).sort((a,b)=>(b.fuelConsumptionKmL||0)-(a.fuelConsumptionKmL||0));
+  const tank=[...models].sort((a,b)=>b.fuelTankL-a.fuelTankL);
   const brandMatch=["honda","yamaha","suzuki","kawasaki"].find(brand=>lower.includes(brand));
   if(lower.includes("what motorcycles below 150cc are available"))return `This guide currently includes ${models.length} current motorcycles below 150cc across scooters, underbones, business motorcycles and other categories. Use the comparison table for the exact models and their current published price references.`;
   if(lower.includes("how much is a motorcycle below 150cc"))return `Published starting-price references in this current below-150cc set run from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)}. Final dealer quotes, registration, promotions and financing can differ.`;
@@ -348,7 +349,7 @@ function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide
   if(lower.includes("underbones and business motorcycles included"))return `Yes. The broad below-150cc guide includes every current qualifying motorcycle category, including underbones and business motorcycles, so long as recorded displacement is below 150cc.`;
   if(lower.includes("which below-150cc motorcycle is lightest"))return `${weight[0].make} ${weight[0].model} is the lightest current model in this checked set at ${weight[0].curbWeightKg} kg.`;
   if(lower.includes("what business motorcycles are available"))return `The current business-motorcycle guide includes ${modelNames(models,10)}. The table keeps their price, engine, tank, weight, seat height and ground-clearance differences visible.`;
-  if(lower.includes("how much is a business motorcycle"))return `The current checked business-motorcycle set runs from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)} in published starting-price references.`;
+  if(lower.includes("how much is a business motorcycle"))return `The current business-motorcycle set runs from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)} in published starting-price references.`;
   if(lower.includes("difference between tmx, ytx and barako"))return `They differ in exact engine size, tank capacity, curb weight, seat height, ground clearance and model-specific equipment. Compare those measurable fields first, then verify the exact work setup and dealer support you need.`;
   if(lower.includes("can every business motorcycle use a sidecar"))return `No assumption should be made from the category alone. Sidecar or commercial conversion suitability depends on the exact motorcycle, manufacturer guidance, frame and mounting design, registration classification and applicable local requirements.`;
   if(lower.includes("which business motorcycle has the largest fuel tank"))return `${tank[0].make} ${tank[0].model} has the largest recorded fuel tank in this current set at ${tank[0].fuelTankL} L.`;
