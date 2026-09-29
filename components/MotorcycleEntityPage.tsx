@@ -43,14 +43,11 @@ import { modelAuthorityQuality } from "@/lib/modelQuality";
 import { forClient } from "@/lib/competitors";
 import { tireGuideHrefForModel } from "@/lib/tireSeo";
 import { performanceAnswerFor } from "@/lib/modelPerformance";
+import { authorPersonSchema } from "@/lib/author";
 import { AuthorBox } from "@/components/AuthorBox";
 import { getModelGearGuide } from "@/lib/modelGearGuides";
 import { OwnershipCatalogLinks } from "@/components/OwnershipCatalogLinks";
-import { CTAGroup, ProductGrid as CanonicalProductGrid, SectionHeader } from "@/components/ui";
-
-function HeroFact({ label, value, note }: { label: string; value: string; note?: string }) {
-  return <div><span>{label}</span><strong>{value}</strong>{note && <small>{note}</small>}</div>;
-}
+import { CTAGroup, ProductGrid as CanonicalProductGrid, SectionHeader, StatRow } from "@/components/ui";
 
 export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const isPrevious = model.marketStatus === "previous";
@@ -91,9 +88,11 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       ? { "@type": "AggregateOffer", priceCurrency: "PHP", lowPrice: officialLow, highPrice: officialHigh, url: absoluteUrl(canonicalPath) }
       : { "@type": "Offer", priceCurrency: "PHP", price: officialLow, itemCondition: "https://schema.org/NewCondition", url: absoluteUrl(canonicalPath) }
     : undefined;
+  const productId = `${absoluteUrl(canonicalPath)}#product`;
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
+    "@id": productId,
     name: `${model.make} ${model.model}`,
     sku: model.id,
     url: absoluteUrl(canonicalPath),
@@ -111,6 +110,20 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       { "@type": "PropertyValue", name: "Front tire", value: model.frontTire },
       { "@type": "PropertyValue", name: "Rear tire", value: model.rearTire },
     ],
+  };
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${absoluteUrl(canonicalPath)}#faq`,
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer }
+    }))
+  };
+  const authorSchema = {
+    "@context": "https://schema.org",
+    ...authorPersonSchema()
   };
   const loanToolHref = { pathname: "/tools/motorcycle-loan-calculator", query: { price: range.from, model: `${model.make} ${model.model}` } };
   const aeroxFinanceTarget = model.id === "yamaha-aerox-v3";
@@ -139,12 +152,12 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           </div>
           <div className="motorcycle-hero-visual">
             <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" priority showCredit={false} sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} className="authority-media-fallback" />} />
-            <div className="motorcycle-hero-facts">
-              <HeroFact label="Engine" value={`${model.engineCc} cc`} note={`${model.powerHp} hp · ${model.torqueNm} Nm`} />
-              <HeroFact label="Seat" value={`${model.seatHeightMm} mm`} note={`${model.curbWeightKg} kg curb weight`} />
-              <HeroFact label="Transmission" value={model.transmission || "Not listed"} note={model.category} />
-              <HeroFact label="Fuel" value={`${model.fuelTankL} L tank`} note={`${efficiency.kmPerL} km/L ${efficiency.status === "listed" ? "listed" : "planning estimate"}`} />
-            </div>
+            <StatRow className="motorcycle-hero-facts" items={[
+              { label: "Engine", value: `${model.engineCc} cc`, note: `${model.powerHp} hp · ${model.torqueNm} Nm` },
+              { label: "Seat", value: `${model.seatHeightMm} mm`, note: `${model.curbWeightKg} kg curb weight` },
+              { label: "Transmission", value: model.transmission || "Not listed", note: model.category },
+              { label: "Fuel", value: `${model.fuelTankL} L tank`, note: `${efficiency.kmPerL} km/L ${efficiency.status === "listed" ? "listed" : "planning estimate"}` }
+            ]} />
           </div>
         </div>
       </div>
@@ -181,30 +194,30 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section className="motorcycle-entity-section global-spec-intent" aria-labelledby="quick-specs-heading">
         <SectionHeader kicker="Quick specs" titleId="quick-specs-heading" title={`${model.make} ${model.model} horsepower, weight, seat height and tire size`} description="These core motorcycle specifications are useful across markets. Philippine pricing is shown separately above so local SRP is not confused with globally applicable technical specifications." />
-        <div className="entity-spec-table motorcycle-spec-table" role="table" aria-label={`${model.make} ${model.model} quick specifications`}>
-          <div role="row"><span role="cell">Horsepower</span><strong role="cell">{model.powerHp} hp</strong></div>
-          <div role="row"><span role="cell">Torque</span><strong role="cell">{model.torqueNm} Nm</strong></div>
-          <div role="row"><span role="cell">Curb weight</span><strong role="cell">{model.curbWeightKg} kg</strong></div>
-          <div role="row"><span role="cell">Seat height</span><strong role="cell">{model.seatHeightMm} mm</strong></div>
-          <div role="row"><span role="cell">Fuel capacity</span><strong role="cell">{model.fuelTankL} L</strong></div>
-          <div role="row"><span role="cell">Front tire size</span><strong role="cell">{model.frontTire}</strong></div>
-          <div role="row"><span role="cell">Rear tire size</span><strong role="cell">{model.rearTire}</strong></div>
-          {model.groundClearanceMm ? <div role="row"><span role="cell">Ground clearance</span><strong role="cell">{model.groundClearanceMm} mm</strong></div> : null}
-        </div>
+        <StatRow className="motorcycle-spec-stats" items={[
+          { label: "Horsepower", value: `${model.powerHp} hp` },
+          { label: "Torque", value: `${model.torqueNm} Nm` },
+          { label: "Curb weight", value: `${model.curbWeightKg} kg` },
+          { label: "Seat height", value: `${model.seatHeightMm} mm` },
+          { label: "Fuel capacity", value: `${model.fuelTankL} L` },
+          { label: "Front tire", value: model.frontTire },
+          { label: "Rear tire", value: model.rearTire },
+          ...(model.groundClearanceMm ? [{ label: "Ground clearance", value: `${model.groundClearanceMm} mm` }] : [])
+        ]} />
         <p className="entity-lede">{model.make} {model.model} uses a {model.engineCc} cc engine rated at {model.powerHp} hp and {model.torqueNm} Nm. Recorded curb weight is {model.curbWeightKg} kg, seat height is {model.seatHeightMm} mm, and fuel capacity is {model.fuelTankL} L.</p>
       </section>
 
       <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
         <SectionHeader kicker="Key specifications" titleId="specs-heading" title="The numbers most buyers need first" description="Keep the first pass to engine, power, fit, weight, transmission, braking and stock tires." />
-        <div className="entity-spec-table motorcycle-spec-table" role="table" aria-label={`${model.make} ${model.model} key specifications`}>
-          <div role="row"><span role="cell">Engine</span><strong role="cell">{model.engineCc} cc · {model.powerHp} hp · {model.torqueNm} Nm</strong></div>
-          <div role="row"><span role="cell">Transmission</span><strong role="cell">{model.transmission || "Not listed"}</strong></div>
-          <div role="row"><span role="cell">Seat / curb weight</span><strong role="cell">{model.seatHeightMm} mm · {model.curbWeightKg} kg</strong></div>
-          <div role="row"><span role="cell">Fuel tank</span><strong role="cell">{model.fuelTankL} L</strong></div>
-          <div role="row"><span role="cell">Brakes / ABS</span><strong role="cell">{model.abs}</strong></div>
-          <div role="row"><span role="cell">Tires</span><strong role="cell">{model.frontTire} front · {model.rearTire} rear</strong></div>
-          {model.groundClearanceMm ? <div role="row"><span role="cell">Ground clearance</span><strong role="cell">{model.groundClearanceMm} mm</strong></div> : null}
-        </div>
+        <StatRow className="motorcycle-key-specs" items={[
+          { label: "Engine", value: `${model.engineCc} cc`, note: `${model.powerHp} hp · ${model.torqueNm} Nm` },
+          { label: "Transmission", value: model.transmission || "Not listed", note: model.category },
+          { label: "Seat / weight", value: `${model.seatHeightMm} mm`, note: `${model.curbWeightKg} kg curb` },
+          { label: "Fuel tank", value: `${model.fuelTankL} L`, note: `${efficiency.kmPerL} km/L ${efficiency.status === "listed" ? "listed" : "planning estimate"}` },
+          { label: "Brakes / ABS", value: model.abs },
+          { label: "Stock tires", value: model.frontTire, note: `${model.rearTire} rear` },
+          ...(model.groundClearanceMm ? [{ label: "Ground clearance", value: `${model.groundClearanceMm} mm` }] : [])
+        ]} />
       </section>
 
       {authority && <section id="buyer-guide" className="motorcycle-entity-section authority-decision-section" aria-labelledby="buyer-guide-heading">
@@ -239,7 +252,12 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section id="rider-fit" className="motorcycle-entity-section" aria-labelledby="fit-heading">
         <SectionHeader kicker="Rider fit" titleId="fit-heading" title={<>Will the {model.make} {model.model} fit you?</>} description="Seat height is only a starting point. Use your inseam with the recorded seat height and curb weight, then sit on the exact motorcycle when possible." />
-        <div className="entity-fit-kpis"><HeroFact label="Seat height" value={`${model.seatHeightMm} mm`} /><HeroFact label="Curb weight" value={`${model.curbWeightKg} kg`} /><HeroFact label="Power" value={`${model.powerHp} hp`} note={`${model.engineCc} cc`} /><HeroFact label="Transmission" value={model.transmission || "Not listed"} /></div>
+        <StatRow className="rider-fit-stats" items={[
+          { label: "Seat height", value: `${model.seatHeightMm} mm` },
+          { label: "Curb weight", value: `${model.curbWeightKg} kg` },
+          { label: "Power", value: `${model.powerHp} hp`, note: `${model.engineCc} cc` },
+          { label: "Transmission", value: model.transmission || "Not listed" }
+        ]} />
         <RiderFitCalculator model={forClient(model)} />
       </section>
 
@@ -261,7 +279,11 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section id="fuel" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Fuel economy and range</summary><SectionHeader title={<>{model.make} {model.model} fuel consumption</>} description={efficiency.status === "listed" ? `The ${efficiency.kmPerL} km/L basis comes from the model data on file.` : "MotoIndex starts from a labeled planning estimate when a model-specific published figure is unavailable."} /><FuelRangeCalculator model={forClient(model)} /></details></section>
 
-      <section id="tires-fitment" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Tires, top boxes and fitment</summary><SectionHeader title={<>{model.make} {model.model} tires and ownership gear</>} description="Start with the stock tire sizes and model-specific fitment evidence, then continue into the full ownership catalogs when you need more options." />{tireGuideHref && <p className="entity-section-note"><Link href={tireGuideHref}>Open the dedicated {model.model} tire-size guide →</Link></p>}<div className="entity-fit-kpis tire-fit-kpis"><HeroFact label="Front tire" value={model.frontTire} /><HeroFact label="Rear tire" value={model.rearTire} />{maintenance?.tirePressure && <HeroFact label="Solo pressure" value={`${maintenance.tirePressure.soloFrontPsi} / ${maintenance.tirePressure.soloRearPsi} psi`} note="Front / rear" />}</div><FitmentSummary model={model} />{(tireCandidates.length > 0 || topBoxCandidates.length > 0) && <CanonicalProductGrid>{tireCandidates.slice(0,3).map((p) => <ProductCard key={p.id} item={{ entityId:p.id, href:`/tires/${p.brandSlug}/${p.slug}`, category:"Tire", brand:p.brand, model:p.model, meta:p.useCase, status:p.status, priceFromPhp:p.priceFromPhp }} />)}{topBoxCandidates.slice(0,3).map((p) => { const edge=topBoxFitments.find((f)=>f.topBoxId===p.id); return <ProductCard key={p.id} item={{ entityId:p.id, href:`/accessories/top-box/${p.slug}`, category:"Top box", brand:p.brand, model:p.model, meta:edge?.status==="verified"?`${edge.rackCode} · model-specific rack`:`${p.capacityL}L · fit to confirm`, status:edge?.status==="verified"?"verified":"research", priceFromPhp:p.priceFromPhp }} />; })}</CanonicalProductGrid>}<OwnershipCatalogLinks hasHelmetGuide={Boolean(gearGuide && helmetCandidates.length > 0)} /></details></section>
+      <section id="tires-fitment" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Tires, top boxes and fitment</summary><SectionHeader title={<>{model.make} {model.model} tires and ownership gear</>} description="Start with the stock tire sizes and model-specific fitment evidence, then continue into the full ownership catalogs when you need more options." />{tireGuideHref && <p className="entity-section-note"><Link href={tireGuideHref}>Open the dedicated {model.model} tire-size guide →</Link></p>}<StatRow className="tire-fit-kpis" items={[
+          { label: "Front tire", value: model.frontTire },
+          { label: "Rear tire", value: model.rearTire },
+          ...(maintenance?.tirePressure ? [{ label: "Solo pressure", value: `${maintenance.tirePressure.soloFrontPsi} / ${maintenance.tirePressure.soloRearPsi} psi`, note: "Front / rear" }] : [])
+        ]} /><FitmentSummary model={model} />{(tireCandidates.length > 0 || topBoxCandidates.length > 0) && <CanonicalProductGrid>{tireCandidates.slice(0,3).map((p) => <ProductCard key={p.id} item={{ entityId:p.id, href:`/tires/${p.brandSlug}/${p.slug}`, category:"Tire", brand:p.brand, model:p.model, meta:p.useCase, status:p.status, priceFromPhp:p.priceFromPhp }} />)}{topBoxCandidates.slice(0,3).map((p) => { const edge=topBoxFitments.find((f)=>f.topBoxId===p.id); return <ProductCard key={p.id} item={{ entityId:p.id, href:`/accessories/top-box/${p.slug}`, category:"Top box", brand:p.brand, model:p.model, meta:edge?.status==="verified"?`${edge.rackCode} · model-specific rack`:`${p.capacityL}L · fit to confirm`, status:edge?.status==="verified"?"verified":"research", priceFromPhp:p.priceFromPhp }} />; })}</CanonicalProductGrid>}<OwnershipCatalogLinks hasHelmetGuide={Boolean(gearGuide && helmetCandidates.length > 0)} /></details></section>
 
       <section id="maintenance" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Maintenance and official service schedule</summary>{maintenance ? <><div className="entity-maintenance-table" role="table" aria-label={`${model.make} ${model.model} maintenance schedule`}><div className="head" role="row"><span role="columnheader">Item</span><span role="columnheader">Action</span><span role="columnheader">Interval</span></div>{maintenance.items.map((item) => <div role="row" key={item.item}><span role="cell"><strong>{item.item}</strong>{item.note && <small>{item.note}</small>}</span><span role="cell">{item.action}</span><span role="cell">{item.interval}</span></div>)}</div><p className="entity-section-note">Exact owner-manual schedule. Confirm the maintenance schedule for the exact model year and market before servicing. <a href={maintenance.sourceUrl} target="_blank" rel="noreferrer">Open the official owner manual →</a></p></> : brandMaintenance ? <><div className="entity-alert-card subdued"><div><span>Official brand PMS guide</span><h3>{brandMaintenance.sourceLabel}</h3><p>{brandMaintenance.applicability}</p><p><strong>PMS milestones:</strong> {brandMaintenance.pmsMilestones}</p></div></div><div className="entity-maintenance-table" role="table" aria-label={`${model.make} brand maintenance guidance`}><div className="head" role="row"><span role="columnheader">Item</span><span role="columnheader">Action</span><span role="columnheader">Brand guide interval</span></div>{brandMaintenance.items.map((item) => <div role="row" key={item.item}><span role="cell"><strong>{item.item}</strong>{item.note && <small>{item.note}</small>}</span><span role="cell">{item.action}</span><span role="cell">{item.interval}</span></div>)}</div><p className="entity-section-note">This is {model.make} brand-level maintenance guidance, not a substitute for the exact {model.model} owner manual. <a href={brandMaintenance.sourceUrl} target="_blank" rel="noreferrer">Check the official {model.make} maintenance source →</a></p></> : <div className="entity-alert-card subdued"><div><span>Official service schedule</span><h3>Use the current manufacturer maintenance documentation</h3><p>MotoIndex does not substitute a generic interval when a model-specific official schedule has not been transcribed.</p></div></div>}</details></section>
 
@@ -278,6 +300,6 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       <section id="faq" className="motorcycle-entity-section"><FaqSection title={`${model.make} ${model.model} FAQs`} items={faqs} /></section>
       <AuthorBox />
     </div>
-    <JsonLd data={schema} />
+    <JsonLd data={[schema, faqSchema, authorSchema]} allowFaqPage />
   </article>;
 }
