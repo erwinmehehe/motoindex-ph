@@ -22,7 +22,7 @@ Do not commit private raw GSC exports to this repository.
 ## Command
 
 ```bash
-npm run seo:gsc-opportunities -- /path/to/query-page.csv --output /tmp/motoindex-gsc-opportunities.md
+node scripts/gsc-opportunity-report.mjs /path/to/query-page.csv --output /tmp/motoindex-gsc-opportunities.md
 ```
 
 Optional controls:
