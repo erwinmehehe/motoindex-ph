@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import type { Motorcycle } from "@/lib/types";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
@@ -54,7 +55,7 @@ function HeroFact({ label, value, note }: { label: string; value: string; note?:
   return <div className={styles.factCard}><span className={styles.factLabel}>{label}</span><strong className={styles.factValue}>{value}</strong>{note && <small className={styles.factNote}>{note}</small>}</div>;
 }
 
-function SpecItem({ label, value }: { label: string; value: React.ReactNode }) {
+function SpecItem({ label, value }: { label: string; value: ReactNode }) {
   return <div className={styles.specCard} role="row"><span className={styles.specLabel} role="cell">{label}</span><strong className={styles.specValue} role="cell">{value}</strong></div>;
 }
 
