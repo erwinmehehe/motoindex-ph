@@ -161,9 +161,9 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     <section id="price" className="product-entity-section product-price-section">
       <div className="section-head compact"><div><span className="section-kicker">Price & availability</span><h2>{p.brand} {p.model} price in the Philippines</h2><p>Use the dated amount as a reference, then check the current seller for the exact size, graphic, bundle and stock.</p></div></div>
       <div className="entity-price-grid">
-        <article className="primary-price-card"><span>Starting price reference</span><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong>{p.lastChecked && <small>Updated {p.lastChecked}</small>}</article>
-        {p.stockStatus && <article><span>Availability</span><strong>{p.stockStatus}</strong><small>Stock can differ by size and graphic.</small></article>}
-        {(p.colors?.length || p.variants?.length) ? <article><span>Variants / colors</span><strong>{p.colors?.length ? p.colors.join(" · ") : p.variants?.join(" · ")}</strong><small>Do not assume every graphic is available in every size.</small></article> : null}
+        <article className="primary-price-card"><div><span>Starting price reference</span></div><div><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong></div>{p.lastChecked && <small>Updated {p.lastChecked}</small>}</article>
+        {p.stockStatus && <article><div><span>Availability</span></div><div><strong>{p.stockStatus}</strong></div><small>Stock can differ by size and graphic.</small></article>}
+        {(p.colors?.length || p.variants?.length) ? <article><div><span>Variants / colors</span></div><div><strong>{p.colors?.length ? p.colors.join(" · ") : p.variants?.join(" · ")}</strong></div><small>Do not assume every graphic is available in every size.</small></article> : null}
       </div>
       <CommercePriceComparison entityType="helmet" entityId={p.id} productName={`${p.brand} ${p.model}`} />
     </section>
