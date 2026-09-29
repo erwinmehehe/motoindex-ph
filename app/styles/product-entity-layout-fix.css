@@ -11,10 +11,6 @@
 .helmet-product-page .product-detail-description p{max-width:620px;margin-top:18px;color:var(--mi-color-copy);font-size:15px;line-height:1.7}
 .helmet-product-page .product-detail-price-block{align-items:flex-end;justify-content:space-between;gap:12px;margin:22px 0 18px;padding:17px 19px;border:1px solid var(--mi-color-line);border-radius:18px;background:var(--mi-color-surface)}
 .helmet-product-page .product-detail-price{color:var(--mi-color-ink);font-size:clamp(32px,3.4vw,44px);line-height:1;letter-spacing:-.04em}
-.helmet-product-page .product-detail-facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:0}
-.helmet-product-page .product-fact{min-height:82px;padding:14px 15px;border:1px solid var(--mi-color-line);border-radius:15px;background:var(--mi-color-surface)}
-.helmet-product-page .product-entity-nav{position:sticky;top:72px;z-index:18;gap:4px;margin:22px 0 0;padding:8px;border:1px solid var(--mi-color-line);border-radius:999px;background:var(--mi-color-surface);box-shadow:var(--mi-shadow-sm)}
-.helmet-product-page .product-entity-nav a{min-height:36px;padding:0 12px;border-radius:999px}
 .helmet-product-page .product-entity-section{padding:58px 0}
 .helmet-product-page .entity-price-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;border:0}
 .helmet-product-page .entity-price-grid>article{min-height:126px;padding:19px;border:1px solid var(--mi-color-line);border-radius:18px;background:var(--mi-color-surface);box-shadow:var(--mi-shadow-sm)}
@@ -22,4 +18,4 @@
 .helmet-product-page .entity-spec-table>div{min-height:64px;padding:15px 19px;border-bottom:1px solid var(--mi-color-line-soft);background:var(--mi-color-surface)}
 .helmet-product-page .entity-spec-table>div:last-child{border-bottom:0}
 @media(max-width:900px){.helmet-product-page .product-detail-hero{grid-template-columns:1fr;padding:22px}.helmet-product-page .product-detail-media>.entity-media{height:360px}.helmet-product-page .entity-price-grid{grid-template-columns:1fr}}
-@media(max-width:650px){.helmet-product-page{padding-top:20px;padding-bottom:60px}.helmet-product-page .product-detail-hero{gap:18px;margin-top:10px;padding:13px;border-radius:22px}.helmet-product-page .product-detail-media>.entity-media{height:270px;border-radius:18px}.helmet-product-page .product-detail-media>.entity-media img{padding:16px}.helmet-product-page .product-detail-summary h1{font-size:clamp(40px,12vw,52px)}.helmet-product-page .product-detail-price-block{align-items:flex-start;flex-direction:column}.helmet-product-page .product-detail-facts{gap:8px}.helmet-product-page .product-entity-nav{top:64px;margin-inline:-4px}.helmet-product-page .product-entity-section{padding:42px 0}}
+@media(max-width:650px){.helmet-product-page{padding-top:20px;padding-bottom:60px}.helmet-product-page .product-detail-hero{gap:18px;margin-top:10px;padding:13px;border-radius:22px}.helmet-product-page .product-detail-media>.entity-media{height:270px;border-radius:18px}.helmet-product-page .product-detail-media>.entity-media img{padding:16px}.helmet-product-page .product-detail-summary h1{font-size:clamp(40px,12vw,52px)}.helmet-product-page .product-detail-price-block{align-items:flex-start;flex-direction:column}.helmet-product-page .product-entity-section{padding:42px 0}}
