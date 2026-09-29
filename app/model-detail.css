@@ -61,10 +61,24 @@ html body .motorcycle-price-lockup{
   background:transparent!important;
   box-shadow:none!important;
 }
+html body .motorcycle-price-lockup>span,
+html body .motorcycle-price-lockup>strong,
+html body .motorcycle-price-lockup>small{
+  display:block;
+}
+html body .motorcycle-price-lockup>span{
+  margin-bottom:4px;
+}
 html body .motorcycle-price-lockup strong{
   color:#101828!important;
   font-size:clamp(27px,2.6vw,34px)!important;
   line-height:1.05!important;
+  letter-spacing:-.035em;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+html body .motorcycle-price-lockup>small{
+  margin-top:5px;
 }
 html body .entity-hero-actions{margin-top:13px!important;gap:7px!important}
 html body .entity-hero-actions .button,
