@@ -225,7 +225,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       </section>
 
       <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
-        <SectionHeader kicker="Key specifications" titleId="specs-heading" title={`${model.make} ${model.model} specifications`} description="Compare engine, power, fit, weight, transmission, braking and stock tire sizes on the canonical model page." />
+        <SectionHeader kicker="Key specifications" titleId="specs-heading" title={`${model.make} ${model.model} specifications`} description="Compare engine, power, fit, weight, transmission, braking and stock tire sizes for this motorcycle." />
         <div className="entity-spec-table motorcycle-spec-table key-spec-grid" role="table" aria-label={`${model.make} ${model.model} key specifications`}>
           <div role="row"><span role="cell">Engine</span><strong role="cell">{model.engineCc} cc · {model.powerHp} hp · {model.torqueNm} Nm</strong></div>
           <div role="row"><span role="cell">Transmission</span><strong role="cell">{model.transmission || "Not listed"}</strong></div>
