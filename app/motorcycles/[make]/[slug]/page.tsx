@@ -85,13 +85,17 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   if (!model) return {};
   const seo = motorcycleEntitySeo(model);
   const growth = priorityModelGrowthProfile(model.id);
+  const media = getRenderableMedia("motorcycle", model.id)[0];
   const image = getRenderableMedia("motorcycle", model.id)[0]?.src;
   const base = pageMetadata({
     title: growth?.seoTitle || seo.title,
     description: growth?.seoDescription || seo.description,
     path: `/motorcycles/${model.makeSlug}/${model.slug}`,
     index: isIndexableModel(model),
-    image
+    image,
+    imageAlt: media?.alt || `${model.make} ${model.model} motorcycle`,
+    imageWidth: media?.width,
+    imageHeight: media?.height
   });
   return { ...base, keywords: seo.keywords };
 }

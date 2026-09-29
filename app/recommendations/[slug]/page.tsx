@@ -15,12 +15,26 @@ import { JsonLd } from "@/components/JsonLd";
 import { RELEASE_DATE, absoluteUrl } from "@/lib/site";
 import { articleSchema } from "@/lib/articleSchema";
 import { AuthorBox } from "@/components/AuthorBox";
+import { getRenderableMedia } from "@/lib/renderableMedia";
 
 export function generateStaticParams(){return recommendationGuides.map(g=>({slug:g.slug}));}
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
   const {slug}=await params;
   const guide=getRecommendationGuide(slug);
-  return guide?pageMetadata({title:guide.seoTitle||guide.title,description:guide.description,path:`/recommendations/${guide.slug}`,index:isIndexableRecommendation(slug)}):{};
+  if(!guide)return {};
+  const representative=getRecommendationModels(slug)
+    .map(model=>({model,media:getRenderableMedia("motorcycle",model.id)[0]}))
+    .find(({media})=>Boolean(media&&!media.src.includes("/media/placeholders/")));
+  return pageMetadata({
+    title:guide.seoTitle||guide.title,
+    description:guide.description,
+    path:`/recommendations/${guide.slug}`,
+    index:isIndexableRecommendation(slug),
+    image:representative?.media?.src,
+    imageAlt:representative?.media?.alt||guide.title,
+    imageWidth:representative?.media?.width,
+    imageHeight:representative?.media?.height
+  });
 }
 
 const hasAbs=(m:Motorcycle)=>/\bABS\b/i.test(m.abs)&&!/^No ABS/i.test(m.abs);
