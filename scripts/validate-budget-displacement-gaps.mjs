@@ -10,6 +10,7 @@ const motorcycles = read("app", "motorcycles", "page.tsx");
 
 for (const slug of [
   "motorcycles-under-150k",
+  "motorcycles-below-150cc-philippines",
   "250cc-motorcycles-philippines",
   "300cc-motorcycles-philippines"
 ]) {
@@ -40,6 +41,7 @@ if (!data.includes('relatedGuideSlugs: ["motorcycles-under-80k","motorcycles-und
 }
 
 for (const band of [
+  'm.engineCc < 150',
   'm.engineCc >= 225 && m.engineCc <= 275',
   'm.engineCc >= 280 && m.engineCc <= 325'
 ]) {
