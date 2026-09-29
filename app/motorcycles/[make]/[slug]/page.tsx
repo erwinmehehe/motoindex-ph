@@ -74,12 +74,19 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   if (family) {
     const familyModels = family.generationIds.map(getModelById);
     const index = familyModels.some((m) => Boolean(m && isIndexableModel(m)));
-    return pageMetadata({
-      title: `${family.make} ${family.name} Price & Specs Philippines`,
-      description: `${family.make} ${family.name} price and specs in the Philippines, with current-generation details, generation context and linked price sources.`,
+    const current = getModelById(family.currentModelId);
+    const media = current ? getRenderableMedia("motorcycle", current.id)[0] : undefined;
+    const base = pageMetadata({
+      title: family.seoTitle,
+      description: family.seoDescription,
       path: `/motorcycles/${family.makeSlug}/${family.slug}`,
-      index
+      index,
+      image: media?.src,
+      imageAlt: media?.alt || `${family.make} ${family.name} current generation`,
+      imageWidth: media?.width,
+      imageHeight: media?.height
     });
+    return { ...base, keywords: [`${family.make} ${family.name} price Philippines`, ...family.secondaryKeywords] };
   }
   const model = getModel(make, slug);
   if (!model) return {};
