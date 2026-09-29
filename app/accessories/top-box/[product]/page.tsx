@@ -134,7 +134,7 @@ export default async function TopBoxProductPage({ params }: { params: Promise<{ 
         {item.includedHardware && <div><span>Included with the case</span><strong>{item.includedHardware}</strong></div>}
         <div><span>Motorcycle-side requirement</span><strong>{item.mountingNote}</strong></div>
       </div>
-      {item.compatibleAccessories?.length ? <div className="topbox-accessories"><h3>Compatible accessories</h3>{item.compatibleAccessories.map((accessory) => <div key={`${accessory.name}-${accessory.sku || ""}`}><strong>{accessory.name}</strong>{accessory.sku && <span>{accessory.sku}</span>}</div>)}</div> : null}
+      {item.compatibleAccessories?.length ? <div className="entity-accessories"><h3>Compatible accessories</h3>{item.compatibleAccessories.map((accessory) => <div key={`${accessory.name}-${accessory.sku || ""}`}><strong>{accessory.name}</strong>{accessory.sku && <span>{accessory.sku}</span>}</div>)}</div> : null}
     </section>
 
     <section id="fitment" className="product-entity-section">
@@ -182,7 +182,7 @@ export default async function TopBoxProductPage({ params }: { params: Promise<{ 
       <div className="topbox-faq-list">{faqs.map((faq) => <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</div>
     </section>
 
-    <div className="topbox-note"><h2>Philippines top-box note</h2><p>LTO removed the ₱100 registration fee for custom-made motorcycle top boxes and saddle bags, but safe mounting and other applicable road rules still matter.</p><a className="text-link" href="https://lto.gov.ph/news/bayad-sa-rehistro-ng-top-box-sa-motorsiklo-inalis-na-ng-lto/" target="_blank" rel="noreferrer">Read the LTO notice ↗</a></div>
+    <div className="note-box"><h2>Philippines top-box note</h2><p>LTO removed the ₱100 registration fee for custom-made motorcycle top boxes and saddle bags, but safe mounting and other applicable road rules still matter.</p><a className="text-link" href="https://lto.gov.ph/news/bayad-sa-rehistro-ng-top-box-sa-motorsiklo-inalis-na-ng-lto/" target="_blank" rel="noreferrer">Read the LTO notice ↗</a></div>
     <RelatedLinks title="Related fitment pages" links={topBoxInternalLinks(item)} />
     <JsonLd data={schema} />
   </ProductEntityShell>;
