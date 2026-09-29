@@ -68,7 +68,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const categories = [...new Set(current.map((m) => m.category))].sort();
   const automatic = current.filter((m) => m.transmission === "Automatic").length;
   const scooters = current.filter((m) => /scooter/i.test(m.category));
-  const scooterGuideHref = make === "honda" || make === "yamaha" ? `/recommendations/${make}-scooters-philippines` : "/recommendations/best-scooters-philippines";
+  const scooterGuideHref = ["honda", "yamaha", "suzuki"].includes(make) ? `/recommendations/${make}-scooters-philippines` : "/recommendations/best-scooters-philippines";
   const scooterRanges = scooters.map((model) => observedMarketRange(model));
   const scooterLow = scooterRanges.length ? Math.min(...scooterRanges.map((row) => row.from)) : undefined;
   const scooterHigh = scooterRanges.length ? Math.max(...scooterRanges.map((row) => row.to || row.from)) : undefined;
