@@ -2,6 +2,8 @@
 
 Checked: 2026-09-30
 
+Validation base: current main.
+
 ## Competitor surfaces reviewed
 
 ### ZigWheels Philippines
