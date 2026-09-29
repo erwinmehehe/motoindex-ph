@@ -117,6 +117,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     url: absoluteUrl(`${canonicalPath}#faq`),
+    author: { "@id": `${absoluteUrl("/authors/erwin-valles")}#person` },
     mainEntity: faqs.map((item) => ({
       "@type": "Question",
       name: item.question,
