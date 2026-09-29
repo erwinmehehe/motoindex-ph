@@ -22,6 +22,7 @@ import { AuthorBox } from "@/components/AuthorBox";
 import { ProductEntityShell } from "@/components/ProductEntityShell";
 import { ProductHero } from "@/components/ProductHero";
 import { ProductTrustRow } from "@/components/ProductTrustRow";
+import { getRenderableMedia } from "@/lib/renderableMedia";
 
 export const revalidate = 3600;
 
@@ -47,11 +48,17 @@ export async function generateMetadata({ params }: { params: Promise<{ brand: st
       index: false,
     });
   }
+  const media = getRenderableMedia("helmet", p.id)[0];
+  const hasSpecificMedia = Boolean(media && !media.src.includes("/media/placeholders/"));
   const base = pageMetadata({
     title: `${p.brand} ${p.model} Price Philippines: Specs & Size Guide`,
     description: `${p.brand} ${p.model} Philippines guide with price, size chart, shell, weight, visor/Pinlock details, pros and cons, alternatives and fit checks.`,
     path: `/gear/helmets/${p.brandSlug}/${p.slug}`,
     index: p.status === "verified",
+    image: hasSpecificMedia ? media?.src : undefined,
+    imageAlt: hasSpecificMedia ? media?.alt : `${p.brand} ${p.model} motorcycle helmet`,
+    imageWidth: hasSpecificMedia ? media?.width : undefined,
+    imageHeight: hasSpecificMedia ? media?.height : undefined,
   });
   const name = `${p.brand} ${p.model}`.toLowerCase();
   return { ...base, keywords: [`${name} price philippines`, `${name} size chart`, `${name} specs`, `${name} weight`, `${name} visor`, `${name} pinlock`, `${name} review`, `${name} helmet`] };
