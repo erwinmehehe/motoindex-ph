@@ -110,16 +110,6 @@
   letter-spacing:.04em;
 }
 
-.decisionCard:nth-child(2) .cardIndex{
-  background:var(--mi-color-surface-subtle);
-  color:var(--mi-color-success-dark);
-}
-
-.decisionCard:nth-child(3) .cardIndex{
-  background:var(--mi-color-surface)aeb;
-  color:var(--mi-color-slate-700);
-}
-
 .cardCopy{
   min-width:0;
 }
