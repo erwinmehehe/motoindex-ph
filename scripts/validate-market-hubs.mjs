@@ -88,7 +88,8 @@ if (fs.existsSync(path.join(root, "app", "motorcycles", "scooters", "page.tsx"))
     "160cc-scooters-philippines",
     "maxi-scooters-philippines",
     "honda-scooters-philippines",
-    "yamaha-scooters-philippines"
+    "yamaha-scooters-philippines",
+    "suzuki-scooters-philippines"
   ]) {
     requireText(
       scooters,
@@ -250,8 +251,10 @@ for (const token of [
   '"Maxi-scooters and larger scooters"',
   '"honda-scooters-philippines"',
   '"yamaha-scooters-philippines"',
-  'seoTitle: "Honda Scooters Philippines 2026: Prices, Models & Specs"',
-  'seoTitle: "Yamaha Scooters Philippines 2026: Prices, Models & Specs"'
+  '"suzuki-scooters-philippines"',
+  'seoTitle: "Honda Scooter Price Philippines 2026: Models & Price List"',
+  'seoTitle: "Yamaha Scooter Price Philippines 2026: Models & Price List"',
+  'seoTitle: "Suzuki Scooter Price Philippines 2026: Models & Price List"'
 ]) {
   requireText(recommendationData, token, `Scooter recommendation architecture missing token: ${token}`);
 }
@@ -264,7 +267,7 @@ for (const token of [
   requireText(recommendationRoute.toLowerCase(), token, `Scooter recommendation renderer missing answer logic: ${token}`);
 }
 for (const token of [
-  'const scooterGuideHref = make === "honda" || make === "yamaha"',
+  'const scooterGuideHref = ["honda", "yamaha", "suzuki"].includes(make)',
   'href="/recommendations/best-scooters-philippines"',
   'href="/motorcycles/scooters"',
   'Best scooters Philippines guide'
