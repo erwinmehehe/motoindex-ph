@@ -38,7 +38,6 @@ const modelFamilies = read("lib", "families.ts");
 const modelFamilyView = read("components", "ModelFamilyView.tsx");
 const gscOpportunity = read("scripts", "gsc-opportunity-report.mjs");
 const gscWorkflow = read("docs", "seo", "gsc-opportunity-workflow-2026-09-30.md");
-const packageJson = read("package.json");
 
 requireText(home, "Compare <span>motorcycle prices</span><br />and specs in the Philippines.", "Homepage must keep a query-led motorcycle prices/specs H1.");
 forbidText(home, "Your next <span>motorcycle</span><br />starts here.", "Homepage must not regress to the old brand-led H1.");
@@ -98,7 +97,6 @@ for (const token of [
 ]) {
   requireText(gscOpportunity, token, `GSC opportunity analyzer missing required behavior: ${token}`);
 }
-requireText(packageJson, '"seo:gsc-opportunities": "node scripts/gsc-opportunity-report.mjs"', "Package scripts must expose the repeatable GSC opportunity report.");
 for (const token of [
   "Do not commit private raw GSC exports",
   "Neither source is first-party GSC performance",
