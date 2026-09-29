@@ -849,3 +849,12 @@ html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual 
   html body .motorcycle-entity-page #price .price-history-row{grid-template-columns:1fr;gap:9px;padding:14px}
   html body .motorcycle-entity-page #price .price-history-source{grid-column:auto}
 }
+
+
+/* Canonical StatRow composition for dense motorcycle key specs.
+   Quick specs and rider-fit stay two-up on phones; longer key-spec values get a full row. */
+@media(max-width:620px){
+  html body .motorcycle-entity-page .motorcycle-key-specs{
+    grid-template-columns:1fr;
+  }
+}
