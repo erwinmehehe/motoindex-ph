@@ -6,6 +6,7 @@ import { RELEASE_DATE, SITE_URL } from "@/lib/site";
 import { ownershipGuides } from "@/lib/ownershipGuides";
 import { editorialGuides } from "@/lib/editorialGuides";
 import { electricMotorcycles } from "@/lib/electricMotorcycles";
+import { tireFamilyHubs, tireModelSeoHubs } from "@/lib/tireSeo";
 
 type Entry = { url: string; lastModified: string; changeFrequency?: "daily"|"weekly"|"monthly"|"yearly"; priority?: number };
 const iso = (value?: string) => value || RELEASE_DATE;
@@ -113,9 +114,17 @@ export function gearSitemapEntries(): Entry[] {
   const brands=helmetBrands.filter(h=>isIndexableHelmetBrand(h.slug)).map(h=>{const p=helmetProducts.filter(x=>x.brandSlug===h.slug&&x.status==="verified");return {url:`${SITE_URL}/gear/helmets/${h.slug}`,lastModified:newest(p.map(x=>iso(x.lastChecked))),changeFrequency:"monthly" as const,priority:.78};});
   const products=verifiedHelmets.map(p=>({url:`${SITE_URL}/gear/helmets/${p.brandSlug}/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.74}));
   const tires=tireProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/tires/${p.brandSlug}/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.68}));
+  const tireFamilyGuides=tireFamilyHubs.flatMap(hub=>{
+    const models=motorcycles.filter(model=>hub.modelIds.includes(model.id));
+    return models.length?[{url:`${SITE_URL}/tires/${hub.slug}`,lastModified:newest(models.map(modelCheckedAt)),changeFrequency:"monthly" as const,priority:.78}]:[];
+  });
+  const tireModelGuides=tireModelSeoHubs.flatMap(hub=>{
+    const model=motorcycles.find(item=>item.id===hub.modelId);
+    return model?[{url:`${SITE_URL}/tires/${hub.slug}`,lastModified:modelCheckedAt(model),changeFrequency:"monthly" as const,priority:.76}]:[];
+  });
   const boxes=topBoxProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/accessories/top-box/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.66}));
   const accessoryHubs=accessoryCategories.filter(a=>a.slug==="top-box").map(a=>({url:`${SITE_URL}/accessories/${a.slug}`,lastModified:newest(boxes.map(x=>x.lastModified)),changeFrequency:"monthly" as const,priority:.76}));
-  return [...categories,...brands,...products,...tires,...boxes,...accessoryHubs];
+  return [...categories,...brands,...products,...tires,...tireFamilyGuides,...tireModelGuides,...boxes,...accessoryHubs];
 }
 
 export function commerceSitemapEntries(): Entry[] {
