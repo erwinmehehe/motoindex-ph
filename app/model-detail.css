@@ -359,7 +359,8 @@ html body .motorcycle-entity-page .entity-spec-table>div{
   box-shadow:var(--mi-shadow-sm);
 }
 html body .motorcycle-entity-page .entity-spec-table span,
-html body .motorcycle-entity-page .entity-spec-table strong{
+html body .motorcycle-entity-page .entity-spec-table strong,
+html body .motorcycle-entity-page .entity-spec-table small{
   display:block;
   width:100%;
   min-width:0;
@@ -378,6 +379,11 @@ html body .motorcycle-entity-page .entity-spec-table strong{
   line-height:1.28;
   letter-spacing:-.02em;
   overflow-wrap:anywhere;
+}
+html body .motorcycle-entity-page .entity-spec-table small{
+  color:var(--mi-color-copy);
+  font-size:9px;
+  line-height:1.4;
 }
 html body .motorcycle-entity-page .global-spec-intent>.entity-lede{
   margin:16px 0 0;
