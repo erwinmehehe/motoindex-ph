@@ -74,6 +74,7 @@ const exactRegressionRoutes = [
   { key: "helmet-gille-kerena", path: "/gear/helmets/gille/kerena-ff007" },
   { key: "helmet-spyder-surge", path: "/gear/helmets/spyder/surge-plain-v2" },
   { key: "topbox-givi-v58", path: "/accessories/top-box/v58-maxia-5" },
+  { key: "topbox-coocase-v50", path: "/accessories/top-box/coocase-v50-reflex" },
   { key: "tire-michelin-city-grip-2", path: "/tires/michelin/city-grip-2" },
 ];
 const helmetBrandRoutes = representativeHelmetRoutes(catalogBlock("export const helmetProducts", "export const tireProducts"));
@@ -193,12 +194,13 @@ try {
         const r=el=>{if(!el)return null;const rect=el.getBoundingClientRect();return {left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom,width:rect.width,height:rect.height};};
         const px=el=>el?parseFloat(getComputedStyle(el).fontSize)||0:0;
         const objectFit=image?getComputedStyle(image).objectFit:'';
+        const imageSrc=image?.currentSrc||image?.getAttribute('src')||'';
         return {
           title:heading?.textContent?.trim()||'', overflow:root.scrollWidth-root.clientWidth,
           page:r(page), hero:r(hero), summary:r(summary), heading:r(heading), lede:r(lede), media:r(media), fallback:r(fallback), image:r(image), facts:r(facts), trust:r(trust), nav:r(nav), spec:r(spec),
           heroDisplay:hero?getComputedStyle(hero).display:'', heroColumns:hero?getComputedStyle(hero).gridTemplateColumns:'',
           headingSize:px(heading), sectionHeadingSize:px(sectionHeading), specLabelSize:px(specLabel),
-          mediaRadius:media?parseFloat(getComputedStyle(media).borderRadius)||0:0, objectFit,
+          mediaRadius:media?parseFloat(getComputedStyle(media).borderRadius)||0:0, objectFit, imageSrc,
           factsDisplay:facts?getComputedStyle(facts).display:'', factWidths:factEls.slice(0,6).map(el=>Math.round(r(el).width)),
           sectionWidths:sections.slice(0,8).map(el=>Math.round(r(el).width)),
           compareDisplay:compareRow?getComputedStyle(compareRow).display:'',
@@ -228,6 +230,7 @@ try {
       if (state?.compareDisplay && state.compareDisplay !== "grid") failures.push(`${width}px ${route.key}: comparison row is ${state.compareDisplay}, expected grid`);
       if (state?.objectFit && state.objectFit !== "contain") failures.push(`${width}px ${route.key}: product image uses ${state.objectFit}, expected contain`);
       if (state?.image && state?.media && (state.image.width > state.media.width + 2 || state.image.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: hero image exceeds media stage`);
+      if (route.path.startsWith("/accessories/top-box/") && (!state?.imageSrc || state.imageSrc.includes("/media/placeholders/topbox.svg"))) failures.push(`${width}px ${route.key}: verified top box is still using placeholder media`);
       if (state?.fallback && state?.media && (state.fallback.width > state.media.width + 2 || state.fallback.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: placeholder exceeds media stage`);
       await screenshot(route.key, width);
     }
