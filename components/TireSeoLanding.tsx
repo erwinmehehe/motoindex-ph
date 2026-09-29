@@ -126,15 +126,16 @@ function familyFaqs(family: TireFamilyHub, models: Motorcycle[]) {
 export function TireSeoLanding(props: Props) {
   const family = props.family;
   const modelHub = props.modelHub;
+  if (!family && !modelHub) return null;
   const models = family
     ? getTireFamilyModels(family)
-    : [getModelById(modelHub.modelId)].filter((model): model is Motorcycle => Boolean(model));
+    : [getModelById(modelHub!.modelId)].filter((model): model is Motorcycle => Boolean(model));
 
   if (!models.length) return null;
 
   const primary = models[0];
-  const pageTitle = family ? family.title : modelHub.title;
-  const description = family ? family.description : modelHub.description;
+  const pageTitle = family ? family.title : modelHub!.title;
+  const description = family ? family.description : modelHub!.description;
   const products = dedupeProducts(models);
   const pressure = !family ? pressureCopy(primary) : undefined;
   const shared = sharedSizeModels(models);
@@ -143,7 +144,7 @@ export function TireSeoLanding(props: Props) {
   const frontParsed = parseMetricSize(primary.frontTire);
   const rearParsed = parseMetricSize(primary.rearTire);
   const sameSize = primary.frontTire === primary.rearTire;
-  const keywordLabel = family ? family.aliases[0] : modelHub.keywordLabel;
+  const keywordLabel = family ? family.aliases[0] : modelHub!.keywordLabel;
   const faqs = family ? familyFaqs(family, models) : modelFaqs(primary, pressure);
 
   return <article className={styles.page}>
