@@ -2,12 +2,17 @@ import type { Motorcycle } from "@/lib/types";
 import { getVerifiedVariantsForModel } from "@/lib/variants";
 import { php } from "@/lib/utils";
 import { SourceCard, SourceOpen, sourceDisplayName } from "@/components/SourceRef";
+import { SectionHeader } from "@/components/ui";
 
 export function VariantMatrix({ model }: { model: Motorcycle }) {
   const variants = getVerifiedVariantsForModel(model.id);
   if (variants.length < 2) return null;
   return <section className="variant-module">
-    <div className="section-head compact"><div><h2>{model.model} variants and SRPs</h2><p>Current Philippine trims with separate suggested retail prices and equipment differences. Dealer prices can differ from these SRPs.</p></div></div>
+    <SectionHeader
+      kicker="Variants"
+      title={`${model.model} variants and SRPs`}
+      description="Current Philippine trims with separate suggested retail prices and equipment differences. Dealer prices can differ from these SRPs."
+    />
     <div className="variant-grid">
       {variants.map((variant)=><article className="variant-card" key={variant.id}>
         <div className="variant-card-head"><div><span>{model.make} {model.model}</span><h3>{variant.name}</h3></div><strong>{php(variant.srpPhp)}</strong></div>
