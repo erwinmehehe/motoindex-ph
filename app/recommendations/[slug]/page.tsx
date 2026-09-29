@@ -31,7 +31,9 @@ export async function generateMetadata({params}:{params:Promise<{slug:string}>})
     path:`/recommendations/${guide.slug}`,
     index:isIndexableRecommendation(slug),
     image:representative?.media.src,
-    imageAlt:representative?.media.alt||guide.title
+    imageAlt:representative?.media.alt||guide.title,
+    imageWidth:representative?.media.width,
+    imageHeight:representative?.media.height
   });
 }
 
