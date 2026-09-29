@@ -128,7 +128,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     { label: "Sizes", value: p.sizes.length ? p.sizes.join(" · ") : "Check size chart" },
   ];
 
-  return <ProductEntityShell className={styles.page}>
+  return <ProductEntityShell className="helmet-product-page">
     <Breadcrumbs items={[{ label: "Helmets", href: "/gear/helmets" }, { label: p.brand, href: `/gear/helmets/${p.brandSlug}` }, { label: p.model }]} />
 
     <ProductHero
