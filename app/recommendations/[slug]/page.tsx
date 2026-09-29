@@ -362,6 +362,8 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
   const {slug}=await params;
   const guide=getRecommendationGuide(slug);
   if(!guide)return notFound();
+  const brandScooterMatch=slug.match(/^(honda|yamaha|suzuki)-scooters-philippines$/);
+  const brandScooterSlug=brandScooterMatch?.[1];
   const models=getRecommendationModels(slug);
   const specDates=models.map(m=>m.verifiedAt).filter(Boolean).sort();
   const priceDates=models.flatMap(m=>priceChecksForModel(m.id).map(row=>row.checkedAt)).sort();
@@ -409,7 +411,7 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
     <Breadcrumbs items={[{label:"Buying guides",href:"/recommendations"},{label:guide.title}]} />
     <div className="page-head guide-page-head"><span className="guide-kicker">{guide.kicker}</span><h1>{guide.title}</h1></div>
     <div style={{margin:"18px 0 28px"}}><GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker}/></div>
-    <div className="guide-direct-answer"><p>{guide.directAnswer}</p><strong>Compare {models.length} motorcycle{models.length===1?"":"s"} that match this guide.</strong>{guide.slug === "best-scooters-philippines" && <Link href="/motorcycles/scooters">View the full Philippines scooter market, price list and engine-size hubs →</Link>}{guide.slug === "motorcycles-400cc-plus-philippines" && <Link href="/motorcycles/expressway-legal">Check the separate expressway-legal rule, borderline sub-400cc models and registration checks →</Link>}</div>
+    <div className="guide-direct-answer"><p>{guide.directAnswer}</p><strong>Compare {models.length} motorcycle{models.length===1?"":"s"} that match this guide.</strong>{guide.slug === "best-scooters-philippines" && <Link href="/motorcycles/scooters">View the full Philippines scooter market, price list and engine-size hubs →</Link>}{brandScooterSlug && <><Link href="/motorcycles/scooters">Compare the full Philippines scooter price list →</Link><Link href={`/motorcycles/${brandScooterSlug}`}>Open the full {brandScooterSlug[0].toUpperCase()+brandScooterSlug.slice(1)} motorcycle price list →</Link></>}{guide.slug === "motorcycles-400cc-plus-philippines" && <Link href="/motorcycles/expressway-legal">Check the separate expressway-legal rule, borderline sub-400cc models and registration checks →</Link>}</div>
     {!isIndexableRecommendation(slug)&&<div className="note-box"><h2>Some entries need a fresh check</h2><p>Open the individual model pages before buying to confirm the latest price and exact variant.</p></div>}
 
     <div className="guide-quick-picks">
