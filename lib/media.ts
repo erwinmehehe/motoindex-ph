@@ -675,7 +675,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"bmw-g-310-gs-editorial", entityType:"motorcycle", entityId:"bmw-g-310-gs", role:"primary",
-    src:"/media/motorcycles/bmw-g-310-gs.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=image&attachment=1&dokNo=P90402134", alt:"BMW G 310 GS motorcycle product photo", width:1200, height:1200,
+    src:"/media/motorcycles/bmw-g-310-gs.webp", sourceImageUrl: "https://mediapool.bmwgroup.com/download/edown/pressclub/publicq?actEvent=image&attachment=1&dokNo=P90402134", alt:"BMW G 310 GS adventure motorcycle", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder: "BMW Group", sourceLabel: "Official BMW Motorrad studio image · G 310 GS", sourceUrl: "https://www.press.bmwgroup.com/global/photo/detail/P90402134/BMW-G-310-GS-plain-polar-white-10-2020", lastChecked: "2026-09-24"
   },
   {
@@ -715,7 +715,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"husqvarna-svartpilen-401-editorial", entityType:"motorcycle", entityId:"husqvarna-svartpilen-401", role:"primary",
-    src:"/media/motorcycles/husqvarna-svartpilen-401.webp", sourceImageUrl:"https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_Svartpilen-401-MY24-90-right-US_%23SALL_%23AEPI_%23V1.png", alt:"Husqvarna Svartpilen 401 motorcycle product photo", width:1200, height:1200,
+    src:"/media/motorcycles/husqvarna-svartpilen-401.webp", sourceImageUrl:"https://azwecdnepstoragewebsiteuploads.azureedge.net/PHO_BIKE_90_RE_Svartpilen-401-MY24-90-right-US_%23SALL_%23AEPI_%23V1.png", alt:"Husqvarna Svartpilen 401 motorcycle", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder:"Husqvarna Mobility", sourceLabel:"Official manufacturer product image · Husqvarna Svartpilen 401", sourceUrl:"https://www.husqvarna-motorcycles.com/en-us/models/naked/svartpilen/svartpilen-401-2024.html", lastChecked:"2026-09-27"
   },
   {
