@@ -42,9 +42,11 @@ requireText(motorcycles, "<h1>Motorcycle prices", "Motorcycle hub must keep a qu
 requireText(motorcycles, "href=\"/recommendations/motorcycles-under-100k\"", "Motorcycle hub should route under-100K intent to the canonical budget guide.");
 requireText(motorcycles, 'const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;', "Motorcycle catalog must retain the canonical set of faceted filter params.");
 requireText(motorcycles, "index: currentModels.length > 0 && !hasActiveFilters", "Filtered motorcycle catalog states must remain noindex while the clean catalog stays indexable.");
-forbidText(faq, "FAQPage", "Visible FAQs should not emit deprecated FAQPage rich-result markup.");
-forbidText(faq, "JsonLd", "FaqSection should remain visible HTML without JSON-LD.");
-requireText(jsonLd, 'value["@type"] === "FAQPage"', "JsonLd must suppress any legacy/manual FAQPage objects.");
+forbidText(faq, "FAQPage", "FaqSection should remain presentation-only; page routes own any matching structured data.");
+forbidText(faq, "JsonLd", "FaqSection should remain visible HTML without embedded JSON-LD.");
+requireText(jsonLd, 'value["@type"] === "FAQPage"', "JsonLd must detect FAQPage objects.");
+requireText(jsonLd, "allowFaqPage = false", "FAQPage JSON-LD must remain opt-in rather than enabled globally.");
+requireText(jsonLd, "allowFaqPage || !isFaqPage(item)", "FAQPage arrays must stay suppressed unless a route explicitly opts in.");
 requireText(jsonLd, 'offer["@type"] !== "AggregateOffer"', "Motorcycle Product JSON-LD must suppress ambiguous variant-range AggregateOffer markup.");
 requireText(jsonLd, 'value.category.startsWith("Motorcycle")', "AggregateOffer cleanup must stay scoped to motorcycle Product markup.");
 requireText(media, 'entityType === "motorcycle" && priority', "Priority motorcycle media should expose image provenance by default.");
@@ -154,6 +156,14 @@ for (const token of [
 ]) {
   requireText(maintenanceData, token, `Aerox V3 exact maintenance lost required owner-manual token: ${token}`);
 }
+requireText(modelEntity, '"@type": "FAQPage"', "Motorcycle entity pages must emit FAQPage schema from their visible model FAQs.");
+requireText(modelEntity, "mainEntity: faqs.map((item)", "Motorcycle FAQ schema must be generated from the same visible FAQ data.");
+requireText(modelEntity, "authorPersonSchema()", "Motorcycle entity pages must expose the visible MotoIndex author as Person structured data.");
+requireText(modelEntity, "allowFaqPage", "Motorcycle entity pages must explicitly opt in to FAQPage JSON-LD.");
+requireText(modelEntity, 'className="motorcycle-spec-stats"', "Quick-spec content should use the canonical StatRow layout.");
+requireText(modelEntity, 'className="motorcycle-key-specs"', "Key specifications should use the canonical StatRow layout.");
+requireText(modelEntity, 'className="rider-fit-stats"', "Rider-fit summary stats should use the canonical StatRow layout.");
+
 requireText(modelEntity, 'href={maintenance.sourceUrl}', "Exact model maintenance schedules must expose the official owner-manual source link.");
 requireText(modelEntity, "Open the official owner manual →", "Exact model maintenance schedules must label the official manual link clearly.");
 
