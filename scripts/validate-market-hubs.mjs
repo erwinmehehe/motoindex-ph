@@ -312,6 +312,39 @@ requireText(
   "155cc scooter alias must consolidate into the canonical 150cc/155cc guide."
 );
 
+for (const token of [
+  'seoTitle: "Motorcycles Below 150cc Philippines: Prices 2026"',
+  'seoTitle: "Business Motorcycles Philippines: Prices & Specs 2026"',
+  'seoTitle: "Street Motorcycles Philippines: Prices & Specs 2026"',
+  'primaryKeyword: "business motorcycles Philippines"',
+  '"pang negosyo motorcycle Philippines"',
+  'primaryKeyword: "street motorcycles Philippines"',
+  '"below 150cc motorcycle price Philippines"'
+]) {
+  requireText(recommendationData, token, `Competitor-gap guide missing SEO token: ${token}`);
+}
+for (const token of [
+  'case "motorcycles-below-150cc-philippines"',
+  'case "business-motorcycles-philippines"',
+  'case "street-motorcycles-philippines"'
+]) {
+  requireText(recommendationData, token, `Competitor-gap selector missing: ${token}`);
+}
+for (const slug of [
+  "motorcycles-below-150cc-philippines",
+  "business-motorcycles-philippines",
+  "street-motorcycles-philippines"
+]) {
+  requireText(motorcycles, `href="/recommendations/${slug}"`, `Motorcycle hub must expose competitor-gap guide: ${slug}`);
+}
+for (const token of [
+  "below 150cc motorcycle price range",
+  "tmx, ytx and barako work-bike differences",
+  "street motorcycle price range in the philippines"
+]) {
+  requireText(recommendationRoute.toLowerCase(), token, `Competitor-gap renderer missing original answer logic: ${token}`);
+}
+
 if (errors.length) {
   console.error("Market hub validation failed:");
   for (const error of errors) console.error(`- ${error}`);

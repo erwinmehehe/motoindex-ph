@@ -94,6 +94,7 @@ export default function MotorcyclesPage() {
           <Link href="/recommendations/motorcycles-under-100k"><span>Budget</span><strong>Under ₱100K</strong><small>Current affordable models →</small></Link>
           <Link href="/recommendations/motorcycles-under-150k"><span>Budget</span><strong>Under ₱150K</strong><small>Compare the broader budget market →</small></Link>
           <Link href="/motorcycles/scooters"><span>Category</span><strong>Scooters</strong><small>National scooter price list →</small></Link>
+          <Link href="/recommendations/motorcycles-below-150cc-philippines"><span>Displacement</span><strong>Below 150cc</strong><small>Small-engine market guide →</small></Link>
           <Link href="/recommendations/motorcycles-400cc-plus-philippines"><span>Displacement</span><strong>400cc+</strong><small>Big-bike research →</small></Link>
           <Link href="/motorcycles/electric"><span>Electric</span><strong>Electric motorcycles</strong><small>Battery, range and charging research →</small></Link>
         </div>
@@ -132,7 +133,10 @@ export default function MotorcyclesPage() {
             <Link className="button secondary" href="/recommendations/motorcycles-under-80k">Under ₱80K</Link>
             <Link className="button secondary" href="/recommendations/motorcycles-under-100k">Under ₱100K</Link>
             <Link className="button secondary" href="/recommendations/motorcycles-under-150k">Under ₱150K</Link>
+            <Link className="button secondary" href="/recommendations/motorcycles-below-150cc-philippines">Below 150cc</Link>
             <Link className="button secondary" href="/recommendations/125cc-motorcycles-philippines">125cc motorcycles</Link>
+            <Link className="button secondary" href="/recommendations/business-motorcycles-philippines">Business motorcycles</Link>
+            <Link className="button secondary" href="/recommendations/street-motorcycles-philippines">Street motorcycles</Link>
             <Link className="button secondary" href="/recommendations/cruiser-motorcycles-philippines">Cruiser motorcycles</Link>
             <Link className="button secondary" href="/recommendations/250cc-motorcycles-philippines">250cc motorcycles</Link>
             <Link className="button secondary" href="/recommendations/300cc-motorcycles-philippines">300cc motorcycles</Link>
