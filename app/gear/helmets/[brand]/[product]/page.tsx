@@ -24,7 +24,6 @@ import { ProductHero } from "@/components/ProductHero";
 import { ProductTrustRow } from "@/components/ProductTrustRow";
 import { getRenderableMedia } from "@/lib/renderableMedia";
 import { authorPersonSchema } from "@/lib/author";
-import styles from "./HelmetProductPage.module.css";
 
 export const revalidate = 3600;
 
@@ -135,7 +134,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
       media={<EntityMedia entityType="helmet" entityId={p.id} priority fallback={<div className="product-hero-card"><span>Helmet</span><strong>H</strong><div><small>{p.brand}</small><h2>{p.model}</h2></div></div>} />}
       eyebrow={<><span className="product-type-pill">Helmet</span><span className={`product-status-pill ${p.status}`}>{p.status === "verified" ? "Verified product" : "Needs checking"}</span></>}
       title={<>{p.brand} {p.model}</>}
-      description={<><p>{p.description}</p><div className={styles.heroBestFor}><span>Best for</span><strong>{editorial.bestFor}</strong></div></>}
+      description={<p>{p.description}</p>}
       price={p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}
       priceNote="Starting price reference in the Philippines"
       facts={heroFacts}
