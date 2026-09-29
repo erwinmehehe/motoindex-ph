@@ -186,11 +186,11 @@ try {
         const nav=document.querySelector('.product-entity-nav');
         const sections=[...document.querySelectorAll('.product-entity-section')];
         const sectionHeading=sections[0]?.querySelector('h2');
-        const spec=document.querySelector('.entity-spec-table');
+        const spec=document.querySelector('.entity-spec-table, .topbox-spec-grid');
         const specLabel=spec?.querySelector('span');
-        const editorial=document.querySelector('.product-editorial');
-        const priceGrid=document.querySelector('.entity-price-grid');
-        const compareRow=document.querySelector('.mini-compare-table > div:not(.head)');
+        const editorial=document.querySelector('.product-editorial, .topbox-editorial-grid');
+        const priceGrid=document.querySelector('.entity-price-grid, .topbox-price-grid');
+        const compareRow=document.querySelector('.mini-compare-table > div:not(.head), .topbox-compare-table > div:not(.head)');
         const r=el=>{if(!el)return null;const rect=el.getBoundingClientRect();return {left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom,width:rect.width,height:rect.height};};
         const px=el=>el?parseFloat(getComputedStyle(el).fontSize)||0:0;
         const objectFit=image?getComputedStyle(image).objectFit:'';
