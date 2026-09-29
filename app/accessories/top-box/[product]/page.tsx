@@ -75,11 +75,11 @@ export default async function TopBoxProductPage({ params }: { params: Promise<{ 
     { label: typeof item.maxLoadKg === "number" ? "Maximum load" : "Shell", value: typeof item.maxLoadKg === "number" ? `${item.maxLoadKg} kg` : item.shell },
   ];
 
-  return <ProductEntityShell>
+  return <ProductEntityShell className="topbox-product-page">
     <Breadcrumbs items={[{ label: "Accessories", href: "/accessories" }, { label: "Top boxes", href: "/accessories/top-box" }, { label: item.model }]} />
 
     <ProductHero
-      media={<EntityMedia entityType="topbox" entityId={item.id} priority fallback={<div className="product-hero-card"><span>Storage system</span><strong>B</strong><div><small>{item.brand}</small><h2>{item.model}</h2></div></div>} />}
+      media={<EntityMedia entityType="topbox" entityId={item.id} priority forceFill sizes="(max-width: 600px) calc(100vw - 24px), (max-width: 900px) 620px, 420px" fallback={<div className="product-hero-card"><span>Storage system</span><strong>B</strong><div><small>{item.brand}</small><h2>{item.model}</h2></div></div>} />}
       eyebrow={<><span className="product-type-pill">Top box</span><span className={`product-status-pill ${item.status}`}>{item.status === "verified" ? "Verified product" : "Needs checking"}</span></>}
       title={<>{item.brand} {item.model}</>}
       description={<p>{item.description}</p>}
