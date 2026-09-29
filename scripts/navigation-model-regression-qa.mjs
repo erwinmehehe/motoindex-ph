@@ -228,6 +228,25 @@ try {
     const media=document.querySelector('.motorcycle-hero-media');
     const facts=document.querySelector('.motorcycle-hero-facts');
     const factStrong=facts?.querySelector('strong');
+    const factFlow=facts?[...facts.children].map(cell=>{
+      const label=cell.querySelector('span');
+      const value=cell.querySelector('strong');
+      const note=cell.querySelector('small');
+      const labelRect=label?.getBoundingClientRect();
+      const valueRect=value?.getBoundingClientRect();
+      const noteRect=note?.getBoundingClientRect();
+      return {
+        labelDisplay:label?getComputedStyle(label).display:'',
+        valueDisplay:value?getComputedStyle(value).display:'',
+        noteDisplay:note?getComputedStyle(note).display:'',
+        labelBottom:labelRect?.bottom||0,
+        valueTop:valueRect?.top||0,
+        valueBottom:valueRect?.bottom||0,
+        noteTop:noteRect?.top||0,
+        cellWidth:cell.getBoundingClientRect().width,
+        scrollWidth:cell.scrollWidth
+      };
+    }):[];
     const priceStrong=document.querySelector('.motorcycle-price-lockup > strong');
     const priceStyle=priceStrong?getComputedStyle(priceStrong):null;
     const priceRect=priceStrong?.getBoundingClientRect();
@@ -274,6 +293,7 @@ try {
       facts:Boolean(facts),
       factsBg:factsStyle?.backgroundColor||'',
       factColor:strongStyle?.color||'',
+      factFlow,
       priceText:priceStrong?.textContent?.trim()||'',
       priceDisplay:priceStyle?.display||'',
       priceWhiteSpace:priceStyle?.whiteSpace||'',
@@ -289,6 +309,11 @@ try {
   if (!modelAudit?.h1 || modelAudit.h1Size > 60) failures.push(`Desktop model H1 is still oversized at ${modelAudit?.h1Size || 0}px.`);
   if (!modelAudit?.media || modelAudit.mediaHeight > 340) failures.push(`Desktop model media stage is still too tall at ${modelAudit?.mediaHeight || 0}px.`);
   if (!modelAudit?.facts || !/rgb\(255, 255, 255\)/.test(modelAudit.factsBg || "")) failures.push(`Model facts surface is not white (${modelAudit?.factsBg || "missing"}).`);
+  for (const [index, cell] of (modelAudit?.factFlow || []).entries()) {
+    if (cell.labelDisplay !== "block" || cell.valueDisplay !== "block" || cell.noteDisplay !== "block") failures.push(`Desktop model fact ${index + 1} is not vertically stacked.`);
+    if ((cell.labelBottom || 0) > (cell.valueTop || 0) + 1 || (cell.valueBottom || 0) > (cell.noteTop || 0) + 1) failures.push(`Desktop model fact ${index + 1} text overlaps vertically.`);
+    if ((cell.scrollWidth || 0) > (cell.cellWidth || 0) + 2) failures.push(`Desktop model fact ${index + 1} overflows its cell.`);
+  }
   if (!modelAudit?.priceText || modelAudit.priceDisplay !== "block" || modelAudit.priceWhiteSpace !== "nowrap" || (modelAudit.priceScrollWidth || 0) > (modelAudit.priceWidth || 0) + 2) failures.push(`Desktop model hero price is not locked to one line (display=${modelAudit?.priceDisplay || "missing"}, white-space=${modelAudit?.priceWhiteSpace || "missing"}, width=${modelAudit?.priceWidth || 0}, scroll=${modelAudit?.priceScrollWidth || 0}).`);
   if (!Array.isArray(modelAudit?.briefAudit) || modelAudit.briefAudit.length < 1) failures.push("Aerox model page is missing its buyer/commercial brief section.");
   for (const brief of modelAudit?.briefAudit || []) {
