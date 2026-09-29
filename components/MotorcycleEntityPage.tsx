@@ -112,6 +112,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
     ],
   };
   const loanToolHref = { pathname: "/tools/motorcycle-loan-calculator", query: { price: range.from, model: `${model.make} ${model.model}` } };
+  const aeroxFinanceTarget = model.id === "yamaha-aerox-v3";
 
   return <article className="motorcycle-entity-page">
     <section className="motorcycle-entity-hero" id="overview">
@@ -210,10 +211,28 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       </section>}
 
       {!isPrevious && <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
-        <SectionHeader kicker="Monthly payment" titleId="installment-heading" title="Estimate the monthly commitment" description="Start from the published price, then replace the assumptions with the actual dealer or lender quote." />
+        <SectionHeader
+          kicker="Monthly payment"
+          titleId="installment-heading"
+          title={aeroxFinanceTarget ? "Yamaha Aerox V3 downpayment and monthly installment estimate" : "Estimate the monthly commitment"}
+          description={aeroxFinanceTarget ? "Compare Standard and SP downpayment examples, then edit the exact cash price, downpayment, term and annual rate using the calculator." : "Start from the published price, then replace the assumptions with the actual dealer or lender quote."}
+        />
+        {aeroxFinanceTarget && financingPriceOptions.length > 1 && <div className="financing-snapshot" data-finance-seo="aerox-v3">
+          <div className="section-head compact"><div>
+            <h3>Yamaha Aerox V3 downpayment examples by variant</h3>
+            <p>These are percentage examples based on the verified variant SRPs shown on this page. Actual dealer minimum downpayment, fees and financing terms can differ.</p>
+          </div></div>
+          <div className="entity-price-grid motorcycle-price-grid">
+            {financingPriceOptions.map((option) => <article key={`${option.label}-downpayment`}>
+              <span>{option.label} · {php(option.price)} SRP</span>
+              <strong>20% down · {php(Math.round(option.price * .20))}</strong>
+              <small>10%: {php(Math.round(option.price * .10))} · 30%: {php(Math.round(option.price * .30))}</small>
+            </article>)}
+          </div>
+        </div>}
         <InstallmentCalculator price={range.from} priceOptions={financingPriceOptions} />
         <FinancingSnapshot modelName={`${model.make} ${model.model}`} price={range.from} priceOptions={financingPriceOptions} />
-        <div className="entity-tool-grid"><Link href={loanToolHref}><span>Need more control?</span><strong>Open the full loan calculator</strong><small>Change price, down payment, term and rate with a shareable URL.</small></Link></div>
+        <div className="entity-tool-grid"><Link href={loanToolHref}><span>Need more control?</span><strong>{aeroxFinanceTarget ? "Calculate Aerox V3 downpayment and monthly payment" : "Open the full loan calculator"}</strong><small>{aeroxFinanceTarget ? "Enter an exact peso downpayment or use 10%, 20% and 30% presets, then adjust term and rate." : "Change price, down payment, term and rate with a shareable URL."}</small></Link></div>
       </section>}
 
       <section id="rider-fit" className="motorcycle-entity-section" aria-labelledby="fit-heading">

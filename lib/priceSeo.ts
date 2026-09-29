@@ -76,6 +76,7 @@ export function priceFaqsForModel(model: Motorcycle, priceLabel: string): FaqIte
   const modelName = `${model.make} ${model.model}`;
   const range = observedMarketRange(model);
   const finance = financingScenario(range.from, 20, 36, 12);
+  const financeHigh = financingScenario(range.to && range.to > range.from ? range.to : range.from, 20, 36, 12);
 
   if (model.marketStatus === "previous") {
     return [
@@ -111,7 +112,9 @@ export function priceFaqsForModel(model: Motorcycle, priceLabel: string): FaqIte
     },
     {
       question: `How much is the ${modelName} down payment and monthly installment?`,
-      answer: `At 20% down over 36 months with 12% annual interest, the estimate is about ${php(Math.round(finance.downPaymentPhp))} down and ${php(Math.round(finance.monthlyPhp))} per month. Actual dealer and lender terms can be different.`
+      answer: model.id === "yamaha-aerox-v3" && range.to && range.to > range.from
+        ? `Using the current Standard-to-SP price range, a 20% planning downpayment is about ${php(Math.round(finance.downPaymentPhp))} on the ${php(range.from)} price and ${php(Math.round(financeHigh.downPaymentPhp))} on the ${php(range.to)} price. At 36 months and 12% annual amortizing interest, the monthly estimates are about ${php(Math.round(finance.monthlyPhp))} and ${php(Math.round(financeHigh.monthlyPhp))}. Actual dealer minimum downpayment, fees and lender terms can differ.`
+        : `At 20% down over 36 months with 12% annual interest, the estimate is about ${php(Math.round(finance.downPaymentPhp))} down and ${php(Math.round(finance.monthlyPhp))} per month. Actual dealer and lender terms can be different.`
     },
     {
       question: `When was the ${modelName} price checked?`,
