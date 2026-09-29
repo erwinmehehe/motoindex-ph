@@ -43,9 +43,10 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: SITE_NAME, description: SITE_DESCRIPTION, images: [absoluteUrl("/brand/motoindex-og.png")] }
 };
 
-const organizationSchema = {
+const motorcycleDealerSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "MotorcycleDealer",
+  "@id": `${SITE_URL}/#motorcycle-dealer`,
   name: SITE_NAME,
   url: SITE_URL,
   logo: {
@@ -55,7 +56,12 @@ const organizationSchema = {
     height: 512
   },
   image: `${SITE_URL}/icon-512.png`,
-  description: SITE_DESCRIPTION
+  description: SITE_DESCRIPTION,
+  areaServed: {
+    "@type": "Country",
+    name: "Philippines"
+  },
+  currenciesAccepted: "PHP"
 };
 
 const websiteSchema = {
@@ -63,6 +69,7 @@ const websiteSchema = {
   "@type": "WebSite",
   name: SITE_NAME,
   url: SITE_URL,
+  publisher: { "@id": `${SITE_URL}/#motorcycle-dealer` },
   potentialAction: {
     "@type": "SearchAction",
     target: `${SITE_URL}/search?q={search_term_string}`,
@@ -71,5 +78,5 @@ const websiteSchema = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en-PH" data-theme="premium-light" className={`${inter.variable} ${jakarta.variable}`}><body><Analytics/><AdSense/><MotionEnhancer/><a className="skip-link" href="#main-content">Skip to main content</a><Header /><main id="main-content" tabIndex={-1}>{children}</main><CompareTray models={publicMotorcycles.map(({id,make,model,slug})=>({id,make,model,slug}))}/><Footer /><JsonLd data={[organizationSchema, websiteSchema]} /></body></html>;
+  return <html lang="en-PH" data-theme="premium-light" className={`${inter.variable} ${jakarta.variable}`}><body><Analytics/><AdSense/><MotionEnhancer/><a className="skip-link" href="#main-content">Skip to main content</a><Header /><main id="main-content" tabIndex={-1}>{children}</main><CompareTray models={publicMotorcycles.map(({id,make,model,slug})=>({id,make,model,slug}))}/><Footer /><JsonLd data={[motorcycleDealerSchema, websiteSchema]} /></body></html>;
 }
