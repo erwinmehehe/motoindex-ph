@@ -6,6 +6,8 @@ import { officialDealerLocators } from "@/lib/dealerLocators";
 import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug } from "@/lib/sellers";
 import { allVerifiedDealers } from "@/lib/persistentSellers";
 import { CTAGroup, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
+import { JsonLd } from "@/components/JsonLd";
+import { motorcycleDealerDirectorySchema } from "@/lib/dealerSchema";
 import styles from "../styles/hub-index.module.css";
 
 export const metadata: Metadata = pageMetadata({
@@ -44,7 +46,10 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
     ? `Start with checked ${requestedBrand} dealer records, then confirm the exact model, variant, stock and complete cash price with the branch before paying a reservation or deposit.`
     : "Search checked dealer records by city or brand, then confirm stock and the complete cash price with the branch before paying a reservation or deposit.";
 
+  const dealerSchema = motorcycleDealerDirectorySchema(verifiedDealers, pageTitle, "/dealers");
+
   return <section className="page shell dealer-master-page">
+    <JsonLd data={dealerSchema} />
     <PageHero
       kicker="Motorcycle dealer finder"
       title={pageTitle}
