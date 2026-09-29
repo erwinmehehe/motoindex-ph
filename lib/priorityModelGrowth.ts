@@ -148,8 +148,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   },
 
   "yamaha-aerox-v3": {
-    seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Specs & Monthly",
-    seoDescription: "Yamaha Aerox V3 price in the Philippines, Standard vs SP, 155cc specs, YECVT, 790mm seat, tires, monthly estimate, ownership costs and alternatives.",
+    seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Specs & Downpayment",
+    seoDescription: "Yamaha Aerox V3 price Philippines 2026: Standard vs SP, 155cc specs, YECVT, downpayment and monthly installment estimates, tires, ownership costs and fees.",
     intentIntro: "The Aerox V3 has a wide price and equipment spread, so compare the exact trim rather than treating every Aerox listing as the same scooter. Yamaha currently shows the base Aerox at ₱125,900, while current dealer data lists Aerox SP at ₱163,900; Yamaha positions the SP as the YECVT-equipped version with Sport/Touring modes and shift-down control.",
     moneyQuestion: "Does the exact Aerox Standard or SP still fit the budget after the real branch quote, down payment, monthly payment, insurance, registration and dealer charges are included?",
     ownershipQuestion: "Compare CVT/YECVT service requirements by trim, wide 14-inch tire replacement, insurance, passenger use, storage and Yamaha service access with NMAX V3, Click160 and ADV160.",
