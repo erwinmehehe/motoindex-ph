@@ -73,6 +73,7 @@ function representativeTireRoutes(block) {
 const exactRegressionRoutes = [
   { key: "helmet-gille-kerena", path: "/gear/helmets/gille/kerena-ff007" },
   { key: "helmet-spyder-surge", path: "/gear/helmets/spyder/surge-plain-v2" },
+  { key: "helmet-evo-vxr-8000", path: "/gear/helmets/evo/vxr-8000" },
   { key: "topbox-givi-v58", path: "/accessories/top-box/v58-maxia-5" },
   { key: "tire-michelin-city-grip-2", path: "/tires/michelin/city-grip-2" },
 ];
@@ -190,6 +191,10 @@ try {
         const editorial=document.querySelector('.product-editorial');
         const priceGrid=document.querySelector('.entity-price-grid');
         const compareRow=document.querySelector('.mini-compare-table > div:not(.head)');
+        const commerce=document.querySelector('.commerce-price-comparison');
+        const commerceOffer=commerce?.querySelector('[data-commerce-offer]');
+        const commercePrice=commerceOffer?.querySelector('.commerce-price strong');
+        const commerceButton=commerceOffer?.querySelector('.commerce-offer-button');
         const r=el=>{if(!el)return null;const rect=el.getBoundingClientRect();return {left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom,width:rect.width,height:rect.height};};
         const px=el=>el?parseFloat(getComputedStyle(el).fontSize)||0:0;
         const objectFit=image?getComputedStyle(image).objectFit:'';
@@ -203,6 +208,8 @@ try {
           sectionWidths:sections.slice(0,8).map(el=>Math.round(r(el).width)),
           compareDisplay:compareRow?getComputedStyle(compareRow).display:'',
           compareColumns:compareRow?getComputedStyle(compareRow).gridTemplateColumns:'',
+          commerce:r(commerce), commerceOffer:r(commerceOffer), commercePrice:r(commercePrice), commerceButton:r(commerceButton),
+          commercePriceText:commercePrice?.textContent?.trim()||'',
           editorial:r(editorial), priceGrid:r(priceGrid)
         };
       })()`);
@@ -229,6 +236,12 @@ try {
       if (state?.objectFit && state.objectFit !== "contain") failures.push(`${width}px ${route.key}: product image uses ${state.objectFit}, expected contain`);
       if (state?.image && state?.media && (state.image.width > state.media.width + 2 || state.image.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: hero image exceeds media stage`);
       if (state?.fallback && state?.media && (state.fallback.width > state.media.width + 2 || state.fallback.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: placeholder exceeds media stage`);
+      if (route.path === "/gear/helmets/evo/vxr-8000") {
+        if (!state?.commerce || !state?.commerceOffer) failures.push(`${width}px ${route.key}: verified commerce card missing`);
+        if ((state?.commerceOffer?.width || 0) < (mobile ? 330 : 700)) failures.push(`${width}px ${route.key}: commerce card collapsed to ${Math.round(state?.commerceOffer?.width || 0)}px`);
+        if (!state?.commercePriceText?.includes("₱")) failures.push(`${width}px ${route.key}: observed merchant price is not visibly separated`);
+        if ((state?.commerceButton?.height || 0) < 36) failures.push(`${width}px ${route.key}: merchant CTA is too small`);
+      }
       await screenshot(route.key, width);
     }
   }
