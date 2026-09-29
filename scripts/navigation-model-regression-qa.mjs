@@ -424,9 +424,9 @@ try {
     const decisionGrid=document.querySelector('.motorcycle-editorial-grid');
     const priceGrid=document.querySelector('.motorcycle-price-grid');
     const variantGrid=document.querySelector('#price .variant-grid');
-    const quickGrid=document.querySelector('.quick-spec-grid');
-    const keyGrid=document.querySelector('.key-spec-grid');
-    const fitGrid=document.querySelector('#rider-fit .entity-fit-kpis');
+    const quickGrid=document.querySelector('.motorcycle-spec-stats');
+    const keyGrid=document.querySelector('.motorcycle-key-specs');
+    const fitGrid=document.querySelector('#rider-fit .rider-fit-stats');
     const decisionStyle=decisionGrid?getComputedStyle(decisionGrid):null;
     const priceGridStyle=priceGrid?getComputedStyle(priceGrid):null;
     const variantStyle=variantGrid?getComputedStyle(variantGrid):null;
