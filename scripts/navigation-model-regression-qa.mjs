@@ -277,6 +277,34 @@ try {
     const variantGrid=document.querySelector('#price .variant-grid');
     const variantStyle=variantGrid?getComputedStyle(variantGrid):null;
     const variantCards=variantGrid?[...variantGrid.children].map(card=>card.getBoundingClientRect().width):[];
+    const inspectInfoGrid = selector => {
+      const grid=document.querySelector(selector);
+      if(!grid)return {found:false};
+      const style=getComputedStyle(grid);
+      const rows=[...grid.children].map(row=>{
+        const label=row.querySelector('span');
+        const value=row.querySelector('strong');
+        return {
+          labelDisplay:label?getComputedStyle(label).display:'',
+          valueDisplay:value?getComputedStyle(value).display:'',
+          width:row.getBoundingClientRect().width,
+          scrollWidth:row.scrollWidth
+        };
+      });
+      return {found:true,display:style.display,columns:style.gridTemplateColumns||'',rows};
+    };
+    const quickSpecs=inspectInfoGrid('.quick-spec-grid');
+    const keySpecs=inspectInfoGrid('.key-spec-grid');
+    const fitKpis=inspectInfoGrid('#rider-fit .entity-fit-kpis');
+    const structuredNodes=[...document.querySelectorAll('script[type="application/ld+json"]')].flatMap(script=>{
+      try{
+        const parsed=JSON.parse(script.textContent||'null');
+        return Array.isArray(parsed)?parsed:[parsed];
+      }catch{return []}
+    }).filter(Boolean);
+    const structuredTypes=structuredNodes.map(node=>node?.['@type']).filter(Boolean);
+    const faqNode=structuredNodes.find(node=>node?.['@type']==='FAQPage');
+    const authorNode=structuredNodes.find(node=>node?.['@type']==='Person');
     const briefs=[...document.querySelectorAll('.priority-model-brief')];
     const modelBlocks=[...document.querySelectorAll('.motorcycle-entity-body>.motorcycle-entity-section, .priority-model-brief, .model-decision-path-wrap')];
     const rgba = value => (value.match(/\d+(?:\.\d+)?/g)||[]).map(Number);
@@ -337,6 +365,12 @@ try {
       variantGridColumns:variantStyle?.gridTemplateColumns||'',
       variantCardCount:variantCards.length,
       variantCards,
+      quickSpecs,
+      keySpecs,
+      fitKpis,
+      structuredTypes,
+      faqQuestionCount:Array.isArray(faqNode?.mainEntity)?faqNode.mainEntity.length:0,
+      authorName:authorNode?.name||'',
       briefAudit,
       maxSectionGap:gaps.length?Math.max(...gaps):0,
       overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
@@ -360,6 +394,16 @@ try {
     if ((card.valueScrollWidth || 0) > (card.valueWidth || 0) + 2) failures.push(`Desktop model price card ${index + 1} value overflows its card.`);
   }
   if ((modelAudit?.variantCardCount || 0) >= 2 && modelAudit?.variantGridDisplay !== "grid") failures.push("Desktop model variant cards are not using the restored grid layout.");
+  for (const [label, grid] of [["quick specs", modelAudit?.quickSpecs], ["key specs", modelAudit?.keySpecs], ["rider-fit KPIs", modelAudit?.fitKpis]]) {
+    if (!grid?.found || grid.display !== "grid") failures.push(`Desktop ${label} is not rendered as a grid.`);
+    for (const [index, row] of (grid?.rows || []).entries()) {
+      if (row.labelDisplay !== "block" || row.valueDisplay !== "block") failures.push(`Desktop ${label} item ${index + 1} is not vertically stacked.`);
+      if ((row.scrollWidth || 0) > (row.width || 0) + 2) failures.push(`Desktop ${label} item ${index + 1} overflows its card.`);
+    }
+  }
+  if (!(modelAudit?.structuredTypes || []).includes("Product")) failures.push("Aerox detail page is missing Product JSON-LD.");
+  if (!(modelAudit?.structuredTypes || []).includes("FAQPage") || (modelAudit?.faqQuestionCount || 0) < 3) failures.push("Aerox detail page is missing populated FAQPage JSON-LD.");
+  if (!(modelAudit?.structuredTypes || []).includes("Person") || modelAudit?.authorName !== "Erwin Valles") failures.push("Aerox detail page is missing the author Person JSON-LD.");
   if (!Array.isArray(modelAudit?.briefAudit) || modelAudit.briefAudit.length < 1) failures.push("Aerox model page is missing its buyer/commercial brief section.");
   for (const brief of modelAudit?.briefAudit || []) {
     if (brief.darkSurface) failures.push(`Buyer brief ${brief.index + 1} has a dark surface (${brief.background}).`);
@@ -380,9 +424,15 @@ try {
     const decisionGrid=document.querySelector('.motorcycle-editorial-grid');
     const priceGrid=document.querySelector('.motorcycle-price-grid');
     const variantGrid=document.querySelector('#price .variant-grid');
+    const quickGrid=document.querySelector('.quick-spec-grid');
+    const keyGrid=document.querySelector('.key-spec-grid');
+    const fitGrid=document.querySelector('#rider-fit .entity-fit-kpis');
     const decisionStyle=decisionGrid?getComputedStyle(decisionGrid):null;
     const priceGridStyle=priceGrid?getComputedStyle(priceGrid):null;
     const variantStyle=variantGrid?getComputedStyle(variantGrid):null;
+    const quickStyle=quickGrid?getComputedStyle(quickGrid):null;
+    const keyStyle=keyGrid?getComputedStyle(keyGrid):null;
+    const fitStyle=fitGrid?getComputedStyle(fitGrid):null;
     const briefs=[...document.querySelectorAll('.priority-model-brief')].map((brief,index)=>({
       index,
       background:getComputedStyle(brief).backgroundColor,
@@ -403,6 +453,12 @@ try {
       priceGridColumns:priceGridStyle?.gridTemplateColumns||'',
       variantGridDisplay:variantStyle?.display||'',
       variantGridColumns:variantStyle?.gridTemplateColumns||'',
+      quickGridDisplay:quickStyle?.display||'',
+      quickGridColumns:quickStyle?.gridTemplateColumns||'',
+      keyGridDisplay:keyStyle?.display||'',
+      keyGridColumns:keyStyle?.gridTemplateColumns||'',
+      fitGridDisplay:fitStyle?.display||'',
+      fitGridColumns:fitStyle?.gridTemplateColumns||'',
       briefs,
       overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
     };
@@ -414,6 +470,9 @@ try {
   if (mobileModel?.decisionDisplay !== "grid" || !/^[^ ]+$/.test(mobileModel?.decisionColumns || "")) failures.push(`390px model decision summary did not collapse to one column (${mobileModel?.decisionColumns || "missing"}).`);
   if (mobileModel?.priceGridDisplay !== "grid" || !/^[^ ]+$/.test(mobileModel?.priceGridColumns || "")) failures.push(`390px model price summary did not collapse to one column (${mobileModel?.priceGridColumns || "missing"}).`);
   if (mobileModel?.variantGridDisplay === "grid" && !/^[^ ]+$/.test(mobileModel?.variantGridColumns || "")) failures.push(`390px model variant grid did not collapse to one column (${mobileModel?.variantGridColumns || "missing"}).`);
+  if (mobileModel?.quickGridDisplay !== "grid" || (mobileModel?.quickGridColumns || "").split(/\s+/).filter(Boolean).length !== 2) failures.push(`390px quick-spec grid is not two columns (${mobileModel?.quickGridColumns || "missing"}).`);
+  if (mobileModel?.keyGridDisplay !== "grid" || !/^[^ ]+$/.test(mobileModel?.keyGridColumns || "")) failures.push(`390px key-spec grid is not one column (${mobileModel?.keyGridColumns || "missing"}).`);
+  if (mobileModel?.fitGridDisplay !== "grid" || (mobileModel?.fitGridColumns || "").split(/\s+/).filter(Boolean).length !== 2) failures.push(`390px rider-fit KPI grid is not two columns (${mobileModel?.fitGridColumns || "missing"}).`);
   for (const brief of mobileModel?.briefs || []) {
     const nums=(brief.background.match(/\d+(?:\.\d+)?/g)||[]).map(Number);
     const alpha=nums.length>3?nums[3]:1;

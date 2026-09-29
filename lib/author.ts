@@ -8,6 +8,7 @@ export const AUTHOR_BIO = "Erwin Valles is the author and editor behind MotoInde
 export function authorPersonSchema() {
   return {
     "@type": "Person",
+    "@id": `${absoluteUrl(AUTHOR_PATH)}#person`,
     name: AUTHOR_NAME,
     url: absoluteUrl(AUTHOR_PATH),
     jobTitle: AUTHOR_ROLE,

@@ -1,7 +1,3 @@
-function isFaqPage(value: Record<string, unknown>) {
-  return value["@type"] === "FAQPage";
-}
-
 function normalizeStructuredData(value: Record<string, unknown>) {
   if (value["@type"] !== "Product" || typeof value.category !== "string" || !value.category.startsWith("Motorcycle")) return value;
   const offers = value.offers;
@@ -16,9 +12,9 @@ function normalizeStructuredData(value: Record<string, unknown>) {
 }
 
 export function JsonLd({ data }: { data: Record<string, unknown> | Record<string, unknown>[] }) {
-  const filtered = Array.isArray(data)
-    ? data.filter((item) => !isFaqPage(item)).map(normalizeStructuredData)
-    : isFaqPage(data) ? null : normalizeStructuredData(data);
-  if (!filtered || (Array.isArray(filtered) && filtered.length === 0)) return null;
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(filtered) }} />;
+  const normalized = Array.isArray(data)
+    ? data.map(normalizeStructuredData)
+    : normalizeStructuredData(data);
+  if (Array.isArray(normalized) && normalized.length === 0) return null;
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(normalized) }} />;
 }

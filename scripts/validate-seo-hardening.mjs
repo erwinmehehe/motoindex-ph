@@ -42,9 +42,9 @@ requireText(motorcycles, "<h1>Motorcycle prices", "Motorcycle hub must keep a qu
 requireText(motorcycles, "href=\"/recommendations/motorcycles-under-100k\"", "Motorcycle hub should route under-100K intent to the canonical budget guide.");
 requireText(motorcycles, 'const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;', "Motorcycle catalog must retain the canonical set of faceted filter params.");
 requireText(motorcycles, "index: currentModels.length > 0 && !hasActiveFilters", "Filtered motorcycle catalog states must remain noindex while the clean catalog stays indexable.");
-forbidText(faq, "FAQPage", "Visible FAQs should not emit deprecated FAQPage rich-result markup.");
-forbidText(faq, "JsonLd", "FaqSection should remain visible HTML without JSON-LD.");
-requireText(jsonLd, 'value["@type"] === "FAQPage"', "JsonLd must suppress any legacy/manual FAQPage objects.");
+forbidText(faq, "FAQPage", "FaqSection should remain visible HTML and leave structured data to the parent page.");
+forbidText(faq, "JsonLd", "FaqSection should remain visible HTML without duplicate JSON-LD.");
+requireText(jsonLd, "data.map(normalizeStructuredData)", "JsonLd should preserve supplied structured-data nodes while normalizing Product markup.");
 requireText(jsonLd, 'offer["@type"] !== "AggregateOffer"', "Motorcycle Product JSON-LD must suppress ambiguous variant-range AggregateOffer markup.");
 requireText(jsonLd, 'value.category.startsWith("Motorcycle")', "AggregateOffer cleanup must stay scoped to motorcycle Product markup.");
 requireText(media, 'entityType === "motorcycle" && priority', "Priority motorcycle media should expose image provenance by default.");
@@ -156,6 +156,9 @@ for (const token of [
 }
 requireText(modelEntity, 'href={maintenance.sourceUrl}', "Exact model maintenance schedules must expose the official owner-manual source link.");
 requireText(modelEntity, "Open the official owner manual →", "Exact model maintenance schedules must label the official manual link clearly.");
+requireText(modelEntity, '"@type": "FAQPage"', "Motorcycle entity pages must emit FAQPage structured data that mirrors the visible FAQ section.");
+requireText(modelEntity, "authorPersonSchema()", "Motorcycle entity pages must emit the shared author Person entity.");
+requireText(modelEntity, "JsonLd data={[schema, faqSchema, authorSchema]}", "Motorcycle entity pages must emit Product, FAQ and author structured data together.");
 
 requireText(maintenanceData, "Brand-level Yamaha Philippines PMS guidance.", "Yamaha brand-level PMS guidance must stay clearly labeled and must not masquerade as an exact model manual.");
 requireText(modelEntity, "brandMaintenanceGuideForModel(model)", "Motorcycle entity pages must resolve brand-level maintenance guidance when exact model schedules are unavailable.");
