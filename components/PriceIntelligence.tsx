@@ -2,6 +2,7 @@ import type { Motorcycle } from "@/lib/types";
 import { modelPriceIntelligence } from "@/lib/priceIntelligence";
 import { php, phpRange } from "@/lib/utils";
 import { SourceRef } from "@/components/SourceRef";
+import { SectionHeader } from "@/components/ui";
 
 function dateLabel(value?: string) {
   if (!value) return "—";
@@ -23,13 +24,13 @@ export function PriceIntelligence({ model }: { model: Motorcycle }) {
   const delta = intel.lowDeltaPhp;
 
   return <section className="price-intel price-history" aria-labelledby="price-history-heading">
-    <div className="section-head compact price-history-head">
-      <div>
-        <span className="section-kicker">Price history</span>
-        <h2 id="price-history-heading">How the recorded price has changed</h2>
-        <p>Compare dated price observations for the same motorcycle. A difference can come from a new variant, seller mix, promotion or an actual price change.</p>
-      </div>
-    </div>
+    <SectionHeader
+      className="price-history-head"
+      kicker="Price history"
+      titleId="price-history-heading"
+      title="How the recorded price has changed"
+      description="Compare dated price observations for the same motorcycle. A difference can come from a new variant, seller mix, promotion or an actual price change."
+    />
 
     <div className="price-history-summary">
       <div>

@@ -251,6 +251,32 @@ try {
     const priceStyle=priceStrong?getComputedStyle(priceStrong):null;
     const priceRect=priceStrong?.getBoundingClientRect();
     const verdict=document.querySelector('.authority-verdict');
+    const decisionGrid=document.querySelector('.motorcycle-editorial-grid');
+    const decisionStyle=decisionGrid?getComputedStyle(decisionGrid):null;
+    const decisionCards=decisionGrid?[...decisionGrid.children].map(card=>({
+      display:getComputedStyle(card).display,
+      width:card.getBoundingClientRect().width,
+      height:card.getBoundingClientRect().height
+    })):[];
+    const priceGrid=document.querySelector('.motorcycle-price-grid');
+    const priceGridStyle=priceGrid?getComputedStyle(priceGrid):null;
+    const priceCards=priceGrid?[...priceGrid.children].map(card=>{
+      const label=card.querySelector('span');
+      const value=card.querySelector('strong');
+      const note=card.querySelector('small');
+      return {
+        width:card.getBoundingClientRect().width,
+        labelDisplay:label?getComputedStyle(label).display:'',
+        valueDisplay:value?getComputedStyle(value).display:'',
+        noteDisplay:note?getComputedStyle(note).display:'',
+        valueWhiteSpace:value?getComputedStyle(value).whiteSpace:'',
+        valueScrollWidth:value?.scrollWidth||0,
+        valueWidth:value?.getBoundingClientRect().width||0
+      };
+    }):[];
+    const variantGrid=document.querySelector('#price .variant-grid');
+    const variantStyle=variantGrid?getComputedStyle(variantGrid):null;
+    const variantCards=variantGrid?[...variantGrid.children].map(card=>card.getBoundingClientRect().width):[];
     const briefs=[...document.querySelectorAll('.priority-model-brief')];
     const modelBlocks=[...document.querySelectorAll('.motorcycle-entity-body>.motorcycle-entity-section, .priority-model-brief, .model-decision-path-wrap')];
     const rgba = value => (value.match(/\d+(?:\.\d+)?/g)||[]).map(Number);
@@ -300,6 +326,17 @@ try {
       priceWidth:priceRect?.width||0,
       priceScrollWidth:priceStrong?.scrollWidth||0,
       verdict:Boolean(verdict),
+      decisionDisplay:decisionStyle?.display||'',
+      decisionColumns:decisionStyle?.gridTemplateColumns||'',
+      decisionCardCount:decisionCards.length,
+      decisionCards,
+      priceGridDisplay:priceGridStyle?.display||'',
+      priceGridColumns:priceGridStyle?.gridTemplateColumns||'',
+      priceCards,
+      variantGridDisplay:variantStyle?.display||'',
+      variantGridColumns:variantStyle?.gridTemplateColumns||'',
+      variantCardCount:variantCards.length,
+      variantCards,
       briefAudit,
       maxSectionGap:gaps.length?Math.max(...gaps):0,
       overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
@@ -315,6 +352,14 @@ try {
     if ((cell.scrollWidth || 0) > (cell.cellWidth || 0) + 2) failures.push(`Desktop model fact ${index + 1} overflows its cell.`);
   }
   if (!modelAudit?.priceText || modelAudit.priceDisplay !== "block" || modelAudit.priceWhiteSpace !== "nowrap" || (modelAudit.priceScrollWidth || 0) > (modelAudit.priceWidth || 0) + 2) failures.push(`Desktop model hero price is not locked to one line (display=${modelAudit?.priceDisplay || "missing"}, white-space=${modelAudit?.priceWhiteSpace || "missing"}, width=${modelAudit?.priceWidth || 0}, scroll=${modelAudit?.priceScrollWidth || 0}).`);
+  if (modelAudit?.decisionDisplay !== "grid" || (modelAudit?.decisionCardCount || 0) !== 3) failures.push(`Desktop model decision summary is not a three-card grid (display=${modelAudit?.decisionDisplay || "missing"}, cards=${modelAudit?.decisionCardCount || 0}).`);
+  if ((modelAudit?.decisionCards || []).some(card => (card.width || 0) < 280 || (card.height || 0) < 90)) failures.push("Desktop model decision cards are collapsed or too narrow.");
+  if (modelAudit?.priceGridDisplay !== "grid" || (modelAudit?.priceCards || []).length !== 2) failures.push(`Desktop model price summary is not a two-card grid (display=${modelAudit?.priceGridDisplay || "missing"}).`);
+  for (const [index, card] of (modelAudit?.priceCards || []).entries()) {
+    if (card.labelDisplay !== "block" || card.valueDisplay !== "block" || card.noteDisplay !== "block") failures.push(`Desktop model price card ${index + 1} is not vertically stacked.`);
+    if ((card.valueScrollWidth || 0) > (card.valueWidth || 0) + 2) failures.push(`Desktop model price card ${index + 1} value overflows its card.`);
+  }
+  if ((modelAudit?.variantCardCount || 0) >= 2 && modelAudit?.variantGridDisplay !== "grid") failures.push("Desktop model variant cards are not using the restored grid layout.");
   if (!Array.isArray(modelAudit?.briefAudit) || modelAudit.briefAudit.length < 1) failures.push("Aerox model page is missing its buyer/commercial brief section.");
   for (const brief of modelAudit?.briefAudit || []) {
     if (brief.darkSurface) failures.push(`Buyer brief ${brief.index + 1} has a dark surface (${brief.background}).`);
@@ -332,6 +377,12 @@ try {
     const priceStrong=document.querySelector('.motorcycle-price-lockup > strong');
     const priceStyle=priceStrong?getComputedStyle(priceStrong):null;
     const priceRect=priceStrong?.getBoundingClientRect();
+    const decisionGrid=document.querySelector('.motorcycle-editorial-grid');
+    const priceGrid=document.querySelector('.motorcycle-price-grid');
+    const variantGrid=document.querySelector('#price .variant-grid');
+    const decisionStyle=decisionGrid?getComputedStyle(decisionGrid):null;
+    const priceGridStyle=priceGrid?getComputedStyle(priceGrid):null;
+    const variantStyle=variantGrid?getComputedStyle(variantGrid):null;
     const briefs=[...document.querySelectorAll('.priority-model-brief')].map((brief,index)=>({
       index,
       background:getComputedStyle(brief).backgroundColor,
@@ -346,6 +397,12 @@ try {
       priceWhiteSpace:priceStyle?.whiteSpace||'',
       priceWidth:priceRect?.width||0,
       priceScrollWidth:priceStrong?.scrollWidth||0,
+      decisionDisplay:decisionStyle?.display||'',
+      decisionColumns:decisionStyle?.gridTemplateColumns||'',
+      priceGridDisplay:priceGridStyle?.display||'',
+      priceGridColumns:priceGridStyle?.gridTemplateColumns||'',
+      variantGridDisplay:variantStyle?.display||'',
+      variantGridColumns:variantStyle?.gridTemplateColumns||'',
       briefs,
       overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
     };
@@ -354,6 +411,9 @@ try {
   if ((mobileModel?.h1Size || 0) > 40) failures.push(`390px model H1 is oversized at ${mobileModel.h1Size}px.`);
   if ((mobileModel?.mediaHeight || 0) > 255) failures.push(`390px model media stage is too tall at ${mobileModel.mediaHeight}px.`);
   if (!mobileModel?.priceText || mobileModel.priceDisplay !== "block" || mobileModel.priceWhiteSpace !== "nowrap" || (mobileModel.priceScrollWidth || 0) > (mobileModel.priceWidth || 0) + 2) failures.push(`390px model hero price is not locked to one line (display=${mobileModel?.priceDisplay || "missing"}, white-space=${mobileModel?.priceWhiteSpace || "missing"}, width=${mobileModel?.priceWidth || 0}, scroll=${mobileModel?.priceScrollWidth || 0}).`);
+  if (mobileModel?.decisionDisplay !== "grid" || !/^[^ ]+$/.test(mobileModel?.decisionColumns || "")) failures.push(`390px model decision summary did not collapse to one column (${mobileModel?.decisionColumns || "missing"}).`);
+  if (mobileModel?.priceGridDisplay !== "grid" || !/^[^ ]+$/.test(mobileModel?.priceGridColumns || "")) failures.push(`390px model price summary did not collapse to one column (${mobileModel?.priceGridColumns || "missing"}).`);
+  if (mobileModel?.variantGridDisplay === "grid" && !/^[^ ]+$/.test(mobileModel?.variantGridColumns || "")) failures.push(`390px model variant grid did not collapse to one column (${mobileModel?.variantGridColumns || "missing"}).`);
   for (const brief of mobileModel?.briefs || []) {
     const nums=(brief.background.match(/\d+(?:\.\d+)?/g)||[]).map(Number);
     const alpha=nums.length>3?nums[3]:1;
