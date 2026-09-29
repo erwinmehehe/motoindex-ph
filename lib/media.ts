@@ -22,7 +22,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-crf300-rally-manufacturer", entityType: "motorcycle", entityId: "honda-crf300-rally", role: "primary",
-    src: "/media/motorcycles/honda-crf300-rally.webp", sourceImageUrl: "https://powersports.honda.com/motorcycle/dual-sport/crf300l-rally/2026/-/media/products/family/crf300l-rally/trims/trim-main/crf300l-rally/2026/2026-crf300l-rally-red-1505x923.png?imwidth=1600", alt: "Honda CRF300 Rally adventure motorcycle product image", width: 1200, height: 1200,
+    src: "/media/motorcycles/honda-crf300-rally.webp", sourceImageUrl: "https://powersports.honda.com/motorcycle/dual-sport/crf300l-rally/2026/-/media/products/family/crf300l-rally/trims/trim-main/crf300l-rally/2026/2026-crf300l-rally-red-1505x923.png?imwidth=1600", alt: "Honda CRF300 Rally adventure motorcycle", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Honda", sourceLabel: "Manufacturer product image · Honda CRF300L Rally", sourceUrl: "https://powersports.honda.com/motorcycle/dual-sport/crf300l-rally/2026/crf300l-rally", lastChecked: "2026-09-24"
   },
   {
@@ -64,7 +64,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "yamaha-nmax-v3-wheeltek", entityType: "motorcycle", entityId: "yamaha-nmax-v3", role: "primary",
-    src: "/media/motorcycles/yamaha-nmax-v3.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2026/06/nmax-turbo-black-glossy.jpg", alt: "Current-generation Yamaha NMAX motorcycle in black", width: 1200, height: 1200,
+    src: "/media/motorcycles/yamaha-nmax-v3.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2026/06/nmax-turbo-black-glossy.jpg", alt: "Yamaha NMAX V3 motorcycle in black", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Wheeltek", sourceLabel: "Authorized-dealer image reference · Wheeltek All-New NMAX Tech Max", sourceUrl: "https://wheeltek.com.ph/motorcycles/all-new-nmax-techmax/", lastChecked: "2026-09-27"
   },
   {
@@ -685,12 +685,12 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"bristol-adx-160-official", entityType:"motorcycle", entityId:"bristol-adx-160", role:"primary",
-    src:"/media/motorcycles/bristol-adx-160.webp", sourceImageUrl: "https://static.wixstatic.com/media/fc6fc6_fe7a98c0324d4b33aaa16db8539bff20~mv2.png", alt:"Bristol ADX 160 scooter product image", width:1200, height:1200,
+    src:"/media/motorcycles/bristol-adx-160.webp", sourceImageUrl: "https://static.wixstatic.com/media/fc6fc6_fe7a98c0324d4b33aaa16db8539bff20~mv2.png", alt:"Bristol ADX 160 scooter", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder: "Bristol Motorcycles Philippines", sourceLabel: "Manufacturer product image · Bristol ADX 160", sourceUrl: "https://www.bristol-motorcycles.com/adx160", lastChecked: "2026-09-24"
   },
   {
     id:"bristol-maxie-400-editorial", entityType:"motorcycle", entityId:"bristol-maxie-400", role:"primary",
-    src:"/media/motorcycles/bristol-maxie-400.webp", sourceImageUrl:"https://imgcdn.zigwheels.ph/large/gallery/color/128/3117/bristol-maxie-400-color-293352.jpg", alt:"Bristol Maxie 400 maxi scooter product image", width:1200, height:1200,
+    src:"/media/motorcycles/bristol-maxie-400.webp", sourceImageUrl:"https://imgcdn.zigwheels.ph/large/gallery/color/128/3117/bristol-maxie-400-color-293352.jpg", alt:"Bristol Maxie 400 maxi scooter", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder:"Zigwheels Philippines", sourceLabel:"Philippine catalog image · Bristol Maxie 400", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/bristol/maxie-400/colors", lastChecked:"2026-09-08"
   },
   {
@@ -735,7 +735,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"kymco-like-150i-kymco-ph", entityType:"motorcycle", entityId:"kymco-like-150i-abs", role:"primary",
-    src:"/media/motorcycles/kymco-like-150i-abs.webp", sourceImageUrl:"https://kymco.com.ph/wp-content/uploads/2024/03/LIKE125_1.png.webp", alt:"Kymco Like 150i ABS scooter product image", width:1200, height:1200,
+    src:"/media/motorcycles/kymco-like-150i-abs.webp", sourceImageUrl:"https://kymco.com.ph/wp-content/uploads/2024/03/LIKE125_1.png.webp", alt:"Kymco Like 150i ABS scooter", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder:"Kymco Philippines", sourceLabel:"Manufacturer-hosted Philippine image reference · Kymco Like 150i ABS", sourceUrl:"https://kymco.com.ph/product/like-150i-abs/", lastChecked:"2026-09-24"
   },
   {
@@ -745,12 +745,12 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"motorstar-cafe-400-editorial", entityType:"motorcycle", entityId:"motorstar-cafe-400", role:"primary",
-    src:"/media/motorcycles/motorstar-cafe-400.webp", sourceImageUrl: "https://www.kamote.ph/cdn-cgi/image/lossless%3Dtrue%2Cw%3D1200%2Ch%3D1200%2Cf%3Dwebp%2Cfit%3Dcontain/https%3A/www.kamote.ph/Gallery/Motorstar/Cafe_400.webp", alt:"MotorStar Cafe 400 motorcycle product image", width:1200, height:1200,
+    src:"/media/motorcycles/motorstar-cafe-400.webp", sourceImageUrl: "https://www.kamote.ph/cdn-cgi/image/lossless%3Dtrue%2Cw%3D1200%2Ch%3D1200%2Cf%3Dwebp%2Cfit%3Dcontain/https%3A/www.kamote.ph/Gallery/Motorstar/Cafe_400.webp", alt:"MotorStar Cafe 400 motorcycle", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder: "Kamote.ph", sourceLabel: "Philippine exact-model product image reference · MotorStar Cafe 400", sourceUrl: "https://www.kamote.ph/motorcycle/motorstar-cafe-400", lastChecked: "2026-09-27"
   },
   {
     id:"motorstar-xplorer-250r-editorial", entityType:"motorcycle", entityId:"motorstar-xplorer-250r", role:"primary",
-    src:"/media/motorcycles/motorstar-xplorer-250r.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/78/1034/motorstar-xplorer-250r-color-270316.jpg", alt:"MotorStar Xplorer 250R adventure motorcycle product image", width:1200, height:1200,
+    src:"/media/motorcycles/motorstar-xplorer-250r.webp", sourceImageUrl: "https://imgcdn.zigwheels.ph/large/gallery/color/78/1034/motorstar-xplorer-250r-color-270316.jpg", alt:"MotorStar Xplorer 250R adventure motorcycle", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder: "Zigwheels Philippines", sourceLabel: "Philippine catalog color image · MotorStar Xplorer 250R", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/motorstar/xplorer-250r/images", lastChecked: "2026-09-24"
   },
   {
@@ -765,22 +765,22 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"rusi-rfi-175-editorial", entityType:"motorcycle", entityId:"rusi-rfi-175", role:"primary",
-    src:"/media/motorcycles/rusi-rfi-175.webp", sourceImageUrl:"https://www.kamote.ph/cdn-cgi/image/lossless%3Dtrue%2Cw%3D800%2Ch%3D800%2Cf%3Dwebp%2Cfit%3Dcontain/https%3A/www.kamote.ph/Gallery/Rusi/RFI_175.webp", alt:"Rusi RFI 175 scooter product image", width:1200, height:1200,
+    src:"/media/motorcycles/rusi-rfi-175.webp", sourceImageUrl:"https://www.kamote.ph/cdn-cgi/image/lossless%3Dtrue%2Cw%3D800%2Ch%3D800%2Cf%3Dwebp%2Cfit%3Dcontain/https%3A/www.kamote.ph/Gallery/Rusi/RFI_175.webp", alt:"Rusi RFI 175 scooter", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder:"Kamote.ph", sourceLabel:"Philippine catalog image · Rusi RFI 175", sourceUrl:"https://www.kamote.ph/motorcycle/rusi-rfi-175", lastChecked:"2026-09-08"
   },
   {
     id:"rusi-classic-250i-editorial", entityType:"motorcycle", entityId:"rusi-classic-250i", role:"primary",
-    src:"/media/motorcycles/rusi-classic-250i.webp", sourceImageUrl:"https://www.kamote.ph/cdn-cgi/image/lossless%3Dtrue%2Cw%3D800%2Ch%3D800%2Cf%3Dwebp%2Cfit%3Dcontain/https%3A/www.kamote.ph/Gallery/Rusi/Classic_250i.webp", alt:"Rusi Classic 250i motorcycle product image", width:1200, height:1200,
+    src:"/media/motorcycles/rusi-classic-250i.webp", sourceImageUrl:"https://www.kamote.ph/cdn-cgi/image/lossless%3Dtrue%2Cw%3D800%2Ch%3D800%2Cf%3Dwebp%2Cfit%3Dcontain/https%3A/www.kamote.ph/Gallery/Rusi/Classic_250i.webp", alt:"Rusi Classic 250i motorcycle", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder:"Kamote.ph", sourceLabel:"Philippine catalog image · Rusi Classic 250i", sourceUrl:"https://www.kamote.ph/motorcycle/rusi-classic-250i", lastChecked:"2026-09-08"
   },
   {
     id:"sym-jet-x150-editorial", entityType:"motorcycle", entityId:"sym-jet-x150", role:"primary",
-    src:"/media/motorcycles/sym-jet-x150.webp", sourceImageUrl:"https://static.wixstatic.com/media/97f6bd_7fc1c2558c4d4bb29444f1404b58db9f~mv2.jpg/v1/fill/w_1400%2Ch_1235%2Cal_c/97f6bd_7fc1c2558c4d4bb29444f1404b58db9f~mv2.jpg", alt:"SYM Jet X150 scooter product image", width:1200, height:1200,
+    src:"/media/motorcycles/sym-jet-x150.webp", sourceImageUrl:"https://static.wixstatic.com/media/97f6bd_7fc1c2558c4d4bb29444f1404b58db9f~mv2.jpg/v1/fill/w_1400%2Ch_1235%2Cal_c/97f6bd_7fc1c2558c4d4bb29444f1404b58db9f~mv2.jpg", alt:"SYM Jet X150 scooter", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder:"AA Perfectionist", sourceLabel:"Editorial product image · SYM Jet X", sourceUrl:"https://www.aapefi.com/post/sym-issues-voluntary-recall-for-2024-2025-fnx-and-jet-models-over-fuel-pump-concerns", lastChecked:"2026-09-08"
   },
   {
     id:"sym-cruisym-150-editorial", entityType:"motorcycle", entityId:"sym-cruisym-150", role:"primary",
-    src:"/media/motorcycles/sym-cruisym-150.webp", sourceImageUrl:"https://www.xsmt.com/upload/202302/06/202302061424135456.png", alt:"SYM Cruisym 150 scooter product image", width:1200, height:1200,
+    src:"/media/motorcycles/sym-cruisym-150.webp", sourceImageUrl:"https://www.xsmt.com/upload/202302/06/202302061424135456.png", alt:"SYM Cruisym 150 scooter", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder:"XSMT", sourceLabel:"Motorcycle catalog image · SYM Cruisym 150", sourceUrl:"https://www.xsmt.com/product/show-4288.html", lastChecked: "2026-09-24"
   },
   {
@@ -800,7 +800,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"vespa-sprint-150-editorial", entityType:"motorcycle", entityId:"vespa-sprint-150", role:"primary",
-    src:"/media/motorcycles/vespa-sprint-150.webp", sourceImageUrl:"https://img.autofun.co.th/file/1e92114c8163401598ae43327f996ac2.jpg", alt:"Vespa Sprint 150 scooter product image", width:1200, height:1200,
+    src:"/media/motorcycles/vespa-sprint-150.webp", sourceImageUrl:"https://img.autofun.co.th/file/1e92114c8163401598ae43327f996ac2.jpg", alt:"Vespa Sprint 150 scooter", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder:"AutoFun", sourceLabel:"Editorial product image · Vespa Sprint 150", sourceUrl:"https://www.autofun.co.th/motorcycles/vespa/sprint-150-i-get", lastChecked:"2026-09-08"
   },
 
@@ -822,7 +822,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"cfmoto-675sr-r-editorial", entityType:"motorcycle", entityId:"cfmoto-675sr-r", role:"primary",
-    src:"/media/motorcycles/cfmoto-675sr-r.webp", sourceImageUrl: "https://static.wixstatic.com/media/0a0f90_bcd5406be72d403295a51deca80f557b~mv2.png", alt:"CFMOTO 675SR-R sport motorcycle product image", width:1200, height:1200,
+    src:"/media/motorcycles/cfmoto-675sr-r.webp", sourceImageUrl: "https://static.wixstatic.com/media/0a0f90_bcd5406be72d403295a51deca80f557b~mv2.png", alt:"CFMOTO 675SR-R sport motorcycle", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder: "CFMOTO Philippines", sourceLabel: "Manufacturer product image · CFMOTO 675SR-R", sourceUrl: "https://www.cfmotoph.com/motorcycle/675sr", lastChecked: "2026-09-24"
   },
   {
@@ -852,7 +852,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id:"vespa-gtv-300-editorial", entityType:"motorcycle", entityId:"vespa-gtv-300", role:"primary", sourceImageUrl:"https://media.lulop.com/media/getimage/l/253279/1/640,480",
-    src:"/media/motorcycles/vespa-gtv-300.webp", alt:"Vespa GTV 300 scooter product image", width:1200, height:1200,
+    src:"/media/motorcycles/vespa-gtv-300.webp", alt:"Vespa GTV 300 scooter", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder:"Piaggio Group", sourceLabel:"Official Piaggio Group press image · Vespa GTV", sourceUrl:"https://press.piaggiogroup.com/en_EN/post/show/253279/new-vespa-gtv.html", lastChecked:"2026-09-08"
   },
   {
@@ -874,7 +874,7 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "honda-rebel-1100-official", entityType: "motorcycle", entityId: "honda-rebel-1100", role: "primary", sourceImageUrl:"https://hondamotodavanopoulos.gr/wp-content/uploads/2024/12/25YM_CMX1100-Rebel_Studio_MT_PEARL-HAWKSEYE-BLUE_RHS.jpg",
-    src:"/media/motorcycles/honda-rebel-1100.webp", alt: "Honda Rebel 1100 cruiser motorcycle product image", width:1200, height:1200,
+    src:"/media/motorcycles/honda-rebel-1100.webp", alt: "Honda Rebel 1100 cruiser motorcycle", width:1200, height:1200,
     rightsStatus: "external-reference", rightsHolder:"Honda Davanopoulos / Honda", sourceLabel:"Honda dealer studio image · 2025 CMX1100 Rebel", sourceUrl:"https://hondamotodavanopoulos.gr/product/cmx-1100-rebel/", lastChecked: "2026-09-24"
   },
   {
