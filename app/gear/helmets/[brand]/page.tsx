@@ -15,17 +15,26 @@ import { pageMetadata } from "@/lib/site";
 import { getHelmetBrandLineup, helmetCatalogCanonicalSlug } from "@/lib/helmetBrandLineups";
 import { HelmetBrandGuide } from "@/components/HelmetBrandGuide";
 import { AuthorBox } from "@/components/AuthorBox";
+import { getRenderableMedia } from "@/lib/renderableMedia";
 
 export function generateStaticParams(){return helmetBrands.map(h=>({brand:h.slug}));}
 export async function generateMetadata({params}:{params:Promise<{brand:string}>}):Promise<Metadata>{
   const {brand}=await params;
   const h=getHelmetBrand(brand);
   if(!h)return {};
+  const representative=getHelmetBrandStats(brand).products
+    .filter(product=>product.status==="verified")
+    .map(product=>getRenderableMedia("helmet",product.id)[0])
+    .find(media=>Boolean(media&&!media.src.includes("/media/placeholders/")));
   return pageMetadata({
     title:`${h.brand} Helmet Price Philippines 2026: Models & Types`,
     description:`Compare ${h.brand} helmet prices, types, sizes and visor features in the Philippines, with model pages and current product references.`,
     path:`/gear/helmets/${h.slug}`,
-    index:isIndexableHelmetBrand(brand)
+    index:isIndexableHelmetBrand(brand),
+    image:representative?.src,
+    imageAlt:representative?.alt||`${h.brand} motorcycle helmet`,
+    imageWidth:representative?.width,
+    imageHeight:representative?.height
   });
 }
 export default async function HelmetBrandPage({params}:{params:Promise<{brand:string}>}){
