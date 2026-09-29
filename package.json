@@ -52,6 +52,7 @@
     "lint": "eslint .",
     "validate:design": "node scripts/design-lint.mjs",
     "visual:matrix": "node scripts/visual-regression-matrix.mjs",
+    "qa:routes": "node scripts/route-behavior-qa.mjs",
     "validate:catalog-uniqueness": "node scripts/validate-motorcycle-uniqueness.mjs",
     "validate:comparisons": "node scripts/validate-comparison-briefs.mjs",
     "validate:garage": "node scripts/garage-qa.mjs",
