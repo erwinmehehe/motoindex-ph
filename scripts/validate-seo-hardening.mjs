@@ -36,6 +36,9 @@ const catalogData = read("lib", "catalog.ts");
 const topBoxFitmentData = read("lib", "topBoxFitment.ts");
 const modelFamilies = read("lib", "families.ts");
 const modelFamilyView = read("components", "ModelFamilyView.tsx");
+const gscOpportunity = read("scripts", "gsc-opportunity-report.mjs");
+const gscWorkflow = read("docs", "seo", "gsc-opportunity-workflow-2026-09-30.md");
+const packageJson = read("package.json");
 
 requireText(home, "Compare <span>motorcycle prices</span><br />and specs in the Philippines.", "Homepage must keep a query-led motorcycle prices/specs H1.");
 forbidText(home, "Your next <span>motorcycle</span><br />starts here.", "Homepage must not regress to the old brand-led H1.");
@@ -82,6 +85,28 @@ for (const token of [
 }
 requireText(modelEntity, "getModelFamilyForModel", "Canonical model pages must resolve their family hub for internal linking.");
 requireText(modelEntity, "Compare all {modelFamily.make} {modelFamily.name} generations", "Canonical model pages must link back to the family comparison hub.");
+requireText(modelEntity, 'title={`${model.make} ${model.model} specifications`}', "Canonical motorcycle pages must keep model-specific specifications headings.");
+requireText(modelEntity, 'title={`${model.make} ${model.model} downpayment and monthly installment estimate`}', "Canonical motorcycle pages must keep model-specific financing intent on-page.");
+requireText(modelEntity, "<summary>{model.make} {model.model} colors and variants</summary>", "Canonical motorcycle pages must keep model-specific colors/variant intent on-page.");
+for (const token of [
+  "queryFamily(query)",
+  "normalizePage(value, siteOrigin)",
+  "Page priorities from earned impressions",
+  "Possible query cannibalization",
+  "programWatchlist",
+  "Separate Queries.csv and Pages.csv files cannot prove query-to-page ownership"
+]) {
+  requireText(gscOpportunity, token, `GSC opportunity analyzer missing required behavior: ${token}`);
+}
+requireText(packageJson, '"seo:gsc-opportunities": "node scripts/gsc-opportunity-report.mjs"', "Package scripts must expose the repeatable GSC opportunity report.");
+for (const token of [
+  "Do not commit private raw GSC exports",
+  "Neither source is first-party GSC performance",
+  "Avoid speculative title rewrites",
+  "query + page export"
+]) {
+  requireText(gscWorkflow, token, `GSC workflow documentation missing guardrail: ${token}`);
+}
 
 requireText(modelSeo, "firstTitleThatFits", "Model SEO titles should use length-aware title selection.");
 requireText(modelSeo, "limit = 60", "Model SEO title selection should target a 60-character ceiling.");
