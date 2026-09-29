@@ -60,7 +60,8 @@ const childClusters = [
   { href: "/recommendations/160cc-scooters-philippines", label: "160cc scooters", note: `${class160} current models in the 156–165cc band` },
   { href: "/recommendations/maxi-scooters-philippines", label: "Maxi scooters", note: "Larger scooter and touring-oriented choices" },
   { href: "/recommendations/honda-scooters-philippines", label: "Honda scooters", note: "Current Honda scooter research and prices" },
-  { href: "/recommendations/yamaha-scooters-philippines", label: "Yamaha scooters", note: "Current Yamaha scooter research and prices" }
+  { href: "/recommendations/yamaha-scooters-philippines", label: "Yamaha scooters", note: "Current Yamaha scooter research and prices" },
+  { href: "/recommendations/suzuki-scooters-philippines", label: "Suzuki scooters", note: "Current Suzuki scooter research and prices" }
 ];
 
 export default function ScootersPage() {
