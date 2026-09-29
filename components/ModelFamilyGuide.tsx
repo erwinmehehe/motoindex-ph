@@ -42,7 +42,7 @@ export function ModelFamilyGuide({ family, models }: Props) {
       <p>Once you know the exact generation, compare the differences that can change the buying decision: purchase price, dimensions, tires, condition and ownership stage.</p>
     </div></div>
 
-    <div className="split section">
+    <div className="model-family-guide-grid">
       <div>
         <h3>Price and mechanical changes</h3>
         <p>
