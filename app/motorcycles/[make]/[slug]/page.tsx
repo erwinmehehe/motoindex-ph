@@ -93,7 +93,9 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
     path: `/motorcycles/${model.makeSlug}/${model.slug}`,
     index: isIndexableModel(model),
     image,
-    imageAlt: media?.alt || `${model.make} ${model.model} motorcycle`
+    imageAlt: media?.alt || `${model.make} ${model.model} motorcycle`,
+    imageWidth: media?.width,
+    imageHeight: media?.height
   });
   return { ...base, keywords: seo.keywords };
 }
