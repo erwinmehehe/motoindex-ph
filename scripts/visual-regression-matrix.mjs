@@ -45,6 +45,7 @@ const routes=[
   {name:"compare",path:"/compare/selection?bikes=aerox-v3,nmax-v3"},
   {name:"helmets",path:"/gear/helmets"},
   {name:"helmet-detail",path:"/gear/helmets/gille/kerena-ff007"},
+  {name:"helmet-evo-vxr-8000",path:"/gear/helmets/evo/vxr-8000"},
   {name:"tires",path:"/tires"},
   {name:"tire-size-adv-160",path:"/tires/adv-160-tire-size"},
   {name:"tire-size-nmax-family",path:"/tires/nmax-tire-size"},
