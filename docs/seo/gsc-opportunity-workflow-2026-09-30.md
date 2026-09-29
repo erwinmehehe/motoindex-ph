@@ -28,7 +28,7 @@ node scripts/gsc-opportunity-report.mjs /path/to/query-page.csv --output /tmp/mo
 Optional controls:
 
 ```bash
-npm run seo:gsc-opportunities -- /path/to/query-page.csv \
+node scripts/gsc-opportunity-report.mjs /path/to/query-page.csv \
   --min-impressions 20 \
   --striking-min 4 \
   --striking-max 20 \
