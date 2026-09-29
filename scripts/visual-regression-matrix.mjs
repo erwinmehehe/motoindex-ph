@@ -238,6 +238,14 @@ const inspect=`(() => {
     }
   }
 
+  const scooterDecisionSection=document.querySelector("[data-scooter-decision-section]");
+  const scooterDecisionGrid=document.querySelector("[data-scooter-decision-grid]");
+  const scooterDecisionCards=[...document.querySelectorAll("[data-scooter-decision-card]")];
+  const scooterShortcutLinks=document.querySelectorAll("[data-scooter-shortcut-link]").length;
+  const scooterDecisionGridColumns=scooterDecisionGrid?(getComputedStyle(scooterDecisionGrid).gridTemplateColumns||"").trim().split(/\\s+/).filter(Boolean).length:0;
+  const scooterDecisionCardMaxHeight=scooterDecisionCards.length?Math.max(...scooterDecisionCards.map(card=>card.getBoundingClientRect().height)):0;
+  const scooterDecisionSectionHeight=scooterDecisionSection?.getBoundingClientRect().height||0;
+
   const compareBuilder=document.querySelector("[data-compare-builder]");
   const compareBuilderRect=compareBuilder?.getBoundingClientRect();
   const compareFirstSelect=compareBuilder?.querySelector("select");
@@ -316,6 +324,11 @@ const inspect=`(() => {
     brandGridColumns:gridColumnCount(brandModelGrid),
     standardMotorcycleCards:standardMotorcycleCards.length,
     standardMotorcycleCardModes,
+    scooterDecisionCards:scooterDecisionCards.length,
+    scooterShortcutLinks,
+    scooterDecisionGridColumns,
+    scooterDecisionCardMaxHeight,
+    scooterDecisionSectionHeight,
     compareBuilderHeight:compareBuilderRect?.height||0,
     compareOptionCount:compareOptionTexts.length,
     compareMakeFilterLeaks,
@@ -418,6 +431,11 @@ try{
       if(width===390&&route.name.endsWith("-brand")&&(row?.brandGridColumns||0)>1)failures.push(`${width}px ${route.name}: brand models did not collapse to one column (${row?.brandGridColumns||0} columns)`);
       if((width===1440||width===390)&&(route.name==="motorcycles"||route.name.endsWith("-brand"))&&routeCardModes.some(card=>card.mode==="grid"))failures.push(`${width}px ${route.name}: MotorcycleCard unexpectedly switched to its old wide row layout inside the product grid`);
       if(width===390&&route.name==="home"&&routeCardModes.some(card=>card.mode==="grid"))failures.push(`${width}px home: narrow MotorcycleCard stayed in wide row layout`);
+      if(route.name==="scooters"&&(row?.scooterDecisionCards||0)!==3)failures.push(`${width}px scooters: expected three compact decision cards, found ${row?.scooterDecisionCards||0}`);
+      if(route.name==="scooters"&&(row?.scooterShortcutLinks||0)<7)failures.push(`${width}px scooters: compact scooter shortcut rail is incomplete (${row?.scooterShortcutLinks||0} links)`);
+      if(route.name==="scooters"&&width===1440&&(row?.scooterDecisionGridColumns||0)!==3)failures.push(`${width}px scooters: decision strip did not render as three columns (${row?.scooterDecisionGridColumns||0} columns)`);
+      if(route.name==="scooters"&&width===1440&&(row?.scooterDecisionCardMaxHeight||0)>180)failures.push(`${width}px scooters: decision cards are too tall (${row?.scooterDecisionCardMaxHeight||0}px)`);
+      if(route.name==="scooters"&&width===390&&(row?.scooterDecisionGridColumns||0)!==1)failures.push(`${width}px scooters: decision strip did not collapse to one column (${row?.scooterDecisionGridColumns||0} columns)`);
       if(route.name==="compare-index"&&width===1440&&(row?.compareBuilderHeight||0)>260)failures.push(`${width}px compare-index: builder is too tall (${row.compareBuilderHeight}px)`);
       if(route.name==="compare-index"&&width===390&&(row?.compareBuilderHeight||0)>620)failures.push(`${width}px compare-index: mobile builder is too tall (${row.compareBuilderHeight}px)`);
       if(["helmets","tires","accessories","top-box"].includes(route.name)&&(row?.deferredSections||0)>0)failures.push(`${width}px ${route.name}: ${row.deferredSections} top-level section(s) still defer rendering with content-visibility:auto`);
