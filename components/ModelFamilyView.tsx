@@ -71,6 +71,8 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
               className="model-family-current-media"
               linkHref={`/motorcycles/${current.makeSlug}/${current.slug}`}
               showCredit={false}
+              forceFill
+              sizes="(max-width: 620px) 132px, (max-width: 900px) 240px, 380px"
               fallback={<Link className="model-family-media-fallback" href={`/motorcycles/${current.makeSlug}/${current.slug}`}><span>Current generation</span><strong>{current.make}<b>{current.model}</b></strong></Link>}
             />
             <div className="model-family-current-copy">
@@ -106,6 +108,8 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
               className="model-family-generation-media"
               linkHref={`/motorcycles/${m.makeSlug}/${m.slug}`}
               showCredit={false}
+              forceFill
+              sizes="(max-width: 620px) calc(100vw - 32px), (max-width: 900px) 45vw, 360px"
               fallback={<Link className="model-family-generation-fallback" href={`/motorcycles/${m.makeSlug}/${m.slug}`}><span>{previous ? "Previous generation" : "Current generation"}</span><strong>{m.model}</strong></Link>}
             />
             <div className="model-family-generation-copy">
