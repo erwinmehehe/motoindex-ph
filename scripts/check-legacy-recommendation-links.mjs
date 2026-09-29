@@ -33,6 +33,9 @@ for (const base of scanRoots) {
     // GrowthModelBrief renders inside canonical motorcycle entity pages and may link
     // directly to one tightly matched canonical recommendation guide.
     if (rel === "components/GrowthModelBrief.tsx") continue;
+    // Canonical motorcycle entity pages may link to one exact category/displacement
+    // research guide when the link is derived from the model's own structured data.
+    if (rel === "components/MotorcycleEntityPage.tsx") continue;
     if (rel.startsWith("app/recommendations/electric-")) continue;
 
     const src = fs.readFileSync(file, "utf8");
