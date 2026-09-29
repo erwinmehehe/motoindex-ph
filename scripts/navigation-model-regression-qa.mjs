@@ -228,6 +228,9 @@ try {
     const media=document.querySelector('.motorcycle-hero-media');
     const facts=document.querySelector('.motorcycle-hero-facts');
     const factStrong=facts?.querySelector('strong');
+    const priceStrong=document.querySelector('.motorcycle-price-lockup > strong');
+    const priceStyle=priceStrong?getComputedStyle(priceStrong):null;
+    const priceRect=priceStrong?.getBoundingClientRect();
     const verdict=document.querySelector('.authority-verdict');
     const briefs=[...document.querySelectorAll('.priority-model-brief')];
     const modelBlocks=[...document.querySelectorAll('.motorcycle-entity-body>.motorcycle-entity-section, .priority-model-brief, .model-decision-path-wrap')];
@@ -271,6 +274,11 @@ try {
       facts:Boolean(facts),
       factsBg:factsStyle?.backgroundColor||'',
       factColor:strongStyle?.color||'',
+      priceText:priceStrong?.textContent?.trim()||'',
+      priceDisplay:priceStyle?.display||'',
+      priceWhiteSpace:priceStyle?.whiteSpace||'',
+      priceWidth:priceRect?.width||0,
+      priceScrollWidth:priceStrong?.scrollWidth||0,
       verdict:Boolean(verdict),
       briefAudit,
       maxSectionGap:gaps.length?Math.max(...gaps):0,
@@ -281,6 +289,7 @@ try {
   if (!modelAudit?.h1 || modelAudit.h1Size > 60) failures.push(`Desktop model H1 is still oversized at ${modelAudit?.h1Size || 0}px.`);
   if (!modelAudit?.media || modelAudit.mediaHeight > 340) failures.push(`Desktop model media stage is still too tall at ${modelAudit?.mediaHeight || 0}px.`);
   if (!modelAudit?.facts || !/rgb\(255, 255, 255\)/.test(modelAudit.factsBg || "")) failures.push(`Model facts surface is not white (${modelAudit?.factsBg || "missing"}).`);
+  if (!modelAudit?.priceText || modelAudit.priceDisplay !== "block" || modelAudit.priceWhiteSpace !== "nowrap" || (modelAudit.priceScrollWidth || 0) > (modelAudit.priceWidth || 0) + 2) failures.push(`Desktop model hero price is not locked to one line (display=${modelAudit?.priceDisplay || "missing"}, white-space=${modelAudit?.priceWhiteSpace || "missing"}, width=${modelAudit?.priceWidth || 0}, scroll=${modelAudit?.priceScrollWidth || 0}).`);
   if (!Array.isArray(modelAudit?.briefAudit) || modelAudit.briefAudit.length < 1) failures.push("Aerox model page is missing its buyer/commercial brief section.");
   for (const brief of modelAudit?.briefAudit || []) {
     if (brief.darkSurface) failures.push(`Buyer brief ${brief.index + 1} has a dark surface (${brief.background}).`);
@@ -295,6 +304,9 @@ try {
   const mobileModel = await evaluate(cdp.send, `(() => {
     const h1=document.querySelector('.motorcycle-hero-copy h1');
     const media=document.querySelector('.motorcycle-hero-media');
+    const priceStrong=document.querySelector('.motorcycle-price-lockup > strong');
+    const priceStyle=priceStrong?getComputedStyle(priceStrong):null;
+    const priceRect=priceStrong?.getBoundingClientRect();
     const briefs=[...document.querySelectorAll('.priority-model-brief')].map((brief,index)=>({
       index,
       background:getComputedStyle(brief).backgroundColor,
@@ -304,6 +316,11 @@ try {
     return {
       h1Size:parseFloat(h1?getComputedStyle(h1).fontSize:'0'),
       mediaHeight:media?.getBoundingClientRect().height||0,
+      priceText:priceStrong?.textContent?.trim()||'',
+      priceDisplay:priceStyle?.display||'',
+      priceWhiteSpace:priceStyle?.whiteSpace||'',
+      priceWidth:priceRect?.width||0,
+      priceScrollWidth:priceStrong?.scrollWidth||0,
       briefs,
       overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
     };
@@ -311,6 +328,7 @@ try {
   results.push({ check: "mobile-model", ...mobileModel });
   if ((mobileModel?.h1Size || 0) > 40) failures.push(`390px model H1 is oversized at ${mobileModel.h1Size}px.`);
   if ((mobileModel?.mediaHeight || 0) > 255) failures.push(`390px model media stage is too tall at ${mobileModel.mediaHeight}px.`);
+  if (!mobileModel?.priceText || mobileModel.priceDisplay !== "block" || mobileModel.priceWhiteSpace !== "nowrap" || (mobileModel.priceScrollWidth || 0) > (mobileModel.priceWidth || 0) + 2) failures.push(`390px model hero price is not locked to one line (display=${mobileModel?.priceDisplay || "missing"}, white-space=${mobileModel?.priceWhiteSpace || "missing"}, width=${mobileModel?.priceWidth || 0}, scroll=${mobileModel?.priceScrollWidth || 0}).`);
   for (const brief of mobileModel?.briefs || []) {
     const nums=(brief.background.match(/\d+(?:\.\d+)?/g)||[]).map(Number);
     const alpha=nums.length>3?nums[3]:1;
