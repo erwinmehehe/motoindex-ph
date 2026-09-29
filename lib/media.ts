@@ -1260,56 +1260,56 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "shad-sh39-motostorm-20260929", entityType: "topbox", entityId: "shad-sh39", role: "primary",
-    src: "https://www.motostorm.it/images/products/large/borse/shad_sh39carbon_topcase_nero.jpg",
+    src: "/media/top-boxes/shad-sh39.webp",
     sourceImageUrl: "https://www.motostorm.it/images/products/large/borse/shad_sh39carbon_topcase_nero.jpg",
     alt: "SHAD SH39 39-litre carbon-look motorcycle top box in black", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "MotoStorm / SHAD", sourceLabel: "Retailer-hosted exact-model product image · SHAD SH39", sourceUrl: "https://www.motostorm.it/es/accesorios/bolsos-moto/shad-sh39-carbon-top-case-black.html", lastChecked: "2026-09-29"
   },
   {
     id: "shad-sh33-retailer-20260929", entityType: "topbox", entityId: "shad-sh33", role: "primary",
-    src: "https://i.ebayimg.com/images/g/BqgAAeSwvSpp5r0n/s-l1600.webp",
+    src: "/media/top-boxes/shad-sh33.webp",
     sourceImageUrl: "https://i.ebayimg.com/images/g/BqgAAeSwvSpp5r0n/s-l1600.webp",
     alt: "SHAD SH33 33-litre motorcycle top box in black", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Retailer product image host / SHAD", sourceLabel: "Retailer-hosted exact-model product image · SHAD SH33", sourceUrl: "https://www.ebay.co.uk/itm/166701555547", lastChecked: "2026-09-29"
   },
   {
     id: "shad-sh29-motoblouz-20260929", entityType: "topbox", entityId: "shad-sh29", role: "primary",
-    src: "https://media.motoblouz.it/images/catalogue/sh29_white_516f9acc6fda5.jpg",
+    src: "/media/top-boxes/shad-sh29.webp",
     sourceImageUrl: "https://media.motoblouz.it/images/catalogue/sh29_white_516f9acc6fda5.jpg",
     alt: "SHAD SH29 29-litre motorcycle top box with white cover", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Motoblouz / SHAD", sourceLabel: "Retailer-hosted exact-model product image · SHAD SH29", sourceUrl: "https://www.shad.es/en/motorcycle-cases/top-cases-motorcycle-cases/top-case-sh29-black/", lastChecked: "2026-09-29"
   },
   {
     id: "coocase-s28-vivo-retailer-20260929", entityType: "topbox", entityId: "coocase-s28-vivo", role: "primary",
-    src: "https://cdn.shopify.com/s/files/1/1459/5894/products/S28-2.jpg?v=1644045268",
+    src: "/media/top-boxes/coocase-s28-vivo.webp",
     sourceImageUrl: "https://cdn.shopify.com/s/files/1/1459/5894/products/S28-2.jpg?v=1644045268",
     alt: "Coocase S28 Vivo 28-litre motorcycle top box", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Moto Central / Coocase", sourceLabel: "Retailer-hosted exact-model product image · Coocase S28 Vivo", sourceUrl: "https://www.coocase.com/wp-content/uploads/2026/03/19c89da2d43ee1c6491_compressed.pdf", lastChecked: "2026-09-29"
   },
   {
     id: "coocase-v28-fusion-retailer-20260929", entityType: "topbox", entityId: "coocase-v28-fusion", role: "primary",
-    src: "https://alkhubaizibikes.ae/cdn/shop/files/855520_1_1024x.jpg?v=1704867890",
+    src: "/media/top-boxes/coocase-v28-fusion.webp",
     sourceImageUrl: "https://alkhubaizibikes.ae/cdn/shop/files/855520_1_1024x.jpg?v=1704867890",
     alt: "Coocase V28 Fusion 28-litre motorcycle top box", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Al Khubaizi Bikes / Coocase", sourceLabel: "Retailer-hosted exact-model product image · Coocase V28 Fusion", sourceUrl: "https://www.coocase.com/wp-content/uploads/2026/03/19c89da2d43ee1c6491_compressed.pdf", lastChecked: "2026-09-29"
   },
   {
     id: "coocase-v36-wizard-retailer-20260929", entityType: "topbox", entityId: "coocase-v36-wizard", role: "primary",
-    src: "https://www.nilmoto.com/imagenes/image/productos/vr03-023_1_230.jpg",
+    src: "/media/top-boxes/coocase-v36-wizard.webp",
     sourceImageUrl: "https://www.nilmoto.com/imagenes/image/productos/vr03-023_1_230.jpg",
     alt: "Coocase V36 Wizard 36-litre motorcycle top box", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Nilmoto / Coocase", sourceLabel: "Retailer-hosted exact-model product image · Coocase V36 Wizard", sourceUrl: "https://www.coocase.com/wp-content/uploads/2026/03/19c89da2d43ee1c6491_compressed.pdf", lastChecked: "2026-09-29"
   },
   {
     id: "coocase-s48-astra-retailer-20260929", entityType: "topbox", entityId: "coocase-s48-astra", role: "primary",
-    src: "https://medias.la-becanerie.com/cache/images_articles/3/3840_2160/top-case-noir-48-l-coocase-astra-keyless-vendu-520433.jpg",
+    src: "/media/top-boxes/coocase-s48-astra.webp",
     sourceImageUrl: "https://medias.la-becanerie.com/cache/images_articles/3/3840_2160/top-case-noir-48-l-coocase-astra-keyless-vendu-520433.jpg",
     alt: "Coocase S48 Astra 48-litre black motorcycle top box", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "La Bécanerie / Coocase", sourceLabel: "Retailer-hosted exact-model product image · Coocase S48 Astra", sourceUrl: "https://www.la-becanerie.com/top-case-noir-48-l-coocase-astra-keyless-vendu-avec-sa-platine.html", lastChecked: "2026-09-29"
   },
   {
     id: "coocase-v50-reflex-retailer-20260929", entityType: "topbox", entityId: "coocase-v50-reflex", role: "primary",
-    src: "https://motocentral.in/cdn/shop/products/Coocase-V50-Reflex-Basic-Motorcycle-Topbox-1_1080x.jpg?v=1644047604",
+    src: "/media/top-boxes/coocase-v50-reflex.webp",
     sourceImageUrl: "https://motocentral.in/cdn/shop/products/Coocase-V50-Reflex-Basic-Motorcycle-Topbox-1_1080x.jpg?v=1644047604",
     alt: "Coocase V50 Reflex 50-litre motorcycle top box in black", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Moto Central / Coocase", sourceLabel: "Retailer-hosted exact-model product image · Coocase V50 Reflex", sourceUrl: "https://www.coocase.com/wp-content/uploads/2026/03/19c89da2d43ee1c6491_compressed.pdf", lastChecked: "2026-09-29"
