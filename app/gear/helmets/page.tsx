@@ -14,7 +14,11 @@ export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Helmets Philippines 2026: Prices, Brands & Guide",
   description: "One complete Philippine motorcycle helmet guide covering prices, brands, full-face, modular, open-face, ECE 22.06, intercom, fit and commuting.",
   path: "/gear/helmets",
-  index: true
+  index: true,
+  image: "/media/helmets/kyt-tt-course.webp",
+  imageAlt: "KYT TT-Course full-face motorcycle helmet",
+  imageWidth: 1200,
+  imageHeight: 1200
 });
 
 function compactHelmetMeta(product: (typeof helmetProducts)[number]) {
