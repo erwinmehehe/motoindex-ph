@@ -31,7 +31,8 @@ export function LoanCalculator({ initialPrice = 100000, modelLabel, initialDownP
   }, [price, downAmount, months, annualRate, safeInitial, initialDown]);
   useEffect(()=>{if(!syncUrl)return;const p=new URLSearchParams(window.location.search);p.set("price",String(Math.round(result.safePrice)));p.set("down",String(Number(result.safeDown.toFixed(2))));p.set("downAmount",String(Math.round(result.safeDownAmount)));p.set("term",String(result.safeMonths));p.set("rate",String(result.safeRate));if(modelLabel)p.set("model",modelLabel);window.history.replaceState(null,"",`${window.location.pathname}?${p.toString()}`)},[result.safePrice,result.safeDown,result.safeDownAmount,result.safeMonths,result.safeRate,modelLabel,syncUrl]);
   function setPriceAndProtectDown(next:number){const safeNext=clamp(next,1000,10000000,safeInitial);setPrice(next);setDownAmount(current=>Math.min(current,safeNext*.95));}
-  function setExactDown(next:number){setDownAmount(clamp(next,0,result.safePrice*.95,0));}\n  function setDownPercentage(next:number){const pct=clamp(next,0,95,initialDown);setDownAmount(result.safePrice*pct/100);}
+  function setExactDown(next:number){setDownAmount(clamp(next,0,result.safePrice*.95,0));}
+  function setDownPercentage(next:number){const pct=clamp(next,0,95,initialDown);setDownAmount(result.safePrice*pct/100);}
   function reset(){setPrice(safeInitial);setDownAmount(initialCashDown);setMonths(initialTerm);setAnnualRate(initialApr);}
   async function copy(){const url=window.location.href;const summary=`${modelLabel?`${modelLabel}: `:""}${peso(result.safePrice)}, ${peso(result.safeDownAmount)} down (${percentage(result.safeDown)}%), ${result.safeMonths} months at ${result.safeRate}% APR ≈ ${peso(result.monthly)}/month. ${url}`;await navigator.clipboard?.writeText(summary);setCopied(true);window.setTimeout(()=>setCopied(false),1800);}
   return <section className="loan-tool" data-calculator="loan">
