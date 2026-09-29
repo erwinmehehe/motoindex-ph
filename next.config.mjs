@@ -7,6 +7,14 @@ const nextConfig = {
     // Remote patterns remain only as a migration fallback if a local asset has not been synced yet.
     remotePatterns: [
       { protocol: "https", hostname: "bikeluggage.co.uk" },
+      { protocol: "https", hostname: "www.motostorm.it" },
+      { protocol: "https", hostname: "i.ebayimg.com" },
+      { protocol: "https", hostname: "media.motoblouz.it" },
+      { protocol: "https", hostname: "motocentral.in" },
+      { protocol: "https", hostname: "medias.la-becanerie.com" },
+      { protocol: "https", hostname: "www.nilmoto.com" },
+      { protocol: "https", hostname: "alkhubaizibikes.ae" },
+      { protocol: "https", hostname: "cdn.shopify.com" },
       { protocol: "https", hostname: "cdn.aripitstop.com" },
       { protocol: "https", hostname: "cdn.awsli.com.br" },
       { protocol: "https", hostname: "cdn.idealo.com" },
