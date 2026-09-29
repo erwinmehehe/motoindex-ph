@@ -44,6 +44,7 @@ import { forClient } from "@/lib/competitors";
 import { tireGuideHrefForModel } from "@/lib/tireSeo";
 import { performanceAnswerFor } from "@/lib/modelPerformance";
 import { AuthorBox } from "@/components/AuthorBox";
+import { authorPersonSchema } from "@/lib/author";
 import { getModelGearGuide } from "@/lib/modelGearGuides";
 import { OwnershipCatalogLinks } from "@/components/OwnershipCatalogLinks";
 import { CTAGroup, ProductGrid as CanonicalProductGrid, SectionHeader } from "@/components/ui";
@@ -111,6 +112,23 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       { "@type": "PropertyValue", name: "Front tire", value: model.frontTire },
       { "@type": "PropertyValue", name: "Rear tire", value: model.rearTire },
     ],
+  };
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    url: absoluteUrl(`${canonicalPath}#faq`),
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+  const authorSchema = {
+    "@context": "https://schema.org",
+    ...authorPersonSchema(),
   };
   const loanToolHref = { pathname: "/tools/motorcycle-loan-calculator", query: { price: range.from, model: `${model.make} ${model.model}` } };
   const aeroxFinanceTarget = model.id === "yamaha-aerox-v3";
@@ -181,7 +199,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section className="motorcycle-entity-section global-spec-intent" aria-labelledby="quick-specs-heading">
         <SectionHeader kicker="Quick specs" titleId="quick-specs-heading" title={`${model.make} ${model.model} horsepower, weight, seat height and tire size`} description="These core motorcycle specifications are useful across markets. Philippine pricing is shown separately above so local SRP is not confused with globally applicable technical specifications." />
-        <div className="entity-spec-table motorcycle-spec-table" role="table" aria-label={`${model.make} ${model.model} quick specifications`}>
+        <div className="entity-spec-table motorcycle-spec-table quick-spec-grid" role="table" aria-label={`${model.make} ${model.model} quick specifications`}>
           <div role="row"><span role="cell">Horsepower</span><strong role="cell">{model.powerHp} hp</strong></div>
           <div role="row"><span role="cell">Torque</span><strong role="cell">{model.torqueNm} Nm</strong></div>
           <div role="row"><span role="cell">Curb weight</span><strong role="cell">{model.curbWeightKg} kg</strong></div>
@@ -196,7 +214,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
         <SectionHeader kicker="Key specifications" titleId="specs-heading" title="The numbers most buyers need first" description="Keep the first pass to engine, power, fit, weight, transmission, braking and stock tires." />
-        <div className="entity-spec-table motorcycle-spec-table" role="table" aria-label={`${model.make} ${model.model} key specifications`}>
+        <div className="entity-spec-table motorcycle-spec-table key-spec-grid" role="table" aria-label={`${model.make} ${model.model} key specifications`}>
           <div role="row"><span role="cell">Engine</span><strong role="cell">{model.engineCc} cc · {model.powerHp} hp · {model.torqueNm} Nm</strong></div>
           <div role="row"><span role="cell">Transmission</span><strong role="cell">{model.transmission || "Not listed"}</strong></div>
           <div role="row"><span role="cell">Seat / curb weight</span><strong role="cell">{model.seatHeightMm} mm · {model.curbWeightKg} kg</strong></div>
@@ -278,6 +296,6 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       <section id="faq" className="motorcycle-entity-section"><FaqSection title={`${model.make} ${model.model} FAQs`} items={faqs} /></section>
       <AuthorBox />
     </div>
-    <JsonLd data={schema} />
+    <JsonLd data={[schema, faqSchema, authorSchema]} />
   </article>;
 }
