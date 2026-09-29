@@ -86,7 +86,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const seo = motorcycleEntitySeo(model);
   const growth = priorityModelGrowthProfile(model.id);
   const media = getRenderableMedia("motorcycle", model.id)[0];
-  const image = media?.src;
+  const image = getRenderableMedia("motorcycle", model.id)[0]?.src;
   const base = pageMetadata({
     title: growth?.seoTitle || seo.title,
     description: growth?.seoDescription || seo.description,
