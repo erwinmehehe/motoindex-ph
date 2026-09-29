@@ -1975,7 +1975,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     kicker: "Yamaha scooters",
     title: "Yamaha scooters in the Philippines",
     seoTitle: "Yamaha Scooter Price Philippines 2026: Models & Price List",
-    description: "Compare Yamaha scooter prices in the Philippines for 2026, including Mio, Fazzio, Aerox, NMAX and maxi-scooter models with specs and model links.",
+    description: "Compare Yamaha scooter prices in the Philippines for 2026, including Mio, Fazzio, Aerox, NMAX and maxi-scooter models with specs, prices and model links.",
     primaryKeyword: "Yamaha scooters Philippines",
     secondaryKeywords: ["Yamaha scooter price Philippines", "Yamaha scooter price list Philippines", "Yamaha automatic motorcycle Philippines", "Yamaha scooter models 2026", "Yamaha Mio Philippines", "Yamaha Aerox Philippines", "Yamaha NMAX Philippines"],
     directAnswer: "This Yamaha scooter price guide compares current Philippine models using dated prices and model-specific engine, weight, seat-height, braking, fuel and ownership data. It keeps Mio, Fazzio, Aerox, NMAX and larger scooter research connected to their canonical model pages and the national scooter price list.",
