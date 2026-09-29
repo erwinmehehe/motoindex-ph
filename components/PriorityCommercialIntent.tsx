@@ -20,7 +20,7 @@ export function PriorityCommercialIntent({ model }: { model: Motorcycle }) {
     .filter((item): item is Motorcycle => Boolean(item && isIndexableModel(item)));
   const modelName = `${model.make} ${model.model}`;
 
-  return <section className="priority-model-brief shell" aria-labelledby={`commercial-intent-${model.id}`}>
+  return <section className="priority-model-brief priority-commercial-intent shell" aria-labelledby={`commercial-intent-${model.id}`}>
     <div className="priority-model-brief-head">
       <span>Price and buying path</span>
       <h2 id={`commercial-intent-${model.id}`}>{modelName} price, monthly payment and alternatives</h2>
