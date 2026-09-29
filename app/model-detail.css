@@ -730,3 +730,29 @@ html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual 
   html body .motorcycle-hero-facts>div:nth-child(4){border-bottom:0!important}
   html body .motorcycle-entity-page .motorcycle-entity-section{padding:32px 0!important}
 }
+
+
+@media(max-width:900px){
+  html body .motorcycle-entity-page .motorcycle-price-grid{grid-template-columns:1fr}
+  html body .motorcycle-entity-page #price .variant-grid{grid-template-columns:1fr}
+  html body .motorcycle-entity-page #price .price-history-row{grid-template-columns:120px 1fr}
+  html body .motorcycle-entity-page #price .price-history-source{grid-column:2}
+}
+@media(max-width:640px){
+  html body .motorcycle-entity-page .motorcycle-editorial-grid{grid-template-columns:1fr;gap:10px;margin-top:16px}
+  html body .motorcycle-entity-page .motorcycle-editorial-grid>article.editorial-best{grid-column:auto;padding:18px}
+  html body .motorcycle-entity-page .motorcycle-editorial-grid>article{padding:17px;border-radius:16px}
+  html body .motorcycle-entity-page .motorcycle-editorial-grid h3{font-size:18px}
+  html body .motorcycle-entity-page .motorcycle-price-grid{gap:10px;margin-top:16px}
+  html body .motorcycle-entity-page .motorcycle-price-grid>article{min-height:104px;padding:17px 18px;border-radius:16px}
+  html body .motorcycle-entity-page .motorcycle-price-grid>article:first-child strong{font-size:25px}
+  html body .motorcycle-entity-page #price .variant-module,
+  html body .motorcycle-entity-page #price .price-history{margin-top:24px;padding-top:24px}
+  html body .motorcycle-entity-page #price .variant-card{padding:17px;border-radius:16px}
+  html body .motorcycle-entity-page #price .variant-card-head{flex-direction:column;gap:7px}
+  html body .motorcycle-entity-page #price .variant-card-head>strong{font-size:19px}
+  html body .motorcycle-entity-page #price .variant-facts{grid-template-columns:1fr}
+  html body .motorcycle-entity-page #price .price-history-summary{grid-template-columns:1fr}
+  html body .motorcycle-entity-page #price .price-history-row{grid-template-columns:1fr;gap:9px;padding:14px}
+  html body .motorcycle-entity-page #price .price-history-source{grid-column:auto}
+}
