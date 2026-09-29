@@ -3,7 +3,7 @@ from __future__ import annotations
 from io import BytesIO
 from pathlib import Path
 import requests
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, ImageChops
 
 OUT = Path("public/media/top-boxes")
 OUT.mkdir(parents=True, exist_ok=True)
@@ -61,7 +61,21 @@ def normalize(data: bytes, destination: Path) -> None:
         background = Image.new("RGBA", image.size, "white")
         background.alpha_composite(image)
         flattened = background.convert("RGB")
-        flattened.thumbnail((1040, 1040), Image.Resampling.LANCZOS)
+        corner = flattened.getpixel((0, 0))
+        backdrop = Image.new("RGB", flattened.size, corner)
+        difference = ImageChops.difference(flattened, backdrop).convert("L")
+        mask = difference.point(lambda value: 255 if value > 14 else 0)
+        bbox = mask.getbbox()
+        if bbox:
+            left, top, right, bottom = bbox
+            pad_x = max(8, int((right - left) * 0.06))
+            pad_y = max(8, int((bottom - top) * 0.06))
+            left = max(0, left - pad_x)
+            top = max(0, top - pad_y)
+            right = min(flattened.width, right + pad_x)
+            bottom = min(flattened.height, bottom + pad_y)
+            flattened = flattened.crop((left, top, right, bottom))
+        flattened.thumbnail((1020, 1020), Image.Resampling.LANCZOS)
         canvas = Image.new("RGB", (1200, 1200), "white")
         x = (1200 - flattened.width) // 2
         y = (1200 - flattened.height) // 2
