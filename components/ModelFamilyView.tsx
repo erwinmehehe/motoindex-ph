@@ -10,10 +10,22 @@ import { articleSchema } from "@/lib/articleSchema";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import { absoluteUrl } from "@/lib/site";
 import { ModelFamilyGuide } from "@/components/ModelFamilyGuide";
+import { AuthorBox } from "@/components/AuthorBox";
+import { authorPersonSchema } from "@/lib/author";
 
 export function ModelFamilyView({ family }: { family: ModelFamily }) {
   const models = getFamilyModels(family);
   const current = models.find((m) => m?.id === family.currentModelId);
+  const previous = models.find((m) => m && m.id !== family.currentModelId);
+  const generationDelta = current && previous ? {
+    engine: current.engineCc - previous.engineCc,
+    power: Number((current.powerHp - previous.powerHp).toFixed(1)),
+    seat: current.seatHeightMm - previous.seatHeightMm,
+    weight: current.curbWeightKg - previous.curbWeightKg,
+  } : undefined;
+  const comparisonAnswer = current && previous
+    ? `${current.make} ${current.model} uses a ${current.engineCc} cc engine versus ${previous.engineCc} cc on the ${previous.model}. It records ${current.powerHp} hp versus ${previous.powerHp} hp, a ${current.seatHeightMm} mm seat versus ${previous.seatHeightMm} mm, and ${current.curbWeightKg} kg curb weight versus ${previous.curbWeightKg} kg. Use those measurable changes with price, braking, tires and the exact model year rather than relying on the generation nickname alone.`
+    : family.intro;
   const faqs: FaqItem[] = current ? [
     {
       question: `How much is the ${family.make} ${family.name} in the Philippines?`,
@@ -24,8 +36,16 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
       answer: `${current.make} ${current.model} is the current generation. Older generations are kept separate so historical launch prices are not confused with current new-bike prices.`
     },
     {
+      question: family.comparisonHeading,
+      answer: comparisonAnswer
+    },
+    {
       question: `Are older and current ${family.name} prices directly comparable?`,
       answer: "Not as current new-bike quotes. A previous generation may now trade mainly on the used market, while the current generation uses current SRP or market observations. Compare the generation context and source dates before using the numbers."
+    },
+    {
+      question: `Should I buy the current or previous ${family.name} generation?`,
+      answer: `The current ${current.model} is the relevant starting point for a new-bike purchase. A previous generation can make sense as a used-bike comparison when the condition, paperwork, maintenance history and total price are stronger. Compare the exact units rather than assuming the newer or older generation is automatically the better purchase.`
     }
   ] : [];
 
@@ -37,7 +57,7 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
       "@type": "ListItem",
       position: index + 1,
       name: `${m.make} ${m.model}`,
-      url: absoluteUrl(`/motorcycles/${m.makeSlug}/${m.slug}#price`)
+      url: absoluteUrl(`/motorcycles/${m.makeSlug}/${m.slug}`)
     })).filter(Boolean)
   };
 
@@ -46,9 +66,22 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
     description: family.intro,
     path: `/motorcycles/${family.makeSlug}/${family.slug}`,
     about: `${family.name} price philippines`,
-    keywords: [`${family.make} ${family.name} price`, `${family.name} specs Philippines`],
+    keywords: [`${family.make} ${family.name} price`, `${family.name} specs Philippines`, ...family.secondaryKeywords],
     checkedDates: models.map(m => m?.marketPriceCheckedAt || m?.verifiedAt)
   });
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    url: absoluteUrl(`/motorcycles/${family.makeSlug}/${family.slug}#faq`),
+    author: { "@id": `${absoluteUrl("/authors/erwin-valles")}#person` },
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer }
+    }))
+  };
+  const authorSchema = { "@context": "https://schema.org", ...authorPersonSchema() };
 
   return <article className="model-family-page">
     <section className="model-family-hero">
@@ -59,6 +92,11 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
             <span className="entity-kicker">Model family · Philippines</span>
             <h1>{family.make} {family.name} prices and generations</h1>
             <p>{family.intro} Use this page to identify the exact generation first, then open that model for its price sources, specs, financing and ownership details.</p>
+            {current && <div className="model-family-direct-answer">
+              <span>Current generation</span>
+              <strong>{current.make} {current.model} · {observedMarketPriceLabel(current)}</strong>
+              <small>{models.length} generations compared on this page</small>
+            </div>}
             <div className="model-family-actions">
               <a className="button" href="#generations">Compare generations</a>
               <Link className="button secondary" href={{pathname:"/compare",query:{make:family.makeSlug}}}>Open comparison tool</Link>
@@ -71,6 +109,8 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
               className="model-family-current-media"
               linkHref={`/motorcycles/${current.makeSlug}/${current.slug}`}
               showCredit={false}
+              forceFill
+              sizes="(max-width: 620px) 132px, (max-width: 900px) 240px, 380px"
               fallback={<Link className="model-family-media-fallback" href={`/motorcycles/${current.makeSlug}/${current.slug}`}><span>Current generation</span><strong>{current.make}<b>{current.model}</b></strong></Link>}
             />
             <div className="model-family-current-copy">
@@ -106,6 +146,8 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
               className="model-family-generation-media"
               linkHref={`/motorcycles/${m.makeSlug}/${m.slug}`}
               showCredit={false}
+              forceFill
+              sizes="(max-width: 620px) calc(100vw - 32px), (max-width: 900px) 45vw, 360px"
               fallback={<Link className="model-family-generation-fallback" href={`/motorcycles/${m.makeSlug}/${m.slug}`}><span>{previous ? "Previous generation" : "Current generation"}</span><strong>{m.model}</strong></Link>}
             />
             <div className="model-family-generation-copy">
@@ -126,7 +168,13 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
       </section>
 
       <section id="quick-compare" className="model-family-section model-family-compare-section">
-        <div className="section-head compact"><div><span className="section-kicker">Quick comparison</span><h2>What changes from one {family.name} to another?</h2><p>Use this compact view for the first pass. Open the generation card above before using any price as a purchase reference.</p></div></div>
+        <div className="section-head compact"><div><span className="section-kicker">Generation comparison</span><h2>{family.comparisonHeading}</h2><p>Use this compact view for the first pass. Open the generation card above before using any price as a purchase reference.</p></div></div>
+        {current && previous && generationDelta && <div className="model-family-change-grid" aria-label={family.comparisonHeading}>
+          <div><span>Engine</span><strong>{current.engineCc} cc</strong><small>{generationDelta.engine === 0 ? "Same displacement" : `${generationDelta.engine > 0 ? "+" : ""}${generationDelta.engine} cc vs ${previous.model}`}</small></div>
+          <div><span>Power</span><strong>{current.powerHp} hp</strong><small>{generationDelta.power === 0 ? "Same recorded output" : `${generationDelta.power > 0 ? "+" : ""}${generationDelta.power} hp vs ${previous.model}`}</small></div>
+          <div><span>Seat height</span><strong>{current.seatHeightMm} mm</strong><small>{generationDelta.seat === 0 ? "Same published seat" : `${generationDelta.seat > 0 ? "+" : ""}${generationDelta.seat} mm vs ${previous.model}`}</small></div>
+          <div><span>Curb weight</span><strong>{current.curbWeightKg} kg</strong><small>{generationDelta.weight === 0 ? "Same recorded weight" : `${generationDelta.weight > 0 ? "+" : ""}${generationDelta.weight} kg vs ${previous.model}`}</small></div>
+        </div>}
         <div className="model-family-compare-list">
           {models.map((m) => m && <Link href={`/motorcycles/${m.makeSlug}/${m.slug}`} key={m.id}>
             <span className="model-family-compare-name"><small>{m.marketStatus === "previous" ? "Previous" : "Current"}</small><strong>{m.model}</strong></span>
@@ -168,9 +216,9 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
         <p>An older generation can still be common on the used market, but its launch SRP should not be presented as today's dealer price. Generation pages stay separate so each price remains tied to the correct motorcycle and market context.</p>
       </section>
 
-      {faqs.length > 0 && <section id="faq" className="model-family-section model-family-faq-section"><FaqSection title={`${family.make} ${family.name} price questions`} items={faqs}/></section>}
+      {faqs.length > 0 && <section id="faq" className="model-family-section model-family-faq-section"><FaqSection title={`${family.make} ${family.name} price and generation FAQs`} items={faqs}/></section>}
+      <AuthorBox />
     </div>
-    <JsonLd data={itemList}/>
-    <JsonLd data={familyArticle}/>
+    <JsonLd data={[itemList, familyArticle, faqSchema, authorSchema]}/>
   </article>;
 }
