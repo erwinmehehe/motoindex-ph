@@ -16,7 +16,7 @@
 .helmet-primary-cta{background:var(--mi-primary);color:var(--mi-surface);box-shadow:var(--mi-shadow-sm)}
 .helmet-secondary-cta{border:1px solid var(--mi-line);background:var(--mi-surface);color:var(--mi-ink)}
 .product-facts-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.product-fact{min-width:0;padding:14px 16px;border:1px solid var(--mi-line);border-radius:var(--mi-radius-md)}
+.product-fact{min-width:0;padding:14px 16px;border:1px solid var(--mi-line);border-radius:var(--mi-radius-md);background:var(--mi-surface)}
 .product-fact span{display:block;margin-bottom:4px;color:var(--mi-muted);font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.06em}
 .product-fact strong{display:block;color:var(--mi-ink);font-size:14px;line-height:1.35;overflow-wrap:anywhere}
 .product-trust-row{margin-top:15px;color:var(--mi-muted);font-size:11px}
@@ -66,7 +66,7 @@
 .helmet-fit-note{display:flex;align-items:center;gap:10px 18px;flex-wrap:wrap;margin-top:12px;padding:13px 16px;border:1px solid var(--mi-line);border-radius:var(--mi-radius-md);background:var(--mi-surface-subtle);font-size:11px;line-height:1.45}
 .helmet-fit-note strong{color:var(--mi-ink)}.helmet-fit-note span{color:var(--mi-copy)}.helmet-fit-note a{margin-left:auto;color:var(--mi-primary);font-weight:850}
 
-.product-entity-page .mini-compare-table{overflow:hidden;border:1px solid var(--mi-line);border-radius:var(--mi-radius-md);background:var(--mi-surface)}
+.product-entity-page .mini-compare-table{overflow:hidden;border:1px solid var(--mi-line);border-radius:var(--mi-radius-md)}
 .product-entity-page .mini-compare-table>div{display:grid;grid-template-columns:minmax(100px,.7fr) repeat(2,minmax(0,1fr))}.product-entity-page .mini-compare-table :is(strong,b){min-width:0;overflow-wrap:anywhere}
 
 @media(max-width:900px){
