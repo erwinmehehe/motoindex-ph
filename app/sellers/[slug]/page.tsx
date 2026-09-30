@@ -9,7 +9,8 @@ import { getVerifiedSellerProfile } from "@/lib/persistentSellers";
 import { getVerifiedOffers } from "@/lib/persistentOffers";
 import { entityHref, entityLabel } from "@/lib/entities";
 import { php } from "@/lib/utils";
-import { absoluteUrl, pageMetadata } from "@/lib/site";
+import { pageMetadata } from "@/lib/site";
+import { sellerBusinessSchema } from "@/lib/structuredData";
 
 export function generateStaticParams(){return staticPublicSellers().map(s=>({slug:s.slug}));}
 
@@ -35,21 +36,8 @@ export default async function SellerPage({params}:{params:Promise<{slug:string}>
   const offers=[...new Map([...legacyOffers,...persistentOffers].map(offer=>[offer.id,offer])).values()];
   const parent = s.type === "dealer" ? {label:"Dealers",href:"/dealers"} : {label:"Sellers"};
 
-  const localBusinessSchema={
-    "@context":"https://schema.org",
-    "@type":"LocalBusiness",
-    name:s.name,
-    url:absoluteUrl(`/sellers/${s.slug}`),
-    telephone:s.phoneLabel,
-    address:{
-      "@type":"PostalAddress",
-      streetAddress:s.addressLabel,
-      addressLocality:s.city,
-      addressRegion:s.province||s.region,
-      addressCountry:"PH"
-    },
-    sameAs:s.sourceUrl?[s.sourceUrl]:undefined
-  };
+  const localBusinessSchema=sellerBusinessSchema(s);
+
 
   return <section className="page shell">
     <JsonLd data={localBusinessSchema} />
