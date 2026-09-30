@@ -8,6 +8,8 @@ import { allVerifiedDealers } from "@/lib/persistentSellers";
 import { activeDealerPlacementsForCity, dealerPlacementLabel, type DealerPlacement } from "@/lib/dealerPlacements";
 import type { SellerProfile } from "@/lib/types";
 import { pageMetadata } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { dealerDirectorySchema } from "@/lib/structuredData";
 
 function checkedStaticDealerCount(slug:string){
   return Math.max(publicDealersByCity(slug).length,staticDealersByCity(slug).length);
@@ -41,7 +43,10 @@ export default async function DealerCityPage({params}:{params:Promise<{city:stri
   const featured=activeDealerPlacementsForCity(city).flatMap(placement=>{const seller=sellerBySlug.get(placement.sellerSlug);if(!seller)return [];if(placement.brand&&!seller.brands.some(brand=>brand.toLowerCase()===placement.brand?.toLowerCase()))return [];return [{seller,placement}];});
   const featuredSlugs=new Set(featured.map(item=>item.seller.slug));const standard=list.filter(seller=>!featuredSlugs.has(seller.slug));
 
+  const directorySchema=dealerDirectorySchema(list,`/dealers/${city}`,`Motorcycle dealers in ${cityName}`);
+
   return <section className="page shell">
+    <JsonLd data={directorySchema} />
     <Breadcrumbs items={[{label:"Dealers",href:"/dealers"},{label:cityName}]}/>
     <div className="page-head"><span className="entity-kicker">Checked dealer directory</span><h1>Motorcycle dealers in {cityName}</h1><p>Find checked dealer branches in {cityName}{province?`, ${province}`:""}. Confirm current stock, final cash price, registration fees and release timing directly with the branch before paying.</p></div>
     <div className="dealer-city-summary"><div><strong>{list.length}</strong><span>checked branches</span></div><div><strong>{brands.length}</strong><span>brand{brands.length===1?"":"s"} represented</span></div><div><strong>{province||list[0].region}</strong><span>coverage area</span></div></div>
