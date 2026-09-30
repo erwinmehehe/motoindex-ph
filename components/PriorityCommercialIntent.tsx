@@ -68,7 +68,7 @@ export function PriorityCommercialIntent({ model }: { model: Motorcycle }) {
         <Link href={`/motorcycles/${model.makeSlug}`}>All {model.make} prices →</Link>
         <Link href={profile.recommendationHref}>{profile.recommendationLabel} →</Link>
         <Link href="/research/motorcycle-financing-index-philippines">Downpayment index →</Link>
-        <Link href={{ pathname: "/tools/motorcycle-loan-calculator", query: { price: range.from, model: modelName } }}>Loan calculator →</Link>
+        <Link href={{ pathname: "/tools/motorcycle-loan-calculator", query: { price: range.from, model: modelName } }}>Open loan calculator →</Link>
         <Link href={`/get-quote/${model.makeSlug}/${model.slug}`}>Get dealer price →</Link>
       </div>
     </div>
