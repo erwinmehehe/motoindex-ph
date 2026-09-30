@@ -111,7 +111,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     { label: "Visor", value: p.pinlock ? `${p.visor} · ${p.pinlock}` : p.visor },
   ];
 
-  return <ProductEntityShell>
+  return <ProductEntityShell className="helmet-product-page">
     <Breadcrumbs items={[{ label: "Helmets", href: "/gear/helmets" }, { label: p.brand, href: `/gear/helmets/${p.brandSlug}` }, { label: p.model }]} />
 
     <ProductHero
@@ -120,7 +120,11 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
       title={<>{p.brand} {p.model}</>}
       description={<p>{p.description}</p>}
       price={p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}
-      priceNote="Starting price reference in the Philippines"
+      priceNote={p.lastChecked ? `Observed starting price · checked ${p.lastChecked}` : "Starting price reference in the Philippines"}
+      actions={<>
+        <a className="helmet-primary-cta" href="#price">Compare prices</a>
+        <a className="helmet-secondary-cta" href="#size">Check sizing</a>
+      </>}
       facts={heroFacts}
       trust={<ProductTrustRow
         status={p.status}
@@ -143,40 +147,49 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     ]} />
 
     <section id="price" className="product-entity-section product-price-section">
-      <div className="section-head compact"><div><span className="section-kicker">Price & availability</span><h2>{p.brand} {p.model} price in the Philippines</h2><p>Use the dated amount as a reference, then check the current seller for the exact size, graphic, bundle and stock.</p></div></div>
-      <div className="entity-price-grid">
-        <article className="primary-price-card"><span>Starting price reference</span><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong>{p.lastChecked && <small>Updated {p.lastChecked}</small>}</article>
-        {p.stockStatus && <article><span>Availability</span><strong>{p.stockStatus}</strong><small>Stock can differ by size and graphic.</small></article>}
-        {(p.colors?.length || p.variants?.length) ? <article><span>Variants / colors</span><strong>{p.colors?.length ? p.colors.join(" · ") : p.variants?.join(" · ")}</strong><small>Do not assume every graphic is available in every size.</small></article> : null}
+      <div className="section-head compact"><div><span className="section-kicker">Price & availability</span><h2>{p.brand} {p.model} price in the Philippines</h2><p>Use the observed amount as a reference, then verify the exact size, visor bundle, color and stock with the seller.</p></div></div>
+      <div className="helmet-price-summary">
+        <article className="primary-price-card">
+          <span>Observed starting price</span>
+          <strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong>
+          <small>{p.lastChecked ? `Checked ${p.lastChecked}` : "Check the current seller before buying"}</small>
+        </article>
+        <article>
+          <span>What to verify</span>
+          <strong>Exact size, stock and bundle</strong>
+          <small>Graphics, visor packages and checkout totals can change.</small>
+        </article>
       </div>
       <CommercePriceComparison entityType="helmet" entityId={p.id} productName={`${p.brand} ${p.model}`} />
     </section>
 
     <section id="specs" className="product-entity-section">
       <div className="section-head compact"><div><span className="section-kicker">Specifications</span><h2>{p.brand} {p.model} specifications</h2></div></div>
-      <div className="entity-spec-table" role="table" aria-label={`${p.brand} ${p.model} helmet specifications`}>
+      <div className="entity-spec-table helmet-spec-table" role="table" aria-label={`${p.brand} ${p.model} helmet specifications`}>
         <div role="row"><span role="cell">Helmet type</span><strong role="cell">{p.helmetType}</strong></div>
         {p.shell && <div role="row"><span role="cell">Shell / material</span><strong role="cell">{p.shell}</strong></div>}
         {p.weightG && <div role="row"><span role="cell">Weight</span><strong role="cell">{p.weightG.toLocaleString("en-PH")} g</strong></div>}
+        {p.sizes.length > 0 && <div role="row"><span role="cell">Available sizes</span><strong role="cell">{p.sizes.join(" · ")}</strong></div>}
+        <div role="row"><span role="cell">Visor setup</span><strong role="cell">{p.visor}</strong></div>
+        {p.pinlock && <div role="row"><span role="cell">Pinlock / anti-fog</span><strong role="cell">{p.pinlock}</strong></div>}
         {p.certification && <div role="row"><span role="cell">Safety certification</span><strong role="cell">{p.certification}</strong></div>}
         {p.intercomReady && <div role="row"><span role="cell">Intercom / speaker provision</span><strong role="cell">Listed for this model</strong></div>}
       </div>
     </section>
 
     <section id="size" className="product-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Fit guide</span><h2>{p.brand} {p.model} size chart and fit</h2><p>Helmet fit is model-specific. Start with the manufacturer chart, then confirm pressure points and stability on your own head shape.</p></div></div>
-      {p.sizeChart?.length ? <div className="entity-size-table">{p.sizeChart.map((row) => <div key={row.size}><strong>{row.size}</strong><span>{row.headCm} cm head circumference</span></div>)}</div> : p.sizes.length ? <div className="size-chips">{p.sizes.map((size) => <span key={size}>{size}</span>)}</div> : <div className="note-box compact-note"><h3>Size chart not verified yet</h3><p>Use the manufacturer&apos;s current size chart and measure your head before ordering.</p></div>}
-      <div className="note-box compact-note"><h3>Before choosing a size</h3><p>Measure around the widest part of your head using the method shown by the helmet maker. A size letter from another helmet is not a reliable shortcut.</p></div>
+      <div className="section-head compact"><div><span className="section-kicker">Fit guide</span><h2>{p.brand} {p.model} sizing</h2><p>Start with the exact model chart when available, then confirm even pressure and stability on your own head shape.</p></div></div>
+      {p.sizeChart?.length ? <div className="entity-size-table">{p.sizeChart.map((row) => <div key={row.size}><strong>{row.size}</strong><span>{row.headCm} cm</span></div>)}</div> : p.sizes.length ? <div className="helmet-size-panel"><div><span>Available sizes</span><div className="size-chips">{p.sizes.map((size) => <span key={size}>{size}</span>)}</div></div><p>The exact head-circumference chart is not verified for this model. Measure your head before ordering and confirm the current Spyder chart for the exact unit.</p></div> : <div className="helmet-fit-note"><strong>Size chart not verified yet.</strong><span>Measure your head and confirm the maker&apos;s current chart before ordering.</span></div>}
+      <div className="helmet-fit-note"><strong>Fit matters more than the size letter.</strong><span>A helmet should feel evenly snug without a painful hotspot or excessive movement.</span><Link href="/guides/motorcycle-helmet-size-guide">Read the helmet size guide →</Link></div>
     </section>
 
     <section id="visor" className="product-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Visor & parts</span><h2>Visor, Pinlock and replacement parts</h2></div></div>
-      <div className="entity-spec-table">
+      <div className="section-head compact"><div><span className="section-kicker">Visor & parts</span><h2>{p.brand} {p.model} visor and replacement parts</h2><p>Match replacement parts to the exact helmet model rather than assuming another Spyder visor will fit.</p></div></div>
+      <div className="helmet-parts-card">
         <div><span>Visor setup</span><strong>{p.visor}</strong></div>
         {p.pinlock && <div><span>Pinlock / anti-fog</span><strong>{p.pinlock}</strong></div>}
-        {p.replacementVisors?.length ? <div><span>Replacement visor</span><strong>{p.replacementVisors.join(" · ")}</strong></div> : null}
+        <div><span>Replacement visor</span><strong>{p.replacementVisors?.length ? p.replacementVisors.join(" · ") : "Confirm the exact model and visor code before ordering"}</strong></div>
       </div>
-      {!p.replacementVisors?.length && <div className="note-box compact-note"><h3>Replacement visor check</h3><p>Match the visor to the exact helmet model and visor code before ordering.</p></div>}
     </section>
 
     <section id="pros-cons" className="product-entity-section">
