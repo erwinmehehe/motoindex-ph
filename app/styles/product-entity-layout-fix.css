@@ -41,14 +41,11 @@
 
 .helmet-product-page .commerce-price-comparison{margin-top:16px;overflow:hidden;border:1px solid var(--mi-line);border-radius:var(--mi-radius-lg);background:var(--mi-surface)}
 .helmet-product-page .commerce-price-head{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:20px 22px;border-bottom:1px solid var(--mi-line)}
-.helmet-product-page .commerce-price-head span{color:var(--mi-primary);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.09em}
 .helmet-product-page .commerce-price-head h3{margin:4px 0 5px;font-size:22px;letter-spacing:-.03em}.helmet-product-page .commerce-price-head p{max-width:620px;margin:0;color:var(--mi-copy);font-size:11px;line-height:1.5}
-.helmet-product-page .commerce-price-head>a{color:var(--mi-primary);font-size:10px;font-weight:800;white-space:nowrap}
 .helmet-product-page .commerce-offer-list{display:grid}
 .helmet-product-page .commerce-offer-row{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(130px,.7fr) minmax(120px,.65fr) auto;gap:18px;align-items:center;padding:16px 22px;border-bottom:1px solid var(--mi-line)}
 .helmet-product-page .commerce-offer-row:last-child{border-bottom:0}.helmet-product-page .commerce-offer-row :is(strong,small){display:block}
-.helmet-product-page .commerce-offer-row strong{font-size:13px}.helmet-product-page .commerce-offer-row small{margin-top:3px;color:var(--mi-muted);font-size:10px;line-height:1.35}
-.helmet-product-page .commerce-price>strong{font-size:18px}.helmet-product-page .commerce-freshness strong{font-size:11px}
+.helmet-product-page .commerce-offer-row strong{font-size:13px}.helmet-product-page .commerce-price>strong{font-size:18px}.helmet-product-page .commerce-freshness strong{font-size:11px}
 .helmet-product-page .commerce-offer-button{display:inline-flex;min-height:38px;align-items:center;justify-content:center;padding:0 13px;border-radius:var(--mi-radius-sm);background:var(--mi-primary);color:var(--mi-surface);font-size:11px;font-weight:850;white-space:nowrap}
 .helmet-product-page .commerce-disclosure{padding:12px 22px;border-top:1px solid var(--mi-line);background:var(--mi-surface-subtle);color:var(--mi-copy);font-size:10px;line-height:1.5}
 
