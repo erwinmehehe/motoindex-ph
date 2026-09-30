@@ -104,6 +104,7 @@ function isForbiddenIndexedPath(pathname) {
   return false;
 }
 
+let recommendationUrls = [];
 for (const path of ["/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear.xml", "/sitemaps/commerce.xml"]) {
   const response = await get(path);
   if (!response) continue;
@@ -124,7 +125,13 @@ for (const path of ["/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear
       }
     }
   }
-  if (path === "/sitemap.xml" && !urls.some((raw) => /\/recommendations\/motorcycles-under-100k\/?$/.test(raw))) failures.push("/sitemap.xml missing canonical focused recommendation guides");
+  if (path === "/sitemap.xml") {
+    recommendationUrls = urls.filter((raw) => {
+      try { return /^\/recommendations\/[^/]+\/?$/.test(new URL(raw).pathname); }
+      catch { return false; }
+    });
+    if (!recommendationUrls.some((raw) => /\/recommendations\/motorcycles-under-100k\/?$/.test(raw))) failures.push("/sitemap.xml missing canonical focused recommendation guides");
+  }
   for (const raw of urls) {
     try {
       const url = new URL(raw);
@@ -133,6 +140,71 @@ for (const path of ["/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear
     } catch {
       failures.push(`${path} contains invalid URL ${raw}`);
     }
+  }
+}
+
+if (!recommendationUrls.length) {
+  failures.push("/sitemap.xml exposes no focused recommendation guides");
+} else {
+  const seenTitles = new Map();
+  const seenH1s = new Map();
+
+  for (let offset = 0; offset < recommendationUrls.length; offset += 8) {
+    const batch = recommendationUrls.slice(offset, offset + 8);
+    await Promise.all(batch.map(async (raw) => {
+      let url;
+      try { url = new URL(raw); }
+      catch { failures.push(`Invalid recommendation URL in sitemap: ${raw}`); return; }
+
+      const response = await get(`${url.pathname}${url.search}`);
+      if (!response) return;
+      const body = await response.text();
+
+      if (/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(body)) {
+        failures.push(`${url.pathname}: canonical recommendation guide is noindex`);
+      }
+
+      const canonical =
+        body.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)/i)?.[1] ||
+        body.match(/<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["']/i)?.[1] ||
+        "";
+      if (!canonical) {
+        failures.push(`${url.pathname}: missing canonical link`);
+      } else {
+        try {
+          const canonicalUrl = new URL(canonical, base);
+          if (canonicalUrl.pathname.replace(/\/$/, "") !== url.pathname.replace(/\/$/, "")) {
+            failures.push(`${url.pathname}: canonical points to ${canonicalUrl.pathname}`);
+          }
+        } catch {
+          failures.push(`${url.pathname}: invalid canonical ${canonical}`);
+        }
+      }
+
+      const title = body.match(/<title>([^<]+)<\/title>/i)?.[1]?.trim() || "";
+      if (!title) failures.push(`${url.pathname}: missing title`);
+      else {
+        const previous = seenTitles.get(title);
+        if (previous && previous !== url.pathname) failures.push(`${url.pathname}: duplicate title with ${previous}: ${title}`);
+        else seenTitles.set(title, url.pathname);
+      }
+
+      const h1s = [...body.matchAll(/<h1(?:\s[^>]*)?>([\s\S]*?)<\/h1>/gi)]
+        .map((match) => match[1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim())
+        .filter(Boolean);
+      if (h1s.length !== 1) failures.push(`${url.pathname}: expected exactly one H1, found ${h1s.length}`);
+      else {
+        const previous = seenH1s.get(h1s[0]);
+        if (previous && previous !== url.pathname) failures.push(`${url.pathname}: duplicate H1 with ${previous}: ${h1s[0]}`);
+        else seenH1s.set(h1s[0], url.pathname);
+      }
+
+      for (const schemaType of ["Article", "ItemList", "FAQPage"]) {
+        if (!body.includes(`"@type":"${schemaType}"`) && !body.includes(`"@type": "${schemaType}"`)) {
+          failures.push(`${url.pathname}: missing ${schemaType} structured data`);
+        }
+      }
+    }));
   }
 }
 
