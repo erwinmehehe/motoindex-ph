@@ -28,6 +28,7 @@ import { UsedListingTable } from "@/components/UsedListingTable";
 import { UsedValueCalculator } from "@/components/UsedValueCalculator";
 import { getModelById, isIndexableModel } from "@/lib/data";
 import { observedMarketPriceLabel, observedMarketRange, priceChecksForModel } from "@/lib/marketChecks";
+import { motorcycleOfferSchema } from "@/lib/structuredData";
 import { getVerifiedVariantsForModel, variantPriceOptions } from "@/lib/variants";
 import { helmetProducts, getTireProductsForModel, getTopBoxProductsForModel } from "@/lib/catalog";
 import { getTopBoxFitmentsForModel } from "@/lib/topBoxFitment";
@@ -103,15 +104,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const authorityComparisons = authority?.comparisonIds.map((id) => getModelById(id)).filter((item): item is Motorcycle => Boolean(item)) || [];
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}`;
   const faqs = [...motorcycleEntityFaqs(model), ...(performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])];
-  const officialPriceChecks = priceChecks.filter((row) => row.sourceType === "manufacturer");
-  const officialPricePoints = officialPriceChecks.flatMap((row) => [row.priceFromPhp, row.priceToPhp].filter((value): value is number => typeof value === "number"));
-  const officialLow = officialPricePoints.length ? Math.min(...officialPricePoints) : undefined;
-  const officialHigh = officialPricePoints.length ? Math.max(...officialPricePoints) : undefined;
-  const offer = !isPrevious && !availabilityUncertain && isIndexableModel(model) && typeof officialLow === "number"
-    ? typeof officialHigh === "number" && officialHigh > officialLow
-      ? { "@type": "AggregateOffer", priceCurrency: "PHP", lowPrice: officialLow, highPrice: officialHigh, url: absoluteUrl(canonicalPath) }
-      : { "@type": "Offer", priceCurrency: "PHP", price: officialLow, itemCondition: "https://schema.org/NewCondition", url: absoluteUrl(canonicalPath) }
-    : undefined;
+  const offer = motorcycleOfferSchema(model, canonicalPath, isIndexableModel(model));
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",

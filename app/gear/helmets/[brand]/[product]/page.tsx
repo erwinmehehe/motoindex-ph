@@ -10,6 +10,7 @@ import { RelatedLinks } from "@/components/RelatedLinks";
 import { JsonLd } from "@/components/JsonLd";
 import { helmetProductInternalLinks } from "@/lib/internalLinks";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
+import { catalogProductOfferSchema } from "@/lib/structuredData";
 import { EntityMedia } from "@/components/EntityMedia";
 import { CommercePriceComparison } from "@/components/CommercePriceComparison";
 // AffiliateOffer remains rendered by CommercePriceComparison for approved affiliate destinations.
@@ -102,6 +103,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     brand: { "@type": "Brand", name: p.brand },
     category: `Motorcycle helmet — ${p.helmetType}`,
     description: p.description,
+    ...(catalogProductOfferSchema(p, canonicalPath) ? { offers: catalogProductOfferSchema(p, canonicalPath) } : {}),
   };
 
   const heroFacts = [

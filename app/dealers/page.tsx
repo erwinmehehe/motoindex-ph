@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { DealerFinder } from "@/components/DealerFinder";
 import { pageMetadata } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { dealerDirectorySchema } from "@/lib/structuredData";
 import { officialDealerLocators } from "@/lib/dealerLocators";
 import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug } from "@/lib/sellers";
 import { allVerifiedDealers } from "@/lib/persistentSellers";
@@ -44,7 +46,11 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
     ? `Start with checked ${requestedBrand} dealer records, then confirm the exact model, variant, stock and complete cash price with the branch before paying a reservation or deposit.`
     : "Search checked dealer records by city or brand, then confirm stock and the complete cash price with the branch before paying a reservation or deposit.";
 
+  const schemaDealers=requestedBrand!=="all" ? verifiedDealers.filter(dealer=>dealer.brands.some(brand=>brand.toLowerCase()===requestedBrand.toLowerCase())) : verifiedDealers;
+  const directorySchema=dealerDirectorySchema(schemaDealers,"/dealers",pageTitle);
+
   return <section className="page shell dealer-master-page">
+    <JsonLd data={directorySchema} />
     <PageHero
       kicker="Motorcycle dealer finder"
       title={pageTitle}
