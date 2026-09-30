@@ -1,5 +1,5 @@
 import type { CatalogStatus, Motorcycle, SellerProfile } from "./types";
-import { observedMarketRange, priceChecksForModel } from "./marketChecks";
+import { observedMarketRange } from "./marketChecks";
 import { absoluteUrl } from "./site";
 
 type CatalogPricedItem = {
@@ -36,19 +36,12 @@ export function motorcycleOfferSchema(model: Motorcycle, canonicalPath: string, 
   if (!indexable || model.marketStatus === "previous" || model.marketStatus === "uncertain" || model.marketStatus === "discontinued") return undefined;
   const range = observedMarketRange(model);
   if (!(range.from > 0)) return undefined;
-  const checks = priceChecksForModel(model.id);
   return {
     "@type": "Offer",
     price: range.from,
     priceCurrency: "PHP",
     url: absoluteUrl(canonicalPath),
-    itemCondition: "https://schema.org/NewCondition",
-    ...(checks.length ? { priceSpecification: {
-      "@type": "PriceSpecification",
-      price: range.from,
-      priceCurrency: "PHP",
-      valueAddedTaxIncluded: true
-    }} : {})
+    itemCondition: "https://schema.org/NewCondition"
   };
 }
 
