@@ -14,6 +14,7 @@ The redesign applies to every verified helmet rendered by the shared product tem
 - Consistent: verified helmet pages share one layout and component system.
 - Trustworthy commerce: dated prices, merchant context, and affiliate disclosure remain explicit.
 - Responsive: important actions remain readable and touch-friendly on narrow screens.
+- Sleek and modern: prefer flat white surfaces, thin dividers, restrained shadows, tighter corner radii, strong editorial typography, and color used selectively for verification and merchant actions. Avoid a soft, card-heavy or dashboard-like appearance.
 
 ## Page structure
 
@@ -21,7 +22,7 @@ The redesign applies to every verified helmet rendered by the shared product tem
 
 Use a balanced two-column desktop hero and a single-column mobile hero.
 
-The media side contains the helmet image in a restrained neutral stage. The information side contains:
+The media side contains the helmet image on a seamless pure-white product canvas with a subtle border and shadow. Do not place a white-background helmet image inside a contrasting gray or gradient stage. The information side contains:
 
 - helmet type and verification status;
 - product name and short description;
@@ -57,9 +58,9 @@ Group visor type, Pinlock or anti-fog support, and replacement visor information
 
 Keep Best for, Strengths, and Trade-offs as three clearly separated cards. Use concise lists and equal visual weight; do not imply an editorial recommendation where the data only supports a factual description.
 
-### 8. Alternatives, comparisons, and FAQ
+### 8. Editorial content, alternatives, comparisons, and FAQ
 
-Retain the existing generated alternatives, comparison tables, and FAQ content. Improve card spacing and mobile overflow behavior without changing the underlying selection logic or SEO structure.
+Retain the existing useful editorial copy, visor and parts guidance, generated alternatives, comparison tables, and full FAQ content. Improve card spacing and mobile overflow behavior without shortening the page into a thin product listing or changing the underlying selection logic or SEO structure.
 
 ### 9. Trust footer
 
