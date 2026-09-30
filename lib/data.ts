@@ -626,19 +626,19 @@ export const motorcycles: Motorcycle[] = [
     marketPriceHighPhp: 82400,
     marketPriceSourceLabel: "Philippine comparison site",
     marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/mio-gear",
-    marketPriceCheckedAt: "2026-08-25",
+    marketPriceCheckedAt: "2026-09-30",
     transmission: "Automatic",
     summary: "125cc automatic scooter with a 750 mm seat, light curb weight and 14-inch wheels."
   },
   {
     id: "suzuki-burgman-street-ex", make: "Suzuki", makeSlug: "suzuki", model: "Burgman Street EX", slug: "burgman-street-ex", generation: "Current", category: "Premium scooter",
     marketStatus: "current",
-    srp: 92400, engineCc: 124, powerHp: 8.6, torqueNm: 10.0, curbWeightKg: 112, seatHeightMm: 780, fuelTankL: 5.5,
+    srp: 93400, engineCc: 124, powerHp: 8.6, torqueNm: 10.0, curbWeightKg: 112, seatHeightMm: 780, fuelTankL: 5.5,
     frontTire: "90/90-12", rearTire: "100/80-12", abs: "No ABS", colors: ["Black", "Gray"], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Independent PH 2026 Burgman Street 125 EX price and specification page", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/suzuki/burgman-street-125-ex", verifiedAt: "2026-08-25", freshness: "verified",
-    marketPriceSourceLabel: "Philippine comparison site",
-    marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/suzuki/burgman-street-125-ex",
-    marketPriceCheckedAt: "2026-08-25",
+    marketPriceSourceLabel: "Suzuki Motorcycles Philippines",
+    marketPriceSourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/burgman-street-125-ex/",
+    marketPriceCheckedAt: "2026-09-30",
     transmission: "Automatic",
     summary: "124cc automatic scooter with a 780 mm seat, 112 kg curb weight and a 5.5 L tank."
   },
@@ -651,7 +651,7 @@ export const motorcycles: Motorcycle[] = [
     marketPriceHighPhp: 145900,
     marketPriceSourceLabel: "Philippine comparison site",
     marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/sniper-155",
-    marketPriceCheckedAt: "2026-08-25",
+    marketPriceCheckedAt: "2026-09-30",
     transmission: "Manual",
     summary: "155cc six-speed underbone with a 795 mm seat, manual shifting and ABS on selected variants."
   },
@@ -673,9 +673,10 @@ export const motorcycles: Motorcycle[] = [
     srp: 91500, engineCc: 177, powerHp: 12.7, torqueNm: 13.2, curbWeightKg: 142, seatHeightMm: 805, fuelTankL: 12.0,
     frontTire: "3.00-17", rearTire: "3.00-17", abs: "No ABS", colors: ["Black"], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Independent PH 2026 Barako II price and specification page", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/kawasaki/barako-ii", verifiedAt: "2026-08-25", freshness: "verified",
-    marketPriceSourceLabel: "Philippine comparison site",
-    marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/kawasaki/barako-ii",
-    marketPriceCheckedAt: "2026-08-25",
+    marketPriceHighPhp: 95500,
+    marketPriceSourceLabel: "Kawasaki Philippines",
+    marketPriceSourceUrl: "https://www.kawasaki.ph/motorcycles/show/32",
+    marketPriceCheckedAt: "2026-09-30",
     transmission: "Manual",
     summary: "177cc utility motorcycle with a long seat, rear carrier and work-oriented chassis."
   },
@@ -685,7 +686,7 @@ export const motorcycles: Motorcycle[] = [
     srp: 123900, engineCc: 149, powerHp: 15.4, torqueNm: 13.5, curbWeightKg: 122, seatHeightMm: 795, fuelTankL: 4.5, fuelConsumptionKmL: 52.3, groundClearanceMm: 151,
     frontTire: "90/80-17", rearTire: "120/70-17", abs: "Variant-dependent; ABS on Premium and Racing variants", colors: [], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Independent PH 2026 Winner X price and specification page", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/winner-x/specifications", verifiedAt: "2026-08-25", freshness: "verified",
-    marketPriceHighPhp: 131900, marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/winner-x", marketPriceCheckedAt: "2026-08-25", transmission: "Manual",
+    marketPriceHighPhp: 131900, marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/winner-x", marketPriceCheckedAt: "2026-09-30", transmission: "Manual",
     summary: "149cc six-speed underbone with a 795 mm seat and ABS available on higher variants."
   },
   {
@@ -694,7 +695,7 @@ export const motorcycles: Motorcycle[] = [
     srp: 62900, engineCc: 109, powerHp: 8.6, torqueNm: 8.7, curbWeightKg: 98, seatHeightMm: 760, fuelTankL: 4.0, fuelConsumptionKmL: 69.5, groundClearanceMm: 135,
     frontTire: "70/90-17", rearTire: "80/90-17", abs: "No ABS; brake equipment varies by Drum/Disc variant", colors: [], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Independent PH 2026 Wave RSX price and specification page", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/wave-rsx/specifications", verifiedAt: "2026-08-25", freshness: "verified",
-    marketPriceHighPhp: 64900, marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/wave-rsx", marketPriceCheckedAt: "2026-08-25", transmission: "Manual",
+    marketPriceHighPhp: 64900, marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/wave-rsx", marketPriceCheckedAt: "2026-09-30", transmission: "Manual",
     summary: "109cc underbone with a 760 mm seat, light curb weight and published fuel-economy data."
   },
   {
@@ -703,7 +704,7 @@ export const motorcycles: Motorcycle[] = [
     srp: 56900, engineCc: 125, powerHp: 9.6, torqueNm: 9.1, curbWeightKg: 113, seatHeightMm: 759, fuelTankL: 8.6, fuelConsumptionKmL: 62.5, groundClearanceMm: 156,
     frontTire: "2.50-18", rearTire: "2.75-18", abs: "No ABS; drum brakes", colors: [], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Independent PH 2026 TMX125 Alpha price and specification page", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/tmx125-alpha/specifications", verifiedAt: "2026-08-25", freshness: "verified",
-    marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/tmx125-alpha", marketPriceCheckedAt: "2026-08-25", transmission: "Manual",
+    marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/tmx125-alpha", marketPriceCheckedAt: "2026-09-30", transmission: "Manual",
     summary: "125cc business motorcycle with an 8.6 L fuel tank, low seat and simple work-oriented layout."
   },
   {
@@ -712,7 +713,7 @@ export const motorcycles: Motorcycle[] = [
     srp: 57900, engineCc: 125, powerHp: 8.0, torqueNm: 10.2, curbWeightKg: 114, seatHeightMm: 800, fuelTankL: 7.6, groundClearanceMm: 170,
     frontTire: "3.00-17", rearTire: "3.00-17", abs: "No ABS; drum brakes", colors: [], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Independent PH 2026 YTX 125 price and specification page", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/ytx-125/specifications", verifiedAt: "2026-08-25", freshness: "verified",
-    marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/ytx-125", marketPriceCheckedAt: "2026-08-25", transmission: "Manual",
+    marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/ytx-125", marketPriceCheckedAt: "2026-09-30", transmission: "Manual",
     summary: "125cc work/commuter motorcycle with a 7.6 L fuel tank and 170 mm ground clearance."
   },
   {
@@ -721,7 +722,7 @@ export const motorcycles: Motorcycle[] = [
     srp: 173900, engineCc: 149, powerHp: 15.0, torqueNm: 13.8, curbWeightKg: 140, seatHeightMm: 817, fuelTankL: 12.0, fuelConsumptionKmL: 38.0, groundClearanceMm: 181,
     frontTire: "100/80-17", rearTire: "130/70-17", abs: "Single-channel ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Independent PH 2026 CB150X price and specification page", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/cb150x/specifications", verifiedAt: "2026-08-25", freshness: "verified",
-    marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/cb150x", marketPriceCheckedAt: "2026-08-25", transmission: "Manual",
+    marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/cb150x", marketPriceCheckedAt: "2026-09-30", transmission: "Manual",
     summary: "149cc road-biased adventure motorcycle with a 12 L tank, upright riding position and 17-inch wheels."
   },
   {
@@ -730,7 +731,7 @@ export const motorcycles: Motorcycle[] = [
     srp: 182000, engineCc: 155, powerHp: 19.0, torqueNm: 14.7, curbWeightKg: 134, seatHeightMm: 808, fuelTankL: 10.0, groundClearanceMm: 170,
     frontTire: "110/70-17", rearTire: "140/70-17", abs: "No ABS", colors: ["Garage Metal", "Phantom Blue"], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Independent PH 2026 XSR155 price and specification page", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/xsr155/standard", verifiedAt: "2026-08-25", freshness: "verified",
-    marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/xsr155", marketPriceCheckedAt: "2026-08-25", transmission: "Manual",
+    marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/xsr155", marketPriceCheckedAt: "2026-09-30", transmission: "Manual",
     summary: "155cc roadster with a six-speed manual transmission, 19 hp and a 10 L fuel tank."
   },
   {
@@ -738,7 +739,7 @@ export const motorcycles: Motorcycle[] = [
     srp: 101900, engineCc: 125, powerHp: 11.38, torqueNm: 11.6, curbWeightKg: 116, seatHeightMm: 780, fuelTankL: 5.4, fuelConsumptionKmL: 47, groundClearanceMm: 155,
     frontTire: "100/90-12", rearTire: "100/90-12", abs: "No ABS; combined braking system", colors: ["White", "Beige", "Orange", "Black"], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Wheeltek current Philippines Giorno+ specification and indicative-price page", sourceUrl: "https://wheeltek.com.ph/motorcycles/giorno/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current",
-    marketPriceSourceLabel: "Wheeltek", marketPriceSourceUrl: "https://wheeltek.com.ph/motorcycles/giorno/", marketPriceCheckedAt: "2026-08-25", transmission: "Automatic",
+    marketPriceSourceLabel: "Wheeltek", marketPriceSourceUrl: "https://wheeltek.com.ph/motorcycles/giorno/", marketPriceCheckedAt: "2026-09-30", transmission: "Automatic",
     summary: "125cc automatic scooter with a 780 mm seat and 12-inch wheels."
   },
   {
@@ -746,7 +747,7 @@ export const motorcycles: Motorcycle[] = [
     srp: 71900, engineCc: 125, powerHp: 9.55, torqueNm: 9.55, curbWeightKg: 102, seatHeightMm: 775, fuelTankL: 3.9, groundClearanceMm: 145,
     frontTire: "2.50-17", rearTire: "2.50-17", abs: "No ABS; brake and wheel equipment differs by XRM125 configuration", colors: [], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Wheeltek current Philippines XRM125 model-family listings; DS chassis used as the model-level baseline", sourceUrl: "https://wheeltek.com.ph/products/regular-bikes/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current",
-    priceContext: "Current Wheeltek observations span XRM125 configurations from ₱71,900 to ₱76,900. Trim prices are kept together on one model page.", marketPriceHighPhp: 76900, marketPriceSourceLabel: "Wheeltek", marketPriceSourceUrl: "https://wheeltek.com.ph/products/regular-bikes/", marketPriceCheckedAt: "2026-08-25", transmission: "Manual",
+    priceContext: "Current Wheeltek observations span XRM125 configurations from ₱71,900 to ₱76,900. Trim prices are kept together on one model page.", marketPriceHighPhp: 76900, marketPriceSourceLabel: "Wheeltek", marketPriceSourceUrl: "https://wheeltek.com.ph/products/regular-bikes/", marketPriceCheckedAt: "2026-09-30", transmission: "Manual",
     summary: "125cc dual-purpose underbone; the DS chassis is used as the model reference while current configuration prices are shown separately."
   },
   {
@@ -754,7 +755,7 @@ export const motorcycles: Motorcycle[] = [
     srp: 78900, engineCc: 149, powerHp: 11.08, torqueNm: 11.61, curbWeightKg: 127, seatHeightMm: 782, fuelTankL: 10.3, fuelConsumptionKmL: 44.6, groundClearanceMm: 163,
     frontTire: "80/100-18", rearTire: "90/90-18", abs: "No ABS; drum brakes", colors: ["Black", "Candy Ruby Red"], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Wheeltek current Philippines TMX Supremo specification and indicative-price page", sourceUrl: "https://wheeltek.com.ph/motorcycles/tmx-supremo/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current",
-    marketPriceSourceLabel: "Wheeltek", marketPriceSourceUrl: "https://wheeltek.com.ph/motorcycles/tmx-supremo/", marketPriceCheckedAt: "2026-08-25", transmission: "Manual",
+    marketPriceSourceLabel: "Wheeltek", marketPriceSourceUrl: "https://wheeltek.com.ph/motorcycles/tmx-supremo/", marketPriceCheckedAt: "2026-09-30", transmission: "Manual",
     summary: "149cc work motorcycle with a 10.3 L fuel tank, drum brakes and an upright utility layout."
   },
   {
@@ -762,7 +763,7 @@ export const motorcycles: Motorcycle[] = [
     srp: 96400, engineCc: 114, powerHp: 8.85, torqueNm: 9.5, curbWeightKg: 107, seatHeightMm: 795, fuelTankL: 5.1, groundClearanceMm: 190,
     frontTire: "90/100-16", rearTire: "90/100-16", abs: "No ABS; front disc and rear drum", colors: [], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Wheeltek current Philippines PG-1 specification and indicative-price page", sourceUrl: "https://wheeltek.com.ph/vehicles/pg-1/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current",
-    marketPriceSourceLabel: "Wheeltek", marketPriceSourceUrl: "https://wheeltek.com.ph/vehicles/pg-1/", marketPriceCheckedAt: "2026-08-25", transmission: "Manual",
+    marketPriceSourceLabel: "Wheeltek", marketPriceSourceUrl: "https://wheeltek.com.ph/vehicles/pg-1/", marketPriceCheckedAt: "2026-09-30", transmission: "Manual",
     summary: "114cc motorcycle with 16-inch block-pattern tires, 190 mm ground clearance and a four-speed centrifugal-clutch drivetrain."
   },
   {
@@ -770,7 +771,7 @@ export const motorcycles: Motorcycle[] = [
     srp: 180900, engineCc: 155, powerHp: 16.49, torqueNm: 14.3, curbWeightKg: 134, seatHeightMm: 880, fuelTankL: 8.1, groundClearanceMm: 245,
     frontTire: "2.75-21", rearTire: "4.10-18", abs: "No ABS; front and rear disc brakes", colors: ["Racing Blue"], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Wheeltek current Philippines WR155R specification and indicative-price page", sourceUrl: "https://wheeltek.com.ph/motorcycles/wr-155r/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current",
-    marketPriceSourceLabel: "Wheeltek", marketPriceSourceUrl: "https://wheeltek.com.ph/motorcycles/wr-155r/", marketPriceCheckedAt: "2026-08-25", transmission: "Manual",
+    marketPriceSourceLabel: "Wheeltek", marketPriceSourceUrl: "https://wheeltek.com.ph/motorcycles/wr-155r/", marketPriceCheckedAt: "2026-09-30", transmission: "Manual",
     summary: "155cc dual-sport with 21/18-inch wheels, 245 mm ground clearance and an 880 mm seat."
   },
   {
@@ -778,7 +779,7 @@ export const motorcycles: Motorcycle[] = [
     srp: 311000, engineCc: 292, powerHp: 27.62, torqueNm: 29, curbWeightKg: 181, seatHeightMm: 795, fuelTankL: 13, groundClearanceMm: 135,
     frontTire: "120/70-15", rearTire: "140/70-14", abs: "Dual-channel ABS", colors: ["Powered Gray", "Dark Petrol"], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Wheeltek current Philippines XMAX specification and indicative-price page", sourceUrl: "https://wheeltek.com.ph/motorcycles/xmax/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current",
-    marketPriceSourceLabel: "Wheeltek", marketPriceSourceUrl: "https://wheeltek.com.ph/motorcycles/xmax/", marketPriceCheckedAt: "2026-08-25", transmission: "Automatic",
+    marketPriceSourceLabel: "Wheeltek", marketPriceSourceUrl: "https://wheeltek.com.ph/motorcycles/xmax/", marketPriceCheckedAt: "2026-09-30", transmission: "Automatic",
     summary: "292cc maxi-scooter with a 13 L fuel tank, ABS and 15/14-inch wheels."
   },
   {

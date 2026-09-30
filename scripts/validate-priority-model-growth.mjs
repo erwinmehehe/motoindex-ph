@@ -211,7 +211,7 @@ for (const token of ['id: "honda-pcx-160"','srp: 133500','marketPriceHighPhp: 15
 
 for (const token of [
   '"honda-click-160": {',
-  'seoTitle: "Honda Click160 Price Philippines 2026 | Specs & Monthly"'
+  'seoTitle: "Honda Click 160 Price Philippines 2026 | Specs & Monthly"'
 ]) {
   if (!growth.includes(token)) errors.push(`priorityModelGrowth: Click160 authority wave lost token ${token}`);
 }
