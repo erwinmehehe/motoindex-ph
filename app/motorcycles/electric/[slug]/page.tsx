@@ -7,7 +7,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { electricMotorcycles, getElectricMotorcycle, php } from "@/lib/electricMotorcycles";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 export function generateStaticParams(){return electricMotorcycles.map(model=>({slug:model.slug}));}
 
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
