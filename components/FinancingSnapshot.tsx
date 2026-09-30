@@ -12,24 +12,29 @@ export function FinancingSnapshot({ modelName, price, priceOptions = [] }: { mod
     : [];
   const examples = defaultFinancingExamples(price);
 
-  return <div className="financing-snapshot" data-financing-snapshot={variantScenarios.length ? "variants" : "standard"}>
-    <div className="section-head compact"><div>
-      <h3>{modelName} down payment and monthly payment examples</h3>
-      <p>{variantScenarios.length
-        ? "Each verified variant uses its own recorded SRP with the same 20% down, 36-month and 12% annual amortizing-interest assumptions so the trim difference is visible."
-        : "These examples use the displayed purchase-price basis, a 36-month term and a 12% annual interest assumption."} These are planning estimates, not dealer or lender quotations.</p>
-    </div></div>
+  return <div className="financing-snapshot finance-scenario-section" data-financing-snapshot={variantScenarios.length ? "variants" : "standard"}>
+    <div className="finance-scenario-head">
+      <div>
+        <span className="finance-kicker">Quick comparison</span>
+        <h3>{variantScenarios.length ? `${modelName} monthly estimate by variant` : "How the downpayment changes the monthly estimate"}</h3>
+        <p>{variantScenarios.length
+          ? "Same 20% downpayment, 36-month term and 12% annual rate so you can see the variant price difference."
+          : "Same 36-month term and 12% annual rate. Change the assumptions in the calculator above for your actual quote."}</p>
+      </div>
+    </div>
 
-    <div className="entity-price-grid motorcycle-price-grid">
-      {variantScenarios.length ? variantScenarios.map(({ option, scenario }) => <article key={`${option.label}-${option.price}`} data-financing-variant={option.label}>
-        <span>{option.label} · {php(option.price)} SRP</span>
-        <strong>{php(Math.round(scenario.downPaymentPhp))} down</strong>
-        <small>About {php(Math.round(scenario.monthlyPhp))}/month for {scenario.termMonths} months at {scenario.annualRatePct}% annual interest.</small>
-      </article>) : examples.map((example) => <article key={example.downPaymentPct}>
-        <span>{example.downPaymentPct}% down payment</span>
-        <strong>{php(Math.round(example.downPaymentPhp))}</strong>
-        <small>About {php(Math.round(example.monthlyPhp))}/month for {example.termMonths} months at {example.annualRatePct}% annual interest.</small>
+    <div className="finance-scenario-strip">
+      {variantScenarios.length ? variantScenarios.map(({ option, scenario }) => <article className="finance-scenario-card" key={`${option.label}-${option.price}`} data-financing-variant={option.label}>
+        <span>{option.label}</span>
+        <strong>{php(Math.round(scenario.monthlyPhp))}<small>/mo</small></strong>
+        <p>{php(Math.round(scenario.downPaymentPhp))} cash down · {php(option.price)} SRP</p>
+      </article>) : examples.map((example) => <article className={`finance-scenario-card${example.downPaymentPct === 20 ? " is-featured" : ""}`} key={example.downPaymentPct}>
+        <span>{example.downPaymentPct}% down</span>
+        <strong>{php(Math.round(example.monthlyPhp))}<small>/mo</small></strong>
+        <p>{php(Math.round(example.downPaymentPhp))} cash down</p>
       </article>)}
     </div>
+
+    <p className="finance-scenario-note">Planning examples only, not a dealer or lender quotation. Final monthly payment depends on the financed amount, fees, rate method, lender and approved term.</p>
   </div>;
 }
