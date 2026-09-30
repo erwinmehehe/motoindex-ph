@@ -147,7 +147,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
       <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Price & availability</span><h2>{p.brand} {p.model} price in the Philippines</h2><p>Use the dated amount as a reference, then check the current seller for the exact size, graphic, bundle and stock.</p></div></div>
       <div className="entity-price-grid helmet-price-summary">
         <article className="primary-price-card"><span>Observed starting price</span><div><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong></div>{p.lastChecked && <small>Checked {p.lastChecked}</small>}</article>
-        <article><span>Exact product</span><strong>{p.brand} {p.model}</strong><small>Confirm the same size, graphic and visor bundle before checkout.</small></article>
+        <article className="helmet-product-check"><span>Exact product</span><strong>{p.brand} {p.model}</strong><small>Confirm the same size, graphic and visor bundle before checkout.</small></article>
         {p.stockStatus && <article><span>Availability</span><strong>{p.stockStatus}</strong><small>Stock can differ by size and graphic.</small></article>}
         {(p.colors?.length || p.variants?.length) ? <article><span>Variants / colors</span><strong>{p.colors?.length ? p.colors.join(" · ") : p.variants?.join(" · ")}</strong><small>Not every graphic is available in every size.</small></article> : null}
       </div>
@@ -203,8 +203,8 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     </section>
 
     {compareTargets.length > 0 && <section id="compare" className="product-entity-section">
-      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Compare</span><h2>{p.brand} {p.model} comparisons</h2><p>Comparison intent stays on this strong entity page instead of being split into separate thin URLs.</p></div><Link href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Open interactive compare →</Link></div>
-      <div className="entity-comparisons">{compareTargets.map((other) => <article key={other.id}>
+      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Compare</span><h2>{p.brand} {p.model} comparisons</h2><p>Put the important differences side by side before opening another product page.</p></div><Link className="button ghost on-light helmet-compare-cta" href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Open interactive compare</Link></div>
+      <div className="entity-comparisons helmet-comparison-grid">{compareTargets.map((other) => <article className="helmet-compare-card" key={other.id}>
         <h3>{p.brand} {p.model} vs {other.brand} {other.model}</h3>
         <div className="mini-compare-table">
           <div className="head"><span>Feature</span><strong>{p.model}</strong><strong>{other.model}</strong></div>
