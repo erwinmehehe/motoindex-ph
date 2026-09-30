@@ -182,6 +182,7 @@ try {
         const facts=summary?.querySelector('.product-detail-facts');
         const factEls=facts?[...facts.children]:[];
         const trust=summary?.querySelector('.product-trust-row');
+        const actions=summary?.querySelector('.product-detail-actions');
         const nav=document.querySelector('.product-entity-nav');
         const sections=[...document.querySelectorAll('.product-entity-section')];
         const sectionHeading=sections[0]?.querySelector('h2');
@@ -189,13 +190,19 @@ try {
         const specLabel=spec?.querySelector('span');
         const editorial=document.querySelector('.product-editorial');
         const priceGrid=document.querySelector('.entity-price-grid');
+        const helmetPrice=document.querySelector('.helmet-price-summary');
+        const commerce=document.querySelector('.commerce-price-comparison');
+        const helmetSpecs=document.querySelector('.helmet-spec-table');
+        const helmetSizing=document.querySelector('.helmet-size-panel, .entity-size-table');
+        const helmetParts=document.querySelector('.helmet-parts-card');
         const compareRow=document.querySelector('.mini-compare-table > div:not(.head)');
         const r=el=>{if(!el)return null;const rect=el.getBoundingClientRect();return {left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom,width:rect.width,height:rect.height};};
         const px=el=>el?parseFloat(getComputedStyle(el).fontSize)||0:0;
         const objectFit=image?getComputedStyle(image).objectFit:'';
         return {
           title:heading?.textContent?.trim()||'', overflow:root.scrollWidth-root.clientWidth,
-          page:r(page), hero:r(hero), summary:r(summary), heading:r(heading), lede:r(lede), media:r(media), fallback:r(fallback), image:r(image), facts:r(facts), trust:r(trust), nav:r(nav), spec:r(spec),
+          page:r(page), hero:r(hero), summary:r(summary), heading:r(heading), lede:r(lede), media:r(media), fallback:r(fallback), image:r(image), facts:r(facts), trust:r(trust), actions:r(actions), nav:r(nav), spec:r(spec),
+          helmetPrice:r(helmetPrice), commerce:r(commerce), helmetSpecs:r(helmetSpecs), helmetSizing:r(helmetSizing), helmetParts:r(helmetParts),
           heroDisplay:hero?getComputedStyle(hero).display:'', heroColumns:hero?getComputedStyle(hero).gridTemplateColumns:'',
           headingSize:px(heading), sectionHeadingSize:px(sectionHeading), specLabelSize:px(specLabel),
           mediaRadius:media?parseFloat(getComputedStyle(media).borderRadius)||0:0, objectFit,
@@ -215,6 +222,14 @@ try {
       if (!state?.media || !state?.summary || !state?.heading || !state?.lede) failures.push(`${width}px ${route.key}: redesigned hero content/media missing`);
       if (!state?.trust) failures.push(`${width}px ${route.key}: compact product trust row missing`);
       if (!state?.nav) failures.push(`${width}px ${route.key}: product section navigation missing`);
+      if (route.path.startsWith("/gear/helmets/")) {
+        if (!state?.actions) failures.push(`${width}px ${route.key}: helmet hero actions missing`);
+        if (!state?.helmetPrice) failures.push(`${width}px ${route.key}: helmet price summary missing`);
+        if (!state?.commerce) failures.push(`${width}px ${route.key}: helmet commerce block missing`);
+        if (!state?.helmetSpecs) failures.push(`${width}px ${route.key}: helmet specifications card missing`);
+        if (!state?.helmetSizing) failures.push(`${width}px ${route.key}: helmet sizing panel missing`);
+        if (!state?.helmetParts) failures.push(`${width}px ${route.key}: helmet visor/parts card missing`);
+      }
       if ((state?.headingSize || 0) < (mobile ? 34 : 40)) failures.push(`${width}px ${route.key}: H1 typography is too small (${state?.headingSize || 0}px)`);
       if ((state?.mediaRadius || 0) < 17) failures.push(`${width}px ${route.key}: media stage radius regressed (${state?.mediaRadius || 0}px)`);
       if ((state?.media?.width || 0) < (mobile ? 330 : 400)) failures.push(`${width}px ${route.key}: hero media collapsed to ${Math.round(state?.media?.width || 0)}px`);
