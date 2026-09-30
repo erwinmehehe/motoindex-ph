@@ -147,7 +147,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     ]} />
 
     <section id="price" className="product-entity-section product-price-section">
-      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Price & availability</span><h2>{p.brand} {p.model} price in the Philippines</h2><p>Use the observed amount as a reference, then verify the exact size, visor bundle, color and stock with the seller.</p></div></div>
+      <div className="section-head"><div><span className="section-kicker">Price & availability</span><h2>{p.brand} {p.model} price in the Philippines</h2><p>Use the observed amount as a reference, then verify the exact size, visor bundle, color and stock with the seller.</p></div></div>
       <div className="helmet-price-summary">
         <article className="primary-price-card">
           <span>Observed starting price</span>
@@ -164,7 +164,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     </section>
 
     <section id="specs" className="product-entity-section">
-      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Specifications</span><h2>{p.brand} {p.model} specifications</h2></div></div>
+      <div className="section-head"><div><span className="section-kicker">Specifications</span><h2>{p.brand} {p.model} specifications</h2></div></div>
       <div className="entity-spec-table helmet-spec-table" role="table" aria-label={`${p.brand} ${p.model} helmet specifications`}>
         <div role="row"><span role="cell">Helmet type</span><strong role="cell">{p.helmetType}</strong></div>
         {p.shell && <div role="row"><span role="cell">Shell / material</span><strong role="cell">{p.shell}</strong></div>}
@@ -178,13 +178,13 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     </section>
 
     <section id="size" className="product-entity-section">
-      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Fit guide</span><h2>{p.brand} {p.model} sizing</h2><p>Start with the exact model chart when available, then confirm even pressure and stability on your own head shape.</p></div></div>
+      <div className="section-head"><div><span className="section-kicker">Fit guide</span><h2>{p.brand} {p.model} sizing</h2><p>Start with the exact model chart when available, then confirm even pressure and stability on your own head shape.</p></div></div>
       {p.sizeChart?.length ? <div className="entity-size-table">{p.sizeChart.map((row) => <div key={row.size}><strong>{row.size}</strong><span>{row.headCm} cm</span></div>)}</div> : p.sizes.length ? <div className="helmet-size-panel"><div><span>Available sizes</span><div className="size-chips">{p.sizes.map((size) => <span key={size}>{size}</span>)}</div></div><p>The exact head-circumference chart is not verified for this model. Measure your head before ordering and confirm the current {p.brand} chart for the exact unit.</p></div> : <div className="helmet-fit-note"><strong>Size chart not verified yet.</strong><span>Measure your head and confirm the maker&apos;s current chart before ordering.</span></div>}
       <div className="helmet-fit-note"><strong>Fit matters more than the size letter.</strong><span>A helmet should feel evenly snug without a painful hotspot or excessive movement.</span><Link href="/guides/motorcycle-helmet-size-guide">Read the helmet size guide →</Link></div>
     </section>
 
     <section id="visor" className="product-entity-section">
-      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Visor & parts</span><h2>{p.brand} {p.model} visor and replacement parts</h2><p>Match replacement parts to the exact helmet model rather than assuming another {p.brand} visor will fit.</p></div></div>
+      <div className="section-head"><div><span className="section-kicker">Visor & parts</span><h2>{p.brand} {p.model} visor and replacement parts</h2><p>Match replacement parts to the exact helmet model rather than assuming another {p.brand} visor will fit.</p></div></div>
       <div className="helmet-parts-card">
         <div><span>Visor setup</span><strong>{p.visor}</strong></div>
         {p.pinlock && <div><span>Pinlock / anti-fog</span><strong>{p.pinlock}</strong></div>}
@@ -193,7 +193,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     </section>
 
     <section id="pros-cons" className="product-entity-section">
-      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Buying decision</span><h2>Best for, strengths and trade-offs</h2></div></div>
+      <div className="section-head"><div><span className="section-kicker">Buying decision</span><h2>Best for, strengths and trade-offs</h2></div></div>
       <div className="product-editorial">
         <article className="editorial-best"><span>Best for</span><h3>{editorial.bestFor}</h3><p>{p.description}</p></article>
         <article className="editorial-pros"><span>Strengths</span><ul>{editorial.pros.map((item) => <li key={item}>{item}</li>)}</ul></article>
@@ -202,12 +202,12 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     </section>
 
     <section id="alternatives" className="product-entity-section">
-      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Similar helmets</span><h2>Alternatives to the {p.brand} {p.model}</h2><p>These are verified product pages chosen first from the same brand/type, then by nearby price where price data exists.</p></div></div>
+      <div className="section-head"><div><span className="section-kicker">Similar helmets</span><h2>Alternatives to the {p.brand} {p.model}</h2><p>These are verified product pages chosen first from the same brand/type, then by nearby price where price data exists.</p></div></div>
       <div className="product-grid">{alternatives.map((item) => <ProductCard key={item.id} item={{ entityId: item.id, href: `/gear/helmets/${item.brandSlug}/${item.slug}`, category: item.helmetType, brand: item.brand, model: item.model, meta: [item.shell, item.pinlock].filter(Boolean).join(" · "), status: item.status, priceFromPhp: item.priceFromPhp }} />)}</div>
     </section>
 
     {compareTargets.length > 0 && <section id="compare" className="product-entity-section">
-      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Compare</span><h2>{p.brand} {p.model} comparisons</h2><p>Compare the specifications that matter most, then open the interactive tool for a closer side-by-side check.</p></div><Link href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Open interactive compare →</Link></div>
+      <div className="section-head"><div><span className="section-kicker">Compare</span><h2>{p.brand} {p.model} comparisons</h2><p>Compare the specifications that matter most, then open the interactive tool for a closer side-by-side check.</p></div><Link href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Open interactive compare →</Link></div>
       <div className="entity-comparisons">{compareTargets.map((other) => <article key={other.id}>
         <h3>{p.brand} {p.model} vs {other.brand} {other.model}</h3>
         <div className="mini-compare-table">
