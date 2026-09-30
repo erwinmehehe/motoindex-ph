@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
 import { pageMetadata } from "@/lib/site";
-import { publicMotorcycles } from "@/lib/data";
+import { hasConfirmedAbs, publicMotorcycles } from "@/lib/data";
 import { observedMarketPriceLabel, observedMarketRange } from "@/lib/marketChecks";
 import { AuthorBox } from "@/components/AuthorBox";
 import { EntityMedia } from "@/components/EntityMedia";
@@ -16,13 +16,6 @@ export const metadata: Metadata = pageMetadata({
   path: "/recommendations",
   index: true
 });
-
-function hasConfirmedAbs(value: string) {
-  const normalized = value.toLowerCase();
-  if (!normalized.includes("abs")) return false;
-  if (/no abs|without abs|not confirmed|not stated|not listed|confirm exact abs|abs equipment is not confirmed/.test(normalized)) return false;
-  return true;
-}
 
 function modelHref(model: Motorcycle) {
   return `/motorcycles/${model.makeSlug}/${model.slug}`;
