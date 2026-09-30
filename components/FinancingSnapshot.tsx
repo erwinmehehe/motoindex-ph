@@ -20,15 +20,17 @@ export function FinancingSnapshot({ modelName, price, priceOptions = [] }: { mod
         : "These examples use the displayed purchase-price basis, a 36-month term and a 12% annual interest assumption."} These are planning estimates, not dealer or lender quotations.</p>
     </div></div>
 
-    <div className="entity-price-grid motorcycle-price-grid">
-      {variantScenarios.length ? variantScenarios.map(({ option, scenario }) => <article key={`${option.label}-${option.price}`} data-financing-variant={option.label}>
-        <span>{option.label} · {php(option.price)} SRP</span>
-        <strong>{php(Math.round(scenario.downPaymentPhp))} down</strong>
-        <small>About {php(Math.round(scenario.monthlyPhp))}/month for {scenario.termMonths} months at {scenario.annualRatePct}% annual interest.</small>
-      </article>) : examples.map((example) => <article key={example.downPaymentPct}>
-        <span>{example.downPaymentPct}% down payment</span>
-        <strong>{php(Math.round(example.downPaymentPhp))}</strong>
-        <small>About {php(Math.round(example.monthlyPhp))}/month for {example.termMonths} months at {example.annualRatePct}% annual interest.</small>
+    <div className="market-price-source-grid financing-option-grid">
+      {variantScenarios.length ? variantScenarios.map(({ option, scenario }) => <article className="market-price-source-card" key={`${option.label}-${option.price}`} data-financing-variant={option.label}>
+        <div className="market-price-source-top"><span className="market-price-source-type">{option.label}</span><time>{php(option.price)} SRP</time></div>
+        <div className="market-price-source-value">{php(Math.round(scenario.downPaymentPhp))} down</div>
+        <p className="market-price-source-note"><strong>{php(Math.round(scenario.monthlyPhp))}/month</strong> planning estimate for {scenario.termMonths} months at {scenario.annualRatePct}% annual interest.</p>
+        <div className="market-price-source-footer"><span>20% downpayment</span><span>Planning estimate, not a lender quote</span></div>
+      </article>) : examples.map((example) => <article className="market-price-source-card" key={example.downPaymentPct}>
+        <div className="market-price-source-top"><span className="market-price-source-type">{example.downPaymentPct}% down</span><time>36-month example</time></div>
+        <div className="market-price-source-value">{php(Math.round(example.downPaymentPhp))}</div>
+        <p className="market-price-source-note"><strong>{php(Math.round(example.monthlyPhp))}/month</strong> planning estimate for {example.termMonths} months at {example.annualRatePct}% annual interest.</p>
+        <div className="market-price-source-footer"><span>Adjust the assumptions below</span><span>Not a dealer quotation</span></div>
       </article>)}
     </div>
   </div>;
