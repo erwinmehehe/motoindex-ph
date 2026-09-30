@@ -53,7 +53,7 @@ export function HelmetCatalogModelPage({ item }: { item: HelmetCatalogModel }) {
   ];
 
   const heroFacts = [
-    { label: "Record", value: "Current catalog reference" },
+    { label: "Price", value: "Check current seller" },
     { label: "Fit", value: "Use the exact size chart" },
     { label: "Local marking", value: "Check PS / ICC" },
     { label: "Parts", value: "Match the exact model" },
@@ -67,13 +67,11 @@ export function HelmetCatalogModelPage({ item }: { item: HelmetCatalogModel }) {
     ]} />
 
     <ProductHero
-      media={<div className="entity-media catalog-helmet-media"><EntityVerificationFallback brand={brandName} model={item.model} kind="helmet" className="catalog-helmet-placeholder" /><div className="catalog-helmet-media-copy"><span>Catalog reference</span><strong>{brandName}</strong><small>{item.model}</small></div></div>}
+      media={<div className="entity-media"><EntityVerificationFallback brand={brandName} model={item.model} kind="helmet" className="product-hero-card" /></div>}
       eyebrow={<><span className="product-type-pill">Helmet</span><span className="product-status-pill research">Catalog reference</span></>}
       title={<>{brandName} {item.model}</>}
       description={<p>This page confirms the model in a current catalog reference and gives the buying checks that still need exact-product verification, including price, sizing, certification marking, visor and replacement parts.</p>}
-      price="Check current seller"
-      priceNote="Price is not verified on this catalog-reference page"
-      actions={<div className="catalog-hero-actions"><a className="button helmet-primary-cta" href="#checks">Review buying checks</a><a className="catalog-secondary-cta" href="#source">View catalog evidence</a></div>}
+      actions={<div className="ui-cta-group"><a className="button helmet-primary-cta" href="#checks">Review buying checks</a><a className="text-link" href="#source">View catalog evidence →</a></div>}
       facts={heroFacts}
       trust={<ProductTrustRow
         status="catalog"
@@ -93,7 +91,7 @@ export function HelmetCatalogModelPage({ item }: { item: HelmetCatalogModel }) {
 
     <section id="checks" className="product-entity-section">
       <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Before you buy</span><h2>What to verify on the {brandName} {item.model}</h2><p>The catalog confirms the model identity. These purchase details still need to be checked on the exact local product.</p></div></div>
-      <div className="ui-content-grid catalog-check-grid">
+      <div className="ui-content-grid">
         <article className="ui-content-card"><h3>Fit and size chart</h3><p>Measure the widest part of your head and use the manufacturer chart for the {item.model}. Confirm cheek-pad pressure, forehead comfort and movement before paying.</p></article>
         <article className="ui-content-card"><h3>Certification and PH marking</h3><p>Read the certification label on the actual unit and look for the applicable PS or ICC conformity marking for helmets sold locally.</p></article>
         <article className="ui-content-card"><h3>Visor and replacement parts</h3><p>Confirm the shield code, Pinlock compatibility, visor mechanism and replacement-liner availability for this exact model before ordering accessories.</p></article>
@@ -103,7 +101,7 @@ export function HelmetCatalogModelPage({ item }: { item: HelmetCatalogModel }) {
 
     <section id="source" className="product-entity-section">
       <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Evidence</span><h2>{brandName} {item.model} catalog reference</h2><p>Use the original catalog reference to confirm the model name and current range, then check the exact local helmet before purchase.</p></div></div>
-      <div className="source-panel verified catalog-source-card">
+      <div className="source-panel verified">
         <span>Model source</span>
         <p>{item.sourceLabel}</p>
         <SourceRef url={item.sourceUrl} label="Open catalog source" />
