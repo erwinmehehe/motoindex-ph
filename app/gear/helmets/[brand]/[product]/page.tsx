@@ -131,7 +131,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
         <article className="primary-price-card"><span>Observed starting price</span><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong>{p.lastChecked && <small>Checked {p.lastChecked}</small>}</article>
         <article><span>Exact product</span><strong>{p.brand} {p.model}</strong><small>{p.stockStatus || "Stock and final checkout price can vary by size, graphic and seller."}</small></article>
       </div>
-      <CommercePriceComparison entityType="helmet" entityId={p.id} productName={`${p.brand} ${p.model}`} />
+      <CommercePriceComparison entityType="helmet" entityId={p.id} productName={`${p.brand} ${p.model}`} compact />
     </section>
 
     <section id="details" className="product-entity-section">
