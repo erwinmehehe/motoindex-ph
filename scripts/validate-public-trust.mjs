@@ -311,7 +311,7 @@ const sourceTrustBadge = read("components/SourceTrustBadge.tsx");
 const dataSourcesRoute = read("app/data-sources/page.tsx");
 
 for (const [path, text, forbidden] of [
-  ["components/MotorcycleEntityPage.tsx", motorcycleEntity, ["MarketPriceChecks", "SourceRef", "Show published price-source checks", "Sources, verification and what to confirm"]],
+  ["components/MotorcycleEntityPage.tsx", motorcycleEntity, ["SourceRef", "Show published price-source checks", "Sources, verification and what to confirm"]],
   ["components/MotorcycleCard.tsx", motorcycleCard, ["SourceTrustBadge", "PriceSourceBadge"]],
   ["components/Freshness.tsx", freshness, ["SourceTrustBadge", "sourceDisplayName", "freshness-source"]],
   ["components/ProductTrustRow.tsx", productTrustRow, ["SourceRef", "sourceLabel &&", "secondarySource &&", "Updated {lastChecked}"]]
