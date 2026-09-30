@@ -200,10 +200,11 @@ try {
         const helmetPage=document.querySelector('.helmet-product-page');
         const helmetCta=helmetPage?.querySelector('.helmet-primary-cta');
         const commerceRow=helmetPage?.querySelector('.commerce-offer-row');
-        const fitLayout=helmetPage?.querySelector('.helmet-fit-layout');
-        const priceCard=helmetPage?.querySelector('.primary-price-card');
+        const detailGrid=helmetPage?.querySelector('.helmet-detail-grid');
+        const pricePanel=helmetPage?.querySelector('.helmet-price-panel');
+        const decisionGrid=helmetPage?.querySelector('.helmet-decision-grid');
         const r=el=>{if(!el)return null;const rect=el.getBoundingClientRect();return {left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom,width:rect.width,height:rect.height};};
-        const priceChildren=priceCard?[...priceCard.children].map(r):[];
+        const priceChildren=pricePanel?[...pricePanel.children].map(r):[];
         const px=el=>el?parseFloat(getComputedStyle(el).fontSize)||0:0;
         const objectFit=image?getComputedStyle(image).objectFit:'';
         return {
@@ -216,7 +217,7 @@ try {
           sectionWidths:sections.slice(0,8).map(el=>Math.round(r(el).width)),
           compareDisplay:compareRow?getComputedStyle(compareRow).display:'',
           compareColumns:compareRow?getComputedStyle(compareRow).gridTemplateColumns:'',
-          editorial:r(editorial), priceGrid:r(priceGrid), helmetPage:Boolean(helmetPage), helmetCta:r(helmetCta), commerceRow:r(commerceRow), fitLayout:r(fitLayout), priceChildren
+          editorial:r(editorial), priceGrid:r(priceGrid), helmetPage:Boolean(helmetPage), helmetCta:r(helmetCta), commerceRow:r(commerceRow), detailGrid:r(detailGrid), pricePanel:r(pricePanel), decisionGrid:r(decisionGrid), priceChildren
         };
       })()`);
       results.push({ width, route: route.path, ...state });
@@ -244,8 +245,8 @@ try {
       if (state?.fallback && state?.media && (state.fallback.width > state.media.width + 2 || state.fallback.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: placeholder exceeds media stage`);
       if (route.path.startsWith("/gear/helmets/")) {
         if (!state?.helmetPage || !state?.helmetCta) failures.push(`${width}px ${route.key}: premium helmet page shell or compare-prices CTA missing`);
-        if (!state?.fitLayout) failures.push(`${width}px ${route.key}: helmet sizing layout missing`);
-        if (state?.priceChildren?.some((child, index, list) => index && child.top < list[index - 1].bottom - 1)) failures.push(`${width}px ${route.key}: price summary text overlaps`);
+        if (!state?.detailGrid || !state?.pricePanel || !state?.decisionGrid) failures.push(`${width}px ${route.key}: helmet buyer-detail modules missing`);
+        if (state?.priceChildren?.some((child, index, list) => mobile && index && child.top < list[index - 1].bottom - 1)) failures.push(`${width}px ${route.key}: mobile price panel overlaps`);
         if (state?.commerceRow && state.commerceRow.width < (mobile ? 300 : 700)) failures.push(`${width}px ${route.key}: commerce row collapsed to ${Math.round(state.commerceRow.width)}px`);
       }
       await screenshot(route.key, width);
