@@ -168,17 +168,17 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     <section id="size" className="product-entity-section">
       <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Fit guide</span><h2>{p.brand} {p.model} size chart and fit</h2><p>Helmet fit is model-specific. Start with the manufacturer chart, then confirm pressure points and stability on your own head shape.</p></div></div>
       <div className="helmet-fit-layout">
-        <div className="helmet-fit-data">
+        <div className="helmet-fit-data info-card">
           <span className="helmet-sub-label">Available sizes</span>
           {p.sizeChart?.length ? <div className="entity-size-table">{p.sizeChart.map((row) => <div key={row.size}><strong>{row.size}</strong><span>{row.headCm} cm head circumference</span></div>)}</div> : p.sizes.length ? <div className="size-chips">{p.sizes.map((size) => <span key={size}>{size}</span>)}</div> : <div className="helmet-inline-note"><strong>Exact size chart not verified yet.</strong><span>Use the current manufacturer chart before ordering.</span></div>}
         </div>
-        <div className="helmet-fit-help"><h3>Measure before ordering</h3><p>Measure around the widest part of your head using the helmet maker&apos;s method. A size letter from another helmet is not a reliable shortcut.</p><Link href="/guides/motorcycle-helmet-size-guide">Open the helmet sizing guide →</Link></div>
+        <div className="helmet-fit-help info-card"><h3>Measure before ordering</h3><p>Measure around the widest part of your head using the helmet maker&apos;s method. A size letter from another helmet is not a reliable shortcut.</p><Link href="/guides/motorcycle-helmet-size-guide">Open the helmet sizing guide →</Link></div>
       </div>
     </section>
 
     <section id="visor" className="product-entity-section">
       <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Visor & parts</span><h2>Visor, Pinlock and replacement parts</h2></div></div>
-      <div className="helmet-parts-card">
+      <div className="helmet-parts-card info-card">
         <div className="entity-spec-table helmet-visor-grid">
           <div><span>Visor setup</span><strong>{p.visor}</strong></div>
           {p.pinlock && <div><span>Pinlock / anti-fog</span><strong>{p.pinlock}</strong></div>}
