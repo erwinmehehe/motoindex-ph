@@ -1,6 +1,9 @@
 /* Shared cross-route experience helpers only.
    Motorcycle detail styling lives in model-detail.css and model-buying-flow.css. */
 
+/* Motorcycle buyer-experience integration; detailed controls stay in calculator-system.css. */
+html body .motorcycle-entity-page .calculator{min-width:0}
+
 /* Recently viewed: one bounded research rail, not an empty full-width section. */
 html body .recently-viewed{
   width:min(1180px,calc(100% - 48px))!important;
