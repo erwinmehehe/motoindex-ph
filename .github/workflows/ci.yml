@@ -37,6 +37,7 @@ jobs:
           npm run validate:public-trust
           npm run validate:adsense
           node scripts/validate-schema-coverage.mjs
+          node scripts/validate-product-layer.mjs
           node scripts/validate-authority-growth.mjs
           node scripts/validate-premium-light.mjs
           node --check scripts/gsc-opportunity-report.mjs
