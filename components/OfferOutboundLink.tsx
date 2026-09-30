@@ -11,7 +11,7 @@ export function OfferOutboundLink({ offerId, entityType, entityId, sellerName, a
   affiliate?: boolean;
 }) {
   return <Link
-    className="commerce-offer-button"
+    className="button small commerce-offer-button"
     href={`/go/${encodeURIComponent(offerId)}`}
     rel={affiliate ? "sponsored nofollow" : "nofollow"}
     onClick={() => trackEvent("commerce_outbound_click", {
