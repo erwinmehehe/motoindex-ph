@@ -153,8 +153,8 @@ try {
         const planner=document.querySelector('#installment .finance-planner');
         const plannerLayout=planner?.querySelector('.finance-planner-layout');
         const monthlyResult=planner?.querySelector('.finance-result>strong');
-        const presets=planner?[...planner.querySelectorAll('.finance-preset-row button')]:[];
-        const scenarios=document.querySelectorAll('#installment .finance-scenario-card');
+        const presets=planner?[...planner.querySelectorAll('.finance-preset-groups .calc-presets button')]:[];
+        const scenarios=document.querySelectorAll('#installment .finance-scenario-row .ui-stat-row__item');
         return {
           title:document.title,
           h1:Boolean(h1),
