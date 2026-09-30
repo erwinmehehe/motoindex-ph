@@ -128,12 +128,14 @@ function cdp(url) {
 async function evalJs(send, expression) {
   return (await send("Runtime.evaluate", { expression, returnByValue: true, awaitPromise: true })).result?.value;
 }
-async function waitReady(send) {
+async function waitReady(send, pathname) {
   const deadline = Date.now() + 15000;
   while (Date.now() < deadline) {
-    if (await evalJs(send, "document.readyState").catch(() => "") === "complete") return;
+    const state = await evalJs(send, `({ready:document.readyState,pathname:location.pathname,hasMain:Boolean(document.querySelector("#main-content"))})`).catch(() => null);
+    if (state?.ready === "complete" && state.pathname === pathname && state.hasMain) return;
     await new Promise(resolve => setTimeout(resolve, 200));
   }
+  throw new Error(`Timed out waiting for navigation to ${pathname}`);
 }
 
 const port = 9237;
@@ -155,8 +157,13 @@ try {
   }
   async function navigate(pathname) {
     await client.send("Page.navigate", { url: new URL(pathname, base).toString() });
-    await waitReady(client.send);
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await waitReady(client.send, pathname);
+    const deadline = Date.now() + 5000;
+    while (Date.now() < deadline) {
+      if (await evalJs(client.send, "Boolean(document.querySelector('.product-entity-page'))").catch(() => false)) break;
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    await new Promise(resolve => setTimeout(resolve, 150));
   }
   async function screenshot(name, width) {
     const metrics = await client.send("Page.getLayoutMetrics");
