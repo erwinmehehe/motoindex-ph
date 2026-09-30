@@ -6,24 +6,24 @@
 
 
 /* Catalog-reference helmet pages share the verified helmet visual system without implying verified price/spec data. */
-.helmet-catalog-page .product-detail-price{color:#111827;font-size:clamp(25px,2.5vw,34px)}
-.helmet-catalog-page .catalog-helmet-media{display:grid;place-items:center;background:linear-gradient(145deg,#fff,#f8f9fb)}
+.helmet-catalog-page .product-detail-price{color:var(--mi-color-ink);font-size:clamp(25px,2.5vw,34px)}
+.helmet-catalog-page .catalog-helmet-media{display:grid;place-items:center;background:linear-gradient(145deg,var(--mi-color-surface),var(--mi-color-surface-subtle))}
 .helmet-catalog-page .catalog-helmet-placeholder{position:absolute;inset:20px 20px 76px;display:grid;place-items:center}
 .helmet-catalog-page .catalog-helmet-placeholder img{width:100%;height:100%;padding:34px;object-fit:contain;opacity:.72}
-.helmet-catalog-page .catalog-helmet-media-copy{position:absolute;left:20px;right:20px;bottom:18px;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:center;padding:12px 14px;border:1px solid #e7e9ee;border-radius:14px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px)}
-.helmet-catalog-page .catalog-helmet-media-copy span{grid-row:1/3;padding:5px 8px;border-radius:999px;background:#f0f1f5;color:#5f6672;font-size:8px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+.helmet-catalog-page .catalog-helmet-media-copy{position:absolute;left:20px;right:20px;bottom:18px;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:center;padding:12px 14px;border:1px solid var(--mi-color-line);border-radius:14px;background:color-mix(in srgb,var(--mi-color-surface) 94%,transparent);backdrop-filter:blur(10px)}
+.helmet-catalog-page .catalog-helmet-media-copy span{grid-row:1/3;padding:5px 8px;border-radius:999px;background:var(--mi-color-zinc-100);color:var(--mi-color-copy);font-size:8px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
 .helmet-catalog-page .catalog-helmet-media-copy strong{font-size:13px}
-.helmet-catalog-page .catalog-helmet-media-copy small{color:#747c88;font-size:10px}
+.helmet-catalog-page .catalog-helmet-media-copy small{color:var(--mi-color-copy);font-size:10px}
 .helmet-catalog-page .catalog-hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.helmet-catalog-page .catalog-secondary-cta{color:#444ce7;font-size:11px;font-weight:850}
+.helmet-catalog-page .catalog-secondary-cta{color:var(--mi-color-primary);font-size:11px;font-weight:850}
 .helmet-catalog-page .catalog-check-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.helmet-catalog-page .catalog-check-grid .ui-content-card{min-height:170px;padding:20px;border:1px solid #e6e9ee;border-radius:18px;background:#fff;box-shadow:none}
+.helmet-catalog-page .catalog-check-grid .ui-content-card{min-height:170px;padding:20px;border:1px solid var(--mi-color-line);border-radius:18px;background:var(--mi-color-surface);box-shadow:none}
 .helmet-catalog-page .catalog-check-grid .ui-content-card h3{margin:0 0 8px;font-size:19px;letter-spacing:-.03em}
-.helmet-catalog-page .catalog-check-grid .ui-content-card p{margin:0;color:#6f7784;font-size:12px;line-height:1.62}
-.helmet-catalog-page .catalog-source-card{margin:0;padding:20px;border:1px solid #e6e9ee;border-radius:18px;background:#fff}
-.helmet-catalog-page .catalog-source-card>span{display:block;margin-bottom:7px;color:#444ce7;font-size:9px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}
-.helmet-catalog-page .catalog-source-card p{max-width:760px;color:#626a76;font-size:12px;line-height:1.6}
-.helmet-catalog-page .catalog-source-card small{display:block;margin-top:10px;color:#7b8390;font-size:10px}
+.helmet-catalog-page .catalog-check-grid .ui-content-card p{margin:0;color:var(--mi-color-copy);font-size:12px;line-height:1.62}
+.helmet-catalog-page .catalog-source-card{margin:0;padding:20px;border:1px solid var(--mi-color-line);border-radius:18px;background:var(--mi-color-surface)}
+.helmet-catalog-page .catalog-source-card>span{display:block;margin-bottom:7px;color:var(--mi-color-primary);font-size:9px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}
+.helmet-catalog-page .catalog-source-card p{max-width:760px;color:var(--mi-color-copy);font-size:12px;line-height:1.6}
+.helmet-catalog-page .catalog-source-card small{display:block;margin-top:10px;color:var(--mi-color-muted);font-size:10px}
 @media(max-width:600px){
   .helmet-catalog-page .catalog-check-grid{grid-template-columns:1fr}
   .helmet-catalog-page .catalog-check-grid .ui-content-card{min-height:0;padding:17px}
