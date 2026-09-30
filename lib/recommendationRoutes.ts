@@ -47,7 +47,7 @@ export function recommendationSectionForSlug(slug: string) {
 }
 
 export function recommendationCanonicalHref(slug: string) {
-  return `/recommendations#${recommendationSectionForSlug(slug)}`;
+  return `/recommendations/${slug}`;
 }
 
 export function isLegacyRecommendationHref(href: string) {

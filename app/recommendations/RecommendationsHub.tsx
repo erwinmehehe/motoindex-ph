@@ -11,8 +11,8 @@ import { articleSchema } from "@/lib/articleSchema";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Best Motorcycles Philippines 2026: Buying Guide",
-  description: "Choose a motorcycle in the Philippines by budget, riding use, rider fit, ABS, fuel economy and long-distance needs using verified model data.",
+  title: "Motorcycle Buying Guides Philippines 2026 | MotoIndex PH",
+  description: "Browse focused Philippine motorcycle buying guides by budget, scooter class, engine size, rider fit, commuting, ABS, fuel economy and brand.",
   path: "/recommendations",
   index: true
 });
@@ -57,6 +57,10 @@ function RankedList({ models, metric }: { models: Motorcycle[]; metric: (model: 
     <div><span>{model.make}</span><strong>{model.model}</strong><small>{metric(model)}</small></div>
     <em>{observedMarketPriceLabel(model)}</em>
   </Link>)}</div>;
+}
+
+function GuideLinks({ items }: { items: { href: string; label: string }[] }) {
+  return <div className="rec-brand-cloud" aria-label="Focused motorcycle buying guides">{items.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}</div>;
 }
 
 export default function RecommendationsPage() {
@@ -135,11 +139,12 @@ export default function RecommendationsPage() {
       <section id="budget" className="rec-section rec-section-light">
         <div className="rec-section-head"><div><span>Budget first</span><h2>Three under-₱100K starting points.</h2><p>Start with three current researched models, then use the Finder if you want a wider shortlist with your own budget and use case.</p></div><Link href="/finder">Set a custom budget →</Link></div>
         <BikeRail models={under100} />
+        <GuideLinks items={[{ href: "/recommendations/motorcycles-under-80k", label: "Under ₱80K" }, { href: "/recommendations/motorcycles-under-100k", label: "Under ₱100K" }, { href: "/recommendations/motorcycles-100k-to-150k", label: "₱100K–₱150K" }, { href: "/recommendations/motorcycles-under-150k", label: "Under ₱150K" }, { href: "/recommendations/automatic-motorcycles-under-100k", label: "Automatic under ₱100K" }]} />
       </section>
 
       <section id="commuting" className="rec-section rec-editorial-split">
-        <div className="rec-editorial-copy"><span>Daily riding</span><h2>Traffic changes what “good” means.</h2><p>For city use, manageable weight, predictable low-speed behavior and easy controls often matter more than peak power.</p><div className="rec-editorial-points"><div><b>Stop-go</b><small>Automatic transmission can reduce workload.</small></div><div><b>Parking</b><small>Lighter motorcycles are easier to move around tight spaces.</small></div><div><b>Running cost</b><small>Fuel economy only matters alongside service and parts access.</small></div></div><Link className="rec-text-link" href="/finder">Build a commuting shortlist →</Link></div>
-        <div id="scooters" className="rec-editorial-rail"><div className="rec-section-head compact"><div><span>Automatic options</span><h3>Three scooters worth comparing</h3></div></div><BikeRail models={scooters} /></div>
+        <div className="rec-editorial-copy"><span>Daily riding</span><h2>Traffic changes what “good” means.</h2><p>For city use, manageable weight, predictable low-speed behavior and easy controls often matter more than peak power.</p><div className="rec-editorial-points"><div><b>Stop-go</b><small>Automatic transmission can reduce workload.</small></div><div><b>Parking</b><small>Lighter motorcycles are easier to move around tight spaces.</small></div><div><b>Running cost</b><small>Fuel economy only matters alongside service and parts access.</small></div></div><GuideLinks items={[{ href: "/recommendations/best-motorcycles-for-daily-commute-philippines", label: "Daily commute guide" }, { href: "/recommendations/automatic-motorcycles-philippines", label: "Automatic motorcycles" }, { href: "/recommendations/beginner-friendly-motorcycles-philippines", label: "Beginner-friendly" }]} /><Link className="rec-text-link" href="/finder">Build a commuting shortlist →</Link></div>
+        <div id="scooters" className="rec-editorial-rail"><div className="rec-section-head compact"><div><span>Automatic options</span><h3>Three scooters worth comparing</h3></div></div><BikeRail models={scooters} /><GuideLinks items={[{ href: "/recommendations/best-scooters-philippines", label: "Best scooters" }, { href: "/recommendations/125cc-scooters-philippines", label: "125cc scooters" }, { href: "/recommendations/150cc-scooters-philippines", label: "150cc / 155cc scooters" }, { href: "/recommendations/160cc-scooters-philippines", label: "160cc scooters" }, { href: "/recommendations/maxi-scooters-philippines", label: "Maxi scooters" }]} /></div>
       </section>
 
       <section id="rider-fit" className="rec-section rec-data-section">
@@ -148,6 +153,7 @@ export default function RecommendationsPage() {
           <div><div className="rec-list-title"><span>Lower seat</span><h3>Top 3 published seat heights</h3></div><RankedList models={shortRider} metric={(m) => `${m.seatHeightMm} mm seat · ${m.curbWeightKg} kg`} /></div>
           <div><div className="rec-list-title"><span>Lower weight</span><h3>Top 3 manageable curb weights</h3></div><RankedList models={lightweight} metric={(m) => `${m.curbWeightKg} kg · ${m.seatHeightMm} mm seat`} /></div>
         </div>
+        <GuideLinks items={[{ href: "/recommendations/best-motorcycles-for-short-riders", label: "Short riders" }, { href: "/recommendations/lightweight-motorcycles-philippines", label: "Lightweight motorcycles" }, { href: "/recommendations/beginner-friendly-motorcycles-philippines", label: "Beginner-friendly" }, { href: "/recommendations/best-motorcycles-for-daily-commute-philippines", label: "Daily commute" }]} />
       </section>
 
       <section id="safety-efficiency" className="rec-section rec-data-section rec-dark-panel">
@@ -156,19 +162,22 @@ export default function RecommendationsPage() {
           <div><div className="rec-list-title"><span>Braking</span><h3>3 confirmed ABS starting points</h3></div><RankedList models={absModels} metric={(m) => m.abs} /></div>
           <div><div className="rec-list-title"><span>Efficiency</span><h3>3 higher published km/L figures</h3></div><RankedList models={efficient} metric={(m) => `${m.fuelConsumptionKmL} km/L published · ${m.engineCc} cc`} /></div>
         </div>
+        <GuideLinks items={[{ href: "/recommendations/motorcycles-with-abs-philippines", label: "Motorcycles with ABS" }, { href: "/recommendations/fuel-efficient-motorcycles-philippines", label: "Fuel-efficient motorcycles" }]} />
       </section>
 
       <section id="long-rides" className="rec-section rec-data-section">
         <div className="rec-section-head"><div><span>Longer rides</span><h2>Range and displacement are only the start.</h2><p>Tank size can reduce fuel stops. Real touring suitability also depends on ergonomics, wind protection, luggage, passenger needs and service access.</p></div></div>
         <div className="rec-two-column rec-long-ride-grid">
           <div><div className="rec-list-title"><span>Fuel capacity</span><h3>3 larger-tank comparisons</h3></div><RankedList models={longRide} metric={(m) => `${m.fuelTankL} L tank · ${m.engineCc} cc`} /></div>
-          <div className="rec-trip-context"><div className="rec-list-title"><span>Trip planning</span><h3>Check more than tank size</h3></div><p>Wind protection, luggage, passenger comfort, service access and the exact registered motorcycle matter on longer rides.</p><Link className="rec-text-link" href="/recommendations#long-rides">Open the long-distance guide →</Link></div>
+          <div className="rec-trip-context"><div className="rec-list-title"><span>Trip planning</span><h3>Check more than tank size</h3></div><p>Wind protection, luggage, passenger comfort, service access and the exact registered motorcycle matter on longer rides.</p><Link className="rec-text-link" href="/recommendations/best-motorcycles-for-long-rides">Open the long-distance guide →</Link></div>
         </div>
+        <GuideLinks items={[{ href: "/recommendations/best-motorcycles-for-long-rides", label: "Long-distance motorcycles" }, { href: "/recommendations/adventure-touring-motorcycles-philippines", label: "Adventure touring" }]} />
       </section>
 
       <section id="400cc" className="rec-section rec-data-section rec-anchor-section">
         <div className="rec-section-head"><div><span>400cc and above</span><h2>Start with three current big-bike comparisons.</h2><p>Use recorded displacement as a shortlist filter, then compare price, weight, seat height, power and braking before choosing a model.</p></div><Link href="/motorcycles/expressway-legal">Expressway rule & registration checks →</Link></div>
         <div className="rec-400cc-panel"><RankedList models={bigBikes} metric={(m) => `${m.engineCc} cc · ${m.powerHp} hp · ${m.curbWeightKg} kg`} /></div>
+        <GuideLinks items={[{ href: "/recommendations/motorcycles-400cc-plus-philippines", label: "400cc+ motorcycles" }, { href: "/recommendations/motorcycles-under-400cc-philippines", label: "Under 400cc" }, { href: "/recommendations/250cc-motorcycles-philippines", label: "250cc motorcycles" }, { href: "/recommendations/300cc-motorcycles-philippines", label: "300cc motorcycles" }]} />
       </section>
 
       <section id="explore" className="rec-explore">
