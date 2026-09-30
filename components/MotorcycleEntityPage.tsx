@@ -225,7 +225,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       </section>
 
       <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
-        <SectionHeader kicker="Key specifications" titleId="specs-heading" title="The numbers most buyers need first" description="Keep the first pass to engine, power, fit, weight, transmission, braking and stock tires." />
+        <SectionHeader kicker="Key specifications" titleId="specs-heading" title={`${model.make} ${model.model} specifications`} description="Compare engine, power, fit, weight, transmission, braking and stock tire sizes for this motorcycle." />
         <div className="entity-spec-table motorcycle-spec-table key-spec-grid" role="table" aria-label={`${model.make} ${model.model} key specifications`}>
           <div role="row"><span role="cell">Engine</span><strong role="cell">{model.engineCc} cc · {model.powerHp} hp · {model.torqueNm} Nm</strong></div>
           <div role="row"><span role="cell">Transmission</span><strong role="cell">{model.transmission || "Not listed"}</strong></div>
@@ -246,8 +246,8 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <SectionHeader
           kicker="Monthly payment"
           titleId="installment-heading"
-          title={aeroxFinanceTarget ? "Yamaha Aerox V3 downpayment and monthly installment estimate" : "Estimate the monthly commitment"}
-          description={aeroxFinanceTarget ? "Compare Standard and SP downpayment examples, then edit the exact cash price, downpayment, term and annual rate using the calculator." : "Start from the published price, then replace the assumptions with the actual dealer or lender quote."}
+          title={`${model.make} ${model.model} downpayment and monthly installment estimate`}
+          description={aeroxFinanceTarget ? "Compare Standard and SP downpayment examples, then edit the exact cash price, downpayment, term and annual rate using the calculator." : "Use the published price as a starting point, then replace the downpayment, term and rate with the actual dealer or lender quote."}
         />
         {aeroxFinanceTarget && financingPriceOptions.length > 1 && <div className="financing-snapshot" data-finance-seo="aerox-v3">
           <div className="section-head compact"><div>
@@ -303,7 +303,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section id="used" className="motorcycle-entity-section"><details className="entity-disclosure" open={isPrevious}><summary>Used value and depreciation</summary>{usedListings.length === 0 ? <div className="note-box compact-note"><h3>Used-market sample not available yet</h3><p>The calculator below is an estimate, not a live appraisal. Listing samples appear only after they pass verification.</p></div> : <><UsedMarketSummary modelId={model.id} />{!isPrevious && <div className="new-used-grid entity-new-used-grid"><article><span>New reference</span><strong>{observedMarketPriceLabel(model)}</strong></article><article><span>Used median ask</span><strong>{php(usedSummary.medianPrice)}</strong><p>{usedSummary.included} verified listing samples.</p></article></div>}<details className="entity-disclosure"><summary>Show used listing samples</summary><UsedListingTable items={usedListings} /></details></>}<UsedValueCalculator model={forClient(model)} /><details className="entity-disclosure"><summary>Show illustrative depreciation table</summary><div className="depreciation-table"><div className="depreciation-row head"><span>Age</span><span>Fair</span><span>Good</span><span>Excellent</span></div>{usedCurve.map((row) => <div className="depreciation-row" key={row.age}><strong>{row.age} year{row.age===1?"":"s"}</strong><span>{php(row.fair)}</span><span>{php(row.good)}</span><span>{php(row.excellent)}</span></div>)}</div></details></details></section>
 
-      {allColors.length > 0 && <section id="colors" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Colors and variants</summary><div className="entity-color-grid">{allColors.map((color) => <article key={color}><strong>{color}</strong></article>)}</div></details></section>}
+      {allColors.length > 0 && <section id="colors" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>{model.make} {model.model} colors and variants</summary><div className="entity-color-grid">{allColors.map((color) => <article key={color}><strong>{color}</strong></article>)}</div></details></section>}
 
       {gearGuide && helmetCandidates.length > 0 && <section id="gear" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Helmet options for this rider profile</summary><p>{gearGuide.intro} Helmet fit is rider-specific, so these are shopping options rather than motorcycle-fitment claims.</p><div className="product-grid">{helmetCandidates.slice(0,3).map((p) => <ProductCard key={p.id} item={{ entityId:p.id, href:`/gear/helmets/${p.brandSlug}/${p.slug}`, category:p.helmetType, brand:p.brand, model:p.model, meta:p.certification, status:p.status, priceFromPhp:p.priceFromPhp }} />)}</div></details></section>}
 
