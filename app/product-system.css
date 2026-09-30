@@ -44,6 +44,11 @@
 
 @media(prefers-reduced-motion:reduce){.mi-bike-media img{transition:none}.mi-bike:hover .mi-bike-media img{transform:none}}
 
+/* Product entity section headings stay compact and editorial. */
+.product-entity-page .section-head{margin-bottom:16px}
+.product-entity-page .section-head h2{font-size:clamp(28px,3.2vw,38px);line-height:1.04;letter-spacing:-.04em}
+.product-entity-page .section-head p{max-width:720px;margin-top:8px;font-size:13px;line-height:1.6}
+
 /* Product cards become image-first catalog rows/columns instead of dashboard tiles. */
 .product-grid{gap:0;border-top:1px solid var(--mi-color-product-line);border-bottom:1px solid var(--mi-color-product-line)}
 .product-card-shell{min-width:0;padding:0;border-right:1px solid var(--mi-color-product-line);background:var(--mi-color-surface)}
