@@ -7,14 +7,6 @@ const nextConfig = {
     // Remote patterns remain only as a migration fallback if a local asset has not been synced yet.
     remotePatterns: [
       { protocol: "https", hostname: "bikeluggage.co.uk" },
-      { protocol: "https", hostname: "www.motostorm.it" },
-      { protocol: "https", hostname: "i.ebayimg.com" },
-      { protocol: "https", hostname: "media.motoblouz.it" },
-      { protocol: "https", hostname: "motocentral.in" },
-      { protocol: "https", hostname: "medias.la-becanerie.com" },
-      { protocol: "https", hostname: "www.nilmoto.com" },
-      { protocol: "https", hostname: "alkhubaizibikes.ae" },
-      { protocol: "https", hostname: "cdn.shopify.com" },
       { protocol: "https", hostname: "cdn.aripitstop.com" },
       { protocol: "https", hostname: "cdn.awsli.com.br" },
       { protocol: "https", hostname: "cdn.idealo.com" },
@@ -77,7 +69,12 @@ const nextConfig = {
       { source: "/motorcycles/honda/click-v2", destination: "/motorcycles/honda/click-150i", permanent: true },
       { source: "/motorcycles/yamaha/aerox-v4", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
       { source: "/motorcycles/yamaha/aerox-2025", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
-      { source: "/motorcycles/yamaha/nmax-turbo", destination: "/motorcycles/yamaha/nmax-v3", permanent: true }
+      { source: "/motorcycles/yamaha/nmax-turbo", destination: "/motorcycles/yamaha/nmax-v3", permanent: true },
+      // Canonical buying-guide hub is plural. Preserve singular links and typos with permanent redirects.
+      { source: "/recommendation", destination: "/recommendations", permanent: true },
+      { source: "/recommendation/:path*", destination: "/recommendations/:path*", permanent: true },
+      // Keep 155cc scooter intent consolidated with the richer 150cc/155cc comparison page.
+      { source: "/recommendations/155cc-scooters-philippines", destination: "/recommendations/150cc-scooters-philippines", permanent: true }
     ];
   },
   async headers() {
