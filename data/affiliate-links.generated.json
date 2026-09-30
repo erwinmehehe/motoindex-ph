@@ -1,5 +1,18 @@
 {
   "version": 1,
-  "generatedAt": null,
-  "links": {}
+  "generatedAt": "2026-09-30T14:08:05.000Z",
+  "links": {
+    "gille-883-falcon": [
+      {
+        "merchant": "shopee",
+        "network": "involve_asia",
+        "url": "https://invl.me/clo1b14"
+      },
+      {
+        "merchant": "lazada",
+        "network": "involve_asia",
+        "url": "https://invl.me/clo1b1b"
+      }
+    ]
+  }
 }

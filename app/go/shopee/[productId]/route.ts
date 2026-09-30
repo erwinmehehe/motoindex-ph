@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { getRuntimeAffiliateLink } from "@/lib/runtimeAffiliate";
+import { getRuntimeShopeeAffiliateLink } from "@/lib/runtimeAffiliate";
 import { databaseConfigured, prisma } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(_request: Request, { params }: { params: Promise<{ productId: string }> }) {
   const { productId } = await params;
-  const affiliate = await getRuntimeAffiliateLink(productId);
+  const affiliate = await getRuntimeShopeeAffiliateLink(productId);
   if (!affiliate) {
     return NextResponse.json({ error: "Affiliate link is not configured for this product." }, { status: 404, headers: { "Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow" } });
   }

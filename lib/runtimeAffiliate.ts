@@ -1,5 +1,5 @@
 import { databaseConfigured, prisma } from "@/lib/db";
-import { getAffiliateLink, type AffiliateLinkConfig, type AffiliateNetwork } from "@/lib/affiliate";
+import { getAffiliateLinks, type AffiliateLinkConfig, type AffiliateMerchant, type AffiliateNetwork } from "@/lib/affiliate";
 import { allCatalogProducts } from "@/lib/catalog";
 
 const catalogIds = new Set(allCatalogProducts().map(product=>product.id));
@@ -30,29 +30,40 @@ export function validateRuntimeAffiliateUrl(productId:string, rawUrl:string){
   }
 }
 
-export async function getRuntimeAffiliateLink(productId:string):Promise<AffiliateLinkConfig|undefined>{
+export async function getRuntimeAffiliateLinks(productId:string):Promise<AffiliateLinkConfig[]>{
+  const fallback=getAffiliateLinks(productId);
   if(databaseConfigured()){
     try{
       const row=await prisma.affiliateProductLink.findUnique({where:{productId}});
       if(row){
-        if(row.status!=="active")return undefined;
+        if(row.status!=="active")return [];
         const checked=validateRuntimeAffiliateUrl(productId,row.url);
-        if(!checked.ok)return undefined;
-        return {productId,merchant:"shopee",network:checked.network,url:checked.url};
+        if(!checked.ok)return [];
+        const merchant:AffiliateMerchant=row.merchant==="lazada"?"lazada":"shopee";
+        const databaseLink={productId,merchant,network:checked.network,url:checked.url};
+        return [databaseLink,...fallback.filter(link=>link.merchant!==merchant)];
       }
     }catch{
       // Keep commerce fail-closed if the runtime affiliate migration is not available yet.
-      return getAffiliateLink(productId);
+      return fallback;
     }
   }
-  return getAffiliateLink(productId);
+  return fallback;
+}
+
+export async function getRuntimeAffiliateLink(productId:string):Promise<AffiliateLinkConfig|undefined>{
+  const links=await getRuntimeAffiliateLinks(productId);
+  return links.find(link=>link.merchant==="shopee")||links[0];
+}
+
+export async function getRuntimeShopeeAffiliateLink(productId:string):Promise<AffiliateLinkConfig|undefined>{
+  return (await getRuntimeAffiliateLinks(productId)).find(link=>link.merchant==="shopee");
 }
 
 export async function runtimeAffiliateSummary(){
-  const fallback=getAffiliateLink;
   const catalog=allCatalogProducts();
   if(!databaseConfigured()){
-    const configured=catalog.map(product=>fallback(product.id)).filter(Boolean) as AffiliateLinkConfig[];
+    const configured=catalog.flatMap(product=>getAffiliateLinks(product.id));
     return {
       databaseConfigured:false,
       active:configured.length,
@@ -68,7 +79,7 @@ export async function runtimeAffiliateSummary(){
   try{
     rows=await prisma.affiliateProductLink.findMany({orderBy:{updatedAt:"desc"}});
   }catch{
-    const configured=catalog.map(product=>fallback(product.id)).filter(Boolean) as AffiliateLinkConfig[];
+    const configured=catalog.flatMap(product=>getAffiliateLinks(product.id));
     return {
       databaseConfigured:false,
       active:configured.length,
