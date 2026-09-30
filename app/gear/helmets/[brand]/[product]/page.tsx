@@ -145,11 +145,19 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
 
     <section id="price" className="product-entity-section product-price-section">
       <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Price & availability</span><h2>{p.brand} {p.model} price in the Philippines</h2><p>Use the dated amount as a reference, then check the current seller for the exact size, graphic, bundle and stock.</p></div></div>
-      <div className="entity-price-grid helmet-price-summary">
-        <article className="primary-price-card"><span>Observed starting price</span><div><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong></div>{p.lastChecked && <small>Checked {p.lastChecked}</small>}</article>
-        <article className="helmet-product-check" style={{display:"flex",minWidth:0,minHeight:124,padding:"20px 22px",flexDirection:"column",justifyContent:"center",gap:6,border:"1px solid var(--mi-color-line)",borderRadius:18,background:"var(--mi-color-surface)"}}><span style={{color:"var(--mi-color-muted)",fontSize:9,fontWeight:850,letterSpacing:".07em",textTransform:"uppercase"}}>Exact product</span><strong style={{fontSize:19,lineHeight:1.25}}>{p.brand} {p.model}</strong><small style={{color:"var(--mi-color-copy)",fontSize:10,lineHeight:1.45}}>Confirm the same size, graphic and visor bundle before checkout.</small></article>
-        {p.stockStatus && <article><span>Availability</span><strong>{p.stockStatus}</strong><small>Stock can differ by size and graphic.</small></article>}
-        {(p.colors?.length || p.variants?.length) ? <article><span>Variants / colors</span><strong>{p.colors?.length ? p.colors.join(" · ") : p.variants?.join(" · ")}</strong><small>Not every graphic is available in every size.</small></article> : null}
+      <div className="helmet-price-summary" style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))",gap:12}}>
+        <article className="info-card primary-price-card" style={{display:"flex",minWidth:0,minHeight:168,padding:22,flexDirection:"column",justifyContent:"space-between"}}>
+          <div><span className="section-kicker">Observed starting price</span><strong style={{display:"block",marginTop:8,fontSize:"clamp(34px,4vw,46px)",lineHeight:1,letterSpacing:"-.045em"}}>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong></div>
+          <div><p style={{margin:"18px 0 0",color:"var(--mi-color-copy)",fontSize:11,lineHeight:1.55}}>Dated Philippine reference. Confirm the exact size, graphic, bundle, shipping and final checkout total before paying.</p>{p.lastChecked && <small style={{display:"block",marginTop:8,color:"var(--mi-color-muted)",fontSize:10}}>Checked {p.lastChecked}</small>}</div>
+        </article>
+        <article className="info-card helmet-product-check" style={{display:"flex",minWidth:0,minHeight:168,padding:22,flexDirection:"column",justifyContent:"space-between"}}>
+          <div><span className="section-kicker">Exact product check</span><strong style={{display:"block",marginTop:8,fontSize:22,lineHeight:1.15,letterSpacing:"-.03em"}}>{p.brand} {p.model}</strong><p style={{margin:"10px 0 0",color:"var(--mi-color-copy)",fontSize:11,lineHeight:1.55}}>Make sure the seller listing matches this exact model before comparing price.</p></div>
+          <div style={{display:"flex",gap:7,flexWrap:"wrap",marginTop:18}}>
+            <span style={{padding:"6px 9px",border:"1px solid var(--mi-color-line)",borderRadius:999,background:"var(--mi-color-surface-subtle)",fontSize:9,fontWeight:800}}>{p.helmetType}</span>
+            {p.stockStatus && <span style={{padding:"6px 9px",border:"1px solid var(--mi-color-line)",borderRadius:999,background:"var(--mi-color-surface-subtle)",fontSize:9,fontWeight:800}}>{p.stockStatus}</span>}
+            {p.sizes.length > 0 && <span style={{padding:"6px 9px",border:"1px solid var(--mi-color-line)",borderRadius:999,background:"var(--mi-color-surface-subtle)",fontSize:9,fontWeight:800}}>{p.sizes.join(" · ")}</span>}
+          </div>
+        </article>
       </div>
       <CommercePriceComparison entityType="helmet" entityId={p.id} productName={`${p.brand} ${p.model}`} />
     </section>
@@ -167,12 +175,20 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
 
     <section id="size" className="product-entity-section">
       <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Fit guide</span><h2>{p.brand} {p.model} size chart and fit</h2><p>Helmet fit is model-specific. Start with the manufacturer chart, then confirm pressure points and stability on your own head shape.</p></div></div>
-      <div className="helmet-fit-layout">
-        <div className="helmet-fit-data info-card">
-          <span className="helmet-sub-label">Available sizes</span>
-          {p.sizeChart?.length ? <div className="entity-size-table">{p.sizeChart.map((row) => <div key={row.size}><strong>{row.size}</strong><span>{row.headCm} cm head circumference</span></div>)}</div> : p.sizes.length ? <div className="size-chips">{p.sizes.map((size) => <span key={size}>{size}</span>)}</div> : <div className="helmet-inline-note"><strong>Exact size chart not verified yet.</strong><span>Use the current manufacturer chart before ordering.</span></div>}
-        </div>
-        <div className="helmet-fit-help info-card"><h3>Measure before ordering</h3><p>Measure around the widest part of your head using the helmet maker&apos;s method. A size letter from another helmet is not a reliable shortcut.</p><Link href="/guides/motorcycle-helmet-size-guide">Open the helmet sizing guide →</Link></div>
+      <div className="helmet-fit-layout" style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(320px,1fr))",gap:12}}>
+        <article className="helmet-fit-data info-card" style={{padding:22}}>
+          <span className="section-kicker">Fit status</span>
+          <h3 style={{margin:"8px 0 10px",fontSize:22,letterSpacing:"-.03em"}}>{p.sizeChart?.length ? "Model-specific size chart" : p.sizes.length ? "Available sizes" : "Exact chart not verified yet"}</h3>
+          {p.sizeChart?.length ? <div className="entity-size-table">{p.sizeChart.map((row) => <div key={row.size}><strong>{row.size}</strong><span>{row.headCm} cm head circumference</span></div>)}</div> : p.sizes.length ? <><div className="size-chips">{p.sizes.map((size) => <span key={size}>{size}</span>)}</div><p style={{margin:"14px 0 0",color:"var(--mi-color-copy)",fontSize:11,lineHeight:1.55}}>Use the maker&apos;s current chart to match these size labels to your head circumference.</p></> : <p style={{margin:0,color:"var(--mi-color-copy)",fontSize:12,lineHeight:1.6}}>The exact circumference chart is not verified yet. Do not guess from the size letter alone; use the current manufacturer chart before ordering.</p>}
+        </article>
+        <article className="helmet-fit-help info-card" style={{padding:22}}>
+          <span className="section-kicker">How to measure</span>
+          <h3 style={{margin:"8px 0 14px",fontSize:22,letterSpacing:"-.03em"}}>Measure before ordering</h3>
+          <div style={{display:"grid",gap:10}}>
+            {["Wrap the tape around the widest part of your head.","Compare the result with this exact model’s current chart.","Check pressure points and movement before removing tags."].map((step,index)=><div key={step} style={{display:"grid",gridTemplateColumns:"26px 1fr",gap:9,alignItems:"start"}}><strong style={{display:"grid",width:26,height:26,placeItems:"center",borderRadius:999,background:"var(--mi-color-primary-soft)",color:"var(--mi-color-primary)",fontSize:10}}>{index+1}</strong><span style={{color:"var(--mi-color-copy)",fontSize:11,lineHeight:1.5}}>{step}</span></div>)}
+          </div>
+          <Link className="button ghost on-light" style={{display:"inline-flex",marginTop:16}} href="/guides/motorcycle-helmet-size-guide">Open sizing guide</Link>
+        </article>
       </div>
     </section>
 
@@ -204,13 +220,18 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
 
     {compareTargets.length > 0 && <section id="compare" className="product-entity-section">
       <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Compare</span><h2>{p.brand} {p.model} comparisons</h2><p>Put the important differences side by side before opening another product page.</p></div><Link className="button ghost on-light helmet-compare-cta" href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Open interactive compare</Link></div>
-      <div className="entity-comparisons helmet-comparison-grid" style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(320px,1fr))",gap:12}}>{compareTargets.map((other) => <article className="helmet-compare-card" style={{minWidth:0,padding:20,border:"1px solid var(--mi-color-line)",borderRadius:18,background:"var(--mi-color-surface)"}} key={other.id}>
-        <h3 style={{margin:"0 0 14px",fontSize:18,lineHeight:1.25}}>{p.brand} {p.model} vs {other.brand} {other.model}</h3>
-        <div className="mini-compare-table" style={{overflow:"hidden",border:"1px solid var(--mi-color-line-soft)",borderRadius:12}}>
-          <div className="head"><span>Feature</span><strong>{p.model}</strong><strong>{other.model}</strong></div>
-          {helmetCompareRows(p, other).map(([label, a, b]) => <div key={label}><span>{label}</span><b>{a}</b><b>{b}</b></div>)}
+      <div className="entity-comparisons helmet-comparison-grid" style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(360px,1fr))",gap:12}}>{compareTargets.map((other) => <article className="helmet-compare-card info-card" style={{minWidth:0,padding:20}} key={other.id}>
+        <div style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between",gap:12,marginBottom:14}}>
+          <div><span className="section-kicker">Head-to-head</span><h3 style={{margin:"6px 0 0",fontSize:19,lineHeight:1.2,letterSpacing:"-.025em"}}>{p.model} vs {other.model}</h3></div>
+          <span style={{flex:"none",padding:"6px 9px",borderRadius:999,background:"var(--mi-color-primary-soft)",color:"var(--mi-color-primary)",fontSize:9,fontWeight:850}}>Compare</span>
         </div>
-        <Link className="text-link" style={{display:"inline-flex",marginTop:12,color:"var(--mi-color-primary)",fontSize:10,fontWeight:800}} href={`/gear/helmets/${other.brandSlug}/${other.slug}`}>View {other.brand} {other.model} →</Link>
+        <div className="compare-wrap" style={{overflowX:"auto",borderRadius:12}}>
+          <table className="compare-table" style={{width:"100%",minWidth:560}}>
+            <thead><tr><th>Feature</th><th>{p.model}</th><th>{other.model}</th></tr></thead>
+            <tbody>{helmetCompareRows(p, other).map(([label, a, b]) => <tr key={label}><td>{label}</td><td>{a}</td><td>{b}</td></tr>)}</tbody>
+          </table>
+        </div>
+        <Link className="text-link" style={{display:"inline-flex",marginTop:14,color:"var(--mi-color-primary)",fontSize:10,fontWeight:800}} href={`/gear/helmets/${other.brandSlug}/${other.slug}`}>View {other.brand} {other.model} →</Link>
       </article>)}</div>
     </section>}
 
