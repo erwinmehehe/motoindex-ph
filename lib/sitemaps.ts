@@ -97,14 +97,18 @@ export function motorcycleSitemapEntries(): Entry[] {
     changeFrequency:m.marketStatus==="previous"||m.marketStatus==="uncertain"?"monthly" as const:"weekly" as const,
     priority:m.marketStatus==="previous"?.82:m.marketStatus==="uncertain"?.78:.92
   }));
-  // Electric models are consolidated into one authoritative buying guide rather than separate thin URLs.
+  // VinFast Evo has source-backed model detail; the other electric models remain consolidated into the buying guide.
   const scooterModels=indexableModels.filter(m=>/scooter/i.test(m.category)&&!["previous","uncertain","discontinued"].includes(m.marketStatus||""));
   const expresswayModels=indexableModels.filter(m=>m.engineCc>=400&&!["previous","uncertain","discontinued"].includes(m.marketStatus||""));
   const categoryPages=[
     ...(scooterModels.length>=5 ? [{url:`${SITE_URL}/motorcycles/scooters`,lastModified:newest(scooterModels.map(modelCheckedAt)),changeFrequency:"weekly" as const,priority:.9}] : []),
     ...(expresswayModels.length>=3 ? [{url:`${SITE_URL}/motorcycles/expressway-legal`,lastModified:newest(expresswayModels.map(modelCheckedAt)),changeFrequency:"weekly" as const,priority:.9}] : [])
   ];
-  const electricPages=[{url:`${SITE_URL}/motorcycles/electric`,lastModified:newest(electricMotorcycles.map(m=>m.checkedAt)),changeFrequency:"weekly" as const,priority:.9}];
+  const vinfastEvo=electricMotorcycles.find(m=>m.slug==="vinfast-evo");
+  const electricPages=[
+    {url:`${SITE_URL}/motorcycles/electric`,lastModified:newest(electricMotorcycles.map(m=>m.checkedAt)),changeFrequency:"weekly" as const,priority:.9},
+    ...(vinfastEvo?[{url:`${SITE_URL}/motorcycles/electric/${vinfastEvo.slug}`,lastModified:vinfastEvo.checkedAt,changeFrequency:"weekly" as const,priority:.88}]:[])
+  ];
   return [...brands,...families,...categoryPages,...models,...electricPages];
 }
 
