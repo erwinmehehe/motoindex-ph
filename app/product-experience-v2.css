@@ -66,11 +66,6 @@ html body .recommendations-v2 .rec-section-head h2{max-width:720px!important;fon
   html body .motorcycle-hero-copy h1{max-width:760px!important}
   html body .motorcycle-hero-visual{max-width:760px!important;width:100%!important}
   html body .authority-verdict{grid-template-columns:1fr!important}
-  html body .motorcycle-entity-page .calculator{grid-template-columns:1fr!important}
-  html body .motorcycle-entity-page .calculator>div:first-child,
-  html body .motorcycle-entity-page .variant-price-picker,
-  html body .motorcycle-entity-page .calc-grid,
-  html body .motorcycle-entity-page .calc-result{grid-column:1!important;grid-row:auto!important}
 }
 
 @media(max-width:700px){
@@ -86,10 +81,6 @@ html body .recommendations-v2 .rec-section-head h2{max-width:720px!important;fon
   html body .authority-grid{grid-template-columns:1fr!important}
   html body .authority-verdict>div,
   html body .authority-verdict>aside{padding:19px!important;border-radius:16px!important}
-  html body .motorcycle-entity-page .calculator{padding:20px!important;border-radius:18px!important}
-  html body .motorcycle-entity-page .calc-grid{grid-template-columns:1fr!important}
-  html body .motorcycle-entity-page .calc-result{display:grid!important;grid-template-columns:1fr auto!important}
-  html body .motorcycle-entity-page .calc-result small{grid-column:1/-1!important}
   html body .recently-viewed{width:min(100% - 32px,1180px)!important;padding:34px 0 42px!important}
   html body .recently-viewed-rail{grid-auto-columns:min(78vw,230px)!important}
   html body .recommendations-v2 .rec-two-column{grid-template-columns:1fr!important}
