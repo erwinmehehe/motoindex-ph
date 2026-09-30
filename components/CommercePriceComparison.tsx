@@ -34,10 +34,11 @@ async function safeDatabaseOffers(entityType: OfferEntityType, entityId: string)
   }
 }
 
-export async function CommercePriceComparison({ entityType, entityId, productName }: {
+export async function CommercePriceComparison({ entityType, entityId, productName, compact = false }: {
   entityType: OfferEntityType;
   entityId: string;
   productName: string;
+  compact?: boolean;
 }) {
   const now = new Date();
   const sourceOffers = getSourceBackedCommerceOffers(entityType, entityId, now);
@@ -49,33 +50,35 @@ export async function CommercePriceComparison({ entityType, entityId, productNam
   if (!offers.length) {
     return <div className="commerce-price-comparison commerce-price-comparison-empty" aria-label={`Retailer availability for ${productName}`}>
       <div className="commerce-empty">
-        <strong>Retailer pricing not currently verified.</strong>
-        <span>MotoIndex will show exact-product seller rows here after a recent listing or retailer offer has been checked. We do not substitute unrelated products just to fill the comparison.</span>
+        <strong>{compact ? "No checked seller offer right now." : "Retailer pricing not currently verified."}</strong>
+        <span>{compact ? "Confirm the exact model, size and checkout total before buying." : "MotoIndex will show exact-product seller rows here after a recent listing or retailer offer has been checked. We do not substitute unrelated products just to fill the comparison."}</span>
       </div>
       <AffiliateOffer productId={entityId} productName={productName} />
     </div>;
   }
 
+  const visibleOffers = compact ? offers.slice(0, 2) : offers;
+
   return <div className="commerce-price-comparison" aria-label={`Price comparison for ${productName}`}>
     <div className="commerce-price-head">
-      <div><span>Verified commerce</span><h3>Compare prices</h3><p>Fresh checks appear first, then lower observed prices. MotoIndex does not create extra merchants to make this table look fuller.</p></div>
-      <Link href="/affiliate-disclosure">How commercial links work →</Link>
+      <div><span>{compact ? "Checked sellers" : "Verified commerce"}</span><h3>{compact ? "Current offers" : "Compare prices"}</h3>{!compact && <p>Fresh checks appear first, then lower observed prices. MotoIndex does not create extra merchants to make this table look fuller.</p>}</div>
+      {!compact && <Link href="/affiliate-disclosure">How commercial links work →</Link>}
     </div>
 
     <div className="commerce-offer-list">
-      {offers.map((offer) => {
+      {visibleOffers.map((offer) => {
         const freshness = commerceOfferFreshness(offer, now);
         const affiliate = Boolean(offer.affiliateUrl && isHttpsUrl(offer.affiliateUrl));
         return <article className="commerce-offer-row" key={offer.id}>
-          <div className="commerce-merchant"><strong>{offer.sellerName}</strong><small>{offer.sellerType} · {offer.availability}</small></div>
-          <div className="commerce-price"><strong>{offer.pricePhp ? php(offer.pricePhp) : "Check merchant"}</strong><small>Observed starting price</small></div>
+          <div className="commerce-merchant"><strong>{offer.sellerName}</strong><small>{compact ? offer.availability : `${offer.sellerType} · ${offer.availability}`}</small></div>
+          <div className="commerce-price"><strong>{offer.pricePhp ? php(offer.pricePhp) : "Check merchant"}</strong><small>{compact ? "Observed price" : "Observed starting price"}</small></div>
           <div className={`commerce-freshness ${freshness.tone}`}><strong>{freshness.label}</strong><small>{offer.observedAt}</small></div>
           <OfferOutboundLink offerId={offer.id} entityType={offer.entityType} entityId={offer.entityId} sellerName={offer.sellerName} affiliate={affiliate} />
         </article>;
       })}
     </div>
 
-    <div className="commerce-disclosure"><b>Price and stock can change after our check.</b> Compare the exact size/SKU, certification, bundle, shipping and checkout total. Affiliate relationships never change MotoIndex rankings or factual conclusions.</div>
+    <div className="commerce-disclosure">{compact ? <><b>Before checkout:</b> confirm the exact size, graphic, stock and total.</> : <><b>Price and stock can change after our check.</b> Compare the exact size/SKU, certification, bundle, shipping and checkout total. Affiliate relationships never change MotoIndex rankings or factual conclusions.</>}</div>
     <AffiliateOffer productId={entityId} productName={productName} />
   </div>;
 }
