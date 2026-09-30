@@ -293,6 +293,8 @@ try {
     const topbox = await evaluate(cdp.send, `(() => {
       const root=document.documentElement;
       const page=document.querySelector('.topbox-master-page');
+      const products=document.querySelector('#products .ui-product-grid');
+      const productCards=[...document.querySelectorAll('#products .ui-product-card-shell')];
       const records=document.querySelector('.checked-record-list');
       const firstRecord=records?.querySelector('a');
       const research=document.querySelector('.research-brand-grid');
@@ -300,6 +302,10 @@ try {
       return {
         overflow:root.scrollWidth-root.clientWidth,
         scoped:Boolean(page&&page.classList.contains('accessories-master-page')),
+        productsDisplay:products?getComputedStyle(products).display:'missing',
+        productCount:productCards.length,
+        firstProductWidth:productCards[0]?.getBoundingClientRect().width||0,
+        recordsPresent:Boolean(records),
         recordsDisplay:records?getComputedStyle(records).display:'missing',
         firstRecordHeight:firstRecord?.getBoundingClientRect().height||0,
         researchDisplay:research?getComputedStyle(research).display:'missing',
@@ -310,8 +316,11 @@ try {
     results.push({ width, page: "top-box", ...topbox });
     if ((topbox?.overflow || 0) > 5) failures.push(`${width}px top-box page overflows by ${topbox.overflow}px`);
     if (!topbox?.scoped) failures.push(`${width}px top-box page is missing accessories layout scope`);
-    if (!["grid","flex","block"].includes(topbox?.recordsDisplay)) failures.push(`${width}px checked top-box records collapsed (${topbox?.recordsDisplay})`);
-    if ((topbox?.firstRecordHeight || 0) < 50) failures.push(`${width}px checked top-box record is visually collapsed (${topbox?.firstRecordHeight}px)`);
+    if (topbox?.productsDisplay !== "grid") failures.push(`${width}px checked top-box product grid collapsed (${topbox?.productsDisplay})`);
+    if ((topbox?.productCount || 0) < 3) failures.push(`${width}px checked top-box product grid is incomplete (${topbox?.productCount || 0} cards)`);
+    if ((topbox?.firstProductWidth || 0) < (width <= 430 ? 300 : 180)) failures.push(`${width}px checked top-box product card collapsed (${topbox?.firstProductWidth || 0}px)`);
+    if (topbox?.recordsPresent && !["grid","flex","block"].includes(topbox?.recordsDisplay)) failures.push(`${width}px awaiting-photo top-box records collapsed (${topbox?.recordsDisplay})`);
+    if (topbox?.recordsPresent && (topbox?.firstRecordHeight || 0) < 50) failures.push(`${width}px awaiting-photo top-box record is visually collapsed (${topbox?.firstRecordHeight}px)`);
     if (topbox?.researchDisplay !== "grid") failures.push(`${width}px top-box research brands are not a grid (${topbox?.researchDisplay})`);
     if ((topbox?.firstBrandWidth || 0) < (width <= 430 ? 300 : 180) || (topbox?.firstBrandHeight || 0) < 100) failures.push(`${width}px top-box research card collapsed (${topbox?.firstBrandWidth}x${topbox?.firstBrandHeight})`);
     await screenshot("top-box", width);
