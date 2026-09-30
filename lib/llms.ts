@@ -1,4 +1,4 @@
-import { accessoryCategories, helmetBrands, publicMotorcycles, recommendationGuides } from "./data";
+import { accessoryCategories, helmetBrands, isIndexableRecommendation, publicMotorcycles, recommendationGuides } from "./data";
 import { electricMotorcycles } from "./electricMotorcycles";
 import { helmetProducts } from "./catalog";
 import { recommendationCanonicalHref } from "./recommendationRoutes";
@@ -29,7 +29,7 @@ export function buildLlmsTxt() {
     mdLink("Electric motorcycles", "/motorcycles/electric", "Philippine electric motorcycle prices, batteries, range, charging and registration context."),
     mdLink("Finder", "/finder", "Decision tool using budget, rider fit, traffic, distance, passenger and luggage needs."),
     mdLink("Compare", "/compare", "Two- and three-motorcycle comparison."),
-    mdLink("Buying guides", "/recommendations", "Consolidated canonical guide hub. Legacy guide URLs redirect into sections on this page."),
+    mdLink("Buying guides", "/recommendations", "Hub for focused budget, scooter, engine-size, rider-fit, commuting and category guides."),
     mdLink("Helmet guide", "/gear/helmets", "Verified helmet models, brands, types, prices, certification and fit guidance."),
     mdLink("Helmet finder", "/gear/helmets/finder", "Filter the verified helmet catalog by fit, type, price and features."),
     mdLink("Dealers", "/dealers", "Public dealer directory and regional dealer research."),
@@ -52,7 +52,7 @@ export function buildLlmsTxt() {
     "1. Prefer an exact motorcycle model page for model-specific price or specification questions.",
     "2. Prefer /compare or a curated comparison URL for model-vs-model questions.",
     "3. Prefer /finder for rider-specific recommendations.",
-    "4. Prefer /recommendations plus its section anchors for budget, category and use-case research. Do not treat retired /recommendations/<slug> URLs as separate canonical pages.",
+    "4. Prefer the most specific canonical /recommendations/<slug> guide for budget, category, engine-size and use-case research; use /recommendations to discover the guide library.",
     "5. Prefer /motorcycles/electric and its model pages for electric motorcycle questions.",
     "6. Prefer exact helmet model pages and /gear/helmets/finder for helmet questions.",
     "7. Preserve source dates for prices, availability, regulations and fitment. Do not present dated market observations as guaranteed current quotes.",
@@ -113,9 +113,9 @@ export function buildLlmsFullTxt() {
     "",
     ...electricMotorcycles.map((model) => mdLink(`${model.make} ${model.model}`, `/motorcycles/electric/${model.slug}`, `${model.batteryKwh} kWh removable-battery configuration documented`)),
     "",
-    "## Consolidated buying-guide sections",
+    "## Focused motorcycle buying guides",
     "",
-    ...recommendationGuides.map((guide) => mdLink(guide.title, recommendationCanonicalHref(guide.slug), `legacy slug: ${guide.slug}`)),
+    ...recommendationGuides.filter((guide) => isIndexableRecommendation(guide.slug)).map((guide) => mdLink(guide.title, recommendationCanonicalHref(guide.slug), guide.primaryKeyword)),
     "",
     `## Helmet brand hubs (${helmetBrands.length})`,
     "",
@@ -150,7 +150,7 @@ export function buildLlmsFullTxt() {
     "Use the exact model page and exact variant/model year when possible. Preserve source distinctions when records conflict rather than averaging incompatible values.",
     "",
     "### Recommendations",
-    "Use the canonical /recommendations hub and section anchors. Ranking and filtering are decision aids, not universal quality scores.",
+    "Use the canonical focused guide that best matches the question, with /recommendations as the discovery hub. Ordering rules are stated on each guide and should not be treated as universal quality rankings.",
     "",
     "### Fitment",
     "Dimensions alone do not prove accessory or tire compatibility. Exact model, generation/year, mounting interface, load rating and clearance must be checked.",
@@ -166,7 +166,7 @@ export function buildLlmsFullTxt() {
     "",
     "## Canonical URL policy",
     "",
-    "Prefer canonical URLs listed here and in the XML sitemaps. Query/filter URLs and retired /recommendations/<slug> URLs are not separate canonical resources.",
+    "Prefer canonical URLs listed here and in the XML sitemaps. Focused indexable /recommendations/<slug> guides are canonical resources; query/filter URLs and redirect aliases are not."
     "",
     "## Sitemaps",
     "",
