@@ -101,7 +101,7 @@
 .product-entity-page .match-grid>a,.product-entity-page .fitment-evidence-grid>article{padding:17px 2px;border:0;border-bottom:1px solid var(--mi-color-product-line);border-radius:0;background:transparent;box-shadow:none}
 .product-entity-page .product-editorial{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:0;border-top:1px solid var(--mi-color-product-line);border-bottom:1px solid var(--mi-color-product-line)}
 .product-entity-page .product-editorial>article{min-height:0;padding:22px;border:0;border-right:1px solid var(--mi-color-product-line);border-radius:0;background:transparent;box-shadow:none}.product-entity-page .product-editorial>article:last-child{border-right:0}
-.product-entity-page .product-editorial h2{font-size:24px;letter-spacing:-.04em}.product-entity-page .product-editorial p,.product-entity-page .product-editorial li{color:var(--mi-color-product-copy);font-size:12px;line-height:1.55}
+.product-entity-page .product-editorial h2{font-size:24px;letter-spacing:-.04em}.product-entity-page .product-editorial p,.product-entity-page .product-editorial li{color:var(--mi-color-product-copy);font-size:13px;line-height:1.55}
 .product-entity-page .mini-compare-table{overflow:hidden;border:1px solid var(--mi-color-product-line);border-radius:12px;box-shadow:none}
 .product-entity-page .note-box{border:0;border-top:1px solid var(--mi-color-product-line);border-bottom:1px solid var(--mi-color-product-line);border-radius:0;background:var(--mi-color-surface-subtle);box-shadow:none}
 
