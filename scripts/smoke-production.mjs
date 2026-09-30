@@ -59,13 +59,21 @@ for (const [path, markers] of [
   if (!response) continue;
   const body = await response.text();
   for (const marker of markers) if (!body.includes(marker)) failures.push(`${path} missing required marker ${marker}`);
-  if (body.includes("https://motoindexph.com/recommendations/motorcycles-under-100k")) failures.push(`${path} still exposes retired per-guide recommendation URLs as canonical resources`);
+  if (path === "/llms-full.txt" && !body.includes("https://motoindexph.com/recommendations/motorcycles-under-100k")) failures.push(`${path} missing canonical focused recommendation guides`);
 }
 
+for (const path of [
+  "/recommendations/motorcycles-under-100k",
+  "/recommendations/best-scooters-philippines",
+  "/recommendations/best-motorcycles-for-daily-commute-philippines",
+  "/recommendations/125cc-scooters-philippines",
+  "/recommendations/150cc-scooters-philippines",
+  "/recommendations/160cc-scooters-philippines"
+]) await get(path);
+
 for (const [path, target] of [
-  ["/recommendations/motorcycles-under-100k", "/recommendations#budget"],
-  ["/recommendations/best-scooters-philippines", "/recommendations#scooters"],
-  ["/recommendations/best-motorcycles-for-daily-commute-philippines", "/recommendations#commuting"],
+  ["/recommendation", "/recommendations"],
+  ["/recommendation/motorcycles-under-100k", "/recommendations/motorcycles-under-100k"],
   ["/recommendations/electric-motorcycles-philippines", "/motorcycles/electric#models"],
   ["/get-quote/honda/click-160", "/dealers?brand=Honda"],
   ["/maintenance/motorcycle-battery", "/maintenance#motorcycle-battery"],
@@ -116,11 +124,11 @@ for (const path of ["/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear
       }
     }
   }
+  if (path === "/sitemap.xml" && !urls.some((raw) => /\/recommendations\/motorcycles-under-100k\/?$/.test(raw))) failures.push("/sitemap.xml missing canonical focused recommendation guides");
   for (const raw of urls) {
     try {
       const url = new URL(raw);
       if (isForbiddenIndexedPath(url.pathname)) failures.push(`${path} leaks noindex/prototype route ${url.pathname}`);
-      if (/^\/recommendations\/[^/]+\/?$/.test(url.pathname)) failures.push(`${path} leaks retired recommendation URL ${url.pathname}`);
       if (/^\/motorcycles\/electric\/[^/]+\/?$/.test(url.pathname)) failures.push(`${path} leaks consolidated electric model URL ${url.pathname}`);
     } catch {
       failures.push(`${path} contains invalid URL ${raw}`);
