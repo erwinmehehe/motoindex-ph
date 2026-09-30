@@ -3,18 +3,3 @@
 @media(max-width:600px){.product-detail-hero{padding:14px 0 24px;gap:18px}.product-detail-media>.entity-media{height:260px;border-radius:18px}.product-detail-media>.entity-media img{padding:14px!important}.product-fact{padding:12px}.product-detail-description p{font-size:14px}.product-entity-page .product-entity-section{padding:26px 0}.product-entity-page .entity-spec-table>div{grid-template-columns:1fr!important;gap:4px!important}.product-entity-page .product-editorial{grid-template-columns:1fr!important}.product-entity-page .mini-compare-table>div{grid-template-columns:80px repeat(2,minmax(0,1fr))!important}}
 
 .helmet-product-page :is(.entity-price-grid,.helmet-fit-layout){display:grid;grid-template-columns:repeat(2,1fr)}.helmet-product-page .commerce-offer-row{display:grid;grid-template-columns:1.4fr .8fr .8fr auto}@media(max-width:600px){.helmet-product-page :is(.entity-price-grid,.helmet-fit-layout,.commerce-offer-row){grid-template-columns:1fr}}
-
-
-/* Catalog-reference helmets reuse the verified helmet system without implying verified price/spec data. */
-.helmet-catalog-page .product-detail-price{color:var(--mi-color-ink);font-size:clamp(25px,2.5vw,34px)}
-.helmet-catalog-page .catalog-helmet-placeholder{position:absolute;inset:22px 22px 72px;display:grid;place-items:center}
-.helmet-catalog-page .catalog-helmet-placeholder img{width:100%;height:100%;padding:28px;object-fit:contain;opacity:.72}
-.helmet-catalog-page .catalog-helmet-media-copy{position:absolute;left:16px;right:16px;bottom:16px;display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-sm);background:var(--mi-color-surface)}
-.helmet-catalog-page .catalog-helmet-media-copy span{padding:5px 8px;border-radius:var(--mi-radius-pill);background:var(--mi-color-primary-soft);color:var(--mi-color-primary);font-size:8px;font-weight:900;text-transform:uppercase}
-.helmet-catalog-page .catalog-helmet-media-copy strong{font-size:13px}
-.helmet-catalog-page .catalog-helmet-media-copy small{margin-left:auto;color:var(--mi-color-copy);font-size:10px}
-.helmet-catalog-page .catalog-hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.helmet-catalog-page .catalog-secondary-cta{color:var(--mi-color-primary);font-size:11px;font-weight:850}
-.helmet-catalog-page .catalog-check-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-.helmet-catalog-page .catalog-check-grid .ui-content-card,.helmet-catalog-page .catalog-source-card{border:1px solid var(--mi-color-line);background:var(--mi-color-surface)}
-@media(max-width:620px){.helmet-catalog-page .catalog-check-grid{grid-template-columns:1fr}.helmet-catalog-page .catalog-helmet-media-copy{left:12px;right:12px;bottom:12px}.helmet-catalog-page .catalog-helmet-placeholder{inset:14px 14px 66px}}
