@@ -1,5 +1,0 @@
-/* Top-box detail pages reuse the shared product entity system. */
-.topbox-product-page .product-detail-hero{grid-template-columns:minmax(300px,.8fr) minmax(0,1.2fr)}
-.topbox-product-page .product-detail-media>.entity-media{height:300px}
-@media(max-width:900px){.topbox-product-page .product-detail-hero{grid-template-columns:1fr}.topbox-product-page .product-detail-media>.entity-media{height:300px}}
-@media(max-width:600px){.topbox-product-page .product-detail-media>.entity-media{height:240px}}
