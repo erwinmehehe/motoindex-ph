@@ -24,6 +24,7 @@ for (const base of scanRoots) {
     // directly. Electric aliases remain separately consolidated.
     if (rel === "app/recommendations/[slug]/page.tsx") continue;
     if (rel === "app/recommendations/RecommendationGuideArchive.tsx") continue;
+    if (rel === "app/recommendations/RecommendationsHub.tsx") continue;
     if (rel === "app/motorcycles/page.tsx") continue;
     if (rel === "app/motorcycles/scooters/page.tsx") continue;
     // Brand pages are canonical entity hubs. They may link directly to
@@ -33,6 +34,9 @@ for (const base of scanRoots) {
     // GrowthModelBrief renders inside canonical motorcycle entity pages and may link
     // directly to one tightly matched canonical recommendation guide.
     if (rel === "components/GrowthModelBrief.tsx") continue;
+    // Canonical motorcycle entity pages may link to one exact category/displacement
+    // research guide when the link is derived from the model's own structured data.
+    if (rel === "components/MotorcycleEntityPage.tsx") continue;
     if (rel.startsWith("app/recommendations/electric-")) continue;
 
     const src = fs.readFileSync(file, "utf8");

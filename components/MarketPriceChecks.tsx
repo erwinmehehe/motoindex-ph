@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
 import { priceChecksForModel } from "@/lib/marketChecks";
 import { phpRange } from "@/lib/utils";
+
+const readablePriceRange = (from: number, to?: number) => phpRange(from, to).replace("–", " – ");
 import { SourceCard, SourceOpen, sourceDisplayName } from "@/components/SourceRef";
 
 function sourceTypeLabel(sourceType: "manufacturer" | "comparison-site" | "dealer") {
@@ -48,7 +50,7 @@ export function MarketPriceChecks({ model }: { model: Motorcycle }) {
           <span className="market-price-source-type">Price source</span>
           <time>{dateLabel(baselineCheckedAt)}</time>
         </div>
-        <div className="market-price-source-value">{phpRange(model.srp, model.marketPriceHighPhp)}</div>
+        <div className="market-price-source-value">{readablePriceRange(model.srp, model.marketPriceHighPhp)}</div>
         <p className="market-price-source-note">Published price for this motorcycle at the time we checked it.</p>
         <div className="market-price-source-footer">
           <span>{baselineLabel}</span>
@@ -65,7 +67,7 @@ export function MarketPriceChecks({ model }: { model: Motorcycle }) {
           <span className="market-price-source-type">{sourceTypeLabel(row.sourceType)}</span>
           <time>{dateLabel(row.checkedAt)}</time>
         </div>
-        <div className="market-price-source-value">{phpRange(row.priceFromPhp, row.priceToPhp)}</div>
+        <div className="market-price-source-value">{readablePriceRange(row.priceFromPhp, row.priceToPhp)}</div>
         <p className="market-price-source-note">{row.note || "Published Philippine price for this motorcycle."}</p>
         <div className="market-price-source-footer">
           <span>{sourceDisplayName(row.sourceName, row.sourceUrl, row.sourceType)}</span>

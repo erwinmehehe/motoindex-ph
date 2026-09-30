@@ -293,6 +293,8 @@ try {
     const topbox = await evaluate(cdp.send, `(() => {
       const root=document.documentElement;
       const page=document.querySelector('.topbox-master-page');
+      const products=document.querySelector('#products .ui-product-grid');
+      const productCards=[...document.querySelectorAll('#products .ui-product-card-shell')];
       const records=document.querySelector('.checked-record-list');
       const firstRecord=records?.querySelector('a');
       const research=document.querySelector('.research-brand-grid');
@@ -300,6 +302,10 @@ try {
       return {
         overflow:root.scrollWidth-root.clientWidth,
         scoped:Boolean(page&&page.classList.contains('accessories-master-page')),
+        productsDisplay:products?getComputedStyle(products).display:'missing',
+        productCount:productCards.length,
+        firstProductWidth:productCards[0]?.getBoundingClientRect().width||0,
+        recordsPresent:Boolean(records),
         recordsDisplay:records?getComputedStyle(records).display:'missing',
         firstRecordHeight:firstRecord?.getBoundingClientRect().height||0,
         researchDisplay:research?getComputedStyle(research).display:'missing',
@@ -310,11 +316,57 @@ try {
     results.push({ width, page: "top-box", ...topbox });
     if ((topbox?.overflow || 0) > 5) failures.push(`${width}px top-box page overflows by ${topbox.overflow}px`);
     if (!topbox?.scoped) failures.push(`${width}px top-box page is missing accessories layout scope`);
-    if (!["grid","flex","block"].includes(topbox?.recordsDisplay)) failures.push(`${width}px checked top-box records collapsed (${topbox?.recordsDisplay})`);
-    if ((topbox?.firstRecordHeight || 0) < 50) failures.push(`${width}px checked top-box record is visually collapsed (${topbox?.firstRecordHeight}px)`);
+    if (topbox?.productsDisplay !== "grid") failures.push(`${width}px checked top-box product grid collapsed (${topbox?.productsDisplay})`);
+    if ((topbox?.productCount || 0) < 3) failures.push(`${width}px checked top-box product grid is incomplete (${topbox?.productCount || 0} cards)`);
+    if ((topbox?.firstProductWidth || 0) < (width <= 430 ? 300 : 180)) failures.push(`${width}px checked top-box product card collapsed (${topbox?.firstProductWidth || 0}px)`);
+    if (topbox?.recordsPresent && !["grid","flex","block"].includes(topbox?.recordsDisplay)) failures.push(`${width}px awaiting-photo top-box records collapsed (${topbox?.recordsDisplay})`);
+    if (topbox?.recordsPresent && (topbox?.firstRecordHeight || 0) < 50) failures.push(`${width}px awaiting-photo top-box record is visually collapsed (${topbox?.firstRecordHeight}px)`);
     if (topbox?.researchDisplay !== "grid") failures.push(`${width}px top-box research brands are not a grid (${topbox?.researchDisplay})`);
     if ((topbox?.firstBrandWidth || 0) < (width <= 430 ? 300 : 180) || (topbox?.firstBrandHeight || 0) < 100) failures.push(`${width}px top-box research card collapsed (${topbox?.firstBrandWidth}x${topbox?.firstBrandHeight})`);
     await screenshot("top-box", width);
+
+    await navigate("/motorcycles/yamaha/aerox");
+    const family = await evaluate(cdp.send, `(() => {
+      const root=document.documentElement;
+      const hero=document.querySelector('.model-family-hero-grid');
+      const heading=document.querySelector('.model-family-hero-copy h1');
+      const current=document.querySelector('.model-family-current-card');
+      const currentMedia=document.querySelector('.model-family-current-media');
+      const generationGrid=document.querySelector('.model-family-generation-grid');
+      const generationMedia=[...document.querySelectorAll('.model-family-generation-media')].map(el=>el.getBoundingClientRect().height);
+      const changeGrid=document.querySelector('.model-family-change-grid');
+      const structured=[...document.querySelectorAll('script[type="application/ld+json"]')].flatMap(script=>{try{const parsed=JSON.parse(script.textContent||'null');return Array.isArray(parsed)?parsed:[parsed];}catch{return [];}}).filter(Boolean);
+      const faq=structured.find(node=>node?.['@type']==='FAQPage');
+      const author=structured.find(node=>node?.['@type']==='Person');
+      return {
+        overflow:root.scrollWidth-root.clientWidth,
+        heroDisplay:hero?getComputedStyle(hero).display:'missing',
+        heroColumns:hero?getComputedStyle(hero).gridTemplateColumns:'',
+        headingSize:heading?parseFloat(getComputedStyle(heading).fontSize):0,
+        currentWidth:current?.getBoundingClientRect().width||0,
+        currentMediaHeight:currentMedia?.getBoundingClientRect().height||0,
+        generationDisplay:generationGrid?getComputedStyle(generationGrid).display:'missing',
+        generationColumns:generationGrid?getComputedStyle(generationGrid).gridTemplateColumns:'',
+        generationMedia,
+        changeDisplay:changeGrid?getComputedStyle(changeGrid).display:'missing',
+        changeColumns:changeGrid?getComputedStyle(changeGrid).gridTemplateColumns:'',
+        faqCount:Array.isArray(faq?.mainEntity)?faq.mainEntity.length:0,
+        authorName:author?.name||''
+      };
+    })()`);
+    results.push({ width, page: "aerox-family", ...family });
+    if ((family?.overflow || 0) > 5) failures.push(`${width}px Aerox family page overflows by ${family.overflow}px`);
+    if (family?.heroDisplay !== "grid") failures.push(`${width}px Aerox family hero is not a grid (${family?.heroDisplay})`);
+    if ((family?.headingSize || 0) < (width <= 430 ? 34 : 40)) failures.push(`${width}px Aerox family H1 lost hierarchy (${family?.headingSize || 0}px)`);
+    if ((family?.currentMediaHeight || 0) > (width <= 430 ? 175 : 220)) failures.push(`${width}px Aerox family current image stage is too tall (${family?.currentMediaHeight || 0}px)`);
+    if (family?.generationDisplay !== "grid") failures.push(`${width}px Aerox generation cards are not a grid`);
+    if ((family?.generationMedia || []).some(value=>value>(width<=430?160:190))) failures.push(`${width}px Aerox generation image stage is oversized (${(family?.generationMedia||[]).join(", ")}px)`);
+    if (family?.changeDisplay !== "grid") failures.push(`${width}px Aerox generation-change summary is not a grid`);
+    const changeColumns=(family?.changeColumns||"").split(/\s+/).filter(Boolean).length;
+    if (changeColumns !== (width<=430?2:4)) failures.push(`${width}px Aerox change summary has ${changeColumns} columns; expected ${width<=430?2:4}`);
+    if ((family?.faqCount || 0) < 4) failures.push(`${width}px Aerox family FAQ schema is incomplete`);
+    if (family?.authorName !== "Erwin Valles") failures.push(`${width}px Aerox family author schema is missing`);
+    await screenshot("aerox-family", width);
   }
 } finally {
   if (proc.exitCode === null) {

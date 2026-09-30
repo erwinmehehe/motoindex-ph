@@ -236,8 +236,8 @@ a.market-price-source-card:hover{
   min-height:26px;
   padding:5px 9px;
   border-radius:999px;
-  background:#fff1eb;
-  color:var(--accent);
+  background:var(--mi-color-forest-soft);
+  color:var(--mi-color-forest);
   font-size:9px;
   line-height:1;
   font-weight:900;
@@ -282,7 +282,7 @@ a.market-price-source-card:hover{
 }
 .market-price-source-footer em{
   flex:0 0 auto;
-  color:var(--accent);
+  color:var(--mi-color-forest);
   font-style:normal;
   font-weight:850;
 }

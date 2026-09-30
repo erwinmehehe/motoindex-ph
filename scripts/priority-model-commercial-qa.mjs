@@ -150,6 +150,11 @@ try {
         const rect=commercial?.getBoundingClientRect();
         const financing=document.querySelector('[data-financing-snapshot]');
         const financingVariants=financing?[...financing.querySelectorAll('[data-financing-variant]')].map(el=>el.getAttribute('data-financing-variant')||''):[];
+        const planner=document.querySelector('#installment .finance-planner');
+        const plannerLayout=planner?.querySelector('.finance-planner-layout');
+        const monthlyResult=planner?.querySelector('.finance-result>strong');
+        const presets=planner?[...planner.querySelectorAll('.finance-preset-groups .calc-presets button')]:[];
+        const scenarios=document.querySelectorAll('#installment .finance-scenario-row .ui-stat-row__item');
         return {
           title:document.title,
           h1:Boolean(h1),
@@ -167,6 +172,12 @@ try {
           quoteLink:links.some(href=>href.includes('/get-quote/')),
           financingMode:financing?.getAttribute('data-financing-snapshot')||'',
           financingVariants,
+          planner:Boolean(planner),
+          plannerColumns:plannerLayout?getComputedStyle(plannerLayout).gridTemplateColumns:'',
+          monthlyResult:monthlyResult?.textContent?.trim()||'',
+          presetCount:presets.length,
+          scenarioCount:scenarios.length,
+          installmentOverflow:planner?Math.max(0,planner.scrollWidth-planner.clientWidth):0,
           overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
         };
       })()`);
@@ -200,6 +211,11 @@ try {
       if (name === "honda-click-125i" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name !== "honda-crf150l" && !historicalResearchModels.has(name)) {
         if (!audit?.priceLink || !audit?.installmentLink) failures.push(`${width}px ${pathname}: price/monthly anchor links are incomplete.`);
+        if (!audit?.planner) failures.push(`${width}px ${pathname}: installment planner is missing.`);
+        if (!audit?.monthlyResult || !audit.monthlyResult.includes("₱")) failures.push(`${width}px ${pathname}: installment planner monthly result is missing.`);
+        if ((audit?.presetCount || 0) < 6) failures.push(`${width}px ${pathname}: installment planner quick presets are incomplete.`);
+        if ((audit?.scenarioCount || 0) < 2) failures.push(`${width}px ${pathname}: financing comparison strip is incomplete.`);
+        if ((audit?.installmentOverflow || 0) > 5) failures.push(`${width}px ${pathname}: installment planner overflows by ${audit.installmentOverflow}px.`);
         const expectedVariants=variantFinanceModels.get(name);
         if (expectedVariants) {
           if (audit?.financingMode !== "variants") failures.push(`${width}px ${pathname}: financing snapshot is not variant-aware.`);

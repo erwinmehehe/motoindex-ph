@@ -34,6 +34,10 @@ const maintenanceHub = read("app", "maintenance", "page.tsx");
 const nextConfig = read("next.config.mjs");
 const catalogData = read("lib", "catalog.ts");
 const topBoxFitmentData = read("lib", "topBoxFitment.ts");
+const modelFamilies = read("lib", "families.ts");
+const modelFamilyView = read("components", "ModelFamilyView.tsx");
+const gscOpportunity = read("scripts", "gsc-opportunity-report.mjs");
+const gscWorkflow = read("docs", "seo", "gsc-opportunity-workflow-2026-09-30.md");
 
 requireText(home, "Compare <span>motorcycle prices</span><br />and specs in the Philippines.", "Homepage must keep a query-led motorcycle prices/specs H1.");
 forbidText(home, "Your next <span>motorcycle</span><br />starts here.", "Homepage must not regress to the old brand-led H1.");
@@ -42,9 +46,9 @@ requireText(motorcycles, "<h1>Motorcycle prices", "Motorcycle hub must keep a qu
 requireText(motorcycles, "href=\"/recommendations/motorcycles-under-100k\"", "Motorcycle hub should route under-100K intent to the canonical budget guide.");
 requireText(motorcycles, 'const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;', "Motorcycle catalog must retain the canonical set of faceted filter params.");
 requireText(motorcycles, "index: currentModels.length > 0 && !hasActiveFilters", "Filtered motorcycle catalog states must remain noindex while the clean catalog stays indexable.");
-forbidText(faq, "FAQPage", "Visible FAQs should not emit deprecated FAQPage rich-result markup.");
-forbidText(faq, "JsonLd", "FaqSection should remain visible HTML without JSON-LD.");
-requireText(jsonLd, 'value["@type"] === "FAQPage"', "JsonLd must suppress any legacy/manual FAQPage objects.");
+forbidText(faq, "FAQPage", "FaqSection should remain visible HTML and leave structured data to the parent page.");
+forbidText(faq, "JsonLd", "FaqSection should remain visible HTML without duplicate JSON-LD.");
+requireText(jsonLd, "data.map(normalizeStructuredData)", "JsonLd should preserve supplied structured-data nodes while normalizing Product markup.");
 requireText(jsonLd, 'offer["@type"] !== "AggregateOffer"', "Motorcycle Product JSON-LD must suppress ambiguous variant-range AggregateOffer markup.");
 requireText(jsonLd, 'value.category.startsWith("Motorcycle")', "AggregateOffer cleanup must stay scoped to motorcycle Product markup.");
 requireText(media, 'entityType === "motorcycle" && priority', "Priority motorcycle media should expose image provenance by default.");
@@ -52,6 +56,56 @@ requireText(mediaValidator, "rightsStatus", "Media validation must enforce expli
 requireText(mediaValidator, "rightsHolder", "Media validation must enforce a rights holder.");
 requireText(mediaValidator, "sourceLabel and sourceUrl provenance", "External/licensed media must keep visible source provenance metadata.");
 requireText(modelRoute, 'getRenderableMedia("motorcycle", model.id)[0]?.src', "Model metadata should use model-specific social imagery when available.");
+for (const token of [
+  'seoTitle: "Yamaha Aerox Price Philippines 2026 | V2 vs V3 Price & Specs"',
+  'seoTitle: "Yamaha NMAX Price Philippines 2026 | V2 vs V3 Price & Specs"',
+  'seoTitle: "Honda Click Price Philippines 2026 | 125i vs 150i vs 160"',
+  'seoTitle: "Honda ADV Price Philippines 2026 | ADV150 vs ADV160 Specs"',
+  'comparisonHeading: "Yamaha Aerox V2 vs V3: what changed?"',
+  'comparisonHeading: "Honda Click 125i vs 150i vs 160: what changed?"'
+]) {
+  requireText(modelFamilies, token, `Model-family SEO profile missing required search-intent token: ${token}`);
+}
+for (const token of [
+  "family.seoTitle",
+  "family.seoDescription",
+  "family.secondaryKeywords"
+]) {
+  requireText(modelRoute, token, `Model-family metadata must use dedicated family SEO fields: ${token}`);
+}
+for (const token of [
+  'family.comparisonHeading',
+  '"@type": "FAQPage"',
+  'authorPersonSchema()',
+  '<AuthorBox />',
+  'model-family-change-grid'
+]) {
+  requireText(modelFamilyView, token, `Model-family page missing comparison/schema behavior: ${token}`);
+}
+requireText(modelEntity, "getModelFamilyForModel", "Canonical model pages must resolve their family hub for internal linking.");
+requireText(modelEntity, "Compare all {modelFamily.make} {modelFamily.name} generations", "Canonical model pages must link back to the family comparison hub.");
+requireText(modelEntity, 'title={`${model.make} ${model.model} specifications`}', "Canonical motorcycle pages must keep model-specific specifications headings.");
+requireText(modelEntity, 'title={`${model.make} ${model.model} downpayment and monthly installment estimate`}', "Canonical motorcycle pages must keep model-specific financing intent on-page.");
+requireText(modelEntity, "<summary>{model.make} {model.model} colors and variants</summary>", "Canonical motorcycle pages must keep model-specific colors/variant intent on-page.");
+for (const token of [
+  "queryFamily(query)",
+  "normalizePage(value, siteOrigin)",
+  "Page priorities from earned impressions",
+  "Possible query cannibalization",
+  "programWatchlist",
+  "Separate Queries.csv and Pages.csv files cannot prove query-to-page ownership"
+]) {
+  requireText(gscOpportunity, token, `GSC opportunity analyzer missing required behavior: ${token}`);
+}
+for (const token of [
+  "Do not commit private raw GSC exports",
+  "Neither source is first-party GSC performance",
+  "Avoid speculative title rewrites",
+  "query + page export"
+]) {
+  requireText(gscWorkflow, token, `GSC workflow documentation missing guardrail: ${token}`);
+}
+
 requireText(modelSeo, "firstTitleThatFits", "Model SEO titles should use length-aware title selection.");
 requireText(modelSeo, "limit = 60", "Model SEO title selection should target a 60-character ceiling.");
 requireText(sitemaps, "latestModelDate", "Sitemaps should derive hub freshness from model source checks.");
@@ -156,6 +210,9 @@ for (const token of [
 }
 requireText(modelEntity, 'href={maintenance.sourceUrl}', "Exact model maintenance schedules must expose the official owner-manual source link.");
 requireText(modelEntity, "Open the official owner manual →", "Exact model maintenance schedules must label the official manual link clearly.");
+requireText(modelEntity, '"@type": "FAQPage"', "Motorcycle entity pages must emit FAQPage structured data that mirrors the visible FAQ section.");
+requireText(modelEntity, "authorPersonSchema()", "Motorcycle entity pages must emit the shared author Person entity.");
+requireText(modelEntity, "JsonLd data={[schema, faqSchema, authorSchema]}", "Motorcycle entity pages must emit Product, FAQ and author structured data together.");
 
 requireText(maintenanceData, "Brand-level Yamaha Philippines PMS guidance.", "Yamaha brand-level PMS guidance must stay clearly labeled and must not masquerade as an exact model manual.");
 requireText(modelEntity, "brandMaintenanceGuideForModel(model)", "Motorcycle entity pages must resolve brand-level maintenance guidance when exact model schedules are unavailable.");

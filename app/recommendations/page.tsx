@@ -5,8 +5,8 @@ import { RecommendationsHubStyle } from "./RecommendationsHubStyle";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Best Motorcycles Philippines 2026: Buying Guide",
-  description: "Choose a motorcycle in the Philippines by budget, riding use, rider fit, ABS, fuel economy and long-distance needs using verified model data.",
+  title: "Motorcycle Buying Guides Philippines 2026 | MotoIndex PH",
+  description: "Browse focused Philippine motorcycle buying guides by budget, scooter class, engine size, rider fit, commuting, ABS, fuel economy and brand.",
   path: "/recommendations",
   index: true
 });

@@ -468,27 +468,21 @@
 }
 
 /* Embedded model calculators */
-[data-calculator="installment"]{
-  display:grid;
-  grid-template-columns:minmax(220px,.8fr) minmax(0,1.1fr) minmax(220px,.7fr);
-  gap:var(--mi-space-6);
-  align-items:center;
-  padding:var(--mi-space-8);
-}
+.finance-planner{padding:0}
+.finance-planner-head,.finance-controls,.finance-result{padding:var(--mi-space-6)}
+.finance-planner-head{display:flex;justify-content:space-between;gap:var(--mi-space-5);border-bottom:1px solid var(--mi-color-line)}
+.finance-planner-head h2{margin:0}
+.finance-planner-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr)}
+.finance-price-field{display:flex;align-items:center;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md)}
+.finance-price-field input{margin:0;border:0}
+.finance-preset-groups,.finance-slider-grid{display:grid;gap:var(--mi-space-3);margin-top:var(--mi-space-4)}
+.finance-preset-groups{grid-template-columns:repeat(2,minmax(0,1fr))}
+.finance-slider-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.finance-result{background:var(--mi-color-ink);color:var(--mi-color-surface)}
+.finance-result>strong{display:block;font-size:clamp(2.4rem,4vw,3.5rem);white-space:nowrap}
+.finance-result-facts>div{display:flex;justify-content:space-between;padding:var(--mi-space-2) 0}
+.finance-scenario-section{margin-top:var(--mi-space-5)}
 
-[data-calculator="installment"]>div:first-child h2{
-  margin:0;
-  font-size:var(--mi-type-2xl);
-  line-height:var(--mi-leading-tight);
-  letter-spacing:var(--mi-tracking-tight);
-}
-
-[data-calculator="installment"] .calc-grid{
-  display:grid;
-  gap:var(--mi-space-4);
-}
-
-[data-calculator="installment"] .calc-result,
 [data-calculator="used-value"] .used-estimate,
 [data-calculator="rider-fit"] .rider-fit-score,
 [data-calculator="fuel-range"] .fuel-result{
@@ -499,8 +493,6 @@
   color:var(--mi-color-ink);
 }
 
-[data-calculator="installment"] .calc-result span,
-[data-calculator="installment"] .calc-result small,
 [data-calculator="used-value"] .used-estimate small,
 [data-calculator="used-value"] .used-estimate span,
 [data-calculator="rider-fit"] .rider-fit-score span,
@@ -512,7 +504,6 @@
   font-size:var(--mi-type-xs);
 }
 
-[data-calculator="installment"] .calc-result strong,
 [data-calculator="used-value"] .used-estimate strong,
 [data-calculator="rider-fit"] .rider-fit-score strong,
 [data-calculator="fuel-range"] .fuel-result strong{
@@ -636,17 +627,17 @@
     grid-template-columns:repeat(2,minmax(0,1fr));
   }
 
-  [data-calculator="installment"],
   [data-calculator="rider-fit"],
   [data-calculator="used-value"]{
     grid-template-columns:1fr 1fr;
   }
 
-  [data-calculator="installment"] .calc-result,
   [data-calculator="rider-fit"] .rider-fit-notes,
   [data-calculator="used-value"] .used-estimate{
     grid-column:1/-1;
   }
+
+  .finance-planner-layout{grid-template-columns:1fr}
 }
 
 @media(max-width:620px){
@@ -711,11 +702,14 @@
   [data-calculator="electric-range"],
   [data-calculator="electric-charging"],
   [data-calculator="fuel-range"],
-  [data-calculator="installment"],
   [data-calculator="rider-fit"],
   [data-calculator="used-value"]{
     padding:var(--mi-space-5);
   }
+
+  .finance-planner-head{display:block}
+    .finance-controls,.finance-result,.finance-planner-head{padding:var(--mi-space-5)}
+  .finance-preset-groups,.finance-slider-grid{grid-template-columns:1fr}
 
   [data-calculator="electric-range"] .calculator-grid,
   [data-calculator="electric-range"] .calculator-results,
@@ -723,13 +717,11 @@
   [data-calculator="electric-charging"] .calculator-results,
   [data-calculator="fuel-range"] .fuel-kpis,
   [data-calculator="fuel-range"] .fuel-controls,
-  [data-calculator="installment"],
   [data-calculator="rider-fit"],
   [data-calculator="used-value"]{
     grid-template-columns:1fr;
   }
 
-  [data-calculator="installment"] .calc-result,
   [data-calculator="rider-fit"] .rider-fit-notes,
   [data-calculator="used-value"] .used-estimate{
     grid-column:auto;

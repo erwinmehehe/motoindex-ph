@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { comparisons, getRecommendationGuide, getRecommendationModels, recommendationGuides, isIndexableRecommendation } from "@/lib/data";
+import { comparisons, getRecommendationGuide, getRecommendationModels, hasConfirmedAbs, recommendationGuides, isIndexableRecommendation } from "@/lib/data";
 import { GuideModelAnalysisCard } from "@/components/GuideModelAnalysisCard";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { pageMetadata } from "@/lib/site";
@@ -37,7 +37,6 @@ export async function generateMetadata({params}:{params:Promise<{slug:string}>})
   });
 }
 
-const hasAbs=(m:Motorcycle)=>/\bABS\b/i.test(m.abs)&&!/^No ABS/i.test(m.abs);
 const theoryRange=(m:Motorcycle)=>m.fuelConsumptionKmL?Math.round(m.fuelConsumptionKmL*m.fuelTankL):undefined;
 const val=(n:number|undefined,suffix:string)=>typeof n==="number"?`${n.toLocaleString("en-PH")} ${suffix}`:"—";
 const modelHref=(m:Motorcycle)=>`/motorcycles/${m.makeSlug}/${m.slug}`;
@@ -156,6 +155,16 @@ function comparisonFor(m:Motorcycle,models:Motorcycle[]){
 
 function modelNames(models:Motorcycle[],max=4){return models.slice(0,max).map(m=>`${m.make} ${m.model}`).join(", ");}
 
+const scooterCcCluster = [
+  { slug: "125cc-scooters-philippines", label: "125cc scooters", detail: "115–130cc commuter class" },
+  { slug: "150cc-scooters-philippines", label: "150cc & 155cc scooters", detail: "140–155cc combined class" },
+  { slug: "160cc-scooters-philippines", label: "160cc scooters", detail: "156–165cc class" },
+] as const;
+
+function scooterCcClassLabel(slug:string){
+  return scooterCcCluster.find(item=>item.slug===slug);
+}
+
 function sectionSummary(title:string,models:Motorcycle[]){
   if(!models.length)return "No current motorcycles qualify for this section.";
   const lower=title.toLowerCase();
@@ -167,13 +176,65 @@ function sectionSummary(title:string,models:Motorcycle[]){
   const tank=[...models].sort((a,b)=>b.fuelTankL-a.fuelTankL);
   const economy=models.filter(m=>m.fuelConsumptionKmL).sort((a,b)=>(b.fuelConsumptionKmL||0)-(a.fuelConsumptionKmL||0));
   const range=models.filter(m=>theoryRange(m)).sort((a,b)=>(theoryRange(b)||0)-(theoryRange(a)||0));
-  const abs=models.filter(hasAbs);
+  const abs=models.filter(m=>hasConfirmedAbs(m.abs));
   const clearance=models.filter(m=>typeof m.groundClearanceMm==="number").sort((a,b)=>(b.groundClearanceMm||0)-(a.groundClearanceMm||0));
   const wheel2118=models.filter(m=>/21/.test(m.frontTire)&&/18/.test(m.rearTire));
   const automatic=models.filter(m=>m.transmission==="Automatic");
   const manual=models.filter(m=>m.transmission!=="Automatic");
   const scooters=models.filter(m=>/scooter/i.test(m.category));
   const underbones=models.filter(m=>/underbone/i.test(m.category));
+  if(lower.includes("below 150cc motorcycle price range")){
+    return `The current below-150cc set runs from ${observedMarketPriceLabel(price[0])} for ${price[0].make} ${price[0].model} to ${observedMarketPriceLabel(price.at(-1)!)} for ${price.at(-1)!.make} ${price.at(-1)!.model}. This is a price range across different motorcycle formats, not an overall value ranking.`;
+  }
+  if(lower.includes("scooters, underbones and business motorcycles below 150cc")){
+    const business=models.filter(m=>/business motorcycle/i.test(m.category));
+    return `The class currently includes ${scooters.length} scooter${scooters.length===1?"":"s"}, ${underbones.length} underbone${underbones.length===1?"":"s"} and ${business.length} business motorcycle${business.length===1?"":"s"}. Similar engine size does not mean similar transmission, carrying use, weight or rider fit.`;
+  }
+  if(lower.includes("automatic vs manual motorcycles below 150cc"))return `${automatic.length} current model${automatic.length===1?"":"s"} in this set are automatic and ${manual.length} are not recorded as automatic. Transmission can change traffic workload and use case as much as displacement does.`;
+  if(lower.includes("weight and seat-height differences"))return `${weight[0].make} ${weight[0].model} is the lightest current model here at ${weight[0].curbWeightKg} kg, while ${seat[0].make} ${seat[0].model} has the lowest published seat at ${seat[0].seatHeightMm} mm. Those are separate fit signals and should be checked in person.`;
+  if(lower.includes("when to compare the 150cc to 160cc class instead"))return `Move into the 150cc–160cc guides when you specifically want larger scooter engines, more recorded output or a different equipment mix. Keep the decision model-specific because price, weight and braking do not rise uniformly with displacement.`;
+  if(lower.includes("business motorcycle price range in the philippines"))return `The current business-motorcycle set runs from ${observedMarketPriceLabel(price[0])} for ${price[0].make} ${price[0].model} to ${observedMarketPriceLabel(price.at(-1)!)} for ${price.at(-1)!.make} ${price.at(-1)!.model}. Compare tank size, weight, seat height and ground clearance alongside price.`;
+  if(lower.includes("tmx, ytx and barako work-bike differences"))return `The current work-bike set includes ${modelNames(models,8)}. Their useful differences are exact displacement, tank capacity, curb weight, seat height, ground clearance and braking; the category label alone does not establish payload or sidecar suitability.`;
+  if(lower.includes("fuel tank, weight and seat-height trade-offs"))return `${tank[0].make} ${tank[0].model} has the largest recorded tank in this set at ${tank[0].fuelTankL} L, ${weight[0].make} ${weight[0].model} is the lightest at ${weight[0].curbWeightKg} kg, and ${seat[0].make} ${seat[0].model} has the lowest published seat at ${seat[0].seatHeightMm} mm.`;
+  if(lower.includes("motorcycles for delivery, utility and sidecar research"))return `Use these models as a work-bike shortlist only. For delivery boxes, cargo changes or a sidecar, verify the exact frame/rack limits, manufacturer guidance, registration classification and local legal requirements before modifying the motorcycle.`;
+  if(lower.includes("what to verify before using a motorcycle for business"))return `Confirm the exact purchase price, warranty terms, service intervals, tire sizes, expected load, registration classification, insurance and any commercial-use or sidecar requirements for the exact setup you plan to operate.`;
+  if(lower.includes("street motorcycle price range in the philippines"))return `The current road-focused street set runs from ${observedMarketPriceLabel(price[0])} for ${price[0].make} ${price[0].model} to ${observedMarketPriceLabel(price.at(-1)!)} for ${price.at(-1)!.make} ${price.at(-1)!.model}. The set spans work bikes, naked motorcycles and roadsters, so price alone is not a meaningful quality score.`;
+  if(lower.includes("naked street bikes, roadsters and work motorcycles"))return `This broad street-use set includes road-focused formats such as naked street bikes, retro roadsters and business motorcycles. Use the narrower category guides when you already know which format you want.`;
+  if(lower.includes("lighter and lower-seat street motorcycles"))return `${weight[0].make} ${weight[0].model} is the lightest current street-use model here at ${weight[0].curbWeightKg} kg, while ${seat[0].make} ${seat[0].model} has the lowest published seat at ${seat[0].seatHeightMm} mm.`;
+  if(lower.includes("power and abs differences"))return `${power[0].make} ${power[0].model} has the highest recorded output in this set at ${power[0].powerHp} hp, while ${abs.length} model${abs.length===1?"":"s"} explicitly list ABS on at least one configuration. Compare the exact trim rather than category labels.`;
+  if(lower.includes("what counts as a street motorcycle on this page"))return `MotoIndex uses this page as a broad road-use research layer for naked street bikes, retro roadsters, business motorcycles and utility-style road bikes. Scooters, underbones, sport bikes and adventure motorcycles keep separate guides to reduce intent overlap.`;
+  if(lower.includes("125cc scooter price range")){
+    const first=price[0], last=price.at(-1)!;
+    return `The current 125cc-class scooter set runs from ${observedMarketPriceLabel(first)} for ${first.make} ${first.model} to ${observedMarketPriceLabel(last)} for ${last.make} ${last.model}. These are published starting-price references, not final dealer quotes.`;
+  }
+  if(lower.includes("honda, yamaha and suzuki 125cc scooter choices")){
+    const brands=["Honda","Yamaha","Suzuki"].map(brand=>({brand,rows:models.filter(m=>m.make===brand)})).filter(item=>item.rows.length);
+    return brands.length?`Current mainstream-brand choices in this 125cc-class set include ${brands.map(item=>`${item.brand}: ${modelNames(item.rows,5)}`).join("; ")}. Compare exact displacement, braking, seat height and weight instead of choosing by brand name alone.`:"No current Honda, Yamaha or Suzuki scooter qualifies in this 125cc-class set.";
+  }
+  if(lower.includes("lightweight and lower-seat 125cc"))return `${weight[0].make} ${weight[0].model} is the lightest in this class at ${weight[0].curbWeightKg} kg, while ${seat[0].make} ${seat[0].model} has the lowest published seat at ${seat[0].seatHeightMm} mm. Weight and seat height are separate fit signals, so check both in person.`;
+  if(lower.includes("fuel economy and tank size in the 125cc"))return economy.length?`${economy[0].make} ${economy[0].model} has the highest published fuel-economy figure in this 125cc-class set at ${economy[0].fuelConsumptionKmL} km/L, while ${tank[0].make} ${tank[0].model} has the largest recorded tank at ${tank[0].fuelTankL} L. Published test methods can differ.`:`Compare tank capacity and model-specific fuel data; this class does not currently have enough checked published km/L figures for a fuel-economy comparison.`;
+  if(lower.includes("150cc and 155cc scooter price range")){
+    const first=price[0], last=price.at(-1)!;
+    return `The current 150cc/155cc-class set runs from ${observedMarketPriceLabel(first)} for ${first.make} ${first.model} to ${observedMarketPriceLabel(last)} for ${last.make} ${last.model}. The page keeps 150cc and 155cc intent together because these scooters are commonly cross-shopped, while still showing exact displacement per model.`;
+  }
+  if(lower.includes("150cc vs 155cc scooters")){
+    const near150=models.filter(m=>m.engineCc<153);
+    const near155=models.filter(m=>m.engineCc>=153);
+    return `The meaningful differences are model-specific rather than a five-cc label: the current set has ${near150.length} scooter${near150.length===1?"":"s"} below 153cc and ${near155.length} at 153–155cc. Compare power, curb weight, seat height, braking, tank size and price before treating 155cc as automatically better than 150cc.`;
+  }
+  if(lower.includes("lighter and lower-seat 150cc"))return `${weight[0].make} ${weight[0].model} is the lightest current 150cc/155cc-class scooter at ${weight[0].curbWeightKg} kg, while ${seat[0].make} ${seat[0].model} has the lowest published seat at ${seat[0].seatHeightMm} mm. These are useful city-fit filters but do not measure seat width or balance.`;
+  if(lower.includes("traction-control differences"))return `Braking and rider-aid equipment varies by exact model and trim. In this set, ${abs.length} model${abs.length===1?"":"s"} explicitly list ABS on at least one configuration. Check the model page for the exact ABS/CBS wording and any traction-control availability.`;
+  if(lower.includes("fuel economy and tank-size trade-offs"))return economy.length?`${economy[0].make} ${economy[0].model} has the highest published fuel-economy figure in this set at ${economy[0].fuelConsumptionKmL} km/L, while ${tank[0].make} ${tank[0].model} has the largest recorded tank at ${tank[0].fuelTankL} L. Efficiency and refueling frequency are different questions, so compare both.`:`${tank[0].make} ${tank[0].model} has the largest recorded tank in this set at ${tank[0].fuelTankL} L. Published model-specific fuel-economy data is incomplete, so avoid treating tank size as an efficiency score.`;
+  if(lower.includes("160cc scooter price range")){
+    const first=price[0], last=price.at(-1)!;
+    return `The current 160cc-class scooter set runs from ${observedMarketPriceLabel(first)} for ${first.make} ${first.model} to ${observedMarketPriceLabel(last)} for ${last.make} ${last.model}. Compare exact trim pricing because ABS, CBS and connected features can change the final price substantially.`;
+  }
+  if(lower.includes("honda and other 160cc scooter choices")){
+    const brands=[...new Set(models.map(m=>m.make))];
+    return `The current 160cc-class comparison covers ${brands.join(", ")} across ${models.length} model${models.length===1?"":"s"}: ${modelNames(models,8)}. Use the table to compare price, power, weight, seat height and braking rather than assuming all 160cc scooters are direct equivalents.`;
+  }
+  if(lower.includes("lighter and lower-seat 160cc"))return `${weight[0].make} ${weight[0].model} is the lightest current 160cc-class scooter at ${weight[0].curbWeightKg} kg, while ${seat[0].make} ${seat[0].model} has the lowest published seat at ${seat[0].seatHeightMm} mm. Test the actual seat width and low-speed balance before deciding on fit.`;
+  if(lower.includes("abs and cbs differences in the 160cc"))return `${abs.length} current 160cc-class model${abs.length===1?"":"s"} explicitly list ABS on at least one configuration. Models without ABS can use other braking arrangements such as CBS; read the exact recorded braking specification instead of treating the systems as interchangeable.`;
   if(lower.includes("honda vs yamaha scooters")){
     const honda=models.filter(m=>m.make==="Honda");
     const yamaha=models.filter(m=>m.make==="Yamaha");
@@ -279,7 +340,32 @@ function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide
   const seat=[...models].sort((a,b)=>a.seatHeightMm-b.seatHeightMm);
   const weight=[...models].sort((a,b)=>a.curbWeightKg-b.curbWeightKg);
   const economy=models.filter(m=>m.fuelConsumptionKmL).sort((a,b)=>(b.fuelConsumptionKmL||0)-(a.fuelConsumptionKmL||0));
+  const tank=[...models].sort((a,b)=>b.fuelTankL-a.fuelTankL);
   const brandMatch=["honda","yamaha","suzuki","kawasaki"].find(brand=>lower.includes(brand));
+  if(lower.includes("what motorcycles below 150cc are available"))return `This guide currently includes ${models.length} current motorcycles below 150cc across scooters, underbones, business motorcycles and other categories. Use the comparison table for the exact models and their current published price references.`;
+  if(lower.includes("how much is a motorcycle below 150cc"))return `Published starting-price references in this current below-150cc set run from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)}. Final dealer quotes, registration, promotions and financing can differ.`;
+  if(lower.includes("125cc scooters included"))return `Yes. Current 125cc-class scooters under 150cc are included, alongside other motorcycle formats. Use the dedicated 125cc scooter guide when you only want automatic scooter choices.`;
+  if(lower.includes("underbones and business motorcycles included"))return `Yes. The broad below-150cc guide includes every current qualifying motorcycle category, including underbones and business motorcycles, so long as recorded displacement is below 150cc.`;
+  if(lower.includes("which below-150cc motorcycle is lightest"))return `${weight[0].make} ${weight[0].model} is the lightest current model in this checked set at ${weight[0].curbWeightKg} kg.`;
+  if(lower.includes("what business motorcycles are available"))return `The current business-motorcycle guide includes ${modelNames(models,10)}. The table keeps their price, engine, tank, weight, seat height and ground-clearance differences visible.`;
+  if(lower.includes("how much is a business motorcycle"))return `The current business-motorcycle set runs from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)} in published starting-price references.`;
+  if(lower.includes("difference between tmx, ytx and barako"))return `They differ in exact engine size, tank capacity, curb weight, seat height, ground clearance and model-specific equipment. Compare those measurable fields first, then verify the exact work setup and dealer support you need.`;
+  if(lower.includes("can every business motorcycle use a sidecar"))return `No assumption should be made from the category alone. Sidecar or commercial conversion suitability depends on the exact motorcycle, manufacturer guidance, frame and mounting design, registration classification and applicable local requirements.`;
+  if(lower.includes("which business motorcycle has the largest fuel tank"))return `${tank[0].make} ${tank[0].model} has the largest recorded fuel tank in this current set at ${tank[0].fuelTankL} L.`;
+  if(lower.includes("before buying a motorcycle for business use"))return `Check the exact price, service schedule, warranty, tires, expected load, registration and insurance requirements, and any cargo or sidecar modifications with the manufacturer, dealer and applicable authorities before operating it commercially.`;
+  if(lower.includes("what street motorcycles are available"))return `This broad street-use guide currently includes ${models.length} road-focused motorcycles such as naked street bikes, retro roadsters and business motorcycles. The table shows the exact current list.`;
+  if(lower.includes("how much is a street motorcycle"))return `Published starting-price references in this street-use set run from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)}. The models span different formats, so compare category and use case as well as price.`;
+  if(lower.includes("business motorcycles included in the street guide"))return `Yes. This broad street-use page includes business motorcycles because they are road-focused motorcycles, but the dedicated business-motorcycle guide is the better page for work, utility and sidecar research.`;
+  if(lower.includes("which street motorcycle is lightest"))return `${weight[0].make} ${weight[0].model} is the lightest current model in this checked street-use set at ${weight[0].curbWeightKg} kg.`;
+  if(lower.includes("which street motorcycles list abs"))return `${models.filter(m=>hasConfirmedAbs(m.abs)).length} current model${models.filter(m=>hasConfirmedAbs(m.abs)).length===1?"":"s"} in this street-use set explicitly list ABS on at least one configuration. Check the exact trim wording on the model page.`;
+  if(lower.includes("difference between a street bike and a sport bike"))return `Street bike is a broad road-use term on this page. Sport bike is a narrower motorcycle category with its own dedicated guide, so sport motorcycles are kept out of this street-use collection to reduce overlap.`;
+  if(lower.includes("how much is a 125cc scooter"))return `The current 125cc-class set runs from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)} in published starting-price references. Confirm the exact variant, registration, promotions and final dealer quote before buying.`;
+  if(lower.includes("125cc scooters come with abs or cbs"))return `${models.filter(m=>hasConfirmedAbs(m.abs)).length} current model${models.filter(m=>hasConfirmedAbs(m.abs)).length===1?"":"s"} in this 125cc-class guide explicitly list ABS on at least one configuration. Other models may use CBS or non-ABS braking, so check the exact recorded trim rather than the engine class.`;
+  if(lower.includes("what should i compare besides engine size"))return `Compare published price, curb weight, seat height, braking, fuel data, tank size, tire sizes, storage needs, service access and the exact variant. A 125cc label alone does not determine everyday fit or ownership cost.`;
+  if(lower.includes("how much is a 150cc or 155cc scooter"))return `The current combined 150cc/155cc set runs from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)} in published starting-price references. Final dealer pricing and variant equipment can differ.`;
+  if(lower.includes("why are 150cc and 155cc scooters on the same page"))return `They overlap strongly in Philippine buyer research and are commonly cross-shopped. MotoIndex therefore keeps one canonical 140–155cc guide while showing each model's exact displacement, price and equipment instead of creating near-duplicate 150cc and 155cc pages.`;
+  if(lower.includes("how much is a 160cc scooter"))return `The current 160cc-class set runs from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)} in published starting-price references. Check the exact trim because ABS, CBS and other equipment can change the final price.`;
+  if(lower.includes("what should i compare before buying a 160cc scooter"))return `Compare exact variant price, power, curb weight, seat height, ABS/CBS wording, fuel tank, tire sizes, storage and passenger needs, service access and the dealer's final on-road quote. Displacement is only one part of the decision.`;
   if(lower.includes("best scooter in the philippines"))return `There is no universal best scooter. This guide compares ${models.length} current scooters using published price, engine size, curb weight, seat height, braking, fuel capacity and available fuel-economy data so you can choose around budget, rider fit and daily use.`;
   if(brandMatch&&lower.includes("scooters are available")){
     const rows=models.filter(m=>m.make.toLowerCase()===brandMatch);
@@ -329,7 +415,7 @@ function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide
   if(lower.includes("does 400cc automatically mean expressway legal"))return `Not by itself. The Philippine limited-access rule uses an at-least-400cc engine-displacement threshold, but MotoIndex still treats the exact registered motorcycle and current tollway/operator requirements as checks you should complete before travel. Use the linked expressway-legal hub for the legal source and current trip checklist.`;
   if(lower.includes("verify before buying for expressway"))return `Verify the exact motorcycle's OR/CR details and recorded displacement, then check the current tollway/operator rules, RFID/payment setup and any route-specific requirements. Do not rely on a rounded model badge or catalog class alone.`;
   if(lower.includes("where can i check the philippine expressway motorcycle rule"))return `MotoIndex links the expressway-legal hub to DOTC Department Order No. 2007-38 in the Supreme Court E-Library. The same hub also links current tollway/operator guidance so the legal threshold and present-day entry requirements are kept separate.`;
-  if(lower.includes("abs"))return `${models.filter(hasAbs).length} current model${models.filter(hasAbs).length===1?"":"s"} in this guide list ABS on at least one configuration. Exact trim wording is shown in the comparison table and model pages.`;
+  if(lower.includes("abs"))return `${models.filter(m=>hasConfirmedAbs(m.abs)).length} current model${models.filter(m=>hasConfirmedAbs(m.abs)).length===1?"":"s"} in this guide list ABS on at least one configuration. Exact trim wording is shown in the comparison table and model pages.`;
   if(lower.includes("automatic"))return `${models.filter(m=>m.transmission==="Automatic").length} current model${models.filter(m=>m.transmission==="Automatic").length===1?"":"s"} in this guide are recorded as automatic.`;
   if(lower.includes("all variants")||lower.includes("every variant"))return `No. This guide qualifies a model using its published starting price, and equipment such as ABS can differ by trim. Always check the exact variant on the model page.`;
   if(lower.includes("dealer prices")||lower.includes("srp"))return `Not necessarily. This page keeps different published market prices separate and may show a price range when current figures disagree.`;
@@ -370,6 +456,7 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
   const faqItems:FaqItem[]=guide.faqQuestions.map(question=>({question,answer:faqAnswer(question,models,guide)}));
   const related=guide.relatedGuideSlugs.map(relatedSlug=>recommendationGuides.find(g=>g.slug===relatedSlug)).filter((g):g is RecommendationGuide=>Boolean(g&&isIndexableRecommendation(g.slug)));
   const decisions=decisionCards(guide,models);
+  const scooterCcGuide=scooterCcClassLabel(slug);
   const quickPicks = guide.quickPicks
     .map((pick)=>({pick,model:metricModel(models,pick.metric)}))
     .filter((item)=>Boolean(item.model)) as {pick:RecommendationGuide["quickPicks"][number];model:Motorcycle}[];
@@ -404,7 +491,19 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
         name: `${m.make} ${m.model}`,
         url: absoluteUrl(`/motorcycles/${m.makeSlug}/${m.slug}`)
       }))
-    }
+    },
+    ...(faqItems.length ? [{
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer
+        }
+      }))
+    }] : [])
   ];
 
   return <section className="page shell">
@@ -412,6 +511,13 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
     <div className="page-head guide-page-head"><span className="guide-kicker">{guide.kicker}</span><h1>{guide.title}</h1></div>
     <div style={{margin:"18px 0 28px"}}><GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker}/></div>
     <div className="guide-direct-answer"><p>{guide.directAnswer}</p><strong>Compare {models.length} motorcycle{models.length===1?"":"s"} that match this guide.</strong>{guide.slug === "best-scooters-philippines" && <Link href="/motorcycles/scooters">View the full Philippines scooter market, price list and engine-size hubs →</Link>}{brandScooterSlug && <><Link href="/motorcycles/scooters">Compare the full Philippines scooter price list →</Link><Link href={`/motorcycles/${brandScooterSlug}`}>Open the full {brandScooterSlug[0].toUpperCase()+brandScooterSlug.slice(1)} motorcycle price list →</Link></>}{guide.slug === "motorcycles-400cc-plus-philippines" && <Link href="/motorcycles/expressway-legal">Check the separate expressway-legal rule, borderline sub-400cc models and registration checks →</Link>}</div>
+    {scooterCcGuide&&<div className="guide-quick-picks" aria-label="Scooter engine-size research">
+      <div className="section-head compact"><div><span className="section-kicker">Scooter engine-size cluster</span><h2>Compare the nearby scooter classes</h2><p>Keep the broad market, 125cc, combined 150cc/155cc and 160cc intent connected without creating duplicate model pages.</p></div></div>
+      <div className="guide-pick-grid">
+        <Link href="/motorcycles/scooters"><span>Parent market</span><strong>All scooter prices</strong><small>Full Philippines scooter price list</small></Link>
+        {scooterCcCluster.map(item=><Link href={`/recommendations/${item.slug}`} key={item.slug}><span>{item.slug===slug?"Current class":"Engine class"}</span><strong>{item.label}</strong><small>{item.detail}</small></Link>)}
+      </div>
+    </div>}
     {!isIndexableRecommendation(slug)&&<div className="note-box"><h2>Some entries need a fresh check</h2><p>Open the individual model pages before buying to confirm the latest price and exact variant.</p></div>}
 
     <div className="guide-quick-picks">

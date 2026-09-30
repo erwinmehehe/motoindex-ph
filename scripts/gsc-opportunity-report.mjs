@@ -2,10 +2,25 @@ import fs from "node:fs";
 import path from "node:path";
 
 function parseArgs(argv) {
-  const args = { input: undefined, output: undefined };
+  const args = {
+    input: undefined,
+    output: undefined,
+    minImpressions: 10,
+    strikingMin: 4,
+    strikingMax: 20,
+    ctrMaxPosition: 10,
+    lowCtr: 0.02,
+    siteOrigin: "https://motoindexph.com"
+  };
   for (let i = 0; i < argv.length; i += 1) {
     const value = argv[i];
     if (value === "--output") args.output = argv[++i];
+    else if (value === "--min-impressions") args.minImpressions = Number(argv[++i]);
+    else if (value === "--striking-min") args.strikingMin = Number(argv[++i]);
+    else if (value === "--striking-max") args.strikingMax = Number(argv[++i]);
+    else if (value === "--ctr-max-position") args.ctrMaxPosition = Number(argv[++i]);
+    else if (value === "--low-ctr") args.lowCtr = Number(argv[++i]);
+    else if (value === "--site-origin") args.siteOrigin = argv[++i];
     else if (!args.input) args.input = value;
   }
   return args;
@@ -23,8 +38,8 @@ function parseCsv(text) {
       else if (ch === '"') quoted = false;
       else field += ch;
     } else if (ch === '"') quoted = true;
-    else if (ch === ',') { row.push(field); field = ""; }
-    else if (ch === '\n') { row.push(field.replace(/\r$/, "")); rows.push(row); row = []; field = ""; }
+    else if (ch === ",") { row.push(field); field = ""; }
+    else if (ch === "\n") { row.push(field.replace(/\r$/, "")); rows.push(row); row = []; field = ""; }
     else field += ch;
   }
   if (field.length || row.length) { row.push(field.replace(/\r$/, "")); rows.push(row); }
@@ -52,14 +67,79 @@ function pct(value) { return `${(value * 100).toFixed(2)}%`; }
 function clean(value) { return String(value ?? "").trim(); }
 function md(value) { return clean(value).replace(/\|/g, "\\|").replace(/\n/g, " "); }
 
-const { input, output } = parseArgs(process.argv.slice(2));
-if (!input) {
-  console.error("Usage: node scripts/gsc-opportunity-report.mjs <combined-query-page.csv> [--output report.md]");
-  console.error("Required columns: query, page, clicks, impressions, ctr, position. Export query + page dimensions together from Search Console API or a connected GSC data source.");
+function normalizePage(value, siteOrigin) {
+  const raw = clean(value);
+  if (!raw) return raw;
+  try {
+    const parsed = new URL(raw, siteOrigin);
+    const site = new URL(siteOrigin);
+    if (parsed.hostname === site.hostname || parsed.hostname === `www.${site.hostname}`) {
+      const pathname = parsed.pathname === "/" ? "/" : parsed.pathname.replace(/\/+$/, "");
+      return pathname || "/";
+    }
+    return `${parsed.origin}${parsed.pathname}`;
+  } catch {
+    const withoutQuery = raw.split(/[?#]/)[0] || raw;
+    return withoutQuery === "/" ? "/" : withoutQuery.replace(/\/+$/, "");
+  }
+}
+
+function queryFamily(query) {
+  const value = query.toLowerCase();
+  if (/tire|tyre/.test(value) && /size|front|rear|stock|replacement/.test(value)) return "Tire size & fitment";
+  if (/installment|downpayment|down payment|monthly|finance|financing|loan|emi/.test(value)) return "Installment & financing";
+  if (/price|srp|how much|cost/.test(value)) return "Price";
+  if (/spec|specification|horsepower|hp\b|torque|engine|cc\b/.test(value)) return "Specifications";
+  if (/color|colour/.test(value)) return "Colors & variants";
+  if (/fuel|km\/l|kmpl|consumption|mileage|range|tank/.test(value)) return "Fuel & range";
+  if (/seat|height|weight|fit|short rider|inseam/.test(value)) return "Rider fit";
+  if (/\bvs\b|versus|compare|comparison/.test(value)) return "Comparison";
+  if (/\bv[1-9]\b|generation|gen\b|variant|standard|abs|tech max|sp\b/.test(value)) return "Generation & variant";
+  if (/dealer|shop|store|near me|where to buy/.test(value)) return "Dealer";
+  return "General model/category";
+}
+
+function aggregate(items) {
+  const clicks = items.reduce((sum, item) => sum + item.clicks, 0);
+  const impressions = items.reduce((sum, item) => sum + item.impressions, 0);
+  const weightedPosition = items.reduce((sum, item) => sum + item.position * item.impressions, 0);
+  return {
+    clicks,
+    impressions,
+    ctr: impressions ? clicks / impressions : 0,
+    position: impressions ? weightedPosition / impressions : 0
+  };
+}
+
+function opportunityScore(row, lowCtrThreshold) {
+  const positionWeight = row.position <= 3 ? 0.25
+    : row.position <= 10 ? 1
+      : row.position <= 20 ? 0.7
+        : 0.25;
+  const clickGap = Math.max(0.25, 1 + Math.max(0, lowCtrThreshold - row.ctr) * 10);
+  return row.impressions * positionWeight * clickGap;
+}
+
+const args = parseArgs(process.argv.slice(2));
+if (!args.input) {
+  console.error("Usage: npm run seo:gsc-opportunities -- <combined-query-page.csv> [--output report.md] [--min-impressions 10]");
+  console.error("Required columns: query, page, clicks, impressions, ctr, position.");
+  console.error("The input must contain query + page dimensions together, typically from the Search Console API or another combined export. Separate Queries.csv and Pages.csv files cannot prove query-to-page ownership.");
   process.exit(1);
 }
 
-const csv = parseCsv(fs.readFileSync(input, "utf8"));
+for (const [name, value] of [
+  ["min impressions", args.minImpressions],
+  ["striking min", args.strikingMin],
+  ["striking max", args.strikingMax],
+  ["CTR max position", args.ctrMaxPosition],
+  ["low CTR", args.lowCtr]
+]) {
+  if (!Number.isFinite(value) || value < 0) throw new Error(`Invalid ${name}: ${value}`);
+}
+if (args.strikingMin > args.strikingMax) throw new Error("--striking-min cannot exceed --striking-max.");
+
+const csv = parseCsv(fs.readFileSync(args.input, "utf8"));
 if (csv.length < 2) throw new Error("GSC export is empty.");
 const headers = csv[0].map(normalizeHeader);
 const indexOf = (...names) => names.map(normalizeHeader).map((name) => headers.indexOf(name)).find((idx) => idx >= 0) ?? -1;
@@ -76,64 +156,115 @@ for (const key of ["query", "page", "clicks", "impressions", "position"]) {
   if (indexes[key] < 0) throw new Error(`Missing required GSC column: ${key}`);
 }
 
-const rows = csv.slice(1).map((values) => ({
-  query: clean(values[indexes.query]),
-  page: clean(values[indexes.page]),
-  clicks: number(values[indexes.clicks]),
-  impressions: number(values[indexes.impressions]),
-  ctr: indexes.ctr >= 0 ? ratio(values[indexes.ctr]) : 0,
-  position: number(values[indexes.position])
-})).filter((row) => row.query && row.page && row.impressions > 0 && row.position > 0);
+const rows = csv.slice(1).map((values) => {
+  const query = clean(values[indexes.query]);
+  const page = normalizePage(values[indexes.page], args.siteOrigin);
+  const clicks = number(values[indexes.clicks]);
+  const impressions = number(values[indexes.impressions]);
+  const reportedCtr = indexes.ctr >= 0 ? ratio(values[indexes.ctr]) : 0;
+  return {
+    query,
+    page,
+    clicks,
+    impressions,
+    ctr: indexes.ctr >= 0 ? reportedCtr : (impressions ? clicks / impressions : 0),
+    position: number(values[indexes.position]),
+    family: queryFamily(query)
+  };
+}).filter((row) => row.query && row.page && row.impressions > 0 && row.position > 0);
 
 const byPage = new Map();
 const byQuery = new Map();
+const byFamily = new Map();
 for (const row of rows) {
-  const page = byPage.get(row.page) ?? { page: row.page, clicks: 0, impressions: 0, weightedPosition: 0 };
-  page.clicks += row.clicks;
-  page.impressions += row.impressions;
-  page.weightedPosition += row.position * row.impressions;
-  byPage.set(row.page, page);
+  const pageRows = byPage.get(row.page) ?? [];
+  pageRows.push(row);
+  byPage.set(row.page, pageRows);
 
-  const query = byQuery.get(row.query) ?? new Map();
-  const pageForQuery = query.get(row.page) ?? { page: row.page, clicks: 0, impressions: 0, weightedPosition: 0 };
-  pageForQuery.clicks += row.clicks;
-  pageForQuery.impressions += row.impressions;
-  pageForQuery.weightedPosition += row.position * row.impressions;
-  query.set(row.page, pageForQuery);
-  byQuery.set(row.query, query);
+  const queryPages = byQuery.get(row.query) ?? new Map();
+  const rowsForPage = queryPages.get(row.page) ?? [];
+  rowsForPage.push(row);
+  queryPages.set(row.page, rowsForPage);
+  byQuery.set(row.query, queryPages);
+
+  const familyRows = byFamily.get(row.family) ?? [];
+  familyRows.push(row);
+  byFamily.set(row.family, familyRows);
 }
 
 const striking = rows
-  .filter((row) => row.position >= 4 && row.position <= 20 && row.impressions >= 10)
-  .sort((a, b) => b.impressions - a.impressions || a.position - b.position)
-  .slice(0, 50);
+  .filter((row) => row.position >= args.strikingMin && row.position <= args.strikingMax && row.impressions >= args.minImpressions)
+  .map((row) => ({ ...row, score: opportunityScore(row, args.lowCtr) }))
+  .sort((a, b) => b.score - a.score || b.impressions - a.impressions)
+  .slice(0, 60);
 
 const zeroClick = rows
-  .filter((row) => row.clicks === 0 && row.impressions >= 20)
-  .sort((a, b) => b.impressions - a.impressions)
-  .slice(0, 50);
+  .filter((row) => row.clicks === 0 && row.impressions >= Math.max(20, args.minImpressions))
+  .map((row) => ({ ...row, score: opportunityScore(row, args.lowCtr) }))
+  .sort((a, b) => b.score - a.score || b.impressions - a.impressions)
+  .slice(0, 60);
 
 const lowCtr = rows
-  .filter((row) => row.position <= 10 && row.impressions >= 50 && row.ctr < 0.02)
-  .sort((a, b) => b.impressions - a.impressions || a.ctr - b.ctr)
+  .filter((row) => row.position <= args.ctrMaxPosition && row.impressions >= Math.max(50, args.minImpressions) && row.ctr < args.lowCtr)
+  .map((row) => ({ ...row, score: opportunityScore(row, args.lowCtr) }))
+  .sort((a, b) => b.score - a.score || b.impressions - a.impressions)
+  .slice(0, 60);
+
+const pageLeaders = [...byPage.entries()].map(([page, items]) => ({ page, ...aggregate(items) }))
+  .sort((a, b) => b.impressions - a.impressions)
+  .slice(0, 60);
+
+const pageOpportunities = [...byPage.entries()].map(([page, items]) => {
+  const stats = aggregate(items);
+  const actionable = items.filter((row) =>
+    (row.position >= args.strikingMin && row.position <= args.strikingMax) ||
+    (row.position <= args.ctrMaxPosition && row.ctr < args.lowCtr)
+  );
+  return {
+    page,
+    ...stats,
+    actionableImpressions: actionable.reduce((sum, row) => sum + row.impressions, 0),
+    score: actionable.reduce((sum, row) => sum + opportunityScore(row, args.lowCtr), 0),
+    families: [...new Set(actionable.map((row) => row.family))].slice(0, 4).join(", ")
+  };
+}).filter((item) => item.actionableImpressions >= args.minImpressions)
+  .sort((a, b) => b.score - a.score || b.actionableImpressions - a.actionableImpressions)
   .slice(0, 50);
 
-const pageLeaders = [...byPage.values()].map((item) => ({
-  ...item,
-  ctr: item.impressions ? item.clicks / item.impressions : 0,
-  position: item.impressions ? item.weightedPosition / item.impressions : 0
-})).sort((a, b) => b.impressions - a.impressions).slice(0, 50);
+const familySummary = [...byFamily.entries()].map(([family, items]) => ({ family, ...aggregate(items) }))
+  .sort((a, b) => b.impressions - a.impressions);
 
 const cannibalization = [];
 for (const [query, pages] of byQuery.entries()) {
-  const candidates = [...pages.values()].map((item) => ({
-    ...item,
-    position: item.impressions ? item.weightedPosition / item.impressions : 0
-  })).filter((item) => item.impressions >= 5).sort((a, b) => b.impressions - a.impressions);
+  const candidates = [...pages.entries()].map(([page, items]) => ({ page, ...aggregate(items) }))
+    .filter((item) => item.impressions >= Math.max(5, Math.floor(args.minImpressions / 2)))
+    .sort((a, b) => b.impressions - a.impressions);
   const totalImpressions = candidates.reduce((sum, item) => sum + item.impressions, 0);
-  if (candidates.length >= 2 && totalImpressions >= 20) cannibalization.push({ query, totalImpressions, pages: candidates.slice(0, 4) });
+  if (candidates.length >= 2 && totalImpressions >= Math.max(20, args.minImpressions)) {
+    cannibalization.push({ query, totalImpressions, pages: candidates.slice(0, 5) });
+  }
 }
 cannibalization.sort((a, b) => b.totalImpressions - a.totalImpressions);
+
+const programWatchlist = [
+  "/motorcycles/honda/pcx-160",
+  "/motorcycles/suzuki/raider-r150",
+  "/motorcycles/yamaha/sniper-155",
+  "/motorcycles/yamaha/fazzio",
+  "/motorcycles/yamaha/mio-gear",
+  "/motorcycles/honda/adv-160",
+  "/tires/adv-160-tire-size",
+  "/tires/fazzio-tire-size",
+  "/tires/mio-gear-tire-size",
+  "/tires/sniper-155-tire-size",
+  "/tires/aerox-tire-size",
+  "/tires/nmax-tire-size",
+  "/tires/honda-click-tire-size"
+];
+const watched = programWatchlist.flatMap((page) => {
+  const items = byPage.get(page);
+  return items ? [{ page, ...aggregate(items) }] : [];
+}).sort((a, b) => b.impressions - a.impressions);
 
 function table(title, items, columns, rowFn) {
   const lines = [`## ${title}`, "", `| ${columns.join(" | ")} |`, `| ${columns.map(() => "---").join(" | ")} |`];
@@ -145,13 +276,27 @@ function table(title, items, columns, rowFn) {
 const report = [
   "# MotoIndex GSC opportunity report",
   "",
-  `Rows analyzed: ${rows.length.toLocaleString("en-PH")}. This report only prioritizes URLs and queries already receiving Google Search impressions. It does not invent opportunities for pages absent from the export.`,
+  `Rows analyzed: ${rows.length.toLocaleString("en-PH")}. This report only prioritizes URLs and queries present in the supplied first-party Search Console dataset. It does not treat competitor traffic estimates or keyword-volume research as GSC performance.`,
   "",
-  table("Striking-distance queries (positions 4–20)", striking, ["Query", "Page", "Clicks", "Impressions", "CTR", "Position"], (row) => [row.query, row.page, row.clicks, row.impressions, pct(row.ctr), row.position.toFixed(1)]),
+  "## Configuration",
   "",
-  table("High-impression zero-click rows", zeroClick, ["Query", "Page", "Impressions", "Position"], (row) => [row.query, row.page, row.impressions, row.position.toFixed(1)]),
+  `- Minimum impressions: ${args.minImpressions}`,
+  `- Striking-distance positions: ${args.strikingMin}–${args.strikingMax}`,
+  `- Low-CTR check: position ≤ ${args.ctrMaxPosition}, CTR < ${pct(args.lowCtr)}`,
+  `- Page normalization origin: ${args.siteOrigin}`,
+  "- Opportunity score is an internal prioritization heuristic based on impressions, position band and CTR gap. It is not a Google ranking metric.",
   "",
-  table("Possible CTR opportunities", lowCtr, ["Query", "Page", "Clicks", "Impressions", "CTR", "Position"], (row) => [row.query, row.page, row.clicks, row.impressions, pct(row.ctr), row.position.toFixed(1)]),
+  table("Page priorities from earned impressions", pageOpportunities, ["Page", "Actionable impressions", "Clicks", "CTR", "Weighted position", "Query families"], (row) => [row.page, row.actionableImpressions, row.clicks, pct(row.ctr), row.position.toFixed(1), row.families]),
+  "",
+  table("Striking-distance queries", striking, ["Query", "Intent", "Page", "Clicks", "Impressions", "CTR", "Position"], (row) => [row.query, row.family, row.page, row.clicks, row.impressions, pct(row.ctr), row.position.toFixed(1)]),
+  "",
+  table("High-impression zero-click rows", zeroClick, ["Query", "Intent", "Page", "Impressions", "Position"], (row) => [row.query, row.family, row.page, row.impressions, row.position.toFixed(1)]),
+  "",
+  table("Possible CTR opportunities", lowCtr, ["Query", "Intent", "Page", "Clicks", "Impressions", "CTR", "Position"], (row) => [row.query, row.family, row.page, row.clicks, row.impressions, pct(row.ctr), row.position.toFixed(1)]),
+  "",
+  table("Query-family demand already reaching MotoIndex", familySummary, ["Intent family", "Clicks", "Impressions", "CTR", "Weighted position"], (row) => [row.family, row.clicks, row.impressions, pct(row.ctr), row.position.toFixed(1)]),
+  "",
+  table("Current SEO-program watchlist found in GSC", watched, ["Page", "Clicks", "Impressions", "CTR", "Weighted position"], (row) => [row.page, row.clicks, row.impressions, pct(row.ctr), row.position.toFixed(1)]),
   "",
   table("Pages Google already rewards with impressions", pageLeaders, ["Page", "Clicks", "Impressions", "CTR", "Weighted position"], (row) => [row.page, row.clicks, row.impressions, pct(row.ctr), row.position.toFixed(1)]),
   "",
@@ -159,22 +304,22 @@ const report = [
   "",
   ...(cannibalization.length ? cannibalization.slice(0, 30).flatMap((item) => [
     `### ${item.query}`,
-    `Total impressions across competing pages: ${item.totalImpressions}`,
+    `Total impressions across competing canonical paths: ${item.totalImpressions}`,
     "",
-    ...item.pages.map((page) => `- ${page.page} — ${page.impressions} impressions, ${page.clicks} clicks, avg position ${page.position.toFixed(1)}`),
+    ...item.pages.map((page) => `- ${page.page} — ${page.impressions} impressions, ${page.clicks} clicks, CTR ${pct(page.ctr)}, avg position ${page.position.toFixed(1)}`),
     ""
-  ]) : ["No query with meaningful impressions appeared across multiple pages in this export.", ""]),
+  ]) : ["No query with meaningful impressions appeared across multiple normalized page paths in this export.", ""]),
   "## Recommended workflow",
   "",
-  "1. Improve content and internal links first for positions 4–20 where the canonical page already matches intent.",
-  "2. Rewrite title and meta description only where a page already earns impressions and CTR is weak for its position.",
-  "3. Consolidate or differentiate pages only after confirming genuine query overlap, not merely similar page titles.",
-  "4. Prioritize missing media and source depth on the pages Google already exposes most often.",
-  "5. Re-export the same dimensions after changes and compare clicks, impressions, CTR and position over the same time window."
+  "1. Improve on-page coverage and internal links first for positions 4–20 where the existing canonical page clearly matches the query intent.",
+  "2. Test title/meta changes only where the page already earns meaningful impressions and CTR is weak for its current position; do not rewrite titles from keyword-volume data alone.",
+  "3. For price/installment, specs, colors and tire-size query families, strengthen the matching section on the canonical model or tire guide instead of creating thin derivative URLs.",
+  "4. Treat cannibalization as a review queue, not an automatic merge instruction. Confirm that the pages truly serve the same search intent before consolidating.",
+  "5. Re-export the same query+page dimensions for an equivalent date range after changes and compare clicks, impressions, CTR and weighted position."
 ].join("\n");
 
-if (output) {
-  const out = path.resolve(output);
+if (args.output) {
+  const out = path.resolve(args.output);
   fs.mkdirSync(path.dirname(out), { recursive: true });
   fs.writeFileSync(out, report);
   console.log(`Wrote ${out}`);
