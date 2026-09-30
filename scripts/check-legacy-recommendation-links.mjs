@@ -24,6 +24,7 @@ for (const base of scanRoots) {
     // directly. Electric aliases remain separately consolidated.
     if (rel === "app/recommendations/[slug]/page.tsx") continue;
     if (rel === "app/recommendations/RecommendationGuideArchive.tsx") continue;
+    if (rel === "app/recommendations/RecommendationsHub.tsx") continue;
     if (rel === "app/motorcycles/page.tsx") continue;
     if (rel === "app/motorcycles/scooters/page.tsx") continue;
     // Brand pages are canonical entity hubs. They may link directly to
