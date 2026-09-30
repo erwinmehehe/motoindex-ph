@@ -16,7 +16,6 @@ import {
 } from "@/lib/motorcycleMarket";
 import { pageMetadata, SITE_URL } from "@/lib/site";
 import { php } from "@/lib/utils";
-import styles from "./scooters.module.css";
 
 const scooters = priceOrdered(currentScooters);
 const priceSpan = marketPriceSpan(scooters);
@@ -112,38 +111,35 @@ export default function ScootersPage() {
         ]} />
       </section>
 
-      <section className={`${styles.decisionSection} section`} aria-labelledby="scooter-clusters" data-scooter-decision-section>
-        <div className={styles.decisionHeader}>
-          <div className={styles.decisionHeaderCopy}>
-            <span className={styles.eyebrow}>Narrow the market</span>
-            <h2 id="scooter-clusters">Find the right scooter faster</h2>
-            <p>Use a guided comparison, jump to an engine-size or brand guide, or estimate a monthly payment before you open the full price list.</p>
-          </div>
-          <span className={styles.decisionHint}>Three useful next steps</span>
-        </div>
-
-        <div className={styles.decisionGrid} data-scooter-decision-grid>
-          <Link href="/recommendations/best-scooters-philippines" className={styles.decisionCard} data-scooter-decision-card>
-            <span className={styles.cardIndex}>01</span>
-            <span className={styles.cardCopy}><strong>Start with the full scooter shortlist</strong><small>Compare current scooters by price, rider fit, braking and fuel data.</small></span>
-            <span className={styles.cardArrow} aria-hidden="true">→</span>
+      <section className="section" aria-labelledby="scooter-clusters" data-scooter-decision-section>
+        <SectionHeader
+          kicker="Narrow the market"
+          title="Find the right scooter faster"
+          titleId="scooter-clusters"
+          description="Start with a shortlist, jump to the right engine-size or brand guide, or estimate monthly payments before opening the full price list."
+        />
+        <div className="ui-content-grid" data-scooter-decision-grid>
+          <Link href="/recommendations/best-scooters-philippines" className="ui-content-card" data-scooter-decision-card>
+            <span className="section-kicker">01 · Shortlist</span>
+            <h3>Compare the strongest scooter options</h3>
+            <p>Review current scooters by price, rider fit, braking and fuel data.</p>
           </Link>
-          <a href="#scooter-shortcuts" className={styles.decisionCard} data-scooter-decision-card>
-            <span className={styles.cardIndex}>02</span>
-            <span className={styles.cardCopy}><strong>Browse engine sizes and scooter brands</strong><small>Jump straight to 125cc, 150/155cc, 160cc, Honda, Yamaha or Suzuki research.</small></span>
-            <span className={styles.cardArrow} aria-hidden="true">↓</span>
+          <a href="#scooter-shortcuts" className="ui-content-card" data-scooter-decision-card>
+            <span className="section-kicker">02 · Narrow it down</span>
+            <h3>Browse by engine size or brand</h3>
+            <p>Jump to 125cc, 150/155cc, 160cc, Honda, Yamaha or Suzuki research.</p>
           </a>
-          <Link href="/tools/motorcycle-loan-calculator" className={styles.decisionCard} data-scooter-decision-card>
-            <span className={styles.cardIndex}>03</span>
-            <span className={styles.cardCopy}><strong>Estimate a monthly payment</strong><small>Use the loan calculator with the exact bike price, down payment, term and rate.</small></span>
-            <span className={styles.cardArrow} aria-hidden="true">→</span>
+          <Link href="/tools/motorcycle-loan-calculator" className="ui-content-card" data-scooter-decision-card>
+            <span className="section-kicker">03 · Affordability</span>
+            <h3>Estimate your monthly payment</h3>
+            <p>Calculate payments using the exact bike price, down payment, term and rate.</p>
           </Link>
         </div>
-
-        <nav id="scooter-shortcuts" className={styles.shortcutRail} aria-label="Focused scooter guides">
-          <span className={styles.shortcutLabel}>Jump to</span>
-          {childClusters.slice(1).map((cluster) => <Link href={cluster.href} key={cluster.href} className={styles.shortcutLink} data-scooter-shortcut-link>{cluster.label}</Link>)}
-        </nav>
+        <div id="scooter-shortcuts">
+          <CTAGroup>
+            {childClusters.slice(1).map((cluster) => <Link href={cluster.href} key={cluster.href} className="button ghost small" data-scooter-shortcut-link>{cluster.label}</Link>)}
+          </CTAGroup>
+        </div>
       </section>
 
       <section id="scooter-price-list" className="section" aria-labelledby="scooter-price-list-title">
