@@ -1,0 +1,29 @@
+.decisionGrid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--mi-space-3);
+}
+
+.decisionCard{
+  min-height:0;
+  padding:var(--mi-space-4);
+}
+
+.decisionCard h3{
+  margin:var(--mi-space-2) 0 var(--mi-space-2);
+  font-size:var(--mi-type-lg);
+  line-height:1.25;
+}
+
+.decisionCard p{
+  margin:0;
+  font-size:var(--mi-type-xs);
+  line-height:1.5;
+}
+
+.shortcutWrap{
+  margin-top:var(--mi-space-4);
+}
+
+@media(max-width:760px){
+  .decisionGrid{grid-template-columns:1fr}
+}
