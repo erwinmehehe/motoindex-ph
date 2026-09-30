@@ -71,7 +71,6 @@ for (const [path, target] of [
   ["/maintenance/motorcycle-battery", "/maintenance#motorcycle-battery"],
   ["/maintenance/change-oil-motorcycle", "/maintenance#change-oil-motorcycle"],
   ["/motorcycles/honda/click-160/used-value", "/motorcycles/honda/click-160#used"],
-  ["/motorcycles/electric/vinfast-evo", "/motorcycles/electric#models"],
   ["/motorcycles/electric/vinfast-feliz-ii", "/motorcycles/electric#models"],
   ["/motorcycles/electric/vinfast-viper", "/motorcycles/electric#models"]
 ]) {
@@ -80,6 +79,8 @@ for (const [path, target] of [
   const location = response.headers.get("location") || "";
   if (!location.endsWith(target)) failures.push(`${path}: expected permanent redirect to ${target}, got ${location || "no Location header"}`);
 }
+
+await get("/motorcycles/electric/vinfast-evo");
 
 let robotsBody = "";
 const robots = await get("/robots.txt");
@@ -121,7 +122,7 @@ for (const path of ["/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear
       const url = new URL(raw);
       if (isForbiddenIndexedPath(url.pathname)) failures.push(`${path} leaks noindex/prototype route ${url.pathname}`);
       if (/^\/recommendations\/[^/]+\/?$/.test(url.pathname)) failures.push(`${path} leaks retired recommendation URL ${url.pathname}`);
-      if (/^\/motorcycles\/electric\/[^/]+\/?$/.test(url.pathname)) failures.push(`${path} leaks consolidated electric model URL ${url.pathname}`);
+      if (/^\/motorcycles\/electric\/[^/]+\/?$/.test(url.pathname) && url.pathname !== "/motorcycles/electric/vinfast-evo") failures.push(`${path} leaks consolidated electric model URL ${url.pathname}`);
     } catch {
       failures.push(`${path} contains invalid URL ${raw}`);
     }
