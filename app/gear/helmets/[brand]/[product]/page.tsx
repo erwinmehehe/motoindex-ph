@@ -93,7 +93,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     { label: "Type", value: p.helmetType },
     { label: "Sizes", value: p.sizes.length ? p.sizes.join(" · ") : "Check exact chart" },
     { label: p.weightG ? "Weight" : "Shell", value: p.weightG ? `${p.weightG.toLocaleString("en-PH")} g` : (p.shell || "See key details") },
-    { label: "Safety", value: p.certification || "Verify the exact local unit" },
+    { label: "Safety", value: p.certification || "Verify exact local unit" },
   ];
 
   return <ProductEntityShell className="helmet-product-page">
@@ -106,7 +106,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
       description={<p>{p.description}</p>}
       price={p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}
       priceNote="Observed Philippine starting price"
-      actions={<div className="helmet-hero-actions"><a className="button helmet-primary-cta" href="#price">Check current price</a><a className="helmet-secondary-cta" href="#details">Fit & specs</a></div>}
+      actions={<><a className="button helmet-primary-cta" href="#price">Check current price</a><a className="button ghost" href="#details">Fit & specs</a></>}
       facts={heroFacts}
       trust={<ProductTrustRow
         status={p.status}
@@ -125,79 +125,72 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
       { href: "#faq", label: "FAQ" },
     ]} />
 
-    <section id="price" className="product-entity-section helmet-price-section">
-      <div className="helmet-section-intro"><span>Price & availability</span><h2>{p.brand} {p.model} price in the Philippines</h2><p>Use the observed amount as a reference, then confirm the exact size, graphic and bundle before checkout.</p></div>
-      <div className="helmet-price-panel">
-        <div className="helmet-price-main"><span>Observed starting price</span><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong>{p.lastChecked && <small>Checked {p.lastChecked}</small>}</div>
-        <div className="helmet-price-context"><span>Exact product</span><strong>{p.brand} {p.model}</strong><p>{p.stockStatus ? p.stockStatus : "Stock and final checkout price can vary by size, graphic and seller."}</p></div>
+    <section id="price" className="product-entity-section">
+      <div className="section-head compact"><div><span className="section-kicker">Price & availability</span><h2>{p.brand} {p.model} price in the Philippines</h2><p>Use the observed amount as a reference, then confirm the exact size, graphic and bundle before checkout.</p></div></div>
+      <div className="entity-price-grid helmet-price-panel">
+        <article className="primary-price-card"><span>Observed starting price</span><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong>{p.lastChecked && <small>Checked {p.lastChecked}</small>}</article>
+        <article><span>Exact product</span><strong>{p.brand} {p.model}</strong><small>{p.stockStatus || "Stock and final checkout price can vary by size, graphic and seller."}</small></article>
       </div>
       <CommercePriceComparison entityType="helmet" entityId={p.id} productName={`${p.brand} ${p.model}`} />
     </section>
 
-    <section id="details" className="product-entity-section helmet-details-section">
-      <div className="helmet-section-intro"><span>Key details</span><h2>What matters before you buy</h2><p>Construction, fit and visor compatibility are grouped here so you do not have to scan several repetitive spec sections.</p></div>
-      <div className="helmet-detail-grid">
-        <article className="helmet-detail-card">
-          <div className="helmet-detail-icon" aria-hidden="true">01</div>
+    <section id="details" className="product-entity-section">
+      <div className="section-head compact"><div><span className="section-kicker">Key details</span><h2>What matters before you buy</h2><p>Construction, fit and visor compatibility are grouped here so the important information is easier to scan.</p></div></div>
+      <div className="product-editorial helmet-detail-grid">
+        <article>
           <span>Safety & construction</span>
           <h3>{p.shell || p.helmetType}</h3>
-          <dl>
-            <div><dt>Type</dt><dd>{p.helmetType}</dd></div>
-            {p.shell && <div><dt>Shell</dt><dd>{p.shell}</dd></div>}
-            {p.weightG && <div><dt>Weight</dt><dd>{p.weightG.toLocaleString("en-PH")} g</dd></div>}
-            {p.certification && <div><dt>Certification</dt><dd>{p.certification}</dd></div>}
-          </dl>
+          <ul>
+            <li><strong>Type:</strong> {p.helmetType}</li>
+            {p.shell && <li><strong>Shell:</strong> {p.shell}</li>}
+            {p.weightG && <li><strong>Weight:</strong> {p.weightG.toLocaleString("en-PH")} g</li>}
+            {p.certification && <li><strong>Certification:</strong> {p.certification}</li>}
+          </ul>
         </article>
-
-        <article className="helmet-detail-card helmet-fit-card">
-          <div className="helmet-detail-icon" aria-hidden="true">02</div>
+        <article>
           <span>Fit & sizing</span>
           <h3>{p.sizes.length ? `${p.sizes.length} listed sizes` : "Check the current size chart"}</h3>
-          {p.sizeChart?.length ? <div className="helmet-size-list">{p.sizeChart.map((row) => <div key={row.size}><strong>{row.size}</strong><span>{row.headCm} cm</span></div>)}</div> : p.sizes.length ? <div className="helmet-size-chips">{p.sizes.map((size) => <span key={size}>{size}</span>)}</div> : <p className="helmet-card-copy">Exact size chart not verified yet.</p>}
-          <p className="helmet-card-copy">Measure your head and use the current manufacturer chart. A size letter from another helmet is not enough.</p>
-          <Link href="/guides/motorcycle-helmet-size-guide">Open sizing guide →</Link>
+          {p.sizeChart?.length ? <div className="entity-size-table">{p.sizeChart.map((row) => <div key={row.size}><strong>{row.size}</strong><span>{row.headCm} cm</span></div>)}</div> : p.sizes.length ? <div className="size-chips">{p.sizes.map((size) => <span key={size}>{size}</span>)}</div> : null}
+          <p>Measure your head and use the current manufacturer chart. A size letter from another helmet is not enough.</p>
+          <Link className="text-link" href="/guides/motorcycle-helmet-size-guide">Open sizing guide →</Link>
         </article>
-
-        <article className="helmet-detail-card">
-          <div className="helmet-detail-icon" aria-hidden="true">03</div>
-          <span>Visor & replacement parts</span>
+        <article>
+          <span>Visor & parts</span>
           <h3>{p.pinlock ? "Anti-fog compatible setup" : "Check exact visor compatibility"}</h3>
-          <dl>
-            <div><dt>Visor</dt><dd>{p.visor}</dd></div>
-            {p.pinlock && <div><dt>Pinlock / anti-fog</dt><dd>{p.pinlock}</dd></div>}
-            <div><dt>Replacement visor</dt><dd>{p.replacementVisors?.length ? p.replacementVisors.join(" · ") : "Match the exact model and visor code"}</dd></div>
-          </dl>
+          <ul>
+            <li><strong>Visor:</strong> {p.visor}</li>
+            {p.pinlock && <li><strong>Pinlock / anti-fog:</strong> {p.pinlock}</li>}
+            <li><strong>Replacement visor:</strong> {p.replacementVisors?.length ? p.replacementVisors.join(" · ") : "Match the exact model and visor code"}</li>
+          </ul>
         </article>
       </div>
     </section>
 
-    <section id="decision" className="product-entity-section helmet-decision-section">
-      <div className="helmet-section-intro"><span>Buying guide</span><h2>Is the {p.brand} {p.model} a good fit for you?</h2></div>
-      <div className="helmet-decision-grid">
-        <article className="helmet-best-for"><span>Best for</span><h3>{editorial.bestFor}</h3><p>{p.description}</p></article>
-        <article className="helmet-pros"><span>Strengths</span><ul>{editorial.pros.map((item) => <li key={item}>{item}</li>)}</ul></article>
-        <article className="helmet-cons"><span>Trade-offs</span><ul>{editorial.cons.map((item) => <li key={item}>{item}</li>)}</ul></article>
+    <section id="decision" className="product-entity-section">
+      <div className="section-head compact"><div><span className="section-kicker">Buying guide</span><h2>Is the {p.brand} {p.model} a good fit for you?</h2></div></div>
+      <div className="product-editorial helmet-decision-grid">
+        <article><span>Best for</span><h3>{editorial.bestFor}</h3><p>{p.description}</p></article>
+        <article><span>Strengths</span><ul>{editorial.pros.map((item) => <li key={item}>{item}</li>)}</ul></article>
+        <article><span>Trade-offs</span><ul>{editorial.cons.map((item) => <li key={item}>{item}</li>)}</ul></article>
       </div>
     </section>
 
-    <section id="alternatives" className="product-entity-section helmet-alternatives-section">
-      <div className="helmet-section-intro"><span>Similar helmets</span><h2>Other helmets worth checking</h2><p>Verified alternatives are chosen first from the same brand or helmet type, then by nearby observed price where available.</p></div>
-      <div className="product-grid helmet-alternative-grid">{alternatives.map((item) => <ProductCard key={item.id} item={{ entityId: item.id, href: `/gear/helmets/${item.brandSlug}/${item.slug}`, category: item.helmetType, brand: item.brand, model: item.model, meta: [item.shell, item.pinlock].filter(Boolean).join(" · "), status: item.status, priceFromPhp: item.priceFromPhp }} />)}</div>
+    <section id="alternatives" className="product-entity-section">
+      <div className="section-head compact"><div><span className="section-kicker">Similar helmets</span><h2>Other helmets worth checking</h2><p>Verified alternatives are chosen first from the same brand or helmet type, then by nearby observed price where available.</p></div></div>
+      <div className="product-grid">{alternatives.map((item) => <ProductCard key={item.id} item={{ entityId: item.id, href: `/gear/helmets/${item.brandSlug}/${item.slug}`, category: item.helmetType, brand: item.brand, model: item.model, meta: [item.shell, item.pinlock].filter(Boolean).join(" · "), status: item.status, priceFromPhp: item.priceFromPhp }} />)}</div>
     </section>
 
-    {compareTargets.length > 0 && <section className="product-entity-section helmet-compare-section">
-      <div className="helmet-section-intro helmet-compare-intro"><span>Compare</span><h2>Compare the {p.model}</h2><p>Use these shortcuts for a cleaner side-by-side decision instead of reading another large table here.</p></div>
-      <div className="helmet-compare-cards">{compareTargets.map((other) => <article key={other.id}>
-        <span>{other.helmetType}</span>
-        <h3>{other.brand} {other.model}</h3>
-        <div className="helmet-compare-meta"><strong>{other.priceFromPhp ? php(other.priceFromPhp) : "Price not verified"}</strong><small>{other.sizes.length ? `${other.sizes.length} listed sizes` : "Check sizing"}</small></div>
-        <div className="helmet-compare-actions"><Link href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}&b=${encodeURIComponent(other.id)}`}>Compare side by side →</Link><Link href={`/gear/helmets/${other.brandSlug}/${other.slug}`}>View helmet</Link></div>
-      </article>)}</div>
+    {compareTargets.length > 0 && <section className="product-entity-section">
+      <div className="section-head compact"><div><span className="section-kicker">Compare</span><h2>Compare the {p.model}</h2><p>Use a focused side-by-side comparison instead of another large table on this page.</p></div><Link href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Open compare tool →</Link></div>
+      <div className="product-editorial helmet-compare-cards">
+        {compareTargets.map((other) => <article key={other.id}><span>{other.helmetType}</span><h3>{other.brand} {other.model}</h3><p>{other.priceFromPhp ? `Observed from ${php(other.priceFromPhp)}.` : "Price not verified yet."} {other.sizes.length ? `${other.sizes.length} listed sizes.` : ""}</p><Link className="text-link" href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}&b=${encodeURIComponent(other.id)}`}>Compare side by side →</Link></article>)}
+        <article><span>Custom comparison</span><h3>Compare another helmet</h3><p>Choose any other verified helmet and compare the recorded price, fit and equipment.</p><Link className="text-link" href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Build comparison →</Link></article>
+      </div>
     </section>}
 
-    <section id="faq" className="product-entity-section helmet-faq-section"><FaqSection title={`${p.brand} ${p.model} questions`} items={faqs} /></section>
+    <section id="faq" className="product-entity-section"><FaqSection title={`${p.brand} ${p.model} questions`} items={faqs} /></section>
 
-    <div className="helmet-local-check"><div><span>Philippine buying check</span><h2>Confirm the exact unit before paying.</h2></div><p>Inspect the conformity marking, confirm the fit in your size, and match replacement visors or inserts to the exact model.</p><Link href="/methodology">How MotoIndex checks product information →</Link></div>
+    <div className="note-box"><h2>Confirm the exact unit before paying</h2><p>Inspect the conformity marking, confirm the fit in your size, and match replacement visors or inserts to the exact model.</p><Link className="text-link" href="/methodology">How MotoIndex checks product information →</Link></div>
 
     <AuthorBox />
     <RelatedLinks title="Continue researching helmets" links={helmetProductInternalLinks(p).slice(0, 6)} />
