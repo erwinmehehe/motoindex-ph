@@ -47,10 +47,10 @@ export async function CommercePriceComparison({ entityType, entityId, productNam
     .sort((a, b) => compareCommerceOffers(a, b, now));
 
   if (!offers.length) {
-    return <div className="commerce-price-comparison commerce-price-comparison-empty" aria-label={`Retailer availability for ${productName}`}>
-      <div className="commerce-empty">
-        <strong>Retailer pricing not currently verified.</strong>
-        <span>MotoIndex will show exact-product seller rows here after a recent listing or retailer offer has been checked. We do not substitute unrelated products just to fill the comparison.</span>
+    return <div className="commerce-price-comparison commerce-price-comparison-empty" style={{marginTop:12}} aria-label={`Retailer availability for ${productName}`}>
+      <div className="info-card" style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:18,padding:"16px 18px",flexWrap:"wrap"}}>
+        <div style={{minWidth:0,flex:"1 1 360px"}}><span className="section-kicker">Retailer pricing</span><strong style={{display:"block",marginTop:5,fontSize:16}}>No verified seller price yet</strong><p style={{margin:"5px 0 0",color:"var(--mi-color-copy)",fontSize:10,lineHeight:1.5}}>MotoIndex only adds an exact-product seller row after a recent listing or retailer offer has been checked.</p></div>
+        <Link className="text-link" href="/affiliate-disclosure">How price links work →</Link>
       </div>
       <AffiliateOffer productId={entityId} productName={productName} />
     </div>;
