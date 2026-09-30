@@ -242,7 +242,7 @@ const inspect=`(() => {
   const scooterDecisionGrid=document.querySelector("[data-scooter-decision-grid]");
   const scooterDecisionCards=[...document.querySelectorAll("[data-scooter-decision-card]")];
   const scooterShortcutLinks=document.querySelectorAll("[data-scooter-shortcut-link]").length;
-  const scooterDecisionGridColumns=scooterDecisionGrid?(getComputedStyle(scooterDecisionGrid).gridTemplateColumns||"").trim().split(/\\s+/).filter(Boolean).length:0;
+  const scooterDecisionGridColumns=scooterDecisionGrid?((getComputedStyle(scooterDecisionGrid).gridTemplateColumns||"").match(/[\\d.]+px/g)||[]).filter(track=>parseFloat(track)>1).length:0;
   const scooterDecisionCardMaxHeight=scooterDecisionCards.length?Math.max(...scooterDecisionCards.map(card=>card.getBoundingClientRect().height)):0;
   const scooterDecisionSectionHeight=scooterDecisionSection?.getBoundingClientRect().height||0;
 
