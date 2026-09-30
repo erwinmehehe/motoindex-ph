@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import type { Motorcycle } from "@/lib/types";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
@@ -11,6 +12,7 @@ import { ShareModelButton } from "@/components/ShareModelButton";
 import { ProductEntityNav } from "@/components/ProductEntityNav";
 import { VariantMatrix } from "@/components/VariantMatrix";
 import { PriceIntelligence } from "@/components/PriceIntelligence";
+import { MarketPriceChecks } from "@/components/MarketPriceChecks";
 import { InstallmentCalculator } from "@/components/InstallmentCalculator";
 import { FinancingSnapshot } from "@/components/FinancingSnapshot";
 import { RiderFitCalculator } from "@/components/RiderFitCalculator";
@@ -50,8 +52,25 @@ import { getModelGearGuide } from "@/lib/modelGearGuides";
 import { OwnershipCatalogLinks } from "@/components/OwnershipCatalogLinks";
 import { CTAGroup, ProductGrid as CanonicalProductGrid, SectionHeader } from "@/components/ui";
 
+const MOTORCYCLE_ANALYTICS_CSS = `
+.motorcycle-analytics-panel{margin:28px 0 18px;padding:34px;border:1px solid rgba(62,82,69,.16);border-radius:16px;background:#fff;box-shadow:0 18px 48px rgba(24,45,32,.055)}
+.motorcycle-analytics-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:24px}.motorcycle-analytics-heading>div>span{color:#176b4b;font-size:9px;font-weight:850;letter-spacing:.11em;text-transform:uppercase}.motorcycle-analytics-heading h2{margin:6px 0 0;color:#132019;font-size:clamp(28px,3.2vw,40px);line-height:1;letter-spacing:-.045em}.motorcycle-analytics-heading>p{max-width:390px;margin:0;color:#5f6f65;font-size:11px;line-height:1.55}
+.motorcycle-analytics-grid{display:grid;grid-template-columns:1.12fr repeat(3,1fr);gap:1px;overflow:hidden;border:1px solid rgba(62,82,69,.16);border-radius:11px;background:rgba(62,82,69,.16)}.motorcycle-analytics-metric{min-width:0;padding:22px;background:#fff}.motorcycle-analytics-metric.is-featured{background:#e8f3ed}.motorcycle-analytics-metric>span{color:#5f6f65;font-size:9px;font-weight:750;letter-spacing:.06em;text-transform:uppercase}.motorcycle-analytics-metric>strong{display:block;margin:17px 0 15px;color:#132019;font-size:27px;line-height:1;letter-spacing:-.04em;white-space:nowrap}.motorcycle-analytics-metric>strong small{color:#5f6f65;font-size:9px;font-weight:650;letter-spacing:0}.motorcycle-analytics-track{height:5px;overflow:hidden;border-radius:6px;background:#e8ece9}.motorcycle-analytics-track>i{display:block;width:var(--metric-fill);height:100%;background:#176b4b}.motorcycle-analytics-metric>p{margin:9px 0 0;color:#5f6f65;font-size:9px;line-height:1.4}
+@media(max-width:900px){.motorcycle-analytics-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.motorcycle-analytics-panel{padding:24px 0;border-left:0;border-right:0;border-radius:0;box-shadow:none}.motorcycle-analytics-heading{align-items:flex-start;flex-direction:column;gap:10px;padding:0 2px}.motorcycle-analytics-grid{grid-template-columns:1fr}.motorcycle-analytics-metric{padding:18px 14px}.motorcycle-analytics-metric>strong{font-size:23px}}
+`;
+
 function HeroFact({ label, value, note }: { label: string; value: string; note?: string }) {
   return <div><span>{label}</span><strong>{value}</strong>{note && <small>{note}</small>}</div>;
+}
+
+function AnalyticsMetric({ id, label, value, unit, note, fill, featured = false }: { id: string; label: string; value: string; unit: string; note: string; fill: number; featured?: boolean }) {
+  return <article className={`motorcycle-analytics-metric${featured ? " is-featured" : ""}`} data-metric={id}>
+    <span>{label}</span>
+    <strong>{value} <small>{unit}</small></strong>
+    <div className="motorcycle-analytics-track" aria-hidden="true"><i style={{ "--metric-fill": `${Math.max(8, Math.min(fill, 100))}%` } as CSSProperties} /></div>
+    <p>{note}</p>
+  </article>;
 }
 
 export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
@@ -145,6 +164,10 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           ? { href: "/recommendations/160cc-scooters-philippines", label: "160cc scooter comparison" }
           : undefined
     : undefined;
+  const priceLabel = observedMarketPriceLabel(model);
+  const priceRange = priceLabel.split("–");
+  const powerToWeight = model.curbWeightKg > 0 ? model.powerHp / model.curbWeightKg * 100 : 0;
+  const powerDensity = model.engineCc > 0 ? model.powerHp / model.engineCc * 100 : 0;
 
   return <article className="motorcycle-entity-page">
     <section className="motorcycle-entity-hero" id="overview">
@@ -157,7 +180,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
             <p className="entity-lede">{seo.intro}</p>
             <div className="motorcycle-price-lockup">
               <span>{isPrevious ? "Historical launch reference" : availabilityUncertain ? "Published PH price · availability to verify" : "Published Philippine price"}</span>
-              <strong>{observedMarketPriceLabel(model)}</strong>
+              <strong>{priceRange.length === 2 ? <><b data-price-boundary style={{ fontWeight: "inherit" }}>{priceRange[0]}</b><i data-price-separator style={{ margin: "0 .22em", color: "var(--model-muted)", fontStyle: "normal", fontWeight: 500 }}>–</i><b data-price-boundary style={{ fontWeight: "inherit" }}>{priceRange[1]}</b></> : priceLabel}</strong>
               <small>{isPrevious ? "Historical context, not a current new-bike quote." : "Final dealer pricing can vary."}</small>
             </div>
             <CTAGroup className="entity-hero-actions">
@@ -194,6 +217,16 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
     </div>
 
     <div className="shell motorcycle-entity-body">
+      <style>{MOTORCYCLE_ANALYTICS_CSS}</style>
+      <section className="motorcycle-analytics-panel" data-motorcycle-analytics="true" aria-label={`${model.make} ${model.model} performance snapshot`}>
+        <div className="motorcycle-analytics-heading"><div><span>Performance snapshot</span><h2>The numbers that shape the ride</h2></div><p>Published specifications and calculated ratios. Bars provide scale context, not a universal motorcycle score.</p></div>
+        <div className="motorcycle-analytics-grid">
+          <AnalyticsMetric id="power" label="Power" value={model.powerHp.toLocaleString("en-PH", { maximumFractionDigits: 1 })} unit="hp" note={`${powerDensity.toFixed(1)} hp per 100 cc`} fill={powerDensity / 15 * 100} featured />
+          <AnalyticsMetric id="torque" label="Torque" value={model.torqueNm.toLocaleString("en-PH", { maximumFractionDigits: 1 })} unit="Nm" note="Published peak output" fill={model.torqueNm / Math.max(model.engineCc / 8, 12) * 100} />
+          <AnalyticsMetric id="power-to-weight" label="Power-to-weight" value={powerToWeight.toFixed(1)} unit="hp / 100 kg" note={`Calculated from ${model.curbWeightKg} kg curb weight`} fill={powerToWeight / 25 * 100} />
+          <AnalyticsMetric id="seat-height" label="Seat height" value={model.seatHeightMm.toLocaleString("en-PH")} unit="mm" note={`${model.curbWeightKg} kg curb weight · check fit in person`} fill={(model.seatHeightMm - 650) / 3} />
+        </div>
+      </section>
       {availabilityUncertain && <section className="entity-alert-card"><div><span>Availability needs verification</span><h2>Confirm current new-bike availability before relying on this price</h2><p>This model has Philippine price and specification references but is not treated as part of the current shopping catalog until present-day availability is confirmed.</p></div></section>}
       {isPrevious && successor && <section className="entity-alert-card"><div><span>Previous generation</span><h2>Looking for the current model?</h2><p>{model.model} stays live for owners and used-bike research. Current new-bike pricing belongs to {successor.make} {successor.model}.</p></div><Link className="button small" href={`/motorcycles/${successor.makeSlug}/${successor.slug}`}>View {successor.model} →</Link></section>}
 
@@ -207,6 +240,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <div className="entity-price-grid motorcycle-price-grid"><article><span>{isPrevious ? "Historical launch SRP" : "Published price"}</span><strong>{observedMarketPriceLabel(model)}</strong><small>{isPrevious ? "Historical reference only." : "Confirm the current dealer quote before purchase."}</small></article><article><span>Model status</span><strong>{isPrevious ? "Previous generation" : availabilityUncertain ? "Availability needs verification" : "Current model"}</strong><small>{model.generation} · {model.category}</small></article></div>
         {!isPrevious && <VariantMatrix model={model} />}
         {!isPrevious && <PriceIntelligence model={model} />}
+        {!isPrevious && <MarketPriceChecks model={model} />}
       </section>
 
       <section className="motorcycle-entity-section global-spec-intent" aria-labelledby="quick-specs-heading">
