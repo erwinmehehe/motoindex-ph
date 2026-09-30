@@ -81,7 +81,11 @@
   },
   "overrides": {
     "postcss": "8.5.26",
-    "sharp": "0.35.4"
+    "sharp": "0.35.4",
+    "undici": "7.30.0",
+    "@node-minify/core": {
+      "brace-expansion": "2.1.7"
+    }
   },
   "packageManager": "npm@10.9.2",
   "engines": {
