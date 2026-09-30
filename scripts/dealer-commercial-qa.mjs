@@ -65,6 +65,15 @@ try{
       if(slug==="quezon-city")await shot("quezon-city",width);
     }
 
+    await nav("/sellers/yamaha-motortrade-malate");
+    const dealerProfile=await evalJs(client.send,`(()=>{const root=document.documentElement;const network=document.querySelector('.dealer-network-prices');const body=network?.innerText||'';return{overflow:root.scrollWidth-root.clientWidth,network:Boolean(network),networkRows:network?.querySelectorAll('.dealer-network-offers>a').length||0,hasDisclaimer:/not proof of this branch|not proof of.*branch/i.test(body),branchSpecificEmpty:/No current branch-specific checked price offers yet/i.test(document.body.innerText),hasNetworkBadge:[...document.querySelectorAll('.dealer-network-prices .offer-status')].some(el=>/network/i.test(el.textContent||''))};})()`);
+    results.push({width,page:"dealer-profile-network-pricing",...dealerProfile});
+    if((dealerProfile?.overflow||0)>5)failures.push(`${width}px dealer profile overflow`);
+    if(!dealerProfile?.network||(dealerProfile?.networkRows||0)<1)failures.push(`${width}px dealer network price references missing`);
+    if(!dealerProfile?.hasDisclaimer)failures.push(`${width}px dealer network branch-level disclaimer missing`);
+    if(!dealerProfile?.hasNetworkBadge)failures.push(`${width}px dealer network price labels missing`);
+    await shot("dealer-profile-network-pricing",width);
+
     await nav("/dealers/pampanga");
     const pampanga=await evalJs(client.send,`(()=>{const root=document.documentElement;return{overflow:root.scrollWidth-root.clientWidth,callouts:document.querySelectorAll('.dealer-listing-callout').length,free:[...document.querySelectorAll('a')].some(a=>/listed free|dealership free/i.test(a.textContent||'')),featured:[...document.querySelectorAll('a')].some(a=>/featured/i.test(a.textContent||'')),cards:document.querySelectorAll('.dealer-result-card').length};})()`);
     results.push({width,page:"dealer-pampanga",...pampanga});
