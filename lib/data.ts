@@ -2441,10 +2441,15 @@ export function getRecommendationGuide(slug: string) {
   return recommendationGuides.find((guide) => guide.slug === slug);
 }
 
+export function hasConfirmedAbs(value: string) {
+  const normalized = value.toLowerCase();
+  if (!normalized.includes("abs")) return false;
+  return !/no abs|without abs|not confirmed|not stated|not listed|confirm exact abs|abs equipment is not confirmed/.test(normalized);
+}
+
 export function getRecommendationModels(slug: string) {
   const models = [...publicMotorcycles];
   const byPrice = [...models].sort((a,b) => observedMarketRange(a).from - observedMarketRange(b).from || a.curbWeightKg - b.curbWeightKg);
-  const hasAbs = (m: Motorcycle) => /\bABS\b/i.test(m.abs) && !/^No ABS/i.test(m.abs);
   switch (slug) {
     case "motorcycles-under-100k": return byPrice.filter(m => observedMarketRange(m).from < 100000);
     case "motorcycles-under-150k": return byPrice.filter(m => observedMarketRange(m).from <= 150000);
@@ -2452,14 +2457,14 @@ export function getRecommendationModels(slug: string) {
     case "motorcycles-100k-to-150k": return byPrice.filter(m => observedMarketRange(m).from >= 100000 && observedMarketRange(m).from <= 150000);
     case "best-scooters-philippines": return byPrice.filter(m => m.category.toLowerCase().includes("scooter"));
     case "scooters-under-150k-philippines": return byPrice.filter(m => m.category.toLowerCase().includes("scooter") && observedMarketRange(m).from <= 150000);
-    case "motorcycles-with-abs-philippines": return byPrice.filter(hasAbs);
+    case "motorcycles-with-abs-philippines": return byPrice.filter(m => hasConfirmedAbs(m.abs));
     case "fuel-efficient-motorcycles-philippines": return models.filter(m => typeof m.fuelConsumptionKmL === "number").sort((a,b) => (b.fuelConsumptionKmL || 0) - (a.fuelConsumptionKmL || 0) || observedMarketRange(a).from - observedMarketRange(b).from);
     case "best-underbone-motorcycles-philippines": return byPrice.filter(m => /underbone/i.test(m.category));
     case "best-motorcycles-for-short-riders": return [...models].sort((a,b) => a.seatHeightMm - b.seatHeightMm || a.curbWeightKg - b.curbWeightKg);
     case "best-motorcycles-for-long-rides": return models.filter(m => /premium|adventure|maxi|sport bike|roadster/i.test(m.category)).sort((a,b) => b.fuelTankL - a.fuelTankL || observedMarketRange(a).from - observedMarketRange(b).from);
     case "lightweight-motorcycles-philippines": return [...models].sort((a,b) => a.curbWeightKg - b.curbWeightKg || a.seatHeightMm - b.seatHeightMm);
     case "best-motorcycles-for-daily-commute-philippines": return [...models].sort((a,b) => evaluateMotorcycle(b,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score - evaluateMotorcycle(a,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score || observedMarketRange(a).from - observedMarketRange(b).from);
-    case "beginner-friendly-motorcycles-philippines": return [...models].sort((a,b) => { const score=(m:Motorcycle)=>Math.max(0,40-Math.max(0,m.curbWeightKg-100)*.35-Math.max(0,m.seatHeightMm-740)*.05-Math.max(0,m.powerHp-20)*.8+(hasAbs(m)?5:0)); return score(b)-score(a)||observedMarketRange(a).from-observedMarketRange(b).from; });
+    case "beginner-friendly-motorcycles-philippines": return [...models].sort((a,b) => { const score=(m:Motorcycle)=>Math.max(0,40-Math.max(0,m.curbWeightKg-100)*.35-Math.max(0,m.seatHeightMm-740)*.05-Math.max(0,m.powerHp-20)*.8+(hasConfirmedAbs(m.abs)?5:0)); return score(b)-score(a)||observedMarketRange(a).from-observedMarketRange(b).from; });
     case "250cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 225 && m.engineCc <= 275);
     case "300cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 280 && m.engineCc <= 325);
     case "motorcycles-400cc-plus-philippines": return byPrice.filter(m => m.engineCc >= 400);
