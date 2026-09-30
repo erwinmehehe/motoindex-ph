@@ -76,7 +76,7 @@ export default async function SellerPage({params}:{params:Promise<{slug:string}>
     {offers.length?<div className="seller-offers">{offers.map(o=><Link key={o.id} href={entityHref(o.entityType,o.entityId)}><span><small>{o.entityType}</small><strong>{entityLabel(o.entityType,o.entityId)}</strong></span><span><strong>{o.pricePhp?php(o.pricePhp):"Ask seller"}</strong><small>{o.availability}</small></span><em className="offer-status verified">checked</em></Link>)}</div>:<div className="empty-state large">No current branch-specific checked price offers yet.</div>}
 
     {networkPriceReferences.length>0&&<section className="dealer-network-prices" aria-labelledby="dealer-network-prices-heading">
-      <div className="section-head"><div>
+      <div className="section-head dealer-network-head"><div>
         <span className="section-kicker">Dealer-network reference</span>
         <h2 id="dealer-network-prices-heading">Current prices published by this dealer network</h2>
         <p>These prices were checked on the dealer network&apos;s public listings. They are useful reference points, but they are not proof of this branch&apos;s current stock, promo, financing approval or final branch quote.</p>
