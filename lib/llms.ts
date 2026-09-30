@@ -166,7 +166,7 @@ export function buildLlmsFullTxt() {
     "",
     "## Canonical URL policy",
     "",
-    "Prefer canonical URLs listed here and in the XML sitemaps. Focused indexable /recommendations/<slug> guides are canonical resources; query/filter URLs and redirect aliases are not."
+    "Prefer canonical URLs listed here and in the XML sitemaps. Focused indexable /recommendations/<slug> guides are canonical resources; query/filter URLs and redirect aliases are not.",
     "",
     "## Sitemaps",
     "",
