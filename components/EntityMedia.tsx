@@ -21,7 +21,7 @@ type Props = {
 export function EntityMedia({ entityType, entityId, fallback, className, priority = false, sizes = "(max-width: 800px) 100vw, 42vw", linkHref, showCredit, imageScale, forceFill = false }: Props) {
   const asset = getRenderableMedia(entityType, entityId)[0];
   const useContainedStage = entityType === "helmet" || entityType === "topbox";
-  const mediaClass = `${className || "entity-media"}${useContainedStage ? " entity-media-contained" : ""}`;
+  const mediaClass = `${className || "entity-media"}${useContainedStage ? " entity-media-contained" : ""} entity-media-${entityType}`;
 
   if (!asset) {
     if (useContainedStage) return <div className={mediaClass}>{fallback}</div>;
