@@ -20,7 +20,7 @@ export function PriorityCommercialIntent({ model }: { model: Motorcycle }) {
     .filter((item): item is Motorcycle => Boolean(item && isIndexableModel(item)));
   const modelName = `${model.make} ${model.model}`;
 
-  return <section className="priority-model-brief shell" aria-labelledby={`commercial-intent-${model.id}`}>
+  return <section className="priority-model-brief priority-commercial-intent shell" aria-labelledby={`commercial-intent-${model.id}`}>
     <div className="priority-model-brief-head">
       <span>Price and buying path</span>
       <h2 id={`commercial-intent-${model.id}`}>{modelName} price, monthly payment and alternatives</h2>
@@ -32,38 +32,41 @@ export function PriorityCommercialIntent({ model }: { model: Motorcycle }) {
       <p>{profile.legacyContext.body}</p>
     </div>}
 
-    <div className="priority-model-brief-grid">
-      <article>
+    <div className="priority-model-brief-grid commercial-intent-grid">
+      <article className="commercial-intent-card">
         <span>Published price</span>
         <h3>{observedMarketPriceLabel(model)}</h3>
-        <p>Price reference checked {model.marketPriceCheckedAt || model.verifiedAt}. Confirm the exact variant, cash price, fees and availability before paying a reservation.</p>
+        <div className="commercial-intent-meta"><b>Checked</b><strong>{model.marketPriceCheckedAt || model.verifiedAt}</strong></div>
+        <p>Confirm the exact variant, cash price, fees and availability before paying a reservation.</p>
         <Link href="#price">Check price and variants →</Link>
       </article>
-      <article>
+      <article className="commercial-intent-card is-primary">
         <span>Planning example</span>
-        <h3>{php(Math.round(finance.downPaymentPhp))} down · {php(Math.round(finance.monthlyPhp))}/mo</h3>
-        <p>Illustration only: 20% down, 36 months and 12% annual amortizing interest. {profile.moneyQuestion}</p>
+        <div className="commercial-finance-hero"><strong>{php(Math.round(finance.downPaymentPhp))}</strong><small>down</small><b>{php(Math.round(finance.monthlyPhp))}/mo</b></div>
+        <div className="commercial-finance-facts"><span>20% down</span><span>36 months</span><span>12% annual</span></div>
+        <p>Illustration only. {profile.moneyQuestion}</p>
         <Link href="#installment">Edit the monthly estimate →</Link>
       </article>
-      <article>
+      <article className="commercial-intent-card">
         <span>Ownership check</span>
         <h3>Price the bike beyond the showroom</h3>
+        <div className="commercial-cost-chips"><span>Service</span><span>Insurance</span><span>Tires</span><span>Fuel</span></div>
         <p>{profile.ownershipQuestion}</p>
         <Link href={`/ownership/cost-calculator?bike=${model.id}`}>Calculate 3-year ownership cost →</Link>
       </article>
     </div>
 
-    {alternatives.length > 0 && <div className="priority-model-alternatives">
+    {alternatives.length > 0 && <div className="priority-model-alternatives commercial-link-group">
       <strong>Cross-shop before buying</strong>
       {alternatives.map((item) => <Link key={item.id} href={`/motorcycles/${item.makeSlug}/${item.slug}`}>{item.make} {item.model} →</Link>)}
     </div>}
 
-    {related.length > 0 && <div className="priority-model-alternatives">
+    {related.length > 0 && <div className="priority-model-alternatives commercial-link-group">
       <strong>Related {model.make} research</strong>
       {related.map((item) => <Link key={item.id} href={`/motorcycles/${item.makeSlug}/${item.slug}`}>{item.make} {item.model} →</Link>)}
     </div>}
 
-    <div className="priority-model-alternatives">
+    <div className="priority-model-alternatives commercial-link-group">
       <strong>Research the purchase</strong>
       <Link href={`/motorcycles/${model.makeSlug}`}>All {model.make} prices and models →</Link>
       <Link href={profile.recommendationHref}>{profile.recommendationLabel} →</Link>
