@@ -1,4 +1,4 @@
-/* Compact top-box detail route. */
+/* Compact top-box detail route; keep global product QA minimums intact. */
 .topbox-product-page{padding-top:var(--mi-space-8);padding-bottom:var(--mi-space-20);background:var(--mi-color-surface)}
 .topbox-product-page>.breadcrumbs{margin-bottom:var(--mi-space-5)}
 .topbox-product-page .product-detail-hero{grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr);gap:var(--mi-space-12);align-items:center;padding:var(--mi-space-2) 0 var(--mi-space-8)}
