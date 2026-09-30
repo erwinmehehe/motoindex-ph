@@ -201,6 +201,7 @@ try {
         const objectFit=image?getComputedStyle(image).objectFit:'';
         return {
           title:heading?.textContent?.trim()||'', overflow:root.scrollWidth-root.clientWidth,
+          isHelmetProduct: Boolean(page?.classList.contains('helmet-product-page')),
           page:r(page), hero:r(hero), summary:r(summary), heading:r(heading), lede:r(lede), media:r(media), fallback:r(fallback), image:r(image), facts:r(facts), trust:r(trust), actions:r(actions), nav:r(nav), spec:r(spec),
           helmetPrice:r(helmetPrice), commerce:r(commerce), helmetSpecs:r(helmetSpecs), helmetSizing:r(helmetSizing), helmetParts:r(helmetParts),
           heroDisplay:hero?getComputedStyle(hero).display:'', heroColumns:hero?getComputedStyle(hero).gridTemplateColumns:'',
@@ -222,7 +223,7 @@ try {
       if (!state?.media || !state?.summary || !state?.heading || !state?.lede) failures.push(`${width}px ${route.key}: redesigned hero content/media missing`);
       if (!state?.trust) failures.push(`${width}px ${route.key}: compact product trust row missing`);
       if (!state?.nav) failures.push(`${width}px ${route.key}: product section navigation missing`);
-      if (route.path.startsWith("/gear/helmets/")) {
+      if (state?.isHelmetProduct) {
         if (!state?.actions) failures.push(`${width}px ${route.key}: helmet hero actions missing`);
         if (!state?.helmetPrice) failures.push(`${width}px ${route.key}: helmet price summary missing`);
         if (!state?.commerce) failures.push(`${width}px ${route.key}: helmet commerce block missing`);
