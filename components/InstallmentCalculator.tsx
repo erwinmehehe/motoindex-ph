@@ -67,14 +67,18 @@ export function InstallmentCalculator({ price, priceOptions = [] }: { price: num
             </div>
           </div>
 
-          <div className="finance-preset-row" aria-label="Quick financing presets">
+          <div className="finance-preset-groups" aria-label="Quick financing presets">
             <div>
               <span>Downpayment</span>
-              {[10,20,30].map(value=><button type="button" className={down===value?"is-active":""} aria-pressed={down===value} key={value} onClick={()=>setDown(value)}>{value}%</button>)}
+              <div className="calc-presets">
+                {[10,20,30].map(value=><button type="button" className={down===value?"active":""} aria-pressed={down===value} key={value} onClick={()=>setDown(value)}>{value}%</button>)}
+              </div>
             </div>
             <div>
               <span>Term</span>
-              {[24,36,48].map(value=><button type="button" className={months===value?"is-active":""} aria-pressed={months===value} key={value} onClick={()=>setMonths(value)}>{value} mo</button>)}
+              <div className="calc-presets">
+                {[24,36,48].map(value=><button type="button" className={months===value?"active":""} aria-pressed={months===value} key={value} onClick={()=>setMonths(value)}>{value} mo</button>)}
+              </div>
             </div>
           </div>
 
