@@ -73,6 +73,7 @@ function representativeTireRoutes(block) {
 const exactRegressionRoutes = [
   { key: "helmet-gille-kerena", path: "/gear/helmets/gille/kerena-ff007" },
   { key: "helmet-spyder-surge", path: "/gear/helmets/spyder/surge-plain-v2" },
+  { key: "helmet-catalog-mt-thunder-4-sv", path: "/gear/helmets/mt/thunder-4-sv" },
   { key: "topbox-givi-v58", path: "/accessories/top-box/v58-maxia-5" },
   { key: "topbox-coocase-v50", path: "/accessories/top-box/coocase-v50-reflex" },
   { key: "tire-michelin-city-grip-2", path: "/tires/michelin/city-grip-2" },
@@ -129,12 +130,14 @@ function cdp(url) {
 async function evalJs(send, expression) {
   return (await send("Runtime.evaluate", { expression, returnByValue: true, awaitPromise: true })).result?.value;
 }
-async function waitReady(send) {
+async function waitReady(send, pathname) {
   const deadline = Date.now() + 15000;
   while (Date.now() < deadline) {
-    if (await evalJs(send, "document.readyState").catch(() => "") === "complete") return;
+    const state = await evalJs(send, `({ready:document.readyState,pathname:location.pathname,hasMain:Boolean(document.querySelector("#main-content"))})`).catch(() => null);
+    if (state?.ready === "complete" && state.pathname === pathname && state.hasMain) return;
     await new Promise(resolve => setTimeout(resolve, 200));
   }
+  throw new Error(`Timed out waiting for navigation to ${pathname}`);
 }
 
 const port = 9237;
@@ -156,8 +159,13 @@ try {
   }
   async function navigate(pathname) {
     await client.send("Page.navigate", { url: new URL(pathname, base).toString() });
-    await waitReady(client.send);
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await waitReady(client.send, pathname);
+    const deadline = Date.now() + 5000;
+    while (Date.now() < deadline) {
+      if (await evalJs(client.send, "Boolean(document.querySelector('.product-entity-page'))").catch(() => false)) break;
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    await new Promise(resolve => setTimeout(resolve, 150));
   }
   async function screenshot(name, width) {
     const metrics = await client.send("Page.getLayoutMetrics");
@@ -191,21 +199,29 @@ try {
         const editorial=document.querySelector('.product-editorial, .topbox-editorial-grid');
         const priceGrid=document.querySelector('.entity-price-grid, .topbox-price-grid');
         const compareRow=document.querySelector('.mini-compare-table > div:not(.head), .topbox-compare-table > div:not(.head)');
+        const helmetPage=document.querySelector('.helmet-product-page');
+        const catalogHelmetPage=document.querySelector('.helmet-catalog-page');
+        const helmetCta=helmetPage?.querySelector('.helmet-primary-cta');
+        const commerceRow=helmetPage?.querySelector('.commerce-offer-row');
+        const fitLayout=helmetPage?.querySelector('.helmet-fit-layout');
+        const priceCard=helmetPage?.querySelector('.primary-price-card');
         const r=el=>{if(!el)return null;const rect=el.getBoundingClientRect();return {left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom,width:rect.width,height:rect.height};};
+        const priceChildren=priceCard?[...priceCard.children].map(r):[];
         const px=el=>el?parseFloat(getComputedStyle(el).fontSize)||0:0;
         const objectFit=image?getComputedStyle(image).objectFit:'';
         const imageSrc=image?.currentSrc||image?.getAttribute('src')||'';
+        const verifiedProduct=Boolean(document.querySelector('.product-status-pill.verified'));
         return {
           title:heading?.textContent?.trim()||'', overflow:root.scrollWidth-root.clientWidth,
           page:r(page), hero:r(hero), summary:r(summary), heading:r(heading), lede:r(lede), media:r(media), fallback:r(fallback), image:r(image), facts:r(facts), trust:r(trust), nav:r(nav), spec:r(spec),
           heroDisplay:hero?getComputedStyle(hero).display:'', heroColumns:hero?getComputedStyle(hero).gridTemplateColumns:'',
           headingSize:px(heading), sectionHeadingSize:px(sectionHeading), specLabelSize:px(specLabel),
-          mediaRadius:media?parseFloat(getComputedStyle(media).borderRadius)||0:0, objectFit, imageSrc,
+          mediaRadius:media?parseFloat(getComputedStyle(media).borderRadius)||0:0, objectFit, imageSrc, verifiedProduct,
           factsDisplay:facts?getComputedStyle(facts).display:'', factWidths:factEls.slice(0,6).map(el=>Math.round(r(el).width)),
           sectionWidths:sections.slice(0,8).map(el=>Math.round(r(el).width)),
           compareDisplay:compareRow?getComputedStyle(compareRow).display:'',
           compareColumns:compareRow?getComputedStyle(compareRow).gridTemplateColumns:'',
-          editorial:r(editorial), priceGrid:r(priceGrid)
+          editorial:r(editorial), priceGrid:r(priceGrid), helmetPage:Boolean(helmetPage), catalogHelmetPage:Boolean(catalogHelmetPage), helmetCta:r(helmetCta), commerceRow:r(commerceRow), fitLayout:r(fitLayout), priceChildren
         };
       })()`);
       results.push({ width, route: route.path, ...state });
@@ -230,8 +246,14 @@ try {
       if (state?.compareDisplay && state.compareDisplay !== "grid") failures.push(`${width}px ${route.key}: comparison row is ${state.compareDisplay}, expected grid`);
       if (state?.objectFit && state.objectFit !== "contain") failures.push(`${width}px ${route.key}: product image uses ${state.objectFit}, expected contain`);
       if (state?.image && state?.media && (state.image.width > state.media.width + 2 || state.image.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: hero image exceeds media stage`);
-      if (route.path.startsWith("/accessories/top-box/") && (!state?.imageSrc || state.imageSrc.includes("/media/placeholders/topbox.svg"))) failures.push(`${width}px ${route.key}: verified top box is still using placeholder media`);
+      if (route.path.startsWith("/accessories/top-box/") && state?.verifiedProduct && (!state?.imageSrc || state.imageSrc.includes("/media/placeholders/topbox.svg"))) failures.push(`${width}px ${route.key}: verified top box is still using placeholder media`);
       if (state?.fallback && state?.media && (state.fallback.width > state.media.width + 2 || state.fallback.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: placeholder exceeds media stage`);
+      if (route.path.startsWith("/gear/helmets/")) {
+        if (!state?.helmetPage || !state?.helmetCta) failures.push(`${width}px ${route.key}: premium helmet page shell or compare-prices CTA missing`);
+        if (!state?.catalogHelmetPage && !state?.fitLayout) failures.push(`${width}px ${route.key}: helmet sizing layout missing`);
+        if (state?.priceChildren?.some((child, index, list) => index && child.top < list[index - 1].bottom - 1)) failures.push(`${width}px ${route.key}: price summary text overlaps`);
+        if (state?.commerceRow && state.commerceRow.width < (mobile ? 300 : 700)) failures.push(`${width}px ${route.key}: commerce row collapsed to ${Math.round(state.commerceRow.width)}px`);
+      }
       await screenshot(route.key, width);
     }
   }
