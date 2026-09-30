@@ -198,8 +198,8 @@ try {
         const editorial=document.querySelector('.product-editorial');
         const priceGrid=document.querySelector('.entity-price-grid');
         const compareRow=document.querySelector('.mini-compare-table > div:not(.head)');
-        const helmetCompareTable=helmetPage?.querySelector('#compare .compare-table');
         const helmetPage=document.querySelector('.helmet-product-page');
+        const helmetCompareTable=helmetPage?.querySelector('#compare .compare-table');
         const catalogHelmetPage=document.querySelector('.helmet-catalog-page');
         const helmetCta=helmetPage?.querySelector('.helmet-primary-cta');
         const commerceRow=helmetPage?.querySelector('.commerce-offer-row');
