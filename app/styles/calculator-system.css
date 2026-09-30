@@ -468,24 +468,19 @@
 }
 
 /* Embedded model calculators */
-[data-calculator="installment"]{padding:0}
-[data-calculator="installment"] .finance-planner-head{display:flex;justify-content:space-between;gap:var(--mi-space-5);padding:var(--mi-space-6);border-bottom:1px solid var(--mi-color-line);background:var(--mi-color-primary-soft)}
-[data-calculator="installment"] .finance-planner-head h2{margin:0;font-size:var(--mi-type-2xl)}
-[data-calculator="installment"] .finance-kicker{display:block;color:var(--mi-color-primary);font-size:10px;font-weight:850;text-transform:uppercase}
-[data-calculator="installment"] .finance-estimate-badge{align-self:flex-start;padding:6px 9px;border:1px solid var(--mi-color-primary);border-radius:var(--mi-radius-pill);font-size:10px;font-weight:800}
-[data-calculator="installment"] .finance-planner-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr)}
-[data-calculator="installment"] .finance-controls,[data-calculator="installment"] .finance-result{padding:var(--mi-space-6)}
-[data-calculator="installment"] .finance-price-field{display:flex;align-items:center;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md)}
-[data-calculator="installment"] .finance-price-field>span{padding-left:var(--mi-space-3);color:var(--mi-color-muted);font-weight:800}
-[data-calculator="installment"] .finance-price-field input{margin:0;border:0;box-shadow:none;font-weight:850}
-[data-calculator="installment"] .finance-preset-groups,[data-calculator="installment"] .finance-slider-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--mi-space-3);margin-top:var(--mi-space-4)}
-[data-calculator="installment"] .finance-slider-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-[data-calculator="installment"] .finance-slider-grid label>strong{float:none}
-[data-calculator="installment"] .finance-result{background:var(--mi-color-ink);color:var(--mi-color-surface)}
-[data-calculator="installment"] .finance-result>strong{display:block;margin:var(--mi-space-2) 0;font-size:clamp(2.4rem,4vw,3.5rem);line-height:1;white-space:nowrap}
-[data-calculator="installment"] .finance-result>small,[data-calculator="installment"] .finance-result>p{color:var(--mi-color-surface);opacity:.7}
-[data-calculator="installment"] .finance-result-facts{margin-top:var(--mi-space-5);border-top:1px solid var(--mi-color-line)}
-[data-calculator="installment"] .finance-result-facts>div{display:flex;justify-content:space-between;padding:var(--mi-space-2) 0;border-bottom:1px solid var(--mi-color-line)}
+.finance-planner{padding:0}
+.finance-planner-head,.finance-controls,.finance-result{padding:var(--mi-space-6)}
+.finance-planner-head{display:flex;justify-content:space-between;gap:var(--mi-space-5);border-bottom:1px solid var(--mi-color-line)}
+.finance-planner-head h2{margin:0}
+.finance-planner-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr)}
+.finance-price-field{display:flex;align-items:center;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md)}
+.finance-price-field input{margin:0;border:0}
+.finance-preset-groups,.finance-slider-grid{display:grid;gap:var(--mi-space-3);margin-top:var(--mi-space-4)}
+.finance-preset-groups{grid-template-columns:repeat(2,minmax(0,1fr))}
+.finance-slider-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.finance-result{background:var(--mi-color-ink);color:var(--mi-color-surface)}
+.finance-result>strong{display:block;font-size:clamp(2.4rem,4vw,3.5rem);white-space:nowrap}
+.finance-result-facts>div{display:flex;justify-content:space-between;padding:var(--mi-space-2) 0}
 .finance-scenario-section{margin-top:var(--mi-space-5)}
 
 [data-calculator="used-value"] .used-estimate,
@@ -642,7 +637,7 @@
     grid-column:1/-1;
   }
 
-  [data-calculator="installment"] .finance-planner-layout{grid-template-columns:1fr}
+  .finance-planner-layout{grid-template-columns:1fr}
 }
 
 @media(max-width:620px){
@@ -712,12 +707,9 @@
     padding:var(--mi-space-5);
   }
 
-  [data-calculator="installment"] .finance-planner-head{display:block;padding:var(--mi-space-5)}
-  [data-calculator="installment"] .finance-estimate-badge{display:inline-block;margin-top:var(--mi-space-3)}
-  [data-calculator="installment"] .finance-controls,
-  [data-calculator="installment"] .finance-result{padding:var(--mi-space-5)}
-  [data-calculator="installment"] .finance-preset-groups,
-  [data-calculator="installment"] .finance-slider-grid{grid-template-columns:1fr}
+  .finance-planner-head{display:block}
+    .finance-controls,.finance-result,.finance-planner-head{padding:var(--mi-space-5)}
+  .finance-preset-groups,.finance-slider-grid{grid-template-columns:1fr}
 
   [data-calculator="electric-range"] .calculator-grid,
   [data-calculator="electric-range"] .calculator-results,
