@@ -202,8 +202,8 @@ try {
         const commerceRow=helmetPage?.querySelector('.commerce-offer-row');
         const fitLayout=helmetPage?.querySelector('.helmet-fit-layout');
         const priceCard=helmetPage?.querySelector('.primary-price-card');
-        const priceChildren=priceCard?[...priceCard.children].map(r):[];
         const r=el=>{if(!el)return null;const rect=el.getBoundingClientRect();return {left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom,width:rect.width,height:rect.height};};
+        const priceChildren=priceCard?[...priceCard.children].map(r):[];
         const px=el=>el?parseFloat(getComputedStyle(el).fontSize)||0:0;
         const objectFit=image?getComputedStyle(image).objectFit:'';
         return {
