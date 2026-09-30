@@ -16,6 +16,7 @@ import {
 } from "@/lib/motorcycleMarket";
 import { pageMetadata, SITE_URL } from "@/lib/site";
 import { php } from "@/lib/utils";
+import styles from "./scooters.module.css";
 
 const scooters = priceOrdered(currentScooters);
 const priceSpan = marketPriceSpan(scooters);
@@ -118,24 +119,24 @@ export default function ScootersPage() {
           titleId="scooter-clusters"
           description="Start with a shortlist, jump to the right engine-size or brand guide, or estimate monthly payments before opening the full price list."
         />
-        <div className="ui-content-grid" data-scooter-decision-grid>
-          <Link href="/recommendations/best-scooters-philippines" className="ui-content-card" data-scooter-decision-card>
+        <div className={`${styles.decisionGrid} ui-content-grid`} data-scooter-decision-grid>
+          <Link href="/recommendations/best-scooters-philippines" className={`${styles.decisionCard} ui-content-card`} data-scooter-decision-card>
             <span className="section-kicker">01 · Shortlist</span>
             <h3>Compare the strongest scooter options</h3>
             <p>Review current scooters by price, rider fit, braking and fuel data.</p>
           </Link>
-          <a href="#scooter-shortcuts" className="ui-content-card" data-scooter-decision-card>
+          <a href="#scooter-shortcuts" className={`${styles.decisionCard} ui-content-card`} data-scooter-decision-card>
             <span className="section-kicker">02 · Narrow it down</span>
             <h3>Browse by engine size or brand</h3>
             <p>Jump to 125cc, 150/155cc, 160cc, Honda, Yamaha or Suzuki research.</p>
           </a>
-          <Link href="/tools/motorcycle-loan-calculator" className="ui-content-card" data-scooter-decision-card>
+          <Link href="/tools/motorcycle-loan-calculator" className={`${styles.decisionCard} ui-content-card`} data-scooter-decision-card>
             <span className="section-kicker">03 · Affordability</span>
             <h3>Estimate your monthly payment</h3>
             <p>Calculate payments using the exact bike price, down payment, term and rate.</p>
           </Link>
         </div>
-        <div id="scooter-shortcuts">
+        <div id="scooter-shortcuts" className={styles.shortcutWrap}>
           <CTAGroup>
             {childClusters.slice(1).map((cluster) => <Link href={cluster.href} key={cluster.href} className="button ghost small" data-scooter-shortcut-link>{cluster.label}</Link>)}
           </CTAGroup>
