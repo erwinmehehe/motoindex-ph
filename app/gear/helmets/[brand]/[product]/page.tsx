@@ -13,7 +13,7 @@ import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { EntityMedia } from "@/components/EntityMedia";
 import { CommercePriceComparison } from "@/components/CommercePriceComparison";
 import { helmetEditorial } from "@/lib/productEditorial";
-import { helmetAlternatives, helmetComparisonTargets, helmetFaqs } from "@/lib/productSeo";
+import { helmetAlternatives, helmetFaqs } from "@/lib/productSeo";
 import { ProductEntityNav } from "@/components/ProductEntityNav";
 import { ProductCard } from "@/components/ProductCard";
 import { FaqSection } from "@/components/FaqSection";
@@ -76,7 +76,6 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
 
   const editorial = helmetEditorial(p);
   const alternatives = helmetAlternatives(p, 3);
-  const compareTargets = helmetComparisonTargets(p, 2);
   const faqs = helmetFaqs(p);
   const canonicalPath = `/gear/helmets/${p.brandSlug}/${p.slug}`;
   const schema = {
@@ -176,24 +175,16 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     </section>
 
     <section id="alternatives" className="product-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Similar helmets</span><h2>Other helmets worth checking</h2><p>Verified alternatives are chosen first from the same brand or helmet type, then by nearby observed price where available.</p></div></div>
+      <div className="section-head compact"><div><span className="section-kicker">Similar helmets</span><h2>Other helmets worth checking</h2><p>Verified alternatives are chosen first from the same brand or helmet type, then by nearby observed price where available.</p></div><Link href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Compare this helmet →</Link></div>
       <div className="product-grid">{alternatives.map((item) => <ProductCard key={item.id} item={{ entityId: item.id, href: `/gear/helmets/${item.brandSlug}/${item.slug}`, category: item.helmetType, brand: item.brand, model: item.model, meta: [item.shell, item.pinlock].filter(Boolean).join(" · "), status: item.status, priceFromPhp: item.priceFromPhp }} />)}</div>
     </section>
-
-    {compareTargets.length > 0 && <section className="product-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Compare</span><h2>Compare the {p.model}</h2><p>Use a focused side-by-side comparison instead of another large table on this page.</p></div><Link href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Open compare tool →</Link></div>
-      <div className="product-editorial helmet-compare-cards">
-        {compareTargets.map((other) => <article key={other.id}><span>{other.helmetType}</span><h3>{other.brand} {other.model}</h3><p>{other.priceFromPhp ? `Observed from ${php(other.priceFromPhp)}.` : "Price not verified yet."} {other.sizes.length ? `${other.sizes.length} listed sizes.` : ""}</p><Link className="text-link" href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}&b=${encodeURIComponent(other.id)}`}>Compare side by side →</Link></article>)}
-        <article><span>Custom comparison</span><h3>Compare another helmet</h3><p>Choose any other verified helmet and compare the recorded price, fit and equipment.</p><Link className="text-link" href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Build comparison →</Link></article>
-      </div>
-    </section>}
 
     <section id="faq" className="product-entity-section"><FaqSection title={`${p.brand} ${p.model} questions`} items={faqs} /></section>
 
     <div className="note-box"><h2>Confirm the exact unit before paying</h2><p>Inspect the conformity marking, confirm the fit in your size, and match replacement visors or inserts to the exact model.</p><Link className="text-link" href="/methodology">How MotoIndex checks product information →</Link></div>
 
     <AuthorBox />
-    <RelatedLinks title="Continue researching helmets" links={helmetProductInternalLinks(p).slice(0, 6)} />
+    <RelatedLinks title="Continue researching helmets" links={helmetProductInternalLinks(p).slice(0, 3)} />
     <JsonLd data={schema} />
   </ProductEntityShell>;
 }
