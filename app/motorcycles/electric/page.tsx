@@ -58,7 +58,7 @@ export default function ElectricMotorcyclesPage() {
     </nav>
 
     <section id="models" className="motorcycle-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Current models</span><h2>Electric motorcycles to compare in the Philippines</h2><p>These are models with Philippine price, battery, range, charging and LTO-classification evidence in the current MotoIndex data.</p></div></div>
+      <div className="section-head compact"><div><span className="section-kicker">Current models</span><h2>Electric motorcycles to compare in the Philippines</h2><p>These are models with Philippine price, battery, range, charging and LTO-classification evidence in the current MotoIndex data.</p></div><Link href="/motorcycles/electric/vinfast-evo">VinFast Evo details →</Link></div>
       <div className="catalog-grid">
         {electricMotorcycles.map(model=><Link className="catalog-card" href={`/motorcycles/electric/${model.slug}`} key={model.slug}>
           <div className="catalog-media"><img src={model.imageUrl} alt={`${model.make} ${model.model} electric motorcycle`} loading="lazy"/></div>
