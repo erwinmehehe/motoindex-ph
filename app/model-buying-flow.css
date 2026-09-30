@@ -108,7 +108,7 @@ html body .motorcycle-entity-page #installment .finance-planner-head{
   gap:28px;
   padding:26px 28px 23px;
   border-bottom:1px solid var(--mi-color-line-soft);
-  background:linear-gradient(135deg,var(--mi-color-primary-soft),rgba(255,255,255,.96) 58%);
+  background:linear-gradient(135deg,var(--mi-color-primary-soft),var(--mi-color-surface) 58%);
 }
 html body .motorcycle-entity-page #installment .finance-planner-head>div{
   max-width:720px;
@@ -404,7 +404,7 @@ html body .motorcycle-entity-page #installment .finance-scenario-card{
 }
 html body .motorcycle-entity-page #installment .finance-scenario-card.is-featured{
   border-color:var(--mi-color-primary);
-  background:linear-gradient(145deg,var(--mi-color-primary-soft),#fff 70%);
+  background:linear-gradient(145deg,var(--mi-color-primary-soft),var(--mi-color-surface) 70%);
 }
 html body .motorcycle-entity-page #installment .finance-scenario-card>span{
   display:block;
