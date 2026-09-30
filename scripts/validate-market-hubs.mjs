@@ -275,6 +275,76 @@ for (const token of [
   requireText(brandPage, token, `Brand hub missing scooter authority link behavior: ${token}`);
 }
 
+for (const token of [
+  'seoTitle: "125cc Scooter Price Philippines 2026 | Models & Specs"',
+  'seoTitle: "150cc & 155cc Scooter Prices Philippines 2026 | Specs"',
+  'seoTitle: "160cc Scooter Price Philippines 2026 | Models & Specs"',
+  '"155cc scooters Philippines"',
+  '"125cc scooter price range in the Philippines"',
+  '"150cc vs 155cc scooters: what actually changes?"',
+  '"160cc scooter price range in the Philippines"'
+]) {
+  requireText(recommendationData, token, `Scooter displacement cluster missing SEO token: ${token}`);
+}
+for (const token of [
+  'const scooterCcCluster = [',
+  'Compare the nearby scooter classes',
+  'how much is a 125cc scooter',
+  'why are 150cc and 155cc scooters on the same page',
+  'how much is a 160cc scooter'
+]) {
+  requireText(recommendationRoute.toLowerCase(), token.toLowerCase(), `Scooter displacement renderer missing behavior: ${token}`);
+}
+const modelEntity = read("components", "MotorcycleEntityPage.tsx");
+for (const token of [
+  'const scooterClassGuide = /scooter/i.test(model.category)',
+  '"/recommendations/125cc-scooters-philippines"',
+  '"/recommendations/150cc-scooters-philippines"',
+  '"/recommendations/160cc-scooters-philippines"',
+  'Compare this model in the {scooterClassGuide.label}'
+]) {
+  requireText(modelEntity, token, `Motorcycle model pages missing scooter-class internal-link behavior: ${token}`);
+}
+const nextConfig = read("next.config.mjs");
+requireText(
+  nextConfig,
+  '{ source: "/recommendations/155cc-scooters-philippines", destination: "/recommendations/150cc-scooters-philippines", permanent: true }',
+  "155cc scooter alias must consolidate into the canonical 150cc/155cc guide."
+);
+
+for (const token of [
+  'seoTitle: "Motorcycles Below 150cc Philippines: Prices 2026"',
+  'seoTitle: "Business Motorcycles Philippines: Prices & Specs 2026"',
+  'seoTitle: "Street Motorcycles Philippines: Prices & Specs 2026"',
+  'primaryKeyword: "business motorcycles Philippines"',
+  '"pang negosyo motorcycle Philippines"',
+  'primaryKeyword: "street motorcycles Philippines"',
+  '"below 150cc motorcycle price Philippines"'
+]) {
+  requireText(recommendationData, token, `Competitor-gap guide missing SEO token: ${token}`);
+}
+for (const token of [
+  'case "motorcycles-below-150cc-philippines"',
+  'case "business-motorcycles-philippines"',
+  'case "street-motorcycles-philippines"'
+]) {
+  requireText(recommendationData, token, `Competitor-gap selector missing: ${token}`);
+}
+for (const slug of [
+  "motorcycles-below-150cc-philippines",
+  "business-motorcycles-philippines",
+  "street-motorcycles-philippines"
+]) {
+  requireText(motorcycles, `href="/recommendations/${slug}"`, `Motorcycle hub must expose competitor-gap guide: ${slug}`);
+}
+for (const token of [
+  "below 150cc motorcycle price range",
+  "tmx, ytx and barako work-bike differences",
+  "street motorcycle price range in the philippines"
+]) {
+  requireText(recommendationRoute.toLowerCase(), token, `Competitor-gap renderer missing original answer logic: ${token}`);
+}
+
 if (errors.length) {
   console.error("Market hub validation failed:");
   for (const error of errors) console.error(`- ${error}`);

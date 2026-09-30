@@ -9,6 +9,7 @@ import { RelatedLinks } from "@/components/RelatedLinks";
 import { JsonLd } from "@/components/JsonLd";
 import { tireProductInternalLinks } from "@/lib/internalLinks";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
+import { catalogProductOfferSchema } from "@/lib/structuredData";
 import { EntityMedia } from "@/components/EntityMedia";
 import { CommercePriceComparison } from "@/components/CommercePriceComparison";
 import { tireEditorial } from "@/lib/productEditorial";
@@ -60,6 +61,7 @@ export default async function TireProductPage({ params }: { params: Promise<{ sl
     brand: { "@type": "Brand", name: p.brand },
     category: "Motorcycle tire",
     description: p.description,
+    ...(catalogProductOfferSchema(p, canonicalPath) ? { offers: catalogProductOfferSchema(p, canonicalPath) } : {}),
   };
 
   const heroFacts = [

@@ -36,9 +36,11 @@ jobs:
           npm run validate:copy-tone
           npm run validate:public-trust
           npm run validate:adsense
+          node scripts/validate-schema-coverage.mjs
           node scripts/validate-authority-growth.mjs
           node scripts/validate-premium-light.mjs
           node --check scripts/gsc-opportunity-report.mjs
+          node scripts/validate-gsc-opportunity.mjs
           npm run check:links
           npm run check:legacy-links
           npm run audit:freshness

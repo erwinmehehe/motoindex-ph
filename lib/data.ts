@@ -2149,69 +2149,135 @@ export const recommendationGuides: RecommendationGuide[] = [
     intent: "category"
   },
   {
-    slug: "125cc-scooters-philippines",
-    kicker: "125cc scooter guide",
-    title: "125cc scooters in the Philippines",
-    seoTitle: "125cc Scooters Philippines: Prices & Specs 2026",
-    description: "Compare current 125cc-class scooters in the Philippines by price, weight, seat height, ABS, fuel economy and tank capacity.",
-    primaryKeyword: "125cc scooter Philippines",
-    secondaryKeywords: ["125cc scooter price Philippines", "best 125cc scooter Philippines", "automatic 125cc motorcycle Philippines"],
-    directAnswer: "This guide compares current 125cc-class scooters using dated Philippine price references and model-specific specifications so you can quickly see the trade-offs in price, weight, seat height, braking and fuel use.",
-    inclusionRules: ["Category contains scooter", "Engine displacement is 115cc to 130cc", "Current Philippine-market motorcycle"],
-    orderingRule: "Published starting price from lowest to highest.",
+    slug: "motorcycles-below-150cc-philippines",
+    kicker: "Below 150cc market guide",
+    title: "Motorcycles below 150cc in the Philippines",
+    seoTitle: "Motorcycles Below 150cc Philippines: Prices 2026",
+    description: "Compare motorcycles below 150cc in the Philippines by price, category, transmission, weight, seat height, braking and published fuel economy.",
+    primaryKeyword: "motorcycles below 150cc Philippines",
+    secondaryKeywords: ["below 150cc motorcycle price Philippines", "under 150cc motorcycles Philippines", "best below 150cc motorcycle Philippines", "150cc motorcycle price Philippines", "below 150cc scooter Philippines"],
+    directAnswer: "This guide compares current Philippine motorcycles with recorded engine displacement below 150cc across scooters, underbones, business motorcycles and other road-focused categories. It keeps the broad engine-class search intent on one page while linking to narrower 125cc, scooter and underbone guides.",
+    inclusionRules: ["Recorded engine displacement is below 150cc", "Current Philippine-market motorcycle", "All motorcycle categories qualify"],
+    orderingRule: "Published starting price from lowest to highest; this is a price order, not an overall quality ranking.",
     tieBreakers: ["Lower curb weight", "Lower seat height"],
     orderLabel: "Price order",
-    sourcePolicy: "Prices use dated Philippine manufacturer, dealer or comparison-site references. Specifications stay tied to each exact model record.",
-    caveats: ["125cc is a class label here, so exact displacement can be slightly below or above 125cc.", "Final dealer cash prices and promotions can differ."],
+    sourcePolicy: "Actual displacement, category, dimensions, braking and fuel data come from each model's dated record. Published prices use current Philippine observations where available.",
+    caveats: ["Below 150cc is an engine-class filter, not a claim that every motorcycle has the same use case.", "A scooter, underbone and business motorcycle can share a similar displacement while differing substantially in transmission, weight, seat height and utility.", "Final dealer pricing, registration, promotions and financing can differ from published references."],
+    tableColumns: ["price","engine","transmission","weight","seat","abs","economy","context"],
+    quickPicks: [{label:"Lowest published price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest published fuel economy",metric:"economy"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Below 150cc motorcycle price range", "Scooters, underbones and business motorcycles below 150cc", "Automatic vs manual motorcycles below 150cc", "Weight and seat-height differences", "Braking and published fuel-economy differences", "When to compare the 150cc to 160cc class instead"],
+    faqQuestions: ["What motorcycles below 150cc are available in the Philippines?", "How much is a motorcycle below 150cc in the Philippines?", "Are 125cc scooters included in this guide?", "Are underbones and business motorcycles included?", "Which below-150cc motorcycle is lightest?", "What should I compare besides engine size?"],
+    relatedGuideSlugs: ["125cc-motorcycles-philippines","125cc-scooters-philippines","150cc-scooters-philippines","160cc-scooters-philippines","best-underbone-motorcycles-philippines","business-motorcycles-philippines","best-motorcycles-for-daily-commute-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "business-motorcycles-philippines",
+    kicker: "Work and utility motorcycles",
+    title: "Business motorcycles in the Philippines",
+    seoTitle: "Business Motorcycles Philippines: Prices & Specs 2026",
+    description: "Compare current business motorcycles in the Philippines by price, engine, fuel tank, weight, seat height, ground clearance and work-use context.",
+    primaryKeyword: "business motorcycles Philippines",
+    secondaryKeywords: ["pang negosyo motorcycle Philippines", "motorcycle for business Philippines", "work motorcycle Philippines", "utility motorcycle Philippines", "tricycle motorcycle Philippines", "TMX vs YTX vs Barako"],
+    directAnswer: "This guide compares current motorcycles explicitly recorded as business motorcycles in the MotoIndex dataset. It focuses on measurable work-use inputs such as price, engine size, fuel tank, curb weight, seat height and ground clearance without assuming that every unit is approved for the same commercial or sidecar setup.",
+    inclusionRules: ["Category is Business motorcycle", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest; this is a price order, not a work-capability ranking.",
+    tieBreakers: ["Larger fuel tank", "Lower curb weight"],
+    orderLabel: "Price order",
+    sourcePolicy: "Business-motorcycle classification and specifications come from model-level records. Price references are dated Philippine observations and should be confirmed with the exact seller before purchase.",
+    caveats: ["A business-motorcycle category does not prove that a specific unit, sidecar or commercial conversion is legal or manufacturer-approved.", "Payload, frame changes, sidecar fitment, registration classification and commercial-use requirements must be checked for the exact setup.", "Fuel economy and durability in commercial service depend on load, maintenance, route and riding conditions."],
+    tableColumns: ["price","engine","weight","seat","tank","clearance","economy","context"],
+    quickPicks: [{label:"Lowest published price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Largest fuel tank",metric:"tank"},{label:"Highest published fuel economy",metric:"economy"}],
+    editorialSections: ["Business motorcycle price range in the Philippines", "TMX, YTX and Barako work-bike differences", "Fuel tank, weight and seat-height trade-offs", "Motorcycles for delivery, utility and sidecar research", "What to verify before using a motorcycle for business"],
+    faqQuestions: ["What business motorcycles are available in the Philippines?", "How much is a business motorcycle in the Philippines?", "What is the difference between TMX, YTX and Barako work motorcycles?", "Can every business motorcycle use a sidecar?", "Which business motorcycle has the largest fuel tank?", "What should I check before buying a motorcycle for business use?"],
+    relatedGuideSlugs: ["motorcycles-below-150cc-philippines","125cc-motorcycles-philippines","best-motorcycles-for-daily-commute-philippines","fuel-efficient-motorcycles-philippines","motorcycles-under-100k"],
+    intent: "use-case"
+  },
+  {
+    slug: "street-motorcycles-philippines",
+    kicker: "Street motorcycle guide",
+    title: "Street motorcycles in the Philippines",
+    seoTitle: "Street Motorcycles Philippines: Prices & Specs 2026",
+    description: "Compare street motorcycles in the Philippines by price, engine, power, weight, seat height, ABS and road-use category using current model data.",
+    primaryKeyword: "street motorcycles Philippines",
+    secondaryKeywords: ["street motorcycle price Philippines", "street bikes Philippines", "best street motorcycle Philippines", "naked street bike Philippines", "roadster motorcycle Philippines"],
+    directAnswer: "This guide groups current road-focused motorcycles recorded as naked street bikes, retro roadsters, business motorcycles or utility-style road bikes. It is a broad street-use comparison, while narrower naked, classic and business guides keep their own specific intent.",
+    inclusionRules: ["Category is Naked street bike, Retro roadster, Business motorcycle or Scrambler / utility motorcycle", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest; this is a price order, not an overall street-bike ranking.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Category, engine, power, dimensions and braking come from current model records; prices use dated Philippine observations where available.",
+    caveats: ["Street motorcycle is a broad search term, so this page deliberately includes several road-focused formats rather than pretending they are one motorcycle type.", "Scooters, underbones, sport bikes and adventure models keep separate category guides.", "Road comfort, handling feel and rider confidence cannot be ranked from specifications alone."],
+    tableColumns: ["price","engine","power","weight","seat","abs","tank","context"],
+    quickPicks: [{label:"Lowest published price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Street motorcycle price range in the Philippines", "Naked street bikes, roadsters and work motorcycles", "Lighter and lower-seat street motorcycles", "Power and ABS differences", "What counts as a street motorcycle on this page"],
+    faqQuestions: ["What street motorcycles are available in the Philippines?", "How much is a street motorcycle in the Philippines?", "Are business motorcycles included in the street guide?", "Which street motorcycle is lightest?", "Which street motorcycles list ABS?", "What is the difference between a street bike and a sport bike?"],
+    relatedGuideSlugs: ["naked-motorcycles-philippines","cafe-racer-motorcycles-philippines","business-motorcycles-philippines","motorcycles-below-150cc-philippines","motorcycles-with-abs-philippines","best-motorcycles-for-daily-commute-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "125cc-scooters-philippines",
+    kicker: "125cc scooter price guide",
+    title: "125cc scooters in the Philippines",
+    seoTitle: "125cc Scooter Price Philippines 2026 | Models & Specs",
+    description: "Compare 125cc scooter prices in the Philippines for 2026, plus engine size, weight, seat height, ABS or CBS, fuel economy and tank capacity.",
+    primaryKeyword: "125cc scooters Philippines",
+    secondaryKeywords: ["125cc scooter price Philippines", "best 125cc scooter Philippines", "Honda 125cc scooter Philippines", "Yamaha 125cc scooter Philippines", "Suzuki 125cc scooter Philippines", "automatic 125cc motorcycle Philippines"],
+    directAnswer: "This is the focused Philippine guide for current scooters from 115cc through 130cc. Compare published starting price, exact displacement, curb weight, seat height, braking, fuel economy and tank size before choosing a small automatic commuter.",
+    inclusionRules: ["Category contains scooter", "Engine displacement is 115cc to 130cc", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest; this is a price order, not an overall quality ranking.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Prices use dated Philippine manufacturer, dealer or comparison-site references. Specifications stay tied to each exact model record and are not inferred from the 125cc class label.",
+    caveats: ["125cc is a practical class label here, so exact displacement can be slightly below or above 125cc.", "ABS, CBS and other braking equipment can differ by model or trim.", "Final dealer cash price, registration, promotions and financing can differ from the published reference."],
     tableColumns: ["price","engine","transmission","weight","seat","abs","economy","tank"],
-    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest published fuel economy",metric:"economy"},{label:"Largest tank",metric:"tank"}],
-    editorialSections: ["Lowest-priced 125cc scooters", "Lightweight 125cc choices", "Lower-seat 125cc scooters", "ABS and braking differences", "Which 125cc scooter suits daily commuting"],
-    faqQuestions: ["What 125cc scooters are available in the Philippines?", "Which 125cc scooter is cheapest?", "Which 125cc scooter is lightest?", "Which 125cc scooter has the lowest seat?", "Do 125cc scooters come with ABS?"],
-    relatedGuideSlugs: ["125cc-motorcycles-philippines","best-scooters-philippines","automatic-motorcycles-philippines","best-motorcycles-for-daily-commute-philippines"],
+    quickPicks: [{label:"Lowest published price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest published fuel economy",metric:"economy"},{label:"Largest tank",metric:"tank"}],
+    editorialSections: ["125cc scooter price range in the Philippines", "Honda, Yamaha and Suzuki 125cc scooter choices", "Lightweight and lower-seat 125cc scooters", "Fuel economy and tank size in the 125cc class", "ABS, CBS and braking differences", "Which 125cc scooter suits daily commuting?"],
+    faqQuestions: ["What 125cc scooters are available in the Philippines?", "How much is a 125cc scooter in the Philippines?", "Which 125cc scooter is lightest?", "Which 125cc scooter has the lowest seat?", "Do 125cc scooters come with ABS or CBS?", "What should I compare besides engine size?"],
+    relatedGuideSlugs: ["125cc-motorcycles-philippines","150cc-scooters-philippines","160cc-scooters-philippines","best-scooters-philippines","honda-scooters-philippines","yamaha-scooters-philippines","suzuki-scooters-philippines","best-motorcycles-for-daily-commute-philippines"],
     intent: "category"
   },
   {
     slug: "150cc-scooters-philippines",
-    kicker: "150cc scooter guide",
-    title: "150cc scooters in the Philippines",
-    seoTitle: "150cc Scooters Philippines: Prices & Specs 2026",
-    description: "Compare current 150cc-class scooters in the Philippines by price, power, weight, seat height, ABS, fuel economy and tank size.",
-    primaryKeyword: "150cc scooter Philippines",
-    secondaryKeywords: ["150cc scooter price Philippines", "best 150cc scooter Philippines", "155cc scooter Philippines"],
-    directAnswer: "This page compares current 150cc and 155cc-class scooters using the same price, dimensions and equipment fields so commuter and performance-oriented models can be compared on equal terms.",
+    kicker: "150cc & 155cc scooter guide",
+    title: "150cc and 155cc scooters in the Philippines",
+    seoTitle: "150cc & 155cc Scooter Prices Philippines 2026 | Specs",
+    description: "Compare 150cc and 155cc scooter prices in the Philippines, with power, weight, seat height, ABS, fuel economy, tank size and current model data.",
+    primaryKeyword: "150cc scooters Philippines",
+    secondaryKeywords: ["150cc scooter price Philippines", "155cc scooters Philippines", "155cc scooter price Philippines", "best 150cc scooter Philippines", "best 155cc scooter Philippines", "Yamaha 155cc scooter Philippines"],
+    directAnswer: "This page is the canonical comparison for current 140cc to 155cc scooters, including the 150cc and 155cc classes buyers commonly cross-shop. It keeps both search intents on one useful page instead of creating near-duplicate 150cc and 155cc guides.",
     inclusionRules: ["Category contains scooter", "Engine displacement is 140cc to 155cc", "Current Philippine-market motorcycle"],
-    orderingRule: "Published starting price from lowest to highest.",
+    orderingRule: "Published starting price from lowest to highest; this is a price order, not an overall quality ranking.",
     tieBreakers: ["Lower curb weight", "Lower seat height"],
     orderLabel: "Price order",
-    sourcePolicy: "Prices and specifications remain model-specific and source-dated.",
-    caveats: ["The group includes nearby 150cc and 155cc engines because both compete for the same Philippine scooter buyer.", "ABS and traction-control equipment can differ by variant."],
+    sourcePolicy: "Prices, exact displacement, output, dimensions and equipment remain model-specific and source-dated. The page does not treat 150cc and 155cc as identical engines.",
+    caveats: ["The group combines nearby 150cc and 155cc scooters because they overlap strongly in Philippine buyer research.", "ABS, CBS, traction control and connected features can differ by model and variant.", "Published fuel-economy figures can use different test methods."],
     tableColumns: ["price","engine","power","weight","seat","abs","economy","tank"],
-    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest tank",metric:"tank"}],
-    editorialSections: ["Lowest-priced 150cc scooters", "Lighter 150cc scooters", "Lower-seat choices", "Higher-output 150cc scooters", "What to compare beyond engine size"],
-    faqQuestions: ["What 150cc scooters are available in the Philippines?", "Which 150cc scooter has the lowest price?", "Which 150cc scooter is lightest?", "Which has the lowest seat?", "Is 155cc included in this comparison?"],
-    relatedGuideSlugs: ["best-scooters-philippines","160cc-scooters-philippines","automatic-motorcycles-philippines","maxi-scooters-philippines"],
+    quickPicks: [{label:"Lowest published price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest tank",metric:"tank"}],
+    editorialSections: ["150cc and 155cc scooter price range", "150cc vs 155cc scooters: what actually changes?", "Lighter and lower-seat 150cc or 155cc scooters", "ABS, CBS and traction-control differences", "Fuel economy and tank-size trade-offs", "Which 150cc or 155cc scooter suits daily use?"],
+    faqQuestions: ["What 150cc and 155cc scooters are available in the Philippines?", "How much is a 150cc or 155cc scooter in the Philippines?", "Why are 150cc and 155cc scooters on the same page?", "Which 150cc or 155cc scooter is lightest?", "Which has the lowest seat?", "Which models list ABS?"],
+    relatedGuideSlugs: ["125cc-scooters-philippines","160cc-scooters-philippines","best-scooters-philippines","yamaha-scooters-philippines","honda-scooters-philippines","maxi-scooters-philippines","automatic-motorcycles-philippines"],
     intent: "category"
   },
   {
     slug: "160cc-scooters-philippines",
-    kicker: "160cc scooter guide",
+    kicker: "160cc scooter price guide",
     title: "160cc scooters in the Philippines",
-    seoTitle: "160cc Scooters Philippines: Prices & Specs 2026",
-    description: "Compare current 160cc-class scooters in the Philippines by published price, power, seat height, weight, ABS and fuel capacity.",
-    primaryKeyword: "160cc scooter Philippines",
-    secondaryKeywords: ["160cc scooter price Philippines", "best 160cc scooter Philippines", "Honda 160cc scooter Philippines"],
-    directAnswer: "This guide compares current scooters in the 156cc to 165cc range, including their price, power, weight, seat height and braking equipment.",
+    seoTitle: "160cc Scooter Price Philippines 2026 | Models & Specs",
+    description: "Compare 160cc scooter prices in the Philippines for 2026, including power, curb weight, seat height, ABS or CBS, fuel economy and tank capacity.",
+    primaryKeyword: "160cc scooters Philippines",
+    secondaryKeywords: ["160cc scooter price Philippines", "best 160cc scooter Philippines", "Honda 160cc scooter Philippines", "160cc automatic motorcycle Philippines", "160cc scooter with ABS Philippines"],
+    directAnswer: "This guide compares current scooters from 156cc through 165cc. Use it to compare published price, power, curb weight, seat height, braking, fuel data and exact variant differences rather than assuming every 160cc scooter serves the same rider.",
     inclusionRules: ["Category contains scooter", "Engine displacement is 156cc to 165cc", "Current Philippine-market motorcycle"],
-    orderingRule: "Published starting price from lowest to highest.",
-    tieBreakers: ["Lower curb weight"],
+    orderingRule: "Published starting price from lowest to highest; this is a price order, not an overall quality ranking.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
     orderLabel: "Price order",
-    sourcePolicy: "Current price and specification fields come from the same dated model records used on the detailed motorcycle pages.",
-    caveats: ["Variant features can differ even when engine size is the same.", "Seat height and curb weight matter as much as displacement for everyday fit."],
+    sourcePolicy: "Price, exact displacement, output, dimensions and braking fields come from the same dated model records used on the canonical motorcycle pages.",
+    caveats: ["Variant features can differ even when engine size is similar.", "ABS and CBS are different braking systems and should be checked on the exact trim.", "Seat height, curb weight, storage, service access and final dealer price can matter as much as displacement for everyday use."],
     tableColumns: ["price","engine","power","weight","seat","abs","economy","tank"],
-    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest tank",metric:"tank"}],
-    editorialSections: ["Lowest-priced 160cc scooters", "Lighter 160cc choices", "Lower-seat options", "Power and braking differences", "Which 160cc scooter fits different riders"],
-    faqQuestions: ["What 160cc scooters are available in the Philippines?", "Which 160cc scooter is cheapest?", "Which is lightest?", "Which has the lowest seat?", "Which 160cc scooters have ABS?"],
-    relatedGuideSlugs: ["150cc-scooters-philippines","best-scooters-philippines","honda-scooters-philippines","best-motorcycles-for-daily-commute-philippines"],
+    quickPicks: [{label:"Lowest published price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest tank",metric:"tank"}],
+    editorialSections: ["160cc scooter price range in the Philippines", "Honda and other 160cc scooter choices", "Lighter and lower-seat 160cc scooters", "ABS and CBS differences in the 160cc class", "Fuel economy and tank-size trade-offs", "Which 160cc scooter fits different daily riders?"],
+    faqQuestions: ["What 160cc scooters are available in the Philippines?", "How much is a 160cc scooter in the Philippines?", "Which 160cc scooter is lightest?", "Which 160cc scooter has the lowest seat?", "Which 160cc scooters list ABS?", "What should I compare before buying a 160cc scooter?"],
+    relatedGuideSlugs: ["125cc-scooters-philippines","150cc-scooters-philippines","best-scooters-philippines","honda-scooters-philippines","yamaha-scooters-philippines","best-motorcycles-for-daily-commute-philippines","motorcycles-with-abs-philippines"],
     intent: "category"
   },
   {
@@ -2375,10 +2441,15 @@ export function getRecommendationGuide(slug: string) {
   return recommendationGuides.find((guide) => guide.slug === slug);
 }
 
+export function hasConfirmedAbs(value: string) {
+  const normalized = value.toLowerCase();
+  if (!normalized.includes("abs")) return false;
+  return !/no abs|without abs|not confirmed|not stated|not listed|confirm exact abs|abs equipment is not confirmed/.test(normalized);
+}
+
 export function getRecommendationModels(slug: string) {
   const models = [...publicMotorcycles];
   const byPrice = [...models].sort((a,b) => observedMarketRange(a).from - observedMarketRange(b).from || a.curbWeightKg - b.curbWeightKg);
-  const hasAbs = (m: Motorcycle) => /\bABS\b/i.test(m.abs) && !/^No ABS/i.test(m.abs);
   switch (slug) {
     case "motorcycles-under-100k": return byPrice.filter(m => observedMarketRange(m).from < 100000);
     case "motorcycles-under-150k": return byPrice.filter(m => observedMarketRange(m).from <= 150000);
@@ -2386,14 +2457,14 @@ export function getRecommendationModels(slug: string) {
     case "motorcycles-100k-to-150k": return byPrice.filter(m => observedMarketRange(m).from >= 100000 && observedMarketRange(m).from <= 150000);
     case "best-scooters-philippines": return byPrice.filter(m => m.category.toLowerCase().includes("scooter"));
     case "scooters-under-150k-philippines": return byPrice.filter(m => m.category.toLowerCase().includes("scooter") && observedMarketRange(m).from <= 150000);
-    case "motorcycles-with-abs-philippines": return byPrice.filter(hasAbs);
+    case "motorcycles-with-abs-philippines": return byPrice.filter(m => hasConfirmedAbs(m.abs));
     case "fuel-efficient-motorcycles-philippines": return models.filter(m => typeof m.fuelConsumptionKmL === "number").sort((a,b) => (b.fuelConsumptionKmL || 0) - (a.fuelConsumptionKmL || 0) || observedMarketRange(a).from - observedMarketRange(b).from);
     case "best-underbone-motorcycles-philippines": return byPrice.filter(m => /underbone/i.test(m.category));
     case "best-motorcycles-for-short-riders": return [...models].sort((a,b) => a.seatHeightMm - b.seatHeightMm || a.curbWeightKg - b.curbWeightKg);
     case "best-motorcycles-for-long-rides": return models.filter(m => /premium|adventure|maxi|sport bike|roadster/i.test(m.category)).sort((a,b) => b.fuelTankL - a.fuelTankL || observedMarketRange(a).from - observedMarketRange(b).from);
     case "lightweight-motorcycles-philippines": return [...models].sort((a,b) => a.curbWeightKg - b.curbWeightKg || a.seatHeightMm - b.seatHeightMm);
     case "best-motorcycles-for-daily-commute-philippines": return [...models].sort((a,b) => evaluateMotorcycle(b,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score - evaluateMotorcycle(a,{useCase:"city",inseamIn:30,passenger:false,highway:false,expresswayClass:false,luggage:false,traffic:"heavy",dailyKm:20,downPaymentPct:20,termMonths:36,annualRatePct:12}).score || observedMarketRange(a).from - observedMarketRange(b).from);
-    case "beginner-friendly-motorcycles-philippines": return [...models].sort((a,b) => { const score=(m:Motorcycle)=>Math.max(0,40-Math.max(0,m.curbWeightKg-100)*.35-Math.max(0,m.seatHeightMm-740)*.05-Math.max(0,m.powerHp-20)*.8+(hasAbs(m)?5:0)); return score(b)-score(a)||observedMarketRange(a).from-observedMarketRange(b).from; });
+    case "beginner-friendly-motorcycles-philippines": return [...models].sort((a,b) => { const score=(m:Motorcycle)=>Math.max(0,40-Math.max(0,m.curbWeightKg-100)*.35-Math.max(0,m.seatHeightMm-740)*.05-Math.max(0,m.powerHp-20)*.8+(hasConfirmedAbs(m.abs)?5:0)); return score(b)-score(a)||observedMarketRange(a).from-observedMarketRange(b).from; });
     case "250cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 225 && m.engineCc <= 275);
     case "300cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 280 && m.engineCc <= 325);
     case "motorcycles-400cc-plus-philippines": return byPrice.filter(m => m.engineCc >= 400);
@@ -2412,6 +2483,9 @@ export function getRecommendationModels(slug: string) {
     case "honda-adv-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "honda" && /adv/i.test(m.model));
     case "cafe-racer-motorcycles-philippines": return byPrice.filter(m => /cafe racer|modern classic|classic road bike/i.test(m.category));
     case "125cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 115 && m.engineCc <= 130);
+    case "motorcycles-below-150cc-philippines": return byPrice.filter(m => m.engineCc < 150);
+    case "business-motorcycles-philippines": return byPrice.filter(m => /^Business motorcycle$/i.test(m.category));
+    case "street-motorcycles-philippines": return byPrice.filter(m => /^(Naked street bike|Retro roadster|Business motorcycle|Scrambler \/ utility motorcycle)$/i.test(m.category));
     case "125cc-scooters-philippines": return byPrice.filter(m => /scooter/i.test(m.category) && m.engineCc >= 115 && m.engineCc <= 130);
     case "150cc-scooters-philippines": return byPrice.filter(m => /scooter/i.test(m.category) && m.engineCc >= 140 && m.engineCc <= 155);
     case "160cc-scooters-philippines": return byPrice.filter(m => /scooter/i.test(m.category) && m.engineCc >= 156 && m.engineCc <= 165);

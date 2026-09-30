@@ -59,13 +59,21 @@ for (const [path, markers] of [
   if (!response) continue;
   const body = await response.text();
   for (const marker of markers) if (!body.includes(marker)) failures.push(`${path} missing required marker ${marker}`);
-  if (body.includes("https://motoindexph.com/recommendations/motorcycles-under-100k")) failures.push(`${path} still exposes retired per-guide recommendation URLs as canonical resources`);
+  if (path === "/llms-full.txt" && !body.includes("https://motoindexph.com/recommendations/motorcycles-under-100k")) failures.push(`${path} missing canonical focused recommendation guides`);
 }
 
+for (const path of [
+  "/recommendations/motorcycles-under-100k",
+  "/recommendations/best-scooters-philippines",
+  "/recommendations/best-motorcycles-for-daily-commute-philippines",
+  "/recommendations/125cc-scooters-philippines",
+  "/recommendations/150cc-scooters-philippines",
+  "/recommendations/160cc-scooters-philippines"
+]) await get(path);
+
 for (const [path, target] of [
-  ["/recommendations/motorcycles-under-100k", "/recommendations#budget"],
-  ["/recommendations/best-scooters-philippines", "/recommendations#scooters"],
-  ["/recommendations/best-motorcycles-for-daily-commute-philippines", "/recommendations#commuting"],
+  ["/recommendation", "/recommendations"],
+  ["/recommendation/motorcycles-under-100k", "/recommendations/motorcycles-under-100k"],
   ["/recommendations/electric-motorcycles-philippines", "/motorcycles/electric#models"],
   ["/get-quote/honda/click-160", "/dealers?brand=Honda"],
   ["/maintenance/motorcycle-battery", "/maintenance#motorcycle-battery"],
@@ -96,6 +104,7 @@ function isForbiddenIndexedPath(pathname) {
   return false;
 }
 
+let recommendationUrls = [];
 for (const path of ["/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear.xml", "/sitemaps/commerce.xml"]) {
   const response = await get(path);
   if (!response) continue;
@@ -116,15 +125,86 @@ for (const path of ["/sitemap.xml", "/sitemaps/motorcycles.xml", "/sitemaps/gear
       }
     }
   }
+  if (path === "/sitemap.xml") {
+    recommendationUrls = urls.filter((raw) => {
+      try { return /^\/recommendations\/[^/]+\/?$/.test(new URL(raw).pathname); }
+      catch { return false; }
+    });
+    if (!recommendationUrls.some((raw) => /\/recommendations\/motorcycles-under-100k\/?$/.test(raw))) failures.push("/sitemap.xml missing canonical focused recommendation guides");
+  }
   for (const raw of urls) {
     try {
       const url = new URL(raw);
       if (isForbiddenIndexedPath(url.pathname)) failures.push(`${path} leaks noindex/prototype route ${url.pathname}`);
-      if (/^\/recommendations\/[^/]+\/?$/.test(url.pathname)) failures.push(`${path} leaks retired recommendation URL ${url.pathname}`);
       if (/^\/motorcycles\/electric\/[^/]+\/?$/.test(url.pathname)) failures.push(`${path} leaks consolidated electric model URL ${url.pathname}`);
     } catch {
       failures.push(`${path} contains invalid URL ${raw}`);
     }
+  }
+}
+
+if (!recommendationUrls.length) {
+  failures.push("/sitemap.xml exposes no focused recommendation guides");
+} else {
+  const seenTitles = new Map();
+  const seenH1s = new Map();
+
+  for (let offset = 0; offset < recommendationUrls.length; offset += 8) {
+    const batch = recommendationUrls.slice(offset, offset + 8);
+    await Promise.all(batch.map(async (raw) => {
+      let url;
+      try { url = new URL(raw); }
+      catch { failures.push(`Invalid recommendation URL in sitemap: ${raw}`); return; }
+
+      const response = await get(`${url.pathname}${url.search}`);
+      if (!response) return;
+      const body = await response.text();
+
+      if (/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(body)) {
+        failures.push(`${url.pathname}: canonical recommendation guide is noindex`);
+      }
+
+      const canonical =
+        body.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)/i)?.[1] ||
+        body.match(/<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["']/i)?.[1] ||
+        "";
+      if (!canonical) {
+        failures.push(`${url.pathname}: missing canonical link`);
+      } else {
+        try {
+          const canonicalUrl = new URL(canonical, base);
+          if (canonicalUrl.pathname.replace(/\/$/, "") !== url.pathname.replace(/\/$/, "")) {
+            failures.push(`${url.pathname}: canonical points to ${canonicalUrl.pathname}`);
+          }
+        } catch {
+          failures.push(`${url.pathname}: invalid canonical ${canonical}`);
+        }
+      }
+
+      const title = body.match(/<title>([^<]+)<\/title>/i)?.[1]?.trim() || "";
+      if (!title) failures.push(`${url.pathname}: missing title`);
+      else {
+        const previous = seenTitles.get(title);
+        if (previous && previous !== url.pathname) failures.push(`${url.pathname}: duplicate title with ${previous}: ${title}`);
+        else seenTitles.set(title, url.pathname);
+      }
+
+      const h1s = [...body.matchAll(/<h1(?:\s[^>]*)?>([\s\S]*?)<\/h1>/gi)]
+        .map((match) => match[1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim())
+        .filter(Boolean);
+      if (h1s.length !== 1) failures.push(`${url.pathname}: expected exactly one H1, found ${h1s.length}`);
+      else {
+        const previous = seenH1s.get(h1s[0]);
+        if (previous && previous !== url.pathname) failures.push(`${url.pathname}: duplicate H1 with ${previous}: ${h1s[0]}`);
+        else seenH1s.set(h1s[0], url.pathname);
+      }
+
+      for (const schemaType of ["Article", "ItemList", "FAQPage"]) {
+        if (!body.includes(`"@type":"${schemaType}"`) && !body.includes(`"@type": "${schemaType}"`)) {
+          failures.push(`${url.pathname}: missing ${schemaType} structured data`);
+        }
+      }
+    }));
   }
 }
 

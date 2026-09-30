@@ -34,6 +34,10 @@ const maintenanceHub = read("app", "maintenance", "page.tsx");
 const nextConfig = read("next.config.mjs");
 const catalogData = read("lib", "catalog.ts");
 const topBoxFitmentData = read("lib", "topBoxFitment.ts");
+const modelFamilies = read("lib", "families.ts");
+const modelFamilyView = read("components", "ModelFamilyView.tsx");
+const gscOpportunity = read("scripts", "gsc-opportunity-report.mjs");
+const gscWorkflow = read("docs", "seo", "gsc-opportunity-workflow-2026-09-30.md");
 
 requireText(home, "Compare <span>motorcycle prices</span><br />and specs in the Philippines.", "Homepage must keep a query-led motorcycle prices/specs H1.");
 forbidText(home, "Your next <span>motorcycle</span><br />starts here.", "Homepage must not regress to the old brand-led H1.");
@@ -52,6 +56,56 @@ requireText(mediaValidator, "rightsStatus", "Media validation must enforce expli
 requireText(mediaValidator, "rightsHolder", "Media validation must enforce a rights holder.");
 requireText(mediaValidator, "sourceLabel and sourceUrl provenance", "External/licensed media must keep visible source provenance metadata.");
 requireText(modelRoute, 'getRenderableMedia("motorcycle", model.id)[0]?.src', "Model metadata should use model-specific social imagery when available.");
+for (const token of [
+  'seoTitle: "Yamaha Aerox Price Philippines 2026 | V2 vs V3 Price & Specs"',
+  'seoTitle: "Yamaha NMAX Price Philippines 2026 | V2 vs V3 Price & Specs"',
+  'seoTitle: "Honda Click Price Philippines 2026 | 125i vs 150i vs 160"',
+  'seoTitle: "Honda ADV Price Philippines 2026 | ADV150 vs ADV160 Specs"',
+  'comparisonHeading: "Yamaha Aerox V2 vs V3: what changed?"',
+  'comparisonHeading: "Honda Click 125i vs 150i vs 160: what changed?"'
+]) {
+  requireText(modelFamilies, token, `Model-family SEO profile missing required search-intent token: ${token}`);
+}
+for (const token of [
+  "family.seoTitle",
+  "family.seoDescription",
+  "family.secondaryKeywords"
+]) {
+  requireText(modelRoute, token, `Model-family metadata must use dedicated family SEO fields: ${token}`);
+}
+for (const token of [
+  'family.comparisonHeading',
+  '"@type": "FAQPage"',
+  'authorPersonSchema()',
+  '<AuthorBox />',
+  'model-family-change-grid'
+]) {
+  requireText(modelFamilyView, token, `Model-family page missing comparison/schema behavior: ${token}`);
+}
+requireText(modelEntity, "getModelFamilyForModel", "Canonical model pages must resolve their family hub for internal linking.");
+requireText(modelEntity, "Compare all {modelFamily.make} {modelFamily.name} generations", "Canonical model pages must link back to the family comparison hub.");
+requireText(modelEntity, 'title={`${model.make} ${model.model} specifications`}', "Canonical motorcycle pages must keep model-specific specifications headings.");
+requireText(modelEntity, 'title={`${model.make} ${model.model} downpayment and monthly installment estimate`}', "Canonical motorcycle pages must keep model-specific financing intent on-page.");
+requireText(modelEntity, "<summary>{model.make} {model.model} colors and variants</summary>", "Canonical motorcycle pages must keep model-specific colors/variant intent on-page.");
+for (const token of [
+  "queryFamily(query)",
+  "normalizePage(value, siteOrigin)",
+  "Page priorities from earned impressions",
+  "Possible query cannibalization",
+  "programWatchlist",
+  "Separate Queries.csv and Pages.csv files cannot prove query-to-page ownership"
+]) {
+  requireText(gscOpportunity, token, `GSC opportunity analyzer missing required behavior: ${token}`);
+}
+for (const token of [
+  "Do not commit private raw GSC exports",
+  "Neither source is first-party GSC performance",
+  "Avoid speculative title rewrites",
+  "query + page export"
+]) {
+  requireText(gscWorkflow, token, `GSC workflow documentation missing guardrail: ${token}`);
+}
+
 requireText(modelSeo, "firstTitleThatFits", "Model SEO titles should use length-aware title selection.");
 requireText(modelSeo, "limit = 60", "Model SEO title selection should target a 60-character ceiling.");
 requireText(sitemaps, "latestModelDate", "Sitemaps should derive hub freshness from model source checks.");
