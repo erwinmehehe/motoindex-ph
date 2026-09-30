@@ -184,7 +184,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     </section>
 
     <section id="visor" className="product-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Visor & parts</span><h2>{p.brand} {p.model} visor and replacement parts</h2><p>Match replacement parts to the exact helmet model rather than assuming another Spyder visor will fit.</p></div></div>
+      <div className="section-head compact"><div><span className="section-kicker">Visor & parts</span><h2>{p.brand} {p.model} visor and replacement parts</h2><p>Match replacement parts to the exact helmet model rather than assuming another {p.brand} visor will fit.</p></div></div>
       <div className="helmet-parts-card">
         <div><span>Visor setup</span><strong>{p.visor}</strong></div>
         {p.pinlock && <div><span>Pinlock / anti-fog</span><strong>{p.pinlock}</strong></div>}
