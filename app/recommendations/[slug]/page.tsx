@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { comparisons, getRecommendationGuide, getRecommendationModels, recommendationGuides, isIndexableRecommendation } from "@/lib/data";
+import { comparisons, getRecommendationGuide, getRecommendationModels, hasConfirmedAbs, recommendationGuides, isIndexableRecommendation } from "@/lib/data";
 import { GuideModelAnalysisCard } from "@/components/GuideModelAnalysisCard";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { pageMetadata } from "@/lib/site";
@@ -37,7 +37,6 @@ export async function generateMetadata({params}:{params:Promise<{slug:string}>})
   });
 }
 
-const hasAbs=(m:Motorcycle)=>/\bABS\b/i.test(m.abs)&&!/^No ABS/i.test(m.abs);
 const theoryRange=(m:Motorcycle)=>m.fuelConsumptionKmL?Math.round(m.fuelConsumptionKmL*m.fuelTankL):undefined;
 const val=(n:number|undefined,suffix:string)=>typeof n==="number"?`${n.toLocaleString("en-PH")} ${suffix}`:"—";
 const modelHref=(m:Motorcycle)=>`/motorcycles/${m.makeSlug}/${m.slug}`;
@@ -492,7 +491,19 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
         name: `${m.make} ${m.model}`,
         url: absoluteUrl(`/motorcycles/${m.makeSlug}/${m.slug}`)
       }))
-    }
+    },
+    ...(faqItems.length ? [{
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer
+        }
+      }))
+    }] : [])
   ];
 
   return <section className="page shell">
