@@ -19,9 +19,6 @@
 .helmet-product-page .product-entity-nav{position:sticky;top:72px;z-index:20;margin:0 0 8px;padding:10px 0;border-bottom:1px solid var(--mi-color-line);background:var(--mi-color-surface)}
 .helmet-product-page .product-entity-nav a{min-height:34px;padding:0 12px;border-radius:var(--mi-radius-pill);font-size:11px}
 .helmet-product-page .product-entity-section{padding:64px 0;border-top:1px solid var(--mi-color-line-soft)}
-.helmet-product-page .section-head{margin-bottom:24px}
-.helmet-product-page .section-head h2{max-width:760px;font-size:clamp(28px,3vw,38px)}
-.helmet-product-page .section-head p{max-width:680px;font-size:13px}
 .helmet-product-page .helmet-price-overview{display:grid;grid-template-columns:minmax(260px,.75fr) minmax(0,1.25fr);gap:12px;margin-bottom:18px}
 .helmet-product-page .helmet-price-primary,.helmet-product-page .helmet-price-meta article{border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-lg);background:var(--mi-color-surface)}
 .helmet-product-page .helmet-price-primary{display:flex;flex-direction:column;justify-content:center;padding:24px}
