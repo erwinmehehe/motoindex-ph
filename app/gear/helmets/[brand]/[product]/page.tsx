@@ -147,7 +147,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
       <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Price & availability</span><h2>{p.brand} {p.model} price in the Philippines</h2><p>Use the dated amount as a reference, then check the current seller for the exact size, graphic, bundle and stock.</p></div></div>
       <div className="entity-price-grid helmet-price-summary">
         <article className="primary-price-card"><span>Observed starting price</span><div><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong></div>{p.lastChecked && <small>Checked {p.lastChecked}</small>}</article>
-        <article className="helmet-product-check"><span>Exact product</span><strong>{p.brand} {p.model}</strong><small>Confirm the same size, graphic and visor bundle before checkout.</small></article>
+        <article className="helmet-product-check" style={{display:"flex",minWidth:0,minHeight:124,padding:"20px 22px",flexDirection:"column",justifyContent:"center",gap:6,border:"1px solid var(--mi-color-line)",borderRadius:18,background:"var(--mi-color-surface)"}}><span style={{color:"var(--mi-color-muted)",fontSize:9,fontWeight:850,letterSpacing:".07em",textTransform:"uppercase"}}>Exact product</span><strong style={{fontSize:19,lineHeight:1.25}}>{p.brand} {p.model}</strong><small style={{color:"var(--mi-color-copy)",fontSize:10,lineHeight:1.45}}>Confirm the same size, graphic and visor bundle before checkout.</small></article>
         {p.stockStatus && <article><span>Availability</span><strong>{p.stockStatus}</strong><small>Stock can differ by size and graphic.</small></article>}
         {(p.colors?.length || p.variants?.length) ? <article><span>Variants / colors</span><strong>{p.colors?.length ? p.colors.join(" · ") : p.variants?.join(" · ")}</strong><small>Not every graphic is available in every size.</small></article> : null}
       </div>
@@ -204,13 +204,13 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
 
     {compareTargets.length > 0 && <section id="compare" className="product-entity-section">
       <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Compare</span><h2>{p.brand} {p.model} comparisons</h2><p>Put the important differences side by side before opening another product page.</p></div><Link className="button ghost on-light helmet-compare-cta" href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Open interactive compare</Link></div>
-      <div className="entity-comparisons helmet-comparison-grid">{compareTargets.map((other) => <article className="helmet-compare-card" key={other.id}>
-        <h3>{p.brand} {p.model} vs {other.brand} {other.model}</h3>
-        <div className="mini-compare-table">
+      <div className="entity-comparisons helmet-comparison-grid" style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(320px,1fr))",gap:12}}>{compareTargets.map((other) => <article className="helmet-compare-card" style={{minWidth:0,padding:20,border:"1px solid var(--mi-color-line)",borderRadius:18,background:"var(--mi-color-surface)"}} key={other.id}>
+        <h3 style={{margin:"0 0 14px",fontSize:18,lineHeight:1.25}}>{p.brand} {p.model} vs {other.brand} {other.model}</h3>
+        <div className="mini-compare-table" style={{overflow:"hidden",border:"1px solid var(--mi-color-line-soft)",borderRadius:12}}>
           <div className="head"><span>Feature</span><strong>{p.model}</strong><strong>{other.model}</strong></div>
           {helmetCompareRows(p, other).map(([label, a, b]) => <div key={label}><span>{label}</span><b>{a}</b><b>{b}</b></div>)}
         </div>
-        <Link className="text-link" href={`/gear/helmets/${other.brandSlug}/${other.slug}`}>View {other.brand} {other.model} →</Link>
+        <Link className="text-link" style={{display:"inline-flex",marginTop:12,color:"var(--mi-color-primary)",fontSize:10,fontWeight:800}} href={`/gear/helmets/${other.brandSlug}/${other.slug}`}>View {other.brand} {other.model} →</Link>
       </article>)}</div>
     </section>}
 
