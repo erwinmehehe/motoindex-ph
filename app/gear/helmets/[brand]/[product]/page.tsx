@@ -145,11 +145,27 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
 
     <section id="price" className="product-entity-section product-price-section">
       <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Price & availability</span><h2>{p.brand} {p.model} price in the Philippines</h2><p>Use the dated amount as a reference, then check the current seller for the exact size, graphic, bundle and stock.</p></div></div>
-      <div className="entity-price-grid helmet-price-summary">
-        <article className="primary-price-card"><span>Observed starting price</span><div><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong></div>{p.lastChecked && <small>Checked {p.lastChecked}</small>}</article>
-        <article><span>Exact product</span><strong>{p.brand} {p.model}</strong><small>Confirm the same size, graphic and visor bundle before checkout.</small></article>
-        {p.stockStatus && <article><span>Availability</span><strong>{p.stockStatus}</strong><small>Stock can differ by size and graphic.</small></article>}
-        {(p.colors?.length || p.variants?.length) ? <article><span>Variants / colors</span><strong>{p.colors?.length ? p.colors.join(" · ") : p.variants?.join(" · ")}</strong><small>Not every graphic is available in every size.</small></article> : null}
+      <div className="market-price-source-grid helmet-price-summary">
+        <article className="market-price-source-card primary-price-card">
+          <div className="market-price-source-top">
+            <span className="market-price-source-type">Observed starting price</span>
+            {p.lastChecked && <time>Checked {p.lastChecked}</time>}
+          </div>
+          <div className="market-price-source-value">{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</div>
+          <p className="market-price-source-note">Use this as a dated reference. Confirm the exact size, graphic, bundle, shipping and stock with the seller before checkout.</p>
+        </article>
+        <article className="market-price-source-card">
+          <div className="market-price-source-top">
+            <span className="market-price-source-type">Exact product check</span>
+            <time>{p.helmetType}</time>
+          </div>
+          <div className="market-price-source-value">{p.brand} {p.model}</div>
+          <p className="market-price-source-note">{p.visor}{p.stockStatus ? ` · ${p.stockStatus}` : ""}</p>
+          <div className="market-price-source-footer">
+            <span>{p.sizes.length ? `Sizes ${p.sizes.join(" · ")}` : "Confirm the exact size before ordering"}</span>
+            <a href="#specs">Check specs →</a>
+          </div>
+        </article>
       </div>
       <CommercePriceComparison entityType="helmet" entityId={p.id} productName={`${p.brand} ${p.model}`} />
     </section>
@@ -206,9 +222,11 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
       <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Compare</span><h2>{p.brand} {p.model} comparisons</h2><p>Comparison intent stays on this strong entity page instead of being split into separate thin URLs.</p></div><Link href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Open interactive compare →</Link></div>
       <div className="entity-comparisons">{compareTargets.map((other) => <article key={other.id}>
         <h3>{p.brand} {p.model} vs {other.brand} {other.model}</h3>
-        <div className="mini-compare-table">
-          <div className="head"><span>Feature</span><strong>{p.model}</strong><strong>{other.model}</strong></div>
-          {helmetCompareRows(p, other).map(([label, a, b]) => <div key={label}><span>{label}</span><b>{a}</b><b>{b}</b></div>)}
+        <div className="compare-wrap">
+          <table className="compare-table">
+            <thead><tr><th>Feature</th><th>{p.model}</th><th>{other.model}</th></tr></thead>
+            <tbody>{helmetCompareRows(p, other).map(([label, a, b]) => <tr key={label}><td>{label}</td><td>{a}</td><td>{b}</td></tr>)}</tbody>
+          </table>
         </div>
         <Link className="text-link" href={`/gear/helmets/${other.brandSlug}/${other.slug}`}>View {other.brand} {other.model} →</Link>
       </article>)}</div>
