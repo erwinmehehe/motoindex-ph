@@ -2,7 +2,7 @@
 .product-detail-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.94fr);gap:clamp(30px,4vw,58px);align-items:center;padding:24px 0 42px;border-bottom:1px solid var(--mi-color-product-line)}
 .product-detail-media{min-width:0}
 .product-detail-media>.entity-media{position:relative;height:clamp(390px,39vw,500px);overflow:hidden;border:1px solid var(--mi-line);border-radius:var(--mi-radius-xl);background:var(--mi-surface)}
-.product-detail-media>.entity-media img{width:100%!important;height:100%!important;box-sizing:border-box!important;padding:28px!important;object-fit:contain!important;background:var(--mi-surface)!important}
+.product-detail-media>.entity-media img{width:100%!important;height:100%!important;box-sizing:border-box!important;padding:26px!important;object-fit:contain!important}
 .product-detail-media>.entity-media>.product-hero-card{height:100%!important;min-height:0!important;margin:0!important;border-radius:inherit!important;overflow:hidden!important}
 .product-detail-summary{min-width:0}
 .product-detail-eyebrow,.product-trust-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
@@ -16,7 +16,7 @@
 .product-detail-price-block small{color:var(--mi-muted);font-size:11px}
 .product-detail-actions{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 18px}
 .product-detail-actions a{display:inline-flex;min-height:44px;align-items:center;justify-content:center;padding:0 17px;border-radius:var(--mi-radius-sm);font-size:12px;font-weight:850}
-.helmet-primary-cta{background:var(--mi-primary);color:var(--mi-surface);box-shadow:0 10px 24px rgba(68,76,231,.18)}
+.helmet-primary-cta{background:var(--mi-primary);color:var(--mi-surface);box-shadow:var(--mi-shadow-sm)}
 .helmet-primary-cta:hover{background:var(--mi-color-primary-hover);transform:translateY(-1px)}
 .helmet-secondary-cta{border:1px solid var(--mi-line);background:var(--mi-surface);color:var(--mi-ink)}
 .product-facts-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
@@ -34,9 +34,6 @@
 
 .product-entity-page .product-entity-section{padding:44px 0;border-top:1px solid var(--mi-color-product-line)}
 .product-entity-page .product-entity-nav+.product-entity-section{border-top:0}
-.product-entity-page .section-head{align-items:flex-end;margin-bottom:20px}
-.product-entity-page .section-head h2{margin:4px 0 0;font-size:clamp(28px,3.2vw,38px);line-height:1.04;letter-spacing:-.04em}
-.product-entity-page .section-head p{max-width:720px;margin:9px 0 0;color:var(--mi-copy);font-size:13px;line-height:1.6}
 .product-entity-page .section-kicker{display:block;color:var(--mi-primary);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.09em}
 
 .helmet-price-summary{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);overflow:hidden;border:1px solid var(--mi-line);border-radius:var(--mi-radius-lg);background:var(--mi-surface)}
@@ -75,11 +72,6 @@
 .helmet-fit-note{display:flex;align-items:center;gap:10px 18px;flex-wrap:wrap;margin-top:12px;padding:13px 16px;border:1px solid var(--mi-line);border-radius:var(--mi-radius-md);background:var(--mi-surface-subtle);font-size:11px;line-height:1.45}
 .helmet-fit-note strong{color:var(--mi-ink)}.helmet-fit-note span{color:var(--mi-copy)}.helmet-fit-note a{margin-left:auto;color:var(--mi-primary);font-weight:850}
 
-.product-entity-page .product-editorial{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:12px;margin:0}
-.product-entity-page .product-editorial>article{min-width:0;padding:20px;border:1px solid var(--mi-line);border-radius:var(--mi-radius-lg);background:var(--mi-surface)}
-.product-entity-page .product-editorial>article>span{display:block;margin-bottom:8px;color:var(--mi-primary);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.09em}
-.product-entity-page .product-editorial h3{margin:0 0 8px;font-size:20px;line-height:1.2;letter-spacing:-.025em}.product-entity-page .product-editorial p,.product-entity-page .product-editorial li{color:var(--mi-copy);font-size:12px;line-height:1.55}
-.product-entity-page .product-editorial ul{margin:0;padding-left:18px}.product-entity-page .product-editorial li+li{margin-top:7px}
 .product-entity-page .mini-compare-table{overflow:hidden;border:1px solid var(--mi-line);border-radius:var(--mi-radius-md)}
 .product-entity-page .mini-compare-table>div{display:grid;grid-template-columns:minmax(100px,.7fr) repeat(2,minmax(0,1fr))}.product-entity-page .mini-compare-table :is(strong,b){min-width:0;overflow-wrap:anywhere}
 .product-entity-page .note-box{border-radius:var(--mi-radius-lg);box-shadow:none}
@@ -87,17 +79,16 @@
 @media(max-width:900px){
   .product-detail-hero{grid-template-columns:1fr;gap:22px}.product-detail-media>.entity-media{height:360px}
   .product-detail-summary h1{font-size:clamp(36px,8vw,50px)}
-  .product-entity-page .product-editorial{grid-template-columns:1fr}
   .helmet-product-page .commerce-offer-row{grid-template-columns:1fr 1fr}.helmet-product-page .commerce-offer-row>a{justify-self:start}
 }
 @media(max-width:600px){
   .product-entity-page{padding-top:36px}
-  .product-detail-hero{padding:10px 0 28px;gap:17px}.product-detail-media>.entity-media{height:285px;border-radius:var(--mi-radius-lg)}.product-detail-media>.entity-media img{padding:18px!important}
+  .product-detail-hero{padding:10px 0 28px;gap:17px}.product-detail-media>.entity-media{height:285px;border-radius:var(--mi-radius-lg)}.product-detail-media>.entity-media img{padding:14px!important}
   .product-detail-summary h1{font-size:clamp(34px,10.5vw,46px)}.product-detail-description p{font-size:14px}.product-detail-price-block{margin:19px 0 14px}
   .product-detail-actions{display:grid;grid-template-columns:1fr 1fr}.product-detail-actions a{width:100%}
   .product-fact{padding:12px}.product-fact strong{font-size:13px}
   .helmet-product-page .product-entity-nav{top:64px;margin-left:-20px;margin-right:-20px;padding:8px 20px}.product-entity-page .product-entity-nav a{font-size:12px}
-  .product-entity-page .product-entity-section{padding:36px 0}.product-entity-page .section-head{margin-bottom:17px}.product-entity-page .section-head h2{font-size:clamp(26px,8vw,32px)}
+  .product-entity-page .product-entity-section{padding:36px 0}
   .helmet-price-summary{grid-template-columns:1fr}.helmet-price-summary>article+article{border-left:0;border-top:1px solid var(--mi-line)}
   .helmet-product-page .commerce-price-head{display:grid;gap:10px;padding:17px}.helmet-product-page .commerce-offer-row{grid-template-columns:1fr;gap:10px;padding:15px 17px}.helmet-product-page .commerce-disclosure{padding:12px 17px}
   .product-entity-page .entity-spec-table>div,.helmet-parts-card>div{grid-template-columns:1fr;gap:4px;padding:14px 16px}.product-entity-page .entity-spec-table span,.helmet-parts-card span{font-size:10px}
