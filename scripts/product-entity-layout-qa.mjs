@@ -198,6 +198,7 @@ try {
         const editorial=document.querySelector('.product-editorial');
         const priceGrid=document.querySelector('.entity-price-grid');
         const compareRow=document.querySelector('.mini-compare-table > div:not(.head)');
+        const helmetCompareTable=helmetPage?.querySelector('#compare .compare-table');
         const helmetPage=document.querySelector('.helmet-product-page');
         const catalogHelmetPage=document.querySelector('.helmet-catalog-page');
         const helmetCta=helmetPage?.querySelector('.helmet-primary-cta');
@@ -218,7 +219,7 @@ try {
           sectionWidths:sections.slice(0,8).map(el=>Math.round(r(el).width)),
           compareDisplay:compareRow?getComputedStyle(compareRow).display:'',
           compareColumns:compareRow?getComputedStyle(compareRow).gridTemplateColumns:'',
-          editorial:r(editorial), priceGrid:r(priceGrid), helmetPage:Boolean(helmetPage), catalogHelmetPage:Boolean(catalogHelmetPage), helmetCta:r(helmetCta), commerceRow:r(commerceRow), fitLayout:r(fitLayout), priceChildren
+          editorial:r(editorial), priceGrid:r(priceGrid), helmetPage:Boolean(helmetPage), catalogHelmetPage:Boolean(catalogHelmetPage), helmetCta:r(helmetCta), commerceRow:r(commerceRow), fitLayout:r(fitLayout), helmetCompareTable:r(helmetCompareTable), priceChildren
         };
       })()`);
       results.push({ width, route: route.path, ...state });
@@ -249,6 +250,7 @@ try {
         if (!state?.catalogHelmetPage && !state?.fitLayout) failures.push(`${width}px ${route.key}: helmet sizing layout missing`);
         if (state?.priceChildren?.some((child, index, list) => index && child.top < list[index - 1].bottom - 1)) failures.push(`${width}px ${route.key}: price summary text overlaps`);
         if (state?.commerceRow && state.commerceRow.width < (mobile ? 300 : 700)) failures.push(`${width}px ${route.key}: commerce row collapsed to ${Math.round(state.commerceRow.width)}px`);
+        if (!state?.catalogHelmetPage && !state?.helmetCompareTable) failures.push(`${width}px ${route.key}: structured helmet comparison table missing`);
       }
       await screenshot(route.key, width);
     }
