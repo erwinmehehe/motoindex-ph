@@ -5,7 +5,6 @@ const base = new URL(process.env.BASE_URL || "http://127.0.0.1:3000");
 const canonicalOrigin = new URL(process.env.CANONICAL_ORIGIN || "https://motoindexph.com");
 
 const redirects = [
-  { source: "/motorcycles/electric/vinfast-evo", destination: "/motorcycles/electric#models" },
   { source: "/motorcycles/electric/vinfast-feliz-ii", destination: "/motorcycles/electric#models" },
   { source: "/motorcycles/electric/vinfast-viper", destination: "/motorcycles/electric#models" },
   { source: "/motorcycles/yamaha/aerox-v3/price", destination: "/motorcycles/yamaha/aerox-v3#price" },
@@ -95,6 +94,29 @@ for (const entry of redirects) {
   if (!canonical) failures.push(`${entry.source}: destination ${expectedPath} is missing a canonical link`);
   if (canonical && canonicalPath !== expectedCanonicalPath) failures.push(`${entry.source}: canonical path is ${canonicalPath || "invalid"}; expected ${expectedCanonicalPath}`);
   if (canonical && canonicalHost !== canonicalOrigin.hostname.replace(/^www\./, "")) failures.push(`${entry.source}: canonical host is ${canonicalHost || "invalid"}; expected ${canonicalOrigin.hostname}`);
+}
+
+const directPages = ["/motorcycles/electric/vinfast-evo"];
+for (const pathname of directPages) {
+  try {
+    const response = await fetch(new URL(pathname, base), { redirect: "manual", headers: { "user-agent": "MotoIndexRouteQA/1.0" } });
+    const html = await response.text();
+    const canonical = canonicalHref(html);
+    let canonicalPath = "";
+    let canonicalHost = "";
+    if (canonical) {
+      const canonicalUrl = new URL(canonical, canonicalOrigin);
+      canonicalPath = canonicalUrl.pathname.replace(/\/$/, "") || "/";
+      canonicalHost = canonicalUrl.hostname.replace(/^www\./, "");
+    }
+    results.push({ source: pathname, expectedDestination: null, status: response.status, location: response.headers.get("location") || "", actualDestination: "", targetStatus: response.status, canonical });
+    if (response.status !== 200) failures.push(`${pathname}: HTTP ${response.status}; expected 200 standalone page`);
+    if (!canonical) failures.push(`${pathname}: standalone page is missing a canonical link`);
+    if (canonical && canonicalPath !== pathname) failures.push(`${pathname}: canonical path is ${canonicalPath || "invalid"}; expected ${pathname}`);
+    if (canonical && canonicalHost !== canonicalOrigin.hostname.replace(/^www\./, "")) failures.push(`${pathname}: canonical host is ${canonicalHost || "invalid"}; expected ${canonicalOrigin.hostname}`);
+  } catch (error) {
+    failures.push(`${pathname}: standalone page request failed: ${error instanceof Error ? error.message : String(error)}`);
+  }
 }
 
 const outputDir = path.join(process.cwd(), "artifacts", "visual-qa", "routes");
