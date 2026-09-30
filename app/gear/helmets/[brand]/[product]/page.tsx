@@ -23,6 +23,7 @@ import { ProductEntityShell } from "@/components/ProductEntityShell";
 import { ProductHero } from "@/components/ProductHero";
 import { ProductTrustRow } from "@/components/ProductTrustRow";
 import { getRenderableMedia } from "@/lib/renderableMedia";
+import { HelmetProductStyles } from "@/components/HelmetProductStyles";
 
 export const revalidate = 3600;
 
@@ -112,6 +113,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
   ];
 
   return <ProductEntityShell className="helmet-product-page">
+    <HelmetProductStyles />
     <Breadcrumbs items={[{ label: "Helmets", href: "/gear/helmets" }, { label: p.brand, href: `/gear/helmets/${p.brandSlug}` }, { label: p.model }]} />
 
     <ProductHero
