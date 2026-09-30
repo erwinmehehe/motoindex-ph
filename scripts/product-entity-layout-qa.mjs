@@ -73,6 +73,7 @@ function representativeTireRoutes(block) {
 const exactRegressionRoutes = [
   { key: "helmet-gille-kerena", path: "/gear/helmets/gille/kerena-ff007" },
   { key: "helmet-spyder-surge", path: "/gear/helmets/spyder/surge-plain-v2" },
+  { key: "helmet-zebra-a113-ritzy", path: "/gear/helmets/zebra/a113-ritzy" },
   { key: "helmet-catalog-mt-thunder-4-sv", path: "/gear/helmets/mt/thunder-4-sv" },
   { key: "topbox-givi-v58", path: "/accessories/top-box/v58-maxia-5" },
   { key: "tire-michelin-city-grip-2", path: "/tires/michelin/city-grip-2" },
@@ -199,7 +200,8 @@ try {
         const priceGrid=document.querySelector('.entity-price-grid');
         const compareRow=document.querySelector('.mini-compare-table > div:not(.head)');
         const helmetPage=document.querySelector('.helmet-product-page');
-        const helmetCompareTable=helmetPage?.querySelector('#compare .compare-table');
+        const helmetCompareSection=helmetPage?.querySelector('#compare');
+        const helmetCompareTable=helmetCompareSection?.querySelector('.compare-table');
         const catalogHelmetPage=document.querySelector('.helmet-catalog-page');
         const helmetCta=helmetPage?.querySelector('.helmet-primary-cta');
         const commerceRow=helmetPage?.querySelector('.commerce-offer-row');
@@ -219,7 +221,7 @@ try {
           sectionWidths:sections.slice(0,8).map(el=>Math.round(r(el).width)),
           compareDisplay:compareRow?getComputedStyle(compareRow).display:'',
           compareColumns:compareRow?getComputedStyle(compareRow).gridTemplateColumns:'',
-          editorial:r(editorial), priceGrid:r(priceGrid), helmetPage:Boolean(helmetPage), catalogHelmetPage:Boolean(catalogHelmetPage), helmetCta:r(helmetCta), commerceRow:r(commerceRow), fitLayout:r(fitLayout), helmetCompareTable:r(helmetCompareTable), priceChildren
+          editorial:r(editorial), priceGrid:r(priceGrid), helmetPage:Boolean(helmetPage), catalogHelmetPage:Boolean(catalogHelmetPage), helmetCta:r(helmetCta), commerceRow:r(commerceRow), fitLayout:r(fitLayout), helmetCompareSection:Boolean(helmetCompareSection), helmetCompareTable:r(helmetCompareTable), priceChildren
         };
       })()`);
       results.push({ width, route: route.path, ...state });
@@ -250,7 +252,7 @@ try {
         if (!state?.catalogHelmetPage && !state?.fitLayout) failures.push(`${width}px ${route.key}: helmet sizing layout missing`);
         if (state?.priceChildren?.some((child, index, list) => index && child.top < list[index - 1].bottom - 1)) failures.push(`${width}px ${route.key}: price summary text overlaps`);
         if (state?.commerceRow && state.commerceRow.width < (mobile ? 300 : 700)) failures.push(`${width}px ${route.key}: commerce row collapsed to ${Math.round(state.commerceRow.width)}px`);
-        if (!state?.catalogHelmetPage && !state?.helmetCompareTable) failures.push(`${width}px ${route.key}: structured helmet comparison table missing`);
+        if (state?.helmetCompareSection && !state?.helmetCompareTable) failures.push(`${width}px ${route.key}: structured helmet comparison table missing`);
       }
       await screenshot(route.key, width);
     }
