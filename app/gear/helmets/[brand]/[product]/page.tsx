@@ -115,7 +115,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     <Breadcrumbs items={[{ label: "Helmets", href: "/gear/helmets" }, { label: p.brand, href: `/gear/helmets/${p.brandSlug}` }, { label: p.model }]} />
 
     <ProductHero
-      media={<EntityMedia entityType="helmet" entityId={p.id} priority fallback={<div className="product-hero-card"><span>Helmet</span><strong>H</strong><div><small>{p.brand}</small><h2>{p.model}</h2></div></div>} />}
+      media={<EntityMedia entityType="helmet" entityId={p.id} priority imageScale={1.08} fallback={<div className="product-hero-card"><span>Helmet</span><strong>H</strong><div><small>{p.brand}</small><h2>{p.model}</h2></div></div>} />}
       eyebrow={<><span className="product-type-pill">Helmet</span><span className={`product-status-pill ${p.status}`}>{p.status === "verified" ? "Verified product" : "Needs checking"}</span></>}
       title={<>{p.brand} {p.model}</>}
       description={<p>{p.description}</p>}
