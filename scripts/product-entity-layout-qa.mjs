@@ -193,7 +193,7 @@ try {
         const helmetPrice=document.querySelector('.helmet-price-summary');
         const commerce=document.querySelector('.commerce-price-comparison');
         const helmetSpecs=document.querySelector('.helmet-spec-table');
-        const helmetSizing=document.querySelector('.helmet-size-panel, .entity-size-table');
+        const helmetSizing=document.querySelector('.helmet-size-panel, .entity-size-table, #size .helmet-fit-note');
         const helmetParts=document.querySelector('.helmet-parts-card');
         const compareRow=document.querySelector('.mini-compare-table > div:not(.head)');
         const r=el=>{if(!el)return null;const rect=el.getBoundingClientRect();return {left:rect.left,right:rect.right,top:rect.top,bottom:rect.bottom,width:rect.width,height:rect.height};};
