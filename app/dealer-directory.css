@@ -41,7 +41,7 @@
 
 
 .dealer-network-prices{margin-top:34px;padding-top:28px;border-top:1px solid var(--line)}
-.dealer-network-prices .section-head{margin-bottom:16px}
+.dealer-network-head{margin-bottom:16px}
 .dealer-network-prices .dealer-network-offers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .dealer-network-prices .dealer-network-offers>a{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:18px;align-items:center;min-width:0;padding:16px 17px;border:1px solid var(--line);border-radius:16px;background:var(--mi-color-surface);color:var(--ink);text-decoration:none}
 .dealer-network-prices .dealer-network-offers>a>span{min-width:0}
