@@ -38,20 +38,3 @@
 @media(max-width:900px){.dealer-filter-bar{grid-template-columns:1fr 1fr}.dealer-search{grid-column:1/-1}.dealer-results{grid-template-columns:repeat(2,minmax(0,1fr))}.dealer-locator-grid,.dealer-city-links{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.dealer-city-brands{align-items:flex-start;flex-direction:column;margin-top:-18px}.dealer-city-brands>div{justify-content:flex-start}.dealer-checklist.seller-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.dealer-finder{padding:13px}.dealer-filter-bar{grid-template-columns:1fr}.dealer-search{grid-column:auto}.dealer-results-head{align-items:flex-start;flex-direction:column;gap:4px}.dealer-results-head span{text-align:left}.dealer-results,.dealer-locator-grid,.dealer-city-links,.dealer-city-summary{grid-template-columns:1fr}.dealer-result-card,.dealer-locator-card{min-height:0}.dealer-profile-trust{align-items:flex-start;flex-direction:column;padding:19px}}
 @media(max-width:420px){.dealer-checklist.seller-stats{grid-template-columns:1fr}}
-
-
-.dealer-network-prices{margin-top:34px;padding-top:28px;border-top:1px solid var(--line)}
-.dealer-network-head{margin-bottom:16px}
-.dealer-network-prices .dealer-network-offers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.dealer-network-prices .dealer-network-offers>a{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:18px;align-items:center;min-width:0;padding:16px 17px;border:1px solid var(--line);border-radius:16px;background:var(--mi-color-surface);color:var(--ink);text-decoration:none}
-.dealer-network-prices .dealer-network-offers>a>span{min-width:0}
-.dealer-network-prices .dealer-network-offers>a>span:first-child small,.dealer-network-prices .dealer-network-offers>a>span:first-child strong,.dealer-network-prices .dealer-network-offers>a>span:nth-child(2) strong,.dealer-network-prices .dealer-network-offers>a>span:nth-child(2) small{display:block}
-.dealer-network-prices .dealer-network-offers>a>span:first-child small{margin-bottom:4px;color:var(--muted);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
-.dealer-network-prices .dealer-network-offers>a>span:first-child strong{font-size:14px;line-height:1.25}
-.dealer-network-prices .dealer-network-offers>a>span:nth-child(2){text-align:right}
-.dealer-network-prices .dealer-network-offers>a>span:nth-child(2) strong{font-size:14px;white-space:nowrap}
-.dealer-network-prices .dealer-network-offers>a>span:nth-child(2) small{margin-top:3px;color:var(--muted);font-size:9px}
-.dealer-network-prices .offer-status{padding:6px 8px;border-radius:999px;background:var(--mi-color-primary-soft);color:var(--mi-color-primary-hover);font-size:8px;font-weight:850;text-transform:uppercase;letter-spacing:.06em}
-.dealer-network-note{margin:12px 0 0;color:var(--muted);font-size:10px;line-height:1.5}
-@media(max-width:900px){.dealer-network-prices .dealer-network-offers{grid-template-columns:1fr}}
-@media(max-width:650px){.dealer-network-prices{margin-top:28px;padding-top:24px}.dealer-network-prices .dealer-network-offers>a{grid-template-columns:1fr auto;gap:10px;padding:14px}.dealer-network-prices .dealer-network-offers>a>span:nth-child(2){text-align:left}.dealer-network-prices .offer-status{grid-column:2;grid-row:1}}
