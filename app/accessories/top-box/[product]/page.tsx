@@ -10,6 +10,7 @@ import { RelatedLinks } from "@/components/RelatedLinks";
 import { JsonLd } from "@/components/JsonLd";
 import { topBoxInternalLinks } from "@/lib/internalLinks";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
+import { catalogProductOfferSchema } from "@/lib/structuredData";
 import { EntityMedia } from "@/components/EntityMedia";
 import { CommercePriceComparison } from "@/components/CommercePriceComparison";
 import { topBoxEditorial } from "@/lib/productEditorial";
@@ -65,6 +66,7 @@ export default async function TopBoxProductPage({ params }: { params: Promise<{ 
     brand: { "@type": "Brand", name: item.brand },
     category: "Motorcycle top box",
     description: item.description,
+    ...(catalogProductOfferSchema(item, canonicalPath) ? { offers: catalogProductOfferSchema(item, canonicalPath) } : {}),
   };
 
   const heroFacts = [
