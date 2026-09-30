@@ -1,5 +1,6 @@
 import { defaultFinancingExamples, financingScenario } from "@/lib/financing";
 import { php } from "@/lib/utils";
+import { SectionHeader, StatRow } from "@/components/ui";
 
 type PriceOption = { label: string; price: number };
 
@@ -12,29 +13,27 @@ export function FinancingSnapshot({ modelName, price, priceOptions = [] }: { mod
     : [];
   const examples = defaultFinancingExamples(price);
 
+  const items = variantScenarios.length
+    ? variantScenarios.map(({ option, scenario }) => ({
+        label: <span data-financing-variant={option.label}>{option.label}</span>,
+        value: `${php(Math.round(scenario.monthlyPhp))}/mo`,
+        note: `${php(Math.round(scenario.downPaymentPhp))} down · ${php(option.price)} SRP`
+      }))
+    : examples.map((example) => ({
+        label: `${example.downPaymentPct}% down`,
+        value: `${php(Math.round(example.monthlyPhp))}/mo`,
+        note: `${php(Math.round(example.downPaymentPhp))} cash down`
+      }));
+
   return <div className="financing-snapshot finance-scenario-section" data-financing-snapshot={variantScenarios.length ? "variants" : "standard"}>
-    <div className="finance-scenario-head">
-      <div>
-        <span className="finance-kicker">Quick comparison</span>
-        <h3>{variantScenarios.length ? `${modelName} monthly estimate by variant` : "How the downpayment changes the monthly estimate"}</h3>
-        <p>{variantScenarios.length
-          ? "Same 20% downpayment, 36-month term and 12% annual rate so you can see the variant price difference."
-          : "Same 36-month term and 12% annual rate. Change the assumptions in the calculator above for your actual quote."}</p>
-      </div>
-    </div>
-
-    <div className="finance-scenario-strip">
-      {variantScenarios.length ? variantScenarios.map(({ option, scenario }) => <article className="finance-scenario-card" key={`${option.label}-${option.price}`} data-financing-variant={option.label}>
-        <span>{option.label}</span>
-        <strong>{php(Math.round(scenario.monthlyPhp))}<small>/mo</small></strong>
-        <p>{php(Math.round(scenario.downPaymentPhp))} cash down · {php(option.price)} SRP</p>
-      </article>) : examples.map((example) => <article className={`finance-scenario-card${example.downPaymentPct === 20 ? " is-featured" : ""}`} key={example.downPaymentPct}>
-        <span>{example.downPaymentPct}% down</span>
-        <strong>{php(Math.round(example.monthlyPhp))}<small>/mo</small></strong>
-        <p>{php(Math.round(example.downPaymentPhp))} cash down</p>
-      </article>)}
-    </div>
-
-    <p className="finance-scenario-note">Planning examples only, not a dealer or lender quotation. Final monthly payment depends on the financed amount, fees, rate method, lender and approved term.</p>
+    <SectionHeader
+      kicker="Quick comparison"
+      title={variantScenarios.length ? `${modelName} monthly estimate by variant` : "How the downpayment changes the monthly estimate"}
+      description={variantScenarios.length
+        ? "Same 20% downpayment, 36-month term and 12% annual rate so you can see the variant price difference."
+        : "Same 36-month term and 12% annual rate. Change the assumptions in the calculator above for your actual quote."}
+    />
+    <StatRow className="finance-scenario-row" items={items} />
+    <p className="muted-copy">Planning examples only, not a dealer or lender quotation. Final payment depends on the financed amount, fees, rate method, lender and approved term.</p>
   </div>;
 }
