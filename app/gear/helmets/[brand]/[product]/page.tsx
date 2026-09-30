@@ -144,7 +144,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     ]} />
 
     <section id="price" className="product-entity-section product-price-section">
-      <div className="section-head compact"><div><span className="section-kicker">Price & availability</span><h2>{p.brand} {p.model} price in the Philippines</h2><p>Use the dated amount as a reference, then check the current seller for the exact size, graphic, bundle and stock.</p></div></div>
+      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Price & availability</span><h2>{p.brand} {p.model} price in the Philippines</h2><p>Use the dated amount as a reference, then check the current seller for the exact size, graphic, bundle and stock.</p></div></div>
       <div className="entity-price-grid helmet-price-summary">
         <article className="primary-price-card"><span>Observed starting price</span><strong>{p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}</strong>{p.lastChecked && <small>Checked {p.lastChecked}</small>}</article>
         <article><span>Exact product</span><strong>{p.brand} {p.model}</strong><small>Confirm the same size, graphic and visor bundle before checkout.</small></article>
@@ -155,7 +155,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     </section>
 
     <section id="specs" className="product-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Specifications</span><h2>{p.brand} {p.model} specifications</h2></div></div>
+      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Specifications</span><h2>{p.brand} {p.model} specifications</h2></div></div>
       <div className="entity-spec-table helmet-spec-grid" role="table" aria-label={`${p.brand} ${p.model} helmet specifications`}>
         <div role="row"><span role="cell">Helmet type</span><strong role="cell">{p.helmetType}</strong></div>
         {p.shell && <div role="row"><span role="cell">Shell / material</span><strong role="cell">{p.shell}</strong></div>}
@@ -166,7 +166,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     </section>
 
     <section id="size" className="product-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Fit guide</span><h2>{p.brand} {p.model} size chart and fit</h2><p>Helmet fit is model-specific. Start with the manufacturer chart, then confirm pressure points and stability on your own head shape.</p></div></div>
+      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Fit guide</span><h2>{p.brand} {p.model} size chart and fit</h2><p>Helmet fit is model-specific. Start with the manufacturer chart, then confirm pressure points and stability on your own head shape.</p></div></div>
       <div className="helmet-fit-layout">
         <div className="helmet-fit-data">
           <span className="helmet-sub-label">Available sizes</span>
@@ -177,7 +177,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     </section>
 
     <section id="visor" className="product-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Visor & parts</span><h2>Visor, Pinlock and replacement parts</h2></div></div>
+      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Visor & parts</span><h2>Visor, Pinlock and replacement parts</h2></div></div>
       <div className="helmet-parts-card">
         <div className="entity-spec-table helmet-visor-grid">
           <div><span>Visor setup</span><strong>{p.visor}</strong></div>
@@ -189,7 +189,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     </section>
 
     <section id="pros-cons" className="product-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Buying decision</span><h2>Best for, strengths and trade-offs</h2></div></div>
+      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Buying decision</span><h2>Best for, strengths and trade-offs</h2></div></div>
       <div className="product-editorial">
         <article className="editorial-best"><span>Best for</span><h3>{editorial.bestFor}</h3><p>{p.description}</p></article>
         <article className="editorial-pros"><span>Strengths</span><ul>{editorial.pros.map((item) => <li key={item}>{item}</li>)}</ul></article>
@@ -198,12 +198,12 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     </section>
 
     <section id="alternatives" className="product-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Similar helmets</span><h2>Alternatives to the {p.brand} {p.model}</h2><p>These are verified product pages chosen first from the same brand/type, then by nearby price where price data exists.</p></div></div>
+      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Similar helmets</span><h2>Alternatives to the {p.brand} {p.model}</h2><p>These are verified product pages chosen first from the same brand/type, then by nearby price where price data exists.</p></div></div>
       <div className="product-grid">{alternatives.map((item) => <ProductCard key={item.id} item={{ entityId: item.id, href: `/gear/helmets/${item.brandSlug}/${item.slug}`, category: item.helmetType, brand: item.brand, model: item.model, meta: [item.shell, item.pinlock].filter(Boolean).join(" · "), status: item.status, priceFromPhp: item.priceFromPhp }} />)}</div>
     </section>
 
     {compareTargets.length > 0 && <section id="compare" className="product-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Compare</span><h2>{p.brand} {p.model} comparisons</h2><p>Comparison intent stays on this strong entity page instead of being split into separate thin URLs.</p></div><Link href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Open interactive compare →</Link></div>
+      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Compare</span><h2>{p.brand} {p.model} comparisons</h2><p>Comparison intent stays on this strong entity page instead of being split into separate thin URLs.</p></div><Link href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Open interactive compare →</Link></div>
       <div className="entity-comparisons">{compareTargets.map((other) => <article key={other.id}>
         <h3>{p.brand} {p.model} vs {other.brand} {other.model}</h3>
         <div className="mini-compare-table">
