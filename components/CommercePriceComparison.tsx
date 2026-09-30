@@ -53,7 +53,7 @@ export async function CommercePriceComparison({ entityType, entityId, productNam
         <strong>{compact ? "No checked seller offer right now." : "Retailer pricing not currently verified."}</strong>
         <span>{compact ? "Confirm the exact model, size and checkout total before buying." : "MotoIndex will show exact-product seller rows here after a recent listing or retailer offer has been checked. We do not substitute unrelated products just to fill the comparison."}</span>
       </div>
-      <AffiliateOffer productId={entityId} productName={productName} />
+      <AffiliateOffer productId={entityId} productName={productName} compact={compact} />
     </div>;
   }
 
@@ -79,6 +79,6 @@ export async function CommercePriceComparison({ entityType, entityId, productNam
     </div>
 
     <div className="commerce-disclosure">{compact ? <><b>Before checkout:</b> confirm the exact size, graphic, stock and total.</> : <><b>Price and stock can change after our check.</b> Compare the exact size/SKU, certification, bundle, shipping and checkout total. Affiliate relationships never change MotoIndex rankings or factual conclusions.</>}</div>
-    <AffiliateOffer productId={entityId} productName={productName} />
+    <AffiliateOffer productId={entityId} productName={productName} compact={compact} />
   </div>;
 }
