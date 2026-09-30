@@ -28,7 +28,7 @@
 .product-entity-page .product-entity-nav a:hover{background:var(--mi-surface-subtle);color:var(--mi-ink)}
 .helmet-product-page .product-entity-nav{position:sticky;top:72px;z-index:20;margin-bottom:0}
 
-.product-entity-page .product-entity-section{padding:44px 0;border-top:1px solid var(--mi-color-product-line)}
+.product-entity-page .product-entity-section{padding:36px 0;border-top:1px solid var(--mi-color-product-line)}
 .product-entity-page .product-entity-nav+.product-entity-section{border-top:0}
 .product-entity-page .section-kicker{display:block;color:var(--mi-primary);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.09em}
 
@@ -52,7 +52,7 @@
 .helmet-product-page .commerce-offer-button{display:inline-flex;min-height:38px;align-items:center;justify-content:center;padding:0 13px;border-radius:var(--mi-radius-sm);background:var(--mi-primary);color:var(--mi-surface);font-size:11px;font-weight:850;white-space:nowrap}
 .helmet-product-page .commerce-disclosure{padding:12px 22px;border-top:1px solid var(--mi-line);background:var(--mi-surface-subtle);color:var(--mi-copy);font-size:10px;line-height:1.5}
 
-.product-entity-page .entity-spec-table,.helmet-parts-card{overflow:hidden;border:1px solid var(--mi-line);border-radius:var(--mi-radius-lg);background:var(--mi-surface)}
+.product-entity-page .entity-spec-table,.helmet-parts-card{width:100%;min-width:0;max-width:100%;overflow:hidden;border:1px solid var(--mi-line);border-radius:var(--mi-radius-lg);background:var(--mi-surface)}
 .product-entity-page .entity-spec-table>div,.helmet-parts-card>div{display:grid;grid-template-columns:190px minmax(0,1fr);gap:20px;align-items:start;min-height:58px;padding:15px 18px;border-bottom:1px solid var(--mi-line)}
 .product-entity-page .entity-spec-table>div:last-child,.helmet-parts-card>div:last-child{border-bottom:0}
 .product-entity-page .entity-spec-table span,.helmet-parts-card span{color:var(--mi-muted);font-size:11px;font-weight:800}.product-entity-page .entity-spec-table strong,.helmet-parts-card strong{color:var(--mi-ink);font-size:13px;line-height:1.5;overflow-wrap:anywhere}
@@ -81,7 +81,7 @@
   .product-detail-actions{display:grid;grid-template-columns:1fr 1fr}.product-detail-actions a{width:100%}
   .product-fact{padding:12px}.product-fact strong{font-size:13px}
   .helmet-product-page .product-entity-nav{top:64px;margin-left:-20px;margin-right:-20px;padding:8px 20px}.product-entity-page .product-entity-nav a{font-size:12px}
-  .product-entity-page .product-entity-section{padding:36px 0}
+  .product-entity-page .product-entity-section{padding:28px 0}
   .helmet-price-summary{grid-template-columns:1fr}.helmet-price-summary>article+article{border-left:0;border-top:1px solid var(--mi-line)}
   .helmet-product-page .commerce-price-head{display:grid;gap:10px;padding:17px}.helmet-product-page .commerce-offer-row{grid-template-columns:1fr;gap:10px;padding:15px 17px}.helmet-product-page .commerce-disclosure{padding:12px 17px}
   .product-entity-page .entity-spec-table>div,.helmet-parts-card>div{grid-template-columns:1fr;gap:4px;padding:14px 16px}.product-entity-page .entity-spec-table span,.helmet-parts-card span{font-size:10px}
