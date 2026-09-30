@@ -54,17 +54,17 @@ export const marketPriceChecks: MarketPriceCheck[] = [
   { modelId:"honda-click-160", sourceName:"Philippine comparison site", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/honda/click-160", priceFromPhp:116900, checkedAt },
   { modelId:"honda-pcx-160", sourceName:"Philippine comparison site", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/honda/pcx160", priceFromPhp:133400, priceToPhp:154900, checkedAt, note:"Standard to RoadSync range" },
   { modelId:"yamaha-fazzio", sourceName:"Motortrade Philippines", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/yamaha-new-mio-fazzio/", priceFromPhp:93900, checkedAt:"2026-09-19", note:"Current New Mio Fazzio BRV5 dealer listing" },
-  { modelId:"yamaha-mio-gear", sourceName:"Philippine comparison site", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/yamaha/mio-gear", priceFromPhp:79400, priceToPhp:82400, checkedAt },
+  { modelId:"yamaha-mio-gear", sourceName:"Motortrade Philippines", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/yamaha-mio-gear/", priceFromPhp:79400, checkedAt:"2026-09-30", note:"Current direct dealer listing" },
   { modelId:"suzuki-burgman-street-ex", sourceName:"Suzuki Motorcycles Philippines", sourceType:"manufacturer", sourceUrl:"https://mc.suzuki.com.ph/motorcycles/scooter/burgman-street-125-ex/", priceFromPhp:93400, checkedAt:"2026-09-30", note:"Current official Philippine SRP" },
   { modelId:"suzuki-burgman-street-ex", sourceName:"Motortrade Philippines", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/suzuki-burgman-street-125-ex/", priceFromPhp:93400, checkedAt:"2026-09-30", note:"Current direct dealer listing" },
-  { modelId:"yamaha-sniper-155", sourceName:"Philippine comparison site", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/yamaha/sniper-155", priceFromPhp:125900, priceToPhp:145900, checkedAt },
+  { modelId:"yamaha-sniper-155", sourceName:"Motortrade Philippines", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/page/8/?motorcycle-type=regular-bike%2F", priceFromPhp:125900, priceToPhp:145900, checkedAt:"2026-09-30", note:"Current Sniper155 to Sniper155R dealer observations" },
   { modelId:"kawasaki-barako-ii", sourceName:"Kawasaki Philippines", sourceType:"manufacturer", sourceUrl:"https://www.kawasaki.ph/motorcycles/show/32", priceFromPhp:91500, priceToPhp:95500, checkedAt:"2026-09-30", note:"Current official Kick to Electric model range" },
-  { modelId:"honda-winner-x", sourceName:"Philippine comparison site", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/honda/winner-x", priceFromPhp:123900, priceToPhp:131900, checkedAt },
-  { modelId:"honda-wave-rsx", sourceName:"Philippine comparison site", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/honda/wave-rsx", priceFromPhp:62900, priceToPhp:64900, checkedAt },
-  { modelId:"honda-tmx125-alpha", sourceName:"Philippine comparison site", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/honda/tmx125-alpha", priceFromPhp:56900, checkedAt },
-  { modelId:"yamaha-ytx-125", sourceName:"Philippine comparison site", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/yamaha/ytx-125", priceFromPhp:57900, checkedAt },
-  { modelId:"honda-cb150x", sourceName:"Philippine comparison site", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/honda/cb150x", priceFromPhp:173900, checkedAt },
-  { modelId:"yamaha-xsr155", sourceName:"Philippine comparison site", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/yamaha/xsr155", priceFromPhp:182000, checkedAt },
+  { modelId:"honda-winner-x", sourceName:"Honda Philippines", sourceType:"manufacturer", sourceUrl:"https://www.hondaph.com/motorcycle/promotions/winner-x-prime-rainy-deals", priceFromPhp:123900, priceToPhp:131900, checkedAt:"2026-09-30", note:"Current 2026 nationwide promo confirms the active model; official published variant SRPs retained" },
+  { modelId:"honda-wave-rsx", sourceName:"Zigwheels Philippines", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/honda/wave-rsx/price", priceFromPhp:62900, priceToPhp:64900, checkedAt:"2026-09-30", note:"Current 2026 Drum to Disc price range" },
+  { modelId:"honda-tmx125-alpha", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/motorcycles/tmx125-alpha/", priceFromPhp:56900, checkedAt:"2026-09-30", note:"Current indicative dealer price" },
+  { modelId:"yamaha-ytx-125", sourceName:"Zigwheels Philippines", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/yamaha/ytx-125/price", priceFromPhp:57900, checkedAt:"2026-09-30", note:"Current 2026 price listing" },
+  { modelId:"honda-cb150x", sourceName:"Zigwheels Philippines", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/honda/cb150x/price", priceFromPhp:173900, checkedAt:"2026-09-30", note:"Current 2026 Philippine price listing" },
+  { modelId:"yamaha-xsr155", sourceName:"Zigwheels Philippines", sourceType:"comparison-site", sourceUrl:"https://www.zigwheels.ph/new-motorcycles/yamaha/xsr155/price", priceFromPhp:182000, checkedAt:"2026-09-30", note:"Current 2026 Philippine price listing" },
 
   // Philippine dealer network dealer listings used as a second live-market cross-check where a matching current model/trim was found.
   { modelId:"yamaha-aerox-v3", sourceName:"Motortrade Philippines", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/yamaha-new-aerox/", priceFromPhp:125900, checkedAt:"2026-09-19", note:"Current New Aerox base listing" },
@@ -76,31 +76,31 @@ export const marketPriceChecks: MarketPriceCheck[] = [
   { modelId:"honda-pcx-160", sourceName:"Philippine dealer network", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycle-category/automatic/", priceFromPhp:133400, priceToPhp:154900, checkedAt, note:"CBS to ABS listings" },
   { modelId:"yamaha-fazzio", sourceName:"Philippine dealer network", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/page/8/?motorcycle-type=regular-bike%2F", priceFromPhp:92900, checkedAt },
   { modelId:"honda-click-125i", sourceName:"Philippine dealer network", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/vehicle-promo-blue-tag/", priceFromPhp:81900, checkedAt },
-  { modelId:"yamaha-mio-gear", sourceName:"Philippine dealer network", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/vehicle_promo/top-pick/", priceFromPhp:79400, checkedAt },
-  { modelId:"yamaha-sniper-155", sourceName:"Philippine dealer network", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycle-category/underbone/", priceFromPhp:125900, priceToPhp:145900, checkedAt, note:"Sniper155 to Sniper155R" },
-  { modelId:"honda-winner-x", sourceName:"Philippine dealer network", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/model/honda_winnerx-2/", priceFromPhp:123900, priceToPhp:131900, checkedAt },
-  { modelId:"honda-wave-rsx", sourceName:"Philippine dealer network", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycle-category/pang-araw-araw/", priceFromPhp:62900, priceToPhp:64900, checkedAt, note:"Drum to Disc" },
-  { modelId:"honda-tmx125-alpha", sourceName:"Philippine dealer network", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/honda-tmx-125-alpha-motortrade-honda-motorcycles-philippines/", priceFromPhp:56900, checkedAt },
-  { modelId:"yamaha-ytx-125", sourceName:"Philippine dealer network", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/vehicle_promo/top-pick/", priceFromPhp:57900, checkedAt },
-  { modelId:"honda-cb150x", sourceName:"Philippine dealer network", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/vehicle-promo-blue-tag/", priceFromPhp:174900, checkedAt, note:"Dealer listing is ₱1,000 above comparison-site snapshot" },
+  { modelId:"yamaha-mio-gear", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/motorcycles/mio-gear/", priceFromPhp:81900, priceToPhp:86900, checkedAt:"2026-09-30", note:"Current Mio Gear to Mio Gear S indicative dealer range" },
+
+
+
+
+
+
 
   // Wheeltek: independent third live-market/dealer source. Prices are indicative branch observations, not manufacturer truth.
   { modelId:"honda-giorno-plus", sourceName:"Honda Philippines", sourceType:"manufacturer", sourceUrl:"https://www.hondaph.com/motorcycle/news/modern-classic-is-the-new-street-style", priceFromPhp:102900, checkedAt:"2026-09-30", note:"Current official Philippine SRP for the updated colorways" },
   { modelId:"honda-xrm125", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/motorcycles/xrm125-ds/", priceFromPhp:71900, priceToPhp:76900, checkedAt:"2026-09-30", note:"Current DS to Motard model-family range; MotoIndex does not create trim pages" },
   { modelId:"honda-tmx-supremo", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/motorcycles/tmx-supremo/", priceFromPhp:78900, checkedAt:"2026-09-30", note:"Current indicative dealer price" },
-  { modelId:"yamaha-pg-1", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/vehicles/pg-1/", priceFromPhp:96400, checkedAt, note:"Wheeltek indicative price; compare with dealer-network observation" },
-  { modelId:"yamaha-wr155r", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/motorcycles/wr-155r/", priceFromPhp:180900, checkedAt },
+  { modelId:"yamaha-pg-1", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/vehicles/pg-1/", priceFromPhp:96400, checkedAt:"2026-09-30", note:"Current indicative dealer price" },
+  { modelId:"yamaha-wr155r", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/motorcycles/wr-155r/", priceFromPhp:180900, checkedAt:"2026-09-30", note:"Current indicative dealer price" },
   { modelId:"yamaha-xmax", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/motorcycles/xmax/", priceFromPhp:311000, checkedAt:"2026-09-30", note:"Current indicative dealer price" },
   { modelId:"yamaha-xmax", sourceName:"Motortrade Philippines", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/page/8/?motorcycle-type=regular-bike%2F", priceFromPhp:311000, checkedAt:"2026-09-30", note:"Current dealer listing" },
   { modelId:"honda-adv-160", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/motorcycles/adv160/", priceFromPhp:166900, checkedAt, note:"Generic dealer page appears below the 2026 Honda ABS/RoadSync suggested-retail range; retained as an observed disagreement" },
   { modelId:"yamaha-fazzio", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/motorcycles/mio-fazzio/", priceFromPhp:92400, priceToPhp:95400, checkedAt, note:"Current Wheeltek observations differ by connectivity configuration; kept as one MotoIndex model page" },
-  { modelId:"yamaha-ytx-125", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/motorcycles/ytx-125/", priceFromPhp:57900, checkedAt },
-  { modelId:"yamaha-xsr155", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/products/regular-bikes/page/5/", priceFromPhp:184500, checkedAt },
-  { modelId:"yamaha-sniper-155", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/products/regular-bikes/page/5/", priceFromPhp:128400, priceToPhp:148400, checkedAt, note:"Model-level observations across Sniper 155 configurations" },
+  { modelId:"yamaha-ytx-125", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/motorcycles/ytx-125/", priceFromPhp:57900, checkedAt:"2026-09-30", note:"Current indicative dealer price" },
+  { modelId:"yamaha-xsr155", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/motorcycles/xsr-155/", priceFromPhp:184500, checkedAt:"2026-09-30", note:"Current indicative dealer price" },
+  { modelId:"yamaha-sniper-155", sourceName:"Wheeltek", sourceType:"dealer", sourceUrl:"https://wheeltek.com.ph/motorcycles/sniper-155/", priceFromPhp:128400, priceToPhp:148400, checkedAt:"2026-09-30", note:"Current Sniper 155 to Sniper 155R indicative dealer range" },
 
   // Additional second-source observations for new v1.7 models where current Philippine dealer network pages were available.
-  { modelId:"yamaha-pg-1", sourceName:"Philippine dealer network", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/yamaha-pg-1/", priceFromPhp:82900, checkedAt, note:"Large live dealer-price disagreement versus Wheeltek is intentionally exposed rather than averaged away" },
-  { modelId:"yamaha-wr155r", sourceName:"Philippine dealer network", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/page/8/?motorcycle-type=regular-bike%2F", priceFromPhp:180000, checkedAt },
+  { modelId:"yamaha-pg-1", sourceName:"Motortrade Philippines", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/page/8/?motorcycle-type=regular-bike%2F", priceFromPhp:92900, checkedAt:"2026-09-30", note:"Current dealer listing; live dealer-price disagreement is exposed rather than averaged away" },
+  { modelId:"yamaha-wr155r", sourceName:"Motortrade Philippines", sourceType:"dealer", sourceUrl:"https://motortrade.com.ph/motorcycles/page/8/?motorcycle-type=regular-bike%2F", priceFromPhp:180900, checkedAt:"2026-09-30", note:"Current dealer listing" },
 
 ];
 
