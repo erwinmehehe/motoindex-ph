@@ -248,7 +248,7 @@ for (const token of [
   'seoTitle: "Best Scooters Philippines 2026: Prices, Specs & Picks"',
   '"Honda vs Yamaha scooters"',
   '"125cc scooter choices for city use"',
-  '"150cc to 160cc scooters"',
+  '"150cc, 155cc and 160cc scooters"',
   '"Maxi-scooters and larger scooters"',
   '"honda-scooters-philippines"',
   '"yamaha-scooters-philippines"',
@@ -262,7 +262,7 @@ for (const token of [
 for (const token of [
   'honda vs yamaha scooters',
   'best scooter in the philippines',
-  '125cc, 150cc and 160cc scooters',
+  '125cc, 150cc, 155cc and 160cc scooters',
   'what should i compare before buying a scooter'
 ]) {
   requireText(recommendationRoute.toLowerCase(), token, `Scooter recommendation renderer missing answer logic: ${token}`);
