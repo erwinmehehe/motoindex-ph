@@ -470,23 +470,21 @@
 /* Embedded model calculators */
 .finance-planner{padding:0;overflow:hidden}
 .finance-planner-head,.finance-controls,.finance-result{padding:var(--mi-space-5)}
-.finance-planner-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--mi-space-5);border-bottom:1px solid var(--mi-color-line);background:var(--mi-color-surface-subtle)}
-.finance-planner-head h2{margin:var(--mi-space-1) 0 var(--mi-space-2);font-size:var(--mi-type-2xl)}
+.finance-planner-head{display:flex;justify-content:space-between;gap:var(--mi-space-5);border-bottom:1px solid var(--mi-color-line)}
+.finance-planner-head h2{margin:var(--mi-space-1) 0 var(--mi-space-2)}
 .finance-planner-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,360px)}
-.finance-controls{display:grid;align-content:start;gap:var(--mi-space-5);min-width:0}
+.finance-controls{display:grid;gap:var(--mi-space-5);min-width:0}
 .finance-price-field{display:flex;align-items:center;min-width:0;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md)}
-[data-calculator="installment"] .finance-price-field input{min-width:0;margin:0;border:0;box-shadow:none}
-.finance-preset-groups,.finance-slider-grid{display:grid;gap:var(--mi-space-4);margin:0}
+.finance-price-field input{min-width:0!important;margin:0!important;border:0!important}
+.finance-preset-groups,.finance-slider-grid{display:grid;gap:var(--mi-space-4)}
 .finance-preset-groups{grid-template-columns:repeat(2,minmax(0,1fr))}
 .finance-slider-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-[data-calculator="installment"] .finance-slider-grid label{min-width:0}
-[data-calculator="installment"] .finance-slider-grid label>strong{float:none;display:block;overflow-wrap:anywhere}
-.finance-result{min-width:0;border-left:1px solid var(--mi-color-line);background:var(--mi-color-primary-soft);color:var(--mi-color-ink)}
-.finance-result>span,.finance-result>small{display:block;color:var(--mi-color-muted);font-size:var(--mi-type-xs)}
-.finance-result>strong{display:block;margin:var(--mi-space-2) 0 var(--mi-space-4);padding-bottom:var(--mi-space-4);border-bottom:1px solid var(--mi-color-line);color:var(--mi-color-primary);font-size:clamp(2.2rem,4vw,3.2rem);white-space:nowrap}
-.finance-result-facts>div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--mi-space-3);padding:var(--mi-space-2) 0;border-bottom:1px solid var(--mi-color-line)}
-.finance-result-facts>div strong{white-space:nowrap;text-align:right}
-.finance-result-facts>div:last-child{border-bottom:0}
+.finance-slider-grid label{min-width:0}
+.finance-slider-grid label>strong{float:none!important;display:block;overflow-wrap:anywhere}
+.finance-result{min-width:0;border-left:1px solid var(--mi-color-line);background:var(--mi-color-primary-soft)}
+.finance-result>strong{display:block;font-size:clamp(2.2rem,4vw,3.2rem);white-space:nowrap}
+.finance-result-facts>div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--mi-space-3);padding:var(--mi-space-2) 0}
+.finance-result-facts strong{white-space:nowrap;text-align:right}
 .finance-scenario-section{margin-top:var(--mi-space-5)}
 
 [data-calculator="used-value"] .used-estimate,
