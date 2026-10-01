@@ -10,6 +10,7 @@ import { motortradeGapGuides2026 } from "./motortradeGapGuides2026";
 export const motorcycles: Motorcycle[] = [
   {
     id: "yamaha-aerox-v3",
+    alsoKnownAs: ["Yamaha Aerox SP", "Aerox SP", "Yamaha Aerox 155"],
     make: "Yamaha",
     makeSlug: "yamaha",
     model: "Aerox V3",
