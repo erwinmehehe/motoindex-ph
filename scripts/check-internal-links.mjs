@@ -40,15 +40,15 @@ for(const [route,file] of staticRoutes){
 // generic route check but still resolve to a 404 in production.
 const electricDataFile=path.join(root,"lib/electricMotorcycles.ts");
 const electricHubFile=path.join(app,"motorcycles/electric/page.tsx");
-const electricDetailFile=path.join(app,"motorcycles/electric/[slug]/page.tsx");
+const electricDetailFile=path.join(app,"motorcycles/[make]/[slug]/page.tsx");
 if(fs.existsSync(electricDataFile)&&fs.existsSync(electricHubFile)&&fs.existsSync(electricDetailFile)){
   const data=fs.readFileSync(electricDataFile,"utf8");
   const hub=fs.readFileSync(electricHubFile,"utf8");
   const detail=fs.readFileSync(electricDetailFile,"utf8");
   const slugs=[...data.matchAll(/\bslug:\s*"([^"]+)"/g)].map(match=>match[1]);
   if(!hub.includes("href={electricModelHref(model.slug)}")) errors.push("electric motorcycle hub must link model cards through electricModelHref(<slug>)");
-  if(!detail.includes("generateStaticParams")||!detail.includes("electricMotorcycles.map")) errors.push("electric motorcycle detail route must generate all electric model params");
-  if(!detail.includes("dynamicParams = false")) errors.push("electric motorcycle detail route must reject unknown slugs and statically emit the known model set");
+  if(!detail.includes("generateStaticParams")||!detail.includes('electricMotorcycles.map((m) => ({ make: "electric", slug: m.slug }))')) errors.push("generic motorcycle detail route must generate all electric model params");
+  if(!detail.includes('if (make === "electric")')||!detail.includes("getElectricMotorcycle(slug)")) errors.push("generic motorcycle detail route must render known electric models directly");
   if(slugs.length<3) errors.push("electric motorcycle data must retain the three published model slugs");
   for(const slug of ["vinfast-evo","vinfast-feliz-ii","vinfast-viper"]){if(!slugs.includes(slug))errors.push(`electric motorcycle data missing published route slug ${slug}`)}
 }
