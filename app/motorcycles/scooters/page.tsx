@@ -23,6 +23,7 @@ const medianPrice = marketMedianPrice(scooters);
 const under100k = scooters.filter((model) => observedMarketRange(model).from < 100000).length;
 const class125 = scooters.filter((model) => model.engineCc >= 100 && model.engineCc <= 125).length;
 const class150 = scooters.filter((model) => model.engineCc >= 140 && model.engineCc <= 155).length;
+const class155 = scooters.filter((model) => model.engineCc === 155).length;
 const class160 = scooters.filter((model) => model.engineCc >= 156 && model.engineCc <= 165).length;
 const absModels = scooters.filter(hasAbs).length;
 const tableColumns: CSSProperties = {
@@ -39,7 +40,7 @@ const decisionCardStyle: CSSProperties = {
 
 export const metadata: Metadata = pageMetadata({
   title: "Scooter Price Philippines 2026: Models & Price List",
-  description: "Compare scooter prices in the Philippines for 2026. See current models from Honda, Yamaha, Suzuki, Kymco and more, with 125cc, 150cc and 160cc guides.",
+  description: "Compare scooter prices in the Philippines for 2026. See current models from Honda, Yamaha, Suzuki, Kymco and more, with 125cc, 150cc, 155cc and 160cc guides.",
   path: "/motorcycles/scooters",
   index: scooters.length >= 5,
   image: "/media/motorcycles/honda-beat.webp",
@@ -64,7 +65,8 @@ const itemListSchema = {
 const childClusters = [
   { href: "/recommendations/best-scooters-philippines", label: "Best scooters to compare", note: "Editorial comparison by price, rider fit, braking, fuel data and everyday use" },
   { href: "/recommendations/125cc-scooters-philippines", label: "125cc scooters", note: `${class125} current models in the 100–125cc band` },
-  { href: "/recommendations/150cc-scooters-philippines", label: "150cc & 155cc scooters", note: `${class150} current models in the 140–155cc band` },
+  { href: "/recommendations/150cc-scooters-philippines", label: "150cc-class scooters", note: `${class150} current models in the broad 140–155cc market class` },
+  { href: "/recommendations/155cc-scooters-philippines", label: "155cc scooters", note: `${class155} current models recorded at exactly 155cc` },
   { href: "/recommendations/160cc-scooters-philippines", label: "160cc scooters", note: `${class160} current models in the 156–165cc band` },
   { href: "/recommendations/maxi-scooters-philippines", label: "Maxi scooters", note: "Larger scooter and touring-oriented choices" },
   { href: "/recommendations/honda-scooters-philippines", label: "Honda scooters", note: "Current Honda scooter research and prices" },
@@ -79,7 +81,7 @@ export default function ScootersPage() {
       <PageHero
         kicker="Philippines scooter price guide"
         title="Scooter prices in the Philippines"
-        description="Compare current scooter prices, models and specifications in the Philippines for 2026. Start with the full price list, then narrow by 125cc, 150cc, 160cc, brand, budget or rider need."
+        description="Compare current scooter prices, models and specifications in the Philippines for 2026. Start with the full price list, then narrow by 125cc, 150cc-class, exact 155cc, 160cc, brand, budget or rider need."
         actions={<CTAGroup>
           <a className="button" href="#scooter-price-list">View scooter price list</a>
           <Link className="button secondary" href="/finder">Find a motorcycle</Link>
@@ -99,7 +101,7 @@ export default function ScootersPage() {
         <div className="ui-content-grid">
           <InfoPanel subtle><h3>Budget scooters under ₱100K</h3><p>{under100k} current scooter records start below ₱100,000. Compare them in the price list or open the <Link href="/recommendations/motorcycles-under-100k">under-₱100K guide</Link>.</p></InfoPanel>
           <InfoPanel subtle><h3>125cc scooters</h3><p>{class125} current models fall in the 100–125cc band, covering many commuter-focused choices. See the <Link href="/recommendations/125cc-scooters-philippines">125cc scooter comparison</Link>.</p></InfoPanel>
-          <InfoPanel subtle><h3>150cc to 160cc scooters</h3><p>Use the <Link href="/recommendations/150cc-scooters-philippines">150cc and 155cc guide</Link> or the <Link href="/recommendations/160cc-scooters-philippines">160cc guide</Link> for larger automatic models.</p></InfoPanel>
+          <InfoPanel subtle><h3>150cc, 155cc and 160cc scooters</h3><p>Use the broad <Link href="/recommendations/150cc-scooters-philippines">150cc-class guide</Link>, the <Link href="/recommendations/155cc-scooters-philippines">exact 155cc comparison</Link>, or the <Link href="/recommendations/160cc-scooters-philippines">160cc guide</Link> to keep nearby engine-size intent separate.</p></InfoPanel>
         </div>
       </section>
 
@@ -135,7 +137,7 @@ export default function ScootersPage() {
           <a href="#scooter-shortcuts" className="ui-content-card" style={decisionCardStyle} data-scooter-decision-card>
             <span className="section-kicker">02 · Narrow it down</span>
             <h3>Browse by engine size or brand</h3>
-            <p>Jump to 125cc, 150/155cc, 160cc, Honda, Yamaha or Suzuki research.</p>
+            <p>Jump to 125cc, broad 150cc-class, exact 155cc, 160cc, Honda, Yamaha or Suzuki research.</p>
           </a>
           <Link href="/tools/motorcycle-loan-calculator" className="ui-content-card" style={decisionCardStyle} data-scooter-decision-card>
             <span className="section-kicker">03 · Affordability</span>
@@ -207,7 +209,7 @@ export default function ScootersPage() {
       <FaqSection title="Scooter price Philippines FAQ" items={[
         { question: "How much are scooters in the Philippines in 2026?", answer: priceSpan.low && priceSpan.high ? `Current MotoIndex records span ${php(priceSpan.low)} to ${php(priceSpan.high)} across the tracked scooter market. Dealer cash prices, promotions, registration and financing can change the final amount.` : "Prices vary by model and dealer. Use the current price list above for the latest tracked Philippine references." },
         { question: "What is the cheapest scooter currently tracked?", answer: scooters[0] ? `${scooters[0].make} ${scooters[0].model} is currently the lowest-priced scooter in this price-ordered set at ${observedMarketPriceLabel(scooters[0])}.` : "The lowest-priced current scooter changes as market records are updated." },
-        { question: "Which scooter engine sizes are common in the Philippines?", answer: "The current MotoIndex set includes many 125cc, 150cc, 155cc and 160cc scooters, plus larger maxi scooters. Use the engine-size guides to compare models within a tighter class." },
+        { question: "Which scooter engine sizes are common in the Philippines?", answer: "The current MotoIndex set includes many 125cc, 150cc-class, exact 155cc and 160cc scooters, plus larger maxi scooters. Use the engine-size guides to compare models within a tighter class." },
         { question: "Are scooter prices on MotoIndex dealer quotes?", answer: "No. MotoIndex publishes dated model-level price references for research. Confirm the exact variant, cash price, registration, insurance, promotions and financing with the seller before buying." }
       ]} />
 

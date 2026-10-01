@@ -72,9 +72,7 @@ const nextConfig = {
       { source: "/motorcycles/yamaha/nmax-turbo", destination: "/motorcycles/yamaha/nmax-v3", permanent: true },
       // Canonical buying-guide hub is plural. Preserve singular links and typos with permanent redirects.
       { source: "/recommendation", destination: "/recommendations", permanent: true },
-      { source: "/recommendation/:path*", destination: "/recommendations/:path*", permanent: true },
-      // Keep 155cc scooter intent consolidated with the richer 150cc/155cc comparison page.
-      { source: "/recommendations/155cc-scooters-philippines", destination: "/recommendations/150cc-scooters-philippines", permanent: true }
+      { source: "/recommendation/:path*", destination: "/recommendations/:path*", permanent: true }
     ];
   },
   async headers() {

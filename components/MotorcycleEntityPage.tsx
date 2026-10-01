@@ -152,11 +152,13 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const scooterClassGuide = /scooter/i.test(model.category)
     ? model.engineCc >= 115 && model.engineCc <= 130
       ? { href: "/recommendations/125cc-scooters-philippines", label: "125cc scooter comparison" }
-      : model.engineCc >= 140 && model.engineCc <= 155
-        ? { href: "/recommendations/150cc-scooters-philippines", label: "150cc & 155cc scooter comparison" }
-        : model.engineCc >= 156 && model.engineCc <= 165
-          ? { href: "/recommendations/160cc-scooters-philippines", label: "160cc scooter comparison" }
-          : undefined
+      : model.engineCc === 155
+        ? { href: "/recommendations/155cc-scooters-philippines", label: "exact 155cc scooter comparison" }
+        : model.engineCc >= 140 && model.engineCc < 155
+          ? { href: "/recommendations/150cc-scooters-philippines", label: "150cc-class scooter comparison" }
+          : model.engineCc >= 156 && model.engineCc <= 165
+            ? { href: "/recommendations/160cc-scooters-philippines", label: "160cc scooter comparison" }
+            : undefined
     : undefined;
   const priceLabel = observedMarketPriceLabel(model);
   const priceRange = priceLabel.split("–");

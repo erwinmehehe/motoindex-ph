@@ -85,6 +85,7 @@ if (fs.existsSync(path.join(root, "app", "motorcycles", "scooters", "page.tsx"))
   for (const slug of [
     "125cc-scooters-philippines",
     "150cc-scooters-philippines",
+    "155cc-scooters-philippines",
     "160cc-scooters-philippines",
     "maxi-scooters-philippines",
     "honda-scooters-philippines",
@@ -277,20 +278,26 @@ for (const token of [
 
 for (const token of [
   'seoTitle: "125cc Scooter Price Philippines 2026 | Models & Specs"',
-  'seoTitle: "150cc & 155cc Scooter Prices Philippines 2026 | Specs"',
+  'seoTitle: "150cc Scooter Prices Philippines 2026 | Models & Specs"',
+  'seoTitle: "155cc Scooter Prices Philippines 2026 | Yamaha Models"',
   'seoTitle: "160cc Scooter Price Philippines 2026 | Models & Specs"',
-  '"155cc scooters Philippines"',
+  'primaryKeyword: "150cc scooters Philippines"',
+  'primaryKeyword: "155cc scooters Philippines"',
   '"125cc scooter price range in the Philippines"',
-  '"150cc vs 155cc scooters: what actually changes?"',
+  '"150cc-class scooter price range"',
+  '"155cc scooter price range in the Philippines"',
   '"160cc scooter price range in the Philippines"'
 ]) {
   requireText(recommendationData, token, `Scooter displacement cluster missing SEO token: ${token}`);
 }
 for (const token of [
   'const scooterCcCluster = [',
+  'Exact 155cc models only',
   'Compare the nearby scooter classes',
   'how much is a 125cc scooter',
-  'why are 150cc and 155cc scooters on the same page',
+  'how much is a 150cc-class scooter',
+  'what 155cc scooters are available',
+  'how much is a 155cc scooter',
   'how much is a 160cc scooter'
 ]) {
   requireText(recommendationRoute.toLowerCase(), token.toLowerCase(), `Scooter displacement renderer missing behavior: ${token}`);
@@ -300,16 +307,18 @@ for (const token of [
   'const scooterClassGuide = /scooter/i.test(model.category)',
   '"/recommendations/125cc-scooters-philippines"',
   '"/recommendations/150cc-scooters-philippines"',
+  '"/recommendations/155cc-scooters-philippines"',
+  'model.engineCc === 155',
   '"/recommendations/160cc-scooters-philippines"',
   'Compare this model in the {scooterClassGuide.label}'
 ]) {
   requireText(modelEntity, token, `Motorcycle model pages missing scooter-class internal-link behavior: ${token}`);
 }
 const nextConfig = read("next.config.mjs");
-requireText(
+forbidText(
   nextConfig,
   '{ source: "/recommendations/155cc-scooters-philippines", destination: "/recommendations/150cc-scooters-philippines", permanent: true }',
-  "155cc scooter alias must consolidate into the canonical 150cc/155cc guide."
+  "Exact 155cc scooter guide must not redirect into the broader 150cc-class guide."
 );
 
 for (const token of [
