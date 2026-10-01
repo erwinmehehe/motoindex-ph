@@ -160,7 +160,7 @@ function modelNames(models:Motorcycle[],max=4){return models.slice(0,max).map(m=
 const brandScooterPriorityIds: Record<string,string[]> = {
   honda: ["honda-click-125i","honda-click-160","honda-pcx-160","honda-adv-160"],
   yamaha: ["yamaha-aerox-v3","yamaha-nmax-v3","yamaha-fazzio","yamaha-mio-gear"],
-  suzuki: ["suzuki-burgman-street-ex","suzuki-burgman-street","suzuki-avenis","suzuki-access-125"]
+  suzuki: ["suzuki-burgman-street-ex","suzuki-burgman-street","suzuki-avenis","suzuki-access"]
 };
 
 function dealerSnapshotLabel(model:Motorcycle){
