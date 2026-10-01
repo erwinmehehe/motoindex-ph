@@ -469,22 +469,35 @@
 
 /* Embedded model calculators */
 [data-calculator="installment"]{display:block;grid-template-columns:none;gap:0;align-items:stretch}
-.finance-planner{padding:0;overflow:hidden}
-.finance-planner-head,.finance-controls,.finance-result{padding:var(--mi-space-5)}
-.finance-planner-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--mi-space-5);border-bottom:1px solid var(--mi-color-line);background:var(--mi-color-surface-subtle)}
-.finance-planner-head h2{margin:var(--mi-space-1) 0 var(--mi-space-2);font-size:var(--mi-type-2xl)}
-.finance-planner-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(280px,.7fr)}
+.finance-planner{padding:0;overflow:hidden;background:var(--mi-color-surface)}
+.finance-planner-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--mi-space-5);padding:var(--mi-space-7) var(--mi-space-7) var(--mi-space-5);border:0;background:inherit}
+.finance-planner-head>div{max-width:720px}
+.finance-planner-head h2{margin:var(--mi-space-1) 0 var(--mi-space-2);font-size:var(--mi-type-2xl);letter-spacing:var(--mi-tracking-tight)}
+.finance-planner-head p{max-width:660px;margin:0}
+.finance-kicker{color:var(--mi-color-primary);font-size:var(--mi-type-xs);font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+.finance-estimate-badge{flex:none;padding:var(--mi-space-2) var(--mi-space-3);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-pill);background:var(--mi-color-surface-subtle);color:var(--mi-color-slate-700);font-size:var(--mi-type-xs);font-weight:800}
+.finance-planner-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.72fr);gap:var(--mi-space-6);padding:0 var(--mi-space-7) var(--mi-space-7)}
+.finance-controls{display:grid;align-content:start;gap:var(--mi-space-5);min-width:0;padding:var(--mi-space-6);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-lg);background:var(--mi-color-surface-subtle)}
+.finance-controls .variant-price-picker{margin:0;padding:0;border:0;background:transparent}
+.finance-controls .variant-price-picker small{margin-top:var(--mi-space-2)}
+.finance-controls .finance-price-input>label{display:block;margin-bottom:var(--mi-space-2)}
 .finance-price-field{display:flex;align-items:center;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md)}
+.finance-price-field>span{padding-left:var(--mi-space-3);color:var(--mi-color-muted);font-weight:800}
 [data-calculator="installment"] .finance-price-field input{margin:0;border:0;box-shadow:none}
 .finance-preset-groups,.finance-slider-grid{display:grid;gap:var(--mi-space-4);margin:0}
 .finance-preset-groups{grid-template-columns:repeat(2,minmax(0,1fr))}
+.finance-preset-groups>div>span{display:block;margin-bottom:var(--mi-space-2);color:var(--mi-color-slate-700);font-size:var(--mi-type-xs);font-weight:800}
 .finance-slider-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-.finance-result{border-left:1px solid var(--mi-color-line);background:var(--mi-color-primary-soft);color:var(--mi-color-ink)}
+.finance-slider-grid label{padding-top:var(--mi-space-4);border-top:1px solid var(--mi-color-line)}
+.finance-result{align-self:stretch;padding:var(--mi-space-6);border:1px solid color-mix(in srgb,var(--mi-color-primary) 18%,var(--mi-color-line));border-radius:var(--mi-radius-lg);background:linear-gradient(145deg,var(--mi-color-primary-soft),var(--mi-color-surface) 72%);box-shadow:var(--mi-shadow-sm);color:var(--mi-color-ink)}
 .finance-result>span,.finance-result>small{display:block;color:var(--mi-color-muted);font-size:var(--mi-type-xs)}
-.finance-result>strong{display:block;margin:var(--mi-space-2) 0 var(--mi-space-4);padding-bottom:var(--mi-space-4);border-bottom:1px solid var(--mi-color-line);color:var(--mi-color-primary);font-size:clamp(2.2rem,4vw,3.2rem);white-space:nowrap}
-.finance-result-facts>div{display:flex;justify-content:space-between;gap:var(--mi-space-3);padding:var(--mi-space-2) 0;border-bottom:1px solid var(--mi-color-line)}
+.finance-result>strong{display:block;margin:var(--mi-space-2) 0 var(--mi-space-3);color:var(--mi-color-primary);font-size:clamp(2.5rem,4vw,3.5rem);line-height:1;letter-spacing:var(--mi-tracking-tight);white-space:nowrap}
+.finance-result>small{padding-bottom:var(--mi-space-5);border-bottom:1px solid var(--mi-color-line)}
+.finance-result-facts{margin-top:var(--mi-space-3)}
+.finance-result-facts>div{display:flex;justify-content:space-between;gap:var(--mi-space-3);padding:var(--mi-space-3) 0;border-bottom:1px solid var(--mi-color-line)}
 .finance-result-facts>div:last-child{border-bottom:0}
 .finance-result-facts>div>strong{display:inline;margin:0;color:var(--mi-color-ink);font-size:var(--mi-type-md);line-height:var(--mi-leading-tight);letter-spacing:0}
+.finance-result>p{margin:var(--mi-space-5) 0 0;padding-top:var(--mi-space-4);border-top:1px solid var(--mi-color-line);font-size:var(--mi-type-xs)}
 .finance-scenario-section{margin-top:var(--mi-space-5)}
 
 [data-calculator="used-value"] .used-estimate,
@@ -642,7 +655,6 @@
   }
 
   .finance-planner-layout{grid-template-columns:1fr}
-  .finance-result{border-left:0;border-top:1px solid var(--mi-color-line)}
 }
 
 @media(max-width:620px){
@@ -712,8 +724,10 @@
     padding:var(--mi-space-5);
   }
 
-  .finance-planner-head{display:block}
-    .finance-controls,.finance-result,.finance-planner-head{padding:var(--mi-space-5)}
+  .finance-planner-head{display:block;padding:var(--mi-space-5) var(--mi-space-5) var(--mi-space-4)}
+  .finance-estimate-badge{display:inline-block;margin-top:var(--mi-space-3)}
+  .finance-planner-layout{gap:var(--mi-space-4);padding:0 var(--mi-space-4) var(--mi-space-4)}
+  .finance-controls,.finance-result{padding:var(--mi-space-5)}
   .finance-preset-groups,.finance-slider-grid{grid-template-columns:1fr}
 
   [data-calculator="electric-range"] .calculator-grid,

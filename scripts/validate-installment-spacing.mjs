@@ -65,6 +65,8 @@ try {
     expression: `(() => {
       const controls=document.querySelector('.finance-controls');
       const result=document.querySelector('.finance-result');
+      const layout=document.querySelector('.finance-planner-layout');
+      const head=document.querySelector('.finance-planner-head');
       const lastControl=controls?.lastElementChild;
       const factValues=[...document.querySelectorAll('.finance-result-facts>div>strong')];
       const controlsRect=controls?.getBoundingClientRect();
@@ -74,7 +76,12 @@ try {
         resultFactSize:factValues.length?Math.max(...factValues.map(value=>parseFloat(getComputedStyle(value).fontSize))):999,
         overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,
         controlsHeight:controlsRect?.height||0,
-        resultHeight:result?.getBoundingClientRect().height||0
+        resultHeight:result?.getBoundingClientRect().height||0,
+        layoutGap:layout?parseFloat(getComputedStyle(layout).columnGap):0,
+        resultRadius:result?parseFloat(getComputedStyle(result).borderRadius):0,
+        resultInset:result&&layout?Math.round(result.getBoundingClientRect().right-layout.getBoundingClientRect().right):999,
+        headBackground:head?getComputedStyle(head).backgroundColor:"",
+        plannerBackground:layout?getComputedStyle(layout.closest('.finance-planner')).backgroundColor:""
       };
     })()`,
     returnByValue: true,
@@ -84,6 +91,10 @@ try {
   if ((desktop?.deadSpace || 0) > 64) failures.push(`desktop controls retain ${desktop.deadSpace}px of dead space`);
   if ((desktop?.resultFactSize || 0) > 20) failures.push(`result facts are oversized at ${desktop.resultFactSize}px`);
   if ((desktop?.overflow || 0) > 1) failures.push(`desktop page overflows by ${desktop.overflow}px`);
+  if ((desktop?.layoutGap || 0) < 20) failures.push(`desktop planner gap is only ${desktop?.layoutGap || 0}px`);
+  if ((desktop?.resultRadius || 0) < 16) failures.push(`result card radius is only ${desktop?.resultRadius || 0}px`);
+  if ((desktop?.resultInset || 0) > -20) failures.push(`result card is not visually inset (${desktop?.resultInset || 0}px)`);
+  if (desktop?.headBackground !== desktop?.plannerBackground) failures.push("planner header uses a competing background surface");
 
   await send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
   const mobileResponse = await send("Runtime.evaluate", {
