@@ -4,6 +4,7 @@ import { phBrandExpansion2026 } from "./phBrandExpansion2026";
 import { phCoverageExpansion2026 } from "./phCoverageExpansion2026";
 import { globalDemandExpansion2026 } from "./globalDemandExpansion2026";
 import { kawasakiBigBikeExpansion2026 } from "./kawasakiBigBikeExpansion2026";
+import { motortradeGapExpansion2026 } from "./motortradeGapExpansion2026";
 
 export const phTier23Motorcycles = [
   ...baseMotorcycles,
@@ -12,4 +13,5 @@ export const phTier23Motorcycles = [
   ...phCoverageExpansion2026,
   ...globalDemandExpansion2026,
   ...kawasakiBigBikeExpansion2026,
+  ...motortradeGapExpansion2026,
 ];

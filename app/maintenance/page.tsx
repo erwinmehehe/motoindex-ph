@@ -32,7 +32,7 @@ export default function MaintenanceGuidePage() {
     description:"One maintenance reference covering motorcycle parts, batteries, coolant, sprockets, oil, CVT systems and exact model service schedules.",
     path:"/maintenance",
     about:"motorcycle maintenance Philippines",
-    keywords:["motorcycle maintenance","motorcycle oil","motorcycle battery","motorcycle coolant","motorcycle CVT","motorcycle sprocket"],
+    keywords:["motorcycle maintenance","motorcycle parts Philippines","parts of motorcycle","motorcycle oil","motorcycle battery","motorcycle coolant","motorcycle CVT","motorcycle sprocket"],
     checkedDates:[...maintenanceSeoTopics.map(t=>t.lastChecked),...maintenanceSchedules.map(s=>s.lastChecked),...brandMaintenanceGuides.map(g=>g.lastChecked),...brandServiceResources.map(r=>r.lastChecked)]
   });
 

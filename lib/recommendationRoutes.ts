@@ -29,6 +29,7 @@ const recommendationSectionBySlug: Record<string, string> = {
   "sport-motorcycles-philippines": "categories",
   "motorcycles-under-400cc-philippines": "categories",
   "cafe-racer-motorcycles-philippines": "categories",
+  "manual-motorcycles-philippines": "categories",
 
   "yamaha-scooters-philippines": "brands",
   "honda-scooters-philippines": "brands",
