@@ -474,7 +474,7 @@
   border:1px solid var(--mi-color-line);
   border-radius:var(--mi-radius-lg);
   background:var(--mi-color-surface);
-  box-shadow:0 14px 36px rgba(24,45,32,.05);
+  box-shadow:var(--mi-shadow-sm);
 }
 .finance-planner-head{
   display:flex;
@@ -547,11 +547,11 @@
   color:var(--mi-color-muted);
   font-weight:800;
 }
-.finance-price-field input{
-  min-height:46px!important;
-  margin:0!important;
-  border:0!important;
-  box-shadow:none!important;
+[data-calculator="installment"] .finance-price-field input{
+  min-height:46px;
+  margin:0;
+  border:0;
+  box-shadow:none;
   font-size:1rem;
   font-weight:750;
 }
