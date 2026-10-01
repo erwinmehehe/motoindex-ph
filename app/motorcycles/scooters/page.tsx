@@ -28,6 +28,14 @@ const absModels = scooters.filter(hasAbs).length;
 const tableColumns: CSSProperties = {
   gridTemplateColumns: "1.6fr 1.15fr .6fr .6fr .6fr 1.3fr"
 };
+const decisionGridStyle: CSSProperties = {
+  gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,260px),1fr))",
+  gap: "var(--mi-space-3)"
+};
+const decisionCardStyle: CSSProperties = {
+  minHeight: 0,
+  padding: "var(--mi-space-4)"
+};
 
 export const metadata: Metadata = pageMetadata({
   title: "Scooter Price Philippines 2026: Models & Price List",
@@ -111,18 +119,34 @@ export default function ScootersPage() {
         ]} />
       </section>
 
-      <section className="section" aria-labelledby="scooter-clusters">
+      <section className="section" aria-labelledby="scooter-clusters" data-scooter-decision-section>
         <SectionHeader
           kicker="Narrow the market"
-          title="Compare scooters by use, engine size and brand"
+          title="Find the right scooter faster"
           titleId="scooter-clusters"
-          description="These child guides answer narrower buying questions without splitting model details across separate pages."
+          description="Start with a shortlist, jump to the right engine-size or brand guide, or estimate monthly payments before opening the full price list."
         />
-        <div className="ui-content-grid">
-          {childClusters.map((cluster) => <Link href={cluster.href} key={cluster.href} className="ui-content-card">
-            <h3>{cluster.label}</h3>
-            <p>{cluster.note}</p>
-          </Link>)}
+        <div className="ui-content-grid" style={decisionGridStyle} data-scooter-decision-grid>
+          <Link href="/recommendations/best-scooters-philippines" className="ui-content-card" style={decisionCardStyle} data-scooter-decision-card>
+            <span className="section-kicker">01 · Shortlist</span>
+            <h3>Compare the strongest scooter options</h3>
+            <p>Review current scooters by price, rider fit, braking and fuel data.</p>
+          </Link>
+          <a href="#scooter-shortcuts" className="ui-content-card" style={decisionCardStyle} data-scooter-decision-card>
+            <span className="section-kicker">02 · Narrow it down</span>
+            <h3>Browse by engine size or brand</h3>
+            <p>Jump to 125cc, 150/155cc, 160cc, Honda, Yamaha or Suzuki research.</p>
+          </a>
+          <Link href="/tools/motorcycle-loan-calculator" className="ui-content-card" style={decisionCardStyle} data-scooter-decision-card>
+            <span className="section-kicker">03 · Affordability</span>
+            <h3>Estimate your monthly payment</h3>
+            <p>Calculate payments using the exact bike price, down payment, term and rate.</p>
+          </Link>
+        </div>
+        <div id="scooter-shortcuts">
+          <CTAGroup>
+            {childClusters.slice(1).map((cluster) => <Link href={cluster.href} key={cluster.href} className="button ghost small" data-scooter-shortcut-link>{cluster.label}</Link>)}
+          </CTAGroup>
         </div>
       </section>
 
