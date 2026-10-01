@@ -33,7 +33,7 @@ export const modelAuthorityProfiles: ModelAuthorityProfile[] = [
       "Current dealer pricing and financing snapshots can differ from manufacturer references, so compare the exact model code and branch quote before paying.",
       "The 50.3 km/L WMTC figure is a published test result, not a guaranteed real-world commute result."
     ],
-    comparisonIds:["yamaha-mio-gear","yamaha-fazzio","suzuki-burgman-street-ex"],
+    comparisonIds:["yamaha-fazzio","yamaha-mio-gear","honda-click-160"],
     researchAngle:"High-demand 125cc commuter: exact trim, dealer quote, financing, rider fit, storage and CBS braking matter more than a single advertised price."
   },
   {
