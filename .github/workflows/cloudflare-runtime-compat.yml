@@ -55,6 +55,9 @@ jobs:
       - name: Validate Worker bundle
         run: npx wrangler deploy --dry-run
 
+      - name: Populate local OpenNext cache
+        run: npx opennextjs-cloudflare populateCache local
+
       - name: Start local Cloudflare Worker
         run: |
           CI=true npx wrangler dev --ip 127.0.0.1 --port 8787 > /tmp/motoindex-worker.log 2>&1 &

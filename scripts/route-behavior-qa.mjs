@@ -4,10 +4,13 @@ import path from "node:path";
 const base = new URL(process.env.BASE_URL || "http://127.0.0.1:3000");
 const canonicalOrigin = new URL(process.env.CANONICAL_ORIGIN || "https://motoindexph.com");
 
+const livePages = [
+  "/motorcycles/electric/vinfast-evo",
+  "/motorcycles/electric/vinfast-feliz-ii",
+  "/motorcycles/electric/vinfast-viper",
+];
+
 const redirects = [
-  { source: "/motorcycles/electric/vinfast-evo", destination: "/motorcycles/electric#models" },
-  { source: "/motorcycles/electric/vinfast-feliz-ii", destination: "/motorcycles/electric#models" },
-  { source: "/motorcycles/electric/vinfast-viper", destination: "/motorcycles/electric#models" },
   { source: "/motorcycles/yamaha/aerox-v3/price", destination: "/motorcycles/yamaha/aerox-v3#price" },
   { source: "/motorcycles/yamaha/aerox-v3/specifications", destination: "/motorcycles/yamaha/aerox-v3#specs" },
   { source: "/motorcycles/honda/click-160/colors", destination: "/motorcycles/honda/click-160#colors" },
@@ -38,7 +41,34 @@ function canonicalHref(html) {
 }
 
 const failures = [];
+const liveResults = [];
 const results = [];
+
+for (const route of livePages) {
+  const url = new URL(route, base);
+  try {
+    const response = await fetch(url, { redirect: "manual", headers: { "user-agent": "MotoIndexRouteQA/1.0" } });
+    const html = await response.text();
+    const canonical = canonicalHref(html);
+    let canonicalPath = "";
+    let canonicalHost = "";
+    if (canonical) {
+      try {
+        const canonicalUrl = new URL(canonical, canonicalOrigin);
+        canonicalPath = canonicalUrl.pathname.replace(/\/$/, "") || "/";
+        canonicalHost = canonicalUrl.hostname.replace(/^www\./, "");
+      } catch {}
+    }
+    const expectedPath = route.replace(/\/$/, "") || "/";
+    liveResults.push({ route, status: response.status, canonical });
+    if (response.status !== 200) failures.push(`${route}: HTTP ${response.status}; expected 200`);
+    if (!canonical) failures.push(`${route}: page is missing a canonical link`);
+    if (canonical && canonicalPath !== expectedPath) failures.push(`${route}: canonical path is ${canonicalPath || "invalid"}; expected ${expectedPath}`);
+    if (canonical && canonicalHost !== canonicalOrigin.hostname.replace(/^www\./, "")) failures.push(`${route}: canonical host is ${canonicalHost || "invalid"}; expected ${canonicalOrigin.hostname}`);
+  } catch (error) {
+    failures.push(`${route}: request failed: ${error instanceof Error ? error.message : String(error)}`);
+  }
+}
 
 for (const entry of redirects) {
   const sourceUrl = new URL(entry.source, base);
@@ -99,12 +129,12 @@ for (const entry of redirects) {
 
 const outputDir = path.join(process.cwd(), "artifacts", "visual-qa", "routes");
 fs.mkdirSync(outputDir, { recursive: true });
-fs.writeFileSync(path.join(outputDir, "route-behavior-qa.json"), JSON.stringify({ base: base.toString(), results, failures }, null, 2));
+fs.writeFileSync(path.join(outputDir, "route-behavior-qa.json"), JSON.stringify({ base: base.toString(), liveResults, results, failures }, null, 2));
 
 if (failures.length) {
   console.error("Route behavior QA failed:");
   failures.forEach(failure => console.error(`- ${failure}`));
   process.exitCode = 1;
 } else {
-  console.log(`Route behavior QA passed: ${redirects.length} permanent redirects resolve to the intended canonical destinations.`);
+  console.log(`Route behavior QA passed: ${livePages.length} live pages and ${redirects.length} permanent redirects resolve to the intended canonicals.`);
 }

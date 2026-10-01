@@ -13,6 +13,7 @@ import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { catalogProductOfferSchema } from "@/lib/structuredData";
 import { EntityMedia } from "@/components/EntityMedia";
 import { CommercePriceComparison } from "@/components/CommercePriceComparison";
+import { AffiliateOffer } from "@/components/AffiliateOffer";
 // AffiliateOffer remains rendered by CommercePriceComparison for approved affiliate destinations.
 import { helmetEditorial } from "@/lib/productEditorial";
 import { helmetAlternatives, helmetComparisonTargets, helmetFaqs } from "@/lib/productSeo";
@@ -123,7 +124,10 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
       description={<p>{p.description}</p>}
       price={p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}
       priceNote="Observed Philippine starting price"
-      actions={<a className="button helmet-primary-cta" href="#price">Compare prices</a>}
+      actions={<div className="helmet-hero-commerce">
+        <AffiliateOffer productId={p.id} productName={`${p.brand} ${p.model}`} variant="hero" />
+        <a className="helmet-hero-price-link" href="#price">View price details</a>
+      </div>}
       facts={heroFacts}
       trust={<ProductTrustRow
         status={p.status}
@@ -136,10 +140,10 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
 
     <ProductEntityNav items={[
       { href: "#price", label: "Price" },
-      { href: "#specs", label: "Specs" },
-      { href: "#size", label: "Sizing" },
-      { href: "#visor", label: "Visor" },
-      { href: "#pros-cons", label: "Pros & cons" },
+      { href: "#specs", label: "Specifications" },
+      { href: "#size", label: "Fit & sizing" },
+      { href: "#visor", label: "Visor & parts" },
+      { href: "#pros-cons", label: "Verdict" },
       { href: "#alternatives", label: "Alternatives" },
       { href: "#compare", label: "Compare" },
       { href: "#faq", label: "FAQ" },
