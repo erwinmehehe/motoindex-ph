@@ -1,29 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
 import { AuthorBox } from "@/components/AuthorBox";
 import { authorPersonSchema } from "@/lib/author";
-import { electricMotorcycles, getElectricMotorcycle, php } from "@/lib/electricMotorcycles";
-import { absoluteUrl, pageMetadata } from "@/lib/site";
+import type { ElectricMotorcycle } from "@/lib/electricMotorcycles";
+import { electricModelHref, electricMotorcycles, php } from "@/lib/electricMotorcycles";
+import { absoluteUrl } from "@/lib/site";
 
-export const dynamicParams = false;
-export function generateStaticParams(){return electricMotorcycles.map(model=>({slug:model.slug}));}
-
-export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
-  const {slug}=await params; const model=getElectricMotorcycle(slug); if(!model)return {};
-  return pageMetadata({
-    title:`${model.make} ${model.model} Price, Range & Specs Philippines`,
-    description:`${model.make} ${model.model} electric motorcycle price, battery capacity, claimed range, charging time, maximum speed and LTO classification in the Philippines.`,
-    path:`/motorcycles/electric/${model.slug}`,
-    image:model.imageUrl
-  });
-}
-
-export default async function ElectricModelPage({params}:{params:Promise<{slug:string}>}){
-  const {slug}=await params; const model=getElectricMotorcycle(slug); if(!model)return notFound();
+export function ElectricMotorcycleDetail({ model }: { model: ElectricMotorcycle }) {
   const name=`${model.make} ${model.model}`;
   const canonicalPath=`/motorcycles/electric/${model.slug}`;
   const siblings=electricMotorcycles.filter(item=>item.slug!==model.slug);
@@ -124,7 +109,7 @@ export default async function ElectricModelPage({params}:{params:Promise<{slug:s
     <section className="motorcycle-entity-section">
       <div className="section-head compact"><div><span className="section-kicker">Electric lineup</span><h2>Compare other electric motorcycles</h2><p>Keep price, range and charging comparisons inside the same verified Philippine electric-motorcycle set.</p></div></div>
       <div className="catalog-grid">
-        {siblings.map(item=><Link className="catalog-card" href={`/motorcycles/electric/${item.slug}`} key={item.slug}>
+        {siblings.map(item=><Link className="catalog-card" href={electricModelHref(item.slug)} key={item.slug}>
           <div className="catalog-media"><img src={item.imageUrl} alt={`${item.make} ${item.model} electric motorcycle`} loading="lazy"/></div>
           <span className="catalog-status">LTO L3</span>
           <h3>{item.make} {item.model}</h3>

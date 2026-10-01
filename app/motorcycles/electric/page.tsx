@@ -5,7 +5,7 @@ import { FaqSection } from "@/components/FaqSection";
 import { AuthorBox } from "@/components/AuthorBox";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
-import { electricMotorcycles, php } from "@/lib/electricMotorcycles";
+import { electricModelHref, electricMotorcycles, php } from "@/lib/electricMotorcycles";
 import { pageMetadata } from "@/lib/site";
 import { CTAGroup, PageHero, StatRow } from "@/components/ui";
 
@@ -60,7 +60,7 @@ export default function ElectricMotorcyclesPage() {
     <section id="models" className="motorcycle-entity-section">
       <div className="section-head compact"><div><span className="section-kicker">Current models</span><h2>Electric motorcycles to compare in the Philippines</h2><p>These are models with Philippine price, battery, range, charging and LTO-classification evidence in the current MotoIndex data.</p></div></div>
       <div className="catalog-grid">
-        {electricMotorcycles.map(model=><Link className="catalog-card" href={`/motorcycles/electric/${model.slug}`} key={model.slug}>
+        {electricMotorcycles.map(model=><Link className="catalog-card" href={electricModelHref(model.slug)} key={model.slug}>
           <div className="catalog-media"><img src={model.imageUrl} alt={`${model.make} ${model.model} electric motorcycle`} loading="lazy"/></div>
           <span className="catalog-status">LTO L3</span>
           <h3>{model.make} {model.model}</h3>
@@ -76,7 +76,7 @@ export default function ElectricMotorcyclesPage() {
       <div className="guide-table-wrap">
         <table className="guide-comparison-table">
           <thead><tr><th>Model</th><th>Starting price</th><th>One battery</th><th>Two batteries</th><th>Battery type</th></tr></thead>
-          <tbody>{electricMotorcycles.map(m=><tr key={m.slug}><th><Link href={`/motorcycles/electric/${m.slug}`}>{m.make} {m.model}</Link></th><td>{php(m.priceFromPhp)}</td><td>{m.oneBatteryPricePhp?php(m.oneBatteryPricePhp):"Check seller"}</td><td>{m.twoBatteryPricePhp?php(m.twoBatteryPricePhp):"Check seller"}</td><td>{m.batteryType}</td></tr>)}</tbody>
+          <tbody>{electricMotorcycles.map(m=><tr key={m.slug}><th><Link href={electricModelHref(m.slug)}>{m.make} {m.model}</Link></th><td>{php(m.priceFromPhp)}</td><td>{m.oneBatteryPricePhp?php(m.oneBatteryPricePhp):"Check seller"}</td><td>{m.twoBatteryPricePhp?php(m.twoBatteryPricePhp):"Check seller"}</td><td>{m.batteryType}</td></tr>)}</tbody>
         </table>
       </div>
       <div className="note-box"><h3>Do not compare only the headline price</h3><p>Read the written battery-subscription or battery-purchase terms, warranty, charging arrangement and recurring cost before deciding which price is actually cheaper for your use.</p></div>
@@ -86,7 +86,7 @@ export default function ElectricMotorcyclesPage() {
       <div className="section-head compact"><div><span className="section-kicker">Battery and range</span><h2>Electric motorcycle range comparison</h2><p>Compare one-battery claims with one-battery claims and two-battery claims with two-battery claims. These are manufacturer claims, not guaranteed commuting distances.</p></div></div>
       <div className="comparison-table-wrap" role="region" aria-label="Electric motorcycle range comparison" tabIndex={0}>
         <table className="comparison-table"><thead><tr><th>Model</th><th>One battery</th><th>Two batteries</th><th>One-battery range</th><th>Two-battery range</th><th>Charge time</th><th>Maximum speed</th></tr></thead>
-        <tbody>{electricMotorcycles.map(model=><tr key={model.slug}><th><Link href={`/motorcycles/electric/${model.slug}`}>{model.make} {model.model}</Link></th><td>{model.batteryKwh} kWh</td><td>{model.twoBatteryKwh} kWh</td><td>{model.rangeOneKm} km</td><td>{model.rangeTwoKm} km</td><td>{model.chargeOneHours}/{model.chargeTwoHours} hours</td><td>{model.topSpeedKph} km/h</td></tr>)}</tbody></table>
+        <tbody>{electricMotorcycles.map(model=><tr key={model.slug}><th><Link href={electricModelHref(model.slug)}>{model.make} {model.model}</Link></th><td>{model.batteryKwh} kWh</td><td>{model.twoBatteryKwh} kWh</td><td>{model.rangeOneKm} km</td><td>{model.rangeTwoKm} km</td><td>{model.chargeOneHours}/{model.chargeTwoHours} hours</td><td>{model.topSpeedKph} km/h</td></tr>)}</tbody></table>
       </div>
       <div className="topic-grid">
         <article><h3>Longest current claim</h3><p>{byRange[0].make} {byRange[0].model} has the longest two-battery manufacturer claim in the current set at {byRange[0].rangeTwoKm} km.</p></article>

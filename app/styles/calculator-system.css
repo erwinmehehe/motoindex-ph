@@ -469,39 +469,20 @@
 
 /* Embedded model calculators */
 .finance-planner{padding:0;overflow:hidden}
-.finance-planner-head,.finance-controls,.finance-result{padding:var(--mi-space-6)}
+.finance-planner-head,.finance-controls,.finance-result{padding:var(--mi-space-5)}
 .finance-planner-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--mi-space-5);border-bottom:1px solid var(--mi-color-line);background:var(--mi-color-surface-subtle)}
-.finance-planner-head>div{min-width:0;max-width:720px}
-.finance-planner-head h2{margin:var(--mi-space-1) 0 var(--mi-space-2);font-size:clamp(1.65rem,2.6vw,2.25rem);line-height:1.05;letter-spacing:var(--mi-tracking-tight)}
-.finance-planner-head p{max-width:680px;margin:0}
-.finance-estimate-badge{flex:0 0 auto;white-space:nowrap}
-.finance-planner-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,360px);align-items:stretch}
-.finance-controls{display:grid;grid-template-columns:1fr;align-content:start;gap:var(--mi-space-5);min-width:0;background:var(--mi-color-surface)}
-.variant-price-picker,.finance-price-input{min-width:0}
-.variant-price-picker label,.finance-price-input label{display:block;min-width:0}
-.variant-price-picker select{max-width:100%}
-.variant-price-picker small{display:block;max-width:620px;margin-top:var(--mi-space-2);color:var(--mi-color-muted);font-size:var(--mi-type-xs);line-height:1.5}
-.finance-price-field{display:flex;align-items:center;min-width:0;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md);background:var(--mi-color-surface)}
-.finance-price-field>span{flex:0 0 auto;padding-left:var(--mi-space-3);color:var(--mi-color-muted);font-weight:800}
-[data-calculator="installment"] .finance-price-field input{min-width:0;margin:0;border:0;box-shadow:none}
+.finance-planner-head h2{margin:var(--mi-space-1) 0 var(--mi-space-2);font-size:var(--mi-type-2xl)}
+.finance-planner-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(280px,.7fr)}
+.finance-price-field{display:flex;align-items:center;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md)}
+[data-calculator="installment"] .finance-price-field input{margin:0;border:0;box-shadow:none}
 .finance-preset-groups,.finance-slider-grid{display:grid;gap:var(--mi-space-4);margin:0}
 .finance-preset-groups{grid-template-columns:repeat(2,minmax(0,1fr))}
-.finance-preset-groups>div{min-width:0;padding:var(--mi-space-4);border:1px solid var(--mi-color-line-soft);border-radius:var(--mi-radius-md);background:var(--mi-color-surface-subtle)}
-.finance-preset-groups>div>span{display:block;margin-bottom:var(--mi-space-2);color:var(--mi-color-slate-700);font-size:var(--mi-type-xs);font-weight:800}
-.finance-slider-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--mi-space-3)}
-[data-calculator="installment"] .finance-slider-grid label{display:grid;align-content:start;min-width:0;padding:var(--mi-space-4);border:1px solid var(--mi-color-line-soft);border-radius:var(--mi-radius-md);background:var(--mi-color-surface-subtle)}
-[data-calculator="installment"] .finance-slider-grid label>span{display:block;color:var(--mi-color-muted);font-size:var(--mi-type-xs)}
-[data-calculator="installment"] .finance-slider-grid label>strong{float:none;display:block;min-width:0;margin:var(--mi-space-1) 0 0;color:var(--mi-color-ink);font-size:var(--mi-type-sm);line-height:1.35;overflow-wrap:anywhere}
-[data-calculator="installment"] .finance-slider-grid input[type="range"]{margin-top:var(--mi-space-3)}
-.finance-result{min-width:0;border-left:1px solid var(--mi-color-line);background:var(--mi-color-primary-soft);color:var(--mi-color-ink)}
+.finance-slider-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.finance-result{border-left:1px solid var(--mi-color-line);background:var(--mi-color-primary-soft);color:var(--mi-color-ink)}
 .finance-result>span,.finance-result>small{display:block;color:var(--mi-color-muted);font-size:var(--mi-type-xs)}
-.finance-result>strong{display:block;margin:var(--mi-space-2) 0 var(--mi-space-4);padding-bottom:var(--mi-space-4);border-bottom:1px solid var(--mi-color-line);color:var(--mi-color-primary);font-size:clamp(2.2rem,4vw,3.2rem);line-height:1;white-space:nowrap}
-.finance-result-facts{display:grid;gap:0}
-.finance-result-facts>div{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:var(--mi-space-4);padding:var(--mi-space-3) 0;border-bottom:1px solid var(--mi-color-line)}
-.finance-result-facts>div>span{min-width:0;color:var(--mi-color-muted);font-size:var(--mi-type-xs)}
-.finance-result-facts>div>strong{white-space:nowrap;text-align:right;font-size:var(--mi-type-lg);line-height:1.1}
+.finance-result>strong{display:block;margin:var(--mi-space-2) 0 var(--mi-space-4);padding-bottom:var(--mi-space-4);border-bottom:1px solid var(--mi-color-line);color:var(--mi-color-primary);font-size:clamp(2.2rem,4vw,3.2rem);white-space:nowrap}
+.finance-result-facts>div{display:flex;justify-content:space-between;gap:var(--mi-space-3);padding:var(--mi-space-2) 0;border-bottom:1px solid var(--mi-color-line)}
 .finance-result-facts>div:last-child{border-bottom:0}
-.finance-result p{margin:var(--mi-space-5) 0 0;font-size:var(--mi-type-sm)}
 .finance-scenario-section{margin-top:var(--mi-space-5)}
 
 [data-calculator="used-value"] .used-estimate,
@@ -660,8 +641,6 @@
 
   .finance-planner-layout{grid-template-columns:1fr}
   .finance-result{border-left:0;border-top:1px solid var(--mi-color-line)}
-  .finance-controls{gap:var(--mi-space-4)}
-  .finance-slider-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 
 @media(max-width:620px){
@@ -732,12 +711,8 @@
   }
 
   .finance-planner-head{display:block}
-  .finance-estimate-badge{display:inline-flex;margin-top:var(--mi-space-3)}
-  .finance-controls,.finance-result,.finance-planner-head{padding:var(--mi-space-5)}
+    .finance-controls,.finance-result,.finance-planner-head{padding:var(--mi-space-5)}
   .finance-preset-groups,.finance-slider-grid{grid-template-columns:1fr}
-  .finance-preset-groups>div,[data-calculator="installment"] .finance-slider-grid label{padding:var(--mi-space-3)}
-  .finance-result-facts>div{gap:var(--mi-space-3)}
-  .finance-result-facts>div>strong{font-size:var(--mi-type-base)}
 
   [data-calculator="electric-range"] .calculator-grid,
   [data-calculator="electric-range"] .calculator-results,

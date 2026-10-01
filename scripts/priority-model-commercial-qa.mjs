@@ -151,7 +151,15 @@ try {
         const financing=document.querySelector('[data-financing-snapshot]');
         const financingVariants=financing?[...financing.querySelectorAll('[data-financing-variant]')].map(el=>el.getAttribute('data-financing-variant')||''):[];
         const planner=document.querySelector('#installment .finance-planner');
+        const plannerHead=planner?.querySelector('.finance-planner-head');
         const plannerLayout=planner?.querySelector('.finance-planner-layout');
+        const plannerControls=planner?.querySelector('.finance-controls');
+        const plannerResult=planner?.querySelector('.finance-result');
+        const plannerRect=planner?.getBoundingClientRect();
+        const plannerHeadRect=plannerHead?.getBoundingClientRect();
+        const plannerLayoutRect=plannerLayout?.getBoundingClientRect();
+        const plannerControlsRect=plannerControls?.getBoundingClientRect();
+        const plannerResultRect=plannerResult?.getBoundingClientRect();
         const monthlyResult=planner?.querySelector('.finance-result>strong');
         const presets=planner?[...planner.querySelectorAll('.finance-preset-groups .calc-presets button')]:[];
         const scenarios=document.querySelectorAll('#installment .finance-scenario-row .ui-stat-row__item');
@@ -173,6 +181,12 @@ try {
           financingMode:financing?.getAttribute('data-financing-snapshot')||'',
           financingVariants,
           planner:Boolean(planner),
+          plannerDisplay:planner?getComputedStyle(planner).display:'',
+          plannerWidth:plannerRect?.width||0,
+          plannerHeadWidth:plannerHeadRect?.width||0,
+          plannerLayoutWidth:plannerLayoutRect?.width||0,
+          plannerControlsWidth:plannerControlsRect?.width||0,
+          plannerResultWidth:plannerResultRect?.width||0,
           plannerColumns:plannerLayout?getComputedStyle(plannerLayout).gridTemplateColumns:'',
           monthlyResult:monthlyResult?.textContent?.trim()||'',
           presetCount:presets.length,
@@ -216,6 +230,11 @@ try {
         if ((audit?.presetCount || 0) < 6) failures.push(`${width}px ${pathname}: installment planner quick presets are incomplete.`);
         if ((audit?.scenarioCount || 0) < 2) failures.push(`${width}px ${pathname}: financing comparison strip is incomplete.`);
         if ((audit?.installmentOverflow || 0) > 5) failures.push(`${width}px ${pathname}: installment planner overflows by ${audit.installmentOverflow}px.`);
+        if (audit?.plannerDisplay === "grid") failures.push(`${width}px ${pathname}: installment planner root still inherits the legacy global calculator grid.`);
+        if ((audit?.plannerWidth || 0) > 0 && (audit?.plannerHeadWidth || 0) < audit.plannerWidth * .9) failures.push(`${width}px ${pathname}: installment heading collapsed to ${Math.round(audit?.plannerHeadWidth || 0)}px inside a ${Math.round(audit?.plannerWidth || 0)}px planner.`);
+        if ((audit?.plannerWidth || 0) > 0 && (audit?.plannerLayoutWidth || 0) < audit.plannerWidth * .9) failures.push(`${width}px ${pathname}: installment controls/results collapsed to ${Math.round(audit?.plannerLayoutWidth || 0)}px inside a ${Math.round(audit?.plannerWidth || 0)}px planner.`);
+        if (width >= 1000 && (audit?.plannerControlsWidth || 0) < 500) failures.push(`${width}px ${pathname}: installment controls are too narrow at ${Math.round(audit?.plannerControlsWidth || 0)}px.`);
+        if (width >= 1000 && (audit?.plannerResultWidth || 0) < 260) failures.push(`${width}px ${pathname}: installment result card is too narrow at ${Math.round(audit?.plannerResultWidth || 0)}px.`);
         const expectedVariants=variantFinanceModels.get(name);
         if (expectedVariants) {
           if (audit?.financingMode !== "variants") failures.push(`${width}px ${pathname}: financing snapshot is not variant-aware.`);
