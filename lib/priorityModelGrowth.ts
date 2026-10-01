@@ -382,7 +382,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   "honda-giorno-plus": {
     seoTitle: "Honda Giorno Price Philippines 2026 | Giorno+ Specs",
     seoDescription: "Honda Giorno / Giorno+ price Philippines 2026 with current dealer references, 125cc specs, 780mm seat, 47 km/L WMTC, colors and ownership costs.",
-    intentIntro: "Honda Giorno searches in the Philippines currently resolve to the Giorno+ canonical. Current dealer references show ₱101,900 for the All-New Giorno+ and a separate newer ACF125CBT listing at ₱106,000, so verify the exact model code and branch quote before treating one price as universal."
+    intentIntro: "Honda Giorno searches in the Philippines currently resolve to the Giorno+ canonical. Current dealer references show ₱101,900 for the All-New Giorno+ and a separate newer ACF125CBT listing at ₱106,000, so verify the exact model code and branch quote before treating one price as universal.",
     moneyQuestion: "What does the Honda Giorno+ cost after the current dealer quote, registration, insurance and other purchase charges are included?",
     ownershipQuestion: "Compare fuel use, 12-inch tire replacement, CVT service, storage and Honda support with Fazzio and other 125cc scooters.",
     alternativeIds: ["yamaha-fazzio", "honda-click-125i", "yamaha-mio-gear"],
@@ -405,7 +405,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   "yamaha-mio-gear": {
     seoTitle: "Yamaha Mio Gear Price Philippines 2026 | Monthly & Specs",
     seoDescription: "Yamaha Mio Gear price Philippines 2026 with current ₱79,400 dealer reference, ₱4,000 down/monthly snapshot, 125cc specs, 750mm seat and ownership.",
-    intentIntro: "The Mio Gear is a light 125cc commuter with a 750 mm seat and 96 kg curb weight. Motortrade currently lists ₱79,400 SRP with an indicative ₱4,000 downpayment and ₱4,000 monthly snapshot, so use those figures as a dealer observation rather than a transferable loan quote."
+    intentIntro: "The Mio Gear is a light 125cc commuter with a 750 mm seat and 96 kg curb weight. Motortrade currently lists ₱79,400 SRP with an indicative ₱4,000 downpayment and ₱4,000 monthly snapshot, so use those figures as a dealer observation rather than a transferable loan quote.",
     moneyQuestion: "What does the Yamaha Mio Gear cost after the current dealer quote, registration, insurance and other purchase charges are included?",
     ownershipQuestion: "Compare CVT service, 14-inch tires, fuel use and Yamaha support with BeAT, Click 125i and Fazzio.",
     alternativeIds: ["honda-beat", "honda-click-125i", "yamaha-fazzio"],
