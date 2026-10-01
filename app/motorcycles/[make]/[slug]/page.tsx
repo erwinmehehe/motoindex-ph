@@ -13,6 +13,8 @@ import { pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
 import { priorityModelGrowthProfile } from "@/lib/priorityModelGrowth";
 import { getRenderableMedia } from "@/lib/renderableMedia";
+import { ElectricMotorcycleDetail } from "@/components/ElectricMotorcycleDetail";
+import { electricMotorcycles, getElectricMotorcycle } from "@/lib/electricMotorcycles";
 
 const LEGACY_MODEL_REDIRECTS: Record<string, { make: string; slug: string; title: string; description: string }> = {
   "honda/rs150r": {
@@ -43,6 +45,7 @@ export function generateStaticParams() {
   return [
     ...motorcycles.map((m) => ({ make: m.makeSlug, slug: m.slug })),
     ...modelFamilies.map((f) => ({ make: f.makeSlug, slug: f.slug })),
+    ...electricMotorcycles.map((m) => ({ make: "electric", slug: m.slug })),
     { make: "honda", slug: "crf250-rally" },
     ...Object.keys(LEGACY_MODEL_REDIRECTS).map((key) => {
       const [make, slug] = key.split("/");
@@ -53,6 +56,16 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ make: string; slug: string }> }): Promise<Metadata> {
   const { make, slug } = await params;
+  if (make === "electric") {
+    const electricModel = getElectricMotorcycle(slug);
+    if (!electricModel) return {};
+    return pageMetadata({
+      title: `${electricModel.make} ${electricModel.model} Price, Range & Specs Philippines`,
+      description: `${electricModel.make} ${electricModel.model} electric motorcycle price, battery capacity, claimed range, charging time, maximum speed and LTO classification in the Philippines.`,
+      path: `/motorcycles/electric/${electricModel.slug}`,
+      image: electricModel.imageUrl
+    });
+  }
   if (make === "honda" && slug === "crf250-rally") {
     return pageMetadata({
       title: "Honda CRF250 Rally Successor: CRF300 Rally Philippines",
@@ -109,6 +122,11 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
 
 export default async function ModelPage({ params }: { params: Promise<{ make: string; slug: string }> }) {
   const { make, slug } = await params;
+  if (make === "electric") {
+    const electricModel = getElectricMotorcycle(slug);
+    if (!electricModel) return notFound();
+    return <ElectricMotorcycleDetail model={electricModel}/>;
+  }
   if (make === "honda" && slug === "crf250-rally") permanentRedirect("/motorcycles/honda/crf300-rally");
   const legacy = legacyTarget(make, slug);
   if (legacy) permanentRedirect(`/motorcycles/${legacy.make}/${legacy.slug}`);
