@@ -30,6 +30,12 @@ const targets: Record<string, PriceSeoTarget> = {
     heading: "Yamaha Aerox V2 price in the Philippines",
     intro: "The Aerox V2 is a previous generation, so this page keeps its historical Philippine launch-price context separate from today’s Aerox V3 pricing and current used-market value."
   },
+  "honda-click-125i": {
+    title: "Honda Click 125i Price Philippines 2026: SRP & Installment",
+    description: "Honda Click 125i price in the Philippines with current Standard/Smart Edition context, dated dealer checks, downpayment and monthly-payment snapshots.",
+    heading: "Honda Click 125i price in the Philippines (2026)",
+    intro: "Compare current Honda Click125 manufacturer and dealer price references, then check the exact Standard or Smart Edition unit before using any downpayment or monthly figure as a purchase quote."
+  },
   "honda-pcx-160": {
     title: "Honda PCX 160 Price Philippines 2026: SRP & Installment",
     description: "Honda PCX 160 price in the Philippines with current Standard/RoadSync context, dated market checks, price history and installment estimate.",
