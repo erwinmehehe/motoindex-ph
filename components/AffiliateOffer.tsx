@@ -17,11 +17,13 @@ type AffiliateOfferVariant = "full" | "compact" | "hero";
 export function AffiliateOffer({
   productId,
   productName,
-  variant = "full"
+  variant = "full",
+  compact = false
 }: {
   productId: string;
   productName: string;
   variant?: AffiliateOfferVariant;
+  compact?: boolean;
 }) {
   const [status,setStatus]=useState<Status|undefined>(undefined);
 
@@ -35,9 +37,10 @@ export function AffiliateOffer({
   },[productId]);
 
   const offers=status?.offers||[];
+  const presentation: AffiliateOfferVariant = compact ? "compact" : variant;
   if(!status?.active||!offers.length)return null;
 
-  if(variant==="compact"){
+  if(presentation==="compact"){
     return <div className="affiliate-card-action">
       {offers.map(offer=><AffiliateLink
         key={offer.merchant}
@@ -50,7 +53,7 @@ export function AffiliateOffer({
     </div>;
   }
 
-  if(variant==="hero"){
+  if(presentation==="hero"){
     return <div className="affiliate-hero-actions" aria-label="Marketplace price links">
       {offers.map(offer=><AffiliateLink
         key={offer.merchant}
