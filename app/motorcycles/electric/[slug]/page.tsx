@@ -6,7 +6,7 @@ import { FaqSection } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
 import { AuthorBox } from "@/components/AuthorBox";
 import { authorPersonSchema } from "@/lib/author";
-import { electricMotorcycles, getElectricMotorcycle, php } from "@/lib/electricMotorcycles";
+import { electricModelHref, electricMotorcycles, getElectricMotorcycle, php } from "@/lib/electricMotorcycles";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -124,7 +124,7 @@ export default async function ElectricModelPage({params}:{params:Promise<{slug:s
     <section className="motorcycle-entity-section">
       <div className="section-head compact"><div><span className="section-kicker">Electric lineup</span><h2>Compare other electric motorcycles</h2><p>Keep price, range and charging comparisons inside the same verified Philippine electric-motorcycle set.</p></div></div>
       <div className="catalog-grid">
-        {siblings.map(item=><Link className="catalog-card" href={`/motorcycles/electric/${item.slug}`} key={item.slug}>
+        {siblings.map(item=><Link className="catalog-card" href={electricModelHref(item.slug)} key={item.slug}>
           <div className="catalog-media"><img src={item.imageUrl} alt={`${item.make} ${item.model} electric motorcycle`} loading="lazy"/></div>
           <span className="catalog-status">LTO L3</span>
           <h3>{item.make} {item.model}</h3>
