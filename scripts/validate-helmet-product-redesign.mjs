@@ -57,11 +57,11 @@ for (const token of [
 
 for (const token of [
   ".helmet-product-page .product-detail-media>.entity-media",
-  "background:#fff!important",
+  "background:var(--mi-color-surface)",
   ".helmet-product-page .product-facts-grid",
   ".helmet-product-page .helmet-hero-commerce",
   ".helmet-product-page .helmet-spec-grid strong",
-  "overflow-wrap:anywhere!important",
+  "overflow-wrap:anywhere",
   ".helmet-product-page .mini-compare-table",
   "@media(max-width:620px)",
   "min-width:560px"
