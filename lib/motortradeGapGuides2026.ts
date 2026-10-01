@@ -5,8 +5,8 @@ export const motortradeGapGuides2026: RecommendationGuide[] = [
     slug: "manual-motorcycles-philippines",
     kicker: "Manual motorcycles",
     title: "Manual motorcycles in the Philippines",
-    seoTitle: "Manual Motorcycles Philippines 2026: Prices & Specs",
-    description: "Compare current manual motorcycles in the Philippines by published price, engine, power, weight, seat height, ABS and riding category.",
+    seoTitle: "Manual Motorcycle Prices Philippines 2026 | Models & Specs",
+    description: "Compare manual motorcycle prices in the Philippines for 2026, including engine, power, weight, seat height, ABS and riding category."
     primaryKeyword: "manual motorcycle Philippines",
     secondaryKeywords: [
       "manual motorcycles Philippines",
