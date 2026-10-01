@@ -74,8 +74,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     legacyContext: { heading: "Click 150i vs the current Click 160", body: "Click 150i is retained for historical Philippine price and specification research. Honda introduced the Click 160 as its successor, so use the Click 160 page for current new-bike pricing and research." }
   },
   "honda-crf150l": {
-    seoTitle: "Honda CRF150L Philippines | Price Reference & Specs",
-    seoDescription: "Honda CRF150L Philippines reference with last official ₱147,900 SRP, 149cc specs, 863mm seat, 285mm clearance, 21/18 tires and trail ownership context.",
+    seoTitle: "Honda CRF150L Price Philippines | SRP & Availability",
+    seoDescription: "Honda CRF150L price Philippines reference with last official ₱147,900 SRP, 149cc specs, 863mm seat, 285mm clearance and 2026 availability caveat.",
     intentIntro: "The CRF150L remains a high-interest Philippine dual-sport, but the newest official Honda SRP MotoIndex could verify is ₱147,900 from June 2023. Use this canonical page for Honda-sourced chassis, engine and trail-fit specifications, while treating 2026 stock and dealer pricing as an availability check rather than a confirmed current listing.",
     moneyQuestion: "Is a CRF150L still available new from an authorized Honda dealer, and how does the dealer quote compare with Honda Philippines' last located ₱147,900 official SRP reference?",
     ownershipQuestion: "Compare the tall 863 mm seat, 285 mm ground clearance, 21/18-inch trail tires, chain and sprocket service, dual disc brakes and local Honda support with other lightweight dual-sports. Honda sources publish conflicting fuel-consumption figures, so confirm real-world fuel use instead of relying on one headline number.",
@@ -125,8 +125,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
 
 
   "yamaha-xmax": {
-    seoTitle: "Yamaha XMAX Price Philippines 2026 | Specs & Ownership",
-    seoDescription: "Yamaha XMAX price in the Philippines, 292cc specs, ABS, seat height, weight, fuel tank, ownership costs and maxi-scooter alternatives.",
+    seoTitle: "Yamaha XMAX Price Philippines 2026 | SRP & Monthly",
+    seoDescription: "Yamaha XMAX price Philippines 2026 with current ₱311,000 dealer reference, 292cc specs, ABS, 13L tank, ownership costs and maxi-scooter alternatives.",
     intentIntro: "The XMAX is a high-demand maxi-scooter search, so keep price, 292cc specifications, rider fit, touring practicality and ownership research on this canonical model page rather than splitting the intent across thin price or specs URLs.",
     moneyQuestion: "What does the Yamaha XMAX cost once the current dealer quote, insurance, registration and other purchase charges are included?",
     ownershipQuestion: "Compare CVT service, 15/14-inch tires, 13 L fuel capacity, insurance and Yamaha service access with ADV350, Burgman 400 and other maxi scooters.",
@@ -257,7 +257,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 125cc scooters"
   },
   "yamaha-mio-i-125": {
-    seoTitle: "Yamaha Mio i 125 Price Philippines 2026 | Specs & Monthly",
+    seoTitle: "Yamaha Mio i 125 Price Philippines 2026 | SRP & Monthly",
     seoDescription: "Yamaha Mio i 125 price in the Philippines, 125cc specs, 750mm seat height, tires, down payment, monthly estimate and ownership costs.",
     intentIntro: "The Mio i 125 remains a light, low-seat Yamaha commuter with current dealer availability. Compare its ₱75,900 dealer price, 750 mm seat, 92 kg wet weight and financing with Mio Gravis, Mio Gear and Click 125i before deciding on headline price alone.",
     moneyQuestion: "How much does the Mio i 125 cost after down payment, monthly payment, registration, insurance and dealer fees?",
@@ -391,8 +391,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 125cc scooters"
   },
   "honda-beat": {
-    seoTitle: "Honda BeAT Price Philippines 2026 | Specs & Fuel Economy",
-    seoDescription: "Honda BeAT price in the Philippines, 110cc specs, 58.2 km/L fuel economy, 742mm seat, 90kg weight, CBS, tire sizes and commuter alternatives.",
+    seoTitle: "Honda BeAT Price Philippines 2026 | Playful vs Premium",
+    seoDescription: "Honda BeAT price Philippines 2026: ₱72,500 Playful vs ₱74,700 Premium, 58.2 km/L WMTC, 742mm seat, CBS, specs and ownership costs.",
     intentIntro: "The Honda BeAT is a current 110cc Philippine commuter scooter with a ₱72,500 Playful starting price, ₱74,700 Premium price, 742 mm seat, 90 kg curb weight and Honda-published 58.2 km/L WMTC fuel-economy figure. Its value case is light, efficient city transport rather than premium-scooter equipment.",
     moneyQuestion: "What does the BeAT Playful or Premium cost after registration, insurance, dealer fees and any temporary promotion are separated from the regular SRP?",
     ownershipQuestion: "Compare 14-inch tire replacement, CVT service, fuel use, 12 L storage, CBS braking, insurance and Honda service access with Navi, Mio Gear and Click125.",
@@ -470,7 +470,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 125cc scooters"
   },
   "suzuki-raider-r150": {
-    seoTitle: "Suzuki Raider R150 Price Philippines 2026 | Specs & Ownership",
+    seoTitle: "Suzuki Raider R150 Price Philippines 2026 | SRP & Monthly",
     seoDescription: "Suzuki Raider R150 price in the Philippines, 147cc specs, seat height, tires, down payment, monthly estimate, fuel planning and ownership costs.",
     intentIntro: "The Raider R150 is a performance-focused underbone, so compare the full purchase and ownership picture with Sniper 155 and Winner X: financing, insurance, tires, chain service and daily traffic use.",
     moneyQuestion: "What does the Raider R150 cost after down payment, monthly payment, insurance, registration and dealer fees are included?",
