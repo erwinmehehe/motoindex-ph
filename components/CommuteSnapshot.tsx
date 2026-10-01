@@ -6,5 +6,38 @@ import { efficiencyEvidence } from "@/lib/efficiency";
 export function CommuteSnapshot({model}:{model:Motorcycle}){
   const c=commuteMonthlyCosts(model);
   const efficiency=efficiencyEvidence(model);
-  return <div className="commute-snapshot"><div><h2>What {model.model} looks like at 20 km/day</h2><p>Uses 22 commute days per month as the default. Change the distance, fuel price and other assumptions in the commute calculator.</p><Link className="button small" href={`/commute/cost-calculator?bike=${model.id}`}>Open commute calculator →</Link></div><div className="commute-snapshot-kpis"><span><small>Monthly distance</small><b>{c.monthlyKm.toLocaleString()} km</b></span><span><small>Fuel-economy basis</small><b>{efficiency.kmPerL} km/L {efficiency.status === "planning-estimate" ? "estimated" : "listed"}</b></span><span><small>Fuel + maintenance*</small><b>₱{Math.round(c.total).toLocaleString("en-PH")}/mo</b></span><span><small>Curb weight</small><b>{model.curbWeightKg} kg</b></span></div></div>;
+  const monthlyTotal=Math.round(c.total);
+  const monthlyFuel=Math.round(c.fuel);
+  const perWorkday=Math.round(c.perWorkday);
+
+  return <div className="commute-snapshot" data-commute-snapshot={model.id}>
+    <div className="commute-snapshot-copy">
+      <span className="commute-snapshot-eyebrow">20 km/day example</span>
+      <h2>Daily commute cost snapshot</h2>
+      <p>For the {model.make} {model.model}, this uses 22 commute days per month. Adjust distance, fuel price, parking and maintenance when you want a closer estimate.</p>
+      <Link className="button small commute-snapshot-action" href={`/commute/cost-calculator?bike=${model.id}`}>Adjust commute assumptions →</Link>
+    </div>
+    <div className="commute-snapshot-kpis">
+      <span className="commute-snapshot-primary">
+        <small>Fuel + maintenance</small>
+        <b>₱{monthlyTotal.toLocaleString("en-PH")}/mo</b>
+        <em>About ₱{perWorkday.toLocaleString("en-PH")} per commute day</em>
+      </span>
+      <span>
+        <small>Monthly distance</small>
+        <b>{c.monthlyKm.toLocaleString("en-PH")} km</b>
+        <em>20 km/day × 22 days</em>
+      </span>
+      <span>
+        <small>Fuel-economy basis</small>
+        <b>{efficiency.kmPerL} km/L</b>
+        <em>{efficiency.status === "planning-estimate" ? "Planning estimate" : "Published figure"}</em>
+      </span>
+      <span>
+        <small>Fuel only</small>
+        <b>₱{monthlyFuel.toLocaleString("en-PH")}/mo</b>
+        <em>Before maintenance and parking</em>
+      </span>
+    </div>
+  </div>;
 }
