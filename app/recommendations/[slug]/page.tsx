@@ -411,11 +411,12 @@ function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide
     if(!rows.length)return `No current ${label} scooter qualifies in this checked guide set.`;
     return `The checked ${label} scooter range on this page runs from ${observedMarketPriceLabel(rows[0])} to ${observedMarketPriceLabel(rows.at(-1)!)}. These are reference prices; confirm the exact variant, fees and current dealer quote before purchase.`;
   }
-  if(lower.includes("125cc, 150cc and 160cc scooters")){
+  if(lower.includes("125cc, 150cc, 155cc and 160cc scooters")){
     const c125=models.filter(m=>m.engineCc>=100&&m.engineCc<=130);
-    const c150=models.filter(m=>m.engineCc>=140&&m.engineCc<=155);
+    const c150=models.filter(m=>m.engineCc>=140&&m.engineCc<155);
+    const c155=models.filter(m=>m.engineCc===155);
     const c160=models.filter(m=>m.engineCc>=156&&m.engineCc<=165);
-    return `The current guide includes ${c125.length} scooter${c125.length===1?"":"s"} in the roughly 100–130cc band, ${c150.length} in the 140–155cc band and ${c160.length} in the 156–165cc band. Use the linked engine-size guides for the exact model lists and compare equipment as well as displacement.`;
+    return `The current guide includes ${c125.length} scooter${c125.length===1?"":"s"} in the roughly 100–130cc band, ${c150.length} in the 140–154cc band, ${c155.length} exact-155cc model${c155.length===1?"":"s"} and ${c160.length} in the 156–165cc band. Use the linked engine-size guides for the exact model lists and compare equipment as well as displacement.`;
   }
   if(lower.includes("what should i compare before buying a scooter"))return `Compare the exact purchase price and variant, curb weight, seat height, braking equipment, fuel tank, tire sizes, storage/passenger needs, CVT service requirements and local dealer support. Test rider fit in person before paying a reservation.`;
   if(lower.includes("dual-sport and trail bikes the same"))return `Not exactly. “Dual-sport” usually describes motorcycles intended for both public-road and unpaved use, while “trail bike” is broader and can include off-road-only machines. This MotoIndex guide only compares current motorcycles categorized as dual-sport.`;
