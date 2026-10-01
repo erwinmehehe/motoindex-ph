@@ -36,7 +36,7 @@ export function InstallmentCalculator({ price, priceOptions = [] }: { price: num
   }
 
   return (
-    <section className="calculator finance-planner" data-calculator="installment">
+    <section className="finance-planner" data-calculator="installment">
       <div className="finance-planner-head">
         <div>
           <span className="finance-kicker">Installment estimator</span>
