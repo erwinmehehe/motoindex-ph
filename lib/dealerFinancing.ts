@@ -76,6 +76,17 @@ const dealerFinancingObservations: DealerFinancingObservation[] = [
     note: "Motortrade marks these figures as indicative and branch-dependent. Confirm the exact financed amount, term, rate method and fees."
   },
   {
+    modelId: "yamaha-mio-gear",
+    label: "Mio Gear dealer listing",
+    srpPhp: 79400,
+    downPaymentPhp: 4000,
+    monthlyPhp: 4000,
+    checkedAt: "2026-10-01",
+    sourceName: "Motortrade Philippines",
+    sourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-mio-gear/",
+    note: "Motortrade marks the price and financing figures as indicative and branch-dependent. Confirm the financed amount, term, rate method, fees and exact BJN4 unit before reserving."
+  },
+  {
     modelId: "yamaha-aerox-v3",
     label: "New Aerox dealer listing",
     srpPhp: 133900,
