@@ -50,6 +50,34 @@ export function motorcycleEntityEditorial(model: Motorcycle) {
   };
 }
 
+function modelSpecificFaqs(model: Motorcycle): FaqItem[] {
+  if (model.id === "honda-click-125i") {
+    return [
+      {
+        question: "What is the difference between Honda Click125 Standard and Smart Edition?",
+        answer: "Honda's 2026 Philippine Click125 reference lists both Standard and Smart Edition variants. Smart Edition adds the Smart Key System and Idling Stop System. Both use the 125cc liquid-cooled PGM-FI eSP engine, Combined Brake System, USB Type-C charging and 18 L luggage box; colors and trim details also differ."
+      },
+      {
+        question: "Does the Honda Click125 have ABS?",
+        answer: "Honda's 2026 Philippine specification lists the Click125 with Combined Brake System (CBS), not ABS. The Smart Edition adds convenience features such as Smart Key and Idling Stop, but the current official specification still identifies CBS as the braking system."
+      }
+    ];
+  }
+  if (model.id === "honda-pcx-160") {
+    return [
+      {
+        question: "What is the difference between Honda PCX160 Standard and RoadSync?",
+        answer: "The current Philippine PCX160 Standard uses CBS, while the RoadSync trim adds Honda RoadSync, a 5-inch TFT display, ABS and Honda Selectable Torque Control (HSTC). Both use the same 157cc eSP+ platform, so the decision is mainly price, braking/electronics and connectivity."
+      },
+      {
+        question: "Does the Honda PCX160 have ABS?",
+        answer: "ABS depends on the variant. MotoIndex's current Honda Philippines variant record lists CBS on PCX160 Standard and ABS plus HSTC on PCX160 RoadSync. Confirm the exact trim on the dealer unit before buying."
+      }
+    ];
+  }
+  return [];
+}
+
 export function motorcycleEntityFaqs(model: Motorcycle): FaqItem[] {
   const priceLabel = observedMarketPriceLabel(model);
   const efficiency = efficiencyEvidence(model);
@@ -99,7 +127,7 @@ export function motorcycleEntityFaqs(model: Motorcycle): FaqItem[] {
     },
   ];
 
-  return [...authorityFaqs, ...priceFaqsForModel(model, priceLabel), ...extra].slice(0, 10);
+  return [...authorityFaqs, ...priceFaqsForModel(model, priceLabel), ...modelSpecificFaqs(model), ...extra].slice(0, 10);
 }
 
 export function motorcycleEntitySeo(model: Motorcycle) {
