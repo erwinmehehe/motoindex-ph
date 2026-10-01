@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
+import { AuthorBox } from "@/components/AuthorBox";
+import { authorPersonSchema } from "@/lib/author";
 import { electricMotorcycles, getElectricMotorcycle, php } from "@/lib/electricMotorcycles";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 
@@ -23,9 +25,52 @@ export async function generateMetadata({params}:{params:Promise<{slug:string}>})
 export default async function ElectricModelPage({params}:{params:Promise<{slug:string}>}){
   const {slug}=await params; const model=getElectricMotorcycle(slug); if(!model)return notFound();
   const name=`${model.make} ${model.model}`;
-  const schema={"@context":"https://schema.org","@type":"Product",name,image:[model.imageUrl],brand:{"@type":"Brand",name:model.make},offers:{"@type":"AggregateOffer",priceCurrency:"PHP",lowPrice:model.priceFromPhp,highPrice:model.twoBatteryPricePhp||model.priceFromPhp,offerCount:3,url:absoluteUrl(`/motorcycles/electric/${model.slug}`)}};
+  const canonicalPath=`/motorcycles/electric/${model.slug}`;
+  const siblings=electricMotorcycles.filter(item=>item.slug!==model.slug);
+  const faqs=[
+    {question:`How much is the ${name} in the Philippines?`,answer:`The starting price is ${php(model.priceFromPhp)} with battery subscription. The recorded battery-purchase prices are ${model.oneBatteryPricePhp?php(model.oneBatteryPricePhp):"not available"} with one battery and ${model.twoBatteryPricePhp?php(model.twoBatteryPricePhp):"not available"} with two batteries.`},
+    {question:`What is the range of the ${name}?`,answer:`The manufacturer claims ${model.rangeOneKm} km with one battery and ${model.rangeTwoKm} km with two batteries. Real range changes with riding conditions and load.`},
+    {question:`How long does the ${name} take to charge?`,answer:`The published 0–100% charging time is ${model.chargeOneHours} hours for one battery and ${model.chargeTwoHours} hours for two batteries.`},
+    {question:`Does the ${name} need LTO registration?`,answer:"Yes. LTO classifies this model as an L3 electric motorcycle without sidecar, so it follows motorcycle registration requirements for public-road use."}
+  ];
+  const schema={
+    "@context":"https://schema.org",
+    "@type":"Product",
+    name,
+    sku:model.slug,
+    url:absoluteUrl(canonicalPath),
+    image:[model.imageUrl],
+    description:`${name} electric motorcycle price, battery, range, charging and LTO classification for the Philippines.`,
+    category:"Electric motorcycle",
+    brand:{"@type":"Brand",name:model.make},
+    offers:{"@type":"AggregateOffer",priceCurrency:"PHP",lowPrice:model.priceFromPhp,highPrice:model.twoBatteryPricePhp||model.priceFromPhp,offerCount:3,url:absoluteUrl(canonicalPath)},
+    additionalProperty:[
+      {"@type":"PropertyValue",name:"Battery type",value:model.batteryType},
+      {"@type":"PropertyValue",name:"One-battery capacity",value:`${model.batteryKwh} kWh`},
+      {"@type":"PropertyValue",name:"Two-battery capacity",value:`${model.twoBatteryKwh} kWh`},
+      {"@type":"PropertyValue",name:"Claimed one-battery range",value:`${model.rangeOneKm} km`},
+      {"@type":"PropertyValue",name:"Claimed two-battery range",value:`${model.rangeTwoKm} km`},
+      {"@type":"PropertyValue",name:"Maximum speed",value:`${model.topSpeedKph} km/h`},
+      {"@type":"PropertyValue",name:"LTO classification",value:"L3 electric motorcycle"}
+    ]
+  };
+  const faqSchema={
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    url:absoluteUrl(`${canonicalPath}#faq`),
+    author:{"@id":`${absoluteUrl("/authors/erwin-valles")}#person`},
+    mainEntity:faqs.map(item=>({
+      "@type":"Question",
+      name:item.question,
+      acceptedAnswer:{"@type":"Answer",text:item.answer}
+    }))
+  };
+  const authorSchema={"@context":"https://schema.org",...authorPersonSchema()};
+
   return <section className="page shell electric-model-page">
     <JsonLd data={schema}/>
+    <JsonLd data={faqSchema}/>
+    <JsonLd data={authorSchema}/>
     <Breadcrumbs items={[{label:"Motorcycles",href:"/motorcycles"},{label:"Electric",href:"/motorcycles/electric"},{label:name}]}/>
     <div className="product-hero">
       <div className="product-hero-media"><img src={model.imageUrl} alt={`${name} electric motorcycle`} decoding="async"/><small>Image: {model.make} Philippines</small></div>
@@ -68,7 +113,7 @@ export default async function ElectricModelPage({params}:{params:Promise<{slug:s
 
     <section className="motorcycle-entity-section">
       <div className="section-head compact"><div><h2>LTO registration classification</h2></div></div>
-      <div className="source-panel"><p>{name} is listed by LTO as an L3 electric motorcycle without sidecar. It must be registered as a motorcycle for public-road use. Confirm that the battery configuration on the unit matches its registration documents.</p><a href={model.ltoSourceUrl} target="_blank" rel="nofollow noopener noreferrer">Open the LTO classification circular</a></div>
+      <div className="source-panel"><p>{name} is listed by LTO as an L3 electric motorcycle without sidecar. It must be registered as a motorcycle for public-road use. Confirm that the battery configuration on the unit matches its registration documents.</p><a href={model.ltoSourceUrl} target="_blank" rel="nofollow noopener noreferrer">Open the LTO classification circular</a><small>Sources checked {model.checkedAt}</small></div>
     </section>
 
     <section className="motorcycle-entity-section">
@@ -76,11 +121,25 @@ export default async function ElectricModelPage({params}:{params:Promise<{slug:s
       <p>{model.colors.join(", ")}.</p>
     </section>
 
-    <FaqSection title={`${name} questions`} items={[
-      {question:`How much is the ${name} in the Philippines?`,answer:`The starting price is ${php(model.priceFromPhp)} with battery subscription. The recorded battery-purchase prices are ${model.oneBatteryPricePhp?php(model.oneBatteryPricePhp):"not available"} with one battery and ${model.twoBatteryPricePhp?php(model.twoBatteryPricePhp):"not available"} with two batteries.`},
-      {question:`What is the range of the ${name}?`,answer:`The manufacturer claims ${model.rangeOneKm} km with one battery and ${model.rangeTwoKm} km with two batteries. Real range changes with riding conditions and load.`},
-      {question:`How long does the ${name} take to charge?`,answer:`The published 0–100% charging time is ${model.chargeOneHours} hours for one battery and ${model.chargeTwoHours} hours for two batteries.`},
-      {question:`Does the ${name} need LTO registration?`,answer:"Yes. LTO classifies this model as an L3 electric motorcycle without sidecar, so it follows motorcycle registration requirements for public-road use."}
-    ]}/>
+    <section className="motorcycle-entity-section">
+      <div className="section-head compact"><div><span className="section-kicker">Electric lineup</span><h2>Compare other electric motorcycles</h2><p>Keep price, range and charging comparisons inside the same verified Philippine electric-motorcycle set.</p></div></div>
+      <div className="catalog-grid">
+        {siblings.map(item=><Link className="catalog-card" href={`/motorcycles/electric/${item.slug}`} key={item.slug}>
+          <div className="catalog-media"><img src={item.imageUrl} alt={`${item.make} ${item.model} electric motorcycle`} loading="lazy"/></div>
+          <span className="catalog-status">LTO L3</span>
+          <h3>{item.make} {item.model}</h3>
+          <strong>{php(item.priceFromPhp)}</strong>
+          <p>{item.rangeTwoKm} km claimed two-battery range · {item.topSpeedKph} km/h maximum speed</p>
+        </Link>)}
+      </div>
+      <div className="commute-tool-grid">
+        <Link href="/motorcycles/electric"><span>Buying guide</span><h3>Compare all electric motorcycles</h3><p>See prices, battery plans, range, registration and ownership trade-offs together.</p></Link>
+        <Link href="/tools/electric-motorcycle-charging-cost"><span>Calculator</span><h3>Charging cost</h3><p>Estimate charging cost from your electricity rate and battery capacity.</p></Link>
+        <Link href="/tools/electric-motorcycle-range-calculator"><span>Calculator</span><h3>Usable range</h3><p>Apply a practical reserve to the published manufacturer range claim.</p></Link>
+      </div>
+    </section>
+
+    <div id="faq"><FaqSection title={`${name} questions`} items={faqs}/></div>
+    <AuthorBox/>
   </section>;
 }
