@@ -50,7 +50,7 @@
     "validate:expressway-hub": "node scripts/validate-expressway-hub.mjs",
     "validate:budget-displacement": "node scripts/validate-budget-displacement-gaps.mjs",
     "lint": "eslint .",
-    "validate:design": "node scripts/design-lint.mjs",
+    "validate:design": "node scripts/design-lint.mjs && node scripts/validate-installment-layout.mjs",
     "visual:matrix": "node scripts/visual-regression-matrix.mjs",
     "qa:routes": "node scripts/route-behavior-qa.mjs",
     "validate:catalog-uniqueness": "node scripts/validate-motorcycle-uniqueness.mjs",
