@@ -475,12 +475,12 @@
 .finance-planner-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,360px)}
 .finance-controls{display:grid;gap:var(--mi-space-5);min-width:0}
 .finance-price-field{display:flex;align-items:center;min-width:0;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md)}
-.finance-price-field input{min-width:0!important;margin:0!important;border:0!important}
+[data-calculator="installment"] .finance-price-field input:not([type="range"]):not([type="checkbox"]){min-width:0;margin:0;border:0;box-shadow:none}
 .finance-preset-groups,.finance-slider-grid{display:grid;gap:var(--mi-space-4)}
 .finance-preset-groups{grid-template-columns:repeat(2,minmax(0,1fr))}
 .finance-slider-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 .finance-slider-grid label{min-width:0}
-.finance-slider-grid label>strong{float:none!important;display:block;overflow-wrap:anywhere}
+[data-calculator="installment"] .finance-slider-grid label>strong{float:none;display:block;overflow-wrap:anywhere}
 .finance-result{min-width:0;border-left:1px solid var(--mi-color-line);background:var(--mi-color-primary-soft)}
 .finance-result>strong{display:block;font-size:clamp(2.2rem,4vw,3.2rem);white-space:nowrap}
 .finance-result-facts>div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--mi-space-3);padding:var(--mi-space-2) 0}
