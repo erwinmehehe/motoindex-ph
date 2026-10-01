@@ -483,7 +483,7 @@ for (const token of [
 
 for (const token of [
   'slug: "dual-sport-motorcycles-philippines"',
-  'seoTitle: "Dual-Sport & Trail Motorcycles Philippines 2026"',
+  'seoTitle: "Dual-Sport & Enduro Motorcycles Philippines 2026"',
   '"best dual sport motorcycles Philippines"',
   '"trail bike Philippines"',
   '"street legal trail bike Philippines"',

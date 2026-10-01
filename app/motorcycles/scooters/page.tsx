@@ -74,6 +74,18 @@ const childClusters = [
   { href: "/recommendations/suzuki-scooters-philippines", label: "Suzuki scooters", note: "Current Suzuki scooter research and prices" }
 ];
 
+const priceResearchLinks = [
+  { href: "/motorcycles/yamaha/nmax", label: "Yamaha NMAX price Philippines", note: "V1, V2 and current V3 price context in one family hub" },
+  { href: "/motorcycles/yamaha/aerox", label: "Yamaha Aerox price Philippines", note: "V1, V2 and current V3 / SP price context" },
+  { href: "/motorcycles/honda/click", label: "Honda Click price Philippines", note: "Click 125i, 150i and 160 family comparison" },
+  { href: "/motorcycles/honda/adv-160", label: "Honda ADV160 price Philippines", note: "ABS vs RoadSync price and ownership research" },
+  { href: "/motorcycles/honda/pcx-160", label: "Honda PCX160 price Philippines", note: "Standard vs RoadSync price and equipment" },
+  { href: "/motorcycles/yamaha/fazzio", label: "Yamaha Fazzio price Philippines", note: "Current price, fit and monthly-payment planning" },
+  { href: "/motorcycles/yamaha/xmax", label: "Yamaha XMAX price Philippines", note: "Current maxi-scooter price and ownership costs" },
+  { href: "/motorcycles/honda/beat", label: "Honda BeAT price Philippines", note: "Playful vs Premium price and commuter data" },
+  { href: "/motorcycles/honda/navi", label: "Honda Navi price Philippines", note: "Current compact automatic price and ownership context" }
+] as const;
+
 export default function ScootersPage() {
   return <main className="page">
     <div className="shell">
@@ -188,6 +200,21 @@ export default function ScootersPage() {
           <Link href="/recommendations/automatic-motorcycles-philippines" className="ui-content-card"><h3>Automatic motorcycles</h3><p>Compare all current automatic records, including scooters and non-scooter automatics.</p></Link>
           <Link href="/recommendations/fuel-efficient-motorcycles-philippines" className="ui-content-card"><h3>Fuel economy</h3><p>Compare models with published fuel-consumption figures in the dataset.</p></Link>
           <Link href="/recommendations/best-motorcycles-for-short-riders" className="ui-content-card"><h3>Lower seat heights</h3><p>Use published seat height and curb weight as measurable fit starting points.</p></Link>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="popular-scooter-price-research">
+        <SectionHeader
+          kicker="Popular price research"
+          title="Open the exact scooter or family price page"
+          titleId="popular-scooter-price-research"
+          description="High-volume price searches stay on the canonical family or model page instead of being split across thin /price URLs."
+        />
+        <div className="ui-content-grid">
+          {priceResearchLinks.map((item) => <Link href={item.href} className="ui-content-card" key={item.href}>
+            <h3>{item.label}</h3>
+            <p>{item.note}</p>
+          </Link>)}
         </div>
       </section>
 
