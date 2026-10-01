@@ -10,6 +10,7 @@ import { motortradeGapGuides2026 } from "./motortradeGapGuides2026";
 export const motorcycles: Motorcycle[] = [
   {
     id: "yamaha-aerox-v3",
+    alsoKnownAs: ["Yamaha Aerox SP", "Aerox SP", "Yamaha Aerox 155"],
     make: "Yamaha",
     makeSlug: "yamaha",
     model: "Aerox V3",
@@ -557,7 +558,7 @@ export const motorcycles: Motorcycle[] = [
   },
   {
     id: "kawasaki-ninja-400",
-    alsoKnownAs: ["Kawasaki Ninja 400"],
+    alsoKnownAs: ["Kawasaki Ninja 400", "Ninja 400"],
     make: "Kawasaki",
     makeSlug: "kawasaki",
     model: "Ninja 400",
@@ -620,10 +621,10 @@ export const motorcycles: Motorcycle[] = [
     summary: "Current 125cc automatic commuter with a 769 mm seat, 111 kg curb weight, 5.5 L tank, 50.3 km/L published fuel economy and CBS."
   },
   {
-    id: "yamaha-mio-gear", make: "Yamaha", makeSlug: "yamaha", model: "Mio Gear", slug: "mio-gear", generation: "Current", category: "Commuter scooter",
+    id: "yamaha-mio-gear", alsoKnownAs: ["Yamaha Mio Gear 125", "Mio Gear 125"], make: "Yamaha", makeSlug: "yamaha", model: "Mio Gear", slug: "mio-gear", generation: "Current", category: "Commuter scooter",
     marketStatus: "current",
     srp: 79400, engineCc: 125, powerHp: 9.3, torqueNm: 9.6, curbWeightKg: 96, seatHeightMm: 750, fuelTankL: 4.2,
-    frontTire: "80/80-14", rearTire: "100/70-14", abs: "No ABS", colors: ["Black", "Gray"], searchVolume: 0, keywordDifficulty: 0,
+    frontTire: "80/80-14", rearTire: "100/70-14", abs: "No ABS", colors: ["Black", "Gray"], searchVolume: 17000, keywordDifficulty: 0,
     sourceLabel: "Independent PH 2026 Mio Gear price and specification page", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/mio-gear", verifiedAt: "2026-08-25", freshness: "verified",
     marketPriceHighPhp: 82400,
     marketPriceSourceLabel: "Philippine comparison site",
@@ -737,9 +738,9 @@ export const motorcycles: Motorcycle[] = [
     summary: "155cc roadster with a six-speed manual transmission, 19 hp and a 10 L fuel tank."
   },
   {
-    id: "honda-giorno-plus", make: "Honda", makeSlug: "honda", model: "Giorno+", slug: "giorno-plus", generation: "Current", category: "Lifestyle scooter",
+    id: "honda-giorno-plus", alsoKnownAs: ["Honda Giorno", "Giorno Honda", "Honda Giorno Plus", "Giorno+"], make: "Honda", makeSlug: "honda", model: "Giorno+", slug: "giorno-plus", generation: "Current", category: "Lifestyle scooter",
     srp: 101900, engineCc: 125, powerHp: 11.38, torqueNm: 11.6, curbWeightKg: 116, seatHeightMm: 780, fuelTankL: 5.4, fuelConsumptionKmL: 47, groundClearanceMm: 155,
-    frontTire: "100/90-12", rearTire: "100/90-12", abs: "No ABS; combined braking system", colors: ["White", "Beige", "Orange", "Black"], searchVolume: 0, keywordDifficulty: 0,
+    frontTire: "100/90-12", rearTire: "100/90-12", abs: "No ABS; combined braking system", colors: ["White", "Beige", "Orange", "Black"], searchVolume: 33000, keywordDifficulty: 0,
     sourceLabel: "Wheeltek current Philippines Giorno+ specification and indicative-price page", sourceUrl: "https://wheeltek.com.ph/motorcycles/giorno/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current",
     marketPriceSourceLabel: "Wheeltek", marketPriceSourceUrl: "https://wheeltek.com.ph/motorcycles/giorno/", marketPriceCheckedAt: "2026-09-30", transmission: "Automatic",
     summary: "125cc automatic scooter with a 780 mm seat and 12-inch wheels."

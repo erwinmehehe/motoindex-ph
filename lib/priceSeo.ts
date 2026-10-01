@@ -12,6 +12,24 @@ export type PriceSeoTarget = {
 };
 
 const targets: Record<string, PriceSeoTarget> = {
+  "honda-giorno-plus": {
+    title: "Honda Giorno Price Philippines 2026: Giorno+ Price & Specs",
+    description: "Honda Giorno / Giorno+ price in the Philippines with current dealer references, 125cc specs, fuel economy, market checks and ownership planning.",
+    heading: "Honda Giorno+ price in the Philippines (2026)",
+    intro: "Philippine searches for Honda Giorno map to the Giorno+ model. Compare the current ₱101,900 All-New Giorno+ listing with the newer ₱106,000 dealer listing, and confirm the exact model code and branch quote before buying."
+  },
+  "yamaha-mio-gear": {
+    title: "Yamaha Mio Gear Price Philippines 2026: SRP & Monthly",
+    description: "Yamaha Mio Gear price in the Philippines with current ₱79,400 dealer reference, ₱4,000 down/monthly snapshot, market checks and installment planning.",
+    heading: "Yamaha Mio Gear price in the Philippines (2026)",
+    intro: "Check the current Mio Gear dealer price and financing snapshot, then replace the indicative downpayment, monthly figure, term and rate with the exact branch or lender quote."
+  },
+  "kawasaki-ninja-400": {
+    title: "Kawasaki Ninja 400 Price Philippines: Historical & Used",
+    description: "Kawasaki Ninja 400 historical Philippine price, used-bike context, 399cc specs and direct comparison with the current Ninja 500.",
+    heading: "Kawasaki Ninja 400 price in the Philippines",
+    intro: "The Ninja 400 is a previous generation. Keep its historical ₱340,900 Philippine reference separate from current used asking prices, and compare any used quote with the current Ninja 500 MSRP."
+  },
   "yamaha-aerox-v3": {
     title: "Yamaha Aerox V3 Price Philippines 2026: SRP & Variants",
     description: "Yamaha Aerox V3 price in the Philippines with dated SRP references, Standard/SP variant pricing, market checks and installment estimates.",
