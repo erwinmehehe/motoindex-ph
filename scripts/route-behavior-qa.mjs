@@ -8,6 +8,7 @@ const directRoutes = [
   "/motorcycles/electric/vinfast-evo",
   "/motorcycles/electric/vinfast-feliz-ii",
   "/motorcycles/electric/vinfast-viper",
+  "/recommendations/155cc-scooters-philippines",
 ];
 
 const redirects = [
@@ -128,9 +129,9 @@ for (const route of directRoutes) {
   const expectedPath = route.replace(/\/$/, "") || "/";
   directResults.push({ route, status, location, canonical });
 
-  if (status < 200 || status >= 300) failures.push(`${route}: HTTP ${status}; expected direct 2xx model page`);
+  if (status < 200 || status >= 300) failures.push(`${route}: HTTP ${status}; expected direct 2xx page`);
   if (location) failures.push(`${route}: unexpectedly redirects to ${location}`);
-  if (!canonical) failures.push(`${route}: model page is missing a canonical link`);
+  if (!canonical) failures.push(`${route}: page is missing a canonical link`);
   if (canonical && canonicalPath !== expectedPath) failures.push(`${route}: canonical path is ${canonicalPath || "invalid"}; expected ${expectedPath}`);
   if (canonical && canonicalHost !== canonicalOrigin.hostname.replace(/^www\./, "")) failures.push(`${route}: canonical host is ${canonicalHost || "invalid"}; expected ${canonicalOrigin.hostname}`);
 }
@@ -144,5 +145,5 @@ if (failures.length) {
   failures.forEach(failure => console.error(`- ${failure}`));
   process.exitCode = 1;
 } else {
-  console.log(`Route behavior QA passed: ${directRoutes.length} electric model routes render directly and ${redirects.length} legacy redirects resolve correctly.`);
+  console.log(`Route behavior QA passed: ${directRoutes.length} direct routes render correctly and ${redirects.length} legacy redirects resolve correctly.`);
 }
