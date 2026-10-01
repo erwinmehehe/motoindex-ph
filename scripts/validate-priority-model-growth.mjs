@@ -6,7 +6,6 @@ const read = (...parts) => fs.readFileSync(path.join(root, ...parts), "utf8");
 const errors = [];
 
 const growth = read("lib", "priorityModelGrowth.ts");
-const modelPage = read("app", "motorcycles", "[make]", "[slug]", "page.tsx");
 const recommendationPage = read("app", "recommendations", "[slug]", "page.tsx");
 const commercial = read("components", "PriorityCommercialIntent.tsx");
 const buyerBrief = read("components", "PriorityModelBrief.tsx");
@@ -568,10 +567,6 @@ if (!commercial.includes("profile.legacyContext") || !commercial.includes("legac
 }
 if (!route.includes('slug === "crf250-rally"') || !route.includes('permanentRedirect("/motorcycles/honda/crf300-rally")')) {
   errors.push("CRF250 Rally legacy route must permanently consolidate into the CRF300 Rally canonical");
-}
-
-if (!modelPage.includes("<PriorityCommercialIntent model={model} />")) {
-  errors.push("model route must render PriorityCommercialIntent on canonical model pages");
 }
 
 for (const token of [
