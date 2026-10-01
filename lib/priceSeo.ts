@@ -30,6 +30,36 @@ const targets: Record<string, PriceSeoTarget> = {
     heading: "Kawasaki Ninja 400 price in the Philippines",
     intro: "The Ninja 400 is a previous generation. Keep its historical ₱340,900 Philippine reference separate from current used asking prices, and compare any used quote with the current Ninja 500 MSRP."
   },
+  "honda-beat": {
+    title: "Honda BeAT Price Philippines 2026: Playful vs Premium",
+    description: "Honda BeAT price in the Philippines with current ₱72,500 Playful and ₱74,700 Premium references, specs, fuel economy and installment planning.",
+    heading: "Honda BeAT price in the Philippines (2026)",
+    intro: "Compare the current BeAT Playful and Premium price references before using any dealer promotion or monthly payment as the real purchase cost. Keep regular SRP, temporary discounts and financing separate."
+  },
+  "honda-crf150l": {
+    title: "Honda CRF150L Price Philippines: Last Official SRP & Availability",
+    description: "Honda CRF150L price Philippines reference with Honda's last located ₱147,900 SRP, 149cc specs, trail fit and current availability caveats.",
+    heading: "Honda CRF150L price in the Philippines",
+    intro: "MotoIndex's latest located Honda Philippines SRP for CRF150L is ₱147,900 from 2023. Treat that as a historical official reference and confirm 2026 stock and dealer pricing before planning a new-bike purchase."
+  },
+  "yamaha-mio-i-125": {
+    title: "Yamaha Mio i 125 Price Philippines 2026: SRP & Monthly",
+    description: "Yamaha Mio i 125 price in the Philippines with current ₱75,900 reference, 125cc specs, 750mm seat and editable installment planning.",
+    heading: "Yamaha Mio i 125 price in the Philippines (2026)",
+    intro: "Use the current ₱75,900 Mio i 125 dealer reference as a starting point, then compare the exact branch quote, down payment, term, rate method, registration and fees."
+  },
+  "suzuki-raider-r150": {
+    title: "Suzuki Raider R150 Price Philippines 2026: SRP & Monthly",
+    description: "Suzuki Raider R150 price in the Philippines with current ₱130,000 reference, 147cc specs, six-speed manual ownership and installment planning.",
+    heading: "Suzuki Raider R150 price in the Philippines (2026)",
+    intro: "Compare the current Raider R150 published price with the exact dealer quote and financing terms, then include insurance, registration, tires, chain and sprocket ownership in the budget."
+  },
+  "yamaha-xmax": {
+    title: "Yamaha XMAX Price Philippines 2026: SRP, Specs & Monthly",
+    description: "Yamaha XMAX price in the Philippines with current ₱311,000 dealer reference, 292cc specs, ABS, 13L tank and installment planning.",
+    heading: "Yamaha XMAX price in the Philippines (2026)",
+    intro: "Use the current ₱311,000 Philippine dealer reference for XMAX as a dated market check, then confirm the exact branch cash price, registration, insurance and financing before purchase."
+  },
   "yamaha-aerox-v3": {
     title: "Yamaha Aerox V3 Price Philippines 2026: SRP & Variants",
     description: "Yamaha Aerox V3 price in the Philippines with dated SRP references, Standard/SP variant pricing, market checks and installment estimates.",
