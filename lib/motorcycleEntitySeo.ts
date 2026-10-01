@@ -51,6 +51,67 @@ export function motorcycleEntityEditorial(model: Motorcycle) {
 }
 
 function modelSpecificFaqs(model: Motorcycle): FaqItem[] {
+  if (model.id === "honda-beat") {
+    return [
+      {
+        question: "How much is the Honda BeAT in the Philippines?",
+        answer: "Honda Philippines currently lists the BeAT Playful at ₱72,500 and BeAT Premium at ₱74,700 before temporary promotions or dealer-specific charges. Confirm the exact variant and branch quote before financing."
+      },
+      {
+        question: "What is the difference between Honda BeAT Playful and Premium?",
+        answer: "MotoIndex keeps both current BeAT configurations on one canonical page. The published starting prices differ, so compare the exact trim, colors and dealer equipment rather than treating every BeAT listing as the same unit."
+      }
+    ];
+  }
+  if (model.id === "honda-crf150l") {
+    return [
+      {
+        question: "How much is the Honda CRF150L in the Philippines?",
+        answer: "The latest official Honda Philippines CRF150L SRP MotoIndex located is ₱147,900 from June 2023. Current 2026 availability and dealer pricing are not confirmed, so treat that figure as a historical official reference rather than a current guaranteed quote."
+      },
+      {
+        question: "Is the Honda CRF150L still available new in 2026?",
+        answer: "MotoIndex has not confirmed current 2026 Philippine catalog availability for the CRF150L. Check an authorized Honda dealer for current stock, model year and pricing before planning a new-bike purchase."
+      }
+    ];
+  }
+  if (model.id === "yamaha-mio-i-125") {
+    return [
+      {
+        question: "How much is the Yamaha Mio i 125 in the Philippines?",
+        answer: "MotoIndex currently stores a ₱75,900 Philippine dealer reference for the Mio i 125. Final cash price, registration, promotions and financing can differ by branch, so confirm the exact unit and quote."
+      },
+      {
+        question: "Is Mio Sporty the same as Mio i 125?",
+        answer: "No. Mio Sporty is an older 114cc carbureted Mio generation. MotoIndex keeps legacy Mio Sporty search context on the current Mio i 125 research page without presenting an old Sporty price as a current new-bike quote."
+      }
+    ];
+  }
+  if (model.id === "suzuki-raider-r150") {
+    return [
+      {
+        question: "How much is the Suzuki Raider R150 in the Philippines?",
+        answer: "Suzuki Motorcycles Philippines currently provides a ₱130,000 price reference for the Raider R150 in MotoIndex's source set. Confirm the exact dealer quote, registration and financing before purchase."
+      },
+      {
+        question: "Does the Suzuki Raider R150 have ABS?",
+        answer: "The current MotoIndex Raider R150 record does not list ABS. If ABS is a requirement, confirm the exact dealer unit and compare it with other sport-underbone alternatives before buying."
+      }
+    ];
+  }
+  if (model.id === "yamaha-xmax") {
+    return [
+      {
+        question: "How much is the Yamaha XMAX in the Philippines?",
+        answer: "Current Philippine dealer references in MotoIndex list the Yamaha XMAX at ₱311,000. Treat that as a dated market reference and confirm the exact branch cash price, registration, insurance and financing."
+      },
+      {
+        question: "Does the Yamaha XMAX have ABS?",
+        answer: "Yes. The current MotoIndex XMAX record lists dual-channel ABS. Verify the exact model year and dealer unit before purchase if equipment changes."
+      }
+    ];
+  }
+
   if (model.id === "honda-giorno-plus") {
     return [
       {
