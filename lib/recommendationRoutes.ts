@@ -10,6 +10,7 @@ const recommendationSectionBySlug: Record<string, string> = {
   "maxi-scooters-philippines": "scooters",
   "125cc-scooters-philippines": "scooters",
   "150cc-scooters-philippines": "scooters",
+  "155cc-scooters-philippines": "scooters",
   "160cc-scooters-philippines": "scooters",
   "automatic-motorcycles-philippines": "scooters",
 
