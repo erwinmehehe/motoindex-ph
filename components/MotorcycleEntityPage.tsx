@@ -265,8 +265,8 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       </section>
 
       {authority && <section id="buyer-guide" className="motorcycle-entity-section authority-decision-section" aria-labelledby="buyer-guide-heading">
-        <div className="authority-verdict"><div><span className="section-kicker">Who this bike is for</span><h2 id="buyer-guide-heading">Should you buy the {model.make} {model.model}?</h2><p>{authority.verdict}</p></div><aside><span>Important context</span><p>{authority.researchAngle}</p></aside></div>
-        <div className="authority-grid"><article className="authority-buy"><span>Buy it if</span><ul>{authority.buyIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-skip"><span>Skip it if</span><ul>{authority.skipIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-ph"><span>Philippine ownership</span><ul>{authority.phContext.map((item) => <li key={item}>{item}</li>)}</ul></article></div>
+        <div className="authority-verdict motorcycle-decision-panel"><div><span className="section-kicker">Who this bike is for</span><h2 id="buyer-guide-heading">Should you buy the {model.make} {model.model}?</h2><p>{authority.verdict}</p></div><aside><span>Important context</span><p>{authority.researchAngle}</p></aside></div>
+        <div className="authority-grid motorcycle-decision-grid"><article className="authority-buy"><span>Buy it if</span><ul>{authority.buyIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-skip"><span>Skip it if</span><ul>{authority.skipIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-ph"><span>Philippine ownership</span><ul>{authority.phContext.map((item) => <li key={item}>{item}</li>)}</ul></article></div>
       </section>}
 
       {!isPrevious && <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
@@ -295,7 +295,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       {!isPrevious && <section id="alternatives" className="motorcycle-entity-section" aria-labelledby="alternatives-heading">
         <SectionHeader kicker="Alternatives" titleId="alternatives-heading" title="What else should you consider?" description="Compare the motorcycles most likely to change the decision before you focus on deep technical research." />
-        {authorityComparisons.length > 0 && <div className="authority-comparisons"><div><span>Buyer-guide alternatives</span><strong>Start with these direct cross-shopping choices</strong></div><div>{authorityComparisons.slice(0,3).map((item) => <Link key={item.id} href={`/motorcycles/${item.makeSlug}/${item.slug}`}>{item.make} {item.model}<small>{item.engineCc} cc · {observedMarketPriceLabel(item)}</small></Link>)}</div></div>}
+        {authorityComparisons.length > 0 && <div className="authority-comparisons motorcycle-alternative-cards"><div><span>Buyer-guide alternatives</span><strong>Start with these direct cross-shopping choices</strong></div><div>{authorityComparisons.slice(0,3).map((item) => <Link key={item.id} href={`/motorcycles/${item.makeSlug}/${item.slug}`}><span>{item.make} {item.model}</span><small>{item.engineCc} cc · {observedMarketPriceLabel(item)}</small></Link>)}</div></div>}
         {(modelFamily || scooterClassGuide) && <div className="entity-section-note">
           {modelFamily && <Link href={`/motorcycles/${modelFamily.makeSlug}/${modelFamily.slug}`}>Compare all {modelFamily.make} {modelFamily.name} generations →</Link>}
           {scooterClassGuide && <Link href={scooterClassGuide.href}>Compare this model in the {scooterClassGuide.label} →</Link>}

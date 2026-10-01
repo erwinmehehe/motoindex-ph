@@ -1,7 +1,7 @@
 import { allCatalogProducts } from "./catalog";
 import generatedAffiliateData from "../data/affiliate-links.generated.json";
 
-export type AffiliateMerchant = "shopee";
+export type AffiliateMerchant = "shopee" | "lazada";
 export type AffiliateNetwork = "shopee_direct" | "involve_asia";
 
 export type AffiliateLinkConfig = {
@@ -52,11 +52,11 @@ function validateEntry(productId: string, rawValue: unknown, issues: AffiliateCo
   } else if (rawValue && typeof rawValue === "object" && !Array.isArray(rawValue)) {
     const entry = rawValue as Record<string, unknown>;
     rawUrl = entry.url;
-    if (entry.merchant !== undefined && entry.merchant !== "shopee") {
-      issues.push({ productId, message: "Unsupported merchant. Current catalog affiliate offers support Shopee destinations." });
+    if (entry.merchant !== undefined && entry.merchant !== "shopee" && entry.merchant !== "lazada") {
+      issues.push({ productId, message: "Unsupported merchant. Catalog affiliate offers support Shopee and Lazada destinations." });
       return undefined;
     }
-    merchant = "shopee";
+    merchant = entry.merchant === "lazada" ? "lazada" : "shopee";
     if (entry.network === "shopee_direct" || entry.network === "involve_asia") network = entry.network;
     else if (entry.network !== undefined) {
       issues.push({ productId, message: "Affiliate network must be shopee_direct or involve_asia." });
@@ -94,7 +94,21 @@ function validateEntry(productId: string, rawValue: unknown, issues: AffiliateCo
   }
 }
 
-function parseMap(raw: string | undefined, sourceLabel: string): { links: Record<string, AffiliateLinkConfig>; issues: AffiliateConfigIssue[] } {
+function validateEntries(productId: string, rawValue: unknown, issues: AffiliateConfigIssue[]) {
+  const values = Array.isArray(rawValue) ? rawValue : [rawValue];
+  const links = values.map((value) => validateEntry(productId, value, issues)).filter((value): value is AffiliateLinkConfig => Boolean(value));
+  const seen = new Set<AffiliateMerchant>();
+  return links.filter((link) => {
+    if (seen.has(link.merchant)) {
+      issues.push({ productId, message: `Only one active ${link.merchant} affiliate link is allowed per product.` });
+      return false;
+    }
+    seen.add(link.merchant);
+    return true;
+  });
+}
+
+function parseMap(raw: string | undefined, sourceLabel: string): { links: Record<string, AffiliateLinkConfig[]>; issues: AffiliateConfigIssue[] } {
   const value = raw?.trim();
   if (!value) return { links: {}, issues: [] };
   let parsed: unknown;
@@ -106,30 +120,30 @@ function parseMap(raw: string | undefined, sourceLabel: string): { links: Record
   if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
     return { links: {}, issues: [{ message: `${sourceLabel} must be a JSON object keyed by MotoIndex product ID.` }] };
   }
-  const links: Record<string, AffiliateLinkConfig> = {};
+  const links: Record<string, AffiliateLinkConfig[]> = {};
   const issues: AffiliateConfigIssue[] = [];
   for (const [productId, entry] of Object.entries(parsed as Record<string, unknown>)) {
-    const validated = validateEntry(productId, entry, issues);
-    if (validated) links[productId] = validated;
+    const validated = validateEntries(productId, entry, issues);
+    if (validated.length) links[productId] = validated;
   }
   return { links, issues };
 }
 
-function generatedMap(): { links: Record<string, AffiliateLinkConfig>; issues: AffiliateConfigIssue[] } {
+function generatedMap(): { links: Record<string, AffiliateLinkConfig[]>; issues: AffiliateConfigIssue[] } {
   const rawLinks = generatedAffiliateData && typeof generatedAffiliateData === "object" && "links" in generatedAffiliateData
     ? (generatedAffiliateData as { links?: unknown }).links
     : undefined;
   if (!rawLinks || typeof rawLinks !== "object" || Array.isArray(rawLinks)) return { links: {}, issues: [] };
-  const links: Record<string, AffiliateLinkConfig> = {};
+  const links: Record<string, AffiliateLinkConfig[]> = {};
   const issues: AffiliateConfigIssue[] = [];
   for (const [productId, entry] of Object.entries(rawLinks as Record<string, unknown>)) {
-    const validated = validateEntry(productId, entry, issues);
-    if (validated) links[productId] = validated;
+    const validated = validateEntries(productId, entry, issues);
+    if (validated.length) links[productId] = validated;
   }
   return { links, issues };
 }
 
-function readAffiliateMap(): { links: Record<string, AffiliateLinkConfig>; issues: AffiliateConfigIssue[] } {
+function readAffiliateMap(): { links: Record<string, AffiliateLinkConfig[]>; issues: AffiliateConfigIssue[] } {
   const generated = generatedMap();
   const legacy = parseMap(process.env.SHOPEE_AFFILIATE_LINKS_JSON, "SHOPEE_AFFILIATE_LINKS_JSON");
   const unified = parseMap(process.env.AFFILIATE_LINKS_JSON, "AFFILIATE_LINKS_JSON");
@@ -141,32 +155,38 @@ function readAffiliateMap(): { links: Record<string, AffiliateLinkConfig>; issue
 }
 
 export function getAffiliateLink(productId: string) {
-  return readAffiliateMap().links[productId];
+  return getAffiliateLinks(productId).find((link) => link.merchant === "shopee") || getAffiliateLinks(productId)[0];
+}
+
+export function getAffiliateLinks(productId: string) {
+  return readAffiliateMap().links[productId] || [];
 }
 
 export function hasAffiliateLink(productId: string) {
-  return Boolean(getAffiliateLink(productId));
+  return getAffiliateLinks(productId).length > 0;
 }
 
 // Backwards-compatible aliases for v2.2.1 deployments while they migrate to AFFILIATE_LINKS_JSON.
 export function getShopeeAffiliateUrl(productId: string) {
-  return getAffiliateLink(productId)?.url;
+  return getAffiliateLinks(productId).find((link) => link.merchant === "shopee")?.url;
 }
 export function hasShopeeAffiliateUrl(productId: string) {
-  return hasAffiliateLink(productId);
+  return Boolean(getShopeeAffiliateUrl(productId));
 }
 
 export function getAffiliateConfigSummary() {
   const { links, issues } = readAffiliateMap();
   const all = allCatalogProducts();
-  const configuredLinks = Object.values(links);
+  const configuredLinks = Object.values(links).flat();
   return {
     configured: configuredLinks.length,
     catalogProducts: all.length,
     configuredProductIds: Object.keys(links).sort(),
     byNetwork: {
       shopeeDirect: configuredLinks.filter((link) => link.network === "shopee_direct").length,
-      involveAsia: configuredLinks.filter((link) => link.network === "involve_asia").length
+      involveAsia: configuredLinks.filter((link) => link.network === "involve_asia").length,
+      shopee: configuredLinks.filter((link) => link.merchant === "shopee").length,
+      lazada: configuredLinks.filter((link) => link.merchant === "lazada").length
     },
     issues
   };

@@ -184,7 +184,7 @@ function buildCandidates(products, destinationOverrides, generated, useSearchFal
         destinationUrl: new URL(destination).toString(),
         destinationType,
         offerId: override?.offerId,
-        existing: generated.links[product.id]
+        existing: (Array.isArray(generated.links[product.id]) ? generated.links[product.id] : [generated.links[product.id]]).find((link) => link?.merchant === "shopee")
       };
     })
     .filter(Boolean)
@@ -393,7 +393,8 @@ async function main() {
         offerId = sharedOffer.id;
       }
       const trackingLink = await generateLink(token, candidate, offerId);
-      generated.links[candidate.id] = {
+      const existingLinks = Array.isArray(generated.links[candidate.id]) ? generated.links[candidate.id] : [generated.links[candidate.id]].filter(Boolean);
+      generated.links[candidate.id] = [...existingLinks.filter((link) => link?.merchant !== "shopee"), {
         merchant: "shopee",
         network: "involve_asia",
         url: trackingLink,
@@ -401,7 +402,7 @@ async function main() {
         destinationType: candidate.destinationType,
         offerId: Number.isFinite(Number(offerId)) ? Number(offerId) : String(offerId),
         generatedAt: new Date().toISOString()
-      };
+      }];
       generatedCount += 1;
       console.log(`generated ${candidate.id}`);
       if (index < pending.length - 1) await sleep(1100);

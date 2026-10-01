@@ -12,5 +12,5 @@ export function ShopeeAffiliateLink({
   productName: string;
   compact?: boolean;
 }) {
-  return <AffiliateLink productId={productId} productName={productName} network="shopee_direct" compact={compact} />;
+  return <AffiliateLink productId={productId} productName={productName} merchant="shopee" network="shopee_direct" compact={compact} />;
 }
