@@ -2,6 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { spawn, spawnSync } from "node:child_process";
+import { waitForChromeDebug } from "./chrome-debug.mjs";
 
 const base = new URL(process.env.BASE_URL || "http://127.0.0.1:3000");
 const widths = (process.env.QA_WIDTHS || "360,390,430,768,1024,1440").split(",").map(Number).filter(Number.isFinite);
@@ -12,10 +13,12 @@ const pages = [
   ["compare", "/compare"],
   ["electric", "/motorcycles/electric"],
   ["click-160", "/motorcycles/honda/click-160"],
+  ["nmax-v3", "/motorcycles/yamaha/nmax-v3"],
+  ["aerox-v3", "/motorcycles/yamaha/aerox-v3"],
   ["helmets", "/gear/helmets"],
   ["dealers", "/dealers"],
 ];
-const fullPageNames = new Set(["home", "motorcycles", "finder", "click-160"]);
+const fullPageNames = new Set(["home", "motorcycles", "finder", "click-160", "nmax-v3"]);
 const fullPageWidths = new Set([430, 1440]);
 const outputDir = path.join(process.cwd(), "artifacts", "visual-qa");
 fs.mkdirSync(outputDir, { recursive: true });
@@ -27,18 +30,6 @@ function findChrome() {
     if (result.status === 0 && result.stdout.trim()) return result.stdout.trim();
   }
   throw new Error("Chrome/Chromium was not found. GitHub ubuntu-latest should provide google-chrome.");
-}
-
-async function waitForDebugPort(port) {
-  const deadline = Date.now() + 20_000;
-  while (Date.now() < deadline) {
-    try {
-      const response = await fetch(`http://127.0.0.1:${port}/json/version`);
-      if (response.ok) return;
-    } catch {}
-    await new Promise((resolve) => setTimeout(resolve, 250));
-  }
-  throw new Error("Chrome remote debugging endpoint did not become ready.");
 }
 
 async function createTab(port) {
@@ -154,6 +145,7 @@ const auditExpression = `(() => {
 const chrome = findChrome();
 const port = 9222;
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), "motoindex-chrome-"));
+let chromeStderr = "";
 const proc = spawn(chrome, [
   "--headless=new",
   "--no-sandbox",
@@ -162,7 +154,8 @@ const proc = spawn(chrome, [
   `--remote-debugging-port=${port}`,
   `--user-data-dir=${profile}`,
   "about:blank",
-], { stdio: "ignore" });
+], { stdio: ["ignore", "ignore", "pipe"] });
+proc.stderr.on("data", (chunk) => { chromeStderr = `${chromeStderr}${chunk}`.slice(-8000); });
 
 const failures = [];
 const functionalFailures = [];
@@ -170,7 +163,7 @@ const results = [];
 const functionalResults = [];
 
 try {
-  await waitForDebugPort(port);
+  await waitForChromeDebug({ port, isExited: () => proc.exitCode !== null, stderr: () => chromeStderr });
   const tab = await createTab(port);
   const cdp = connectCdp(tab.webSocketDebuggerUrl);
   await cdp.ready;
