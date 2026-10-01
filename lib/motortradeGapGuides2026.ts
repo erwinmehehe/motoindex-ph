@@ -12,6 +12,8 @@ export const motortradeGapGuides2026: RecommendationGuide[] = [
       "manual motorcycles Philippines",
       "manual motorbike Philippines",
       "manual motorcycle price Philippines",
+      "manual motorcycle Philippines price list",
+      "manual motor price Philippines",
       "clutch motorcycle Philippines",
       "manual vs automatic motorcycle Philippines"
     ],
