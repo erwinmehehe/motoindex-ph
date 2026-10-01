@@ -441,72 +441,12 @@ html body .motorcycle-entity-page #rider-fit .rider-fit-tool{
 }
 
 /* Keep the ownership handoff compact and visually connected to rider-fit. */
-html body .motorcycle-entity-page .motorcycle-ownership-section>.ui-section-header{
-  margin-bottom:18px;
-}
-html body .motorcycle-entity-page .motorcycle-ownership-section .model-ownership-snapshot{
-  grid-template-columns:minmax(0,1.05fr) minmax(420px,.95fr);
-  gap:20px;
-  padding:22px 24px;
-  border-radius:18px;
-  background:var(--mi-color-surface-subtle);
-}
-html body .motorcycle-entity-page .model-ownership-snapshot .commute-snapshot-copy{
-  display:flex;
-  min-width:0;
-  flex-direction:column;
-  justify-content:center;
-}
-html body .motorcycle-entity-page .model-ownership-snapshot h2{
-  margin:0 0 8px;
-  font-size:clamp(24px,2.35vw,32px);
-  line-height:1.08;
-  letter-spacing:-.025em;
-}
-html body .motorcycle-entity-page .model-ownership-snapshot p{
-  max-width:600px;
-  margin:0 0 16px;
-  font-size:12px;
-  line-height:1.55;
-}
-html body .motorcycle-entity-page .model-ownership-snapshot .button{
-  align-self:flex-start;
-}
-html body .motorcycle-entity-page .model-ownership-snapshot .commute-snapshot-kpis{
-  gap:8px;
-}
-html body .motorcycle-entity-page .model-ownership-snapshot .commute-snapshot-kpis span{
-  min-width:0;
-  padding:12px 14px;
-  border-radius:12px;
-}
-html body .motorcycle-entity-page .model-ownership-snapshot .commute-snapshot-kpis b{
-  font-size:15px;
-  line-height:1.2;
-}
-html body .motorcycle-entity-page .ownership-assumptions{
-  margin-top:8px;
-}
-html body .motorcycle-entity-page .ownership-assumptions>summary{
-  min-height:42px;
-  padding:0 2px;
-  color:var(--mi-color-slate-700);
-  font-size:12px;
-  font-weight:760;
-}
-
-@media(max-width:900px){
-  html body .motorcycle-entity-page .motorcycle-ownership-section .model-ownership-snapshot{
-    grid-template-columns:1fr;
-    padding:20px;
-  }
-}
-@media(max-width:620px){
-  html body .motorcycle-entity-page .motorcycle-ownership-section>.ui-section-header{margin-bottom:14px}
-  html body .motorcycle-entity-page .model-ownership-snapshot{padding:17px;border-radius:16px}
-  html body .motorcycle-entity-page .model-ownership-snapshot h2{font-size:24px}
-  html body .motorcycle-entity-page .model-ownership-snapshot p{font-size:11px}
-}
+html body .motorcycle-entity-page .motorcycle-ownership-section>.ui-section-header{margin-bottom:18px}
+html body .motorcycle-entity-page .model-ownership-snapshot{padding:22px 24px;border-radius:18px}
+html body .motorcycle-entity-page .model-ownership-snapshot h2{margin:0 0 8px;font-size:28px;line-height:1.08;letter-spacing:-.025em}
+html body .motorcycle-entity-page .model-ownership-snapshot p{margin:0 0 16px}
+html body .motorcycle-entity-page .model-ownership-snapshot .commute-snapshot-kpis span{padding:12px 14px}
+html body .motorcycle-entity-page .ownership-assumptions{margin-top:8px}
 
 /* Variants and price history were previously styled only by the retired global sheet. */
 html body .motorcycle-entity-page #price .variant-module,
