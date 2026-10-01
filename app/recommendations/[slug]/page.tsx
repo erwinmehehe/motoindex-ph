@@ -561,7 +561,7 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
         <Link href="/motorcycles/scooters"><span>Parent market</span><strong>All scooter prices</strong><small>Full Philippines scooter price list</small></Link>
         {scooterCcCluster.map(item=><Link href={`/recommendations/${item.slug}`} key={item.slug}><span>{item.slug===slug?"Current class":"Engine class"}</span><strong>{item.label}</strong><small>{item.detail}</small></Link>)}
       </div>
-      <div className="section-head compact"><div><span className="section-kicker">Price + monthly-payment research</span><h2>Open the exact scooter before you finance it</h2><p>These links go to the canonical model pages, where current price evidence, variants and installment planning stay attached to the exact motorcycle.</p></div></div>
+      <div className="section-head compact"><div><span className="section-kicker">Price + monthly-payment research</span><h2>Check the exact scooter before you finance it</h2><p>Open each model for its current price evidence, variant details and installment-planning tools before comparing dealer quotes.</p></div></div>
       <div className="guide-pick-grid">
         {scooterCcCommercialModels.map(model=><Link href={`${modelHref(model)}#installment`} key={`finance-${model.id}`}><span>{model.engineCc}cc · payment research</span><strong>{model.make} {model.model}</strong><small>{dealerSnapshotLabel(model)}</small></Link>)}
       </div>
