@@ -51,6 +51,55 @@ export function motorcycleEntityEditorial(model: Motorcycle) {
 }
 
 function modelSpecificFaqs(model: Motorcycle): FaqItem[] {
+  if (model.id === "honda-giorno-plus") {
+    return [
+      {
+        question: "How much is the Honda Giorno in the Philippines?",
+        answer: "MotoIndex maps Honda Giorno searches to the current Giorno+ canonical. Current Philippine dealer references include ₱101,900 for the All-New Giorno+ and ₱106,000 on a newer Motortrade Giorno+ listing. Confirm the exact model code, color and branch quote because dealer listings can differ."
+      },
+      {
+        question: "Is Honda Giorno the same as Honda Giorno+?",
+        answer: "For current Philippine shopping intent, MotoIndex consolidates broad Honda Giorno searches on the Giorno+ page instead of creating a duplicate Giorno URL. Dealer naming may shorten Giorno+ to Giorno, so verify the exact model code on the unit."
+      }
+    ];
+  }
+  if (model.id === "yamaha-mio-gear") {
+    return [
+      {
+        question: "How much is the Yamaha Mio Gear downpayment and monthly?",
+        answer: "Motortrade currently shows the Mio Gear at ₱79,400 with an indicative ₱4,000 downpayment and ₱4,000 monthly figure. The dealer states that prices are indicative and branch-dependent, so ask for the full financed amount, term, rate method and fees before comparing loans."
+      },
+      {
+        question: "Does the Yamaha Mio Gear have ABS?",
+        answer: "The current MotoIndex Mio Gear record does not list ABS. Compare the exact dealer unit and braking specification before buying if ABS is a requirement."
+      }
+    ];
+  }
+  if (model.id === "kawasaki-ninja-400") {
+    return [
+      {
+        question: "How much is a Kawasaki Ninja 400 in the Philippines?",
+        answer: "MotoIndex keeps ₱340,900 as a historical Philippine Ninja 400 price reference for this previous generation. Current used prices depend on year, mileage, condition, registration and modifications, so it should not be treated as a current new-bike MSRP."
+      },
+      {
+        question: "Is the Ninja 400 still the current Kawasaki model in the Philippines?",
+        answer: "Kawasaki Philippines currently lists the 451cc Ninja 500 as the current successor, with an MSRP of ₱353,800 for the standard model. Use the Ninja 400 page for historical and used-bike research and the Ninja 500 page for current new-bike research."
+      }
+    ];
+  }
+  if (model.id === "yamaha-aerox-v3") {
+    return [
+      {
+        question: "How much is the Yamaha Aerox SP in the Philippines?",
+        answer: "The current Motortrade Aerox SP listing shows ₱163,900 SRP. Dealer pricing is indicative and can change, so confirm the exact SP model code, cash price and branch quote before reserving."
+      },
+      {
+        question: "What is the difference between Aerox Standard and Aerox SP?",
+        answer: "MotoIndex keeps both on the Aerox V3 canonical. The SP is the higher-spec current variant and is associated with Yamaha's YECVT package plus ABS and traction-control equipment on current references, while the Standard is the lower-price current configuration."
+      }
+    ];
+  }
+
   if (model.id === "honda-click-125i") {
     return [
       {
