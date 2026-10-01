@@ -29,13 +29,13 @@ export const modelFamilies: ModelFamily[] = [
     name: "Aerox",
     slug: "aerox",
     searchVolume: 14000,
-    intro: "Compare the current Yamaha Aerox with the previous V2 generation, including price context, core specifications and stock tire sizes.",
-    seoTitle: "Yamaha Aerox Price Philippines 2026 | V2 vs V3 Price & Specs",
-    seoDescription: "Compare Yamaha Aerox V2 vs V3 prices, specs, seat height, weight and tire sizes in the Philippines, with historical price context for each generation.",
-    secondaryKeywords: ["Yamaha Aerox price Philippines", "Aerox V2 vs V3", "Aerox V3 price", "Aerox V2 price", "Aerox generations Philippines"],
-    comparisonHeading: "Yamaha Aerox V2 vs V3: what changed?",
+    intro: "Compare Yamaha Aerox V1, V2 and the current V3 generation, keeping historical launch prices separate from current new-bike pricing while showing the core specification changes.",
+    seoTitle: "Yamaha Aerox Price Philippines 2026 | V1, V2 & V3",
+    seoDescription: "Compare Yamaha Aerox V1, V2 and V3 prices, specs, seat height, weight and tire sizes in the Philippines with separate historical and current price context.",
+    secondaryKeywords: ["Yamaha Aerox price Philippines", "Aerox V1", "Aerox V1 price", "Aerox V1 vs V2 vs V3", "Aerox V3 price", "Aerox V2 price", "Aerox generations Philippines"],
+    comparisonHeading: "Yamaha Aerox V1 vs V2 vs V3: what changed?",
     currentModelId: "yamaha-aerox-v3",
-    generationIds: ["yamaha-aerox-v3", "yamaha-aerox-v2"]
+    generationIds: ["yamaha-aerox-v3", "yamaha-aerox-v2", "yamaha-aerox-v1"]
   },
   {
     make: "Yamaha",
@@ -43,13 +43,13 @@ export const modelFamilies: ModelFamily[] = [
     name: "NMAX",
     slug: "nmax",
     searchVolume: 23000,
-    intro: "Compare current and previous Yamaha NMAX generations without mixing historical launch prices with the current model.",
-    seoTitle: "Yamaha NMAX Price Philippines 2026 | V2 vs V3 Price & Specs",
-    seoDescription: "Compare Yamaha NMAX V2 vs V3 prices, specs, seat height, weight and generation differences in the Philippines, with current and historical price context.",
-    secondaryKeywords: ["Yamaha NMAX price Philippines", "NMAX V2 vs V3", "NMAX V3 price", "NMAX V2 price", "NMAX generations Philippines"],
-    comparisonHeading: "Yamaha NMAX V2 vs V3: what changed?",
+    intro: "Compare Yamaha NMAX V1, V2 and the current V3 generation without mixing the older generations' historical prices with the current model.",
+    seoTitle: "Yamaha NMAX Price Philippines 2026 | V1, V2 & V3",
+    seoDescription: "Compare Yamaha NMAX V1, V2 and V3 prices, specs, seat height, weight and generation differences in the Philippines with historical price context kept separate.",
+    secondaryKeywords: ["Yamaha NMAX price Philippines", "NMAX V1", "NMAX V1 price", "NMAX V1 vs V2 vs V3", "NMAX V3 price", "NMAX V2 price", "NMAX generations Philippines"],
+    comparisonHeading: "Yamaha NMAX V1 vs V2 vs V3: what changed?",
     currentModelId: "yamaha-nmax-v3",
-    generationIds: ["yamaha-nmax-v3", "yamaha-nmax-v2"]
+    generationIds: ["yamaha-nmax-v3", "yamaha-nmax-v2", "yamaha-nmax-v1"]
   },
   {
     make: "Honda",
