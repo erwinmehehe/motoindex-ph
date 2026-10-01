@@ -415,7 +415,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   },
 
   "honda-click-125i": {
-    seoTitle: "Honda Click 125i Price Philippines 2026 | Downpayment & Specs",
+    seoTitle: "Honda Click 125i Price Philippines 2026 | Downpayment",
     seoDescription: "Honda Click 125i price Philippines 2026 with current price range, Motortrade downpayment/monthly snapshot, 125cc specs, CBS, fuel economy and ownership.",
     intentIntro: "The 2026 Click125 is a high-volume commuter where variant price matters more than headline performance. Honda's current references run from ₱83,000 to ₱87,700, so compare the exact unit, CBS package, financing and daily running costs before reserving.",
     moneyQuestion: "What does the exact Click125 variant cost after the branch quote, down payment, monthly payment, insurance, registration and dealer charges are included?",
