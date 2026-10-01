@@ -12,7 +12,7 @@
 /* Affiliate marketplace actions */
 .affiliate-kicker{display:block;color:var(--mi-color-primary);font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
 .affiliate-marketplace-actions,.affiliate-hero-actions,.affiliate-card-action{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%}
-.affiliate-button{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 15px;border-radius:12px;color:#fff!important;font-size:12px;font-weight:800;text-align:center;transition:background var(--mi-motion-fast),transform var(--mi-motion-fast)}
+.affiliate-button{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 15px;border-radius:12px;color:var(--mi-color-surface);font-size:12px;font-weight:800;text-align:center;transition:background var(--mi-motion-fast),transform var(--mi-motion-fast)}
 .affiliate-button:hover{transform:translateY(-1px)}
 .affiliate-button.shopee{background:var(--mi-color-shopee)}.affiliate-button.shopee:hover{background:var(--mi-color-shopee-hover)}
 .affiliate-button.lazada{background:var(--mi-color-lazada)}.affiliate-button.lazada:hover{background:var(--mi-color-lazada-hover)}
