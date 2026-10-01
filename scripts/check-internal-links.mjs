@@ -46,7 +46,7 @@ if(fs.existsSync(electricDataFile)&&fs.existsSync(electricHubFile)&&fs.existsSyn
   const hub=fs.readFileSync(electricHubFile,"utf8");
   const detail=fs.readFileSync(electricDetailFile,"utf8");
   const slugs=[...data.matchAll(/\bslug:\s*"([^"]+)"/g)].map(match=>match[1]);
-  if(!hub.includes('href={`/motorcycles/electric/${model.slug}`}')) errors.push("electric motorcycle hub must link model cards to /motorcycles/electric/<slug>");
+  if(!hub.includes("href={electricModelHref(model.slug)}")) errors.push("electric motorcycle hub must link model cards through electricModelHref(<slug>)");
   if(!detail.includes("generateStaticParams")||!detail.includes("electricMotorcycles.map")) errors.push("electric motorcycle detail route must generate all electric model params");
   if(!detail.includes("dynamicParams = false")) errors.push("electric motorcycle detail route must reject unknown slugs and statically emit the known model set");
   if(slugs.length<3) errors.push("electric motorcycle data must retain the three published model slugs");
