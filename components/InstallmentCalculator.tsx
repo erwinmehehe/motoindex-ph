@@ -39,11 +39,11 @@ export function InstallmentCalculator({ price, priceOptions = [] }: { price: num
     <section className="calculator finance-planner" data-calculator="installment">
       <div className="finance-planner-head">
         <div>
-          <span className="finance-kicker">Interactive estimate</span>
-          <h2>Build a monthly payment that fits your budget</h2>
-          <p>Start from the published price, then replace it with the exact dealer quote. Adjust the cash downpayment, term and annual rate before comparing offers.</p>
+          <span className="finance-kicker">Installment estimator</span>
+          <h2>Estimate the monthly payment</h2>
+          <p>Use the published price as a starting point, then replace it with the dealer&apos;s actual cash price and loan terms.</p>
         </div>
-        <span className="finance-estimate-badge">Planning estimate</span>
+        <span className="finance-estimate-badge">Planning only</span>
       </div>
 
       <div className="finance-planner-layout">
@@ -75,7 +75,7 @@ export function InstallmentCalculator({ price, priceOptions = [] }: { price: num
               </div>
             </div>
             <div>
-              <span>Term</span>
+              <span>Loan term</span>
               <div className="calc-presets">
                 {[24,36,48].map(value=><button type="button" className={months===value?"active":""} aria-pressed={months===value} key={value} onClick={()=>setMonths(value)}>{value} mo</button>)}
               </div>
@@ -104,13 +104,13 @@ export function InstallmentCalculator({ price, priceOptions = [] }: { price: num
         <aside className="calc-result finance-result" aria-live="polite">
           <span>Estimated monthly</span>
           <strong>{peso(result.payment)}</strong>
-          <small>for {months} months at {rate}% annual interest</small>
+          <small>{months} months · {rate}% annual interest</small>
           <div className="finance-result-facts">
             <div><span>Cash down</span><strong>{peso(result.downPayment)}</strong></div>
             <div><span>Amount financed</span><strong>{peso(result.principal)}</strong></div>
             <div><span>Estimated interest</span><strong>{peso(result.interestEstimate)}</strong></div>
           </div>
-          <p>Dealer fees, insurance, registration, add-ons and lender-specific charges are not included unless they are already inside the purchase price you entered.</p>
+          <p>Estimate only. Dealer fees, insurance, registration, add-ons and lender charges may change the final payment.</p>
         </aside>
       </div>
     </section>
