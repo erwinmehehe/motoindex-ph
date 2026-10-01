@@ -7,7 +7,6 @@ const errors = [];
 
 const growth = read("lib", "priorityModelGrowth.ts");
 const recommendationPage = read("app", "recommendations", "[slug]", "page.tsx");
-const commercial = read("components", "PriorityCommercialIntent.tsx");
 const buyerBrief = read("components", "PriorityModelBrief.tsx");
 const growthBuyerBrief = read("components", "GrowthModelBrief.tsx");
 const authority = read("lib", "modelAuthority.ts");
@@ -98,8 +97,8 @@ if (!motorcycleEntityPage.includes("<DealerFinancingSnapshot modelId={model.id}"
   errors.push("MotorcycleEntityPage: dealer financing snapshot is not rendered in the installment section");
 }
 
-if (!route.includes("<PriorityCommercialIntent model={model} />")) {
-  errors.push("Model route: priority commercial intent brief is not rendered");
+if (route.includes("<PriorityCommercialIntent model={model} />")) {
+  errors.push("Model route: removed priority commercial intent brief is still rendered");
 }
 
 for (const token of [
@@ -605,23 +604,8 @@ for (const keyword of [
   }
 }
 
-if (!commercial.includes("profile.legacyContext") || !commercial.includes("legacyContext.heading")) {
-  errors.push("PriorityCommercialIntent must render optional predecessor/legacy context on canonical model pages");
-}
 if (!route.includes('slug === "crf250-rally"') || !route.includes('permanentRedirect("/motorcycles/honda/crf300-rally")')) {
   errors.push("CRF250 Rally legacy route must permanently consolidate into the CRF300 Rally canonical");
-}
-
-for (const token of [
-  "price, monthly payment and alternatives",
-  'href="#price"',
-  'href="#installment"',
-  "Open loan calculator",
-  "Get dealer price"
-]) {
-  if (!commercial.includes(token)) {
-    errors.push(`PriorityCommercialIntent lost required canonical commercial path: ${token}`);
-  }
 }
 
 for (const token of ['id: "yamaha-yzf-r1m"','verifiedAt: "2026-09-22"','marketPriceCheckedAt: "2026-09-22"','sourceUrl: "https://www.yamaha-motor.com.ph/motorcycles/sport-machines/supersport/yzf-r1m"','marketPriceSourceUrl: "https://motortrade.com.ph/motorcycles/yamaha-yzf-r1/"']) {

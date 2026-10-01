@@ -5,7 +5,6 @@ import { getModelFamily, modelFamilies } from "@/lib/families";
 import { ModelFamilyView } from "@/components/ModelFamilyView";
 import { MotorcycleEntityPage } from "@/components/MotorcycleEntityPage";
 import { PriorityModelBrief } from "@/components/PriorityModelBrief";
-import { PriorityCommercialIntent } from "@/components/PriorityCommercialIntent";
 import { GrowthModelBrief } from "@/components/GrowthModelBrief";
 import { DecisionPath } from "@/components/DecisionPath";
 import { RecentlyViewedTracker } from "@/components/RecentlyViewed";
@@ -137,7 +136,6 @@ export default async function ModelPage({ params }: { params: Promise<{ make: st
   return <>
     <RecentlyViewedTracker model={{ id: model.id, make: model.make, model: model.model, makeSlug: model.makeSlug, slug: model.slug }} />
     <MotorcycleEntityPage model={model} />
-    <PriorityCommercialIntent model={model} />
     <PriorityModelBrief model={model} />
     <GrowthModelBrief model={model} />
     {!model.marketStatus || model.marketStatus === "current" ? <div className="shell model-decision-path-wrap"><DecisionPath stage="model" modelName={`${model.make} ${model.model}`} make={model.make} makeSlug={model.makeSlug} modelSlug={model.slug} /></div> : null}
