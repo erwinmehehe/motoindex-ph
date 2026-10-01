@@ -98,6 +98,10 @@ if (!motorcycleEntityPage.includes("<DealerFinancingSnapshot modelId={model.id}"
   errors.push("MotorcycleEntityPage: dealer financing snapshot is not rendered in the installment section");
 }
 
+if (!route.includes("<PriorityCommercialIntent model={model} />")) {
+  errors.push("Model route: priority commercial intent brief is not rendered");
+}
+
 for (const token of [
   "brandScooterPriorityIds",
   "data-brand-scooter-commercial-links",
