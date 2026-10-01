@@ -98,6 +98,15 @@ async function evaluate(send, expression) {
   return result.result?.value;
 }
 
+async function waitForExpression(send, expression, timeoutMs = 2_000) {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    if (await evaluate(send, expression)) return true;
+    await new Promise((resolve) => setTimeout(resolve, 50));
+  }
+  return false;
+}
+
 const auditExpression = `(() => {
   const root = document.documentElement;
   const viewportWidth = root.clientWidth;
@@ -258,7 +267,7 @@ try {
   await navigate("/finder");
   const finderStart = await evaluate(cdp.send, `(() => ({ active: [...document.querySelectorAll('.finder-progress button')].findIndex((el) => el.classList.contains('active')), choices: document.querySelectorAll('.finder-choice-grid button').length }))()`);
   await evaluate(cdp.send, `(() => { const buttons = [...document.querySelectorAll('.finder-choice-grid.budget button')]; (buttons[1] || buttons[0])?.click(); return buttons.length; })()`);
-  await new Promise((resolve) => setTimeout(resolve, 320));
+  await waitForExpression(cdp.send, `(() => [...document.querySelectorAll('.finder-progress button')].findIndex((el) => el.classList.contains('active')) === 1)()`);
   const finderAdvanced = await evaluate(cdp.send, `(() => ({
     active: [...document.querySelectorAll('.finder-progress button')].findIndex((el) => el.classList.contains('active')),
     url: location.pathname + location.search,
