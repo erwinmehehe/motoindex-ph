@@ -348,7 +348,7 @@ for (const token of [
 
 for (const token of [
   '"yamaha-aerox-v3": {',
-  'seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Specs & Downpayment"'
+  'seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Standard vs SP"'
 ]) {
   if (!growth.includes(token)) errors.push(`priorityModelGrowth: Aerox V3 authority wave lost token ${token}`);
 }
