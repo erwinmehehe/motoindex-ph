@@ -502,7 +502,7 @@ html body .motorcycle-entity-page #ownership .commute-snapshot-kpis>span{
   background:var(--mi-color-surface-subtle);
 }
 html body .motorcycle-entity-page #ownership .commute-snapshot-kpis>span.is-primary{
-  border-color:rgba(68,76,231,.16);
+  border-color:var(--mi-color-line);
   background:var(--mi-color-primary-soft);
 }
 html body .motorcycle-entity-page #ownership .commute-snapshot-kpis small,
