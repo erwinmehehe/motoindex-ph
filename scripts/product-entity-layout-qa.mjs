@@ -201,7 +201,7 @@ try {
         const compareRow=document.querySelector('.mini-compare-table > div:not(.head), .topbox-compare-table > div:not(.head)');
         const helmetPage=document.querySelector('.helmet-product-page');
         const catalogHelmetPage=document.querySelector('.helmet-catalog-page');
-        const helmetCta=helmetPage?.querySelector('.helmet-primary-cta');
+        const helmetCta=helmetPage?.querySelector('.helmet-hero-price-link');
         const commerceRow=helmetPage?.querySelector('.commerce-offer-row');
         const fitLayout=helmetPage?.querySelector('.helmet-fit-layout');
         const priceCard=helmetPage?.querySelector('.primary-price-card');
@@ -249,7 +249,7 @@ try {
       if (route.path.startsWith("/accessories/top-box/") && state?.verifiedProduct && (!state?.imageSrc || state.imageSrc.includes("/media/placeholders/topbox.svg"))) failures.push(`${width}px ${route.key}: verified top box is still using placeholder media`);
       if (state?.fallback && state?.media && (state.fallback.width > state.media.width + 2 || state.fallback.height > state.media.height + 2)) failures.push(`${width}px ${route.key}: placeholder exceeds media stage`);
       if (route.path.startsWith("/gear/helmets/")) {
-        if (!state?.helmetPage || !state?.helmetCta) failures.push(`${width}px ${route.key}: premium helmet page shell or compare-prices CTA missing`);
+        if (!state?.helmetPage || !state?.helmetCta) failures.push(`${width}px ${route.key}: premium helmet page shell or price-details action missing`);
         if (!state?.catalogHelmetPage && !state?.fitLayout) failures.push(`${width}px ${route.key}: helmet sizing layout missing`);
         if (state?.priceChildren?.some((child, index, list) => index && child.top < list[index - 1].bottom - 1)) failures.push(`${width}px ${route.key}: price summary text overlaps`);
         if (state?.commerceRow && state.commerceRow.width < (mobile ? 300 : 700)) failures.push(`${width}px ${route.key}: commerce row collapsed to ${Math.round(state.commerceRow.width)}px`);
