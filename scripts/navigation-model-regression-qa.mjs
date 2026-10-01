@@ -305,13 +305,13 @@ try {
     const structuredTypes=structuredNodes.map(node=>node?.['@type']).filter(Boolean);
     const faqNode=structuredNodes.find(node=>node?.['@type']==='FAQPage');
     const authorNode=structuredNodes.find(node=>node?.['@type']==='Person');
-    const briefs=[...document.querySelectorAll('.priority-model-brief')];
-    const modelBlocks=[...document.querySelectorAll('.motorcycle-entity-body>.motorcycle-entity-section, .priority-model-brief, .model-decision-path-wrap')];
+    const briefs=[...document.querySelectorAll('.motorcycle-decision-panel')];
+    const modelBlocks=[...document.querySelectorAll('.motorcycle-entity-body>.motorcycle-entity-section, .model-decision-path-wrap')];
     const rgba = value => (value.match(/\d+(?:\.\d+)?/g)||[]).map(Number);
     const isDark = value => { const [r=255,g=255,b=255,a=1]=rgba(value); return a>.5&&r<70&&g<70&&b<70; };
     const briefAudit=briefs.map((brief,index)=>{
       const title=brief.querySelector('h2');
-      const card=brief.querySelector('.priority-model-brief-grid article');
+      const card=brief.querySelector('.motorcycle-decision-grid article');
       const style=getComputedStyle(brief);
       const titleStyle=title?getComputedStyle(title):null;
       const cardStyle=card?getComputedStyle(card):null;
@@ -404,7 +404,7 @@ try {
   if (!(modelAudit?.structuredTypes || []).includes("Product")) failures.push("Aerox detail page is missing Product JSON-LD.");
   if (!(modelAudit?.structuredTypes || []).includes("FAQPage") || (modelAudit?.faqQuestionCount || 0) < 3) failures.push("Aerox detail page is missing populated FAQPage JSON-LD.");
   if (!(modelAudit?.structuredTypes || []).includes("Person") || modelAudit?.authorName !== "Erwin Valles") failures.push("Aerox detail page is missing the author Person JSON-LD.");
-  if (!Array.isArray(modelAudit?.briefAudit) || modelAudit.briefAudit.length < 1) failures.push("Aerox model page is missing its buyer/commercial brief section.");
+  if (!Array.isArray(modelAudit?.briefAudit) || modelAudit.briefAudit.length < 1) failures.push("Aerox model page is missing its buyer decision section.");
   for (const brief of modelAudit?.briefAudit || []) {
     if (brief.darkSurface) failures.push(`Buyer brief ${brief.index + 1} has a dark surface (${brief.background}).`);
     if (!/rgb\((?:15, 23, 42|16, 24, 40|29, 29, 31)\)/.test(brief.titleColor || "")) failures.push(`Buyer brief ${brief.index + 1} heading color is unexpected (${brief.titleColor || "missing"}).`);
@@ -433,7 +433,7 @@ try {
     const quickStyle=quickGrid?getComputedStyle(quickGrid):null;
     const keyStyle=keyGrid?getComputedStyle(keyGrid):null;
     const fitStyle=fitGrid?getComputedStyle(fitGrid):null;
-    const briefs=[...document.querySelectorAll('.priority-model-brief')].map((brief,index)=>({
+    const briefs=[...document.querySelectorAll('.motorcycle-decision-panel')].map((brief,index)=>({
       index,
       background:getComputedStyle(brief).backgroundColor,
       titleColor:getComputedStyle(brief.querySelector('h2')).color,
