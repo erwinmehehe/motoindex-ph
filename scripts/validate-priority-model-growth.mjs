@@ -198,7 +198,7 @@ for (const token of [
 
 for (const token of [
   '"honda-beat": {',
-  'seoTitle: "Honda BeAT Price Philippines 2026 | Specs & Fuel Economy"'
+  'seoTitle: "Honda BeAT Price Philippines 2026 | Playful vs Premium"'
 ]) {
   if (!growth.includes(token)) errors.push(`priorityModelGrowth: ranking-depth BeAT lost token ${token}`);
 }
@@ -380,7 +380,7 @@ for (const token of [
 
 for (const token of [
   '"honda-crf150l": {',
-  'seoTitle: "Honda CRF150L Philippines | Price Reference & Specs"'
+  'seoTitle: "Honda CRF150L Price Philippines | SRP & Availability"'
 ]) {
   if (!growth.includes(token)) errors.push(`priorityModelGrowth: CRF150L ranking depth lost token ${token}`);
 }
