@@ -369,7 +369,7 @@ export const motorcycles: Motorcycle[] = [
     rearTire: "80/90-14",
     abs: "No ABS listed; front disc and rear drum",
     colors: [],
-    searchVolume: 2000,
+    searchVolume: 31000,
     keywordDifficulty: 0,
     sourceLabel: "Yamaha Motor Philippines current Mio i125 product page with current dealer price and specification cross-check",
     sourceUrl: "https://www.yamaha-motor.com.ph/motorcycles/personal-commuter/mio-series/mio-i125",
@@ -599,7 +599,7 @@ export const motorcycles: Motorcycle[] = [
   {
     id: "honda-beat", make: "Honda", makeSlug: "honda", model: "BeAT", slug: "beat", generation: "Current Philippine model", category: "Commuter scooter",
     srp: 72500, marketPriceHighPhp: 74700, engineCc: 110, powerHp: 8.9, torqueNm: 9.3, curbWeightKg: 90, seatHeightMm: 742, fuelTankL: 4.2, fuelConsumptionKmL: 58.2, groundClearanceMm: 147,
-    frontTire: "80/90-14", rearTire: "90/90-14", abs: "Combined Braking System (CBS); front hydraulic disc and rear drum", colors: ["Fighting Red", "Pearl Sylvestris Gray", "Pearl Nightfall Blue", "Clipper Yellow", "Pearl Arctic White", "Matte Axis Gray Metallic"], searchVolume: 12000, keywordDifficulty: 2,
+    frontTire: "80/90-14", rearTire: "90/90-14", abs: "Combined Braking System (CBS); front hydraulic disc and rear drum", colors: ["Fighting Red", "Pearl Sylvestris Gray", "Pearl Nightfall Blue", "Clipper Yellow", "Pearl Arctic White", "Matte Axis Gray Metallic"], searchVolume: 29000, keywordDifficulty: 2,
     sourceLabel: "Honda Philippines BeAT specification sheet with current 2026 Playful/Premium catalog cross-check", sourceUrl: "https://cms.hondaph.com/files/products/650bce64c3201.pdf", verifiedAt: "2026-09-22", freshness: "verified", marketStatus: "current", transmission: "Automatic",
     marketPriceSourceLabel: "Honda Philippines current motorcycle catalog", marketPriceSourceUrl: "https://www.hondaph.com/motorcycle/list", marketPriceCheckedAt: "2026-09-22",
     priceContext: "Honda Philippines currently lists the BeAT Playful at ₱72,500 and BeAT Premium at ₱74,700 before temporary promotions or dealer-specific charges.",
@@ -662,7 +662,7 @@ export const motorcycles: Motorcycle[] = [
     id: "suzuki-raider-r150", alsoKnownAs: ["Raider R150 Fi", "Suzuki Raider R150 Fi"], make: "Suzuki", makeSlug: "suzuki", model: "Raider R150", slug: "raider-r150", generation: "Current", category: "Underbone",
     marketStatus: "current",
     srp: 130000, engineCc: 147, powerHp: 18.1, torqueNm: 13.8, curbWeightKg: 112, seatHeightMm: 765, fuelTankL: 4.0,
-    frontTire: "70/90-17", rearTire: "80/90-17", abs: "No ABS", colors: ["Metallic Matte Blue", "Pearl Bright Ivory", "Candy Matte Bordeaux Red", "Metallic Matte Fibroin Gray"], searchVolume: 0, keywordDifficulty: 0,
+    frontTire: "70/90-17", rearTire: "80/90-17", abs: "No ABS", colors: ["Metallic Matte Blue", "Pearl Bright Ivory", "Candy Matte Bordeaux Red", "Metallic Matte Fibroin Gray"], searchVolume: 22000, keywordDifficulty: 0,
     sourceLabel: "Suzuki Motorcycles Philippines current Raider R150 product reference", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/underbone/raider-r150-blade/", verifiedAt: "2026-09-19", freshness: "verified",
     marketPriceSourceLabel: "Suzuki Motorcycles Philippines",
     marketPriceSourceUrl: "https://mc.suzuki.com.ph/motorcycles/underbone/raider-r150-blade/",
@@ -780,7 +780,7 @@ export const motorcycles: Motorcycle[] = [
   {
     id: "yamaha-xmax", alsoKnownAs: ["Yamaha XMAX 300", "XMAX 300"], make: "Yamaha", makeSlug: "yamaha", model: "XMAX", slug: "xmax", generation: "Current", category: "Maxi scooter",
     srp: 311000, engineCc: 292, powerHp: 27.62, torqueNm: 29, curbWeightKg: 181, seatHeightMm: 795, fuelTankL: 13, groundClearanceMm: 135,
-    frontTire: "120/70-15", rearTire: "140/70-14", abs: "Dual-channel ABS", colors: ["Powered Gray", "Dark Petrol"], searchVolume: 0, keywordDifficulty: 0,
+    frontTire: "120/70-15", rearTire: "140/70-14", abs: "Dual-channel ABS", colors: ["Powered Gray", "Dark Petrol"], searchVolume: 18000, keywordDifficulty: 0,
     sourceLabel: "Wheeltek current Philippines XMAX specification and indicative-price page", sourceUrl: "https://wheeltek.com.ph/motorcycles/xmax/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current",
     marketPriceSourceLabel: "Wheeltek", marketPriceSourceUrl: "https://wheeltek.com.ph/motorcycles/xmax/", marketPriceCheckedAt: "2026-09-30", transmission: "Automatic",
     summary: "292cc maxi-scooter with a 13 L fuel tank, ABS and 15/14-inch wheels."
