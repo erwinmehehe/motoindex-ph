@@ -173,7 +173,8 @@ function dealerSnapshotLabel(model:Motorcycle){
 
 const scooterCcCluster = [
   { slug: "125cc-scooters-philippines", label: "125cc scooters", detail: "115–130cc commuter class" },
-  { slug: "150cc-scooters-philippines", label: "150cc & 155cc scooters", detail: "140–155cc combined class" },
+  { slug: "150cc-scooters-philippines", label: "150cc-class scooters", detail: "140–155cc market class" },
+  { slug: "155cc-scooters-philippines", label: "155cc scooters", detail: "Exact 155cc models only" },
   { slug: "160cc-scooters-philippines", label: "160cc scooters", detail: "156–165cc class" },
 ] as const;
 
@@ -229,16 +230,24 @@ function sectionSummary(title:string,models:Motorcycle[]){
   }
   if(lower.includes("lightweight and lower-seat 125cc"))return `${weight[0].make} ${weight[0].model} is the lightest in this class at ${weight[0].curbWeightKg} kg, while ${seat[0].make} ${seat[0].model} has the lowest published seat at ${seat[0].seatHeightMm} mm. Weight and seat height are separate fit signals, so check both in person.`;
   if(lower.includes("fuel economy and tank size in the 125cc"))return economy.length?`${economy[0].make} ${economy[0].model} has the highest published fuel-economy figure in this 125cc-class set at ${economy[0].fuelConsumptionKmL} km/L, while ${tank[0].make} ${tank[0].model} has the largest recorded tank at ${tank[0].fuelTankL} L. Published test methods can differ.`:`Compare tank capacity and model-specific fuel data; this class does not currently have enough checked published km/L figures for a fuel-economy comparison.`;
-  if(lower.includes("150cc and 155cc scooter price range")){
+  if(lower.includes("150cc-class scooter price range")){
     const first=price[0], last=price.at(-1)!;
-    return `The current 150cc/155cc-class set runs from ${observedMarketPriceLabel(first)} for ${first.make} ${first.model} to ${observedMarketPriceLabel(last)} for ${last.make} ${last.model}. The page keeps 150cc and 155cc intent together because these scooters are commonly cross-shopped, while still showing exact displacement per model.`;
+    return `The current broad 150cc-class set runs from ${observedMarketPriceLabel(first)} for ${first.make} ${first.model} to ${observedMarketPriceLabel(last)} for ${last.make} ${last.model}. This page covers 140–155cc scooters as a market class, while the separate 155cc page uses an exact-displacement filter.`;
   }
-  if(lower.includes("150cc vs 155cc scooters")){
-    const near150=models.filter(m=>m.engineCc<153);
-    const near155=models.filter(m=>m.engineCc>=153);
-    return `The meaningful differences are model-specific rather than a five-cc label: the current set has ${near150.length} scooter${near150.length===1?"":"s"} below 153cc and ${near155.length} at 153–155cc. Compare power, curb weight, seat height, braking, tank size and price before treating 155cc as automatically better than 150cc.`;
+  if(lower.includes("what counts as a 150cc-class scooter")){
+    return `MotoIndex uses 140–155cc as the broad 150cc market class because Philippine buyers often compare nearby displacements under the same search intent. Exact engine size remains visible for every model, and the 155cc guide is reserved for motorcycles recorded at exactly 155cc.`;
   }
-  if(lower.includes("lighter and lower-seat 150cc"))return `${weight[0].make} ${weight[0].model} is the lightest current 150cc/155cc-class scooter at ${weight[0].curbWeightKg} kg, while ${seat[0].make} ${seat[0].model} has the lowest published seat at ${seat[0].seatHeightMm} mm. These are useful city-fit filters but do not measure seat width or balance.`;
+  if(lower.includes("lighter and lower-seat 150cc-class"))return `${weight[0].make} ${weight[0].model} is the lightest current 150cc-class scooter at ${weight[0].curbWeightKg} kg, while ${seat[0].make} ${seat[0].model} has the lowest published seat at ${seat[0].seatHeightMm} mm. These are useful city-fit filters but do not measure seat width or balance.`;
+  if(lower.includes("when to use the exact 155cc scooter guide"))return `Use the exact 155cc guide when you specifically want motorcycles whose stored engine displacement is 155cc, such as the current Yamaha Aerox V3, NMAX V3 and Lexi 155. Stay on this broader page when you are shopping the overall 150cc market class.`;
+  if(lower.includes("155cc scooter price range")){
+    const first=price[0], last=price.at(-1)!;
+    return `The current exact-155cc scooter set runs from ${observedMarketPriceLabel(first)} for ${first.make} ${first.model} to ${observedMarketPriceLabel(last)} for ${last.make} ${last.model}. Every model on this page is recorded at exactly 155cc.`;
+  }
+  if(lower.includes("aerox vs nmax vs lexi 155")){
+    return `The current exact-155cc set is ${modelNames(models,8)}. Their differences are much larger than the shared displacement suggests: compare published price, curb weight, seat height, fuel-tank capacity, braking and trim-specific rider aids before choosing.`;
+  }
+  if(lower.includes("fuel-tank and daily-use trade-offs"))return `${tank[0].make} ${tank[0].model} has the largest recorded tank in this exact-155cc set at ${tank[0].fuelTankL} L, while ${weight[0].make} ${weight[0].model} is the lightest at ${weight[0].curbWeightKg} kg. Tank size, low-speed mass and seat height answer different daily-use questions.`;
+  if(lower.includes("155cc versus 160cc-class scooters"))return `The 155cc page is an exact-displacement comparison; the 160cc guide covers current 156–165cc scooters. Move to the 160cc class when you want to compare Honda ADV160, Click160 and PCX160-style alternatives against the Yamaha 155cc group.`;
   if(lower.includes("traction-control differences"))return `Braking and rider-aid equipment varies by exact model and trim. In this set, ${abs.length} model${abs.length===1?"":"s"} explicitly list ABS on at least one configuration. Check the model page for the exact ABS/CBS wording and any traction-control availability.`;
   if(lower.includes("fuel economy and tank-size trade-offs"))return economy.length?`${economy[0].make} ${economy[0].model} has the highest published fuel-economy figure in this set at ${economy[0].fuelConsumptionKmL} km/L, while ${tank[0].make} ${tank[0].model} has the largest recorded tank at ${tank[0].fuelTankL} L. Efficiency and refueling frequency are different questions, so compare both.`:`${tank[0].make} ${tank[0].model} has the largest recorded tank in this set at ${tank[0].fuelTankL} L. Published model-specific fuel-economy data is incomplete, so avoid treating tank size as an efficiency score.`;
   if(lower.includes("160cc scooter price range")){
@@ -378,8 +387,16 @@ function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide
   if(lower.includes("how much is a 125cc scooter"))return `The current 125cc-class set runs from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)} in published starting-price references. Confirm the exact variant, registration, promotions and final dealer quote before buying.`;
   if(lower.includes("125cc scooters come with abs or cbs"))return `${models.filter(m=>hasConfirmedAbs(m.abs)).length} current model${models.filter(m=>hasConfirmedAbs(m.abs)).length===1?"":"s"} in this 125cc-class guide explicitly list ABS on at least one configuration. Other models may use CBS or non-ABS braking, so check the exact recorded trim rather than the engine class.`;
   if(lower.includes("what should i compare besides engine size"))return `Compare published price, curb weight, seat height, braking, fuel data, tank size, tire sizes, storage needs, service access and the exact variant. A 125cc label alone does not determine everyday fit or ownership cost.`;
-  if(lower.includes("how much is a 150cc or 155cc scooter"))return `The current combined 150cc/155cc set runs from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)} in published starting-price references. Final dealer pricing and variant equipment can differ.`;
-  if(lower.includes("why are 150cc and 155cc scooters on the same page"))return `They overlap strongly in Philippine buyer research and are commonly cross-shopped. MotoIndex therefore keeps one canonical 140–155cc guide while showing each model's exact displacement, price and equipment instead of creating near-duplicate 150cc and 155cc pages.`;
+  if(lower.includes("what 150cc-class scooters are available"))return `This broad 140–155cc market-class guide currently contains ${models.length} current scooter${models.length===1?"":"s"}: ${modelNames(models,10)}. Use the exact 155cc page when the engine must be recorded at precisely 155cc.`;
+  if(lower.includes("how much is a 150cc-class scooter"))return `The current broad 150cc-class set runs from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)} in published starting-price references. Final dealer pricing, registration and financing can differ.`;
+  if(lower.includes("why does this page include scooters up to 155cc"))return `Because this page targets the broader 150cc market-class search intent, it covers 140–155cc scooters while showing exact displacement in the table. The separate 155cc guide uses an exact 155cc filter.`;
+  if(lower.includes("when should i use the separate 155cc guide"))return `Use the 155cc guide when you specifically want exact-155cc scooters. Use this 150cc-class page when you want the broader nearby market that Philippine buyers commonly cross-shop.`;
+  if(lower.includes("what 155cc scooters are available"))return `The current exact-155cc guide contains ${models.length} scooter${models.length===1?"":"s"}: ${modelNames(models,10)}. Every model here is recorded at exactly 155cc.`;
+  if(lower.includes("how much is a 155cc scooter"))return `Published starting-price references for the current exact-155cc set run from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)}. Trim pricing and dealer financing can differ from the starting reference.`;
+  if(lower.includes("is the aerox v3 exactly 155cc"))return `Yes. The current Yamaha Aerox V3 record uses a 155cc engine. Open its model page for Standard/SP price and equipment differences.`;
+  if(lower.includes("is the nmax v3 exactly 155cc"))return `Yes. The current Yamaha NMAX V3 record uses a 155cc engine. Its Standard and Tech Max configurations have meaningful price and equipment differences.`;
+  if(lower.includes("how does the lexi 155 differ"))return `Lexi 155 shares the exact 155cc displacement filter with Aerox V3 and NMAX V3, but differs in published price, weight, seat height, tank size and equipment. Use the table rather than displacement alone to compare them.`;
+  if(lower.includes("should i compare 155cc and 160cc scooters together"))return `Yes when both classes fit your budget and use case, but keep the exact displacement and equipment visible. The separate 160cc-class guide covers 156–165cc scooters so the comparison does not blur the two filters.`;
   if(lower.includes("how much is a 160cc scooter"))return `The current 160cc-class set runs from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)} in published starting-price references. Check the exact trim because ABS, CBS and other equipment can change the final price.`;
   if(lower.includes("what should i compare before buying a 160cc scooter"))return `Compare exact variant price, power, curb weight, seat height, ABS/CBS wording, fuel tank, tire sizes, storage and passenger needs, service access and the dealer's final on-road quote. Displacement is only one part of the decision.`;
   if(lower.includes("best scooter in the philippines"))return `There is no universal best scooter. This guide compares ${models.length} current scooters using published price, engine size, curb weight, seat height, braking, fuel capacity and available fuel-economy data so you can choose around budget, rider fit and daily use.`;
@@ -476,6 +493,8 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
   const related=guide.relatedGuideSlugs.map(relatedSlug=>recommendationGuides.find(g=>g.slug===relatedSlug)).filter((g):g is RecommendationGuide=>Boolean(g&&isIndexableRecommendation(g.slug)));
   const decisions=decisionCards(guide,models);
   const scooterCcGuide=scooterCcClassLabel(slug);
+  const scooterCcCommercialModels = scooterCcGuide ? models.slice(0,4) : [];
+  const scooterCcBrands = scooterCcGuide ? [...new Set(models.map(model=>model.makeSlug))] : [];
   const quickPicks = guide.quickPicks
     .map((pick)=>({pick,model:metricModel(models,pick.metric)}))
     .filter((item)=>Boolean(item.model)) as {pick:RecommendationGuide["quickPicks"][number];model:Motorcycle}[];
@@ -537,10 +556,19 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
       </div>
     </div>}
     {scooterCcGuide&&<div className="guide-quick-picks" aria-label="Scooter engine-size research">
-      <div className="section-head compact"><div><span className="section-kicker">Scooter engine-size cluster</span><h2>Compare the nearby scooter classes</h2><p>Keep the broad market, 125cc, combined 150cc/155cc and 160cc intent connected without creating duplicate model pages.</p></div></div>
+      <div className="section-head compact"><div><span className="section-kicker">Scooter engine-size cluster</span><h2>Compare the nearby scooter classes</h2><p>Move between the broad scooter market, 125cc, 150cc-class, exact 155cc and 160cc research without duplicating individual model pages.</p></div></div>
       <div className="guide-pick-grid">
         <Link href="/motorcycles/scooters"><span>Parent market</span><strong>All scooter prices</strong><small>Full Philippines scooter price list</small></Link>
         {scooterCcCluster.map(item=><Link href={`/recommendations/${item.slug}`} key={item.slug}><span>{item.slug===slug?"Current class":"Engine class"}</span><strong>{item.label}</strong><small>{item.detail}</small></Link>)}
+      </div>
+      <div className="section-head compact"><div><span className="section-kicker">Price + monthly-payment research</span><h2>Open the exact scooter before you finance it</h2><p>These links go to the canonical model pages, where current price evidence, variants and installment planning stay attached to the exact motorcycle.</p></div></div>
+      <div className="guide-pick-grid">
+        {scooterCcCommercialModels.map(model=><Link href={`${modelHref(model)}#installment`} key={`finance-${model.id}`}><span>{model.engineCc}cc · payment research</span><strong>{model.make} {model.model}</strong><small>{dealerSnapshotLabel(model)}</small></Link>)}
+      </div>
+      <div className="priority-model-alternatives">
+        <strong>Brand hubs</strong>
+        {scooterCcBrands.map(makeSlug=><Link key={makeSlug} href={`/recommendations/${makeSlug}-scooters-philippines`}>{makeSlug[0].toUpperCase()+makeSlug.slice(1)} scooter prices →</Link>)}
+        {scooterCcBrands.map(makeSlug=><Link key={`all-${makeSlug}`} href={`/motorcycles/${makeSlug}`}>All {makeSlug[0].toUpperCase()+makeSlug.slice(1)} motorcycles →</Link>)}
       </div>
     </div>}
     {!isIndexableRecommendation(slug)&&<div className="note-box"><h2>Some entries need a fresh check</h2><p>Open the individual model pages before buying to confirm the latest price and exact variant.</p></div>}
