@@ -245,6 +245,7 @@ export const motorcycles: Motorcycle[] = [
   },
   {
     id: "honda-pcx-160",
+    alsoKnownAs: ["Honda PCX160", "PCX160"],
     make: "Honda",
     makeSlug: "honda",
     model: "PCX 160",
@@ -264,7 +265,7 @@ export const motorcycles: Motorcycle[] = [
     rearTire: "130/70-13",
     abs: "CBS (Standard); ABS + HSTC (RoadSync)",
     colors: ["Vortex Red Metallic", "Pearl Fadeless White", "Matte Bullet Silver", "Matte Gunpowder Black Metallic"],
-    searchVolume: 8300,
+    searchVolume: 29000,
     keywordDifficulty: 0,
     sourceLabel: "Honda Philippines 2026 PCX160 Standard and RoadSync reference",
     sourceUrl: "https://www.hondaph.com/motorcycle/news/filipino-urban-professionals-are-now-choosing-motorcycles-heres-why",
@@ -604,11 +605,11 @@ export const motorcycles: Motorcycle[] = [
     summary: "Current 110cc Honda commuter scooter with 58.2 km/L WMTC fuel economy, a 742 mm seat, 90 kg curb weight, 4.2 L tank, 14-inch tubeless tires and CBS."
   },
   {
-    id: "honda-click-125i", alsoKnownAs: ["Honda Click 125", "Click 125"], make: "Honda", makeSlug: "honda", model: "Click 125i", slug: "click-125i", generation: "Current", category: "Commuter scooter",
+    id: "honda-click-125i", alsoKnownAs: ["Honda Click 125", "Click 125", "Honda Click125", "Click125"], make: "Honda", makeSlug: "honda", model: "Click 125i", slug: "click-125i", generation: "Current", category: "Commuter scooter",
     marketStatus: "current",
     srp: 83000, engineCc: 125, powerHp: 11.0, torqueNm: 10.8, curbWeightKg: 111, seatHeightMm: 769, fuelTankL: 5.5,
     fuelConsumptionKmL: 50.3,
-    frontTire: "80/90-14", rearTire: "90/90-14", abs: "Combined Brake System (CBS)", colors: ["Obsidian Black Metallic", "Pearl Sylvestris Gray", "Pearl Arctic White", "Matte Axis Gray Metallic", "Matte Fresco Brown"], searchVolume: 7100, keywordDifficulty: 65,
+    frontTire: "80/90-14", rearTire: "90/90-14", abs: "Combined Brake System (CBS)", colors: ["Obsidian Black Metallic", "Pearl Sylvestris Gray", "Pearl Arctic White", "Matte Axis Gray Metallic", "Matte Fresco Brown"], searchVolume: 46000, keywordDifficulty: 65,
     sourceLabel: "Honda Philippines 2026 Click125 launch and current lineup reference", sourceUrl: "https://www.hondaph.com/motorcycle/news/game-changer-upgrade-honda-introduces-the-click125-2026-year-model", verifiedAt: "2026-09-22", freshness: "verified",
     marketPriceHighPhp: 87700,
     marketPriceSourceLabel: "Honda Philippines current lineup",
