@@ -101,7 +101,7 @@ if (!motorcycleEntityPage.includes("<DealerFinancingSnapshot modelId={model.id}"
 for (const token of [
   "brandScooterPriorityIds",
   "data-brand-scooter-commercial-links",
-  "High-intent model research",
+  "Popular scooter research",
   "dealerSnapshotLabel"
 ]) {
   if (!recommendationPage.includes(token)) errors.push(`recommendationPage: scooter commercial-intent links missing token ${token}`);
