@@ -7,6 +7,8 @@ const errors = [];
 
 const data = read("lib", "data.ts");
 const motorcycles = read("app", "motorcycles", "page.tsx");
+const scooterHub = read("app", "motorcycles", "scooters", "page.tsx");
+const recommendationPage = read("app", "recommendations", "[slug]", "page.tsx");
 
 for (const slug of [
   "motorcycles-under-150k",
@@ -23,6 +25,35 @@ for (const slug of [
   if (!motorcycles.includes(`href="/recommendations/${slug}"`)) {
     errors.push(`motorcycle authority hub must link directly to ${slug}`);
   }
+}
+
+for (const slug of [
+  "125cc-scooters-philippines",
+  "150cc-scooters-philippines",
+  "155cc-scooters-philippines",
+  "160cc-scooters-philippines"
+]) {
+  if (!data.includes(`slug: "${slug}"`)) errors.push(`scooter displacement guide missing: ${slug}`);
+  if (!data.includes(`case "${slug}"`)) errors.push(`scooter displacement selector missing: ${slug}`);
+  if (!scooterHub.includes(`href="/recommendations/${slug}"`)) errors.push(`scooter market hub must link directly to ${slug}`);
+}
+
+for (const token of [
+  'case "150cc-scooters-philippines": return byPrice.filter(m => /scooter/i.test(m.category) && m.engineCc >= 140 && m.engineCc <= 155);',
+  'case "155cc-scooters-philippines": return byPrice.filter(m => /scooter/i.test(m.category) && m.engineCc === 155);',
+  'case "160cc-scooters-philippines": return byPrice.filter(m => /scooter/i.test(m.category) && m.engineCc >= 156 && m.engineCc <= 165);'
+]) {
+  if (!data.includes(token)) errors.push(`scooter displacement intent selector changed unexpectedly: ${token}`);
+}
+
+if (!data.includes('primaryKeyword: "155cc scooters Philippines"')) {
+  errors.push("Exact 155cc guide must own the 155cc scooter search intent.");
+}
+if (!data.includes('primaryKeyword: "150cc scooters Philippines"')) {
+  errors.push("Broad 150cc-class guide must own the 150cc scooter search intent.");
+}
+if (!recommendationPage.includes('Exact 155cc models only')) {
+  errors.push("Scooter recommendation UI must explain the exact-155cc class distinction.");
 }
 
 for (const token of [
