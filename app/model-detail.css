@@ -440,6 +440,14 @@ html body .motorcycle-entity-page #rider-fit .rider-fit-tool{
   margin-top:0;
 }
 
+/* Keep the ownership handoff compact and visually connected to rider-fit. */
+html body .motorcycle-entity-page .motorcycle-ownership-section>.ui-section-header{margin-bottom:18px}
+html body .motorcycle-entity-page .model-ownership-snapshot{padding:22px 24px;border-radius:18px}
+html body .motorcycle-entity-page .model-ownership-snapshot h2{margin:0 0 8px;font-size:28px;line-height:1.08;letter-spacing:-.025em}
+html body .motorcycle-entity-page .model-ownership-snapshot p{margin:0 0 16px}
+html body .motorcycle-entity-page .model-ownership-snapshot .commute-snapshot-kpis span{padding:12px 14px}
+html body .motorcycle-entity-page .ownership-assumptions{margin-top:8px}
+
 /* Variants and price history were previously styled only by the retired global sheet. */
 html body .motorcycle-entity-page #price .variant-module,
 html body .motorcycle-entity-page #price .price-history{

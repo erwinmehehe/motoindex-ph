@@ -291,10 +291,10 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <RiderFitCalculator model={forClient(model)} />
       </section>
 
-      {!isPrevious && <section id="ownership" className="motorcycle-entity-section" aria-labelledby="ownership-heading">
-        <SectionHeader kicker="Ownership estimate" titleId="ownership-heading" title={<>What could the {model.model} cost to own?</>} description="See the monthly picture first. Open advanced assumptions only when you want to model financing, fuel, maintenance, insurance, registration, tires and resale in detail." />
+      {!isPrevious && <section id="ownership" className="motorcycle-entity-section motorcycle-ownership-section" aria-labelledby="ownership-heading">
+        <SectionHeader kicker="Ownership estimate" titleId="ownership-heading" title={`What could the ${model.model} cost to own?`} description="See the monthly picture first. Open advanced assumptions only when you want to model financing, fuel, maintenance, insurance, registration, tires and resale in detail." />
         <CommuteSnapshot model={model} />
-        <details className="entity-disclosure"><summary>Adjust full ownership assumptions</summary><OwnershipCostCalculator model={forClient(model)} /></details>
+        <details className="entity-disclosure ownership-assumptions"><summary>Adjust full ownership assumptions</summary><OwnershipCostCalculator model={forClient(model)} /></details>
       </section>}
 
       {!isPrevious && <section id="alternatives" className="motorcycle-entity-section" aria-labelledby="alternatives-heading">
