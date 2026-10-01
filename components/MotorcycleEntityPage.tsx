@@ -15,6 +15,7 @@ import { PriceIntelligence } from "@/components/PriceIntelligence";
 import { MarketPriceChecks } from "@/components/MarketPriceChecks";
 import { InstallmentCalculator } from "@/components/InstallmentCalculator";
 import { FinancingSnapshot } from "@/components/FinancingSnapshot";
+import { DealerFinancingSnapshot } from "@/components/DealerFinancingSnapshot";
 import { RiderFitCalculator } from "@/components/RiderFitCalculator";
 import { FuelRangeCalculator } from "@/components/FuelRangeCalculator";
 import { OwnershipCostCalculator } from "@/components/OwnershipCostCalculator";
@@ -278,6 +279,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         />
         <InstallmentCalculator price={range.from} priceOptions={financingPriceOptions} />
         <FinancingSnapshot modelName={`${model.make} ${model.model}`} price={range.from} priceOptions={financingPriceOptions} />
+        <DealerFinancingSnapshot modelId={model.id} modelName={`${model.make} ${model.model}`} />
         <div className="entity-tool-grid"><Link href={loanToolHref}><span>Need more control?</span><strong>{aeroxFinanceTarget ? "Calculate Aerox V3 downpayment and monthly payment" : "Open the full loan calculator"}</strong><small>{aeroxFinanceTarget ? "Enter an exact peso downpayment or use 10%, 20% and 30% presets, then adjust term and rate." : "Change price, down payment, term and rate with a shareable URL."}</small></Link></div>
       </section>}
 

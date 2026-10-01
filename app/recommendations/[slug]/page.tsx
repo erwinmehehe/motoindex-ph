@@ -16,6 +16,8 @@ import { RELEASE_DATE, absoluteUrl } from "@/lib/site";
 import { articleSchema } from "@/lib/articleSchema";
 import { AuthorBox } from "@/components/AuthorBox";
 import { getRenderableMedia } from "@/lib/renderableMedia";
+import { dealerFinancingObservationsFor } from "@/lib/dealerFinancing";
+import { php } from "@/lib/utils";
 
 export function generateStaticParams(){return recommendationGuides.map(g=>({slug:g.slug}));}
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
@@ -154,6 +156,20 @@ function comparisonFor(m:Motorcycle,models:Motorcycle[]){
 }
 
 function modelNames(models:Motorcycle[],max=4){return models.slice(0,max).map(m=>`${m.make} ${m.model}`).join(", ");}
+
+const brandScooterPriorityIds: Record<string,string[]> = {
+  honda: ["honda-click-125i","honda-click-160","honda-pcx-160","honda-adv-160"],
+  yamaha: ["yamaha-aerox-v3","yamaha-nmax-v3","yamaha-fazzio","yamaha-mio-gear"],
+  suzuki: ["suzuki-burgman-street-ex","suzuki-burgman-street","suzuki-avenis","suzuki-access"]
+};
+
+function dealerSnapshotLabel(model:Motorcycle){
+  const rows=dealerFinancingObservationsFor(model.id);
+  const financed=rows.find(row=>row.downPaymentPhp&&row.monthlyPhp);
+  if(financed)return `${php(financed.downPaymentPhp!)} down · ${php(financed.monthlyPhp!)}/mo dealer snapshot`;
+  if(rows.length)return `${php(rows[0].srpPhp)} current dealer price snapshot`;
+  return `${observedMarketPriceLabel(model)} published price`;
+}
 
 const scooterCcCluster = [
   { slug: "125cc-scooters-philippines", label: "125cc scooters", detail: "115–130cc commuter class" },
@@ -451,6 +467,9 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
   const brandScooterMatch=slug.match(/^(honda|yamaha|suzuki)-scooters-philippines$/);
   const brandScooterSlug=brandScooterMatch?.[1];
   const models=getRecommendationModels(slug);
+  const brandScooterPriorityModels = brandScooterSlug
+    ? (brandScooterPriorityIds[brandScooterSlug] || []).map(id=>models.find(model=>model.id===id)).filter((model):model is Motorcycle=>Boolean(model))
+    : [];
   const specDates=models.map(m=>m.verifiedAt).filter(Boolean).sort();
   const priceDates=models.flatMap(m=>priceChecksForModel(m.id).map(row=>row.checkedAt)).sort();
   const faqItems:FaqItem[]=guide.faqQuestions.map(question=>({question,answer:faqAnswer(question,models,guide)}));
@@ -511,6 +530,12 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
     <div className="page-head guide-page-head"><span className="guide-kicker">{guide.kicker}</span><h1>{guide.title}</h1></div>
     <div style={{margin:"18px 0 28px"}}><GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker}/></div>
     <div className="guide-direct-answer"><p>{guide.directAnswer}</p><strong>Compare {models.length} motorcycle{models.length===1?"":"s"} that match this guide.</strong>{guide.slug === "best-scooters-philippines" && <Link href="/motorcycles/scooters">View the full Philippines scooter market, price list and engine-size hubs →</Link>}{brandScooterSlug && <><Link href="/motorcycles/scooters">Compare the full Philippines scooter price list →</Link><Link href={`/motorcycles/${brandScooterSlug}`}>Open the full {brandScooterSlug[0].toUpperCase()+brandScooterSlug.slice(1)} motorcycle price list →</Link></>}{guide.slug === "motorcycles-400cc-plus-philippines" && <Link href="/motorcycles/expressway-legal">Check the separate expressway-legal rule, borderline sub-400cc models and registration checks →</Link>}</div>
+    {brandScooterSlug&&brandScooterPriorityModels.length>0&&<div className="guide-quick-picks" data-brand-scooter-commercial-links={brandScooterSlug}>
+      <div className="section-head compact"><div><span className="section-kicker">Popular scooter research</span><h2>Check prices, variants and monthly-payment examples</h2><p>Open the model pages most useful for comparing current prices, trim differences and published dealer financing snapshots.</p></div></div>
+      <div className="guide-pick-grid">
+        {brandScooterPriorityModels.map(model=><Link href={modelHref(model)} key={model.id}><span>{model.make} scooter</span><strong>{model.model}</strong><small>{dealerSnapshotLabel(model)}</small></Link>)}
+      </div>
+    </div>}
     {scooterCcGuide&&<div className="guide-quick-picks" aria-label="Scooter engine-size research">
       <div className="section-head compact"><div><span className="section-kicker">Scooter engine-size cluster</span><h2>Compare the nearby scooter classes</h2><p>Keep the broad market, 125cc, combined 150cc/155cc and 160cc intent connected without creating duplicate model pages.</p></div></div>
       <div className="guide-pick-grid">

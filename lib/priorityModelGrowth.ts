@@ -159,8 +159,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 150cc and 155cc scooters"
   },
   "yamaha-nmax-v3": {
-    seoTitle: "Yamaha NMAX V3 Price Philippines 2026 | Tech Max Specs",
-    seoDescription: "Yamaha NMAX V3 price in the Philippines, Standard vs Tech Max, 155cc specs, YECVT, 770mm seat, monthly estimate, ownership costs and alternatives.",
+    seoTitle: "Yamaha NMAX V3 Price Philippines 2026 | Monthly & Tech Max",
+    seoDescription: "Yamaha NMAX V3 price Philippines 2026 with NMAX vs Tech Max, Motortrade downpayment/monthly snapshots, 155cc specs, YECVT and ownership costs.",
     intentIntro: "NMAX V3 buyers need to separate the regular NMAX from the higher-spec Tech Max rather than compare one blended price. The stored regular-line reference is ₱155,900, while current dealer data lists Tech Max at ₱178,400; Yamaha identifies Tech Max as the YECVT-equipped version.",
     moneyQuestion: "How much does the exact NMAX or NMAX Tech Max cost after the branch quote, down payment, monthly payment, registration, insurance and dealer charges are included?",
     ownershipQuestion: "Compare CVT/YECVT service by trim, 13-inch tire replacement, the 7.1 L tank, insurance, passenger use and Yamaha service access with Aerox V3, PCX160 and ADV160.",
@@ -415,8 +415,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   },
 
   "honda-click-125i": {
-    seoTitle: "Honda Click 125i Price Philippines 2026 | Specs & Ownership",
-    seoDescription: "Honda Click125 Philippines guide: ₱83,000–₱87,700 current reference, 125cc specs, 769mm seat, 50.3 km/L, CBS, monthly estimate and ownership.",
+    seoTitle: "Honda Click 125i Price Philippines 2026 | Downpayment",
+    seoDescription: "Honda Click 125i price Philippines 2026 with current price range, Motortrade downpayment/monthly snapshot, 125cc specs, CBS, fuel economy and ownership.",
     intentIntro: "The 2026 Click125 is a high-volume commuter where variant price matters more than headline performance. Honda's current references run from ₱83,000 to ₱87,700, so compare the exact unit, CBS package, financing and daily running costs before reserving.",
     moneyQuestion: "What does the exact Click125 variant cost after the branch quote, down payment, monthly payment, insurance, registration and dealer charges are included?",
     ownershipQuestion: "Compare the 769 mm seat, 111 kg curb weight, 5.5 L tank, 50.3 km/L figure, 14-inch tires, CBS and CVT service with Fazzio, Mio Gear and Click160.",
