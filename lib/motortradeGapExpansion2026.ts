@@ -25,7 +25,7 @@ export const motortradeGapExpansion2026: Motorcycle[] = [
     frontTire: "80/80-14",
     rearTire: "100/70-14",
     abs: "No ABS listed; front disc and rear drum",
-    colors: [],
+    colors: ["Matte Black", "Matte Blue", "Vibrant Orange", "Purple"],
     searchVolume: 9700,
     keywordDifficulty: 0,
     sourceLabel: "Zigwheels Philippines current 2026 Mio Soul i 125 price and specification reference",
