@@ -86,8 +86,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   },
 
   "kawasaki-ninja-400": {
-    seoTitle: "Kawasaki Ninja 400 Philippines | Price, Specs & Ninja 500",
-    seoDescription: "Kawasaki Ninja 400 Philippines reference with historical price, 399cc specs, seat height and the current Ninja 500 successor for buyers comparing both.",
+    seoTitle: "Kawasaki Ninja 400 Price Philippines | Used & Ninja 500",
+    seoDescription: "Kawasaki Ninja 400 price Philippines reference with historical ₱340,900 context, 399cc specs, used-bike guidance and current Ninja 500 comparison.",
     intentIntro: "The Ninja 400 still has substantial search demand, but MotoIndex keeps it clearly labeled as a previous Philippine generation. Use this page for its historical price and 399cc specifications, then compare the current Ninja 500 successor before treating old Ninja 400 listings as today's new-bike lineup.",
     moneyQuestion: "How does the historical Ninja 400 price reference compare with the current Ninja 500 and used Ninja 400 listings in the Philippines?",
     ownershipQuestion: "Compare 17-inch tires, chain and sprocket service, insurance, rider fit and parts support while accounting for the Ninja 400's previous-generation status.",
@@ -148,8 +148,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   },
 
   "yamaha-aerox-v3": {
-    seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Specs & Downpayment",
-    seoDescription: "Yamaha Aerox V3 price Philippines 2026: Standard vs SP, 155cc specs, YECVT, downpayment and monthly installment estimates, tires, ownership costs and fees.",
+    seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Standard vs SP",
+    seoDescription: "Yamaha Aerox V3 price Philippines 2026: Standard vs Aerox SP, ₱163,900 SP dealer reference, 155cc specs, YECVT, ABS/TCS and financing tools.",
     intentIntro: "The Aerox V3 has a wide price and equipment spread, so compare the exact trim rather than treating every Aerox listing as the same scooter. Yamaha currently shows the base Aerox at ₱125,900, while current dealer data lists Aerox SP at ₱163,900; Yamaha positions the SP as the YECVT-equipped version with Sport/Touring modes and shift-down control.",
     moneyQuestion: "Does the exact Aerox Standard or SP still fit the budget after the real branch quote, down payment, monthly payment, insurance, registration and dealer charges are included?",
     ownershipQuestion: "Compare CVT/YECVT service requirements by trim, wide 14-inch tire replacement, insurance, passenger use, storage and Yamaha service access with NMAX V3, Click160 and ADV160.",
@@ -380,9 +380,9 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
 
 
   "honda-giorno-plus": {
-    seoTitle: "Honda Giorno+ Price Philippines 2026 | Specs & Colors",
-    seoDescription: "Honda Giorno+ price in the Philippines, 125cc specs, colors, 780mm seat, weight, fuel economy, tires, ownership costs and scooter alternatives.",
-    intentIntro: "The Giorno+ is a style-led 125cc scooter, so compare more than the bodywork. Its current price, 780 mm seat, 116 kg curb weight, 12-inch tires, fuel use and everyday practicality all matter against Fazzio, Click 125i and other lifestyle scooters.",
+    seoTitle: "Honda Giorno Price Philippines 2026 | Giorno+ Specs",
+    seoDescription: "Honda Giorno / Giorno+ price Philippines 2026 with current dealer references, 125cc specs, 780mm seat, 47 km/L WMTC, colors and ownership costs.",
+    intentIntro: "Honda Giorno searches in the Philippines currently resolve to the Giorno+ canonical. Current dealer references show ₱101,900 for the All-New Giorno+ and a separate newer ACF125CBT listing at ₱106,000, so verify the exact model code and branch quote before treating one price as universal."
     moneyQuestion: "What does the Honda Giorno+ cost after the current dealer quote, registration, insurance and other purchase charges are included?",
     ownershipQuestion: "Compare fuel use, 12-inch tire replacement, CVT service, storage and Honda support with Fazzio and other 125cc scooters.",
     alternativeIds: ["yamaha-fazzio", "honda-click-125i", "yamaha-mio-gear"],
@@ -403,9 +403,9 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   },
 
   "yamaha-mio-gear": {
-    seoTitle: "Yamaha Mio Gear Price Philippines 2026 | Specs & Colors",
-    seoDescription: "Yamaha Mio Gear price in the Philippines, 125cc specs, colors, 750mm seat, weight, tire sizes, ownership costs and commuter scooter alternatives.",
-    intentIntro: "The Mio Gear is a light 125cc commuter scooter with a 750 mm seat. Compare its current price range, 96 kg curb weight, 14-inch tires and daily-use practicality with BeAT, Click 125i and Fazzio.",
+    seoTitle: "Yamaha Mio Gear Price Philippines 2026 | Monthly & Specs",
+    seoDescription: "Yamaha Mio Gear price Philippines 2026 with current ₱79,400 dealer reference, ₱4,000 down/monthly snapshot, 125cc specs, 750mm seat and ownership.",
+    intentIntro: "The Mio Gear is a light 125cc commuter with a 750 mm seat and 96 kg curb weight. Motortrade currently lists ₱79,400 SRP with an indicative ₱4,000 downpayment and ₱4,000 monthly snapshot, so use those figures as a dealer observation rather than a transferable loan quote."
     moneyQuestion: "What does the Yamaha Mio Gear cost after the current dealer quote, registration, insurance and other purchase charges are included?",
     ownershipQuestion: "Compare CVT service, 14-inch tires, fuel use and Yamaha support with BeAT, Click 125i and Fazzio.",
     alternativeIds: ["honda-beat", "honda-click-125i", "yamaha-fazzio"],
