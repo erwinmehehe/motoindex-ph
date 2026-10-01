@@ -441,9 +441,6 @@ html body .motorcycle-entity-page #rider-fit .rider-fit-tool{
 }
 
 /* Keep the ownership handoff compact and visually connected to rider-fit. */
-html body .motorcycle-entity-page .motorcycle-ownership-section{
-  padding:30px 0!important;
-}
 html body .motorcycle-entity-page .motorcycle-ownership-section>.ui-section-header{
   margin-bottom:18px;
 }
@@ -499,14 +496,12 @@ html body .motorcycle-entity-page .ownership-assumptions>summary{
 }
 
 @media(max-width:900px){
-  html body .motorcycle-entity-page .motorcycle-ownership-section{padding:28px 0!important}
   html body .motorcycle-entity-page .motorcycle-ownership-section .model-ownership-snapshot{
     grid-template-columns:1fr;
     padding:20px;
   }
 }
 @media(max-width:620px){
-  html body .motorcycle-entity-page .motorcycle-ownership-section{padding:24px 0!important}
   html body .motorcycle-entity-page .motorcycle-ownership-section>.ui-section-header{margin-bottom:14px}
   html body .motorcycle-entity-page .model-ownership-snapshot{padding:17px;border-radius:16px}
   html body .motorcycle-entity-page .model-ownership-snapshot h2{font-size:24px}
