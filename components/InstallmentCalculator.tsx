@@ -102,11 +102,9 @@ export function InstallmentCalculator({ price, priceOptions = [] }: { price: num
         </div>
 
         <aside className="calc-result finance-result" aria-live="polite">
-          <div className="finance-result-primary">
-            <span>Estimated monthly</span>
-            <strong>{peso(result.payment)}</strong>
-            <small>{months} months · {rate}% annual interest</small>
-          </div>
+          <span>Estimated monthly</span>
+          <strong>{peso(result.payment)}</strong>
+          <small>{months} months · {rate}% annual interest</small>
           <div className="finance-result-facts">
             <div><span>Cash down</span><strong>{peso(result.downPayment)}</strong></div>
             <div><span>Amount financed</span><strong>{peso(result.principal)}</strong></div>
