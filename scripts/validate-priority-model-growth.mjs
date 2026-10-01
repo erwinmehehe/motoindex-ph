@@ -17,6 +17,9 @@ const tier23 = read("lib", "phTier23ModelsBase.ts");
 const brandGrowth = read("lib", "brandSeoGrowth.ts");
 const brandPage = read("app", "motorcycles", "[make]", "page.tsx");
 const brandSupport = read("lib", "phBrandSupport.ts");
+const dealerFinancing = read("lib", "dealerFinancing.ts");
+const dealerFinancingComponent = read("components", "DealerFinancingSnapshot.tsx");
+const motorcycleEntityPage = read("components", "MotorcycleEntityPage.tsx");
 
 const priorityModels = [
   "yamaha-aerox-v3",
@@ -66,6 +69,42 @@ for (const id of priorityModels) {
   if (!growth.includes(`"${id}": {`)) {
     errors.push(`priorityModelGrowth: missing high-demand profile for ${id}`);
   }
+}
+
+for (const token of [
+  'modelId: "honda-click-125i"',
+  'modelId: "honda-click-160"',
+  'modelId: "honda-pcx-160"',
+  'modelId: "yamaha-nmax-v3"',
+  'modelId: "yamaha-aerox-v3"',
+  'downPaymentPhp: 3500',
+  'monthlyPhp: 4100',
+  'downPaymentPhp: 14000',
+  'monthlyPhp: 8300',
+  'checkedAt: "2026-10-01"'
+]) {
+  if (!dealerFinancing.includes(token)) errors.push(`dealerFinancing: missing priority scooter snapshot token ${token}`);
+}
+
+for (const token of [
+  "dealerFinancingObservationsFor",
+  "data-dealer-financing-snapshot",
+  "Dealer figures are indicative observations"
+]) {
+  if (!dealerFinancingComponent.includes(token)) errors.push(`DealerFinancingSnapshot: missing token ${token}`);
+}
+
+if (!motorcycleEntityPage.includes("<DealerFinancingSnapshot modelId={model.id}")) {
+  errors.push("MotorcycleEntityPage: dealer financing snapshot is not rendered in the installment section");
+}
+
+for (const token of [
+  "brandScooterPriorityIds",
+  "data-brand-scooter-commercial-links",
+  "High-intent model research",
+  "dealerSnapshotLabel"
+]) {
+  if (!recommendationPage.includes(token)) errors.push(`recommendationPage: scooter commercial-intent links missing token ${token}`);
 }
 
 for (const id of ["honda-adv-150", "kawasaki-ninja-zx-4rr", "honda-x-adv", "cfmoto-300sr", "cfmoto-400nk"]) {
@@ -184,7 +223,7 @@ for (const token of [
   if (!data.includes(token)) errors.push(`Honda BeAT verification: missing token ${token}`);
 }
 
-for (const token of ['"honda-click-125i": {','seoTitle: "Honda Click 125i Price Philippines 2026 | Specs & Ownership"']) if (!growth.includes(token)) errors.push(`priorityModelGrowth: Click125 authority wave lost token ${token}`);
+for (const token of ['"honda-click-125i": {','seoTitle: "Honda Click 125i Price Philippines 2026 | Downpayment"']) if (!growth.includes(token)) errors.push(`priorityModelGrowth: Click125 authority wave lost token ${token}`);
 if (buyerBrief.includes('"honda-click-125i": {')) errors.push("PriorityModelBrief: Click125 must not duplicate authority/commercial buyer guidance");
 for (const token of ['modelId:"honda-click-125i"','comparisonIds:["yamaha-fazzio","yamaha-mio-gear","honda-click-160"]']) if (!authority.includes(token)) errors.push(`modelAuthority: Click125 authority wave lost token ${token}`);
 for (const token of ['id: "honda-click-125i"','srp: 83000','marketPriceHighPhp: 87700','seatHeightMm: 769','fuelTankL: 5.5','fuelConsumptionKmL: 50.3','marketPriceCheckedAt: "2026-09-22"']) if (!data.includes(token)) errors.push(`Honda Click125 verification: missing token ${token}`);
@@ -274,7 +313,7 @@ for (const token of [
 
 for (const token of [
   '"yamaha-nmax-v3": {',
-  'seoTitle: "Yamaha NMAX V3 Price Philippines 2026 | Tech Max Specs"'
+  'seoTitle: "Yamaha NMAX V3 Price Philippines 2026 | Monthly & Tech Max"'
 ]) {
   if (!growth.includes(token)) errors.push(`priorityModelGrowth: NMAX V3 authority wave lost token ${token}`);
 }
