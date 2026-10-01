@@ -146,7 +146,7 @@ try {
         const h1=document.querySelector('.motorcycle-hero-copy h1');
         const sections=[...document.querySelectorAll('.priority-model-brief')];
         const commercial=sections.find(section=>/price, monthly payment and alternatives/i.test(section.querySelector('h2')?.textContent||''));
-        const links=commercial?[...commercial.querySelectorAll('a')].map(a=>a.getAttribute('href')||''):[];
+        const links=[...document.querySelectorAll('a')].map(a=>a.getAttribute('href')||'');
         const rect=commercial?.getBoundingClientRect();
         const financing=document.querySelector('[data-financing-snapshot]');
         const financingVariants=financing?[...financing.querySelectorAll('[data-financing-variant]')].map(el=>el.getAttribute('data-financing-variant')||''):[];
@@ -198,31 +198,21 @@ try {
 
       results.push({ width, pathname, ...audit });
       if (!audit?.h1) failures.push(`${width}px ${pathname}: model H1 is missing.`);
-      if (!audit?.commercial && name !== "honda-crf150l" && !historicalResearchModels.has(name)) failures.push(`${width}px ${pathname}: priority commercial section is missing.`);
+      if (audit?.commercial) failures.push(`${width}px ${pathname}: removed price-and-buying-path section has returned.`);
       if (historicalResearchModels.has(name) && !audit?.authority) failures.push(`${width}px ${pathname}: historical model authority section is missing.`);
       if (historicalResearchModels.has(name) && audit?.commercial) failures.push(`${width}px ${pathname}: previous-generation model must not render new-bike financing/dealer CTAs.`);
       if (audit?.canonicalPath !== pathname) failures.push(`${width}px ${pathname}: canonical path is ${audit?.canonicalPath || "missing"}.`);
       if (name === "honda-navi" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda Navi authority section is missing.`);
-      if (name === "honda-navi" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name === "honda-beat" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda BeAT authority section is missing.`);
-      if (name === "honda-beat" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name === "honda-crf150l" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda CRF150L authority section is missing.`);
       if (name === "honda-crf150l" && audit?.commercial) failures.push(`${width}px ${pathname}: uncertain CRF150L must not render financing/commercial purchase CTAs.`);
-      if (name === "honda-crf150l" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name === "yamaha-aerox-v3" && !audit?.authority) failures.push(`${width}px ${pathname}: Yamaha Aerox V3 authority section is missing.`);
-      if (name === "yamaha-aerox-v3" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name === "yamaha-nmax-v3" && !audit?.authority) failures.push(`${width}px ${pathname}: Yamaha NMAX V3 authority section is missing.`);
-      if (name === "yamaha-nmax-v3" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name === "honda-adv-160" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda ADV160 authority section is missing.`);
-      if (name === "honda-adv-160" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name === "honda-click-160" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda Click160 authority section is missing.`);
-      if (name === "honda-click-160" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name === "honda-pcx-160" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda PCX160 authority section is missing.`);
-      if (name === "honda-pcx-160" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name === "yamaha-fazzio" && !audit?.authority) failures.push(`${width}px ${pathname}: Yamaha Fazzio authority section is missing.`);
-      if (name === "yamaha-fazzio" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name === "honda-click-125i" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda Click125 authority section is missing.`);
-      if (name === "honda-click-125i" && audit?.briefCount !== 1) failures.push(`${width}px ${pathname}: expected one commercial buyer brief after deduplication, found ${audit?.briefCount ?? 0}.`);
       if (name !== "honda-crf150l" && !historicalResearchModels.has(name)) {
         if (!audit?.priceLink || !audit?.installmentLink) failures.push(`${width}px ${pathname}: price/monthly anchor links are incomplete.`);
         if (!audit?.planner) failures.push(`${width}px ${pathname}: installment planner is missing.`);
@@ -242,7 +232,6 @@ try {
             if (!audit?.financingVariants?.includes(label)) failures.push(`${width}px ${pathname}: financing snapshot missing ${label} variant.`);
           }
         }
-        if (!audit?.priceIndex || !audit?.financeIndex) failures.push(`${width}px ${pathname}: research dataset links are incomplete.`);
         if (!audit?.quoteLink) failures.push(`${width}px ${pathname}: dealer quote link is missing.`);
       }
       if ((audit?.overflow || 0) > 5) failures.push(`${width}px ${pathname}: horizontal overflow is ${audit.overflow}px.`);
@@ -261,7 +250,7 @@ try {
     failures.forEach(failure => console.error(`- ${failure}`));
     process.exitCode = 1;
   } else {
-    console.log(`Priority model commercial QA passed for ${pages.length} priority pages at 390px and 1440px, including historical-model CTA guards.`);
+    console.log(`Priority model commercial QA passed for ${pages.length} priority pages at 390px and 1440px, including the removed buying-path and historical-model CTA guards.`);
   }
   cdp.ws.close();
 } finally {
