@@ -15,6 +15,49 @@ export type ModelAuthorityProfile = {
 // stored price/spec data and the model's market role, written to make each entity page
 // materially different instead of swapping a model name into generic SEO copy.
 export const modelAuthorityProfiles: ModelAuthorityProfile[] = [
+  {
+    modelId:"honda-click-125i",
+    verdict:"A compact 125cc automatic commuter built around low running-cost research, everyday storage and simple city use, with Standard and Smart Edition differences worth checking before purchase.",
+    buyIf:[
+      "You want a liquid-cooled 125cc automatic for daily urban commuting.",
+      "The 769 mm seat, 111 kg curb weight and 18 L storage suit your everyday use.",
+      "You value the Smart Edition's keyless and idling-stop features enough to compare the exact trim."
+    ],
+    skipIf:[
+      "You require ABS rather than Honda's Combined Brake System on this model.",
+      "You want a larger 155–160cc scooter for stronger performance or a larger premium-scooter format.",
+      "You prefer the lightest possible 110–125cc scooter."
+    ],
+    phContext:[
+      "Honda's 2026 Click125 documentation separates Standard and Smart Edition equipment; Smart Key and Idling Stop are Smart Edition features.",
+      "Current dealer pricing and financing snapshots can differ from manufacturer references, so compare the exact model code and branch quote before paying.",
+      "The 50.3 km/L WMTC figure is a published test result, not a guaranteed real-world commute result."
+    ],
+    comparisonIds:["yamaha-mio-gear","yamaha-fazzio","suzuki-burgman-street-ex"],
+    researchAngle:"High-demand 125cc commuter: exact trim, dealer quote, financing, rider fit, storage and CBS braking matter more than a single advertised price."
+  },
+  {
+    modelId:"honda-pcx-160",
+    verdict:"A comfort-led 157cc premium scooter where the key purchase decision is not just price, but whether the Standard/CBS package or the RoadSync/ABS-HSTC equipment better fits the rider.",
+    buyIf:[
+      "You want a premium automatic scooter with an 8.1 L tank and 764 mm seat.",
+      "You value comfort-oriented bodywork and a larger scooter format for commuting or longer urban rides.",
+      "You want to compare the RoadSync trim's connectivity, ABS and HSTC against the lower-price Standard trim."
+    ],
+    skipIf:[
+      "You want a lighter and cheaper 125–160cc commuter above all else.",
+      "You do not need the PCX's larger premium-scooter format or RoadSync features.",
+      "You want sport-scooter styling and a lighter chassis instead of comfort-led packaging."
+    ],
+    phContext:[
+      "Honda's current Philippine reference separates Standard at ₱133,500 from RoadSync at ₱155,000, while current dealer listings can differ slightly.",
+      "RoadSync changes more than connectivity: the current trim reference also adds ABS and HSTC, so compare safety equipment as well as price.",
+      "Dealer downpayment and monthly figures are snapshots tied to the seller's assumptions; ask for the full financed amount, term, rate method and fees."
+    ],
+    comparisonIds:["yamaha-nmax-v3","honda-adv-160","yamaha-aerox-v3"],
+    researchAngle:"Premium 160-class scooter: compare Standard vs RoadSync equipment, total financed cost, tank range, rider fit and direct NMAX/ADV alternatives."
+  },
+
   { modelId:"rusi-rfi-175", verdict:"A value-first automatic for riders who want more displacement and equipment than a basic commuter scooter without moving into premium-scooter pricing.", buyIf:["You want automatic city usability with a 171.7cc engine.","A 770 mm seat is more attractive to you than taller sport-scooter ergonomics.","Purchase price matters more than premium-brand resale or dealer-network depth."], skipIf:["You want a large nationwide premium after-sales network.","You need proven long-term used-value data before buying.","You want a smaller, lighter 110–125cc commuter above all else."], phContext:["Treat the listed price as a dated reference and verify the exact branch/unit because value-brand pricing can move materially.","The 9.5 L tank is unusually generous for a small automatic scooter and is worth comparing with daily commute distance.","Check parts availability, warranty process and service location before paying a reservation."], comparisonIds:["kymco-krv-180i-tcs","yamaha-aerox-v3"], researchAngle:"Value sport-scooter choice: price, local support, fuel range and real dealer availability matter more than headline displacement alone." },
   { modelId:"rusi-classic-250i", verdict:"A low-cost retro/manual option for riders who want classic styling and a 250cc-class engine while accepting a thinner evidence trail than mainstream brands.", buyIf:["You want a manual classic-style motorcycle on a tight budget.","A 790 mm seat and 136 kg listed curb weight suit your low-speed confidence.","You are comfortable verifying service and parts support locally before purchase."], skipIf:["You prioritize ABS confirmation and extensive official documentation.","You want stronger resale predictability.","You prefer automatic commuting in heavy traffic."], phContext:["Confirm the exact braking equipment on the unit; the current source does not give MotoIndex enough evidence to assume ABS.","The 12 L tank and 200 mm listed ground clearance make it more versatile on paper than a purely style-led city bike.","Ask the selling branch about consumables and model-specific parts lead times."], comparisonIds:["motorstar-cafe-400","royal-enfield-hunter-350"], researchAngle:"Budget classic bike: compare total ownership support, braking hardware and parts access—not only engine size per peso." },
   { modelId:"motorstar-cafe-400", verdict:"One of the cheapest ways into a near-400cc retro road-bike format, but the low purchase price needs to be weighed against simpler braking equipment and ownership support.", buyIf:["You want retro styling and a larger single-cylinder engine at a low entry price.","A six-speed manual and 13 L tank fit your weekend-road use.","You are willing to inspect dealer/service support before buying."], skipIf:["You require ABS as a non-negotiable feature.","You want a lighter small-displacement commuter.","You prioritize premium fit, electronics and resale over acquisition cost."], phContext:["Do not assume expressway eligibility from marketing or model name; confirm the registered displacement and current toll-road rules for the exact unit.","The 19/18-inch wheel combination changes tire shopping versus common 17-inch road bikes.","A pre-purchase check should include parts availability and brake/tire replacement options."], comparisonIds:["royal-enfield-hunter-350","triumph-speed-400"], researchAngle:"Low-price big-single alternative: the decision is price versus braking, refinement, dealer support and long-term ownership confidence." },
