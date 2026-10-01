@@ -426,9 +426,6 @@ html body .helmet-product-page>.note-box p{
   html body .helmet-product-page .entity-comparisons{
     grid-template-columns:1fr;
   }
-  html body .helmet-product-page .product-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
   html body .helmet-product-page .commerce-offer-row{
     grid-template-columns:1fr 1fr;
   }
@@ -491,8 +488,7 @@ html body .helmet-product-page>.note-box p{
   }
   html body .helmet-product-page .commerce-offer-row,
   html body .helmet-product-page .helmet-fit-layout,
-  html body .helmet-product-page .product-editorial,
-  html body .helmet-product-page .product-grid{
+  html body .helmet-product-page .product-editorial{
     grid-template-columns:1fr;
   }
   html body .helmet-product-page .helmet-spec-grid>div,
@@ -503,14 +499,6 @@ html body .helmet-product-page>.note-box p{
   html body .helmet-product-page .product-editorial>article{
     min-height:0;
     padding:18px;
-  }
-  html body .helmet-product-page .product-card{
-    display:grid;
-    grid-template-columns:118px minmax(0,1fr);
-  }
-  html body .helmet-product-page .product-card-media{
-    height:132px;
-    min-height:132px;
   }
   html body .helmet-product-page .mini-compare-table>div{
     min-width:560px;
