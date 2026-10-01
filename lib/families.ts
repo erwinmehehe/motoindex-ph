@@ -32,7 +32,7 @@ export const modelFamilies: ModelFamily[] = [
     intro: "Compare Yamaha Aerox V1, V2 and the current V3 generation, keeping historical launch prices separate from current new-bike pricing while showing the core specification changes.",
     seoTitle: "Yamaha Aerox Price Philippines 2026 | V1, V2 & V3",
     seoDescription: "Compare Yamaha Aerox V1, V2 and V3 prices, specs, seat height, weight and tire sizes in the Philippines with separate historical and current price context.",
-    secondaryKeywords: ["Yamaha Aerox price Philippines", "Aerox V1", "Aerox V1 price", "Aerox V1 vs V2 vs V3", "Aerox V3 price", "Aerox V2 price", "Aerox generations Philippines"],
+    secondaryKeywords: ["Yamaha Aerox price Philippines", "Aerox price Philippines", "Aerox 155 price Philippines", "Aerox SP price Philippines", "Aerox V1", "Aerox V1 price", "Aerox V1 vs V2 vs V3", "Aerox V3 price Philippines", "Aerox V2 price Philippines", "Aerox generations Philippines"],
     comparisonHeading: "Yamaha Aerox V1 vs V2 vs V3: what changed?",
     currentModelId: "yamaha-aerox-v3",
     generationIds: ["yamaha-aerox-v3", "yamaha-aerox-v2", "yamaha-aerox-v1"]
@@ -46,7 +46,7 @@ export const modelFamilies: ModelFamily[] = [
     intro: "Compare Yamaha NMAX V1, V2 and the current V3 generation without mixing the older generations' historical prices with the current model.",
     seoTitle: "Yamaha NMAX Price Philippines 2026 | V1, V2 & V3",
     seoDescription: "Compare Yamaha NMAX V1, V2 and V3 prices, specs, seat height, weight and generation differences in the Philippines with historical price context kept separate.",
-    secondaryKeywords: ["Yamaha NMAX price Philippines", "NMAX V1", "NMAX V1 price", "NMAX V1 vs V2 vs V3", "NMAX V3 price", "NMAX V2 price", "NMAX generations Philippines"],
+    secondaryKeywords: ["Yamaha NMAX price Philippines", "NMAX price Philippines", "NMAX 155 price Philippines", "NMAX V3 price Philippines", "NMAX V2 price Philippines", "NMAX V1", "NMAX V1 price", "NMAX V1 vs V2 vs V3", "NMAX generations Philippines"],
     comparisonHeading: "Yamaha NMAX V1 vs V2 vs V3: what changed?",
     currentModelId: "yamaha-nmax-v3",
     generationIds: ["yamaha-nmax-v3", "yamaha-nmax-v2", "yamaha-nmax-v1"]
@@ -60,7 +60,7 @@ export const modelFamilies: ModelFamily[] = [
     intro: "Compare the Honda Click 160, Click 150i and Click 125i in one place, including what the unofficial V1, V2, V3 and V4 names riders use actually refer to.",
     seoTitle: "Honda Click Price Philippines 2026 | 125i vs 150i vs 160",
     seoDescription: "Compare Honda Click 125i, 150i and Click 160 prices and specs in the Philippines, plus unofficial V1, V2, V3 and V4 naming and generation differences.",
-    secondaryKeywords: ["Honda Click price Philippines", "Click 125i vs 150i vs 160", "Honda Click V1 V2 V3 V4", "Honda Click generations", "Click 160 price Philippines"],
+    secondaryKeywords: ["Honda Click price Philippines", "Honda Click price", "Honda Click 125i price Philippines", "Honda Click 160 price Philippines", "Click 125i vs 150i vs 160", "Honda Click V1 V2 V3 V4", "Honda Click generations"],
     comparisonHeading: "Honda Click 125i vs 150i vs 160: what changed?",
     currentModelId: "honda-click-160",
     generationIds: ["honda-click-160", "honda-click-150i", "honda-click-125i"],
