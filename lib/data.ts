@@ -5,6 +5,7 @@ import { observedMarketRange } from "./marketChecks";
 import { phTier23Motorcycles } from "./phTier23Models";
 import { isAuthorityExpansionModel, modelAuthorityQuality } from "./modelQuality";
 import { evaluateMotorcycle } from "./decisionEngine";
+import { motortradeGapGuides2026 } from "./motortradeGapGuides2026";
 
 export const motorcycles: Motorcycle[] = [
   {
@@ -1842,7 +1843,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     seoTitle: "Dual-Sport & Trail Motorcycles Philippines 2026",
     description: "Compare dual-sport and trail motorcycles in the Philippines by price, weight, seat height, ground clearance, wheel setup, fuel tank and ABS.",
     primaryKeyword: "dual sport motorcycles Philippines",
-    secondaryKeywords: ["best dual sport motorcycles Philippines", "dual purpose motorcycles Philippines", "trail bike Philippines", "trail motorcycles Philippines", "street legal trail bike Philippines", "off road motorcycle Philippines"],
+    secondaryKeywords: ["best dual sport motorcycles Philippines", "dual purpose motorcycles Philippines", "trail bike Philippines", "trail motorcycles Philippines", "enduro motorcycle Philippines", "enduro motorcycles Philippines", "street legal trail bike Philippines", "off road motorcycle Philippines"],
     directAnswer: "For mixed pavement, rough roads and light trail use, compare dual-sport motorcycles on weight, seat height, ground clearance, 21/18-inch wheel setup, fuel capacity and braking equipment instead of engine size alone.",
     inclusionRules: ["Category is dual-sport", "Current Philippine-market motorcycle", "Road-and-trail oriented rather than motocross-only"],
     orderingRule: "Published starting price from lowest to highest.",
@@ -1908,7 +1909,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     seoTitle: "Sport Motorcycles Philippines: Prices & Specs 2026",
     description: "Compare current sport motorcycles in the Philippines by published price, engine size, power, weight, seat height, tank capacity and ABS equipment.",
     primaryKeyword: "sport motorcycles Philippines",
-    secondaryKeywords: ["sport bikes Philippines", "sports bike Philippines price", "sport motorcycle Philippines 2026"],
+    secondaryKeywords: ["sport bikes Philippines", "sport bike Philippines", "sports bike Philippines", "sports bike Philippines price", "sport motorcycle Philippines 2026"],
     directAnswer: "MotoIndex compares current sport motorcycles with published prices and published specifications so buyers can see price, output, weight, seat-height and braking differences without treating peak power as an overall score.",
     inclusionRules: ["Category is sport bike", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest.",
@@ -2457,6 +2458,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     relatedGuideSlugs: ["sport-motorcycles-philippines","motorcycles-under-400cc-philippines","motorcycles-400cc-plus-philippines","motorcycles-with-abs-philippines"],
     intent: "category"
   },
+  ...motortradeGapGuides2026,
 
 ];
 
@@ -2514,6 +2516,7 @@ export function getRecommendationModels(slug: string) {
     case "155cc-scooters-philippines": return byPrice.filter(m => /scooter/i.test(m.category) && m.engineCc === 155);
     case "160cc-scooters-philippines": return byPrice.filter(m => /scooter/i.test(m.category) && m.engineCc >= 156 && m.engineCc <= 165);
     case "automatic-motorcycles-philippines": return byPrice.filter(m => m.transmission === "Automatic");
+    case "manual-motorcycles-philippines": return byPrice.filter(m => m.transmission === "Manual");
     case "motorcycles-under-80k": return byPrice.filter(m => observedMarketRange(m).from < 80000);
     case "motorcycles-150k-to-250k": return byPrice.filter(m => observedMarketRange(m).from >= 150000 && observedMarketRange(m).from <= 250000);
     case "suzuki-burgman-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "suzuki" && /^burgman\b/i.test(m.model));
