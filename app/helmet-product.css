@@ -18,38 +18,38 @@ html body .helmet-product-page .product-detail-media{
 }
 html body .helmet-product-page .product-detail-media>.entity-media{
   width:100%;
-  height:clamp(400px,43vw,520px)!important;
-  min-height:0!important;
-  display:grid!important;
-  place-items:center!important;
-  overflow:hidden!important;
-  border:1px solid var(--mi-color-line-soft)!important;
-  border-radius:24px!important;
-  background:#fff!important;
-  background-image:none!important;
-  box-shadow:none!important;
+  height:clamp(400px,43vw,520px);
+  min-height:0;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  border:1px solid var(--mi-color-line-soft);
+  border-radius:24px;
+  background:var(--mi-color-surface);
+  background-image:none;
+  box-shadow:none;
 }
 html body .helmet-product-page .product-detail-media>.entity-media img{
-  width:86%!important;
-  height:86%!important;
-  max-width:86%!important;
-  max-height:86%!important;
-  margin:auto!important;
-  padding:0!important;
-  object-fit:contain!important;
-  object-position:center!important;
-  background:#fff!important;
-  filter:none!important;
+  width:86%;
+  height:86%;
+  max-width:86%;
+  max-height:86%;
+  margin:auto;
+  padding:0;
+  object-fit:contain;
+  object-position:center;
+  background:var(--mi-color-surface);
+  filter:none;
 }
 html body .helmet-product-page .product-detail-media>.entity-media>.product-hero-card{
   width:100%;
-  height:100%!important;
-  min-height:0!important;
-  border:0!important;
-  border-radius:0!important;
-  background:#fff!important;
-  color:var(--mi-color-slate-700)!important;
-  box-shadow:none!important;
+  height:100%;
+  min-height:0;
+  border:0;
+  border-radius:0;
+  background:var(--mi-color-surface);
+  color:var(--mi-color-slate-700);
+  box-shadow:none;
 }
 html body .helmet-product-page .product-detail-summary{
   min-width:0;
@@ -60,12 +60,12 @@ html body .helmet-product-page .product-detail-eyebrow{
 html body .helmet-product-page .product-type-pill,
 html body .helmet-product-page .product-status-pill{
   border:1px solid var(--mi-color-line);
-  background:#fff;
+  background:var(--mi-color-surface);
 }
 html body .helmet-product-page .product-status-pill.verified{
-  border-color:rgba(18,183,106,.22);
-  background:rgba(18,183,106,.07);
-  color:#166534;
+  border-color:var(--mi-color-line);
+  background:var(--mi-color-forest-soft);
+  color:var(--mi-color-forest);
 }
 html body .helmet-product-page .product-detail-summary h1{
   max-width:620px;
@@ -118,13 +118,13 @@ html body .helmet-product-page .helmet-hero-price-link{
   justify-content:center;
   border:1px solid var(--mi-color-line);
   border-radius:11px;
-  background:#fff;
+  background:var(--mi-color-surface);
   color:var(--mi-color-slate-700);
   font-size:11px;
   font-weight:800;
 }
 html body .helmet-product-page .helmet-hero-price-link:hover{
-  border-color:rgba(68,76,231,.28);
+  border-color:var(--mi-color-primary);
   color:var(--mi-color-primary);
 }
 html body .helmet-product-page .product-facts-grid{
@@ -173,7 +173,7 @@ html body .helmet-product-page .product-entity-nav{
   padding:9px 0;
   border-top:1px solid var(--mi-color-product-line);
   border-bottom:1px solid var(--mi-color-product-line);
-  background:rgba(255,255,255,.96);
+  background:var(--mi-color-surface);
   backdrop-filter:blur(12px);
 }
 html body .helmet-product-page .product-entity-nav a{
@@ -187,20 +187,20 @@ html body .helmet-product-page .product-entity-section{
   border-top:1px solid var(--mi-color-product-line);
 }
 html body .helmet-product-page .helmet-section-head{
-  margin-bottom:20px!important;
+  margin-bottom:20px;
 }
 html body .helmet-product-page .helmet-section-head h2{
-  max-width:820px!important;
-  margin:4px 0 8px!important;
-  font-size:clamp(28px,3.3vw,40px)!important;
-  line-height:1.03!important;
-  letter-spacing:-.045em!important;
+  max-width:820px;
+  margin:4px 0 8px;
+  font-size:clamp(28px,3.3vw,40px);
+  line-height:1.03;
+  letter-spacing:-.045em;
 }
 html body .helmet-product-page .helmet-section-head p{
-  max-width:720px!important;
-  color:var(--mi-color-product-copy)!important;
-  font-size:13px!important;
-  line-height:1.62!important;
+  max-width:720px;
+  color:var(--mi-color-product-copy);
+  font-size:13px;
+  line-height:1.62;
 }
 html body .helmet-product-page .helmet-price-summary{
   display:grid;
@@ -216,7 +216,7 @@ html body .helmet-product-page .helmet-price-summary>article{
   border:0;
   border-right:1px solid var(--mi-color-product-line);
   border-radius:0;
-  background:#fff;
+  background:var(--mi-color-surface);
   box-shadow:none;
 }
 html body .helmet-product-page .helmet-price-summary>article:last-child{border-right:0}
@@ -230,7 +230,7 @@ html body .helmet-product-page .helmet-price-summary>article>span{
 html body .helmet-product-page .helmet-price-summary>article strong{
   display:block;
   margin-top:8px;
-  color:var(--mi-color-slate-800,#1e293b);
+  color:var(--mi-color-slate-700);
   font-size:15px;
   line-height:1.35;
   overflow-wrap:anywhere;
@@ -257,23 +257,23 @@ html body .helmet-product-page .helmet-spec-grid{
 }
 html body .helmet-product-page .helmet-spec-grid>div,
 html body .helmet-product-page .helmet-visor-grid>div{
-  display:grid!important;
-  grid-template-columns:minmax(150px,190px) minmax(0,1fr)!important;
-  gap:22px!important;
-  align-items:start!important;
-  min-height:58px!important;
-  padding:14px 2px!important;
-  border:0!important;
-  border-bottom:1px solid var(--mi-color-product-line)!important;
-  background:transparent!important;
+  display:grid;
+  grid-template-columns:minmax(150px,190px) minmax(0,1fr);
+  gap:22px;
+  align-items:start;
+  min-height:58px;
+  padding:14px 2px;
+  border:0;
+  border-bottom:1px solid var(--mi-color-product-line);
+  background:transparent;
 }
 html body .helmet-product-page .helmet-spec-grid strong,
 html body .helmet-product-page .helmet-visor-grid strong{
   min-width:0;
-  color:var(--mi-color-slate-700)!important;
-  font-size:13px!important;
-  line-height:1.5!important;
-  overflow-wrap:anywhere!important;
+  color:var(--mi-color-slate-700);
+  font-size:13px;
+  line-height:1.5;
+  overflow-wrap:anywhere;
 }
 html body .helmet-product-page .helmet-fit-layout{
   display:grid;
@@ -286,11 +286,11 @@ html body .helmet-product-page .helmet-parts-card{
   padding:22px;
   border:1px solid var(--mi-color-product-line);
   border-radius:16px;
-  background:#fff;
+  background:var(--mi-color-surface);
   box-shadow:none;
 }
 html body .helmet-product-page .helmet-fit-help{
-  background:var(--mi-color-surface-subtle)!important;
+  background:var(--mi-color-surface-subtle);
 }
 html body .helmet-product-page .helmet-fit-help h3{
   margin:0 0 8px;
@@ -342,7 +342,7 @@ html body .helmet-product-page .product-editorial>article{
   padding:22px;
   border:1px solid var(--mi-color-product-line);
   border-radius:16px;
-  background:#fff;
+  background:var(--mi-color-surface);
 }
 html body .helmet-product-page .product-editorial>.editorial-best{
   background:var(--mi-color-primary-soft);
@@ -362,31 +362,6 @@ html body .helmet-product-page .product-editorial li{
   font-size:12px;
   line-height:1.58;
 }
-html body .helmet-product-page .product-grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px!important;
-  border:0!important;
-}
-html body .helmet-product-page .product-card-shell{
-  border:1px solid var(--mi-color-product-line)!important;
-  border-radius:16px!important;
-}
-html body .helmet-product-page .product-card-media{
-  height:190px!important;
-  min-height:190px!important;
-  background:#fff!important;
-}
-html body .helmet-product-page .product-card-media img{
-  width:84%!important;
-  height:84%!important;
-  max-width:84%!important;
-  max-height:84%!important;
-  margin:auto!important;
-  padding:0!important;
-  object-fit:contain!important;
-  background:#fff!important;
-}
 html body .helmet-product-page .entity-comparisons{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
@@ -397,7 +372,7 @@ html body .helmet-product-page .entity-comparisons>article{
   padding:20px;
   border:1px solid var(--mi-color-product-line);
   border-radius:16px;
-  background:#fff;
+  background:var(--mi-color-surface);
 }
 html body .helmet-product-page .entity-comparisons h3{
   margin:0 0 14px;
@@ -445,7 +420,7 @@ html body .helmet-product-page>.note-box p{
     gap:26px;
   }
   html body .helmet-product-page .product-detail-media>.entity-media{
-    height:380px!important;
+    height:380px;
   }
   html body .helmet-product-page .helmet-fit-layout,
   html body .helmet-product-page .entity-comparisons{
@@ -470,14 +445,14 @@ html body .helmet-product-page>.note-box p{
     padding:4px 0 30px;
   }
   html body .helmet-product-page .product-detail-media>.entity-media{
-    height:300px!important;
-    border-radius:18px!important;
+    height:300px;
+    border-radius:18px;
   }
   html body .helmet-product-page .product-detail-media>.entity-media img{
-    width:90%!important;
-    height:90%!important;
-    max-width:90%!important;
-    max-height:90%!important;
+    width:90%;
+    height:90%;
+    max-width:90%;
+    max-height:90%;
   }
   html body .helmet-product-page .product-detail-summary h1{
     font-size:clamp(36px,11vw,46px);
@@ -518,12 +493,12 @@ html body .helmet-product-page>.note-box p{
   html body .helmet-product-page .helmet-fit-layout,
   html body .helmet-product-page .product-editorial,
   html body .helmet-product-page .product-grid{
-    grid-template-columns:1fr!important;
+    grid-template-columns:1fr;
   }
   html body .helmet-product-page .helmet-spec-grid>div,
   html body .helmet-product-page .helmet-visor-grid>div{
-    grid-template-columns:1fr!important;
-    gap:5px!important;
+    grid-template-columns:1fr;
+    gap:5px;
   }
   html body .helmet-product-page .product-editorial>article{
     min-height:0;
@@ -534,8 +509,8 @@ html body .helmet-product-page>.note-box p{
     grid-template-columns:118px minmax(0,1fr);
   }
   html body .helmet-product-page .product-card-media{
-    height:132px!important;
-    min-height:132px!important;
+    height:132px;
+    min-height:132px;
   }
   html body .helmet-product-page .mini-compare-table>div{
     min-width:560px;
