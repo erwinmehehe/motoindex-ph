@@ -245,6 +245,7 @@ export const motorcycles: Motorcycle[] = [
   },
   {
     id: "honda-pcx-160",
+    alsoKnownAs: ["Honda PCX160", "PCX160"],
     make: "Honda",
     makeSlug: "honda",
     model: "PCX 160",
@@ -604,7 +605,7 @@ export const motorcycles: Motorcycle[] = [
     summary: "Current 110cc Honda commuter scooter with 58.2 km/L WMTC fuel economy, a 742 mm seat, 90 kg curb weight, 4.2 L tank, 14-inch tubeless tires and CBS."
   },
   {
-    id: "honda-click-125i", alsoKnownAs: ["Honda Click 125", "Click 125"], make: "Honda", makeSlug: "honda", model: "Click 125i", slug: "click-125i", generation: "Current", category: "Commuter scooter",
+    id: "honda-click-125i", alsoKnownAs: ["Honda Click 125", "Click 125", "Honda Click125", "Click125"], make: "Honda", makeSlug: "honda", model: "Click 125i", slug: "click-125i", generation: "Current", category: "Commuter scooter",
     marketStatus: "current",
     srp: 83000, engineCc: 125, powerHp: 11.0, torqueNm: 10.8, curbWeightKg: 111, seatHeightMm: 769, fuelTankL: 5.5,
     fuelConsumptionKmL: 50.3,
