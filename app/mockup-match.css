@@ -71,46 +71,6 @@
   display:none;
 }
 
-/* Reference catalog cards: image-first, compact copy, no redundant buttons. */
-[data-mockup-home] .motorcycle-card-standard .card-actions,
-[data-mockup-scooter-grid] .motorcycle-card-standard .card-actions,
-.ph-brand-page .ph-brand-model-grid .motorcycle-card-standard .card-actions{
-  display:none;
-}
-[data-mockup-home] .motorcycle-card-standard .model-card-media,
-[data-mockup-scooter-grid] .motorcycle-card-standard .model-card-media,
-.ph-brand-page .ph-brand-model-grid .motorcycle-card-standard .model-card-media{
-  height:150px;
-  min-height:150px;
-  padding:var(--mi-space-2);
-  background:linear-gradient(180deg,var(--mi-color-primary-soft),var(--mi-color-surface));
-}
-[data-mockup-home] .motorcycle-card-standard .model-card-body,
-[data-mockup-scooter-grid] .motorcycle-card-standard .model-card-body,
-.ph-brand-page .ph-brand-model-grid .motorcycle-card-standard .model-card-body{
-  padding:var(--mi-space-3);
-}
-[data-mockup-home] .motorcycle-card-standard .model-card-topline,
-[data-mockup-scooter-grid] .motorcycle-card-standard .model-card-topline,
-.ph-brand-page .ph-brand-model-grid .motorcycle-card-standard .model-card-topline{
-  min-height:24px;
-}
-[data-mockup-home] .motorcycle-card-standard .price,
-[data-mockup-scooter-grid] .motorcycle-card-standard .price,
-.ph-brand-page .ph-brand-model-grid .motorcycle-card-standard .price{
-  color:var(--mi-color-primary);
-  font-size:var(--mi-type-sm);
-}
-[data-mockup-home] .motorcycle-card-standard .mini-stats,
-[data-mockup-scooter-grid] .motorcycle-card-standard .mini-stats,
-.ph-brand-page .ph-brand-model-grid .motorcycle-card-standard .mini-stats{
-  margin-top:var(--mi-space-2);
-}
-[data-mockup-home] .motorcycle-card-standard .mini-stats span,
-[data-mockup-scooter-grid] .motorcycle-card-standard .mini-stats span,
-.ph-brand-page .ph-brand-model-grid .motorcycle-card-standard .mini-stats span{
-  font-size:.56rem;
-}
 .ph-brand-page .ph-brand-hero{
   padding-top:0;
   background:linear-gradient(180deg,var(--mi-color-surface),var(--mi-color-primary-soft));
