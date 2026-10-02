@@ -164,15 +164,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
             {current.slice(0,3).map((model,index)=><EntityMedia key={model.id} entityType="motorcycle" entityId={model.id} className={styles[`bike${index+1}`]} showCredit={false} sizes="(max-width: 900px) 34vw, 260px" fallback={<EntityVerificationFallback brand={model.make} model={model.model}/>} />)}
           </div>
         </div>
-        {brandGrowth ? <InfoPanel subtle><p>{brandGrowth.intentNote}</p></InfoPanel> : null}
-        <StatRow items={[
-          {label:"Models covered",value:current.length,note:"Current models on MotoIndex"},
-          {label:"Price range",value:`${php(low)}–${php(high)}`,note:"Published prices across current models"},
-          {label:"Engine range",value:`${minEngine}–${maxEngine} cc`,note:"Across models covered here"},
-          {label:"Transmission",value:`${automatic} auto · ${manual} manual`,note:"Across models covered here"},
-          ...(authorityModels.length > 0 ? [{label:"Buyer guides",value:authorityModels.length,note:"Expanded decision briefs with Philippine ownership context"}] : []),
-          ...(bigBikes.length > 0 && bigBikeMinCc ? [{label:`${bigBikeMinCc}cc+ models`,value:bigBikes.length,note:"Current big bikes covered on this brand hub"}] : [])
-        ]}/>
+
         <nav className={styles.categoryTabs} aria-label={`${brand} motorcycle categories`}>
           <a href="#models">All models</a>
           {categories.slice(0,6).map((category)=><Link key={category} href={{ pathname:"/motorcycles", query:{ make, type:category } }}>{category}</Link>)}
@@ -194,7 +186,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
       <section id="models" className={`ph-brand-section ph-brand-models-section${current.length <= 2 ? " is-sparse" : ""}`}>
         <SectionHeader kicker="Current motorcycles" title={`Compare ${brand} motorcycle models in the Philippines`} description={current.length <= 2 ? `Compare the ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} by price and key specifications.` : `Compare ${current.length} current ${brand} motorcycle models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`} />
-        <div className="card-grid ph-brand-model-grid" style={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: 14 }}>{current.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div>
+        <div className="card-grid ph-brand-model-grid" style={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 8 }}>{current.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div>
       </section>
 
       {bigBikes.length > 0 && brandGrowth?.bigBikeTitle && brandGrowth.bigBikeDescription ? <section id="big-bikes" className="ph-brand-section">
