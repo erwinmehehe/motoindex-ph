@@ -157,14 +157,14 @@
 .specRow>*:first-child{border-left:0}
 .specRow b{color:var(--mi-color-slate-700);font-weight:800}
 .mockupActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2px}
-.mockupActions button,.mockupActions a{display:flex;min-height:38px;align-items:center;justify-content:center;border:1px solid #d5e1f0;border-radius:8px;background:var(--mi-color-surface);color:var(--mi-color-slate-700);font-size:10px;font-weight:800}
+.mockupActions button,.mockupActions a{display:flex;min-height:38px;align-items:center;justify-content:center;border:1px solid var(--mi-color-market-line);border-radius:8px;background:var(--mi-color-surface);color:var(--mi-color-slate-700);font-size:10px;font-weight:800}
 .mockupActions a{border-color:var(--mi-color-market-blue);background:var(--mi-color-market-blue);color:var(--mi-color-surface)}
 .builderDisclosure{margin-top:10px}
 .builderDisclosure>summary{cursor:pointer;color:var(--mi-color-market-blue);font-size:10px;font-weight:800;text-align:right}
 .builderDisclosure[open]>.workspace{margin-top:8px}
 
-.page :global(.ui-page-hero){margin:0 0 8px;padding:8px 0 4px}
-.page :global(.ui-page-hero__kicker){font-size:8px;color:var(--mi-color-slate-500)}
-.page :global(.ui-page-hero h1){margin:3px 0 0;font-size:29px;line-height:1;letter-spacing:-.045em}
-.page :global(.ui-page-hero__description){margin:6px 0 0;font-size:10px;color:var(--mi-color-slate-500)}
+.compactHero{margin:0 0 8px;padding:8px 0 4px}
+.compactHero>span{font-size:8px;color:var(--mi-color-slate-500)}
+.compactHero h1{margin:3px 0 0;font-size:29px;line-height:1;letter-spacing:-.045em}
+.compactHero>p{margin:6px 0 0;font-size:10px;color:var(--mi-color-slate-500)}
 .popular{margin-top:28px}
