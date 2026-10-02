@@ -17,10 +17,10 @@
   height:100%;
   flex-direction:column;
   overflow:hidden;
-  border:1px solid #dbe5f2;
+  border:1px solid var(--mi-color-market-line-strong);
   border-radius:10px;
-  background:#fff;
-  box-shadow:0 3px 10px rgba(15,23,42,.025);
+  background:var(--mi-color-surface);
+  box-shadow:0 3px 10px color-mix(in srgb,var(--mi-color-slate-900) 2.5%,transparent);
   transition:border-color var(--mi-motion-fast) ease,box-shadow var(--mi-motion-fast) ease;
 }
 
@@ -40,7 +40,7 @@
   overflow:hidden;
   padding:8px 12px 2px;
   border:0;
-  background:#fff;
+  background:var(--mi-color-surface);
 }
 
 .card .standardMedia :global(.entity-media-link),
@@ -96,7 +96,7 @@
 
 .title{
   margin:0;
-  color:#0f172a;
+  color:var(--mi-color-slate-900);
   font-size:12px;
   font-weight:820;
   line-height:1.25;
@@ -109,7 +109,7 @@
 
 .price{
   margin:3px 0 0;
-  color:#1565ff;
+  color:var(--mi-color-market-price);
   font-size:14px;
   font-weight:900;
   letter-spacing:-.02em;
@@ -126,7 +126,7 @@
   padding:0;
   border:0;
   background:transparent;
-  color:#64748b;
+  color:var(--mi-color-slate-500);
   font-size:9px;
   line-height:1.35;
 }
