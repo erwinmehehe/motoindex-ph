@@ -141,3 +141,24 @@
   .comparisonCard{min-height:0;padding:var(--mi-space-4)}
   .pairModels>div{padding:var(--mi-space-3)}
 }
+
+.mockupCompare{display:grid;gap:8px;margin-top:6px}
+.mockupCards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.mockupCards article{position:relative;min-width:0;padding:8px 10px 10px;border:1px solid #dce7f4;border-radius:10px;background:#fff}
+.mockupMedia{display:grid;height:126px;place-items:center;overflow:hidden;background:#fff}
+.mockupMedia img{width:100%;height:100%;padding:3px;object-fit:contain}
+.mockupCards small{color:#64748b;font-size:8px}
+.mockupCards h2{margin:2px 0;color:#0f172a;font-size:12px;line-height:1.2}
+.mockupCards strong{color:#1565ff;font-size:14px}
+.specGroup{overflow:hidden;border:1px solid #dce7f4;border-radius:8px;background:#fff}
+.specGroup h3{margin:0;padding:8px 10px;background:#f4f8fd;color:#0f172a;font-size:10px}
+.specRow{display:grid;grid-template-columns:1.15fr repeat(3,1fr);border-top:1px solid #e8eef6}
+.specRow>*{min-width:0;padding:7px 9px;border-left:1px solid #e8eef6;font-size:9px;color:#475569}
+.specRow>*:first-child{border-left:0}
+.specRow b{color:#334155;font-weight:800}
+.mockupActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2px}
+.mockupActions button,.mockupActions a{display:flex;min-height:38px;align-items:center;justify-content:center;border:1px solid #d5e1f0;border-radius:8px;background:#fff;color:#334155;font-size:10px;font-weight:800}
+.mockupActions a{border-color:#2563eb;background:#2563eb;color:#fff}
+.builderDisclosure{margin-top:10px}
+.builderDisclosure>summary{cursor:pointer;color:#2563eb;font-size:10px;font-weight:800;text-align:right}
+.builderDisclosure[open]>.workspace{margin-top:8px}
