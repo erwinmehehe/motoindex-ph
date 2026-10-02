@@ -10,7 +10,7 @@ import { ThreeWayHighlights } from "@/components/ThreeWayHighlights";
 import styles from "./SelectedCompareClient.module.css";
 
 export function SelectedCompareClient({ models, initialSlugs = [] }: { models: Motorcycle[]; initialSlugs?: string[] }) {
-  const [slugs,setSlugs]=useState<string[]>(initialSlugs);
+  const [slugs,setSlugs]=useState<string[]>(initialSlugs);\n  const [shareStatus,setShareStatus]=useState("");
 
   useEffect(()=>{
     const value=new URLSearchParams(window.location.search).get("bikes")||"";
@@ -23,6 +23,21 @@ export function SelectedCompareClient({ models, initialSlugs = [] }: { models: M
     [models,slugs]
   );
 
+  async function shareComparison(){
+    const url=window.location.href;
+    try{
+      if(navigator.share){
+        await navigator.share({title:"MotoIndex PH motorcycle comparison",url});
+        setShareStatus("Shared");
+      }else{
+        await navigator.clipboard.writeText(url);
+        setShareStatus("Link copied");
+      }
+    }catch{
+      setShareStatus("");
+    }
+  }
+
   if(selected.length<2){
     return <div className={`${styles.empty} note-box`}><h2>Choose at least two motorcycles</h2><p>Your comparison link is missing valid motorcycle selections.</p><Link className="button small" href="/compare">Open comparison builder</Link></div>;
   }
@@ -31,7 +46,11 @@ export function SelectedCompareClient({ models, initialSlugs = [] }: { models: M
     <div className={styles.summary} aria-label={`${selected.length} motorcycles selected`}>
       <span>{selected.length}-bike comparison</span>
       <div>{selected.map(model=><b key={model.id}>{model.make} {model.model}</b>)}</div>
-      <Link href="/compare">Change motorcycles</Link>
+      <div className={styles.summaryActions}>
+        <Link href="/compare">Clear / change</Link>
+        <button type="button" onClick={shareComparison}>Share</button>
+        {shareStatus&&<small aria-live="polite">{shareStatus}</small>}
+      </div>
     </div>
     {selected.length===2&&<ComparisonDecisionWorkbench a={selected[0]} b={selected[1]}/>} 
     {selected.length===3?<ThreeWayHighlights models={selected}/>:<ComparisonHighlights a={selected[0]} b={selected[1]}/>} 
