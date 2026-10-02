@@ -38,18 +38,18 @@
   grid-template-columns:minmax(0,.93fr) minmax(420px,1.07fr);
   gap:34px;
   align-items:center;
-  min-height:304px;
+  min-height:276px;
 }
 .mi-market-hero-copy{padding:12px 0 4px}
 .mi-market-eyebrow{
   display:inline-flex;
-  margin-bottom:13px;
+  margin-bottom:11px;
   padding:6px 10px;
   border:1px solid #d9e5f3;
   border-radius:999px;
   background:rgba(255,255,255,.74);
   color:#4a6281;
-  font-size:10px;
+  font-size:9px;
   font-weight:800;
   letter-spacing:.035em;
   text-transform:uppercase;
@@ -59,9 +59,9 @@
   margin:0;
   color:#0b1730;
   font-family:var(--font-jakarta),var(--font-inter),sans-serif;
-  font-size:clamp(42px,4.7vw,64px);
+  font-size:clamp(38px,4vw,54px);
   font-weight:800;
-  line-height:.98;
+  line-height:1;
   letter-spacing:-.055em;
   text-wrap:balance;
 }
@@ -74,7 +74,7 @@
 }
 .mi-market-hero-bike{
   position:relative;
-  min-height:292px;
+  min-height:268px;
   overflow:hidden;
   border-radius:16px;
   background:
@@ -102,16 +102,18 @@
 .mi-market-hero-media{
   position:absolute;
   z-index:2;
-  inset:16px 22px 10px 24%;
+  inset:8px 6px 6px 15%;
 }
 .mi-market-hero-media,
-.mi-market-hero-media>*{width:100%;height:100%}
+.mi-market-hero-media>*{width:100%;height:100%;background:transparent!important}
 .mi-market-hero-media img{
   width:100%;
   height:100%;
-  padding:8px;
+  padding:0;
   object-fit:contain;
   object-position:center;
+  mix-blend-mode:multiply;
+  filter:saturate(1.04) contrast(1.02);
 }
 .mi-market-bike-caption{
   position:absolute;
@@ -180,7 +182,7 @@
 .mi-category-shortcuts a{
   display:grid;
   min-width:0;
-  min-height:56px;
+  min-height:68px;
   place-items:center;
   align-content:center;
   gap:3px;
@@ -192,7 +194,24 @@
   box-shadow:0 2px 8px rgba(15,23,42,.025);
 }
 .mi-category-shortcuts a:hover{border-color:#9eb8e9;box-shadow:0 7px 18px rgba(33,70,122,.07)}
-.mi-category-shortcuts span{color:#687b92;font-size:8px;font-weight:850;letter-spacing:.06em}
+.mi-category-shortcuts .mi-category-icon{
+  display:grid;
+  width:26px;
+  height:26px;
+  place-items:center;
+  border-radius:8px;
+  background:#f3f7ff;
+  color:#345fd7;
+  font-size:15px;
+  font-weight:800;
+  line-height:1;
+}
+.mi-category-shortcuts a:nth-child(2) .mi-category-icon{background:#fff8e8;color:#9a6a12}
+.mi-category-shortcuts a:nth-child(3) .mi-category-icon{background:#eef7ff;color:#4069b8}
+.mi-category-shortcuts a:nth-child(4) .mi-category-icon{background:#f3efff;color:#6b4acb}
+.mi-category-shortcuts a:nth-child(5) .mi-category-icon{background:#f4f1ff;color:#7652cf}
+.mi-category-shortcuts a:nth-child(6) .mi-category-icon{background:#eef6ff;color:#2b63b5}
+.mi-category-shortcuts a:nth-child(7) .mi-category-icon{background:#eaf8ef;color:#238251}
 .mi-category-shortcuts strong{color:#18263d;font-size:10px;line-height:1.15}
 
 .mi-market-section{padding:14px 0 0}
@@ -395,10 +414,10 @@
 }
 @media(max-width:560px){
   .mi-market-hero-grid{min-height:0}
-  .mi-market-hero h1{font-size:clamp(36px,11vw,48px)}
+  .mi-market-hero h1{font-size:clamp(32px,9.5vw,40px)}
   .mi-market-hero-copy>p{font-size:13px}
-  .mi-market-hero-bike{min-height:250px}
-  .mi-market-hero-media{inset:24px 2px 20px 8%}
+  .mi-market-hero-bike{min-height:220px}
+  .mi-market-hero-media{inset:8px -8px 4px 4%}
   .mi-market-brand{top:12px;right:12px}
   .mi-market-bike-caption{left:10px;bottom:10px}
   .mi-market-search{grid-template-columns:auto minmax(0,1fr)}
