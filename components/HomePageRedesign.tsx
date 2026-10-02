@@ -1,4 +1,4 @@
-import type React from "react";
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -33,7 +33,7 @@ const featureLinks = [
   ["04", "Rider guides", "Buying, ownership and maintenance guidance.", "/guides"],
 ] as const;
 
-export function HomePageRedesign({ heading }: { heading: React.ReactNode }) {
+export function HomePageRedesign({ heading }: { heading: ReactNode }) {
   const verifiedModels = currentMotorcycles.filter(isIndexableModel);
   const featured = verifiedModels.slice(0, 4);
   const heroModel = verifiedModels.find((model) => model.makeSlug === "yamaha" && model.slug.toLowerCase().includes("aerox")) ?? featured[0];
