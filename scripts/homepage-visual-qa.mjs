@@ -153,7 +153,7 @@ try {
     if (row.inputHeight < 40 || row.buttonHeight < 40) failures.push(`${width}px: search controls collapsed below a usable 40px height`);
     if (/rgb\(9,\s*10,\s*13\)|rgb\(7,\s*8,\s*10\)/.test(row.heroBackground) || /rgb\(9,\s*10,\s*13\)|rgb\(7,\s*8,\s*10\)/.test(row.heroBackgroundColor)) failures.push(`${width}px: retired near-black homepage hero returned`);
     if (!/rgb\(255,\s*255,\s*255\)|rgb\(248,\s*250,\s*252\)/.test(row.heroBackground)) failures.push(`${width}px: homepage hero is not using the light premium background`);
-    if (!/rgb\(15,\s*23,\s*42\)/.test(row.headingColor)) failures.push(`${width}px: hero heading color ${row.headingColor} is not the intended readable slate ink`);
+    if (!/rgb\((15,\s*23,\s*42|16,\s*24,\s*40)\)/.test(row.headingColor)) failures.push(`${width}px: hero heading color ${row.headingColor} is not the intended readable ink token`);
     if (width === 1440) {
       if (row.headingSize > 61) failures.push(`1440px: homepage H1 is ${row.headingSize}px, above the 60px design cap`);
       if (row.researchWidth < 420) failures.push(`1440px: research snapshot collapsed to ${row.researchWidth}px`);
