@@ -309,7 +309,7 @@
 .seoContinuation div{display:flex;flex-direction:column;gap:4px}
 .seoContinuation strong{font-size:var(--mi-type-sm)}
 .seoContinuation span{color:var(--mi-color-copy);font-size:var(--mi-type-xs)}
-.seoContinuation a{color:var(--mi-color-primary);font-size:var(--mi-type-xs);font-weight:850;text-decoration:none}
+.seoContinuation a{color:var(--mi-color-primary);font-size:var(--mi-type-xs);font-weight:850;text-decoration:none}\n.seoLinks{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:var(--mi-space-3)}
 
 @media(max-width:980px){
   .heroInner{grid-template-columns:1fr minmax(340px,.8fr)}
