@@ -39,7 +39,8 @@ const modelFamilyView = read("components", "ModelFamilyView.tsx");
 const gscOpportunity = read("scripts", "gsc-opportunity-report.mjs");
 const gscWorkflow = read("docs", "seo", "gsc-opportunity-workflow-2026-09-30.md");
 
-requireText(home, "Compare <span>motorcycle prices</span><br />and specs in the Philippines.", "Homepage must keep a query-led motorcycle prices/specs H1.");
+requireText(home, "Find the right motorcycle for your next ride.", "Homepage must keep the approved motorcycle-first H1.");
+requireText(home, "Compare prices, specs, and features of motorcycles in the Philippines", "Homepage must retain Philippine motorcycle price/spec copy near the H1.");
 forbidText(home, "Your next <span>motorcycle</span><br />starts here.", "Homepage must not regress to the old brand-led H1.");
 forbidText(home, "/motorcycles?budget=under100", "Homepage should link the under-100K intent to the consolidated recommendation section, not a crawlable filter URL.");
 requireText(motorcycles, "<h1>Motorcycle prices", "Motorcycle hub must keep a query-led H1 that starts with Motorcycle prices.");
