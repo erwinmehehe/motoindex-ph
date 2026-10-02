@@ -6,6 +6,7 @@ import { globalDemandExpansion2026 } from "./globalDemandExpansion2026";
 import { kawasakiBigBikeExpansion2026 } from "./kawasakiBigBikeExpansion2026";
 import { motortradeGapExpansion2026 } from "./motortradeGapExpansion2026";
 import { zigwheelsGapExpansion2026 } from "./zigwheelsGapExpansion2026";
+import { zigwheelsGapWave2_2026 } from "./zigwheelsGapWave2_2026";
 
 export const phTier23Motorcycles = [
   ...baseMotorcycles,
@@ -16,4 +17,5 @@ export const phTier23Motorcycles = [
   ...kawasakiBigBikeExpansion2026,
   ...motortradeGapExpansion2026,
   ...zigwheelsGapExpansion2026,
+  ...zigwheelsGapWave2_2026,
 ];
