@@ -10,7 +10,8 @@ import { ThreeWayHighlights } from "@/components/ThreeWayHighlights";
 import styles from "./SelectedCompareClient.module.css";
 
 export function SelectedCompareClient({ models, initialSlugs = [] }: { models: Motorcycle[]; initialSlugs?: string[] }) {
-  const [slugs,setSlugs]=useState<string[]>(initialSlugs);\n  const [shareStatus,setShareStatus]=useState("");
+  const [slugs,setSlugs]=useState<string[]>(initialSlugs);
+  const [shareStatus,setShareStatus]=useState("");
 
   useEffect(()=>{
     const value=new URLSearchParams(window.location.search).get("bikes")||"";
