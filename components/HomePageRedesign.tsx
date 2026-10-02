@@ -51,7 +51,7 @@ export function HomePageRedesign({ heading }: { heading: ReactNode }) {
           {heading}
           <p className={styles.lede}>Compare prices, specs, and features of motorcycles in the Philippines, from scooters to big bikes.</p>
         </div>
-        {hero&&<div className={styles.heroBike}>
+        {hero&&<div className={styles.heroBike} data-home-visual>
           <EntityMedia entityType="motorcycle" entityId={hero.id} className={styles.heroBikeMedia} priority showCredit={false} sizes="(max-width: 780px) 78vw, 42vw" fallback={<EntityVerificationFallback brand={hero.make} model={hero.model}/>} />
         </div>}
       </div>
