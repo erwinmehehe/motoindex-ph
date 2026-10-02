@@ -6,6 +6,7 @@ import { hasConfirmedAbs, publicMotorcycles } from "@/lib/data";
 import { observedMarketPriceLabel, observedMarketRange } from "@/lib/marketChecks";
 import { AuthorBox } from "@/components/AuthorBox";
 import { EntityMedia } from "@/components/EntityMedia";
+import { EntityVerificationFallback } from "@/components/EntityVerificationFallback";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
@@ -105,7 +106,7 @@ export default function RecommendationsPage() {
         </div>
         <aside className="rec-hero-aside">
           {spotlight && <Link className="rec-spotlight" href={modelHref(spotlight)}>
-            <EntityMedia entityType="motorcycle" entityId={spotlight.id} className="rec-spotlight-media" showCredit={false} sizes="(max-width: 1050px) 100vw, 360px" />
+            <EntityMedia entityType="motorcycle" entityId={spotlight.id} className="rec-spotlight-media" showCredit={false} sizes="(max-width: 1050px) 100vw, 360px" fallback={<EntityVerificationFallback brand={spotlight.make} model={spotlight.model} />} />
             <div><span>Current model spotlight</span><strong>{spotlight.make} {spotlight.model}</strong><small>{observedMarketPriceLabel(spotlight)} · {spotlight.engineCc} cc · {spotlight.seatHeightMm} mm seat</small></div>
           </Link>}
           <div className="rec-start-card">
