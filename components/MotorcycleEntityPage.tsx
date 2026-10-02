@@ -62,6 +62,14 @@ const MOTORCYCLE_ANALYTICS_CSS = `
 @media(max-width:640px){.motorcycle-analytics-panel{padding:24px 0;border-left:0;border-right:0;border-radius:0;box-shadow:none}.motorcycle-analytics-heading{align-items:flex-start;flex-direction:column;gap:10px;padding:0 2px}.motorcycle-analytics-grid{grid-template-columns:1fr}.motorcycle-analytics-metric{padding:18px 14px}.motorcycle-analytics-metric>strong{font-size:23px}}
 `;
 
+function colorTone(value: string) {
+  const lower = value.toLowerCase();
+  for (const tone of ["black","white","blue","red","green","orange","yellow","silver","gray","grey","gold","brown","purple"]) {
+    if (lower.includes(tone)) return tone === "grey" ? "gray" : tone;
+  }
+  return "other";
+}
+
 function HeroFact({ label, value, note }: { label: string; value: string; note?: string }) {
   return <div><span>{label}</span><strong>{value}</strong>{note && <small>{note}</small>}</div>;
 }
@@ -126,6 +134,15 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       { "@type": "PropertyValue", name: "Front tire", value: model.frontTire },
       { "@type": "PropertyValue", name: "Rear tire", value: model.rearTire },
     ],
+  };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Motorcycles", item: absoluteUrl("/motorcycles") },
+      { "@type": "ListItem", position: 2, name: model.make, item: absoluteUrl(`/motorcycles/${model.makeSlug}`) },
+      { "@type": "ListItem", position: 3, name: model.model, item: absoluteUrl(canonicalPath) }
+    ]
   };
   const faqSchema = {
     "@context": "https://schema.org",
@@ -194,6 +211,10 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
               <HeroFact label="Transmission" value={model.transmission || "Not listed"} note={model.category} />
               <HeroFact label="Fuel" value={`${model.fuelTankL} L tank`} note={`${efficiency.kmPerL} km/L ${efficiency.status === "listed" ? "listed" : "planning estimate"}`} />
             </div>
+            {allColors.length > 0 && <div className="wire-model-colors" aria-label={`${model.make} ${model.model} available colors`}>
+              <span>Available colors</span>
+              <div>{allColors.slice(0, 6).map((color) => <span key={color} className="wire-color-chip" title={color}><i data-tone={colorTone(color)} aria-hidden="true" /><b>{color}</b></span>)}</div>
+            </div>}
           </div>
         </div>
       </div>
@@ -330,6 +351,6 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       <section id="faq" className="motorcycle-entity-section"><FaqSection title={`${model.make} ${model.model} FAQs`} items={faqs} /></section>
       <AuthorBox />
     </div>
-    <JsonLd data={[schema, faqSchema, authorSchema]} />
+    <JsonLd data={[schema, breadcrumbSchema, faqSchema, authorSchema]} />
   </article>;
 }
