@@ -49,6 +49,21 @@ function HelmetProductGrid({ products, limit = 8 }: { products: typeof helmetPro
   }}/>)}</ProductGrid>;
 }
 
+function HelmetPreviewGrid({ products }: { products: typeof helmetProducts }) {
+  const visible=products.filter(product=>hasRenderableProductMedia(product.id)).slice(0,6);
+  return <div className={styles.previewGrid}>{visible.map(product=>{
+    const href=`/gear/helmets/${product.brandSlug}/${product.slug}`;
+    return <article className={styles.previewCard} key={product.id}>
+      <EntityMedia entityType="helmet" entityId={product.id} className={styles.previewMedia} linkHref={href} showCredit={false} fallback={<EntityVerificationFallback brand={product.brand} model={product.model} kind="helmet" />} />
+      <Link className={styles.previewCopy} href={href}>
+        <strong>{product.brand} {product.model}</strong>
+        <span>{typeof product.priceFromPhp==="number"?`₱${product.priceFromPhp.toLocaleString("en-PH")}`:"Check price"}</span>
+        <small>{product.helmetType}{compactHelmetMeta(product)?` · ${compactHelmetMeta(product)}`:""}</small>
+      </Link>
+    </article>;
+  })}</div>;
+}
+
 function Count({ value }: { value: number }) {
   return <strong className="ui-section-count">{value} models</strong>;
 }
@@ -85,7 +100,7 @@ export default function HelmetsPage(){
     </section>
     <nav className={styles.filters} aria-label="Helmet categories"><a href="#models">All Brands</a><a href="#full-face">Full Face</a><a href="#modular">Modular</a><a href="#open-face">Open Face</a><a href="#brands">Dual Sport</a></nav>
     <div className={styles.countRow}><strong>{verified.length} helmet models</strong><span>Sort by: Popular⌄</span></div>
-    <div className={styles.preview}><HelmetProductGrid products={verified} limit={6}/></div>
+    <HelmetPreviewGrid products={verified}/>
 
     <nav className="product-entity-nav helmet-master-nav" aria-label="Helmet guide sections">
       <a href="#full-face">Full-face</a><a href="#modular">Modular</a><a href="#open-face">Open-face</a><a href="#under-3000">Under ₱3K</a><a href="#under-5000">Under ₱5K</a><a href="#ece-22-06">ECE 22.06</a><a href="#intercom-ready">Intercom</a><a href="#commuting">Commuting</a><a href="#brands">Brands</a><a href="#models">Model preview</a>
