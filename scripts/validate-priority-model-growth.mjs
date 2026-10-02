@@ -633,6 +633,16 @@ for (const modelId of [
   }
 }
 
+for (const token of [
+  'const discontinued = publicModels.filter((m) => m.marketStatus === "discontinued")',
+  'title={`Discontinued ${brand} motorcycle models and prices`}',
+  'Historical prices are not current new-bike quotes.'
+]) {
+  if (!brandPage.includes(token)) {
+    errors.push(`brand archive: discontinued-model discovery guard missing: ${token}`);
+  }
+}
+
 if (!growth.includes('heading: "Looking for the Honda CRF250 Rally?"') || !growth.includes("enhanced successor to the CRF250 Rally")) {
   errors.push("priorityModelGrowth: CRF300 Rally must explicitly consolidate CRF250 Rally predecessor search intent");
 }
