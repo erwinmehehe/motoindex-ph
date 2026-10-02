@@ -27,7 +27,6 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const models = motorcycles.filter((m) => m.makeSlug === make);
   if (!models.length) return {};
   const brand = models[0].make;
-  const hasBrandLogo = brandLogoSlugs.has(make);
   const publicModels = models.filter(isIndexableModel);
   const brandGrowth = brandSeoGrowthProfile(make);
   const current = publicModels.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued");
@@ -48,6 +47,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   if (!models.length) return notFound();
 
   const brand = models[0].make;
+  const hasBrandLogo = brandLogoSlugs.has(make);
   const publicModels = models.filter(isIndexableModel);
   const brandGrowth = brandSeoGrowthProfile(make);
   const publicIds = new Set(publicModels.map((m) => m.id));
