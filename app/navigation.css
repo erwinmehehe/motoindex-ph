@@ -1,25 +1,24 @@
-/* Shared navigation system. Keep header/menu behavior authoritative here. */
+/* Shared navigation system. */
 .site-header{
   position:sticky;
   top:0;
   z-index:60;
-  border-bottom:1px solid #e4ebf3;
-  background:rgba(255,255,255,.96);
-  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--mi-color-line-soft);
+  background:var(--mi-color-surface);
 }
 .site-header .shell{width:min(1280px,calc(100% - 32px));margin-inline:auto}
 .site-header .nav-wrap{position:relative;height:62px;display:flex;align-items:center;gap:24px}
 .site-header .brand{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:850;letter-spacing:-.035em}
 .site-header .brand-logo{width:30px;height:30px}
-.site-header .brand-word{color:#10213b}
-.site-header .brand-word b{color:#2467d9}
-.site-header .nav-links{display:flex;align-items:center;gap:22px;margin-left:auto;color:#334155;font-size:11px;font-weight:750}
+.site-header .brand-word{color:var(--mi-color-ink)}
+.site-header .brand-word b{color:var(--mi-color-primary)}
+.site-header .nav-links{display:flex;align-items:center;gap:22px;margin-left:auto;color:var(--mi-color-slate-700);font-size:11px;font-weight:750}
 .site-header .nav-links>a,
-.site-header .nav-more>summary{cursor:pointer;color:#334155;list-style:none}
+.site-header .nav-more>summary{cursor:pointer;color:var(--mi-color-slate-700);list-style:none}
 .site-header .nav-more>summary::-webkit-details-marker{display:none}
-.site-header .nav-more>summary span{margin-left:3px;color:#94a3b8}
+.site-header .nav-more>summary span{margin-left:3px;color:var(--mi-color-muted)}
 .site-header .nav-links>a:hover,
-.site-header .nav-more>summary:hover{color:#245fd2}
+.site-header .nav-more>summary:hover{color:var(--mi-color-primary)}
 .site-header .nav-actions{display:flex;align-items:center;gap:7px;margin-left:4px}
 .nav-icon-button,
 .shortlist-nav{
@@ -29,14 +28,14 @@
   height:36px;
   align-items:center;
   justify-content:center;
-  border:1px solid #dce5f0;
-  border-radius:9px;
-  background:#fff;
-  color:#34445b;
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-xs);
+  background:var(--mi-color-surface);
+  color:var(--mi-color-slate-700);
 }
 .nav-icon-button:hover,
 .shortlist-nav:hover,
-.shortlist-nav.nav-current{border-color:#a9bee2;background:#f5f8ff;color:#245fd2}
+.shortlist-nav.nav-current{border-color:var(--mi-color-primary);background:var(--mi-color-primary-soft);color:var(--mi-color-primary)}
 .nav-icon-button svg,
 .shortlist-nav svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .shortlist-nav svg{fill:none}
@@ -50,10 +49,10 @@
   height:18px;
   place-items:center;
   padding:0 4px;
-  border:2px solid #fff;
-  border-radius:999px;
-  background:#2f6df6;
-  color:#fff;
+  border:2px solid var(--mi-color-surface);
+  border-radius:var(--mi-radius-pill);
+  background:var(--mi-color-primary);
+  color:var(--mi-color-surface);
   font-size:8px;
   line-height:1;
 }
@@ -65,63 +64,63 @@
   left:50%;
   min-width:190px;
   padding:8px;
-  border:1px solid #dde6f0;
-  border-radius:14px;
-  background:#fff;
-  box-shadow:0 18px 44px rgba(15,23,42,.12);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-sm);
+  background:var(--mi-color-surface);
+  box-shadow:var(--mi-shadow-lg);
   transform:translateX(-50%);
 }
-.site-header .nav-popover>a{display:block;padding:9px 10px;border-radius:9px;color:#475569;font-size:11px}
-.site-header .nav-popover>a:hover{background:#f4f7fb;color:#245fd2}
-.site-header .nav-motorcycles .nav-popover-menu{width:min(590px,calc(100vw - 32px));padding:12px!important;border-radius:16px!important}
+.site-header .nav-popover>a{display:block;padding:9px 10px;border-radius:var(--mi-radius-xs);color:var(--mi-color-slate-600);font-size:11px}
+.site-header .nav-popover>a:hover{background:var(--mi-color-surface-subtle);color:var(--mi-color-primary)}
+.site-header .nav-motorcycles .nav-popover-menu{width:min(590px,calc(100vw - 32px));padding:12px;border-radius:var(--mi-radius-md)}
 .nav-popover-featured{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:14px}
 .site-header .nav-popover-featured>a{
-  display:flex!important;
+  display:flex;
   min-height:66px;
   flex-direction:column;
   align-items:flex-start;
   justify-content:center;
   gap:4px;
-  padding:12px 14px!important;
-  border:1px solid rgba(148,163,184,.18)!important;
-  border-radius:12px!important;
-  background:#fff!important;
-  color:#0f172a!important;
+  padding:12px 14px;
+  border:1px solid var(--mi-color-line-soft);
+  border-radius:var(--mi-radius-sm);
+  background:var(--mi-color-surface);
+  color:var(--mi-color-ink);
 }
-.site-header .nav-popover-featured .nav-popover-primary{background:linear-gradient(135deg,rgba(47,109,246,.07),rgba(68,76,231,.035))!important}
-.site-header .nav-popover-featured .nav-popover-electric{background:linear-gradient(135deg,rgba(18,183,106,.07),rgba(68,76,231,.025))!important}
-.nav-popover-featured strong{color:#101828!important;font-size:13px}
-.nav-popover-featured small{color:#667085!important;font-size:10px}
-.nav-motorcycles .nav-popover-label{display:block;margin:4px 6px 8px!important;color:#98a2b3!important;font-size:9px!important;font-weight:850!important;text-transform:uppercase}
+.site-header .nav-popover-featured .nav-popover-primary{background:var(--mi-color-primary-soft)}
+.site-header .nav-popover-featured .nav-popover-electric{background:var(--mi-color-surface-subtle)}
+.nav-popover-featured strong{color:var(--mi-color-ink);font-size:13px}
+.nav-popover-featured small{color:var(--mi-color-copy);font-size:10px}
+.nav-motorcycles .nav-popover-label{display:block;margin:4px 6px 8px;color:var(--mi-color-muted);font-size:9px;font-weight:850;text-transform:uppercase}
 .nav-motorcycles .nav-brand-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px 6px}
-.site-header .nav-motorcycles .nav-brand-grid>a{padding:8px 9px!important;border-radius:9px!important;color:#475467!important;font-size:11px!important;font-weight:720!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.site-header .nav-motorcycles .nav-brand-grid>a:hover{color:#245fd2!important;background:#f4f7ff!important}
-.site-header .mobile-menu{position:static!important;display:none;margin-left:auto}
-.site-header .mobile-menu>summary{cursor:pointer;list-style:none;padding:8px 10px;border:1px solid #dce5f0;border-radius:9px;background:#fff;color:#334155;font-size:10px;font-weight:800}
+.site-header .nav-motorcycles .nav-brand-grid>a{padding:8px 9px;border-radius:var(--mi-radius-xs);color:var(--mi-color-slate-600);font-size:11px;font-weight:720;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.site-header .nav-motorcycles .nav-brand-grid>a:hover{color:var(--mi-color-primary);background:var(--mi-color-surface-subtle)}
+.site-header .mobile-menu{position:static;display:none;margin-left:auto}
+.site-header .mobile-menu>summary{cursor:pointer;list-style:none;padding:8px 10px;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-xs);background:var(--mi-color-surface);color:var(--mi-color-slate-700);font-size:10px;font-weight:800}
 .site-header .mobile-menu>summary::-webkit-details-marker{display:none}
 .mobile-menu-panel{
-  position:absolute!important;
+  position:absolute;
   top:62px;
-  left:0!important;
-  right:0!important;
-  width:auto!important;
+  left:0;
+  right:0;
+  width:auto;
   max-height:calc(100vh - 82px);
   overflow:auto;
   padding:14px;
-  border:1px solid #dce5f0;
-  border-radius:14px;
-  background:#fff;
-  box-shadow:0 20px 48px rgba(15,23,42,.15);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-sm);
+  background:var(--mi-color-surface);
+  box-shadow:var(--mi-shadow-lg);
 }
 .mobile-menu-panel nav{display:grid;gap:6px}
-.mobile-menu-panel nav>a{padding:10px;border-radius:9px;color:#334155;font-size:11px;font-weight:700}
-.mobile-menu-panel nav>a:hover{background:#f4f7fb}
-.mobile-menu-heading{margin-top:8px;color:#101828;font-size:10px}
-.mobile-menu-label{color:#98a2b3;font-size:9px;font-weight:800;text-transform:uppercase}
+.mobile-menu-panel nav>a{padding:10px;border-radius:var(--mi-radius-xs);color:var(--mi-color-slate-700);font-size:11px;font-weight:700}
+.mobile-menu-panel nav>a:hover{background:var(--mi-color-surface-subtle)}
+.mobile-menu-heading{margin-top:8px;color:var(--mi-color-ink);font-size:10px}
+.mobile-menu-label{color:var(--mi-color-muted);font-size:9px;font-weight:800;text-transform:uppercase}
 .mobile-menu-featured{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 14px}
-.mobile-menu-featured>a{display:flex!important;align-items:center;padding:10px 12px!important;border:1px solid rgba(148,163,184,.20)!important;border-radius:10px!important;background:#fff!important;color:#101828!important;font-weight:800!important}
+.mobile-menu-featured>a{display:flex;align-items:center;padding:10px 12px;border:1px solid var(--mi-color-line-soft);border-radius:var(--mi-radius-xs);background:var(--mi-color-surface);color:var(--mi-color-ink);font-weight:800}
 .mobile-menu-brand-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
-.mobile-menu-brand-grid>a{padding:8px;border-radius:8px;background:#f8fafc;color:#475569;font-size:10px}
+.mobile-menu-brand-grid>a{padding:8px;border-radius:var(--mi-radius-xs);background:var(--mi-color-surface-subtle);color:var(--mi-color-slate-600);font-size:10px}
 
 @media(max-width:900px){
   .site-header .nav-links{display:none}
@@ -133,8 +132,8 @@
   .site-header .nav-wrap{height:58px;gap:10px}
   .site-header .brand-word{font-size:14px}
   .site-header .brand-logo{width:28px;height:28px}
-  .mobile-menu-panel{top:58px;left:0!important;right:0!important}
+  .mobile-menu-panel{top:58px;left:0;right:0}
   .mobile-menu-featured{grid-template-columns:1fr}
-  .mobile-menu-brand-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .mobile-menu-brand-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .nav-icon-button,.shortlist-nav{width:34px;height:34px}
 }
