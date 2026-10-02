@@ -39,6 +39,8 @@ const routes=[
   {name:"honda-winner-x-legacy",path:"/motorcycles/honda/winner-x"},
   {name:"yamaha-mio-i125-legacy",path:"/motorcycles/yamaha/mio-i-125"},
   {name:"compare-index",path:"/compare"},
+  {name:"price-list",path:"/price-list"},
+  {name:"guides",path:"/guides"},
   {name:"honda-compare",path:"/compare?make=honda"},
   {name:"yamaha-compare",path:"/compare?make=yamaha"},
   {name:"kawasaki-compare",path:"/compare?make=kawasaki"},
