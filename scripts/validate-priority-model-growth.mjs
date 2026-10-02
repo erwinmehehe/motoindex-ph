@@ -23,6 +23,7 @@ const zigwheelsGap = read("lib", "zigwheelsGapExpansion2026.ts");
 const zigwheelsGapWave2 = read("lib", "zigwheelsGapWave2_2026.ts");
 const zigwheelsGapWave3 = read("lib", "zigwheelsGapWave3_2026.ts");
 const zigwheelsGapWave4 = read("lib", "zigwheelsGapWave4_2026.ts");
+const zigwheelsGapWave6 = read("lib", "zigwheelsGapWave6_2026.ts");
 for (const token of [
   'const isDiscontinued = model.marketStatus === "discontinued";',
   'const isHistorical = isPrevious || isDiscontinued;',
@@ -695,6 +696,41 @@ for (const token of [
 ]) {
   if (!zigwheelsGapWave4.includes(token)) {
     errors.push(`ZigWheels keyword-gap wave 4: status/spec guard missing ${token}`);
+  }
+}
+
+for (const modelId of [
+  "honda-dio",
+  "bristol-adx-160",
+  "suzuki-avenis",
+  "ktm-390-duke",
+  "kawasaki-z900-se",
+  "keeway-superlight-200",
+  "tvs-ntorq-125"
+]) {
+  if (!zigwheelsGapWave6.includes(`id: "${modelId}"`)) {
+    errors.push(`ZigWheels keyword-gap wave 6: missing model entity ${modelId}`);
+  }
+}
+
+for (const token of [
+  'id: "honda-dio"',
+  'marketStatus: "discontinued"',
+  'srp: 49900',
+  'id: "bristol-adx-160"',
+  'engineCc: 155.6',
+  'id: "suzuki-avenis"',
+  'srp: 81400',
+  'id: "ktm-390-duke"',
+  'engineCc: 373.3',
+  'id: "kawasaki-z900-se"',
+  'srp: 618000',
+  'id: "keeway-superlight-200"',
+  'id: "tvs-ntorq-125"',
+  'marketStatus: "uncertain"'
+]) {
+  if (!zigwheelsGapWave6.includes(token)) {
+    errors.push(`ZigWheels keyword-gap wave 6: source/status guard missing ${token}`);
   }
 }
 
