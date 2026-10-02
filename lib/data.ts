@@ -815,9 +815,9 @@ export const motorcycles: Motorcycle[] = [
     summary: "147cc six-speed underbone with front ABS and a manufacturer-published 43.4 km/L test figure."
   },
   {
-    id: "suzuki-gixxer-155", make: "Suzuki", makeSlug: "suzuki", model: "Gixxer 155", slug: "gixxer-155", generation: "Current", category: "Naked street bike",
+    id: "suzuki-gixxer-155", alsoKnownAs: ["Suzuki Gixxer FI", "Gixxer FI", "Suzuki Gixxer"], make: "Suzuki", makeSlug: "suzuki", model: "Gixxer 155", slug: "gixxer-155", generation: "Current", category: "Naked street bike",
     srp: 106400, engineCc: 155, powerHp: 13.94, torqueNm: 14, curbWeightKg: 140, seatHeightMm: 795, fuelTankL: 12, fuelConsumptionKmL: 53.3, groundClearanceMm: 160,
-    frontTire: "100/80-17", rearTire: "140/60R17", abs: "No ABS; front and rear disc brakes", colors: ["Metallic Triton Blue", "Glass Sparkle Black", "Pearl Mira Red"], searchVolume: 0, keywordDifficulty: 0,
+    frontTire: "100/80-17", rearTire: "140/60R17", abs: "No ABS; front and rear disc brakes", colors: ["Metallic Triton Blue", "Glass Sparkle Black", "Pearl Mira Red"], searchVolume: 9060, keywordDifficulty: 0,
     sourceLabel: "Suzuki Motorcycles Philippines current Gixxer 155 product page", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/gixxer-155/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current", transmission: "Manual",
     summary: "155cc naked street bike with a 12 L tank, 795 mm seat and manufacturer-published 53.3 km/L test figure."
   },
