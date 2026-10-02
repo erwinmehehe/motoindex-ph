@@ -15,7 +15,8 @@ export const metadata: Metadata = pageMetadata({
 
 export default function GuidesPage() {
   const featuredGuide=editorialGuides[0];
-  const remainingGuides=editorialGuides.slice(1);
+  const previewGuides=editorialGuides.slice(0,6);
+  const remainingGuides=editorialGuides.slice(6);
   const tasks=[
     {number:"01",title:"Choose a motorcycle",copy:"Shortlist current motorcycles by budget, use, rider fit and the tradeoffs that matter to you.",href:"/recommendations",action:"Open buying guides"},
     {number:"02",title:"Plan ownership",copy:"Estimate total cost, insurance and paperwork after you have a realistic motorcycle shortlist.",href:"/ownership",action:"Open ownership hub"},
@@ -26,17 +27,17 @@ export default function GuidesPage() {
   ];
   return <section className="page shell">
     <Breadcrumbs items={[{ label: "Guides" }]} />
-    <div className="page-head"><span className="entity-kicker">Rider guides</span><h1>Motorcycle guides for Philippine riders</h1><p>Start with the task you are trying to solve, then open the detailed guide or tool only when you need it.</p></div>
-
-    {featuredGuide && <article className={styles.featured}>
-      <div className={styles.featuredArt}><GuideFeaturedArt slug={featuredGuide.slug} title={featuredGuide.title} kicker={featuredGuide.kicker} /></div>
-      <div className={styles.featuredCopy}>
-        <span>Featured guide · {featuredGuide.kicker}</span>
-        <h2>{featuredGuide.title}</h2>
-        <p>{featuredGuide.description}</p>
-        <Link className={`button ${styles.featuredAction}`} href={`/guides/${featuredGuide.slug}`}>Read featured guide →</Link>
-      </div>
-    </article>}
+    <section className={styles.hero} data-mockup-guides-hero>
+      <div className={styles.heroCopy}><span>Home · Guides</span><h1>Motorcycle Guides<br/>& Resources</h1><p>Helpful guides, buying tips, maintenance advice and motorcycle news for Filipino riders.</p></div>
+      <div className={styles.heroArt}>{featuredGuide&&<GuideFeaturedArt slug={featuredGuide.slug} title={featuredGuide.title} kicker={featuredGuide.kicker}/>}</div>
+    </section>
+    <nav className={styles.filters} aria-label="Guide categories"><a href="#guide-preview">All</a><a href="#guide-preview">Buying Guide</a><a href="#guide-preview">Maintenance</a><a href="#guide-preview">Tips & Advice</a><a href="#guide-preview">Reviews</a><a href="#guide-preview">News</a></nav>
+    <section id="guide-preview" className={styles.preview}>
+      <div className={styles.mockGuideGrid}>{previewGuides.map((guide)=><Link className={styles.mockGuideCard} key={guide.slug} href={"/guides/"+guide.slug}>
+        <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} compact />
+        <div><span>{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><strong>Read guide →</strong></div>
+      </Link>)}</div>
+    </section>
 
     <div className="section-head compact"><div><span className="section-kicker">Choose a starting point</span><h2>What are you trying to do?</h2></div></div>
     <div className={styles.taskGrid}>
