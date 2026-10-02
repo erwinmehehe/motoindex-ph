@@ -17,8 +17,8 @@ export function CatalogPreview({ models }: { models: Motorcycle[] }) {
     <div className={styles.grid}>{models.slice(0,4).map(model=><MotorcycleCard key={model.id} model={model} variant="standard" />)}</div>
     <nav className={styles.path} aria-label="Motorcycle catalog shortcuts">
       <Link href="/motorcycles/scooters">Scooters <span>→</span></Link>
-      <Link href="/recommendations/motorcycles-under-100k">Under ₱100K <span>→</span></Link>
-      <Link href="/recommendations/motorcycles-400cc-plus-philippines">400cc+ <span>→</span></Link>
+      <Link href="/recommendations#budget">Under ₱100K <span>→</span></Link>
+      <Link href="/recommendations#400cc">400cc+ <span>→</span></Link>
       <Link href="/compare">Compare motorcycles <span>→</span></Link>
     </nav>
   </section>;
