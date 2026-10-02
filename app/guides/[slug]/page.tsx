@@ -11,7 +11,7 @@ import { SourceRef } from "@/components/SourceRef";
 import { articleSchema } from "@/lib/articleSchema";
 import { editorialGuides, getEditorialGuide } from "@/lib/editorialGuides";
 import { getEditorialGuideMedia } from "@/lib/editorialGuideMedia";
-import { pageMetadata } from "@/lib/site";
+import { absoluteUrl, pageMetadata } from "@/lib/site";
 
 const DEFAULT_GUIDE_IMAGE = "/brand/motoindex-og.png";
 
@@ -59,6 +59,14 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
     checkedDates: [guide.lastChecked],
     image: schemaImage
   });
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Guides", item: absoluteUrl("/guides") },
+      { "@type": "ListItem", position: 2, name: guide.title, item: absoluteUrl(`/guides/${guide.slug}`) }
+    ]
+  };
   const quickSteps = guide.sections.find((section) => section.bullets)?.bullets?.slice(0, 4) ?? [];
 
   return <article className="page shell">
@@ -107,6 +115,6 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
     <FaqSection title="Frequently asked questions" items={guide.faqs} />
     <AuthorBox />
     <RelatedLinks title="Continue your research" links={guide.related} />
-    <JsonLd data={schema} />
+    <JsonLd data={[schema, breadcrumbSchema]} />
   </article>;
 }
