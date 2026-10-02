@@ -52,8 +52,8 @@ export default function CompareIndex(){
   return <section className={styles.page} data-compare-index>
     <PageHero
       kicker={`${siteStats.currentMotorcycles} current models`}
-      title="Compare motorcycles in the Philippines side by side"
-      description="Pick two or three current motorcycles, then compare price, engine, rider fit, weight, fuel, tires and braking without opening multiple tabs."
+      title="Compare Motorcycles"
+      description="Compare up to 3 motorcycles side by side."
     />
 
     {defaultCompare.length===3&&<section className={styles.mockupCompare} aria-label="Example three motorcycle comparison">
