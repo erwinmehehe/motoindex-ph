@@ -112,7 +112,6 @@ export default function HomePage() {
               </div>
             </article> : <div className="mi-research-empty"><strong>Research motorcycles with the numbers that matter.</strong><Link href="/motorcycles">Explore motorcycles →</Link></div>}
           </div>
-          </div>
         </div>
       </section>
 
