@@ -8,7 +8,7 @@ import { getComparisonEditorialBrief } from "@/lib/comparisonEditorial";
 import { forClient } from "@/lib/competitors";
 import { pageMetadata } from "@/lib/site";
 import { siteStats } from "@/lib/siteStats";
-import { PageHero, SectionHeader } from "@/components/ui";
+import { SectionHeader } from "@/components/ui";
 import { EntityMedia } from "@/components/EntityMedia";
 import { EntityVerificationFallback } from "@/components/EntityVerificationFallback";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
