@@ -6,6 +6,8 @@ import { JsonLd } from "@/components/JsonLd";
 import { notFound } from "next/navigation";
 import { motorcycles, isIndexableModel } from "@/lib/data";
 import { MotorcycleCard } from "@/components/MotorcycleCard";
+import { EntityMedia } from "@/components/EntityMedia";
+import { EntityVerificationFallback } from "@/components/EntityVerificationFallback";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { modelFamilies } from "@/lib/families";
 import { observedMarketRange } from "@/lib/marketChecks";
@@ -153,25 +155,14 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       <div className="shell">
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
         <div className={styles.heroGrid}>
-          <PageHero
-            className={styles.heroCopy}
-            kicker="Philippines · Price list · Models · Specs"
-            title={brandGrowth?.heroTitle || `${brand} Motorcycle Philippines Price List`}
-            description={brandGrowth?.heroDescription || `Compare the current ${brand} motorcycle Philippines price list by model, published price, engine size, seat height and transmission. Open any motorcycle for detailed specs, financing estimates, fitment, maintenance and alternatives.`}
-            actions={<CTAGroup><Link className="button" href="#models">Browse {brand} models</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand}</Link></CTAGroup>}
-          />
-          <aside className={styles.brandPanel} aria-label={`${brand} lineup snapshot`}>
-            <div>
-              <div className={styles.logoStage}><Image src={`/brand/motorcycle/${make}.svg`} alt={`${brand} logo`} width={220} height={80} unoptimized /></div>
-              <span className={styles.panelEyebrow}>Current Philippine lineup</span>
-              <h2 className={styles.panelTitle}>{current.length} {brand} models tracked</h2>
-              <p className={styles.panelCopy}>Published prices currently span {php(low)} to {php(high)} across the current MotoIndex set.</p>
-            </div>
-            <div className={styles.quickFacts}>
-              <div className={styles.quickFact}><span>Engine range</span><strong>{minEngine}–{maxEngine} cc</strong></div>
-              <div className={styles.quickFact}><span>Transmission</span><strong>{automatic} auto · {manual} manual</strong></div>
-            </div>
-          </aside>
+          <div className={styles.heroCopy}>
+            <div className={styles.logoStage}><Image src={`/brand/motorcycle/${make}.svg`} alt={`${brand} logo`} width={240} height={90} unoptimized /></div>
+            <h1>{brand} motorcycles in the Philippines</h1>
+            <p>{brandGrowth?.heroDescription || `Explore the current ${brand} motorcycle lineup in the Philippines. Compare prices, specifications, scooter and big-bike options in one place.`}</p>
+          </div>
+          <div className={styles.brandVisual} aria-label={`${brand} motorcycle lineup`}>
+            {current.slice(0,3).map((model,index)=><EntityMedia key={model.id} entityType="motorcycle" entityId={model.id} className={styles[`bike${index+1}`]} showCredit={false} sizes="(max-width: 900px) 34vw, 260px" fallback={<EntityVerificationFallback brand={model.make} model={model.model}/>} />)}
+          </div>
         </div>
         {brandGrowth ? <InfoPanel subtle><p>{brandGrowth.intentNote}</p></InfoPanel> : null}
         <StatRow items={[
