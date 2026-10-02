@@ -16,21 +16,20 @@ export const metadata: Metadata = pageMetadata({
 export default function GuidesPage() {
   const featuredGuide=editorialGuides[0]!;
   const remainingGuides=editorialGuides.slice(1);
-  const tasks=[
-    {number:"01",title:"Choose a motorcycle",copy:"Shortlist current motorcycles by budget, use, rider fit and the tradeoffs that matter to you.",href:"/recommendations",action:"Open buying guides"},
-    {number:"02",title:"Plan ownership",copy:"Estimate total cost, insurance and paperwork after you have a realistic motorcycle shortlist.",href:"/ownership",action:"Open ownership hub"},
-    {number:"03",title:"Maintain a motorcycle",copy:"Use model schedules, maintenance references and official service resources.",href:"/maintenance",action:"Open maintenance guides"},
-    {number:"04",title:"Check gear and fitment",copy:"Research helmets, tire sizes and model-specific fitment before ordering gear or accessories.",href:"/fitment",action:"Open fitment finder"},
-    {number:"05",title:"Safety and paperwork",copy:"Check registration, ownership transfer, insurance and manufacturer safety resources.",href:"/ownership#paperwork",action:"Open paperwork guides"},
-    {number:"06",title:"Research electric",copy:"Compare current electric models, batteries, range, charging and Philippine registration context.",href:"/motorcycles/electric",action:"Open electric research"}
-  ];
   return <section className="page shell">
     <Breadcrumbs items={[{ label: "Guides" }]} />
     <section className={styles.mockupHero}>
       <div><span>Guides & resources</span><h1>Motorcycle Guides<br/>& Resources</h1><p>Helpful guides, buying tips, maintenance advice and motorcycle news for Filipino riders.</p></div>
       <div className={styles.heroArt}><GuideFeaturedArt slug={featuredGuide.slug} title={featuredGuide.title} kicker={featuredGuide.kicker} /></div>
     </section>
-    <nav className={styles.filters} aria-label="Guide categories"><a href="#guide-grid">All</a><Link href="/recommendations">Buying Guide</Link><Link href="/maintenance">Maintenance</Link><Link href="/guides">Tips & Advice</Link><Link href="/research">Reviews</Link><Link href="/guides">News</Link></nav>
+    <nav className={styles.filters} aria-label="Guide categories">
+      <Link href="#guide-grid">All</Link>
+      <Link href="/recommendations">Buying Guide</Link>
+      <Link href="/maintenance">Maintenance</Link>
+      <Link href="/guides">Tips & Advice</Link>
+      <Link href="/research">Reviews</Link>
+      <Link href="/guides">News</Link>
+    </nav>
     <div id="guide-grid" className={styles.mockupGrid}>{editorialGuides.slice(0,6).map((guide)=><Link className={styles.mockupCard} key={guide.slug} href={`/guides/${guide.slug}`}>
       <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} compact />
       <span>{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><small>Read guide →</small>
