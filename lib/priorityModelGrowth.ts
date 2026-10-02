@@ -229,7 +229,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare daily-commute motorcycles",
     legacyContext: {
       heading: "Looking for the Honda RS150R?",
-      body: "RS150R is legacy Philippine search intent. MotoIndex routes that research into the current Winner X page instead of publishing a stale RS150R as a current model."
+      body: "RS150R is an older Philippine sport-underbone generation. MotoIndex now keeps its historical price and specifications on a dedicated RS150R page while this Winner X page stays focused on the current model."
     }
   },
 
@@ -268,7 +268,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 125cc scooters",
     legacyContext: {
       heading: "Looking for the Yamaha Mio Sporty?",
-      body: "Mio Sporty is an older 114cc carbureted Mio generation. MotoIndex consolidates that legacy search intent into the current Mio i 125 research page while keeping the older Mio Sporty price from being presented as a current new-bike quote."
+      body: "Mio Sporty has distinct 114cc specifications and remains visible in Philippine dealer inventory. MotoIndex now keeps its price and status on a dedicated Mio Sporty page while this page stays focused on the Mio i 125."
     }
   },
   "yamaha-tmax": {
