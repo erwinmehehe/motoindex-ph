@@ -61,7 +61,7 @@ export default function HomePage() {
         <div className="shell mi-hero-layout">
           <div className="mi-hero-copy">
             <div className="mi-badge"><b>Motorcycle prices, specs and ownership tools</b><em>Philippines</em></div>
-            <h1 id="mi-home-title">Find the right motorcycle for <span>your next ride.</span></h1>
+            <p className="mi-hero-promise">Find the right motorcycle for your next ride.</p><h1 id="mi-home-title">Compare <span>motorcycle prices</span><br />and specs in the Philippines.</h1>
             <p>Compare current motorcycle prices, specifications, rider fit and ownership costs for models available in the Philippines.</p>
             <form className="mi-search" action="/motorcycles" method="get" role="search">
               <label className="sr-only" htmlFor="mi-home-search">Search motorcycles by brand or model</label>
