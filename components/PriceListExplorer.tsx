@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import styles from "./PriceListExplorer.module.css";
 
 export type PriceListBike = {
   id: string;
@@ -15,6 +14,10 @@ export type PriceListBike = {
   transmission?: string;
   srp: number;
 };
+
+const PRICE_EXPLORER_CSS=`
+.price-explorer{display:grid;gap:10px}.price-toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:8px;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-xs);background:var(--mi-color-surface)}.price-brands{display:flex;gap:5px;overflow:auto}.price-brand,.price-sort,.price-download,.price-page-button{min-height:32px;padding:0 9px;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-xs);background:var(--mi-color-surface);color:var(--mi-color-slate-600);font:800 9px/1 var(--font-inter);cursor:pointer}.price-brand[aria-pressed="true"],.price-page-button[aria-current="page"],.price-download{border-color:var(--mi-color-primary);background:var(--mi-color-primary);color:var(--mi-color-surface)}.price-controls{display:flex;flex:1 1 400px;justify-content:flex-end;gap:6px}.price-search-wrap{display:flex;min-width:220px;flex:1;align-items:center;gap:5px;padding:0 9px;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-xs)}.price-search{width:100%;height:32px;border:0;background:transparent;outline:0;font-size:10px}.price-table-shell{max-width:100%;overflow:auto;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-xs);background:var(--mi-color-surface)}.price-table{width:100%;min-width:820px;border-collapse:collapse}.price-table th,.price-table td{padding:11px;border-bottom:1px solid var(--mi-color-line-soft);text-align:left;font-size:10px}.price-table thead th{background:var(--mi-color-surface-subtle);color:var(--mi-color-copy);font-size:8px;text-transform:uppercase}.price-model a{color:var(--mi-color-ink);font-weight:850}.price-model small{display:block;margin-top:2px;color:var(--mi-color-muted);font-size:8px}.price-value{color:var(--mi-color-primary);white-space:nowrap}.price-empty{text-align:center}.price-footer{display:flex;justify-content:space-between;gap:10px}.price-footer p{margin:0;color:var(--mi-color-copy);font-size:9px}.price-pagination{display:flex;gap:4px}.price-page-button:disabled{opacity:.35}@media(max-width:700px){.price-controls{width:100%}.price-footer{flex-direction:column}}@media(max-width:520px){.price-controls{display:grid;grid-template-columns:1fr 1fr}.price-search-wrap{grid-column:1/-1;min-width:0}}
+`;
 
 const priorityBrands = ["all","honda","yamaha","suzuki","kawasaki","ktm","cfmoto"] as const;
 const PAGE_SIZE = 16;
@@ -61,59 +64,59 @@ export function PriceListExplorer({ bikes }: { bikes: PriceListBike[] }) {
     URL.revokeObjectURL(href);
   }
 
-  return <div className={styles.explorer}>
-    <div className={styles.toolbar}>
-      <div className={styles.brandFilters} aria-label="Filter price list by brand">
+  return <div className="price-explorer"><style>{PRICE_EXPLORER_CSS}</style>
+    <div className="price-toolbar">
+      <div className="price-brands" aria-label="Filter price list by brand">
         {priorityBrands.map((slug)=>{
           const label=slug==="all"?"All brands":slug==="cfmoto"?"CFMOTO":slug[0].toUpperCase()+slug.slice(1);
-          return <button type="button" key={slug} className={styles.brandButton} aria-pressed={brand===slug} onClick={()=>chooseBrand(slug)}>{label}</button>;
+          return <button type="button" key={slug} className="price-brand" aria-pressed={brand===slug} onClick={()=>chooseBrand(slug)}>{label}</button>;
         })}
       </div>
-      <div className={styles.controls}>
-        <label className={styles.searchWrap}>
+      <div className="price-controls">
+        <label className="price-search-wrap">
           <span aria-hidden="true">⌕</span>
-          <input className={styles.search} type="search" value={query} onChange={e=>updateQuery(e.target.value)} placeholder="Search models or brands" aria-label="Search motorcycle price list"/>
+          <input className="price-search" type="search" value={query} onChange={e=>updateQuery(e.target.value)} placeholder="Search models or brands" aria-label="Search motorcycle price list"/>
         </label>
-        <select className={styles.sort} value={sort} onChange={e=>{setSort(e.target.value as typeof sort);setPage(1)}} aria-label="Sort motorcycle price list">
+        <select className="price-sort" value={sort} onChange={e=>{setSort(e.target.value as typeof sort);setPage(1)}} aria-label="Sort motorcycle price list">
           <option value="model">Brand & model</option>
           <option value="price-asc">Price: low to high</option>
           <option value="price-desc">Price: high to low</option>
           <option value="cc">Engine CC</option>
         </select>
-        <button className={styles.download} type="button" onClick={downloadCsv}>Download CSV</button>
+        <button className="price-download" type="button" onClick={downloadCsv}>Download CSV</button>
       </div>
     </div>
 
-    <div className={styles.tableShell}>
-      <table className={styles.table}>
+    <div className="price-table-shell">
+      <table className="price-table">
         <caption className="sr-only">Current motorcycle price list in the Philippines</caption>
         <thead>
           <tr><th scope="col">Model</th><th scope="col">Brand</th><th scope="col">Category</th><th scope="col">Displacement</th><th scope="col">Transmission</th><th scope="col">SRP</th></tr>
         </thead>
         <tbody>
           {visible.map(bike=><tr key={bike.id}>
-            <th scope="row" className={styles.modelCell}><Link href={`/motorcycles/${bike.makeSlug}/${bike.slug}`}>{bike.model}</Link><small>{bike.category}</small></th>
-            <td><Link className={styles.brandLink} href={`/motorcycles/${bike.makeSlug}`}>{bike.make}</Link></td>
+            <th scope="row" className="price-model"><Link href={`/motorcycles/${bike.makeSlug}/${bike.slug}`}>{bike.model}</Link><small>{bike.category}</small></th>
+            <td><Link className="price-brand-link" href={`/motorcycles/${bike.makeSlug}`}>{bike.make}</Link></td>
             <td>{bike.category}</td>
             <td>{bike.engineCc} cc</td>
             <td>{bike.transmission||"—"}</td>
-            <td><strong className={styles.price}>₱{bike.srp.toLocaleString("en-PH")}</strong></td>
+            <td><strong className="price-value">₱{bike.srp.toLocaleString("en-PH")}</strong></td>
           </tr>)}
-          {!visible.length&&<tr><td className={styles.empty} colSpan={6}>No motorcycles match these filters.</td></tr>}
+          {!visible.length&&<tr><td className="price-empty" colSpan={6}>No motorcycles match these filters.</td></tr>}
         </tbody>
       </table>
     </div>
 
-    <div className={styles.footer}>
+    <div className="price-footer">
       <p>Showing {visible.length?((safePage-1)*PAGE_SIZE)+1:0}–{Math.min(safePage*PAGE_SIZE,filtered.length)} of {filtered.length} motorcycles</p>
-      <div className={styles.pagination}>
-        <button type="button" className={styles.pageButton} disabled={safePage<=1} onClick={()=>setPage(p=>Math.max(1,p-1))} aria-label="Previous page">Previous</button>
+      <div className="price-pagination">
+        <button type="button" className="price-page-button" disabled={safePage<=1} onClick={()=>setPage(p=>Math.max(1,p-1))} aria-label="Previous page">Previous</button>
         {Array.from({length:Math.min(5,pages)},(_,i)=>{
           let n=i+1;
           if(pages>5&&safePage>3) n=Math.min(pages-4,safePage-2)+i;
-          return <button type="button" key={n} className={styles.pageButton} onClick={()=>setPage(n)} aria-current={safePage===n?"page":undefined}>{n}</button>
+          return <button type="button" key={n} className="price-page-button" onClick={()=>setPage(n)} aria-current={safePage===n?"page":undefined}>{n}</button>
         })}
-        <button type="button" className={styles.pageButton} disabled={safePage>=pages} onClick={()=>setPage(p=>Math.min(pages,p+1))} aria-label="Next page">Next</button>
+        <button type="button" className="price-page-button" disabled={safePage>=pages} onClick={()=>setPage(p=>Math.min(pages,p+1))} aria-label="Next page">Next</button>
       </div>
     </div>
   </div>;
