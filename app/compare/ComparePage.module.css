@@ -162,3 +162,9 @@
 .builderDisclosure{margin-top:10px}
 .builderDisclosure>summary{cursor:pointer;color:#2563eb;font-size:10px;font-weight:800;text-align:right}
 .builderDisclosure[open]>.workspace{margin-top:8px}
+
+.page :global(.ui-page-hero){margin:0 0 8px;padding:8px 0 4px}
+.page :global(.ui-page-hero__kicker){font-size:8px;color:#64748b}
+.page :global(.ui-page-hero h1){margin:3px 0 0;font-size:29px;line-height:1;letter-spacing:-.045em}
+.page :global(.ui-page-hero__description){margin:6px 0 0;font-size:10px;color:#64748b}
+.popular{margin-top:28px}
