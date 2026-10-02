@@ -136,6 +136,79 @@ function modelSpecificFaqs(model: Motorcycle): FaqItem[] {
       }
     ];
   }
+  if (model.id === "suzuki-skydrive-crossover") {
+    return [
+      {
+        question: "How much is the Suzuki Skydrive Crossover in the Philippines?",
+        answer: "Suzuki Philippines referenced the Skydrive Crossover at ₱73,900 and Motortrade currently lists the same ₱73,900 SRP. Dealer financing and final branch charges can differ, so confirm the exact quote before purchase."
+      },
+      {
+        question: "Is the Skydrive Crossover still available in the Philippines?",
+        answer: "Yes, current Philippine dealer listings still show the Skydrive Crossover, and Suzuki Philippines featured it in 2025. Stock and color availability can still vary by branch."
+      }
+    ];
+  }
+  if (model.id === "yamaha-xtz-125") {
+    return [
+      {
+        question: "How much is the Yamaha XTZ 125 in the Philippines?",
+        answer: "Wheeltek currently lists the Yamaha XTZ 125 from ₱89,900. MotoIndex has not confirmed a current Yamaha national product-page listing, so verify the exact model year, branch stock and final quote before buying."
+      },
+      {
+        question: "Is the Yamaha XTZ 125 still available new?",
+        answer: "Current Philippine dealer inventory is visible and Yamaha Philippines still references XTZ 125 in after-sales material, but MotoIndex treats national-catalog status as unconfirmed. Ask the dealer for the model year and unit-specific documents."
+      }
+    ];
+  }
+  if (model.id === "suzuki-gsx-r150") {
+    return [
+      {
+        question: "How much is the Suzuki GSX-R150 in the Philippines?",
+        answer: "Motortrade currently displays ₱156,224 for the GSX-R150, close to Suzuki Philippines' historical ₱156,000 launch price. Confirm current branch stock, model year and final quote because MotoIndex has not verified a current Suzuki national-catalog listing."
+      },
+      {
+        question: "Is the Suzuki GSX-R150 discontinued in the Philippines?",
+        answer: "MotoIndex found current dealer inventory but did not confirm the GSX-R150 on Suzuki Philippines' current main product catalog. The page therefore treats availability as uncertain rather than calling it either fully current or discontinued."
+      }
+    ];
+  }
+  if (model.id === "yamaha-sight") {
+    return [
+      {
+        question: "How much was the Yamaha Sight in the Philippines?",
+        answer: "Historical Philippine pricing was ₱59,900 for the spoke-wheel Sight and ₱62,900 for the cast-wheel version. Those figures are historical, not current new-bike quotations."
+      },
+      {
+        question: "Is the Yamaha Sight discontinued?",
+        answer: "Yes. Current Philippine comparison listings mark the Yamaha Sight as discontinued. MotoIndex keeps the page for specifications, parts research and used-bike shopping."
+      }
+    ];
+  }
+  if (model.id === "honda-zoomer-x") {
+    return [
+      {
+        question: "How much was the Honda Zoomer-X in the Philippines?",
+        answer: "Honda's fuel-injected Zoomer-X was launched in the Philippines at a historical ₱93,900 price. That figure should be used only as launch-price context for today's used-bike research."
+      },
+      {
+        question: "Is the Honda Zoomer-X still available new in the Philippines?",
+        answer: "MotoIndex does not treat the Zoomer-X as a current Honda Philippines model. Use this page for historical specifications and compare actual used-unit condition, registration and modifications before buying."
+      }
+    ];
+  }
+  if (model.id === "vespa-s-125") {
+    return [
+      {
+        question: "How much is the Vespa S 125 in the Philippines?",
+        answer: "Vespa Philippines currently lists the S 125 at ₱160,000 recommended retail price. Dealer fees, registration, financing and promotions can change the final amount."
+      },
+      {
+        question: "Is the Vespa S 125 still current in the Philippines?",
+        answer: "Yes. Vespa Philippines currently lists the S 125 as the entry model in its Philippine range."
+      }
+    ];
+  }
+
   if (model.id === "kawasaki-ninja-400") {
     return [
       {
