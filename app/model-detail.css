@@ -1002,8 +1002,6 @@ html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual 
 .motorcycle-entity-page .product-entity-nav a:first-child{background:var(--mi-color-market-blue);color:var(--mi-color-surface)}
 .motorcycle-entity-page .motorcycle-analytics-panel{display:none}
 .motorcycle-entity-page .motorcycle-entity-section{padding:28px 0}
-.motorcycle-entity-page .motorcycle-entity-section .section-head{margin-bottom:12px}
-.motorcycle-entity-page .motorcycle-entity-section .section-head h2{font-size:24px}
 .motorcycle-entity-page .motorcycle-editorial-grid{grid-template-columns:1.5fr .8fr .8fr;gap:8px}
 .motorcycle-entity-page .motorcycle-editorial-grid>article{padding:14px;border-radius:10px}
 .motorcycle-entity-page .entity-spec-table{gap:7px}
