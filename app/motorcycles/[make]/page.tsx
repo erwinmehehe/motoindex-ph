@@ -16,6 +16,8 @@ import { CTAGroup, DataTable, InfoPanel, PageHero, SectionHeader, StatRow } from
 import { brandSeoGrowthProfile } from "@/lib/brandSeoGrowth";
 import { BrandCategoryTabs } from "@/components/BrandCategoryTabs";
 
+const brandLogoSlugs = new Set(["aprilia","bajaj","benelli","bmw-motorrad","bristol","cfmoto","ducati","honda","husqvarna","kawasaki","keeway","ktm","kymco","royal-enfield","rusi","suzuki","triumph","vespa","yamaha","zontes"]);
+
 export function generateStaticParams() {
   return [...new Set(motorcycles.map((m) => m.makeSlug))].map((make) => ({ make }));
 }
@@ -25,6 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const models = motorcycles.filter((m) => m.makeSlug === make);
   if (!models.length) return {};
   const brand = models[0].make;
+  const hasBrandLogo = brandLogoSlugs.has(make);
   const publicModels = models.filter(isIndexableModel);
   const brandGrowth = brandSeoGrowthProfile(make);
   const current = publicModels.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued");
@@ -142,7 +145,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       "@type": "Brand",
       name: brand,
       url: absoluteUrl(`/motorcycles/${make}`),
-      logo: absoluteUrl(`/brand/motorcycle/${make}.svg`)
+      ...(hasBrandLogo ? { logo: absoluteUrl(`/brand/motorcycle/${make}.svg`) } : {})
     },
     {
       "@context": "https://schema.org",
@@ -168,7 +171,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       <div className="shell">
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
         <div className="wire-brand-identity">
-          <Image src={`/brand/motorcycle/${make}.svg`} alt={`${brand} logo`} width={170} height={56} unoptimized priority />
+          {hasBrandLogo ? <Image src={`/brand/motorcycle/${make}.svg`} alt={`${brand} logo`} width={170} height={56} unoptimized priority /> : <strong className="wire-brand-wordmark">{brand}</strong>}
           <span>{current.length} current {current.length === 1 ? "model" : "models"} tracked</span>
         </div>
         <PageHero
