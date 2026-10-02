@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { SellerProfile } from "@/lib/types";
+import styles from "./DealerFinder.module.css";
 
 function phoneHref(phone: string) {
   return `tel:${phone.replace(/[^+\d]/g, "")}`;
@@ -35,9 +36,9 @@ export function DealerFinder({ dealers, initialBrand = "all" }: { dealers: Selle
 
   const active=query||brand!=="all"||city!=="all";
 
-  return <div className="dealer-finder">
-    <div className="dealer-filter-bar">
-      <label className="dealer-search">
+  return <div className={styles.finder}>
+    <div className={styles.filters}>
+      <label className={styles.search}>
         <span>Search dealers</span>
         <input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Dealer, city or street" />
       </label>
@@ -55,29 +56,29 @@ export function DealerFinder({ dealers, initialBrand = "all" }: { dealers: Selle
           {cities.map(value=><option value={value} key={value}>{value}</option>)}
         </select>
       </label>
-      {active?<button className="dealer-clear" type="button" onClick={()=>{setQuery("");setBrand("all");setCity("all");}}>Clear</button>:null}
+      {active?<button className={styles.clear} type="button" onClick={()=>{setQuery("");setBrand("all");setCity("all");}}>Clear</button>:null}
     </div>
 
-    <div className="dealer-results-head" aria-live="polite">
+    <div className={styles.resultsHead} aria-live="polite">
       <strong>{filtered.length} checked dealer{filtered.length===1?"":"s"}{brand!=="all"?` for ${brand}`:""}</strong>
       <span>Public records are shown only when a verification source, address and recent check are on file.</span>
     </div>
 
-    {filtered.length?<div className="dealer-results">
-      {filtered.map(dealer=><article className="dealer-result-card" key={dealer.slug}>
-        <div className="dealer-card-top"><span className="dealer-brand">{dealer.brands.join(" · ")}</span><span className="dealer-checked">Checked</span></div>
+    {filtered.length?<div className={styles.results}>
+      {filtered.map(dealer=><article className={styles.card} key={dealer.slug}>
+        <div className={styles.cardTop}><span className={styles.brand}>{dealer.brands.join(" · ")}</span><span className={styles.checked}>Checked</span></div>
         <h3>{dealer.name}</h3>
         <p>{dealer.addressLabel}</p>
-        <div className="dealer-card-meta">
+        <div className={styles.meta}>
           <span>{dealer.city}{dealer.province?`, ${dealer.province}`:""}</span>
           {dealer.phoneLabel?<span>{dealer.phoneLabel}</span>:null}
         </div>
-        <div className="dealer-card-actions">
+        <div className={styles.actions}>
           <Link href={`/sellers/${dealer.slug}`}>View dealer</Link>
           {dealer.phoneLabel?<a href={phoneHref(dealer.phoneLabel)}>Call branch</a>:null}
         </div>
       </article>)}
-    </div>:<div className="dealer-no-results">
+    </div>:<div className={styles.empty}>
       <h3>{brand!=="all"?`No checked ${brand} dealers yet`:"No checked dealer matches"}</h3>
       <p>{brand!=="all"?`MotoIndex does not have a checked ${brand} branch record matching these filters yet. Use the official brand locators below for broader coverage, or clear the brand filter to browse other checked dealers.`:"Try another city or brand, or use the official brand locators below for broader coverage."}</p>
     </div>}
