@@ -47,8 +47,8 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
 /* Header */
 .site-header{
   background:rgba(255,255,255,.78)!important;
-  border-bottom:1px solid var(--mi-color-market-line)!important;
-  box-shadow:var(--mi-shadow-market-xs)!important;
+  border-bottom:1px solid rgba(255,255,255,.72)!important;
+  box-shadow:0 10px 34px rgba(68,76,231,.07)!important;
   backdrop-filter:blur(22px) saturate(145%)!important;
   -webkit-backdrop-filter:blur(22px) saturate(145%)!important;
 }
