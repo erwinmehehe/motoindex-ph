@@ -80,7 +80,7 @@ export default function HelmetsPage(){
   const priced=verified.map(p=>p.priceFromPhp).filter((v):v is number=>typeof v==="number");
   const minPrice=priced.length?Math.min(...priced):undefined;
   const maxPrice=priced.length?Math.max(...priced):undefined;
-  const heroHelmet=verified.find(p=>p.slug==="tt-course")??verified[0];
+  const heroHelmet=verified.find(p=>hasRenderableProductMedia(p.id))??verified[0];
 
   const fullFace=verified.filter(p=>p.helmetType==="Full face");
   const modular=verified.filter(p=>p.helmetType==="Modular");
@@ -100,7 +100,7 @@ export default function HelmetsPage(){
     {question:"Does a more expensive helmet automatically mean safer?",answer:"No. Price can reflect shell material, finish, aerodynamics, visor hardware, liner quality and brand positioning. Check the exact model's certification, local conformity marking and fit rather than using price as a safety score."}
   ];
 
-  return <section className={`page shell helmet-hub-page $"helmet-mockup-page"`}>
+  return <section className="page shell helmet-hub-page helmet-mockup-page"><style>{HELMET_MOCKUP_CSS}</style>
     <Breadcrumbs items={[{label:"Helmets"}]} />
     <div className="helmet-mockup-hero">
       <div className="helmet-mockup-copy">
@@ -125,7 +125,7 @@ export default function HelmetsPage(){
       {label:"ECE 22.06 records",value:ece2206.length}
     ]}/>
 
-    <nav className={`product-entity-nav helmet-master-nav $"helmet-mockup-filters"`} aria-label="Helmet guide sections">
+    <nav className="product-entity-nav helmet-master-nav helmet-mockup-filters" aria-label="Helmet guide sections">
       <a href="#full-face">Full-face</a><a href="#modular">Modular</a><a href="#open-face">Open-face</a><a href="#under-3000">Under ₱3K</a><a href="#under-5000">Under ₱5K</a><a href="#ece-22-06">ECE 22.06</a><a href="#intercom-ready">Intercom</a><a href="#commuting">Commuting</a><a href="#brands">Brands</a><a href="#models">Model preview</a>
     </nav>
 
@@ -134,7 +134,7 @@ export default function HelmetsPage(){
       <HelmetPreviewGrid products={verified} limit={8} />
     </section>
 
-    <InfoPanel className={`helmet-master-intro $"helmet-mockup-intro"`}>
+    <InfoPanel className="helmet-master-intro helmet-mockup-intro">
       <SectionHeader kicker="Start here" title="Choose the helmet by fit and riding use first" description="A helmet category is only the starting point. The exact fit, conformity marking, visor system, ventilation, weight and replacement-parts availability decide whether a model works for you day to day." />
       <div className="ui-content-grid topic-grid">
         <article className="ui-content-card"><h3>Full-face</h3><p>A fixed chin bar gives the most complete coverage among the common road formats. Good for riders prioritizing coverage, weather protection and highway use.</p><a href="#full-face">See full-face models →</a></article>
