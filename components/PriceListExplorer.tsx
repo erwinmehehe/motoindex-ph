@@ -61,7 +61,7 @@ export function PriceListExplorer({ rows }: { rows: PriceListRow[] }) {
       <label><span>Sort</span><select value={sort} onChange={(event) => setSort(event.target.value as SortMode)}><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option><option value="brand">Brand & model</option><option value="engine">Engine CC</option></select></label>
     </div>
 
-    <div className="wire-price-count"><strong>{visible.length}</strong> motorcycles shown</div>
+    <div className="wire-price-count"><span><strong>{visible.length}</strong> motorcycles shown</span><button type="button" onClick={() => window.print()}>Print / save price list PDF</button></div>
 
     <div className="wire-price-table-wrap">
       <table className="wire-price-table">
