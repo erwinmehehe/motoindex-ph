@@ -1,97 +1,48 @@
-.featured{
+.hero{
   display:grid;
-  grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);
-  gap:0;
+  grid-template-columns:minmax(0,.9fr) minmax(380px,1.1fr);
+  gap:var(--mi-space-4);
+  align-items:center;
+  min-height:245px;
   overflow:hidden;
-  margin:var(--mi-space-6) 0 var(--mi-space-12);
-  border:1px solid var(--mi-color-line);
+  margin-top:var(--mi-space-2);
+  border-bottom:1px solid var(--mi-color-line-soft);
+  background:linear-gradient(180deg,var(--mi-color-surface),var(--mi-color-primary-soft));
+}
+.heroCopy{position:relative;z-index:2;padding:var(--mi-space-5) 0}
+.heroCopy>span{color:var(--mi-color-muted);font-size:.62rem}
+.heroCopy h1{margin:var(--mi-space-2) 0 var(--mi-space-3);color:var(--mi-color-ink);font-size:clamp(2.3rem,4vw,3.5rem);line-height:.98;letter-spacing:-.05em}
+.heroCopy p{max-width:570px;margin:0;color:var(--mi-color-copy);font-size:var(--mi-type-sm);line-height:1.55}
+.heroArt{
+  position:relative;
+  height:230px;
+  overflow:hidden;
   border-radius:var(--mi-radius-xl);
-  background:var(--mi-color-surface);
-  box-shadow:var(--mi-shadow-sm);
 }
-.featuredArt{
-  min-height:320px;
-  background:var(--mi-color-surface-subtle);
-}
-.featuredArt>*{height:100%}
-.featuredCopy{
-  display:flex;
-  min-width:0;
-  flex-direction:column;
-  justify-content:center;
-  padding:clamp(var(--mi-space-6),5vw,var(--mi-space-12));
-}
-.featuredCopy>span{
-  color:var(--mi-color-primary);
-  font-size:var(--mi-type-xs);
-  font-weight:850;
-  letter-spacing:.09em;
-  text-transform:uppercase;
-}
-.featuredCopy h2{
-  margin:var(--mi-space-3) 0;
-  color:var(--mi-color-ink);
-  font-size:clamp(1.8rem,3vw,2.8rem);
-  line-height:1.05;
-  letter-spacing:-.04em;
-}
-.featuredCopy p{
-  margin:0;
-  color:var(--mi-color-copy);
-  font-size:var(--mi-type-sm);
-  line-height:var(--mi-leading-copy);
-}
-.featuredAction{
-  align-self:flex-start;
-  margin-top:var(--mi-space-5);
-}
-.taskGrid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:var(--mi-space-3);
-}
-.taskCard{
-  display:flex;
-  min-height:190px;
-  flex-direction:column;
-  padding:var(--mi-space-5);
-  border:1px solid var(--mi-color-line);
-  border-radius:var(--mi-radius-md);
-  background:var(--mi-color-surface);
-  text-decoration:none;
-}
-.taskNumber{
-  color:var(--mi-color-primary);
-  font-size:var(--mi-type-xs);
-  font-weight:850;
-}
-.taskCard h2{
-  margin:var(--mi-space-6) 0 var(--mi-space-2);
-  color:var(--mi-color-ink);
-  font-size:var(--mi-type-lg);
-  line-height:1.2;
-}
-.taskCard p{
-  margin:0;
-  color:var(--mi-color-copy);
-  font-size:var(--mi-type-sm);
-  line-height:1.55;
-}
-.taskCard strong{
-  margin-top:auto;
-  padding-top:var(--mi-space-5);
-  color:var(--mi-color-primary);
-  font-size:var(--mi-type-xs);
-}
+.heroArt>*{width:100%;height:100%}
+.filters{display:flex;gap:var(--mi-space-2);overflow-x:auto;margin:var(--mi-space-4) 0 var(--mi-space-3);scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filters a{display:inline-flex;min-height:34px;flex:0 0 auto;align-items:center;padding:0 var(--mi-space-4);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-sm);background:var(--mi-color-surface);color:var(--mi-color-slate-700);font-size:.62rem;font-weight:800;text-decoration:none}
+.filters a:first-child{border-color:var(--mi-color-primary);background:var(--mi-color-primary);color:var(--mi-color-surface)}
+.preview{padding-bottom:var(--mi-space-6);border-bottom:1px solid var(--mi-color-line-soft)}
+.mockGuideGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--mi-space-3)}
+.mockGuideCard{min-width:0;overflow:hidden;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md);background:var(--mi-color-surface);color:var(--mi-color-ink);text-decoration:none}
+.mockGuideCard>div:first-child{height:150px}
+.mockGuideCard>div:last-child{padding:var(--mi-space-3)}
+.mockGuideCard span{display:block;color:var(--mi-color-primary);font-size:.58rem;font-weight:850;text-transform:uppercase}
+.mockGuideCard h2{margin:var(--mi-space-2) 0;color:var(--mi-color-ink);font-size:var(--mi-type-base);line-height:1.2;letter-spacing:-.02em}
+.mockGuideCard p{display:-webkit-box;overflow:hidden;margin:0;color:var(--mi-color-copy);font-size:.62rem;line-height:1.45;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.mockGuideCard strong{display:block;margin-top:var(--mi-space-3);color:var(--mi-color-primary);font-size:.6rem}
+.mockGuideCard:hover{border-color:var(--mi-color-primary);box-shadow:var(--mi-shadow-xs)}
+.featured{display:none}
+.featuredArt{display:none}
+.featuredCopy{display:none}
+.taskGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--mi-space-3)}
+.taskCard{display:flex;min-height:170px;flex-direction:column;padding:var(--mi-space-4);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-md);background:var(--mi-color-surface);text-decoration:none}
+.taskNumber{color:var(--mi-color-primary);font-size:var(--mi-type-xs);font-weight:850}
+.taskCard h2{margin:var(--mi-space-5) 0 var(--mi-space-2);color:var(--mi-color-ink);font-size:var(--mi-type-lg);line-height:1.2}
+.taskCard p{margin:0;color:var(--mi-color-copy);font-size:var(--mi-type-sm);line-height:1.55}
+.taskCard strong{margin-top:auto;padding-top:var(--mi-space-4);color:var(--mi-color-primary);font-size:var(--mi-type-xs)}
 .taskCard:hover{border-color:var(--mi-color-primary);box-shadow:var(--mi-shadow-sm)}
-@media(max-width:900px){
-  .featured{grid-template-columns:1fr}
-  .featuredArt{min-height:260px}
-  .taskGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media(max-width:620px){
-  .featured{margin-bottom:var(--mi-space-8)}
-  .featuredArt{min-height:220px}
-  .featuredCopy{padding:var(--mi-space-5)}
-  .taskGrid{grid-template-columns:1fr}
-}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.heroArt{height:210px}.mockGuideGrid,.taskGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.hero{min-height:0}.heroArt{height:180px}.heroCopy h1{font-size:clamp(2.2rem,10vw,2.8rem)}.mockGuideGrid,.taskGrid{grid-template-columns:1fr}}
