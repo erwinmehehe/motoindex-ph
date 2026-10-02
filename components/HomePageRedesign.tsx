@@ -10,14 +10,23 @@ import styles from "@/app/HomePage.module.css";
 
 const priorityBrands = ["honda","yamaha","suzuki","kawasaki","ktm","cfmoto"] as const;
 const categoryTiles = [
-  ["🛵","Scooter","/motorcycles/scooters"],
-  ["🏍","Underbone","/recommendations#commuting"],
-  ["🏍","Naked","/recommendations"],
-  ["🏁","Sports","/recommendations"],
-  ["⛰","Adventure","/recommendations"],
-  ["🏍","Big Bike","/recommendations#400cc"],
-  ["⚡","Electric","/motorcycles/electric"],
+  ["scooter","Scooter","/motorcycles/scooters"],
+  ["underbone","Underbone","/recommendations#commuting"],
+  ["naked","Naked","/recommendations"],
+  ["sports","Sports","/recommendations"],
+  ["adventure","Adventure","/recommendations"],
+  ["bigbike","Big Bike","/recommendations#400cc"],
+  ["electric","Electric","/motorcycles/electric"],
 ] as const;
+
+function CategoryIcon({kind}:{kind:string}) {
+  if(kind==="electric") return <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="8" cy="23" r="4"/><circle cx="24" cy="23" r="4"/><path d="M8 23h6l3-8h5l3 8M12 12h7M17 5l-4 8h5l-3 7"/></svg>;
+  if(kind==="adventure") return <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="8" cy="23" r="4"/><circle cx="24" cy="23" r="4"/><path d="M8 23h6l3-8h5l3 8M13 15l-3-5h7l4 5M4 9l5-5 4 5"/></svg>;
+  if(kind==="sports") return <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="8" cy="23" r="4"/><circle cx="24" cy="23" r="4"/><path d="M8 23h7l4-8h5l2 8M11 18l4-6h8l-4 6M15 12l-3-3"/></svg>;
+  if(kind==="scooter") return <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="8" cy="23" r="4"/><circle cx="24" cy="23" r="4"/><path d="M8 23h9l3-7h4l2 7M14 12h5v4h-7l-2 7M20 12l2-4"/></svg>;
+  if(kind==="underbone") return <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="8" cy="23" r="4"/><circle cx="24" cy="23" r="4"/><path d="M8 23h7l4-7h4l3 7M12 13h8l-3 5h-7M18 13l2-4"/></svg>;
+  return <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="8" cy="23" r="4"/><circle cx="24" cy="23" r="4"/><path d="M8 23h7l4-8h5l2 8M12 15h8l-3 4h-6M18 15l2-5"/></svg>;
+}
 const featureLinks = [
   ["⇄","Compare","up to 3 motorcycles","/compare"],
   ["◷","Latest Prices","updated for PH market","/price-list"],
@@ -63,7 +72,7 @@ export function HomePageRedesign({ heading }: { heading: ReactNode }) {
           <button type="submit" aria-label="Search motorcycles">⌕</button>
         </form>
         <nav className={styles.categories} aria-label="Motorcycle categories">
-          {categoryTiles.map(([icon,label,href])=><Link href={href} key={label}><span>{icon}</span><strong>{label}</strong></Link>)}
+          {categoryTiles.map(([kind,label,href])=><Link href={href} key={label}><span className={styles.categoryIcon}><CategoryIcon kind={kind}/></span><strong>{label}</strong></Link>)}
         </nav>
       </div>
     </section>
