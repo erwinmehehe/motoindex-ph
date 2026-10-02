@@ -184,7 +184,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const powerToWeight = model.curbWeightKg > 0 ? model.powerHp / model.curbWeightKg * 100 : 0;
   const powerDensity = model.engineCc > 0 ? model.powerHp / model.engineCc * 100 : 0;
 
-  return <article className="motorcycle-entity-page">
+  return <article className={`motorcycle-entity-page ${styles.page}`}>
     <section className="motorcycle-entity-hero" id="overview">
       <div className="shell">
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: model.make, href: `/motorcycles/${model.makeSlug}` }, { label: model.model }]} />
