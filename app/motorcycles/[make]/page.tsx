@@ -173,6 +173,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     </div>
 
     <div className="shell">
+      {brandGrowth ? <p className={styles.intentNote}>{brandGrowth.intentNote}</p> : null}
+
       <nav className="ph-brand-nav" aria-label={`${brand} page sections`}>
         <a href="#price-list">Price list</a><a href="#models">Models</a>{scooters.length >= 3 ? <a href="#scooters">Scooters</a> : null}{bigBikes.length > 0 ? <a href="#big-bikes">Big bikes</a> : null}{spotlightModels.length > 0 ? <a href="#category-spotlight">Featured category</a> : null}<a href="#categories">Categories</a><a href="#research">How to use data</a><a href="#faq">FAQ</a>
       </nav>
