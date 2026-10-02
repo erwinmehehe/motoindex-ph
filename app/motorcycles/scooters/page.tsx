@@ -16,6 +16,8 @@ import {
 } from "@/lib/motorcycleMarket";
 import { pageMetadata, SITE_URL } from "@/lib/site";
 import { php } from "@/lib/utils";
+import { MotorcycleCard } from "@/components/MotorcycleCard";
+import { ScooterCatalogFilters } from "@/components/ScooterCatalogFilters";
 
 const scooters = priceOrdered(currentScooters);
 const priceSpan = marketPriceSpan(scooters);
@@ -100,6 +102,33 @@ export default function ScootersPage() {
           <Link className="button secondary" href="/compare">Compare models</Link>
         </CTAGroup>}
       />
+
+      <section className="wire-category-catalog" aria-labelledby="scooter-catalog-heading">
+        <SectionHeader
+          kicker="Browse current scooters"
+          title="Scooter motorcycles in the Philippines"
+          titleId="scooter-catalog-heading"
+          description="Filter current scooter records by brand, price and engine size. Every card links to the same canonical model page used by the full price list below."
+        />
+        <ScooterCatalogFilters models={scooters.map((model) => ({
+          id: model.id,
+          make: model.make,
+          model: model.model,
+          engineCc: model.engineCc,
+          price: observedMarketRange(model).from
+        }))} />
+        <div className="wire-category-model-grid">
+          {scooters.map((model) => <div
+            className="wire-category-model"
+            key={model.id}
+            data-scooter-catalog-item
+            data-brand={model.make}
+            data-price={observedMarketRange(model).from}
+            data-cc={model.engineCc}
+            data-name={`${model.make} ${model.model}`}
+          ><MotorcycleCard model={model} variant="standard" /></div>)}
+        </div>
+      </section>
 
       <section className="section" aria-labelledby="scooter-price-philippines">
         <SectionHeader
