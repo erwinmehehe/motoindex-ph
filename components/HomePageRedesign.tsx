@@ -40,7 +40,7 @@ export function HomePageRedesign({ heading }: { heading: ReactNode }) {
     const prev=brandMap.get(model.makeSlug);
     brandMap.set(model.makeSlug,{name:model.make,count:(prev?.count||0)+1});
   }
-  const brands=priorityBrands.map(slug=>[slug,brandMap.get(slug)] as const).filter((entry):entry is readonly [string,{name:string,count:number}]=>Boolean(entry[1]));
+  const brands=priorityBrands.flatMap((slug)=>{ const brand=brandMap.get(slug); return brand ? [{slug,...brand}] : []; });
 
   return <main className={styles.page}>
     <section className={styles.hero} data-home-hero aria-labelledby="mi-home-title">
