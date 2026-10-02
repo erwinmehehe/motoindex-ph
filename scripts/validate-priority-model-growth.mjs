@@ -22,6 +22,7 @@ const motorcycleEntityPage = read("components", "MotorcycleEntityPage.tsx");
 const zigwheelsGap = read("lib", "zigwheelsGapExpansion2026.ts");
 const zigwheelsGapWave2 = read("lib", "zigwheelsGapWave2_2026.ts");
 const zigwheelsGapWave3 = read("lib", "zigwheelsGapWave3_2026.ts");
+const zigwheelsGapWave4 = read("lib", "zigwheelsGapWave4_2026.ts");
 for (const token of [
   'const isDiscontinued = model.marketStatus === "discontinued";',
   'const isHistorical = isPrevious || isDiscontinued;',
@@ -661,6 +662,39 @@ for (const token of [
 ]) {
   if (!zigwheelsGapWave3.includes(token)) {
     errors.push(`ZigWheels keyword-gap wave 3: status/spec guard missing ${token}`);
+  }
+}
+
+for (const modelId of [
+  "suzuki-gixxer-sf-155",
+  "suzuki-smash-carb",
+  "kawasaki-klx150",
+  "honda-rs125-final-edition",
+  "suzuki-smash-fi",
+  "suzuki-gixxer-155",
+  "suzuki-burgman-400",
+  "suzuki-gixxer-sf250"
+]) {
+  if (!zigwheelsGapWave4.includes(`id: "${modelId}"`)) {
+    errors.push(`ZigWheels keyword-gap wave 4: missing model entity ${modelId}`);
+  }
+}
+
+for (const token of [
+  'id: "honda-rs125-final-edition"',
+  'marketStatus: "current"',
+  'srp: 77000',
+  'id: "kawasaki-klx150"',
+  'srp: 134900',
+  'id: "suzuki-smash-carb"',
+  'engineCc: 109.7',
+  'id: "suzuki-gixxer-sf250"',
+  'abs: "Dual-channel ABS with front and rear disc brakes"',
+  'id: "suzuki-burgman-400"',
+  'srp: 566000'
+]) {
+  if (!zigwheelsGapWave4.includes(token)) {
+    errors.push(`ZigWheels keyword-gap wave 4: status/spec guard missing ${token}`);
   }
 }
 
