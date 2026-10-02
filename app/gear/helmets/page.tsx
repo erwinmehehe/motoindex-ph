@@ -71,6 +71,7 @@ function Count({ value }: { value: number }) {
 export default function HelmetsPage(){
   const verified=helmetProducts.filter(p=>p.status==="verified").sort((a,b)=>(a.priceFromPhp??Number.MAX_SAFE_INTEGER)-(b.priceFromPhp??Number.MAX_SAFE_INTEGER)||a.brand.localeCompare(b.brand)||a.model.localeCompare(b.model));
   const brands=helmetBrands.filter(h=>isIndexableHelmetBrand(h.slug));
+  const heroHelmet=verified.find(p=>p.id==="spyder-surge-v2")??verified.find(p=>hasRenderableProductMedia(p.id))??verified[0];
   const priced=verified.map(p=>p.priceFromPhp).filter((v):v is number=>typeof v==="number");
   const minPrice=priced.length?Math.min(...priced):undefined;
   const maxPrice=priced.length?Math.max(...priced):undefined;
@@ -96,7 +97,7 @@ export default function HelmetsPage(){
   return <section className="page shell helmet-hub-page">
     <section className={styles.mockupHero}>
       <div><span>Helmet buying guide</span><h1>Motorcycle Helmets<br/>in the Philippines</h1><p>Top helmet brands, prices and features. Ride safe with quality and trusted helmets.</p></div>
-      {verified[0]&&<EntityMedia entityType="helmet" entityId={verified[0].id} className={styles.heroHelmet} priority showCredit={false} fallback={<EntityVerificationFallback brand={verified[0].brand} model={verified[0].model} kind="helmet" />} />}
+      {heroHelmet&&<EntityMedia entityType="helmet" entityId={heroHelmet.id} className={styles.heroHelmet} priority showCredit={false} fallback={<EntityVerificationFallback brand={heroHelmet.brand} model={heroHelmet.model} kind="helmet" />} />}
     </section>
     <nav className={styles.filters} aria-label="Helmet categories"><a href="#models">All Brands</a><a href="#full-face">Full Face</a><a href="#modular">Modular</a><a href="#open-face">Open Face</a><a href="#brands">Dual Sport</a></nav>
     <div className={styles.countRow}><strong>{verified.length} helmet models</strong><span>Sort by: Popular⌄</span></div>
