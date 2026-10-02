@@ -483,3 +483,22 @@ input:focus,select:focus,textarea:focus{
   *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   [data-reveal]{opacity:1!important;transform:none!important}
 }
+
+/* Mockup fidelity v8: compact global navigation */
+:root{--header-h:54px}
+.site-header{height:54px!important;background:rgba(255,255,255,.96)!important;border-bottom:1px solid #dce7f4!important;box-shadow:0 3px 12px rgba(15,23,42,.035)!important;backdrop-filter:blur(14px)!important}
+.site-header .nav-wrap{height:54px!important;gap:18px!important}
+.site-header .brand{gap:7px!important;font-size:14px!important}
+.site-header .brand-logo{width:28px!important;height:28px!important;filter:none!important}
+.site-header .brand-word{font-size:14px!important;letter-spacing:-.025em!important}
+.site-header .nav-links{gap:17px!important}
+.site-header .nav-links>a,.site-header .nav-more>summary{min-height:54px!important;font-size:10px!important;font-weight:760!important;color:#334155!important}
+.site-header .nav-links>a:after,.site-header .nav-more>summary:after{bottom:0!important}
+.site-header .nav-actions{gap:4px!important}
+.site-header .nav-search,.site-header .shortlist-nav{display:grid!important;width:34px!important;height:34px!important;min-height:34px!important;place-items:center!important;padding:0!important;border:1px solid #dbe5f2!important;border-radius:9px!important;background:#fff!important;color:#334155!important}
+.site-header .nav-search span:first-child{font-size:17px!important;line-height:1!important}
+.site-header .nav-search-label{display:none!important}
+.site-header .shortlist-nav{position:relative!important}
+.site-header .shortlist-nav b{position:absolute!important;top:-5px!important;right:-5px!important;display:grid!important;min-width:18px!important;height:18px!important;place-items:center!important;padding:0 4px!important;font-size:8px!important;box-shadow:0 0 0 2px #fff!important}
+.site-header .nav-match{display:none!important}
+@media(max-width:900px){:root{--header-h:56px}.site-header,.site-header .nav-wrap{height:56px!important}.site-header .nav-actions{margin-left:auto!important}.site-header .nav-search{display:grid!important}.site-header .shortlist-nav{display:grid!important}}
