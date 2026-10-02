@@ -122,6 +122,7 @@ export default function ScootersPage() {
             className="wire-category-model"
             key={model.id}
             data-scooter-catalog-item
+            data-catalog-id={model.id}
             data-brand={model.make}
             data-price={observedMarketRange(model).from}
             data-cc={model.engineCc}
