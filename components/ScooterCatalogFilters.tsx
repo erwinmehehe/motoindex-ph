@@ -13,8 +13,18 @@ export function ScooterCatalogFilters({ models }: { models: ScooterRef[] }) {
   const brands = useMemo(() => [...new Set(models.map((model) => model.make))].sort(), [models]);
 
   useEffect(() => {
+    const elements = [...document.querySelectorAll<HTMLElement>("[data-scooter-catalog-item]")];
+    const ordered = [...elements].sort((a, b) => {
+      const aPrice = Number(a.dataset.price || 0);
+      const bPrice = Number(b.dataset.price || 0);
+      if (sort === "price-desc") return bPrice - aPrice;
+      if (sort === "name") return (a.dataset.name || "").localeCompare(b.dataset.name || "");
+      return aPrice - bPrice;
+    });
+    const orderMap = new Map(ordered.map((element, index) => [element.dataset.catalogId || "", index]));
+
     let count = 0;
-    document.querySelectorAll<HTMLElement>("[data-scooter-catalog-item]").forEach((element) => {
+    elements.forEach((element) => {
       const itemBrand = element.dataset.brand || "";
       const itemPrice = Number(element.dataset.price || 0);
       const itemCc = Number(element.dataset.cc || 0);
@@ -34,10 +44,7 @@ export function ScooterCatalogFilters({ models }: { models: ScooterRef[] }) {
       const visible = brandMatch && priceMatch && engineMatch;
       element.hidden = !visible;
       if (visible) count += 1;
-
-      const name = element.dataset.name || "";
-      const order = sort === "price-desc" ? -itemPrice : sort === "name" ? name.charCodeAt(0) * 100000 + itemPrice : itemPrice;
-      element.style.order = String(order);
+      element.style.order = String(orderMap.get(element.dataset.catalogId || "") ?? 0);
     });
     setShown(count);
   }, [brand, engine, price, sort]);
