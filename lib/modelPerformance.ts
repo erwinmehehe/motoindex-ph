@@ -84,6 +84,15 @@ export const modelPerformanceAnswers: PerformanceAnswer[] = [
     sourceUrl: "https://www.yamaha-motor.com.ph/product/sniper155",
     checkedAt: "2026-09-09",
     caution: "A claimed maximum speed without test method, model year and modification details is not a reliable specification."
+  },
+  {
+    modelId: "honda-xr150l",
+    answer: "Honda Philippines publishes engine output and price information for the XR150L but does not publish an official maximum-speed figure. MotoIndex therefore does not present a single top-speed number as a manufacturer specification.",
+    evidence: "not manufacturer-published",
+    sourceLabel: "Honda Philippines 2025 XR150L launch and specification reference",
+    sourceUrl: "https://www.hondaph.com/motorcycle/news/honda-philippines-unleashes-power-and-innovation-at-the-action-packed-inside-racing-bikefest-2025",
+    checkedAt: "2026-10-02",
+    caution: "Rider-reported dashboard speeds vary with load, gearing, road gradient, wind and speedometer error. Modified-bike results should not be presented as stock specifications."
   }
 ];
 
