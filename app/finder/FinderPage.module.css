@@ -1,60 +1,96 @@
 .page{
-  width:100%!important;
-  max-width:none!important;
-  padding-top:0!important;
-  background:linear-gradient(180deg,#f8fafc 0%,#fff 72%)!important;
+  width:100%;
+  max-width:none;
+  padding-top:0;
+  background:linear-gradient(180deg,var(--mi-color-surface-subtle),var(--mi-color-surface) 72%);
 }
-
-.page.page:has(:global(.decision-finder)) > .head{
-  max-width:none!important;
-  margin:0!important;
-  padding:30px max(24px,calc((100vw - 1120px)/2)) 26px!important;
-  border-bottom:1px solid rgba(148,163,184,.14)!important;
+.hero{
+  border-bottom:1px solid var(--mi-color-line-soft);
   background:
-    radial-gradient(circle at 10% 0%,rgba(68,76,231,.07),transparent 28%),
-    radial-gradient(circle at 90% 10%,rgba(122,90,248,.045),transparent 25%),
-    linear-gradient(180deg,#fff 0%,#f8fafc 100%)!important;
-  color:#0f172a!important;
+    radial-gradient(circle at 12% 0%,var(--mi-color-primary-soft),transparent 30%),
+    var(--mi-color-surface);
 }
-
-.page.page:has(:global(.decision-finder)) > .head :global(.entity-kicker){
-  color:#444CE7!important;
-  font-size:9px!important;
-  font-weight:850!important;
-  letter-spacing:.11em!important;
+.heroInner{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);
+  gap:var(--mi-space-6);
+  align-items:center;
+  width:min(var(--mi-page-max),calc(100% - 40px));
+  margin:auto;
+  padding:var(--mi-space-10) 0 var(--mi-space-8);
 }
-
-.page.page:has(:global(.decision-finder)) > .head h1{
-  max-width:760px!important;
-  margin:8px 0 0!important;
-  color:#0f172a!important;
-  font-size:clamp(38px,4.3vw,56px)!important;
-  font-weight:800!important;
-  line-height:1!important;
-  letter-spacing:-.05em!important;
+.head{margin:0}
+.head :global(.entity-kicker){
+  color:var(--mi-color-primary);
+  font-size:var(--mi-type-xs);
+  font-weight:850;
+  letter-spacing:.1em;
+  text-transform:uppercase;
 }
-
-.page.page:has(:global(.decision-finder)) > .head p{
-  max-width:680px!important;
-  margin:12px 0 0!important;
-  color:#64748b!important;
-  font-size:13px!important;
-  line-height:1.55!important;
+.head h1{
+  max-width:780px;
+  margin:var(--mi-space-2) 0 0;
+  color:var(--mi-color-ink);
+  font-size:clamp(2.6rem,4.5vw,3.65rem);
+  font-weight:800;
+  line-height:.98;
+  letter-spacing:-.05em;
 }
-
+.head p{
+  max-width:700px;
+  margin:var(--mi-space-3) 0 0;
+  color:var(--mi-color-copy);
+  font-size:var(--mi-type-sm);
+  line-height:1.65;
+}
+.steps{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--mi-space-2);
+  padding:var(--mi-space-4);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-xl);
+  background:var(--mi-color-surface);
+  box-shadow:var(--mi-shadow-sm);
+}
+.step{
+  min-width:0;
+  padding:var(--mi-space-3);
+  border:1px solid var(--mi-color-line-soft);
+  border-radius:var(--mi-radius-sm);
+  background:var(--mi-color-surface-subtle);
+}
+.step b{
+  display:block;
+  color:var(--mi-color-primary);
+  font-size:var(--mi-type-xs);
+}
+.step strong{
+  display:block;
+  margin-top:4px;
+  color:var(--mi-color-ink);
+  font-size:var(--mi-type-sm);
+}
+.step small{
+  display:block;
+  margin-top:3px;
+  color:var(--mi-color-copy);
+  font-size:var(--mi-type-xs);
+  line-height:1.35;
+}
+.workspace{
+  width:min(var(--mi-page-max),calc(100% - 40px));
+  margin:auto;
+}
+@media(max-width:900px){
+  .heroInner{grid-template-columns:1fr}
+}
 @media(max-width:700px){
-  .page.page:has(:global(.decision-finder)) > .head{
-    padding:24px 14px 22px!important;
-  }
-  .page.page:has(:global(.decision-finder)) > .head h1{
-    max-width:560px!important;
-    margin-top:8px!important;
-    font-size:clamp(34px,10vw,42px)!important;
-    line-height:1!important;
-  }
-  .page.page:has(:global(.decision-finder)) > .head p{
-    margin-top:10px!important;
-    font-size:13px!important;
-    line-height:1.5!important;
-  }
+  .heroInner,.workspace{width:calc(100% - 24px)}
+  .heroInner{padding:var(--mi-space-8) 0 var(--mi-space-6)}
+  .head h1{font-size:clamp(2.25rem,10vw,2.9rem)}
+  .steps{grid-template-columns:1fr 1fr;padding:var(--mi-space-3)}
+}
+@media(max-width:460px){
+  .steps{grid-template-columns:1fr}
 }

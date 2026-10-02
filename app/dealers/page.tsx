@@ -9,6 +9,7 @@ import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug } from "@/lib/sellers";
 import { allVerifiedDealers } from "@/lib/persistentSellers";
 import { CTAGroup, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
 import styles from "../styles/hub-index.module.css";
+import hubStyles from "../styles/decision-hub.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Dealers Philippines: Find Checked Dealers",
@@ -51,12 +52,18 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
 
   return <section className="page shell dealer-master-page">
     <JsonLd data={directorySchema} />
-    <PageHero
-      kicker="Motorcycle dealer finder"
-      title={pageTitle}
-      description={pageDescription}
-      actions={<CTAGroup><a className="button" href="#dealer-search">Search checked dealers</a><Link className="button secondary" href="/motorcycles">Choose a motorcycle first</Link></CTAGroup>}
-    />
+    <div className={hubStyles.heroGrid}>
+      <PageHero
+        kicker="Motorcycle dealer finder"
+        title={pageTitle}
+        description={pageDescription}
+        actions={<CTAGroup><a className="button" href="#dealer-search">Search checked dealers</a><Link className="button secondary" href="/motorcycles">Choose a motorcycle first</Link></CTAGroup>}
+      />
+      <aside className={hubStyles.heroPanel}>
+        <div><span className={hubStyles.panelKicker}>Before contacting a branch</span><h2 className={hubStyles.panelTitle}>Choose the exact motorcycle, then compare dealer quotes.</h2><p className={hubStyles.panelCopy}>Stock, variant, fees and release dates can differ by branch. Use checked records as the starting point, then confirm the exact quote directly.</p></div>
+        <div className={hubStyles.panelLinks}><a href="#dealer-search">Search checked dealers <span>→</span></a><Link href="/price-list">Check current prices <span>→</span></Link><Link href="/compare">Compare motorcycles <span>→</span></Link><Link href="/finder">Find a motorcycle <span>→</span></Link></div>
+      </aside>
+    </div>
 
     <StatRow items={[
       {label:"Checked dealers",value:String(verifiedDealers.length),note:"Published verification records"},
@@ -79,21 +86,21 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
         title="Browse checked dealer coverage by area"
         description={`City pages publish only after at least ${MIN_PUBLIC_DEALERS_PER_CITY} dealer records pass the verification gate.`}
       />
-      <div className={styles.decisionList}>
-        {ncrCities.map(city=><Link className={styles.decisionRow} href={`/dealers/${citySlug(city)}`} key={city}>
-          <span className={styles.decisionLabel}>Metro Manila</span>
-          <span className={styles.decisionCopy}><h3>Motorcycle dealers in {city}</h3><p>Checked branch directory for {city}.</p></span>
-          <span className={styles.decisionMeta}>{cityCounts.get(city)||0} branches →</span>
+      <div className={hubStyles.cardGrid}>
+        {ncrCities.map(city=><Link className={hubStyles.card} href={`/dealers/${citySlug(city)}`} key={city}>
+          <span className={hubStyles.cardLabel}>Metro Manila</span>
+          <span ><h3>Motorcycle dealers in {city}</h3><p>Checked branch directory for {city}.</p></span>
+          <span className={hubStyles.cardMeta}>{cityCounts.get(city)||0} branches →</span>
         </Link>)}
-        {otherCities.map(city=><Link className={styles.decisionRow} href={`/dealers/${citySlug(city)}`} key={city}>
-          <span className={styles.decisionLabel}>City guide</span>
-          <span className={styles.decisionCopy}><h3>Motorcycle dealers in {city}</h3><p>Compare checked nearby branches before asking for current stock and final pricing.</p></span>
-          <span className={styles.decisionMeta}>{cityCounts.get(city)||0} branches →</span>
+        {otherCities.map(city=><Link className={hubStyles.card} href={`/dealers/${citySlug(city)}`} key={city}>
+          <span className={hubStyles.cardLabel}>City guide</span>
+          <span ><h3>Motorcycle dealers in {city}</h3><p>Compare checked nearby branches before asking for current stock and final pricing.</p></span>
+          <span className={hubStyles.cardMeta}>{cityCounts.get(city)||0} branches →</span>
         </Link>)}
-        {pampangaCount>=5?<Link className={styles.decisionRow} href="/dealers/pampanga">
-          <span className={styles.decisionLabel}>Province guide</span>
-          <span className={styles.decisionCopy}><h3>Motorcycle dealers in Pampanga</h3><p>Checked dealer branches across Angeles City and San Fernando in one local directory.</p></span>
-          <span className={styles.decisionMeta}>{pampangaCount} branches →</span>
+        {pampangaCount>=5?<Link className={hubStyles.card} href="/dealers/pampanga">
+          <span className={hubStyles.cardLabel}>Province guide</span>
+          <span ><h3>Motorcycle dealers in Pampanga</h3><p>Checked dealer branches across Angeles City and San Fernando in one local directory.</p></span>
+          <span className={hubStyles.cardMeta}>{pampangaCount} branches →</span>
         </Link>:null}
       </div>
     </section>:null}
@@ -104,11 +111,11 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
         title="Use the motorcycle brand's dealer locator"
         description="MotoIndex coverage is still growing. Use official Philippine brand directories when you need broader branch coverage."
       />
-      <div className={styles.decisionList}>
-        {officialDealerLocators.map(locator=><a className={styles.decisionRow} href={locator.href} target="_blank" rel="noopener noreferrer" key={locator.brand}>
-          <span className={styles.decisionLabel}>{locator.brand}</span>
-          <span className={styles.decisionCopy}><h3>{locator.brand} dealer locator</h3><p>{locator.note}</p></span>
-          <span className={styles.decisionMeta}>Open official locator ↗</span>
+      <div className={hubStyles.cardGrid}>
+        {officialDealerLocators.map(locator=><a className={hubStyles.card} href={locator.href} target="_blank" rel="noopener noreferrer" key={locator.brand}>
+          <span className={hubStyles.cardLabel}>{locator.brand}</span>
+          <span ><h3>{locator.brand} dealer locator</h3><p>{locator.note}</p></span>
+          <span className={hubStyles.cardMeta}>Open official locator ↗</span>
         </a>)}
       </div>
     </section>

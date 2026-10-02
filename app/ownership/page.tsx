@@ -8,6 +8,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
 import { CTAGroup, PageHero, SectionHeader, StatRow } from "@/components/ui";
 import styles from "../styles/hub-index.module.css";
+import hubStyles from "../styles/decision-hub.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title:"Motorcycle Ownership Philippines: Cost, Registration & Safety",
@@ -40,12 +41,18 @@ export default function OwnershipPage(){
   });
 
   return <section className="page shell ownership-master-page">
-    <PageHero
-      kicker="Motorcycle ownership"
-      title="Motorcycle ownership in the Philippines"
-      description="After choosing the motorcycle, use this hub for ownership cost, maintenance, registration, transfer, insurance and manufacturer safety checks."
-      actions={<CTAGroup><Link className="button" href="/ownership/cost-calculator">Calculate ownership cost</Link><Link className="button secondary" href="/maintenance">Open maintenance guide</Link></CTAGroup>}
-    />
+    <div className={hubStyles.heroGrid}>
+      <PageHero
+        kicker="Motorcycle ownership"
+        title="Motorcycle ownership in the Philippines"
+        description="After choosing the motorcycle, use this hub for ownership cost, maintenance, registration, transfer, insurance and manufacturer safety checks."
+        actions={<CTAGroup><Link className="button" href="/ownership/cost-calculator">Calculate ownership cost</Link><Link className="button secondary" href="/maintenance">Open maintenance guide</Link></CTAGroup>}
+      />
+      <aside className={hubStyles.heroPanel}>
+        <div><span className={hubStyles.panelKicker}>Ownership path</span><h2 className={hubStyles.panelTitle}>What do you need to solve next?</h2><p className={hubStyles.panelCopy}>Use the next task, not a generic ownership checklist, to choose the right guide or calculator.</p></div>
+        <div className={hubStyles.panelLinks}><a href="#cost">Plan the cost <span>→</span></a><a href="#maintenance">Maintain the bike <span>→</span></a><a href="#safety-campaigns">Check safety campaigns <span>→</span></a><a href="#paperwork">Handle paperwork <span>→</span></a></div>
+      </aside>
+    </div>
 
     <StatRow items={[
       {label:"Cost tools",value:"3",note:"Ownership, commute and insurance"},
@@ -66,11 +73,11 @@ export default function OwnershipPage(){
         title="What a motorcycle costs after purchase"
         description="Purchase price is only the start. Financing, fuel, maintenance, insurance, registration, tires and resale all affect the real cost of ownership."
       />
-      <div className={styles.decisionList}>
-        {costDecisions.map(item=><Link className={styles.decisionRow} href={item.href} key={item.href}>
-          <span className={styles.decisionLabel}>{item.label}</span>
-          <span className={styles.decisionCopy}><h3>{item.title}</h3><p>{item.description}</p></span>
-          <span className={styles.decisionMeta}>{item.meta}</span>
+      <div className={hubStyles.cardGrid}>
+        {costDecisions.map(item=><Link className={hubStyles.card} href={item.href} key={item.href}>
+          <span className={hubStyles.cardLabel}>{item.label}</span>
+          <span ><h3>{item.title}</h3><p>{item.description}</p></span>
+          <span className={hubStyles.cardMeta}>{item.meta}</span>
         </Link>)}
       </div>
     </section>
@@ -81,11 +88,11 @@ export default function OwnershipPage(){
         title="Use the exact motorcycle schedule"
         description="Generic system advice is useful, but oil, coolant, battery, CVT, chain, sprocket and service intervals are model-specific."
       />
-      <div className={styles.decisionList}>
-        {maintenanceDecisions.map(item=><Link className={styles.decisionRow} href={item.href} key={item.href}>
-          <span className={styles.decisionLabel}>{item.label}</span>
-          <span className={styles.decisionCopy}><h3>{item.title}</h3><p>{item.description}</p></span>
-          <span className={styles.decisionMeta}>{item.meta}</span>
+      <div className={hubStyles.cardGrid}>
+        {maintenanceDecisions.map(item=><Link className={hubStyles.card} href={item.href} key={item.href}>
+          <span className={hubStyles.cardLabel}>{item.label}</span>
+          <span ><h3>{item.title}</h3><p>{item.description}</p></span>
+          <span className={hubStyles.cardMeta}>{item.meta}</span>
         </Link>)}
       </div>
     </section>
@@ -98,11 +105,11 @@ export default function OwnershipPage(){
       />
       <details className={styles.compactDetails}>
         <summary><span>Manufacturer safety resources</span><span>{safetyResources.length} checked sources</span></summary>
-        <div className={styles.decisionList}>
-          {safetyResources.map(resource=><a className={styles.decisionRow} key={resource.makeSlug} href={resource.url} target="_blank" rel="noreferrer">
-            <span className={styles.decisionLabel}>{resource.hasVehicleChecker?"Vehicle checker":"Official support"}</span>
-            <span className={styles.decisionCopy}><h3>{resource.label}</h3><p>{resource.method}</p></span>
-            <span className={styles.decisionMeta}>Open official source ↗</span>
+        <div className={hubStyles.cardGrid}>
+          {safetyResources.map(resource=><a className={hubStyles.card} key={resource.makeSlug} href={resource.url} target="_blank" rel="noreferrer">
+            <span className={hubStyles.cardLabel}>{resource.hasVehicleChecker?"Vehicle checker":"Official support"}</span>
+            <span ><h3>{resource.label}</h3><p>{resource.method}</p></span>
+            <span className={hubStyles.cardMeta}>Open official source ↗</span>
           </a>)}
         </div>
       </details>
@@ -114,11 +121,11 @@ export default function OwnershipPage(){
         title="Registration, ownership transfer and insurance"
         description="Each task has its own official sources and requirements, so these remain separate focused guides."
       />
-      <div className={styles.decisionList} data-ownership-guide-list>
-        {ownershipGuides.map(guide=><Link className={styles.decisionRow} href={`/ownership/${guide.slug}`} key={guide.slug}>
-          <span className={styles.decisionLabel}>Guide</span>
-          <span className={styles.decisionCopy}><h3>{guide.title}</h3><p>{guide.description}</p></span>
-          <span className={styles.decisionMeta}>Checked {guide.lastChecked}</span>
+      <div className={hubStyles.cardGrid} data-ownership-guide-list>
+        {ownershipGuides.map(guide=><Link className={hubStyles.card} href={`/ownership/${guide.slug}`} key={guide.slug}>
+          <span className={hubStyles.cardLabel}>Guide</span>
+          <span ><h3>{guide.title}</h3><p>{guide.description}</p></span>
+          <span className={hubStyles.cardMeta}>Checked {guide.lastChecked}</span>
         </Link>)}
       </div>
     </section>

@@ -1,0 +1,125 @@
+.finder{
+  display:grid;
+  gap:var(--mi-space-4);
+}
+.filters{
+  display:grid;
+  grid-template-columns:minmax(260px,1.7fr) minmax(150px,.65fr) minmax(150px,.65fr) auto;
+  gap:var(--mi-space-3);
+  align-items:end;
+  padding:var(--mi-space-4);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-lg);
+  background:var(--mi-color-surface);
+  box-shadow:var(--mi-shadow-xs);
+}
+.filters label{display:grid;gap:var(--mi-space-2)}
+.filters label>span{
+  color:var(--mi-color-muted);
+  font-size:var(--mi-type-xs);
+  font-weight:850;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+.filters input,.filters select{
+  width:100%;
+  min-height:44px;
+  padding:0 var(--mi-space-3);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-sm);
+  background:var(--mi-color-surface-subtle);
+  color:var(--mi-color-ink);
+  font:650 var(--mi-type-sm)/1 var(--font-inter);
+}
+.filters input:focus,.filters select:focus{
+  outline:0;
+  border-color:var(--mi-color-primary);
+  box-shadow:var(--mi-shadow-focus);
+}
+.clear{
+  min-height:44px;
+  padding:0 var(--mi-space-4);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-sm);
+  background:var(--mi-color-surface);
+  color:var(--mi-color-slate-600);
+  font:800 var(--mi-type-xs)/1 var(--font-inter);
+  cursor:pointer;
+}
+.resultsHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--mi-space-4);
+  padding:0 var(--mi-space-1);
+}
+.resultsHead strong{color:var(--mi-color-ink);font-size:var(--mi-type-sm)}
+.resultsHead span{max-width:620px;color:var(--mi-color-copy);font-size:var(--mi-type-xs);text-align:right}
+.results{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--mi-space-3);
+}
+.card{
+  display:flex;
+  min-width:0;
+  min-height:250px;
+  flex-direction:column;
+  padding:var(--mi-space-5);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-lg);
+  background:var(--mi-color-surface);
+  box-shadow:var(--mi-shadow-xs);
+}
+.card:hover{border-color:var(--mi-color-primary);box-shadow:var(--mi-shadow-sm)}
+.cardTop{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--mi-space-3);margin-bottom:var(--mi-space-4)}
+.brand,.checked{font-size:var(--mi-type-xs);font-weight:850;text-transform:uppercase;letter-spacing:.045em}
+.brand{color:var(--mi-color-primary)}
+.checked{color:var(--mi-color-success-dark);text-align:right}
+.card h3{margin:0;color:var(--mi-color-ink);font-size:var(--mi-type-xl);line-height:1.15;letter-spacing:var(--mi-tracking-tight)}
+.card>p{margin:var(--mi-space-2) 0 var(--mi-space-4);color:var(--mi-color-copy);font-size:var(--mi-type-sm);line-height:1.55}
+.meta{
+  display:grid;
+  gap:4px;
+  margin-top:auto;
+  padding-top:var(--mi-space-3);
+  border-top:1px solid var(--mi-color-line-soft);
+  color:var(--mi-color-muted);
+  font-size:var(--mi-type-xs);
+}
+.actions{display:flex;flex-wrap:wrap;gap:var(--mi-space-2);margin-top:var(--mi-space-4)}
+.actions a{
+  display:inline-flex;
+  min-height:38px;
+  align-items:center;
+  padding:0 var(--mi-space-3);
+  border:1px solid var(--mi-color-primary);
+  border-radius:var(--mi-radius-pill);
+  background:var(--mi-color-primary);
+  color:var(--mi-color-surface);
+  font-size:var(--mi-type-xs);
+  font-weight:850;
+  text-decoration:none;
+}
+.actions a+a{border-color:var(--mi-color-line);background:var(--mi-color-surface);color:var(--mi-color-slate-700)}
+.empty{
+  padding:var(--mi-space-6);
+  border:1px dashed var(--mi-color-line);
+  border-radius:var(--mi-radius-lg);
+  background:var(--mi-color-surface-subtle);
+}
+.empty h3{margin:0;color:var(--mi-color-ink)}
+.empty p{margin:var(--mi-space-2) 0 0;color:var(--mi-color-copy);font-size:var(--mi-type-sm);line-height:1.55}
+@media(max-width:900px){
+  .filters{grid-template-columns:1fr 1fr}
+  .search{grid-column:1/-1}
+  .results{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:650px){
+  .filters{grid-template-columns:1fr}
+  .search{grid-column:auto}
+  .resultsHead{align-items:flex-start;flex-direction:column}
+  .resultsHead span{text-align:left}
+  .results{grid-template-columns:1fr}
+  .card{min-height:0}
+}
