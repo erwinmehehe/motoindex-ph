@@ -108,7 +108,7 @@ export default function ScootersPage() {
           kicker="Browse current scooters"
           title="Scooter motorcycles in the Philippines"
           titleId="scooter-catalog-heading"
-          description="Filter current scooter records by brand, price and engine size. Every card links to the same canonical model page used by the full price list below."
+          description="Filter current scooter models by brand, price and engine size, then open any motorcycle for its full price, specifications, financing and ownership details."
         />
         <ScooterCatalogFilters models={scooters.map((model) => ({
           id: model.id,
