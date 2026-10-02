@@ -242,3 +242,59 @@
 .brandedFallback{display:grid!important;place-content:center;place-items:center;gap:var(--mi-space-2);padding:var(--mi-space-4);color:var(--mi-color-ink)}
 .fallbackLogo{width:auto!important;height:32px!important;max-width:120px!important;max-height:32px!important;object-fit:contain!important;padding:0!important;background:transparent!important}
 .fallbackModel{font-weight:850}
+
+.referenceCard .standard{
+  border-radius:var(--mi-radius-md);
+  box-shadow:var(--mi-shadow-xs);
+}
+.referenceCard .standardMedia{
+  height:150px;
+  min-height:150px;
+  padding:var(--mi-space-2);
+  background:linear-gradient(180deg,var(--mi-color-primary-soft),var(--mi-color-surface));
+}
+.referenceCard .standardBody{
+  padding:var(--mi-space-3);
+}
+.referenceCard .topline{
+  min-height:24px;
+}
+.referenceCard .title{
+  font-size:var(--mi-type-base);
+}
+.referenceCard .price{
+  color:var(--mi-color-primary);
+  font-size:var(--mi-type-sm);
+}
+.referenceCard .stats{
+  margin-top:var(--mi-space-2);
+}
+.referenceCard .stats span{
+  font-size:.56rem;
+}
+.referenceCard .actions{
+  display:none;
+}
+@container motorcycle-card (min-width:520px){
+  .referenceCard .standard{
+    display:flex;
+    grid-template-columns:none;
+    border:1px solid var(--mi-color-line);
+    border-radius:var(--mi-radius-md);
+    background:var(--mi-color-surface);
+  }
+  .referenceCard .standardMedia{
+    height:150px;
+    min-height:150px;
+    padding:var(--mi-space-2);
+    border-bottom:1px solid var(--mi-color-line-soft);
+  }
+  .referenceCard .standardBody{
+    justify-content:flex-start;
+    padding:var(--mi-space-3);
+  }
+  .referenceCard .title{font-size:var(--mi-type-base)}
+  .referenceCard .price{font-size:var(--mi-type-sm)}
+  .referenceCard .stats{gap:var(--mi-space-1) var(--mi-space-2)}
+  .referenceCard .stats span{padding:0;border:0}
+}
