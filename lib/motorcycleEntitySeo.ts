@@ -83,7 +83,7 @@ function modelSpecificFaqs(model: Motorcycle): FaqItem[] {
       },
       {
         question: "Is Mio Sporty the same as Mio i 125?",
-        answer: "No. Mio Sporty is an older 114cc carbureted Mio generation. MotoIndex keeps legacy Mio Sporty search context on the current Mio i 125 research page without presenting an old Sporty price as a current new-bike quote."
+        answer: "No. Mio Sporty is a distinct 114cc carbureted Mio model. MotoIndex now keeps its dealer-listed price, specifications and market-status caveat on a dedicated Mio Sporty page, while this page remains specific to the 125cc Mio i 125."
       }
     ];
   }
