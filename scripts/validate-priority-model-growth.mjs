@@ -21,6 +21,7 @@ const dealerFinancingComponent = read("components", "DealerFinancingSnapshot.tsx
 const motorcycleEntityPage = read("components", "MotorcycleEntityPage.tsx");
 const zigwheelsGap = read("lib", "zigwheelsGapExpansion2026.ts");
 const zigwheelsGapWave2 = read("lib", "zigwheelsGapWave2_2026.ts");
+const zigwheelsGapWave3 = read("lib", "zigwheelsGapWave3_2026.ts");
 for (const token of [
   'const isDiscontinued = model.marketStatus === "discontinued";',
   'const isHistorical = isPrevious || isDiscontinued;',
@@ -630,6 +631,36 @@ for (const modelId of [
 ]) {
   if (!zigwheelsGapWave2.includes(`id: "${modelId}"`)) {
     errors.push(`ZigWheels keyword-gap wave 2: missing model entity ${modelId}`);
+  }
+}
+
+for (const modelId of [
+  "benelli-panarea-125",
+  "honda-pcx150",
+  "yamaha-tricity",
+  "honda-wave125-alpha",
+  "italjet-dragster-200",
+  "benelli-motobi-200-evo",
+  "honda-cb150r"
+]) {
+  if (!zigwheelsGapWave3.includes(`id: "${modelId}"`)) {
+    errors.push(`ZigWheels keyword-gap wave 3: missing model entity ${modelId}`);
+  }
+}
+
+for (const token of [
+  'id: "honda-pcx150"',
+  'marketStatus: "discontinued"',
+  'successorId: "honda-pcx-160"',
+  'id: "yamaha-tricity"',
+  'engineCc: 124.8',
+  'id: "italjet-dragster-200"',
+  'engineCc: 181',
+  'id: "benelli-motobi-200-evo"',
+  'marketStatus: "uncertain"'
+]) {
+  if (!zigwheelsGapWave3.includes(token)) {
+    errors.push(`ZigWheels keyword-gap wave 3: status/spec guard missing ${token}`);
   }
 }
 
