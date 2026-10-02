@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function GuidesPage() {
-  const featuredGuide=editorialGuides[0];
+  const featuredGuide=editorialGuides[0]!;
   const remainingGuides=editorialGuides.slice(1);
   const tasks=[
     {number:"01",title:"Choose a motorcycle",copy:"Shortlist current motorcycles by budget, use, rider fit and the tradeoffs that matter to you.",href:"/recommendations",action:"Open buying guides"},
