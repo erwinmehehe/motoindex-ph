@@ -17,6 +17,8 @@ export function Footer() {
       <div className={styles.column}>
         <strong>Browse</strong>
         {hasModels && <Link href="/motorcycles">Motorcycles</Link>}
+        {hasModels && <Link href="/price-list">Price list</Link>}
+        {hasModels && <Link href="/motorcycles/scooters">Scooters</Link>}
         {hasModels && <Link href="/finder">Finder</Link>}
         {hasComparisons && <Link href="/compare">Compare</Link>}
         <Link href="/guides">Guides</Link>
