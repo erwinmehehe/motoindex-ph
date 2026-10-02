@@ -9,6 +9,7 @@ import { zigwheelsGapExpansion2026 } from "./zigwheelsGapExpansion2026";
 import { zigwheelsGapWave2_2026 } from "./zigwheelsGapWave2_2026";
 import { zigwheelsGapWave3_2026 } from "./zigwheelsGapWave3_2026";
 import { zigwheelsGapWave4_2026 } from "./zigwheelsGapWave4_2026";
+import { zigwheelsGapWave6_2026 } from "./zigwheelsGapWave6_2026";
 
 export const phTier23Motorcycles = [
   ...baseMotorcycles,
@@ -22,4 +23,5 @@ export const phTier23Motorcycles = [
   ...zigwheelsGapWave2_2026,
   ...zigwheelsGapWave3_2026,
   ...zigwheelsGapWave4_2026,
+  ...zigwheelsGapWave6_2026,
 ];
