@@ -26,24 +26,15 @@ export default function GuidesPage() {
   ];
   return <section className="page shell">
     <Breadcrumbs items={[{ label: "Guides" }]} />
-    <div className="page-head"><span className="entity-kicker">Rider guides</span><h1>Motorcycle guides for Philippine riders</h1><p>Start with the task you are trying to solve, then open the detailed guide or tool only when you need it.</p></div>
-
-    {featuredGuide && <article className={styles.featured}>
-      <div className={styles.featuredArt}><GuideFeaturedArt slug={featuredGuide.slug} title={featuredGuide.title} kicker={featuredGuide.kicker} /></div>
-      <div className={styles.featuredCopy}>
-        <span>Featured guide · {featuredGuide.kicker}</span>
-        <h2>{featuredGuide.title}</h2>
-        <p>{featuredGuide.description}</p>
-        <Link className={`button ${styles.featuredAction}`} href={`/guides/${featuredGuide.slug}`}>Read featured guide →</Link>
-      </div>
-    </article>}
-
-    <div className="section-head compact"><div><span className="section-kicker">Choose a starting point</span><h2>What are you trying to do?</h2></div></div>
-    <div className={styles.taskGrid}>
-      {tasks.map((task)=><Link className={styles.taskCard} href={task.href} key={task.number}>
-        <span className={styles.taskNumber}>{task.number}</span><h2>{task.title}</h2><p>{task.copy}</p><strong>{task.action} →</strong>
-      </Link>)}
-    </div>
+    <section className={styles.mockupHero}>
+      <div><span>Guides & resources</span><h1>Motorcycle Guides<br/>& Resources</h1><p>Helpful guides, buying tips, maintenance advice and motorcycle news for Filipino riders.</p></div>
+      <div className={styles.heroArt}><GuideFeaturedArt slug={featuredGuide.slug} title={featuredGuide.title} kicker={featuredGuide.kicker} /></div>
+    </section>
+    <nav className={styles.filters} aria-label="Guide categories"><a href="#guide-grid">All</a><a href="/recommendations">Buying Guide</a><a href="/maintenance">Maintenance</a><a href="/guides">Tips & Advice</a><a href="/research">Reviews</a><a href="/guides">News</a></nav>
+    <div id="guide-grid" className={styles.mockupGrid}>{editorialGuides.slice(0,6).map((guide)=><Link className={styles.mockupCard} key={guide.slug} href={`/guides/${guide.slug}`}>
+      <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} compact />
+      <span>{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><small>Read guide →</small>
+    </Link>)}</div>
 
     <div className="section-head compact"><div><span className="section-kicker">MotoIndex data research</span><h2>Compare the underlying motorcycle data</h2><p>Use source-led datasets when you need a market-wide view before narrowing to individual model pages.</p></div><Link href="/research">Open research hub →</Link></div>
     <div className="topic-grid">
