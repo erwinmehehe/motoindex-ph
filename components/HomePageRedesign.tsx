@@ -72,8 +72,8 @@ export function HomePageRedesign({ heading }: { heading: ReactNode }) {
       <div className="shell">
         <div className={styles.compactHead}><h2>Popular Brands</h2><Link href="/motorcycles">View all brands →</Link></div>
         <nav className={styles.brandGrid} aria-label="Popular motorcycle brands">
-          {brands.map(([slug,brand])=><Link href={"/motorcycles/"+slug} className={styles.brandCard} key={slug}>
-            <span className={styles.brandLogo}><Image src={"/brand/motorcycle/"+slug+".svg"} alt="" width={96} height={32} unoptimized /></span>
+          {brands.map((brand)=><Link href={"/motorcycles/"+brand.slug} className={styles.brandCard} key={brand.slug}>
+            <span className={styles.brandLogo}><Image src={"/brand/motorcycle/"+brand.slug+".svg"} alt="" width={96} height={32} unoptimized /></span>
             <strong>{brand.name}</strong><small>{brand.count} models</small>
           </Link>)}
         </nav>
