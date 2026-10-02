@@ -11,15 +11,16 @@
 }
 
 .standard{
+  position:relative;
   display:flex;
   min-width:0;
   height:100%;
   flex-direction:column;
   overflow:hidden;
-  border:1px solid var(--mi-color-line);
-  border-radius:var(--mi-radius-md);
-  background:var(--mi-color-surface);
-  box-shadow:none;
+  border:1px solid #dbe5f2;
+  border-radius:10px;
+  background:#fff;
+  box-shadow:0 3px 10px rgba(15,23,42,.025);
   transition:border-color var(--mi-motion-fast) ease,box-shadow var(--mi-motion-fast) ease;
 }
 
@@ -33,26 +34,21 @@
   position:relative;
   display:grid;
   width:100%;
-  height:180px;
-  min-height:180px;
-  aspect-ratio:auto;
-  box-sizing:border-box;
+  height:128px;
+  min-height:128px;
   place-items:center;
   overflow:hidden;
-  padding:16px;
+  padding:8px 12px 2px;
   border:0;
-  border-bottom:1px solid var(--mi-color-line-soft);
-  border-radius:0;
   background:#fff;
-  box-shadow:none;
 }
 
 .card .standardMedia :global(.entity-media-link),
 .mediaFallback{
   position:relative;
   display:grid;
-  width:90%;
-  height:84%;
+  width:100%;
+  height:100%;
   min-width:0;
   min-height:0;
   place-items:center;
@@ -69,16 +65,19 @@
   min-width:0;
   flex:1;
   flex-direction:column;
-  padding:var(--mi-space-4);
+  padding:8px 10px 10px;
 }
 
 .topline{
+  position:absolute;
+  z-index:3;
+  top:7px;
+  right:7px;
   display:flex;
   min-width:0;
-  min-height:32px;
+  min-height:26px;
   align-items:center;
-  justify-content:space-between;
-  gap:var(--mi-space-2);
+  justify-content:flex-end;
 }
 
 .status{
@@ -96,12 +95,12 @@
 }
 
 .title{
-  margin:var(--mi-space-2) 0 0;
-  color:var(--mi-color-slate-900);
-  font-size:var(--mi-type-xl);
-  font-weight:800;
-  line-height:var(--mi-leading-tight);
-  letter-spacing:var(--mi-tracking-tight);
+  margin:0;
+  color:#0f172a;
+  font-size:12px;
+  font-weight:820;
+  line-height:1.25;
+  letter-spacing:-.015em;
 }
 
 .title a:hover{
@@ -109,39 +108,30 @@
 }
 
 .price{
-  margin:var(--mi-space-2) 0 0;
-  color:var(--mi-color-slate-900);
-  font-size:var(--mi-type-base);
-  font-weight:800;
+  margin:3px 0 0;
+  color:#1565ff;
+  font-size:14px;
+  font-weight:900;
   letter-spacing:-.02em;
 }
 
 .stats{
   display:flex;
   flex-wrap:wrap;
-  gap:var(--mi-space-1) var(--mi-space-2);
-  margin-top:var(--mi-space-3);
+  gap:2px 7px;
+  margin-top:4px;
 }
 
 .stats span{
   padding:0;
   border:0;
-  border-radius:0;
   background:transparent;
-  color:var(--mi-color-slate-500);
-  font-size:.625rem;
-  line-height:1.4;
+  color:#64748b;
+  font-size:9px;
+  line-height:1.35;
 }
 
-.actions{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  align-items:center;
-  gap:var(--mi-space-2);
-  width:100%;
-  margin-top:auto;
-  padding-top:var(--mi-space-4);
-}
+.actions{display:none}
 
 .actions :global(.button),
 .actions :global(.compare-button){
@@ -152,63 +142,7 @@
   box-shadow:none;
 }
 
-@container motorcycle-card (min-width:520px){
-  .standard{
-    display:grid;
-    grid-template-columns:220px minmax(0,1fr);
-    align-items:stretch;
-    border-width:0 0 1px;
-    border-color:var(--mi-color-line);
-    border-radius:0;
-    background:transparent;
-  }
 
-  .standard:hover{
-    border-color:var(--mi-color-line);
-    box-shadow:none;
-  }
-
-  .card .standardMedia{
-    height:100%;
-    min-height:190px;
-    aspect-ratio:auto;
-    padding:14px;
-    border-bottom:0;
-    background:#fff;
-  }
-
-  .standardBody{
-    justify-content:center;
-    padding:var(--mi-space-5) 0 var(--mi-space-5) var(--mi-space-6);
-  }
-
-  .title{
-    font-size:var(--mi-type-2xl);
-  }
-
-  .price{
-    font-size:var(--mi-type-lg);
-  }
-
-  .stats{
-    gap:0;
-  }
-
-  .stats span{
-    padding:0 var(--mi-space-2);
-    border-left:1px solid var(--mi-color-line);
-  }
-
-  .stats span:first-child{
-    padding-left:0;
-    border-left:0;
-  }
-
-  .actions{
-    margin-top:var(--mi-space-3);
-    padding-top:0;
-  }
-}
 
 @container motorcycle-card (max-width:300px){
   .standardBody{
@@ -238,7 +172,7 @@
   }
 }
 
-.brandMark{display:flex;min-width:0;height:24px;align-items:center;justify-content:flex-start;color:var(--mi-color-slate-700);font-size:var(--mi-type-xs);font-weight:900}.brandMark img{width:auto;height:auto;max-width:72px;max-height:22px;object-fit:contain}
+.brandMark{display:none}
 .brandedFallback{display:grid!important;place-content:center;place-items:center;gap:var(--mi-space-2);padding:var(--mi-space-4);color:var(--mi-color-ink)}
 .fallbackLogo{width:auto!important;height:32px!important;max-width:120px!important;max-height:32px!important;object-fit:contain!important;padding:0!important;background:transparent!important}
 .fallbackModel{font-weight:850}
