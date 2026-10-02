@@ -26,7 +26,7 @@ const sections:Section[]=[
     {label:"Power-to-weight",get:powerToWeight,note:"Derived from published power and curb weight."},
     {label:"Transmission",get:m=>m.transmission||dash},
   ]},
-  {title:"Size & everyday fit",rows:[
+  {title:"Dimensions & weight",rows:[
     {label:"Curb weight",get:m=>number(m.curbWeightKg,"kg")},
     {label:"Seat height",get:m=>number(m.seatHeightMm,"mm")},
     {label:"Ground clearance",get:m=>number(m.groundClearanceMm,"mm")},
@@ -37,7 +37,7 @@ const sections:Section[]=[
     {label:"Published fuel economy",get:m=>m.fuelConsumptionKmL?`${m.fuelConsumptionKmL} km/L`:dash,note:"Published figures may use different test conditions."},
     {label:"Theoretical tank range",get:range,note:"Fuel economy × tank capacity; not a real-world range promise."},
   ]},
-  {title:"Tires & braking",rows:[
+  {title:"Braking & tires",rows:[
     {label:"Front tire",get:m=>m.frontTire||dash},
     {label:"Rear tire",get:m=>m.rearTire||dash},
     {label:"Brakes / ABS",get:m=>m.abs||dash},
