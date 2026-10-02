@@ -100,7 +100,7 @@ export function HomePageRedesign({ heading }: { heading: ReactNode }) {
 
     <section className={"shell "+styles.section+" "+styles.compactSection}>
       <div className={styles.sectionHead}><h2>Latest Motorcycles</h2><Link href="/motorcycles">View all →</Link></div>
-      <div className={styles.modelGrid}>{featured.map((model)=><MotorcycleCard key={model.id} model={model} variant="standard"/>)}</div>
+      <div className={styles.modelGrid}>{featured.map((model)=><MotorcycleCard key={model.id} model={model} variant="reference"/>)}</div>
     </section>
 
     <section className={styles.featureStrip} aria-label="MotoIndex research features">
