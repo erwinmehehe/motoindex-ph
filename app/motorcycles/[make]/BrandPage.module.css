@@ -23,3 +23,5 @@
 .modelGrid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important}
 @media(max-width:760px){.modelGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:520px){.modelGrid{grid-template-columns:1fr!important}}
+
+.intentNote{max-width:860px;margin:0 0 8px;color:var(--mi-color-copy);font-size:9px;line-height:1.45}
