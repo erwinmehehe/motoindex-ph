@@ -114,7 +114,7 @@ export function HomePageRedesign({ heading }: { heading: ReactNode }) {
 
     <section className={"shell "+styles.seoContinuation} aria-label="More motorcycle research">
       <div><strong>{siteStats.currentMotorcycles} current models</strong><span>Use the full catalog, Finder and ownership tools when you need deeper research.</span></div>
-      <Link href="/finder">Find my motorcycle →</Link>
+      <nav className={styles.seoLinks}><Link href="/finder">Find my motorcycle →</Link><Link href="/commute/affordability">Check affordability →</Link></nav>
     </section>
   </div>;
 }
