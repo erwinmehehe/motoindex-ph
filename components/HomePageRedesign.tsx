@@ -93,6 +93,6 @@ export function HomePageRedesign({ heading }: { heading: ReactNode }) {
       </div>
     </section>
 
-    <p className={styles.indexNote}>{siteStats.currentMotorcycles} current motorcycles researched across MotoIndex PH.</p>
+    <p className={styles.indexNote}>{siteStats.currentMotorcycles} current motorcycles researched across MotoIndex PH. <Link href="/commute/affordability">Check affordability →</Link></p>
   </main>;
 }
