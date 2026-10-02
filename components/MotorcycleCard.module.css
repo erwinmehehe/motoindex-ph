@@ -145,23 +145,9 @@
 
 
 @container motorcycle-card (max-width:300px){
-  .standardBody{
-    padding:var(--mi-space-3);
-  }
-
-  .title{
-    font-size:var(--mi-type-lg);
-  }
-
-  .actions{
-    display:grid;
-    grid-template-columns:1fr;
-  }
-
-  .actions :global(.button),
-  .actions :global(.compare-button){
-    width:100%;
-  }
+  .standardBody{padding:8px 10px 10px}
+  .title{font-size:12px}
+  .actions{display:none}
 }
 
 @media(prefers-reduced-motion:reduce){
