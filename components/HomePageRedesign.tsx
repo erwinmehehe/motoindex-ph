@@ -1,3 +1,4 @@
+import type React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -32,7 +33,7 @@ const featureLinks = [
   ["04", "Rider guides", "Buying, ownership and maintenance guidance.", "/guides"],
 ] as const;
 
-export function HomePageRedesign() {
+export function HomePageRedesign({ heading }: { heading: React.ReactNode }) {
   const verifiedModels = currentMotorcycles.filter(isIndexableModel);
   const featured = verifiedModels.slice(0, 4);
   const heroModel = verifiedModels.find((model) => model.makeSlug === "yamaha" && model.slug.toLowerCase().includes("aerox")) ?? featured[0];
@@ -59,7 +60,7 @@ export function HomePageRedesign() {
       <div className={["shell", styles.heroInner].join(" ")}>
         <div className={styles.copy}>
           <span className={styles.eyebrow}>Philippine motorcycle research</span>
-          <h1 id="mi-home-title">Compare <span>motorcycle prices</span> and specs in the Philippines.</h1>
+          {heading}
           <p className={styles.lede}>Find the right motorcycle for your next ride with current price references, specifications, rider-fit data, ownership tools and practical buying guides.</p>
 
           <form className={styles.search} action="/motorcycles" method="get" role="search">
