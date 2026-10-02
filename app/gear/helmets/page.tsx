@@ -33,10 +33,10 @@ function compactHelmetMeta(product: (typeof helmetProducts)[number]) {
   return [certificationLabel, product.intercomReady ? "Intercom-ready" : undefined].filter(Boolean).join(" · ");
 }
 
-function HelmetProductGrid({ products, limit = 8 }: { products: typeof helmetProducts; limit?: number }) {
+function HelmetProductGrid({ products, limit = 8, density = "compact" }: { products: typeof helmetProducts; limit?: number; density?: "compact" | "reference" }) {
   const visible = products.filter(product=>hasRenderableProductMedia(product.id)).slice(0, limit);
   if (!visible.length) return <InfoPanel subtle><p>No matching verified helmet is published right now.</p></InfoPanel>;
-  return <ProductGrid className="helmet-product-grid" density="compact">{visible.map(p=><ProductCard key={p.id} item={{
+  return <ProductGrid className="helmet-product-grid" density={density}>{visible.map(p=><ProductCard key={p.id} item={{
     entityId:p.id,
     href:`/gear/helmets/${p.brandSlug}/${p.slug}`,
     category:p.helmetType,
@@ -86,7 +86,7 @@ export default function HelmetsPage(){
       <a href="#models">All Brands</a><a href="#full-face">Full Face</a><a href="#modular">Modular</a><a href="#open-face">Open Face</a><a href="#brands">Dual Sport</a>
     </nav>
     <div className={styles.catalogMeta}><strong>{verified.length} helmet models</strong><span>Sort by: <b>Popular⌄</b></span></div>
-    <div className={styles.preview}><HelmetProductGrid products={verified} limit={6}/></div>
+    <div className={styles.preview}><HelmetProductGrid products={verified} limit={6} density="reference"/></div>
 
     <InfoPanel className="helmet-master-intro">
       <SectionHeader kicker="Start here" title="Choose the helmet by fit and riding use first" description="A helmet category is only the starting point. The exact fit, conformity marking, visor system, ventilation, weight and replacement-parts availability decide whether a model works for you day to day." />
