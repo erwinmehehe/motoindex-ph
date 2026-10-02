@@ -3,6 +3,7 @@ import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
 import { PageHero, SectionHeader, StatRow } from "@/components/ui";
 import styles from "../styles/hub-index.module.css";
+import hubStyles from "../styles/decision-hub.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Calculators Philippines",
@@ -26,11 +27,17 @@ const planningTools=[
 
 export default function ToolsPage() {
   return <section className="page shell tools-master-page">
-    <PageHero
-      kicker="Plan before you buy"
-      title="Motorcycle tools for the Philippines"
-      description="Start with the decision you are making now, then open the calculator that uses the numbers you can realistically provide."
-    />
+    <div className={hubStyles.heroGrid}>
+      <PageHero
+        kicker="Plan before you buy"
+        title="Motorcycle tools for the Philippines"
+        description="Start with the decision you are making now, then open the calculator that uses the numbers you can realistically provide."
+      />
+      <aside className={hubStyles.heroPanel}>
+        <div><span className={hubStyles.panelKicker}>Start with the decision</span><h2 className={hubStyles.panelTitle}>Choose the number you need before the quote.</h2><p className={hubStyles.panelCopy}>Each calculator answers a different buying or ownership question, so you can avoid mixing loan payment with total cost.</p></div>
+        <div className={hubStyles.panelLinks}><Link href="/ownership/cost-calculator">Total cost to own <span>→</span></Link><Link href="/tools/motorcycle-loan-calculator">Monthly payment <span>→</span></Link><Link href="/tools/lto-registration-fee-calculator">Registration budget <span>→</span></Link><Link href="/tools/motorcycle-insurance-calculator">Insurance estimate <span>→</span></Link></div>
+      </aside>
+    </div>
 
     <StatRow items={[
       {label:"Planning tools",value:"8",note:"Purchase, ownership and daily use"},
@@ -44,11 +51,11 @@ export default function ToolsPage() {
         title="Purchase and ownership calculators"
         description="These four tools cover the decisions most riders need before paying for a motorcycle."
       />
-      <div className={styles.decisionList}>
-        {coreTools.map(item=><Link className={styles.decisionRow} href={item.href} key={item.href}>
-          <span className={styles.decisionLabel}>{item.label}</span>
-          <span className={styles.decisionCopy}><h3>{item.title}</h3><p>{item.description}</p></span>
-          <span className={styles.decisionMeta}>{item.meta}</span>
+      <div className={hubStyles.cardGrid}>
+        {coreTools.map(item=><Link className={hubStyles.card} href={item.href} key={item.href}>
+          <span className={hubStyles.cardLabel}>{item.label}</span>
+          <span ><h3>{item.title}</h3><p>{item.description}</p></span>
+          <span className={hubStyles.cardMeta}>{item.meta}</span>
         </Link>)}
       </div>
     </section>
@@ -59,11 +66,11 @@ export default function ToolsPage() {
         title="Daily riding and electric tools"
         description="Use these when commute distance, monthly affordability or electric range is part of the decision."
       />
-      <div className={styles.decisionList}>
-        {planningTools.map(item=><Link className={styles.decisionRow} href={item.href} key={item.href}>
-          <span className={styles.decisionLabel}>{item.label}</span>
-          <span className={styles.decisionCopy}><h3>{item.title}</h3><p>{item.description}</p></span>
-          <span className={styles.decisionMeta}>{item.meta}</span>
+      <div className={hubStyles.cardGrid}>
+        {planningTools.map(item=><Link className={hubStyles.card} href={item.href} key={item.href}>
+          <span className={hubStyles.cardLabel}>{item.label}</span>
+          <span ><h3>{item.title}</h3><p>{item.description}</p></span>
+          <span className={hubStyles.cardMeta}>{item.meta}</span>
         </Link>)}
       </div>
     </section>
