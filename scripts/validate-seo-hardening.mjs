@@ -13,6 +13,7 @@ const forbidText = (file, text, message) => {
 };
 
 const home = read("app", "page.tsx");
+const homeDesign = read("components", "HomePageRedesign.tsx");
 const motorcycles = read("app", "motorcycles", "page.tsx");
 const faq = read("components", "FaqSection.tsx");
 const jsonLd = read("components", "JsonLd.tsx");
@@ -40,7 +41,7 @@ const gscOpportunity = read("scripts", "gsc-opportunity-report.mjs");
 const gscWorkflow = read("docs", "seo", "gsc-opportunity-workflow-2026-09-30.md");
 
 requireText(home, "Find the right motorcycle for your next ride.", "Homepage must keep the approved rider-first H1.");
-requireText(home, "Compare prices, specs, and features of motorcycles in the Philippines", "Homepage hero must retain motorcycle prices/specs relevance in supporting copy.");
+requireText(homeDesign, "Compare prices, specs, and features of motorcycles in the Philippines", "Homepage hero must retain motorcycle prices/specs relevance in supporting copy.");
 forbidText(home, "Your next <span>motorcycle</span><br />starts here.", "Homepage must not regress to the old brand-led H1.");
 forbidText(home, "/motorcycles?budget=under100", "Homepage should link the under-100K intent to the consolidated recommendation section, not a crawlable filter URL.");
 requireText(motorcycles, "<h1>Motorcycle prices", "Motorcycle hub must keep a query-led H1 that starts with Motorcycle prices.");
