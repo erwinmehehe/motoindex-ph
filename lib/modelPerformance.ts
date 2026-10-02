@@ -93,6 +93,15 @@ export const modelPerformanceAnswers: PerformanceAnswer[] = [
     sourceUrl: "https://www.hondaph.com/motorcycle/news/honda-philippines-unleashes-power-and-innovation-at-the-action-packed-inside-racing-bikefest-2025",
     checkedAt: "2026-10-02",
     caution: "Rider-reported dashboard speeds vary with load, gearing, road gradient, wind and speedometer error. Modified-bike results should not be presented as stock specifications."
+  },
+  {
+    modelId: "kawasaki-ninja-zx-6r",
+    answer: "Kawasaki Philippines publishes the Ninja ZX-6R's 636cc engine output and current Philippine specification, but does not publish an official maximum-speed figure. MotoIndex therefore does not turn rider videos or dashboard readings into a manufacturer top-speed claim.",
+    evidence: "not manufacturer-published",
+    sourceLabel: "Kawasaki Leisure Bikes Philippines current Ninja ZX-6R specification",
+    sourceUrl: "https://kawasakileisurebikes.ph/motorcycles/supersports/ninja-zx-6r/",
+    checkedAt: "2026-10-02",
+    caution: "Reported maximum speeds can vary with rider mass, wind, gearing, road or track conditions and speedometer error. Modified-bike results are not stock-model specifications."
   }
 ];
 
