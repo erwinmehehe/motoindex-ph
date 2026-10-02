@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { notFound } from "next/navigation";
 import { motorcycles, isIndexableModel } from "@/lib/data";
 import { MotorcycleCard } from "@/components/MotorcycleCard";
+import { EntityMedia } from "@/components/EntityMedia";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { modelFamilies } from "@/lib/families";
 import { observedMarketRange } from "@/lib/marketChecks";
@@ -80,6 +82,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const bigBikes = bigBikeMinCc ? current.filter((m) => m.engineCc >= bigBikeMinCc) : [];
   const categorySpotlight = brandGrowth?.categorySpotlight;
   const spotlightModels = categorySpotlight ? current.filter((m) => new RegExp(categorySpotlight.pattern, "i").test(m.category)) : [];
+  const heroModel = authorityModels[0] ?? scooters[0] ?? current[0];
 
   const faq = [
     {
@@ -151,12 +154,29 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     <div className="ph-brand-hero">
       <div className="shell">
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
-        <PageHero
-          kicker="Philippines · Price list · Models · Specs"
-          title={brandGrowth?.heroTitle || `${brand} Motorcycle Philippines Price List`}
-          description={brandGrowth?.heroDescription || `Compare the current ${brand} motorcycle Philippines price list by model, published price, engine size, seat height and transmission. Open any motorcycle for detailed specs, financing estimates, fitment, maintenance and alternatives.`}
-          actions={<><CTAGroup><Link className="button" href="#price-list">View {brand} price list</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link></CTAGroup></>}
-        />
+        <div className="ph-brand-mockup-hero-grid">
+          <div className="ph-brand-mockup-copy">
+            <div className="ph-brand-mockup-logo"><Image src={`/brand/motorcycle/${make}.svg`} alt={`${brand} logo`} width={150} height={48} unoptimized /></div>
+            <PageHero
+              kicker="Philippines · Price list · Models · Specs"
+              title={brandGrowth?.heroTitle || `${brand} Motorcycle Philippines Price List`}
+              description={brandGrowth?.heroDescription || `Compare the current ${brand} motorcycle Philippines price list by model, published price, engine size, seat height and transmission. Open any motorcycle for detailed specs, financing estimates, fitment, maintenance and alternatives.`}
+              actions={<><CTAGroup><Link className="button" href="#models">Browse {brand} models</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand}</Link></CTAGroup></>}
+            />
+          </div>
+          <div className="ph-brand-mockup-visual" aria-label={`${brand} featured motorcycle`}>
+            <div className="ph-brand-visual-badge"><span>{brand}</span><strong>{heroModel.model}</strong></div>
+            <EntityMedia
+              entityType="motorcycle"
+              entityId={heroModel.id}
+              className="ph-brand-hero-media"
+              priority
+              showCredit={false}
+              sizes="(max-width: 900px) 100vw, 48vw"
+              fallback={<div className="ph-brand-hero-fallback"><strong>{brand}</strong><span>{heroModel.model}</span></div>}
+            />
+          </div>
+        </div>
         {brandGrowth ? <InfoPanel subtle><p>{brandGrowth.intentNote}</p></InfoPanel> : null}
         <StatRow items={[
           {label:"Models covered",value:current.length,note:"Current models on MotoIndex"},
@@ -166,6 +186,10 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
           ...(authorityModels.length > 0 ? [{label:"Buyer guides",value:authorityModels.length,note:"Expanded decision briefs with Philippine ownership context"}] : []),
           ...(bigBikes.length > 0 && bigBikeMinCc ? [{label:`${bigBikeMinCc}cc+ models`,value:bigBikes.length,note:"Current big bikes covered on this brand hub"}] : [])
         ]}/>
+        <nav className="ph-brand-category-tabs" aria-label={`${brand} motorcycle categories`}>
+          <a className="is-active" href="#models">All</a>
+          {categories.map((category) => <Link key={category} href={{ pathname: "/motorcycles", query: { make, type: category } }}>{category}</Link>)}
+        </nav>
       </div>
     </div>
 
