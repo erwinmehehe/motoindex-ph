@@ -210,6 +210,8 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
             <Freshness model={model} />
           </div>
           <div className="motorcycle-hero-visual">
+            <Image className={styles.heroBrandLogo} src={"/brand/motorcycle/"+model.makeSlug+".svg"} alt={model.make+" logo"} width={150} height={48} unoptimized />
+            <div className={styles.heroScene} aria-hidden="true" />
             <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" priority showCredit={false} sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} className="authority-media-fallback" />} />
             {allColors.length > 0 && <div className={styles.colorStrip} aria-label={`${model.make} ${model.model} available colors`}>
               <span>Available colors</span>
@@ -223,6 +225,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
               <HeroFact label="Seat" value={`${model.seatHeightMm} mm`} note={`${model.curbWeightKg} kg curb weight`} />
               <HeroFact label="Transmission" value={model.transmission || "Not listed"} note={model.category} />
               <HeroFact label="Fuel" value={`${model.fuelTankL} L tank`} note={`${efficiency.kmPerL} km/L ${efficiency.status === "listed" ? "listed" : "planning estimate"}`} />
+              <HeroFact label="Braking" value={model.abs || "Not listed"} note="Selected model" />
             </div>
           </div>
         </div>
@@ -231,14 +234,12 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
     <div className="shell motorcycle-entity-nav-wrap">
       <ProductEntityNav items={[
-        { href: "#price", label: "Price & variants" },
-        { href: "#specs", label: "Key specs" },
-        ...(authority ? [{ href: "#buyer-guide", label: "Who it suits" }] : []),
-        ...(!isPrevious ? [{ href: "#installment", label: "Monthly" }] : []),
-        { href: "#rider-fit", label: "Rider fit" },
+        { href: "#overview", label: "Overview" },
+        { href: "#specs", label: "Specs" },
+        ...(authority ? [{ href: "#buyer-guide", label: "Features" }] : []),
+        { href: "#price", label: "Variants & Price" },
+        ...(allColors.length ? [{ href: "#overview", label: "Colors" }] : []),
         ...(!isPrevious ? [{ href: "#ownership", label: "Ownership" }] : []),
-        ...(!isPrevious ? [{ href: "#alternatives", label: "Alternatives" }] : []),
-        { href: "#detailed-research", label: "Detailed research" },
       ]} />
     </div>
 

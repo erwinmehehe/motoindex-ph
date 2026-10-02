@@ -34,7 +34,7 @@ const brandLogos: Record<string, string> = {
   Zontes: "/brand/motorcycle/zontes.svg"
 };
 
-type Variant = "standard" | "compare" | "decision" | "compact";
+type Variant = "standard" | "compare" | "decision" | "compact" | "reference";
 
 type Props = {
   model: Motorcycle;
@@ -110,9 +110,10 @@ export function MotorcycleCard({
     </article>;
   }
 
+  const reference = variant === "reference";
   const needsUpdate = model.freshness !== "verified";
   const showLifecycle = Boolean(model.marketStatus && model.marketStatus !== "current");
-  return <article className={`${styles.card} model-card motorcycle-card motorcycle-card-standard`}>
+  return <article className={`${styles.card} ${reference ? styles.referenceCard : ""} model-card motorcycle-card motorcycle-card-standard`}>
     <div className={styles.standard} data-motorcycle-card="standard">
       <EntityMedia entityType="motorcycle" entityId={model.id} className={`${styles.standardMedia} model-card-media`} linkHref={href} showCredit={false} forceFill fallback={<MotorcycleFallback model={model} href={href} className={`${styles.mediaFallback} model-media-placeholder`} />}/>
       <div className={`${styles.standardBody} model-card-body`}>
