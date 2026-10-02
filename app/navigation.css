@@ -1,139 +1,21 @@
-/* Shared navigation system. */
-.site-header{
-  position:sticky;
-  top:0;
-  z-index:60;
-  border-bottom:1px solid var(--mi-color-line-soft);
-  background:var(--mi-color-surface);
-}
-.site-header .shell{width:min(1280px,calc(100% - 32px));margin-inline:auto}
-.site-header .nav-wrap{position:relative;height:62px;display:flex;align-items:center;gap:24px}
-.site-header .brand{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:850;letter-spacing:-.035em}
-.site-header .brand-logo{width:30px;height:30px}
-.site-header .brand-word{color:var(--mi-color-ink)}
-.site-header .brand-word b{color:var(--mi-color-primary)}
-.site-header .nav-links{display:flex;align-items:center;gap:22px;margin-left:auto;color:var(--mi-color-slate-700);font-size:11px;font-weight:750}
-.site-header .nav-links>a,
-.site-header .nav-more>summary{cursor:pointer;color:var(--mi-color-slate-700);list-style:none}
-.site-header .nav-more>summary::-webkit-details-marker{display:none}
-.site-header .nav-more>summary span{margin-left:3px;color:var(--mi-color-muted)}
-.site-header .nav-links>a:hover,
-.site-header .nav-more>summary:hover{color:var(--mi-color-primary)}
-.site-header .nav-actions{display:flex;align-items:center;gap:7px;margin-left:4px}
-.nav-icon-button,
-.shortlist-nav{
-  position:relative;
-  display:inline-flex;
-  width:36px;
-  height:36px;
-  align-items:center;
-  justify-content:center;
-  border:1px solid var(--mi-color-line);
-  border-radius:var(--mi-radius-xs);
-  background:var(--mi-color-surface);
-  color:var(--mi-color-slate-700);
-}
-.nav-icon-button:hover,
-.shortlist-nav:hover,
-.shortlist-nav.nav-current{border-color:var(--mi-color-primary);background:var(--mi-color-primary-soft);color:var(--mi-color-primary)}
-.nav-icon-button svg,
-.shortlist-nav svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.shortlist-nav svg{fill:none}
-.shortlist-nav>span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
-.shortlist-nav>b{
-  position:absolute;
-  top:-6px;
-  right:-6px;
-  display:grid;
-  min-width:18px;
-  height:18px;
-  place-items:center;
-  padding:0 4px;
-  border:2px solid var(--mi-color-surface);
-  border-radius:var(--mi-radius-pill);
-  background:var(--mi-color-primary);
-  color:var(--mi-color-surface);
-  font-size:8px;
-  line-height:1;
-}
-.site-header .nav-more{position:relative}
-.site-header .nav-popover{
-  position:absolute;
-  z-index:80;
-  top:calc(100% + 13px);
-  left:50%;
-  min-width:190px;
-  padding:8px;
-  border:1px solid var(--mi-color-line);
-  border-radius:var(--mi-radius-sm);
-  background:var(--mi-color-surface);
-  box-shadow:var(--mi-shadow-lg);
-  transform:translateX(-50%);
-}
-.site-header .nav-popover>a{display:block;padding:9px 10px;border-radius:var(--mi-radius-xs);color:var(--mi-color-slate-600);font-size:11px}
-.site-header .nav-popover>a:hover{background:var(--mi-color-surface-subtle);color:var(--mi-color-primary)}
-.site-header .nav-motorcycles .nav-popover-menu{width:min(590px,calc(100vw - 32px));padding:12px;border-radius:var(--mi-radius-md)}
+/* Shared navigation system. Keep header/menu behavior authoritative here. */
+.site-header .nav-motorcycles .nav-popover-menu{width:min(590px,calc(100vw - 32px));padding:12px!important;border-radius:20px!important}
 .nav-popover-featured{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:14px}
 .site-header .nav-popover-featured>a{
-  display:flex;
-  min-height:66px;
-  flex-direction:column;
-  align-items:flex-start;
-  justify-content:center;
-  gap:4px;
-  padding:12px 14px;
-  border:1px solid var(--mi-color-line-soft);
-  border-radius:var(--mi-radius-sm);
-  background:var(--mi-color-surface);
-  color:var(--mi-color-ink);
+  display:flex!important;min-height:66px;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;
+  padding:12px 14px!important;border:1px solid rgba(148,163,184,.18)!important;border-radius:14px!important;background:#fff!important;color:#0f172a!important
 }
-.site-header .nav-popover-featured .nav-popover-primary{background:var(--mi-color-primary-soft)}
-.site-header .nav-popover-featured .nav-popover-electric{background:var(--mi-color-surface-subtle)}
-.nav-popover-featured strong{color:var(--mi-color-ink);font-size:13px}
-.nav-popover-featured small{color:var(--mi-color-copy);font-size:10px}
-.nav-motorcycles .nav-popover-label{display:block;margin:4px 6px 8px;color:var(--mi-color-muted);font-size:9px;font-weight:850;text-transform:uppercase}
+.site-header .nav-popover-featured .nav-popover-primary{background:linear-gradient(135deg,rgba(68,76,231,.08),rgba(122,90,248,.045))!important}
+.site-header .nav-popover-featured .nav-popover-electric{background:linear-gradient(135deg,rgba(18,183,106,.07),rgba(68,76,231,.025))!important}
+.nav-popover-featured strong{color:#101828!important;font-size:13px}
+.nav-popover-featured small{color:#667085!important;font-size:10px}
+.nav-motorcycles .nav-popover-label{display:block;margin:4px 6px 8px!important;color:#98a2b3!important;font-size:9px!important;font-weight:850!important;text-transform:uppercase}
 .nav-motorcycles .nav-brand-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px 6px}
-.site-header .nav-motorcycles .nav-brand-grid>a{padding:8px 9px;border-radius:var(--mi-radius-xs);color:var(--mi-color-slate-600);font-size:11px;font-weight:720;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.site-header .nav-motorcycles .nav-brand-grid>a:hover{color:var(--mi-color-primary);background:var(--mi-color-surface-subtle)}
-.site-header .mobile-menu{position:static;display:none;margin-left:auto}
-.site-header .mobile-menu>summary{cursor:pointer;list-style:none;padding:8px 10px;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-xs);background:var(--mi-color-surface);color:var(--mi-color-slate-700);font-size:10px;font-weight:800}
-.site-header .mobile-menu>summary::-webkit-details-marker{display:none}
-.mobile-menu-panel{
-  position:absolute;
-  top:62px;
-  left:0;
-  right:0;
-  width:auto;
-  max-height:calc(100vh - 82px);
-  overflow:auto;
-  padding:14px;
-  border:1px solid var(--mi-color-line);
-  border-radius:var(--mi-radius-sm);
-  background:var(--mi-color-surface);
-  box-shadow:var(--mi-shadow-lg);
-}
-.mobile-menu-panel nav{display:grid;gap:6px}
-.mobile-menu-panel nav>a{padding:10px;border-radius:var(--mi-radius-xs);color:var(--mi-color-slate-700);font-size:11px;font-weight:700}
-.mobile-menu-panel nav>a:hover{background:var(--mi-color-surface-subtle)}
-.mobile-menu-heading{margin-top:8px;color:var(--mi-color-ink);font-size:10px}
-.mobile-menu-label{color:var(--mi-color-muted);font-size:9px;font-weight:800;text-transform:uppercase}
+.site-header .nav-motorcycles .nav-brand-grid>a{padding:8px 9px!important;border-radius:9px!important;color:#475467!important;font-size:11px!important;font-weight:720!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.site-header .nav-motorcycles .nav-brand-grid>a:hover{color:#3038bd!important;background:rgba(68,76,231,.055)!important}
 .mobile-menu-featured{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 14px}
-.mobile-menu-featured>a{display:flex;align-items:center;padding:10px 12px;border:1px solid var(--mi-color-line-soft);border-radius:var(--mi-radius-xs);background:var(--mi-color-surface);color:var(--mi-color-ink);font-weight:800}
-.mobile-menu-brand-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
-.mobile-menu-brand-grid>a{padding:8px;border-radius:var(--mi-radius-xs);background:var(--mi-color-surface-subtle);color:var(--mi-color-slate-600);font-size:10px}
+.mobile-menu-featured>a{display:flex!important;align-items:center;padding:10px 12px!important;border:1px solid rgba(148,163,184,.20)!important;border-radius:12px!important;background:#fff!important;color:#101828!important;font-weight:800!important}
+@media(max-width:720px){.mobile-menu-featured{grid-template-columns:1fr}.mobile-menu-brand-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 
-@media(max-width:900px){
-  .site-header .nav-links{display:none}
-  .site-header .nav-actions{margin-left:auto}
-  .site-header .mobile-menu{display:block}
-}
-@media(max-width:720px){
-  .site-header .shell{width:min(100% - 24px,1280px)}
-  .site-header .nav-wrap{height:58px;gap:10px}
-  .site-header .brand-word{font-size:14px}
-  .site-header .brand-logo{width:28px;height:28px}
-  .mobile-menu-panel{top:58px;left:0;right:0}
-  .mobile-menu-featured{grid-template-columns:1fr}
-  .mobile-menu-brand-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .nav-icon-button,.shortlist-nav{width:34px;height:34px}
-}
+/* Keep closed details content out of responsive geometry audits and layout. */
+.mobile-menu:not([open])>.mobile-menu-panel{display:none}
