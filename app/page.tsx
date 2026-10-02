@@ -12,5 +12,5 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function HomePage() {
-  return <HomePageRedesign />;
+  return <HomePageRedesign heading={<h1 id="mi-home-title">Compare <span>motorcycle prices</span><br />and specs in the Philippines.</h1>} />;
 }
