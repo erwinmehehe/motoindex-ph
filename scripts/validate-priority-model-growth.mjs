@@ -19,6 +19,7 @@ const brandSupport = read("lib", "phBrandSupport.ts");
 const dealerFinancing = read("lib", "dealerFinancing.ts");
 const dealerFinancingComponent = read("components", "DealerFinancingSnapshot.tsx");
 const motorcycleEntityPage = read("components", "MotorcycleEntityPage.tsx");
+const zigwheelsGap = read("lib", "zigwheelsGapExpansion2026.ts");
 
 const priorityModels = [
   "yamaha-aerox-v3",
@@ -564,21 +565,44 @@ for (const token of [
 }
 
 for (const token of [
-  '"honda/rs150r"',
-  'slug: "winner-x"',
   '"kawasaki/z400"',
-  'slug: "z500"',
-  '"yamaha/mio-sporty"',
-  'slug: "mio-i-125"'
+  'slug: "z500"'
 ]) {
   if (!route.includes(token)) {
     errors.push(`model route: missing legacy redirect mapping: ${token}`);
   }
 }
 
-for (const legacyId of ["honda-rs150r", "kawasaki-z400", "yamaha-mio-sporty"]) {
-  if (data.includes(`id: "${legacyId}"`)) {
-    errors.push(`priorityModelGrowth: do not recreate ${legacyId} as a standalone model entity; consolidate it into the current canonical target`);
+if (data.includes('id: "kawasaki-z400"') || zigwheelsGap.includes('id: "kawasaki-z400"')) {
+  errors.push("priorityModelGrowth: do not recreate kawasaki-z400 as a standalone model entity; consolidate it into the current Z500 canonical");
+}
+
+for (const modelId of ["honda-rs150r", "yamaha-mio-sporty"]) {
+  if (!zigwheelsGap.includes(`id: "${modelId}"`)) {
+    errors.push(`priorityModelGrowth: dedicated keyword-gap entity missing: ${modelId}`);
+  }
+}
+for (const legacyPath of ['"honda/rs150r"', '"yamaha/mio-sporty"']) {
+  if (route.includes(legacyPath)) {
+    errors.push(`model route: ${legacyPath} must render its dedicated historical entity instead of redirecting`);
+  }
+}
+
+for (const modelId of [
+  "yamaha-mio-sporty",
+  "yamaha-yzf-r15-v3",
+  "yamaha-sniper-150",
+  "kawasaki-ninja-zx-6r",
+  "suzuki-hayabusa",
+  "honda-xr150l",
+  "yamaha-mt-03",
+  "yamaha-mt-09",
+  "honda-rs150r",
+  "honda-scoopy",
+  "honda-cbr500r"
+]) {
+  if (!zigwheelsGap.includes(`id: "${modelId}"`)) {
+    errors.push(`ZigWheels keyword-gap expansion: missing model entity ${modelId}`);
   }
 }
 
