@@ -48,7 +48,7 @@ const startPoints = [
 
 const featureLinks = [
   ["Compare", "Up to 3 motorcycles", "/compare"],
-  ["Latest Prices", "Updated for PH market", "/motorcycles"],
+  ["Latest Prices", "Updated for PH market", "/price-list"],
   ["Detailed Specs", "Engine, features, dimensions", "/motorcycles"],
   ["Rider Guides", "Tips, reviews and more", "/guides"],
 ] as const;
