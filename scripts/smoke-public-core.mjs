@@ -6,8 +6,14 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const publicRoutes = [
   "/",
   "/motorcycles",
-  "/motorcycles/yamaha/aerox-v3",
+  "/motorcycles/yamaha",
+  "/motorcycles/yamaha/nmax-v3",
+  "/motorcycles/scooters",
+  "/compare",
   "/compare/selection?bikes=aerox-v3,nmax-v3",
+  "/gear/helmets",
+  "/price-list",
+  "/guides",
   "/recommendations",
   "/recommendations/motorcycles-under-100k",
 ];
