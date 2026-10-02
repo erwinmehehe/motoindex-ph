@@ -23,6 +23,7 @@ const zigwheelsGap = read("lib", "zigwheelsGapExpansion2026.ts");
 const zigwheelsGapWave2 = read("lib", "zigwheelsGapWave2_2026.ts");
 const zigwheelsGapWave3 = read("lib", "zigwheelsGapWave3_2026.ts");
 const zigwheelsGapWave4 = read("lib", "zigwheelsGapWave4_2026.ts");
+const zigwheelsGapWave5 = read("lib", "zigwheelsGapWave5_2026.ts");
 for (const token of [
   'const isDiscontinued = model.marketStatus === "discontinued";',
   'const isHistorical = isPrevious || isDiscontinued;',
@@ -695,6 +696,43 @@ for (const token of [
 ]) {
   if (!zigwheelsGapWave4.includes(token)) {
     errors.push(`ZigWheels keyword-gap wave 4: status/spec guard missing ${token}`);
+  }
+}
+
+for (const modelId of [
+  "keeway-cafe-racer-152",
+  "kymco-krv-180",
+  "kymco-xciting-vs-400",
+  "kymco-like-125-italia",
+  "benelli-302s",
+  "benelli-rfs-150i",
+  "benelli-trk-502x"
+]) {
+  if (!zigwheelsGapWave5.includes(`id: "${modelId}"`)) {
+    errors.push(`ZigWheels keyword-gap wave 5: missing model entity ${modelId}`);
+  }
+}
+
+for (const token of [
+  'id: "keeway-cafe-racer-152"',
+  'srp: 69900',
+  'engineCc: 149',
+  'id: "kymco-krv-180"',
+  'marketPriceHighPhp: 195900',
+  'id: "kymco-xciting-vs-400"',
+  'srp: 389900',
+  'engineCc: 400.1',
+  'id: "kymco-like-125-italia"',
+  'srp: 89900',
+  'id: "benelli-302s"',
+  'srp: 222800',
+  'id: "benelli-rfs-150i"',
+  'srp: 88800',
+  'id: "benelli-trk-502x"',
+  'srp: 399000'
+]) {
+  if (!zigwheelsGapWave5.includes(token)) {
+    errors.push(`ZigWheels keyword-gap wave 5: source/status guard missing ${token}`);
   }
 }
 
