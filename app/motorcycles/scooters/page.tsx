@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { FaqSection } from "@/components/FaqSection";
+import { MotorcycleCard } from "@/components/MotorcycleCard";
+import { EntityMedia } from "@/components/EntityMedia";
 import { CTAGroup, DataTable, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
 import { observedMarketPriceLabel, observedMarketRange } from "@/lib/marketChecks";
 import {
@@ -26,6 +28,8 @@ const class150 = scooters.filter((model) => model.engineCc >= 140 && model.engin
 const class155 = scooters.filter((model) => model.engineCc === 155).length;
 const class160 = scooters.filter((model) => model.engineCc >= 156 && model.engineCc <= 165).length;
 const absModels = scooters.filter(hasAbs).length;
+const heroScooter = scooters.find((model) => model.makeSlug === "yamaha" && /nmax/i.test(model.slug)) ?? scooters[0];
+const previewScooters = scooters.slice(0, 8);
 const tableColumns: CSSProperties = {
   gridTemplateColumns: "1.6fr 1.15fr .6fr .6fr .6fr 1.3fr"
 };
@@ -87,19 +91,55 @@ const priceResearchLinks = [
 ] as const;
 
 export default function ScootersPage() {
-  return <main className="page">
+  return <main className="page scooter-market-page">
     <div className="shell">
       <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: "Scooters" }]} />
-      <PageHero
-        kicker="Philippines scooter price guide"
-        title="Scooter prices in the Philippines"
-        description="Compare current scooter prices, models and specifications in the Philippines for 2026. Start with the full price list, then narrow by 125cc, 150cc-class, exact 155cc, 160cc, brand, budget or rider need."
-        actions={<CTAGroup>
-          <a className="button" href="#scooter-price-list">View scooter price list</a>
-          <Link className="button secondary" href="/finder">Find a motorcycle</Link>
-          <Link className="button secondary" href="/compare">Compare models</Link>
-        </CTAGroup>}
-      />
+      <div className="scooter-market-hero">
+        <div className="scooter-market-hero-copy">
+          <PageHero
+            kicker="Philippines scooter price guide"
+            title="Scooter motorcycles in the Philippines"
+            description="Compare current scooter prices, models and specifications in the Philippines for 2026. Start with the full market, then narrow by budget, engine size or brand."
+            actions={<CTAGroup>
+              <a className="button" href="#scooter-catalog-preview">Browse scooters</a>
+              <Link className="button secondary" href="/finder">Find a motorcycle</Link>
+              <Link className="button secondary" href="/compare">Compare models</Link>
+            </CTAGroup>}
+          />
+        </div>
+        {heroScooter && <div className="scooter-market-hero-visual" aria-label={`${heroScooter.make} ${heroScooter.model}`}>
+          <div className="scooter-market-hero-label"><span>Featured scooter</span><strong>{heroScooter.make} {heroScooter.model}</strong><small>{observedMarketPriceLabel(heroScooter)}</small></div>
+          <EntityMedia
+            entityType="motorcycle"
+            entityId={heroScooter.id}
+            className="scooter-market-hero-media"
+            priority
+            showCredit={false}
+            sizes="(max-width: 820px) 100vw, 48vw"
+            fallback={<div className="scooter-market-hero-fallback"><strong>{heroScooter.make}</strong><span>{heroScooter.model}</span></div>}
+          />
+        </div>}
+      </div>
+
+      <nav className="scooter-filter-strip" aria-label="Quick scooter filters">
+        <a className="is-active" href="#scooter-catalog-preview">All scooters</a>
+        <Link href="/recommendations/honda-scooters-philippines">Honda</Link>
+        <Link href="/recommendations/yamaha-scooters-philippines">Yamaha</Link>
+        <Link href="/recommendations/suzuki-scooters-philippines">Suzuki</Link>
+        <Link href="/recommendations/motorcycles-under-100k">Under ₱100K</Link>
+        <Link href="/recommendations/125cc-scooters-philippines">125cc</Link>
+        <Link href="/recommendations/155cc-scooters-philippines">155cc</Link>
+        <Link href="/recommendations/160cc-scooters-philippines">160cc</Link>
+      </nav>
+
+      <section id="scooter-catalog-preview" className="scooter-catalog-preview" aria-labelledby="scooter-catalog-preview-title">
+        <div className="scooter-catalog-preview-head">
+          <div><span>Current market</span><h2 id="scooter-catalog-preview-title">Browse current scooters</h2></div>
+          <small>{scooters.length} current models · ordered by observed starting price</small>
+        </div>
+        <div className="scooter-catalog-grid">{previewScooters.map((model) => <MotorcycleCard key={model.id} model={model} variant="standard" />)}</div>
+        <div className="scooter-catalog-more"><a href="#scooter-price-list">View full scooter price list →</a></div>
+      </section>
 
       <section className="section" aria-labelledby="scooter-price-philippines">
         <SectionHeader
