@@ -71,6 +71,7 @@ export default function RecommendationsPage() {
     .sort((a, b) => b.count - a.count)
     .slice(0, 10);
   const brands = [...new Map(current.map((m) => [m.makeSlug, m.make])).entries()].sort((a, b) => a[1].localeCompare(b[1]));
+  const spotlight = current.find((m) => m.makeSlug === "yamaha" && m.slug.toLowerCase().includes("aerox")) ?? scooters[0] ?? current[0];
 
   const faqs: FaqItem[] = [
     { question: "What is the best motorcycle in the Philippines?", answer: "There is no single best motorcycle for every rider. Start with budget and intended use, then compare physical fit, transmission, weight, braking, fuel use, dealer support and the exact current price." },
@@ -102,12 +103,18 @@ export default function RecommendationsPage() {
           </div>
           <div className="rec-hero-proof"><span><b>{current.length}</b> researched current models</span><span><b>{brands.length}</b> brands covered</span><span><b>Traceable</b> price sources</span></div>
         </div>
-        <aside className="rec-start-card">
-          <span>Start with one constraint</span>
-          <a href="#budget"><b>01</b><div><strong>I have a budget</strong><small>Start with purchase price</small></div><em>→</em></a>
-          <a href="#commuting"><b>02</b><div><strong>I ride every day</strong><small>Traffic, fuel and ease of use</small></div><em>→</em></a>
-          <a href="#rider-fit"><b>03</b><div><strong>I need the right fit</strong><small>Seat height and weight</small></div><em>→</em></a>
-          <a href="#long-rides"><b>04</b><div><strong>I ride farther</strong><small>Tank, comfort and displacement</small></div><em>→</em></a>
+        <aside className="rec-hero-aside">
+          {spotlight && <Link className="rec-spotlight" href={modelHref(spotlight)}>
+            <EntityMedia entityType="motorcycle" entityId={spotlight.id} className="rec-spotlight-media" showCredit={false} sizes="(max-width: 1050px) 100vw, 360px" />
+            <div><span>Current model spotlight</span><strong>{spotlight.make} {spotlight.model}</strong><small>{observedMarketPriceLabel(spotlight)} · {spotlight.engineCc} cc · {spotlight.seatHeightMm} mm seat</small></div>
+          </Link>}
+          <div className="rec-start-card">
+            <span>Start with one constraint</span>
+            <a href="#budget"><b>01</b><div><strong>I have a budget</strong><small>Start with purchase price</small></div><em>→</em></a>
+            <a href="#commuting"><b>02</b><div><strong>I ride every day</strong><small>Traffic, fuel and ease of use</small></div><em>→</em></a>
+            <a href="#rider-fit"><b>03</b><div><strong>I need the right fit</strong><small>Seat height and weight</small></div><em>→</em></a>
+            <a href="#long-rides"><b>04</b><div><strong>I ride farther</strong><small>Tank, comfort and displacement</small></div><em>→</em></a>
+          </div>
         </aside>
       </div>
     </header>
