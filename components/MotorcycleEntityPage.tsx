@@ -351,6 +351,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       <section id="faq" className="motorcycle-entity-section"><FaqSection title={`${model.make} ${model.model} FAQs`} items={faqs} /></section>
       <AuthorBox />
     </div>
-    <JsonLd data={[schema, breadcrumbSchema, faqSchema, authorSchema]} />
+    <JsonLd data={[schema, faqSchema, authorSchema]} />
+    <JsonLd data={breadcrumbSchema} />
   </article>;
 }
