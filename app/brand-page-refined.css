@@ -170,3 +170,156 @@
 @media(prefers-reduced-motion:reduce){
   .ph-brand-page a,.ph-brand-page button{transition:none!important}
 }
+
+
+/* v9 mockup-fidelity brand catalog layer */
+.ph-brand-page .ph-brand-mockup-hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(430px,1.1fr);
+  gap:34px;
+  align-items:center;
+}
+.ph-brand-page .ph-brand-mockup-copy{min-width:0}
+.ph-brand-page .ph-brand-mockup-logo{
+  display:flex;
+  min-height:40px;
+  align-items:center;
+  margin-bottom:12px;
+}
+.ph-brand-page .ph-brand-mockup-logo img{
+  width:auto;
+  max-width:132px;
+  max-height:36px;
+  object-fit:contain;
+}
+.ph-brand-page .ph-brand-mockup-copy .ui-page-hero,
+.ph-brand-page .ph-brand-mockup-copy .page-head{
+  margin:0!important;
+  padding:0!important;
+}
+.ph-brand-page .ph-brand-mockup-copy h1{
+  max-width:690px!important;
+  font-size:clamp(40px,4.6vw,58px)!important;
+  line-height:.98!important;
+  letter-spacing:-.055em!important;
+}
+.ph-brand-page .ph-brand-mockup-copy p{
+  max-width:660px!important;
+  font-size:13px!important;
+  line-height:1.58!important;
+}
+.ph-brand-page .ph-brand-mockup-visual{
+  position:relative;
+  min-height:300px;
+  overflow:hidden;
+  border:1px solid #dce6f0;
+  border-radius:14px;
+  background:
+    radial-gradient(circle at 76% 22%,rgba(68,76,231,.10),transparent 28%),
+    linear-gradient(145deg,#eef5fb,#e2edf7 54%,#f7fbff);
+}
+.ph-brand-page .ph-brand-mockup-visual:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(155deg,transparent 0 55%,rgba(63,94,124,.08) 55% 56%,transparent 56% 100%);
+  pointer-events:none;
+}
+.ph-brand-page .ph-brand-hero-media{
+  position:absolute;
+  inset:18px 22px 14px 16%;
+  z-index:1;
+}
+.ph-brand-page .ph-brand-hero-media,
+.ph-brand-page .ph-brand-hero-media>*{width:100%;height:100%}
+.ph-brand-page .ph-brand-hero-media img{
+  width:100%;
+  height:100%;
+  padding:8px;
+  object-fit:contain;
+  object-position:center;
+}
+.ph-brand-page .ph-brand-visual-badge{
+  position:absolute;
+  z-index:3;
+  left:14px;
+  bottom:14px;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  max-width:220px;
+  padding:9px 11px;
+  border:1px solid #d8e2ee;
+  border-radius:9px;
+  background:rgba(255,255,255,.9);
+  box-shadow:0 5px 16px rgba(15,23,42,.05);
+  backdrop-filter:blur(10px);
+}
+.ph-brand-page .ph-brand-visual-badge span{
+  color:#66778b;
+  font-size:8px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+.ph-brand-page .ph-brand-visual-badge strong{
+  color:#15345c;
+  font-size:14px;
+  line-height:1.15;
+}
+.ph-brand-page .ph-brand-hero-fallback{
+  display:grid;
+  width:100%;
+  height:100%;
+  place-content:center;
+  justify-items:center;
+  gap:4px;
+  color:#52657b;
+}
+.ph-brand-page .ph-brand-category-tabs{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  margin-top:16px;
+  padding-bottom:2px;
+  scrollbar-width:none;
+}
+.ph-brand-page .ph-brand-category-tabs::-webkit-scrollbar{display:none}
+.ph-brand-page .ph-brand-category-tabs a{
+  flex:0 0 auto;
+  padding:7px 10px;
+  border:1px solid #dbe5f0;
+  border-radius:8px;
+  background:#fff;
+  color:#5d6d82;
+  font-size:9px;
+  font-weight:800;
+}
+.ph-brand-page .ph-brand-category-tabs a:hover,
+.ph-brand-page .ph-brand-category-tabs .is-active{
+  border-color:#94ade1;
+  background:#eef4ff;
+  color:#2d60d5;
+}
+.ph-brand-page .ph-brand-models-section{
+  margin-top:30px!important;
+  padding-top:4px!important;
+}
+.ph-brand-page .ph-brand-model-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:8px!important;
+}
+@media(max-width:1100px){
+  .ph-brand-page .ph-brand-mockup-hero-grid{grid-template-columns:minmax(0,1fr) minmax(360px,.9fr);gap:24px}
+  .ph-brand-page .ph-brand-model-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:900px){
+  .ph-brand-page .ph-brand-mockup-hero-grid{grid-template-columns:1fr}
+  .ph-brand-page .ph-brand-mockup-visual{min-height:290px}
+  .ph-brand-page .ph-brand-model-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:560px){
+  .ph-brand-page .ph-brand-mockup-copy h1{font-size:clamp(36px,10.5vw,46px)!important}
+  .ph-brand-page .ph-brand-mockup-visual{min-height:240px}
+  .ph-brand-page .ph-brand-hero-media{inset:20px 6px 14px 7%}
+  .ph-brand-page .ph-brand-model-grid{grid-template-columns:1fr!important}
+}
