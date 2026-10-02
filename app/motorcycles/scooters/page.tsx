@@ -5,6 +5,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { FaqSection } from "@/components/FaqSection";
 import { MotorcycleCard } from "@/components/MotorcycleCard";
+import { EntityMedia } from "@/components/EntityMedia";
+import { EntityVerificationFallback } from "@/components/EntityVerificationFallback";
 import { CTAGroup, DataTable, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
 import { observedMarketPriceLabel, observedMarketRange } from "@/lib/marketChecks";
 import {
@@ -92,16 +94,28 @@ export default function ScootersPage() {
   return <main className="page">
     <div className="shell">
       <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: "Scooters" }]} />
-      <PageHero
-        kicker="Philippines scooter price guide"
-        title="Scooter prices in the Philippines"
-        description="Compare current scooter prices, models and specifications in the Philippines for 2026. Start with the full price list, then narrow by 125cc, 150cc-class, exact 155cc, 160cc, brand, budget or rider need."
-        actions={<CTAGroup>
-          <a className="button" href="#scooter-price-list">View scooter price list</a>
-          <Link className="button secondary" href="/finder">Find a motorcycle</Link>
-          <Link className="button secondary" href="/compare">Compare models</Link>
-        </CTAGroup>}
-      />
+      <section className={styles.hero} data-mockup-scooter-hero>
+        <div className={styles.heroCopy}>
+          <span>Motorcycles · Scooter</span>
+          <h1>Scooter Motorcycles<br/>in the Philippines</h1>
+          <p>Explore the latest scooter models, compare prices, specs and find the right scooter for your daily ride.</p>
+        </div>
+        <div className={styles.heroVisual}>
+          <div className={styles.cityBackdrop} aria-hidden="true"/>
+          {scooters[0]&&<EntityMedia entityType="motorcycle" entityId={scooters[0].id} className={styles.heroBike} showCredit={false} priority sizes="(max-width: 800px) 80vw, 34vw" fallback={<EntityVerificationFallback brand={scooters[0].make} model={scooters[0].model}/>} />}
+        </div>
+      </section>
+      <nav className={styles.mockFilters} aria-label="Scooter catalog filters">
+        <Link href="/motorcycles/scooters">All Brands⌄</Link>
+        <Link href="/recommendations#budget">Price Range⌄</Link>
+        <Link href="/recommendations/155cc-scooters-philippines">Engine CC⌄</Link>
+        <Link href="/recommendations/motorcycles-with-abs-philippines">Features⌄</Link>
+        <Link className={styles.reset} href="/motorcycles/scooters">Reset</Link>
+      </nav>
+      <div className={styles.catalogMeta}><strong>{scooters.length} scooter models</strong><span>Sort by: <b>Latest⌄</b></span></div>
+      <div className={styles.modelGrid} data-mockup-scooter-grid>
+        {scooters.slice(0,12).map((model)=><MotorcycleCard key={model.id} model={model} variant="standard" />)}
+      </div>
 
       <section className="section" aria-labelledby="scooter-price-philippines">
         <SectionHeader
@@ -164,27 +178,6 @@ export default function ScootersPage() {
             {childClusters.slice(1).map((cluster) => <Link href={cluster.href} key={cluster.href} className="button ghost small" data-scooter-shortcut-link>{cluster.label}</Link>)}
           </CTAGroup>
         </div>
-      </section>
-
-      <section className="section" aria-labelledby="browse-current-scooters">
-        <SectionHeader
-          kicker="Browse current models"
-          title="Current scooters in the Philippines"
-          titleId="browse-current-scooters"
-          description="Start visually, then use the full price-and-spec table below when you need denser comparison data."
-        />
-        <nav className={styles.filterRail} aria-label="Scooter category shortcuts">
-          <a href="#browse-current-scooters">All scooters</a>
-          <Link href="/recommendations/125cc-scooters-philippines">125cc</Link>
-          <Link href="/recommendations/150cc-scooters-philippines">150cc class</Link>
-          <Link href="/recommendations/155cc-scooters-philippines">155cc</Link>
-          <Link href="/recommendations/160cc-scooters-philippines">160cc</Link>
-          <Link href="/recommendations/maxi-scooters-philippines">Maxi scooters</Link>
-        </nav>
-        <div className={styles.modelGrid}>
-          {scooters.slice(0,12).map((model)=><MotorcycleCard key={model.id} model={model} variant="standard" />)}
-        </div>
-        {scooters.length>12&&<div className={styles.gridFooter}><a className="button secondary" href="#scooter-price-list">View all {scooters.length} scooters in the price list ↓</a></div>}
       </section>
 
       <section id="scooter-price-list" className="section" aria-labelledby="scooter-price-list-title">
