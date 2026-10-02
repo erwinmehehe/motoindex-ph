@@ -161,7 +161,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
             <p>{brandGrowth?.heroDescription || `Explore the current ${brand} motorcycle lineup in the Philippines. Compare prices, specifications, scooter and big-bike options in one place.`}</p>
           </div>
           <div className={styles.brandVisual} aria-label={`${brand} motorcycle lineup`}>
-            {current.slice(0,3).map((model,index)=><EntityMedia key={model.id} entityType="motorcycle" entityId={model.id} className={styles[`bike${index+1}`]} showCredit={false} sizes="(max-width: 900px) 34vw, 260px" fallback={<EntityVerificationFallback brand={model.make} model={model.model}/>} />)}
+            {current.slice(0,3).map((model,index)=><EntityMedia key={model.id} entityType="motorcycle" entityId={model.id} className={[styles.bike1,styles.bike2,styles.bike3][index]} showCredit={false} sizes="(max-width: 900px) 34vw, 260px" fallback={<EntityVerificationFallback brand={model.make} model={model.model}/>} />)}
           </div>
         </div>
 
