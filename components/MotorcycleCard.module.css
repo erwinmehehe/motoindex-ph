@@ -81,26 +81,12 @@
   min-width:0;
   min-height:28px;
   align-items:center;
-  justify-content:space-between;
+  justify-content:flex-end;
   gap:8px;
   pointer-events:none;
 }
 .topline>*{pointer-events:auto}
-.brandMark{
-  display:flex;
-  min-width:0;
-  height:25px;
-  align-items:center;
-  justify-content:flex-start;
-  padding:4px 6px;
-  border:1px solid rgba(219,229,239,.9);
-  border-radius:7px;
-  background:rgba(255,255,255,.9);
-  box-shadow:0 2px 8px rgba(15,23,42,.04);
-  color:#475569;
-  font-size:9px;
-  font-weight:900;
-}
+.brandMark{display:none}
 .brandMark img{
   width:auto;
   height:auto;
@@ -110,15 +96,33 @@
 }
 .topline :global(button),
 .topline :global(a){
+  position:relative;
   min-width:28px!important;
   width:28px!important;
   height:28px!important;
   min-height:28px!important;
+  overflow:hidden;
   padding:0!important;
   border:1px solid #dbe5ef!important;
   border-radius:8px!important;
-  background:rgba(255,255,255,.92)!important;
+  background:rgba(255,255,255,.94)!important;
   box-shadow:0 2px 8px rgba(15,23,42,.04)!important;
+  color:transparent!important;
+  font-size:0!important;
+}
+.topline :global(.shortlist-button)::before{
+  content:"♡";
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  color:#3c4b61;
+  font-size:15px;
+  line-height:1;
+}
+.topline :global(.shortlist-button.saved)::before{
+  content:"♥";
+  color:#2f63d5;
 }
 
 .status{
