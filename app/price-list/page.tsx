@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { PriceListExplorer } from "@/components/PriceListExplorer";
+import { PageHero } from "@/components/ui";
 import { publicMotorcycles } from "@/lib/data";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 
@@ -42,13 +43,13 @@ export default function PriceListPage(){
     ]
   };
 
-  return <section className="shell price-list-page">
+  return <section className="page shell">
     <Breadcrumbs items={[{label:"Price list"}]}/>
-    <header className="page-head">
-      <span className="entity-kicker">Philippine motorcycle market</span>
-      <h1>Motorcycle price list in the Philippines</h1>
-      <p>Compare published starting prices, brand, category, engine displacement and transmission across current MotoIndex motorcycle records. Open any model for source details, checked dates, variants and full specifications.</p>
-    </header>
+    <PageHero
+      kicker="Philippine motorcycle market"
+      title="Motorcycle price list in the Philippines"
+      description="Compare published starting prices, brand, category, engine displacement and transmission across current MotoIndex motorcycle records. Open any model for source details, checked dates, variants and full specifications."
+    />
     <PriceListExplorer bikes={bikes}/>
     <JsonLd data={schema}/>
   </section>;
