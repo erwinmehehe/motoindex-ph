@@ -70,13 +70,13 @@ async function waitForComplete(send) {
 }
 
 const inspect = `(() => {
-  const hero = document.querySelector('.mi-hero');
-  const layout = document.querySelector('.mi-hero-layout');
-  const heading = document.querySelector('.mi-hero h1');
-  const search = document.querySelector('.mi-search');
-  const searchInput = document.querySelector('.mi-search input');
-  const searchButton = document.querySelector('.mi-search button');
-  const research = document.querySelector('.mi-research-shell');
+  const hero = document.querySelector('[data-home-hero]');
+  const layout = document.querySelector('[data-home-layout]');
+  const heading = document.querySelector('[data-home-hero] h1');
+  const search = document.querySelector('[data-home-search]');
+  const searchInput = document.querySelector('[data-home-search] input');
+  const searchButton = document.querySelector('[data-home-search] button');
+  const research = document.querySelector('[data-home-visual]');
   if (!hero || !layout || !heading || !search || !searchInput || !searchButton || !research) {
     return { missing: true, found: { hero:!!hero, layout:!!layout, heading:!!heading, search:!!search, searchInput:!!searchInput, searchButton:!!searchButton, research:!!research } };
   }
