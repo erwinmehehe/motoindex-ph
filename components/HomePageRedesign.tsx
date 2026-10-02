@@ -37,7 +37,7 @@ const featureLinks = [
 export function HomePageRedesign({ heading }: { heading: ReactNode }) {
   const models=currentMotorcycles.filter(isIndexableModel);
   const bySlug=(make:string, slugNeedle:string)=>models.find(m=>m.makeSlug===make&&m.slug.toLowerCase().includes(slugNeedle));
-  const hero=bySlug("yamaha","nmax")??bySlug("yamaha","aerox")??models[0];
+  const hero=bySlug("yamaha","aerox-v3")??bySlug("yamaha","aerox")??bySlug("yamaha","nmax")??models[0];
   const latest=[
     bySlug("yamaha","nmax"),
     bySlug("honda","adv-160"),
