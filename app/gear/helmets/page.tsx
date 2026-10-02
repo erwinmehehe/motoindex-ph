@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { EntityMedia } from "@/components/EntityMedia";
 import { pageMetadata } from "@/lib/site";
 import { helmetBrands } from "@/lib/data";
 import { helmetProducts, isIndexableHelmetBrand } from "@/lib/catalog";
@@ -9,6 +11,7 @@ import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { AuthorBox } from "@/components/AuthorBox";
 import { php } from "@/lib/utils";
 import { CTAGroup, InfoPanel, PageHero, ProductGrid, SectionHeader, StatRow } from "@/components/ui";
+import styles from "./HelmetsPage.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Helmets Philippines 2026: Prices, Brands & Guide",
@@ -56,6 +59,7 @@ export default function HelmetsPage(){
   const priced=verified.map(p=>p.priceFromPhp).filter((v):v is number=>typeof v==="number");
   const minPrice=priced.length?Math.min(...priced):undefined;
   const maxPrice=priced.length?Math.max(...priced):undefined;
+  const heroHelmet=verified.find(p=>p.slug==="tt-course")??verified[0];
 
   const fullFace=verified.filter(p=>p.helmetType==="Full face");
   const modular=verified.filter(p=>p.helmetType==="Modular");
@@ -75,13 +79,23 @@ export default function HelmetsPage(){
     {question:"Does a more expensive helmet automatically mean safer?",answer:"No. Price can reflect shell material, finish, aerodynamics, visor hardware, liner quality and brand positioning. Check the exact model's certification, local conformity marking and fit rather than using price as a safety score."}
   ];
 
-  return <section className="page shell helmet-hub-page">
-    <PageHero
-      kicker="Philippine helmet buying guide"
-      title="Motorcycle helmets in the Philippines: prices, types and brands"
-      description="Use one guide to compare helmet prices, protection formats, ECE 22.06 references, intercom provision, commuting choices, sizing and current brand/model pages. Open the exact helmet before buying to verify fit and the marking on the local unit."
-      actions={<CTAGroup><Link className="button" href="/gear/helmets/finder">Find my helmet</Link><Link className="button secondary" href="/gear/helmets/compare">Compare exact helmets</Link></CTAGroup>}
-    />
+  return <section className={`page shell helmet-hub-page ${styles.page}`}>
+    <Breadcrumbs items={[{label:"Helmets"}]} />
+    <div className={styles.heroGrid}>
+      <div className={styles.heroCopy}>
+        <PageHero
+          kicker="Philippine helmet buying guide"
+          title="Motorcycle helmets in the Philippines"
+          description="Compare verified helmet prices, protection formats, ECE 22.06 references, intercom provision, commuting choices, sizing and current brand/model pages."
+          actions={<CTAGroup><Link className="button" href="/gear/helmets/finder">Find my helmet</Link><Link className="button secondary" href="/gear/helmets/compare">Compare helmets</Link></CTAGroup>}
+        />
+      </div>
+      {heroHelmet&&<div className={styles.heroVisual}>
+        <span className={styles.heroBadge}>Featured verified helmet</span>
+        <EntityMedia entityType="helmet" entityId={heroHelmet.id} className={styles.heroMedia} priority showCredit={false} sizes="(max-width: 820px) 100vw, 44vw" />
+        <div className={styles.heroCaption}><small>{heroHelmet.helmetType}</small><strong>{heroHelmet.brand} {heroHelmet.model}</strong>{typeof heroHelmet.priceFromPhp==="number"&&<span>From {php(heroHelmet.priceFromPhp)}</span>}</div>
+      </div>}
+    </div>
 
     <StatRow items={[
       {label:"Verified models",value:verified.length},
@@ -90,11 +104,16 @@ export default function HelmetsPage(){
       {label:"ECE 22.06 records",value:ece2206.length}
     ]}/>
 
-    <nav className="product-entity-nav helmet-master-nav" aria-label="Helmet guide sections">
+    <nav className={`product-entity-nav helmet-master-nav ${styles.filters}`} aria-label="Helmet guide sections">
       <a href="#full-face">Full-face</a><a href="#modular">Modular</a><a href="#open-face">Open-face</a><a href="#under-3000">Under ₱3K</a><a href="#under-5000">Under ₱5K</a><a href="#ece-22-06">ECE 22.06</a><a href="#intercom-ready">Intercom</a><a href="#commuting">Commuting</a><a href="#brands">Brands</a><a href="#models">Model preview</a>
     </nav>
 
-    <InfoPanel className="helmet-master-intro">
+    <section className={styles.catalogPreview} aria-labelledby="helmet-catalog-title">
+      <div className={styles.catalogHead}><div><span>Verified catalog</span><h2 id="helmet-catalog-title">Browse motorcycle helmets</h2></div><Link href="/gear/helmets/finder">Filter all helmets →</Link></div>
+      <HelmetProductGrid products={verified} limit={8} />
+    </section>
+
+    <InfoPanel className={`helmet-master-intro ${styles.intro}`}>
       <SectionHeader kicker="Start here" title="Choose the helmet by fit and riding use first" description="A helmet category is only the starting point. The exact fit, conformity marking, visor system, ventilation, weight and replacement-parts availability decide whether a model works for you day to day." />
       <div className="ui-content-grid topic-grid">
         <article className="ui-content-card"><h3>Full-face</h3><p>A fixed chin bar gives the most complete coverage among the common road formats. Good for riders prioritizing coverage, weather protection and highway use.</p><a href="#full-face">See full-face models →</a></article>
