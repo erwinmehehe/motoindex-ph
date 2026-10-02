@@ -40,7 +40,7 @@
   max-width:650px;
   margin:var(--mi-space-4) 0 0;
   color:var(--mi-color-ink);
-  font-size:clamp(2.7rem,4.5vw,4.15rem);
+  font-size:clamp(2.7rem,4.2vw,3.75rem);
   font-weight:850;
   line-height:.98;
   letter-spacing:-.055em;
