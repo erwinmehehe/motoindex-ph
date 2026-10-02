@@ -1,0 +1,143 @@
+/* Final mockup-alignment layer.
+   This file intentionally adjusts composition, density and chrome only.
+   SEO content, routes and entity data remain owned by route components. */
+
+.site-header{
+  min-height:58px;
+  border-bottom:1px solid var(--mi-color-line-soft);
+  background:color-mix(in srgb,var(--mi-color-surface) 94%,transparent);
+  box-shadow:none;
+  backdrop-filter:blur(14px);
+}
+.site-header .nav-wrap{
+  min-height:58px;
+}
+.site-header .brand-logo{
+  max-height:34px;
+}
+.site-header .nav-links{
+  gap:var(--mi-space-4);
+}
+.site-header .nav-links>a,
+.site-header .nav-more>summary{
+  font-size:.66rem;
+  font-weight:760;
+}
+.site-header .nav-actions{
+  gap:6px;
+}
+.site-header .nav-icon-action,
+.site-header .shortlist-nav{
+  position:relative;
+  display:grid;
+  width:36px;
+  height:36px;
+  min-width:36px;
+  place-items:center;
+  padding:0;
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-sm);
+  background:var(--mi-color-surface);
+  color:var(--mi-color-slate-700);
+  box-shadow:none;
+  font-size:0;
+  text-decoration:none;
+}
+.site-header .nav-icon-action span{
+  font-size:1.15rem;
+  line-height:1;
+}
+.site-header .shortlist-nav svg{
+  width:17px;
+  height:17px;
+}
+.site-header .shortlist-nav b{
+  position:absolute;
+  top:-6px;
+  right:-6px;
+  display:grid;
+  width:20px;
+  height:20px;
+  place-items:center;
+  border:2px solid var(--mi-color-surface);
+  border-radius:50%;
+  background:var(--mi-color-primary);
+  color:var(--mi-color-surface);
+  font-size:.56rem;
+  font-weight:900;
+}
+.site-header .nav-links>a:after,
+.site-header .nav-more>summary:after{
+  display:none;
+}
+
+/* Reference catalog cards: image-first, compact copy, no redundant buttons. */
+[data-mockup-home] .motorcycle-card-standard .card-actions,
+[data-mockup-scooter-grid] .motorcycle-card-standard .card-actions,
+.ph-brand-page .ph-brand-model-grid .motorcycle-card-standard .card-actions{
+  display:none;
+}
+[data-mockup-home] .motorcycle-card-standard .model-card-media,
+[data-mockup-scooter-grid] .motorcycle-card-standard .model-card-media,
+.ph-brand-page .ph-brand-model-grid .motorcycle-card-standard .model-card-media{
+  height:150px;
+  min-height:150px;
+  padding:var(--mi-space-2);
+  background:linear-gradient(180deg,var(--mi-color-primary-soft),var(--mi-color-surface));
+}
+[data-mockup-home] .motorcycle-card-standard .model-card-body,
+[data-mockup-scooter-grid] .motorcycle-card-standard .model-card-body,
+.ph-brand-page .ph-brand-model-grid .motorcycle-card-standard .model-card-body{
+  padding:var(--mi-space-3);
+}
+[data-mockup-home] .motorcycle-card-standard .model-card-topline,
+[data-mockup-scooter-grid] .motorcycle-card-standard .model-card-topline,
+.ph-brand-page .ph-brand-model-grid .motorcycle-card-standard .model-card-topline{
+  min-height:24px;
+}
+[data-mockup-home] .motorcycle-card-standard .price,
+[data-mockup-scooter-grid] .motorcycle-card-standard .price,
+.ph-brand-page .ph-brand-model-grid .motorcycle-card-standard .price{
+  color:var(--mi-color-primary);
+  font-size:var(--mi-type-sm);
+}
+[data-mockup-home] .motorcycle-card-standard .mini-stats,
+[data-mockup-scooter-grid] .motorcycle-card-standard .mini-stats,
+.ph-brand-page .ph-brand-model-grid .motorcycle-card-standard .mini-stats{
+  margin-top:var(--mi-space-2);
+}
+[data-mockup-home] .motorcycle-card-standard .mini-stats span,
+[data-mockup-scooter-grid] .motorcycle-card-standard .mini-stats span,
+.ph-brand-page .ph-brand-model-grid .motorcycle-card-standard .mini-stats span{
+  font-size:.56rem;
+}
+.ph-brand-page .ph-brand-hero{
+  padding-top:0;
+  background:linear-gradient(180deg,var(--mi-color-surface),var(--mi-color-primary-soft));
+}
+.ph-brand-page .ph-brand-nav{
+  position:sticky;
+  top:58px;
+  z-index:12;
+  min-height:42px;
+  background:color-mix(in srgb,var(--mi-color-surface) 96%,transparent);
+  backdrop-filter:blur(12px);
+}
+.ph-brand-page .ph-brand-models-section{
+  padding-top:var(--mi-space-4);
+}
+.ph-brand-page .ph-brand-model-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--mi-space-3);
+}
+
+@media(max-width:900px){
+  .site-header .nav-links{gap:var(--mi-space-2)}
+  .ph-brand-page .ph-brand-model-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:720px){
+  .site-header .nav-links,.site-header .nav-actions{display:none}
+}
+@media(max-width:520px){
+  .ph-brand-page .ph-brand-model-grid{grid-template-columns:1fr}
+}
