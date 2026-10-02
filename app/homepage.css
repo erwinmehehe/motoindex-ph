@@ -432,3 +432,13 @@
   .mi-section{padding:44px 0}
   .mi-tools{padding:48px 0}
 }
+
+
+/* Stable homepage contract aliases retained for validation and incremental route migration. */
+.mi-hero-layout{display:grid}
+.mi-search{display:grid;grid-template-columns:minmax(0,1fr) auto}
+.mi-research-shell{display:grid}
+.mi-brand-grid{display:grid}
+.mi-model-grid{display:grid}
+.mi-hero{background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%)}
+.mi-hero h1{font-size:clamp(38px,4vw,60px)}
