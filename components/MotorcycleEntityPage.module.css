@@ -70,3 +70,89 @@
   .colorStrip{align-items:flex-start;flex-direction:column;gap:var(--mi-space-2)}
   .colorList{width:100%}
 }
+
+.page :global(.motorcycle-entity-body){
+  display:grid;
+  gap:0;
+}
+.page :global(.motorcycle-entity-section){
+  padding:var(--mi-space-10) 0;
+  border-top:1px solid var(--mi-color-line-soft);
+}
+.page :global(.motorcycle-entity-section .section-head){
+  margin-bottom:var(--mi-space-5);
+}
+.page :global(.motorcycle-entity-section .section-head h2){
+  max-width:860px;
+  font-size:clamp(1.9rem,3.3vw,2.8rem);
+  line-height:1.04;
+  letter-spacing:-.04em;
+}
+.page :global(.motorcycle-editorial-grid>article),
+.page :global(.motorcycle-price-grid>article),
+.page :global(.entity-spec-table>div),
+.page :global(.authority-comparisons),
+.page :global(.motorcycle-decision-panel),
+.page :global(.calculator),
+.page :global(.rider-fit-calculator),
+.page :global(.ownership-cost-calculator){
+  border-color:var(--mi-color-line);
+  box-shadow:var(--mi-shadow-xs);
+}
+.page :global(.entity-spec-table){
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--mi-space-3);
+}
+.page :global(.entity-spec-table>div){
+  min-height:92px;
+  padding:var(--mi-space-4);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-md);
+  background:var(--mi-color-surface);
+}
+.page :global(.entity-spec-table>div span){
+  color:var(--mi-color-muted);
+  font-size:var(--mi-type-xs);
+  font-weight:800;
+  text-transform:uppercase;
+}
+.page :global(.entity-spec-table>div strong){
+  margin-top:var(--mi-space-2);
+  color:var(--mi-color-ink);
+  font-size:var(--mi-type-sm);
+  line-height:1.4;
+}
+.page :global(.motorcycle-price-grid){
+  gap:var(--mi-space-3);
+}
+.page :global(.motorcycle-price-grid>article){
+  border-radius:var(--mi-radius-lg);
+}
+.page :global(.motorcycle-editorial-grid){
+  gap:var(--mi-space-3);
+}
+.page :global(.motorcycle-editorial-grid>article){
+  border-radius:var(--mi-radius-lg);
+}
+.page :global(.authority-comparisons),
+.page :global(.motorcycle-decision-panel){
+  border-radius:var(--mi-radius-xl);
+  background:var(--mi-color-surface);
+}
+.page :global(.calculator),
+.page :global(.rider-fit-calculator),
+.page :global(.ownership-cost-calculator){
+  overflow:hidden;
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-xl);
+  background:var(--mi-color-surface);
+}
+.page :global(.similar-motorcycles),
+.page :global(.product-grid){
+  gap:var(--mi-space-3);
+}
+@media(max-width:760px){
+  .page :global(.motorcycle-entity-section){padding:var(--mi-space-8) 0}
+  .page :global(.entity-spec-table){grid-template-columns:1fr}
+}
