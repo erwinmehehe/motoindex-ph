@@ -8,7 +8,10 @@ import { ProductCard } from "@/components/ProductCard";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { AuthorBox } from "@/components/AuthorBox";
 import { php } from "@/lib/utils";
-import { CTAGroup, InfoPanel, PageHero, ProductGrid, SectionHeader, StatRow } from "@/components/ui";
+import { CTAGroup, InfoPanel, ProductGrid, SectionHeader } from "@/components/ui";
+import { EntityMedia } from "@/components/EntityMedia";
+import { EntityVerificationFallback } from "@/components/EntityVerificationFallback";
+import styles from "./HelmetsPage.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Helmets Philippines 2026: Prices, Brands & Guide",
@@ -76,19 +79,13 @@ export default function HelmetsPage(){
   ];
 
   return <section className="page shell helmet-hub-page">
-    <PageHero
-      kicker="Philippine helmet buying guide"
-      title="Motorcycle helmets in the Philippines: prices, types and brands"
-      description="Use one guide to compare helmet prices, protection formats, ECE 22.06 references, intercom provision, commuting choices, sizing and current brand/model pages. Open the exact helmet before buying to verify fit and the marking on the local unit."
-      actions={<CTAGroup><Link className="button" href="/gear/helmets/finder">Find my helmet</Link><Link className="button secondary" href="/gear/helmets/compare">Compare exact helmets</Link></CTAGroup>}
-    />
-
-    <StatRow items={[
-      {label:"Verified models",value:verified.length},
-      {label:"Brands",value:brands.length},
-      {label:"Published price span",value:minPrice&&maxPrice?`${php(minPrice)}–${php(maxPrice)}`:"Check products"},
-      {label:"ECE 22.06 records",value:ece2206.length}
-    ]}/>
+    <section className={styles.mockupHero}>
+      <div><span>Helmet buying guide</span><h1>Motorcycle Helmets<br/>in the Philippines</h1><p>Top helmet brands, prices and features. Ride safe with quality and trusted helmets.</p></div>
+      {verified[0]&&<EntityMedia entityType="helmet" entityId={verified[0].id} className={styles.heroHelmet} priority showCredit={false} fallback={<EntityVerificationFallback brand={verified[0].brand} model={verified[0].model} kind="helmet" />} />}
+    </section>
+    <nav className={styles.filters} aria-label="Helmet categories"><a href="#models">All Brands</a><a href="#full-face">Full Face</a><a href="#modular">Modular</a><a href="#open-face">Open Face</a><a href="#brands">Dual Sport</a></nav>
+    <div className={styles.countRow}><strong>{verified.length} helmet models</strong><span>Sort by: Popular⌄</span></div>
+    <div className={styles.preview}><HelmetProductGrid products={verified} limit={6}/></div>
 
     <nav className="product-entity-nav helmet-master-nav" aria-label="Helmet guide sections">
       <a href="#full-face">Full-face</a><a href="#modular">Modular</a><a href="#open-face">Open-face</a><a href="#under-3000">Under ₱3K</a><a href="#under-5000">Under ₱5K</a><a href="#ece-22-06">ECE 22.06</a><a href="#intercom-ready">Intercom</a><a href="#commuting">Commuting</a><a href="#brands">Brands</a><a href="#models">Model preview</a>
