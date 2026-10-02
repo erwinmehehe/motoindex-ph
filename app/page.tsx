@@ -85,7 +85,7 @@ export default function HomePage() {
           </div>
 
           <div className="mi-hero-visual mi-hero-product-visual">
-            {heroModel ? <article className="wire-hero-bike-card">
+            {heroModel ? <article className="mi-research-shell wire-hero-bike-card">
               <div className="wire-hero-bike-copy">
                 <span>Featured model</span>
                 <h2>{heroModel.make} {heroModel.model}</h2>
