@@ -28,13 +28,13 @@ export const metadata: Metadata = pageMetadata({
 const brandPriority = ["honda", "yamaha", "suzuki", "kawasaki", "ktm", "cfmoto"];
 
 const categoryShortcuts = [
-  ["Scooter", "/motorcycles/scooters"],
-  ["Underbone", "/recommendations#commuting"],
-  ["Naked", "/recommendations"],
-  ["Sports", "/recommendations"],
-  ["Adventure", "/recommendations"],
-  ["Big Bike", "/recommendations#400cc"],
-  ["Electric", "/motorcycles/electric"],
+  ["Scooter", "/motorcycles/scooters", "🛵"],
+  ["Underbone", "/recommendations#commuting", "◒"],
+  ["Naked", "/recommendations", "◆"],
+  ["Sports", "/recommendations", "🏁"],
+  ["Adventure", "/recommendations", "△"],
+  ["Big Bike", "/recommendations#400cc", "⬡"],
+  ["Electric", "/motorcycles/electric", "⚡"],
 ] as const;
 
 const startPoints = [
@@ -48,7 +48,7 @@ const startPoints = [
 
 const featureLinks = [
   ["Compare", "Up to 3 motorcycles", "/compare"],
-  ["Latest Prices", "Updated for PH market", "/price-list"],
+  ["Latest Prices", "Updated for PH market", "/motorcycles"],
   ["Detailed Specs", "Engine, features, dimensions", "/motorcycles"],
   ["Rider Guides", "Tips, reviews and more", "/guides"],
 ] as const;
@@ -84,9 +84,9 @@ export default function HomePage() {
         <div className="shell">
           <div className="mi-market-hero-grid">
             <div className="mi-market-hero-copy">
-              <span className="mi-market-eyebrow">The complete Philippine motorcycle guide</span>
-              <h1 id="mi-home-title">Find the right motorcycle for your next ride.</h1>
-              <p>Compare prices, specs and features of motorcycles in the Philippines, from scooters and commuter bikes to big bikes.</p>
+              <span className="mi-market-eyebrow">Find the right motorcycle for your next ride.</span>
+              <h1 id="mi-home-title">Compare <span>motorcycle prices</span><br />and specs in the Philippines.</h1>
+              <p>Compare current prices, specifications and features across motorcycles available in the Philippines, from scooters and commuter bikes to big bikes.</p>
             </div>
 
             {heroModel && <div className="mi-market-hero-bike">
@@ -118,8 +118,8 @@ export default function HomePage() {
           </form>
 
           <nav className="mi-category-shortcuts" aria-label="Popular motorcycle categories">
-            {categoryShortcuts.map(([label, href], index) => <Link href={href} key={label}>
-              <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            {categoryShortcuts.map(([label, href, icon]) => <Link href={href} key={label}>
+              <span className="mi-category-icon" aria-hidden="true">{icon}</span>
               <strong>{label}</strong>
             </Link>)}
           </nav>
