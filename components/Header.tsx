@@ -56,6 +56,7 @@ export function Header() {
                 <small>Battery, range and charging research</small>
               </Link>
             </div>
+            <Link className="nav-price-list" href="/price-list"><strong>Motorcycle price list</strong><small>Filter current Philippine price references</small></Link>
             <span className="nav-popover-label">Browse by brand</span>
             <div className="nav-brand-grid">
               {motorcycleBrands.map(([slug, label]) => <Link href={`/motorcycles/${slug}`} key={slug}>{label}</Link>)}
@@ -90,6 +91,7 @@ export function Header() {
             <div className="mobile-menu-featured">
               <Link href="/motorcycles">All motorcycles</Link>
               <Link href="/motorcycles/electric">Electric motorcycles</Link>
+              <Link href="/price-list">Motorcycle price list</Link>
             </div>
             <span className="mobile-menu-label">Browse by brand</span>
             <div className="mobile-menu-brand-grid">
