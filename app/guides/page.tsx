@@ -13,9 +13,16 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function GuidesPage() {
+  const featuredGuide = editorialGuides[0];
+  const remainingGuides = editorialGuides.slice(1);
   return <section className="page shell">
     <Breadcrumbs items={[{ label: "Guides" }]} />
     <div className="page-head"><span className="entity-kicker">Rider guides</span><h1>Motorcycle guides for Philippine riders</h1><p>Start with the task you are trying to solve, then open the detailed guide or tool only when you need it.</p></div>
+
+    {featuredGuide && <Link className="wire-guide-feature" href={`/guides/${featuredGuide.slug}`}>
+      <div className="wire-guide-feature-art"><GuideFeaturedArt slug={featuredGuide.slug} title={featuredGuide.title} kicker={featuredGuide.kicker} /></div>
+      <div className="wire-guide-feature-copy"><span className="section-kicker">Featured guide · {featuredGuide.kicker}</span><h2>{featuredGuide.title}</h2><p>{featuredGuide.description}</p><strong>Read featured guide →</strong></div>
+    </Link>}
 
     <div className="section-head compact"><div><span className="section-kicker">Choose a starting point</span><h2>What are you trying to do?</h2></div></div>
     <div className="topic-grid">
@@ -35,6 +42,6 @@ export default function GuidesPage() {
     </div>
 
     <div className="section-head inline-head"><div><span className="section-kicker">Published research</span><h2>Detailed MotoIndex guides</h2><p>Use these when you need a focused answer beyond the main buying and ownership tools.</p></div></div>
-    <div className="guide-grid">{editorialGuides.map((guide) => <Link className="guide-card" key={guide.slug} href={`/guides/${guide.slug}`}><div style={{marginBottom:16}}><GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} compact /></div><span className="section-kicker">{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><strong className="guide-action">Read guide →</strong></Link>)}</div>
+    <div className="guide-grid">{remainingGuides.map((guide) => <Link className="guide-card" key={guide.slug} href={`/guides/${guide.slug}`}><div style={{marginBottom:16}}><GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} compact /></div><span className="section-kicker">{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><strong className="guide-action">Read guide →</strong></Link>)}</div>
   </section>;
 }
