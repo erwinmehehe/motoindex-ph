@@ -25,11 +25,6 @@ export default function PriceListPage(){
       category:bike.category,engineCc:bike.engineCc,transmission:bike.transmission,srp:bike.srp
     }));
 
-  const brands=new Set(bikes.map(bike=>bike.makeSlug)).size;
-  const prices=bikes.map(bike=>bike.srp).filter(Boolean);
-  const low=prices.length?Math.min(...prices):0;
-  const high=prices.length?Math.max(...prices):0;
-  const automatic=bikes.filter(bike=>bike.transmission==="Automatic").length;
 
   const schema={
     "@context":"https://schema.org",
