@@ -256,12 +256,6 @@
   grid-template-columns:repeat(4,minmax(0,1fr));
   gap:var(--mi-space-2);
 }
-.modelGrid :global(.motorcycle-card){
-  min-width:0;
-}
-.modelGrid :global(.motorcycle-card) :global(.standard){
-  border-radius:var(--mi-radius-md);
-}
 .featureStrip{
   margin-top:var(--mi-space-5);
   border-top:1px solid var(--mi-color-line-soft);
