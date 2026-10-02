@@ -2,26 +2,26 @@
 .toolbar{display:grid;grid-template-columns:1fr auto;gap:7px;padding:0;border:0;background:transparent;box-shadow:none}
 .brandFilters{grid-column:1/-1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
 .brandFilters::-webkit-scrollbar{display:none}
-.brandButton{flex:0 0 auto;min-height:30px;padding:0 11px;border:1px solid #dbe5f2;border-radius:7px;background:#fff;color:#334155;font:800 8px/1 var(--font-inter);cursor:pointer}
-.brandButton:hover,.brandButton[aria-pressed="true"]{border-color:#2563eb;background:#2563eb;color:#fff}
+.brandButton{flex:0 0 auto;min-height:30px;padding:0 11px;border:1px solid var(--mi-color-market-line-strong);border-radius:7px;background:var(--mi-color-surface);color:var(--mi-color-slate-700);font:800 8px/1 var(--font-inter);cursor:pointer}
+.brandButton:hover,.brandButton[aria-pressed="true"]{border-color:var(--mi-color-market-blue);background:var(--mi-color-market-blue);color:var(--mi-color-surface)}
 .controls{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:7px;margin:0}
-.search,.sort{min-height:34px;border:1px solid #dbe5f2;border-radius:7px;background:#fff;color:#0f172a;font:650 9px/1 var(--font-inter)}
+.search,.sort{min-height:34px;border:1px solid var(--mi-color-market-line-strong);border-radius:7px;background:var(--mi-color-surface);color:var(--mi-color-slate-900);font:650 9px/1 var(--font-inter)}
 .search{min-width:0;padding:0 10px}
 .sort{padding:0 10px}
 .controls :global(.button){min-height:34px!important;padding:0 12px!important;border-radius:7px!important;font-size:8px!important}
-.tableShell{overflow:auto;border:1px solid #dce7f4;border-radius:8px;background:#fff;box-shadow:none}
+.tableShell{overflow:auto;border:1px solid var(--mi-color-market-line);border-radius:8px;background:var(--mi-color-surface);box-shadow:none}
 .table{min-width:690px}
-.row{display:grid;grid-template-columns:minmax(170px,1.35fr) minmax(90px,.7fr) minmax(120px,.9fr) minmax(100px,.7fr) minmax(120px,.78fr);gap:8px;align-items:center;min-height:34px;padding:0 10px;border-bottom:1px solid #edf1f6}
-.head{position:sticky;top:0;z-index:2;min-height:30px;background:#f5f8fc;color:#64748b;font-size:8px;font-weight:850;text-transform:uppercase}
-.modelCell{display:grid;gap:1px}.modelCell a{color:#0f172a;font-size:9px;font-weight:850}.modelCell small{display:none}
+.row{display:grid;grid-template-columns:minmax(170px,1.35fr) minmax(90px,.7fr) minmax(120px,.9fr) minmax(100px,.7fr) minmax(120px,.78fr);gap:8px;align-items:center;min-height:34px;padding:0 10px;border-bottom:1px solid var(--mi-color-market-line-soft)}
+.head{position:sticky;top:0;z-index:2;min-height:30px;background:var(--mi-color-market-table);color:var(--mi-color-slate-500);font-size:8px;font-weight:850;text-transform:uppercase}
+.modelCell{display:grid;gap:1px}.modelCell a{color:var(--mi-color-slate-900);font-size:9px;font-weight:850}.modelCell small{display:none}
 .brandLink{font-size:9px;font-weight:750;text-decoration:none}
-.row>span{font-size:8px;color:#475569}
-.price{color:#1565ff;font-size:9px;font-weight:900}
-.empty{padding:20px;color:#64748b;text-align:center}
+.row>span{font-size:8px;color:var(--mi-color-slate-600)}
+.price{color:var(--mi-color-market-price);font-size:9px;font-weight:900}
+.empty{padding:20px;color:var(--mi-color-slate-500);text-align:center}
 .footer{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:3px 1px}
-.footer p{margin:0;color:#64748b;font-size:8px}
+.footer p{margin:0;color:var(--mi-color-slate-500);font-size:8px}
 .pagination{display:flex;gap:4px}
-.pageButton{min-width:27px;min-height:27px;padding:0 7px;border:1px solid #dbe5f2;border-radius:6px;background:#fff;color:#334155;font:800 8px/1 var(--font-inter);cursor:pointer}
-.pageButton:hover,.pageButton[aria-current="page"]{border-color:#2563eb;background:#2563eb;color:#fff}
+.pageButton{min-width:27px;min-height:27px;padding:0 7px;border:1px solid var(--mi-color-market-line-strong);border-radius:6px;background:var(--mi-color-surface);color:var(--mi-color-slate-700);font:800 8px/1 var(--font-inter);cursor:pointer}
+.pageButton:hover,.pageButton[aria-current="page"]{border-color:var(--mi-color-market-blue);background:var(--mi-color-market-blue);color:var(--mi-color-surface)}
 .pageButton:disabled{opacity:.35}
 @media(max-width:650px){.controls{grid-template-columns:1fr 1fr}.search{grid-column:1/-1}.footer{align-items:flex-start;flex-direction:column}}
