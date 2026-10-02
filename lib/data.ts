@@ -1789,7 +1789,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     caveats: ["A 400cc+ catalog record is a buying-research filter, not a substitute for checking the exact registered motorcycle.", "For expressway use, confirm current tollway rules, OR/CR details, exact displacement, operator requirements and RFID/payment setup before travel."],
     tableColumns: ["price", "engine", "power", "weight", "seat", "abs", "tank", "context"],
     quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
-    editorialSections: ["Lowest-priced big bikes and 400cc+ motorcycles", "400cc+ motorcycles and expressway planning", "Lighter big-bike options", "Lower-seat big-bike options", "Adventure and road-focused big bikes", "What to verify before an expressway trip"],
+    editorialSections: ["Lowest-priced big bikes and 400cc+ motorcycles", "400cc motorcycles and expressway planning", "Lighter big-bike options", "Lower-seat big-bike options", "Adventure and road-focused big bikes", "What to verify before an expressway trip"],
     faqQuestions: ["Which big bikes and 400cc+ motorcycles are cheapest in the current catalog?", "Does 400cc automatically mean expressway legal?", "Which big bike has the lowest seat?", "Which 400cc+ motorcycle is lightest?", "What should I verify before buying for expressway use?", "Where can I check the Philippine expressway motorcycle rule?"],
     relatedGuideSlugs: ["best-motorcycles-for-long-rides", "motorcycles-with-abs-philippines", "lightweight-motorcycles-philippines"],
     intent: "category"
