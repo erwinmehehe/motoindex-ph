@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Motorcycle } from "@/lib/types";
@@ -53,6 +54,7 @@ import { authorPersonSchema } from "@/lib/author";
 import { getModelGearGuide } from "@/lib/modelGearGuides";
 import { OwnershipCatalogLinks } from "@/components/OwnershipCatalogLinks";
 import { CTAGroup, ProductGrid as CanonicalProductGrid, SectionHeader } from "@/components/ui";
+import styles from "./MotorcycleEntityPage.module.css";
 
 const MOTORCYCLE_ANALYTICS_CSS = `
 .motorcycle-analytics-panel{margin:28px 0 18px;padding:34px;border:1px solid rgba(62,82,69,.16);border-radius:16px;background:#fff;box-shadow:0 18px 48px rgba(24,45,32,.055)}
@@ -61,6 +63,23 @@ const MOTORCYCLE_ANALYTICS_CSS = `
 @media(max-width:900px){.motorcycle-analytics-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){.motorcycle-analytics-panel{padding:24px 0;border-left:0;border-right:0;border-radius:0;box-shadow:none}.motorcycle-analytics-heading{align-items:flex-start;flex-direction:column;gap:10px;padding:0 2px}.motorcycle-analytics-grid{grid-template-columns:1fr}.motorcycle-analytics-metric{padding:18px 14px}.motorcycle-analytics-metric>strong{font-size:23px}}
 `;
+
+function swatchColor(name: string) {
+  const value=name.toLowerCase();
+  if(value.includes("black")) return "black";
+  if(value.includes("white")||value.includes("ivory")) return "white";
+  if(value.includes("red")) return "red";
+  if(value.includes("blue")) return "royalblue";
+  if(value.includes("green")) return "seagreen";
+  if(value.includes("silver")) return "silver";
+  if(value.includes("gray")||value.includes("grey")||value.includes("graphite")) return "gray";
+  if(value.includes("orange")) return "orange";
+  if(value.includes("yellow")||value.includes("gold")) return "gold";
+  if(value.includes("brown")) return "saddlebrown";
+  if(value.includes("purple")||value.includes("violet")) return "purple";
+  if(value.includes("pink")) return "hotpink";
+  return "lightgray";
+}
 
 function HeroFact({ label, value, note }: { label: string; value: string; note?: string }) {
   return <div><span>{label}</span><strong>{value}</strong>{note && <small>{note}</small>}</div>;
@@ -171,6 +190,10 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: model.make, href: `/motorcycles/${model.makeSlug}` }, { label: model.model }]} />
         <div className="motorcycle-hero-grid">
           <div className="motorcycle-hero-copy">
+            <div className={styles.brandLine}>
+              <Image src={`/brand/motorcycle/${model.makeSlug}.svg`} alt={`${model.make} logo`} width={140} height={42} unoptimized />
+              <span>{model.make} · Philippine model research</span>
+            </div>
             <span className="entity-kicker">Philippines model guide · {model.generation} · {model.category}{availabilityUncertain ? " · availability to verify" : ""}</span>
             <h1>{seo.heading}</h1>
             <p className="entity-lede">{seo.intro}</p>
@@ -188,6 +211,13 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           </div>
           <div className="motorcycle-hero-visual">
             <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" priority showCredit={false} sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} className="authority-media-fallback" />} />
+            {allColors.length > 0 && <div className={styles.colorStrip} aria-label={`${model.make} ${model.model} available colors`}>
+              <span>Available colors</span>
+              <div className={styles.colorList}>
+                {allColors.slice(0,6).map((color)=><span className={styles.colorChip} key={color}><i className={styles.swatch} style={{"--swatch-color":swatchColor(color)} as CSSProperties} aria-hidden="true" />{color}</span>)}
+              </div>
+              {allColors.length>6&&<small className={styles.moreColors}>+{allColors.length-6} more</small>}
+            </div>}
             <div className="motorcycle-hero-facts">
               <HeroFact label="Engine" value={`${model.engineCc} cc`} note={`${model.powerHp} hp · ${model.torqueNm} Nm`} />
               <HeroFact label="Seat" value={`${model.seatHeightMm} mm`} note={`${model.curbWeightKg} kg curb weight`} />
