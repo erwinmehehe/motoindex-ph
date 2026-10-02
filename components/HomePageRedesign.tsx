@@ -56,14 +56,14 @@ export function HomePageRedesign({ heading }: { heading: ReactNode }) {
     .slice(0, 6);
 
   return <div className={styles.page}>
-    <section className={styles.hero} aria-labelledby="mi-home-title">
-      <div className={["shell", styles.heroInner].join(" ")}>
+    <section className={styles.hero} data-home-hero aria-labelledby="mi-home-title">
+      <div className={["shell", styles.heroInner].join(" ")} data-home-layout>
         <div className={styles.copy}>
           <span className={styles.eyebrow}>Philippine motorcycle research</span>
           {heading}
           <p className={styles.lede}>Find the right motorcycle for your next ride with current price references, specifications, rider-fit data, ownership tools and practical buying guides.</p>
 
-          <form className={styles.search} action="/motorcycles" method="get" role="search">
+          <form className={styles.search} data-home-search action="/motorcycles" method="get" role="search">
             <label className="sr-only" htmlFor="mi-home-search">Search motorcycles by brand or model</label>
             <input id="mi-home-search" type="search" name="q" placeholder="Search Aerox, ADV160, Click, Honda..." />
             <button type="submit">Search motorcycles</button>
@@ -86,7 +86,7 @@ export function HomePageRedesign({ heading }: { heading: ReactNode }) {
         </div>
 
         <div className={styles.visual}>
-          {heroModel ? <div className={styles.bikeStage}>
+          {heroModel ? <div className={styles.bikeStage} data-home-visual>
             <div className={styles.modelLabel}>
               <Image src={"/brand/motorcycle/" + heroModel.makeSlug + ".svg"} alt={heroModel.make + " logo"} width={110} height={30} unoptimized />
               <span>{heroModel.model}</span>
@@ -110,7 +110,7 @@ export function HomePageRedesign({ heading }: { heading: ReactNode }) {
               </div>
               <Link className={styles.openModel} href={"/motorcycles/" + heroModel.makeSlug + "/" + heroModel.slug}>Open full model guide →</Link>
             </div>
-          </div> : <div className={styles.bikeStage} />}
+          </div> : <div className={styles.bikeStage} data-home-visual />}
         </div>
       </div>
     </section>
