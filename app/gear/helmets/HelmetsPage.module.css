@@ -26,10 +26,5 @@
 .catalogMeta strong{font-size:var(--mi-type-xs)}
 .catalogMeta span{color:var(--mi-color-copy);font-size:.62rem}
 .preview{padding-bottom:var(--mi-space-6);border-bottom:1px solid var(--mi-color-line-soft)}
-.page .preview :global(.helmet-product-grid){grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--mi-space-3)}
-.page .preview :global(.ui-product-media){height:170px;background:var(--mi-color-surface)}
-.page .preview :global(.ui-product-card-copy){padding:var(--mi-space-3)}
-.page .preview :global(.ui-product-card-copy h3){font-size:var(--mi-type-base)}
-.page :global(.helmet-master-nav){margin-top:var(--mi-space-6)}
-@media(max-width:900px){.hero{grid-template-columns:1fr}.heroVisual{min-height:210px}.page .preview :global(.helmet-product-grid){grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px){.hero{padding-top:var(--mi-space-4)}.heroCopy h1{font-size:clamp(2.2rem,10vw,2.8rem)}.heroVisual{min-height:180px}.page .preview :global(.helmet-product-grid){grid-template-columns:1fr}.catalogMeta{align-items:flex-start;flex-direction:column}}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.heroVisual{min-height:210px}}
+@media(max-width:560px){.hero{padding-top:var(--mi-space-4)}.heroCopy h1{font-size:clamp(2.2rem,10vw,2.8rem)}.heroVisual{min-height:180px}.catalogMeta{align-items:flex-start;flex-direction:column}}
