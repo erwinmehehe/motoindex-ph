@@ -1,0 +1,75 @@
+.shell{
+  position:relative;
+}
+.shell :global(.product-entity-nav){
+  position:sticky;
+  top:72px;
+  z-index:20;
+  margin:var(--mi-space-4) 0 var(--mi-space-8);
+  padding:var(--mi-space-2);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-md);
+  background:color-mix(in srgb,var(--mi-color-surface) 94%,transparent);
+  box-shadow:var(--mi-shadow-xs);
+  backdrop-filter:blur(14px);
+}
+.shell :global(.product-entity-nav a){
+  min-height:36px;
+  padding:0 var(--mi-space-3);
+  border-radius:var(--mi-radius-sm);
+}
+.shell :global(.product-entity-nav a:hover){
+  background:var(--mi-color-primary-soft);
+  color:var(--mi-color-primary);
+}
+.shell :global(.product-entity-section){
+  padding:var(--mi-space-10) 0;
+  border-top:1px solid var(--mi-color-line-soft);
+}
+.shell :global(.product-entity-section .section-head){
+  margin-bottom:var(--mi-space-5);
+}
+.shell :global(.product-entity-section .section-head h2){
+  max-width:820px;
+  font-size:clamp(1.8rem,3.2vw,2.7rem);
+  line-height:1.04;
+  letter-spacing:-.04em;
+}
+.shell :global(.entity-price-grid),
+.shell :global(.product-editorial),
+.shell :global(.fitment-evidence-grid),
+.shell :global(.match-grid){
+  overflow:hidden;
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-lg);
+  background:var(--mi-color-surface);
+  box-shadow:var(--mi-shadow-xs);
+}
+.shell :global(.entity-price-grid>article),
+.shell :global(.product-editorial>article){
+  padding:var(--mi-space-5);
+}
+.shell :global(.entity-spec-table){
+  overflow:hidden;
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-lg);
+  background:var(--mi-color-surface);
+}
+.shell :global(.entity-spec-table>div){
+  padding:var(--mi-space-4);
+}
+.shell :global(.mini-compare-table){
+  border-radius:var(--mi-radius-lg);
+  box-shadow:var(--mi-shadow-xs);
+}
+.shell :global(.note-box){
+  margin-top:var(--mi-space-6);
+  padding:var(--mi-space-5);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-lg);
+  background:var(--mi-color-surface-subtle);
+}
+@media(max-width:700px){
+  .shell :global(.product-entity-nav){top:62px;margin-bottom:var(--mi-space-6)}
+  .shell :global(.product-entity-section){padding:var(--mi-space-8) 0}
+}
