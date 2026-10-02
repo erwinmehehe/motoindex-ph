@@ -14,7 +14,7 @@ const tokens = read("app", "styles", "tokens.css");
 const base = read("app", "styles", "base.css");
 const components = read("app", "styles", "components.css");
 const routes = read("app", "styles", "routes.css");
-const homepage = read("app", "homepage.css");
+const homepage = read("app", "HomePage.module.css");
 const theme = read("app", "premium-light.css");
 const productExperience = read("app", "product-experience-v2.css");
 const recommendationsPage = read("app", "recommendations", "page.tsx");
@@ -46,22 +46,22 @@ requireText(recommendationsPage, '<RecommendationsHubStyle />', "Recommendations
 for (const selector of [".rec-hero-actions", ".rec-start-card>a", ".rec-nav", ".rec-principle-grid", ".rec-two-column"]) {
   requireText(recommendationsStyle, selector, `Recommendations route-local style must retain ${selector}.`);
 }
-requireText(routes, '@import "../homepage.css";', "Route layer must load the single self-contained homepage system.");
+forbidText(routes, '@import "../homepage.css";', "Retired global homepage.css must not be loaded now that the homepage is route-local.");
 forbidText(routes, "homepage-compact-modern.css", "Retired homepage-compact-modern.css must not be loaded by the route layer.");
 forbidText(routes, "homepage-feature-hero.css", "Retired homepage-feature-hero.css must not be loaded by the route layer.");
 requireText(routes, '@import "../brand-page-refined.css";', "Route layer must retain the current brand experience.");
 
-requireText(homepage, ".mi-hero-layout", "Homepage system must own the hero layout.");
+requireText(homepage, ".heroInner", "Homepage module must own the hero layout.");
 requireText(homepage, "display:grid", "Homepage hero must retain an explicit grid layout instead of depending on retired CSS.");
-requireText(homepage, ".mi-search", "Homepage system must own the search presentation.");
-requireText(homepage, "grid-template-columns:minmax(0,1fr) auto", "Homepage search must keep a stable field/action grid on desktop.");
-requireText(homepage, ".mi-research-shell", "Homepage system must own the research snapshot surface.");
-requireText(homepage, ".mi-brand-grid", "Homepage system must own the brand grid.");
-requireText(homepage, ".mi-model-grid", "Homepage system must own the motorcycle grid.");
-requireText(homepage, ".mi-category-grid", "Homepage system must own the decision-category grid.");
-requireText(homepage, "linear-gradient(180deg,#ffffff 0%,#f8fafc 100%)", "Homepage hero must retain the light premium background.");
-requireText(homepage, ".mi-hero h1", "Homepage system must own hero typography.");
-requireText(homepage, "60px", "Homepage desktop H1 must remain restrained to a 60px maximum.");
+requireText(homepage, ".search", "Homepage module must own the search presentation.");
+requireText(homepage, "grid-template-columns:32px minmax(0,1fr) 52px", "Homepage search must keep a stable icon/field/action grid on desktop.");
+requireText(homepage, ".heroBike", "Homepage module must own the motorcycle hero visual.");
+requireText(homepage, ".brandGrid", "Homepage module must own the brand grid.");
+requireText(homepage, ".modelGrid", "Homepage module must own the motorcycle grid.");
+requireText(homepage, ".categories", "Homepage module must own the category shortcut grid.");
+requireText(homepage, "linear-gradient(180deg,var(--mi-color-market-sky)", "Homepage hero must retain the light market-sky background.");
+requireText(homepage, ".copy h1", "Homepage module must own hero typography.");
+requireText(homepage, "3.5rem", "Homepage desktop H1 must remain restrained to the mockup scale.");
 forbidText(homepage, "background:#090a0d", "Homepage route must not restore the retired near-black hero background.");
 
 for (const [semanticToken, legacyToken, value] of [
