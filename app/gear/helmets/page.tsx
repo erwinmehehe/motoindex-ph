@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { EntityMedia } from "@/components/EntityMedia";
+import { EntityVerificationFallback } from "@/components/EntityVerificationFallback";
 import { pageMetadata } from "@/lib/site";
 import { helmetBrands } from "@/lib/data";
 import { helmetProducts, isIndexableHelmetBrand } from "@/lib/catalog";
@@ -52,7 +53,7 @@ function HelmetProductGrid({ products, limit = 8 }: { products: typeof helmetPro
 function HelmetPreviewGrid({ products, limit = 8 }: { products: typeof helmetProducts; limit?: number }) {
   const visible=products.filter(product=>hasRenderableProductMedia(product.id)).slice(0,limit);
   return <div className={styles.previewGrid}>{visible.map(product=><Link className={styles.previewCard} href={`/gear/helmets/${product.brandSlug}/${product.slug}`} key={product.id}>
-    <div className={styles.previewMedia}><EntityMedia entityType="helmet" entityId={product.id} showCredit={false} /></div>
+    <div className={styles.previewMedia}><EntityMedia entityType="helmet" entityId={product.id} showCredit={false} fallback={<EntityVerificationFallback brand={product.brand} model={product.model} kind="helmet" />} /></div>
     <div className={styles.previewCopy}><span>{product.helmetType}</span><h3>{product.brand} {product.model}</h3>{compactHelmetMeta(product)&&<p>{compactHelmetMeta(product)}</p>}<div>{typeof product.priceFromPhp==="number"?<strong>From {php(product.priceFromPhp)}</strong>:<span /> }<b>View →</b></div></div>
   </Link>)}</div>;
 }
@@ -100,7 +101,7 @@ export default function HelmetsPage(){
       </div>
       {heroHelmet&&<div className={styles.heroVisual}>
         <span className={styles.heroBadge}>Featured verified helmet</span>
-        <EntityMedia entityType="helmet" entityId={heroHelmet.id} className={styles.heroMedia} priority showCredit={false} sizes="(max-width: 820px) 100vw, 44vw" />
+        <EntityMedia entityType="helmet" entityId={heroHelmet.id} className={styles.heroMedia} priority showCredit={false} sizes="(max-width: 820px) 100vw, 44vw" fallback={<EntityVerificationFallback brand={heroHelmet.brand} model={heroHelmet.model} kind="helmet" />} />
         <div className={styles.heroCaption}><small>{heroHelmet.helmetType}</small><strong>{heroHelmet.brand} {heroHelmet.model}</strong>{typeof heroHelmet.priceFromPhp==="number"&&<span>From {php(heroHelmet.priceFromPhp)}</span>}</div>
       </div>}
     </div>
