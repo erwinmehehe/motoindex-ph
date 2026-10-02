@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ShortlistNav } from "@/components/ShortlistNav";
 import { MotoIndexLogo } from "@/components/MotoIndexLogo";
 import { comparisons, publicMotorcycles, isIndexableComparison } from "@/lib/data";
+import { CompareNavBadge } from "@/components/CompareNavBadge";
 
 const hasModels = publicMotorcycles.length > 0;
 const hasComparisons = comparisons.some((comparison) => isIndexableComparison(comparison.slug));
@@ -61,7 +62,7 @@ export function Header() {
             </div>
           </div>
         </details>}
-        {hasComparisons && <Link href="/compare">Compare</Link>}
+        {hasComparisons && <CompareNavBadge />}
         {hasModels && <Link href="/finder">Finder</Link>}
         <details className="nav-more nav-gear"><summary>Helmets & gear <span>⌄</span></summary><div className="nav-popover">{gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</div></details>
         <Link href="/tools">Tools</Link>
@@ -74,7 +75,13 @@ export function Header() {
           </div>
         </details>
       </nav>
-      <div className="nav-actions"><ShortlistNav /><Link className="button small" href="/finder">Find my bike</Link></div>
+      <div className="nav-actions">
+        <Link className="nav-search-icon" href="/search" aria-label="Search MotoIndex">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/><path d="m20 20-3.6-3.6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+        </Link>
+        <ShortlistNav />
+        <Link className="button small" href="/finder">Find my bike</Link>
+      </div>
       <details className="mobile-menu">
         <summary aria-label="Open navigation">Menu</summary>
         <div className="mobile-menu-panel"><nav aria-label="Mobile navigation">
