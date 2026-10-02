@@ -126,6 +126,68 @@ export const editorialGuides: EditorialGuide[] = [
       { label: "DTI-BPS: Product certification schemes", url: "https://bps.dti.gov.ph/product-certification" },
       { label: "DTI-BPS: Helmet certification application requirements", url: "https://bps.dti.gov.ph/product-certification/ps-and-icc-application-requirements" }
     ]
+  },
+  {
+    slug: "kawasaki-ninja-h2r-price-philippines",
+    kicker: "H2R price research",
+    title: "Kawasaki Ninja H2R price in the Philippines: what the listings miss",
+    seoTitle: "Kawasaki Ninja H2R Price Philippines: Track-Only Status Explained",
+    description: "Researching the Kawasaki Ninja H2R price in the Philippines? See why MotoIndex does not publish a made-up Philippine SRP, plus its track-only status and H2/H2R differences.",
+    intro: "Searches for a Kawasaki Ninja H2R price in the Philippines are common, but a current Philippine retail SRP is not the same thing as converting an overseas MSRP. Kawasaki describes the H2R as a closed-course-only motorcycle, and its own historical release says it cannot be operated on public roads or issued a license plate. MotoIndex therefore does not invent a Philippine peso SRP where a current local retail price has not been verified.",
+    lastChecked: "2026-10-02",
+    sections: [
+      {
+        heading: "Is there a verified Kawasaki Ninja H2R price in the Philippines?",
+        body: [
+          "MotoIndex did not locate a current official Kawasaki Philippines retail price for the Ninja H2R in this update. Kawasaki's current US page lists a 2026 H2R MSRP in US dollars, but currency conversion is not a Philippine SRP and would ignore taxes, import costs, allocation and dealer terms.",
+          "A historical Philippine review also reported that the H2R was not commercially made available in the Philippines after an extremely limited regional allocation. That history is useful context, but it should not be turned into a current local price claim."
+        ]
+      },
+      {
+        heading: "The Ninja H2R is track-only",
+        body: [
+          "Kawasaki currently describes the Ninja H2R as a closed-course-only hypersport motorcycle. Kawasaki Heavy Industries has also stated that the H2R cannot be operated on public roads or with general traffic and that a license plate cannot be obtained for it.",
+          "That makes H2R ownership research fundamentally different from researching a normal road motorcycle: local availability, transport to a circuit, track rules, service requirements and parts support matter alongside purchase price."
+        ]
+      },
+      {
+        heading: "Do not confuse the H2R with the road-going Ninja H2",
+        body: [
+          "The Ninja H2 and H2 Carbon are road-focused, street-legal hypersport models in markets where they are sold, while the H2R is the closed-course version. Search results and seller posts sometimes shorten both names to 'H2', so confirm the exact model before using any price, horsepower or registration information.",
+          "MotoIndex keeps its Philippine Ninja H2 Carbon motorcycle record separate from this H2R research guide to avoid mixing a road-bike price with a track-only machine."
+        ]
+      },
+      {
+        heading: "What a Philippine buyer should verify",
+        body: [
+          "Before treating any peso figure as an H2R price, ask for the exact model year, chassis documentation, original market, import and customs paperwork, service history, included track equipment and a written seller quotation.",
+          "Do not use an overseas MSRP converted at today's exchange rate as proof of a local transaction price. For an H2R, provenance and legal-use limitations are part of the purchase decision."
+        ],
+        bullets: [
+          "Confirm the exact H2R model year and VIN or chassis documentation",
+          "Ask whether the figure is a local seller quote, landed cost or overseas MSRP conversion",
+          "Verify import/customs documents and ownership history",
+          "Plan for closed-course use rather than public-road registration",
+          "Check Kawasaki-capable service and parts support before purchase"
+        ]
+      }
+    ],
+    faqs: [
+      { question: "How much is a Kawasaki Ninja H2R in the Philippines?", answer: "MotoIndex does not publish a current Philippine SRP because it has not verified one from an official local retail source. Overseas MSRP figures can provide international context but should not be relabeled as a Philippine price." },
+      { question: "Is the Kawasaki Ninja H2R street legal in the Philippines?", answer: "Kawasaki describes the H2R as closed-course only and has stated that it cannot be operated on public roads or issued a license plate. Buyers should verify current local rules and documentation for any specific imported unit." },
+      { question: "What is the difference between the Ninja H2 and H2R?", answer: "The H2 is the road-going hypersport model, while the H2R is a more extreme closed-course-only version. Their prices, equipment, power figures and legal-use status should not be mixed." },
+      { question: "Can I convert the US H2R MSRP to pesos to get the Philippine price?", answer: "A currency conversion is not a Philippine SRP. It excludes allocation, shipping, taxes, import costs, dealer margin and the terms of a specific local transaction." }
+    ],
+    related: [
+      { href: "/motorcycles/kawasaki/ninja-h2", title: "Kawasaki Ninja H2 Carbon", description: "See the separate road-going Ninja H2 record tracked by MotoIndex." },
+      { href: "/motorcycles/kawasaki", title: "Kawasaki motorcycles Philippines", description: "Compare Kawasaki motorcycles and published Philippine prices." },
+      { href: "/recommendations/motorcycles-400cc-plus-philippines", title: "Big bikes Philippines", description: "Compare current 400cc+ road motorcycles with published Philippine price records." }
+    ],
+    sources: [
+      { label: "Kawasaki Heavy Industries: Ninja H2/H2R launch and road-use limitation", url: "https://global.kawasaki.com/en/corp/newsroom/news/detail/?f=20180810_1441" },
+      { label: "Kawasaki: current Ninja H2R closed-course model", url: "https://www.kawasaki.com/en-us/motorcycle/ninja/hypersport/ninja-h2r" },
+      { label: "TopGear Philippines: 2018 Ninja H2R review and Philippine availability context", url: "https://www.topgear.com.ph/moto-sapiens/motorcycle-review/review-2018-kawasaki-ninja-h2r-a3459-20181218" }
+    ]
   }
 ];
 
