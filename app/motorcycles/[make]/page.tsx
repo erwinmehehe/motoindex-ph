@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
@@ -13,6 +14,7 @@ import { modelAuthorityProfile } from "@/lib/modelAuthority";
 import { php, phpRange } from "@/lib/utils";
 import { CTAGroup, DataTable, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
 import { brandSeoGrowthProfile } from "@/lib/brandSeoGrowth";
+import styles from "./BrandPage.module.css";
 
 export function generateStaticParams() {
   return [...new Set(motorcycles.map((m) => m.makeSlug))].map((make) => ({ make }));
@@ -150,12 +152,27 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     <div className="ph-brand-hero">
       <div className="shell">
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
-        <PageHero
-          kicker="Philippines · Price list · Models · Specs"
-          title={brandGrowth?.heroTitle || `${brand} Motorcycle Philippines Price List`}
-          description={brandGrowth?.heroDescription || `Compare the current ${brand} motorcycle Philippines price list by model, published price, engine size, seat height and transmission. Open any motorcycle for detailed specs, financing estimates, fitment, maintenance and alternatives.`}
-          actions={<><CTAGroup><Link className="button" href="#price-list">View {brand} price list</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link></CTAGroup></>}
-        />
+        <div className={styles.heroGrid}>
+          <PageHero
+            className={styles.heroCopy}
+            kicker="Philippines · Price list · Models · Specs"
+            title={brandGrowth?.heroTitle || `${brand} Motorcycle Philippines Price List`}
+            description={brandGrowth?.heroDescription || `Compare the current ${brand} motorcycle Philippines price list by model, published price, engine size, seat height and transmission. Open any motorcycle for detailed specs, financing estimates, fitment, maintenance and alternatives.`}
+            actions={<CTAGroup><Link className="button" href="#models">Browse {brand} models</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand}</Link></CTAGroup>}
+          />
+          <aside className={styles.brandPanel} aria-label={`${brand} lineup snapshot`}>
+            <div>
+              <div className={styles.logoStage}><Image src={`/brand/motorcycle/${make}.svg`} alt={`${brand} logo`} width={220} height={80} unoptimized /></div>
+              <span className={styles.panelEyebrow}>Current Philippine lineup</span>
+              <h2 className={styles.panelTitle}>{current.length} {brand} models tracked</h2>
+              <p className={styles.panelCopy}>Published prices currently span {php(low)} to {php(high)} across the current MotoIndex set.</p>
+            </div>
+            <div className={styles.quickFacts}>
+              <div className={styles.quickFact}><span>Engine range</span><strong>{minEngine}–{maxEngine} cc</strong></div>
+              <div className={styles.quickFact}><span>Transmission</span><strong>{automatic} auto · {manual} manual</strong></div>
+            </div>
+          </aside>
+        </div>
         {brandGrowth ? <InfoPanel subtle><p>{brandGrowth.intentNote}</p></InfoPanel> : null}
         <StatRow items={[
           {label:"Models covered",value:current.length,note:"Current models on MotoIndex"},
@@ -165,6 +182,10 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
           ...(authorityModels.length > 0 ? [{label:"Buyer guides",value:authorityModels.length,note:"Expanded decision briefs with Philippine ownership context"}] : []),
           ...(bigBikes.length > 0 && bigBikeMinCc ? [{label:`${bigBikeMinCc}cc+ models`,value:bigBikes.length,note:"Current big bikes covered on this brand hub"}] : [])
         ]}/>
+        <nav className={styles.categoryTabs} aria-label={`${brand} motorcycle categories`}>
+          <a href="#models">All models</a>
+          {categories.slice(0,6).map((category)=><Link key={category} href={{ pathname:"/motorcycles", query:{ make, type:category } }}>{category}</Link>)}
+        </nav>
       </div>
     </div>
 

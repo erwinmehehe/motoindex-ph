@@ -1,0 +1,97 @@
+.featured{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);
+  gap:0;
+  overflow:hidden;
+  margin:var(--mi-space-6) 0 var(--mi-space-12);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-xl);
+  background:var(--mi-color-surface);
+  box-shadow:var(--mi-shadow-sm);
+}
+.featuredArt{
+  min-height:320px;
+  background:var(--mi-color-surface-subtle);
+}
+.featuredArt>*{height:100%}
+.featuredCopy{
+  display:flex;
+  min-width:0;
+  flex-direction:column;
+  justify-content:center;
+  padding:clamp(var(--mi-space-6),5vw,var(--mi-space-12));
+}
+.featuredCopy>span{
+  color:var(--mi-color-primary);
+  font-size:var(--mi-type-xs);
+  font-weight:850;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+.featuredCopy h2{
+  margin:var(--mi-space-3) 0;
+  color:var(--mi-color-ink);
+  font-size:clamp(1.8rem,3vw,2.8rem);
+  line-height:1.05;
+  letter-spacing:-.04em;
+}
+.featuredCopy p{
+  margin:0;
+  color:var(--mi-color-copy);
+  font-size:var(--mi-type-sm);
+  line-height:var(--mi-leading-copy);
+}
+.featuredAction{
+  align-self:flex-start;
+  margin-top:var(--mi-space-5);
+}
+.taskGrid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--mi-space-3);
+}
+.taskCard{
+  display:flex;
+  min-height:190px;
+  flex-direction:column;
+  padding:var(--mi-space-5);
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-md);
+  background:var(--mi-color-surface);
+  text-decoration:none;
+}
+.taskNumber{
+  color:var(--mi-color-primary);
+  font-size:var(--mi-type-xs);
+  font-weight:850;
+}
+.taskCard h2{
+  margin:var(--mi-space-6) 0 var(--mi-space-2);
+  color:var(--mi-color-ink);
+  font-size:var(--mi-type-lg);
+  line-height:1.2;
+}
+.taskCard p{
+  margin:0;
+  color:var(--mi-color-copy);
+  font-size:var(--mi-type-sm);
+  line-height:1.55;
+}
+.taskCard strong{
+  margin-top:auto;
+  padding-top:var(--mi-space-5);
+  color:var(--mi-color-primary);
+  font-size:var(--mi-type-xs);
+}
+.taskCard:hover{border-color:var(--mi-color-primary);box-shadow:var(--mi-shadow-sm)}
+@media(max-width:900px){
+  .featured{grid-template-columns:1fr}
+  .featuredArt{min-height:260px}
+  .taskGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:620px){
+  .featured{margin-bottom:var(--mi-space-8)}
+  .featuredArt{min-height:220px}
+  .featuredCopy{padding:var(--mi-space-5)}
+  .taskGrid{grid-template-columns:1fr}
+}
