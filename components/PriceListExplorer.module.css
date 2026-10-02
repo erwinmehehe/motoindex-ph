@@ -8,7 +8,7 @@
 .search,.sort{min-height:34px;border:1px solid var(--mi-color-market-line-strong);border-radius:7px;background:var(--mi-color-surface);color:var(--mi-color-slate-900);font:650 9px/1 var(--font-inter)}
 .search{min-width:0;padding:0 10px}
 .sort{padding:0 10px}
-.controls :global(.button){min-height:34px!important;padding:0 12px!important;border-radius:7px!important;font-size:8px!important}
+.printButton{min-height:34px;padding:0 12px;border:0;border-radius:7px;background:var(--mi-color-market-blue);color:var(--mi-color-surface);font-size:8px;font-weight:850;cursor:pointer}
 .tableShell{overflow:auto;border:1px solid var(--mi-color-market-line);border-radius:8px;background:var(--mi-color-surface);box-shadow:none}
 .table{min-width:690px}
 .row{display:grid;grid-template-columns:minmax(170px,1.35fr) minmax(90px,.7fr) minmax(120px,.9fr) minmax(100px,.7fr) minmax(120px,.78fr);gap:8px;align-items:center;min-height:34px;padding:0 10px;border-bottom:1px solid var(--mi-color-market-line-soft)}
