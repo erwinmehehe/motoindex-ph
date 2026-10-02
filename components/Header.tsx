@@ -63,6 +63,7 @@ export function Header() {
         </details>}
         {hasComparisons && <Link href="/compare">Compare</Link>}
         {hasModels && <Link href="/finder">Finder</Link>}
+        {hasModels && <Link href="/price-list">Price list</Link>}
         <details className="nav-more nav-gear"><summary>Helmets & gear <span>⌄</span></summary><div className="nav-popover">{gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</div></details>
         <Link href="/tools">Tools</Link>
         <details className="nav-more nav-guides">
@@ -74,7 +75,7 @@ export function Header() {
           </div>
         </details>
       </nav>
-      <div className="nav-actions"><ShortlistNav /><Link className="button small" href="/finder">Find my bike</Link></div>
+      <div className="nav-actions"><Link className="nav-search" href="/search" aria-label="Search MotoIndex">Search</Link><ShortlistNav /><Link className="button small" href="/finder">Find my bike</Link></div>
       <details className="mobile-menu">
         <summary aria-label="Open navigation">Menu</summary>
         <div className="mobile-menu-panel"><nav aria-label="Mobile navigation">
@@ -91,6 +92,7 @@ export function Header() {
           </>}
           {hasComparisons && <Link href="/compare">Compare</Link>}
           {hasModels && <Link href="/finder">Finder</Link>}
+          {hasModels && <Link href="/price-list">Price list</Link>}
           <strong className="mobile-menu-heading">Helmets & gear</strong>
           {gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
           <Link href="/tools">All tools</Link>

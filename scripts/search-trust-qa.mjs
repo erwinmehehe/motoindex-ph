@@ -137,11 +137,12 @@ try {
 
   const headerAudit = await evaluate(cdp.send, `(() => ({
     desktopSearch:Boolean(document.querySelector('.nav-actions .nav-search')),
+    searchHref:document.querySelector('.nav-actions .nav-search')?.getAttribute('href')||'',
     finderCta:document.querySelector('.nav-actions a[href="/finder"]')?.textContent?.trim()||'',
     overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
   }))()`);
   results.push({ check: "desktop-header", ...headerAudit });
-  if (headerAudit?.desktopSearch) failures.push("Desktop header still exposes the removed command-search control.");
+  if (!headerAudit?.desktopSearch || headerAudit?.searchHref !== "/search") failures.push("Desktop header is missing the dedicated Search trigger.");
   if (!/Find my bike/i.test(headerAudit?.finderCta || "")) failures.push("Desktop header is missing the compact Find my bike CTA.");
   if ((headerAudit?.overflow || 0) > 5) failures.push(`Homepage overflows by ${headerAudit.overflow}px after header cleanup.`);
   await screenshot("desktop-header");
@@ -192,7 +193,7 @@ try {
   results.push({ check: "mobile-header", ...mobileAudit });
   if ((mobileAudit?.overflow || 0) > 5) failures.push(`390px homepage overflows horizontally by ${mobileAudit.overflow}px.`);
   if (!mobileAudit?.mobileSearch) failures.push("Mobile menu lost the Search fallback link.");
-  if (mobileAudit?.navTriggerVisible) failures.push("Removed Search control is still visible in the mobile top bar.");
+  if (!mobileAudit?.navTriggerVisible) failures.push("Mobile top bar is missing the dedicated Search trigger.");
   await screenshot("mobile-home");
 
   fs.writeFileSync(path.join(outputDir, "search-trust-qa.json"), JSON.stringify({ results, failures }, null, 2));
@@ -201,7 +202,7 @@ try {
     failures.forEach(failure => console.error(`- ${failure}`));
     process.exitCode = 1;
   } else {
-    console.log(`Search and trust QA passed: ${results.length} checks, search access and source-free public trust UI are responsive.`);
+    console.log(`Search and trust QA passed: ${results.length} checks, header search access and source-free public trust UI are responsive.`);
   }
 
   cdp.ws.close();
