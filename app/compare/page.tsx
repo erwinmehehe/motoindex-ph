@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
 import { CompareBuilder } from "@/components/CompareBuilder";
+import { DetailedMotorcycleCompare } from "@/components/DetailedMotorcycleCompare";
 import { DecisionPath } from "@/components/DecisionPath";
 import { comparisons, getComparison, isIndexableComparison, publicMotorcycles } from "@/lib/data";
 import { getComparisonEditorialBrief } from "@/lib/comparisonEditorial";
@@ -15,6 +16,9 @@ const compareModels=publicMotorcycles;
 const publicComparisons=comparisons.filter(c=>isIndexableComparison(c.slug));
 const featuredComparisons=publicComparisons.slice(0,6);
 const remainingComparisons=publicComparisons.slice(6);
+const mockupPreferredSlugs=["nmax-v3","adv-160","burgman-street"] as const;
+const mockupPreferred=mockupPreferredSlugs.map(slug=>compareModels.find(model=>model.slug===slug)).filter((model):model is NonNullable<typeof model>=>Boolean(model));
+const previewModels=(mockupPreferred.length>=3?mockupPreferred:compareModels.slice(0,3));
 export const dynamic="force-static";
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Comparison Philippines | Compare Bikes",
@@ -43,14 +47,26 @@ function ComparisonLink({ slug, summary }: { slug: string; summary: string }) {
 export default function CompareIndex(){
   return <section className={styles.page} data-compare-index>
     <PageHero
+      className={styles.hero}
       kicker={`${siteStats.currentMotorcycles} current models`}
-      title="Compare motorcycles in the Philippines side by side"
-      description="Pick two or three current motorcycles, then compare price, engine, rider fit, weight, fuel, tires and braking without opening multiple tabs."
+      title="Compare motorcycles side by side"
+      description="Compare price, engine, dimensions, braking and everyday fit across current Philippine-market motorcycles."
     />
 
-    <div className={styles.workspace}>
+    {previewModels.length>=2&&<section className={styles.preview} aria-labelledby="compare-preview-title">
+      <div className={styles.previewHead}>
+        <div><span>Popular side-by-side</span><h2 id="compare-preview-title">Compare key specifications at a glance</h2></div>
+        <Link href="/compare/selection?bikes=nmax-v3,adv-160,burgman-street">Open comparison →</Link>
+      </div>
+      <DetailedMotorcycleCompare models={forClient(previewModels)} />
+    </section>}
+
+    <section className={styles.builderSection}>
+      <SectionHeader kicker="Build your own" title="Choose two or three motorcycles" description="Use the full current catalog to create a comparison around the bikes already on your shortlist." />
+      <div className={styles.workspace}>
       {compareModels.length>=2?<Suspense fallback={<div className="note-box"><h2>Loading comparison builder</h2><p>Preparing the current motorcycle list.</p></div>}><CompareBuilder models={forClient(compareModels)}/></Suspense>:<div className="note-box"><h2>Not enough current models</h2><p>At least two current motorcycle records are needed to build a comparison.</p></div>}
-    </div>
+      </div>
+    </section>
 
     {featuredComparisons.length>0&&<section className={styles.popular}>
       <SectionHeader
