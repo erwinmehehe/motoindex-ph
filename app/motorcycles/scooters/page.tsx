@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { FaqSection } from "@/components/FaqSection";
+import { MotorcycleCard } from "@/components/MotorcycleCard";
 import { CTAGroup, DataTable, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
 import { observedMarketPriceLabel, observedMarketRange } from "@/lib/marketChecks";
 import {
@@ -16,6 +17,7 @@ import {
 } from "@/lib/motorcycleMarket";
 import { pageMetadata, SITE_URL } from "@/lib/site";
 import { php } from "@/lib/utils";
+import styles from "./ScootersPage.module.css";
 
 const scooters = priceOrdered(currentScooters);
 const priceSpan = marketPriceSpan(scooters);
@@ -162,6 +164,27 @@ export default function ScootersPage() {
             {childClusters.slice(1).map((cluster) => <Link href={cluster.href} key={cluster.href} className="button ghost small" data-scooter-shortcut-link>{cluster.label}</Link>)}
           </CTAGroup>
         </div>
+      </section>
+
+      <section className="section" aria-labelledby="browse-current-scooters">
+        <SectionHeader
+          kicker="Browse current models"
+          title="Current scooters in the Philippines"
+          titleId="browse-current-scooters"
+          description="Start visually, then use the full price-and-spec table below when you need denser comparison data."
+        />
+        <nav className={styles.filterRail} aria-label="Scooter category shortcuts">
+          <a href="#browse-current-scooters">All scooters</a>
+          <Link href="/recommendations/125cc-scooters-philippines">125cc</Link>
+          <Link href="/recommendations/150cc-scooters-philippines">150cc class</Link>
+          <Link href="/recommendations/155cc-scooters-philippines">155cc</Link>
+          <Link href="/recommendations/160cc-scooters-philippines">160cc</Link>
+          <Link href="/recommendations/maxi-scooters-philippines">Maxi scooters</Link>
+        </nav>
+        <div className={styles.modelGrid}>
+          {scooters.slice(0,12).map((model)=><MotorcycleCard key={model.id} model={model} variant="standard" />)}
+        </div>
+        {scooters.length>12&&<div className={styles.gridFooter}><a className="button secondary" href="#scooter-price-list">View all {scooters.length} scooters in the price list ↓</a></div>}
       </section>
 
       <section id="scooter-price-list" className="section" aria-labelledby="scooter-price-list-title">
