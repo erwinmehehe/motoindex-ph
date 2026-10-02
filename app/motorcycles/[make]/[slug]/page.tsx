@@ -16,23 +16,11 @@ import { ElectricMotorcycleDetail } from "@/components/ElectricMotorcycleDetail"
 import { electricMotorcycles, getElectricMotorcycle } from "@/lib/electricMotorcycles";
 
 const LEGACY_MODEL_REDIRECTS: Record<string, { make: string; slug: string; title: string; description: string }> = {
-  "honda/rs150r": {
-    make: "honda",
-    slug: "winner-x",
-    title: "Honda RS150R Price Philippines | Winner X Current Model",
-    description: "Honda RS150R research now continues on the current Honda Winner X page, with legacy RS150R context, current pricing and specifications."
-  },
   "kawasaki/z400": {
     make: "kawasaki",
     slug: "z500",
     title: "Kawasaki Z400 Price Philippines | Z500 Current Model",
     description: "Kawasaki Z400 research now continues on the current Kawasaki Z500 page, with Z400 legacy context and current Philippine Z500 pricing."
-  },
-  "yamaha/mio-sporty": {
-    make: "yamaha",
-    slug: "mio-i-125",
-    title: "Yamaha Mio Sporty Price Philippines | Current Mio Guide",
-    description: "Yamaha Mio Sporty research now continues on the current Mio i 125 page, with Mio Sporty legacy context and current Yamaha commuter alternatives."
   }
 };
 
