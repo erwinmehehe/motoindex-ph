@@ -4,6 +4,7 @@ import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
 import { motorcycles, isIndexableModel } from "@/lib/data";
 import { ModelExplorer } from "@/components/ModelExplorer";
+import { CatalogPreview } from "@/components/CatalogPreview";
 import { RecentlyViewedRail } from "@/components/RecentlyViewed";
 import { CTAGroup, SectionHeader, StatRow } from "@/components/ui";
 import { modelFamilies } from "@/lib/families";
@@ -103,6 +104,8 @@ export default function MotorcyclesPage() {
 
     <div className="shell motorcycle-index-body">
       {currentModels.length === 0 ? <div className="note-box"><h2>Motorcycle data is being updated</h2><p>Prices and specifications are still being checked. Gear and ownership tools remain available in the meantime.</p></div> : <>
+        <CatalogPreview models={authorityModels.length >= 4 ? authorityModels.slice(0,4) : currentModels.slice(0,4)} />
+
         <section id="browse-models" className="motorcycle-catalog-section">
           <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Full price list</span><h2>Browse and filter current motorcycle models</h2><p>Use filters to narrow the market, then open a model page for prices, specifications, financing context, fitment and ownership information.</p></div></div>
           <ModelExplorer models={forClient(currentModels)} />
