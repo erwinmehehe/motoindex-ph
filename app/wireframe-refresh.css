@@ -120,7 +120,7 @@
 
 /* Brand page additions */
 .wire-brand-identity{display:flex;align-items:center;gap:16px;padding-top:22px}
-.wire-brand-identity img{width:auto;max-width:170px;max-height:54px;object-fit:contain;object-position:left center}
+.wire-brand-identity img{width:auto;max-width:170px;max-height:54px;object-fit:contain;object-position:left center}\n.wire-brand-wordmark{color:var(--mi-color-ink);font-size:28px;letter-spacing:-.04em}
 .wire-brand-identity span{
   padding:6px 9px;border:1px solid var(--mi-color-refresh-line);border-radius:var(--mi-radius-pill);
   background:var(--mi-color-surface);color:var(--mi-color-copy);font-size:9px;font-weight:750;
