@@ -67,7 +67,7 @@ export function HomePageRedesign({ heading }: { heading: ReactNode }) {
             <button type="submit" aria-label="Search">⌕</button>
           </form>
         </div>
-        <div className={styles.heroVisual}>
+        <div className={styles.heroVisual} data-home-visual>
           <div className={styles.scenery} aria-hidden="true"><i/><b/><em/></div>
           {heroModel && <EntityMedia
             entityType="motorcycle"
