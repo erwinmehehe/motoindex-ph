@@ -63,7 +63,7 @@ export function PriceListExplorer({ bikes }: { bikes: PriceListBike[] }) {
           <option value="price-desc">Price: high to low</option>
           <option value="cc">Engine CC</option>
         </select>
-        <button className="button small" type="button" onClick={()=>window.print()}>Save price list PDF</button>
+        <button className={styles.printButton} type="button" onClick={()=>window.print()}>Save price list PDF</button>
       </div>
     </div>
 
