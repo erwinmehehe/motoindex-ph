@@ -75,7 +75,7 @@ export function Header() {
           </div>
         </details>
       </nav>
-      <div className="nav-actions"><Link className="nav-search-link" href="/search" aria-label="Search MotoIndex">Search</Link><ShortlistNav /><Link className="button small" href="/finder">Find my bike</Link></div>
+      <div className="nav-actions"><Link className="nav-search" href="/search" aria-label="Search MotoIndex">Search</Link><ShortlistNav /><Link className="button small" href="/finder">Find my bike</Link></div>
       <details className="mobile-menu">
         <summary aria-label="Open navigation">Menu</summary>
         <div className="mobile-menu-panel"><nav aria-label="Mobile navigation">
