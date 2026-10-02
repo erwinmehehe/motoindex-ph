@@ -20,6 +20,7 @@ const dealerFinancing = read("lib", "dealerFinancing.ts");
 const dealerFinancingComponent = read("components", "DealerFinancingSnapshot.tsx");
 const motorcycleEntityPage = read("components", "MotorcycleEntityPage.tsx");
 const zigwheelsGap = read("lib", "zigwheelsGapExpansion2026.ts");
+const zigwheelsGapWave2 = read("lib", "zigwheelsGapWave2_2026.ts");
 
 const priorityModels = [
   "yamaha-aerox-v3",
@@ -603,6 +604,21 @@ for (const modelId of [
 ]) {
   if (!zigwheelsGap.includes(`id: "${modelId}"`)) {
     errors.push(`ZigWheels keyword-gap expansion: missing model entity ${modelId}`);
+  }
+}
+
+for (const modelId of [
+  "suzuki-gsx-r150",
+  "suzuki-gsx-s150",
+  "suzuki-skydrive-crossover",
+  "yamaha-xtz-125",
+  "honda-zoomer-x",
+  "yamaha-sight",
+  "yamaha-sz",
+  "vespa-s-125"
+]) {
+  if (!zigwheelsGapWave2.includes(`id: "${modelId}"`)) {
+    errors.push(`ZigWheels keyword-gap wave 2: missing model entity ${modelId}`);
   }
 }
 
