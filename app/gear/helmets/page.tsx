@@ -49,6 +49,14 @@ function HelmetProductGrid({ products, limit = 8 }: { products: typeof helmetPro
   }}/>)}</ProductGrid>;
 }
 
+function HelmetPreviewGrid({ products, limit = 8 }: { products: typeof helmetProducts; limit?: number }) {
+  const visible=products.filter(product=>hasRenderableProductMedia(product.id)).slice(0,limit);
+  return <div className={styles.previewGrid}>{visible.map(product=><Link className={styles.previewCard} href={`/gear/helmets/${product.brandSlug}/${product.slug}`} key={product.id}>
+    <div className={styles.previewMedia}><EntityMedia entityType="helmet" entityId={product.id} showCredit={false} /></div>
+    <div className={styles.previewCopy}><span>{product.helmetType}</span><h3>{product.brand} {product.model}</h3>{compactHelmetMeta(product)&&<p>{compactHelmetMeta(product)}</p>}<div>{typeof product.priceFromPhp==="number"?<strong>From {php(product.priceFromPhp)}</strong>:<span /> }<b>View →</b></div></div>
+  </Link>)}</div>;
+}
+
 function Count({ value }: { value: number }) {
   return <strong className="ui-section-count">{value} models</strong>;
 }
@@ -110,7 +118,7 @@ export default function HelmetsPage(){
 
     <section className={styles.catalogPreview} aria-labelledby="helmet-catalog-title">
       <div className={styles.catalogHead}><div><span>Verified catalog</span><h2 id="helmet-catalog-title">Browse motorcycle helmets</h2></div><Link href="/gear/helmets/finder">Filter all helmets →</Link></div>
-      <HelmetProductGrid products={verified} limit={8} />
+      <HelmetPreviewGrid products={verified} limit={8} />
     </section>
 
     <InfoPanel className={`helmet-master-intro ${styles.intro}`}>
