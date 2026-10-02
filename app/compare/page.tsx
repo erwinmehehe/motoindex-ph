@@ -51,6 +51,7 @@ function ComparisonLink({ slug, summary }: { slug: string; summary: string }) {
 export default function CompareIndex(){
   return <section className={styles.page} data-compare-index>
     <PageHero
+      className={styles.compactHero}
       kicker={`${siteStats.currentMotorcycles} current models`}
       title="Compare Motorcycles"
       description="Compare up to 3 motorcycles side by side."
