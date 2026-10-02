@@ -114,7 +114,7 @@ export default function ScootersPage() {
       </nav>
       <div className={styles.catalogMeta}><strong>{scooters.length} scooter models</strong><span>Sort by: <b>Latest⌄</b></span></div>
       <div className={styles.modelGrid} data-mockup-scooter-grid>
-        {scooters.slice(0,12).map((model)=><MotorcycleCard key={model.id} model={model} variant="standard" />)}
+        {scooters.slice(0,12).map((model)=><MotorcycleCard key={model.id} model={model} variant="reference" />)}
       </div>
 
       <section className="section" aria-labelledby="scooter-price-philippines">
