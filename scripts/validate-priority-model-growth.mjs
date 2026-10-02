@@ -21,6 +21,17 @@ const dealerFinancingComponent = read("components", "DealerFinancingSnapshot.tsx
 const motorcycleEntityPage = read("components", "MotorcycleEntityPage.tsx");
 const zigwheelsGap = read("lib", "zigwheelsGapExpansion2026.ts");
 const zigwheelsGapWave2 = read("lib", "zigwheelsGapWave2_2026.ts");
+for (const token of [
+  'const isDiscontinued = model.marketStatus === "discontinued";',
+  'const isHistorical = isPrevious || isDiscontinued;',
+  '!isHistorical && !availabilityUncertain',
+  'open={isHistorical}'
+]) {
+  if (!motorcycleEntityPage.includes(token)) {
+    errors.push(`motorcycle historical-state UI guard missing: ${token}`);
+  }
+}
+
 
 const priorityModels = [
   "yamaha-aerox-v3",
