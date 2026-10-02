@@ -11,16 +11,13 @@
 .filters a:first-child,.filters a:hover{border-color:var(--mi-color-market-blue);background:var(--mi-color-market-blue);color:var(--mi-color-surface)}
 .countRow{display:flex;align-items:center;justify-content:space-between;margin:7px 0;color:var(--mi-color-slate-500);font-size:9px}
 .countRow strong{color:var(--mi-color-slate-900)}
-.preview :global(.product-grid){grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important}
-.preview :global(.product-card-shell){min-width:0}
-.preview :global(.product-card){overflow:hidden;border:1px solid var(--mi-color-market-line-strong)!important;border-radius:10px!important;background:var(--mi-color-surface)!important;box-shadow:0 3px 10px color-mix(in srgb,var(--mi-color-slate-900) 2.5%,transparent)!important}
-.preview :global(.product-card-media){height:126px!important;min-height:126px!important;padding:7px!important;background:var(--mi-color-surface)!important}
-.preview :global(.product-card-media img){width:100%!important;height:100%!important;object-fit:contain!important}
-.preview :global(.product-card-copy){padding:8px 10px 10px!important}
-.preview :global(.product-card-category){font-size:8px!important}
-.preview :global(.product-card-copy h3){margin:3px 0!important;font-size:11px!important;line-height:1.2!important}
-.preview :global(.product-card-copy p){margin:2px 0!important;font-size:8px!important}
-.preview :global(.product-card-foot strong){color:var(--mi-color-market-price)!important;font-size:13px!important}
-.preview :global(.product-card-foot span:last-child){display:none!important}
-@media(max-width:760px){.mockupHero{grid-template-columns:1fr}.heroHelmet{height:140px}.preview :global(.product-grid){grid-template-columns:repeat(2,1fr)!important}}
-@media(max-width:520px){.preview :global(.product-grid){grid-template-columns:1fr!important}}
+.previewGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.previewCard{min-width:0;overflow:hidden;border:1px solid var(--mi-color-market-line-strong);border-radius:10px;background:var(--mi-color-surface);box-shadow:var(--mi-shadow-market-xs)}
+.previewMedia{display:grid;height:126px;place-items:center;overflow:hidden;padding:7px;background:var(--mi-color-surface)}
+.previewMedia img{width:100%;height:100%;object-fit:contain}
+.previewCopy{display:block;padding:8px 10px 10px;text-decoration:none}
+.previewCopy strong{display:block;color:var(--mi-color-slate-900);font-size:11px;line-height:1.2}
+.previewCopy span{display:block;margin-top:3px;color:var(--mi-color-market-price);font-size:13px;font-weight:900}
+.previewCopy small{display:block;margin-top:2px;color:var(--mi-color-slate-500);font-size:8px;line-height:1.35}
+@media(max-width:760px){.mockupHero{grid-template-columns:1fr}.heroHelmet{height:140px}.previewGrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.previewGrid{grid-template-columns:1fr}}
