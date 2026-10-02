@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { GuideFeaturedArt } from "@/components/GuideFeaturedArt";
 import { editorialGuides } from "@/lib/editorialGuides";
 import { pageMetadata } from "@/lib/site";
+import styles from "./GuidesPage.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Guides Philippines: Helmets, Gear & Ownership",
@@ -13,18 +14,35 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function GuidesPage() {
+  const featuredGuide=editorialGuides[0];
+  const remainingGuides=editorialGuides.slice(1);
+  const tasks=[
+    {number:"01",title:"Choose a motorcycle",copy:"Shortlist current motorcycles by budget, use, rider fit and the tradeoffs that matter to you.",href:"/recommendations",action:"Open buying guides"},
+    {number:"02",title:"Plan ownership",copy:"Estimate total cost, insurance and paperwork after you have a realistic motorcycle shortlist.",href:"/ownership",action:"Open ownership hub"},
+    {number:"03",title:"Maintain a motorcycle",copy:"Use model schedules, maintenance references and official service resources.",href:"/maintenance",action:"Open maintenance guides"},
+    {number:"04",title:"Check gear and fitment",copy:"Research helmets, tire sizes and model-specific fitment before ordering gear or accessories.",href:"/fitment",action:"Open fitment finder"},
+    {number:"05",title:"Safety and paperwork",copy:"Check registration, ownership transfer, insurance and manufacturer safety resources.",href:"/ownership#paperwork",action:"Open paperwork guides"},
+    {number:"06",title:"Research electric",copy:"Compare current electric models, batteries, range, charging and Philippine registration context.",href:"/motorcycles/electric",action:"Open electric research"}
+  ];
   return <section className="page shell">
     <Breadcrumbs items={[{ label: "Guides" }]} />
     <div className="page-head"><span className="entity-kicker">Rider guides</span><h1>Motorcycle guides for Philippine riders</h1><p>Start with the task you are trying to solve, then open the detailed guide or tool only when you need it.</p></div>
 
+    {featuredGuide && <article className={styles.featured}>
+      <div className={styles.featuredArt}><GuideFeaturedArt slug={featuredGuide.slug} title={featuredGuide.title} kicker={featuredGuide.kicker} /></div>
+      <div className={styles.featuredCopy}>
+        <span>Featured guide · {featuredGuide.kicker}</span>
+        <h2>{featuredGuide.title}</h2>
+        <p>{featuredGuide.description}</p>
+        <Link className={`button ${styles.featuredAction}`} href={`/guides/${featuredGuide.slug}`}>Read featured guide →</Link>
+      </div>
+    </article>}
+
     <div className="section-head compact"><div><span className="section-kicker">Choose a starting point</span><h2>What are you trying to do?</h2></div></div>
-    <div className="topic-grid">
-      <article><h2>Choose a motorcycle</h2><p>Shortlist current motorcycles by budget, use, rider fit and the tradeoffs that matter to you.</p><div className="topic-action"><Link href="/recommendations">Open buying guides →</Link></div></article>
-      <article><h2>Plan ownership</h2><p>Estimate total cost, insurance and paperwork after you have a realistic motorcycle shortlist.</p><div className="topic-action"><Link href="/ownership">Open ownership hub →</Link></div></article>
-      <article><h2>Maintain a motorcycle</h2><p>Use model schedules, maintenance references and official service resources without mixing generic advice with exact intervals.</p><div className="topic-action"><Link href="/maintenance">Open maintenance guides →</Link></div></article>
-      <article><h2>Check gear and fitment</h2><p>Research helmets, tire sizes and model-specific fitment before ordering riding gear or accessories.</p><div className="topic-action"><Link href="/fitment">Open fitment finder →</Link></div></article>
-      <article><h2>Handle safety and paperwork</h2><p>Check registration, ownership transfer, insurance and manufacturer safety resources from one ownership path.</p><div className="topic-action"><Link href="/ownership#paperwork">Open paperwork guides →</Link></div></article>
-      <article><h2>Research electric motorcycles</h2><p>Compare current electric models, batteries, range, charging and Philippine registration context.</p><div className="topic-action"><Link href="/motorcycles/electric">Open electric research →</Link></div></article>
+    <div className={styles.taskGrid}>
+      {tasks.map((task)=><Link className={styles.taskCard} href={task.href} key={task.number}>
+        <span className={styles.taskNumber}>{task.number}</span><h2>{task.title}</h2><p>{task.copy}</p><strong>{task.action} →</strong>
+      </Link>)}
     </div>
 
     <div className="section-head compact"><div><span className="section-kicker">MotoIndex data research</span><h2>Compare the underlying motorcycle data</h2><p>Use source-led datasets when you need a market-wide view before narrowing to individual model pages.</p></div><Link href="/research">Open research hub →</Link></div>
@@ -35,6 +53,6 @@ export default function GuidesPage() {
     </div>
 
     <div className="section-head inline-head"><div><span className="section-kicker">Published research</span><h2>Detailed MotoIndex guides</h2><p>Use these when you need a focused answer beyond the main buying and ownership tools.</p></div></div>
-    <div className="guide-grid">{editorialGuides.map((guide) => <Link className="guide-card" key={guide.slug} href={`/guides/${guide.slug}`}><div style={{marginBottom:16}}><GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} compact /></div><span className="section-kicker">{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><strong className="guide-action">Read guide →</strong></Link>)}</div>
+    <div className="guide-grid">{remainingGuides.map((guide) => <Link className="guide-card" key={guide.slug} href={`/guides/${guide.slug}`}><div style={{marginBottom:16}}><GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} compact /></div><span className="section-kicker">{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><strong className="guide-action">Read guide →</strong></Link>)}</div>
   </section>;
 }
