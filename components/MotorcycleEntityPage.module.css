@@ -156,3 +156,224 @@
   .page :global(.motorcycle-entity-section){padding:var(--mi-space-8) 0}
   .page :global(.entity-spec-table){grid-template-columns:1fr}
 }
+
+.heroBrandLogo{
+  position:absolute;
+  z-index:4;
+  top:var(--mi-space-4);
+  right:var(--mi-space-5);
+  width:auto;
+  max-width:120px;
+  max-height:36px;
+  object-fit:contain;
+}
+.heroScene{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  background:
+    linear-gradient(90deg,var(--mi-color-surface) 0%,transparent 18%),
+    linear-gradient(180deg,var(--mi-color-primary-soft),var(--mi-color-surface));
+}
+.heroScene:after{
+  position:absolute;
+  right:0;
+  bottom:0;
+  width:76%;
+  height:48%;
+  background:color-mix(in srgb,var(--mi-color-slate-300) 32%,transparent);
+  clip-path:polygon(0 100%,0 74%,8% 74%,8% 48%,16% 48%,16% 66%,24% 66%,24% 34%,34% 34%,34% 78%,44% 78%,44% 54%,53% 54%,53% 70%,64% 70%,64% 38%,74% 38%,74% 74%,84% 74%,84% 52%,92% 52%,92% 66%,100% 66%,100% 100%);
+  content:"";
+}
+.page :global(.motorcycle-entity-hero){
+  border-bottom:1px solid var(--mi-color-line-soft);
+  background:linear-gradient(180deg,var(--mi-color-surface),var(--mi-color-primary-soft));
+}
+.page :global(.motorcycle-hero-grid){
+  grid-template-columns:minmax(0,.78fr) minmax(480px,1.22fr);
+  gap:var(--mi-space-6);
+  align-items:stretch;
+  padding-bottom:var(--mi-space-4);
+}
+.page :global(.motorcycle-hero-copy){
+  padding:var(--mi-space-4) 0 var(--mi-space-2);
+}
+.page :global(.motorcycle-hero-copy h1){
+  max-width:520px;
+  margin:var(--mi-space-2) 0;
+  font-size:clamp(2.5rem,4vw,3.7rem);
+  line-height:.98;
+  letter-spacing:-.055em;
+}
+.page :global(.motorcycle-hero-copy .entity-lede){
+  max-width:540px;
+  margin-top:var(--mi-space-3);
+  font-size:var(--mi-type-sm);
+  line-height:1.55;
+}
+.brandLine{
+  margin-bottom:var(--mi-space-2);
+}
+.brandLine img{display:none}
+.brandLine span{
+  color:var(--mi-color-muted);
+  font-size:.65rem;
+  text-transform:none;
+}
+.page :global(.motorcycle-price-lockup){
+  margin-top:var(--mi-space-4);
+}
+.page :global(.motorcycle-price-lockup>span){
+  color:var(--mi-color-muted);
+  font-size:.62rem;
+  font-weight:800;
+  text-transform:uppercase;
+}
+.page :global(.motorcycle-price-lockup>strong){
+  display:block;
+  margin-top:4px;
+  color:var(--mi-color-primary);
+  font-size:clamp(1.7rem,2.8vw,2.35rem);
+  letter-spacing:-.035em;
+}
+.page :global(.motorcycle-price-lockup>small){
+  display:block;
+  margin-top:3px;
+  color:var(--mi-color-copy);
+  font-size:.62rem;
+}
+.page :global(.entity-hero-actions){
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--mi-space-2);
+  margin-top:var(--mi-space-4);
+}
+.page :global(.entity-hero-actions .button){
+  min-height:38px;
+  padding-inline:var(--mi-space-4);
+  border-radius:var(--mi-radius-sm);
+  box-shadow:none;
+  font-size:var(--mi-type-xs);
+}
+.page :global(.entity-hero-utilities){
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--mi-space-2);
+  margin-top:var(--mi-space-2);
+}
+.page :global(.motorcycle-hero-visual){
+  position:relative;
+  min-height:330px;
+  overflow:hidden;
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-xl);
+  background:var(--mi-color-surface);
+}
+.page :global(.motorcycle-hero-media){
+  position:relative;
+  z-index:2;
+  display:grid;
+  width:100%;
+  height:245px;
+  place-items:center;
+  margin-top:42px;
+}
+.page :global(.motorcycle-hero-media img){
+  width:100%;
+  height:100%;
+  padding:0 var(--mi-space-4);
+  object-fit:contain;
+  filter:drop-shadow(0 18px 18px color-mix(in srgb,var(--mi-color-slate-900) 18%,transparent));
+}
+.colorStrip{
+  position:relative;
+  z-index:3;
+  margin:0 var(--mi-space-4);
+  padding:var(--mi-space-2) var(--mi-space-3);
+  border-radius:var(--mi-radius-sm);
+}
+.colorStrip>span{font-size:.62rem}
+.colorChip{
+  min-height:26px;
+  padding:4px 7px;
+  font-size:.58rem;
+}
+.page :global(.motorcycle-hero-facts){
+  position:relative;
+  z-index:3;
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:0;
+  margin-top:var(--mi-space-3);
+  border-top:1px solid var(--mi-color-line);
+  background:var(--mi-color-surface);
+}
+.page :global(.motorcycle-hero-facts>div){
+  min-width:0;
+  padding:var(--mi-space-3);
+  border-left:1px solid var(--mi-color-line-soft);
+  text-align:center;
+}
+.page :global(.motorcycle-hero-facts>div:first-child){border-left:0}
+.page :global(.motorcycle-hero-facts span){
+  display:block;
+  color:var(--mi-color-muted);
+  font-size:.58rem;
+  font-weight:800;
+  text-transform:uppercase;
+}
+.page :global(.motorcycle-hero-facts strong){
+  display:block;
+  margin-top:4px;
+  color:var(--mi-color-ink);
+  font-size:var(--mi-type-sm);
+}
+.page :global(.motorcycle-hero-facts small){
+  display:block;
+  margin-top:3px;
+  color:var(--mi-color-copy);
+  font-size:.56rem;
+  line-height:1.35;
+}
+.page :global(.motorcycle-entity-nav-wrap){
+  padding-top:var(--mi-space-3);
+}
+.page :global(.product-entity-nav){
+  min-height:42px;
+  margin:0;
+  padding:4px;
+  border:1px solid var(--mi-color-line);
+  border-radius:var(--mi-radius-md);
+  background:var(--mi-color-surface);
+  box-shadow:none;
+}
+.page :global(.product-entity-nav a){
+  min-height:34px;
+  border-radius:var(--mi-radius-sm);
+  font-size:.65rem;
+}
+.page :global(.product-entity-nav a:first-child){
+  background:var(--mi-color-primary);
+  color:var(--mi-color-surface);
+}
+.page :global(.motorcycle-analytics-panel){
+  display:none;
+}
+.page :global(.entity-overview-section){
+  display:grid;
+  grid-template-columns:minmax(0,1.55fr) minmax(280px,.45fr);
+  gap:var(--mi-space-4);
+  align-items:start;
+}
+@media(max-width:900px){
+  .page :global(.motorcycle-hero-grid){grid-template-columns:1fr}
+  .page :global(.motorcycle-hero-visual){min-height:310px}
+  .page :global(.entity-overview-section){grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .heroBrandLogo{top:var(--mi-space-3);right:var(--mi-space-3);max-width:96px}
+  .page :global(.motorcycle-hero-media){height:220px}
+  .page :global(.motorcycle-hero-facts){grid-template-columns:repeat(2,minmax(0,1fr))}
+  .page :global(.motorcycle-hero-facts>div){border-top:1px solid var(--mi-color-line-soft)}
+  .page :global(.motorcycle-hero-facts>div:nth-child(odd)){border-left:0}
+}
