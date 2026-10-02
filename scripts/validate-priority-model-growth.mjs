@@ -21,6 +21,7 @@ const dealerFinancingComponent = read("components", "DealerFinancingSnapshot.tsx
 const motorcycleEntityPage = read("components", "MotorcycleEntityPage.tsx");
 const zigwheelsGap = read("lib", "zigwheelsGapExpansion2026.ts");
 const zigwheelsGapWave2 = read("lib", "zigwheelsGapWave2_2026.ts");
+const zigwheelsGapWave3 = read("lib", "zigwheelsGapWave3_2026.ts");
 for (const token of [
   'const isDiscontinued = model.marketStatus === "discontinued";',
   'const isHistorical = isPrevious || isDiscontinued;',
@@ -631,6 +632,29 @@ for (const modelId of [
   if (!zigwheelsGapWave2.includes(`id: "${modelId}"`)) {
     errors.push(`ZigWheels keyword-gap wave 2: missing model entity ${modelId}`);
   }
+}
+
+for (const modelId of [
+  "honda-pcx150",
+  "yamaha-tricity",
+  "honda-cb150r",
+  "honda-wave-dash-110"
+]) {
+  if (!zigwheelsGapWave3.includes(`id: "${modelId}"`)) {
+    errors.push(`ZigWheels keyword-gap wave 3: missing model entity ${modelId}`);
+  }
+}
+
+for (const token of [
+  'id: "suzuki-gixxer-155", alsoKnownAs: ["Suzuki Gixxer FI", "Gixxer FI", "Suzuki Gixxer"]',
+  'searchVolume: 9060'
+]) {
+  if (!data.includes(token)) {
+    errors.push(`Gixxer FI canonical consolidation missing: ${token}`);
+  }
+}
+if (zigwheelsGapWave3.includes('id: "suzuki-gixxer-fi"')) {
+  errors.push("Gixxer FI must stay consolidated on the current Gixxer 155 canonical");
 }
 
 for (const token of [
