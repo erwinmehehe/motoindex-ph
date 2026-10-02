@@ -95,3 +95,24 @@
   .featuredCopy{padding:var(--mi-space-5)}
   .taskGrid{grid-template-columns:1fr}
 }
+
+.mockupHero{display:grid;grid-template-columns:minmax(0,.9fr) minmax(360px,1.1fr);min-height:170px;overflow:hidden;margin:4px 0 8px;border:1px solid #dce7f4;border-radius:11px;background:linear-gradient(180deg,#eef7ff,#fff)}
+.mockupHero>div:first-child{padding:20px 22px;align-self:center}
+.mockupHero>div:first-child>span{color:#64748b;font-size:8px;font-weight:800;text-transform:uppercase}
+.mockupHero h1{margin:4px 0 0;color:#0f172a;font-size:29px;line-height:1;letter-spacing:-.045em}
+.mockupHero p{max-width:490px;margin:7px 0 0;color:#475569;font-size:10px;line-height:1.5}
+.heroArt{min-height:170px;overflow:hidden}
+.heroArt>*{height:100%}
+.filters{display:flex;gap:6px;overflow-x:auto;margin-bottom:8px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filters a{flex:0 0 auto;padding:8px 12px;border:1px solid #dbe5f2;border-radius:7px;background:#fff;color:#334155;font-size:8px;font-weight:800;text-decoration:none}
+.filters a:first-child,.filters a:hover{border-color:#2563eb;background:#2563eb;color:#fff}
+.mockupGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:18px}
+.mockupCard{display:flex;min-width:0;flex-direction:column;overflow:hidden;border:1px solid #dce7f4;border-radius:9px;background:#fff;text-decoration:none}
+.mockupCard>div:first-child{height:112px}
+.mockupCard>span{margin:7px 9px 0;color:#f59e0b;font-size:7px;font-weight:900;text-transform:uppercase}
+.mockupCard h2{margin:3px 9px 0;color:#0f172a;font-size:11px;line-height:1.2}
+.mockupCard p{display:-webkit-box;overflow:hidden;margin:4px 9px 0;color:#64748b;font-size:8px;line-height:1.4;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.mockupCard small{margin:7px 9px 9px;color:#2563eb;font-size:8px;font-weight:800}
+@media(max-width:760px){.mockupHero{grid-template-columns:1fr}.heroArt{min-height:150px}.mockupGrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.mockupGrid{grid-template-columns:1fr}}
