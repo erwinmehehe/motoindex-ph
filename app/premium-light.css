@@ -57,8 +57,8 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
 .brand-logo{filter:none}
 .site-header .nav-links>a,
 .site-header .nav-more>summary{
-  color:var(--mi-color-slate-700)!important;
-  font-weight:760!important;
+  color:var(--mi-color-slate-700);
+  font-weight:760;
 }
 .site-header .nav-links>a:hover,
 .site-header .nav-more>summary:hover,
@@ -70,9 +70,9 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
   bottom:-14px!important;
 }
 .nav-search,.shortlist-nav,.mobile-search{
-  color:var(--mi-color-slate-700)!important;
-  background:var(--mi-color-surface)!important;
-  border-color:var(--mi-color-market-line-strong)!important;
+  color:var(--mi-color-slate-700);
+  background:var(--mi-color-surface);
+  border-color:var(--mi-color-market-line-strong);
   box-shadow:none!important;
 }
 .nav-search:hover,.shortlist-nav:hover,.mobile-search:hover{
