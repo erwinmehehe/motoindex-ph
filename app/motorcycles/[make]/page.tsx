@@ -205,7 +205,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <SectionHeader kicker="Current motorcycles" title={`Compare ${brand} motorcycle models in the Philippines`} description={current.length <= 2 ? `Compare the ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} by price and key specifications.` : `Compare ${current.length} current ${brand} motorcycle models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`} />
         <BrandCategoryTabs models={current.map((model) => ({ id: model.id, category: model.category }))} />
         <div className="card-grid ph-brand-model-grid" style={{ display: "grid", width: "100%", gap: 14 }}>{current.map((m) => <div className="wire-brand-model" key={m.id} data-brand-model-category={m.category}><MotorcycleCard model={m} variant="standard" /></div>)}</div>
-        <a className="wire-load-more" href="#price-list">View complete ${brand} price list ↓</a>
+        <a className="wire-load-more" href="#price-list">View complete {brand} price list ↓</a>
       </section>
 
       {bigBikes.length > 0 && brandGrowth?.bigBikeTitle && brandGrowth.bigBikeDescription ? <section id="big-bikes" className="ph-brand-section">
