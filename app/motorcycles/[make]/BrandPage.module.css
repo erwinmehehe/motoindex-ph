@@ -19,3 +19,7 @@
 .brandPanel,.quickFacts,.quickFact,.panelEyebrow,.panelTitle,.panelCopy{display:none}
 @media(max-width:900px){.heroGrid{grid-template-columns:1fr}.brandVisual{min-height:230px}.heroCopy{padding-top:0}}
 @media(max-width:560px){.heroGrid{min-height:0}.brandVisual{min-height:190px}.logoStage img{max-width:170px}.heroCopy h1{font-size:21px}.heroCopy p{font-size:11px}}
+
+.modelGrid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important}
+@media(max-width:760px){.modelGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:520px){.modelGrid{grid-template-columns:1fr!important}}
