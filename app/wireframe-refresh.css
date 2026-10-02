@@ -423,3 +423,45 @@ main{min-height:60vh}
   .wire-category-model-grid{grid-template-columns:1fr}
   .wire-model-colors{align-items:flex-start;flex-direction:column}.wire-model-colors>div{justify-content:flex-start}
 }
+
+
+/* Final utility surfaces */
+.nav-price-list{
+  display:flex!important;min-height:52px!important;flex-direction:column;align-items:flex-start!important;justify-content:center;
+  margin:0 0 10px;padding:10px 12px!important;border:1px solid #e2e8f0!important;border-radius:12px!important;
+  background:#f8fbff!important;color:#172033!important;
+}
+.nav-price-list strong{font-size:11px}.nav-price-list small{margin-top:2px;color:#7a8495;font-size:9px}
+.nav-price-list:hover{border-color:#cad8f1!important;background:#f1f6ff!important}
+
+.wire-price-count{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.wire-price-count button{
+  min-height:34px;padding:0 11px;border:1px solid #dce4ef;border-radius:9px;background:#fff;color:#344054;font-size:9px;font-weight:800;cursor:pointer;
+}
+.wire-price-count button:hover{border-color:#c4d2ec;color:var(--wire-blue);background:#f8fbff}
+
+.wire-guide-feature{
+  display:grid;grid-template-columns:minmax(300px,.9fr) minmax(0,1.1fr);gap:0;overflow:hidden;
+  margin:4px 0 42px;border:1px solid #dfe6f0;border-radius:22px;background:#fff;color:#172033;
+  box-shadow:var(--wire-shadow);
+}
+.wire-guide-feature:hover{transform:translateY(-3px);border-color:#c9d6ed;box-shadow:var(--wire-shadow-hover)}
+.wire-guide-feature-art{min-height:300px;background:#f4f7fb}
+.wire-guide-feature-art>*{height:100%}
+.wire-guide-feature-copy{display:flex;flex-direction:column;justify-content:center;padding:34px}
+.wire-guide-feature-copy h2{max-width:600px;margin:8px 0 11px;color:#101828;font-size:clamp(28px,3.4vw,42px);line-height:1.02;letter-spacing:-.04em}
+.wire-guide-feature-copy p{max-width:600px;margin:0;color:#667085;font-size:13px;line-height:1.65}
+.wire-guide-feature-copy strong{margin-top:22px;color:var(--wire-blue);font-size:11px}
+
+@media(max-width:760px){
+  .wire-guide-feature{grid-template-columns:1fr}.wire-guide-feature-art{min-height:220px}.wire-guide-feature-copy{padding:22px}
+  .mobile-menu-featured>a:last-child{grid-column:1/-1}
+}
+@media print{
+  .site-header,.footer,.compare-tray,.wire-filter-bar,.wire-price-count button,.ui-page-hero__actions{display:none!important}
+  body,html{background:#fff!important}
+  .wire-price-list-page{width:100%!important;max-width:none!important;padding:0!important}
+  .wire-price-table-wrap{overflow:visible;border:0}
+  .wire-price-table{min-width:0;font-size:9pt}
+  .wire-price-table th,.wire-price-table td{padding:6pt 7pt}
+}
