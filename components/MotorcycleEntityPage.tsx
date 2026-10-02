@@ -195,7 +195,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
               <span>{model.make} · Philippine model research</span>
             </div>
             <span className="entity-kicker">Philippines model guide · {model.generation} · {model.category}{availabilityUncertain ? " · availability to verify" : ""}</span>
-            <h1>{seo.heading}</h1>
+            <h1>{model.make} {model.model}</h1>
             <p className="entity-lede">{seo.intro}</p>
             <div className="motorcycle-price-lockup">
               <span>{isPrevious ? "Historical launch reference" : availabilityUncertain ? "Published PH price · availability to verify" : "Published Philippine price"}</span>
@@ -231,14 +231,12 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
     <div className="shell motorcycle-entity-nav-wrap">
       <ProductEntityNav items={[
-        { href: "#price", label: "Price & variants" },
-        { href: "#specs", label: "Key specs" },
-        ...(authority ? [{ href: "#buyer-guide", label: "Who it suits" }] : []),
-        ...(!isPrevious ? [{ href: "#installment", label: "Monthly" }] : []),
-        { href: "#rider-fit", label: "Rider fit" },
-        ...(!isPrevious ? [{ href: "#ownership", label: "Ownership" }] : []),
-        ...(!isPrevious ? [{ href: "#alternatives", label: "Alternatives" }] : []),
-        { href: "#detailed-research", label: "Detailed research" },
+        { href: "#overview", label: "Overview" },
+        { href: "#specs", label: "Specs" },
+        ...(authority ? [{ href: "#buyer-guide", label: "Features" }] : []),
+        { href: "#price", label: "Variants & Price" },
+        { href: "#overview", label: "Colors" },
+        { href: "#detailed-research", label: "Reviews" },
       ]} />
     </div>
 
