@@ -61,14 +61,14 @@ export default function HomePage() {
         <div className="shell mi-hero-layout">
           <div className="mi-hero-copy">
             <div className="mi-badge"><b>Motorcycle prices, specs and ownership tools</b><em>Philippines</em></div>
-            <p className="mi-hero-promise">Find the right motorcycle for your next ride.</p><h1 id="mi-home-title">Compare <span>motorcycle prices</span><br />and specs in the Philippines.</h1>
+            <p className="mi-eyebrow">Find the right motorcycle for your next ride.</p><h1 id="mi-home-title">Compare <span>motorcycle prices</span><br />and specs in the Philippines.</h1>
             <p>Compare current motorcycle prices, specifications, rider fit and ownership costs for models available in the Philippines.</p>
             <form className="mi-search" action="/motorcycles" method="get" role="search">
               <label className="sr-only" htmlFor="mi-home-search">Search motorcycles by brand or model</label>
               <input id="mi-home-search" type="search" name="q" placeholder="Search Aerox, ADV, Click, Honda..." />
               <button type="submit">Search bikes</button>
             </form>
-            <nav className="mi-category-pills" aria-label="Popular motorcycle categories"><Link href="/motorcycles/scooters">Scooter</Link><Link href="/recommendations#commuting">Underbone</Link><Link href="/recommendations">Naked</Link><Link href="/recommendations">Sports</Link><Link href="/recommendations">Adventure</Link><Link href="/recommendations#400cc">Big Bike</Link></nav>
+            <nav className="mi-popular" aria-label="Popular motorcycle categories"><b>Browse:</b><Link href="/motorcycles/scooters">Scooter</Link><Link href="/recommendations#commuting">Underbone</Link><Link href="/recommendations">Naked</Link><Link href="/recommendations">Sports</Link><Link href="/recommendations">Adventure</Link><Link href="/recommendations#400cc">Big Bike</Link></nav>
             <div className="mi-trust"><span>✓ {siteStats.currentMotorcycles} current models</span><span>✓ Compare up to 3</span><span>✓ Save a shortlist</span></div>
           </div>
 
