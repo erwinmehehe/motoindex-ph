@@ -49,6 +49,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const current = publicModels.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued").sort((a, b) => a.srp - b.srp || a.model.localeCompare(b.model));
   const uncertain = publicModels.filter((m) => m.marketStatus === "uncertain").sort((a, b) => a.model.localeCompare(b.model));
   const previous = publicModels.filter((m) => m.marketStatus === "previous").sort((a, b) => a.model.localeCompare(b.model));
+  const discontinued = publicModels.filter((m) => m.marketStatus === "discontinued").sort((a, b) => a.model.localeCompare(b.model));
   const families = modelFamilies.filter((f) => f.makeSlug === make && f.generationIds.length > 0 && f.generationIds.every((id) => publicIds.has(id)));
   const priority = getPhBrandPriority(make);
   if (!publicModels.length) {
@@ -91,7 +92,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     },
     {
       question: `How many ${brand} motorcycles are covered on this page?`,
-      answer: `There are ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} covered here${previous.length ? `, plus ${previous.length} previous-generation ${previous.length === 1 ? "model" : "models"} kept for reference` : ""}.`
+      answer: `There are ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} covered here${previous.length ? `, plus ${previous.length} previous-generation ${previous.length === 1 ? "model" : "models"}` : ""}${discontinued.length ? ` and ${discontinued.length} discontinued ${discontinued.length === 1 ? "model" : "models"} kept for owner and used-bike research` : ""}.`
     },
     {
       question: `What is the cheapest ${brand} motorcycle currently tracked?`,
@@ -255,6 +256,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       {uncertain.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Availability to verify" title={`${brand} models needing a current lineup check`} description="These model pages remain available for research, but they stay outside the current price list until present-day official availability is confirmed." /><div className="card-grid">{uncertain.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
 
       {previous.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Archive" title={`Previous ${brand} motorcycle models and prices`} description="Previous-generation references are kept separate from the current price list so historical launch pricing is not mistaken for today&apos;s price." /><div className="card-grid">{previous.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
+
+      {discontinued.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Discontinued archive" title={`Discontinued ${brand} motorcycle models and prices`} description="Discontinued-model references stay available for specifications, owner research, parts research and used-bike shopping. Historical prices are not current new-bike quotes." /><div className="card-grid">{discontinued.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
 
       <section id="faq" className="ph-brand-section">
         <SectionHeader kicker="Quick answers" title={`${brand} Motorcycle Philippines Price List FAQ`} />

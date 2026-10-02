@@ -77,6 +77,8 @@ function AnalyticsMetric({ id, label, value, unit, note, fill, featured = false 
 
 export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const isPrevious = model.marketStatus === "previous";
+  const isDiscontinued = model.marketStatus === "discontinued";
+  const isHistorical = isPrevious || isDiscontinued;
   const availabilityUncertain = model.marketStatus === "uncertain";
   const successor = model.successorId ? getModelById(model.successorId) : undefined;
   const seo = motorcycleEntitySeo(model);
@@ -171,17 +173,17 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: model.make, href: `/motorcycles/${model.makeSlug}` }, { label: model.model }]} />
         <div className="motorcycle-hero-grid">
           <div className="motorcycle-hero-copy">
-            <span className="entity-kicker">Philippines model guide · {model.generation} · {model.category}{availabilityUncertain ? " · availability to verify" : ""}</span>
+            <span className="entity-kicker">Philippines model guide · {model.generation} · {model.category}{isDiscontinued ? " · discontinued" : availabilityUncertain ? " · availability to verify" : ""}</span>
             <h1>{seo.heading}</h1>
             <p className="entity-lede">{seo.intro}</p>
             <div className="motorcycle-price-lockup">
-              <span>{isPrevious ? "Historical launch reference" : availabilityUncertain ? "Published PH price · availability to verify" : "Published Philippine price"}</span>
+              <span>{isHistorical ? (isDiscontinued ? "Historical price reference · discontinued" : "Historical launch reference") : availabilityUncertain ? "Published PH price · availability to verify" : "Published Philippine price"}</span>
               <strong>{priceRange.length === 2 ? <><b data-price-boundary style={{ fontWeight: "inherit" }}>{priceRange[0]}</b><i data-price-separator style={{ margin: "0 .22em", color: "var(--model-muted)", fontStyle: "normal", fontWeight: 500 }}>–</i><b data-price-boundary style={{ fontWeight: "inherit" }}>{priceRange[1]}</b></> : priceLabel}</strong>
-              <small>{isPrevious ? "Historical context, not a current new-bike quote." : "Final dealer pricing can vary."}</small>
+              <small>{isHistorical ? "Historical context, not a current new-bike quote." : "Final dealer pricing can vary."}</small>
             </div>
             <CTAGroup className="entity-hero-actions">
-              {!isPrevious && !availabilityUncertain && <Link className="button" href={`/get-quote/${model.makeSlug}/${model.slug}`}>Get dealer price</Link>}
-              <a className={isPrevious ? "button" : "button ghost on-light"} href={isPrevious ? "#used" : "#installment"}>{isPrevious ? "Check used value" : "Estimate monthly"}</a>
+              {!isHistorical && !availabilityUncertain && <Link className="button" href={`/get-quote/${model.makeSlug}/${model.slug}`}>Get dealer price</Link>}
+              <a className={isHistorical ? "button" : "button ghost on-light"} href={isHistorical ? "#used" : "#installment"}>{isHistorical ? "Check used value" : "Estimate monthly"}</a>
             </CTAGroup>
             <div className="entity-hero-utilities"><SaveToShortlistButton modelId={model.id} /><CompareButton modelId={model.id} /><ShareModelButton label="Share" /></div>
             <Freshness model={model} />
@@ -204,10 +206,10 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         { href: "#price", label: "Price & variants" },
         { href: "#specs", label: "Key specs" },
         ...(authority ? [{ href: "#buyer-guide", label: "Who it suits" }] : []),
-        ...(!isPrevious ? [{ href: "#installment", label: "Monthly" }] : []),
+        ...(!isHistorical ? [{ href: "#installment", label: "Monthly" }] : []),
         { href: "#rider-fit", label: "Rider fit" },
-        ...(!isPrevious ? [{ href: "#ownership", label: "Ownership" }] : []),
-        ...(!isPrevious ? [{ href: "#alternatives", label: "Alternatives" }] : []),
+        ...(!isHistorical ? [{ href: "#ownership", label: "Ownership" }] : []),
+        ...(!isHistorical ? [{ href: "#alternatives", label: "Alternatives" }] : []),
         { href: "#detailed-research", label: "Detailed research" },
       ]} />
     </div>
@@ -224,7 +226,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         </div>
       </section>
       {availabilityUncertain && <section className="entity-alert-card"><div><span>Availability needs verification</span><h2>Confirm current new-bike availability before relying on this price</h2><p>This model has Philippine price and specification references but is not treated as part of the current shopping catalog until present-day availability is confirmed.</p></div></section>}
-      {isPrevious && successor && <section className="entity-alert-card"><div><span>Previous generation</span><h2>Looking for the current model?</h2><p>{model.model} stays live for owners and used-bike research. Current new-bike pricing belongs to {successor.make} {successor.model}.</p></div><Link className="button small" href={`/motorcycles/${successor.makeSlug}/${successor.slug}`}>View {successor.model} →</Link></section>}
+      {isHistorical && successor && <section className="entity-alert-card"><div><span>{isDiscontinued ? "Discontinued model" : "Previous generation"}</span><h2>Looking for the current model?</h2><p>{model.model} stays live for owners and used-bike research. Current new-bike pricing belongs to {successor.make} {successor.model}.</p></div><Link className="button small" href={`/motorcycles/${successor.makeSlug}/${successor.slug}`}>View {successor.model} →</Link></section>}
 
       <section className="motorcycle-entity-section entity-overview-section" aria-labelledby="overview-heading">
         <SectionHeader kicker="Decision summary" titleId="overview-heading" title={<>Is the {model.make} {model.model} worth shortlisting?</>} description="Start with who it suits and the important trade-offs. The deeper evidence stays lower on the page." />
@@ -232,11 +234,11 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       </section>
 
       <section id="price" className="motorcycle-entity-section" aria-labelledby="price-heading">
-        <SectionHeader kicker="Price & variants" titleId="price-heading" title={<>{model.make} {model.model} price in the Philippines</>} description={isPrevious ? "Historical launch pricing is kept separate from used value." : "Start with the published price and exact variant, then confirm the current dealer quote before purchase."} />
-        <div className="entity-price-grid motorcycle-price-grid"><article><span>{isPrevious ? "Historical launch SRP" : "Published price"}</span><strong>{observedMarketPriceLabel(model)}</strong><small>{isPrevious ? "Historical reference only." : "Confirm the current dealer quote before purchase."}</small></article><article><span>Model status</span><strong>{isPrevious ? "Previous generation" : availabilityUncertain ? "Availability needs verification" : "Current model"}</strong><small>{model.generation} · {model.category}</small></article></div>
-        {!isPrevious && <VariantMatrix model={model} />}
-        {!isPrevious && <PriceIntelligence model={model} />}
-        {!isPrevious && <MarketPriceChecks model={model} />}
+        <SectionHeader kicker="Price & variants" titleId="price-heading" title={<>{model.make} {model.model} price in the Philippines</>} description={isHistorical ? "Historical pricing is kept separate from used value." : "Start with the published price and exact variant, then confirm the current dealer quote before purchase."} />
+        <div className="entity-price-grid motorcycle-price-grid"><article><span>{isHistorical ? "Historical price reference" : "Published price"}</span><strong>{observedMarketPriceLabel(model)}</strong><small>{isHistorical ? "Historical reference only." : "Confirm the current dealer quote before purchase."}</small></article><article><span>Model status</span><strong>{isDiscontinued ? "Discontinued" : isPrevious ? "Previous generation" : availabilityUncertain ? "Availability needs verification" : "Current model"}</strong><small>{model.generation} · {model.category}</small></article></div>
+        {!isHistorical && <VariantMatrix model={model} />}
+        {!isHistorical && <PriceIntelligence model={model} />}
+        {!isHistorical && <MarketPriceChecks model={model} />}
       </section>
 
       <section className="motorcycle-entity-section global-spec-intent" aria-labelledby="quick-specs-heading">
@@ -272,7 +274,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <div className="authority-grid motorcycle-decision-grid"><article className="authority-buy"><span>Buy it if</span><ul>{authority.buyIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-skip"><span>Skip it if</span><ul>{authority.skipIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-ph"><span>Philippine ownership</span><ul>{authority.phContext.map((item) => <li key={item}>{item}</li>)}</ul></article></div>
       </section>}
 
-      {!isPrevious && <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
+      {!isHistorical && <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
         <SectionHeader
           kicker="Monthly payment"
           titleId="installment-heading"
@@ -291,13 +293,13 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <RiderFitCalculator model={forClient(model)} />
       </section>
 
-      {!isPrevious && <section id="ownership" className="motorcycle-entity-section motorcycle-ownership-section" aria-labelledby="ownership-heading">
+      {!isHistorical && <section id="ownership" className="motorcycle-entity-section motorcycle-ownership-section" aria-labelledby="ownership-heading">
         <SectionHeader kicker="Ownership estimate" titleId="ownership-heading" title={`What could the ${model.model} cost to own?`} description="See the monthly picture first. Open advanced assumptions only when you want to model financing, fuel, maintenance, insurance, registration, tires and resale in detail." />
         <CommuteSnapshot model={model} />
         <details className="entity-disclosure ownership-assumptions"><summary>Adjust full ownership assumptions</summary><OwnershipCostCalculator model={forClient(model)} /></details>
       </section>}
 
-      {!isPrevious && <section id="alternatives" className="motorcycle-entity-section" aria-labelledby="alternatives-heading">
+      {!isHistorical && <section id="alternatives" className="motorcycle-entity-section" aria-labelledby="alternatives-heading">
         <SectionHeader kicker="Alternatives" titleId="alternatives-heading" title="What else should you consider?" description="Compare the motorcycles most likely to change the decision before you focus on deep technical research." />
         {authorityComparisons.length > 0 && <div className="authority-comparisons motorcycle-alternative-cards"><div><span>Buyer-guide alternatives</span><strong>Start with these direct cross-shopping choices</strong></div><div>{authorityComparisons.slice(0,3).map((item) => <Link key={item.id} href={`/motorcycles/${item.makeSlug}/${item.slug}`}><span>{item.make} {item.model}</span><small>{item.engineCc} cc · {observedMarketPriceLabel(item)}</small></Link>)}</div></div>}
         {(modelFamily || scooterClassGuide) && <div className="entity-section-note">
@@ -319,7 +321,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section id="safety" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Safety, recalls and service campaigns</summary>{safetyNotices.length > 0 ? <div className="safety-notice-list entity-safety-list">{safetyNotices.map((notice) => <article key={`${notice.modelId}-${notice.publishedAt}`}><span>{notice.publishedAt}</span><h3>{notice.title}</h3><p>{notice.summary}</p></article>)}</div> : <div className="note-box compact-note"><h3>No model-specific notice is listed here right now</h3><p>This is not proof that no recall, product update or service campaign applies. Check the exact VIN/frame number with the manufacturer.</p></div>}</details></section>
 
-      <section id="used" className="motorcycle-entity-section"><details className="entity-disclosure" open={isPrevious}><summary>Used value and depreciation</summary>{usedListings.length === 0 ? <div className="note-box compact-note"><h3>Used-market sample not available yet</h3><p>The calculator below is an estimate, not a live appraisal. Listing samples appear only after they pass verification.</p></div> : <><UsedMarketSummary modelId={model.id} />{!isPrevious && <div className="new-used-grid entity-new-used-grid"><article><span>New reference</span><strong>{observedMarketPriceLabel(model)}</strong></article><article><span>Used median ask</span><strong>{php(usedSummary.medianPrice)}</strong><p>{usedSummary.included} verified listing samples.</p></article></div>}<details className="entity-disclosure"><summary>Show used listing samples</summary><UsedListingTable items={usedListings} /></details></>}<UsedValueCalculator model={forClient(model)} /><details className="entity-disclosure"><summary>Show illustrative depreciation table</summary><div className="depreciation-table"><div className="depreciation-row head"><span>Age</span><span>Fair</span><span>Good</span><span>Excellent</span></div>{usedCurve.map((row) => <div className="depreciation-row" key={row.age}><strong>{row.age} year{row.age===1?"":"s"}</strong><span>{php(row.fair)}</span><span>{php(row.good)}</span><span>{php(row.excellent)}</span></div>)}</div></details></details></section>
+      <section id="used" className="motorcycle-entity-section"><details className="entity-disclosure" open={isHistorical}><summary>Used value and depreciation</summary>{usedListings.length === 0 ? <div className="note-box compact-note"><h3>Used-market sample not available yet</h3><p>The calculator below is an estimate, not a live appraisal. Listing samples appear only after they pass verification.</p></div> : <><UsedMarketSummary modelId={model.id} />{!isHistorical && <div className="new-used-grid entity-new-used-grid"><article><span>New reference</span><strong>{observedMarketPriceLabel(model)}</strong></article><article><span>Used median ask</span><strong>{php(usedSummary.medianPrice)}</strong><p>{usedSummary.included} verified listing samples.</p></article></div>}<details className="entity-disclosure"><summary>Show used listing samples</summary><UsedListingTable items={usedListings} /></details></>}<UsedValueCalculator model={forClient(model)} /><details className="entity-disclosure"><summary>Show illustrative depreciation table</summary><div className="depreciation-table"><div className="depreciation-row head"><span>Age</span><span>Fair</span><span>Good</span><span>Excellent</span></div>{usedCurve.map((row) => <div className="depreciation-row" key={row.age}><strong>{row.age} year{row.age===1?"":"s"}</strong><span>{php(row.fair)}</span><span>{php(row.good)}</span><span>{php(row.excellent)}</span></div>)}</div></details></details></section>
 
       {allColors.length > 0 && <section id="colors" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>{model.make} {model.model} colors and variants</summary><div className="entity-color-grid">{allColors.map((color) => <article key={color}><strong>{color}</strong></article>)}</div></details></section>}
 

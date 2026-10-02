@@ -57,10 +57,12 @@ if (!recommendationPage.includes('Exact 155cc models only')) {
 }
 
 for (const token of [
-  'primaryKeyword: "400cc motorcycles Philippines"',
-  'seoTitle: "400cc & Big Bike Prices Philippines 2026 | Specs"'
+  'primaryKeyword: "big bikes Philippines"',
+  'seoTitle: "Big Bikes Philippines 2026 | 400cc+ Motorcycle Price List"',
+  '"400cc motorcycles Philippines"',
+  '"400cc motorcycle price Philippines"'
 ]) {
-  if (!data.includes(token)) errors.push(`400cc+ guide must own the 400cc search intent: ${token}`);
+  if (!data.includes(token)) errors.push(`Big-bike/400cc+ guide must retain both big-bike and 400cc search intent: ${token}`);
 }
 
 if (data.includes('slug: "400cc-motorcycles-philippines"')) {
