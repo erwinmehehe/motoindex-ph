@@ -64,8 +64,9 @@ export default function HomePage() {
         <div className="shell mi-hero-layout">
           <div className="mi-hero-copy">
             <div className="mi-badge"><b>The complete Philippine motorcycle guide</b><em>{siteStats.currentMotorcycles} current models</em></div>
-            <h1 id="mi-home-title">Find the right motorcycle <span>for your next ride.</span></h1>
-            <p><strong>Compare motorcycle prices and specs in the Philippines.</strong> Research current published prices, rider fit, key specifications and ownership costs in one place.</p>
+            <h1 id="mi-home-title">Compare <span>motorcycle prices</span><br />and specs in the Philippines.</h1>
+            <p className="wire-hero-promise">Find the right motorcycle for your next ride.</p>
+            <p>Research current published prices, rider fit, key specifications and ownership costs in one place.</p>
             <HomeMotoSearch models={verifiedModels.map((model) => ({
               id: model.id,
               make: model.make,
