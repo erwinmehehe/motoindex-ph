@@ -13,6 +13,7 @@ const forbidText = (file, text, message) => {
 };
 
 const home = read("app", "page.tsx");
+const homeRedesign = read("components", "HomePageRedesign.tsx");
 const motorcycles = read("app", "motorcycles", "page.tsx");
 const faq = read("components", "FaqSection.tsx");
 const jsonLd = read("components", "JsonLd.tsx");
