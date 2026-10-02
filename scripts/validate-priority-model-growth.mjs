@@ -25,6 +25,7 @@ const zigwheelsGapWave3 = read("lib", "zigwheelsGapWave3_2026.ts");
 const zigwheelsGapWave4 = read("lib", "zigwheelsGapWave4_2026.ts");
 const zigwheelsGapWave5 = read("lib", "zigwheelsGapWave5_2026.ts");
 const zigwheelsGapWave6 = read("lib", "zigwheelsGapWave6_2026.ts");
+const zigwheelsGapWave7 = read("lib", "zigwheelsGapWave7_2026.ts");
 for (const token of [
   'const isDiscontinued = model.marketStatus === "discontinued";',
   'const isHistorical = isPrevious || isDiscontinued;',
@@ -769,6 +770,42 @@ for (const token of [
 ]) {
   if (!zigwheelsGapWave6.includes(token)) {
     errors.push(`ZigWheels keyword-gap wave 6: source/status guard missing ${token}`);
+  }
+}
+
+for (const modelId of [
+  "kawasaki-ninja-zx-10r",
+  "yamaha-mt-15",
+  "yamaha-mt-10-sp",
+  "yamaha-tenere-700",
+  "yamaha-xsr900",
+  "yamaha-sr400",
+  "honda-crf250-rally"
+]) {
+  if (!zigwheelsGapWave7.includes(`id: "${modelId}"`)) {
+    errors.push(`ZigWheels keyword-gap wave 7: missing model entity ${modelId}`);
+  }
+}
+
+for (const token of [
+  'id: "kawasaki-ninja-zx-10r"',
+  'srp: 999800',
+  'id: "yamaha-mt-15"',
+  'marketStatus: "uncertain"',
+  'id: "yamaha-mt-10-sp"',
+  'srp: 1099000',
+  'id: "yamaha-tenere-700"',
+  'groundClearanceMm: 240',
+  'id: "yamaha-xsr900"',
+  'srp: 729000',
+  'id: "yamaha-sr400"',
+  'generation: "2019 Philippine-market generation"',
+  'id: "honda-crf250-rally"',
+  'marketStatus: "discontinued"',
+  'successorId: "honda-crf300-rally"'
+]) {
+  if (!zigwheelsGapWave7.includes(token)) {
+    errors.push(`ZigWheels keyword-gap wave 7: source/status guard missing ${token}`);
   }
 }
 
