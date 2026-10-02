@@ -43,7 +43,7 @@
   max-width:720px;
   margin:0;
   color:var(--mi-color-ink);
-  font-size:clamp(3rem,5.7vw,5.2rem);
+  font-size:clamp(2.9rem,4.8vw,3.75rem);
   font-weight:800;
   line-height:.93;
   letter-spacing:-.065em;
@@ -399,7 +399,7 @@
 }
 @media(max-width:620px){
   .heroInner{padding:var(--mi-space-12) 0}
-  .copy h1{font-size:clamp(2.65rem,12vw,3.7rem)}
+  .copy h1{font-size:clamp(2.65rem,11vw,3.1rem)}
   .search{grid-template-columns:1fr}
   .search button{width:100%}
   .trust{gap:var(--mi-space-2) var(--mi-space-4)}
