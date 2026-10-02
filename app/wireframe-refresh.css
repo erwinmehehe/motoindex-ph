@@ -44,9 +44,11 @@
 .mi-hero-copy{position:relative;z-index:3;max-width:690px}
 .mi-badge{margin-bottom:16px}
 .mi-hero h1{max-width:720px;margin:0;font-size:clamp(46px,5vw,60px);line-height:.96;letter-spacing:-.055em}
-.mi-hero h1 span{display:block;margin-top:4px}
+.mi-hero h1 span{display:inline}
 .mi-hero-copy>p{max-width:650px;margin:20px 0 24px;font-size:16px;line-height:1.7}
 .mi-hero-copy>p strong{color:var(--mi-color-slate-700);font-weight:700}
+.wire-hero-promise{margin:16px 0 0;color:var(--mi-color-slate-800);font-size:18px;font-weight:800;letter-spacing:-.025em}
+.mi-hero-copy>.wire-hero-promise+p{margin-top:8px}
 
 .wire-home-search{position:relative;z-index:12}
 .wire-search-form{
