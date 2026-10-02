@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
 import { helmetBrands } from "@/lib/data";
@@ -8,7 +9,8 @@ import { ProductCard } from "@/components/ProductCard";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { AuthorBox } from "@/components/AuthorBox";
 import { php } from "@/lib/utils";
-import { CTAGroup, InfoPanel, PageHero, ProductGrid, SectionHeader, StatRow } from "@/components/ui";
+import { InfoPanel, ProductGrid, SectionHeader } from "@/components/ui";
+import styles from "./HelmetsPage.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Helmets Philippines 2026: Prices, Brands & Guide",
@@ -75,24 +77,16 @@ export default function HelmetsPage(){
     {question:"Does a more expensive helmet automatically mean safer?",answer:"No. Price can reflect shell material, finish, aerodynamics, visor hardware, liner quality and brand positioning. Check the exact model's certification, local conformity marking and fit rather than using price as a safety score."}
   ];
 
-  return <section className="page shell helmet-hub-page">
-    <PageHero
-      kicker="Philippine helmet buying guide"
-      title="Motorcycle helmets in the Philippines: prices, types and brands"
-      description="Use one guide to compare helmet prices, protection formats, ECE 22.06 references, intercom provision, commuting choices, sizing and current brand/model pages. Open the exact helmet before buying to verify fit and the marking on the local unit."
-      actions={<CTAGroup><Link className="button" href="/gear/helmets/finder">Find my helmet</Link><Link className="button secondary" href="/gear/helmets/compare">Compare exact helmets</Link></CTAGroup>}
-    />
-
-    <StatRow items={[
-      {label:"Verified models",value:verified.length},
-      {label:"Brands",value:brands.length},
-      {label:"Published price span",value:minPrice&&maxPrice?`${php(minPrice)}–${php(maxPrice)}`:"Check products"},
-      {label:"ECE 22.06 records",value:ece2206.length}
-    ]}/>
-
-    <nav className="product-entity-nav helmet-master-nav" aria-label="Helmet guide sections">
-      <a href="#full-face">Full-face</a><a href="#modular">Modular</a><a href="#open-face">Open-face</a><a href="#under-3000">Under ₱3K</a><a href="#under-5000">Under ₱5K</a><a href="#ece-22-06">ECE 22.06</a><a href="#intercom-ready">Intercom</a><a href="#commuting">Commuting</a><a href="#brands">Brands</a><a href="#models">Model preview</a>
+  return <section className={"page shell helmet-hub-page "+styles.page}>
+    <section className={styles.hero} data-mockup-helmets-hero>
+      <div className={styles.heroCopy}><span>Home · Helmets & Gear · Helmets</span><h1>Motorcycle Helmets<br/>in the Philippines</h1><p>Top helmet brands, prices and features. Ride safe with quality and trusted helmets.</p></div>
+      <div className={styles.heroVisual}><Image src="/media/helmets/ls2-stream-ii.webp" alt="LS2 Stream II full-face motorcycle helmet" width={520} height={380} priority /></div>
+    </section>
+    <nav className={styles.filters} aria-label="Helmet type filters">
+      <a href="#models">All Brands</a><a href="#full-face">Full Face</a><a href="#modular">Modular</a><a href="#open-face">Open Face</a><a href="#brands">Dual Sport</a>
     </nav>
+    <div className={styles.catalogMeta}><strong>{verified.length} helmet models</strong><span>Sort by: <b>Popular⌄</b></span></div>
+    <div className={styles.preview}><HelmetProductGrid products={verified} limit={6}/></div>
 
     <InfoPanel className="helmet-master-intro">
       <SectionHeader kicker="Start here" title="Choose the helmet by fit and riding use first" description="A helmet category is only the starting point. The exact fit, conformity marking, visor system, ventilation, weight and replacement-parts availability decide whether a model works for you day to day." />
