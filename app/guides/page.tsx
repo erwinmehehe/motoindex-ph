@@ -30,7 +30,7 @@ export default function GuidesPage() {
       <div><span>Guides & resources</span><h1>Motorcycle Guides<br/>& Resources</h1><p>Helpful guides, buying tips, maintenance advice and motorcycle news for Filipino riders.</p></div>
       <div className={styles.heroArt}><GuideFeaturedArt slug={featuredGuide.slug} title={featuredGuide.title} kicker={featuredGuide.kicker} /></div>
     </section>
-    <nav className={styles.filters} aria-label="Guide categories"><a href="#guide-grid">All</a><a href="/recommendations">Buying Guide</a><a href="/maintenance">Maintenance</a><a href="/guides">Tips & Advice</a><a href="/research">Reviews</a><a href="/guides">News</a></nav>
+    <nav className={styles.filters} aria-label="Guide categories"><a href="#guide-grid">All</a><Link href="/recommendations">Buying Guide</Link><Link href="/maintenance">Maintenance</Link><Link href="/guides">Tips & Advice</Link><Link href="/research">Reviews</Link><Link href="/guides">News</Link></nav>
     <div id="guide-grid" className={styles.mockupGrid}>{editorialGuides.slice(0,6).map((guide)=><Link className={styles.mockupCard} key={guide.slug} href={`/guides/${guide.slug}`}>
       <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} compact />
       <span>{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><small>Read guide →</small>
