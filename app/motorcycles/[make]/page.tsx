@@ -6,6 +6,8 @@ import { JsonLd } from "@/components/JsonLd";
 import { notFound } from "next/navigation";
 import { motorcycles, isIndexableModel } from "@/lib/data";
 import { MotorcycleCard } from "@/components/MotorcycleCard";
+import { EntityMedia } from "@/components/EntityMedia";
+import { EntityVerificationFallback } from "@/components/EntityVerificationFallback";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { modelFamilies } from "@/lib/families";
 import { observedMarketRange } from "@/lib/marketChecks";
@@ -153,35 +155,16 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       <div className="shell">
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
         <div className={styles.heroGrid}>
-          <PageHero
-            className={styles.heroCopy}
-            kicker="Philippines · Price list · Models · Specs"
-            title={brandGrowth?.heroTitle || `${brand} Motorcycle Philippines Price List`}
-            description={brandGrowth?.heroDescription || `Compare the current ${brand} motorcycle Philippines price list by model, published price, engine size, seat height and transmission. Open any motorcycle for detailed specs, financing estimates, fitment, maintenance and alternatives.`}
-            actions={<CTAGroup><Link className="button" href="#models">Browse {brand} models</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand}</Link></CTAGroup>}
-          />
-          <aside className={styles.brandPanel} aria-label={`${brand} lineup snapshot`}>
-            <div>
-              <div className={styles.logoStage}><Image src={`/brand/motorcycle/${make}.svg`} alt={`${brand} logo`} width={220} height={80} unoptimized /></div>
-              <span className={styles.panelEyebrow}>Current Philippine lineup</span>
-              <h2 className={styles.panelTitle}>{current.length} {brand} models tracked</h2>
-              <p className={styles.panelCopy}>Published prices currently span {php(low)} to {php(high)} across the current MotoIndex set.</p>
-            </div>
-            <div className={styles.quickFacts}>
-              <div className={styles.quickFact}><span>Engine range</span><strong>{minEngine}–{maxEngine} cc</strong></div>
-              <div className={styles.quickFact}><span>Transmission</span><strong>{automatic} auto · {manual} manual</strong></div>
-            </div>
-          </aside>
+          <div className={styles.heroCopy}>
+            <div className={styles.logoStage}><Image src={`/brand/motorcycle/${make}.svg`} alt={`${brand} logo`} width={240} height={90} unoptimized /></div>
+            <h1>{brand} motorcycles in the Philippines</h1>
+            <p>{brandGrowth?.heroDescription || `Explore the current ${brand} motorcycle lineup in the Philippines. Compare prices, specifications, scooter and big-bike options in one place.`}</p>
+          </div>
+          <div className={styles.brandVisual} aria-label={`${brand} motorcycle lineup`}>
+            {current.slice(0,3).map((model,index)=><EntityMedia key={model.id} entityType="motorcycle" entityId={model.id} className={[styles.bike1,styles.bike2,styles.bike3][index]} showCredit={false} sizes="(max-width: 900px) 34vw, 260px" fallback={<EntityVerificationFallback brand={model.make} model={model.model}/>} />)}
+          </div>
         </div>
-        {brandGrowth ? <InfoPanel subtle><p>{brandGrowth.intentNote}</p></InfoPanel> : null}
-        <StatRow items={[
-          {label:"Models covered",value:current.length,note:"Current models on MotoIndex"},
-          {label:"Price range",value:`${php(low)}–${php(high)}`,note:"Published prices across current models"},
-          {label:"Engine range",value:`${minEngine}–${maxEngine} cc`,note:"Across models covered here"},
-          {label:"Transmission",value:`${automatic} auto · ${manual} manual`,note:"Across models covered here"},
-          ...(authorityModels.length > 0 ? [{label:"Buyer guides",value:authorityModels.length,note:"Expanded decision briefs with Philippine ownership context"}] : []),
-          ...(bigBikes.length > 0 && bigBikeMinCc ? [{label:`${bigBikeMinCc}cc+ models`,value:bigBikes.length,note:"Current big bikes covered on this brand hub"}] : [])
-        ]}/>
+
         <nav className={styles.categoryTabs} aria-label={`${brand} motorcycle categories`}>
           <a href="#models">All models</a>
           {categories.slice(0,6).map((category)=><Link key={category} href={{ pathname:"/motorcycles", query:{ make, type:category } }}>{category}</Link>)}
@@ -190,6 +173,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     </div>
 
     <div className="shell">
+      {brandGrowth ? <p className={styles.intentNote}>{brandGrowth.intentNote}</p> : null}
+
       <nav className="ph-brand-nav" aria-label={`${brand} page sections`}>
         <a href="#price-list">Price list</a><a href="#models">Models</a>{scooters.length >= 3 ? <a href="#scooters">Scooters</a> : null}{bigBikes.length > 0 ? <a href="#big-bikes">Big bikes</a> : null}{spotlightModels.length > 0 ? <a href="#category-spotlight">Featured category</a> : null}<a href="#categories">Categories</a><a href="#research">How to use data</a><a href="#faq">FAQ</a>
       </nav>
@@ -203,7 +188,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
       <section id="models" className={`ph-brand-section ph-brand-models-section${current.length <= 2 ? " is-sparse" : ""}`}>
         <SectionHeader kicker="Current motorcycles" title={`Compare ${brand} motorcycle models in the Philippines`} description={current.length <= 2 ? `Compare the ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} by price and key specifications.` : `Compare ${current.length} current ${brand} motorcycle models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`} />
-        <div className="card-grid ph-brand-model-grid" style={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: 14 }}>{current.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div>
+        <div className={`card-grid ph-brand-model-grid ${styles.modelGrid}`}>{current.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div>
       </section>
 
       {bigBikes.length > 0 && brandGrowth?.bigBikeTitle && brandGrowth.bigBikeDescription ? <section id="big-bikes" className="ph-brand-section">

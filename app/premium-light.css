@@ -54,11 +54,11 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
 }
 .brand-word{color:#0f172a!important;font-weight:800!important;letter-spacing:-.035em!important}
 .brand-word b{color:#444CE7!important}
-.brand-logo{filter:drop-shadow(0 8px 18px rgba(68,76,231,.18))}
+.brand-logo{filter:none}
 .site-header .nav-links>a,
 .site-header .nav-more>summary{
-  color:#475569!important;
-  font-weight:720!important;
+  color:var(--mi-color-slate-700);
+  font-weight:760;
 }
 .site-header .nav-links>a:hover,
 .site-header .nav-more>summary:hover,
@@ -70,9 +70,9 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
   bottom:-14px!important;
 }
 .nav-search,.shortlist-nav,.mobile-search{
-  color:#475569!important;
-  background:transparent!important;
-  border-color:transparent!important;
+  color:var(--mi-color-slate-700);
+  background:var(--mi-color-surface);
+  border-color:var(--mi-color-market-line-strong);
   box-shadow:none!important;
 }
 .nav-search:hover,.shortlist-nav:hover,.mobile-search:hover{
@@ -483,3 +483,20 @@ input:focus,select:focus,textarea:focus{
   *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   [data-reveal]{opacity:1!important;transform:none!important}
 }
+
+:root{--header-h:54px}
+.site-header .nav-wrap{gap:18px}
+.site-header .brand{gap:7px;font-size:14px}
+.site-header .brand-logo{width:28px;height:28px}
+.site-header .brand-word{font-size:14px;letter-spacing:-.025em}
+.site-header .nav-links{gap:17px}
+.site-header .nav-links>a,.site-header .nav-more>summary{min-height:54px;font-size:10px}
+.site-header .nav-links>a:after,.site-header .nav-more>summary:after{bottom:0}
+.site-header .nav-actions{gap:4px}
+.site-header .nav-search,.site-header .shortlist-nav{display:grid;width:34px;height:34px;min-height:34px;place-items:center;padding:0;border-radius:9px}
+.site-header .nav-search span:first-child{font-size:17px;line-height:1}
+.site-header .nav-search-label{display:none}
+.site-header .shortlist-nav{position:relative}
+.site-header .shortlist-nav b{position:absolute;top:-5px;right:-5px;display:grid;min-width:18px;height:18px;place-items:center;padding:0 4px;font-size:8px;box-shadow:0 0 0 2px var(--mi-color-surface)}
+.site-header .nav-match{display:none}
+@media(max-width:900px){:root{--header-h:56px}.site-header .nav-actions{margin-left:auto}.site-header .nav-search,.site-header .shortlist-nav{display:grid}}

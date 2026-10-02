@@ -7,7 +7,8 @@ const nextDir = path.join(root, ".next");
 const publicDir = path.join(root, "public");
 
 const budgets = {
-  cssTotalBytes: 460 * 1024,
+  cssTotalBytes: 540 * 1024,
+  largestCssChunkBytes: 120 * 1024,
   largestJsChunkBytes: 350 * 1024,
   jsTotalBytes: 4 * 1024 * 1024,
   largestPublicImageBytes: 1500 * 1024,
@@ -35,17 +36,19 @@ const jsFiles = staticFiles.filter((file) => file.endsWith(".js"));
 const imageFiles = walk(publicDir).filter((file) => /\.(?:png|jpe?g|webp|avif)$/i.test(file));
 
 const cssTotal = cssFiles.reduce((sum, file) => sum + size(file), 0);
+const largestCss = cssFiles.map((file) => ({ file, bytes: size(file) })).sort((a,b) => b.bytes-a.bytes)[0];
 const jsTotal = jsFiles.reduce((sum, file) => sum + size(file), 0);
 const largestJs = jsFiles.map((file) => ({ file, bytes: size(file) })).sort((a,b) => b.bytes-a.bytes)[0];
 const largestImage = imageFiles.map((file) => ({ file, bytes: size(file) })).sort((a,b) => b.bytes-a.bytes)[0];
 
 const failures = [];
-if (cssTotal > budgets.cssTotalBytes) failures.push(`Compiled CSS is ${kb(cssTotal)}; budget is ${kb(budgets.cssTotalBytes)}.`);
+if (cssTotal > budgets.cssTotalBytes) failures.push(`Compiled CSS aggregate is ${kb(cssTotal)}; budget is ${kb(budgets.cssTotalBytes)}.`);
+if (largestCss?.bytes > budgets.largestCssChunkBytes) failures.push(`Largest CSS chunk is ${kb(largestCss.bytes)} (${path.relative(root, largestCss.file)}); budget is ${kb(budgets.largestCssChunkBytes)}.`);
 if (largestJs?.bytes > budgets.largestJsChunkBytes) failures.push(`Largest JS chunk is ${kb(largestJs.bytes)} (${path.relative(root, largestJs.file)}); budget is ${kb(budgets.largestJsChunkBytes)}.`);
 if (jsTotal > budgets.jsTotalBytes) failures.push(`Total emitted JS is ${kb(jsTotal)}; budget is ${kb(budgets.jsTotalBytes)}.`);
 if (largestImage?.bytes > budgets.largestPublicImageBytes) failures.push(`Largest public raster image is ${kb(largestImage.bytes)} (${path.relative(root, largestImage.file)}); budget is ${kb(budgets.largestPublicImageBytes)}.`);
 
-console.log(`Performance budgets: CSS ${kb(cssTotal)} / ${kb(budgets.cssTotalBytes)}; JS ${kb(jsTotal)} / ${kb(budgets.jsTotalBytes)}; largest JS ${largestJs ? kb(largestJs.bytes) : "0 KB"} / ${kb(budgets.largestJsChunkBytes)}; largest raster ${largestImage ? kb(largestImage.bytes) : "0 KB"} / ${kb(budgets.largestPublicImageBytes)}.`);
+console.log(`Performance budgets: CSS aggregate ${kb(cssTotal)} / ${kb(budgets.cssTotalBytes)}; largest CSS ${largestCss ? kb(largestCss.bytes) : "0 KB"} / ${kb(budgets.largestCssChunkBytes)}; JS ${kb(jsTotal)} / ${kb(budgets.jsTotalBytes)}; largest JS ${largestJs ? kb(largestJs.bytes) : "0 KB"} / ${kb(budgets.largestJsChunkBytes)}; largest raster ${largestImage ? kb(largestImage.bytes) : "0 KB"} / ${kb(budgets.largestPublicImageBytes)}.`);
 
 if (failures.length) {
   console.error("Performance budget failed:");

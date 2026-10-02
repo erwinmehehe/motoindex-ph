@@ -17,7 +17,7 @@ export type PriceListBike = {
 };
 
 const priorityBrands = ["all","honda","yamaha","suzuki","kawasaki","ktm","cfmoto"] as const;
-const PAGE_SIZE = 16;
+const PAGE_SIZE = 10;
 
 export function PriceListExplorer({ bikes }: { bikes: PriceListBike[] }) {
   const [brand,setBrand]=useState("all");
@@ -63,17 +63,17 @@ export function PriceListExplorer({ bikes }: { bikes: PriceListBike[] }) {
           <option value="price-desc">Price: high to low</option>
           <option value="cc">Engine CC</option>
         </select>
-        <button className="button small" type="button" onClick={()=>window.print()}>Save price list PDF</button>
+        <button className={styles.printButton} type="button" onClick={()=>window.print()}>Save price list PDF</button>
       </div>
     </div>
 
     <div className={styles.tableShell} role="table" aria-label="Motorcycle price list Philippines">
       <div className={styles.table}>
-        <div className={`${styles.row} ${styles.head}`} role="row"><span>Model</span><span>Brand</span><span>Category</span><span>Displacement</span><span>Transmission</span><span>SRP</span></div>
+        <div className={`${styles.row} ${styles.head}`} role="row"><span>Model</span><span>Brand</span><span>Category</span><span>Displacement</span><span>SRP</span></div>
         {visible.map(bike=><div className={styles.row} role="row" key={bike.id}>
           <span className={styles.modelCell}><Link href={`/motorcycles/${bike.makeSlug}/${bike.slug}`}>{bike.model}</Link><small>{bike.category}</small></span>
           <span><Link className={styles.brandLink} href={`/motorcycles/${bike.makeSlug}`}>{bike.make}</Link></span>
-          <span>{bike.category}</span><span>{bike.engineCc} cc</span><span>{bike.transmission||"—"}</span><strong className={styles.price}>₱{bike.srp.toLocaleString("en-PH")}</strong>
+          <span>{bike.category}</span><span>{bike.engineCc} cc</span><strong className={styles.price}>₱{bike.srp.toLocaleString("en-PH")}</strong>
         </div>)}
         {!visible.length&&<div className={styles.empty} role="row"><span>No motorcycles match these filters.</span></div>}
       </div>

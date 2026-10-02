@@ -20,6 +20,22 @@
   --mi-color-warning: #FDB022;
   --mi-color-danger: #d92d20;
 
+  /* Compact marketplace / mockup palette */
+  --mi-color-market-blue: #2563eb;
+  --mi-color-market-blue-bright: #2875ff;
+  --mi-color-market-blue-dark: #1d4ed8;
+  --mi-color-market-price: #1565ff;
+  --mi-color-market-sky: #eef7ff;
+  --mi-color-market-sky-soft: #f8fbff;
+  --mi-color-market-line: #dce7f4;
+  --mi-color-market-line-strong: #dbe5f2;
+  --mi-color-market-line-soft: #e7eef7;
+  --mi-color-market-table: #f5f8fc;
+  --mi-shadow-market-xs: 0 3px 10px rgba(15, 23, 42, .025);
+  --mi-shadow-market-sm: 0 6px 16px rgba(37, 99, 235, .08);
+  --mi-shadow-market-search: 0 12px 26px rgba(34, 72, 125, .10);
+  --mi-shadow-market-bike: 0 14px 16px rgba(15, 23, 42, .14);
+
   /* Product/editorial palette */
   --mi-color-product-ink: #1d1d1f;
   --mi-color-product-copy: #6e6e73;

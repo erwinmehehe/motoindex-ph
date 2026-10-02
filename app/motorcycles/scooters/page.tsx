@@ -5,6 +5,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { FaqSection } from "@/components/FaqSection";
 import { MotorcycleCard } from "@/components/MotorcycleCard";
+import { EntityMedia } from "@/components/EntityMedia";
+import { EntityVerificationFallback } from "@/components/EntityVerificationFallback";
 import { CTAGroup, DataTable, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
 import { observedMarketPriceLabel, observedMarketRange } from "@/lib/marketChecks";
 import {
@@ -92,16 +94,15 @@ export default function ScootersPage() {
   return <main className="page">
     <div className="shell">
       <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: "Scooters" }]} />
-      <PageHero
-        kicker="Philippines scooter price guide"
-        title="Scooter prices in the Philippines"
-        description="Compare current scooter prices, models and specifications in the Philippines for 2026. Start with the full price list, then narrow by 125cc, 150cc-class, exact 155cc, 160cc, brand, budget or rider need."
-        actions={<CTAGroup>
-          <a className="button" href="#scooter-price-list">View scooter price list</a>
-          <Link className="button secondary" href="/finder">Find a motorcycle</Link>
-          <Link className="button secondary" href="/compare">Compare models</Link>
-        </CTAGroup>}
-      />
+      <section className={styles.mockupHero}>
+        <div><span>Motorcycle category</span><h1>Scooter Motorcycles<br/>in the Philippines</h1><p>Explore the latest scooter models, compare prices, specs and find the perfect scooter for your daily ride.</p></div>
+        {scooters[0]&&<EntityMedia entityType="motorcycle" entityId={scooters[0].id} className={styles.mockupHeroMedia} priority showCredit={false} fallback={<EntityVerificationFallback brand={scooters[0].make} model={scooters[0].model}/>} />}
+      </section>
+      <section className={styles.mockupCatalog} aria-label="Scooter catalog preview">
+        <div className={styles.mockupFilters}><button>All Brands⌄</button><button>Price Range⌄</button><button>Engine CC⌄</button><button>Features⌄</button><button>Reset</button></div>
+        <div className={styles.mockupCount}><strong>{scooters.length} scooter models</strong><span>Sort by: Latest⌄</span></div>
+        <div className={styles.modelGrid}>{scooters.slice(0,6).map(model=><MotorcycleCard key={model.id} model={model} variant="standard" />)}</div>
+      </section>
 
       <section className="section" aria-labelledby="scooter-price-philippines">
         <SectionHeader

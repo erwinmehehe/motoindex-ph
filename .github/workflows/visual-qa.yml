@@ -49,6 +49,15 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
         run: npm run visual:qa
 
+      - name: Emit inline homepage preview
+        if: always()
+        run: |
+          if [ -f artifacts/visual-qa/1440-home.png ]; then
+            printf 'INLINE_HOME_PREVIEW='
+            base64 -w 0 artifacts/visual-qa/1440-home.png
+            printf '\n'
+          fi
+
       - name: Homepage visual regression guard
         env:
           BASE_URL: http://127.0.0.1:3000
