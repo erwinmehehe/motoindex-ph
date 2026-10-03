@@ -31,6 +31,7 @@ jobs:
           npm run validate:seo-hardening
           npm run validate:market-hubs
           npm run validate:priority-model-growth
+          npm run validate:priority-source-provenance
           npm run validate:intent-depth
           npm run validate:intent-depth-wave2
           npm run validate:intent-depth-wave3
