@@ -1016,6 +1016,73 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare under-400cc motorcycles"
   },
 
+  "ducati-panigale-v4": {
+    seoTitle: "Ducati Panigale V4 Price Philippines 2026 | Specs & Costs",
+    seoDescription: "Ducati Panigale V4 price Philippines 2026 with 1103cc specs, 214hp, 835mm seat, 198kg weight, 16L tank, ownership costs and superbike alternatives in PH.",
+    intentIntro: "Panigale V4 demand is high-value superbike research. Compare the current 1,103cc specification with insurance, premium tires, service, rider fit and the exact Philippine dealer quote before treating MSRP as the full cost.",
+    moneyQuestion: "What is the Panigale V4 first-year cost after the dealer quote, registration, comprehensive insurance, financing, premium tires and scheduled service are included?",
+    ownershipQuestion: "Compare hypersport tires, chain and sprocket service, insurance, Ducati service access and heat/ergonomics with ZX-10R, YZF-R1M and Ninja H2.",
+    alternativeIds: ["kawasaki-ninja-zx-10r", "yamaha-yzf-r1m", "kawasaki-ninja-h2"],
+    relatedIds: ["kawasaki-ninja-zx-10r"],
+    recommendationHref: "/recommendations/sport-motorcycles-philippines",
+    recommendationLabel: "Compare sport motorcycles"
+  },
+  "honda-wave-rsx": {
+    seoTitle: "Honda Wave RSX Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "Honda Wave RSX price Philippines 2026 with 109cc specs, 760mm seat, 98kg weight, 4L tank, ownership costs, fuel-use context and underbone alternatives.",
+    intentIntro: "Wave RSX demand is practical underbone research. Compare its 109cc engine, 98 kg curb weight, 760 mm seat and current dealer quote with recurring fuel, tire and maintenance costs.",
+    moneyQuestion: "What is the Wave RSX total take-home cost after the dealer quote, registration, insurance, financing and branch-specific charges are included?",
+    ownershipQuestion: "Compare fuel use, chain service, 17-inch tires, braking and Honda support with Smash FI, Smash Carb and Winner X.",
+    alternativeIds: ["suzuki-smash-fi", "suzuki-smash-carb", "honda-winner-x"],
+    relatedIds: ["honda-winner-x"],
+    recommendationHref: "/recommendations/best-underbone-motorcycles-philippines",
+    recommendationLabel: "Compare underbone motorcycles"
+  },
+  "bristol-adx-160": {
+    seoTitle: "Bristol ADX 160 Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "Bristol ADX 160 price Philippines 2026 with 155cc specs, 790mm seat, 151kg weight, 11L tank, ownership costs, tire sizes and adventure-scooter alternatives.",
+    intentIntro: "ADX 160 searches mix adventure-scooter styling with price and ownership questions. Compare the 155cc engine, 11 L tank, mixed wheel sizes, service support and total ownership cost on one canonical page.",
+    moneyQuestion: "What does the ADX 160 cost after the dealer quote, registration, insurance, financing and any touring or protection accessories are included?",
+    ownershipQuestion: "Compare CVT service, mixed 14/13-inch tires, fuel use, body-panel availability and local support with Aerox V3, ADV160 and KRV 180.",
+    alternativeIds: ["yamaha-aerox-v3", "honda-adv-160", "kymco-krv-180"],
+    relatedIds: ["kymco-krv-180"],
+    recommendationHref: "/recommendations/160cc-scooters-philippines",
+    recommendationLabel: "Compare 160cc-class scooters"
+  },
+  "ktm-390-duke": {
+    seoTitle: "KTM 390 Duke Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "KTM 390 Duke price Philippines 2026 with 373cc specs, 43hp, 800mm seat, 139kg weight, 11L tank, ABS, ownership costs and naked-bike alternatives in PH.",
+    intentIntro: "390 Duke demand combines price, performance and under-400cc buying intent. Compare the 373cc single, light 139 kg weight, ABS and rider fit with insurance, tires, chain service and dealer support.",
+    moneyQuestion: "What does the 390 Duke cost after the exact dealer quote, registration, insurance, financing and first-year maintenance are included?",
+    ownershipQuestion: "Compare 17-inch tires, chain and sprockets, insurance and service support with Dominar 400, Speed 400 and Z500.",
+    alternativeIds: ["bajaj-dominar-400", "triumph-speed-400", "kawasaki-z500"],
+    relatedIds: ["triumph-speed-400"],
+    recommendationHref: "/recommendations/naked-motorcycles-philippines",
+    recommendationLabel: "Compare naked motorcycles"
+  },
+  "motorstar-xplorer-250r": {
+    seoTitle: "MotorStar Xplorer 250R Philippines 2026 | Price & Specs",
+    seoDescription: "MotorStar Xplorer 250R price Philippines 2026 with 249.6cc specs, 795mm seat, 146kg weight, 16L tank, ownership costs and value-road-bike alternatives.",
+    intentIntro: "Xplorer 250R searches are strongly value-led. Compare its 249.6cc engine, 16 L tank, 795 mm seat and current Philippine price with service access, tire availability and recurring ownership costs.",
+    moneyQuestion: "What is the Xplorer 250R total cost after the dealer quote, registration, insurance, financing and initial maintenance are included?",
+    ownershipQuestion: "Compare 17-inch tires, chain service, parts support and total running cost with Cafe 400, 390 Duke and Cafe Racer 152.",
+    alternativeIds: ["motorstar-cafe-400", "ktm-390-duke", "keeway-cafe-racer-152"],
+    relatedIds: ["motorstar-cafe-400"],
+    recommendationHref: "/recommendations/motorcycles-under-400cc-philippines",
+    recommendationLabel: "Compare under-400cc motorcycles"
+  },
+  "keeway-cafe-racer-152": {
+    seoTitle: "Keeway Cafe Racer 152 Price Philippines 2026 | Specs & Costs",
+    seoDescription: "Keeway Cafe Racer 152 price Philippines 2026 with 149cc specs, 770mm seat, 108kg weight, 12.1L tank, ownership costs and cafe-style motorcycle alternatives.",
+    intentIntro: "Cafe Racer 152 demand combines low purchase price with retro styling. Compare its 149cc engine, 770 mm seat, 12.1 L tank, current price and recurring maintenance with other classic-style value bikes.",
+    moneyQuestion: "What does the Cafe Racer 152 cost after the dealer quote, registration, insurance, financing and first-year maintenance are included?",
+    ownershipQuestion: "Compare chain service, tire availability, parts support and everyday running cost with Cafe 400, Classic 350 and Xplorer 250R.",
+    alternativeIds: ["motorstar-cafe-400", "royal-enfield-classic-350", "motorstar-xplorer-250r"],
+    relatedIds: ["motorstar-cafe-400"],
+    recommendationHref: "/recommendations/cafe-racer-motorcycles-philippines",
+    recommendationLabel: "Compare cafe-style motorcycles"
+  },
+
   "honda-navi": {
     seoTitle: "Honda Navi Price Philippines 2026 | Specs & Fuel Economy",
     seoDescription: "Honda Navi price in the Philippines, 109cc specs, 48.4 km/L fuel economy, 762mm seat, CBS, tire sizes, ownership costs and commuter alternatives.",
