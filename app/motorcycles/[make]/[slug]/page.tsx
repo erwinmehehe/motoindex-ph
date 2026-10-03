@@ -11,6 +11,7 @@ import { RecentlyViewedTracker } from "@/components/RecentlyViewed";
 import { pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
 import { priorityModelGrowthProfile } from "@/lib/priorityModelGrowth";
+import { modelIntentDepthProfile } from "@/lib/modelIntentDepth2026";
 import { getRenderableMedia } from "@/lib/renderableMedia";
 import { ElectricMotorcycleDetail } from "@/components/ElectricMotorcycleDetail";
 import { electricMotorcycles, getElectricMotorcycle } from "@/lib/electricMotorcycles";
@@ -92,11 +93,12 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   if (!model) return {};
   const seo = motorcycleEntitySeo(model);
   const growth = priorityModelGrowthProfile(model.id);
+  const intentDepth = modelIntentDepthProfile(model.id);
   const media = getRenderableMedia("motorcycle", model.id)[0];
   const image = getRenderableMedia("motorcycle", model.id)[0]?.src;
   const base = pageMetadata({
-    title: growth?.seoTitle || seo.title,
-    description: growth?.seoDescription || seo.description,
+    title: intentDepth?.seoTitle || growth?.seoTitle || seo.title,
+    description: intentDepth?.seoDescription || growth?.seoDescription || seo.description,
     path: `/motorcycles/${model.makeSlug}/${model.slug}`,
     index: isIndexableModel(model),
     image,

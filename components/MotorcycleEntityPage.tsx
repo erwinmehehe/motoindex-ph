@@ -53,6 +53,8 @@ import { authorPersonSchema } from "@/lib/author";
 import { getModelGearGuide } from "@/lib/modelGearGuides";
 import { OwnershipCatalogLinks } from "@/components/OwnershipCatalogLinks";
 import { CTAGroup, ProductGrid as CanonicalProductGrid, SectionHeader } from "@/components/ui";
+import { CanonicalIntentDepth } from "@/components/CanonicalIntentDepth";
+import { canonicalIntentFaqs, modelIntentDepthProfile } from "@/lib/modelIntentDepth2026";
 
 const MOTORCYCLE_ANALYTICS_CSS = `
 .motorcycle-analytics-panel{margin:28px 0 18px;padding:34px;border:1px solid rgba(62,82,69,.16);border-radius:16px;background:#fff;box-shadow:0 18px 48px rgba(24,45,32,.055)}
@@ -109,6 +111,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const quality = modelAuthorityQuality(model);
   const authorityComparisons = authority?.comparisonIds.map((id) => getModelById(id)).filter((item): item is Motorcycle => Boolean(item)) || [];
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}`;
+  const intentDepth = modelIntentDepthProfile(model.id);
   const intentFaqs = highDemandColorIntent && allColors.length > 0 ? [
     {
       question: `What colors are available for the ${model.make} ${model.model}?`,
@@ -119,7 +122,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       answer: `The verified Philippine variants currently covered are ${verifiedVariants.map((variant) => `${variant.name} at ${php(variant.srpPhp)}`).join("; ")}. Compare the feature differences and confirm the current dealer quote before financing.`
     }] : [])
   ] : [];
-  const faqs = [...motorcycleEntityFaqs(model), ...intentFaqs, ...(performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])];
+  const faqs = [...motorcycleEntityFaqs(model), ...intentFaqs, ...canonicalIntentFaqs(model), ...(performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])];
   const offer = motorcycleOfferSchema(model, canonicalPath, isIndexableModel(model));
   const schema = {
     "@context": "https://schema.org",
@@ -218,6 +221,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       <ProductEntityNav items={[
         { href: "#price", label: "Price & variants" },
         ...(highDemandColorIntent && allColors.length > 0 ? [{ href: "#colors", label: "Colors" }] : []),
+        ...(intentDepth ? [{ href: "#buyer-answers", label: "Buyer answers" }] : []),
         { href: "#specs", label: "Key specs" },
         ...(authority ? [{ href: "#buyer-guide", label: "Who it suits" }] : []),
         ...(!isHistorical ? [{ href: "#installment", label: "Monthly" }] : []),
@@ -239,6 +243,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           <AnalyticsMetric id="seat-height" label="Seat height" value={model.seatHeightMm.toLocaleString("en-PH")} unit="mm" note={`${model.curbWeightKg} kg curb weight · check fit in person`} fill={(model.seatHeightMm - 650) / 3} />
         </div>
       </section>
+      <CanonicalIntentDepth model={model} />
       {availabilityUncertain && <section className="entity-alert-card"><div><span>Availability needs verification</span><h2>Confirm current new-bike availability before relying on this price</h2><p>This model has Philippine price and specification references but is not treated as part of the current shopping catalog until present-day availability is confirmed.</p></div></section>}
       {isHistorical && successor && <section className="entity-alert-card"><div><span>{isDiscontinued ? "Discontinued model" : "Previous generation"}</span><h2>Looking for the current model?</h2><p>{model.model} stays live for owners and used-bike research. Current new-bike pricing belongs to {successor.make} {successor.model}.</p></div><Link className="button small" href={`/motorcycles/${successor.makeSlug}/${successor.slug}`}>View {successor.model} →</Link></section>}
 
