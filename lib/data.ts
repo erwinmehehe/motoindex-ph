@@ -1336,18 +1336,31 @@ export const motorcycles: Motorcycle[] = [
 ];
 
 export const currentMotorcycles = motorcycles.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued");
+
+export function isDemandBackedAvailabilityModel(model: Motorcycle) {
+  const sourceIsFreshEnough = !modelSourceNeedsRefresh(model);
+  return model.marketStatus === "uncertain"
+    && model.searchVolume > 0
+    && model.freshness === "verified"
+    && /^https:\/\//.test(model.sourceUrl)
+    && Boolean(model.verifiedAt)
+    && sourceIsFreshEnough;
+}
+
 export function isIndexableModel(model: Motorcycle) {
-  if (model.marketStatus === "uncertain") return false;
+  const demandBackedAvailability = isDemandBackedAvailabilityModel(model);
   const sourceNeedsReview = /pending|recheck|research only|needs verification/i.test(model.sourceLabel);
   const sourceIsCurrent = !modelSourceNeedsRefresh(model);
-  const legacyReady = model.freshness === "verified" && !sourceNeedsReview && /^https:\/\//.test(model.sourceUrl) && Boolean(model.verifiedAt) && sourceIsCurrent;
+  const legacyReady = demandBackedAvailability || (model.freshness === "verified" && !sourceNeedsReview && /^https:\/\//.test(model.sourceUrl) && Boolean(model.verifiedAt) && sourceIsCurrent);
   if (!legacyReady) return false;
   if (!isAuthorityExpansionModel(model)) return true;
   return modelAuthorityQuality(model).indexable;
 }
 
-// Public discovery surfaces use the same quality gate as model indexation.
-// Records that still need review can remain available to internal workflows without appearing in public listings.
+export const indexableMotorcycles = motorcycles.filter(isIndexableModel);
+
+// Public catalog surfaces remain current-lineup focused. Search-demand availability
+// research can still be indexable through exact model URLs, XML sitemaps and LLM indexes.
 export const publicMotorcycles = currentMotorcycles.filter(isIndexableModel);
 
 export const helmetBrands: HelmetBrand[] = [
