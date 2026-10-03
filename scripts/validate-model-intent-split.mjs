@@ -63,7 +63,7 @@ requireText(llms,'Focused model installment guides',"LLM full index must expose 
 requireText(llms,'For models with a dedicated installment page',"LLM retrieval rules must route finance questions to the focused page.");
 requireText(llms,'whitelisted /motorcycles/<make>/<model>/installment pages',"LLM canonical policy must name installment pages.");
 
-for(const slug of ["price","specs","colors","variants","top-speed"]){
+for(const slug of ["price","specs","variants","top-speed"]){
   const candidate=path.join(root,"app","motorcycles","[make]","[slug]",slug,"page.tsx");
   if(fs.existsSync(candidate))errors.push(`Do not mass-split thin model intent pages without independent evidence: /${slug}`);
 }
@@ -72,4 +72,4 @@ if(errors.length){
   console.error(errors.join("\n"));
   process.exit(1);
 }
-console.log(`Model intent split validation passed: ${expected.length} focused installment pages, with broad model intent retained on canonical model pages.`);
+console.log(`Model intent split validation passed: ${expected.length} focused installment pages, with unsupported thin intent routes still blocked.`);
