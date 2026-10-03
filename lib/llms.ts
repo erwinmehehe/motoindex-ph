@@ -1,4 +1,4 @@
-import { accessoryCategories, helmetBrands, isIndexableRecommendation, publicMotorcycles, recommendationGuides } from "./data";
+import { accessoryCategories, helmetBrands, indexableMotorcycles, isIndexableRecommendation, recommendationGuides } from "./data";
 import { electricMotorcycles } from "./electricMotorcycles";
 import { helmetProducts } from "./catalog";
 import { recommendationCanonicalHref } from "./recommendationRoutes";
@@ -30,6 +30,8 @@ export function buildLlmsTxt() {
     mdLink("Finder", "/finder", "Decision tool using budget, rider fit, traffic, distance, passenger and luggage needs."),
     mdLink("Compare", "/compare", "Two- and three-motorcycle comparison."),
     mdLink("Buying guides", "/recommendations", "Hub for focused budget, scooter, engine-size, rider-fit, commuting and category guides."),
+    mdLink("Original research", "/research", "MotoIndex datasets for motorcycle prices, seat height and financing research."),
+    mdLink("Motorcycle price index", "/research/motorcycle-price-index-philippines", "Segment and brand benchmarks with source dates and downloadable CSV data."),
     mdLink("Helmet guide", "/gear/helmets", "Verified helmet models, brands, types, prices, certification and fit guidance."),
     mdLink("Helmet finder", "/gear/helmets/finder", "Filter the verified helmet catalog by fit, type, price and features."),
     mdLink("Dealers", "/dealers", "Public dealer directory and regional dealer research."),
@@ -57,6 +59,7 @@ export function buildLlmsTxt() {
     "6. Prefer exact helmet model pages and /gear/helmets/finder for helmet questions.",
     "7. Preserve source dates for prices, availability, regulations and fitment. Do not present dated market observations as guaranteed current quotes.",
     "8. Do not infer legal eligibility, safety certification or exact accessory fitment from category labels or database inclusion alone.",
+    "9. Some high-search-demand model pages are intentionally indexed as availability-to-verify research even when current Philippine national-catalog status is uncertain. Preserve that status and do not rewrite those pages as confirmed current inventory.",
     "",
     "## Machine-readable indexes",
     "",
@@ -71,8 +74,11 @@ export function buildLlmsTxt() {
 }
 
 export function buildLlmsFullTxt() {
+  const currentModels = indexableMotorcycles.filter((model) => !["previous", "uncertain", "discontinued"].includes(model.marketStatus || ""));
+  const availabilityResearchModels = indexableMotorcycles.filter((model) => model.marketStatus === "uncertain");
+  const historicalModels = indexableMotorcycles.filter((model) => model.marketStatus === "previous" || model.marketStatus === "discontinued");
   const brandMap = new Map<string, string>();
-  for (const model of publicMotorcycles) brandMap.set(model.makeSlug, model.make);
+  for (const model of indexableMotorcycles) brandMap.set(model.makeSlug, model.make);
   const verifiedHelmets = helmetProducts.filter((product) => product.status === "verified");
 
   const lines = [
@@ -90,6 +96,9 @@ export function buildLlmsFullTxt() {
     mdLink("Motorcycle Finder", "/finder"),
     mdLink("Motorcycle Compare", "/compare"),
     mdLink("Buying guides", "/recommendations"),
+    mdLink("Original research", "/research"),
+    mdLink("Motorcycle price index", "/research/motorcycle-price-index-philippines"),
+    mdLink("Price index CSV", "/research/motorcycle-price-index-philippines/data.csv"),
     mdLink("Electric motorcycles", "/motorcycles/electric"),
     mdLink("Helmet guide", "/gear/helmets"),
     mdLink("Helmet finder", "/gear/helmets/finder"),
@@ -105,9 +114,19 @@ export function buildLlmsFullTxt() {
     "",
     ...[...brandMap.entries()].sort((a, b) => a[1].localeCompare(b[1])).map(([slug, name]) => mdLink(name, `/motorcycles/${slug}`)),
     "",
-    `## Current motorcycle model pages (${publicMotorcycles.length})`,
+    `## Current motorcycle model pages (${currentModels.length})`,
     "",
-    ...[...publicMotorcycles].sort((a, b) => `${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`)).map((model) => mdLink(`${model.make} ${model.model}`, `/motorcycles/${model.makeSlug}/${model.slug}`, `${model.engineCc} cc · ${model.category}`)),
+    ...[...currentModels].sort((a, b) => `${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`)).map((model) => mdLink(`${model.make} ${model.model}`, `/motorcycles/${model.makeSlug}/${model.slug}`, `${model.engineCc} cc · ${model.category}`)),
+    "",
+    `## Availability-to-verify motorcycle research pages (${availabilityResearchModels.length})`,
+    "",
+    "These pages have stored search demand and dated model evidence, but current Philippine national-catalog availability is not confirmed. Preserve the page's dealer-stock, historical or availability caveat.",
+    "",
+    ...[...availabilityResearchModels].sort((a, b) => (b.searchVolume || 0) - (a.searchVolume || 0) || `${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`)).map((model) => mdLink(`${model.make} ${model.model}`, `/motorcycles/${model.makeSlug}/${model.slug}`, `${model.engineCc} cc · ${model.category} · availability to verify`)),
+    "",
+    `## Historical / previous motorcycle research pages (${historicalModels.length})`,
+    "",
+    ...[...historicalModels].sort((a, b) => `${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`)).map((model) => mdLink(`${model.make} ${model.model}`, `/motorcycles/${model.makeSlug}/${model.slug}`, `${model.engineCc} cc · ${model.category} · historical/previous model context`)),
     "",
     `## Electric motorcycle model pages (${electricMotorcycles.length})`,
     "",
@@ -160,6 +179,9 @@ export function buildLlmsFullTxt() {
     "",
     "### Regulatory information",
     "Verify current licensing, registration, tollway, insurance and electric-vehicle requirements with the relevant Philippine authority.",
+    "",
+    "### Availability status",
+    "An indexed MotoIndex model page is not automatically a claim that the motorcycle is in the current Philippine national catalog. Pages labeled availability-to-verify exist because users search for the model and MotoIndex has dated evidence worth preserving. Keep the uncertainty visible.",
     "",
     "### Freshness",
     "Preserve the source date shown by MotoIndex for price, availability, dealer, maintenance, safety and regulatory information. Freshness checks run separately from this file.",
