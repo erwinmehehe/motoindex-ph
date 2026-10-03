@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
@@ -36,7 +36,8 @@ export default async function ModelWeightPage({ params }: { params: Promise<{ ma
   const model = getModel(make, slug);
   if (!model) return notFound();
   const profile = weightIntentLandingProfile(model.id);
-  if (!profile || !isIndexableModel(model)) return notFound();
+  if (!profile) permanentRedirect(`${modelPath}#rider-fit`);
+  if (!isIndexableModel(model)) return notFound();
 
   const modelName = `${model.make} ${model.model}`;
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}/weight`;
