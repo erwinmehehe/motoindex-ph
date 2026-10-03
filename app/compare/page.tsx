@@ -110,6 +110,6 @@ export default function CompareIndex(){
       {remainingComparisons.length>0&&<details className="compare-more"><summary>View all comparisons ({publicComparisons.length})</summary><div className="compare-popular-list">{remainingComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div></details>}
     </section>}
 
-    <DecisionPath stage="compare" />
+    <DecisionPath stage="compare" />\n    <style dangerouslySetInnerHTML={{__html:COMPARE_MOCKUP_CSS}} />
   </section>
 }
