@@ -5,6 +5,7 @@ import { getVerifiedVariantsForModel } from "./variants";
 import { performanceAnswerFor } from "./modelPerformance";
 import { php } from "./utils";
 import { wave3ModelIntentDepthProfile } from "./modelIntentDepthWave3_2026";
+import { hasColorIntentLandingPage } from "./modelColorLandingPages";
 
 export type CanonicalIntentKey = "price" | "specs" | "colors" | "variants" | "performance" | "ownership";
 
@@ -195,7 +196,7 @@ export function canonicalIntentFaqs(model: Motorcycle): FaqItem[] {
   const profile = modelIntentDepthProfile(model.id);
   if (!profile) return [];
   return profile.intents
-    .filter((intent) => intent !== "price" && intent !== "performance")
+    .filter((intent) => intent !== "price" && intent !== "performance" && !(intent === "colors" && hasColorIntentLandingPage(model.id)))
     .map((intent) => ({
       question: canonicalIntentQuestion(model, intent),
       answer: canonicalIntentAnswer(model, intent)
