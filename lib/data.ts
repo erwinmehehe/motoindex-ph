@@ -1456,7 +1456,8 @@ export const recommendationGuides: RecommendationGuide[] = [
     slug: "motorcycles-under-100k",
     kicker: "Budget guide",
     title: "Motorcycles under ₱100K in the Philippines",
-    description: "Current motorcycles below ₱100,000, compared by published price, engine, transmission, weight, seat height and equipment.",
+    seoTitle: "Cheapest Motorcycles Philippines 2026 | Prices Under ₱100K",
+    description: "Compare the cheapest current motorcycles in the Philippines under ₱100K by price, engine, transmission, weight, seat height, fuel economy and braking equipment.",
     primaryKeyword: "motorcycles under 100k Philippines",
     secondaryKeywords: ["motorcycle below 100k Philippines", "affordable motorcycles Philippines", "cheapest motorcycles Philippines", "budget motorcycles Philippines"],
     directAnswer: "Looking for a motorcycle below ₱100,000? This guide compares current options by published starting price, engine, transmission, weight, seat height and braking so you can see what you get for the budget.",
@@ -1791,7 +1792,29 @@ export const recommendationGuides: RecommendationGuide[] = [
     quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
     editorialSections: ["Lowest-priced big bikes and 400cc+ motorcycles", "400cc motorcycles and expressway planning", "Lighter big-bike options", "Lower-seat big-bike options", "Adventure and road-focused big bikes", "What to verify before an expressway trip"],
     faqQuestions: ["Which big bikes and 400cc+ motorcycles are cheapest in the current catalog?", "Does 400cc automatically mean expressway legal?", "Which big bike has the lowest seat?", "Which 400cc+ motorcycle is lightest?", "What should I verify before buying for expressway use?", "Where can I check the Philippine expressway motorcycle rule?"],
-    relatedGuideSlugs: ["best-motorcycles-for-long-rides", "motorcycles-with-abs-philippines", "lightweight-motorcycles-philippines"],
+    relatedGuideSlugs: ["motorcycles-1000cc-plus-philippines", "best-motorcycles-for-long-rides", "motorcycles-with-abs-philippines", "lightweight-motorcycles-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "motorcycles-1000cc-plus-philippines",
+    kicker: "1000cc+ big bikes",
+    title: "1000cc motorcycles in the Philippines",
+    seoTitle: "1000cc Motorcycles Philippines 2026 | Price List & Specs",
+    description: "Compare current 1000cc+ motorcycles in the Philippines by published price, engine size, power, weight, seat height, ABS, fuel tank and road-use context.",
+    primaryKeyword: "1000cc motorcycles Philippines",
+    secondaryKeywords: ["1000cc motorcycle price Philippines", "1000cc big bike Philippines", "big bike 1000cc", "liter bike Philippines", "1000cc bike price Philippines"],
+    directAnswer: "MotoIndex currently tracks multiple Philippine-market motorcycles with recorded displacement of at least 1000cc. This guide compares their published prices with engine size, power, curb weight, seat height, fuel capacity and braking equipment instead of treating engine size as an overall score.",
+    inclusionRules: ["Recorded engine displacement is at least 1000cc", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest within the current 1000cc+ dataset.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Displacement, dimensions, output and braking data come from each model's dated record. Published prices use dated Philippine manufacturer, distributor or market checks.",
+    caveats: ["A 1000cc+ engine does not describe rider skill requirement, comfort or ownership cost by itself.", "Insurance, tires, fuel, servicing and low-speed weight can differ sharply across large-displacement motorcycles.", "For expressway use, verify the exact registered unit and current tollway requirements separately."],
+    tableColumns: ["price", "engine", "power", "torque", "weight", "seat", "abs", "tank"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced 1000cc+ motorcycles", "Lighter liter-class and larger motorcycles", "Lower-seat 1000cc+ options", "Power and engine differences", "What 1000cc+ ownership changes"],
+    faqQuestions: ["What 1000cc motorcycles are available in the Philippines?", "Which 1000cc+ motorcycle has the lowest published price?", "Which 1000cc+ motorcycle is lightest?", "Which 1000cc motorcycle has the lowest seat?", "Are all 1000cc motorcycles expressway legal?"],
+    relatedGuideSlugs: ["motorcycles-400cc-plus-philippines", "best-motorcycles-for-long-rides", "motorcycles-with-abs-philippines", "adventure-touring-motorcycles-philippines"],
     intent: "category"
   },
   {
@@ -2495,6 +2518,7 @@ export function getRecommendationModels(slug: string) {
     case "250cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 225 && m.engineCc <= 275);
     case "300cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 280 && m.engineCc <= 325);
     case "motorcycles-400cc-plus-philippines": return byPrice.filter(m => m.engineCc >= 400);
+    case "motorcycles-1000cc-plus-philippines": return byPrice.filter(m => m.engineCc >= 1000);
     case "cruiser-motorcycles-philippines": return byPrice.filter(m => m.category === "Cruiser");
     case "motorcycles-under-400cc-philippines": return byPrice.filter(m => m.engineCc < 400);
     case "maxi-scooters-philippines": return byPrice.filter(m => /maxi/i.test(m.category));
