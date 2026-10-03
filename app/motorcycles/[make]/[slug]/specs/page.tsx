@@ -161,7 +161,7 @@ export default async function ModelSpecsPage({ params }: { params: Promise<{ mak
 
     <section className="section split" aria-labelledby="source-heading">
       <div>
-        <span className="section-kicker">Source status</span>
+        <span className="section-kicker">Specification source</span>
         <h2 id="source-heading">Specifications stay tied to the checked model record</h2>
         <p>MotoIndex does not merge specifications from different generations just because the model name is similar. Use the generation and source date below when comparing another website, dealer listing or owner manual.</p>
       </div>
