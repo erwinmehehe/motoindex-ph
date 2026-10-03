@@ -5,6 +5,10 @@ on:
     branches: [main]
   workflow_dispatch: {}
 
+concurrency:
+  group: motoindex-cloudflare-production
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -24,6 +28,9 @@ jobs:
         run: npm run cf:build
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Publish prerendered HTML as static edge assets
+        run: node scripts/publish-prerender-assets.mjs
 
       - name: Deploy to Cloudflare Workers
         run: npx wrangler deploy
