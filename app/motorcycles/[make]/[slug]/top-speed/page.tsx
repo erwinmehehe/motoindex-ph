@@ -51,7 +51,9 @@ export default async function ModelTopSpeedPage({ params }: { params: Promise<{ 
     },
     {
       question: `Is ${profile.observedTopSpeedKph} km/h the official ${modelName} top speed?`,
-      answer: `No. MotoIndex labels ${profile.observedTopSpeedKph} km/h as ${profile.evidenceLabel.toLowerCase()} from the cited evidence. It should not be presented as a manufacturer-guaranteed result unless the manufacturer explicitly publishes that figure.`
+      answer: profile.manufacturerPublished
+        ? `Yes. The cited manufacturer source publishes ${profile.observedTopSpeedKph} km/h as the model's top-speed figure. MotoIndex still preserves the model-year/source context and does not treat it as a public-road target.`
+        : `No. MotoIndex labels ${profile.observedTopSpeedKph} km/h as ${profile.evidenceLabel.toLowerCase()} from the cited evidence. It should not be presented as a manufacturer-guaranteed result unless the manufacturer explicitly publishes that figure.`
     },
     {
       question: `Why can ${modelName} top-speed results differ?`,
@@ -112,7 +114,7 @@ export default async function ModelTopSpeedPage({ params }: { params: Promise<{ 
 
     <StatRow items={[
       { label: "Observed / reported", value: `${profile.observedTopSpeedKph} km/h`, note: `≈ ${mph(profile.observedTopSpeedKph)} mph` },
-      { label: "Evidence type", value: profile.evidenceLabel, note: "Not automatically an official manufacturer claim" },
+      { label: "Evidence type", value: profile.evidenceLabel, note: profile.manufacturerPublished ? "Manufacturer-published figure" : "Not automatically an official manufacturer claim" },
       { label: "Published power", value: `${model.powerHp} hp`, note: `${powerToWeight.toFixed(1)} hp per 100 kg` },
       { label: "Evidence checked", value: profile.checkedAt, note: profile.sourceLabel }
     ]} />
@@ -122,7 +124,7 @@ export default async function ModelTopSpeedPage({ params }: { params: Promise<{ 
         kicker="What the number means"
         titleId="top-speed-evidence-heading"
         title={`${profile.observedTopSpeedKph} km/h is evidence, not a universal guarantee`}
-        description="MotoIndex separates a measured or reported performance result from the manufacturer's normal technical specifications."
+        description={profile.manufacturerPublished ? "This page preserves the manufacturer-published maximum-speed figure with model-year, specification and safety context." : "MotoIndex separates a measured or reported performance result from the manufacturer's normal technical specifications."}
       />
       <div className="info-card">
         <h3>{profile.sourceLabel}</h3>
