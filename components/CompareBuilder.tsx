@@ -1,6 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { DetailedMotorcycleCompare } from "@/components/DetailedMotorcycleCompare";
 import type { Motorcycle } from "@/lib/types";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import { trackEvent } from "@/lib/track";
@@ -50,5 +51,6 @@ export function CompareBuilder({ models }: { models: Motorcycle[] }) {
       <button className={`button ${styles.action}`} disabled={!ready} onClick={goTwo}>Compare two →</button>
       <button className={`button ${styles.action} ${styles.secondary}`} disabled={!ready3} onClick={goThree}>Compare three →</button>
     </div>
+    {ready && a && b && <DetailedMotorcycleCompare models={ready3 && c ? [a,b,c] : [a,b]}/>}
   </div>;
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { EntityMedia } from "@/components/EntityMedia";
 import Image from "next/image";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
@@ -61,6 +62,7 @@ export default function HomePage() {
         <div className="shell mi-hero-layout">
           <div className="mi-hero-copy">
             <div className="mi-badge"><b>Motorcycle prices, specs and ownership tools</b><em>Philippines</em></div>
+            <p className="wf-home-slogan">Find the right motorcycle for your next ride.</p>
             <h1 id="mi-home-title">Compare <span>motorcycle prices</span><br />and specs in the Philippines.</h1>
             <p>Find your next motorcycle with current published prices, rider fit, specifications and ownership costs kept together in one research flow.</p>
             <form className="mi-search" action="/motorcycles" method="get" role="search">
@@ -73,6 +75,7 @@ export default function HomePage() {
           </div>
 
           <div className="mi-hero-visual mi-hero-product-visual">
+            {heroModel && <EntityMedia entityType="motorcycle" entityId={heroModel.id} priority forceFill showCredit={false} className="wf-home-bike" sizes="(max-width: 800px) 100vw, 45vw" fallback={<span>{heroModel.make} {heroModel.model}</span>} />}
             <div className="mi-research-shell">
               <div className="mi-research-toolbar"><div><span className="mi-research-dot" aria-hidden="true" /><strong>MotoIndex research snapshot</strong></div><span className="mi-research-status">Current model data</span></div>
               {heroModel ? <>
@@ -87,9 +90,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {featuredBrands.length > 0 && <section className="mi-brand-shelf"><div className="shell"><div className="mi-section-head compact"><div><span className="mi-eyebrow">Browse by brand</span><h2>Start with the names you know.</h2></div><Link href="/motorcycles">All motorcycles →</Link></div><nav className="mi-brand-grid" aria-label="Featured motorcycle brands">{featuredBrands.map(([slug, name]) => <Link key={slug} href={`/motorcycles/${slug}`}><span className="mi-brand-mark" aria-hidden="true"><Image src={`/brand/motorcycle/${slug}.svg`} alt="" width={120} height={40} unoptimized /></span><strong>{name}</strong><span>Models and prices ↗</span></Link>)}</nav></div></section>}
+      <nav className="shell wf-home-categories" aria-label="Browse motorcycle categories">{[["Scooter","/motorcycles/scooters"],["Underbone","/motorcycles?type=underbone"],["Naked","/motorcycles?type=naked"],["Sports","/motorcycles?type=sport"],["Adventure","/motorcycles?type=adventure"]].map(([label,href])=><Link key={label} href={href}><span aria-hidden="true">◇</span>{label}</Link>)}<Link href="/motorcycles/expressway-legal"><span aria-hidden="true">◇</span>Big Bike</Link><Link href="/motorcycles/electric"><span aria-hidden="true">ϟ</span>Electric</Link></nav>
+
+      {featuredBrands.length > 0 && <section className="mi-brand-shelf"><div className="shell"><div className="mi-section-head compact"><div><span className="mi-eyebrow">Browse by brand</span><h2>Start with the names you know.</h2></div><Link href="/motorcycles">All motorcycles →</Link></div><nav className="mi-brand-grid" aria-label="Featured motorcycle brands">{featuredBrands.map(([slug, name]) => <Link key={slug} href={`/motorcycles/${slug}`}><span className="mi-brand-mark" aria-hidden="true"><Image src={`/brand/motorcycle/${slug}.svg`} alt="" width={120} height={40} unoptimized /></span><strong>{name}</strong><span>{verifiedModels.filter(model => model.makeSlug === slug).length} models · Models and prices ↗</span></Link>)}</nav></div></section>}
 
       {featured.length > 0 && <section className="mi-section mi-models"><div className="shell"><div className="mi-section-head"><div><span className="mi-eyebrow">Current motorcycles</span><h2>Open a model. <em>See the whole picture.</em></h2><p>Price context, key specs, rider fit and ownership research stay together on one model page.</p></div><Link href="/motorcycles">Explore all motorcycles →</Link></div><div className="mi-model-grid">{featured.map((model) => <MotorcycleCard key={model.id} model={model} variant="standard" />)}</div><div className="mi-showcase-cta"><div><span>Need a shorter list?</span><strong>Tell the Finder how you actually ride.</strong></div><Link className="mi-btn dark" href="/finder">Find my motorcycle</Link>{hasComparisons && <Link className="mi-btn light" href="/compare">Compare models</Link>}</div></div></section>}
+
+      <nav className="shell wf-feature-strip" aria-label="Motorcycle research shortcuts"><Link href="/compare"><b>Compare</b><span>Up to 3 motorcycles</span></Link><Link href="/motorcycles#price-table"><b>Latest prices</b><span>Current Philippine price references</span></Link><Link href="/motorcycles"><b>Detailed specs</b><span>Engine, fit and dimensions</span></Link><Link href="/guides"><b>Rider guides</b><span>Buying, gear and ownership</span></Link></nav>
 
       <section className="mi-section mi-categories"><div className="shell"><div className="mi-section-head"><div><span className="mi-eyebrow">Choose your starting point</span><h2>Start with what <em>matters to you.</em></h2><p>Budget, daily use and rider fit are usually more useful than scrolling every motorcycle in the catalog.</p></div><Link href="/recommendations">Buying guides →</Link></div><div className="mi-category-grid">{startPoints.map(([number, title, copy, href]) => <Link key={title} href={href} className="mi-category-card"><span>{number}</span><div><h3>{title}</h3><p>{copy}</p></div><small>Explore →</small></Link>)}</div></div></section>
 

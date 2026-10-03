@@ -1,0 +1,5 @@
+"use client";
+import { useEffect,useState } from "react";
+const key="motoindex-gear-shortlist-v1";
+function read():string[]{try{const data=JSON.parse(localStorage.getItem(key)||"[]");return Array.isArray(data)?data.filter(value=>typeof value==="string"):[];}catch{return [];}}
+export function GearSave({id,name}:{id:string;name:string}){const [saved,setSaved]=useState(false);useEffect(()=>{const sync=()=>setSaved(read().includes(id));sync();window.addEventListener("storage",sync);window.addEventListener("motoindex-gear-shortlist",sync);return()=>{window.removeEventListener("storage",sync);window.removeEventListener("motoindex-gear-shortlist",sync);};},[id]);return <button className="wf-gear-save" type="button" aria-label={`${saved?"Remove":"Save"} ${name} ${saved?"from":"to"} gear shortlist`} aria-pressed={saved} onClick={()=>{const current=read();const next=current.includes(id)?current.filter(value=>value!==id):[...current,id];try{localStorage.setItem(key,JSON.stringify(next));setSaved(next.includes(id));window.dispatchEvent(new Event("motoindex-gear-shortlist"));}catch{setSaved(false);}}}>{saved?"♥":"♡"}</button>;}

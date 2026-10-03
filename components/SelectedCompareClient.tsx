@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { ComparisonActions } from "@/components/wireframe/ComparisonActions";
+import { COMPARE_KEY } from "@/components/CompareButton";
 import type { Motorcycle } from "@/lib/types";
 import { DetailedMotorcycleCompare } from "@/components/DetailedMotorcycleCompare";
 import { ComparisonHighlights } from "@/components/ComparisonHighlights";
@@ -27,14 +29,17 @@ export function SelectedCompareClient({ models, initialSlugs = [] }: { models: M
     return <div className={`${styles.empty} note-box`}><h2>Choose at least two motorcycles</h2><p>Your comparison link is missing valid motorcycle selections.</p><Link className="button small" href="/compare">Open comparison builder</Link></div>;
   }
 
+  function update(next:string[]){setSlugs(next);const params=new URLSearchParams(window.location.search);if(next.length)params.set("bikes",next.join(","));else params.delete("bikes");window.history.replaceState(null,"",`${window.location.pathname}${params.size?`?${params}`:""}`);try{localStorage.setItem(COMPARE_KEY,JSON.stringify(next.map(slug=>models.find(model=>model.slug===slug)?.id).filter(Boolean)));window.dispatchEvent(new Event("motoindex-compare"));}catch{/* Device storage is optional. */}}
+
   return <div className={styles.workspace}>
     <div className={styles.summary} aria-label={`${selected.length} motorcycles selected`}>
       <span>{selected.length}-bike comparison</span>
-      <div>{selected.map(model=><b key={model.id}>{model.make} {model.model}</b>)}</div>
+      <div>{selected.map(model=><button type="button" className="wf-compare-remove" key={model.id} onClick={()=>update(slugs.filter(slug=>slug!==model.slug))} aria-label={`Remove ${model.make} ${model.model} from comparison`}>{model.make} {model.model} ×</button>)}</div>
       <Link href="/compare">Change motorcycles</Link>
     </div>
     {selected.length===2&&<ComparisonDecisionWorkbench a={selected[0]} b={selected[1]}/>} 
     {selected.length===3?<ThreeWayHighlights models={selected}/>:<ComparisonHighlights a={selected[0]} b={selected[1]}/>} 
     <DetailedMotorcycleCompare models={selected}/>
+    <ComparisonActions onClear={()=>update([])}/>
   </div>;
 }

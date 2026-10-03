@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FilterGrid } from "@/components/wireframe/FilterGrid";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
 import { helmetBrands } from "@/lib/data";
@@ -82,6 +83,8 @@ export default function HelmetsPage(){
       description="Use one guide to compare helmet prices, protection formats, ECE 22.06 references, intercom provision, commuting choices, sizing and current brand/model pages. Open the exact helmet before buying to verify fit and the marking on the local unit."
       actions={<CTAGroup><Link className="button" href="/gear/helmets/finder">Find my helmet</Link><Link className="button secondary" href="/gear/helmets/compare">Compare exact helmets</Link></CTAGroup>}
     />
+
+    <FilterGrid label="Helmets" facets rows={verified.map(p=>({id:p.id,title:`${p.brand} ${p.model}`,category:p.helmetType,brand:p.brand,price:p.priceFromPhp}))}>{verified.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:p.helmetType,brand:p.brand,model:p.model,meta:compactHelmetMeta(p),status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</FilterGrid>
 
     <StatRow items={[
       {label:"Verified models",value:verified.length},

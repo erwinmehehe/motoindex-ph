@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PriceList } from "@/components/wireframe/PriceList";
 import Image from "next/image";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
@@ -9,7 +10,7 @@ import { CTAGroup, SectionHeader, StatRow } from "@/components/ui";
 import { modelFamilies } from "@/lib/families";
 import { modelAuthorityProfile } from "@/lib/modelAuthority";
 import { forClient } from "@/lib/competitors";
-import { observedMarketRange } from "@/lib/marketChecks";
+import { observedMarketPriceLabel, observedMarketRange } from "@/lib/marketChecks";
 import {
   currentPublicMotorcycles,
   marketBrandCount,
@@ -107,6 +108,8 @@ export default function MotorcyclesPage() {
           <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Full price list</span><h2>Browse and filter current motorcycle models</h2><p>Use filters to narrow the market, then open a model page for prices, specifications, financing context, fitment and ownership information.</p></div></div>
           <ModelExplorer models={forClient(currentModels)} />
         </section>
+
+        <section id="price-table" className="wf-price-section"><SectionHeader kicker="Published Philippine prices" title="Motorcycle price list" description="Compare the current catalog in one table. Prices are published references; confirm the exact variant and latest dealer quote before purchase."/><PriceList rows={currentModels.map(model=>({id:model.id,model:model.model,brand:model.make,category:model.category,engine:model.engineCc,price:observedMarketRange(model).from,priceLabel:observedMarketPriceLabel(model),href:`/motorcycles/${model.makeSlug}/${model.slug}`}))}/></section>
 
         <section className={styles.marketSnapshot}>
           <SectionHeader
