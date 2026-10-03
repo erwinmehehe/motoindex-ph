@@ -13,6 +13,8 @@ const buyerAnswers=read("components","CanonicalIntentDepth.tsx");
 const sitemap=read("lib","sitemaps.ts");
 const llms=read("lib","llms.ts");
 const data=read("lib","data.ts");
+const kawasakiExpansion=read("lib","kawasakiBigBikeExpansion2026.ts");
+const catalog=data+"\n"+kawasakiExpansion;
 
 const expected=[
   ["kawasaki-ninja-650","ninja 650 top speed",8800,"Kawasaki Ninja 650 Top Speed Philippines | Test Evidence","Kawasaki Ninja 650 top speed guide with independent test evidence, mph/km/h conversion, model-year caveats, gearing context and why real-world speed varies."],
@@ -80,7 +82,7 @@ for(const token of [
   'searchVolume: 8800',
   'sourceUrl: "https://kawasakileisurebikes.ph/motorcycles/sports/ninja-650/"'
 ]){
-  requireText(data,token,`Ninja 650 model coverage missing: ${token}`);
+  requireText(catalog,token,`Ninja 650 model coverage missing: ${token}`);
 }
 requireText(profiles,'manufacturerPublished: true',"Manufacturer-published top-speed evidence must be explicitly flagged.");
 
