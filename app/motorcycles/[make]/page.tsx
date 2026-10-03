@@ -259,6 +259,9 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
             </Link>;
           })}
         </DataTable>
+        {categorySpotlight.recommendationHref && categorySpotlight.recommendationLabel ? <CTAGroup>
+          <Link className="button secondary" href={categorySpotlight.recommendationHref}>{categorySpotlight.recommendationLabel}</Link>
+        </CTAGroup> : null}
       </section> : null}
 
       <section id="price-list" className="ph-brand-section">
