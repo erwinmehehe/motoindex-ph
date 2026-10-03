@@ -57,6 +57,7 @@ import { CanonicalIntentDepth } from "@/components/CanonicalIntentDepth";
 import { canonicalIntentFaqs, modelIntentDepthProfile } from "@/lib/modelIntentDepth2026";
 import { installmentLandingProfile } from "@/lib/modelIntentLandingPages";
 import { colorIntentLandingProfile } from "@/lib/modelColorLandingPages";
+import { topSpeedLandingProfile } from "@/lib/modelTopSpeedLandingPages";
 
 const MOTORCYCLE_ANALYTICS_CSS = `
 .motorcycle-analytics-panel{margin:28px 0 18px;padding:34px;border:1px solid rgba(62,82,69,.16);border-radius:16px;background:#fff;box-shadow:0 18px 48px rgba(24,45,32,.055)}
@@ -95,6 +96,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const financingPriceOptions = variantPriceOptions(model.id);
   const allColors = [...new Set([...model.colors, ...verifiedVariants.flatMap((variant) => variant.colors || [])])];
   const colorLanding = colorIntentLandingProfile(model.id);
+  const topSpeedLanding = topSpeedLandingProfile(model.id);
   const gearGuide = getModelGearGuide(model.id);
   const helmetCandidates = (gearGuide?.helmetIds || []).map((id) => helmetProducts.find((product) => product.id === id)).filter((product): product is NonNullable<typeof product> => Boolean(product && product.status === "verified"));
   const tireCandidates = getTireProductsForModel(model.id).filter((p) => !isIndexableModel(model) || p.status === "verified");
@@ -114,7 +116,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}`;
   const intentDepth = modelIntentDepthProfile(model.id);
   const installmentLanding = installmentLandingProfile(model.id);
-  const faqs = [...motorcycleEntityFaqs(model), ...canonicalIntentFaqs(model), ...(performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])];
+  const faqs = [...motorcycleEntityFaqs(model), ...canonicalIntentFaqs(model), ...(!topSpeedLanding && performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])];
   const offer = motorcycleOfferSchema(model, canonicalPath, isIndexableModel(model));
   const schema = {
     "@context": "https://schema.org",
@@ -215,6 +217,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         ...(colorLanding && allColors.length > 0 ? [{ href: "#colors", label: "Colors" }] : []),
         ...(intentDepth ? [{ href: "#buyer-answers", label: "Buyer answers" }] : []),
         { href: "#specs", label: "Key specs" },
+        ...(topSpeedLanding ? [{ href: `/motorcycles/${model.makeSlug}/${model.slug}/top-speed`, label: "Top speed" }] : []),
         ...(authority ? [{ href: "#buyer-guide", label: "Who it suits" }] : []),
         ...(!isHistorical ? [{ href: "#installment", label: "Monthly" }] : []),
         { href: "#rider-fit", label: "Rider fit" },
@@ -350,7 +353,15 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <SectionHeader className="entity-research-divider" kicker="Detailed research" title="Evidence for the deeper check" description="Open these sections when the motorcycle is already on your shortlist." />
 
-      {performance && <section id="performance" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Performance and top-speed evidence</summary><div className="source-panel entity-source-panel"><span>{performance.evidence}</span><h3>{performance.observedRangeKph ? `${performance.observedRangeKph[0]}–${performance.observedRangeKph[1]} km/h observed range` : performance.observedTopSpeedKph ? `About ${performance.observedTopSpeedKph} km/h editorial estimate` : "No manufacturer-published top-speed figure"}</h3><p>{performance.answer}</p><small>{performance.caution}</small></div></details></section>}
+      {topSpeedLanding ? <section id="performance" className="motorcycle-entity-section">
+        <div className="entity-tool-grid">
+          <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/top-speed`}>
+            <span>Dedicated performance evidence</span>
+            <strong>{model.make} {model.model} top speed</strong>
+            <small>{topSpeedLanding.observedTopSpeedKph} km/h evidence · test method, generation caveats and real-world factors.</small>
+          </Link>
+        </div>
+      </section> : performance ? <section id="performance" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Performance and top-speed evidence</summary><div className="source-panel entity-source-panel"><span>{performance.evidence}</span><h3>{performance.observedRangeKph ? `${performance.observedRangeKph[0]}–${performance.observedRangeKph[1]} km/h observed range` : performance.observedTopSpeedKph ? `About ${performance.observedTopSpeedKph} km/h editorial estimate` : "No manufacturer-published top-speed figure"}</h3><p>{performance.answer}</p><small>{performance.caution}</small></div></details></section> : null}
 
       <section id="fuel" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Fuel economy and range</summary><SectionHeader title={<>{model.make} {model.model} fuel consumption</>} description={efficiency.status === "listed" ? `The ${efficiency.kmPerL} km/L basis comes from the model data on file.` : "MotoIndex starts from a labeled planning estimate when a model-specific published figure is unavailable."} /><FuelRangeCalculator model={forClient(model)} /></details></section>
 
