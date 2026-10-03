@@ -43,6 +43,7 @@ jobs:
           npm run validate:model-intent-split
           npm run validate:model-color-intent-split
           npm run validate:model-top-speed-intent-split
+          npm run validate:model-fuel-consumption-intent-split
           npm run validate:expressway-hub
           npm run validate:budget-displacement
           npm run validate:copy-tone
