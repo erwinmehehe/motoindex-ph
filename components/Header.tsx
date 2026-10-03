@@ -73,6 +73,7 @@ export function Header() {
         </details>
       </nav>
       <div className="nav-actions">
+        {hasModels && <Link className="nav-finder-cta" href="/finder">Find my bike</Link>}
         <Link className="nav-icon-button nav-search-icon" href="/search" aria-label="Search MotoIndex">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4 4" /></svg>
         </Link>
