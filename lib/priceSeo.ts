@@ -3,6 +3,7 @@ import type { FaqItem } from "@/components/FaqSection";
 import { financingScenario } from "./financing";
 import { php } from "./utils";
 import { observedMarketRange } from "./marketChecks";
+import { hasInstallmentLandingPage } from "./modelIntentLandingPages";
 
 export type PriceSeoTarget = {
   title: string;
@@ -164,12 +165,12 @@ export function priceFaqsForModel(model: Motorcycle, priceLabel: string): FaqIte
       question: `Is the ${modelName} SRP the same at every dealer?`,
       answer: "No. The manufacturer SRP may be the same, but the final cash price can change once dealer fees, registration, insurance, financing and promotions are included. Compare quotes for the exact variant you want."
     },
-    {
+    ...(!hasInstallmentLandingPage(model.id) ? [{
       question: `How much is the ${modelName} down payment and monthly installment?`,
       answer: model.id === "yamaha-aerox-v3" && range.to && range.to > range.from
         ? `Using the current Standard-to-SP price range, a 20% planning downpayment is about ${php(Math.round(finance.downPaymentPhp))} on the ${php(range.from)} price and ${php(Math.round(financeHigh.downPaymentPhp))} on the ${php(range.to)} price. At 36 months and 12% annual amortizing interest, the monthly estimates are about ${php(Math.round(finance.monthlyPhp))} and ${php(Math.round(financeHigh.monthlyPhp))}. Actual dealer minimum downpayment, fees and lender terms can differ.`
         : `At 20% down over 36 months with 12% annual interest, the estimate is about ${php(Math.round(finance.downPaymentPhp))} down and ${php(Math.round(finance.monthlyPhp))} per month. Actual dealer and lender terms can be different.`
-    },
+    }] : []),
     {
       question: `When was the ${modelName} price checked?`,
       answer: `The latest price reference on this page was checked on ${model.marketPriceCheckedAt || model.verifiedAt}. Dealer prices can change after that date, so confirm the current quote before buying.`

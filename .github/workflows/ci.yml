@@ -40,6 +40,7 @@ jobs:
           npm run validate:original-research-wave2
           npm run validate:model-coverage-truth
           npm run validate:demand-backed-availability
+          npm run validate:model-intent-split
           npm run validate:expressway-hub
           npm run validate:budget-displacement
           npm run validate:copy-tone
