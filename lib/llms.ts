@@ -7,6 +7,7 @@ import { installmentLandingProfiles } from "./modelIntentLandingPages";
 import { colorIntentLandingProfiles } from "./modelColorLandingPages";
 import { topSpeedLandingProfiles } from "./modelTopSpeedLandingPages";
 import { fuelConsumptionLandingProfiles } from "./modelFuelConsumptionLandingPages";
+import { specsIntentLandingProfiles } from "./modelSpecsLandingPages";
 
 const site = "https://motoindexph.com";
 const today = new Date().toISOString().slice(0, 10);
@@ -42,6 +43,7 @@ export function buildLlmsTxt() {
     "For model-specific color queries, prefer the focused /motorcycles/<make>/<model>/colors page when one is listed in the full LLM index.",
     "For model-specific top-speed queries, prefer the focused /motorcycles/<make>/<model>/top-speed page when one is listed in the full LLM index.",
     "For model-specific fuel-consumption queries, prefer the focused /motorcycles/<make>/<model>/fuel-consumption page when one is listed in the full LLM index.",
+    "For model-specific technical-specification queries, prefer the focused /motorcycles/<make>/<model>/specs page when one is listed in the full LLM index."
     mdLink("Helmet guide", "/gear/helmets", "Verified helmet models, brands, types, prices, certification and fit guidance."),
     mdLink("Helmet finder", "/gear/helmets/finder", "Filter the verified helmet catalog by fit, type, price and features."),
     mdLink("Dealers", "/dealers", "Public dealer directory and regional dealer research."),
@@ -183,6 +185,15 @@ export function buildLlmsFullTxt() {
       return model && model.fuelConsumptionKmL ? [mdLink(`${model.make} ${model.model} fuel consumption`, `/motorcycles/${model.makeSlug}/${model.slug}/fuel-consumption`, `${model.fuelConsumptionKmL} km/L listed · ${profile.keywordVolume} stored keyword volume`)] : [];
     }),
     "",
+    `## Focused model specification guides (${specsIntentLandingProfiles.length})`,
+    "",
+    "These pages own search-volume-backed technical specification intent. Use the main model page for price, colors, financing, ownership and alternatives.",
+    "",
+    ...specsIntentLandingProfiles.flatMap((profile) => {
+      const model = indexableMotorcycles.find((item) => item.id === profile.modelId);
+      return model ? [mdLink(`${model.make} ${model.model} specs`, `/motorcycles/${model.makeSlug}/${model.slug}/specs`, `${profile.keyword} · stored volume ${profile.keywordVolume}`)] : [];
+    }),
+    "",
     "## Focused motorcycle buying guides",
     "",
     ...recommendationGuides.filter((guide) => isIndexableRecommendation(guide.slug)).map((guide) => mdLink(guide.title, recommendationCanonicalHref(guide.slug), guide.primaryKeyword)),
@@ -239,7 +250,7 @@ export function buildLlmsFullTxt() {
     "",
     "## Canonical URL policy",
     "",
-    "Prefer canonical URLs listed here and in the XML sitemaps. Focused indexable /recommendations/<slug> guides plus whitelisted /motorcycles/<make>/<model>/installment, /colors, /top-speed and /fuel-consumption pages are canonical resources for their specific intent; query/filter URLs and redirect aliases are not.",
+    "Prefer canonical URLs listed here and in the XML sitemaps. Focused indexable /recommendations/<slug> guides plus whitelisted /motorcycles/<make>/<model>/installment, /colors, /top-speed, /fuel-consumption and /specs pages are canonical resources for their specific intent; query/filter URLs and redirect aliases are not.",
     "",
     "## Sitemaps",
     "",
