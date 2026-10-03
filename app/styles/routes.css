@@ -79,7 +79,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   line-height:1.65;
   max-width:560px;
   margin:20px 0}
-.mi-home .mi-search{display:flex;
+.mi-home .mi-search{display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
   padding:5px;
   background:var(--mi-color-surface);
   border:1px solid var(--mi-color-wireframe-16);
@@ -681,7 +682,7 @@ body{background:var(--mi-color-surface)}
 .mi-home h1 span { background:none; -webkit-text-fill-color:currentColor; }
 
 .wf-home-bike { position:relative; }
-@media(max-width:640px) { .mi-home .mi-search { flex-direction:column; } .mi-home .mi-search input { min-height:44px; } .mi-home .mi-search button { width:100%; } }
+@media(max-width:640px) { .mi-home .mi-search { grid-template-columns:minmax(0,1fr); } .mi-home .mi-search input { min-height:44px; } .mi-home .mi-search button { width:100%; } }
 
 .wf-helmet-catalog-details { margin-top:16px; }
 .wf-helmet-catalog-details summary { cursor:pointer; color:var(--mi-color-primary); font-weight:650; padding:12px 0; }
