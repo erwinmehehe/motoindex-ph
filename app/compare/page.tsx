@@ -86,7 +86,7 @@ export default function CompareIndex(){
     />
 
     {previewModels.length>=2&&<section className={"compare-preview"} aria-labelledby="compare-preview-title">
-      <div className={"compare-preview"Head}>
+      <div className="compare-preview-head">
         <div><span>Popular side-by-side</span><h2 id="compare-preview-title">Compare key specifications at a glance</h2></div>
         <Link href="/compare/selection?bikes=nmax-v3,adv-160,burgman-street">Open comparison →</Link>
       </div>
@@ -106,8 +106,8 @@ export default function CompareIndex(){
         title="Start with common motorcycle matchups"
         description="Open a ready-made comparison or build your own above."
       />
-      <div className={"compare-popular"List}>{featuredComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div>
-      {remainingComparisons.length>0&&<details className={"compare-more"}><summary>View all comparisons ({publicComparisons.length})</summary><div className={"compare-popular"List}>{remainingComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div></details>}
+      <div className="compare-popular-list">{featuredComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div>
+      {remainingComparisons.length>0&&<details className="compare-more"><summary>View all comparisons ({publicComparisons.length})</summary><div className={"compare-popular"List}>{remainingComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div></details>}
     </section>}
 
     <DecisionPath stage="compare" />
