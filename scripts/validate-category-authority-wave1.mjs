@@ -7,6 +7,8 @@ const errors = [];
 
 const data = read("lib", "data.ts");
 const electric = read("app", "motorcycles", "electric", "page.tsx");
+const brandGrowth = read("lib", "brandSeoGrowth.ts");
+const brandPage = read("app", "motorcycles", "[make]", "page.tsx");
 
 for (const token of [
   'slug: "honda-big-bikes-philippines"',
@@ -41,6 +43,25 @@ for (const token of [
   'Compare current verified Philippine electric scooters by price'
 ]) {
   if (!electric.includes(token)) errors.push(`Electric authority hub guard missing: ${token}`);
+}
+
+for (const token of [
+  'suzuki: {',
+  'seoTitle: "Suzuki Motorcycles Philippines 2026 | Price List & Models"',
+  'seoDescription: "Suzuki motorcycles Philippines 2026 price list with current scooters, underbones, sport and big-bike models, plus engine sizes, seat heights and buyer research."',
+  'heroTitle: "Suzuki Motorcycle Philippines Price List 2026"',
+  'This Suzuki brand hub owns broad Suzuki motorcycle Philippines and price-list intent.'
+]) {
+  if (!brandGrowth.includes(token)) errors.push(`Suzuki brand authority guard missing: ${token}`);
+}
+
+for (const token of [
+  'brandSeoGrowthProfile(make)',
+  'brandGrowth?.seoTitle',
+  'brandGrowth?.seoDescription',
+  'brandGrowth.intentNote'
+]) {
+  if (!brandPage.includes(token)) errors.push(`Suzuki brand renderer guard missing: ${token}`);
 }
 
 for (const token of [

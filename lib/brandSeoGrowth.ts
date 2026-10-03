@@ -44,6 +44,13 @@ const profiles: Record<string, BrandSeoGrowthProfile> = {
     bigBikeDescription: "Compare current Kawasaki motorcycles at 400cc and above by published price, engine size, power, seat height and category. Open any model for its canonical specs, financing and ownership research.",
     categorySpotlight: { title: "Kawasaki off-road and KLX motorcycles", description: "Compare current Kawasaki off-road and dual-sport models, including KLX-family records, on the main Kawasaki authority hub rather than creating a duplicate brand-category page.", pattern: "Dual-sport|Off-road|Trail", recommendationHref: "/recommendations/dual-sport-motorcycles-philippines", recommendationLabel: "Compare dual-sport and trail motorcycles" }
   },
+  suzuki: {
+    seoTitle: "Suzuki Motorcycles Philippines 2026 | Price List & Models",
+    seoDescription: "Suzuki motorcycles Philippines 2026 price list with current scooters, underbones, sport and big-bike models, plus engine sizes, seat heights and buyer research.",
+    heroTitle: "Suzuki Motorcycle Philippines Price List 2026",
+    heroDescription: "Compare current Suzuki motorcycles tracked in the Philippines by published price, engine size, seat height and category, including scooters, underbones, sport bikes and larger-displacement models.",
+    intentNote: "This Suzuki brand hub owns broad Suzuki motorcycle Philippines and price-list intent. Use its current model table and category sections first, then open the canonical model page for detailed specs, financing, fitment and ownership research."
+  },
   vespa: {
     seoTitle: "Vespa Philippines Price List 2026 | GTS, GTV, Sprint & Primavera",
     seoDescription: "Vespa Philippines price list for GTS SuperSport 300, GTV 300, Primavera 150 and Sprint 150 with specs, seat height, ABS and ownership links.",
