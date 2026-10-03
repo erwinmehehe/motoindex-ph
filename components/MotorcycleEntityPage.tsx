@@ -55,6 +55,7 @@ import { OwnershipCatalogLinks } from "@/components/OwnershipCatalogLinks";
 import { CTAGroup, ProductGrid as CanonicalProductGrid, SectionHeader } from "@/components/ui";
 import { CanonicalIntentDepth } from "@/components/CanonicalIntentDepth";
 import { canonicalIntentFaqs, modelIntentDepthProfile } from "@/lib/modelIntentDepth2026";
+import { installmentLandingProfile } from "@/lib/modelIntentLandingPages";
 
 const MOTORCYCLE_ANALYTICS_CSS = `
 .motorcycle-analytics-panel{margin:28px 0 18px;padding:34px;border:1px solid rgba(62,82,69,.16);border-radius:16px;background:#fff;box-shadow:0 18px 48px rgba(24,45,32,.055)}
@@ -112,6 +113,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const authorityComparisons = authority?.comparisonIds.map((id) => getModelById(id)).filter((item): item is Motorcycle => Boolean(item)) || [];
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}`;
   const intentDepth = modelIntentDepthProfile(model.id);
+  const installmentLanding = installmentLandingProfile(model.id);
   const intentFaqs = highDemandColorIntent && allColors.length > 0 ? [
     {
       question: `What colors are available for the ${model.make} ${model.model}?`,
@@ -298,7 +300,21 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <div className="authority-grid motorcycle-decision-grid"><article className="authority-buy"><span>Buy it if</span><ul>{authority.buyIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-skip"><span>Skip it if</span><ul>{authority.skipIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-ph"><span>Philippine ownership</span><ul>{authority.phContext.map((item) => <li key={item}>{item}</li>)}</ul></article></div>
       </section>}
 
-      {!isHistorical && <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
+      {!isHistorical && installmentLanding ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
+        <SectionHeader
+          kicker="Monthly payment"
+          titleId="installment-heading"
+          title={`${model.make} ${model.model} installment and downpayment`}
+          description="This financing intent now has its own focused page so the main motorcycle guide can stay centered on price, variants, specifications, fit and ownership."
+        />
+        <div className="entity-tool-grid">
+          <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/installment`}>
+            <span>Dedicated financing guide</span>
+            <strong>Calculate downpayment and monthly installment</strong>
+            <small>Compare dealer observations, 10/20/30% scenarios, variant prices and an editable loan estimate.</small>
+          </Link>
+        </div>
+      </section> : !isHistorical ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
         <SectionHeader
           kicker="Monthly payment"
           titleId="installment-heading"
@@ -309,7 +325,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <FinancingSnapshot modelName={`${model.make} ${model.model}`} price={range.from} priceOptions={financingPriceOptions} />
         <DealerFinancingSnapshot modelId={model.id} modelName={`${model.make} ${model.model}`} />
         <div className="entity-tool-grid"><Link href={loanToolHref}><span>Need more control?</span><strong>{aeroxFinanceTarget ? "Calculate Aerox V3 downpayment and monthly payment" : "Open the full loan calculator"}</strong><small>{aeroxFinanceTarget ? "Enter an exact peso downpayment or use 10%, 20% and 30% presets, then adjust term and rate." : "Change price, down payment, term and rate with a shareable URL."}</small></Link></div>
-      </section>}
+      </section> : null}
 
       <section id="rider-fit" className="motorcycle-entity-section" aria-labelledby="fit-heading">
         <SectionHeader kicker="Rider fit" titleId="fit-heading" title={<>Will the {model.make} {model.model} fit you?</>} description="Seat height is only a starting point. Use your inseam with the recorded seat height and curb weight, then sit on the exact motorcycle when possible." />
