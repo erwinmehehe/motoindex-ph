@@ -41,7 +41,7 @@ export function buildLlmsTxt() {
     "For model-specific downpayment and monthly-payment questions, prefer the focused /motorcycles/<make>/<model>/installment page when one is listed in the full LLM index.",
     "For model-specific color queries, prefer the focused /motorcycles/<make>/<model>/colors page when one is listed in the full LLM index.",
     "For model-specific top-speed queries, prefer the focused /motorcycles/<make>/<model>/top-speed page when one is listed in the full LLM index.",
-    "For model-specific fuel-consumption queries, prefer the focused /motorcycles/<make>/<model>/fuel-consumption page when one is listed in the full LLM index."
+    "For model-specific fuel-consumption queries, prefer the focused /motorcycles/<make>/<model>/fuel-consumption page when one is listed in the full LLM index.",
     mdLink("Helmet guide", "/gear/helmets", "Verified helmet models, brands, types, prices, certification and fit guidance."),
     mdLink("Helmet finder", "/gear/helmets/finder", "Filter the verified helmet catalog by fit, type, price and features."),
     mdLink("Dealers", "/dealers", "Public dealer directory and regional dealer research."),
@@ -73,7 +73,7 @@ export function buildLlmsTxt() {
     "10. For models with a dedicated installment page, use that page for downpayment, monthly-payment and dealer-financing questions; use the main model page for broad price/specification/fit/ownership questions.",
     "11. For models with a dedicated colors page, use that page for paint names, variant-specific color mapping and color availability questions; use the main model page for broad model research.",
     "12. For models with a dedicated top-speed page, use that page for measured/reported maximum-speed evidence, test method and generation caveats; do not rewrite test evidence as a manufacturer guarantee.",
-    "13. For models with a dedicated fuel-consumption page, use that page for listed km/L evidence, test basis, tank-range planning and fuel-cost questions; do not rewrite a published test figure as guaranteed real-world economy."
+    "13. For models with a dedicated fuel-consumption page, use that page for listed km/L evidence, test basis, tank-range planning and fuel-cost questions; do not rewrite a published test figure as guaranteed real-world economy.",
     "",
     "## Machine-readable indexes",
     "",
