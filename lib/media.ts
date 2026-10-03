@@ -744,6 +744,11 @@ export const entityMedia: EntityMedia[] = [
     rightsStatus:"external-reference", rightsHolder:"KYMCO Philippines", sourceLabel:"Manufacturer-hosted product image · Kymco KRV 180 Belt", sourceUrl:"https://kymco.com.ph/product/krv-180-belt/", lastChecked:"2026-09-24"
   },
   {
+    id:"kymco-krv-180-wave5-kymco-ph", entityType:"motorcycle", entityId:"kymco-krv-180", role:"primary",
+    src:"/media/motorcycles/kymco-krv-180i-tcs.webp", sourceImageUrl:"https://kymco.com.ph/wp-content/uploads/2024/02/KRV-Belt_1.png", alt:"KYMCO KRV 180 Belt scooter in blue", width:1200, height:1200,
+    rightsStatus:"external-reference", rightsHolder:"KYMCO Philippines", sourceLabel:"Manufacturer-hosted product image · KYMCO KRV 180 Belt", sourceUrl:"https://kymco.com.ph/product/krv-180-belt/", lastChecked:"2026-10-03"
+  },
+  {
     id:"motorstar-cafe-400-editorial", entityType:"motorcycle", entityId:"motorstar-cafe-400", role:"primary",
     src:"/media/motorcycles/motorstar-cafe-400.webp", sourceImageUrl: "https://www.kamote.ph/cdn-cgi/image/lossless%3Dtrue%2Cw%3D1200%2Ch%3D1200%2Cf%3Dwebp%2Cfit%3Dcontain/https%3A/www.kamote.ph/Gallery/Motorstar/Cafe_400.webp", alt:"MotorStar Cafe 400 motorcycle", width:1200, height:1200,
     rightsStatus:"external-reference", rightsHolder: "Kamote.ph", sourceLabel: "Philippine exact-model product image reference · MotorStar Cafe 400", sourceUrl: "https://www.kamote.ph/motorcycle/motorstar-cafe-400", lastChecked: "2026-09-27"
