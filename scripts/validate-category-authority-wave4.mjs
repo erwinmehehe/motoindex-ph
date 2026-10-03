@@ -17,7 +17,7 @@ const requireText = (source, token, message) => {
 
 for (const token of [
   'slug: "motorcycles-1000cc-plus-philippines"',
-  'seoTitle: "1000cc Motorcycles Philippines 2026 | Price List & Specs"',
+  'seoTitle: "1000cc Motorcycles Philippines 2026 | Prices, Specs & Fit"',
   'primaryKeyword: "1000cc motorcycles Philippines"',
   '"big bike 1000cc"',
   '"liter bike Philippines"',
@@ -34,6 +34,23 @@ requireText(
 );
 
 for (const token of [
+  'slug: "cruiser-motorcycles-philippines"',
+  'seoTitle: "Cruiser Motorcycles Philippines 2026 | Prices, Specs & Fit"',
+  'primaryKeyword: "cruiser motorcycle Philippines"',
+  '"best cruiser motorcycle Philippines"',
+  'case "cruiser-motorcycles-philippines": return byPrice.filter(m => m.category === "Cruiser")'
+]) {
+  requireText(data, token, `Cruiser authority guide missing token: ${token}`);
+}
+
+for (const token of [
+  'guide.slug==="cruiser-motorcycles-philippines"',
+  'guide.slug==="motorcycles-1000cc-plus-philippines"'
+]) {
+  requireText(read("app", "recommendations", "[slug]", "page.tsx"), token, `Category-specific recommendation rationale missing: ${token}`);
+}
+
+for (const token of [
   'seoTitle: "Cheapest Motorcycles Philippines 2026 | Prices Under ₱100K"',
   '"cheapest motorcycles Philippines"',
   '"What is the cheapest motorcycle in the Philippines under ₱100,000?"'
@@ -42,10 +59,17 @@ for (const token of [
 }
 
 for (const token of [
-  'title: "Electric Motorcycles Philippines 2026 | Prices, Range & LTO"',
+  'title: "Electric Scooters Philippines 2026 | Prices, Range & LTO"',
   'Electric motorcycles and scooters in the Philippines',
   'Electric motorcycle and electric scooter prices in the Philippines',
-  'What electric scooters are available in the Philippines?'
+  'What electric scooters are available in the Philippines?',
+  'const itemListSchema=',
+  '"@type":"ItemList"',
+  'id="ownership"',
+  'What to compare before buying an electric scooter in the Philippines',
+  'href="/motorcycles/scooters"',
+  'href="/motorcycles"',
+  '<JsonLd data={itemListSchema}/>'
 ]) {
   requireText(electric, token, `Electric authority canonical missing token: ${token}`);
 }
@@ -81,6 +105,20 @@ if (metadata.length !== 1) {
   if (title.length < 55 || title.length > 60) errors.push(`1000cc title length must be 55-60 chars; found ${title.length}.`);
   if (description.length < 150 || description.length > 160) errors.push(`1000cc description length must be 150-160 chars; found ${description.length}.`);
 }
+
+const cruiserMetadata = [...data.matchAll(/slug: "cruiser-motorcycles-philippines"[\s\S]{0,500}?seoTitle: "([^"]+)"[\s\S]{0,500}?description: "([^"]+)"/g)];
+if (cruiserMetadata.length !== 1) {
+  errors.push("Expected exactly one cruiser guide metadata record.");
+} else {
+  const [, title, description] = cruiserMetadata[0];
+  if (title.length < 55 || title.length > 60) errors.push(`Cruiser title length must be 55-60 chars; found ${title.length}.`);
+  if (description.length < 150 || description.length > 160) errors.push(`Cruiser description length must be 150-160 chars; found ${description.length}.`);
+}
+
+const electricTitle = "Electric Scooters Philippines 2026 | Prices, Range & LTO";
+const electricDescription = "Compare electric scooters and motorcycles in the Philippines by price, battery options, claimed range, charging time, LTO classification and ownership costs.";
+if (electricTitle.length < 55 || electricTitle.length > 60) errors.push(`Electric title length must be 55-60 chars; found ${electricTitle.length}.`);
+if (electricDescription.length < 150 || electricDescription.length > 160) errors.push(`Electric description length must be 150-160 chars; found ${electricDescription.length}.`);
 
 const cheapMetadata = [...data.matchAll(/slug: "motorcycles-under-100k"[\s\S]{0,500}?seoTitle: "([^"]+)"[\s\S]{0,500}?description: "([^"]+)"/g)];
 if (cheapMetadata.length !== 1) {
