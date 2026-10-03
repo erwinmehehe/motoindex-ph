@@ -128,6 +128,23 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Upload focused redesign preview
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: motoindex-redesign-preview
+          path: |
+            artifacts/visual-qa/matrix/390-home.jpg
+            artifacts/visual-qa/matrix/768-home.jpg
+            artifacts/visual-qa/matrix/1440-home.jpg
+            artifacts/visual-qa/matrix/1440-motorcycle-detail.jpg
+            artifacts/visual-qa/matrix/1440-compare-index.jpg
+            artifacts/visual-qa/matrix/1440-helmets.jpg
+            artifacts/visual-qa/matrix/1440-honda-brand.jpg
+            artifacts/visual-qa/matrix/1440-scooters.jpg
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Stop production server
         if: always()
         run: |
