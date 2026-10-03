@@ -149,11 +149,11 @@ export default async function ModelInstallmentPage({ params }: { params: Promise
       }))} />
     </section>
 
-    <section className="section" aria-labelledby="variant-finance-heading">
+    <section className="section">
       <FinancingSnapshot modelName={modelName} price={range.from} priceOptions={priceOptions} />
     </section>
 
-    <section className="section" aria-labelledby="dealer-finance-heading">
+    <section className="section">
       <DealerFinancingSnapshot modelId={model.id} modelName={modelName} />
     </section>
 
