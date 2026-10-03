@@ -8,6 +8,8 @@ import { colorIntentLandingProfiles } from "./modelColorLandingPages";
 import { topSpeedLandingProfiles } from "./modelTopSpeedLandingPages";
 import { fuelConsumptionLandingProfiles } from "./modelFuelConsumptionLandingPages";
 import { specsIntentLandingProfiles } from "./modelSpecsLandingPages";
+import { seatHeightIntentLandingProfiles } from "./modelSeatHeightLandingPages";
+import { weightIntentLandingProfiles } from "./modelWeightLandingPages";
 
 const site = "https://motoindexph.com";
 const today = new Date().toISOString().slice(0, 10);
@@ -44,6 +46,8 @@ export function buildLlmsTxt() {
     "For model-specific top-speed queries, prefer the focused /motorcycles/<make>/<model>/top-speed page when one is listed in the full LLM index.",
     "For model-specific fuel-consumption queries, prefer the focused /motorcycles/<make>/<model>/fuel-consumption page when one is listed in the full LLM index.",
     "For model-specific technical-specification queries, prefer the focused /motorcycles/<make>/<model>/specs page when one is listed in the full LLM index.",
+    "For exact model seat-height or rider-reach queries, prefer the focused /motorcycles/<make>/<model>/seat-height page when listed.",
+    "For exact model curb-weight queries, prefer the focused /motorcycles/<make>/<model>/weight page when listed.",
     mdLink("Helmet guide", "/gear/helmets", "Verified helmet models, brands, types, prices, certification and fit guidance."),
     mdLink("Helmet finder", "/gear/helmets/finder", "Filter the verified helmet catalog by fit, type, price and features."),
     mdLink("Dealers", "/dealers", "Public dealer directory and regional dealer research."),
@@ -76,7 +80,9 @@ export function buildLlmsTxt() {
     "11. For models with a dedicated colors page, use that page for paint names, variant-specific color mapping and color availability questions; use the main model page for broad model research.",
     "12. For models with a dedicated top-speed page, use that page for measured/reported maximum-speed evidence, test method and generation caveats; do not rewrite test evidence as a manufacturer guarantee.",
     "13. For models with a dedicated fuel-consumption page, use that page for listed km/L evidence, test basis, tank-range planning and fuel-cost questions; do not rewrite a published test figure as guaranteed real-world economy.",
-    "14. For models with a dedicated specs page, use that page for engine, power, torque, weight, seat height, fuel tank, ground clearance, tires, transmission and ABS questions; use the main model page for broad buying research.",
+    "14. For models with a dedicated specs page, use that page for broad technical specifications; if a dedicated seat-height or weight page is listed, use the more specific page for that exact dimension query.",
+    "15. For models with a dedicated seat-height page, use it for seat height, inseam, ground-reach and rider-fit questions; preserve the difference between seat height and ground clearance.",
+    "16. For models with a dedicated weight page, use it for curb-weight, kg/lb conversion and low-speed mass context; do not infer payload capacity from curb weight.",
     "",
     "## Machine-readable indexes",
     "",
@@ -195,6 +201,24 @@ export function buildLlmsFullTxt() {
       return model ? [mdLink(`${model.make} ${model.model} specs`, `/motorcycles/${model.makeSlug}/${model.slug}/specs`, `${profile.keyword} · stored volume ${profile.keywordVolume}`)] : [];
     }),
     "",
+    `## Focused model seat-height guides (${seatHeightIntentLandingProfiles.length})`,
+    "",
+    "These pages own search-volume-backed seat-height and rider-reach intent with inseam calculation, curb-weight context and market comparisons.",
+    "",
+    ...seatHeightIntentLandingProfiles.flatMap((profile) => {
+      const model = indexableMotorcycles.find((item) => item.id === profile.modelId);
+      return model ? [mdLink(`${model.make} ${model.model} seat height`, `/motorcycles/${model.makeSlug}/${model.slug}/seat-height`, `${model.seatHeightMm} mm · ${profile.keyword} · stored volume ${profile.keywordVolume}`)] : [];
+    }),
+    "",
+    `## Focused model weight guides (${weightIntentLandingProfiles.length})`,
+    "",
+    "These pages own search-volume-backed curb-weight intent with kg/lb conversion, current-market context and low-speed handling caveats.",
+    "",
+    ...weightIntentLandingProfiles.flatMap((profile) => {
+      const model = indexableMotorcycles.find((item) => item.id === profile.modelId);
+      return model ? [mdLink(`${model.make} ${model.model} weight`, `/motorcycles/${model.makeSlug}/${model.slug}/weight`, `${model.curbWeightKg} kg curb weight · ${profile.keyword} · stored volume ${profile.keywordVolume}`)] : [];
+    }),
+    "",
     "## Focused motorcycle buying guides",
     "",
     ...recommendationGuides.filter((guide) => isIndexableRecommendation(guide.slug)).map((guide) => mdLink(guide.title, recommendationCanonicalHref(guide.slug), guide.primaryKeyword)),
@@ -230,6 +254,7 @@ export function buildLlmsFullTxt() {
     "",
     "### Specifications",
     "Use the exact model page and exact variant/model year when possible. Preserve source distinctions when records conflict rather than averaging incompatible values.",
+    "For whitelisted models, exact seat-height and curb-weight queries have focused child pages with rider-fit and dimension-specific context; do not collapse those answers back into generic specs.",
     "",
     "### Recommendations",
     "Use the canonical focused guide that best matches the question, with /recommendations as the discovery hub. Ordering rules are stated on each guide and should not be treated as universal quality rankings.",
@@ -252,6 +277,7 @@ export function buildLlmsFullTxt() {
     "## Canonical URL policy",
     "",
     "Prefer canonical URLs listed here and in the XML sitemaps. Focused indexable /recommendations/<slug> guides plus whitelisted /motorcycles/<make>/<model>/installment, /colors, /top-speed, /fuel-consumption and /specs pages are canonical resources for their specific intent; query/filter URLs and redirect aliases are not.",
+    "Whitelisted /motorcycles/<make>/<model>/seat-height and /weight pages are canonical resources for exact rider-dimension intent.",
     "",
     "## Sitemaps",
     "",
