@@ -61,6 +61,7 @@ import { topSpeedLandingProfile } from "@/lib/modelTopSpeedLandingPages";
 import { specsIntentLandingProfile } from "@/lib/modelSpecsLandingPages";
 import { fuelConsumptionLandingProfile } from "@/lib/modelFuelConsumptionLandingPages";
 import { weightIntentLandingProfile } from "@/lib/modelWeightLandingPages";
+import { seatHeightIntentLandingProfile } from "@/lib/modelSeatHeightLandingPages";
 
 const MOTORCYCLE_ANALYTICS_CSS = `
 .motorcycle-analytics-panel{margin:28px 0 18px;padding:34px;border:1px solid rgba(62,82,69,.16);border-radius:16px;background:#fff;box-shadow:0 18px 48px rgba(24,45,32,.055)}
@@ -103,6 +104,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const specsLanding = specsIntentLandingProfile(model.id);
   const fuelConsumptionLanding = fuelConsumptionLandingProfile(model.id);
   const weightLanding = weightIntentLandingProfile(model.id);
+  const seatHeightLanding = seatHeightIntentLandingProfile(model.id);
   const gearGuide = getModelGearGuide(model.id);
   const helmetCandidates = (gearGuide?.helmetIds || []).map((id) => helmetProducts.find((product) => product.id === id)).filter((product): product is NonNullable<typeof product> => Boolean(product && product.status === "verified"));
   const tireCandidates = getTireProductsForModel(model.id).filter((p) => !isIndexableModel(model) || p.status === "verified");
@@ -372,6 +374,16 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       </section>}
 
       <SectionHeader className="entity-research-divider" kicker="Detailed research" title="Evidence for the deeper check" description="Open these sections when the motorcycle is already on your shortlist." />
+
+      {seatHeightLanding ? <section id="seat-height" className="motorcycle-entity-section">
+        <div className="entity-tool-grid">
+          <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/seat-height`}>
+            <span>Dedicated rider-fit context</span>
+            <strong>{model.make} {model.model} seat height</strong>
+            <small>{model.seatHeightMm} mm published seat · curb-weight comparison, rider-reach caveats and nearby seat-height alternatives.</small>
+          </Link>
+        </div>
+      </section> : null}
 
       {weightLanding ? <section id="weight" className="motorcycle-entity-section">
         <div className="entity-tool-grid">
