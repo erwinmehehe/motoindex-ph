@@ -10,6 +10,7 @@ import { tireFamilyHubs, tireModelSeoHubs } from "@/lib/tireSeo";
 import { installmentLandingProfiles } from "@/lib/modelIntentLandingPages";
 import { colorIntentLandingProfiles } from "@/lib/modelColorLandingPages";
 import { topSpeedLandingProfiles } from "@/lib/modelTopSpeedLandingPages";
+import { fuelConsumptionLandingProfiles } from "@/lib/modelFuelConsumptionLandingPages";
 
 type Entry = { url: string; lastModified: string; changeFrequency?: "daily"|"weekly"|"monthly"|"yearly"; priority?: number };
 const iso = (value?: string) => value || RELEASE_DATE;
@@ -130,6 +131,15 @@ export function motorcycleSitemapEntries(): Entry[] {
       priority:profile.keywordVolume>=1000?.89:.85
     }]:[];
   });
+  const fuelConsumptionPages=fuelConsumptionLandingProfiles.flatMap(profile=>{
+    const model=motorcycles.find(item=>item.id===profile.modelId);
+    return model&&isIndexableModel(model)&&model.fuelConsumptionKmL&&profile.keywordVolume>0?[{
+      url:`${SITE_URL}/motorcycles/${model.makeSlug}/${model.slug}/fuel-consumption`,
+      lastModified:iso(modelCheckedAt(model)),
+      changeFrequency:"monthly" as const,
+      priority:profile.keywordVolume>=500?.87:.83
+    }]:[];
+  });
   // Electric models are consolidated into one authoritative buying guide rather than separate thin URLs.
   const scooterModels=indexableModels.filter(m=>/scooter/i.test(m.category)&&!["previous","uncertain","discontinued"].includes(m.marketStatus||""));
   const expresswayModels=indexableModels.filter(m=>m.engineCc>=400&&!["previous","uncertain","discontinued"].includes(m.marketStatus||""));
@@ -138,7 +148,7 @@ export function motorcycleSitemapEntries(): Entry[] {
     ...(expresswayModels.length>=3 ? [{url:`${SITE_URL}/motorcycles/expressway-legal`,lastModified:newest(expresswayModels.map(modelCheckedAt)),changeFrequency:"weekly" as const,priority:.9}] : [])
   ];
   const electricPages=[{url:`${SITE_URL}/motorcycles/electric`,lastModified:newest(electricMotorcycles.map(m=>m.checkedAt)),changeFrequency:"weekly" as const,priority:.9}];
-  return [...brands,...families,...categoryPages,...models,...installmentPages,...colorPages,...topSpeedPages,...electricPages];
+  return [...brands,...families,...categoryPages,...models,...installmentPages,...colorPages,...topSpeedPages,...fuelConsumptionPages,...electricPages];
 }
 
 export function gearSitemapEntries(): Entry[] {
