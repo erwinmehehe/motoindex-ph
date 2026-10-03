@@ -629,7 +629,7 @@ export const motorcycles: Motorcycle[] = [
     marketPriceHighPhp: 82400,
     marketPriceSourceLabel: "Philippine comparison site",
     marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/mio-gear",
-    marketPriceCheckedAt: "2026-10-03",
+    marketPriceCheckedAt: "2026-09-30",
     transmission: "Automatic",
     summary: "125cc automatic scooter with a 750 mm seat, light curb weight and 14-inch wheels."
   },
@@ -641,7 +641,7 @@ export const motorcycles: Motorcycle[] = [
     sourceLabel: "Suzuki Motorcycles Philippines current Burgman Street 125 EX product reference", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/burgman-street-125-ex/", verifiedAt: "2026-10-03", freshness: "verified",
     marketPriceSourceLabel: "Suzuki Motorcycles Philippines",
     marketPriceSourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/burgman-street-125-ex/",
-    marketPriceCheckedAt: "2026-09-30",
+    marketPriceCheckedAt: "2026-10-03",
     transmission: "Automatic",
     summary: "124cc automatic scooter with a 780 mm seat, 112 kg curb weight and a 5.5 L tank."
   },
