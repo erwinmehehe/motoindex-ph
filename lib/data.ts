@@ -1337,6 +1337,7 @@ export const motorcycles: Motorcycle[] = [
 
 export const currentMotorcycles = motorcycles.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued");
 export function isIndexableModel(model: Motorcycle) {
+  if (model.marketStatus === "uncertain") return false;
   const sourceNeedsReview = /pending|recheck|research only|needs verification/i.test(model.sourceLabel);
   const sourceIsCurrent = !modelSourceNeedsRefresh(model);
   const legacyReady = model.freshness === "verified" && !sourceNeedsReview && /^https:\/\//.test(model.sourceUrl) && Boolean(model.verifiedAt) && sourceIsCurrent;
