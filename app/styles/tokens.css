@@ -20,6 +20,26 @@
   --mi-color-warning: #FDB022;
   --mi-color-danger: #d92d20;
 
+  /* 2026 light catalog refresh */
+  --mi-color-action-blue: #2563eb;
+  --mi-color-action-blue-dark: #1d4ed8;
+  --mi-color-refresh-canvas: #f7f9fc;
+  --mi-color-refresh-line: #e4e9f2;
+  --mi-color-refresh-copy: #5b667a;
+  --mi-color-refresh-sky: #edf4ff;
+  --mi-color-swatch-black: #15171a;
+  --mi-color-swatch-white: #ffffff;
+  --mi-color-swatch-blue: #2563eb;
+  --mi-color-swatch-red: #dc2626;
+  --mi-color-swatch-green: #16a34a;
+  --mi-color-swatch-orange: #f97316;
+  --mi-color-swatch-yellow: #eab308;
+  --mi-color-swatch-silver: #cbd5e1;
+  --mi-color-swatch-gray: #64748b;
+  --mi-color-swatch-gold: #ca8a04;
+  --mi-color-swatch-brown: #8b5e3c;
+  --mi-color-swatch-purple: #7c3aed;
+
   /* Product/editorial palette */
   --mi-color-product-ink: #1d1d1f;
   --mi-color-product-copy: #6e6e73;

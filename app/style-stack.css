@@ -7,3 +7,6 @@
 @import "./styles/base.css";
 @import "./styles/components.css";
 @import "./styles/routes.css";
+
+/* Current light application redesign: presentation overrides only. */
+@import "./wireframe-refresh.css";

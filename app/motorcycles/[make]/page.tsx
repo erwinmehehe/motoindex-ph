@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { notFound } from "next/navigation";
@@ -13,6 +14,9 @@ import { modelAuthorityProfile } from "@/lib/modelAuthority";
 import { php, phpRange } from "@/lib/utils";
 import { CTAGroup, DataTable, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
 import { brandSeoGrowthProfile } from "@/lib/brandSeoGrowth";
+import { BrandCategoryTabs } from "@/components/BrandCategoryTabs";
+
+const brandLogoSlugs = new Set(["aprilia","bajaj","benelli","bmw-motorrad","bristol","cfmoto","ducati","honda","husqvarna","kawasaki","keeway","ktm","kymco","royal-enfield","rusi","suzuki","triumph","vespa","yamaha","zontes"]);
 
 export function generateStaticParams() {
   return [...new Set(motorcycles.map((m) => m.makeSlug))].map((make) => ({ make }));
@@ -43,6 +47,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   if (!models.length) return notFound();
 
   const brand = models[0].make;
+  const hasBrandLogo = brandLogoSlugs.has(make);
   const publicModels = models.filter(isIndexableModel);
   const brandGrowth = brandSeoGrowthProfile(make);
   const publicIds = new Set(publicModels.map((m) => m.id));
@@ -171,6 +176,21 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     },
     {
       "@context": "https://schema.org",
+      "@type": "Brand",
+      name: brand,
+      url: absoluteUrl(`/motorcycles/${make}`),
+      ...(hasBrandLogo ? { logo: absoluteUrl(`/brand/motorcycle/${make}.svg`) } : {})
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Motorcycles", item: absoluteUrl("/motorcycles") },
+        { "@type": "ListItem", position: 2, name: brand, item: absoluteUrl(`/motorcycles/${make}`) }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "FAQPage",
       mainEntity: faq.map((item) => ({
         "@type": "Question",
@@ -184,6 +204,10 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     <div className="ph-brand-hero">
       <div className="shell">
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
+        <div className="wire-brand-identity">
+          {hasBrandLogo ? <Image src={`/brand/motorcycle/${make}.svg`} alt={`${brand} logo`} width={170} height={56} unoptimized priority /> : <strong className="wire-brand-wordmark">{brand}</strong>}
+          <span>{current.length} current {current.length === 1 ? "model" : "models"} tracked</span>
+        </div>
         <PageHero
           kicker="Philippines · Price list · Models · Specs"
           title={brandGrowth?.heroTitle || `${brand} Motorcycle Philippines Price List`}
@@ -216,7 +240,9 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
       <section id="models" className={`ph-brand-section ph-brand-models-section${current.length <= 2 ? " is-sparse" : ""}`}>
         <SectionHeader kicker="Current motorcycles" title={`Compare ${brand} motorcycle models in the Philippines`} description={current.length <= 2 ? `Compare the ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} by price and key specifications.` : `Compare ${current.length} current ${brand} motorcycle models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`} />
-        <div className="card-grid ph-brand-model-grid" style={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: 14 }}>{current.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div>
+        <BrandCategoryTabs models={current.map((model) => ({ id: model.id, category: model.category }))} />
+        <div className="card-grid ph-brand-model-grid" style={{ display: "grid", width: "100%", gap: 14 }}>{current.map((m) => <div className="wire-brand-model" key={m.id} data-brand-model-category={m.category}><MotorcycleCard model={m} variant="standard" /></div>)}</div>
+        <a className="wire-load-more" href="#price-list">View complete {brand} price list ↓</a>
       </section>
 
       {bigBikes.length > 0 && brandGrowth?.bigBikeTitle && brandGrowth.bigBikeDescription ? <section id="big-bikes" className="ph-brand-section">
