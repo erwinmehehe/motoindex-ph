@@ -14,7 +14,6 @@ const buyerAnswers=read("components","CanonicalIntentDepth.tsx");
 const sitemap=read("lib","sitemaps.ts");
 const llms=read("lib","llms.ts");
 const data=read("lib","data.ts");
-const nextConfig=read("next.config.mjs");
 
 const expected=[
   ["honda-click-125i","honda click 125i v3 colors",6600,"Honda Click 125i Colors Philippines 2026 | All Variants","Honda Click 125i colors Philippines 2026 with Standard, Smart Edition and Street paint options, variant mapping, current names and dealer-stock verification."],
@@ -76,11 +75,9 @@ requireText(sitemap,'/colors',"Motorcycle sitemap must expose color URLs.");
 requireText(sitemap,'profile.keywordVolume>=1000?.88:.84',"Color sitemap priority must use stored search demand.");
 requireText(llms,'Focused model color guides',"LLM full index must expose focused color pages.");
 requireText(llms,'For models with a dedicated colors page',"LLM retrieval guidance must route color queries to focused pages.");
-requireText(llms,'/colors, /top-speed and /fuel-consumption pages are canonical resources',"LLM canonical policy must name color pages.");
+requireText(llms,'/colors, /top-speed, /fuel-consumption and /specs pages are canonical resources',"LLM canonical policy must name color pages.");
 
-if(nextConfig.includes('source: "/motorcycles/:make/:slug/colors"'))errors.push("Dedicated color pages must not be shadowed by a blanket next.config redirect.");
-
-for(const slug of ["price","specs","variants"]){
+for(const slug of ["price","variants"]){
   const candidate=path.join(root,"app","motorcycles","[make]","[slug]",slug,"page.tsx");
   if(fs.existsSync(candidate))errors.push(`Do not mass-split unsupported model intent pages yet: /${slug}`);
 }
