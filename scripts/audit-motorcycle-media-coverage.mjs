@@ -30,6 +30,7 @@ const knownBacklog = new Set([
   "yamaha-yzf-r15-v3",
   "yamaha-sniper-150",
   "kawasaki-ninja-zx-6r",
+  "kawasaki-ninja-650",
   "suzuki-hayabusa",
   "honda-xr150l",
   "yamaha-mt-03",
