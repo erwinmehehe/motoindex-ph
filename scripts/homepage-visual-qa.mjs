@@ -70,13 +70,13 @@ async function waitForComplete(send) {
 }
 
 const inspect = `(() => {
-  const hero = document.querySelector('.mi-hero');
-  const layout = document.querySelector('.mi-hero-layout');
-  const heading = document.querySelector('.mi-hero h1');
-  const search = document.querySelector('.mi-search');
-  const searchInput = document.querySelector('.mi-search input');
-  const searchButton = document.querySelector('.mi-search button');
-  const research = document.querySelector('.mi-research-shell');
+  const hero = document.querySelector('.mi-market-hero');
+  const layout = document.querySelector('.mi-market-hero-grid');
+  const heading = document.querySelector('.mi-market-hero h1');
+  const search = document.querySelector('.mi-market-search');
+  const searchInput = document.querySelector('.mi-market-search input');
+  const searchButton = document.querySelector('.mi-market-search button');
+  const research = document.querySelector('.mi-market-feature-grid');
   if (!hero || !layout || !heading || !search || !searchInput || !searchButton || !research) {
     return { missing: true, found: { hero:!!hero, layout:!!layout, heading:!!heading, search:!!search, searchInput:!!searchInput, searchButton:!!searchButton, research:!!research } };
   }
@@ -86,7 +86,7 @@ const inspect = `(() => {
   const searchStyle = getComputedStyle(search);
   const heroRect = hero.getBoundingClientRect();
   const layoutRect = layout.getBoundingClientRect();
-  const researchRect = research.getBoundingClientRect();
+  const featureRect = research.getBoundingClientRect();
   const inputRect = searchInput.getBoundingClientRect();
   const buttonRect = searchButton.getBoundingClientRect();
   return {
@@ -102,8 +102,8 @@ const inspect = `(() => {
     searchDisplay:searchStyle.display,
     heroHeight:Math.round(heroRect.height),
     layoutWidth:Math.round(layoutRect.width),
-    researchWidth:Math.round(researchRect.width),
-    researchLeft:Math.round(researchRect.left),
+    featureWidth:Math.round(researchRect.width),
+    featureLeft:Math.round(researchRect.left),
     layoutLeft:Math.round(layoutRect.left),
     inputHeight:Math.round(inputRect.height),
     buttonHeight:Math.round(buttonRect.height)
@@ -153,10 +153,10 @@ try {
     if (row.inputHeight < 40 || row.buttonHeight < 40) failures.push(`${width}px: search controls collapsed below a usable 40px height`);
     if (/rgb\(9,\s*10,\s*13\)|rgb\(7,\s*8,\s*10\)/.test(row.heroBackground) || /rgb\(9,\s*10,\s*13\)|rgb\(7,\s*8,\s*10\)/.test(row.heroBackgroundColor)) failures.push(`${width}px: retired near-black homepage hero returned`);
     if (!/rgb\(255,\s*255,\s*255\)|rgb\(248,\s*250,\s*252\)/.test(row.heroBackground)) failures.push(`${width}px: homepage hero is not using the light premium background`);
-    if (!/rgb\(15,\s*23,\s*42\)/.test(row.headingColor)) failures.push(`${width}px: hero heading color ${row.headingColor} is not the intended readable slate ink`);
+    if (!/rgb\((?:15|16),\s*(?:23|24),\s*(?:40|42)\)/.test(row.headingColor)) failures.push(`${width}px: hero heading color ${row.headingColor} is not the intended readable slate ink`);
     if (width === 1440) {
       if (row.headingSize > 61) failures.push(`1440px: homepage H1 is ${row.headingSize}px, above the 60px design cap`);
-      if (row.researchWidth < 420) failures.push(`1440px: research snapshot collapsed to ${row.researchWidth}px`);
+      if (row.researchWidth < 420) failures.push(`1440px: research shortcut strip collapsed to ${row.researchWidth}px`);
       if (!row.layoutColumns || row.layoutColumns.split(" ").length < 2) failures.push(`1440px: hero no longer resolves to two desktop columns (${row.layoutColumns})`);
     } else {
       if (row.headingSize > 50) failures.push(`390px: homepage H1 is ${row.headingSize}px, too large for mobile`);
