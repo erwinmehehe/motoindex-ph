@@ -99,6 +99,12 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const authorityModels = current.filter((m) => Boolean(modelAuthorityProfile(m.id)));
   const bigBikeMinCc = brandGrowth?.bigBikeMinCc;
   const bigBikes = bigBikeMinCc ? current.filter((m) => m.engineCc >= bigBikeMinCc) : [];
+  const bigBikeRanges = bigBikes.map((model) => ({ model, ...observedMarketRange(model) }));
+  const bigBikeLow = bigBikeRanges.length ? Math.min(...bigBikeRanges.map((row) => row.from)) : undefined;
+  const bigBikeHigh = bigBikeRanges.length ? Math.max(...bigBikeRanges.map((row) => row.to || row.from)) : undefined;
+  const lightestBigBike = bigBikes.length ? [...bigBikes].sort((a,b) => a.curbWeightKg - b.curbWeightKg)[0] : undefined;
+  const lowestSeatBigBike = bigBikes.length ? [...bigBikes].sort((a,b) => a.seatHeightMm - b.seatHeightMm)[0] : undefined;
+  const literBikes = bigBikes.filter((m) => m.engineCc >= 1000);
   const categorySpotlight = brandGrowth?.categorySpotlight;
   const spotlightModels = categorySpotlight ? current.filter((m) => new RegExp(categorySpotlight.pattern, "i").test(m.category)) : [];
 
@@ -126,10 +132,16 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   ];
 
   if (bigBikes.length > 0 && bigBikeMinCc) {
-    faq.splice(1, 0, {
-      question: `Which ${brand} motorcycles are ${bigBikeMinCc}cc and above?`,
-      answer: `MotoIndex currently tracks ${bigBikes.length} current ${brand} ${bigBikeMinCc}cc+ ${bigBikes.length === 1 ? "model" : "models"}: ${bigBikes.map((model) => model.model).join(", ")}. Compare their published prices, engine sizes, power and seat heights in the big-bike section below.`
-    });
+    faq.splice(1, 0,
+      {
+        question: `Which ${brand} motorcycles are ${bigBikeMinCc}cc and above?`,
+        answer: `MotoIndex currently tracks ${bigBikes.length} current ${brand} ${bigBikeMinCc}cc+ ${bigBikes.length === 1 ? "model" : "models"}: ${bigBikes.map((model) => model.model).join(", ")}. Compare their published prices, engine sizes, power, curb weights and seat heights in the big-bike section below.`
+      },
+      {
+        question: `Are all ${brand} big bikes expressway legal in the Philippines?`,
+        answer: `Do not treat a brand label or the phrase “big bike” as legal clearance by itself. Check the exact registered displacement and current tollway requirements for the specific unit before an expressway trip. MotoIndex links the brand big-bike section to the separate expressway research hub for that verification step.`
+      }
+    );
   }
 
   if (scooters.length >= 3 && scooterLow !== undefined && scooterHigh !== undefined) {
@@ -210,20 +222,29 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       {bigBikes.length > 0 && brandGrowth?.bigBikeTitle && brandGrowth.bigBikeDescription ? <section id="big-bikes" className="ph-brand-section">
         <SectionHeader kicker={`${bigBikeMinCc}cc+ motorcycles`} title={brandGrowth.bigBikeTitle} description={brandGrowth.bigBikeDescription} />
         <InfoPanel subtle>
-          <p>{`Use this section to compare the current ${bigBikeMinCc}cc+ ${brand} motorcycles tracked by MotoIndex in one place. Open any model for detailed specifications, financing estimates, ownership costs and alternatives.`}</p>
+          <p>{`Use this section to compare current ${brand} big-bike research without creating a separate brand+big-bike URL. Price and engine size are only the first filters; compare curb weight, seat height, power, category and the exact registered unit before planning expressway use.`}</p>
         </InfoPanel>
+        <StatRow items={[
+          {label:"Big bikes tracked",value:bigBikes.length,note:`${bigBikeMinCc}cc+ current models`},
+          ...(bigBikeLow !== undefined && bigBikeHigh !== undefined ? [{label:"Published price span",value:`${php(bigBikeLow)}–${php(bigBikeHigh)}`,note:"Current tracked big-bike references"}] : []),
+          ...(lightestBigBike ? [{label:"Lightest tracked",value:`${lightestBigBike.curbWeightKg} kg`,note:`${lightestBigBike.model} curb weight`}] : []),
+          ...(lowestSeatBigBike ? [{label:"Lowest seat",value:`${lowestSeatBigBike.seatHeightMm} mm`,note:`${lowestSeatBigBike.model} published seat`}] : []),
+          ...(literBikes.length ? [{label:"1000cc+ tracked",value:literBikes.length,note:"Liter-class and larger models"}] : [])
+        ]} />
         <DataTable className="ph-brand-price-table" label={`${brand} big bikes in the Philippines`}>
-          <div className="head" role="row"><span>Model</span><span>Price reference</span><span>Engine</span><span>Power</span><span>Seat</span></div>
+          <div className="head" role="row"><span>Model</span><span>Price reference</span><span>Engine</span><span>Weight</span><span>Seat</span></div>
           {bigBikes.map((model) => {
             const range = observedMarketRange(model);
             return <Link role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}`} key={model.id}>
-              <strong>{model.model}<small>{model.category}</small></strong><span>{phpRange(range.from, range.to)}</span><span>{model.engineCc} cc</span><span>{model.powerHp} hp</span><span>{model.seatHeightMm} mm →</span>
+              <strong>{model.model}<small>{model.category} · {model.powerHp} hp</small></strong><span>{phpRange(range.from, range.to)}</span><span>{model.engineCc} cc</span><span>{model.curbWeightKg} kg</span><span>{model.seatHeightMm} mm →</span>
             </Link>;
           })}
         </DataTable>
         <CTAGroup>
-          <Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link>
-          <Link className="button secondary" href="/motorcycles/expressway-legal">Check expressway-legal research</Link>
+          <Link className="button secondary" href="/recommendations/motorcycles-400cc-plus-philippines">Compare 400cc+ motorcycles</Link>
+          {literBikes.length ? <Link className="button secondary" href="/recommendations/motorcycles-1000cc-plus-philippines">Compare 1000cc+ motorcycles</Link> : null}
+          <Link className="button secondary" href="/motorcycles/expressway-legal">Check expressway research</Link>
+          <Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} models</Link>
         </CTAGroup>
       </section> : null}
 
