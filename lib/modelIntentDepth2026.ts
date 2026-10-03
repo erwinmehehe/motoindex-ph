@@ -5,6 +5,8 @@ import { getVerifiedVariantsForModel } from "./variants";
 import { performanceAnswerFor } from "./modelPerformance";
 import { php } from "./utils";
 import { wave3ModelIntentDepthProfile } from "./modelIntentDepthWave3_2026";
+import { wave4ModelIntentDepthProfile } from "./modelIntentDepthWave4_2026";
+import { hasSpecsIntentLandingPage } from "./modelSpecsLandingPages";
 import { hasColorIntentLandingPage } from "./modelColorLandingPages";
 
 export type CanonicalIntentKey = "price" | "specs" | "colors" | "variants" | "performance" | "ownership";
@@ -140,7 +142,7 @@ const profiles: Record<string, ModelIntentDepthProfile> = {
 };
 
 export function modelIntentDepthProfile(modelId: string) {
-  return profiles[modelId] || wave3ModelIntentDepthProfile(modelId);
+  return profiles[modelId] || wave3ModelIntentDepthProfile(modelId) || wave4ModelIntentDepthProfile(modelId);
 }
 
 function priceAnswer(model: Motorcycle) {
@@ -196,7 +198,12 @@ export function canonicalIntentFaqs(model: Motorcycle): FaqItem[] {
   const profile = modelIntentDepthProfile(model.id);
   if (!profile) return [];
   return profile.intents
-    .filter((intent) => intent !== "price" && intent !== "performance" && !(intent === "colors" && hasColorIntentLandingPage(model.id)))
+    .filter((intent) =>
+      intent !== "price"
+      && intent !== "performance"
+      && !(intent === "colors" && hasColorIntentLandingPage(model.id))
+      && !(intent === "specs" && hasSpecsIntentLandingPage(model.id))
+    )
     .map((intent) => ({
       question: canonicalIntentQuestion(model, intent),
       answer: canonicalIntentAnswer(model, intent)
