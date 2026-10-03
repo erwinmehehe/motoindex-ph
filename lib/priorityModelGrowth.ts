@@ -1004,6 +1004,18 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare naked motorcycles"
   },
 
+  "royal-enfield-classic-350": {
+    seoTitle: "Royal Enfield Classic 350 Price Philippines 2026 | Specs",
+    seoDescription: "Royal Enfield Classic 350 price Philippines 2026 with 349cc specs, 805mm seat, 195kg weight, 13L tank, ABS, ownership costs and classic-bike alternatives.",
+    intentIntro: "Classic 350 demand mixes price, retro-bike appeal and practical ownership. Compare its 349cc single, 805 mm seat, 19/18-inch wheels, current Philippine price context and recurring maintenance against nearby classic-road alternatives.",
+    moneyQuestion: "What does the Classic 350 cost after the current dealer quote, registration, insurance, financing and first-year accessories or maintenance are included?",
+    ownershipQuestion: "Compare 19/18-inch tire availability, chain and sprocket service, insurance, fuel use and Royal Enfield support with Hunter 350 and other classic-road alternatives.",
+    alternativeIds: ["royal-enfield-hunter-350", "triumph-speed-400", "motorstar-cafe-400"],
+    relatedIds: ["royal-enfield-hunter-350"],
+    recommendationHref: "/recommendations/motorcycles-under-400cc-philippines",
+    recommendationLabel: "Compare under-400cc motorcycles"
+  },
+
   "honda-navi": {
     seoTitle: "Honda Navi Price Philippines 2026 | Specs & Fuel Economy",
     seoDescription: "Honda Navi price in the Philippines, 109cc specs, 48.4 km/L fuel economy, 762mm seat, CBS, tire sizes, ownership costs and commuter alternatives.",
