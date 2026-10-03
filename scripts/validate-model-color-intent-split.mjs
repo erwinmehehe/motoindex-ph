@@ -77,7 +77,7 @@ requireText(llms,'Focused model color guides',"LLM full index must expose focuse
 requireText(llms,'For models with a dedicated colors page',"LLM retrieval guidance must route color queries to focused pages.");
 requireText(llms,'/colors, /top-speed, /fuel-consumption and /specs pages are canonical resources',"LLM canonical policy must name color pages.");
 
-for(const slug of ["price","specs","variants"]){
+for(const slug of ["price","variants"]){
   const candidate=path.join(root,"app","motorcycles","[make]","[slug]",slug,"page.tsx");
   if(fs.existsSync(candidate))errors.push(`Do not mass-split unsupported model intent pages yet: /${slug}`);
 }
