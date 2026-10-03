@@ -62,6 +62,27 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     </section>;
   }
 
+  if (!current.length) {
+    return <section className="ph-brand-page">
+      <div className="ph-brand-hero">
+        <div className="shell">
+          <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
+          <PageHero
+            kicker="Philippines · Model research"
+            title={`${brand} Motorcycle Philippines Price List`}
+            description={`MotoIndex currently has ${publicModels.length} ${brand} ${publicModels.length === 1 ? "model" : "models"} with Philippine research coverage, but no model is being presented as a verified current national-catalog motorcycle yet.`}
+          />
+          <InfoPanel subtle><h2>Current availability still needs verification</h2><p>Use the model research below for specifications and price context, then confirm current Philippine dealer stock and the final quote before purchase.</p></InfoPanel>
+        </div>
+      </div>
+      <div className="shell">
+        {uncertain.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Availability to verify" title={`${brand} motorcycles with Philippine market references`} description="These models have Philippine pricing or specification evidence, but current national-catalog availability still needs verification." /><div className="card-grid">{uncertain.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
+        {previous.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Archive" title={`Previous ${brand} motorcycle models and prices`} description="Previous-generation references are kept separate from current pricing so historical launch prices are not mistaken for today's dealer quotes." /><div className="card-grid">{previous.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
+        {discontinued.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Discontinued archive" title={`Discontinued ${brand} motorcycle models and prices`} description="Discontinued-model references stay available for specifications, owner research, parts research and used-bike shopping." /><div className="card-grid">{discontinued.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
+      </div>
+    </section>;
+  }
+
   const ranges = current.map((model) => ({ model, ...observedMarketRange(model) }));
   const low = Math.min(...ranges.map((row) => row.from));
   const high = Math.max(...ranges.map((row) => row.to || row.from));
