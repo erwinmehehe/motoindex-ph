@@ -859,6 +859,62 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 400cc+ motorcycles"
   },
 
+  "honda-tmx-supremo": {
+    seoTitle: "Honda TMX Supremo Price Philippines 2026 | Specs & Costs",
+    seoDescription: "Honda TMX Supremo price Philippines 2026 with 149cc specs, 782mm seat, 127kg weight, 10.3L tank, ownership costs, financing context and work-bike use.",
+    intentIntro: "TMX Supremo demand is tied to work-bike value, not price alone. Compare its 149cc engine, 10.3 L tank, 18-inch tires, dealer quote and recurring maintenance against the other business motorcycles riders cross-shop.",
+    moneyQuestion: "What does the TMX Supremo cost after the exact dealer quote, registration, insurance, financing charges and any business-use accessories are included?",
+    ownershipQuestion: "Compare chain service, drum brakes, 18-inch tires, fuel use and parts availability with TMX125 Alpha, YTX 125 and Barako II.",
+    alternativeIds: ["honda-tmx125-alpha", "yamaha-ytx-125", "kawasaki-barako-ii"],
+    relatedIds: ["honda-tmx125-alpha"],
+    recommendationHref: "/recommendations/business-motorcycles-philippines",
+    recommendationLabel: "Compare business motorcycles"
+  },
+  "yamaha-ytx-125": {
+    seoTitle: "Yamaha YTX 125 Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "Yamaha YTX 125 price Philippines 2026 with 125cc specs, 800mm seat, 114kg weight, 7.6L tank, drum brakes, ownership costs and daily commuter-work use.",
+    intentIntro: "YTX 125 research is closely tied to low-cost transport and utility use. Compare the 125cc engine, 7.6 L tank, 800 mm seat, drum brakes and dealer quote with other work-oriented motorcycles.",
+    moneyQuestion: "What is the YTX 125 total take-home cost after the current cash price, registration, insurance, financing and branch-specific charges are included?",
+    ownershipQuestion: "Compare chain service, drum brakes, 17-inch tires, fuel use and Yamaha parts support with TMX125 Alpha, TMX Supremo and Barako II.",
+    alternativeIds: ["honda-tmx125-alpha", "honda-tmx-supremo", "kawasaki-barako-ii"],
+    relatedIds: ["honda-tmx125-alpha"],
+    recommendationHref: "/recommendations/business-motorcycles-philippines",
+    recommendationLabel: "Compare business motorcycles"
+  },
+  "kawasaki-klx150": {
+    seoTitle: "Kawasaki KLX150 Price Philippines 2026 | Specs & Trail Fit",
+    seoDescription: "Kawasaki KLX150 price Philippines 2026 with 144cc specs, 866mm seat, 119kg weight, 21/18-inch wheels, ownership costs and dual-sport trail-fit context.",
+    intentIntro: "KLX150 demand combines price with dual-sport fit. Its 866 mm seat, 119 kg curb weight and 21/18-inch wheels are central to the decision, especially when comparing daily road use with trail capability.",
+    moneyQuestion: "What does the KLX150 cost after the dealer quote, registration, insurance, financing and any protection or trail accessories are added?",
+    ownershipQuestion: "Compare chain and sprocket service, 21/18-inch tires, tall-seat fit and Kawasaki support with WR155R, KLX230 and CRF300 Rally.",
+    alternativeIds: ["yamaha-wr155r", "kawasaki-klx230", "honda-crf300-rally"],
+    relatedIds: ["kawasaki-klx230"],
+    recommendationHref: "/recommendations/dual-sport-motorcycles-philippines",
+    recommendationLabel: "Compare dual-sport and trail motorcycles"
+  },
+  "honda-tmx125-alpha": {
+    seoTitle: "Honda TMX125 Alpha Price Philippines 2026 | Specs & Costs",
+    seoDescription: "Honda TMX125 Alpha price Philippines 2026 with 125cc specs, 759mm seat, 113kg weight, 8.6L tank, fuel economy, ownership costs and practical business-bike use.",
+    intentIntro: "TMX125 Alpha demand is about low purchase and running cost. Compare its 759 mm seat, 8.6 L tank, simple drum-brake layout and Honda-published fuel-economy context with other business motorcycles.",
+    moneyQuestion: "What is the TMX125 Alpha total cost after the current dealer quote, registration, insurance, financing and work-use accessories are included?",
+    ownershipQuestion: "Compare chain service, drum brakes, 18-inch tires, fuel use and Honda support with YTX 125, TMX Supremo and Barako II.",
+    alternativeIds: ["yamaha-ytx-125", "honda-tmx-supremo", "kawasaki-barako-ii"],
+    relatedIds: ["honda-tmx-supremo"],
+    recommendationHref: "/recommendations/business-motorcycles-philippines",
+    recommendationLabel: "Compare business motorcycles"
+  },
+  "kawasaki-barako-ii": {
+    seoTitle: "Kawasaki Barako II Price Philippines 2026 | Specs & Costs",
+    seoDescription: "Kawasaki Barako II price Philippines 2026 with 177cc specs, 805mm seat, 142kg weight, 12L tank, ownership costs, financing context and utility-bike use.",
+    intentIntro: "Barako II search intent is tied to utility and business use. Compare the 177cc engine, 12 L tank, long-seat layout, dealer quote and recurring maintenance rather than choosing on displacement alone.",
+    moneyQuestion: "What does the Barako II cost after the current dealer quote, registration, insurance, financing and any cargo or work accessories are included?",
+    ownershipQuestion: "Compare chain service, drum-brake maintenance, tire availability, fuel use and parts support with TMX Supremo, TMX125 Alpha and YTX 125.",
+    alternativeIds: ["honda-tmx-supremo", "honda-tmx125-alpha", "yamaha-ytx-125"],
+    relatedIds: ["honda-tmx-supremo"],
+    recommendationHref: "/recommendations/business-motorcycles-philippines",
+    recommendationLabel: "Compare business motorcycles"
+  },
+
   "honda-navi": {
     seoTitle: "Honda Navi Price Philippines 2026 | Specs & Fuel Economy",
     seoDescription: "Honda Navi price in the Philippines, 109cc specs, 48.4 km/L fuel economy, 762mm seat, CBS, tire sizes, ownership costs and commuter alternatives.",
