@@ -75,9 +75,9 @@ requireText(sitemap,'/colors',"Motorcycle sitemap must expose color URLs.");
 requireText(sitemap,'profile.keywordVolume>=1000?.88:.84',"Color sitemap priority must use stored search demand.");
 requireText(llms,'Focused model color guides',"LLM full index must expose focused color pages.");
 requireText(llms,'For models with a dedicated colors page',"LLM retrieval guidance must route color queries to focused pages.");
-requireText(llms,'/colors pages are canonical resources',"LLM canonical policy must name color pages.");
+requireText(llms,'/colors and /top-speed pages are canonical resources',"LLM canonical policy must name color pages.");
 
-for(const slug of ["price","specs","variants","top-speed"]){
+for(const slug of ["price","specs","variants"]){
   const candidate=path.join(root,"app","motorcycles","[make]","[slug]",slug,"page.tsx");
   if(fs.existsSync(candidate))errors.push(`Do not mass-split unsupported model intent pages yet: /${slug}`);
 }
