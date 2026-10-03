@@ -96,6 +96,35 @@ const growthBriefs: Record<string, GrowthBrief> = {
     guideHref: "/recommendations#long-rides",
     guideLabel: "Long-distance buying guide"
   },
+  "honda-crf300-rally": {
+    fit: [
+      "You want Honda's current Rally successor to the CRF250 Rally, with a 12.8 L tank and 21/18-inch wheels for mixed road-and-trail use.",
+      "An 885 mm seat and 153 kg curb weight fit your rider reach and low-speed confidence."
+    ],
+    check: [
+      "Use the current CRF300 Rally page for CRF250 Rally successor research; do not treat older CRF250 Rally listings or launch prices as current new-bike references.",
+      "Test the tall seat and low-speed balance in person, then confirm the exact dealer quote, registration and accessories before buying."
+    ],
+    ownership: "Budget 21/18-inch tires, chain and sprockets, protection parts, suspension service, insurance and Honda support. Compare the complete ownership picture with CRF150L, KLX230 and larger adventure alternatives rather than choosing on displacement alone.",
+    alternatives: ["honda-crf150l", "kawasaki-klx230", "cfmoto-450mt"],
+    guideHref: "/recommendations/dual-sport-motorcycles-philippines",
+    guideLabel: "Dual-sport and trail guide"
+  },
+  "yamaha-mt-15": {
+    fit: [
+      "You are specifically researching the MT-15 and understand that MotoIndex has not verified a current model-level Yamaha Philippines listing.",
+      "You want the stored 155cc specification context while you independently confirm whether a new authorized Philippine unit is actually available."
+    ],
+    check: [
+      "Do not treat the ₱180,000 secondary-market reference as a current Yamaha Philippines SRP.",
+      "Ask an authorized Yamaha dealer for the exact model year, official invoice price, warranty status and registration papers before paying a reservation."
+    ],
+    ownership: "If current authorized stock is verified, compare 17-inch tires, chain and sprocket service, insurance, parts support and the 810 mm seat with current XSR155, R15M and other verified 155cc manual motorcycles.",
+    alternatives: ["yamaha-xsr155", "yamaha-yzf-r15m", "honda-cb150r"],
+    guideHref: "/recommendations/naked-motorcycles-philippines",
+    guideLabel: "Verified naked motorcycles"
+  },
+
   "honda-crf150l": {
     fit: [
       "You specifically want a lightweight road-and-trail motorcycle with a 21-inch front wheel, 18-inch rear wheel and 285 mm ground clearance.",
