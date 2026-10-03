@@ -148,8 +148,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   },
 
   "yamaha-aerox-v3": {
-    seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Standard vs SP",
-    seoDescription: "Yamaha Aerox V3 price Philippines 2026: Standard vs Aerox SP, ₱163,900 SP dealer reference, 155cc specs, YECVT, ABS/TCS and financing tools.",
+    seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Colors & SP",
+    seoDescription: "Yamaha Aerox V3 price Philippines 2026 with Black, Race Blu and Glaze Blue colors, Standard vs SP pricing, 155cc specs, YECVT, ABS/TCS and financing.",
     intentIntro: "The Aerox V3 has a wide price and equipment spread, so compare the exact trim rather than treating every Aerox listing as the same scooter. Yamaha currently shows the base Aerox at ₱125,900, while current dealer data lists Aerox SP at ₱163,900; Yamaha positions the SP as the YECVT-equipped version with Sport/Touring modes and shift-down control.",
     moneyQuestion: "Does the exact Aerox Standard or SP still fit the budget after the real branch quote, down payment, monthly payment, insurance, registration and dealer charges are included?",
     ownershipQuestion: "Compare CVT/YECVT service requirements by trim, wide 14-inch tire replacement, insurance, passenger use, storage and Yamaha service access with NMAX V3, Click160 and ADV160.",
@@ -159,8 +159,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 150cc and 155cc scooters"
   },
   "yamaha-nmax-v3": {
-    seoTitle: "Yamaha NMAX V3 Price Philippines 2026 | Monthly & Tech Max",
-    seoDescription: "Yamaha NMAX V3 price Philippines 2026 with NMAX vs Tech Max, Motortrade downpayment/monthly snapshots, 155cc specs, YECVT and ownership costs.",
+    seoTitle: "Yamaha NMAX V3 Price Philippines 2026 | Colors & Tech Max",
+    seoDescription: "Yamaha NMAX V3 price Philippines 2026 with Black, Light Grey, Black Gold and Dark Magma colors, NMAX vs Tech Max pricing, YECVT and ownership costs.",
     intentIntro: "NMAX V3 buyers need to separate the regular NMAX from the higher-spec Tech Max rather than compare one blended price. The stored regular-line reference is ₱155,900, while current dealer data lists Tech Max at ₱178,400; Yamaha identifies Tech Max as the YECVT-equipped version.",
     moneyQuestion: "How much does the exact NMAX or NMAX Tech Max cost after the branch quote, down payment, monthly payment, registration, insurance and dealer charges are included?",
     ownershipQuestion: "Compare CVT/YECVT service by trim, 13-inch tire replacement, the 7.1 L tank, insurance, passenger use and Yamaha service access with Aerox V3, PCX160 and ADV160.",
@@ -415,9 +415,9 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   },
 
   "honda-click-125i": {
-    seoTitle: "Honda Click 125i Price Philippines 2026 | Downpayment",
-    seoDescription: "Honda Click 125i price Philippines 2026 with current price range, Motortrade downpayment/monthly snapshot, 125cc specs, CBS, fuel economy and ownership.",
-    intentIntro: "The 2026 Click125 is a high-volume commuter where exact trim and seller quote matter. Honda's stored current references run from ₱83,000 to ₱87,700, while a current Motortrade dealer listing shows ₱81,900, so compare the exact unit, CBS package, financing and fees before reserving.",
+    seoTitle: "Honda Click 125i Price Philippines 2026 | Colors & Street",
+    seoDescription: "Honda Click 125i price Philippines 2026: ₱83,000 Standard, ₱87,700 Smart, ₱90,000 Street, current colors, 125cc specs, CBS and fuel economy.",
+    intentIntro: "The 2026 Click125 is now a three-variant decision. Honda currently lists Standard at ₱83,000, Smart Edition at ₱87,700 and Street at ₱90,000, so compare exact trim, color, Smart Key/ISS equipment, financing and branch stock before reserving.",
     moneyQuestion: "What does the exact Click125 variant cost after the branch quote, down payment, monthly payment, insurance, registration and dealer charges are included?",
     ownershipQuestion: "Compare the 769 mm seat, 111 kg curb weight, 5.5 L tank, 50.3 km/L figure, 14-inch tires, CBS and CVT service with Fazzio, Mio Gear and Click160.",
     alternativeIds: ["yamaha-mio-gear", "yamaha-fazzio", "suzuki-burgman-street-ex"],
