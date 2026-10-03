@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { DealerFinancingSnapshot } from "@/components/DealerFinancingSnapshot";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
@@ -43,7 +43,8 @@ export default async function ModelInstallmentPage({ params }: { params: Promise
   const model = getModel(make, slug);
   if (!model) return notFound();
   const profile = installmentLandingProfile(model.id);
-  if (!profile || !isIndexableModel(model)) return notFound();
+  if (!profile) permanentRedirect(`/motorcycles/${model.makeSlug}/${model.slug}#installment`);
+  if (!isIndexableModel(model)) return notFound();
 
   const modelName = `${model.make} ${model.model}`;
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}/installment`;

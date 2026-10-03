@@ -191,7 +191,6 @@ const configRedirects = [
   ["/motorcycles/:make/:slug/price", "#price"],
   ["/motorcycles/:make/:slug/specifications", "#specs"],
   ["/motorcycles/:make/:slug/colors", "#colors"],
-  ["/motorcycles/:make/:slug/installment", "#installment"],
   ["/motorcycles/:make/:slug/rider-fit", "#rider-fit"],
   ["/motorcycles/:make/:slug/fuel-economy", "#fuel"],
   ["/motorcycles/:make/:slug/ownership-cost", "#ownership"],
@@ -201,6 +200,19 @@ const configRedirects = [
   ["/motorcycles/:make/:slug/used-value", "#used"],
   ["/motorcycles/:make/:slug/new-vs-used", "#used"]
 ];
+const installmentRoute = read("app/motorcycles/[make]/[slug]/installment/page.tsx");
+const installmentProfiles = read("lib/modelIntentLandingPages.ts");
+if (nextConfig.includes('source: "/motorcycles/:make/:slug/installment"')) {
+  failures.push("next.config.mjs: generic installment redirect must not intercept focused installment pages");
+}
+if (!installmentRoute.includes("installmentLandingProfile(model.id)") ||
+    !installmentRoute.includes("permanentRedirect(`/motorcycles/${model.makeSlug}/${model.slug}#installment`)")) {
+  failures.push("installment route: focused models must render the dedicated page while unsupported models fall back to #installment");
+}
+for (const id of ["honda-click-125i","honda-click-160","honda-pcx-160","yamaha-nmax-v3","yamaha-mio-gear","yamaha-aerox-v3"]) {
+  if (!installmentProfiles.includes(`modelId: "${id}"`)) failures.push(`installment route: missing focused model profile ${id}`);
+}
+
 for (const [source, anchor] of configRedirects) {
   if (!nextConfig.includes(`source: "${source}"`) || !nextConfig.includes(anchor)) {
     failures.push(`next.config.mjs: missing permanent redirect for ${source} to ${anchor}`);
