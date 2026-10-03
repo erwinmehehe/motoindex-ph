@@ -56,6 +56,7 @@ import { CTAGroup, ProductGrid as CanonicalProductGrid, SectionHeader } from "@/
 import { CanonicalIntentDepth } from "@/components/CanonicalIntentDepth";
 import { canonicalIntentFaqs, modelIntentDepthProfile } from "@/lib/modelIntentDepth2026";
 import { installmentLandingProfile } from "@/lib/modelIntentLandingPages";
+import { colorIntentLandingProfile } from "@/lib/modelColorLandingPages";
 
 const MOTORCYCLE_ANALYTICS_CSS = `
 .motorcycle-analytics-panel{margin:28px 0 18px;padding:34px;border:1px solid rgba(62,82,69,.16);border-radius:16px;background:#fff;box-shadow:0 18px 48px rgba(24,45,32,.055)}
@@ -78,7 +79,6 @@ function AnalyticsMetric({ id, label, value, unit, note, fill, featured = false 
   </article>;
 }
 
-const HIGH_DEMAND_COLOR_INTENT_IDS = new Set(["yamaha-aerox-v3", "honda-click-125i", "yamaha-nmax-v3"]);
 
 export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const isPrevious = model.marketStatus === "previous";
@@ -94,7 +94,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const verifiedVariants = getVerifiedVariantsForModel(model.id);
   const financingPriceOptions = variantPriceOptions(model.id);
   const allColors = [...new Set([...model.colors, ...verifiedVariants.flatMap((variant) => variant.colors || [])])];
-  const highDemandColorIntent = HIGH_DEMAND_COLOR_INTENT_IDS.has(model.id);
+  const colorLanding = colorIntentLandingProfile(model.id);
   const gearGuide = getModelGearGuide(model.id);
   const helmetCandidates = (gearGuide?.helmetIds || []).map((id) => helmetProducts.find((product) => product.id === id)).filter((product): product is NonNullable<typeof product> => Boolean(product && product.status === "verified"));
   const tireCandidates = getTireProductsForModel(model.id).filter((p) => !isIndexableModel(model) || p.status === "verified");
@@ -114,17 +114,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}`;
   const intentDepth = modelIntentDepthProfile(model.id);
   const installmentLanding = installmentLandingProfile(model.id);
-  const intentFaqs = highDemandColorIntent && allColors.length > 0 ? [
-    {
-      question: `What colors are available for the ${model.make} ${model.model}?`,
-      answer: `Current MotoIndex coverage lists ${allColors.join(", ")}. Color availability can vary by variant and dealer stock, so confirm the exact unit before reserving.`
-    },
-    ...(verifiedVariants.length > 1 ? [{
-      question: `What variants are available for the ${model.make} ${model.model}?`,
-      answer: `The verified Philippine variants currently covered are ${verifiedVariants.map((variant) => `${variant.name} at ${php(variant.srpPhp)}`).join("; ")}. Compare the feature differences and confirm the current dealer quote before financing.`
-    }] : [])
-  ] : [];
-  const faqs = [...motorcycleEntityFaqs(model), ...intentFaqs, ...canonicalIntentFaqs(model), ...(performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])];
+  const faqs = [...motorcycleEntityFaqs(model), ...canonicalIntentFaqs(model), ...(performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])];
   const offer = motorcycleOfferSchema(model, canonicalPath, isIndexableModel(model));
   const schema = {
     "@context": "https://schema.org",
@@ -222,7 +212,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
     <div className="shell motorcycle-entity-nav-wrap">
       <ProductEntityNav items={[
         { href: "#price", label: "Price & variants" },
-        ...(highDemandColorIntent && allColors.length > 0 ? [{ href: "#colors", label: "Colors" }] : []),
+        ...(colorLanding && allColors.length > 0 ? [{ href: "#colors", label: "Colors" }] : []),
         ...(intentDepth ? [{ href: "#buyer-answers", label: "Buyer answers" }] : []),
         { href: "#specs", label: "Key specs" },
         ...(authority ? [{ href: "#buyer-guide", label: "Who it suits" }] : []),
@@ -258,10 +248,19 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <SectionHeader kicker="Price & variants" titleId="price-heading" title={<>{model.make} {model.model} price in the Philippines</>} description={isHistorical ? "Historical pricing is kept separate from used value." : "Start with the published price and exact variant, then confirm the current dealer quote before purchase."} />
         <div className="entity-price-grid motorcycle-price-grid"><article><span>{isHistorical ? "Historical price reference" : "Published price"}</span><strong>{observedMarketPriceLabel(model)}</strong><small>{isHistorical ? "Historical reference only." : "Confirm the current dealer quote before purchase."}</small></article><article><span>Model status</span><strong>{isDiscontinued ? "Discontinued" : isPrevious ? "Previous generation" : availabilityUncertain ? "Availability needs verification" : "Current model"}</strong><small>{model.generation} · {model.category}</small></article></div>
         {!isHistorical && <VariantMatrix model={model} />}
-        {highDemandColorIntent && allColors.length > 0 && <div id="colors" className="model-color-intent">
-          <SectionHeader kicker="Colors" title={`${model.make} ${model.model} colors in the Philippines`} description={`Current catalog coverage includes ${allColors.length} listed color ${allColors.length === 1 ? "option" : "options"}. Variant and dealer stock can differ, so match the color to the exact trim before reserving.`} />
-          <div className="entity-color-grid">{allColors.map((color) => <article key={color}><strong>{color}</strong></article>)}</div>
-          {verifiedVariants.length > 1 && <p className="entity-section-note">Colors can be trim-specific. Use the variant cards above to match the paint option with the correct SRP and equipment package.</p>}
+        {colorLanding && allColors.length > 0 && <div id="colors" className="model-color-intent">
+          <SectionHeader
+            kicker="Colors"
+            title={`${model.make} ${model.model} colors in the Philippines`}
+            description={`Color intent now has a focused page with ${allColors.length} verified/listed paint names, trim mapping and dealer-stock caveats.`}
+          />
+          <div className="entity-tool-grid">
+            <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/colors`}>
+              <span>Dedicated color guide</span>
+              <strong>See all {model.model} colors and variant mapping</strong>
+              <small>Check paint names, trim-specific colors, source dates and dealer-stock verification.</small>
+            </Link>
+          </div>
         </div>}
         {!isHistorical && <PriceIntelligence model={model} />}
         {!isHistorical && <MarketPriceChecks model={model} />}
@@ -363,7 +362,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section id="used" className="motorcycle-entity-section"><details className="entity-disclosure" open={isHistorical}><summary>Used value and depreciation</summary>{usedListings.length === 0 ? <div className="note-box compact-note"><h3>Used-market sample not available yet</h3><p>The calculator below is an estimate, not a live appraisal. Listing samples appear only after they pass verification.</p></div> : <><UsedMarketSummary modelId={model.id} />{!isHistorical && <div className="new-used-grid entity-new-used-grid"><article><span>New reference</span><strong>{observedMarketPriceLabel(model)}</strong></article><article><span>Used median ask</span><strong>{php(usedSummary.medianPrice)}</strong><p>{usedSummary.included} verified listing samples.</p></article></div>}<details className="entity-disclosure"><summary>Show used listing samples</summary><UsedListingTable items={usedListings} /></details></>}<UsedValueCalculator model={forClient(model)} /><details className="entity-disclosure"><summary>Show illustrative depreciation table</summary><div className="depreciation-table"><div className="depreciation-row head"><span>Age</span><span>Fair</span><span>Good</span><span>Excellent</span></div>{usedCurve.map((row) => <div className="depreciation-row" key={row.age}><strong>{row.age} year{row.age===1?"":"s"}</strong><span>{php(row.fair)}</span><span>{php(row.good)}</span><span>{php(row.excellent)}</span></div>)}</div></details></details></section>
 
-      {!highDemandColorIntent && allColors.length > 0 && <section id="colors" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>{model.make} {model.model} colors and variants</summary><div className="entity-color-grid">{allColors.map((color) => <article key={color}><strong>{color}</strong></article>)}</div></details></section>}
+      {!colorLanding && allColors.length > 0 && <section id="colors" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>{model.make} {model.model} colors and variants</summary><div className="entity-color-grid">{allColors.map((color) => <article key={color}><strong>{color}</strong></article>)}</div></details></section>}
 
       {gearGuide && helmetCandidates.length > 0 && <section id="gear" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Helmet options for this rider profile</summary><p>{gearGuide.intro} Helmet fit is rider-specific, so these are shopping options rather than motorcycle-fitment claims.</p><div className="product-grid">{helmetCandidates.slice(0,3).map((p) => <ProductCard key={p.id} item={{ entityId:p.id, href:`/gear/helmets/${p.brandSlug}/${p.slug}`, category:p.helmetType, brand:p.brand, model:p.model, meta:p.certification, status:p.status, priceFromPhp:p.priceFromPhp }} />)}</div></details></section>}
 

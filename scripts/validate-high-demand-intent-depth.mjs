@@ -9,6 +9,8 @@ const data = read("lib", "data.ts");
 const variants = read("lib", "variants.ts");
 const growth = read("lib", "priorityModelGrowth.ts");
 const entity = read("components", "MotorcycleEntityPage.tsx");
+const colorProfiles = read("lib", "modelColorLandingPages.ts");
+const colorRoute = read("app", "motorcycles", "[make]", "[slug]", "colors", "page.tsx");
 
 for (const token of [
   'id: "honda-click-125i"',
@@ -43,14 +45,34 @@ for (const token of [
 }
 
 for (const token of [
-  'HIGH_DEMAND_COLOR_INTENT_IDS',
-  '"yamaha-aerox-v3", "honda-click-125i", "yamaha-nmax-v3"',
-  'What colors are available for the',
+  'colorIntentLandingProfile',
+  'const colorLanding = colorIntentLandingProfile(model.id);',
   'href: "#colors", label: "Colors"',
-  'colors in the Philippines',
-  '!highDemandColorIntent && allColors.length > 0'
+  '/motorcycles/${model.makeSlug}/${model.slug}/colors',
+  'Dedicated color guide',
+  '!colorLanding && allColors.length > 0'
 ]) {
-  if (!entity.includes(token)) errors.push(`High-demand canonical intent guard missing: ${token}`);
+  if (!entity.includes(token)) errors.push(`High-demand color handoff guard missing: ${token}`);
+}
+
+for (const token of [
+  'modelId: "yamaha-aerox-v3"',
+  'keywordVolume: 2000',
+  'modelId: "honda-click-125i"',
+  'keywordVolume: 6600',
+  'modelId: "yamaha-nmax-v3"',
+  'keywordVolume: 2700'
+]) {
+  if (!colorProfiles.includes(token)) errors.push(`High-demand color profile guard missing: ${token}`);
+}
+
+for (const token of [
+  'colorIntentLandingProfiles',
+  'variantColorRows',
+  'MotoIndex does not invent color swatches',
+  'FAQPage'
+]) {
+  if (!colorRoute.includes(token)) errors.push(`High-demand color route guard missing: ${token}`);
 }
 
 if (errors.length) {
@@ -58,4 +80,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log("High-demand canonical color/variant intent validation passed.");
+console.log("High-demand color/variant intent validation passed with focused color-page handoff.");

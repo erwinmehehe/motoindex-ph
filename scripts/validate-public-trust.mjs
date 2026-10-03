@@ -257,8 +257,11 @@ const motorcycleEntity = read("components/MotorcycleEntityPage.tsx");
 if (!motorcycleEntity.includes("<AuthorBox />")) {
   failures.push("components/MotorcycleEntityPage.tsx: canonical motorcycle page must show the author box");
 }
-if (motorcycleEntity.includes("/specifications") || motorcycleEntity.includes("/colors") || motorcycleEntity.includes("/gear`")) {
-  failures.push("components/MotorcycleEntityPage.tsx: do not reintroduce model fragment links");
+if (motorcycleEntity.includes("/specifications") || motorcycleEntity.includes("/gear`")) {
+  failures.push("components/MotorcycleEntityPage.tsx: do not reintroduce retired thin model routes");
+}
+if (motorcycleEntity.includes("/colors") && !motorcycleEntity.includes("colorIntentLandingProfile")) {
+  failures.push("components/MotorcycleEntityPage.tsx: model color links must be gated by the search-volume color-page whitelist");
 }
 
 const accessoryRoot = read("app/accessories/page.tsx");

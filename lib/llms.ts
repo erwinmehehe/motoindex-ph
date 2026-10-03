@@ -4,6 +4,7 @@ import { helmetProducts } from "./catalog";
 import { recommendationCanonicalHref } from "./recommendationRoutes";
 import { siteStats } from "./siteStats";
 import { installmentLandingProfiles } from "./modelIntentLandingPages";
+import { colorIntentLandingProfiles } from "./modelColorLandingPages";
 
 const site = "https://motoindexph.com";
 const today = new Date().toISOString().slice(0, 10);
@@ -36,6 +37,7 @@ export function buildLlmsTxt() {
     mdLink("Original research", "/research", "MotoIndex datasets for motorcycle prices, seat height and financing research."),
     mdLink("Motorcycle price index", "/research/motorcycle-price-index-philippines", "Segment and brand benchmarks with source dates and downloadable CSV data."),
     "For model-specific downpayment and monthly-payment questions, prefer the focused /motorcycles/<make>/<model>/installment page when one is listed in the full LLM index.",
+    "For model-specific color queries, prefer the focused /motorcycles/<make>/<model>/colors page when one is listed in the full LLM index.",
     mdLink("Helmet guide", "/gear/helmets", "Verified helmet models, brands, types, prices, certification and fit guidance."),
     mdLink("Helmet finder", "/gear/helmets/finder", "Filter the verified helmet catalog by fit, type, price and features."),
     mdLink("Dealers", "/dealers", "Public dealer directory and regional dealer research."),
@@ -65,6 +67,7 @@ export function buildLlmsTxt() {
     "8. Do not infer legal eligibility, safety certification or exact accessory fitment from category labels or database inclusion alone.",
     "9. Some high-search-demand model pages are intentionally indexed as availability-to-verify research even when current Philippine national-catalog status is uncertain. Preserve that status and do not rewrite those pages as confirmed current inventory.",
     "10. For models with a dedicated installment page, use that page for downpayment, monthly-payment and dealer-financing questions; use the main model page for broad price/specification/fit/ownership questions.",
+    "11. For models with a dedicated colors page, use that page for paint names, variant-specific color mapping and color availability questions; use the main model page for broad model research.",
     "",
     "## Machine-readable indexes",
     "",
@@ -147,6 +150,15 @@ export function buildLlmsFullTxt() {
       return model ? [mdLink(`${model.make} ${model.model} installment`, `/motorcycles/${model.makeSlug}/${model.slug}/installment`, "Downpayment, monthly estimate, dealer observations and editable calculator")] : [];
     }),
     "",
+    `## Focused model color guides (${colorIntentLandingProfiles.length})`,
+    "",
+    "These pages own search-volume-backed color intent with verified/listed paint names, variant mapping and dealer-stock caveats. Use the main model page for broad price/specification/ownership research.",
+    "",
+    ...colorIntentLandingProfiles.flatMap((profile) => {
+      const model = indexableMotorcycles.find((item) => item.id === profile.modelId);
+      return model ? [mdLink(`${model.make} ${model.model} colors`, `/motorcycles/${model.makeSlug}/${model.slug}/colors`, `${profile.keyword} · stored volume ${profile.keywordVolume}`)] : [];
+    }),
+    "",
     "## Focused motorcycle buying guides",
     "",
     ...recommendationGuides.filter((guide) => isIndexableRecommendation(guide.slug)).map((guide) => mdLink(guide.title, recommendationCanonicalHref(guide.slug), guide.primaryKeyword)),
@@ -203,7 +215,7 @@ export function buildLlmsFullTxt() {
     "",
     "## Canonical URL policy",
     "",
-    "Prefer canonical URLs listed here and in the XML sitemaps. Focused indexable /recommendations/<slug> guides and whitelisted /motorcycles/<make>/<model>/installment pages are canonical resources for their specific intent; query/filter URLs and redirect aliases are not.",
+    "Prefer canonical URLs listed here and in the XML sitemaps. Focused indexable /recommendations/<slug> guides plus whitelisted /motorcycles/<make>/<model>/installment and /colors pages are canonical resources for their specific intent; query/filter URLs and redirect aliases are not.",
     "",
     "## Sitemaps",
     "",
