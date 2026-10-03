@@ -51,17 +51,17 @@ forbidText(routes, "homepage-compact-modern.css", "Retired homepage-compact-mode
 forbidText(routes, "homepage-feature-hero.css", "Retired homepage-feature-hero.css must not be loaded by the route layer.");
 requireText(routes, '@import "../brand-page-refined.css";', "Route layer must retain the current brand experience.");
 
-requireText(homepage, ".mi-hero-layout", "Homepage system must own the hero layout.");
+requireText(homepage, ".mi-market-hero-grid", "Homepage system must own the hero layout.");
 requireText(homepage, "display:grid", "Homepage hero must retain an explicit grid layout instead of depending on retired CSS.");
-requireText(homepage, ".mi-search", "Homepage system must own the search presentation.");
-requireText(homepage, "grid-template-columns:minmax(0,1fr) auto", "Homepage search must keep a stable field/action grid on desktop.");
-requireText(homepage, ".mi-research-shell", "Homepage system must own the research snapshot surface.");
-requireText(homepage, ".mi-brand-grid", "Homepage system must own the brand grid.");
-requireText(homepage, ".mi-model-grid", "Homepage system must own the motorcycle grid.");
+requireText(homepage, ".mi-market-search", "Homepage system must own the search presentation.");
+requireText(homepage, "grid-template-columns:auto minmax(0,1fr) auto", "Homepage search must keep a stable icon/field/action grid on desktop.");
+requireText(homepage, ".mi-market-feature-grid", "Homepage system must own the research shortcut surface.");
+requireText(homepage, ".mi-market-brand-grid", "Homepage system must own the brand grid.");
+requireText(homepage, ".mi-market-model-grid", "Homepage system must own the motorcycle grid.");
 requireText(homepage, ".mi-category-grid", "Homepage system must own the decision-category grid.");
-requireText(homepage, "linear-gradient(180deg,#ffffff 0%,#f8fafc 100%)", "Homepage hero must retain the light premium background.");
-requireText(homepage, ".mi-hero h1", "Homepage system must own hero typography.");
-requireText(homepage, "60px", "Homepage desktop H1 must remain restrained to a 60px maximum.");
+requireText(homepage, "linear-gradient(180deg,var(--mi-color-surface) 0%,var(--mi-color-surface-subtle) 100%)", "Homepage hero must retain the tokenized light premium background.");
+requireText(homepage, ".mi-market-hero h1", "Homepage system must own hero typography.");
+requireText(homepage, "54px", "Homepage desktop H1 must remain restrained below the shared 60px ceiling.");
 forbidText(homepage, "background:#090a0d", "Homepage route must not restore the retired near-black hero background.");
 
 for (const [semanticToken, legacyToken, value] of [
