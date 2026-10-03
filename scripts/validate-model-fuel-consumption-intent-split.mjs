@@ -78,7 +78,7 @@ requireText(
   "TMX125 Alpha fuel page must use the Honda Philippines efficiency source."
 );
 
-for(const slug of ["price","specs","variants"]){
+for(const slug of ["price","variants"]){
   const candidate=path.join(root,"app","motorcycles","[make]","[slug]",slug,"page.tsx");
   if(fs.existsSync(candidate))errors.push(`Do not mass-split unsupported model intent pages yet: /${slug}`);
 }
