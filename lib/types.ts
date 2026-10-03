@@ -174,7 +174,7 @@ export type RecommendationGuide = {
   editorialSections: string[];
   faqQuestions: string[];
   relatedGuideSlugs: string[];
-  intent: "budget" | "fit" | "use-case" | "category";
+  intent: "budget" | "fit" | "use-case" | "category" | "brand";
 };
 
 export type CatalogStatus = "research" | "verified";

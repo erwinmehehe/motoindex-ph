@@ -51,6 +51,7 @@
     "validate:intent-depth": "node scripts/validate-high-demand-intent-depth.mjs",
     "validate:intent-depth-wave2": "node scripts/validate-next-20-intent-depth.mjs",
     "validate:intent-depth-wave3": "node scripts/validate-canonical-authority-wave3.mjs",
+    "validate:category-authority-wave1": "node scripts/validate-category-authority-wave1.mjs",
     "validate:category-authority-wave4": "node scripts/validate-category-authority-wave4.mjs",
     "validate:semantic-consolidation-wave5": "node scripts/validate-semantic-consolidation-wave5.mjs",
     "validate:original-research-wave2": "node scripts/validate-original-research-wave2.mjs",

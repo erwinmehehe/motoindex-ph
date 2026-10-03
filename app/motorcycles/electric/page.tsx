@@ -11,7 +11,7 @@ import { CTAGroup, PageHero, StatRow } from "@/components/ui";
 
 export const metadata: Metadata = pageMetadata({
   title: "Electric Scooters Philippines 2026 | Prices, Range & LTO",
-  description: "Compare electric scooters and motorcycles in the Philippines by price, battery options, claimed range, charging time, LTO classification and ownership costs.",
+  description: "Compare current electric scooters in the Philippines by price, battery options, claimed range, charging time, LTO classification, ownership costs and buyer fit.",
   path: "/motorcycles/electric"
 });
 
@@ -26,7 +26,7 @@ export default function ElectricMotorcyclesPage() {
     description:"One guide to Philippine electric motorcycles covering models, prices, battery options, claimed range, charging, registration, classification and ownership trade-offs.",
     path:"/motorcycles/electric",
     about:"electric motorcycles Philippines",
-    keywords:["electric scooter Philippines","electric scooters Philippines","electric motorcycle Philippines","electric scooter price Philippines","electric motorcycle price Philippines","electric motorcycle registration Philippines","e-bike vs motorcycle Philippines"],
+    keywords:["electric scooter Philippines","electric scooters Philippines","best electric scooters Philippines","electric motorcycle Philippines","electric scooter price Philippines","electric motorcycle price Philippines","electric motorcycle registration Philippines","e-bike vs motorcycle Philippines"],
     checkedDates
   });
 
@@ -48,7 +48,7 @@ export default function ElectricMotorcyclesPage() {
     <PageHero
       kicker="Electric motorcycle buying guide"
       title="Electric motorcycles and scooters in the Philippines"
-      description="Compare current Philippine electric motorcycle and electric scooter prices, battery options, claimed range, charging time and LTO classification in one buying guide."
+      description="Compare current verified Philippine electric scooters by price, battery setup, claimed range, charging time, LTO classification and ownership trade-offs."
       actions={<CTAGroup><a className="button" href="#models">Compare electric models</a><Link className="button secondary" href="/tools/electric-motorcycle-charging-cost">Calculate charging cost</Link></CTAGroup>}
     />
 
