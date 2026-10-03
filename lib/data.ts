@@ -707,7 +707,7 @@ export const motorcycles: Motorcycle[] = [
     marketStatus: "current",
     srp: 56900, engineCc: 125, powerHp: 9.6, torqueNm: 9.1, curbWeightKg: 113, seatHeightMm: 759, fuelTankL: 8.6, fuelConsumptionKmL: 62.5, groundClearanceMm: 156,
     frontTire: "2.50-18", rearTire: "2.75-18", abs: "No ABS; drum brakes", colors: [], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Independent PH 2026 TMX125 Alpha price and specification page", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/tmx125-alpha/specifications", verifiedAt: "2026-08-25", freshness: "verified",
+    sourceLabel: "Honda Philippines TMX125 Alpha 62.5 km/L fuel-efficiency and model reference", sourceUrl: "https://www.hondaph.com/motorcycle/news/making-a-living-riding-solo-with-the-new-honda-tmx125-alpha", verifiedAt: "2026-10-03", freshness: "verified",
     marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/tmx125-alpha", marketPriceCheckedAt: "2026-09-30", transmission: "Manual",
     summary: "125cc business motorcycle with an 8.6 L fuel tank, low seat and simple work-oriented layout."
   },
