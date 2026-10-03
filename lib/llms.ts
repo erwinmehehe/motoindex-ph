@@ -43,7 +43,7 @@ export function buildLlmsTxt() {
     "For model-specific color queries, prefer the focused /motorcycles/<make>/<model>/colors page when one is listed in the full LLM index.",
     "For model-specific top-speed queries, prefer the focused /motorcycles/<make>/<model>/top-speed page when one is listed in the full LLM index.",
     "For model-specific fuel-consumption queries, prefer the focused /motorcycles/<make>/<model>/fuel-consumption page when one is listed in the full LLM index.",
-    "For model-specific technical-specification queries, prefer the focused /motorcycles/<make>/<model>/specs page when one is listed in the full LLM index."
+    "For model-specific technical-specification queries, prefer the focused /motorcycles/<make>/<model>/specs page when one is listed in the full LLM index.",
     mdLink("Helmet guide", "/gear/helmets", "Verified helmet models, brands, types, prices, certification and fit guidance."),
     mdLink("Helmet finder", "/gear/helmets/finder", "Filter the verified helmet catalog by fit, type, price and features."),
     mdLink("Dealers", "/dealers", "Public dealer directory and regional dealer research."),
