@@ -60,6 +60,8 @@ import { colorIntentLandingProfile } from "@/lib/modelColorLandingPages";
 import { topSpeedLandingProfile } from "@/lib/modelTopSpeedLandingPages";
 import { specsIntentLandingProfile } from "@/lib/modelSpecsLandingPages";
 import { fuelConsumptionLandingProfile } from "@/lib/modelFuelConsumptionLandingPages";
+import { seatHeightIntentLandingProfile } from "@/lib/modelSeatHeightLandingPages";
+import { weightIntentLandingProfile } from "@/lib/modelWeightLandingPages";
 
 const MOTORCYCLE_ANALYTICS_CSS = `
 .motorcycle-analytics-panel{margin:28px 0 18px;padding:34px;border:1px solid rgba(62,82,69,.16);border-radius:16px;background:#fff;box-shadow:0 18px 48px rgba(24,45,32,.055)}
@@ -101,6 +103,8 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const topSpeedLanding = topSpeedLandingProfile(model.id);
   const specsLanding = specsIntentLandingProfile(model.id);
   const fuelConsumptionLanding = fuelConsumptionLandingProfile(model.id);
+  const seatHeightLanding = seatHeightIntentLandingProfile(model.id);
+  const weightLanding = weightIntentLandingProfile(model.id);
   const gearGuide = getModelGearGuide(model.id);
   const helmetCandidates = (gearGuide?.helmetIds || []).map((id) => helmetProducts.find((product) => product.id === id)).filter((product): product is NonNullable<typeof product> => Boolean(product && product.status === "verified"));
   const tireCandidates = getTireProductsForModel(model.id).filter((p) => !isIndexableModel(model) || p.status === "verified");
@@ -224,7 +228,8 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         ...(topSpeedLanding ? [{ href: `/motorcycles/${model.makeSlug}/${model.slug}/top-speed`, label: "Top speed" }] : []),
         ...(authority ? [{ href: "#buyer-guide", label: "Who it suits" }] : []),
         ...(!isHistorical ? [{ href: "#installment", label: "Monthly" }] : []),
-        { href: "#rider-fit", label: "Rider fit" },
+        ...(seatHeightLanding ? [{ href: `/motorcycles/${model.makeSlug}/${model.slug}/seat-height`, label: "Seat height" }] : [{ href: "#rider-fit", label: "Rider fit" }]),
+        ...(weightLanding ? [{ href: `/motorcycles/${model.makeSlug}/${model.slug}/weight`, label: "Weight" }] : []),
         ...(!isHistorical ? [{ href: "#ownership", label: "Ownership" }] : []),
         ...(!isHistorical ? [{ href: "#alternatives", label: "Alternatives" }] : []),
         { href: "#detailed-research", label: "Detailed research" },
@@ -348,9 +353,28 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       </section> : null}
 
       <section id="rider-fit" className="motorcycle-entity-section" aria-labelledby="fit-heading">
-        <SectionHeader kicker="Rider fit" titleId="fit-heading" title={<>Will the {model.make} {model.model} fit you?</>} description="Seat height is only a starting point. Use your inseam with the recorded seat height and curb weight, then sit on the exact motorcycle when possible." />
-        <div className="entity-fit-kpis"><HeroFact label="Seat height" value={`${model.seatHeightMm} mm`} /><HeroFact label="Curb weight" value={`${model.curbWeightKg} kg`} /><HeroFact label="Power" value={`${model.powerHp} hp`} note={`${model.engineCc} cc`} /><HeroFact label="Transmission" value={model.transmission || "Not listed"} /></div>
-        <RiderFitCalculator model={forClient(model)} />
+        <SectionHeader
+          kicker="Rider fit"
+          titleId="fit-heading"
+          title={<>Will the {model.make} {model.model} fit you?</>}
+          description={seatHeightLanding ? "Seat-height and inseam intent now has a focused page. The main guide keeps only the decision handoff so fit research does not duplicate across two URLs." : "Seat height is only a starting point. Use your inseam with the recorded seat height and curb weight, then sit on the exact motorcycle when possible."}
+        />
+        {seatHeightLanding ? <div className="entity-tool-grid">
+          <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/seat-height`}>
+            <span>Dedicated rider-reach guide</span>
+            <strong>{model.seatHeightMm} mm seat height · check your inseam</strong>
+            <small>Use the rider-fit calculator, market median, nearby seat-height comparisons and source context.</small>
+          </Link>
+          {weightLanding && <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/weight`}>
+            <span>Dedicated weight guide</span>
+            <strong>{model.curbWeightKg} kg curb weight</strong>
+            <small>See pounds conversion, current-market weight context and low-speed handling considerations.</small>
+          </Link>}
+        </div> : <>
+          <div className="entity-fit-kpis"><HeroFact label="Seat height" value={`${model.seatHeightMm} mm`} /><HeroFact label="Curb weight" value={`${model.curbWeightKg} kg`} /><HeroFact label="Power" value={`${model.powerHp} hp`} note={`${model.engineCc} cc`} /><HeroFact label="Transmission" value={model.transmission || "Not listed"} /></div>
+          <RiderFitCalculator model={forClient(model)} />
+          {weightLanding && <div className="entity-tool-grid"><Link href={`/motorcycles/${model.makeSlug}/${model.slug}/weight`}><span>Dedicated weight guide</span><strong>{model.curbWeightKg} kg curb weight in context</strong><small>Compare the published curb weight with current-market records, pounds conversion and low-speed handling factors.</small></Link></div>}
+        </>}
       </section>
 
       {!isHistorical && <section id="ownership" className="motorcycle-entity-section motorcycle-ownership-section" aria-labelledby="ownership-heading">
