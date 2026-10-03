@@ -14,6 +14,7 @@ import { priorityModelGrowthProfile } from "@/lib/priorityModelGrowth";
 import { getRenderableMedia } from "@/lib/renderableMedia";
 import { ElectricMotorcycleDetail } from "@/components/ElectricMotorcycleDetail";
 import { electricMotorcycles, getElectricMotorcycle } from "@/lib/electricMotorcycles";
+import { highDemandIntentProfile2026 } from "@/lib/highDemandIntentDepth2026";
 
 const LEGACY_MODEL_REDIRECTS: Record<string, { make: string; slug: string; title: string; description: string }> = {
   "kawasaki/z400": {
@@ -104,7 +105,9 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
     imageWidth: media?.width,
     imageHeight: media?.height
   });
-  return { ...base, keywords: seo.keywords };
+  const demandProfile = highDemandIntentProfile2026(model.id);
+  const keywords = [...new Set([...seo.keywords, ...(demandProfile ? [demandProfile.primaryKeyword, ...demandProfile.secondaryKeywords] : [])])];
+  return { ...base, keywords };
 }
 
 export default async function ModelPage({ params }: { params: Promise<{ make: string; slug: string }> }) {
