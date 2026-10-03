@@ -1314,6 +1314,16 @@ export const entityMedia: EntityMedia[] = [
     alt: "Coocase V50 Reflex 50-litre motorcycle top box in black", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "Moto Central / Coocase", sourceLabel: "Retailer-hosted exact-model product image · Coocase V50 Reflex", sourceUrl: "https://www.coocase.com/wp-content/uploads/2026/03/19c89da2d43ee1c6491_compressed.pdf", lastChecked: "2026-09-29"
   },
+  {
+    id: "bristol-adx-160-official", entityType: "motorcycle", entityId: "bristol-adx-160", role: "primary",
+    src: "/media/motorcycles/bristol-adx-160.webp", alt: "Bristol ADX 160 adventure scooter", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Bristol Motorcycles", sourceLabel: "Manufacturer product image reference · Bristol ADX 160", sourceUrl: "https://www.bristol-motorcycles.com/adx160", lastChecked: "2026-10-03"
+  },
+  {
+    id: "ktm-390-duke-official", entityType: "motorcycle", entityId: "ktm-390-duke", role: "primary",
+    src: "/media/motorcycles/ktm-390-duke.webp", alt: "KTM 390 Duke motorcycle", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KTM", sourceLabel: "Manufacturer product image reference · KTM 390 Duke", sourceUrl: "https://www.ktm.com/en-ph/models/naked-bike/2023-ktm-390-duke.html", lastChecked: "2026-10-03"
+  },
 ];
 
 export function getRenderableMedia(entityType: EntityMedia["entityType"], entityId: string) {
