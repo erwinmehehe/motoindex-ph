@@ -150,8 +150,8 @@ export default function ElectricMotorcyclesPage() {
         <article><h3>Registration and support</h3><p>Confirm the exact LTO classification, registration processing, battery warranty, replacement terms, service network and parts support for the exact model before paying.</p></article>
       </div>
       <div className="commute-tool-grid">
-        <Link href="/recommendations/best-scooters-philippines"><span>Gas comparison</span><h3>Compare regular scooters</h3><p>See current gasoline scooters by price, engine, seat height, weight and braking equipment.</p></Link>
-        <Link href="/recommendations/motorcycles-under-100k"><span>Budget comparison</span><h3>Motorcycles under ₱100K</h3><p>Compare electric starting prices with current gasoline motorcycles in the same broad purchase-budget range.</p></Link>
+        <Link href="/motorcycles/scooters"><span>Gas comparison</span><h3>Compare regular scooters</h3><p>See the scooter research hub and continue into current gasoline models by engine class, brand and use case.</p></Link>
+        <Link href="/motorcycles"><span>Market comparison</span><h3>Browse current motorcycles</h3><p>Compare electric starting prices with the wider current Philippine motorcycle catalog and its price research tools.</p></Link>
         <Link href="/guides/electric-motorcycle-registration-philippines"><span>Registration guide</span><h3>Electric motorcycle registration</h3><p>Review Philippine registration and classification context before purchase.</p></Link>
       </div>
     </section>
