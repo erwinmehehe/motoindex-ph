@@ -54,6 +54,8 @@ const routes=[
   {name:"top-box-detail",path:"/accessories/top-box/v58-maxia-5"},
   {name:"finder",path:"/finder"},
   {name:"recommendations",path:"/recommendations"},
+  {name:"guides",path:"/guides"},
+  {name:"price-list",path:"/price-list"},
   {name:"dual-sport-guide",path:"/recommendations/dual-sport-motorcycles-philippines"},
   {name:"ownership-hub",path:"/ownership"},
   {name:"commute-hub",path:"/commute"},
@@ -295,7 +297,7 @@ const inspect=`(() => {
     mode:getComputedStyle(card).display,
     catalog:Boolean(card.closest(".motorcycle-catalog-grid")),
     brand:Boolean(card.closest(".ph-brand-model-grid")),
-    home:Boolean(card.closest(".mi-model-grid"))
+    home:Boolean(card.closest(".mi-market-model-grid,.mi-model-grid"))
   }));
   const cards=[...document.querySelectorAll(".ui-product-card")];
   const collapsedCards=cards.filter(card=>{

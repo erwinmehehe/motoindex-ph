@@ -1,4 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import { hasInstallmentLandingPage } from "./lib/modelIntentLandingPages";
+import { hasColorIntentLandingPage } from "./lib/modelColorLandingPages";
+import { hasTopSpeedLandingPage } from "./lib/modelTopSpeedLandingPages";
+import { hasFuelConsumptionLandingPage } from "./lib/modelFuelConsumptionLandingPages";
+import { hasSpecsIntentLandingPage } from "./lib/modelSpecsLandingPages";
 
 const protectedPrefixes = ["/admin", "/api/ingestion", "/api/admin"];
 const prototypePrefixes: string[] = [];
@@ -37,6 +42,28 @@ function recordAuthFailure(key: string, now = Date.now()) {
   authFailures.set(key, entry ? { count: entry.count + 1, resetAt: entry.resetAt } : { count: 1, resetAt: now + AUTH_WINDOW_MS });
 }
 
+function focusedModelIntentFallback(pathname: string) {
+  const match = pathname.match(/^\/motorcycles\/([^/]+)\/([^/]+)\/(colors|installment|specs|top-speed|fuel-consumption|specifications|fuel-economy)\/?$/);
+  if (!match) return undefined;
+  const [, make, slug, requestedIntent] = match;
+  const modelId = `${make}-${slug}`;
+  const intent = requestedIntent === "specifications" ? "specs" : requestedIntent === "fuel-economy" ? "fuel-consumption" : requestedIntent;
+  const supported =
+    intent === "colors" ? hasColorIntentLandingPage(modelId) :
+    intent === "installment" ? hasInstallmentLandingPage(modelId) :
+    intent === "specs" ? hasSpecsIntentLandingPage(modelId) :
+    intent === "top-speed" ? hasTopSpeedLandingPage(modelId) :
+    hasFuelConsumptionLandingPage(modelId);
+
+  if (supported) {
+    if (requestedIntent !== intent) return { pathname: `/motorcycles/${make}/${slug}/${intent}` };
+    return undefined;
+  }
+
+  const anchor = intent === "top-speed" ? "performance" : intent === "fuel-consumption" ? "fuel" : intent;
+  return { pathname: `/motorcycles/${make}/${slug}`, hash: `#${anchor}` };
+}
+
 function isPrototypePath(pathname: string) {
   if (pathname === "/used-motorcycles/repo" || pathname === "/used-motorcycles/buying-checklist") return false;
   if (pathname === "/sellers") return true;
@@ -46,6 +73,13 @@ function isPrototypePath(pathname: string) {
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const focusedIntentFallback = focusedModelIntentFallback(pathname);
+  if (focusedIntentFallback) {
+    const url = request.nextUrl.clone();
+    url.pathname = focusedIntentFallback.pathname;
+    url.hash = focusedIntentFallback.hash ?? "";
+    return NextResponse.redirect(url, 308);
+  }
   if (process.env.NODE_ENV === "production" && isPrototypePath(pathname)) return deny("Not found.", 404);
   if (pathname === "/garage" || pathname.startsWith("/garage/")) {
     const response = NextResponse.next();
@@ -96,6 +130,7 @@ export const config = {
   matcher: [
     "/admin/:path*", "/api/ingestion/:path*", "/api/admin/:path*", "/garage/:path*","/garage", "/price-alerts/confirm/:path*", "/price-alerts/unsubscribe/:path*", "/api/price-alerts/:path*",
     "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*", "/quote-status/:path*", "/api/quote-status/:path*",
-    "/motorcycles/:make/:slug/used-value", "/motorcycles/:make/:slug/new-vs-used"
+    "/motorcycles/:make/:slug/used-value", "/motorcycles/:make/:slug/new-vs-used",
+    "/motorcycles/:make/:slug/colors", "/motorcycles/:make/:slug/installment", "/motorcycles/:make/:slug/specs", "/motorcycles/:make/:slug/top-speed", "/motorcycles/:make/:slug/fuel-consumption", "/motorcycles/:make/:slug/specifications", "/motorcycles/:make/:slug/fuel-economy"
   ]
 };

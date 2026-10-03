@@ -44,6 +44,7 @@ const variantFinanceModels = new Map([
   ["honda-pcx-160", ["Standard", "RoadSync"]],
   ["honda-cb650r", ["Standard", "E-Clutch"]]
 ]);
+// Dedicated installment pages own financing UI when an intent landing profile exists.
 const failures = [];
 const results = [];
 
@@ -163,6 +164,7 @@ try {
         const monthlyResult=planner?.querySelector('.finance-result>strong');
         const presets=planner?[...planner.querySelectorAll('.finance-preset-groups .calc-presets button')]:[];
         const scenarios=document.querySelectorAll('#installment .finance-scenario-row .ui-stat-row__item');
+        const dedicatedInstallmentHref=document.querySelector('[data-dedicated-installment-link]')?.getAttribute('href')||document.querySelector('#installment a[href*="/installment"]')?.getAttribute('href')||'';
         return {
           title:document.title,
           h1:Boolean(h1),
@@ -191,6 +193,7 @@ try {
           monthlyResult:monthlyResult?.textContent?.trim()||'',
           presetCount:presets.length,
           scenarioCount:scenarios.length,
+          dedicatedInstallmentHref,
           installmentOverflow:planner?Math.max(0,planner.scrollWidth-planner.clientWidth):0,
           overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
         };
@@ -215,21 +218,23 @@ try {
       if (name === "honda-click-125i" && !audit?.authority) failures.push(`${width}px ${pathname}: Honda Click125 authority section is missing.`);
       if (name !== "honda-crf150l" && !historicalResearchModels.has(name)) {
         if (!audit?.priceLink || !audit?.installmentLink) failures.push(`${width}px ${pathname}: price/monthly anchor links are incomplete.`);
-        if (!audit?.planner) failures.push(`${width}px ${pathname}: installment planner is missing.`);
-        if (!audit?.monthlyResult || !audit.monthlyResult.includes("₱")) failures.push(`${width}px ${pathname}: installment planner monthly result is missing.`);
-        if ((audit?.presetCount || 0) < 6) failures.push(`${width}px ${pathname}: installment planner quick presets are incomplete.`);
-        if ((audit?.scenarioCount || 0) < 2) failures.push(`${width}px ${pathname}: financing comparison strip is incomplete.`);
-        if ((audit?.installmentOverflow || 0) > 5) failures.push(`${width}px ${pathname}: installment planner overflows by ${audit.installmentOverflow}px.`);
-        if (audit?.plannerDisplay === "grid") failures.push(`${width}px ${pathname}: installment planner root still inherits the legacy global calculator grid.`);
-        if ((audit?.plannerWidth || 0) > 0 && (audit?.plannerHeadWidth || 0) < audit.plannerWidth * .9) failures.push(`${width}px ${pathname}: installment heading collapsed to ${Math.round(audit?.plannerHeadWidth || 0)}px inside a ${Math.round(audit?.plannerWidth || 0)}px planner.`);
-        if ((audit?.plannerWidth || 0) > 0 && (audit?.plannerLayoutWidth || 0) < audit.plannerWidth * .9) failures.push(`${width}px ${pathname}: installment controls/results collapsed to ${Math.round(audit?.plannerLayoutWidth || 0)}px inside a ${Math.round(audit?.plannerWidth || 0)}px planner.`);
-        if (width >= 1000 && (audit?.plannerControlsWidth || 0) < 500) failures.push(`${width}px ${pathname}: installment controls are too narrow at ${Math.round(audit?.plannerControlsWidth || 0)}px.`);
-        if (width >= 1000 && (audit?.plannerResultWidth || 0) < 260) failures.push(`${width}px ${pathname}: installment result card is too narrow at ${Math.round(audit?.plannerResultWidth || 0)}px.`);
-        const expectedVariants=variantFinanceModels.get(name);
-        if (expectedVariants) {
-          if (audit?.financingMode !== "variants") failures.push(`${width}px ${pathname}: financing snapshot is not variant-aware.`);
-          for (const label of expectedVariants) {
-            if (!audit?.financingVariants?.includes(label)) failures.push(`${width}px ${pathname}: financing snapshot missing ${label} variant.`);
+        if (!audit?.dedicatedInstallmentHref) {
+          if (!audit?.planner) failures.push(`${width}px ${pathname}: installment planner is missing.`);
+          if (!audit?.monthlyResult || !audit.monthlyResult.includes("₱")) failures.push(`${width}px ${pathname}: installment planner monthly result is missing.`);
+          if ((audit?.presetCount || 0) < 6) failures.push(`${width}px ${pathname}: installment planner quick presets are incomplete.`);
+          if ((audit?.scenarioCount || 0) < 2) failures.push(`${width}px ${pathname}: financing comparison strip is incomplete.`);
+          if ((audit?.installmentOverflow || 0) > 5) failures.push(`${width}px ${pathname}: installment planner overflows by ${audit.installmentOverflow}px.`);
+          if (audit?.plannerDisplay === "grid") failures.push(`${width}px ${pathname}: installment planner root still inherits the legacy global calculator grid.`);
+          if ((audit?.plannerWidth || 0) > 0 && (audit?.plannerHeadWidth || 0) < audit.plannerWidth * .9) failures.push(`${width}px ${pathname}: installment heading collapsed to ${Math.round(audit?.plannerHeadWidth || 0)}px inside a ${Math.round(audit?.plannerWidth || 0)}px planner.`);
+          if ((audit?.plannerWidth || 0) > 0 && (audit?.plannerLayoutWidth || 0) < audit.plannerWidth * .9) failures.push(`${width}px ${pathname}: installment controls/results collapsed to ${Math.round(audit?.plannerLayoutWidth || 0)}px inside a ${Math.round(audit?.plannerWidth || 0)}px planner.`);
+          if (width >= 1000 && (audit?.plannerControlsWidth || 0) < 500) failures.push(`${width}px ${pathname}: installment controls are too narrow at ${Math.round(audit?.plannerControlsWidth || 0)}px.`);
+          if (width >= 1000 && (audit?.plannerResultWidth || 0) < 260) failures.push(`${width}px ${pathname}: installment result card is too narrow at ${Math.round(audit?.plannerResultWidth || 0)}px.`);
+          const expectedVariants=variantFinanceModels.get(name);
+          if (expectedVariants) {
+            if (audit?.financingMode !== "variants") failures.push(`${width}px ${pathname}: financing snapshot is not variant-aware.`);
+            for (const label of expectedVariants) {
+              if (!audit?.financingVariants?.includes(label)) failures.push(`${width}px ${pathname}: financing snapshot missing ${label} variant.`);
+            }
           }
         }
         if (!audit?.quoteLink) failures.push(`${width}px ${pathname}: dealer quote link is missing.`);
@@ -241,6 +246,75 @@ try {
 
       const image = await cdp.send("Page.captureScreenshot", { format: "png", fromSurface: true });
       fs.writeFileSync(path.join(outputDir, `priority-growth-${width}-${name}.png`), Buffer.from(image.data, "base64"));
+
+      if (audit?.dedicatedInstallmentHref) {
+        const financePath=audit.dedicatedInstallmentHref;
+        await cdp.send("Page.navigate", { url: new URL(financePath, base).toString() });
+        await waitForComplete(cdp.send);
+        await new Promise(resolve => setTimeout(resolve, 250));
+
+        const financeAudit=await evaluate(cdp.send, `(() => {
+          const h1=document.querySelector('h1');
+          const financing=document.querySelector('[data-financing-snapshot]');
+          const financingVariants=financing?[...financing.querySelectorAll('[data-financing-variant]')].map(el=>el.getAttribute('data-financing-variant')||''):[];
+          const planner=document.querySelector('#calculator .finance-planner');
+          const plannerHead=planner?.querySelector('.finance-planner-head');
+          const plannerLayout=planner?.querySelector('.finance-planner-layout');
+          const plannerControls=planner?.querySelector('.finance-controls');
+          const plannerResult=planner?.querySelector('.finance-result');
+          const plannerRect=planner?.getBoundingClientRect();
+          const plannerHeadRect=plannerHead?.getBoundingClientRect();
+          const plannerLayoutRect=plannerLayout?.getBoundingClientRect();
+          const plannerControlsRect=plannerControls?.getBoundingClientRect();
+          const plannerResultRect=plannerResult?.getBoundingClientRect();
+          const monthlyResult=planner?.querySelector('.finance-result>strong');
+          const presets=planner?[...planner.querySelectorAll('.finance-preset-groups .calc-presets button')]:[];
+          const scenarios=document.querySelectorAll('[aria-labelledby="downpayment-scenarios-heading"] .ui-stat-row__item');
+          return {
+            h1:Boolean(h1),
+            canonicalPath:(()=>{const href=document.querySelector('link[rel="canonical"]')?.getAttribute('href')||'';try{return href?new URL(href,location.href).pathname:'';}catch{return '';}})(),
+            financingMode:financing?.getAttribute('data-financing-snapshot')||'',
+            financingVariants,
+            planner:Boolean(planner),
+            plannerDisplay:planner?getComputedStyle(planner).display:'',
+            plannerWidth:plannerRect?.width||0,
+            plannerHeadWidth:plannerHeadRect?.width||0,
+            plannerLayoutWidth:plannerLayoutRect?.width||0,
+            plannerControlsWidth:plannerControlsRect?.width||0,
+            plannerResultWidth:plannerResultRect?.width||0,
+            monthlyResult:monthlyResult?.textContent?.trim()||'',
+            presetCount:presets.length,
+            scenarioCount:scenarios.length,
+            installmentOverflow:planner?Math.max(0,planner.scrollWidth-planner.clientWidth):0,
+            overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth
+          };
+        })()`);
+
+        results.push({ width, pathname: financePath, sourceModel: pathname, ...financeAudit });
+        if (!financeAudit?.h1) failures.push(`${width}px ${financePath}: dedicated installment H1 is missing.`);
+        if (financeAudit?.canonicalPath !== financePath) failures.push(`${width}px ${financePath}: dedicated installment canonical is ${financeAudit?.canonicalPath || "missing"}.`);
+        if (!financeAudit?.planner) failures.push(`${width}px ${financePath}: dedicated installment planner is missing.`);
+        if (!financeAudit?.monthlyResult || !financeAudit.monthlyResult.includes("₱")) failures.push(`${width}px ${financePath}: monthly result is missing.`);
+        if ((financeAudit?.presetCount || 0) < 6) failures.push(`${width}px ${financePath}: quick presets are incomplete.`);
+        if ((financeAudit?.scenarioCount || 0) < 3) failures.push(`${width}px ${financePath}: 10/20/30% comparison scenarios are incomplete.`);
+        if ((financeAudit?.installmentOverflow || 0) > 5) failures.push(`${width}px ${financePath}: installment planner overflows by ${financeAudit.installmentOverflow}px.`);
+        if ((financeAudit?.overflow || 0) > 5) failures.push(`${width}px ${financePath}: horizontal overflow is ${financeAudit.overflow}px.`);
+        if (financeAudit?.plannerDisplay === "grid") failures.push(`${width}px ${financePath}: installment planner root still inherits the legacy global calculator grid.`);
+        if ((financeAudit?.plannerWidth || 0) > 0 && (financeAudit?.plannerHeadWidth || 0) < financeAudit.plannerWidth * .9) failures.push(`${width}px ${financePath}: installment heading collapsed inside the planner.`);
+        if ((financeAudit?.plannerWidth || 0) > 0 && (financeAudit?.plannerLayoutWidth || 0) < financeAudit.plannerWidth * .9) failures.push(`${width}px ${financePath}: installment controls/results collapsed inside the planner.`);
+        if (width >= 1000 && (financeAudit?.plannerControlsWidth || 0) < 500) failures.push(`${width}px ${financePath}: installment controls are too narrow at ${Math.round(financeAudit?.plannerControlsWidth || 0)}px.`);
+        if (width >= 1000 && (financeAudit?.plannerResultWidth || 0) < 260) failures.push(`${width}px ${financePath}: installment result card is too narrow at ${Math.round(financeAudit?.plannerResultWidth || 0)}px.`);
+        const expectedVariants=variantFinanceModels.get(name);
+        if (expectedVariants) {
+          if (financeAudit?.financingMode !== "variants") failures.push(`${width}px ${financePath}: financing snapshot is not variant-aware.`);
+          for (const label of expectedVariants) {
+            if (!financeAudit?.financingVariants?.includes(label)) failures.push(`${width}px ${financePath}: financing snapshot missing ${label} variant.`);
+          }
+        }
+
+        const financeImage=await cdp.send("Page.captureScreenshot", { format: "png", fromSurface: true });
+        fs.writeFileSync(path.join(outputDir, `priority-growth-${width}-${name}-installment.png`), Buffer.from(financeImage.data, "base64"));
+      }
     }
   }
 

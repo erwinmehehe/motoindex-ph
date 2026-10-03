@@ -185,6 +185,9 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
     <section className="motorcycle-entity-hero" id="overview">
       <div className="shell">
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: model.make, href: `/motorcycles/${model.makeSlug}` }, { label: model.model }]} />
+        <div className="motorcycle-model-brandline" aria-label={`${model.make} model`}>
+          <span>{model.make}</span><small>{model.category}</small>
+        </div>
         <div className="motorcycle-hero-grid">
           <div className="motorcycle-hero-copy">
             <span className="entity-kicker">Philippines model guide · {model.generation} · {model.category}{isDiscontinued ? " · discontinued" : availabilityUncertain ? " · availability to verify" : ""}</span>
@@ -196,10 +199,11 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
               <small>{isHistorical ? "Historical context, not a current new-bike quote." : "Final dealer pricing can vary."}</small>
             </div>
             <CTAGroup className="entity-hero-actions">
-              {!isHistorical && !availabilityUncertain && <Link className="button" href={`/get-quote/${model.makeSlug}/${model.slug}`}>Get dealer price</Link>}
-              <a className={isHistorical ? "button" : "button ghost on-light"} href={isHistorical ? "#used" : "#installment"}>{isHistorical ? "Check used value" : "Estimate monthly"}</a>
+              <CompareButton modelId={model.id} />
+              <SaveToShortlistButton modelId={model.id} />
+              {!isHistorical && !availabilityUncertain && <Link className="button ghost on-light" href={`/get-quote/${model.makeSlug}/${model.slug}`}>Get dealer price</Link>}
             </CTAGroup>
-            <div className="entity-hero-utilities"><SaveToShortlistButton modelId={model.id} /><CompareButton modelId={model.id} /><ShareModelButton label="Share" /></div>
+            <div className="entity-hero-utilities"><a href={isHistorical ? "#used" : "#installment"}>{isHistorical ? "Check used value" : "Estimate monthly"}</a><ShareModelButton label="Share" /></div>
             <Freshness model={model} />
           </div>
           <div className="motorcycle-hero-visual">
@@ -217,17 +221,15 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
     <div className="shell motorcycle-entity-nav-wrap">
       <ProductEntityNav items={[
+        { href: "#overview-heading", label: "Overview" },
+        ...(specsLanding ? [{ href: `/motorcycles/${model.makeSlug}/${model.slug}/specs`, label: "Specs" }] : [{ href: "#specs", label: "Specs" }]),
         { href: "#price", label: "Price & variants" },
-        ...(colorLanding && allColors.length > 0 ? [{ href: "#colors", label: "Colors" }] : []),
+        ...(allColors.length > 0 ? [{ href: "#colors", label: "Colors" }] : []),
         ...(intentDepth ? [{ href: "#buyer-answers", label: "Buyer answers" }] : []),
-        ...(specsLanding ? [{ href: `/motorcycles/${model.makeSlug}/${model.slug}/specs`, label: "Specs" }] : [{ href: "#specs", label: "Key specs" }]),
         ...(topSpeedLanding ? [{ href: `/motorcycles/${model.makeSlug}/${model.slug}/top-speed`, label: "Top speed" }] : []),
-        ...(authority ? [{ href: "#buyer-guide", label: "Who it suits" }] : []),
-        ...(!isHistorical ? [{ href: "#installment", label: "Monthly" }] : []),
         { href: "#rider-fit", label: "Rider fit" },
         ...(!isHistorical ? [{ href: "#ownership", label: "Ownership" }] : []),
-        ...(!isHistorical ? [{ href: "#alternatives", label: "Alternatives" }] : []),
-        { href: "#detailed-research", label: "Detailed research" },
+        { href: "#faq", label: "FAQ" },
       ]} />
     </div>
 
@@ -320,7 +322,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <div className="authority-grid motorcycle-decision-grid"><article className="authority-buy"><span>Buy it if</span><ul>{authority.buyIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-skip"><span>Skip it if</span><ul>{authority.skipIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-ph"><span>Philippine ownership</span><ul>{authority.phContext.map((item) => <li key={item}>{item}</li>)}</ul></article></div>
       </section>}
 
-      {!isHistorical && installmentLanding ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
+      {!isHistorical && installmentLanding ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading" data-installment-mode="dedicated">
         <SectionHeader
           kicker="Monthly payment"
           titleId="installment-heading"
@@ -328,7 +330,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           description="This financing intent now has its own focused page so the main motorcycle guide can stay centered on price, variants, specifications, fit and ownership."
         />
         <div className="entity-tool-grid">
-          <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/installment`}>
+          <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/installment`} data-dedicated-installment-link>
             <span>Dedicated financing guide</span>
             <strong>Calculate downpayment and monthly installment</strong>
             <small>Compare dealer observations, 10/20/30% scenarios, variant prices and an editable loan estimate.</small>

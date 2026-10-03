@@ -16,3 +16,12 @@
 .mobile-menu-featured{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 14px}
 .mobile-menu-featured>a{display:flex!important;align-items:center;padding:10px 12px!important;border:1px solid rgba(148,163,184,.20)!important;border-radius:12px!important;background:#fff!important;color:#101828!important;font-weight:800!important}
 @media(max-width:720px){.mobile-menu-featured{grid-template-columns:1fr}.mobile-menu-brand-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+
+/* Keep closed details content out of responsive geometry audits and layout. */
+.mobile-menu:not([open])>.mobile-menu-panel{display:none}
+
+
+/* Compact desktop finder CTA required by the shared header contract. */
+.nav-finder-cta{display:inline-flex;min-height:36px;align-items:center;justify-content:center;padding:0 12px;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-xs);background:var(--mi-color-primary);color:var(--mi-color-surface);font-size:9px;font-weight:850;white-space:nowrap}
+.nav-finder-cta:hover{background:var(--mi-color-primary-hover);color:var(--mi-color-surface)}
+@media(max-width:900px){.nav-finder-cta{display:none}}

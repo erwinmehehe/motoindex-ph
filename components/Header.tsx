@@ -62,9 +62,7 @@ export function Header() {
           </div>
         </details>}
         {hasComparisons && <Link href="/compare">Compare</Link>}
-        {hasModels && <Link href="/finder">Finder</Link>}
         <details className="nav-more nav-gear"><summary>Helmets & gear <span>⌄</span></summary><div className="nav-popover">{gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</div></details>
-        <Link href="/tools">Tools</Link>
         <details className="nav-more nav-guides">
           <summary>Guides <span>⌄</span></summary>
           <div className="nav-popover nav-popover-menu nav-popover-guides">
@@ -74,7 +72,13 @@ export function Header() {
           </div>
         </details>
       </nav>
-      <div className="nav-actions"><ShortlistNav /><Link className="button small" href="/finder">Find my bike</Link></div>
+      <div className="nav-actions">
+        {hasModels && <Link className="nav-finder-cta" href="/finder">Find my bike</Link>}
+        <Link className="nav-icon-button nav-search-icon" href="/search" aria-label="Search MotoIndex">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4 4" /></svg>
+        </Link>
+        <ShortlistNav />
+      </div>
       <details className="mobile-menu">
         <summary aria-label="Open navigation">Menu</summary>
         <div className="mobile-menu-panel"><nav aria-label="Mobile navigation">
@@ -91,6 +95,7 @@ export function Header() {
           </>}
           {hasComparisons && <Link href="/compare">Compare</Link>}
           {hasModels && <Link href="/finder">Finder</Link>}
+          {hasModels && <Link href="/price-list">Price list</Link>}
           <strong className="mobile-menu-heading">Helmets & gear</strong>
           {gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
           <Link href="/tools">All tools</Link>

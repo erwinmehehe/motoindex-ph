@@ -42,14 +42,10 @@ const nextConfig = {
   experimental: { optimizePackageImports: [] },
   async redirects() {
     return [
-      // Consolidate thin derivative model routes into the stronger all-in-one model page.
-      // This keeps price, specs, colors, financing, fit and ownership context together.
+      // Consolidate unsupported thin derivative model routes into the stronger all-in-one model page.
+      // Search-volume-backed focused intent routes are handled by dedicated pages and middleware fallbacks.
       { source: "/motorcycles/:make/:slug/price", destination: "/motorcycles/:make/:slug#price", permanent: true },
-      { source: "/motorcycles/:make/:slug/specifications", destination: "/motorcycles/:make/:slug#specs", permanent: true },
-      { source: "/motorcycles/:make/:slug/colors", destination: "/motorcycles/:make/:slug#colors", permanent: true },
-      { source: "/motorcycles/:make/:slug/installment", destination: "/motorcycles/:make/:slug#installment", permanent: true },
       { source: "/motorcycles/:make/:slug/rider-fit", destination: "/motorcycles/:make/:slug#rider-fit", permanent: true },
-      { source: "/motorcycles/:make/:slug/fuel-economy", destination: "/motorcycles/:make/:slug#fuel", permanent: true },
       { source: "/motorcycles/:make/:slug/ownership-cost", destination: "/motorcycles/:make/:slug#ownership", permanent: true },
       { source: "/motorcycles/:make/:slug/tire-size", destination: "/motorcycles/:make/:slug#tires-fitment", permanent: true },
       { source: "/motorcycles/:make/:slug/maintenance", destination: "/motorcycles/:make/:slug#maintenance", permanent: true },

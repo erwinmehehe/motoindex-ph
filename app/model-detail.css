@@ -969,3 +969,5 @@ html body .motorcycle-entity-page .motorcycle-hero-grid .motorcycle-hero-visual 
   html body .motorcycle-entity-page #price .price-history-row{grid-template-columns:1fr;gap:9px;padding:14px}
   html body .motorcycle-entity-page #price .price-history-source{grid-column:auto}
 }
+
+.motorcycle-entity-page .motorcycle-model-brandline{display:flex;gap:8px;align-items:center;margin-bottom:10px;color:var(--mi-color-copy);font-size:9px}.motorcycle-entity-page .motorcycle-model-brandline>span{color:var(--mi-color-ink);font-weight:900;text-transform:uppercase}.motorcycle-entity-page .entity-hero-utilities{display:flex;gap:12px;margin-top:9px}.motorcycle-entity-page .entity-hero-utilities>a,.motorcycle-entity-page .entity-hero-utilities button{border:0;background:transparent;color:var(--mi-color-slate-500);font-size:9px}.motorcycle-entity-page .motorcycle-entity-nav-wrap{position:sticky;top:62px;z-index:35}@media(max-width:600px){.motorcycle-entity-page .motorcycle-entity-nav-wrap{top:58px}}

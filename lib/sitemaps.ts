@@ -43,6 +43,7 @@ export function coreSitemapEntries(): Entry[] {
     {path:"/",priority:1,lastModified:latestHomeDate},
     ...(hasModels ? [
       {path:"/motorcycles",priority:.9,lastModified:latestModelDate},
+      {path:"/price-list",priority:.88,lastModified:latestModelDate},
       {path:"/finder",priority:.84,lastModified:latestModelDate},
       {path:"/fitment",priority:.78,lastModified:latestModelDate},
     ] : []),
