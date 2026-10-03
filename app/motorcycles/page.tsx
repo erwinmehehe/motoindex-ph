@@ -23,34 +23,15 @@ const publicModels = motorcycles.filter(isIndexableModel);
 const publicIds = new Set(publicModels.map((m) => m.id));
 const publicFamilies = modelFamilies.filter((f) => f.generationIds.length > 0 && f.generationIds.every((id) => publicIds.has(id)));
 const currentModels = currentPublicMotorcycles;
-const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;
-const MOTORCYCLE_BRAND_LOGOS = new Set([
-  "aprilia", "bajaj", "benelli", "bmw-motorrad", "bristol", "cfmoto", "ducati",
-  "honda", "husqvarna", "kawasaki", "keeway", "ktm", "kymco", "royal-enfield",
-  "rusi", "suzuki", "triumph", "vespa", "yamaha", "zontes"
-]);
+export const dynamic = "force-static";
+export const revalidate = false;
 
-function hasCatalogFilters(params: Record<string, string | string[] | undefined>) {
-  return CATALOG_FILTER_PARAMS.some((key) => {
-    const value = params[key];
-    return Array.isArray(value) ? value.some(Boolean) : Boolean(value);
-  });
-}
-
-export async function generateMetadata({
-  searchParams
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}): Promise<Metadata> {
-  const params = await searchParams;
-  const hasActiveFilters = hasCatalogFilters(params);
-  return pageMetadata({
-    title: "Motorcycle Price List Philippines 2026 | MotoIndex",
-    description: "Compare current motorcycle prices in the Philippines by brand, category, engine size and budget, with checked specs, model research and ownership tools.",
-    path: "/motorcycles",
-    index: currentModels.length > 0 && !hasActiveFilters
-  });
-}
+export const metadata: Metadata = pageMetadata({
+  title: "Motorcycle Price List Philippines 2026 | MotoIndex",
+  description: "Compare current motorcycle prices in the Philippines by brand, category, engine size and budget, with checked specs, model research and ownership tools.",
+  path: "/motorcycles",
+  index: currentModels.length > 0
+});
 
 export default function MotorcyclesPage() {
   const makes = [...new Map(currentModels.map((m) => [m.makeSlug, m.make])).entries()];
