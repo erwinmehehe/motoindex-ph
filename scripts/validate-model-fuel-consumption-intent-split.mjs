@@ -70,7 +70,7 @@ requireText(sitemap,'/fuel-consumption',"Motorcycle sitemap must expose fuel-con
 requireText(sitemap,'profile.keywordVolume>=500?.87:.83',"Fuel sitemap priority must use stored search demand.");
 requireText(llms,'Focused model fuel-consumption guides',"LLM full index must expose fuel-consumption pages.");
 requireText(llms,'For models with a dedicated fuel-consumption page',"LLM retrieval guidance must route fuel queries to focused pages.");
-requireText(llms,'/fuel-consumption and /specs pages are canonical resources',"LLM canonical policy must name fuel-consumption pages.");
+requireText(llms,'installment, /colors, /top-speed, /fuel-consumption, /specs and /weight pages are canonical resources',"LLM canonical policy must name fuel-consumption pages.");
 
 requireText(
   data,
