@@ -60,6 +60,7 @@ import { colorIntentLandingProfile } from "@/lib/modelColorLandingPages";
 import { topSpeedLandingProfile } from "@/lib/modelTopSpeedLandingPages";
 import { specsIntentLandingProfile } from "@/lib/modelSpecsLandingPages";
 import { fuelConsumptionLandingProfile } from "@/lib/modelFuelConsumptionLandingPages";
+import { weightIntentLandingProfile } from "@/lib/modelWeightLandingPages";
 
 const MOTORCYCLE_ANALYTICS_CSS = `
 .motorcycle-analytics-panel{margin:28px 0 18px;padding:34px;border:1px solid rgba(62,82,69,.16);border-radius:16px;background:#fff;box-shadow:0 18px 48px rgba(24,45,32,.055)}
@@ -101,6 +102,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const topSpeedLanding = topSpeedLandingProfile(model.id);
   const specsLanding = specsIntentLandingProfile(model.id);
   const fuelConsumptionLanding = fuelConsumptionLandingProfile(model.id);
+  const weightLanding = weightIntentLandingProfile(model.id);
   const gearGuide = getModelGearGuide(model.id);
   const helmetCandidates = (gearGuide?.helmetIds || []).map((id) => helmetProducts.find((product) => product.id === id)).filter((product): product is NonNullable<typeof product> => Boolean(product && product.status === "verified"));
   const tireCandidates = getTireProductsForModel(model.id).filter((p) => !isIndexableModel(model) || p.status === "verified");
@@ -370,6 +372,16 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       </section>}
 
       <SectionHeader className="entity-research-divider" kicker="Detailed research" title="Evidence for the deeper check" description="Open these sections when the motorcycle is already on your shortlist." />
+
+      {weightLanding ? <section id="weight" className="motorcycle-entity-section">
+        <div className="entity-tool-grid">
+          <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/weight`}>
+            <span>Dedicated weight context</span>
+            <strong>{model.make} {model.model} weight</strong>
+            <small>{model.curbWeightKg} kg curb weight · 650-class comparison, seat-height context and power-to-weight calculation.</small>
+          </Link>
+        </div>
+      </section> : null}
 
       {topSpeedLanding ? <section id="performance" className="motorcycle-entity-section">
         <div className="entity-tool-grid">
