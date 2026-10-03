@@ -203,7 +203,7 @@ export default async function ModelWeightPage({ params }: { params: Promise<{ ma
       />
       <CTAGroup>
         <Link className="button" href={modelPath}>Open full {model.model} guide</Link>
-        <Link className="button secondary" href={`${modelPath}/specs`}>Open technical specs</Link>
+        <Link className="button secondary" href={modelPath}>Open full specifications and ownership context</Link>
       </CTAGroup>
     </section>
   </main>;
