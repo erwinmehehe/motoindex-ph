@@ -197,7 +197,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare verified naked motorcycles",
     legacyContext: {
       heading: "Current Philippine availability is not verified",
-      body: "MotoIndex keeps this route as an availability-to-verify research reference. It remains excluded from indexable discovery until a current Yamaha Philippines model-level product or authorized-dealer listing can be verified."
+      body: "MotoIndex keeps this route indexed as an availability-to-verify research reference because the model has stored search demand and dated evidence. It must not be presented as confirmed current Yamaha Philippines inventory until model-level availability is verified."
     }
   },
 
