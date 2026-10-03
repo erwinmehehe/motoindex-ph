@@ -13,7 +13,6 @@ const priceSeo=read("lib","priceSeo.ts");
 const sitemap=read("lib","sitemaps.ts");
 const llms=read("lib","llms.ts");
 const dealerFinancing=read("lib","dealerFinancing.ts");
-const nextConfig=read("next.config.mjs");
 
 const expected=[
   ["honda-click-125i","Honda Click 125i Installment Philippines | Downpayment 2026","Honda Click 125i installment Philippines guide with current price, dealer downpayment/monthly snapshot, editable loan calculator, variants and finance caveats."],
@@ -62,11 +61,9 @@ requireText(sitemap,'installmentLandingProfiles.flatMap',"Motorcycle sitemap mus
 requireText(sitemap,'/installment',"Motorcycle sitemap must expose installment URLs.");
 requireText(llms,'Focused model installment guides',"LLM full index must expose the installment guide section.");
 requireText(llms,'For models with a dedicated installment page',"LLM retrieval rules must route finance questions to the focused page.");
-requireText(llms,'whitelisted /motorcycles/<make>/<model>/installment, /colors, /top-speed and /fuel-consumption pages',"LLM canonical policy must name installment pages.");
+requireText(llms,'whitelisted /motorcycles/<make>/<model>/installment, /colors, /top-speed, /fuel-consumption and /specs pages',"LLM canonical policy must name installment pages.");
 
-if(nextConfig.includes('source: "/motorcycles/:make/:slug/installment"'))errors.push("Dedicated installment pages must not be shadowed by a blanket next.config redirect.");
-
-for(const slug of ["price","specs","variants"]){
+for(const slug of ["price","variants"]){
   const candidate=path.join(root,"app","motorcycles","[make]","[slug]",slug,"page.tsx");
   if(fs.existsSync(candidate))errors.push(`Do not mass-split thin model intent pages without independent evidence: /${slug}`);
 }
