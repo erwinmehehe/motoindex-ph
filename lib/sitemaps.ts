@@ -135,7 +135,7 @@ export function motorcycleSitemapEntries(): Entry[] {
     const model=motorcycles.find(item=>item.id===profile.modelId);
     return model&&isIndexableModel(model)&&model.fuelConsumptionKmL&&profile.keywordVolume>0?[{
       url:`${SITE_URL}/motorcycles/${model.makeSlug}/${model.slug}/fuel-consumption`,
-      lastModified:iso(modelCheckedAt(model)),
+      lastModified:iso(profile.checkedAt),
       changeFrequency:"monthly" as const,
       priority:profile.keywordVolume>=500?.87:.83
     }]:[];
