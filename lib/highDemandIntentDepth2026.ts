@@ -1,3 +1,4 @@
+// Ranked from the supplied ZigWheels canonical-gap export after excluding the first three #366 targets.
 export type HighDemandIntentKind =
   | "price"
   | "colors"
