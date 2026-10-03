@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { EntityMedia } from "@/components/EntityMedia";
+import { EntityVerificationFallback } from "@/components/EntityVerificationFallback";
 import { pageMetadata } from "@/lib/site";
 import { helmetBrands } from "@/lib/data";
 import { helmetProducts, isIndexableHelmetBrand } from "@/lib/catalog";
@@ -46,6 +49,27 @@ function HelmetProductGrid({ products, limit = 8 }: { products: typeof helmetPro
   }}/>)}</ProductGrid>;
 }
 
+function HelmetPreviewGrid({ products, limit = 8 }: { products: typeof helmetProducts; limit?: number }) {
+  const visible=products.filter(product=>hasRenderableProductMedia(product.id)).slice(0,limit);
+  return <div className="helmet-preview-grid">{visible.map(product=><Link className="helmet-preview-card" href={`/gear/helmets/${product.brandSlug}/${product.slug}`} key={product.id}>
+    <div className="helmet-preview-media"><EntityMedia entityType="helmet" entityId={product.id} showCredit={false} fallback={<EntityVerificationFallback brand={product.brand} model={product.model} kind="helmet" />} /></div>
+    <div className="helmet-preview-copy"><span>{product.helmetType}</span><h3>{product.brand} {product.model}</h3>{compactHelmetMeta(product)&&<p>{compactHelmetMeta(product)}</p>}<div>{typeof product.priceFromPhp==="number"?<strong>From {php(product.priceFromPhp)}</strong>:<span /> }<b>View →</b></div></div>
+  </Link>)}</div>;
+}
+
+const HELMET_MOCKUP_CSS = `
+.helmet-mockup-page{width:min(1280px,calc(100% - 32px))}
+.helmet-mockup-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(400px,1fr);gap:28px;align-items:center;margin-top:10px}
+.helmet-mockup-visual{position:relative;min-height:300px;overflow:hidden;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-sm);background:var(--mi-color-surface)}
+.helmet-mockup-badge{position:absolute;z-index:3;top:12px;left:12px;padding:5px 8px;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-xs);background:var(--mi-color-surface);color:var(--mi-color-copy);font-size:8px;font-weight:850;text-transform:uppercase}
+.helmet-mockup-media{position:absolute;inset:22px 18px 30px}.helmet-mockup-media,.helmet-mockup-media>*{width:100%;height:100%}.helmet-mockup-media img{width:100%;height:100%;object-fit:contain}
+.helmet-mockup-caption{position:absolute;z-index:3;right:12px;bottom:12px;padding:8px 10px;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-xs);background:var(--mi-color-surface)}.helmet-mockup-caption small,.helmet-mockup-caption strong,.helmet-mockup-caption span{display:block}.helmet-mockup-caption small{color:var(--mi-color-muted);font-size:8px;text-transform:uppercase}.helmet-mockup-caption strong{font-size:13px}.helmet-mockup-caption span{color:var(--mi-color-primary);font-size:9px;font-weight:850}
+.helmet-mockup-filters{display:flex;gap:6px;overflow:auto;margin:14px 0;padding:8px;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-xs);background:var(--mi-color-surface)}.helmet-mockup-filters a{flex:0 0 auto;padding:6px 9px;font-size:9px}
+.helmet-mockup-catalog{margin:14px 0 24px;padding:12px;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-sm);background:var(--mi-color-surface)}.helmet-mockup-head{display:flex;justify-content:space-between;gap:16px;margin-bottom:10px}.helmet-mockup-head h2{margin:0;font-size:18px}.helmet-mockup-head span,.helmet-mockup-head>a{font-size:9px}.helmet-mockup-head span{color:var(--mi-color-primary);font-weight:850;text-transform:uppercase}
+.helmet-preview-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.helmet-preview-card{display:flex;min-width:0;flex-direction:column;overflow:hidden;border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-xs);background:var(--mi-color-surface)}.helmet-preview-media{height:165px;border-bottom:1px solid var(--mi-color-line-soft)}.helmet-preview-media,.helmet-preview-media>*{width:100%}.helmet-preview-media>*{height:100%}.helmet-preview-media img{width:100%;height:100%;padding:10px;object-fit:contain}.helmet-preview-copy{display:flex;flex:1;flex-direction:column;padding:9px 10px}.helmet-preview-copy>span,.helmet-preview-copy p,.helmet-preview-copy b{font-size:8px}.helmet-preview-copy>span{color:var(--mi-color-muted);text-transform:uppercase}.helmet-preview-copy h3{margin:4px 0;font-size:13px}.helmet-preview-copy p{margin:0;color:var(--mi-color-copy)}.helmet-preview-copy>div{display:flex;justify-content:space-between;margin-top:auto;padding-top:8px}.helmet-preview-copy strong,.helmet-preview-copy b{color:var(--mi-color-primary)}
+@media(max-width:900px){.helmet-mockup-hero{grid-template-columns:1fr}.helmet-preview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.helmet-mockup-page{width:min(100% - 24px,1280px)}.helmet-mockup-visual{min-height:230px}.helmet-preview-grid{grid-template-columns:1fr}.helmet-preview-media{height:200px}.helmet-mockup-head{flex-direction:column}}
+`;
+
 function Count({ value }: { value: number }) {
   return <strong className="ui-section-count">{value} models</strong>;
 }
@@ -56,6 +80,7 @@ export default function HelmetsPage(){
   const priced=verified.map(p=>p.priceFromPhp).filter((v):v is number=>typeof v==="number");
   const minPrice=priced.length?Math.min(...priced):undefined;
   const maxPrice=priced.length?Math.max(...priced):undefined;
+  const heroHelmet=verified.find(p=>hasRenderableProductMedia(p.id))??verified[0];
 
   const fullFace=verified.filter(p=>p.helmetType==="Full face");
   const modular=verified.filter(p=>p.helmetType==="Modular");
@@ -75,13 +100,23 @@ export default function HelmetsPage(){
     {question:"Does a more expensive helmet automatically mean safer?",answer:"No. Price can reflect shell material, finish, aerodynamics, visor hardware, liner quality and brand positioning. Check the exact model's certification, local conformity marking and fit rather than using price as a safety score."}
   ];
 
-  return <section className="page shell helmet-hub-page">
-    <PageHero
-      kicker="Philippine helmet buying guide"
-      title="Motorcycle helmets in the Philippines: prices, types and brands"
-      description="Use one guide to compare helmet prices, protection formats, ECE 22.06 references, intercom provision, commuting choices, sizing and current brand/model pages. Open the exact helmet before buying to verify fit and the marking on the local unit."
-      actions={<CTAGroup><Link className="button" href="/gear/helmets/finder">Find my helmet</Link><Link className="button secondary" href="/gear/helmets/compare">Compare exact helmets</Link></CTAGroup>}
-    />
+  return <section className="page shell helmet-hub-page helmet-mockup-page"><style>{HELMET_MOCKUP_CSS}</style>
+    <Breadcrumbs items={[{label:"Helmets"}]} />
+    <div className="helmet-mockup-hero">
+      <div className="helmet-mockup-copy">
+        <PageHero
+          kicker="Philippine helmet buying guide"
+          title="Motorcycle helmets in the Philippines"
+          description="Compare verified helmet prices, protection formats, ECE 22.06 references, intercom provision, commuting choices, sizing and current brand/model pages."
+          actions={<CTAGroup><Link className="button" href="/gear/helmets/finder">Find my helmet</Link><Link className="button secondary" href="/gear/helmets/compare">Compare helmets</Link></CTAGroup>}
+        />
+      </div>
+      {heroHelmet&&<div className="helmet-mockup-visual">
+        <span className="helmet-mockup-badge">Featured verified helmet</span>
+        <EntityMedia entityType="helmet" entityId={heroHelmet.id} className="helmet-mockup-media" priority showCredit={false} sizes="(max-width: 820px) 100vw, 44vw" fallback={<EntityVerificationFallback brand={heroHelmet.brand} model={heroHelmet.model} kind="helmet" />} />
+        <div className="helmet-mockup-caption"><small>{heroHelmet.helmetType}</small><strong>{heroHelmet.brand} {heroHelmet.model}</strong>{typeof heroHelmet.priceFromPhp==="number"&&<span>From {php(heroHelmet.priceFromPhp)}</span>}</div>
+      </div>}
+    </div>
 
     <StatRow items={[
       {label:"Verified models",value:verified.length},
@@ -90,11 +125,16 @@ export default function HelmetsPage(){
       {label:"ECE 22.06 records",value:ece2206.length}
     ]}/>
 
-    <nav className="product-entity-nav helmet-master-nav" aria-label="Helmet guide sections">
+    <nav className="product-entity-nav helmet-master-nav helmet-mockup-filters" aria-label="Helmet guide sections">
       <a href="#full-face">Full-face</a><a href="#modular">Modular</a><a href="#open-face">Open-face</a><a href="#under-3000">Under ₱3K</a><a href="#under-5000">Under ₱5K</a><a href="#ece-22-06">ECE 22.06</a><a href="#intercom-ready">Intercom</a><a href="#commuting">Commuting</a><a href="#brands">Brands</a><a href="#models">Model preview</a>
     </nav>
 
-    <InfoPanel className="helmet-master-intro">
+    <section className="helmet-mockup-catalog" aria-labelledby="helmet-catalog-title">
+      <div className="helmet-mockup-head"><div><span>Verified catalog</span><h2 id="helmet-catalog-title">Browse motorcycle helmets</h2></div><Link href="/gear/helmets/finder">Filter all helmets →</Link></div>
+      <HelmetPreviewGrid products={verified} limit={8} />
+    </section>
+
+    <InfoPanel className="helmet-master-intro helmet-mockup-intro">
       <SectionHeader kicker="Start here" title="Choose the helmet by fit and riding use first" description="A helmet category is only the starting point. The exact fit, conformity marking, visor system, ventilation, weight and replacement-parts availability decide whether a model works for you day to day." />
       <div className="ui-content-grid topic-grid">
         <article className="ui-content-card"><h3>Full-face</h3><p>A fixed chin bar gives the most complete coverage among the common road formats. Good for riders prioritizing coverage, weather protection and highway use.</p><a href="#full-face">See full-face models →</a></article>
