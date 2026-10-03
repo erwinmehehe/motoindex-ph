@@ -77,5 +77,14 @@ if (missing.length) {
   throw new Error(`Static edge publish is missing required routes: ${missing.join(", ")}`);
 }
 
+const workerImageRoutes = requiredRoutes.filter((route) => {
+  const destination = destinationFor(route);
+  if (!fs.existsSync(destination)) return false;
+  return fs.readFileSync(destination, "utf8").includes("/_next/image?");
+});
+if (workerImageRoutes.length) {
+  throw new Error(`Static recovery pages still depend on the Worker image optimizer: ${workerImageRoutes.join(", ")}`);
+}
+
 console.log(`Published ${copied} prerendered public HTML routes as Cloudflare static assets.`);
 console.log(`Verified static recovery routes: ${requiredRoutes.join(", ")}`);
