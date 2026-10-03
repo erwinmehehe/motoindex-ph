@@ -114,8 +114,8 @@ const profiles: Record<string, ModelIntentDepthProfile> = {
     intents: ["price", "specs", "colors", "ownership"]
   },
   "yamaha-yzf-r3": {
-    seoTitle: "Yamaha R3 Price Philippines 2026 | Specs & Top Speed Guide",
-    seoDescription: "Yamaha R3 price Philippines 2026 with 321cc specs, seat height, weight, tire sizes, ownership costs, top-speed context and sport-bike alternatives in PH.",
+    seoTitle: "Yamaha R3 Price Philippines 2026 | Specs & Ownership Guide",
+    seoDescription: "Yamaha R3 price Philippines 2026 with 321cc specs, seat height, weight, tire sizes, ownership costs, rider-fit context and sport-bike alternatives in PH.",
     intro: "R3 searches combine Philippine price with top-speed and specification questions. MotoIndex keeps performance claims evidence-labeled rather than treating dashboard videos as official figures.",
     intents: ["price", "specs", "performance", "ownership"]
   },
