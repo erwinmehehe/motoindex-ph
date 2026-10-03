@@ -1852,7 +1852,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     editorialSections: ["Lowest-priced Honda big bikes", "Honda 500cc and 650cc choices", "Lower-seat Honda big bikes", "Adventure, naked, sport and cruiser options", "What to budget beyond the purchase price"],
     faqQuestions: ["What Honda big bikes are available in the Philippines?", "Which Honda big bike has the lowest published price?", "Which Honda big bike is lightest?", "Which Honda big bike has the lowest seat?", "Which Honda big bikes are 1000cc or larger?"],
     relatedGuideSlugs: ["motorcycles-400cc-plus-philippines","motorcycles-1000cc-plus-philippines","cruiser-motorcycles-philippines","adventure-touring-motorcycles-philippines","motorcycles-with-abs-philippines"],
-    intent: "brand"
+    intent: "category"
   },
   {
     slug: "yamaha-big-bikes-philippines",
@@ -1874,7 +1874,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     editorialSections: ["Lowest-priced Yamaha big bikes", "Yamaha 600cc–700cc choices", "Lower-seat Yamaha big bikes", "Adventure, naked, sport and maxi-scooter options", "What large-displacement Yamaha ownership changes"],
     faqQuestions: ["What Yamaha big bikes are available in the Philippines?", "Which Yamaha big bike has the lowest published price?", "Which Yamaha big bike is lightest?", "Which Yamaha big bike has the lowest seat?", "Which Yamaha big bikes are 1000cc or larger?"],
     relatedGuideSlugs: ["motorcycles-400cc-plus-philippines","motorcycles-1000cc-plus-philippines","maxi-scooters-philippines","adventure-touring-motorcycles-philippines","sport-motorcycles-philippines"],
-    intent: "brand"
+    intent: "category"
   },
   {
     slug: "maxi-scooters-philippines",
