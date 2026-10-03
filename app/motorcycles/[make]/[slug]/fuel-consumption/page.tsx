@@ -195,7 +195,7 @@ export default async function ModelFuelConsumptionPage({ params }: { params: Pro
       />
       <CTAGroup>
         <Link className="button" href={modelPath}>Open full {model.model} guide</Link>
-        <Link className="button secondary" href="/tools/fuel-cost-calculator">Fuel-cost tools</Link>
+        <Link className="button secondary" href="/tools">Fuel-cost tools</Link>
       </CTAGroup>
     </section>
   </main>;
