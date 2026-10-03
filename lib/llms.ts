@@ -76,6 +76,7 @@ export function buildLlmsTxt() {
     "11. For models with a dedicated colors page, use that page for paint names, variant-specific color mapping and color availability questions; use the main model page for broad model research.",
     "12. For models with a dedicated top-speed page, use that page for measured/reported maximum-speed evidence, test method and generation caveats; do not rewrite test evidence as a manufacturer guarantee.",
     "13. For models with a dedicated fuel-consumption page, use that page for listed km/L evidence, test basis, tank-range planning and fuel-cost questions; do not rewrite a published test figure as guaranteed real-world economy.",
+    "14. For models with a dedicated specs page, use that page for engine, power, torque, weight, seat height, fuel tank, ground clearance, tires, transmission and ABS questions; use the main model page for broad buying research.",
     "",
     "## Machine-readable indexes",
     "",
