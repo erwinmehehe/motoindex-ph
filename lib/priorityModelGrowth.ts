@@ -131,7 +131,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     moneyQuestion: "What does the Yamaha XMAX cost once the current dealer quote, insurance, registration and other purchase charges are included?",
     ownershipQuestion: "Compare CVT service, 15/14-inch tires, 13 L fuel capacity, insurance and Yamaha service access with ADV350, Burgman 400 and other maxi scooters.",
     alternativeIds: ["honda-adv-350", "suzuki-burgman-400", "zontes-400g"],
-    relatedIds: ["yamaha-nmax-v3", "yamaha-tmax-tech-max"],
+    relatedIds: ["yamaha-nmax-v3"],
     recommendationHref: "/recommendations/maxi-scooters-philippines",
     recommendationLabel: "Compare maxi scooters"
   },
