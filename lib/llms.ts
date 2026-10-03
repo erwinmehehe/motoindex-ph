@@ -16,12 +16,14 @@ function mdLink(label: string, path: string, note?: string) {
 }
 
 export function buildLlmsTxt() {
+  const availabilityResearchCount = indexableMotorcycles.filter((model) => model.marketStatus === "uncertain").length;
   const lines = [
     "# MotoIndex PH",
     "",
     "> Philippines-first motorcycle research platform for prices, specifications, comparisons, rider fit, ownership costs, maintenance, gear, dealers and buying tools.",
     "",
     `MotoIndex PH currently exposes ${siteStats.currentMotorcycles} indexable current motorcycle records, ${siteStats.verifiedHelmets} verified helmet records, ${siteStats.helmetBrands} helmet brand hubs and ${siteStats.accessoryCategories} accessory categories. These counts are generated from the production data used by the site, not maintained manually.`,
+    `MotoIndex also exposes ${availabilityResearchCount} demand-backed motorcycle research pages whose current Philippine availability is explicitly marked for verification rather than assumed current.`,
     "",
     "## Primary resources",
     "",
