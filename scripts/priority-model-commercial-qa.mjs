@@ -107,6 +107,10 @@ function connectCdp(webSocketDebuggerUrl) {
 
 async function evaluate(send, expression) {
   const result = await send("Runtime.evaluate", { expression, returnByValue: true, awaitPromise: true });
+  if (result.exceptionDetails) {
+    const message = result.exceptionDetails.exception?.description || result.exceptionDetails.text || "Browser evaluation failed.";
+    throw new Error(message);
+  }
   return result.result?.value;
 }
 
@@ -154,6 +158,7 @@ try {
         const sections=[...document.querySelectorAll('.priority-model-brief')];
         const commercial=sections.find(section=>/price, monthly payment and alternatives/i.test(section.querySelector('h2')?.textContent||''));
         const links=[...document.querySelectorAll('a')].map(a=>a.getAttribute('href')||'');
+        const modelPath=location.pathname.endsWith('/')?location.pathname.slice(0,-1):location.pathname;
         const rect=commercial?.getBoundingClientRect();
         const financing=document.querySelector('[data-financing-snapshot]');
         const financingVariants=financing?[...financing.querySelectorAll('[data-financing-variant]')].map(el=>el.getAttribute('data-financing-variant')||''):[];
@@ -182,7 +187,7 @@ try {
           sectionRight:rect?.right||0,
           priceLink:links.some(href=>href==='#price'),
           installmentLink:links.some(href=>href==='#installment'),
-          installmentRouteLink:links.some(href=>href===location.pathname.replace(/\/$/,'')+'/installment'),
+          installmentRouteLink:links.some(href=>href===modelPath+'/installment'),
           priceIndex:links.some(href=>href.includes('/research/motorcycle-price-index-philippines')),
           financeIndex:links.some(href=>href.includes('/research/motorcycle-financing-index-philippines')),
           quoteLink:links.some(href=>href.includes('/get-quote/')),
