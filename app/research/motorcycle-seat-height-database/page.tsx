@@ -9,6 +9,7 @@ import { latestResearchCheck, median, researchSeatRows } from "@/lib/researchDat
 import { phpRange } from "@/lib/utils";
 import { EntityMedia } from "@/components/EntityMedia";
 import { CTAGroup, DataTable, PageHero, SectionHeader, StatRow } from "@/components/ui";
+import { seatHeightIntentLandingProfile } from "@/lib/modelSeatHeightLandingPages";
 import styles from "../research-detail.module.css";
 
 export const metadata: Metadata = pageMetadata({
@@ -20,6 +21,11 @@ export const metadata: Metadata = pageMetadata({
 const tableColumns: CSSProperties = {
   gridTemplateColumns: "minmax(270px,1.6fr) minmax(100px,.65fr) minmax(100px,.65fr) minmax(130px,.8fr)"
 };
+
+function riderFitHref(model: { id: string; makeSlug: string; slug: string }) {
+  const base = `/motorcycles/${model.makeSlug}/${model.slug}`;
+  return seatHeightIntentLandingProfile(model.id) ? `${base}/seat-height` : `${base}#rider-fit`;
+}
 
 export default function MotorcycleSeatHeightDatabasePage() {
   const rows = researchSeatRows();
@@ -52,7 +58,7 @@ export default function MotorcycleSeatHeightDatabasePage() {
 
   const shortlist = (items: typeof rows) => <ol>
     {items.map(({ model, range }) => <li key={model.id}>
-      <Link href={`/motorcycles/${model.makeSlug}/${model.slug}#rider-fit`}><strong>{model.make} {model.model}</strong></Link>
+      <Link href={riderFitHref(model)}><strong>{model.make} {model.model}</strong></Link>
       <small> · {model.seatHeightMm} mm · {model.curbWeightKg} kg · {phpRange(range.from, range.to)}</small>
     </li>)}
   </ol>;
@@ -145,7 +151,7 @@ export default function MotorcycleSeatHeightDatabasePage() {
       <p><small>Last research check: {checkedAt}</small></p>
       <DataTable label="Motorcycle seat heights in the Philippines">
         <div className="head" role="row" style={tableColumns}><span>Motorcycle</span><span>Seat height</span><span>Curb weight</span><span>Price</span></div>
-        {rows.map(({ model, range }) => <Link role="row" style={tableColumns} href={`/motorcycles/${model.makeSlug}/${model.slug}#rider-fit`} key={model.id}>
+        {rows.map(({ model, range }) => <Link role="row" style={tableColumns} href={riderFitHref(model)} key={model.id}>
           <span className={styles.modelCell}><EntityMedia entityType="motorcycle" entityId={model.id} fallback={<span className={styles.mediaFallback}>{model.make.slice(0,1)}</span>} showCredit={false}/><span><strong>{model.make} {model.model}</strong><small>{model.category}</small></span></span>
           <strong>{model.seatHeightMm} mm</strong>
           <span>{model.curbWeightKg} kg</span>
