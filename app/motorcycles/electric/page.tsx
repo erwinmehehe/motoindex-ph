@@ -6,12 +6,12 @@ import { AuthorBox } from "@/components/AuthorBox";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
 import { electricModelHref, electricMotorcycles, php } from "@/lib/electricMotorcycles";
-import { pageMetadata } from "@/lib/site";
+import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { CTAGroup, PageHero, StatRow } from "@/components/ui";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Electric Motorcycles Philippines 2026 | Prices, Range & LTO",
-  description: "Compare electric motorcycle and scooter prices in the Philippines, battery options, claimed range, charging time, LTO classification and ownership tools.",
+  title: "Electric Scooters Philippines 2026 | Prices, Range & LTO",
+  description: "Compare electric scooters and motorcycles in the Philippines by price, battery options, claimed range, charging time, LTO classification and ownership costs.",
   path: "/motorcycles/electric"
 });
 
@@ -26,9 +26,22 @@ export default function ElectricMotorcyclesPage() {
     description:"One guide to Philippine electric motorcycles covering models, prices, battery options, claimed range, charging, registration, classification and ownership trade-offs.",
     path:"/motorcycles/electric",
     about:"electric motorcycles Philippines",
-    keywords:["electric motorcycle Philippines","electric scooter Philippines","electric motorcycle price Philippines","electric motorcycle registration Philippines","e-bike vs motorcycle Philippines"],
+    keywords:["electric scooter Philippines","electric scooters Philippines","electric motorcycle Philippines","electric scooter price Philippines","electric motorcycle price Philippines","electric motorcycle registration Philippines","e-bike vs motorcycle Philippines"],
     checkedDates
   });
+
+  const itemListSchema={
+    "@context":"https://schema.org",
+    "@type":"ItemList",
+    name:"Electric scooters and motorcycles in the Philippines",
+    numberOfItems:electricMotorcycles.length,
+    itemListElement:byPrice.map((model,index)=>({
+      "@type":"ListItem",
+      position:index+1,
+      url:absoluteUrl(`/motorcycles/electric/${model.slug}`),
+      name:`${model.make} ${model.model}`
+    }))
+  };
 
   return <section className="page shell electric-master-page">
     <Breadcrumbs items={[{label:"Motorcycles",href:"/motorcycles"},{label:"Electric motorcycles"}]}/>
@@ -53,6 +66,7 @@ export default function ElectricMotorcyclesPage() {
       <a href="#classification">E-bike vs motorcycle</a>
       <a href="#registration">Registration</a>
       <a href="#electric-vs-gas">Electric vs gas</a>
+      <a href="#ownership">Ownership</a>
       <a href="#tools">Tools</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -127,6 +141,21 @@ export default function ElectricMotorcyclesPage() {
       </div>
     </section>
 
+    <section id="ownership" className="motorcycle-entity-section">
+      <div className="section-head compact"><div><span className="section-kicker">Buying decision</span><h2>What to compare before buying an electric scooter in the Philippines</h2><p>Price and advertised range are only the first filters. The battery arrangement, daily route, registration class, charging access and long-term support determine whether an electric scooter fits your actual use.</p></div></div>
+      <div className="guide-topic-grid">
+        <article><h3>Upfront battery choice</h3><p>Compare subscription, one-battery and two-battery prices separately. The lowest advertised vehicle price does not always represent the ownership setup you plan to use.</p></article>
+        <article><h3>Daily route with reserve</h3><p>Use a conservative reserve below the manufacturer range claim. Your normal commute should remain comfortable even when traffic, load, speed, weather and battery condition reduce range.</p></article>
+        <article><h3>Charging access</h3><p>Check where the battery will actually be charged, how long the selected battery setup takes, and whether your home or workplace routine can support that schedule consistently.</p></article>
+        <article><h3>Registration and support</h3><p>Confirm the exact LTO classification, registration processing, battery warranty, replacement terms, service network and parts support for the exact model before paying.</p></article>
+      </div>
+      <div className="commute-tool-grid">
+        <Link href="/recommendations/best-scooters-philippines"><span>Gas comparison</span><h3>Compare regular scooters</h3><p>See current gasoline scooters by price, engine, seat height, weight and braking equipment.</p></Link>
+        <Link href="/recommendations/motorcycles-under-100k"><span>Budget comparison</span><h3>Motorcycles under ₱100K</h3><p>Compare electric starting prices with current gasoline motorcycles in the same broad purchase-budget range.</p></Link>
+        <Link href="/guides/electric-motorcycle-registration-philippines"><span>Registration guide</span><h3>Electric motorcycle registration</h3><p>Review Philippine registration and classification context before purchase.</p></Link>
+      </div>
+    </section>
+
     <section id="tools" className="motorcycle-entity-section">
       <div className="section-head compact"><div><span className="section-kicker">Use your numbers</span><h2>Electric motorcycle calculators</h2><p>Tools stay separate because they perform a real task rather than repeating another editorial page.</p></div></div>
       <div className="commute-tool-grid">
@@ -136,6 +165,7 @@ export default function ElectricMotorcyclesPage() {
     </section>
 
     <JsonLd data={schema}/>
+    <JsonLd data={itemListSchema}/>
     <div id="faq"><FaqSection title="Electric motorcycle questions" items={[
       {question:"Do electric motorcycles need LTO registration in the Philippines?",answer:"The VinFast Evo, Feliz II and Viper in the current MotoIndex set are classified by LTO as L3 motorcycles without sidecars and follow motorcycle registration requirements. Rules differ for other electric vehicle categories."},
       {question:"How much does an electric motorcycle cost in the Philippines?",answer:`The current verified models start at ${php(byPrice[0].priceFromPhp)}. Battery subscription, one-battery and two-battery purchase options can produce different final prices.`},
