@@ -10,8 +10,8 @@ import { pageMetadata } from "@/lib/site";
 import { CTAGroup, PageHero, StatRow } from "@/components/ui";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Electric Motorcycles Philippines: One Buying Guide",
-  description: "One Philippine electric motorcycle guide covering prices, battery plans, claimed range, charging, LTO registration, e-bike classification and electric vs gas ownership.",
+  title: "Electric Motorcycles Philippines 2026 | Prices, Range & LTO",
+  description: "Compare electric motorcycle and scooter prices in the Philippines, battery options, claimed range, charging time, LTO classification and ownership tools.",
   path: "/motorcycles/electric"
 });
 
@@ -34,8 +34,8 @@ export default function ElectricMotorcyclesPage() {
     <Breadcrumbs items={[{label:"Motorcycles",href:"/motorcycles"},{label:"Electric motorcycles"}]}/>
     <PageHero
       kicker="Electric motorcycle buying guide"
-      title="Electric motorcycles in the Philippines"
-      description="Compare current Philippine electric motorcycle prices, battery options, claimed range, charging time and LTO classification in one clear buying guide."
+      title="Electric motorcycles and scooters in the Philippines"
+      description="Compare current Philippine electric motorcycle and electric scooter prices, battery options, claimed range, charging time and LTO classification in one buying guide."
       actions={<CTAGroup><a className="button" href="#models">Compare electric models</a><Link className="button secondary" href="/tools/electric-motorcycle-charging-cost">Calculate charging cost</Link></CTAGroup>}
     />
 
@@ -58,7 +58,7 @@ export default function ElectricMotorcyclesPage() {
     </nav>
 
     <section id="models" className="motorcycle-entity-section">
-      <div className="section-head compact"><div><span className="section-kicker">Current models</span><h2>Electric motorcycles to compare in the Philippines</h2><p>These are models with Philippine price, battery, range, charging and LTO-classification evidence in the current MotoIndex data.</p></div></div>
+      <div className="section-head compact"><div><span className="section-kicker">Current models</span><h2>Electric motorcycle and electric scooter prices in the Philippines</h2><p>These road-going electric scooters are tracked as L3 electric motorcycles, with Philippine price, battery, range, charging and LTO-classification evidence in the current MotoIndex data.</p></div></div>
       <div className="catalog-grid">
         {electricMotorcycles.map(model=><Link className="catalog-card" href={electricModelHref(model.slug)} key={model.slug}>
           <div className="catalog-media"><img src={model.imageUrl} alt={`${model.make} ${model.model} electric motorcycle`} loading="lazy"/></div>
@@ -139,6 +139,7 @@ export default function ElectricMotorcyclesPage() {
     <div id="faq"><FaqSection title="Electric motorcycle questions" items={[
       {question:"Do electric motorcycles need LTO registration in the Philippines?",answer:"The VinFast Evo, Feliz II and Viper in the current MotoIndex set are classified by LTO as L3 motorcycles without sidecars and follow motorcycle registration requirements. Rules differ for other electric vehicle categories."},
       {question:"How much does an electric motorcycle cost in the Philippines?",answer:`The current verified models start at ${php(byPrice[0].priceFromPhp)}. Battery subscription, one-battery and two-battery purchase options can produce different final prices.`},
+      {question:"What electric scooters are available in the Philippines?",answer:"MotoIndex currently tracks the VinFast Evo, Feliz II and Viper as road-going electric scooter-style motorcycles with LTO L3 classification evidence. Model availability, battery plans and seller terms should be confirmed before purchase."},
       {question:"How far can an electric motorcycle travel on one charge?",answer:`The current model pages list manufacturer claims of ${Math.min(...electricMotorcycles.map(m=>m.rangeOneKm))}–${Math.max(...electricMotorcycles.map(m=>m.rangeOneKm))} km with one battery and ${Math.min(...electricMotorcycles.map(m=>m.rangeTwoKm))}–${Math.max(...electricMotorcycles.map(m=>m.rangeTwoKm))} km with two batteries. Real range can be lower.`},
       {question:"Is an e-bike the same as an electric motorcycle?",answer:"No. The legal category depends on the exact vehicle classification and performance, not only the seller's label. Check the LTO classification before buying."},
       {question:"Is an electric motorcycle always cheaper to run?",answer:"No. Electricity can cost less per kilometer in many scenarios, but purchase price, battery plan, charging losses, financing, maintenance and resale also affect total ownership cost."}
