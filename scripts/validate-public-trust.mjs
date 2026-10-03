@@ -190,8 +190,6 @@ const nextConfig = read("next.config.mjs");
 const configRedirects = [
   ["/motorcycles/:make/:slug/price", "#price"],
   ["/motorcycles/:make/:slug/specifications", "#specs"],
-  ["/motorcycles/:make/:slug/colors", "#colors"],
-  ["/motorcycles/:make/:slug/installment", "#installment"],
   ["/motorcycles/:make/:slug/rider-fit", "#rider-fit"],
   ["/motorcycles/:make/:slug/fuel-economy", "#fuel"],
   ["/motorcycles/:make/:slug/ownership-cost", "#ownership"],
@@ -204,6 +202,16 @@ const configRedirects = [
 for (const [source, anchor] of configRedirects) {
   if (!nextConfig.includes(`source: "${source}"`) || !nextConfig.includes(anchor)) {
     failures.push(`next.config.mjs: missing permanent redirect for ${source} to ${anchor}`);
+  }
+}
+
+for (const [path, profileToken, anchor] of [
+  ["app/motorcycles/[make]/[slug]/colors/page.tsx", "colorIntentLandingProfile", "#colors"],
+  ["app/motorcycles/[make]/[slug]/installment/page.tsx", "installmentLandingProfile", "#installment"]
+]) {
+  const text = read(path);
+  if (!text.includes(profileToken) || !text.includes("permanentRedirect(") || !text.includes(anchor)) {
+    failures.push(`${path}: focused intent page must render whitelisted demand-backed routes and permanently redirect unsupported models to ${anchor}`);
   }
 }
 
