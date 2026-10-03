@@ -79,7 +79,7 @@ export default function HomePage() {
     .slice(0, 6);
 
   return (
-    <div className="mi-home">
+    <div className="mi-home" data-layout="marketplace">
       <section className="mi-market-hero" aria-labelledby="mi-home-title">
         <div className="shell">
           <div className="mi-market-hero-grid">
