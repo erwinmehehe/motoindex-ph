@@ -12,10 +12,11 @@ const modelPage=read("components","MotorcycleEntityPage.tsx");
 const buyerAnswers=read("components","CanonicalIntentDepth.tsx");
 const sitemap=read("lib","sitemaps.ts");
 const llms=read("lib","llms.ts");
+const data=read("lib","data.ts");
 
 const expected=[
   ["kawasaki-ninja-650","ninja 650 top speed",8800,"Kawasaki Ninja 650 Top Speed Philippines | Test Evidence","Kawasaki Ninja 650 top speed guide with independent test evidence, mph/km/h conversion, model-year caveats, gearing context and why real-world speed varies."],
-  ["suzuki-hayabusa","hayabusa top speed",4000,"Suzuki Hayabusa Top Speed Philippines | 299 km/h Evidence","Suzuki Hayabusa top speed guide with the 299 km/h electronic limit, independent test evidence, generation context and why real-world maximum speed varies."],
+  ["suzuki-hayabusa","hayabusa top speed",4000,"Suzuki Hayabusa Top Speed Philippines | 300 km/h Evidence","Suzuki Hayabusa top speed Philippines guide with the current-generation 300 km/h electronic limit, road-test context, generation history and speed caveats."],
   ["kawasaki-ninja-zx-10r","kawasaki ninja zx-10r top speed",3100,"Kawasaki ZX-10R Top Speed Philippines | Test Evidence Guide","Kawasaki Ninja ZX-10R top speed guide with independent test results, 299 km/h context, generation caveats, gearing, limiter notes and test-condition warnings."],
   ["yamaha-yzf-r3","r3 top speed",1800,"Yamaha R3 Top Speed Philippines | 181 km/h Test Evidence","Yamaha YZF-R3 top speed guide with independent testing around 181 km/h, mph conversion, rider/condition caveats, gearing context and stock-bike evidence."],
   ["honda-cbr500r","cbr500r top speed",1800,"Honda CBR500R Top Speed Philippines | 180 km/h Evidence","Honda CBR500R top speed guide with independent testing around 180 km/h, mph conversion, model-year context, stock-bike caveats and performance evidence."],
@@ -23,7 +24,9 @@ const expected=[
   ["kawasaki-z1000-r-edition","z1000 top speed",900,"Kawasaki Z1000 Top Speed Philippines | 237 km/h Evidence","Kawasaki Z1000 top speed guide with a 237 km/h Cycle World test result, mph conversion, model-generation context, gearing notes and stock-bike caveats."],
   ["ktm-790-duke","duke 790 top speed",900,"KTM 790 Duke Top Speed Philippines | 225 km/h Test Evidence","KTM 790 Duke top speed guide with an independent test around 225 km/h, mph conversion, model-generation context, gearing notes and test-condition caveats."],
   ["aprilia-rs-660","rs660 top speed",700,"Aprilia RS 660 Top Speed Philippines | 240 km/h Evidence","Aprilia RS 660 top speed guide with independent evidence around 240 km/h, mph conversion, model-year context, limiter caveats and real-world test notes."],
-  ["yamaha-yzf-r7","yamaha r7 top speed",700,"Yamaha R7 Top Speed Philippines | 224 km/h Test Evidence","Yamaha YZF-R7 top speed guide with independent testing around 224 km/h, mph conversion, rider/tuck caveats, gearing context and real-world performance notes."]
+  ["yamaha-yzf-r7","yamaha r7 top speed",700,"Yamaha R7 Top Speed Philippines | 224 km/h Test Evidence","Yamaha YZF-R7 top speed guide with independent testing around 224 km/h, mph conversion, rider/tuck caveats, gearing context and real-world performance notes.",
+  ["bmw-m-1000-rr","bmw m1000rr top speed",700,"BMW M 1000 RR Top Speed Philippines | Official 314 km/h","BMW M 1000 RR top speed Philippines guide with BMW\'s official 314 km/h figure, 218 hp context, model-year evidence, aerodynamic notes and safety caveats."]
+]
 ];
 
 for(const [id,keyword,volume,title,description] of expected){
@@ -47,6 +50,7 @@ for(const token of [
   "Match a top-speed claim to the exact model year",
   "Should top speed be tested on public roads?",
   "FAQPage",
+  "profile.manufacturerPublished",
   '/motorcycles/${model.makeSlug}/${model.slug}/top-speed'
 ]){
   requireText(route,token,`Top-speed route depth missing: ${token}`);
@@ -70,6 +74,17 @@ requireText(llms,'Focused model top-speed guides',"LLM full index must expose fo
 requireText(llms,'For models with a dedicated top-speed page',"LLM retrieval guidance must route top-speed queries to focused pages.");
 requireText(llms,'/colors and /top-speed pages are canonical resources',"LLM canonical policy must name top-speed pages.");
 
+for(const token of [
+  'id: "kawasaki-ninja-650"',
+  'srp: 452000',
+  'engineCc: 649',
+  'searchVolume: 8800',
+  'sourceUrl: "https://kawasakileisurebikes.ph/motorcycles/sports/ninja-650/"'
+]){
+  requireText(data,token,`Ninja 650 model coverage missing: ${token}`);
+}
+requireText(profiles,'manufacturerPublished: true',"Manufacturer-published top-speed evidence must be explicitly flagged.");
+
 for(const slug of ["price","specs","variants"]){
   const candidate=path.join(root,"app","motorcycles","[make]","[slug]",slug,"page.tsx");
   if(fs.existsSync(candidate))errors.push(`Do not mass-split unsupported model intent pages yet: /${slug}`);
@@ -79,4 +94,4 @@ if(errors.length){
   console.error(errors.join("\n"));
   process.exit(1);
 }
-console.log(`Model top-speed intent validation passed: ${expected.length} search-volume-backed pages with evidence and generation caveats.`);
+console.log(`Model top-speed intent validation passed: ${expected.length} search-volume-backed pages with evidence, model coverage and generation caveats.`);
