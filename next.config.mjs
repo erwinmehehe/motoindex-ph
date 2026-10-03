@@ -3,6 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
+    // MotoIndex serves the public catalog through Cloudflare static assets. Keep Next's image optimizer disabled so public images never depend on the Worker request quota.
+    unoptimized: true,
     formats: ["image/avif", "image/webp"],
     // Remote patterns remain only as a migration fallback if a local asset has not been synced yet.
     remotePatterns: [
