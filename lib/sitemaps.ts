@@ -1,4 +1,4 @@
-import { accessoryCategories, comparisons, helmetBrands, motorcycles, isIndexableModel, isIndexableComparison } from "@/lib/data";
+import { accessoryCategories, comparisons, helmetBrands, motorcycles, isDemandBackedAvailabilityModel, isIndexableModel, isIndexableComparison } from "@/lib/data";
 import { modelFamilies } from "@/lib/families";
 import { helmetProducts, tireProducts, topBoxProducts, isIndexableHelmetBrand } from "@/lib/catalog";
 import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug, publicDealerCities, publicDealersByCity, publicSellers, publicSellersByType } from "@/lib/sellers";
@@ -91,12 +91,15 @@ export function motorcycleSitemapEntries(): Entry[] {
   });
   // Model-level price, specs, colors, installment, fitment, fuel, gear, maintenance and ownership stay on one canonical motorcycle page.
   const indexableModels = motorcycles.filter(isIndexableModel);
-  const models = indexableModels.map(m=>({
-    url:`${SITE_URL}/motorcycles/${m.makeSlug}/${m.slug}`,
-    lastModified:iso(modelCheckedAt(m)),
-    changeFrequency:m.marketStatus==="previous"||m.marketStatus==="uncertain"?"monthly" as const:"weekly" as const,
-    priority:m.marketStatus==="previous"?.82:m.marketStatus==="uncertain"?.78:.92
-  }));
+  const models = indexableModels.map(m=>{
+    const demandBackedAvailability=isDemandBackedAvailabilityModel(m);
+    return {
+      url:`${SITE_URL}/motorcycles/${m.makeSlug}/${m.slug}`,
+      lastModified:iso(modelCheckedAt(m)),
+      changeFrequency:m.marketStatus==="previous"||m.marketStatus==="uncertain"?"monthly" as const:"weekly" as const,
+      priority:m.marketStatus==="previous"?.82:demandBackedAvailability?(m.searchVolume>=5000?.84:.8):m.marketStatus==="uncertain"?.76:.92
+    };
+  });
   // Electric models are consolidated into one authoritative buying guide rather than separate thin URLs.
   const scooterModels=indexableModels.filter(m=>/scooter/i.test(m.category)&&!["previous","uncertain","discontinued"].includes(m.marketStatus||""));
   const expresswayModels=indexableModels.filter(m=>m.engineCc>=400&&!["previous","uncertain","discontinued"].includes(m.marketStatus||""));

@@ -15,6 +15,103 @@ export type PriorityModelGrowthProfile = {
 };
 
 const profiles: Record<string, PriorityModelGrowthProfile> = {
+  "yamaha-mio-sporty": {
+    seoTitle: "Yamaha Mio Sporty Price Philippines | Dealer Stock & Specs",
+    seoDescription: "Yamaha Mio Sporty price Philippines reference with ₱73,900 dealer listings, 114cc specs, 745mm seat and availability-to-verify guidance for PH buyers.",
+    intentIntro: "Mio Sporty still carries strong Philippine search demand and remains visible in current dealer inventory, even though MotoIndex has not confirmed it in Yamaha Philippines' current national model catalog. Keep the ₱73,900 dealer reference, 114cc specifications and inventory caveat together on one canonical page.",
+    moneyQuestion: "Is the ₱73,900 Mio Sporty listing still available at the branch you plan to buy from, and what model year, warranty and registration package are included?",
+    ownershipQuestion: "Compare CVT service, 14-inch tires, fuel use, parts support and the 745 mm seat with Mio i 125, Mio Gear and Fazzio before choosing dealer inventory on price alone.",
+    alternativeIds: ["yamaha-mio-i-125", "yamaha-mio-gear", "yamaha-fazzio"],
+    relatedIds: ["yamaha-mio-i-125", "yamaha-mio-gravis"],
+    recommendationHref: "/recommendations/125cc-scooters-philippines",
+    recommendationLabel: "Compare 125cc scooters",
+    legacyContext: { heading: "Dealer inventory, not confirmed national catalog", body: "Motortrade and Wheeltek still list Mio Sporty inventory, but MotoIndex has not independently confirmed current Yamaha Philippines national-catalog status. Verify the exact unit before treating the dealer listing as a nationwide current model." }
+  },
+  "suzuki-gsx-r150": {
+    seoTitle: "Suzuki GSX-R150 Price Philippines | Dealer Stock & Specs",
+    seoDescription: "Suzuki GSX-R150 price Philippines reference with ₱156,224 dealer listing, 147cc specs, 785mm seat, six-speed gearbox and current stock verification guidance.",
+    intentIntro: "GSX-R150 search demand remains meaningful and Motortrade still exposes a Philippine dealer listing. MotoIndex preserves the current dealer price reference and Suzuki-sourced specification context while labeling national-catalog availability as something buyers should verify.",
+    moneyQuestion: "Is the listed GSX-R150 unit actually in stock at the branch, and what is the exact cash price, model year, registration package and warranty coverage?",
+    ownershipQuestion: "Compare 17-inch sport tires, chain and sprocket service, fairing exposure and insurance with R15M, CBR150R and other lightweight sport bikes.",
+    alternativeIds: ["yamaha-yzf-r15m", "honda-cbr150r", "suzuki-raider-r150"],
+    relatedIds: ["suzuki-gsx-s150"],
+    recommendationHref: "/recommendations/motorcycles-under-400cc-philippines",
+    recommendationLabel: "Compare under-400cc motorcycles",
+    legacyContext: { heading: "Current dealer visibility, national status to verify", body: "Motortrade currently lists the GSX-R150, but MotoIndex has not confirmed a current Suzuki Philippines national-catalog page for the exact unit. Keep dealer-stock evidence separate from national lineup status." }
+  },
+  "yamaha-xtz-125": {
+    seoTitle: "Yamaha XTZ 125 Price Philippines | Dealer Stock & Trail Use",
+    seoDescription: "Yamaha XTZ 125 price Philippines reference with ₱89,900 dealer listing, 124cc specs, 840mm seat, 21/18 wheels, 260mm clearance and stock-check guidance.",
+    intentIntro: "XTZ 125 has substantial Philippine search demand and remains visible through Wheeltek, while Yamaha Philippines after-sales material still references the model. MotoIndex keeps the dealer price and trail-fit data indexable without claiming current national-catalog availability.",
+    moneyQuestion: "Does your Yamaha dealer actually have a current XTZ 125 unit, and what model year, invoice price, warranty and registration documents come with it?",
+    ownershipQuestion: "Compare the 840 mm seat, 118 kg curb weight, 260 mm clearance, 21/18-inch tires, chain service and parts access with CRF150L and KLX150.",
+    alternativeIds: ["honda-crf150l", "kawasaki-klx150", "yamaha-wr155r"],
+    relatedIds: ["yamaha-wr155r"],
+    recommendationHref: "/recommendations/dual-sport-motorcycles-philippines",
+    recommendationLabel: "Compare dual-sport and trail motorcycles",
+    legacyContext: { heading: "Dealer-listed XTZ 125 availability needs verification", body: "Wheeltek lists the XTZ 125 and Yamaha after-sales material still names it, but MotoIndex has not confirmed a current Yamaha Philippines product-page listing. Verify the exact branch stock and model year." }
+  },
+  "suzuki-gsx-s150": {
+    seoTitle: "Suzuki GSX-S150 Price Philippines | Dealer Stock & Specs",
+    seoDescription: "Suzuki GSX-S150 price Philippines reference with ₱112,800–₱124,800 dealer figures, 147cc specs, 785mm seat and exact branch-quote verification guidance.",
+    intentIntro: "GSX-S150 remains a high-search-demand naked-bike reference with current Motortrade visibility. Because the dealer page exposes two different price figures, MotoIndex preserves the range and directs buyers to verify the exact branch quote and model code.",
+    moneyQuestion: "Which GSX-S150 price applies to the exact unit at your branch, and what model year, registration, warranty and dealer charges are included?",
+    ownershipQuestion: "Compare 17-inch tires, chain and sprocket service, insurance and parts availability with XSR155, MT-15 and other lightweight naked motorcycles.",
+    alternativeIds: ["yamaha-xsr155", "yamaha-mt-15", "honda-cb150r"],
+    relatedIds: ["suzuki-gsx-r150"],
+    recommendationHref: "/recommendations/naked-motorcycles-philippines",
+    recommendationLabel: "Compare naked motorcycles",
+    legacyContext: { heading: "Dealer price range needs branch confirmation", body: "Motortrade currently exposes both ₱112,800 and ₱124,800 figures for the GSX-S150. MotoIndex preserves the discrepancy instead of selecting one price without evidence." }
+  },
+  "tvs-ntorq-125": {
+    seoTitle: "TVS NTORQ 125 Price Philippines | Dealer Stock & Specs PH",
+    seoDescription: "TVS NTORQ 125 price Philippines reference with ₱71,900 retailer listing, 125cc specs, 770mm seat, 12-inch wheels and current availability verification guidance.",
+    intentIntro: "TVS officially launched the NTORQ 125 in the Philippines and local retailer inventory still creates search demand, but current nationwide availability is not clear. MotoIndex keeps the ₱71,900 retailer reference and model specifications indexable with that caveat.",
+    moneyQuestion: "Is a new NTORQ 125 actually available now, and what exact retailer price, model year, warranty and registration package apply to the unit?",
+    ownershipQuestion: "Compare 12-inch tire availability, CVT service, SBT braking, parts supply and local TVS support with Mio Gear, Click 125i and Fazzio.",
+    alternativeIds: ["yamaha-mio-gear", "honda-click-125i", "yamaha-fazzio"],
+    relatedIds: ["yamaha-mio-gear"],
+    recommendationHref: "/recommendations/125cc-scooters-philippines",
+    recommendationLabel: "Compare 125cc scooters",
+    legacyContext: { heading: "Philippine launch history with availability to verify", body: "TVS launched the NTORQ 125 locally, while the checked Philippine retailer listing currently shows the unit sold out. Verify actual new-unit availability before purchase." }
+  },
+  "benelli-motobi-200-evo": {
+    seoTitle: "Benelli Motobi 200 Price Philippines | Specs & Availability",
+    seoDescription: "Benelli Motobi 200 Evo Philippines reference with ₱125,000 secondary pricing, 197cc specs, 715mm seat and current new-bike availability verification guidance.",
+    intentIntro: "Motobi 200 Evo has enough Philippine search demand to keep a useful research page live. Benelli's Philippine technical page remains accessible, but it does not publish a current peso price, so the ₱125,000 figure stays explicitly secondary and availability-to-verify.",
+    moneyQuestion: "Can a Philippine Benelli dealer confirm a new Motobi 200 Evo unit, and what is the current cash price, model year, warranty and registration package?",
+    ownershipQuestion: "Compare the 715 mm seat, 156 kg curb weight, 15-inch rear tire, chain service and parts support with Hunter 350 and other low-seat retro/cruiser alternatives.",
+    alternativeIds: ["royal-enfield-hunter-350", "motorstar-cafe-400", "triumph-speed-400"],
+    relatedIds: ["motorstar-cafe-400"],
+    recommendationHref: "/recommendations/cruiser-motorcycles-philippines",
+    recommendationLabel: "Compare cruiser motorcycles",
+    legacyContext: { heading: "Technical page remains, current price does not", body: "Benelli's Philippine technical page is still accessible, but a current official peso price was not located. Treat ₱125,000 as a secondary market reference until a current dealer quote is verified." }
+  },
+  "honda-cbr500r": {
+    seoTitle: "Honda CBR500R Price Philippines | Dealer Stock & 471cc Specs",
+    seoDescription: "Honda CBR500R Philippines reference with ₱364,000 launch price, current dealer evidence, 471cc specs, 789mm seat and national-catalog availability caveat.",
+    intentIntro: "CBR500R continues to attract Philippine search demand and current dealer evidence exists, but MotoIndex has not confirmed this generation in Honda Philippines' current national catalog. The page therefore keeps Honda launch specifications, dealer evidence and availability caveats together.",
+    moneyQuestion: "Is the CBR500R dealer unit still available, what model year is it, and how does the branch quote compare with Honda's ₱364,000 launch reference?",
+    ownershipQuestion: "Compare 17-inch tires, chain and sprocket service, insurance, fairing costs and Honda big-bike support with Ninja 500, 450SR and CBR650R.",
+    alternativeIds: ["kawasaki-ninja-500", "cfmoto-450sr", "honda-cbr650r"],
+    relatedIds: ["honda-cbr650r"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles",
+    legacyContext: { heading: "Dealer evidence does not equal current national catalog", body: "Honda Philippines' launch reference and a current dealer listing support continued research, but buyers should verify whether the exact CBR500R unit is current stock, old stock or a prior model year." }
+  },
+  "yamaha-sr400": {
+    seoTitle: "Yamaha SR400 Price Philippines | 2019 Specs & Availability",
+    seoDescription: "Yamaha SR400 Philippines reference with ₱329,000 secondary pricing, 399cc specs, 785mm seat and 2019-generation context; verify any current new-unit stock.",
+    intentIntro: "SR400 still receives Philippine search demand, but the stored market evidence points to a 2019 Philippine generation rather than a confirmed current Yamaha lineup model. MotoIndex keeps the page indexable for price/spec research while clearly separating historical generation context from current availability.",
+    moneyQuestion: "If a dealer advertises a new SR400, what model year is the unit and does the current invoice price differ from the stored ₱329,000 secondary-market reference?",
+    ownershipQuestion: "Compare 18-inch tire availability, chain and sprocket service, parts supply, insurance and age-related old-stock checks with XSR155, Hunter 350 and Cafe 400.",
+    alternativeIds: ["yamaha-xsr155", "royal-enfield-hunter-350", "motorstar-cafe-400"],
+    relatedIds: ["yamaha-xsr155"],
+    recommendationHref: "/recommendations/cafe-racer-motorcycles-philippines",
+    recommendationLabel: "Compare classic and cafe-style motorcycles",
+    legacyContext: { heading: "2019-generation Philippine context", body: "The stored Philippine comparison reference identifies the latest local SR400 as a 2019 model year. Any claimed new-unit availability should be verified directly with the seller before treating it as current stock." }
+  },
+
   "suzuki-burgman-street": {
     seoTitle: "Suzuki Burgman Street Price Philippines 2026 | Specs & Colors",
     seoDescription: "Suzuki Burgman Street price in the Philippines, 124cc specs, colors, seat height, fuel economy, tires, ownership costs and scooter alternatives.",
@@ -100,7 +197,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare verified naked motorcycles",
     legacyContext: {
       heading: "Current Philippine availability is not verified",
-      body: "MotoIndex keeps this route as an availability-to-verify research reference. It remains excluded from indexable discovery until a current Yamaha Philippines model-level product or authorized-dealer listing can be verified."
+      body: "MotoIndex keeps this route indexed as an availability-to-verify research reference because the model has stored search demand and dated evidence. It must not be presented as confirmed current Yamaha Philippines inventory until model-level availability is verified."
     }
   },
 

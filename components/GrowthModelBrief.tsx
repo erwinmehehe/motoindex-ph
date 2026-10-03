@@ -12,6 +12,71 @@ type GrowthBrief = {
 };
 
 const growthBriefs: Record<string, GrowthBrief> = {
+  "yamaha-mio-sporty": {
+    fit: ["You are specifically researching dealer-listed Mio Sporty inventory rather than assuming every Yamaha scooter page reflects the current national catalog.", "A 745 mm seat, 94 kg curb weight and simple 114cc automatic package fit your short-trip needs."],
+    check: ["Confirm the exact model year, branch stock, warranty and registration papers before paying a reservation.", "Treat ₱73,900 as a checked dealer reference, not a guaranteed nationwide current SRP."],
+    ownership: "Compare CVT service, 14-inch tires, fuel use, replacement body parts and Yamaha support with Mio i 125, Mio Gear and Fazzio before buying older dealer inventory.",
+    alternatives: ["yamaha-mio-i-125", "yamaha-mio-gear", "yamaha-fazzio"],
+    guideHref: "/recommendations/125cc-scooters-philippines",
+    guideLabel: "125cc scooter guide"
+  },
+  "suzuki-gsx-r150": {
+    fit: ["You want a lightweight 147cc six-speed sport bike and have located actual Philippine dealer stock.", "A 785 mm seat and 131 kg curb weight suit your intended sport-bike use."],
+    check: ["Confirm current branch stock, exact model year and final cash price instead of assuming the dealer page represents Suzuki's national lineup.", "Inspect warranty coverage and registration status for older or limited dealer inventory."],
+    ownership: "Budget 17-inch tires, chain and sprockets, insurance and fairing repair, then compare the total with R15M, CBR150R and Raider R150.",
+    alternatives: ["yamaha-yzf-r15m", "honda-cbr150r", "suzuki-raider-r150"],
+    guideHref: "/recommendations/motorcycles-under-400cc-philippines",
+    guideLabel: "Under-400cc guide"
+  },
+  "yamaha-xtz-125": {
+    fit: ["You want a light 124cc dual-sport with 21/18-inch wheels and 260 mm ground clearance.", "An 840 mm seat works for your inseam and rough-road riding plans."],
+    check: ["Verify the exact Wheeltek or Yamaha dealer stock and model year because a current Yamaha Philippines model page was not confirmed.", "Confirm warranty, registration and parts support before treating after-sales references as proof of current nationwide availability."],
+    ownership: "Price 21/18-inch tires, chain and sprocket service, suspension wear and trail protection, then compare fit and support with CRF150L, KLX150 and WR155R.",
+    alternatives: ["honda-crf150l", "kawasaki-klx150", "yamaha-wr155r"],
+    guideHref: "/recommendations/dual-sport-motorcycles-philippines",
+    guideLabel: "Dual-sport and trail guide"
+  },
+  "suzuki-gsx-s150": {
+    fit: ["You want a light 147cc naked bike and have found current Philippine dealer inventory.", "A 785 mm seat and 130 kg curb weight fit your city and weekend-road priorities."],
+    check: ["The checked dealer page exposes two different price figures, so confirm the exact branch quote and model code.", "Verify model year, warranty and registration before treating dealer inventory as current national-catalog stock."],
+    ownership: "Compare 17-inch tires, chain and sprockets, insurance and parts access with XSR155, MT-15 and CB150R.",
+    alternatives: ["yamaha-xsr155", "yamaha-mt-15", "honda-cb150r"],
+    guideHref: "/recommendations/naked-motorcycles-philippines",
+    guideLabel: "Naked motorcycle guide"
+  },
+  "tvs-ntorq-125": {
+    fit: ["You are researching the locally launched NTORQ 125 and can verify actual Philippine stock.", "A 770 mm seat, 12-inch wheels and 125cc automatic package suit your urban use."],
+    check: ["The checked retailer page showed the unit sold out, so verify current stock before using the listed ₱71,900 as a purchase assumption.", "Confirm warranty and service coverage for your location before reserving."],
+    ownership: "Compare CVT service, 12-inch tires, SBT brake consumables and parts support with Mio Gear, Click 125i and Fazzio.",
+    alternatives: ["yamaha-mio-gear", "honda-click-125i", "yamaha-fazzio"],
+    guideHref: "/recommendations/125cc-scooters-philippines",
+    guideLabel: "125cc scooter guide"
+  },
+  "benelli-motobi-200-evo": {
+    fit: ["You want a low-seat 197cc retro/cruiser and can verify an actual Philippine unit.", "A 715 mm seat is more important to you than having the newest electronics or ABS package."],
+    check: ["Treat ₱125,000 as a secondary price reference because the Benelli technical page does not publish a current peso price.", "Verify new-unit availability, model year, warranty and parts support before paying a reservation."],
+    ownership: "Compare the 15-inch rear tire, chain service, parts supply and resale depth with Hunter 350, Cafe 400 and Speed 400.",
+    alternatives: ["royal-enfield-hunter-350", "motorstar-cafe-400", "triumph-speed-400"],
+    guideHref: "/recommendations/cruiser-motorcycles-philippines",
+    guideLabel: "Cruiser motorcycle guide"
+  },
+  "honda-cbr500r": {
+    fit: ["You want the 471cc CBR500R platform and have located a real Philippine dealer unit.", "A 789 mm seat, 192 kg curb weight and 2-channel ABS suit your middleweight sport-bike plans."],
+    check: ["Verify whether the exact unit is current stock, old stock or a previous model year before comparing it with Honda's ₱364,000 launch reference.", "Confirm the branch quote, warranty and registration package before financing."],
+    ownership: "Budget 17-inch tires, chain and sprockets, insurance, fairing exposure and Honda big-bike service, then compare with Ninja 500, 450SR and CBR650R.",
+    alternatives: ["kawasaki-ninja-500", "cfmoto-450sr", "honda-cbr650r"],
+    guideHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    guideLabel: "400cc+ motorcycle guide"
+  },
+  "yamaha-sr400": {
+    fit: ["You are researching the Philippine SR400 generation and understand the stored evidence points to a 2019 model year.", "You specifically want the simple 399cc classic single rather than a current retro-styled alternative."],
+    check: ["Verify any claimed new-unit stock directly with the seller, including model year, storage history, warranty and registration status.", "Treat ₱329,000 as a secondary historical/current-market reference, not a guaranteed current Yamaha SRP."],
+    ownership: "Price age-related old-stock checks, 18-inch tires, chain and sprockets, battery, rubber parts and service support before comparing with XSR155, Hunter 350 and Cafe 400.",
+    alternatives: ["yamaha-xsr155", "royal-enfield-hunter-350", "motorstar-cafe-400"],
+    guideHref: "/recommendations/cafe-racer-motorcycles-philippines",
+    guideLabel: "Classic and cafe-style guide"
+  },
+
   "yamaha-lexi-155": {
     fit: [
       "You want a 155cc automatic near the ₱100K price point rather than moving straight to a premium NMAX-class budget.",
