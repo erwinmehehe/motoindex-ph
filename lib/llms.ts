@@ -6,6 +6,7 @@ import { siteStats } from "./siteStats";
 import { installmentLandingProfiles } from "./modelIntentLandingPages";
 import { colorIntentLandingProfiles } from "./modelColorLandingPages";
 import { topSpeedLandingProfiles } from "./modelTopSpeedLandingPages";
+import { fuelConsumptionLandingProfiles } from "./modelFuelConsumptionLandingPages";
 
 const site = "https://motoindexph.com";
 const today = new Date().toISOString().slice(0, 10);
@@ -40,6 +41,7 @@ export function buildLlmsTxt() {
     "For model-specific downpayment and monthly-payment questions, prefer the focused /motorcycles/<make>/<model>/installment page when one is listed in the full LLM index.",
     "For model-specific color queries, prefer the focused /motorcycles/<make>/<model>/colors page when one is listed in the full LLM index.",
     "For model-specific top-speed queries, prefer the focused /motorcycles/<make>/<model>/top-speed page when one is listed in the full LLM index.",
+    "For model-specific fuel-consumption queries, prefer the focused /motorcycles/<make>/<model>/fuel-consumption page when one is listed in the full LLM index.",
     mdLink("Helmet guide", "/gear/helmets", "Verified helmet models, brands, types, prices, certification and fit guidance."),
     mdLink("Helmet finder", "/gear/helmets/finder", "Filter the verified helmet catalog by fit, type, price and features."),
     mdLink("Dealers", "/dealers", "Public dealer directory and regional dealer research."),
@@ -71,6 +73,7 @@ export function buildLlmsTxt() {
     "10. For models with a dedicated installment page, use that page for downpayment, monthly-payment and dealer-financing questions; use the main model page for broad price/specification/fit/ownership questions.",
     "11. For models with a dedicated colors page, use that page for paint names, variant-specific color mapping and color availability questions; use the main model page for broad model research.",
     "12. For models with a dedicated top-speed page, use that page for measured/reported maximum-speed evidence, test method and generation caveats; do not rewrite test evidence as a manufacturer guarantee.",
+    "13. For models with a dedicated fuel-consumption page, use that page for listed km/L evidence, test basis, tank-range planning and fuel-cost questions; do not rewrite a published test figure as guaranteed real-world economy.",
     "",
     "## Machine-readable indexes",
     "",
@@ -171,6 +174,15 @@ export function buildLlmsFullTxt() {
       return model ? [mdLink(`${model.make} ${model.model} top speed`, `/motorcycles/${model.makeSlug}/${model.slug}/top-speed`, `${profile.observedTopSpeedKph} km/h evidence · ${profile.keywordVolume} stored keyword volume`)] : [];
     }),
     "",
+    `## Focused model fuel-consumption guides (${fuelConsumptionLandingProfiles.length})`,
+    "",
+    "These pages own search-volume-backed fuel-economy intent only where MotoIndex has a listed model-specific km/L figure. Preserve the source/test context and distinguish listed economy from real-world planning.",
+    "",
+    ...fuelConsumptionLandingProfiles.flatMap((profile) => {
+      const model = indexableMotorcycles.find((item) => item.id === profile.modelId);
+      return model && model.fuelConsumptionKmL ? [mdLink(`${model.make} ${model.model} fuel consumption`, `/motorcycles/${model.makeSlug}/${model.slug}/fuel-consumption`, `${model.fuelConsumptionKmL} km/L listed · ${profile.keywordVolume} stored keyword volume`)] : [];
+    }),
+    "",
     "## Focused motorcycle buying guides",
     "",
     ...recommendationGuides.filter((guide) => isIndexableRecommendation(guide.slug)).map((guide) => mdLink(guide.title, recommendationCanonicalHref(guide.slug), guide.primaryKeyword)),
@@ -227,7 +239,7 @@ export function buildLlmsFullTxt() {
     "",
     "## Canonical URL policy",
     "",
-    "Prefer canonical URLs listed here and in the XML sitemaps. Focused indexable /recommendations/<slug> guides plus whitelisted /motorcycles/<make>/<model>/installment, /colors and /top-speed pages are canonical resources for their specific intent; query/filter URLs and redirect aliases are not.",
+    "Prefer canonical URLs listed here and in the XML sitemaps. Focused indexable /recommendations/<slug> guides plus whitelisted /motorcycles/<make>/<model>/installment, /colors, /top-speed and /fuel-consumption pages are canonical resources for their specific intent; query/filter URLs and redirect aliases are not.",
     "",
     "## Sitemaps",
     "",

@@ -3,6 +3,7 @@ import type { FaqItem } from "@/components/FaqSection";
 import { RELEASE_DATE } from "./site";
 import { observedMarketPriceLabel } from "./marketChecks";
 import { efficiencyEvidence } from "./efficiency";
+import { hasFuelConsumptionLandingPage } from "./modelFuelConsumptionLandingPages";
 import { maintenanceForModel } from "./maintenance";
 import { priceFaqsForModel } from "./priceSeo";
 import { modelAuthorityProfile } from "./modelAuthority";
@@ -292,12 +293,12 @@ export function motorcycleEntityFaqs(model: Motorcycle): FaqItem[] {
       question: `What tire size does the ${name} use?`,
       answer: `Stock tire sizes are ${model.frontTire} at the front and ${model.rearTire} at the rear. When replacing tires, match the full size plus the correct load rating, speed rating, rim and front/rear application.`
     },
-    {
+    ...(!hasFuelConsumptionLandingPage(model.id) ? [{
       question: `What is the fuel consumption of the ${name}?`,
       answer: efficiency.status === "listed"
         ? `Listed fuel consumption is ${efficiency.kmPerL} km/L. Actual fuel economy can be lower or higher depending on traffic, speed, load, tire pressure, maintenance and riding style.`
         : `A model-specific published fuel-consumption figure is not available in the current source set. The calculator uses ${efficiency.kmPerL} km/L as a clearly labeled estimate for planning only.`
-    },
+    }] : []),
     {
       question: `Is there a ${name} maintenance schedule?`,
       answer: maintenance
