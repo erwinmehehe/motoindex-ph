@@ -12,6 +12,8 @@ import { colorIntentLandingProfiles } from "@/lib/modelColorLandingPages";
 import { topSpeedLandingProfiles } from "@/lib/modelTopSpeedLandingPages";
 import { fuelConsumptionLandingProfiles } from "@/lib/modelFuelConsumptionLandingPages";
 import { specsIntentLandingProfiles } from "@/lib/modelSpecsLandingPages";
+import { seatHeightIntentLandingProfiles } from "@/lib/modelSeatHeightLandingPages";
+import { weightIntentLandingProfiles } from "@/lib/modelWeightLandingPages";
 
 type Entry = { url: string; lastModified: string; changeFrequency?: "daily"|"weekly"|"monthly"|"yearly"; priority?: number };
 const iso = (value?: string) => value || RELEASE_DATE;
@@ -150,6 +152,24 @@ export function motorcycleSitemapEntries(): Entry[] {
       priority:profile.keywordVolume>=1000?.88:.84
     }]:[];
   });
+  const seatHeightPages=seatHeightIntentLandingProfiles.flatMap(profile=>{
+    const model=motorcycles.find(item=>item.id===profile.modelId);
+    return model&&isIndexableModel(model)&&profile.keywordVolume>0?[{
+      url:`${SITE_URL}/motorcycles/${model.makeSlug}/${model.slug}/seat-height`,
+      lastModified:iso(modelCheckedAt(model)),
+      changeFrequency:"monthly" as const,
+      priority:profile.keywordVolume>=1000?.88:profile.keywordVolume>=500?.85:.82
+    }]:[];
+  });
+  const weightPages=weightIntentLandingProfiles.flatMap(profile=>{
+    const model=motorcycles.find(item=>item.id===profile.modelId);
+    return model&&isIndexableModel(model)&&profile.keywordVolume>0?[{
+      url:`${SITE_URL}/motorcycles/${model.makeSlug}/${model.slug}/weight`,
+      lastModified:iso(modelCheckedAt(model)),
+      changeFrequency:"monthly" as const,
+      priority:profile.keywordVolume>=1000?.89:.83
+    }]:[];
+  });
   // Electric models are consolidated into one authoritative buying guide rather than separate thin URLs.
   const scooterModels=indexableModels.filter(m=>/scooter/i.test(m.category)&&!["previous","uncertain","discontinued"].includes(m.marketStatus||""));
   const expresswayModels=indexableModels.filter(m=>m.engineCc>=400&&!["previous","uncertain","discontinued"].includes(m.marketStatus||""));
@@ -158,7 +178,7 @@ export function motorcycleSitemapEntries(): Entry[] {
     ...(expresswayModels.length>=3 ? [{url:`${SITE_URL}/motorcycles/expressway-legal`,lastModified:newest(expresswayModels.map(modelCheckedAt)),changeFrequency:"weekly" as const,priority:.9}] : [])
   ];
   const electricPages=[{url:`${SITE_URL}/motorcycles/electric`,lastModified:newest(electricMotorcycles.map(m=>m.checkedAt)),changeFrequency:"weekly" as const,priority:.9}];
-  return [...brands,...families,...categoryPages,...models,...installmentPages,...colorPages,...topSpeedPages,...fuelConsumptionPages,...specsPages,...electricPages];
+  return [...brands,...families,...categoryPages,...models,...installmentPages,...colorPages,...topSpeedPages,...fuelConsumptionPages,...specsPages,...seatHeightPages,...weightPages,...electricPages];
 }
 
 export function gearSitemapEntries(): Entry[] {
