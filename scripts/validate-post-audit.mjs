@@ -37,6 +37,9 @@ const shopee=read("app/go/shopee/[productId]/route.ts");
 need(affiliate.includes("affiliate.url, 302")&&!affiliate.includes("affiliate.url, 307"),"Generic affiliate redirect must use 302, not 307");
 need(shopee.includes("affiliate.url, 302")&&!shopee.includes("affiliate.url, 307"),"Shopee affiliate redirect must use 302, not 307");
 
+const nextConfig=read("next.config.mjs");
+need(nextConfig.includes("unoptimized: true"),"Cloudflare static deployment must keep Next image optimization disabled so public images do not consume Worker requests");
+
 const styleStack=read("app/style-stack.css");
 need(
   ["./styles/tokens.css","./styles/base.css","./styles/components.css","./styles/routes.css"].every(layer=>styleStack.includes(layer)),
