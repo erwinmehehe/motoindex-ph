@@ -17,7 +17,7 @@ const datasets=[
     href:"/research/motorcycle-price-index-philippines",
     label:"Price",
     title:"Motorcycle price index",
-    description:"Compare published starting prices across current Philippine motorcycle records, including median price and budget-band counts.",
+    description:"Compare current published starting prices with segment medians, brand benchmarks, budget bands and a downloadable source-led CSV.",
     meta:"Open price index →"
   },
   {
@@ -31,7 +31,7 @@ const datasets=[
     href:"/research/motorcycle-financing-index-philippines",
     label:"Financing",
     title:"Down payment & monthly index",
-    description:"Compare one consistent financing scenario using 20% down, 36 months and a 12% annual amortizing-rate assumption.",
+    description:"Compare one consistent financing scenario, then separate it from dated dealer down-payment and monthly-payment snapshots.",
     meta:"Open financing index →"
   }
 ];

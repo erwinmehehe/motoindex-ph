@@ -10,7 +10,7 @@ export type DealerFinancingObservation = {
   note?: string;
 };
 
-const dealerFinancingObservations: DealerFinancingObservation[] = [
+export const dealerFinancingObservations: DealerFinancingObservation[] = [
   {
     modelId: "honda-click-125i",
     label: "Click 125 dealer listing",
