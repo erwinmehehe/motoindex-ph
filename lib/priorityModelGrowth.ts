@@ -197,8 +197,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     intentIntro: "The 2026 CB650R is sold in Standard and E-Clutch forms, so compare the ₱525,000 and ₱565,000 variants, 810 mm seat, inline-four running costs, financing and equipment before deciding from engine sound or styling alone.",
     moneyQuestion: "How much does the CB650R cost once the chosen Standard or E-Clutch variant, down payment, monthly payment, insurance and dealer fees are included?",
     ownershipQuestion: "Budget 17-inch tires, chain and sprocket service, insurance, fuel use and Honda Big Wing support, then compare those costs with other middleweight naked bikes.",
-    alternativeIds: ["triumph-trident-660", "kawasaki-z500", "honda-nx500"],
-    relatedIds: ["honda-nx500"],
+    alternativeIds: ["triumph-trident-660", "kawasaki-z500", "honda-cbr650r"],
+    relatedIds: ["honda-cbr650r"],
     recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
     recommendationLabel: "Compare 400cc+ motorcycles"
   },
