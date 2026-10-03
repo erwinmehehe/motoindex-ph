@@ -93,6 +93,7 @@ export function researchBrandPriceBenchmarks(minModels = 3) {
       const values = rows.map((row) => row.fromPhp);
       return {
         make,
+        makeSlug: rows[0].model.makeSlug,
         count: rows.length,
         medianPhp: Math.round(median(values)),
         minPhp: Math.min(...values),
