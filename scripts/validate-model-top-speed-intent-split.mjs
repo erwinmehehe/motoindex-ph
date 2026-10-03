@@ -68,7 +68,7 @@ requireText(sitemap,'/top-speed',"Motorcycle sitemap must expose top-speed URLs.
 requireText(sitemap,'profile.keywordVolume>=1000?.89:.85',"Top-speed sitemap priority must use stored search demand.");
 requireText(llms,'Focused model top-speed guides',"LLM full index must expose focused top-speed pages.");
 requireText(llms,'For models with a dedicated top-speed page',"LLM retrieval guidance must route top-speed queries to focused pages.");
-requireText(llms,'/colors, /top-speed, /fuel-consumption and /specs pages are canonical resources',"LLM canonical policy must name top-speed pages.");
+requireText(llms,'installment, /colors, /top-speed, /fuel-consumption, /specs and /weight pages are canonical resources',"LLM canonical policy must name top-speed pages.");
 
 for(const slug of ["price","variants"]){
   const candidate=path.join(root,"app","motorcycles","[make]","[slug]",slug,"page.tsx");
