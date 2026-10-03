@@ -3,7 +3,9 @@
   "name": "motoindex-ph",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-09-12",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "workers_dev": false,
   "routes": [
     {
@@ -17,7 +19,9 @@
   ],
   "assets": {
     "directory": ".open-next/assets",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "run_worker_first": false,
+    "html_handling": "drop-trailing-slash"
   },
   "observability": {
     "enabled": true
