@@ -3,6 +3,7 @@ import { electricMotorcycles } from "./electricMotorcycles";
 import { helmetProducts } from "./catalog";
 import { recommendationCanonicalHref } from "./recommendationRoutes";
 import { siteStats } from "./siteStats";
+import { installmentLandingProfiles } from "./modelIntentLandingPages";
 
 const site = "https://motoindexph.com";
 const today = new Date().toISOString().slice(0, 10);
@@ -34,6 +35,7 @@ export function buildLlmsTxt() {
     mdLink("Buying guides", "/recommendations", "Hub for focused budget, scooter, engine-size, rider-fit, commuting and category guides."),
     mdLink("Original research", "/research", "MotoIndex datasets for motorcycle prices, seat height and financing research."),
     mdLink("Motorcycle price index", "/research/motorcycle-price-index-philippines", "Segment and brand benchmarks with source dates and downloadable CSV data."),
+    "For model-specific downpayment and monthly-payment questions, prefer the focused /motorcycles/<make>/<model>/installment page when one is listed in the full LLM index.",
     mdLink("Helmet guide", "/gear/helmets", "Verified helmet models, brands, types, prices, certification and fit guidance."),
     mdLink("Helmet finder", "/gear/helmets/finder", "Filter the verified helmet catalog by fit, type, price and features."),
     mdLink("Dealers", "/dealers", "Public dealer directory and regional dealer research."),
@@ -62,6 +64,7 @@ export function buildLlmsTxt() {
     "7. Preserve source dates for prices, availability, regulations and fitment. Do not present dated market observations as guaranteed current quotes.",
     "8. Do not infer legal eligibility, safety certification or exact accessory fitment from category labels or database inclusion alone.",
     "9. Some high-search-demand model pages are intentionally indexed as availability-to-verify research even when current Philippine national-catalog status is uncertain. Preserve that status and do not rewrite those pages as confirmed current inventory.",
+    "10. For models with a dedicated installment page, use that page for downpayment, monthly-payment and dealer-financing questions; use the main model page for broad price/specification/fit/ownership questions.",
     "",
     "## Machine-readable indexes",
     "",
@@ -101,6 +104,7 @@ export function buildLlmsFullTxt() {
     mdLink("Original research", "/research"),
     mdLink("Motorcycle price index", "/research/motorcycle-price-index-philippines"),
     mdLink("Price index CSV", "/research/motorcycle-price-index-philippines/data.csv"),
+    mdLink("Motorcycle loan calculator", "/tools/motorcycle-loan-calculator"),
     mdLink("Electric motorcycles", "/motorcycles/electric"),
     mdLink("Helmet guide", "/gear/helmets"),
     mdLink("Helmet finder", "/gear/helmets/finder"),
@@ -133,6 +137,15 @@ export function buildLlmsFullTxt() {
     `## Electric motorcycle model pages (${electricMotorcycles.length})`,
     "",
     ...electricMotorcycles.map((model) => mdLink(`${model.make} ${model.model}`, `/motorcycles/electric/${model.slug}`, `${model.batteryKwh} kWh removable-battery configuration documented`)),
+    "",
+    `## Focused model installment guides (${installmentLandingProfiles.length})`,
+    "",
+    "These pages own downpayment, monthly-payment, dealer-financing and editable loan-calculator intent for selected high-demand models. Use the main model page for broad model research.",
+    "",
+    ...installmentLandingProfiles.flatMap((profile) => {
+      const model = indexableMotorcycles.find((item) => item.id === profile.modelId);
+      return model ? [mdLink(`${model.make} ${model.model} installment`, `/motorcycles/${model.makeSlug}/${model.slug}/installment`, "Downpayment, monthly estimate, dealer observations and editable calculator")] : [];
+    }),
     "",
     "## Focused motorcycle buying guides",
     "",
@@ -190,7 +203,7 @@ export function buildLlmsFullTxt() {
     "",
     "## Canonical URL policy",
     "",
-    "Prefer canonical URLs listed here and in the XML sitemaps. Focused indexable /recommendations/<slug> guides are canonical resources; query/filter URLs and redirect aliases are not.",
+    "Prefer canonical URLs listed here and in the XML sitemaps. Focused indexable /recommendations/<slug> guides and whitelisted /motorcycles/<make>/<model>/installment pages are canonical resources for their specific intent; query/filter URLs and redirect aliases are not.",
     "",
     "## Sitemaps",
     "",
