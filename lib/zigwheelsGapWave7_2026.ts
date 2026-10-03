@@ -64,17 +64,17 @@ export const zigwheelsGapWave7_2026: Motorcycle[] = [
     colors: [],
     searchVolume: 1800,
     keywordDifficulty: 0,
-    sourceLabel: "Current Philippine MT-15 market and specification reference",
+    sourceLabel: "Secondary Philippine MT-15 market/specification reference; official Yamaha PH availability needs verification",
     sourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/mt-15",
     verifiedAt,
     freshness: "verified",
     marketStatus: "uncertain",
-    marketPriceSourceLabel: "Current Philippine comparison-market price reference",
+    marketPriceSourceLabel: "Secondary Philippine MT-15 price reference",
     marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/mt-15/price",
     marketPriceCheckedAt: verifiedAt,
-    priceContext: "Current Philippine comparison listings show the MT-15 at ₱180,000, but MotoIndex did not locate equally clear current Yamaha Motor Philippines catalog evidence for this model during this check. Confirm current authorized-dealer availability before purchase.",
+    priceContext: "Philippine comparison listings show the MT-15 at ₱180,000. Yamaha Philippines' official dealer-locator pages currently surface MT-15 search tags, but MotoIndex did not locate a current model-level Yamaha Philippines product listing or equally clear authorized-dealer product page during the October 3, 2026 verification pass. This page remains an availability-to-verify research reference and is not indexable as a confirmed current model.",
     transmission: "Manual",
-    summary: "155cc Philippine-market naked bike with 19 hp, 14.7 Nm, six-speed transmission, 810 mm seat and current comparison-market pricing that still needs authorized-dealer verification."
+    summary: "155cc MT-15 research reference with 19 hp, 14.7 Nm, six-speed transmission and an 810 mm seat; current official Yamaha Philippines model-level availability remains unverified."
   },
   {
     id: "yamaha-mt-10-sp",
