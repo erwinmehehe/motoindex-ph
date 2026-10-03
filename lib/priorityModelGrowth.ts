@@ -703,6 +703,51 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare CFMOTO SR sport bikes"
   },
 
+  "bristol-maxie-400": {
+    seoTitle: "Bristol Maxie 400 Price Philippines 2026 | Specs & Costs",
+    seoDescription: "Bristol Maxie 400 price in the Philippines, 377cc specs, 730mm seat, ABS, 17.4L tank, ownership costs and direct maxi-scooter alternatives.",
+    intentIntro: "The Maxie 400 is a large maxi scooter with a notably low published 730 mm seat and a 17.4 L tank. Compare the complete ownership picture with XMAX, ADV350 and Burgman 400 rather than choosing from seat height or displacement alone.",
+    moneyQuestion: "What does the Maxie 400 cost after the current dealer quote, registration, insurance and financing charges are included?",
+    ownershipQuestion: "Compare CVT service, tire replacement, insurance, local Bristol support, 208 kg curb weight and touring use with XMAX, ADV350 and Burgman 400.",
+    alternativeIds: ["yamaha-xmax", "honda-adv-350", "suzuki-burgman-400"],
+    relatedIds: ["bristol-adx-160"],
+    recommendationHref: "/recommendations/maxi-scooters-philippines",
+    recommendationLabel: "Compare maxi scooters"
+  },
+  "bajaj-pulsar-rs200": {
+    seoTitle: "Bajaj Pulsar RS200 Price Philippines 2026 | Specs & ABS",
+    seoDescription: "Bajaj Pulsar RS200 price in the Philippines, 199.4cc specs, dual-channel ABS, 810mm seat, ownership costs and direct sport-bike alternatives.",
+    intentIntro: "The Pulsar RS200 is a current fully faired 199.4cc sport bike. Compare its actual Philippine quote, ABS package, rider fit and ownership costs with R15M, CBR150R and 300SR on one canonical page.",
+    moneyQuestion: "What does the Pulsar RS200 cost after the current dealer quote, registration, insurance and financing charges are included?",
+    ownershipQuestion: "Budget 17-inch tires, chain and sprocket service, insurance, fairing exposure and local Bajaj support before comparing it with smaller and larger sport-bike alternatives.",
+    alternativeIds: ["yamaha-yzf-r15m", "honda-cbr150r", "cfmoto-300sr"],
+    relatedIds: ["bajaj-pulsar-n160"],
+    recommendationHref: "/recommendations/sport-motorcycles-philippines",
+    recommendationLabel: "Compare sport motorcycles"
+  },
+  "honda-cbr150r": {
+    seoTitle: "Honda CBR150R Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "Honda CBR150R price in the Philippines, 149cc specs, 787mm seat, fuel economy, current color, ownership costs and direct sport-bike alternatives.",
+    intentIntro: "The CBR150R is a lightweight fully faired sport motorcycle where current price, rider fit and ownership costs matter as much as styling. Compare it directly with R15M, GSX-R150 and 300SR.",
+    moneyQuestion: "What does the CBR150R cost after the current dealer quote, registration, insurance and financing charges are included?",
+    ownershipQuestion: "Compare 17-inch tires, chain and sprocket service, insurance, fairing exposure, fuel use and Honda service access with other lightweight sport bikes.",
+    alternativeIds: ["yamaha-yzf-r15m", "suzuki-gsx-r150", "cfmoto-300sr"],
+    relatedIds: ["honda-cbr650r"],
+    recommendationHref: "/recommendations/sport-motorcycles-philippines",
+    recommendationLabel: "Compare sport motorcycles"
+  },
+  "royal-enfield-shotgun-650": {
+    seoTitle: "Royal Enfield Shotgun 650 Price Philippines 2026 | Specs",
+    seoDescription: "Royal Enfield Shotgun 650 price in the Philippines, 648cc twin specs, 795mm seat, dual-channel ABS, colors, ownership costs and road-bike alternatives.",
+    intentIntro: "The Shotgun 650 combines Royal Enfield's 648cc twin with a heavier, style-led road-bike package. Compare price, 240 kg curb weight, rider fit and running costs rather than choosing from styling alone.",
+    moneyQuestion: "What does the Shotgun 650 cost after the exact variant quote, registration, insurance and financing charges are included?",
+    ownershipQuestion: "Budget 18/17-inch tires, chain and sprocket service, insurance, passenger setup and Royal Enfield service access before comparing the Shotgun with other retro and cruiser-style road bikes.",
+    alternativeIds: ["honda-rebel-500", "triumph-speed-400", "royal-enfield-hunter-350"],
+    relatedIds: ["royal-enfield-hunter-350"],
+    recommendationHref: "/recommendations/motorcycles-400cc-plus-philippines",
+    recommendationLabel: "Compare 400cc+ motorcycles"
+  },
+
   "honda-navi": {
     seoTitle: "Honda Navi Price Philippines 2026 | Specs & Fuel Economy",
     seoDescription: "Honda Navi price in the Philippines, 109cc specs, 48.4 km/L fuel economy, 762mm seat, CBS, tire sizes, ownership costs and commuter alternatives.",
