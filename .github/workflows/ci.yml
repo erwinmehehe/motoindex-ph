@@ -38,6 +38,7 @@ jobs:
           npm run validate:intent-depth-wave3
           npm run validate:intent-depth-wave5
           npm run validate:intent-depth-wave6
+          npm run validate:intent-depth-wave7
           npm run validate:category-authority-wave4
           npm run validate:semantic-consolidation-wave5
           npm run validate:original-research-wave2
