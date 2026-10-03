@@ -64,6 +64,8 @@ const MOTORCYCLE_ANALYTICS_CSS = `
 @media(max-width:640px){.motorcycle-analytics-panel{padding:24px 0;border-left:0;border-right:0;border-radius:0;box-shadow:none}.motorcycle-analytics-heading{align-items:flex-start;flex-direction:column;gap:10px;padding:0 2px}.motorcycle-analytics-grid{grid-template-columns:1fr}.motorcycle-analytics-metric{padding:18px 14px}.motorcycle-analytics-metric>strong{font-size:23px}}
 `;
 
+const HIGH_DEMAND_COLOR_INTENT_IDS = new Set(["yamaha-aerox-v3", "honda-click-125i", "yamaha-nmax-v3"]);
+
 function HeroFact({ label, value, note }: { label: string; value: string; note?: string }) {
   return <div><span>{label}</span><strong>{value}</strong>{note && <small>{note}</small>}</div>;
 }
@@ -76,8 +78,6 @@ function AnalyticsMetric({ id, label, value, unit, note, fill, featured = false 
     <p>{note}</p>
   </article>;
 }
-
-const HIGH_DEMAND_COLOR_INTENT_IDS = new Set(["yamaha-aerox-v3", "honda-click-125i", "yamaha-nmax-v3"]);
 
 export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const isPrevious = model.marketStatus === "previous";
@@ -187,6 +187,9 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
     <section className="motorcycle-entity-hero" id="overview">
       <div className="shell">
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: model.make, href: `/motorcycles/${model.makeSlug}` }, { label: model.model }]} />
+        <div className="motorcycle-model-brandline" aria-label={`${model.make} model`}>
+          <span>{model.make}</span><small>{model.category}</small>
+        </div>
         <div className="motorcycle-hero-grid">
           <div className="motorcycle-hero-copy">
             <span className="entity-kicker">Philippines model guide · {model.generation} · {model.category}{isDiscontinued ? " · discontinued" : availabilityUncertain ? " · availability to verify" : ""}</span>
@@ -198,10 +201,11 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
               <small>{isHistorical ? "Historical context, not a current new-bike quote." : "Final dealer pricing can vary."}</small>
             </div>
             <CTAGroup className="entity-hero-actions">
-              {!isHistorical && !availabilityUncertain && <Link className="button" href={`/get-quote/${model.makeSlug}/${model.slug}`}>Get dealer price</Link>}
-              <a className={isHistorical ? "button" : "button ghost on-light"} href={isHistorical ? "#used" : "#installment"}>{isHistorical ? "Check used value" : "Estimate monthly"}</a>
+              <CompareButton modelId={model.id} />
+              <SaveToShortlistButton modelId={model.id} />
+              {!isHistorical && !availabilityUncertain && <Link className="button ghost on-light" href={`/get-quote/${model.makeSlug}/${model.slug}`}>Get dealer price</Link>}
             </CTAGroup>
-            <div className="entity-hero-utilities"><SaveToShortlistButton modelId={model.id} /><CompareButton modelId={model.id} /><ShareModelButton label="Share" /></div>
+            <div className="entity-hero-utilities"><a href={isHistorical ? "#used" : "#installment"}>{isHistorical ? "Check used value" : "Estimate monthly"}</a><ShareModelButton label="Share" /></div>
             <Freshness model={model} />
           </div>
           <div className="motorcycle-hero-visual">
@@ -219,16 +223,14 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
     <div className="shell motorcycle-entity-nav-wrap">
       <ProductEntityNav items={[
+        { href: "#overview-heading", label: "Overview" },
+        { href: "#specs", label: "Specs" },
         { href: "#price", label: "Price & variants" },
-        ...(highDemandColorIntent && allColors.length > 0 ? [{ href: "#colors", label: "Colors" }] : []),
+        ...(allColors.length > 0 ? [{ href: "#colors", label: "Colors" }] : []),
         ...(intentDepth ? [{ href: "#buyer-answers", label: "Buyer answers" }] : []),
-        { href: "#specs", label: "Key specs" },
-        ...(authority ? [{ href: "#buyer-guide", label: "Who it suits" }] : []),
-        ...(!isHistorical ? [{ href: "#installment", label: "Monthly" }] : []),
         { href: "#rider-fit", label: "Rider fit" },
         ...(!isHistorical ? [{ href: "#ownership", label: "Ownership" }] : []),
-        ...(!isHistorical ? [{ href: "#alternatives", label: "Alternatives" }] : []),
-        { href: "#detailed-research", label: "Detailed research" },
+        { href: "#faq", label: "FAQ" },
       ]} />
     </div>
 
@@ -243,7 +245,6 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           <AnalyticsMetric id="seat-height" label="Seat height" value={model.seatHeightMm.toLocaleString("en-PH")} unit="mm" note={`${model.curbWeightKg} kg curb weight · check fit in person`} fill={(model.seatHeightMm - 650) / 3} />
         </div>
       </section>
-      <CanonicalIntentDepth model={model} />
       {availabilityUncertain && <section className="entity-alert-card"><div><span>Availability needs verification</span><h2>Confirm current new-bike availability before relying on this price</h2><p>This model has Philippine price and specification references but is not treated as part of the current shopping catalog until present-day availability is confirmed.</p></div></section>}
       {isHistorical && successor && <section className="entity-alert-card"><div><span>{isDiscontinued ? "Discontinued model" : "Previous generation"}</span><h2>Looking for the current model?</h2><p>{model.model} stays live for owners and used-bike research. Current new-bike pricing belongs to {successor.make} {successor.model}.</p></div><Link className="button small" href={`/motorcycles/${successor.makeSlug}/${successor.slug}`}>View {successor.model} →</Link></section>}
 
@@ -256,14 +257,17 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <SectionHeader kicker="Price & variants" titleId="price-heading" title={<>{model.make} {model.model} price in the Philippines</>} description={isHistorical ? "Historical pricing is kept separate from used value." : "Start with the published price and exact variant, then confirm the current dealer quote before purchase."} />
         <div className="entity-price-grid motorcycle-price-grid"><article><span>{isHistorical ? "Historical price reference" : "Published price"}</span><strong>{observedMarketPriceLabel(model)}</strong><small>{isHistorical ? "Historical reference only." : "Confirm the current dealer quote before purchase."}</small></article><article><span>Model status</span><strong>{isDiscontinued ? "Discontinued" : isPrevious ? "Previous generation" : availabilityUncertain ? "Availability needs verification" : "Current model"}</strong><small>{model.generation} · {model.category}</small></article></div>
         {!isHistorical && <VariantMatrix model={model} />}
-        {highDemandColorIntent && allColors.length > 0 && <div id="colors" className="model-color-intent">
-          <SectionHeader kicker="Colors" title={`${model.make} ${model.model} colors in the Philippines`} description={`Current catalog coverage includes ${allColors.length} listed color ${allColors.length === 1 ? "option" : "options"}. Variant and dealer stock can differ, so match the color to the exact trim before reserving.`} />
-          <div className="entity-color-grid">{allColors.map((color) => <article key={color}><strong>{color}</strong></article>)}</div>
-          {verifiedVariants.length > 1 && <p className="entity-section-note">Colors can be trim-specific. Use the variant cards above to match the paint option with the correct SRP and equipment package.</p>}
-        </div>}
         {!isHistorical && <PriceIntelligence model={model} />}
         {!isHistorical && <MarketPriceChecks model={model} />}
       </section>
+
+      <CanonicalIntentDepth model={model} />
+
+      {highDemandColorIntent && allColors.length > 0 && <section id="colors" className="motorcycle-entity-section model-color-intent">
+        <SectionHeader kicker="Colors" title={`${model.make} ${model.model} colors in the Philippines`} description={`Current catalog coverage includes ${allColors.length} listed color ${allColors.length === 1 ? "option" : "options"}. Variant and dealer stock can differ, so match the color to the exact trim before reserving.`} />
+        <div className="entity-color-grid">{allColors.map((color) => <article key={color}><strong>{color}</strong></article>)}</div>
+        {verifiedVariants.length > 1 && <p className="entity-section-note">Colors can be trim-specific. Use the variant cards above to match the paint option with the correct SRP and equipment package.</p>}
+      </section>}
 
       <section className="motorcycle-entity-section global-spec-intent" aria-labelledby="quick-specs-heading">
         <SectionHeader kicker="Quick specs" titleId="quick-specs-heading" title={`${model.make} ${model.model} horsepower, weight, seat height and tire size`} description="These core motorcycle specifications are useful across markets. Philippine pricing is shown separately above so local SRP is not confused with globally applicable technical specifications." />
