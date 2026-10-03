@@ -102,8 +102,8 @@ const inspect = `(() => {
     searchDisplay:searchStyle.display,
     heroHeight:Math.round(heroRect.height),
     layoutWidth:Math.round(layoutRect.width),
-    featureWidth:Math.round(researchRect.width),
-    featureLeft:Math.round(researchRect.left),
+    researchWidth:Math.round(featureRect.width),
+    researchLeft:Math.round(featureRect.left),
     layoutLeft:Math.round(layoutRect.left),
     inputHeight:Math.round(inputRect.height),
     buttonHeight:Math.round(buttonRect.height)
