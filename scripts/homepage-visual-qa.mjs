@@ -3,6 +3,7 @@ import os from "node:os";
 import { spawn, spawnSync } from "node:child_process";
 
 const base = new URL(process.env.BASE_URL || "http://127.0.0.1:3000");
+// Marketplace homepage guard targets the active .mi-market-* redesign contract.
 
 function findChrome() {
   if (process.env.CHROME_BIN && fs.existsSync(process.env.CHROME_BIN)) return process.env.CHROME_BIN;
