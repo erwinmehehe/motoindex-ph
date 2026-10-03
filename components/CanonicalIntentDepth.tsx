@@ -11,6 +11,7 @@ import {
 import { SectionHeader } from "@/components/ui";
 import { hasColorIntentLandingPage } from "@/lib/modelColorLandingPages";
 import { hasTopSpeedLandingPage } from "@/lib/modelTopSpeedLandingPages";
+import { hasSpecsIntentLandingPage } from "@/lib/modelSpecsLandingPages";
 
 const labels: Record<CanonicalIntentKey, string> = {
   price: "Price",
@@ -26,7 +27,7 @@ export function CanonicalIntentDepth({ model }: { model: Motorcycle }) {
   if (!profile) return null;
 
   const growth = priorityModelGrowthProfile(model.id);
-  const visibleIntents = profile.intents.filter((intent) => !(intent === "colors" && hasColorIntentLandingPage(model.id)) && !(intent === "performance" && hasTopSpeedLandingPage(model.id)));
+  const visibleIntents = profile.intents.filter((intent) => !(intent === "colors" && hasColorIntentLandingPage(model.id)) && !(intent === "performance" && hasTopSpeedLandingPage(model.id)) && !(intent === "specs" && hasSpecsIntentLandingPage(model.id)));
   const alternatives = (growth?.alternativeIds || [])
     .map(getModelById)
     .filter((item): item is Motorcycle => Boolean(item && isIndexableModel(item)));
