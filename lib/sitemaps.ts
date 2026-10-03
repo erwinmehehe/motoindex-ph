@@ -13,6 +13,7 @@ import { topSpeedLandingProfiles } from "@/lib/modelTopSpeedLandingPages";
 import { fuelConsumptionLandingProfiles } from "@/lib/modelFuelConsumptionLandingPages";
 import { specsIntentLandingProfiles } from "@/lib/modelSpecsLandingPages";
 import { weightIntentLandingProfiles } from "@/lib/modelWeightLandingPages";
+import { seatHeightIntentLandingProfiles } from "@/lib/modelSeatHeightLandingPages";
 
 type Entry = { url: string; lastModified: string; changeFrequency?: "daily"|"weekly"|"monthly"|"yearly"; priority?: number };
 const iso = (value?: string) => value || RELEASE_DATE;
@@ -160,6 +161,15 @@ export function motorcycleSitemapEntries(): Entry[] {
       priority:profile.keywordVolume>=5000?.9:.88
     }]:[];
   });
+  const seatHeightPages=seatHeightIntentLandingProfiles.flatMap(profile=>{
+    const model=motorcycles.find(item=>item.id===profile.modelId);
+    return model&&isIndexableModel(model)&&model.seatHeightMm>0&&profile.keywordVolume>0?[{
+      url:`${SITE_URL}/motorcycles/${model.makeSlug}/${model.slug}/seat-height`,
+      lastModified:iso(modelCheckedAt(model)),
+      changeFrequency:"monthly" as const,
+      priority:profile.keywordVolume>=500?.87:.83
+    }]:[];
+  });
   // Electric models are consolidated into one authoritative buying guide rather than separate thin URLs.
   const scooterModels=indexableModels.filter(m=>/scooter/i.test(m.category)&&!["previous","uncertain","discontinued"].includes(m.marketStatus||""));
   const expresswayModels=indexableModels.filter(m=>m.engineCc>=400&&!["previous","uncertain","discontinued"].includes(m.marketStatus||""));
@@ -168,7 +178,7 @@ export function motorcycleSitemapEntries(): Entry[] {
     ...(expresswayModels.length>=3 ? [{url:`${SITE_URL}/motorcycles/expressway-legal`,lastModified:newest(expresswayModels.map(modelCheckedAt)),changeFrequency:"weekly" as const,priority:.9}] : [])
   ];
   const electricPages=[{url:`${SITE_URL}/motorcycles/electric`,lastModified:newest(electricMotorcycles.map(m=>m.checkedAt)),changeFrequency:"weekly" as const,priority:.9}];
-  return [...brands,...families,...categoryPages,...models,...installmentPages,...colorPages,...topSpeedPages,...fuelConsumptionPages,...specsPages,...weightPages,...electricPages];
+  return [...brands,...families,...categoryPages,...models,...installmentPages,...colorPages,...topSpeedPages,...fuelConsumptionPages,...specsPages,...weightPages,...seatHeightPages,...electricPages];
 }
 
 export function gearSitemapEntries(): Entry[] {
