@@ -2,7 +2,7 @@
 import { Children, useMemo, useState, type ReactNode } from "react";
 export type FilterRow = { id: string; title: string; category: string; brand?: string; price?: number; engine?: number };
 /** Children are rendered by the server. Filtering never removes their HTML. */
-export function FilterGrid({ rows, children, label, facets = false, pageSize = 12 }: { rows: FilterRow[]; children: ReactNode; label: string; facets?: boolean; pageSize?: number }) {
+export function FilterGrid({ rows, children, label, facets = false, pageSize = 12, paginateInitially = false }: { rows: FilterRow[]; children: ReactNode; label: string; facets?: boolean; pageSize?: number; paginateInitially?: boolean }) {
   const cards = Children.toArray(children);
   const [query, setQuery] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
@@ -10,7 +10,7 @@ export function FilterGrid({ rows, children, label, facets = false, pageSize = 1
   const [budget, setBudget] = useState("");
   const [engine, setEngine] = useState("");
   const [sort, setSort] = useState("");
-  const [limit, setLimit] = useState(rows.length);
+  const [limit, setLimit] = useState(paginateInitially ? pageSize : rows.length);
   const categoryOptions = [...new Set(rows.map(row => row.category))];
   const brands = [...new Set(rows.map(row => row.brand).filter(Boolean))].sort();
   const filtered = useMemo(() => rows.map((row, index) => ({ row, index })).filter(({ row }) => {
@@ -25,7 +25,7 @@ export function FilterGrid({ rows, children, label, facets = false, pageSize = 1
   }).sort((a,b) => sort === "price-asc" ? (a.row.price ?? Infinity) - (b.row.price ?? Infinity) : sort === "price-desc" ? (b.row.price ?? 0) - (a.row.price ?? 0) : sort === "name" ? a.row.title.localeCompare(b.row.title) : a.index - b.index), [rows, query, categories, brand, budget, engine, sort]);
   const visible = new Set(filtered.slice(0, limit).map(item => item.index));
   const positions = new Map(filtered.map((item, index) => [item.index, index]));
-  function reset() { setQuery(""); setCategories([]); setBrand(""); setBudget(""); setEngine(""); setSort(""); setLimit(rows.length); }
+  function reset() { setQuery(""); setCategories([]); setBrand(""); setBudget(""); setEngine(""); setSort(""); setLimit(paginateInitially ? pageSize : rows.length); }
   return <div className="wf-filter-grid">
     <div className="wf-controls"><label className="wf-search"><span className="sr-only">Search {label}</span><input type="search" placeholder={`Search ${label.toLowerCase()}...`} value={query} onChange={e => {setQuery(e.target.value); setLimit(pageSize);}} /></label>
       {facets && <><label><span className="sr-only">Brand</span><select value={brand} onChange={e=>{setBrand(e.target.value);setLimit(pageSize);}}><option value="">All brands</option>{brands.map(value=><option key={value}>{value}</option>)}</select></label><label><span className="sr-only">Maximum price</span><select value={budget} onChange={e=>{setBudget(e.target.value);setLimit(pageSize);}}><option value="">Any price</option>{[5000,10000,100000,150000,200000,400000].map(value=><option value={value} key={value}>Under ₱{value.toLocaleString("en-PH")}</option>)}</select></label>{rows.some(row=>row.engine) && <label><span className="sr-only">Engine displacement</span><select value={engine} onChange={e=>{setEngine(e.target.value);setLimit(pageSize);}}><option value="">All engine sizes</option><option value="small">Up to 160 cc</option><option value="medium">161–399 cc</option><option value="big">400 cc and above</option></select></label>}</>}

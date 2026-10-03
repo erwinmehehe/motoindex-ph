@@ -84,7 +84,7 @@ export default function HelmetsPage(){
       actions={<CTAGroup><Link className="button" href="/gear/helmets/finder">Find my helmet</Link><Link className="button secondary" href="/gear/helmets/compare">Compare exact helmets</Link></CTAGroup>}
     />
 
-    <FilterGrid label="Helmets" facets rows={verified.map(p=>({id:p.id,title:`${p.brand} ${p.model}`,category:p.helmetType,brand:p.brand,price:p.priceFromPhp}))}>{verified.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:p.helmetType,brand:p.brand,model:p.model,meta:compactHelmetMeta(p),status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</FilterGrid>
+    <FilterGrid label="Helmets" facets paginateInitially rows={verified.map(p=>({id:p.id,title:`${p.brand} ${p.model}`,category:p.helmetType,brand:p.brand,price:p.priceFromPhp}))}>{verified.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:p.helmetType,brand:p.brand,model:p.model,meta:compactHelmetMeta(p),status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</FilterGrid>
 
     <StatRow items={[
       {label:"Verified models",value:verified.length},
@@ -109,38 +109,38 @@ export default function HelmetsPage(){
 
     <section id="full-face" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Helmet type" title="Full-face motorcycle helmets" description="Fixed-chin-bar helmets for commuting, touring and sport riding. Compare fit, visor setup, ventilation, shell construction and certification on the exact model." aside={<Count value={fullFace.length}/>} />
-      <HelmetProductGrid products={fullFace} />
+      <details className="wf-helmet-catalog-details"><summary>Browse matching helmets</summary><HelmetProductGrid products={fullFace} /></details>
     </section>
 
     <section id="modular" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Helmet type" title="Modular and flip-up motorcycle helmets" description="Useful for riders who want a chin bar that can open at stops. Check P/J homologation where claimed, hinge operation, weight and intercom clearance." aside={<Count value={modular.length}/>} />
-      <HelmetProductGrid products={modular} />
+      <details className="wf-helmet-catalog-details"><summary>Browse matching helmets</summary><HelmetProductGrid products={modular} /></details>
     </section>
 
     <section id="open-face" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Helmet type" title="Open-face and half-face motorcycle helmets" description="City-focused choices with more airflow and facial openness. Compare visor coverage, sun visor, fit and local conformity marking before buying." aside={<Count value={openFace.length}/>} />
-      <HelmetProductGrid products={openFace} />
+      <details className="wf-helmet-catalog-details"><summary>Browse matching helmets</summary><HelmetProductGrid products={openFace} /></details>
     </section>
 
     <section id="under-3000" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Budget" title="Motorcycle helmets under ₱3,000" description="This is a price filter, not a safety ranking. Check the exact Philippine unit for PS or ICC marking, correct fit, secure retention and replacement-visor availability." aside={<Count value={under3000.length}/>} />
-      <HelmetProductGrid products={under3000} />
+      <details className="wf-helmet-catalog-details"><summary>Browse matching helmets</summary><HelmetProductGrid products={under3000} /></details>
     </section>
 
     <section id="under-5000" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Budget" title="Motorcycle helmets under ₱5,000" description="Use the wider budget to compare fit, ventilation, visor quality, removable liners and parts availability. A graphic or visor bundle can push a specific variant above the starting price shown." aside={<Count value={under5000.length}/>} />
-      <HelmetProductGrid products={under5000} />
+      <details className="wf-helmet-catalog-details"><summary>Browse matching helmets</summary><HelmetProductGrid products={under5000} /></details>
     </section>
 
     <section id="ece-22-06" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Certification" title="ECE 22.06 motorcycle helmets" description="These models explicitly reference ECE 22.06 or R22.06 in the checked product record. For Philippine use, also inspect the exact helmet for the applicable PS or ICC conformity marking." aside={<Count value={ece2206.length}/>} />
-      <HelmetProductGrid products={ece2206} />
+      <details className="wf-helmet-catalog-details"><summary>Browse matching helmets</summary><HelmetProductGrid products={ece2206} /></details>
       <p className="helmet-master-note"><Link href="/guides/motorcycle-helmet-certification-philippines">Read the Philippine helmet certification guide →</Link></p>
     </section>
 
     <section id="intercom-ready" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Communication" title="Intercom-ready motorcycle helmets" description="Speaker pockets or communication-system provision can make installation cleaner, but speaker depth, microphone routing and mount clearance still need to match your exact intercom." aside={<Count value={intercom.length}/>} />
-      <HelmetProductGrid products={intercom} />
+      <details className="wf-helmet-catalog-details"><summary>Browse matching helmets</summary><HelmetProductGrid products={intercom} /></details>
       <p className="helmet-master-note"><Link href="/accessories/intercoms">Read the motorcycle helmet intercom buying guide →</Link></p>
     </section>
 
@@ -152,7 +152,7 @@ export default function HelmetsPage(){
         <article className="ui-content-card"><h3>Daily intercom use</h3><p>Check speaker-pocket depth, microphone placement and glove-friendly controls.</p></article>
         <article className="ui-content-card"><h3>Daily fit check</h3><p>The helmet should stay stable without painful pressure points or starting loose.</p></article>
       </div>
-      <HelmetProductGrid products={commuting} />
+      <details className="wf-helmet-catalog-details"><summary>Browse matching helmets</summary><HelmetProductGrid products={commuting} /></details>
       <p className="helmet-master-note"><Link href="/accessories/rain-gear">Compare motorcycle rain gear for daily commuting →</Link></p>
     </section>
 

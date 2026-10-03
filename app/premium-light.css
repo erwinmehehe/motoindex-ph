@@ -84,16 +84,6 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
   color:#fff!important;
   border-radius:999px!important;
 }
-.nav-match{
-  position:relative!important;
-  overflow:hidden!important;
-  border:1px solid rgba(68,76,231,.92)!important;
-  border-radius:14px!important;
-  background:linear-gradient(135deg,var(--mi-color-primary) 0%,var(--mi-color-existing-palette-1) 58%,var(--mi-color-existing-palette-2) 100%);
-  color:#fff!important;
-  box-shadow:0 12px 28px rgba(68,76,231,.24)!important;
-}
-.nav-match:hover{transform:translateY(-2px)!important;box-shadow:0 18px 38px rgba(68,76,231,.30)!important}
 .nav-popover,.nav-popover-menu,.mobile-menu-panel{
   border:1px solid rgba(255,255,255,.78)!important;
   background:rgba(255,255,255,.92)!important;
@@ -236,27 +226,7 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
 .mi-popular a:hover{background:rgba(68,76,231,.07)!important;color:#3038bd!important}
 .mi-trust{color:#475569!important}
 .mi-trust span:before{color:#12B76A!important}
-.mi-bike-frame{
-  border:1px solid rgba(255,255,255,.84)!important;
-  border-radius:28px!important;
-  background:
-    radial-gradient(circle at 75% 10%,rgba(122,90,248,.13),transparent 34%),
-    radial-gradient(circle at 12% 90%,rgba(18,183,106,.09),transparent 34%),
-    linear-gradient(145deg,#ffffff 0%,#f7f8ff 100%)!important;
-  box-shadow:0 34px 88px rgba(68,76,231,.16),0 12px 34px rgba(15,23,42,.06)!important;
-}
 .mi-bike-media img{filter:drop-shadow(0 26px 28px rgba(31,41,55,.18))!important}
-.mi-float{
-  background:rgba(255,255,255,.76)!important;
-  color:#334155!important;
-  border:1px solid rgba(255,255,255,.80)!important;
-  box-shadow:0 18px 44px rgba(68,76,231,.14)!important;
-  backdrop-filter:blur(18px) saturate(150%)!important;
-  -webkit-backdrop-filter:blur(18px) saturate(150%)!important;
-}
-.mi-float small{color:#64748b!important}
-.mi-float b,.mi-float strong{color:#172033!important}
-.mi-specs{animation:ambient-float 7.2s ease-in-out infinite alternate}
 .mi-price{animation:ambient-float 6.4s ease-in-out .8s infinite alternate-reverse}
 
 .mi-brand-shelf,.mi-models,.mi-categories,.mi-gear{background:transparent!important;color:#0f172a!important}
@@ -340,12 +310,6 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
 .breadcrumbs a:hover{color:var(--mi-color-primary)}
 .section-kicker,.panel-label{color:var(--mi-color-primary)}
 .text-link,.info-card a,.checked-record-action a{color:var(--mi-color-primary)}
-.bike-art{
-  background:
-    radial-gradient(circle at 72% 16%,rgba(122,90,248,.10),transparent 30%),
-    radial-gradient(circle at 16% 84%,rgba(18,183,106,.07),transparent 32%),
-    linear-gradient(145deg,#fff,#f7f8ff)!important;
-}
 .status,.tire-pair b{
   border-radius:999px!important;
   background:rgba(68,76,231,.06)!important;
@@ -372,15 +336,7 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
 }
 .fitment-grid span,.fitment-grid small{color:#64748b!important}
 .fitment-grid strong{color:#172033!important}
-.dark-section{
-  background:
-    radial-gradient(circle at 15% 12%,rgba(68,76,231,.10),transparent 29%),
-    radial-gradient(circle at 85% 18%,rgba(122,90,248,.09),transparent 28%),
-    #f8fafc!important;
-  color:#0f172a!important;
-}
 .dark-section .section-head h2,.dark-section h2,.dark-section h3{color:#0f172a!important}
-.dark-section p{color:#64748b!important}
 .tool-grid>a{
   background:rgba(255,255,255,.72)!important;
   color:#0f172a!important;
@@ -431,19 +387,8 @@ input:focus,select:focus,textarea:focus{
   color:#0f172a!important;
   border-top:1px solid rgba(148,163,184,.14)!important;
 }
-.footer-intro{
-  border:1px solid rgba(255,255,255,.78)!important;
-  border-radius:26px!important;
-  background:rgba(255,255,255,.70)!important;
-  box-shadow:0 24px 64px rgba(68,76,231,.09)!important;
-  backdrop-filter:blur(18px)!important;
-}
-.footer-kicker{color:var(--mi-color-primary)}
 .footer h2,.footer strong,.footer .brand-word{color:#0f172a!important}
 .footer p,.footer small,.footer-grid p,.footer-note{color:#64748b!important}
-.footer-grid a{color:#475569!important}
-.footer-grid a:hover{color:var(--mi-color-primary)}
-.footer-note{border-color:rgba(148,163,184,.16)!important}
 
 /* Colored shadows, not grey-only depth. */
 .source-panel,.priority-model-brief,.author-profile-hero,.author-profile-links{
@@ -468,14 +413,11 @@ input:focus,select:focus,textarea:focus{
 
 @media(max-width:900px){
   .site-header{backdrop-filter:blur(18px) saturate(140%)!important;-webkit-backdrop-filter:blur(18px) saturate(140%)!important}
-  .footer-intro{border-radius:22px!important}
 }
 
 @media(max-width:600px){
   .mi-hero{background:radial-gradient(circle at 50% 0%,rgba(68,76,231,.12),transparent 35%),linear-gradient(180deg,#fff,#f8fafc)!important}
-  .mi-bike-frame{border-radius:22px!important}
   .mi-category-card,.mi-brand-grid>a{border-radius:16px!important}
-  .footer-intro{border-radius:18px!important}
 }
 
 @media(prefers-reduced-motion:reduce){

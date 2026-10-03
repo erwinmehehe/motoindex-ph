@@ -398,7 +398,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   padding:30px 0}
 .ph-brand-hero .ui-page-hero{padding:18px 0}
 .ph-brand-hero h1,.motorcycle-hero-copy h1,.motorcycle-index-hero h1,.helmet-hub-page h1{color:var(--mi-color-wireframe-ink);
-  font-size:clamp(30px,3.5vw,44px);
+  font-size:clamp(34px,3.5vw,44px);
   line-height:1.15;
   letter-spacing:-.035em}
 .ph-brand-hero p,.motorcycle-index-hero p,.motorcycle-hero-copy .entity-lede{color:var(--mi-color-wireframe-copy);
@@ -682,3 +682,6 @@ body{background:var(--mi-color-surface)}
 
 .wf-home-bike { position:relative; }
 @media(max-width:640px) { .mi-home .mi-search { flex-direction:column; } .mi-home .mi-search input { min-height:44px; } .mi-home .mi-search button { width:100%; } }
+
+.wf-helmet-catalog-details { margin-top:16px; }
+.wf-helmet-catalog-details summary { cursor:pointer; color:var(--mi-color-primary); font-weight:650; padding:12px 0; }

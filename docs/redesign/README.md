@@ -22,7 +22,7 @@ Shared components are in `components/wireframe/`. Reuses existing Tailwind v4 in
 - Existing routes, redirects, robots rules, segmented sitemaps, source data, indexability gates and canonical helpers are unchanged.
 - Existing page metadata and static-generation contracts are retained.
 - Original Product, Article, Breadcrumb and other supplied schema nodes remain; brand hubs additionally identify their Brand.
-- Brand and guide grids show the original complete sets initially. Optional display pagination follows a user action.
+- Brand and guide grids show the original complete sets initially. Optional display pagination follows a user action. The helmet browser initially displays 12 cards; topic-specific product rails use native expandable disclosures. The full catalog remains in server-authored HTML and Load more reveals additional results.
 - The motorcycle explorer exposes remaining model links/basic facts in a native server-rendered disclosure.
 - The semantic price table renders every row initially; JavaScript enhances display pagination. Printing reveals all filtered rows and repeats the table header. Select Save as PDF in the browser print dialog.
 - No additional `/price-list` route is introduced: `/motorcycles` owns this search intent.
@@ -36,5 +36,7 @@ Run `node scripts/validate-redesign-preservation.mjs`; optionally set `SEO_BASE_
 `validation-report.json` records initial-HTML comparisons for 10 representative URLs against a clean baseline: existing headings/paragraphs/list/specification text, main-content links, metadata and JSON-LD. Browser layout checks cover 8 views at 1440, 768 and 390 pixels. Brand search/category, price search/sort/pagination and comparison removal/clear were exercised without page JavaScript errors.
 
 This is a review branch, not a production deployment. Rendered comparisons cover representative pages rather than every generated model URL. SEO/data source guards cover the repository separately. Field Core Web Vitals and Search Console need post-deployment monitoring; ranking stability is not guaranteed.
+
+Release follow-up: unused legacy rules in `globals.css` and `premium-light.css` were removed after auditing their class names against runtime templates. Tailwind scans runtime source directories. The compiled CSS is 458.4 KB, below the unchanged 460 KB budget. Editorial QA checks displayed helmet cards so pagination can preserve server-authored catalog HTML. Mobile hero headings retain a 34 px minimum.
 
 Gear saves use optional device-local storage separate from the existing motorcycle shortlist. No authentication, prices or seller integrations change.
