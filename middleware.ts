@@ -77,7 +77,7 @@ export function middleware(request: NextRequest) {
   if (focusedIntentFallback) {
     const url = request.nextUrl.clone();
     url.pathname = focusedIntentFallback.pathname;
-    url.hash = focusedIntentFallback.hash;
+    url.hash = focusedIntentFallback.hash ?? "";
     return NextResponse.redirect(url, 308);
   }
   if (process.env.NODE_ENV === "production" && isPrototypePath(pathname)) return deny("Not found.", 404);
