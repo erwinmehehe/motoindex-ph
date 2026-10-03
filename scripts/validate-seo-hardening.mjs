@@ -32,6 +32,7 @@ const maintenanceData = read("lib", "maintenance.ts");
 const modelEntity = read("components", "MotorcycleEntityPage.tsx");
 const maintenanceHub = read("app", "maintenance", "page.tsx");
 const nextConfig = read("next.config.mjs");
+const middlewareSource = read("middleware.ts");
 const catalogData = read("lib", "catalog.ts");
 const topBoxFitmentData = read("lib", "topBoxFitment.ts");
 const modelFamilies = read("lib", "families.ts");
@@ -118,7 +119,8 @@ requireText(sitemaps, "lastModified:iso(p.lastChecked)", "Product sitemap entrie
 forbidText(sitemaps, "`/motorcycles/${make}/scooters`", "Redirect-only brand scooter aliases must stay out of sitemaps.");
 forbidText(sitemaps, "`/motorcycles/${m.makeSlug}/${m.slug}/price`", "Consolidated model price aliases must stay out of sitemaps.");
 requireText(nextConfig, '{ source: "/motorcycles/:make/:slug/price", destination: "/motorcycles/:make/:slug#price", permanent: true }', "Legacy motorcycle price routes must keep a permanent canonical redirect.");
-requireText(nextConfig, '{ source: "/motorcycles/:make/:slug/specifications", destination: "/motorcycles/:make/:slug#specs", permanent: true }', "Legacy motorcycle specification routes must keep a permanent canonical redirect.");
+requireText(middlewareSource, 'requestedIntent === "specifications" ? "specs"', "Legacy motorcycle specification routes must normalize through middleware.");
+requireText(middlewareSource, "hasSpecsIntentLandingPage(modelId)", "Legacy motorcycle specification routes must resolve dedicated specs pages only for whitelisted models.");
 requireText(nextConfig, '{ source: "/motorcycles/:make/:slug/maintenance", destination: "/motorcycles/:make/:slug#maintenance", permanent: true }', "Legacy motorcycle maintenance routes must keep a permanent canonical redirect.");
 
 requireText(articleSchema, "datePublished?: string;", "Article schema must accept a real page-level publication date.");
