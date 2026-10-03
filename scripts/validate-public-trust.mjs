@@ -205,14 +205,18 @@ for (const [source, anchor] of configRedirects) {
   }
 }
 
-for (const [path, profileToken, anchor] of [
-  ["app/motorcycles/[make]/[slug]/colors/page.tsx", "colorIntentLandingProfile", "#colors"],
-  ["app/motorcycles/[make]/[slug]/installment/page.tsx", "installmentLandingProfile", "#installment"]
+for (const [path, profileToken] of [
+  ["app/motorcycles/[make]/[slug]/colors/page.tsx", "colorIntentLandingProfile"],
+  ["app/motorcycles/[make]/[slug]/installment/page.tsx", "installmentLandingProfile"]
 ]) {
   const text = read(path);
-  if (!text.includes(profileToken) || !text.includes("permanentRedirect(") || !text.includes(anchor)) {
-    failures.push(`${path}: focused intent page must render whitelisted demand-backed routes and permanently redirect unsupported models to ${anchor}`);
+  if (!text.includes(profileToken) || !text.includes("isIndexableModel(model)")) {
+    failures.push(`${path}: focused intent page must remain gated by the demand-backed profile and indexable model status`);
   }
+}
+const middlewareSource = read("middleware.ts");
+for (const token of ["hasColorIntentLandingPage", "hasInstallmentLandingPage", "focusedModelIntentFallback", 'hash: `#${intent}`']) {
+  if (!middlewareSource.includes(token)) failures.push(`middleware.ts: focused model intent fallback is missing ${token}`);
 }
 
 const consolidatedRouteFiles = [
