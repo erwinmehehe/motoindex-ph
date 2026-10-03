@@ -64,9 +64,9 @@ function ComparisonLink({ slug, summary }: { slug: string; summary: string }) {
   if(!data)return null;
   const brief=getComparisonEditorialBrief(slug);
   const category=data.a.category===data.b.category?data.a.category:"Buyer comparison";
-  return <Link className={"compare-card"} href={`/compare/${slug}`}>
-    <div className={"compare-card-top"}><span>{category}</span><b>Compare →</b></div>
-    <div className={"compare-pair"}>
+  return <Link className="compare-card" href={`/compare/${slug}`}>
+    <div className="compare-card-top"><span>{category}</span><b>Compare →</b></div>
+    <div className="compare-pair">
       <div><small>{data.a.make}</small><strong>{data.a.model}</strong></div>
       <em>VS</em>
       <div><small>{data.b.make}</small><strong>{data.b.model}</strong></div>
@@ -77,37 +77,37 @@ function ComparisonLink({ slug, summary }: { slug: string; summary: string }) {
 }
 
 export default function CompareIndex(){
-  return <section className={"compare-page"} data-compare-index>
+  return <section className="compare-page" data-compare-index><style>{COMPARE_MOCKUP_CSS}</style>
     <PageHero
-      className={"compare-hero"}
+      className="compare-hero"
       kicker={`${siteStats.currentMotorcycles} current models`}
       title="Compare motorcycles side by side"
       description="Compare price, engine, dimensions, braking and everyday fit across current Philippine-market motorcycles."
     />
 
-    {previewModels.length>=2&&<section className={"compare-preview"} aria-labelledby="compare-preview-title">
-      <div className={"compare-preview"Head}>
+    {previewModels.length>=2&&<section className="compare-preview" aria-labelledby="compare-preview-title">
+      <div className="compare-preview-head">
         <div><span>Popular side-by-side</span><h2 id="compare-preview-title">Compare key specifications at a glance</h2></div>
         <Link href="/compare/selection?bikes=nmax-v3,adv-160,burgman-street">Open comparison →</Link>
       </div>
       <DetailedMotorcycleCompare models={forClient(previewModels)} />
     </section>}
 
-    <section className={"compare-builder-section"}>
+    <section className="compare-builder-section">
       <SectionHeader kicker="Build your own" title="Choose two or three motorcycles" description="Use the full current catalog to create a comparison around the bikes already on your shortlist." />
-      <div className={"compare-workspace"}>
+      <div className="compare-workspace">
       {compareModels.length>=2?<Suspense fallback={<div className="note-box"><h2>Loading comparison builder</h2><p>Preparing the current motorcycle list.</p></div>}><CompareBuilder models={forClient(compareModels)}/></Suspense>:<div className="note-box"><h2>Not enough current models</h2><p>At least two current motorcycle records are needed to build a comparison.</p></div>}
       </div>
     </section>
 
-    {featuredComparisons.length>0&&<section className={"compare-popular"}>
+    {featuredComparisons.length>0&&<section className="compare-popular">
       <SectionHeader
         kicker="Popular comparisons"
         title="Start with common motorcycle matchups"
         description="Open a ready-made comparison or build your own above."
       />
-      <div className={"compare-popular"List}>{featuredComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div>
-      {remainingComparisons.length>0&&<details className={"compare-more"}><summary>View all comparisons ({publicComparisons.length})</summary><div className={"compare-popular"List}>{remainingComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div></details>}
+      <div className="compare-popular-list">{featuredComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div>
+      {remainingComparisons.length>0&&<details className="compare-more"><summary>View all comparisons ({publicComparisons.length})</summary><div className="compare-popular-list">{remainingComparisons.map(c=><ComparisonLink key={c.slug} slug={c.slug} summary={c.summary}/>)}</div></details>}
     </section>}
 
     <DecisionPath stage="compare" />
