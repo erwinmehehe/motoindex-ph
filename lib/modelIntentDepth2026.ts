@@ -6,6 +6,10 @@ import { performanceAnswerFor } from "./modelPerformance";
 import { php } from "./utils";
 import { wave3ModelIntentDepthProfile } from "./modelIntentDepthWave3_2026";
 import { wave4ModelIntentDepthProfile } from "./modelIntentDepthWave4_2026";
+import { wave5ModelIntentDepthProfile } from "./modelIntentDepthWave5_2026";
+import { wave6ModelIntentDepthProfile } from "./modelIntentDepthWave6_2026";
+import { wave7ModelIntentDepthProfile } from "./modelIntentDepthWave7_2026";
+import { wave8ModelIntentDepthProfile } from "./modelIntentDepthWave8_2026";
 import { hasSpecsIntentLandingPage } from "./modelSpecsLandingPages";
 import { hasColorIntentLandingPage } from "./modelColorLandingPages";
 
@@ -142,7 +146,7 @@ const profiles: Record<string, ModelIntentDepthProfile> = {
 };
 
 export function modelIntentDepthProfile(modelId: string) {
-  return profiles[modelId] || wave3ModelIntentDepthProfile(modelId) || wave4ModelIntentDepthProfile(modelId);
+  return profiles[modelId] || wave3ModelIntentDepthProfile(modelId) || wave4ModelIntentDepthProfile(modelId) || wave5ModelIntentDepthProfile(modelId) || wave6ModelIntentDepthProfile(modelId) || wave7ModelIntentDepthProfile(modelId) || wave8ModelIntentDepthProfile(modelId);
 }
 
 function priceAnswer(model: Motorcycle) {
