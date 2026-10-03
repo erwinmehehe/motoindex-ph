@@ -61,7 +61,7 @@ requireText(sitemap,'installmentLandingProfiles.flatMap',"Motorcycle sitemap mus
 requireText(sitemap,'/installment',"Motorcycle sitemap must expose installment URLs.");
 requireText(llms,'Focused model installment guides',"LLM full index must expose the installment guide section.");
 requireText(llms,'For models with a dedicated installment page',"LLM retrieval rules must route finance questions to the focused page.");
-requireText(llms,'whitelisted /motorcycles/<make>/<model>/installment, /colors, /top-speed and /fuel-consumption pages',"LLM canonical policy must name installment pages.");
+requireText(llms,'whitelisted /motorcycles/<make>/<model>/installment, /colors, /top-speed, /fuel-consumption and /specs pages',"LLM canonical policy must name installment pages.");
 
 for(const slug of ["price","variants"]){
   const candidate=path.join(root,"app","motorcycles","[make]","[slug]",slug,"page.tsx");
