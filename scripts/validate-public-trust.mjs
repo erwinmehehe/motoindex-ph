@@ -190,8 +190,6 @@ const nextConfig = read("next.config.mjs");
 const configRedirects = [
   ["/motorcycles/:make/:slug/price", "#price"],
   ["/motorcycles/:make/:slug/specifications", "#specs"],
-  ["/motorcycles/:make/:slug/colors", "#colors"],
-  ["/motorcycles/:make/:slug/installment", "#installment"],
   ["/motorcycles/:make/:slug/rider-fit", "#rider-fit"],
   ["/motorcycles/:make/:slug/fuel-economy", "#fuel"],
   ["/motorcycles/:make/:slug/ownership-cost", "#ownership"],
@@ -204,6 +202,18 @@ const configRedirects = [
 for (const [source, anchor] of configRedirects) {
   if (!nextConfig.includes(`source: "${source}"`) || !nextConfig.includes(anchor)) {
     failures.push(`next.config.mjs: missing permanent redirect for ${source} to ${anchor}`);
+  }
+}
+
+for (const splitRoute of [
+  "app/motorcycles/[make]/[slug]/colors/page.tsx",
+  "app/motorcycles/[make]/[slug]/installment/page.tsx",
+  "app/motorcycles/[make]/[slug]/seat-height/page.tsx",
+  "app/motorcycles/[make]/[slug]/weight/page.tsx"
+]) {
+  const source = read(splitRoute);
+  if (!source.includes("permanentRedirect(")) {
+    failures.push(`${splitRoute}: whitelisted intent route must permanently fall back to the canonical model section when no profile exists`);
   }
 }
 
