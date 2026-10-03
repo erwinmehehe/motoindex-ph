@@ -70,7 +70,7 @@ requireText(sitemap,'/fuel-consumption',"Motorcycle sitemap must expose fuel-con
 requireText(sitemap,'profile.keywordVolume>=500?.87:.83',"Fuel sitemap priority must use stored search demand.");
 requireText(llms,'Focused model fuel-consumption guides',"LLM full index must expose fuel-consumption pages.");
 requireText(llms,'For models with a dedicated fuel-consumption page',"LLM retrieval guidance must route fuel queries to focused pages.");
-requireText(llms,'/fuel-consumption pages are canonical resources',"LLM canonical policy must name fuel-consumption pages.");
+requireText(llms,'/fuel-consumption and /specs pages are canonical resources',"LLM canonical policy must name fuel-consumption pages.");
 
 requireText(
   data,
@@ -78,7 +78,7 @@ requireText(
   "TMX125 Alpha fuel page must use the Honda Philippines efficiency source."
 );
 
-for(const slug of ["price","specs","variants"]){
+for(const slug of ["price","variants"]){
   const candidate=path.join(root,"app","motorcycles","[make]","[slug]",slug,"page.tsx");
   if(fs.existsSync(candidate))errors.push(`Do not mass-split unsupported model intent pages yet: /${slug}`);
 }
