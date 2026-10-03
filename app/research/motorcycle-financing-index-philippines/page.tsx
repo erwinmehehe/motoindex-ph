@@ -4,8 +4,9 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { AuthorBox } from "@/components/AuthorBox";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
-import { latestResearchCheck, median, researchFinancingRows } from "@/lib/researchData";
+import { latestResearchCheck, median, researchDealerFinancingRows, researchFinancingRows } from "@/lib/researchData";
 import { php } from "@/lib/utils";
+import { DataTable, SectionHeader } from "@/components/ui";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Downpayment & Monthly Philippines 2026",
@@ -19,6 +20,11 @@ export default function MotorcycleFinancingIndexPage() {
   const medianMonthly = Math.round(median(monthlyValues));
   const checkedAt = latestResearchCheck();
   const lowest = rows[0];
+  const dealerRows = researchDealerFinancingRows();
+  const publishedDealerFinancing = dealerRows.filter(({ observation }) => observation.downPaymentPhp && observation.monthlyPhp);
+  const medianDealerDownPct = publishedDealerFinancing.length
+    ? median(publishedDealerFinancing.map(({ observation }) => (observation.downPaymentPhp! / observation.srpPhp) * 100))
+    : 0;
   const path = "/research/motorcycle-financing-index-philippines";
   const dataset = {
     "@context": "https://schema.org",
@@ -50,6 +56,35 @@ export default function MotorcycleFinancingIndexPage() {
     <section className="section split" aria-labelledby="financing-index-method">
       <div><span className="section-kicker">One formula, every model</span><h2 id="financing-index-method">Why standardize the financing assumptions?</h2><p>Dealer advertisements can use different down payments, terms, fees and rate methods. Holding the assumptions constant makes purchase prices easier to compare without pretending these are real dealer offers.</p>{lowest && <p>Under this scenario, the lowest monthly estimate in the current dataset is about <strong>{php(Math.round(lowest.scenario.monthlyPhp))}</strong> for the {lowest.model.make} {lowest.model.model}, before insurance, registration, processing fees or lender-specific charges.</p>}</div>
       <div className="info-card"><h3>Important limitations</h3><ul className="checklist"><li>Planning estimate only, not a lender quotation</li><li>Uses an amortizing-loan formula</li><li>Does not include insurance or processing fees</li><li>Dealer add-on interest can produce a different payment</li><li>Approval and final rates depend on the lender and borrower</li></ul></div>
+    </section>
+
+    <section className="section" aria-labelledby="dealer-financing-snapshots">
+      <SectionHeader
+        kicker="Observed dealer cards"
+        title="Current dealer financing snapshots kept separate from the model"
+        titleId="dealer-financing-snapshots"
+        description="These are dated amounts published by the cited dealer pages. MotoIndex does not infer missing down payments, monthly payments, terms or rate methods."
+      />
+      <div className="entity-price-grid">
+        <article><span>Dealer observations</span><strong>{dealerRows.length}</strong><small>Dated price or financing cards</small></article>
+        <article><span>With down + monthly</span><strong>{publishedDealerFinancing.length}</strong><small>Rows where both amounts were published</small></article>
+        <article><span>Median published down</span><strong>{publishedDealerFinancing.length?`${medianDealerDownPct.toFixed(1)}%`:"—"}</strong><small>Share of the listed SRP, not a universal requirement</small></article>
+        <article><span>Latest dealer check</span><strong>{dealerRows.map(({observation})=>observation.checkedAt).sort().at(-1)||"—"}</strong><small>Newest represented observation</small></article>
+      </div>
+      <DataTable label="Observed Philippine dealer motorcycle financing snapshots">
+        <div className="head" role="row"><span>Motorcycle / listing</span><span>Listed SRP</span><span>Down payment</span><span>Monthly</span><span>Checked</span></div>
+        {dealerRows.map(({ model, observation }) => <div role="row" key={`${observation.modelId}-${observation.label}`}>
+          <span><Link href={`/motorcycles/${model.makeSlug}/${model.slug}`}><strong>{model.make} {model.model}</strong></Link><small>{observation.label} · <a href={observation.sourceUrl} target="_blank" rel="noreferrer">{observation.sourceName}</a></small></span>
+          <span>{php(observation.srpPhp)}</span>
+          <span>{observation.downPaymentPhp?php(observation.downPaymentPhp):"Not published"}</span>
+          <span>{observation.monthlyPhp?`${php(observation.monthlyPhp)}/mo`:"Not published"}</span>
+          <span>{observation.checkedAt}</span>
+        </div>)}
+      </DataTable>
+      <div className="note-box">
+        <h3>Do not compare dealer monthly amounts as if the loan assumptions are identical</h3>
+        <p>The surfaced dealer cards do not consistently publish the same term, rate method, fees or financed principal. Use this table as evidence of what was advertised on the checked date, then use the standardized index below for like-for-like planning.</p>
+      </div>
     </section>
 
     <section className="section" aria-labelledby="financing-index-table">
