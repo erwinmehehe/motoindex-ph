@@ -10,10 +10,52 @@ const catalogFiles = [
   "lib/phBrandExpansion2026.ts",
   "lib/phCoverageExpansion2026.ts",
   "lib/globalDemandExpansion2026.ts",
-  "lib/kawasakiBigBikeExpansion2026.ts"
+  "lib/kawasakiBigBikeExpansion2026.ts",
+  "lib/motortradeGapExpansion2026.ts",
+  "lib/zigwheelsGapExpansion2026.ts",
+  "lib/zigwheelsGapWave2_2026.ts",
+  "lib/zigwheelsGapWave3_2026.ts",
+  "lib/zigwheelsGapWave4_2026.ts",
+  "lib/zigwheelsGapWave6_2026.ts"
 ];
 
 const knownBacklog = new Set([
+  "yamaha-mio-soul-i-125",
+  "honda-genio",
+  "yamaha-aerox-v1",
+  "honda-dio",
+  "yamaha-nmax-v1",
+  "yamaha-mio-sporty",
+  "yamaha-yzf-r15-v3",
+  "yamaha-sniper-150",
+  "kawasaki-ninja-zx-6r",
+  "suzuki-hayabusa",
+  "honda-xr150l",
+  "yamaha-mt-03",
+  "yamaha-mt-09",
+  "honda-rs150r",
+  "honda-scoopy",
+  "honda-cbr500r",
+  "suzuki-gsx-r150",
+  "suzuki-gsx-s150",
+  "suzuki-skydrive-crossover",
+  "yamaha-xtz-125",
+  "honda-zoomer-x",
+  "yamaha-sight",
+  "yamaha-sz",
+  "vespa-s-125",
+  "benelli-panarea-125",
+  "honda-pcx150",
+  "yamaha-tricity",
+  "honda-wave125-alpha",
+  "italjet-dragster-200",
+  "benelli-motobi-200-evo",
+  "honda-cb150r",
+  "suzuki-smash-carb",
+  "honda-rs125-final-edition",
+  "kawasaki-z900-se",
+  "keeway-superlight-200",
+  "tvs-ntorq-125"
 ]);
 
 function read(relativePath) {
