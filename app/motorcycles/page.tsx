@@ -23,6 +23,12 @@ const publicModels = motorcycles.filter(isIndexableModel);
 const publicIds = new Set(publicModels.map((m) => m.id));
 const publicFamilies = modelFamilies.filter((f) => f.generationIds.length > 0 && f.generationIds.every((id) => publicIds.has(id)));
 const currentModels = currentPublicMotorcycles;
+const MOTORCYCLE_BRAND_LOGOS = new Set([
+  "aprilia", "bajaj", "benelli", "bmw-motorrad", "bristol", "cfmoto", "ducati",
+  "honda", "husqvarna", "kawasaki", "keeway", "ktm", "kymco", "royal-enfield",
+  "rusi", "suzuki", "triumph", "vespa", "yamaha", "zontes"
+]);
+
 const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;
 
 export const dynamic = "force-static";
