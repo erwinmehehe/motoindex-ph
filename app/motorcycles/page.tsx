@@ -23,33 +23,39 @@ const publicModels = motorcycles.filter(isIndexableModel);
 const publicIds = new Set(publicModels.map((m) => m.id));
 const publicFamilies = modelFamilies.filter((f) => f.generationIds.length > 0 && f.generationIds.every((id) => publicIds.has(id)));
 const currentModels = currentPublicMotorcycles;
-const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;
 const MOTORCYCLE_BRAND_LOGOS = new Set([
   "aprilia", "bajaj", "benelli", "bmw-motorrad", "bristol", "cfmoto", "ducati",
   "honda", "husqvarna", "kawasaki", "keeway", "ktm", "kymco", "royal-enfield",
   "rusi", "suzuki", "triumph", "vespa", "yamaha", "zontes"
 ]);
 
-function hasCatalogFilters(params: Record<string, string | string[] | undefined>) {
-  return CATALOG_FILTER_PARAMS.some((key) => {
-    const value = params[key];
-    return Array.isArray(value) ? value.some(Boolean) : Boolean(value);
-  });
-}
+const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;
 
-export async function generateMetadata({
-  searchParams
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}): Promise<Metadata> {
-  const params = await searchParams;
-  const hasActiveFilters = hasCatalogFilters(params);
-  return pageMetadata({
-    title: "Motorcycle Price List Philippines 2026 | MotoIndex",
-    description: "Compare current motorcycle prices in the Philippines by brand, category, engine size and budget, with checked specs, model research and ownership tools.",
-    path: "/motorcycles",
-    index: currentModels.length > 0 && !hasActiveFilters
-  });
+export const dynamic = "force-static";
+export const revalidate = false;
+
+export const metadata: Metadata = pageMetadata({
+  title: "Motorcycle Price List Philippines 2026 | MotoIndex",
+  description: "Compare current motorcycle prices in the Philippines by brand, category, engine size and budget, with checked specs, model research and ownership tools.",
+  path: "/motorcycles",
+  index: currentModels.length > 0
+});
+
+function FilteredCatalogRobots() {
+  const filterParams = JSON.stringify(CATALOG_FILTER_PARAMS);
+  const script = `(() => {
+    const params = new URLSearchParams(window.location.search);
+    const filtered = ${filterParams}.some((key) => params.getAll(key).some((value) => value.trim().length > 0));
+    if (!filtered) return;
+    let robots = document.head.querySelector('meta[name="robots"]');
+    if (!robots) {
+      robots = document.createElement("meta");
+      robots.setAttribute("name", "robots");
+      document.head.appendChild(robots);
+    }
+    robots.setAttribute("content", "noindex,follow");
+  })();`;
+  return <script id="catalog-filter-robots" dangerouslySetInnerHTML={{ __html: script }} />;
 }
 
 export default function MotorcyclesPage() {
@@ -69,7 +75,7 @@ export default function MotorcyclesPage() {
   }).sort((a,b) => b.count - a.count || a.name.localeCompare(b.name));
   const recentModels = currentModels.map(({ id, make, model, makeSlug, slug }) => ({ id, make, model, makeSlug, slug }));
 
-  return <section className={`${styles.page} motorcycles-index-v300`}>
+  return <><FilteredCatalogRobots/><section className={`${styles.page} motorcycles-index-v300`}>
     <div className="motorcycle-index-hero">
       <div className="shell">
         <div className={`motorcycle-index-hero-grid ${styles.heroGrid}`}>
@@ -168,5 +174,5 @@ export default function MotorcyclesPage() {
         </section>
       </>}
     </div>
-  </section>;
+  </section></>;
 }
