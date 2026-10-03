@@ -137,10 +137,10 @@ export default async function ModelFuelConsumptionPage({ params }: { params: Pro
         description="MotoIndex keeps the published figure, its test context and the real-world caveat together instead of presenting one km/L number as a universal result."
       />
       <div className="info-card">
-        <h3>{model.sourceLabel}</h3>
+        <h3>{profile.sourceLabel}</h3>
         <p>{evidenceContext}</p>
-        <a className="text-link" href={model.sourceUrl} target="_blank" rel="noreferrer">Open model source →</a>
-        <small>Model evidence checked {model.verifiedAt}</small>
+        <a className="text-link" href={profile.sourceUrl} target="_blank" rel="noreferrer">Open model source →</a>
+        <small>Fuel-economy evidence checked {profile.checkedAt}</small>
       </div>
     </section>
 
