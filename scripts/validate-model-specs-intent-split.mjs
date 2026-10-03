@@ -70,7 +70,7 @@ requireText(sitemap,'profile.keywordVolume>=1000?.88:.84',"Specs sitemap priorit
 
 requireText(llms,'Focused model specification guides',"LLM full index must expose specs pages.");
 requireText(llms,'For models with a dedicated specs page',"LLM retrieval guidance must route technical queries to specs pages.");
-requireText(llms,'/fuel-consumption and /specs pages are canonical resources',"LLM canonical policy must name specs pages.");
+requireText(llms,'installment, /colors, /top-speed, /fuel-consumption, /specs and /weight pages are canonical resources',"LLM canonical policy must name specs pages.");
 
 for(const slug of ["price","variants"]){
   const candidate=path.join(root,"app","motorcycles","[make]","[slug]",slug,"page.tsx");
