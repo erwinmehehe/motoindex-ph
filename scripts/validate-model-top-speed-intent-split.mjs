@@ -24,9 +24,8 @@ const expected=[
   ["kawasaki-z1000-r-edition","z1000 top speed",900,"Kawasaki Z1000 Top Speed Philippines | 237 km/h Evidence","Kawasaki Z1000 top speed guide with a 237 km/h Cycle World test result, mph conversion, model-generation context, gearing notes and stock-bike caveats."],
   ["ktm-790-duke","duke 790 top speed",900,"KTM 790 Duke Top Speed Philippines | 225 km/h Test Evidence","KTM 790 Duke top speed guide with an independent test around 225 km/h, mph conversion, model-generation context, gearing notes and test-condition caveats."],
   ["aprilia-rs-660","rs660 top speed",700,"Aprilia RS 660 Top Speed Philippines | 240 km/h Evidence","Aprilia RS 660 top speed guide with independent evidence around 240 km/h, mph conversion, model-year context, limiter caveats and real-world test notes."],
-  ["yamaha-yzf-r7","yamaha r7 top speed",700,"Yamaha R7 Top Speed Philippines | 224 km/h Test Evidence","Yamaha YZF-R7 top speed guide with independent testing around 224 km/h, mph conversion, rider/tuck caveats, gearing context and real-world performance notes.",
-  ["bmw-m-1000-rr","bmw m1000rr top speed",700,"BMW M 1000 RR Top Speed Philippines | Official 314 km/h","BMW M 1000 RR top speed Philippines guide with BMW\'s official 314 km/h figure, 218 hp context, model-year evidence, aerodynamic notes and safety caveats."]
-]
+  ["yamaha-yzf-r7","yamaha r7 top speed",700,"Yamaha R7 Top Speed Philippines | 224 km/h Test Evidence","Yamaha YZF-R7 top speed guide with independent testing around 224 km/h, mph conversion, rider/tuck caveats, gearing context and real-world performance notes."],
+  ["bmw-m-1000-rr","bmw m1000rr top speed",700,"BMW M 1000 RR Top Speed Philippines | Official 314 km/h","BMW M 1000 RR top speed Philippines guide with BMW's official 314 km/h figure, 218 hp context, model-year evidence, aerodynamic notes and safety caveats."]
 ];
 
 for(const [id,keyword,volume,title,description] of expected){
