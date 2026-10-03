@@ -9,6 +9,7 @@ import {
   type CanonicalIntentKey,
 } from "@/lib/modelIntentDepth2026";
 import { SectionHeader } from "@/components/ui";
+import { hasColorIntentLandingPage } from "@/lib/modelColorLandingPages";
 
 const labels: Record<CanonicalIntentKey, string> = {
   price: "Price",
@@ -24,6 +25,7 @@ export function CanonicalIntentDepth({ model }: { model: Motorcycle }) {
   if (!profile) return null;
 
   const growth = priorityModelGrowthProfile(model.id);
+  const visibleIntents = profile.intents.filter((intent) => !(intent === "colors" && hasColorIntentLandingPage(model.id)));
   const alternatives = (growth?.alternativeIds || [])
     .map(getModelById)
     .filter((item): item is Motorcycle => Boolean(item && isIndexableModel(item)));
@@ -39,7 +41,7 @@ export function CanonicalIntentDepth({ model }: { model: Motorcycle }) {
       description={profile.intro}
     />
     <div className="motorcycle-editorial-grid canonical-intent-grid" role="list">
-      {profile.intents.map((intent) => <article key={intent} role="listitem">
+      {visibleIntents.map((intent) => <article key={intent} role="listitem">
         <span>{labels[intent]}</span>
         <h3>{canonicalIntentQuestion(model, intent)}</h3>
         <p>{canonicalIntentAnswer(model, intent)}</p>
