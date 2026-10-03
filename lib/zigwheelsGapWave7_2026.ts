@@ -72,7 +72,7 @@ export const zigwheelsGapWave7_2026: Motorcycle[] = [
     marketPriceSourceLabel: "Secondary Philippine MT-15 price reference",
     marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/mt-15/price",
     marketPriceCheckedAt: verifiedAt,
-    priceContext: "Philippine comparison listings show the MT-15 at ₱180,000. Yamaha Philippines' official dealer-locator pages currently surface MT-15 search tags, but MotoIndex did not locate a current model-level Yamaha Philippines product listing or equally clear authorized-dealer product page during the October 3, 2026 verification pass. This page remains an availability-to-verify research reference and is not indexable as a confirmed current model.",
+    priceContext: "Philippine comparison listings show the MT-15 at ₱180,000. Yamaha Philippines' official dealer-locator pages currently surface MT-15 search tags, but MotoIndex did not locate a current model-level Yamaha Philippines product listing or equally clear authorized-dealer product page during the October 3, 2026 verification pass. This page remains an availability-to-verify research reference and is indexed for demand-backed research, not presented as confirmed current inventory.",
     transmission: "Manual",
     summary: "155cc MT-15 research reference with 19 hp, 14.7 Nm, six-speed transmission and an 810 mm seat; current official Yamaha Philippines model-level availability remains unverified."
   },
