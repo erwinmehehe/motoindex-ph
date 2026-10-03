@@ -159,3 +159,55 @@ h1, h2, h3, h4, h5, h6, .brand-word {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
+
+/* Reference redesign palette, centralized for shared surfaces. */
+:root {
+  --mi-color-primary: #2563eb;
+  --mi-color-primary-hover: #1d4ed8;
+  --mi-color-primary-soft: #eff6ff;
+  --mi-color-wireframe-3: #f8faff;
+  --mi-color-wireframe-4: #2563eb22;
+  --mi-color-wireframe-6: #e2eaf6;
+  --mi-color-wireframe-7: #16316305;
+  --mi-color-wireframe-ink: #101d49;
+  --mi-color-wireframe-9: #2563eb14;
+  --mi-color-wireframe-10: #d5e2f8;
+  --mi-color-wireframe-hero: #edf5ff;
+  --mi-color-wireframe-12: #e4efff;
+  --mi-color-wireframe-13: #e6efff;
+  --mi-color-wireframe-14: #cfe0ff;
+  --mi-color-wireframe-copy: #52617a;
+  --mi-color-wireframe-16: #b7cdf8;
+  --mi-color-wireframe-17: #2563eb0c;
+  --mi-color-wireframe-19: #16316308;
+  --mi-color-wireframe-20: #d9e6f8;
+  --mi-color-wireframe-21: #ffffffed;
+  --mi-color-wireframe-22: #16316306;
+  --mi-color-wireframe-line: #dce7f8;
+  --mi-color-wireframe-24: #16316304;
+  --mi-color-wireframe-25: #6366f1;
+  --mi-color-wireframe-26: #16316303;
+  --mi-color-wireframe-27: #edf4ff;
+  --mi-color-wireframe-29: #2563eb16;
+  --mi-color-wireframe-30: #f1f6ff;
+  --mi-color-wireframe-31: #e8eef8;
+  --mi-color-wireframe-32: #ffffffef;
+  --mi-color-wireframe-33: #1631630b;
+  --mi-color-wireframe-34: #edf2fa;
+  --mi-color-wireframe-35: #101828;
+  --mi-color-canvas: var(--mi-color-wireframe-3);
+  --mi-color-product-link: var(--mi-color-primary);
+  --mi-shadow-focus: 0 0 0 4px var(--mi-color-wireframe-4);
+}
+
+/* Existing palette values retained while retiring conflicting legacy priority rules. */
+:root {
+  --mi-color-existing-palette-1: #6457e9;
+  --mi-color-existing-palette-2: #7A5AF8;
+  --mi-color-existing-palette-3: #5d55e7;
+  --mi-color-existing-palette-4: #3039bf;
+  --mi-color-existing-palette-5: rgba(68,76,231,.08);
+  --mi-color-existing-palette-6: #98a2b3;
+  --mi-color-existing-palette-7: #101828;
+  --mi-color-existing-palette-8: #667085;
+}

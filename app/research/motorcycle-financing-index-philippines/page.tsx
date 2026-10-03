@@ -1,3 +1,4 @@
+import { isCompetitorSource } from "@/lib/competitors";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -74,7 +75,7 @@ export default function MotorcycleFinancingIndexPage() {
       <DataTable label="Observed Philippine dealer motorcycle financing snapshots">
         <div className="head" role="row"><span>Motorcycle / listing</span><span>Listed SRP</span><span>Down payment</span><span>Monthly</span><span>Checked</span></div>
         {dealerRows.map(({ model, observation }) => <div role="row" key={`${observation.modelId}-${observation.label}`}>
-          <span><Link href={`/motorcycles/${model.makeSlug}/${model.slug}`}><strong>{model.make} {model.model}</strong></Link><small>{observation.label} · <a href={observation.sourceUrl} target="_blank" rel="noreferrer">{observation.sourceName}</a></small></span>
+          <span><Link href={`/motorcycles/${model.makeSlug}/${model.slug}`}><strong>{model.make} {model.model}</strong></Link><small>{observation.label} · <a href={observation.sourceUrl} target="_blank" rel={isCompetitorSource(observation.sourceUrl) ? "nofollow noreferrer" : "noreferrer"}>{observation.sourceName}</a></small></span>
           <span>{php(observation.srpPhp)}</span>
           <span>{observation.downPaymentPhp?php(observation.downPaymentPhp):"Not published"}</span>
           <span>{observation.monthlyPhp?`${php(observation.monthlyPhp)}/mo`:"Not published"}</span>

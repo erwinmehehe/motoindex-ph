@@ -217,7 +217,7 @@ try {
     const maxColumns = width === 390 ? 1 : Infinity;
     await auditProductGrid("/motorcycles", "motorcycles", ".motorcycle-catalog-grid", width, minColumns, maxColumns);
     for (const brand of ["honda", "yamaha", "kawasaki", "vespa"]) {
-      await auditProductGrid(`/motorcycles/${brand}`, `${brand}-brand`, ".ph-brand-model-grid", width, minColumns, maxColumns);
+      await auditProductGrid(`/motorcycles/${brand}`, `${brand}-brand`, ".ph-brand-models-section .wf-catalog", width, minColumns, maxColumns);
     }
   }
 
@@ -236,6 +236,7 @@ try {
       const valueRect=value?.getBoundingClientRect();
       const noteRect=note?.getBoundingClientRect();
       return {
+        hasNote:Boolean(note),
         labelDisplay:label?getComputedStyle(label).display:'',
         valueDisplay:value?getComputedStyle(value).display:'',
         noteDisplay:note?getComputedStyle(note).display:'',
@@ -381,8 +382,8 @@ try {
   if (!modelAudit?.media || modelAudit.mediaHeight > 340) failures.push(`Desktop model media stage is still too tall at ${modelAudit?.mediaHeight || 0}px.`);
   if (!modelAudit?.facts || !/rgb\(255, 255, 255\)/.test(modelAudit.factsBg || "")) failures.push(`Model facts surface is not white (${modelAudit?.factsBg || "missing"}).`);
   for (const [index, cell] of (modelAudit?.factFlow || []).entries()) {
-    if (cell.labelDisplay !== "block" || cell.valueDisplay !== "block" || cell.noteDisplay !== "block") failures.push(`Desktop model fact ${index + 1} is not vertically stacked.`);
-    if ((cell.labelBottom || 0) > (cell.valueTop || 0) + 1 || (cell.valueBottom || 0) > (cell.noteTop || 0) + 1) failures.push(`Desktop model fact ${index + 1} text overlaps vertically.`);
+    if (cell.labelDisplay !== "block" || cell.valueDisplay !== "block" || (cell.hasNote && cell.noteDisplay !== "block")) failures.push(`Desktop model fact ${index + 1} is not vertically stacked.`);
+    if ((cell.labelBottom || 0) > (cell.valueTop || 0) + 1 || (cell.hasNote && (cell.valueBottom || 0) > (cell.noteTop || 0) + 1)) failures.push(`Desktop model fact ${index + 1} text overlaps vertically.`);
     if ((cell.scrollWidth || 0) > (cell.cellWidth || 0) + 2) failures.push(`Desktop model fact ${index + 1} overflows its cell.`);
   }
   if (!modelAudit?.priceText || modelAudit.priceDisplay !== "block" || modelAudit.priceWhiteSpace !== "nowrap" || (modelAudit.priceScrollWidth || 0) > (modelAudit.priceWidth || 0) + 2) failures.push(`Desktop model hero price is not locked to one line (display=${modelAudit?.priceDisplay || "missing"}, white-space=${modelAudit?.priceWhiteSpace || "missing"}, width=${modelAudit?.priceWidth || 0}, scroll=${modelAudit?.priceScrollWidth || 0}).`);

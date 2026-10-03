@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ModelGallery } from "@/components/wireframe/ModelGallery";
 import type { CSSProperties } from "react";
 import type { Motorcycle } from "@/lib/types";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -208,8 +209,12 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           </div>
           <div className="motorcycle-hero-visual">
             <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" priority showCredit={false} sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} className="authority-media-fallback" />} />
+            <ModelGallery assets={getRenderableMedia("motorcycle",model.id).map(({src,alt,width,height})=>({src,alt,width,height}))} colors={allColors} />
             <div className="motorcycle-hero-facts">
               <HeroFact label="Engine" value={`${model.engineCc} cc`} note={`${model.powerHp} hp · ${model.torqueNm} Nm`} />
+              <HeroFact label="Power" value={`${model.powerHp} hp`} />
+              <HeroFact label="Torque" value={`${model.torqueNm} Nm`} />
+              <HeroFact label="Brakes" value={model.abs} />
               <HeroFact label="Seat" value={`${model.seatHeightMm} mm`} note={`${model.curbWeightKg} kg curb weight`} />
               <HeroFact label="Transmission" value={model.transmission || "Not listed"} note={model.category} />
               <HeroFact label="Fuel" value={`${model.fuelTankL} L tank`} note={`${efficiency.kmPerL} km/L ${efficiency.status === "listed" ? "listed" : "planning estimate"}`} />
@@ -221,6 +226,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
     <div className="shell motorcycle-entity-nav-wrap">
       <ProductEntityNav items={[
+        { href: "#overview", label: "Overview" },
         { href: "#price", label: "Price & variants" },
         ...(colorLanding && allColors.length > 0 ? [{ href: "#colors", label: "Colors" }] : []),
         ...(intentDepth ? [{ href: "#buyer-answers", label: "Buyer answers" }] : []),
@@ -252,7 +258,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section className="motorcycle-entity-section entity-overview-section" aria-labelledby="overview-heading">
         <SectionHeader kicker="Decision summary" titleId="overview-heading" title={<>Is the {model.make} {model.model} worth shortlisting?</>} description="Start with who it suits and the important trade-offs. The deeper evidence stays lower on the page." />
-        <div className="motorcycle-editorial-grid"><article className="editorial-best"><span>Best fit for</span><h3>{editorial.bestFor}</h3><p>{model.summary}</p></article><article><span>Pros</span><ul>{editorial.strengths.map((item) => <li key={item}>{item}</li>)}</ul></article><article><span>Trade-offs</span><ul>{editorial.watchOuts.map((item) => <li key={item}>{item}</li>)}</ul></article></div>
+        <div className="wf-overview-layout"><div className="motorcycle-editorial-grid"><article className="editorial-best"><span>Best fit for</span><h3>{editorial.bestFor}</h3><p>{model.summary}</p></article><article><span>Pros</span><ul>{editorial.strengths.map((item) => <li key={item}>{item}</li>)}</ul></article><article><span>Trade-offs</span><ul>{editorial.watchOuts.map((item) => <li key={item}>{item}</li>)}</ul></article></div><aside className="wf-model-quick-facts" aria-label={`${model.make} ${model.model} quick facts`}><h3>Quick facts</h3><dl>{[["Category",model.category],["Engine",`${model.engineCc} cc`],["Power",`${model.powerHp} hp`],["Torque",`${model.torqueNm} Nm`],["Transmission",model.transmission || "Not listed"],["Brakes",model.abs],["Seat height",`${model.seatHeightMm} mm`],["Curb weight",`${model.curbWeightKg} kg`],["Fuel tank",`${model.fuelTankL} L`]].map(([label,value])=><div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl></aside></div>
       </section>
 
       <section id="price" className="motorcycle-entity-section" aria-labelledby="price-heading">

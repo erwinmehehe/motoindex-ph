@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
+import postcss from "postcss";
 
 const root=process.cwd();
 const sharedCss=new Set([
@@ -136,6 +137,33 @@ if(!diff.trim() && styleFiles.length===0){
   process.exit(0);
 }
 
+// Compare declarations rather than minified lines: deleting an unused rule
+// must not classify its unchanged neighbors as newly introduced design debt.
+const declarationDebt = new Map();
+function addedDeclarationDebt(file) {
+  if (declarationDebt.has(file)) return declarationDebt.get(file);
+  const key = (node) => {
+    const context = [];
+    for (let parent = node.parent; parent && parent.type !== "root"; parent = parent.parent) {
+      context.unshift(parent.type === "rule" ? parent.selector : `@${parent.name} ${parent.params}`);
+    }
+    return `${context.join("|")}|${node.prop}|${node.value}|${Boolean(node.important)}`;
+  };
+  const existing = new Map();
+  postcss.parse(sourceAt(base, file)).walkDecls(node => {
+    const id = key(node); existing.set(id, (existing.get(id) || 0) + 1);
+  });
+  const debt = { rawColor: new Set(), important: new Set() };
+  postcss.parse(fs.readFileSync(path.join(root, file), "utf8")).walkDecls(node => {
+    const id = key(node);
+    if (existing.get(id)) { existing.set(id, existing.get(id) - 1); return; }
+    if (rawColor.test(node.value)) debt.rawColor.add(node.source.start.line);
+    if (node.important) debt.important.add(node.source.start.line);
+  });
+  declarationDebt.set(file, debt);
+  return debt;
+}
+
 const errors=[];
 let currentPath="";
 let newLine=0;
@@ -151,10 +179,10 @@ for(const raw of diff.split(/\r?\n/)){
     const isTokens=currentPath==="app/styles/tokens.css";
     const isRoute=!sharedCss.has(currentPath);
 
-    if(rawColor.test(line) && !isTokens){
+    if(rawColor.test(line) && !isTokens && addedDeclarationDebt(currentPath).rawColor.has(newLine)){
       errors.push(`${currentPath}:${newLine}: raw color added outside tokens.css -> ${line.trim()}`);
     }
-    if(line.includes("!important")){
+    if(line.includes("!important") && addedDeclarationDebt(currentPath).important.has(newLine)){
       const approved=isTokens && allowedImportantInTokens.some(value=>line.includes(value));
       if(!approved) errors.push(`${currentPath}:${newLine}: new !important is not allowed -> ${line.trim()}`);
     }

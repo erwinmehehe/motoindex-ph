@@ -1,0 +1,247 @@
+{
+  "routes": [
+    {
+      "route": "/",
+      "status": [
+        200,
+        200
+      ],
+      "title": true,
+      "missingText": [],
+      "missingLinks": [],
+      "missingMeta": [],
+      "missingSchema": 0
+    },
+    {
+      "route": "/motorcycles",
+      "status": [
+        200,
+        200
+      ],
+      "title": true,
+      "missingText": [],
+      "missingLinks": [],
+      "missingMeta": [],
+      "missingSchema": 0
+    },
+    {
+      "route": "/motorcycles/yamaha",
+      "status": [
+        200,
+        200
+      ],
+      "title": true,
+      "missingText": [],
+      "missingLinks": [],
+      "missingMeta": [],
+      "missingSchema": 0
+    },
+    {
+      "route": "/motorcycles/yamaha/nmax-v3",
+      "status": [
+        200,
+        200
+      ],
+      "title": true,
+      "missingText": [],
+      "missingLinks": [],
+      "missingMeta": [],
+      "missingSchema": 0
+    },
+    {
+      "route": "/motorcycles/scooters",
+      "status": [
+        200,
+        200
+      ],
+      "title": true,
+      "missingText": [],
+      "missingLinks": [],
+      "missingMeta": [],
+      "missingSchema": 0
+    },
+    {
+      "route": "/gear/helmets",
+      "status": [
+        200,
+        200
+      ],
+      "title": true,
+      "missingText": [],
+      "missingLinks": [],
+      "missingMeta": [],
+      "missingSchema": 0
+    },
+    {
+      "route": "/guides",
+      "status": [
+        200,
+        200
+      ],
+      "title": true,
+      "missingText": [],
+      "missingLinks": [],
+      "missingMeta": [],
+      "missingSchema": 0
+    },
+    {
+      "route": "/guides/motorcycle-helmet-size-guide",
+      "status": [
+        200,
+        200
+      ],
+      "title": true,
+      "missingText": [],
+      "missingLinks": [],
+      "missingMeta": [],
+      "missingSchema": 0
+    },
+    {
+      "route": "/compare",
+      "status": [
+        200,
+        200
+      ],
+      "title": true,
+      "missingText": [],
+      "missingLinks": [],
+      "missingMeta": [],
+      "missingSchema": 0
+    },
+    {
+      "route": "/compare/selection?bikes=nmax-v3,adv-160,aerox-v3",
+      "status": [
+        200,
+        200
+      ],
+      "title": true,
+      "missingText": [],
+      "missingLinks": [],
+      "missingMeta": [],
+      "missingSchema": 0
+    }
+  ],
+  "browser": [
+    {
+      "route": "/",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/motorcycles/yamaha",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/motorcycles/yamaha/nmax-v3",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/motorcycles/scooters",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/gear/helmets",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/guides",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/motorcycles",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/compare/selection?bikes=nmax-v3,adv-160,aerox-v3",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/motorcycles/yamaha",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/motorcycles/yamaha/nmax-v3",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/motorcycles/scooters",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/gear/helmets",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/guides",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/motorcycles",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/compare/selection?bikes=nmax-v3,adv-160,aerox-v3",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/motorcycles/yamaha",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/motorcycles/yamaha/nmax-v3",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/motorcycles/scooters",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/gear/helmets",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/guides",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/motorcycles",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/compare/selection?bikes=nmax-v3,adv-160,aerox-v3",
+      "width": 390,
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

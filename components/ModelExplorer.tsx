@@ -131,6 +131,7 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
   },[models,q,make,category,budget,sort,maxPrice]);
 
   const visible = filtered.slice(0,visibleCount);
+  const remaining = filtered.slice(visibleCount);
   const hasMore = visible.length < filtered.length;
   const dirty = Boolean(q || make!=="all" || category!=="all" || budget!=="all" || sort!=="recommended" || maxPrice<catalogMax);
   function reset(){setQ("");setMake("all");setCategory("all");setBudget("all");setSort("recommended");setMaxPrice(catalogMax);setVisibleCount(pageSize);}
@@ -153,7 +154,7 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
       <aside className="model-explorer-rail">{filterPanel}</aside>
       <div className="model-explorer-results">
         <div className="result-meta" aria-live="polite"><div><span><b>{filtered.length}</b> motorcycles</span><small>{dirty ? "Filtered to your current shopping criteria" : `Showing ${visible.length} of ${filtered.length} current motorcycles`}</small></div>{dirty&&<button type="button" className="text-button" onClick={reset}>Clear all</button>}</div>
-        {filtered.length ? <><div className="card-grid motorcycle-catalog-grid" style={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(auto-fit, minmax(min(240px, 100%), 1fr))", gap: 14 }}>{visible.map(m=><MotorcycleCard key={m.id} model={m} variant="standard"/>)}</div>{hasMore&&<div className="catalog-load-more"><button type="button" onClick={()=>setVisibleCount((count)=>Math.min(count+pageSize,filtered.length))}>Show {Math.min(pageSize,filtered.length-visible.length)} more motorcycles</button><small>{visible.length} of {filtered.length} shown</small></div>}</> : <div className="empty-state large"><strong>No motorcycles match every filter.</strong><span>Try a higher price ceiling, another body type or clear the brand filter.</span><button type="button" className="button small" onClick={reset}>Reset filters</button></div>}
+        {filtered.length ? <><div className="card-grid motorcycle-catalog-grid" style={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(auto-fit, minmax(min(240px, 100%), 1fr))", gap: 14 }}>{visible.map(m=><MotorcycleCard key={m.id} model={m} variant="standard"/>)}</div>{remaining.length>0 && <details className="wf-server-catalog"><summary>Browse all remaining motorcycle models</summary><ul>{remaining.map(model=><li key={model.id}><a href={`/motorcycles/${model.makeSlug}/${model.slug}`}>{model.make} {model.model}</a> · {peso(observedMarketRange(model).from)} · {model.engineCc} cc · {model.transmission}</li>)}</ul></details>}{hasMore&&<div className="catalog-load-more"><button type="button" onClick={()=>setVisibleCount((count)=>Math.min(count+pageSize,filtered.length))}>Show {Math.min(pageSize,filtered.length-visible.length)} more motorcycles</button><small>{visible.length} of {filtered.length} shown</small></div>}</> : <div className="empty-state large"><strong>No motorcycles match every filter.</strong><span>Try a higher price ceiling, another body type or clear the brand filter.</span><button type="button" className="button small" onClick={reset}>Reset filters</button></div>}
       </div>
     </div>
   </div>;

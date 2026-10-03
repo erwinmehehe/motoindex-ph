@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import { FilterGrid } from "@/components/wireframe/FilterGrid";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
@@ -152,6 +154,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   }
 
   const schema = [
+    { "@context": "https://schema.org", "@type": "Brand", name: brand, url: absoluteUrl(`/motorcycles/${make}`) },
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
@@ -185,7 +188,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       <div className="shell">
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
         <PageHero
-          kicker="Philippines · Price list · Models · Specs"
+          kicker={<><Image src={`/brand/motorcycle/${make}.svg`} alt={`${brand} logo`} width={180} height={58} unoptimized className="wf-brand-logo" />Philippines · Price list · Models · Specs</>}
           title={brandGrowth?.heroTitle || `${brand} Motorcycle Philippines Price List`}
           description={brandGrowth?.heroDescription || `Compare the current ${brand} motorcycle Philippines price list by model, published price, engine size, seat height and transmission. Open any motorcycle for detailed specs, financing estimates, fitment, maintenance and alternatives.`}
           actions={<><CTAGroup><Link className="button" href="#price-list">View {brand} price list</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link></CTAGroup></>}
@@ -216,7 +219,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
       <section id="models" className={`ph-brand-section ph-brand-models-section${current.length <= 2 ? " is-sparse" : ""}`}>
         <SectionHeader kicker="Current motorcycles" title={`Compare ${brand} motorcycle models in the Philippines`} description={current.length <= 2 ? `Compare the ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} by price and key specifications.` : `Compare ${current.length} current ${brand} motorcycle models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`} />
-        <div className="card-grid ph-brand-model-grid" style={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: 14 }}>{current.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div>
+        <FilterGrid label="Motorcycles" facets rows={current.map(m=>({id:m.id,title:`${m.make} ${m.model}`,category:m.category,brand:m.make,price:observedMarketRange(m).from,engine:m.engineCc}))}>{current.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</FilterGrid>
       </section>
 
       {bigBikes.length > 0 && brandGrowth?.bigBikeTitle && brandGrowth.bigBikeDescription ? <section id="big-bikes" className="ph-brand-section">

@@ -63,6 +63,7 @@ export function Header() {
         </details>}
         {hasComparisons && <Link href="/compare">Compare</Link>}
         {hasModels && <Link href="/finder">Finder</Link>}
+        <Link href="/motorcycles#price-table">Price list</Link>
         <details className="nav-more nav-gear"><summary>Helmets & gear <span>⌄</span></summary><div className="nav-popover">{gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</div></details>
         <Link href="/tools">Tools</Link>
         <details className="nav-more nav-guides">

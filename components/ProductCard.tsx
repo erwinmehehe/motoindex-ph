@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { GearSave } from "@/components/wireframe/GearSave";
 import { EntityMedia } from "@/components/EntityMedia";
 import { EntityVerificationFallback } from "@/components/EntityVerificationFallback";
 import { AffiliateOffer } from "@/components/AffiliateOffer";
@@ -40,5 +41,5 @@ export function ProductCard({ item }: { item: ProductCardItem }) {
     </div>
   </Link>;
   if (!item.entityId) return card;
-  return <article className="product-card-shell ui-product-card-shell">{card}<AffiliateOffer productId={item.entityId} productName={productName} compact /></article>;
+  return <article className="product-card-shell ui-product-card-shell">{card}{entityType === "helmet" && <GearSave id={item.entityId} name={productName}/>}<AffiliateOffer productId={item.entityId} productName={productName} compact /></article>;
 }

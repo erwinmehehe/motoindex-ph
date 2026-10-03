@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { FilterGrid } from "@/components/wireframe/FilterGrid";
+import { MotorcycleCard } from "@/components/MotorcycleCard";
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -124,7 +126,8 @@ export default function ScootersPage() {
           titleId="scooter-market-snapshot"
           description="Calculated from current indexable scooter records and observed starting prices. Historical and unverified models are excluded."
         />
-        <StatRow items={[
+        <FilterGrid label="Scooters" facets rows={scooters.map(m=>({id:m.id,title:`${m.make} ${m.model}`,category:m.category,brand:m.make,price:observedMarketRange(m).from,engine:m.engineCc}))}>{scooters.map(m=><MotorcycleCard key={m.id} model={m}/>)}</FilterGrid>
+    <StatRow items={[
           { label: "Current scooters", value: scooters.length, note: "Current indexable models" },
           { label: "Brands", value: marketBrandCount(scooters), note: "Brands represented" },
           { label: "Median starting price", value: medianPrice ? php(medianPrice) : "Updating", note: "Median observed entry price" },
