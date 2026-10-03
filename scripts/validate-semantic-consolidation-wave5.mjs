@@ -52,14 +52,9 @@ for(const slug of ["best-off-road","off-road-motorcycles-philippines","trail-mot
 }
 
 for(const [slug,label] of [["honda","Honda"],["yamaha","Yamaha"],["kawasaki","Kawasaki"]]){
-  for(const token of [
-    `bigBikeTitle: "${label} big bikes in the Philippines"`,
-    'bigBikeMinCc: 400'
-  ]){
-    const blockStart=brandGrowth.indexOf(`  ${slug}: {`);
-    const blockNext=brandGrowth.indexOf("\n  ",blockStart+5);
-    const block=brandGrowth.slice(blockStart,blockNext>blockStart?blockNext:brandGrowth.length);
-    if(!block.includes(token))errors.push(`${label} brand big-bike authority missing token: ${token}`);
+  const profilePattern=new RegExp(`\\b${slug}: \\{[\\s\\S]{0,2200}?bigBikeMinCc: 400[\\s\\S]{0,2200}?bigBikeTitle: "${label} big bikes in the Philippines"`);
+  if(!profilePattern.test(brandGrowth)){
+    errors.push(`${label} brand big-bike authority profile is incomplete or no longer consolidated on the brand hub.`);
   }
 }
 
