@@ -12,6 +12,7 @@ export type TopSpeedLandingProfile = {
   sourceLabel: string;
   sourceUrl: string;
   checkedAt: string;
+  manufacturerPublished?: boolean;
 };
 
 export const topSpeedLandingProfiles: TopSpeedLandingProfile[] = [
@@ -34,15 +35,15 @@ export const topSpeedLandingProfiles: TopSpeedLandingProfile[] = [
     modelId: "suzuki-hayabusa",
     keyword: "hayabusa top speed",
     keywordVolume: 4000,
-    title: "Suzuki Hayabusa Top Speed Philippines | 299 km/h Evidence",
-    description: "Suzuki Hayabusa top speed guide with the 299 km/h electronic limit, independent test evidence, generation context and why real-world maximum speed varies.",
-    heading: "Suzuki Hayabusa top speed and the 299 km/h limit",
-    observedTopSpeedKph: 299,
-    evidenceLabel: "Independent test / electronic limit",
-    answer: "Motorcycle News lists 186 mph, about 299 km/h, for the third-generation Hayabusa. That aligns with the long-standing electronically limited maximum associated with modern Hayabusa generations.",
-    caution: "The current Suzuki product page emphasizes power and electronics rather than promising a public-road maximum speed. Conditions, tire specification, rider position and limiter behavior matter.",
-    sourceLabel: "Motorcycle News 2021+ Hayabusa review",
-    sourceUrl: "https://www.motorcyclenews.com/suzuki/hayabusa/",
+    title: "Suzuki Hayabusa Top Speed Philippines | 300 km/h Evidence",
+    description: "Suzuki Hayabusa top speed Philippines guide with the current-generation 300 km/h electronic limit, road-test context, generation history and speed caveats.",
+    heading: "Suzuki Hayabusa top speed and the 300 km/h limit",
+    observedTopSpeedKph: 300,
+    evidenceLabel: "Independent current-generation road test",
+    answer: "Rider Magazine's third-generation Hayabusa road test states that street-legal production motorcycles including the Hayabusa are electronically limited to 186 mph, about 300 km/h. MotoIndex uses that as current-generation road-test context, not a public-road target.",
+    caution: "Earlier unrestricted Hayabusa generations have recorded higher test speeds, including Cycle World's historical 194 mph result. Do not transfer an older unrestricted result to the current electronically limited Philippine model.",
+    sourceLabel: "Rider Magazine 2022 Suzuki Hayabusa road test",
+    sourceUrl: "https://ridermagazine.com/2022-suzuki-hayabusa-road-test-review/",
     checkedAt: "2026-10-03"
   },
   {
@@ -166,6 +167,23 @@ export const topSpeedLandingProfiles: TopSpeedLandingProfile[] = [
     checkedAt: "2026-10-03"
   }
 ];
+
+  {
+    modelId: "bmw-m-1000-rr",
+    keyword: "bmw m1000rr top speed",
+    keywordVolume: 700,
+    title: "BMW M 1000 RR Top Speed Philippines | Official 314 km/h",
+    description: "BMW M 1000 RR top speed Philippines guide with BMW's official 314 km/h figure, 218 hp context, model-year evidence, aerodynamic notes and safety caveats.",
+    heading: "BMW M 1000 RR top speed: official 314 km/h figure",
+    observedTopSpeedKph: 314,
+    evidenceLabel: "Manufacturer-published top speed",
+    answer: "BMW publishes a 314 km/h top speed for the current M 1000 RR and states that the aerodynamic update increased maximum speed from 306 to 314 km/h. This is manufacturer-published performance data rather than an inferred road-test number.",
+    caution: "BMW's 314 km/h figure is a technical maximum for the homologated motorcycle, not a recommendation for public-road riding. Configuration, tires, conditions and legal speed limits still matter.",
+    sourceLabel: "BMW M current M 1000 RR technical overview",
+    sourceUrl: "https://www.bmw-m.com/en/topics/magazine-article-pool/die-m-modelle-von-bmw-motorrad.html",
+    checkedAt: "2026-10-03",
+    manufacturerPublished: true
+  },
 
 const byId = new Map(topSpeedLandingProfiles.map((profile) => [profile.modelId, profile]));
 
