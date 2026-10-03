@@ -191,7 +191,7 @@ export default async function ModelSeatHeightPage({ params }: { params: Promise<
       <div className="info-card">
         <h3>Weight can change the decision</h3>
         <p>{lighterPeer ? `${lighterPeer.make} ${lighterPeer.model} is lighter in the nearby comparison set at ${lighterPeer.curbWeightKg} kg. Compare both numbers rather than choosing only from seat height.` : "No nearby comparison model is materially lighter in the current set. Test the exact motorcycle at walking pace before deciding from dimensions alone."}</p>
-        <Link className="text-link" href="/recommendations/best-motorcycles-for-short-riders">Compare motorcycles by published seat height →</Link>
+        <Link className="text-link" href="/finder">Use the rider-fit finder →</Link>
       </div>
     </section>
 
@@ -207,7 +207,7 @@ export default async function ModelSeatHeightPage({ params }: { params: Promise<
       />
       <CTAGroup>
         <Link className="button" href={modelPath}>Open full {model.model} guide</Link>
-        <Link className="button secondary" href="/recommendations/best-motorcycles-for-short-riders">Compare low-seat motorcycles</Link>
+        <Link className="button secondary" href="/recommendations">Browse rider-fit buying guides</Link>
       </CTAGroup>
     </section>
   </main>;
