@@ -163,7 +163,7 @@ try {
         const monthlyResult=planner?.querySelector('.finance-result>strong');
         const presets=planner?[...planner.querySelectorAll('.finance-preset-groups .calc-presets button')]:[];
         const scenarios=document.querySelectorAll('#installment .finance-scenario-row .ui-stat-row__item');
-        const dedicatedInstallmentHref=document.querySelector('#installment a[href$="/installment"]')?.getAttribute('href')||'';
+        const dedicatedInstallmentHref=document.querySelector('[data-dedicated-installment-link]')?.getAttribute('href')||document.querySelector('#installment a[href*="/installment"]')?.getAttribute('href')||'';
         return {
           title:document.title,
           h1:Boolean(h1),
