@@ -67,8 +67,8 @@ for (const token of [
   '"@type":"ItemList"',
   'id="ownership"',
   'What to compare before buying an electric scooter in the Philippines',
-  'href="/recommendations/best-scooters-philippines"',
-  'href="/recommendations/motorcycles-under-100k"',
+  'href="/motorcycles/scooters"',
+  'href="/motorcycles"',
   '<JsonLd data={itemListSchema}/>'
 ]) {
   requireText(electric, token, `Electric authority canonical missing token: ${token}`);
