@@ -44,6 +44,7 @@ const variantFinanceModels = new Map([
   ["honda-pcx-160", ["Standard", "RoadSync"]],
   ["honda-cb650r", ["Standard", "E-Clutch"]]
 ]);
+// Dedicated installment pages own financing UI when an intent landing profile exists.
 const failures = [];
 const results = [];
 
