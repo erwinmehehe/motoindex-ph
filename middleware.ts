@@ -131,6 +131,6 @@ export const config = {
     "/admin/:path*", "/api/ingestion/:path*", "/api/admin/:path*", "/garage/:path*","/garage", "/price-alerts/confirm/:path*", "/price-alerts/unsubscribe/:path*", "/api/price-alerts/:path*",
     "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*", "/quote-status/:path*", "/api/quote-status/:path*",
     "/motorcycles/:make/:slug/used-value", "/motorcycles/:make/:slug/new-vs-used",
-    "/motorcycles/:make/:slug/colors", "/motorcycles/:make/:slug/installment"
+    "/motorcycles/:make/:slug/colors", "/motorcycles/:make/:slug/installment", "/motorcycles/:make/:slug/specs", "/motorcycles/:make/:slug/top-speed", "/motorcycles/:make/:slug/fuel-consumption", "/motorcycles/:make/:slug/specifications", "/motorcycles/:make/:slug/fuel-economy"
   ]
 };
