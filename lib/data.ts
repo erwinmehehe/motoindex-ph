@@ -1833,6 +1833,50 @@ export const recommendationGuides: RecommendationGuide[] = [
     intent: "category"
   },
   {
+    slug: "honda-big-bikes-philippines",
+    kicker: "Honda big bikes",
+    title: "Honda big bikes in the Philippines",
+    seoTitle: "Honda Big Bikes Philippines 2026 | Prices, Specs & Models",
+    description: "Compare current Honda big bikes in the Philippines by published price, engine size, power, weight, seat height, ABS, fuel tank and model type.",
+    primaryKeyword: "Honda big bike price Philippines",
+    secondaryKeywords: ["Honda big bikes Philippines", "Honda big bike Philippines", "Honda big bike price list Philippines", "Honda 500cc Philippines", "Honda 650cc Philippines", "Honda 1000cc Philippines"],
+    directAnswer: "This guide compares current Honda motorcycles with recorded engine displacement of at least 400cc, using published Philippine prices and model-specific specifications.",
+    inclusionRules: ["Make is Honda", "Recorded engine displacement is at least 400cc", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Each model retains its own dated Honda Philippines, BigWing or verified Philippine-market source for price and specification data.",
+    caveats: ["Big-bike ownership costs vary sharply by model category, tires, insurance and service needs.", "For expressway use, verify the exact registered unit and current operator rules rather than relying only on model name or class."],
+    tableColumns: ["price","engine","power","weight","seat","abs","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced Honda big bikes", "Honda 500cc and 650cc choices", "Lower-seat Honda big bikes", "Adventure, naked, sport and cruiser options", "What to budget beyond the purchase price"],
+    faqQuestions: ["What Honda big bikes are available in the Philippines?", "Which Honda big bike has the lowest published price?", "Which Honda big bike is lightest?", "Which Honda big bike has the lowest seat?", "Which Honda big bikes are 1000cc or larger?"],
+    relatedGuideSlugs: ["motorcycles-400cc-plus-philippines","motorcycles-1000cc-plus-philippines","cruiser-motorcycles-philippines","adventure-touring-motorcycles-philippines","motorcycles-with-abs-philippines"],
+    intent: "brand"
+  },
+  {
+    slug: "yamaha-big-bikes-philippines",
+    kicker: "Yamaha big bikes",
+    title: "Yamaha big bikes in the Philippines",
+    seoTitle: "Yamaha Big Bikes Philippines 2026 | Prices, Specs & Models",
+    description: "Compare current Yamaha big bikes in the Philippines by published price, engine size, power, weight, seat height, ABS, fuel tank and model type.",
+    primaryKeyword: "Yamaha big bikes",
+    secondaryKeywords: ["Yamaha big bikes Philippines", "Yamaha big bike price Philippines", "Yamaha big bike price list Philippines", "Yamaha 700cc Philippines", "Yamaha 900cc Philippines", "Yamaha 1000cc Philippines"],
+    directAnswer: "This guide compares current Yamaha motorcycles with recorded engine displacement of at least 400cc, from middleweight road bikes and adventure models to liter-class machines.",
+    inclusionRules: ["Make is Yamaha", "Recorded engine displacement is at least 400cc", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Each model keeps its own dated Yamaha Motor Philippines, dealer or verified Philippine-market source for price and specification data.",
+    caveats: ["Model categories range from maxi scooters to supersport motorcycles, so engine size is not an overall suitability score.", "Dealer stock and final on-road pricing can differ from the published reference."],
+    tableColumns: ["price","engine","power","weight","seat","abs","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced Yamaha big bikes", "Yamaha 600cc–700cc choices", "Lower-seat Yamaha big bikes", "Adventure, naked, sport and maxi-scooter options", "What large-displacement Yamaha ownership changes"],
+    faqQuestions: ["What Yamaha big bikes are available in the Philippines?", "Which Yamaha big bike has the lowest published price?", "Which Yamaha big bike is lightest?", "Which Yamaha big bike has the lowest seat?", "Which Yamaha big bikes are 1000cc or larger?"],
+    relatedGuideSlugs: ["motorcycles-400cc-plus-philippines","motorcycles-1000cc-plus-philippines","maxi-scooters-philippines","adventure-touring-motorcycles-philippines","sport-motorcycles-philippines"],
+    intent: "brand"
+  },
+  {
     slug: "maxi-scooters-philippines",
     kicker: "Maxi scooters",
     title: "Maxi scooters in the Philippines",
@@ -2368,13 +2412,13 @@ export const recommendationGuides: RecommendationGuide[] = [
   },
   {
     slug: "motorcycles-under-80k",
-    kicker: "Budget guide",
-    title: "Motorcycles under ₱80K in the Philippines",
-    seoTitle: "Motorcycles Under ₱80K Philippines: Prices 2026",
-    description: "Compare current motorcycles below ₱80,000 in the Philippines by published price, engine, transmission, weight, seat height and braking.",
-    primaryKeyword: "motorcycles under 80k Philippines",
-    secondaryKeywords: ["motorcycle below 80k Philippines", "cheap motorcycle Philippines", "budget motorcycle Philippines"],
-    directAnswer: "This guide shows current motorcycles with a published starting price below ₱80,000 and compares the practical differences that matter after price.",
+    kicker: "Cheapest motorcycles",
+    title: "Cheapest motorcycles in the Philippines under ₱80K",
+    seoTitle: "Cheapest Motorcycles Philippines 2026 | Under ₱80K Prices",
+    description: "Compare the cheapest current motorcycles in the Philippines below ₱80,000 by published price, engine, transmission, weight, seat height and braking.",
+    primaryKeyword: "cheapest motorcycle Philippines",
+    secondaryKeywords: ["motorcycles under 80k Philippines", "motorcycle below 80k Philippines", "cheap motorcycle Philippines", "budget motorcycle Philippines", "motorcycle under 50k Philippines", "motorcycle below 50000 Philippines"],
+    directAnswer: "MotoIndex currently has only one verified-current motorcycle below ₱50,000, so this guide uses the broader under-₱80K market to give buyers a useful comparison instead of publishing a thin under-₱50K page.",
     inclusionRules: ["Published starting price below ₱80,000", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest.",
     tieBreakers: ["Lower curb weight"],
@@ -2534,6 +2578,8 @@ export function getRecommendationModels(slug: string) {
     case "300cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 280 && m.engineCc <= 325);
     case "motorcycles-400cc-plus-philippines": return byPrice.filter(m => m.engineCc >= 400);
     case "motorcycles-1000cc-plus-philippines": return byPrice.filter(m => m.engineCc >= 1000);
+    case "honda-big-bikes-philippines": return byPrice.filter(m => m.makeSlug === "honda" && m.engineCc >= 400);
+    case "yamaha-big-bikes-philippines": return byPrice.filter(m => m.makeSlug === "yamaha" && m.engineCc >= 400);
     case "cruiser-motorcycles-philippines": return byPrice.filter(m => m.category === "Cruiser");
     case "motorcycles-under-400cc-philippines": return byPrice.filter(m => m.engineCc < 400);
     case "maxi-scooters-philippines": return byPrice.filter(m => /maxi/i.test(m.category));
