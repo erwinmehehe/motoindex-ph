@@ -9,12 +9,15 @@ const directRoutes = [
   "/motorcycles/electric/vinfast-feliz-ii",
   "/motorcycles/electric/vinfast-viper",
   "/recommendations/155cc-scooters-philippines",
+  "/motorcycles/yamaha/aerox-v3/installment",
+  "/motorcycles/yamaha/nmax-v3/colors",
 ];
 
 const redirects = [
   { source: "/motorcycles/yamaha/aerox-v3/price", destination: "/motorcycles/yamaha/aerox-v3#price" },
   { source: "/motorcycles/yamaha/aerox-v3/specifications", destination: "/motorcycles/yamaha/aerox-v3#specs" },
-  { source: "/motorcycles/honda/click-160/colors", destination: "/motorcycles/honda/click-160#colors" },
+  { source: "/motorcycles/yamaha/lexi-155/colors", destination: "/motorcycles/yamaha/lexi-155#colors" },
+  { source: "/motorcycles/yamaha/lexi-155/installment", destination: "/motorcycles/yamaha/lexi-155#installment" },
   { source: "/motorcycles/yamaha/aerox-155", destination: "/motorcycles/yamaha/aerox" },
   { source: "/motorcycles/yamaha/aerox-sp", destination: "/motorcycles/yamaha/aerox-v3" },
   { source: "/motorcycles/yamaha/nmax-155", destination: "/motorcycles/yamaha/nmax" },
