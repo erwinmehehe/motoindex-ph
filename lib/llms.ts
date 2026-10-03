@@ -263,7 +263,7 @@ export function buildLlmsFullTxt() {
     "",
     "## Canonical URL policy",
     "",
-    "Prefer canonical URLs listed here and in the XML sitemaps. Focused indexable /recommendations/<slug> guides plus whitelisted /motorcycles/<make>/<model>/installment, /colors, /top-speed, /fuel-consumption, /specs and /weight pages are canonical resources for their specific intent; query/filter URLs and redirect aliases are not."
+    "Prefer canonical URLs listed here and in the XML sitemaps. Focused indexable /recommendations/<slug> guides plus whitelisted /motorcycles/<make>/<model>/installment, /colors, /top-speed, /fuel-consumption, /specs and /weight pages are canonical resources for their specific intent; query/filter URLs and redirect aliases are not.",
     "",
     "## Sitemaps",
     "",
