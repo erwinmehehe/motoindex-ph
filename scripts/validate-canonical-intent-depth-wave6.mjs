@@ -51,7 +51,7 @@ for(const row of metadataRows){
 
 for(const token of [
   'import { wave6ModelIntentDepthProfile } from "./modelIntentDepthWave6_2026";',
-  'wave5ModelIntentDepthProfile(modelId) || wave6ModelIntentDepthProfile(modelId)'
+  'wave6ModelIntentDepthProfile(modelId)'
 ]){
   if(!router.includes(token))errors.push(`Wave 6 router guard missing: ${token}`);
 }
