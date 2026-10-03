@@ -4,10 +4,11 @@ export const kawasakiBigBikeExpansion2026: Motorcycle[] = [
   {
     id: "kawasaki-ninja-650", make: "Kawasaki", makeSlug: "kawasaki", model: "Ninja 650", slug: "ninja-650", generation: "Current Philippine model", category: "Sport bike",
     srp: 452000, engineCc: 649, powerHp: 68.3, torqueNm: 65.7, curbWeightKg: 192, seatHeightMm: 790, fuelTankL: 15, groundClearanceMm: 130,
-    frontTire: "120/70 ZR17", rearTire: "160/60 ZR17", abs: "ABS with Kawasaki Traction Control (KTRC)", colors: [], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Kawasaki current Ninja 650 technical specification", sourceUrl: "https://www.kawasaki.com/en-us/motorcycle/ninja/sport/ninja-650/2026-ninja-650", verifiedAt: "2026-09-20", freshness: "verified", marketStatus: "current", transmission: "Manual",
-    marketPriceSourceLabel: "Kawasaki Philippines current Ninja 650 MSRP", marketPriceSourceUrl: "https://kawasakileisurebikes.ph/motorcycles/sports/ninja-650/", marketPriceCheckedAt: "2026-09-20",
-    summary: "649cc parallel-twin sport bike with 68.3 hp, ABS and KTRC, a 790 mm seat, 15 L tank and six-speed manual transmission."
+    frontTire: "120/70 ZR17", rearTire: "160/60 ZR17", abs: "ABS with Kawasaki Traction Control (KTRC)", colors: [], searchVolume: 8800, keywordDifficulty: 0,
+    sourceLabel: "Kawasaki Leisure Bikes Philippines current Ninja 650 product page with current Kawasaki technical-data cross-check", sourceUrl: "https://kawasakileisurebikes.ph/motorcycles/sports/ninja-650/", verifiedAt: "2026-10-03", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Kawasaki Leisure Bikes Philippines current Ninja 650 MSRP", marketPriceSourceUrl: "https://kawasakileisurebikes.ph/motorcycles/sports/ninja-650/", marketPriceCheckedAt: "2026-10-03",
+    priceContext: "Kawasaki Leisure Bikes Philippines currently lists the Ninja 650 at ₱452,000 MSRP. MotoIndex keeps the current Philippine price and cross-checks chassis specifications against Kawasaki technical data before using them in buyer research.",
+    summary: "Current Philippine 649cc Ninja sport bike with 68.3 hp, 65.7 Nm, a 790 mm seat, 15 L tank, 17-inch tires and a ₱452,000 official Philippine MSRP."
   },
   {
     id: "kawasaki-z650", make: "Kawasaki", makeSlug: "kawasaki", model: "Z650", slug: "z650", generation: "Current Philippine model", category: "Naked street bike",
