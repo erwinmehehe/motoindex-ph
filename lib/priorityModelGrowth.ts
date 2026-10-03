@@ -859,6 +859,40 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 400cc+ motorcycles"
   },
 
+  "yamaha-pg-1": {
+    seoTitle: "Yamaha PG-1 Price Philippines 2026 | Specs, Fit & Costs",
+    seoDescription: "Yamaha PG-1 price Philippines 2026 with 114cc specs, 795mm seat, 107kg weight, 190mm ground clearance, ownership costs and commuter-trail fit context.",
+    intentIntro: "PG-1 demand is strongly price-led, but its 16-inch block-pattern tires, 190 mm ground clearance and four-speed centrifugal-clutch drivetrain make fit and intended use part of the same buying decision.",
+    moneyQuestion: "What does the PG-1 cost after the exact dealer cash price, registration, insurance, financing charges and any utility or trail accessories are included?",
+    ownershipQuestion: "Compare chain service, 16-inch tire availability, 795 mm seat height, fuel use and Yamaha service access with XR150L, KLX150 and WR155R.",
+    alternativeIds: ["honda-xr150l", "kawasaki-klx150", "yamaha-wr155r"],
+    relatedIds: ["yamaha-wr155r", "yamaha-xtz-125"],
+    recommendationHref: "/recommendations/dual-sport-motorcycles-philippines",
+    recommendationLabel: "Compare dual-sport and trail motorcycles"
+  },
+  "suzuki-avenis": {
+    seoTitle: "Suzuki Avenis Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "Suzuki Avenis price Philippines 2026 with 124cc specs, 780mm seat, 106kg weight, combined braking, fuel economy, ownership costs and scooter alternatives.",
+    intentIntro: "Avenis demand mixes model, price and color intent. Compare its light 124cc scooter package, combined braking and published fuel-economy context with the exact dealer quote and recurring ownership costs.",
+    moneyQuestion: "What is the final Avenis cash or financed cost after registration, insurance, dealer fees and the exact branch price are included?",
+    ownershipQuestion: "Compare CVT service, tire availability, combined braking, fuel use and Suzuki service access with Click 125i, Burgman Street EX and Fazzio.",
+    alternativeIds: ["honda-click-125i", "suzuki-burgman-street-ex", "yamaha-fazzio"],
+    relatedIds: ["suzuki-burgman-street", "suzuki-burgman-street-ex"],
+    recommendationHref: "/recommendations/125cc-scooters-philippines",
+    recommendationLabel: "Compare 125cc scooters"
+  },
+  "yamaha-wr155r": {
+    seoTitle: "Yamaha WR155R Price Philippines 2026 | Specs & Trail Fit",
+    seoDescription: "Yamaha WR155R price Philippines 2026 with 155cc specs, 880mm seat, 134kg weight, 245mm ground clearance, 21/18 wheels, ownership and trail-fit context.",
+    intentIntro: "WR155R buying intent combines price with trail fit. Its 880 mm seat, 245 mm clearance and 21/18-inch wheels matter as much as the 155cc engine when comparing daily road use with rough-road capability.",
+    moneyQuestion: "What does the WR155R cost after the dealer quote, registration, insurance, financing and any protection or trail accessories are included?",
+    ownershipQuestion: "Compare chain and sprocket service, 21/18-inch tires, tall-seat fit, fuel use and parts support with XR150L, KLX150 and KLX230.",
+    alternativeIds: ["honda-xr150l", "kawasaki-klx150", "kawasaki-klx230"],
+    relatedIds: ["yamaha-xtz-125"],
+    recommendationHref: "/recommendations/dual-sport-motorcycles-philippines",
+    recommendationLabel: "Compare dual-sport and trail motorcycles"
+  },
+
   "honda-navi": {
     seoTitle: "Honda Navi Price Philippines 2026 | Specs & Fuel Economy",
     seoDescription: "Honda Navi price in the Philippines, 109cc specs, 48.4 km/L fuel economy, 762mm seat, CBS, tire sizes, ownership costs and commuter alternatives.",
