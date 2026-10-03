@@ -123,7 +123,8 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       answer: `The verified Philippine variants currently covered are ${verifiedVariants.map((variant) => `${variant.name} at ${php(variant.srpPhp)}`).join("; ")}. Compare the feature differences and confirm the current dealer quote before financing.`
     }] : [])
   ] : [];
-  const faqs = [...motorcycleEntityFaqs(model), ...intentFaqs, ...highDemandIntentAnswers.map((item) => ({ question: item.question, answer: item.answer })), ...(performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])];
+  const hasTopSpeedIntent = highDemandIntentAnswers.some((item) => item.kind === "top-speed");
+  const faqs = [...motorcycleEntityFaqs(model), ...intentFaqs, ...highDemandIntentAnswers.map((item) => ({ question: item.question, answer: item.answer })), ...(performance && !hasTopSpeedIntent ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])];
   const offer = motorcycleOfferSchema(model, canonicalPath, isIndexableModel(model));
   const schema = {
     "@context": "https://schema.org",
