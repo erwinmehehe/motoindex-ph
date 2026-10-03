@@ -58,6 +58,7 @@ import { canonicalIntentFaqs, modelIntentDepthProfile } from "@/lib/modelIntentD
 import { installmentLandingProfile } from "@/lib/modelIntentLandingPages";
 import { colorIntentLandingProfile } from "@/lib/modelColorLandingPages";
 import { topSpeedLandingProfile } from "@/lib/modelTopSpeedLandingPages";
+import { specsIntentLandingProfile } from "@/lib/modelSpecsLandingPages";
 import { fuelConsumptionLandingProfile } from "@/lib/modelFuelConsumptionLandingPages";
 
 const MOTORCYCLE_ANALYTICS_CSS = `
@@ -98,6 +99,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const allColors = [...new Set([...model.colors, ...verifiedVariants.flatMap((variant) => variant.colors || [])])];
   const colorLanding = colorIntentLandingProfile(model.id);
   const topSpeedLanding = topSpeedLandingProfile(model.id);
+  const specsLanding = specsIntentLandingProfile(model.id);
   const fuelConsumptionLanding = fuelConsumptionLandingProfile(model.id);
   const gearGuide = getModelGearGuide(model.id);
   const helmetCandidates = (gearGuide?.helmetIds || []).map((id) => helmetProducts.find((product) => product.id === id)).filter((product): product is NonNullable<typeof product> => Boolean(product && product.status === "verified"));
@@ -218,7 +220,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         { href: "#price", label: "Price & variants" },
         ...(colorLanding && allColors.length > 0 ? [{ href: "#colors", label: "Colors" }] : []),
         ...(intentDepth ? [{ href: "#buyer-answers", label: "Buyer answers" }] : []),
-        { href: "#specs", label: "Key specs" },
+        ...(specsLanding ? [{ href: `/motorcycles/${model.makeSlug}/${model.slug}/specs`, label: "Specs" }] : [{ href: "#specs", label: "Key specs" }]),
         ...(topSpeedLanding ? [{ href: `/motorcycles/${model.makeSlug}/${model.slug}/top-speed`, label: "Top speed" }] : []),
         ...(authority ? [{ href: "#buyer-guide", label: "Who it suits" }] : []),
         ...(!isHistorical ? [{ href: "#installment", label: "Monthly" }] : []),
@@ -286,7 +288,21 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <p className="entity-lede">{model.make} {model.model} uses a {model.engineCc} cc engine rated at {model.powerHp} hp and {model.torqueNm} Nm. Recorded curb weight is {model.curbWeightKg} kg, seat height is {model.seatHeightMm} mm, and fuel capacity is {model.fuelTankL} L.</p>
       </section>
 
-      <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
+      {specsLanding ? <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
+        <SectionHeader
+          kicker="Key specifications"
+          titleId="specs-heading"
+          title={`${model.make} ${model.model} technical specifications`}
+          description="This model has a focused specification page for engine, output, weight, seat height, fuel tank, ground clearance, tires, transmission and braking."
+        />
+        <div className="entity-tool-grid">
+          <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/specs`}>
+            <span>Dedicated technical reference</span>
+            <strong>Open the full {model.model} specification sheet</strong>
+            <small>See engine, power, torque, weight, seat, tank, ground clearance, tires, transmission, ABS and source date.</small>
+          </Link>
+        </div>
+      </section> : <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
         <SectionHeader kicker="Key specifications" titleId="specs-heading" title={`${model.make} ${model.model} specifications`} description="Compare engine, power, fit, weight, transmission, braking and stock tire sizes for this motorcycle." />
         <div className="entity-spec-table motorcycle-spec-table key-spec-grid" role="table" aria-label={`${model.make} ${model.model} key specifications`}>
           <div role="row"><span role="cell">Engine</span><strong role="cell">{model.engineCc} cc · {model.powerHp} hp · {model.torqueNm} Nm</strong></div>
@@ -297,7 +313,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           <div role="row"><span role="cell">Tires</span><strong role="cell">{model.frontTire} front · {model.rearTire} rear</strong></div>
           {model.groundClearanceMm ? <div role="row"><span role="cell">Ground clearance</span><strong role="cell">{model.groundClearanceMm} mm</strong></div> : null}
         </div>
-      </section>
+      </section>}
 
       {authority && <section id="buyer-guide" className="motorcycle-entity-section authority-decision-section" aria-labelledby="buyer-guide-heading">
         <div className="authority-verdict motorcycle-decision-panel"><div><span className="section-kicker">Who this bike is for</span><h2 id="buyer-guide-heading">Should you buy the {model.make} {model.model}?</h2><p>{authority.verdict}</p></div><aside><span>Important context</span><p>{authority.researchAngle}</p></aside></div>
