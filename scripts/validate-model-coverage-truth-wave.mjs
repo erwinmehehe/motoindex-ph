@@ -14,7 +14,9 @@ const sitemap=read("lib","sitemaps.ts");
 
 const requireText=(source,token,message)=>{if(!source.includes(token))errors.push(message);};
 
-requireText(data,'if (model.marketStatus === "uncertain") return false;',"Uncertain-market models must be hard-gated from indexation.");
+requireText(data,'export function isDemandBackedAvailabilityModel(model: Motorcycle)',"Demand-backed availability helper must exist.");
+requireText(data,'&& model.searchVolume > 0',"Demand-backed availability pages require stored search demand.");
+requireText(data,'const demandBackedAvailability = isDemandBackedAvailabilityModel(model);',"Indexability must use the demand-backed availability helper.");
 requireText(data,'export const currentMotorcycles = motorcycles.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued");',"Uncertain-market models must stay out of current discovery.");
 requireText(sitemap,'const indexableModels = motorcycles.filter(isIndexableModel);',"Motorcycle sitemap must use the shared indexability gate.");
 
@@ -22,7 +24,7 @@ for(const token of [
   'id: "yamaha-mt-15"',
   'marketStatus: "uncertain"',
   'official Yamaha PH availability needs verification',
-  'This page remains an availability-to-verify research reference and is not indexable as a confirmed current model.'
+  'This page remains an availability-to-verify research reference and is indexed for demand-backed research, not presented as confirmed current inventory.'
 ]){
   requireText(wave7,token,`MT-15 truth guard missing: ${token}`);
 }
