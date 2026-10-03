@@ -306,7 +306,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <div className="authority-grid motorcycle-decision-grid"><article className="authority-buy"><span>Buy it if</span><ul>{authority.buyIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-skip"><span>Skip it if</span><ul>{authority.skipIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-ph"><span>Philippine ownership</span><ul>{authority.phContext.map((item) => <li key={item}>{item}</li>)}</ul></article></div>
       </section>}
 
-      {!isHistorical && installmentLanding ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
+      {!isHistorical && installmentLanding ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading" data-installment-mode="dedicated">
         <SectionHeader
           kicker="Monthly payment"
           titleId="installment-heading"
@@ -314,7 +314,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           description="This financing intent now has its own focused page so the main motorcycle guide can stay centered on price, variants, specifications, fit and ownership."
         />
         <div className="entity-tool-grid">
-          <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/installment`}>
+          <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/installment`} data-dedicated-installment-link>
             <span>Dedicated financing guide</span>
             <strong>Calculate downpayment and monthly installment</strong>
             <small>Compare dealer observations, 10/20/30% scenarios, variant prices and an editable loan estimate.</small>
