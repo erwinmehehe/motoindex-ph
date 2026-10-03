@@ -189,9 +189,7 @@ for (const id of promotedHelmetModels) {
 const nextConfig = read("next.config.mjs");
 const configRedirects = [
   ["/motorcycles/:make/:slug/price", "#price"],
-  ["/motorcycles/:make/:slug/specifications", "#specs"],
   ["/motorcycles/:make/:slug/rider-fit", "#rider-fit"],
-  ["/motorcycles/:make/:slug/fuel-economy", "#fuel"],
   ["/motorcycles/:make/:slug/ownership-cost", "#ownership"],
   ["/motorcycles/:make/:slug/tire-size", "#tires-fitment"],
   ["/motorcycles/:make/:slug/maintenance", "#maintenance"],
@@ -207,7 +205,10 @@ for (const [source, anchor] of configRedirects) {
 
 for (const [path, profileToken] of [
   ["app/motorcycles/[make]/[slug]/colors/page.tsx", "colorIntentLandingProfile"],
-  ["app/motorcycles/[make]/[slug]/installment/page.tsx", "installmentLandingProfile"]
+  ["app/motorcycles/[make]/[slug]/installment/page.tsx", "installmentLandingProfile"],
+  ["app/motorcycles/[make]/[slug]/specs/page.tsx", "specsIntentLandingProfile"],
+  ["app/motorcycles/[make]/[slug]/top-speed/page.tsx", "topSpeedLandingProfile"],
+  ["app/motorcycles/[make]/[slug]/fuel-consumption/page.tsx", "fuelConsumptionLandingProfile"]
 ]) {
   const text = read(path);
   if (!text.includes(profileToken) || !text.includes("isIndexableModel(model)")) {
@@ -215,7 +216,7 @@ for (const [path, profileToken] of [
   }
 }
 const middlewareSource = read("middleware.ts");
-for (const token of ["hasColorIntentLandingPage", "hasInstallmentLandingPage", "focusedModelIntentFallback", 'hash: `#${intent}`']) {
+for (const token of ["hasColorIntentLandingPage", "hasInstallmentLandingPage", "hasSpecsIntentLandingPage", "hasTopSpeedLandingPage", "hasFuelConsumptionLandingPage", "focusedModelIntentFallback", "specifications", "fuel-economy", 'hash: `#${anchor}`']) {
   if (!middlewareSource.includes(token)) failures.push(`middleware.ts: focused model intent fallback is missing ${token}`);
 }
 
@@ -238,6 +239,12 @@ const consolidatedRouteFiles = [
   "app/guides/electric-motorcycle-vs-gas-motorcycle/page.tsx",
   "app/motorcycles/electric/range-comparison/page.tsx"
 ];
+for (const legacySource of ["/motorcycles/:make/:slug/specifications", "/motorcycles/:make/:slug/fuel-economy"]) {
+  if (nextConfig.includes(`source: "${legacySource}"`)) {
+    failures.push(`next.config.mjs: ${legacySource} must be middleware-governed so supported models can reach dedicated intent pages`);
+  }
+}
+
 for (const path of consolidatedRouteFiles) {
   if (!read(path).includes("permanentRedirect(")) {
     failures.push(`${path}: consolidated route must remain a permanent redirect`);
@@ -274,6 +281,16 @@ if (motorcycleEntity.includes("/specifications") || motorcycleEntity.includes("/
 }
 if (motorcycleEntity.includes("/colors") && !motorcycleEntity.includes("colorIntentLandingProfile")) {
   failures.push("components/MotorcycleEntityPage.tsx: model color links must be gated by the search-volume color-page whitelist");
+}
+for (const [routeToken, profileToken] of [
+  ["/installment", "installmentLandingProfile"],
+  ["/specs", "specsIntentLandingProfile"],
+  ["/top-speed", "topSpeedLandingProfile"],
+  ["/fuel-consumption", "fuelConsumptionLandingProfile"]
+]) {
+  if (motorcycleEntity.includes(routeToken) && !motorcycleEntity.includes(profileToken)) {
+    failures.push(`components/MotorcycleEntityPage.tsx: ${routeToken} links must be gated by ${profileToken}`);
+  }
 }
 
 const accessoryRoot = read("app/accessories/page.tsx");

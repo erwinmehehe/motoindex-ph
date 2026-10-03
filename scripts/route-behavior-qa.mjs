@@ -11,11 +11,19 @@ const directRoutes = [
   "/recommendations/155cc-scooters-philippines",
   "/motorcycles/yamaha/aerox-v3/installment",
   "/motorcycles/yamaha/nmax-v3/colors",
+  "/motorcycles/honda/adv-160/specs",
+  "/motorcycles/kawasaki/ninja-650/top-speed",
+  "/motorcycles/honda/click-125i/fuel-consumption",
 ];
 
 const redirects = [
   { source: "/motorcycles/yamaha/aerox-v3/price", destination: "/motorcycles/yamaha/aerox-v3#price" },
+  { source: "/motorcycles/honda/adv-160/specifications", destination: "/motorcycles/honda/adv-160/specs" },
   { source: "/motorcycles/yamaha/aerox-v3/specifications", destination: "/motorcycles/yamaha/aerox-v3#specs" },
+  { source: "/motorcycles/yamaha/aerox-v3/specs", destination: "/motorcycles/yamaha/aerox-v3#specs" },
+  { source: "/motorcycles/yamaha/nmax-v3/top-speed", destination: "/motorcycles/yamaha/nmax-v3#performance" },
+  { source: "/motorcycles/honda/click-125i/fuel-economy", destination: "/motorcycles/honda/click-125i/fuel-consumption" },
+  { source: "/motorcycles/yamaha/nmax-v3/fuel-consumption", destination: "/motorcycles/yamaha/nmax-v3#fuel" },
   { source: "/motorcycles/yamaha/lexi-155/colors", destination: "/motorcycles/yamaha/lexi-155#colors" },
   { source: "/motorcycles/yamaha/lexi-155/installment", destination: "/motorcycles/yamaha/lexi-155#installment" },
   { source: "/motorcycles/yamaha/aerox-155", destination: "/motorcycles/yamaha/aerox" },

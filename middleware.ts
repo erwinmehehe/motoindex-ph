@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { hasInstallmentLandingPage } from "./lib/modelIntentLandingPages";
 import { hasColorIntentLandingPage } from "./lib/modelColorLandingPages";
+import { hasTopSpeedLandingPage } from "./lib/modelTopSpeedLandingPages";
+import { hasFuelConsumptionLandingPage } from "./lib/modelFuelConsumptionLandingPages";
+import { hasSpecsIntentLandingPage } from "./lib/modelSpecsLandingPages";
 
 const protectedPrefixes = ["/admin", "/api/ingestion", "/api/admin"];
 const prototypePrefixes: string[] = [];
@@ -40,13 +43,25 @@ function recordAuthFailure(key: string, now = Date.now()) {
 }
 
 function focusedModelIntentFallback(pathname: string) {
-  const match = pathname.match(/^\/motorcycles\/([^/]+)\/([^/]+)\/(colors|installment)\/?$/);
+  const match = pathname.match(/^\/motorcycles\/([^/]+)\/([^/]+)\/(colors|installment|specs|top-speed|fuel-consumption|specifications|fuel-economy)\/?$/);
   if (!match) return undefined;
-  const [, make, slug, intent] = match;
+  const [, make, slug, requestedIntent] = match;
   const modelId = `${make}-${slug}`;
-  const supported = intent === "colors" ? hasColorIntentLandingPage(modelId) : hasInstallmentLandingPage(modelId);
-  if (supported) return undefined;
-  return { pathname: `/motorcycles/${make}/${slug}`, hash: `#${intent}` };
+  const intent = requestedIntent === "specifications" ? "specs" : requestedIntent === "fuel-economy" ? "fuel-consumption" : requestedIntent;
+  const supported =
+    intent === "colors" ? hasColorIntentLandingPage(modelId) :
+    intent === "installment" ? hasInstallmentLandingPage(modelId) :
+    intent === "specs" ? hasSpecsIntentLandingPage(modelId) :
+    intent === "top-speed" ? hasTopSpeedLandingPage(modelId) :
+    hasFuelConsumptionLandingPage(modelId);
+
+  if (supported) {
+    if (requestedIntent !== intent) return { pathname: `/motorcycles/${make}/${slug}/${intent}` };
+    return undefined;
+  }
+
+  const anchor = intent === "top-speed" ? "performance" : intent === "fuel-consumption" ? "fuel" : intent;
+  return { pathname: `/motorcycles/${make}/${slug}`, hash: `#${anchor}` };
 }
 
 function isPrototypePath(pathname: string) {
