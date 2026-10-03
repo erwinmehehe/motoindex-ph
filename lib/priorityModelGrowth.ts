@@ -915,6 +915,95 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare business motorcycles"
   },
 
+  "suzuki-smash-carb": {
+    seoTitle: "Suzuki Smash 115 Price Philippines 2026 | Carb Specs & Costs",
+    seoDescription: "Suzuki Smash 115 price Philippines 2026 with current Smash Carb variants, 109.7cc specs, 755mm seat, 91kg weight, 4.5L tank, fuel use and ownership costs.",
+    intentIntro: "Smash Carb demand often uses the older Smash 115 wording, but Suzuki's current Philippine record lists 109.7cc actual displacement. Compare the two current brake/wheel configurations, exact dealer quote and recurring underbone ownership costs on one canonical page.",
+    moneyQuestion: "What is the Smash Carb total take-home cost after the exact variant price, registration, insurance, financing and branch-specific charges are included?",
+    ownershipQuestion: "Compare carburetor service, 17-inch tires, brake configuration, fuel use and Suzuki support with Smash FI, Wave RSX and RS125 Final Edition.",
+    alternativeIds: ["suzuki-smash-fi", "honda-wave-rsx", "honda-rs125-final-edition"],
+    relatedIds: ["suzuki-smash-fi"],
+    recommendationHref: "/recommendations/best-underbone-motorcycles-philippines",
+    recommendationLabel: "Compare underbone motorcycles"
+  },
+  "suzuki-smash-fi": {
+    seoTitle: "Suzuki Smash FI Price Philippines 2026 | Specs & Economy",
+    seoDescription: "Suzuki Smash FI price Philippines 2026 with 113cc specs, 755mm seat, 94kg weight, 68 km/L fuel economy, current variants, fuel use and ownership costs.",
+    intentIntro: "Smash FI buying intent combines price, fuel economy and variant equipment. Keep the Drum/Spokes and Disc/Mags pricing, 113cc specification and ownership trade-offs on the same canonical model page.",
+    moneyQuestion: "What does the Smash FI cost after choosing the exact brake/wheel variant and adding registration, insurance, financing and dealer charges?",
+    ownershipQuestion: "Compare fuel-injection service, 17-inch tires, braking configuration, fuel use and Suzuki parts support with Smash Carb, Wave RSX and RS125 Final Edition.",
+    alternativeIds: ["suzuki-smash-carb", "honda-wave-rsx", "honda-rs125-final-edition"],
+    relatedIds: ["suzuki-smash-carb"],
+    recommendationHref: "/recommendations/best-underbone-motorcycles-philippines",
+    recommendationLabel: "Compare underbone motorcycles"
+  },
+  "suzuki-gixxer-sf-155": {
+    seoTitle: "Suzuki Gixxer SF 155 Price Philippines 2026 | Specs & Costs",
+    seoDescription: "Suzuki Gixxer SF 155 price Philippines 2026 with 155cc specs, 795mm seat, 146kg weight, 50.2 km/L economy, 12L tank, tires and sport-bike ownership costs.",
+    intentIntro: "Gixxer SF 155 shoppers compare price, fairing style, fuel economy and everyday ownership. Keep those questions on one canonical page and compare it directly with current lightweight sport-bike alternatives.",
+    moneyQuestion: "What does the Gixxer SF 155 cost after the current cash price, financing, registration, insurance and full-fairing ownership expenses are included?",
+    ownershipQuestion: "Compare 17-inch tires, chain and sprockets, fairing exposure, fuel use and Suzuki support with R15M, CBR150R and the naked Gixxer 155.",
+    alternativeIds: ["yamaha-yzf-r15m", "honda-cbr150r", "suzuki-gixxer-155"],
+    relatedIds: ["suzuki-gixxer-155"],
+    recommendationHref: "/recommendations/sport-motorcycles-philippines",
+    recommendationLabel: "Compare sport motorcycles"
+  },
+  "suzuki-hayabusa": {
+    seoTitle: "Suzuki Hayabusa Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "Suzuki Hayabusa price Philippines 2026 with 1340cc specs, 187hp, 800mm seat, 262kg weight, 20L tank, ABS, ownership costs, insurance and superbike alternatives.",
+    intentIntro: "Hayabusa demand is high-ticket superbike research, so the useful answer goes beyond MSRP. Compare the 1,340cc specification with insurance, tires, service, rider fit and Philippine support before purchase.",
+    moneyQuestion: "What is the real Hayabusa first-year cost after the dealer quote, registration, comprehensive insurance, financing, tires and initial service are included?",
+    ownershipQuestion: "Budget premium 17-inch tires, chain and sprockets, insurance, high-performance consumables and Suzuki big-bike service access against ZX-10R, YZF-R1M and Ninja H2.",
+    alternativeIds: ["kawasaki-ninja-zx-10r", "yamaha-yzf-r1m", "kawasaki-ninja-h2"],
+    relatedIds: [],
+    recommendationHref: "/recommendations/motorcycles-1000cc-plus-philippines",
+    recommendationLabel: "Compare 1000cc+ motorcycles"
+  },
+  "kymco-krv-180": {
+    seoTitle: "KYMCO KRV 180 Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "KYMCO KRV 180 price Philippines 2026 with Belt and MOTO Chain prices, 175.1cc specs, 795mm seat, ABS, TCS, 13-inch tires, fuel use and ownership costs.",
+    intentIntro: "KRV 180 searches cover two current configurations. Keep Belt and MOTO Chain pricing, shared 175.1cc specifications, ABS/TCS equipment and ownership differences on the canonical KRV 180 page.",
+    moneyQuestion: "Does the Belt or MOTO Chain version make more sense after comparing the exact cash price, financing, registration, insurance and service requirements?",
+    ownershipQuestion: "Compare 13-inch tires, drivetrain service, ABS/TCS equipment, fuel use and KYMCO support with ADX 160, Aerox V3 and ADV160.",
+    alternativeIds: ["bristol-adx-160", "yamaha-aerox-v3", "honda-adv-160"],
+    relatedIds: ["kymco-xciting-vs-400"],
+    recommendationHref: "/recommendations/best-scooters-philippines",
+    recommendationLabel: "Compare scooters in the Philippines"
+  },
+  "kymco-xciting-vs-400": {
+    seoTitle: "KYMCO Xciting VS 400 Price Philippines 2026 | Specs & Costs",
+    seoDescription: "KYMCO Xciting VS 400 price Philippines 2026 with 400.1cc specs, 805mm seat, 195kg weight, Bosch ABS, TCS, 12.5L tank and maxi-scooter ownership costs.",
+    intentIntro: "Xciting VS 400 demand combines maxi-scooter pricing with highway-oriented displacement, rider fit and touring ownership. Keep the 400.1cc specification and support questions together on one canonical page.",
+    moneyQuestion: "What does the Xciting VS 400 cost after the dealer quote, registration, insurance, financing and touring accessories are included?",
+    ownershipQuestion: "Compare CVT service, 15/14-inch tires, Bosch ABS/TCS, storage and KYMCO support with Zontes 400G, Burgman 400 and XMAX.",
+    alternativeIds: ["zontes-400g", "suzuki-burgman-400", "yamaha-xmax"],
+    relatedIds: ["kymco-krv-180"],
+    recommendationHref: "/recommendations/maxi-scooters-philippines",
+    recommendationLabel: "Compare maxi scooters"
+  },
+  "kawasaki-ninja-zx-10r": {
+    seoTitle: "Kawasaki ZX-10R Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "Kawasaki ZX-10R price Philippines 2026 with 998cc specs, 200.21hp, 835mm seat, 207kg weight, KIBS ABS, 17L tank, tires and supersport ownership costs.",
+    intentIntro: "ZX-10R demand is price and performance heavy, but real ownership also includes insurance, hypersport tires, service and rider fit. Keep those questions beside the current official Philippine specification.",
+    moneyQuestion: "What is the ZX-10R first-year cost after MSRP, registration, comprehensive insurance, financing, tires and scheduled service are included?",
+    ownershipQuestion: "Compare hypersport tires, chain and sprocket service, insurance and Kawasaki big-bike support with Hayabusa, YZF-R1M and Ninja H2.",
+    alternativeIds: ["suzuki-hayabusa", "yamaha-yzf-r1m", "kawasaki-ninja-h2"],
+    relatedIds: ["kawasaki-ninja-h2"],
+    recommendationHref: "/recommendations/sport-motorcycles-philippines",
+    recommendationLabel: "Compare sport motorcycles"
+  },
+  "kawasaki-z900-se": {
+    seoTitle: "Kawasaki Z900 SE Price Philippines 2026 | Specs & Ownership",
+    seoDescription: "Kawasaki Z900 SE price Philippines 2026 with 948cc specs, 123.6hp, 800mm seat, 213kg weight, Brembo brakes, 17L tank, tires and naked-bike ownership costs.",
+    intentIntro: "Z900 SE shoppers typically want to know whether the upgraded braking and suspension package justifies the price. Keep the current specification, rider fit and ownership trade-offs on the canonical page.",
+    moneyQuestion: "What does the Z900 SE cost after the dealer quote, registration, comprehensive insurance, financing and first-year consumables are included?",
+    ownershipQuestion: "Compare 17-inch tires, chain and sprocket service, Brembo hardware, insurance and Kawasaki support with MT-10 SP, CB650R and Z500.",
+    alternativeIds: ["yamaha-mt-10-sp", "honda-cb650r", "kawasaki-z500"],
+    relatedIds: ["kawasaki-z500"],
+    recommendationHref: "/recommendations/naked-motorcycles-philippines",
+    recommendationLabel: "Compare naked motorcycles"
+  },
+
   "honda-navi": {
     seoTitle: "Honda Navi Price Philippines 2026 | Specs & Fuel Economy",
     seoDescription: "Honda Navi price in the Philippines, 109cc specs, 48.4 km/L fuel economy, 762mm seat, CBS, tire sizes, ownership costs and commuter alternatives.",
