@@ -50,7 +50,7 @@ for(const token of [
 ]){
   requireText(data,token,`Demand-backed indexation architecture missing: ${token}`);
 }
-requireText(data,'model.marketStatus !== "uncertain"',"Current public catalog must continue excluding uncertain models.");
+requireText(data,'m.marketStatus !== "uncertain"',"Current public catalog must continue excluding uncertain models.");
 
 for(const token of [
   'motorcycles.filter(isIndexableModel)',
