@@ -4,6 +4,7 @@ import { observedMarketPriceLabel } from "./marketChecks";
 import { getVerifiedVariantsForModel } from "./variants";
 import { performanceAnswerFor } from "./modelPerformance";
 import { php } from "./utils";
+import { wave3ModelIntentDepthProfile } from "./modelIntentDepthWave3_2026";
 
 export type CanonicalIntentKey = "price" | "specs" | "colors" | "variants" | "performance" | "ownership";
 
@@ -138,7 +139,7 @@ const profiles: Record<string, ModelIntentDepthProfile> = {
 };
 
 export function modelIntentDepthProfile(modelId: string) {
-  return profiles[modelId];
+  return profiles[modelId] || wave3ModelIntentDepthProfile(modelId);
 }
 
 function priceAnswer(model: Motorcycle) {
