@@ -103,7 +103,7 @@ export default function MotorcyclePriceIndexPage() {
       />
       <DataTable label="Brand median motorcycle prices in the Philippines">
         <div className="head" role="row"><span>Brand</span><span>Models</span><span>Median</span><span>Dataset span</span><span>Brand page</span></div>
-        {brands.map((row) => <Link role="row" href={`/motorcycles/${row.make.toLowerCase().replace(/[^a-z0-9]+/g,"-")}`} key={row.make}>
+        {brands.map((row) => <Link role="row" href={`/motorcycles/${row.makeSlug}`} key={row.make}>
           <strong>{row.make}</strong><span>{row.count}</span><span>{php(row.medianPhp)}</span><span>{php(row.minPhp)}–{php(row.maxPhp)}</span><span>Open →</span>
         </Link>)}
       </DataTable>
