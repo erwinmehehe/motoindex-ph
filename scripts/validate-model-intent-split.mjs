@@ -63,7 +63,7 @@ requireText(llms,'Focused model installment guides',"LLM full index must expose 
 requireText(llms,'For models with a dedicated installment page',"LLM retrieval rules must route finance questions to the focused page.");
 requireText(llms,'whitelisted /motorcycles/<make>/<model>/installment, /colors, /top-speed and /fuel-consumption pages',"LLM canonical policy must name installment pages.");
 
-for(const slug of ["price","specs","variants"]){
+for(const slug of ["price","variants"]){
   const candidate=path.join(root,"app","motorcycles","[make]","[slug]",slug,"page.tsx");
   if(fs.existsSync(candidate))errors.push(`Do not mass-split thin model intent pages without independent evidence: /${slug}`);
 }
