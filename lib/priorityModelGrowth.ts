@@ -903,7 +903,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     relatedIds: ["honda-beat", "honda-click-125i"],
     recommendationHref: "/recommendations/best-motorcycles-for-daily-commute-philippines",
     recommendationLabel: "Compare daily commuter motorcycles"
-  }
+  },
   "honda-tmx-supremo": {
     seoTitle: "Honda TMX Supremo Price Philippines 2026 | Specs & Costs",
     seoDescription: "Honda TMX Supremo price Philippines 2026 with 149cc specs, 782mm seat, 127kg weight, 10.3L tank, ownership costs, financing context and work-bike use.",
