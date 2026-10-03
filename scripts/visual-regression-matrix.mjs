@@ -295,7 +295,7 @@ const inspect=`(() => {
     mode:getComputedStyle(card).display,
     catalog:Boolean(card.closest(".motorcycle-catalog-grid")),
     brand:Boolean(card.closest(".ph-brand-model-grid")),
-    home:Boolean(card.closest(".mi-model-grid"))
+    home:Boolean(card.closest(".mi-market-model-grid,.mi-model-grid"))
   }));
   const cards=[...document.querySelectorAll(".ui-product-card")];
   const collapsedCards=cards.filter(card=>{
