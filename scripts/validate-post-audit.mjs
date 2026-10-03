@@ -60,10 +60,11 @@ const recArchive=read("app/recommendations/RecommendationGuideArchive.tsx");
 const recSitemap=read("lib/recommendationSitemap.ts");
 const motorcyclesIndex=read("app/motorcycles/page.tsx");
 need(
-  motorcyclesIndex.includes("generateMetadata")&&
-  motorcyclesIndex.includes("searchParams")&&
-  motorcyclesIndex.includes("!hasActiveFilters"),
-  "Filtered motorcycle catalog states must be noindex while the clean /motorcycles hub remains indexable"
+  motorcyclesIndex.includes('export const dynamic = "force-static"')&&
+  motorcyclesIndex.includes("FilteredCatalogRobots")&&
+  motorcyclesIndex.includes('robots.setAttribute("content", "noindex,follow")')&&
+  motorcyclesIndex.includes("window.location.search"),
+  "Filtered motorcycle catalog states must add noindex while the clean /motorcycles hub remains indexable and statically recoverable"
 );
 need(
   motorcyclesIndex.includes('const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const'),
