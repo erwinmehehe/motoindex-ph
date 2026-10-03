@@ -5,6 +5,7 @@ import { getVerifiedVariantsForModel } from "./variants";
 import { performanceAnswerFor } from "./modelPerformance";
 import { php } from "./utils";
 import { wave3ModelIntentDepthProfile } from "./modelIntentDepthWave3_2026";
+import { wave5ModelIntentDepthProfile } from "./modelIntentDepthWave5_2026";
 import { hasColorIntentLandingPage } from "./modelColorLandingPages";
 
 export type CanonicalIntentKey = "price" | "specs" | "colors" | "variants" | "performance" | "ownership";
@@ -140,7 +141,7 @@ const profiles: Record<string, ModelIntentDepthProfile> = {
 };
 
 export function modelIntentDepthProfile(modelId: string) {
-  return profiles[modelId] || wave3ModelIntentDepthProfile(modelId);
+  return profiles[modelId] || wave3ModelIntentDepthProfile(modelId) || wave5ModelIntentDepthProfile(modelId);
 }
 
 function priceAnswer(model: Motorcycle) {
