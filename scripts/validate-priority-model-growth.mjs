@@ -501,12 +501,12 @@ for (const token of [
 
 for (const token of [
   'slug: "dual-sport-motorcycles-philippines"',
-  'seoTitle: "Dual-Sport & Enduro Motorcycles Philippines 2026"',
+  'seoTitle: "Dual-Sport & Trail Motorcycles Philippines 2026 | Prices"',
   '"best dual sport motorcycles Philippines"',
   '"trail bike Philippines"',
   '"street legal trail bike Philippines"',
   '"off road motorcycle Philippines"',
-  '"Dual-sport vs trail bike: what the terms mean"',
+  '"Dual-sport vs trail bike vs off-road motorcycle"',
   '"21/18-inch wheels and rough-road priorities"',
   '"What to check before riding on public roads"'
 ]) {
@@ -514,7 +514,7 @@ for (const token of [
 }
 for (const token of [
   'guide.slug==="dual-sport-motorcycles-philippines"',
-  'dual-sport and trail bikes the same',
+  'dual-sport, trail bikes and off-road motorcycles the same',
   'use 21/18-inch wheels',
   'public roads in the philippines'
 ]) {

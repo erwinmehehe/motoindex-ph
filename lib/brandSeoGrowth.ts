@@ -20,7 +20,7 @@ const profiles: Record<string, BrandSeoGrowthProfile> = {
     bigBikeMinCc: 400,
     bigBikeTitle: "Honda big bikes in the Philippines",
     bigBikeDescription: "Compare current Honda motorcycles at 400cc and above tracked by MotoIndex, including CB650R, CBR650R, Rebel, X-ADV and Gold Wing models, by published price, engine size, power and seat height.",
-    categorySpotlight: { title: "Honda off-road and dual-sport motorcycles", description: "Compare current Honda off-road and dual-sport records on the existing Honda authority hub, keeping CRF-related category intent consolidated with the brand price list.", pattern: "Dual-sport|Off-road|Trail" }
+    categorySpotlight: { title: "Honda off-road and dual-sport motorcycles", description: "Compare current Honda off-road and dual-sport records on the existing Honda authority hub, keeping CRF-related category intent consolidated with the brand price list.", pattern: "Dual-sport|Off-road|Trail", recommendationHref: "/recommendations/dual-sport-motorcycles-philippines", recommendationLabel: "Compare dual-sport and trail motorcycles" }
   },
   yamaha: {
     seoTitle: "Yamaha Big Bikes Philippines 2026 | Motorcycle Price List",
@@ -42,7 +42,7 @@ const profiles: Record<string, BrandSeoGrowthProfile> = {
     bigBikeMinCc: 400,
     bigBikeTitle: "Kawasaki big bikes in the Philippines",
     bigBikeDescription: "Compare current Kawasaki motorcycles at 400cc and above by published price, engine size, power, seat height and category. Open any model for its canonical specs, financing and ownership research.",
-    categorySpotlight: { title: "Kawasaki off-road and KLX motorcycles", description: "Compare current Kawasaki off-road and dual-sport models, including KLX-family records, on the main Kawasaki authority hub rather than creating a duplicate brand-category page.", pattern: "Dual-sport|Off-road|Trail" }
+    categorySpotlight: { title: "Kawasaki off-road and KLX motorcycles", description: "Compare current Kawasaki off-road and dual-sport models, including KLX-family records, on the main Kawasaki authority hub rather than creating a duplicate brand-category page.", pattern: "Dual-sport|Off-road|Trail", recommendationHref: "/recommendations/dual-sport-motorcycles-philippines", recommendationLabel: "Compare dual-sport and trail motorcycles" }
   },
   vespa: {
     seoTitle: "Vespa Philippines Price List 2026 | GTS, GTV, Sprint & Primavera",

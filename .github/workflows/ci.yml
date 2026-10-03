@@ -36,6 +36,7 @@ jobs:
           npm run validate:intent-depth-wave2
           npm run validate:intent-depth-wave3
           npm run validate:category-authority-wave4
+          npm run validate:semantic-consolidation-wave5
           npm run validate:expressway-hub
           npm run validate:budget-displacement
           npm run validate:copy-tone
