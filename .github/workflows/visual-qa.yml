@@ -135,13 +135,29 @@ jobs:
           name: motoindex-redesign-preview
           path: |
             artifacts/visual-qa/matrix/390-home.jpg
+            artifacts/visual-qa/matrix/390-honda-brand.jpg
+            artifacts/visual-qa/matrix/390-scooters.jpg
+            artifacts/visual-qa/matrix/390-motorcycle-detail.jpg
+            artifacts/visual-qa/matrix/390-compare-index.jpg
+            artifacts/visual-qa/matrix/390-helmets.jpg
+            artifacts/visual-qa/matrix/390-guides.jpg
+            artifacts/visual-qa/matrix/390-price-list.jpg
             artifacts/visual-qa/matrix/768-home.jpg
+            artifacts/visual-qa/matrix/768-honda-brand.jpg
+            artifacts/visual-qa/matrix/768-scooters.jpg
+            artifacts/visual-qa/matrix/768-motorcycle-detail.jpg
+            artifacts/visual-qa/matrix/768-compare-index.jpg
+            artifacts/visual-qa/matrix/768-helmets.jpg
+            artifacts/visual-qa/matrix/768-guides.jpg
+            artifacts/visual-qa/matrix/768-price-list.jpg
             artifacts/visual-qa/matrix/1440-home.jpg
+            artifacts/visual-qa/matrix/1440-honda-brand.jpg
+            artifacts/visual-qa/matrix/1440-scooters.jpg
             artifacts/visual-qa/matrix/1440-motorcycle-detail.jpg
             artifacts/visual-qa/matrix/1440-compare-index.jpg
             artifacts/visual-qa/matrix/1440-helmets.jpg
-            artifacts/visual-qa/matrix/1440-honda-brand.jpg
-            artifacts/visual-qa/matrix/1440-scooters.jpg
+            artifacts/visual-qa/matrix/1440-guides.jpg
+            artifacts/visual-qa/matrix/1440-price-list.jpg
           if-no-files-found: warn
           retention-days: 14
 
