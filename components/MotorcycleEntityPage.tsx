@@ -53,11 +53,14 @@ import { authorPersonSchema } from "@/lib/author";
 import { getModelGearGuide } from "@/lib/modelGearGuides";
 import { OwnershipCatalogLinks } from "@/components/OwnershipCatalogLinks";
 import { CTAGroup, ProductGrid as CanonicalProductGrid, SectionHeader } from "@/components/ui";
+import { HighDemandIntentPanel } from "@/components/HighDemandIntentPanel";
+import { highDemandIntentAnswers2026 } from "@/lib/highDemandIntentAnswers2026";
 
 const MOTORCYCLE_ANALYTICS_CSS = `
 .motorcycle-analytics-panel{margin:28px 0 18px;padding:34px;border:1px solid rgba(62,82,69,.16);border-radius:16px;background:#fff;box-shadow:0 18px 48px rgba(24,45,32,.055)}
 .motorcycle-analytics-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:24px}.motorcycle-analytics-heading>div>span{color:#176b4b;font-size:9px;font-weight:850;letter-spacing:.11em;text-transform:uppercase}.motorcycle-analytics-heading h2{margin:6px 0 0;color:#132019;font-size:clamp(28px,3.2vw,40px);line-height:1;letter-spacing:-.045em}.motorcycle-analytics-heading>p{max-width:390px;margin:0;color:#5f6f65;font-size:11px;line-height:1.55}
 .motorcycle-analytics-grid{display:grid;grid-template-columns:1.12fr repeat(3,1fr);gap:1px;overflow:hidden;border:1px solid rgba(62,82,69,.16);border-radius:11px;background:rgba(62,82,69,.16)}.motorcycle-analytics-metric{min-width:0;padding:22px;background:#fff}.motorcycle-analytics-metric.is-featured{background:#e8f3ed}.motorcycle-analytics-metric>span{color:#5f6f65;font-size:9px;font-weight:750;letter-spacing:.06em;text-transform:uppercase}.motorcycle-analytics-metric>strong{display:block;margin:17px 0 15px;color:#132019;font-size:27px;line-height:1;letter-spacing:-.04em;white-space:nowrap}.motorcycle-analytics-metric>strong small{color:#5f6f65;font-size:9px;font-weight:650;letter-spacing:0}.motorcycle-analytics-track{height:5px;overflow:hidden;border-radius:6px;background:#e8ece9}.motorcycle-analytics-track>i{display:block;width:var(--metric-fill);height:100%;background:#176b4b}.motorcycle-analytics-metric>p{margin:9px 0 0;color:#5f6f65;font-size:9px;line-height:1.4}
+.intent-answer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.intent-answer-grid>article{padding:18px;border:1px solid rgba(62,82,69,.14);border-radius:12px;background:#fff}.intent-answer-grid>article>span{display:block;color:#176b4b;font-size:11px;font-weight:800;letter-spacing:.02em}.intent-answer-grid>article>p{margin:8px 0 0;color:#4d5d53;font-size:13px;line-height:1.55}@media(max-width:700px){.intent-answer-grid{grid-template-columns:1fr}}
 @media(max-width:900px){.motorcycle-analytics-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){.motorcycle-analytics-panel{padding:24px 0;border-left:0;border-right:0;border-radius:0;box-shadow:none}.motorcycle-analytics-heading{align-items:flex-start;flex-direction:column;gap:10px;padding:0 2px}.motorcycle-analytics-grid{grid-template-columns:1fr}.motorcycle-analytics-metric{padding:18px 14px}.motorcycle-analytics-metric>strong{font-size:23px}}
 `;
@@ -109,6 +112,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const quality = modelAuthorityQuality(model);
   const authorityComparisons = authority?.comparisonIds.map((id) => getModelById(id)).filter((item): item is Motorcycle => Boolean(item)) || [];
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}`;
+  const highDemandIntentAnswers = highDemandIntentAnswers2026(model);
   const intentFaqs = highDemandColorIntent && allColors.length > 0 ? [
     {
       question: `What colors are available for the ${model.make} ${model.model}?`,
@@ -119,7 +123,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
       answer: `The verified Philippine variants currently covered are ${verifiedVariants.map((variant) => `${variant.name} at ${php(variant.srpPhp)}`).join("; ")}. Compare the feature differences and confirm the current dealer quote before financing.`
     }] : [])
   ] : [];
-  const faqs = [...motorcycleEntityFaqs(model), ...intentFaqs, ...(performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])];
+  const faqs = [...motorcycleEntityFaqs(model), ...intentFaqs, ...highDemandIntentAnswers.map((item) => ({ question: item.question, answer: item.answer })), ...(performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])];
   const offer = motorcycleOfferSchema(model, canonicalPath, isIndexableModel(model));
   const schema = {
     "@context": "https://schema.org",
@@ -219,6 +223,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         { href: "#price", label: "Price & variants" },
         ...(highDemandColorIntent && allColors.length > 0 ? [{ href: "#colors", label: "Colors" }] : []),
         { href: "#specs", label: "Key specs" },
+        ...(highDemandIntentAnswers.length > 0 ? [{ href: "#popular-searches", label: "Popular searches" }] : []),
         ...(authority ? [{ href: "#buyer-guide", label: "Who it suits" }] : []),
         ...(!isHistorical ? [{ href: "#installment", label: "Monthly" }] : []),
         { href: "#rider-fit", label: "Rider fit" },
@@ -274,6 +279,8 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         </div>
         <p className="entity-lede">{model.make} {model.model} uses a {model.engineCc} cc engine rated at {model.powerHp} hp and {model.torqueNm} Nm. Recorded curb weight is {model.curbWeightKg} kg, seat height is {model.seatHeightMm} mm, and fuel capacity is {model.fuelTankL} L.</p>
       </section>
+
+      <HighDemandIntentPanel model={model} />
 
       <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
         <SectionHeader kicker="Key specifications" titleId="specs-heading" title={`${model.make} ${model.model} specifications`} description="Compare engine, power, fit, weight, transmission, braking and stock tire sizes for this motorcycle." />
