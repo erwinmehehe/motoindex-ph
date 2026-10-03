@@ -53,6 +53,7 @@ function Count({ value }: { value: number }) {
 
 export default function HelmetsPage(){
   const verified=helmetProducts.filter(p=>p.status==="verified").sort((a,b)=>(a.priceFromPhp??Number.MAX_SAFE_INTEGER)-(b.priceFromPhp??Number.MAX_SAFE_INTEGER)||a.brand.localeCompare(b.brand)||a.model.localeCompare(b.model));
+  const browsableHelmets=verified.filter(p=>hasRenderableProductMedia(p.id));
   const brands=helmetBrands.filter(h=>isIndexableHelmetBrand(h.slug));
   const priced=verified.map(p=>p.priceFromPhp).filter((v):v is number=>typeof v==="number");
   const minPrice=priced.length?Math.min(...priced):undefined;
@@ -84,7 +85,7 @@ export default function HelmetsPage(){
       actions={<CTAGroup><Link className="button" href="/gear/helmets/finder">Find my helmet</Link><Link className="button secondary" href="/gear/helmets/compare">Compare exact helmets</Link></CTAGroup>}
     />
 
-    <FilterGrid label="Helmets" facets paginateInitially rows={verified.map(p=>({id:p.id,title:`${p.brand} ${p.model}`,category:p.helmetType,brand:p.brand,price:p.priceFromPhp}))}>{verified.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:p.helmetType,brand:p.brand,model:p.model,meta:compactHelmetMeta(p),status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</FilterGrid>
+    <FilterGrid label="Helmets" facets paginateInitially rows={browsableHelmets.map(p=>({id:p.id,title:`${p.brand} ${p.model}`,category:p.helmetType,brand:p.brand,price:p.priceFromPhp}))}>{browsableHelmets.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:p.helmetType,brand:p.brand,model:p.model,meta:compactHelmetMeta(p),status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</FilterGrid>
 
     <StatRow items={[
       {label:"Verified models",value:verified.length},

@@ -178,7 +178,8 @@ html body .motorcycle-hero-facts span{
 }
 html body .motorcycle-hero-facts strong{
   line-height:1.15;
-  white-space:nowrap;
+  white-space:normal;
+  overflow-wrap:anywhere;
 }
 html body .motorcycle-hero-facts small{
   line-height:1.35;
