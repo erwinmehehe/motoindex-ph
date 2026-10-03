@@ -1,3 +1,4 @@
+import { isCompetitorSource } from "@/lib/competitors";
 import { dealerFinancingObservationsFor } from "@/lib/dealerFinancing";
 import { php } from "@/lib/utils";
 import { SectionHeader, StatRow } from "@/components/ui";
@@ -7,7 +8,7 @@ export function DealerFinancingSnapshot({ modelId, modelName }: { modelId: strin
   if (!observations.length) return null;
 
   const items = observations.map((row) => ({
-    label: <a href={row.sourceUrl} target="_blank" rel="noreferrer">{row.label}</a>,
+    label: <a href={row.sourceUrl} target="_blank" rel={isCompetitorSource(row.sourceUrl) ? "nofollow noreferrer" : "noreferrer"}>{row.label}</a>,
     value: php(row.srpPhp),
     note: row.downPaymentPhp && row.monthlyPhp
       ? <>{php(row.downPaymentPhp)} down · {php(row.monthlyPhp)}/mo · checked {row.checkedAt}</>

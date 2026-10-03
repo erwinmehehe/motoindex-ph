@@ -1,3 +1,4 @@
+import { isCompetitorSource } from "@/lib/competitors";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -154,7 +155,7 @@ export default async function ModelColorsPage({ params }: { params: Promise<{ ma
           <span>{variant.name}</span>
           <h3>{colors.join(" · ")}</h3>
           <p>{variant.featureSummary}</p>
-          <small>Checked {variant.checkedAt} · <a href={variant.sourceUrl} target="_blank" rel="noreferrer">{variant.sourceLabel}</a></small>
+          <small>Checked {variant.checkedAt} · <a href={variant.sourceUrl} target="_blank" rel={isCompetitorSource(variant.sourceUrl) ? "nofollow noreferrer" : "noreferrer"}>{variant.sourceLabel}</a></small>
         </article>)}
       </div>
     </section>}
@@ -187,7 +188,7 @@ export default async function ModelColorsPage({ params }: { params: Promise<{ ma
       <div className="info-card">
         <h3>Primary model reference</h3>
         <p>{model.sourceLabel}</p>
-        <a className="text-link" href={model.sourceUrl} target="_blank" rel="noreferrer">Open source reference →</a>
+        <a className="text-link" href={model.sourceUrl} target="_blank" rel={isCompetitorSource(model.sourceUrl) ? "nofollow noreferrer" : "noreferrer"}>Open source reference →</a>
         <small>Checked {model.verifiedAt}</small>
       </div>
     </section>

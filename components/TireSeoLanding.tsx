@@ -1,3 +1,4 @@
+import { isCompetitorSource } from "@/lib/competitors";
 import Link from "next/link";
 import { AuthorBox } from "@/components/AuthorBox";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -294,13 +295,13 @@ export function TireSeoLanding(props: Props) {
               <span>{model.model}</span>
               <strong>{item?.label || "Use exact owner manual"}</strong>
               <p>{item?.note || "No model-specific pressure figure is published here yet. Check the motorcycle placard or owner manual when the tires are cold."}</p>
-              {item && <a href={item.sourceUrl} target="_blank" rel="noreferrer">Owner-manual source ↗</a>}
+              {item && <a href={item.sourceUrl} target="_blank" rel={isCompetitorSource(item.sourceUrl) ? "nofollow noreferrer" : "noreferrer"}>Owner-manual source ↗</a>}
             </article>;
           })}
         </div> : pressure ? <div className={styles.pressureFeature}>
           <div><span>Cold pressure reference</span><strong>{pressure.label}</strong><small>{pressure.note}</small></div>
           <p>This figure comes from the model-specific maintenance record. Recheck the motorcycle placard or owner manual if your exact year, passenger load or market specification differs.</p>
-          <a href={pressure.sourceUrl} target="_blank" rel="noreferrer">{pressure.sourceLabel} ↗</a>
+          <a href={pressure.sourceUrl} target="_blank" rel={isCompetitorSource(pressure.sourceUrl) ? "nofollow noreferrer" : "noreferrer"}>{pressure.sourceLabel} ↗</a>
         </div> : <div className={styles.editorialNote}>
           <strong>No generic PSI guess</strong>
           <p>MotoIndex has not recorded a model-specific pressure source for this motorcycle yet. Use the tire-pressure label or the exact owner manual and measure pressure cold.</p>
@@ -374,7 +375,7 @@ export function TireSeoLanding(props: Props) {
           <strong>{primary.sourceLabel}</strong>
           <small>Checked {primary.verifiedAt}</small>
         </div>
-        <a href={primary.sourceUrl} target="_blank" rel="noreferrer">Open source ↗</a>
+        <a href={primary.sourceUrl} target="_blank" rel={isCompetitorSource(primary.sourceUrl) ? "nofollow noreferrer" : "noreferrer"}>Open source ↗</a>
       </section>
 
       <AuthorBox />
