@@ -19,6 +19,7 @@ for(const path of required)need(fs.existsSync(path),"Missing owner review file: 
 const schema=read("prisma/schema.prisma");
 need(schema.includes("model OwnerReview"),"Prisma schema must define OwnerReview");
 need(schema.includes("@@unique([ownerId, garageMotorcycleLocalId])"),"One owner review must be unique per Garage motorcycle");
+need(schema.includes("@@unique([ownerId, modelExternalId])"),"One account must not publish multiple reviews for the same model");
 need(schema.includes("garageVerifiedAt"),"Owner reviews must store Garage verification time");
 
 const ownerRoute=read("app/api/owner-reviews/route.ts");
