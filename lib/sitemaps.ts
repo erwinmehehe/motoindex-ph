@@ -67,6 +67,7 @@ export function coreSitemapEntries(): Entry[] {
     {path:"/used-motorcycles/repo",priority:.82,lastModified:latestModelDate},
     {path:"/used-motorcycles/buying-checklist",priority:.74,lastModified:RELEASE_DATE},
     {path:"/tools",priority:.84,lastModified:RELEASE_DATE},
+    {path:"/tools/used-motorcycle-valuation",priority:.88,lastModified:latestModelDate},
     {path:"/tools/motorcycle-loan-calculator",priority:.88,lastModified:RELEASE_DATE},
     {path:"/tools/lto-registration-fee-calculator",priority:.8,lastModified:RELEASE_DATE},
     {path:"/tools/motorcycle-insurance-calculator",priority:.8,lastModified:RELEASE_DATE},
