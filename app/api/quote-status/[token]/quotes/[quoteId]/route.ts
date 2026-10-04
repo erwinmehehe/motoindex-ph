@@ -14,7 +14,7 @@ export async function PATCH(request:Request,{params}:{params:Promise<{token:stri
   const decision=typeof body.decision==="string"?body.decision:"";
   if(!allowed.has(decision))return NextResponse.json({ok:false,error:"Invalid quote response."},{status:400});
 
-  const lead=await prisma.dealerLead.findUnique({
+  const lead=await prisma.dealerLead.findFirst({
     where:{OR:[{buyerAccessTokenHash:hashBearerToken(token)},{buyerAccessToken:token}]},
     select:{id:true,buyerAccessExpiresAt:true}
   });
