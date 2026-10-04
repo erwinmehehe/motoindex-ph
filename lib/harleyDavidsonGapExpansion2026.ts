@@ -58,7 +58,7 @@ export const harleyDavidsonGapExpansion2026: Motorcycle[] = [
     frontTire: "160/70R17 73V",
     rearTire: "180/70R16 77V",
     abs: "ABS with Harley-Davidson rider-safety electronics",
-    colors: ["White Onyx Pearl", "Dark Billiard Gray", "Vivid Black", "Blood Orange", "Aurora Blue Denim"],
+    colors: [],
     searchVolume: 800,
     keywordDifficulty: 0,
     sourceLabel: "Harley-Davidson APAC 2026 Sportster S technical specification",
