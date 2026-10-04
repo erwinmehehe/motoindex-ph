@@ -96,7 +96,7 @@ export const currentModelGapCloseout2026: Motorcycle[] = [
     rearTire: "80/90-17",
     abs: "No ABS; hydraulic front disc and rear drum",
     colors: ["Matte Axis Gray Metallic", "Pearl Sylvestris Gray"],
-    searchVolume: 2000,
+    searchVolume: 9900,
     keywordDifficulty: 1,
     sourceLabel: "Honda Philippines September 2026 RS125 Final Edition launch with current availability and SRP",
     sourceUrl: "https://www.hondaph.com/motorcycle/news/honda-releases-its-rs125-final-edition",
