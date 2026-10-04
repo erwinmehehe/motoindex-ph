@@ -40,6 +40,7 @@ const recommendationSectionBySlug: Record<string, string> = {
   "yamaha-mio-motorcycles-philippines": "brands",
   "kawasaki-ninja-motorcycles-philippines": "brands",
   "honda-adv-motorcycles-philippines": "brands",
+  "honda-cbr-motorcycles-philippines": "brands",
   "suzuki-burgman-motorcycles-philippines": "brands",
   "suzuki-raider-motorcycles-philippines": "brands",
   "ktm-duke-motorcycles-philippines": "brands",
