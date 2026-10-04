@@ -81,6 +81,8 @@
     "validate:comparisons": "node scripts/validate-comparison-briefs.mjs",
     "validate:garage": "node scripts/garage-qa.mjs",
     "validate:dealer-platform": "node scripts/validate-dealer-platform.mjs",
+    "validate:privacy-hardening": "node scripts/validate-privacy-hardening.mjs",
+    "validate:security": "npm run validate:lockfile && npm run prisma:validate && npm run validate:dealer-platform && npm run validate:privacy-hardening",
     "validate:helmet-media": "python scripts/audit-helmet-media-art-direction.py"
   },
   "dependencies": {
