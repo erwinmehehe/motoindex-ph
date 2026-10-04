@@ -90,6 +90,8 @@ const nextConfig = {
       { source: "/motorcycles/skygo", destination: "/guides/skygo-motorcycle-price-philippines", permanent: true },
       { source: "/motorcycles/harley-davidson", destination: "/guides/harley-davidson-price-philippines", permanent: true },
       { source: "/motorcycles/hatasu", destination: "/guides/hatasu-ebike-price-philippines", permanent: true },
+      { source: "/motorcycles/voge", destination: "/guides/voge-motorcycle-philippines", permanent: true },
+      { source: "/motorcycles/italjet", destination: "/guides/italjet-price-philippines", permanent: true },
       { source: "/motorcycles/honda-cbr", destination: "/recommendations/honda-cbr-motorcycles-philippines", permanent: true },
       { source: "/motorcycles/loan", destination: "/tools/motorcycle-loan-calculator", permanent: true },
       { source: "/motorcycle-loan-calculator", destination: "/tools/motorcycle-loan-calculator", permanent: true },
