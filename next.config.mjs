@@ -96,6 +96,15 @@ const nextConfig = {
       { source: "/motorcycles/loan", destination: "/tools/motorcycle-loan-calculator", permanent: true },
       { source: "/motorcycle-loan-calculator", destination: "/tools/motorcycle-loan-calculator", permanent: true },
       { source: "/tools/motorcycle-installment-calculator", destination: "/tools/motorcycle-loan-calculator", permanent: true },
+      // Consolidate reverse-order comparison searches into one canonical URL per pair.
+      { source: "/compare/nmax-v3-vs-aerox-v3", destination: "/compare/aerox-v3-vs-nmax-v3", permanent: true },
+      { source: "/compare/nmax-v3-vs-pcx-160", destination: "/compare/pcx-160-vs-nmax-v3", permanent: true },
+      { source: "/compare/giorno-plus-vs-fazzio", destination: "/compare/fazzio-vs-giorno-plus", permanent: true },
+      { source: "/compare/click-160-vs-click-125i", destination: "/compare/click-125i-vs-click-160", permanent: true },
+      { source: "/compare/fazzio-vs-click-125i", destination: "/compare/click-125i-vs-fazzio", permanent: true },
+      { source: "/compare/aerox-v3-vs-pcx-160", destination: "/compare/pcx-160-vs-aerox-v3", permanent: true },
+      { source: "/compare/xmax-vs-tmax", destination: "/compare/tmax-vs-xmax", permanent: true },
+      { source: "/compare/cb650r-vs-z900", destination: "/compare/z900-vs-cb650r", permanent: true },
       // Canonical buying-guide hub is plural. Preserve singular links and typos with permanent redirects.
       { source: "/recommendation", destination: "/recommendations", permanent: true },
       { source: "/recommendation/:path*", destination: "/recommendations/:path*", permanent: true }
