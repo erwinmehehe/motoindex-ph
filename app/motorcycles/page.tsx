@@ -29,6 +29,16 @@ const MOTORCYCLE_BRAND_LOGOS = new Set([
   "rusi", "suzuki", "triumph", "vespa", "yamaha", "zontes"
 ]);
 
+export const dynamic = "force-static";
+export const revalidate = false;
+
+export const metadata: Metadata = pageMetadata({
+  title: "Motorcycle Price List Philippines 2026 | MotoIndex",
+  description: "Compare current motorcycle prices in the Philippines by brand, category, engine size and budget, with checked specs, model research and ownership tools.",
+  path: "/motorcycles",
+  index: currentModels.length > 0
+});
+
 export default function MotorcyclesPage() {
   const makes = [...new Map(currentModels.map((m) => [m.makeSlug, m.make])).entries()];
   const authorityModels = currentModels.filter((model) => Boolean(modelAuthorityProfile(model.id)));
