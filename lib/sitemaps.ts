@@ -63,6 +63,7 @@ export function coreSitemapEntries(): Entry[] {
     {path:"/guides",priority:.74,lastModified:latestEditorialDate},
     {path:"/tires",priority:.75,lastModified:latestTireDate},
     {path:"/maintenance",priority:.78,lastModified:latestModelDate},
+    {path:"/used-motorcycles",priority:.86,lastModified:latestModelDate},
     {path:"/used-motorcycles/repo",priority:.82,lastModified:latestModelDate},
     {path:"/used-motorcycles/buying-checklist",priority:.74,lastModified:RELEASE_DATE},
     {path:"/tools",priority:.84,lastModified:RELEASE_DATE},
