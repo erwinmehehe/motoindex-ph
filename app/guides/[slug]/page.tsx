@@ -82,7 +82,7 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
       <div>
         <span className="section-kicker">At a glance</span>
         <h2 id="guide-at-a-glance">Use the guide as a verification checklist</h2>
-        <p>Start with the buyer decision, then confirm the exact helmet model and the current source before purchasing. MotoIndex keeps the source links beside the guidance so changing fit or compliance details can be checked directly.</p>
+        <p>Start with the buyer decision, then confirm the exact model, product or rule against the current source before acting. MotoIndex keeps source links beside the guidance so changing prices, specifications, availability and requirements can be checked directly.</p>
       </div>
       <div className="info-card">
         <h3>Quick verification path</h3>
@@ -96,7 +96,7 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
     </section>)}
 
     <section className="section" aria-labelledby="guide-research-tools">
-      <div className="section-head compact"><div><h2 id="guide-research-tools">Put this guide to work</h2><p>Continue from general guidance into model-level research without creating another thin search page.</p></div></div>
+      <div className="section-head compact"><div><h2 id="guide-research-tools">Put this guide to work</h2><p>Continue from general guidance into model-level research, comparison and verification without creating another thin search page.</p></div></div>
       <div className="guide-strip">{guideResearchLinks.map((item) => <Link href={item.href} key={item.href}><strong>{item.title}</strong><small>{item.description}</small></Link>)}</div>
     </section>
 
