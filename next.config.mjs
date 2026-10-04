@@ -82,6 +82,7 @@ const nextConfig = {
       { source: "/motorcycles/nwow", destination: "/guides/nwow-ebike-price-philippines", permanent: true },
       { source: "/motorcycles/skygo", destination: "/guides/skygo-motorcycle-price-philippines", permanent: true },
       { source: "/motorcycles/harley-davidson", destination: "/guides/harley-davidson-price-philippines", permanent: true },
+      { source: "/motorcycles/hatasu", destination: "/guides/hatasu-ebike-price-philippines", permanent: true },
       { source: "/motorcycles/honda-cbr", destination: "/recommendations/honda-cbr-motorcycles-philippines", permanent: true },
       // Canonical buying-guide hub is plural. Preserve singular links and typos with permanent redirects.
       { source: "/recommendation", destination: "/recommendations", permanent: true },
