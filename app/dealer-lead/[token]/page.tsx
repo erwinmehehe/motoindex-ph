@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { databaseConfigured, prisma } from "@/lib/db";
+import { hashBearerToken } from "@/lib/actionTokens";
 import { DealerLeadPortal } from "@/components/DealerLeadPortal";
 import { DealerQuoteResponseForm } from "@/components/DealerQuoteResponseForm";
 import { php } from "@/lib/utils";
@@ -11,7 +12,7 @@ export const dynamic="force-dynamic";
 export default async function DealerLeadPage({params}:{params:Promise<{token:string}>}){
   if(!databaseConfigured())return notFound();
   const {token}=await params;
-  const delivery=await prisma.dealerLeadDelivery.findUnique({where:{deliveryToken:token},include:{lead:true,quoteResponse:true}});
+  const delivery=await prisma.dealerLeadDelivery.findFirst({where:{OR:[{deliveryTokenHash:hashBearerToken(token)},{deliveryToken:token}]},include:{lead:true,quoteResponse:true}});
   if(!delivery||delivery.status==="pending"||delivery.status==="cancelled"||delivery.expiresAt<=new Date())return notFound();
   const lead=delivery.lead;
 
