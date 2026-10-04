@@ -1,14 +1,10 @@
-.owner-reviews-section{margin:var(--mi-space-12) 0}
-.owner-review-summary{margin-bottom:var(--mi-space-6)}
-.owner-review-list{display:grid;gap:var(--mi-space-4)}
-.owner-review-card{background:var(--mi-color-surface);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-lg);padding:var(--mi-space-6);box-shadow:var(--mi-shadow-xs)}
-.owner-review-card-head{display:flex;justify-content:space-between;gap:var(--mi-space-4);align-items:flex-start;margin-bottom:var(--mi-space-4)}
-.owner-review-card-head>div{display:flex;flex-direction:column;gap:var(--mi-space-1)}
-.owner-review-card-head small,.owner-review-card>p,.owner-review-pros-cons p{color:var(--mi-color-copy);line-height:var(--mi-leading-copy)}
-.owner-review-dimensions{display:flex;gap:var(--mi-space-2);flex-wrap:wrap;margin:var(--mi-space-4) 0}
-.owner-review-dimensions span{border:1px solid var(--mi-color-line);background:var(--mi-color-surface-subtle);border-radius:var(--mi-radius-pill);padding:7px 10px;font-size:var(--mi-type-xs);font-weight:700}
-.owner-review-pros-cons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--mi-space-3);margin:var(--mi-space-4) 0}
-.owner-review-pros-cons>div{border:1px solid var(--mi-color-line-soft);background:var(--mi-color-surface-subtle);border-radius:var(--mi-radius-md);padding:var(--mi-space-4)}
-.owner-review-pros-cons span{display:block;font-size:var(--mi-type-xs);font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:var(--mi-space-2)}
-.owner-review-pros-cons p{margin:0}
-@media(max-width:650px){.owner-review-card{padding:var(--mi-space-4)}.owner-review-card-head{flex-direction:column}.owner-review-pros-cons{grid-template-columns:1fr}}
+.owner-reviews-section{margin:48px 0}
+.owner-review-list{display:grid;gap:12px}
+.owner-review-card{background:var(--mi-color-surface);border:1px solid var(--mi-color-line);border-radius:16px;padding:20px}
+.owner-review-card-head,.owner-review-dimensions{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.owner-review-card-head>div{display:grid;gap:4px}
+.owner-review-card-head small,.owner-review-card>p,.owner-review-pros-cons p{color:var(--mi-color-copy)}
+.owner-review-dimensions{justify-content:flex-start;margin:14px 0}
+.owner-review-dimensions span,.owner-review-pros-cons span{font-size:12px;font-weight:800}
+.owner-review-pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:650px){.owner-review-card{padding:16px}.owner-review-pros-cons{grid-template-columns:1fr}}
