@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { databaseConfigured, prisma } from "@/lib/db";
+import { databaseConfigured } from "@/lib/db";
 import { php } from "@/lib/utils";
 import { getModelById } from "@/lib/data";
 import { BuyerQuoteDecision } from "@/components/BuyerQuoteDecision";
+import { findBuyerLeadByToken } from "@/lib/actionTokenLookup";
 
 export const metadata:Metadata={title:"Private Quote Status",robots:{index:false,follow:false,noarchive:true}};
 export const dynamic="force-dynamic";
@@ -31,10 +32,7 @@ function availabilityLabel(value:string){
 export default async function QuoteStatusPage({params}:{params:Promise<{token:string}>}){
   if(!databaseConfigured())return notFound();
   const {token}=await params;
-  const lead=await prisma.dealerLead.findUnique({
-    where:{buyerAccessToken:token},
-    include:{deliveries:{orderBy:{createdAt:"asc"},include:{quoteResponse:true}}}
-  });
+  const lead=await findBuyerLeadByToken(token);
   if(!lead||!lead.buyerAccessExpiresAt||lead.buyerAccessExpiresAt<=new Date())return notFound();
 
   const model=getModelById(lead.modelExternalId);
