@@ -188,6 +188,7 @@ export function GarageOwnerReviewsPanel(){
         <label className="lead-form-wide"><span>What you like</span><textarea name="likes" rows={3} minLength={10} maxLength={500} required defaultValue={current?.likes||""}/></label>
         <label className="lead-form-wide"><span>What you dislike</span><textarea name="dislikes" rows={3} minLength={10} maxLength={500} required defaultValue={current?.dislikes||""}/></label>
         <label className="lead-form-wide"><span>Publication consent</span><span><input name="publishConsent" type="checkbox" value="yes" required/> I understand this review will be public and anonymous after moderation, using the model/year/variant, ownership duration, odometer and review details shown here.</span></label>
+        <label className="lead-form-wide"><span>Anonymous owner intelligence <small>optional</small></span><span><input name="intelligenceConsent" type="checkbox" value="yes"/> I also allow MotoIndex to calculate anonymous aggregate ownership metrics from this motorcycle's current cloud Garage. Only derived values and coarse maintenance-category counts are saved for intelligence; raw Garage records, notes, documents, plate numbers and provider details are not published or copied into the intelligence dataset.</span></label>
       </div>
       <div className="hero-actions">
         <button className="button small" type="submit" disabled={working}>{working?"Submitting…":current?"Update and resubmit":"Submit for moderation"}</button>
