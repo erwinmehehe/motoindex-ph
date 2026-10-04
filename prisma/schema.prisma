@@ -250,6 +250,7 @@ model Seller {
   status           String   @default("research")
   offers      SellerOffer[]
   matchedImportRows OfferImportRow[]
+  dealerMemberships DealerMembership[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -268,6 +269,8 @@ model SellerOffer {
   status         String   @default("review")
   observedAt     DateTime
   verifiedAt     DateTime?
+  publicationSource String @default("reviewed_ingestion")
+  dealerPublishedAt DateTime?
   targetUrl      String?
   affiliateUrl   String?
   observations   OfferPriceObservation[]
@@ -528,6 +531,57 @@ model DealerQuoteResponse {
   @@index([submittedAt])
 }
 
+
+model DealerAccount {
+  id          String             @id @default(cuid())
+  email       String             @unique
+  verifiedAt  DateTime?
+  memberships DealerMembership[]
+  magicLinks  DealerMagicLink[]
+  sessions    DealerSession[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+}
+
+model DealerMembership {
+  id        String        @id @default(cuid())
+  accountId String
+  account   DealerAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  sellerId  String
+  seller    Seller        @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  role      String        @default("manager")
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@unique([accountId, sellerId])
+  @@index([sellerId])
+}
+
+model DealerMagicLink {
+  id        String        @id @default(cuid())
+  accountId String
+  account   DealerAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  tokenHash String        @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime      @default(now())
+
+  @@index([accountId, createdAt])
+  @@index([expiresAt])
+}
+
+model DealerSession {
+  id         String        @id @default(cuid())
+  accountId  String
+  account    DealerAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  tokenHash  String        @unique
+  expiresAt  DateTime
+  lastSeenAt DateTime      @default(now())
+  createdAt  DateTime      @default(now())
+
+  @@index([accountId, expiresAt])
+  @@index([expiresAt])
+}
 
 model OwnerAccount {
   id             String           @id @default(cuid())
