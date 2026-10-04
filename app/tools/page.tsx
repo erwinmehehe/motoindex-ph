@@ -11,6 +11,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const coreTools=[
+  {href:"/tools/used-motorcycle-valuation",label:"Resale",title:"Used motorcycle value",description:"Estimate a private-sale and dealer-trade planning range from verified active comparables, mileage, year, condition and location.",meta:"Estimate used value →"},
   {href:"/ownership/cost-calculator",label:"Ownership",title:"Total cost to own",description:"Combine purchase, financing, fuel, maintenance, registration, insurance, tires and resale.",meta:"Full ownership view →"},
   {href:"/tools/motorcycle-loan-calculator",label:"Financing",title:"Motorcycle loan calculator Philippines",description:"Estimate monthly payment from the cash price, down payment, loan term and annual interest rate.",meta:"Calculate loan →"},
   {href:"/tools/lto-registration-fee-calculator",label:"Registration",title:"LTO registration fee calculator",description:"Plan MVUC, inspection, CTPL and transaction-specific charges.",meta:"Estimate fees →"},
@@ -33,8 +34,8 @@ export default function ToolsPage() {
     />
 
     <StatRow items={[
-      {label:"Planning tools",value:"8",note:"Purchase, ownership and daily use"},
-      {label:"Core cost tools",value:"4",note:"Ownership, loan, LTO and insurance"},
+      {label:"Planning tools",value:"9",note:"Purchase, resale, ownership and daily use"},
+      {label:"Core cost tools",value:"5",note:"Used value, ownership, loan, LTO and insurance"},
       {label:"Electric tools",value:"2",note:"Charging cost and range"}
     ]}/>
 
@@ -42,7 +43,7 @@ export default function ToolsPage() {
       <SectionHeader
         kicker="Most useful first"
         title="Purchase and ownership calculators"
-        description="These four tools cover the decisions most riders need before paying for a motorcycle."
+        description="These tools cover buying, resale and ownership decisions with editable assumptions and source-backed market context."
       />
       <div className={styles.decisionList}>
         {coreTools.map(item=><Link className={styles.decisionRow} href={item.href} key={item.href}>
