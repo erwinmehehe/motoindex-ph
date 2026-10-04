@@ -7,11 +7,19 @@ export const metadata:Metadata={title:"Owner Review Moderation",robots:{index:fa
 export const dynamic="force-dynamic";
 
 export default async function OwnerReviewModerationPage(){
-  const reviews=databaseConfigured()?await prisma.ownerReview.findMany({
-    include:{owner:{select:{email:true}}},
-    orderBy:{updatedAt:"desc"},
-    take:100
-  }):[];
+  let reviews:Awaited<ReturnType<typeof prisma.ownerReview.findMany>>=[];
+  let loadError=false;
+  if(databaseConfigured()){
+    try{
+      reviews=await prisma.ownerReview.findMany({
+        include:{owner:{select:{email:true}}},
+        orderBy:{updatedAt:"desc"},
+        take:100
+      });
+    }catch{
+      loadError=true;
+    }
+  }
 
   return <section className="page shell">
     <div className="page-head"><h1>Garage-verified owner reviews</h1><p>Review usefulness, plausibility and privacy before publishing. Garage verification confirms only a signed-in account with a matching cloud Garage motorcycle; it is not document verification.</p></div>
@@ -22,6 +30,7 @@ export default async function OwnerReviewModerationPage(){
       <div><span>Rejected</span><strong>{reviews.filter(review=>review.status==="rejected").length}</strong></div>
     </div>
     {!databaseConfigured()?<div className="note-box"><h2>Production database is not configured</h2><p>Owner reviews require DATABASE_URL and the owner-review Prisma migration.</p></div>:
+    loadError?<div className="note-box"><h2>Owner review storage is not ready</h2><p>Apply the owner-review Prisma migration before using moderation.</p></div>:
     !reviews.length?<div className="note-box"><h2>No owner reviews yet</h2><p>Garage-linked submissions will appear here after the feature is enabled.</p></div>:
     <div className="dealer-application-list">{reviews.map(review=>{
       const model=getModelById(review.modelExternalId);
