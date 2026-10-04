@@ -7,7 +7,7 @@ import { isAuthorityExpansionModel, modelAuthorityQuality } from "./modelQuality
 import { evaluateMotorcycle } from "./decisionEngine";
 import { motortradeGapGuides2026 } from "./motortradeGapGuides2026";
 
-export const motorcycles: Motorcycle[] = [
+const motorcycleRecords: Motorcycle[] = [
   {
     id: "yamaha-aerox-v3",
     alsoKnownAs: ["Yamaha Aerox SP", "Aerox SP", "Yamaha Aerox 155"],
@@ -694,12 +694,12 @@ export const motorcycles: Motorcycle[] = [
     summary: "149cc six-speed underbone with a 795 mm seat and ABS available on higher variants."
   },
   {
-    id: "honda-wave-rsx", make: "Honda", makeSlug: "honda", model: "Wave RSX", slug: "wave-rsx", generation: "Current", category: "Underbone",
+    id: "honda-wave-rsx", alsoKnownAs: ["Honda Wave 110", "Wave 110", "Wave110", "Honda Wave RSX 110"], make: "Honda", makeSlug: "honda", model: "Wave RSX", slug: "wave-rsx", generation: "Current", category: "Underbone",
     marketStatus: "current",
     srp: 62900, engineCc: 109, powerHp: 8.6, torqueNm: 8.7, curbWeightKg: 98, seatHeightMm: 760, fuelTankL: 4.0, fuelConsumptionKmL: 69.5, groundClearanceMm: 135,
-    frontTire: "70/90-17", rearTire: "80/90-17", abs: "No ABS; brake equipment varies by Drum/Disc variant", colors: [], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Independent PH 2026 Wave RSX price and specification page", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/wave-rsx/specifications", verifiedAt: "2026-08-25", freshness: "verified",
-    marketPriceHighPhp: 64900, marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/wave-rsx", marketPriceCheckedAt: "2026-09-30", transmission: "Manual",
+    frontTire: "70/90-17", rearTire: "80/90-17", abs: "No ABS; brake equipment varies by Drum/Disc variant", colors: ["Infinity Red", "Poseidon Black Metallic", "Pearl Iceberg White", "Matte Galaxy Black Metallic"], searchVolume: 2500, keywordDifficulty: 2,
+    sourceLabel: "Honda Philippines current Wave RSX catalog and official specification", sourceUrl: "https://www.hondaph.com/motor/wave-rsx-disc", verifiedAt: "2026-10-04", freshness: "verified",
+    marketPriceHighPhp: 64900, marketPriceSourceLabel: "Wheeltek current Wave RSX Drum and Disc listings", marketPriceSourceUrl: "https://wheeltek.com.ph/products/regular-bikes/", marketPriceCheckedAt: "2026-10-04", priceContext: "Honda Philippines currently lists the Wave RSX in its product catalog. Wheeltek lists the Drum at ₱62,900 and Disc at ₱64,900; confirm the exact branch quote before purchase.", transmission: "Manual",
     summary: "109cc underbone with a 760 mm seat, light curb weight and published fuel-economy data."
   },
   {
@@ -1333,7 +1333,37 @@ export const motorcycles: Motorcycle[] = [
   },
   ...phTier23Motorcycles,
 
+
 ];
+
+function mergeMotorcycleRecord(existing: Motorcycle, incoming: Motorcycle): Motorcycle {
+  return {
+    ...existing,
+    ...incoming,
+    searchVolume: Math.max(existing.searchVolume || 0, incoming.searchVolume || 0),
+    colors: [...new Set([...(existing.colors || []), ...(incoming.colors || [])])],
+    alsoKnownAs: [...new Set([...(existing.alsoKnownAs || []), ...(incoming.alsoKnownAs || [])])]
+  };
+}
+
+function normalizeMotorcycleRecords(records: Motorcycle[]) {
+  const byId = new Map<string, Motorcycle>();
+  for (const record of records) {
+    const existing = byId.get(record.id);
+    byId.set(record.id, existing ? mergeMotorcycleRecord(existing, record) : record);
+  }
+
+  const byRoute = new Map<string, Motorcycle>();
+  for (const record of byId.values()) {
+    const route = `${record.makeSlug}/${record.slug}`;
+    const existing = byRoute.get(route);
+    byRoute.set(route, existing ? mergeMotorcycleRecord(existing, record) : record);
+  }
+
+  return [...byRoute.values()];
+}
+
+export const motorcycles: Motorcycle[] = normalizeMotorcycleRecords(motorcycleRecords);
 
 export const currentMotorcycles = motorcycles.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued");
 
