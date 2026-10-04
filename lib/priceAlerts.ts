@@ -113,6 +113,7 @@ export async function runPriceAlertCheck(limit=200){
   if(!priceAlertsConfigured())throw new Error("Price alerts are not fully configured.");
   const subscriptions=await prisma.priceAlertSubscription.findMany({
     where:{status:"active",confirmedAt:{not:null}},
+    include:{owner:true},
     orderBy:{updatedAt:"asc"},
     take:Math.max(1,Math.min(limit,500))
   });
@@ -123,6 +124,7 @@ export async function runPriceAlertCheck(limit=200){
   const now=new Date();
 
   for(const subscription of subscriptions){
+    if(subscription.owner&&!subscription.owner.notificationPriceDropEmail)continue;
     const current=currentModelAlertPrice(subscription.entityId);
     if(!current)continue;
     checked+=1;

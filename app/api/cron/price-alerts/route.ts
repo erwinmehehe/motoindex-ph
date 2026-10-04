@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { garageRemindersConfigured, runGarageReminderCheck } from "@/lib/garageReminders";
 import { priceAlertsConfigured, runPriceAlertCheck } from "@/lib/priceAlerts";
+import { runOwnerDealerPromoNotifications, runOwnerQuoteExpiryNotifications } from "@/lib/ownerNotifications";
 
 export const runtime="nodejs";
 export const dynamic="force-dynamic";
@@ -19,7 +20,9 @@ async function run(request:Request){
   try{
     const result=priceReady?await runPriceAlertCheck(500):{checked:0,sent:0,errors:0};
     const garageReminders=garageReady?await runGarageReminderCheck(500):{checked:0,sent:0,errors:0,skipped:true};
-    return NextResponse.json({ok:true,...result,garageReminders},{headers:{"Cache-Control":"no-store","X-Robots-Tag":"noindex, nofollow"}});
+    const quoteExpiry=await runOwnerQuoteExpiryNotifications(200);
+    const dealerPromos=await runOwnerDealerPromoNotifications(100);
+    return NextResponse.json({ok:true,...result,garageReminders,quoteExpiry,dealerPromos},{headers:{"Cache-Control":"no-store","X-Robots-Tag":"noindex, nofollow"}});
   }catch{
     return NextResponse.json({ok:false,error:"Scheduled notification check failed."},{status:500,headers:{"Cache-Control":"no-store","X-Robots-Tag":"noindex, nofollow"}});
   }

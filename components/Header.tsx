@@ -24,6 +24,7 @@ const gear = [
 ] as const;
 
 const ownership = [
+  ["My MotoIndex", "/my"] as const,
   ["My Garage", "/garage"] as const,
   ["Ownership", "/ownership"] as const,
   ["Dealers", "/dealers"] as const,
@@ -74,7 +75,7 @@ export function Header() {
           </div>
         </details>
       </nav>
-      <div className="nav-actions"><ShortlistNav /><Link className="button small" href="/finder">Find my bike</Link></div>
+      <div className="nav-actions"><ShortlistNav /><Link className="nav-my-link" href="/my">My MotoIndex</Link><Link className="button small" href="/finder">Find my bike</Link></div>
       <details className="mobile-menu">
         <summary aria-label="Open navigation">Menu</summary>
         <div className="mobile-menu-panel"><nav aria-label="Mobile navigation">

@@ -43,9 +43,17 @@ export async function POST(request: Request, { params }: { params: Promise<{ tok
         data: { usedAt: now },
       });
       if (consumed.count !== 1) throw new Error("MAGIC_LINK_ALREADY_USED");
-      await tx.ownerAccount.update({
+      const owner = await tx.ownerAccount.update({
         where: { id: link.ownerId },
         data: { verifiedAt: now },
+      });
+      await tx.priceAlertSubscription.updateMany({
+        where: { ownerId: null, email: owner.email },
+        data: { ownerId: owner.id },
+      });
+      await tx.dealerLead.updateMany({
+        where: { ownerId: null, email: owner.email },
+        data: { ownerId: owner.id },
       });
       await tx.ownerSession.create({
         data: {

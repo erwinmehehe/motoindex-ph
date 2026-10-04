@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { currentModelAlertPrice, priceAlertsConfigured, sendPriceAlertConfirmation } from "@/lib/priceAlerts";
 import { actionToken, hashActionToken } from "@/lib/actionTokens";
+import { getOwnerSession } from "@/lib/ownerAuth";
 
 export const runtime="nodejs";
 
@@ -22,6 +23,8 @@ export async function POST(request:Request){
   const consent=body.consent===true;
   const target=Number(body.targetPricePhp);
   const current=currentModelAlertPrice(modelId);
+  const ownerSession=await getOwnerSession().catch(()=>null);
+  const ownerId=ownerSession&&ownerSession.owner.email===email?ownerSession.ownerId:null;
 
   if(!current)return NextResponse.json({ok:false,error:"Choose a current motorcycle with a published price reference."},{status:400});
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return NextResponse.json({ok:false,error:"Enter a valid email address."},{status:400});
@@ -56,7 +59,8 @@ export async function POST(request:Request){
           lastCheckedAt:null,
           lastObservedPricePhp:null,
           lastAlertedPricePhp:null,
-          lastSentAt:null
+          lastSentAt:null,
+          ownerId:ownerId||recentPending.ownerId
         }
       })
     : await prisma.priceAlertSubscription.create({
@@ -69,7 +73,8 @@ export async function POST(request:Request){
           confirmToken:null,
           confirmTokenHash:hashActionToken(confirmToken),
           unsubscribeToken:null,
-          unsubscribeTokenHash:null
+          unsubscribeTokenHash:null,
+          ownerId
         }
       });
 

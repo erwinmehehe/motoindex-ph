@@ -315,6 +315,8 @@ model PriceAlertSubscription {
   entityType          String
   entityId            String
   email               String
+  ownerId             String?
+  owner               OwnerAccount? @relation(fields: [ownerId], references: [id], onDelete: SetNull)
   targetPricePhp      Decimal  @db.Decimal(12, 2)
   status              String   @default("pending")
   confirmToken        String?  @unique
@@ -331,6 +333,7 @@ model PriceAlertSubscription {
   updatedAt           DateTime @updatedAt
   @@index([entityType, entityId, status])
   @@index([status, updatedAt])
+  @@index([ownerId, status, updatedAt])
 }
 
 model OfferImportBatch {
@@ -430,6 +433,8 @@ model UsedListingInquiry {
 
 model DealerLead {
   id                 String   @id @default(cuid())
+  ownerId            String?
+  owner              OwnerAccount? @relation(fields: [ownerId], references: [id], onDelete: SetNull)
   modelExternalId    String
   make               String
   model              String
@@ -453,6 +458,7 @@ model DealerLead {
 
   @@index([modelExternalId, status, createdAt])
   @@index([cityProvince, status, createdAt])
+  @@index([ownerId, status, createdAt])
 }
 
 model DealerApplication {
@@ -533,6 +539,8 @@ model DealerQuoteResponse {
   dealerNote     String?
   buyerDecision  String?
   buyerDecisionAt DateTime?
+  ownerNotifiedAt DateTime?
+  expiryNotifiedAt DateTime?
   submittedAt    DateTime           @default(now())
   updatedAt      DateTime           @updatedAt
 
@@ -592,17 +600,27 @@ model DealerSession {
 }
 
 model OwnerAccount {
-  id             String           @id @default(cuid())
-  email          String           @unique
-  verifiedAt     DateTime?
-  reminderEmailsEnabled Boolean @default(false)
-  magicLinks     OwnerMagicLink[]
-  sessions       OwnerSession[]
-  garageSnapshot GarageSnapshot?
-  reminders      GarageReminder[]
-  usedListings   UsedListing[]
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  id                              String           @id @default(cuid())
+  email                           String           @unique
+  verifiedAt                      DateTime?
+  reminderEmailsEnabled           Boolean          @default(false)
+  notificationPriceDropEmail      Boolean          @default(true)
+  notificationQuoteEmail          Boolean          @default(true)
+  notificationRegistrationEmail   Boolean          @default(false)
+  notificationInsuranceEmail      Boolean          @default(false)
+  notificationMaintenanceEmail    Boolean          @default(false)
+  notificationDealerPromoEmail    Boolean          @default(false)
+  lastDealerPromoEmailAt          DateTime?
+  magicLinks                      OwnerMagicLink[]
+  sessions                        OwnerSession[]
+  garageSnapshot                  GarageSnapshot?
+  reminders                       GarageReminder[]
+  shortlist                       OwnerShortlistItem[]
+  priceAlerts                     PriceAlertSubscription[]
+  dealerLeads                     DealerLead[]
+  usedListings                    UsedListing[]
+  createdAt                       DateTime         @default(now())
+  updatedAt                       DateTime         @updatedAt
 }
 
 model OwnerMagicLink {
@@ -629,6 +647,19 @@ model OwnerSession {
 
   @@index([ownerId, expiresAt])
   @@index([expiresAt])
+}
+
+model OwnerShortlistItem {
+  id        String       @id @default(cuid())
+  ownerId   String
+  owner     OwnerAccount @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  modelId   String
+  position  Int          @default(0)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@unique([ownerId, modelId])
+  @@index([ownerId, position])
 }
 
 model GarageSnapshot {

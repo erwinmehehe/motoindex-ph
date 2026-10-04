@@ -35,7 +35,12 @@ export async function PUT(request: Request) {
 
   await prisma.ownerAccount.update({
     where: { id: session.ownerId },
-    data: { reminderEmailsEnabled: body.enabled },
+    data: {
+      reminderEmailsEnabled: body.enabled,
+      notificationRegistrationEmail: body.enabled,
+      notificationInsuranceEmail: body.enabled,
+      notificationMaintenanceEmail: body.enabled,
+    },
   });
   return NextResponse.json({ ok: true, reminderEmailsEnabled: body.enabled }, { headers });
 }

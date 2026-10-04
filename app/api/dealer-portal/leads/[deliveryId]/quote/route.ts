@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getDealerSession, dealerRequestOriginAllowed } from "@/lib/dealerAuth";
 import { prisma } from "@/lib/db";
+import { notifyOwnerQuoteReceived } from "@/lib/ownerNotifications";
 
 export const runtime="nodejs";
 const headers={"Cache-Control":"no-store","X-Robots-Tag":"noindex, nofollow, noarchive"};
@@ -43,6 +44,7 @@ export async function PUT(request:Request,{params}:{params:Promise<{deliveryId:s
     await tx.dealerLead.update({where:{id:delivery.leadId},data:{status:"quoted"}});
     return quote;
   });
+  await notifyOwnerQuoteReceived(delivery.leadId,saved.id).catch(()=>{});
   return NextResponse.json({ok:true,status:"quoted",quote:{
     cashPricePhp:saved.cashPricePhp?Number(saved.cashPricePhp):null,
     downPaymentPhp:saved.downPaymentPhp?Number(saved.downPaymentPhp):null,

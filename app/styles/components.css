@@ -7,3 +7,10 @@
 @import "./motorcycles-index-fix.css";
 @import "./ui-system.css";
 @import "./calculator-system.css";
+
+
+/* My MotoIndex account workspace */
+.nav-my-link{font-weight:700;text-decoration:none;white-space:nowrap}
+.my-motoindex-page{display:grid;gap:24px}
+.my-preference-row input{width:20px;height:20px;accent-color:currentColor}
+@media(max-width:720px){.nav-my-link{display:none}}
