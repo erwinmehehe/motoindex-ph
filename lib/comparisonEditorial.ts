@@ -210,6 +210,16 @@ export const comparisonEditorialBriefs: ComparisonEditorialBrief[] = [
     related: [{ href: "/recommendations/dual-sport-motorcycles-philippines", label: "Compare dual-sport motorcycles →" }]
   },
   {
+    slug: "klx140-vs-klx150",
+    primaryKeyword: "KLX 140 vs KLX 150",
+    intent: "Kawasaki trail-bike buyer comparing the lighter KLX140 with the larger road-oriented KLX150.",
+    h1: "Kawasaki KLX 140 vs KLX150: Price, Size and Specs",
+    opening: "The KLX 140 and KLX150 are both lightweight Kawasaki single-cylinder motorcycles, but their Philippine records differ in price, wheel size, seat height, weight, ground clearance and intended road-use context. This comparison keeps the off-road KLX 140 separate from the dual-sport KLX150 rather than treating them as interchangeable models.",
+    sections: ["Philippine price", "Engine size and output", "Curb weight", "Seat height", "Wheel and tire sizes", "Ground clearance", "Fuel capacity", "Braking equipment", "Off-road versus dual-sport context", "Which is lighter?", "Which has the lower seat?"],
+    faqs: ["Which is cheaper, KLX 140 or KLX150?", "Which is lighter?", "Which has the lower seat?", "Which has larger wheels?", "Which has more ground clearance?", "Is the KLX 140 the same type of motorcycle as the KLX150?"],
+    related: [{ href: "/compare/crf300l-vs-klx230", label: "Compare CRF300L vs KLX230 →" }]
+  },
+  {
     slug: "crf300l-vs-klx230",
     primaryKeyword: "CRF300L vs KLX230",
     intent: "Philippine dual-sport buyer comparing two current road-and-trail motorcycles.",
