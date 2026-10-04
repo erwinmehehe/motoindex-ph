@@ -149,6 +149,12 @@ export default function MotorcyclesPage() {
             <Link className="button secondary" href="/recommendations/motorcycles-400cc-plus-philippines">400cc+ motorcycles</Link>
             <Link className="button secondary" href="/recommendations/motorcycles-1000cc-plus-philippines">1000cc+ motorcycles</Link>
             <Link className="button secondary" href="/motorcycles/expressway-legal">Expressway legal guide</Link>
+            <Link className="button secondary" href="/recommendations/cafe-racer-motorcycles-philippines">Cafe racer & classic</Link>
+            <Link className="button secondary" href="/recommendations/scrambler-motorcycles-philippines">Scrambler motorcycles</Link>
+            <Link className="button secondary" href="/motorcycles/mopeds">Mopeds</Link>
+            <Link className="button secondary" href="/motorcycles/skygo">Skygo motorcycles</Link>
+            <Link className="button secondary" href="/motorcycles/nwow">NWOW e-bikes</Link>
+            <Link className="button secondary" href="/motorcycles/harley-davidson">Harley-Davidson</Link>
           </CTAGroup>
         </section>
 
