@@ -14,6 +14,7 @@ import { zigwheelsGapWave6_2026 } from "./zigwheelsGapWave6_2026";
 import { zigwheelsGapWave7_2026 } from "./zigwheelsGapWave7_2026";
 import { harleyDavidsonGapExpansion2026 } from "./harleyDavidsonGapExpansion2026";
 import { heroGapExpansion2026 } from "./heroGapExpansion2026";
+import { highVolumeCloseout2026 } from "./highVolumeCloseout2026";
 
 export const phTier23Motorcycles = [
   ...baseMotorcycles,
@@ -32,4 +33,5 @@ export const phTier23Motorcycles = [
   ...zigwheelsGapWave7_2026,
   ...harleyDavidsonGapExpansion2026,
   ...heroGapExpansion2026,
+  ...highVolumeCloseout2026,
 ];
