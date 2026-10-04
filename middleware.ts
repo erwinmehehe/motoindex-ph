@@ -22,6 +22,41 @@ function deny(message: string, status: number, challenge = false, retryAfterSeco
   return new NextResponse(message, { status, headers });
 }
 
+
+function privatePageResponse(request:NextRequest){
+  const nonce=crypto.randomUUID().replace(/-/g,"");
+  const csp=[
+    "default-src 'self'",
+    "base-uri 'self'",
+    "object-src 'none'",
+    "frame-ancestors 'none'",
+    "form-action 'self'",
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: blob: https:",
+    "font-src 'self' data:",
+    "connect-src 'self'",
+    ...(process.env.NODE_ENV==="production"?["upgrade-insecure-requests"]:[])
+  ].join("; ");
+  const requestHeaders=new Headers(request.headers);
+  requestHeaders.set("x-nonce",nonce);
+  requestHeaders.set("Content-Security-Policy",csp);
+  const response=NextResponse.next({request:{headers:requestHeaders}});
+  response.headers.set("Content-Security-Policy",csp);
+  response.headers.set("Cache-Control","no-store");
+  response.headers.set("X-Robots-Tag","noindex, nofollow, noarchive");
+  response.headers.set("Referrer-Policy","no-referrer");
+  return response;
+}
+
+function privateApiResponse(){
+  const response=NextResponse.next();
+  response.headers.set("Cache-Control","no-store");
+  response.headers.set("X-Robots-Tag","noindex, nofollow, noarchive");
+  response.headers.set("Referrer-Policy","no-referrer");
+  return response;
+}
+
 function authClientKey(request: NextRequest) {
   const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
   return request.headers.get("cf-connecting-ip") || request.headers.get("x-real-ip") || forwarded || "unknown";
@@ -50,17 +85,10 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   if (process.env.NODE_ENV === "production" && isPrototypePath(pathname)) return deny("Not found.", 404);
   if (pathname === "/garage" || pathname.startsWith("/garage/") || pathname === "/dealer-portal" || pathname.startsWith("/dealer-portal/") || pathname.startsWith("/api/dealer-portal/")) {
-    const response = NextResponse.next();
-    response.headers.set("Cache-Control", "no-store");
-    response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
-    response.headers.set("Referrer-Policy", "no-referrer");
-    return response;
+    return pathname.startsWith("/api/") ? privateApiResponse() : privatePageResponse(request);
   }
   if (pathname.startsWith("/dealer-lead/") || pathname.startsWith("/api/dealer-lead/") || pathname.startsWith("/quote-status/") || pathname.startsWith("/api/quote-status/") || pathname.startsWith("/price-alerts/confirm/") || pathname.startsWith("/price-alerts/unsubscribe/") || pathname.startsWith("/api/price-alerts/")) {
-    const response = NextResponse.next();
-    response.headers.set("Cache-Control", "no-store");
-    response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
-    return response;
+    return pathname.startsWith("/api/") ? privateApiResponse() : privatePageResponse(request);
   }
   if (pathname === "/motorcycles") {
     const filtered = CATALOG_FILTER_PARAMS.some(key =>
@@ -79,10 +107,7 @@ export async function middleware(request: NextRequest) {
     if(!cloudflareAccessConfigured())return deny("Administrative surface unavailable.",503);
     const access=await verifyCloudflareAccess(request);
     if(!access.ok)return deny("Administrative access denied.",403);
-    const response=NextResponse.next();
-    response.headers.set("Cache-Control","no-store");
-    response.headers.set("X-Robots-Tag","noindex, nofollow, noarchive");
-    return response;
+    return pathname.startsWith("/api/") ? privateApiResponse() : privatePageResponse(request);
   }
   if(adminAuthMode!=="basic")return deny("Administrative surface unavailable.",503);
 
@@ -110,10 +135,7 @@ export async function middleware(request: NextRequest) {
   }
 
   authFailures.delete(clientKey);
-  const response = NextResponse.next();
-  response.headers.set("Cache-Control", "no-store");
-  response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
-  return response;
+  return pathname.startsWith("/api/") ? privateApiResponse() : privatePageResponse(request);
 }
 
 export const config = {
