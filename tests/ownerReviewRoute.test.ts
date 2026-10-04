@@ -60,7 +60,7 @@ describe("owner review route",()=>{
       body:JSON.stringify({
         garageMotorcycleLocalId:"bike-1",
         comfortRating:4,cityTrafficRating:5,maintenanceRating:4,passengerRating:3,highwayRating:4,
-        fuelEconomyKmpl:42,annualMaintenancePhp:9000,unscheduledRepairsCount:1,
+        fuelEconomyKmpl:42,annualMaintenancePhp:9000,unscheduledRepairsCount:1,publishConsent:"yes",
         summary:"After several months of daily use, this motorcycle has been predictable in traffic and straightforward to maintain.",
         likes:"Easy low-speed control and practical fuel use.",
         dislikes:"Storage and passenger space could be better.",
