@@ -67,6 +67,14 @@ const nextConfig = {
       { source: "/motorcycles/yamaha/aerox-v4", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
       { source: "/motorcycles/yamaha/aerox-2025", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
       { source: "/motorcycles/yamaha/nmax-turbo", destination: "/motorcycles/yamaha/nmax-v3", permanent: true },
+      // Consolidate keyword-shaped category aliases into the canonical authority pages.
+      { source: "/recommendations/electric-scooters-philippines", destination: "/motorcycles/electric", permanent: true },
+      { source: "/recommendations/best-electric-scooters-philippines", destination: "/motorcycles/electric", permanent: true },
+      { source: "/recommendations/best-big-bikes-philippines", destination: "/recommendations/motorcycles-400cc-plus-philippines", permanent: true },
+      { source: "/recommendations/big-bikes-philippines", destination: "/recommendations/motorcycles-400cc-plus-philippines", permanent: true },
+      { source: "/recommendations/best-cruiser-philippines", destination: "/recommendations/cruiser-motorcycles-philippines", permanent: true },
+      { source: "/recommendations/automatic-philippines", destination: "/recommendations/automatic-motorcycles-philippines", permanent: true },
+      { source: "/recommendations/best-moped-philippines", destination: "/guides/moped-vs-scooter-underbone-philippines", permanent: true },
       // Canonical buying-guide hub is plural. Preserve singular links and typos with permanent redirects.
       { source: "/recommendation", destination: "/recommendations", permanent: true },
       { source: "/recommendation/:path*", destination: "/recommendations/:path*", permanent: true }
