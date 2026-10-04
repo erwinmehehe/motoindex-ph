@@ -5,6 +5,7 @@ import { databaseConfigured, prisma } from "@/lib/db";
 import { php } from "@/lib/utils";
 import { getModelById } from "@/lib/data";
 import { BuyerQuoteDecision } from "@/components/BuyerQuoteDecision";
+import { hashBearerToken } from "@/lib/actionTokens";
 
 export const metadata:Metadata={title:"Private Quote Status",robots:{index:false,follow:false,noarchive:true}};
 export const dynamic="force-dynamic";
@@ -32,7 +33,7 @@ export default async function QuoteStatusPage({params}:{params:Promise<{token:st
   if(!databaseConfigured())return notFound();
   const {token}=await params;
   const lead=await prisma.dealerLead.findUnique({
-    where:{buyerAccessToken:token},
+    where:{OR:[{buyerAccessTokenHash:hashBearerToken(token)},{buyerAccessToken:token}]},
     include:{deliveries:{orderBy:{createdAt:"asc"},include:{quoteResponse:true}}}
   });
   if(!lead||!lead.buyerAccessExpiresAt||lead.buyerAccessExpiresAt<=new Date())return notFound();
