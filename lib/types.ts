@@ -270,6 +270,11 @@ export type SellerOffer = {
   status: OfferStatus;
   observedAt: string;
   verifiedAt?: string;
+  publicationSource?: "reviewed_ingestion" | "dealer_portal" | "source_backed";
+  variantLabel?: string;
+  colorLabel?: string;
+  promoLabel?: string;
+  expiresAt?: string;
   targetUrl?: string;
   affiliateUrl?: string;
   note: string;
