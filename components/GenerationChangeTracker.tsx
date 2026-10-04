@@ -1,0 +1,168 @@
+import Link from "next/link";
+import type { ModelFamily } from "@/lib/families";
+import {
+  generationTransitionsForIds,
+  modelYearUpdatesForIds,
+  type GenerationChangeCategory,
+  type GenerationTransition,
+  type ModelYearUpdate,
+} from "@/lib/generationChanges";
+
+const categoryLabel: Record<GenerationChangeCategory,string> = {
+  engine:"Engine",
+  electronics:"Electronics",
+  dimensions:"Dimensions",
+  storage:"Storage",
+  suspension:"Suspension",
+  features:"Features",
+  price:"Price context",
+};
+
+function SourceLink({ url, label }: { url:string; label:string }) {
+  if (url.startsWith("/")) return <Link href={url}>{label}</Link>;
+  return <a href={url} target="_blank" rel="noreferrer">{label} ↗</a>;
+}
+
+function TransitionCard({ transition, featured=false }: { transition:GenerationTransition; featured?:boolean }) {
+  return <article className="info-card" id={transition.id}>
+    <header className="section-head compact">
+      <div>
+        <span className="section-kicker">{featured?"Latest generation change":"Generation step"}</span>
+        <h2>{transition.from.make} {transition.from.model} → {transition.to.model}</h2>
+        <p>{transition.summary}</p>
+      </div>
+      <div className="note-box compact-note">
+        <span>Upgrade verdict</span>
+        <strong>{transition.upgrade.verdict}</strong>
+        <small>{transition.curated?"Sourced change notes + stored spec deltas":"Stored spec deltas; qualitative changes not yet curated"}</small>
+      </div>
+    </header>
+
+    <section className="generation-delta-section" aria-label={`${transition.from.model} to ${transition.to.model} measurable changes`}>
+      <div className="section-head compact"><div><span className="section-kicker">Measurable changes</span><h3>What changed in the stored specs?</h3><p>Price rows keep each generation&apos;s own time context. Historical launch SRP is not treated as a current used value.</p></div></div>
+      <div className="spec-grid">
+        {transition.measurable.map(item=><div className="info-card" key={item.key}>
+          <span>{item.label}</span>
+          <strong>{item.from} → {item.to}</strong>
+          <small>{item.delta}</small>
+        </div>)}
+      </div>
+    </section>
+
+    {transition.notes.length>0 ? <section className="generation-notes">
+      <div className="section-head compact"><div><span className="section-kicker">Sourced change log</span><h3>What changed beyond the headline specs?</h3><p>These notes are limited to differences MotoIndex can tie to the stored or cited Philippine-market sources.</p></div></div>
+      <div className="spec-grid">
+        {transition.notes.map((note,index)=><article className="info-card" key={`${note.category}-${note.title}`}>
+          <div className="generation-note-top"><span>{categoryLabel[note.category]}</span><b>Change {index+1}</b></div>
+          <h4>{note.title}</h4>
+          {(note.from||note.to)&&<div className="generation-before-after">
+            <div><small>{transition.from.model}</small><p>{note.from||"No sourced baseline recorded."}</p></div>
+            <div><small>{transition.to.model}</small><p>{note.to||"No sourced successor figure recorded."}</p></div>
+          </div>}
+          <p><strong>Why it matters:</strong> {note.impact}</p>
+          <small><SourceLink url={note.sourceUrl} label={note.sourceLabel}/></small>
+        </article>)}
+      </div>
+    </section> : <div className="note-box">
+      <strong>Qualitative change log not published yet</strong>
+      <p>MotoIndex has enough data to compare the stored specs above, but it does not publish an electronics, storage, suspension or feature change unless a checked source supports it.</p>
+    </div>}
+
+    <section className="note-box">
+      <div>
+        <span className="section-kicker">Should you upgrade?</span>
+        <h3>{transition.upgrade.verdict}</h3>
+        <p>{transition.upgrade.bottomLine}</p>
+      </div>
+      <div className="spec-grid">
+        <article>
+          <strong>Upgrade makes more sense when</strong>
+          <ul>{transition.upgrade.bestReasons.map(item=><li key={item}>{item}</li>)}</ul>
+        </article>
+        <article>
+          <strong>Keeping {transition.from.model} can make more sense when</strong>
+          <ul>{transition.upgrade.keepPreviousIf.map(item=><li key={item}>{item}</li>)}</ul>
+        </article>
+      </div>
+      <div className="hero-actions">
+        <Link className="button small" href={`/motorcycles/${transition.to.makeSlug}/${transition.to.slug}`}>Research {transition.to.model}</Link>
+        <Link className="button small secondary" href={`/motorcycles/${transition.from.makeSlug}/${transition.from.slug}`}>Research {transition.from.model}</Link>
+        <Link className="button small secondary" href="/tools/used-motorcycle-valuation">Value the older bike</Link>
+      </div>
+    </section>
+  </article>;
+}
+
+function ModelYearCard({ update }: { update:ModelYearUpdate }) {
+  const model=update.modelId;
+  return <article className="info-card" id={update.id}>
+    <header>
+      <div>
+        <span className="section-kicker">Within-generation update</span>
+        <h2>{update.headline}</h2>
+        <p>{update.summary}</p>
+      </div>
+      <div className="generation-verdict">
+        <span>Update type</span>
+        <strong>{update.verdict}</strong>
+        <small>{update.fromYear} → {update.toYear}</small>
+      </div>
+    </header>
+    <div className="generation-note-list">
+      {update.notes.map(note=><article className="info-card" key={note.title}>
+        <div className="generation-note-top"><span>{categoryLabel[note.category]}</span><b>{update.fromYear} → {update.toYear}</b></div>
+        <h4>{note.title}</h4>
+        {(note.from||note.to)&&<div className="generation-before-after">
+          <div><small>{update.fromYear}</small><p>{note.from||"No sourced baseline recorded."}</p></div>
+          <div><small>{update.toYear}</small><p>{note.to||"No sourced update recorded."}</p></div>
+        </div>}
+        <p><strong>Why it matters:</strong> {note.impact}</p>
+        <small><SourceLink url={note.sourceUrl} label={note.sourceLabel}/></small>
+      </article>)}
+    </div>
+    <p className="muted-note">This model-year record is separate from generation-to-generation changes. A newer year does not automatically mean a new engine or chassis generation.</p>
+    <Link className="button small secondary" href={`/motorcycles/${getModelHref(model)}`}>Open current model guide</Link>
+  </article>;
+}
+
+function getModelHref(modelId:string){
+  const [make,...rest]=modelId.split("-");
+  const slug=rest.join("-");
+  return `${make}/${slug}`;
+}
+
+export function GenerationChangeTracker({ family, compact=false }: { family:ModelFamily; compact?:boolean }) {
+  const transitions=generationTransitionsForIds(family.generationIds);
+  const yearUpdates=modelYearUpdatesForIds(family.generationIds);
+  if(!transitions.length&&!yearUpdates.length)return null;
+  const latest=transitions[transitions.length-1];
+
+  if(compact&&latest){
+    return <section className="info-card">
+      <div>
+        <span className="section-kicker">Generation change tracker</span>
+        <h2>{latest.from.model} → {latest.to.model}: what actually changed?</h2>
+        <p>{latest.summary}</p>
+      </div>
+      <div className="spec-grid">
+        {latest.measurable.slice(0,4).map(item=><span key={item.key}><small>{item.label}</small><strong>{item.delta}</strong></span>)}
+      </div>
+      <div className="hero-actions">
+        <Link className="button small" href={`/motorcycles/${family.makeSlug}/${family.slug}/changes`}>Open full change tracker</Link>
+        <Link className="button small secondary" href={`/motorcycles/${family.makeSlug}/${family.slug}/changes#${latest.id}`}>{latest.upgrade.verdict}</Link>
+      </div>
+    </section>;
+  }
+
+  return <div className="generation-change-tracker">
+    {transitions.map((transition,index)=><TransitionCard
+      transition={transition}
+      featured={index===transitions.length-1}
+      key={transition.id}
+    />)}
+    {yearUpdates.length>0&&<section className="section">
+      <div className="section-head compact"><div><span className="section-kicker">Model-year updates</span><h2>What changed without a full generation change?</h2><p>These records separate mid-generation feature/styling updates from a true successor generation.</p></div></div>
+      <div className="generation-change-tracker">{yearUpdates.map(update=><ModelYearCard update={update} key={update.id}/>)}</div>
+    </section>}
+  </div>;
+}

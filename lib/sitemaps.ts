@@ -98,7 +98,12 @@ export function motorcycleSitemapEntries(): Entry[] {
   });
   const families = modelFamilies.flatMap(f=>{
     const list=motorcycles.filter(m=>f.generationIds.includes(m.id));
-    return list.some(isIndexableModel)?[{url:`${SITE_URL}/motorcycles/${f.makeSlug}/${f.slug}`,lastModified:newest(list.map(modelCheckedAt)),changeFrequency:"monthly" as const,priority:.84}]:[];
+    if(!list.some(isIndexableModel))return [];
+    const lastModified=newest(list.map(modelCheckedAt));
+    return [
+      {url:`${SITE_URL}/motorcycles/${f.makeSlug}/${f.slug}`,lastModified,changeFrequency:"monthly" as const,priority:.84},
+      {url:`${SITE_URL}/motorcycles/${f.makeSlug}/${f.slug}/changes`,lastModified,changeFrequency:"monthly" as const,priority:.82}
+    ];
   });
   // Broad model research stays on the canonical motorcycle page. Only whitelisted search-volume-backed intents get focused subpages.
   const indexableModels = motorcycles.filter(isIndexableModel);

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { motorcycles, getModel, getModelById, isIndexableModel } from "@/lib/data";
-import { getModelFamily, modelFamilies } from "@/lib/families";
+import { getModelFamily, getModelFamilyForModel, modelFamilies } from "@/lib/families";
 import { ModelFamilyView } from "@/components/ModelFamilyView";
 import { MotorcycleEntityPage } from "@/components/MotorcycleEntityPage";
 import { PriorityModelBrief } from "@/components/PriorityModelBrief";
@@ -125,9 +126,21 @@ export default async function ModelPage({ params }: { params: Promise<{ make: st
   if (family) return <ModelFamilyView family={family}/>;
   const model = getModel(make, slug);
   if (!model) return notFound();
+  const generationFamily=getModelFamilyForModel(model.id);
   return <>
     <RecentlyViewedTracker model={{ id: model.id, make: model.make, model: model.model, makeSlug: model.makeSlug, slug: model.slug }} />
     <MotorcycleEntityPage model={model} />
+    {generationFamily&&<div className="shell generation-model-entry">
+      <section className="info-card">
+        <span className="section-kicker">Generation change tracker</span>
+        <h2>Where does {model.model} sit in the {generationFamily.name} generation history?</h2>
+        <p>Compare this motorcycle with the generation before and after it, including measurable spec deltas, sourced feature changes, price context and an upgrade decision guide.</p>
+        <div className="hero-actions">
+          <Link className="button small" href={`/motorcycles/${generationFamily.makeSlug}/${generationFamily.slug}/changes`}>Open {generationFamily.name} change tracker</Link>
+          <Link className="button small secondary" href={`/motorcycles/${generationFamily.makeSlug}/${generationFamily.slug}`}>All {generationFamily.name} generations</Link>
+        </div>
+      </section>
+    </div>}
     {(!model.marketStatus||model.marketStatus==="current")&&<div className="shell"><DealerInventoryPanel modelId={model.id} makeSlug={model.makeSlug} modelSlug={model.slug}/></div>}
     <div className="shell"><OwnerReviewsPanel modelId={model.id}/></div>
     <PriorityModelBrief model={model} />
