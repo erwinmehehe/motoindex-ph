@@ -67,6 +67,12 @@ const nextConfig = {
       { source: "/motorcycles/yamaha/aerox-v4", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
       { source: "/motorcycles/yamaha/aerox-2025", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
       { source: "/motorcycles/yamaha/nmax-turbo", destination: "/motorcycles/yamaha/nmax-v3", permanent: true },
+      { source: "/motorcycles/honda/wave", destination: "/motorcycles/honda/wave-rsx", permanent: true },
+      { source: "/motorcycles/honda/wave-110", destination: "/motorcycles/honda/wave-rsx", permanent: true },
+      { source: "/motorcycles/honda/gtr150", destination: "/motorcycles/honda/supra-gtr-150", permanent: true },
+      { source: "/motorcycles/honda/supra-gtr150", destination: "/motorcycles/honda/supra-gtr-150", permanent: true },
+      { source: "/motorcycles/kawasaki/ninja-250-sl", destination: "/motorcycles/kawasaki/ninja-250sl", permanent: true },
+      { source: "/motorcycles/yamaha/vega-force-fi", destination: "/motorcycles/yamaha/vega-force-i", permanent: true },
       // Consolidate helmet-type aliases into the canonical helmet authority page.
       { source: "/gear/helmets/open-face", destination: "/gear/helmets#open-face", permanent: true },
       { source: "/gear/helmets/adventure", destination: "/gear/helmets#adventure", permanent: true },
