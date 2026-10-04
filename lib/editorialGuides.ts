@@ -386,6 +386,113 @@ export const editorialGuides: EditorialGuide[] = [
     ]
   },
 
+
+  {
+    slug: "lambretta-price-philippines",
+    kicker: "Lambretta Philippines guide",
+    title: "Lambretta prices in the Philippines",
+    seoTitle: "Lambretta Price Philippines 2026: X300, G350 & Current Models",
+    description: "Research Lambretta prices in the Philippines, including current X300 and G350 availability, price-on-request status and the limited X300 Casa Lambretta price.",
+    intro: "Lambretta is currently visible in the Philippine market, but the standard X300 and G350 do not have an official public Philippine price in the main comparison listings MotoIndex checked. This page keeps that uncertainty explicit instead of turning overseas or converted prices into a local SRP.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "What is the current Lambretta price in the Philippines?",
+        body: [
+          "Current Philippine comparison listings show both the Lambretta X300 and G350 as available but price-on-request rather than publishing a standard peso SRP. That means the useful next step is a dealer quote for the exact model, model year and color.",
+          "A third-party 2026 price table may show peso estimates, but MotoIndex does not treat converted or unverified figures as an official Philippine retail price."
+        ],
+        bullets: ["X300: current Philippine listing, price on request", "G350: current Philippine listing, price on request", "Ask for model year and exact variant", "Request the written cash and financing quote separately"]
+      },
+      {
+        heading: "Lambretta X300 Casa price in the Philippines",
+        body: [
+          "The limited-edition X300 Casa Lambretta was launched in the Philippines in November 2025 with a starting price of ₱409,900. Only 36 units were allocated to the Philippine market according to the launch coverage.",
+          "That limited-edition price should not be reused as the standard X300 price. Collector editions, standard models and later dealer stock need separate price references."
+        ]
+      },
+      {
+        heading: "X300 vs G350",
+        body: [
+          "Current Philippine comparison references list the X300 as a 275cc CVT scooter and the G350 as a 330cc CVT scooter. They occupy different engine and price positions even when a public local SRP is unavailable.",
+          "For a real buying comparison, confirm the dealer's current cash price, warranty, parts availability, service location, insurance cost and exact unit specifications before deciding."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "How much is a Lambretta in the Philippines?", answer: "Current Philippine listings for the standard X300 and G350 are price on request. MotoIndex does not publish an invented local SRP when the current public price is unavailable." },
+      { question: "How much is the Lambretta X300 in the Philippines?", answer: "The standard X300 is currently listed as price on request. The limited X300 Casa Lambretta launched in the Philippines at ₱409,900 in November 2025, but that collector edition price should not be used as the standard X300 price." },
+      { question: "How much is the Lambretta G350 in the Philippines?", answer: "Current Philippine comparison listings show the G350 as price on request. Ask a Lambretta dealer for the exact current cash and financing quote." },
+      { question: "Is Lambretta available in the Philippines?", answer: "Yes. Current Philippine motorcycle listings include the X300 and G350, and the limited X300 Casa Lambretta received a Philippine allocation in 2025." }
+    ],
+    related: [
+      { href: "/motorcycles/scooters", title: "Scooters in the Philippines", description: "Compare current scooters by price, engine, weight and rider fit." },
+      { href: "/recommendations/maxi-scooters-philippines", title: "Maxi scooters Philippines", description: "Compare larger automatic scooters using MotoIndex model data." },
+      { href: "/tools/motorcycle-loan-calculator", title: "Motorcycle loan calculator", description: "Model a dealer quote using your own downpayment, rate and term." }
+    ],
+    sources: [
+      { label: "MotoPinas: X300 Casa Lambretta Philippine launch and ₱409,900 price", url: "https://www.motopinas.com/motorcycle-news/limited-edition-lambretta-x300-now-in-the-ph-starts-at-php-409-900.html" },
+      { label: "ZigWheels Philippines: Lambretta X300 current price-on-request listing", url: "https://www.zigwheels.ph/new-motorcycles/lambretta/x300/price" },
+      { label: "ZigWheels Philippines: Lambretta G350 current price-on-request listing", url: "https://www.zigwheels.ph/new-motorcycles/lambretta/g350" }
+    ]
+  },
+  {
+    slug: "yamaha-r6-price-philippines",
+    kicker: "Discontinued model price guide",
+    title: "Yamaha R6 price in the Philippines",
+    seoTitle: "Yamaha R6 Price Philippines: Historical SRP, Specs & Used Context",
+    description: "Research the Yamaha YZF-R6 price in the Philippines with its historical ₱749,000 local price, 599cc specs, discontinuation context and used-bike checks.",
+    intro: "The Yamaha YZF-R6 still attracts strong Philippine price searches even though the road-going model was discontinued. The useful answer is historical price plus used-market context, not a fake 2026 new-bike SRP.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "What was the Yamaha R6 price in the Philippines?",
+        body: [
+          "Philippine coverage of the final road-going YZF-R6 generation reported a local retail price of ₱749,000 from its 2017 launch era through the model's final years.",
+          "That figure is a historical new-bike reference. A used R6 today can sell above or below it depending on year, condition, mileage, service history, modifications, documentation and collector demand."
+        ],
+        bullets: ["Historical Philippine new-bike price: ₱749,000", "Road-going R6 discontinued after the 2020 model era", "Used price depends on exact year and condition", "Do not relabel an overseas race-model price as a Philippine road-bike SRP"]
+      },
+      {
+        heading: "Yamaha R6 specifications buyers still search for",
+        body: [
+          "The 2020 YZF-R6 used a 599cc liquid-cooled inline-four engine, six-speed transmission, 850 mm seat, 190 kg curb weight, 17 L fuel tank and 120/70ZR17 front and 180/55ZR17 rear tires.",
+          "Philippine 2017 launch coverage listed 61.7 Nm of maximum torque. These specifications are useful for identifying the generation, but a modified used motorcycle may no longer match stock equipment."
+        ]
+      },
+      {
+        heading: "What replaced the road-going R6?",
+        body: [
+          "Yamaha discontinued the road-going R6 as emissions and market priorities changed. Race-only R6 versions continued in some markets, but those should not be confused with a street-registered Philippine YZF-R6.",
+          "For a current road-going Yamaha sport-bike purchase, compare current Philippine R-series models rather than assuming a new R6 is still available locally."
+        ]
+      },
+      {
+        heading: "What to check before buying a used R6",
+        body: [
+          "Verify the chassis and engine numbers against the OR/CR, inspect service history, check for crash or track-use evidence, confirm cooling-system condition, inspect fork seals and brakes, and identify non-stock ECU, exhaust or suspension changes.",
+          "A specialist pre-purchase inspection is worth considering on a high-revving supersport, especially when service records are incomplete."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "How much is a Yamaha R6 in the Philippines?", answer: "The final road-going YZF-R6 had a historical Philippine new-bike price of about ₱749,000. It is discontinued, so current prices are used-market prices rather than a 2026 SRP." },
+      { question: "Is the Yamaha R6 still available brand new in the Philippines?", answer: "The road-going R6 was discontinued. Any current unit should be checked carefully to determine whether it is old stock, imported, used or a race-only version." },
+      { question: "What engine does the Yamaha R6 have?", answer: "The final road-going generation used a 599cc liquid-cooled inline-four engine with a six-speed transmission." },
+      { question: "What should I check when buying a used R6?", answer: "Check documentation, service history, crash or track-use evidence, cooling system, suspension, brakes, tires and modifications, and consider a specialist inspection." }
+    ],
+    related: [
+      { href: "/motorcycles/yamaha/yzf-r7", title: "Yamaha YZF-R7", description: "See a current Yamaha road-going sport-bike option tracked by MotoIndex." },
+      { href: "/motorcycles/yamaha/yzf-r1m", title: "Yamaha YZF-R1M", description: "Research Yamaha's current liter-class R-series model." },
+      { href: "/recommendations/sport-motorcycles-philippines", title: "Sport motorcycles Philippines", description: "Compare current sport motorcycles by price, output, weight and rider fit." }
+    ],
+    sources: [
+      { label: "MotoPinas: Yamaha R6 discontinuation and Philippine ₱749,000 price context", url: "https://www.motopinas.com/motorcycle-news/yamaha-to-discontinue-r6.html" },
+      { label: "MotoPH: 2017 Philippine YZF-R6 launch specifications", url: "https://www.motoph.com/the-all-new-yamaha-yzf-r6-specifications-availability-and-price/" },
+      { label: "Yamaha 2020 YZF-R6 owner-manual specification reference", url: "https://www.carmanualsonline.info/yamaha-yzf-r6-2020-owners-manual/?srch=height" }
+    ]
+  },
+
 ];
 
 export function getEditorialGuide(slug: string) {
