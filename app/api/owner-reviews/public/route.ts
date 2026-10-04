@@ -11,11 +11,16 @@ export async function GET(request:Request){
   if(process.env.OWNER_REVIEWS_ENABLED!=="true"||!databaseConfigured())return NextResponse.json({ok:true,available:false,reviews:[],summary:null},{headers});
   const modelId=new URL(request.url).searchParams.get("modelId")?.trim()||"";
   if(!modelId||!getModelById(modelId))return NextResponse.json({ok:false,error:"Unknown motorcycle."},{status:400,headers});
-  const rows=await prisma.ownerReview.findMany({
-    where:{modelExternalId:modelId,status:"published",publishedAt:{not:null}},
-    orderBy:{publishedAt:"desc"},
-    take:500
-  });
+  let rows;
+  try{
+    rows=await prisma.ownerReview.findMany({
+      where:{modelExternalId:modelId,status:"published",publishedAt:{not:null}},
+      orderBy:{publishedAt:"desc"},
+      take:500
+    });
+  }catch{
+    return NextResponse.json({ok:true,available:false,reviews:[],summary:null},{headers});
+  }
   const reviews:PublicOwnerReview[]=rows.map(row=>({
     id:row.id,modelExternalId:row.modelExternalId,variantLabel:row.variantLabel,modelYear:row.modelYear,
     ownershipMonths:row.ownershipMonths,odometerKm:row.odometerKm,comfortRating:row.comfortRating,
