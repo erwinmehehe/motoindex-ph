@@ -27,10 +27,8 @@ export type ServiceProviderProfile = SellerProfile & {
 function searchable(profile: SellerProfile) {
   return [
     profile.type,
-    profile.name,
     profile.description,
     ...profile.categories,
-    ...profile.brands,
   ].join(" ").toLowerCase();
 }
 
