@@ -3,6 +3,7 @@ import { getModelById } from "@/lib/data";
 import { observedMarketRange } from "@/lib/marketChecks";
 import { absoluteUrl } from "@/lib/site";
 import { php } from "@/lib/utils";
+import { actionLinkSecretConfigured, signedUnsubscribeToken } from "@/lib/actionTokens";
 
 function escapeHtml(value:string){
   return value.replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]||char));
@@ -15,6 +16,7 @@ export function priceAlertsConfigured(){
     process.env.RESEND_API_KEY &&
     process.env.PRICE_ALERT_FROM_EMAIL &&
     process.env.PRICE_ALERT_CRON_SECRET &&
+    actionLinkSecretConfigured() &&
     databaseConfigured()
   );
 }
@@ -27,6 +29,7 @@ export function priceAlertConfigStatus(){
     resend:Boolean(process.env.RESEND_API_KEY),
     fromEmail:Boolean(process.env.PRICE_ALERT_FROM_EMAIL),
     cronSecret:Boolean(process.env.PRICE_ALERT_CRON_SECRET),
+    actionLinkSecret:actionLinkSecretConfigured(),
     ready:priceAlertsConfigured()
   };
 }
@@ -143,7 +146,7 @@ export async function runPriceAlertCheck(limit=200){
           currentPricePhp:current.pricePhp,
           targetPricePhp:target,
           checkedAt:current.checkedAt,
-          unsubscribeToken:subscription.unsubscribeToken
+          unsubscribeToken:signedUnsubscribeToken(subscription.id)
           });
           sent+=1;
           await prisma.priceAlertSubscription.update({
