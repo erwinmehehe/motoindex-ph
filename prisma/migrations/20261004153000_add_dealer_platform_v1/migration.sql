@@ -1,6 +1,10 @@
 ALTER TABLE "SellerOffer"
 ADD COLUMN "publicationSource" TEXT NOT NULL DEFAULT 'reviewed_ingestion',
-ADD COLUMN "dealerPublishedAt" TIMESTAMP(3);
+ADD COLUMN "dealerPublishedAt" TIMESTAMP(3),
+ADD COLUMN "variantLabel" TEXT,
+ADD COLUMN "colorLabel" TEXT,
+ADD COLUMN "promoLabel" TEXT,
+ADD COLUMN "expiresAt" TIMESTAMP(3);
 
 CREATE TABLE "DealerAccount" (
     "id" TEXT NOT NULL,
