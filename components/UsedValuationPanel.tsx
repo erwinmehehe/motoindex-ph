@@ -24,13 +24,15 @@ export function UsedValuationPanel({
   condition,
   location,
   onUseEstimate,
+  excludeListingId,
 }:{
   modelId:string;
   modelYear:number;
   mileageKm:number;
   condition:ValuationCondition;
   location:string;
-  onUseEstimate:(value:number)=>void;
+  onUseEstimate?:(value:number)=>void;
+  excludeListingId?:string;
 }){
   const [valuation,setValuation]=useState<UsedMotorcycleValuation|null>(null);
   const [comparables,setComparables]=useState<Comparable[]>([]);
@@ -43,7 +45,7 @@ export function UsedValuationPanel({
       const response=await fetch("/api/used-valuation",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({modelId,modelYear,mileageKm,condition,location})
+        body:JSON.stringify({modelId,modelYear,mileageKm,condition,location,excludeListingId})
       }).catch(()=>null);
       if(cancelled)return;
       if(!response?.ok){
@@ -59,7 +61,7 @@ export function UsedValuationPanel({
       setStatus("");
     },300);
     return()=>{cancelled=true;window.clearTimeout(timer);};
-  },[modelId,modelYear,mileageKm,condition,location]);
+  },[modelId,modelYear,mileageKm,condition,location,excludeListingId]);
 
   if(!valuation)return <section className="note-box"><strong>Used motorcycle valuation</strong><p>{status}</p></section>;
 
@@ -70,7 +72,7 @@ export function UsedValuationPanel({
         <h2>{money(valuation.privateSale.lowPhp)}–{money(valuation.privateSale.highPhp)}</h2>
         <p>Estimated private-sale range · midpoint {money(valuation.privateSale.midpointPhp)} · {valuation.confidence} confidence.</p>
       </div>
-      <button className="button small" type="button" onClick={()=>onUseEstimate(valuation.privateSale.midpointPhp)}>Use midpoint as asking price</button>
+      {onUseEstimate&&<button className="button small" type="button" onClick={()=>onUseEstimate(valuation.privateSale.midpointPhp)}>Use midpoint as asking price</button>}
     </div>
 
     <div className="spec-grid">
