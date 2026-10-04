@@ -11,7 +11,7 @@ function fromDb(row:{
     id:row.id,
     name:row.name,
     slug:row.slug,
-    type:(row.type==="dealer"?"dealer":row.type==="retailer"?"retailer":"official"),
+    type:(row.type==="dealer"?"dealer":row.type==="service"?"service":row.type==="retailer"?"retailer":row.type==="marketplace"?"marketplace":"official"),
     city:row.city||"",
     province:row.province||undefined,
     region:row.region||row.province||"",
@@ -48,11 +48,31 @@ export async function allVerifiedDealers(){
   return [...merged.values()].sort((a,b)=>a.city.localeCompare(b.city)||a.name.localeCompare(b.name));
 }
 
+export async function persistentVerifiedServiceCandidates(){
+  if(!databaseConfigured())return [] as SellerProfile[];
+  const rows=await prisma.seller.findMany({
+    where:{type:{in:["dealer","service","retailer"]},status:"verified"},
+    orderBy:[{city:"asc"},{name:"asc"}],
+    take:1000
+  });
+  return rows.map(fromDb).filter(row=>row.city&&row.addressLabel&&row.sourceUrl&&row.lastChecked);
+}
+
+export async function allVerifiedServiceCandidates(){
+  const staticRows=staticPublicDealers();
+  const dbRows=await persistentVerifiedServiceCandidates();
+  const merged=new Map<string,SellerProfile>();
+  for(const row of [...staticRows,...dbRows])merged.set(row.slug,row);
+  return [...merged.values()].sort((a,b)=>a.city.localeCompare(b.city)||a.name.localeCompare(b.name));
+}
+
 export async function getVerifiedSellerProfile(slug:string){
   const staticRow=staticPublicDealers().find(row=>row.slug===slug);
   if(staticRow)return staticRow;
   if(!databaseConfigured())return undefined;
-  const row=await prisma.seller.findFirst({where:{slug,type:"dealer",status:"verified"}});
+  const row=await prisma.seller.findFirst({
+    where:{slug,status:"verified",type:{in:["dealer","service","retailer"]}}
+  });
   if(!row)return undefined;
   const profile=fromDb(row);
   return profile.city&&profile.addressLabel&&profile.sourceUrl&&profile.lastChecked?profile:undefined;

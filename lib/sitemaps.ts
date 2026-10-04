@@ -52,6 +52,7 @@ export function coreSitemapEntries(): Entry[] {
     ...(hasComparisons ? [{path:"/compare",priority:.82,lastModified:latestModelDate}] : []),
     {path:"/recommendations",priority:.8,lastModified:latestModelDate},
     {path:"/dealers",priority:.82,lastModified:latestSellerDate},
+    {path:"/service-centers",priority:.82,lastModified:latestSellerDate},
     {path:"/dealers/join",priority:.58,lastModified:RELEASE_DATE},
     {path:"/gear/helmets",priority:.85,lastModified:latestHelmetDate},
     {path:"/accessories",priority:.72,lastModified:latestAccessoryDate},

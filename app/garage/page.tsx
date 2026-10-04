@@ -51,7 +51,7 @@ export default function GaragePage() {
       kicker="MotoIndex My Garage"
       title="Own the motorcycle, not the paperwork."
       description="Keep renewals, service history, fuel, repairs and resale records together, then turn those logs into actual monthly spend, cost per kilometer and full-tank fuel economy. Garage data stays on this browser in this first release."
-      actions={<Link className="button ghost" href="/ownership">Ownership guides</Link>}
+      actions={<><Link className="button ghost" href="/ownership">Ownership guides</Link><Link className="button ghost" href="/service-centers">Find a service center</Link></>}
     />
     <GarageWorkspace catalog={catalog} />
   </main>;
