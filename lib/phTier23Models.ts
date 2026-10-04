@@ -15,6 +15,7 @@ import { zigwheelsGapWave7_2026 } from "./zigwheelsGapWave7_2026";
 import { heroExpansion2026 } from "./heroExpansion2026";
 import { kawasakiScooterExpansion2026 } from "./kawasakiScooterExpansion2026";
 import { currentModelGapCloseout2026 } from "./currentModelGapCloseout2026";
+import { legacyModelCloseout2026 } from "./legacyModelCloseout2026";
 
 export const phTier23Motorcycles = [
   ...baseMotorcycles,
@@ -34,4 +35,5 @@ export const phTier23Motorcycles = [
   ...heroExpansion2026,
   ...kawasakiScooterExpansion2026,
   ...currentModelGapCloseout2026,
+  ...legacyModelCloseout2026,
 ];
