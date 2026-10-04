@@ -33,7 +33,7 @@ export function MyAccountControls() {
     <h2>Your account controls</h2>
     <p>Download the private account data MotoIndex stores for you, sign out, or permanently delete the account record and owner-scoped cloud data.</p>
     <div className="hero-actions">
-      <a className="button small" href="/api/my/export">Export my account data</a>
+      <button className="button small" type="button" onClick={() => { window.location.assign("/api/my/export"); }} disabled={working}>Export my account data</button>
       <button className="button small ghost" type="button" onClick={signOut} disabled={working}>Sign out</button>
       <button className="button small ghost" type="button" onClick={deleteAccount} disabled={working}>Delete account</button>
     </div>
