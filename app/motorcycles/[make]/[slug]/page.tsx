@@ -16,6 +16,8 @@ import { getRenderableMedia } from "@/lib/renderableMedia";
 import { ElectricMotorcycleDetail } from "@/components/ElectricMotorcycleDetail";
 import { electricMotorcycles, getElectricMotorcycle } from "@/lib/electricMotorcycles";
 
+export const revalidate = 300;
+
 const LEGACY_MODEL_REDIRECTS: Record<string, { make: string; slug: string; title: string; description: string }> = {
   "kawasaki/z400": {
     make: "kawasaki",
