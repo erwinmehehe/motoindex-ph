@@ -8,6 +8,12 @@ const required=[
 const failures=[];
 for(const path of required)if(!fs.existsSync(path))failures.push("missing "+path);
 
+const intelligence=fs.readFileSync("lib/ownerIntelligence.ts","utf8");
+if(!intelligence.includes("OWNER_INTELLIGENCE_MIN_SAMPLE = 5"))failures.push("Owner Intelligence public threshold must stay at five contributors");
+for(const rawField of ["serviceProvider","serviceLocation","invoiceReference","plate","notes"]){
+  if(intelligence.includes(`eventCounts[record.${rawField}`)||intelligence.includes(`return record.${rawField}`))failures.push("raw Garage field copied into intelligence: "+rawField);
+}
+
 const schema=fs.readFileSync("prisma/schema.prisma","utf8");
 for(const token of ["intelligenceConsentedAt","intelligenceMonthlyRunningCostPhp","intelligenceEventCounts"]){
   if(!schema.includes(token))failures.push("schema missing "+token);
