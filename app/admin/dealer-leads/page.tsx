@@ -10,7 +10,7 @@ export const dynamic="force-dynamic";
 export default async function DealerLeadsAdmin(){
   const leads=databaseConfigured()?await prisma.dealerLead.findMany({orderBy:{createdAt:"desc"},take:100,include:{deliveries:{orderBy:{createdAt:"asc"},include:{quoteResponse:true}}}}):[];
   return <section className="page shell">
-    <div className="page-head"><h1>Dealer lead review</h1><p>Buyer requests from the model quote funnel. This route is protected by MotoIndex admin Basic Auth and excluded from indexing.</p><div className="hero-actions"><a className="button small" href="/api/admin/dealer-leads/export">Export CSV</a><a className="button ghost small" href="/admin/dealer-applications">Dealer applications</a></div></div>
+    <div className="page-head"><h1>Dealer lead review</h1><p>Buyer requests from the model quote funnel. This route is restricted to the MotoIndex administrative perimeter and excluded from indexing.</p><div className="hero-actions"><a className="button small" href="/api/admin/dealer-leads/export">Export CSV</a><a className="button ghost small" href="/admin/dealer-applications">Dealer applications</a></div></div>
     <div className="health-summary"><div><span>Recent leads</span><strong>{leads.length}</strong></div><div><span>Matched</span><strong>{leads.filter(l=>l.matchedSellerSlugs.length>0).length}</strong></div><div><span>Secure handoffs</span><strong>{leads.reduce((sum,l)=>sum+l.deliveries.length,0)}</strong></div><div><span>Dealer quotes</span><strong>{leads.reduce((sum,l)=>sum+l.deliveries.filter(d=>Boolean(d.quoteResponse)).length,0)}</strong></div></div>
     {!databaseConfigured()?<div className="note-box"><h2>Production database is not configured</h2><p>Set DATABASE_URL and run the Prisma migrations before enabling dealer lead collection.</p></div>:
     leads.length===0?<div className="note-box"><h2>No dealer leads yet</h2><p>Requests will appear here after the production database is configured and buyers submit the model quote form.</p></div>:
@@ -31,7 +31,6 @@ export default async function DealerLeadsAdmin(){
               deliveryId={delivery.id}
               dealerEmail={delivery.dealerEmail}
               sellerName={delivery.sellerName}
-              token={delivery.deliveryToken}
               status={delivery.status}
               expiresAt={delivery.expiresAt.toISOString()}
               buyerName={lead.fullName}
