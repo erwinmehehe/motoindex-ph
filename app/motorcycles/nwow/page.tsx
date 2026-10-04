@@ -9,11 +9,14 @@ import { php } from "@/lib/utils";
 
 const checkedAt = "2026-10-04";
 const marketModels = [
-  { model: "ARS", price: 34000, source: "https://www.zigwheels.ph/new-motorcycles/nwow/electric" },
-  { model: "ERV", price: 36000, source: "https://www.zigwheels.ph/new-motorcycles/nwow/electric" },
+  { model: "GC10", price: 19800, source: "https://www.zigwheels.ph/new-motorcycles/nwow+electric" },
+  { model: "GB2", price: 24000, source: "https://www.zigwheels.ph/new-motorcycles/nwow+electric" },
+  { model: "ARS", price: 34000, source: "https://www.zigwheels.ph/new-motorcycles/nwow+electric" },
+  { model: "ERV", price: 36000, source: "https://www.zigwheels.ph/new-motorcycles/nwow+electric" },
   { model: "TK10", price: 38800, source: "https://www.zigwheels.ph/new-motorcycles/nwow/tk10/price" },
   { model: "WSP", price: 43800, source: "https://www.zigwheels.ph/new-motorcycles/nwow/wsp/price" },
-  { model: "V11", price: 70000, source: "https://www.zigwheels.ph/new-motorcycles/nwow/electric" }
+  { model: "V15", price: 60000, source: "https://www.zigwheels.ph/new-motorcycles/nwow+electric" },
+  { model: "V11", price: 70000, source: "https://www.zigwheels.ph/new-motorcycles/nwow+electric" }
 ] as const;
 
 export const metadata: Metadata = pageMetadata({
@@ -53,7 +56,7 @@ export default function NwowPage() {
     ]} />
 
     <section className="section" id="market-prices">
-      <SectionHeader kicker="Price list" title="NWOW WSP, TK10, ARS, ERV and V11 price references" description="These figures come from current Philippine comparison listings. Treat them as research starting points, then verify the exact seller, model code, battery specification, warranty and final cash price." />
+      <SectionHeader kicker="Price list" title="NWOW electric motorcycle and e-bike price references" description="These figures come from current Philippine comparison listings. Treat them as research starting points, then verify the exact seller, model code, battery specification, warranty and final cash price." />
       <DataTable label="NWOW e-bike Philippines market price references">
         <div className="head" role="row" style={{gridTemplateColumns:"1.5fr 1fr 1.5fr"}}><span>Model</span><span>Reference price</span><span>Evidence</span></div>
         {marketModels.map(item => <div role="row" style={{gridTemplateColumns:"1.5fr 1fr 1.5fr"}} key={item.model}>
