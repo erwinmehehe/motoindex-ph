@@ -694,10 +694,10 @@ export const motorcycles: Motorcycle[] = [
     summary: "149cc six-speed underbone with a 795 mm seat and ABS available on higher variants."
   },
   {
-    id: "honda-wave-rsx", make: "Honda", makeSlug: "honda", model: "Wave RSX", slug: "wave-rsx", generation: "Current", category: "Underbone",
+    id: "honda-wave-rsx", alsoKnownAs: ["Honda Wave", "Wave RSX 110"], make: "Honda", makeSlug: "honda", model: "Wave RSX", slug: "wave-rsx", generation: "Current", category: "Underbone",
     marketStatus: "current",
     srp: 62900, engineCc: 109, powerHp: 8.6, torqueNm: 8.7, curbWeightKg: 98, seatHeightMm: 760, fuelTankL: 4.0, fuelConsumptionKmL: 69.5, groundClearanceMm: 135,
-    frontTire: "70/90-17", rearTire: "80/90-17", abs: "No ABS; brake equipment varies by Drum/Disc variant", colors: [], searchVolume: 0, keywordDifficulty: 0,
+    frontTire: "70/90-17", rearTire: "80/90-17", abs: "No ABS; brake equipment varies by Drum/Disc variant", colors: [], searchVolume: 2500, keywordDifficulty: 2,
     sourceLabel: "Independent PH 2026 Wave RSX price and specification page", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/wave-rsx/specifications", verifiedAt: "2026-08-25", freshness: "verified",
     marketPriceHighPhp: 64900, marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/wave-rsx", marketPriceCheckedAt: "2026-09-30", transmission: "Manual",
     summary: "109cc underbone with a 760 mm seat, light curb weight and published fuel-economy data."
