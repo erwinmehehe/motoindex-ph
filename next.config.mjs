@@ -67,6 +67,13 @@ const nextConfig = {
       { source: "/motorcycles/yamaha/aerox-v4", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
       { source: "/motorcycles/yamaha/aerox-2025", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
       { source: "/motorcycles/yamaha/nmax-turbo", destination: "/motorcycles/yamaha/nmax-v3", permanent: true },
+      // Consolidate helmet-type aliases into the canonical helmet authority page.
+      { source: "/gear/helmets/open-face", destination: "/gear/helmets#open-face", permanent: true },
+      { source: "/gear/helmets/adventure", destination: "/gear/helmets#adventure", permanent: true },
+      { source: "/gear/helmets/dual-sport", destination: "/gear/helmets#adventure", permanent: true },
+      { source: "/gear/helmets/dual-sport-adventure", destination: "/gear/helmets#adventure", permanent: true },
+      { source: "/gear/helmets/off-road", destination: "/gear/helmets#off-road", permanent: true },
+      { source: "/gear/helmets/motocross", destination: "/gear/helmets#off-road", permanent: true },
       // Consolidate keyword-shaped category aliases into the canonical authority pages.
       { source: "/recommendations/electric-scooters-philippines", destination: "/motorcycles/electric", permanent: true },
       { source: "/recommendations/best-electric-scooters-philippines", destination: "/motorcycles/electric", permanent: true },
