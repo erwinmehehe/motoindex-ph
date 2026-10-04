@@ -25,6 +25,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Production dependency audit
+        run: npm run audit:prod
+
       - name: Release validation
         run: |
           npm run validate:post-audit
