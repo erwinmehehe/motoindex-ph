@@ -6,7 +6,7 @@ import {
   SERVICE_CAPABILITIES,
   allVerifiedServiceProviders,
   serviceCoverageCounts,
-} from "@/lib/serviceCenters";
+} from "@/lib/serviceCenterPolicy";
 import { pageMetadata } from "@/lib/site";
 import styles from "../styles/hub-index.module.css";
 
