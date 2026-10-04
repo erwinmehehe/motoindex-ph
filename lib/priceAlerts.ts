@@ -130,7 +130,13 @@ export async function runPriceAlertCheck(limit=200){
 
     try{
       if(thresholdMet&&!subscription.thresholdWasMet){
-        await sendThresholdEmail({
+        const claimed=await prisma.priceAlertSubscription.updateMany({
+          where:{id:subscription.id,status:"active",thresholdWasMet:false},
+          data:{thresholdWasMet:true,lastCheckedAt:now,lastObservedPricePhp:current.pricePhp}
+        });
+        if(claimed.count!==1)continue;
+        try{
+          await sendThresholdEmail({
           email:subscription.email,
           modelLabel:`${current.model.make} ${current.model.model}`,
           modelHref:`/motorcycles/${current.model.makeSlug}/${current.model.slug}`,
@@ -138,18 +144,19 @@ export async function runPriceAlertCheck(limit=200){
           targetPricePhp:target,
           checkedAt:current.checkedAt,
           unsubscribeToken:subscription.unsubscribeToken
-        });
-        sent+=1;
-        await prisma.priceAlertSubscription.update({
-          where:{id:subscription.id},
-          data:{
-            thresholdWasMet:true,
-            lastCheckedAt:now,
-            lastObservedPricePhp:current.pricePhp,
-            lastAlertedPricePhp:current.pricePhp,
-            lastSentAt:now
-          }
-        });
+          });
+          sent+=1;
+          await prisma.priceAlertSubscription.update({
+            where:{id:subscription.id},
+            data:{lastAlertedPricePhp:current.pricePhp,lastSentAt:now}
+          });
+        }catch(error){
+          await prisma.priceAlertSubscription.update({
+            where:{id:subscription.id},
+            data:{thresholdWasMet:false,lastCheckedAt:now,lastObservedPricePhp:current.pricePhp}
+          }).catch(()=>{});
+          throw error;
+        }
       }else{
         await prisma.priceAlertSubscription.update({
           where:{id:subscription.id},
