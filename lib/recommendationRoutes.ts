@@ -45,7 +45,8 @@ const recommendationSectionBySlug: Record<string, string> = {
   "ktm-duke-motorcycles-philippines": "brands",
   "cfmoto-sr-motorcycles-philippines": "brands",
   "honda-big-bikes-philippines": "brands",
-  "yamaha-big-bikes-philippines": "brands"
+  "yamaha-big-bikes-philippines": "brands",
+  "kawasaki-big-bikes-philippines": "brands"
 };
 
 export function recommendationSectionForSlug(slug: string) {
