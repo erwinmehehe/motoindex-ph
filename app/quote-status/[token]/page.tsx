@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { databaseConfigured, prisma } from "@/lib/db";
+import { hashActionToken } from "@/lib/actionTokens";
 import { php } from "@/lib/utils";
 import { getModelById } from "@/lib/data";
 import { BuyerQuoteDecision } from "@/components/BuyerQuoteDecision";
@@ -31,8 +32,8 @@ function availabilityLabel(value:string){
 export default async function QuoteStatusPage({params}:{params:Promise<{token:string}>}){
   if(!databaseConfigured())return notFound();
   const {token}=await params;
-  const lead=await prisma.dealerLead.findUnique({
-    where:{buyerAccessToken:token},
+  const lead=await prisma.dealerLead.findFirst({
+    where:{OR:[{buyerAccessTokenHash:hashActionToken(token)},{buyerAccessToken:token}]},
     include:{deliveries:{orderBy:{createdAt:"asc"},include:{quoteResponse:true}}}
   });
   if(!lead||!lead.buyerAccessExpiresAt||lead.buyerAccessExpiresAt<=new Date())return notFound();
