@@ -115,6 +115,18 @@ export default async function MotorcycleLoanCalculatorPage({ searchParams }: { s
       </div>
     </section>
 
+    <section className="section" aria-labelledby="popular-installment-guides">
+      <div className="section-head compact"><div><span className="section-kicker">Popular installment searches</span><h2 id="popular-installment-guides">Motorcycle installment and downpayment guides</h2><p>Use the general calculator for any motorcycle, or open a demand-backed model guide when you want the current model price, variant context and any checked dealer financing snapshot on one page.</p></div></div>
+      <div className="guide-strip">
+        <Link href="/motorcycles/honda/click-125i/installment"><strong>Honda Click 125i installment</strong><small>Downpayment, monthly estimate, current price and dealer-financing context.</small></Link>
+        <Link href="/motorcycles/yamaha/aerox-v3/installment"><strong>Yamaha Aerox V3 installment</strong><small>Standard/SP pricing with editable downpayment and monthly planning.</small></Link>
+        <Link href="/motorcycles/yamaha/nmax-v3/installment"><strong>Yamaha NMAX V3 installment</strong><small>Standard/Tech Max price context with dealer snapshot and calculator.</small></Link>
+        <Link href="/motorcycles/honda/adv-160/installment"><strong>Honda ADV160 installment</strong><small>ABS/RoadSync pricing with downpayment and monthly scenarios.</small></Link>
+        <Link href="/motorcycles/honda/pcx-160/installment"><strong>Honda PCX 160 installment</strong><small>CBS/ABS pricing with dealer financing observations.</small></Link>
+        <Link href="/motorcycles/yamaha/fazzio/installment"><strong>Yamaha Fazzio installment</strong><small>Current price with editable 10%, 20% and 30% downpayment scenarios.</small></Link>
+      </div>
+    </section>
+
     <section className="section" aria-labelledby="loan-related-models">
       <div className="section-head compact"><div><h2 id="loan-related-models">Related motorcycles to price</h2><p>Open the motorcycle&apos;s main research page first, verify the exact variant and current price, then return to the calculator with that figure.</p></div></div>
       <div className="guide-strip">
