@@ -1412,7 +1412,8 @@ export const comparisons: Comparison[] = [
   { slug: "mt-07-vs-z650", a: "yamaha-mt-07", b: "kawasaki-z650", summary: "Popular Japanese middleweight naked bikes compared by price, twin-cylinder output, weight, rider fit and fuel capacity" },
   { slug: "xsr700-vs-cb650r", a: "yamaha-xsr700", b: "honda-cb650r", summary: "Retro-styled Yamaha twin and Honda four-cylinder naked bike compared by price, power, weight, seat height and road specifications" },
   { slug: "ninja-500-vs-yzf-r3", a: "kawasaki-ninja-500", b: "yamaha-yzf-r3", summary: "Entry and mid-size Japanese sport bikes compared by Philippine price, output, weight, seat height and braking" },
-  { slug: "nx500-vs-versys-650", a: "honda-nx500-e-clutch", b: "kawasaki-versys-650", summary: "Adventure-touring motorcycles compared by price, engine size, weight, seat height, tank capacity and road-focused touring specifications" }
+  { slug: "nx500-vs-versys-650", a: "honda-nx500-e-clutch", b: "kawasaki-versys-650", summary: "Adventure-touring motorcycles compared by price, engine size, weight, seat height, tank capacity and road-focused touring specifications" },
+  { slug: "crf300l-vs-crf300-rally", a: "honda-crf300l", b: "honda-crf300-rally", summary: "Honda 286cc dual-sport models compared by price, weight, seat height, ground clearance, fuel capacity and touring focus" }
 ];
 
 
