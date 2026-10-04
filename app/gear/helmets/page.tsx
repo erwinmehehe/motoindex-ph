@@ -11,8 +11,8 @@ import { php } from "@/lib/utils";
 import { CTAGroup, InfoPanel, PageHero, ProductGrid, SectionHeader, StatRow } from "@/components/ui";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Motorcycle Helmets Philippines 2026: Prices, Brands & Guide",
-  description: "One complete Philippine motorcycle helmet guide covering prices, brands, full-face, modular, open-face, ECE 22.06, intercom, fit and commuting.",
+  title: "Motorcycle Helmets Philippines 2026: Prices, Types & Brands",
+  description: "Compare motorcycle helmets in the Philippines by price and type, including full-face, modular, open-face, adventure, dual-sport, off-road and motocross helmets."
   path: "/gear/helmets",
   index: true,
   image: "/media/helmets/kyt-tt-course.webp",
@@ -60,6 +60,8 @@ export default function HelmetsPage(){
   const fullFace=verified.filter(p=>p.helmetType==="Full face");
   const modular=verified.filter(p=>p.helmetType==="Modular");
   const openFace=verified.filter(p=>["Open face","Half face","Hybrid"].includes(p.helmetType));
+  const adventure=verified.filter(p=>p.helmetType==="Adventure");
+  const offRoad=verified.filter(p=>p.helmetType==="Off-road");
   const under3000=verified.filter(p=>typeof p.priceFromPhp==="number"&&p.priceFromPhp<=3000);
   const under5000=verified.filter(p=>typeof p.priceFromPhp==="number"&&p.priceFromPhp<=5000);
   const ece2206=verified.filter(p=>/(?:ECE\s*)?(?:R?22[.\s-]?06|22\.06)/i.test(p.certification||""));
@@ -69,6 +71,8 @@ export default function HelmetsPage(){
   const faqs: FaqItem[]=[
     {question:"How much is a motorcycle helmet in the Philippines?",answer:minPrice&&maxPrice?`The verified helmet models with published prices on this page currently start from ${php(minPrice)} to ${php(maxPrice)}. Final price can change with size, graphic, visor bundle, seller and promotion.`:"Helmet prices vary by brand, model, shell, visor package, size and seller. Open the exact model and current seller source before buying."},
     {question:"Which helmet type should I buy for commuting?",answer:"A full-face helmet gives a fixed chin bar, a modular helmet adds flip-up convenience, and an open-face helmet gives more airflow while leaving the chin exposed. Fit, visibility, ventilation and the exact certification marking matter more than choosing a category by name alone."},
+    {question:"What is an adventure or dual-sport helmet?",answer:"Adventure helmets typically combine a road visor with a peak and a wider eye opening for mixed paved and unpaved use. Check peak stability, visor sealing, ventilation, goggle compatibility and the exact certification on the model you are considering."},
+    {question:"What is the difference between a motocross helmet and a full-face road helmet?",answer:"A motocross or off-road helmet usually uses a large eye port, peak and high-flow ventilation designed around goggles and trail use. A road full-face helmet generally gives a more sealed visor and better wind and weather isolation."},
     {question:"What does ECE 22.06 mean?",answer:"ECE 22.06 is a current UNECE motorcycle-helmet homologation standard. For a Philippine purchase, also inspect the exact helmet for the applicable PS or ICC conformity marking instead of relying on an overseas label alone."},
     {question:"What does intercom-ready mean?",answer:"It means the model has recorded provision for communication hardware such as speaker or microphone space. It does not guarantee that every intercom kit fits without checking speaker depth, microphone placement and mounting clearance."},
     {question:"How do I choose the correct helmet size?",answer:"Measure your head using the helmet maker's method and use the size chart for the exact model. Try the helmet on when possible because shell shape and cheek-pad thickness can differ even within one brand."},
@@ -91,7 +95,7 @@ export default function HelmetsPage(){
     ]}/>
 
     <nav className="product-entity-nav helmet-master-nav" aria-label="Helmet guide sections">
-      <a href="#full-face">Full-face</a><a href="#modular">Modular</a><a href="#open-face">Open-face</a><a href="#under-3000">Under ₱3K</a><a href="#under-5000">Under ₱5K</a><a href="#ece-22-06">ECE 22.06</a><a href="#intercom-ready">Intercom</a><a href="#commuting">Commuting</a><a href="#brands">Brands</a><a href="#models">Model preview</a>
+      <a href="#full-face">Full-face</a><a href="#modular">Modular</a><a href="#open-face">Open-face</a><a href="#adventure">Adventure</a><a href="#off-road">Off-road</a><a href="#under-3000">Under ₱3K</a><a href="#under-5000">Under ₱5K</a><a href="#ece-22-06">ECE 22.06</a><a href="#intercom-ready">Intercom</a><a href="#commuting">Commuting</a><a href="#brands">Brands</a><a href="#models">Model preview</a>
     </nav>
 
     <InfoPanel className="helmet-master-intro">
@@ -117,6 +121,26 @@ export default function HelmetsPage(){
     <section id="open-face" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Helmet type" title="Open-face and half-face motorcycle helmets" description="City-focused choices with more airflow and facial openness. Compare visor coverage, sun visor, fit and local conformity marking before buying." aside={<Count value={openFace.length}/>} />
       <HelmetProductGrid products={openFace} />
+    </section>
+
+    <section id="adventure" className="ui-page-section helmet-master-section">
+      <SectionHeader kicker="Helmet type" title="Adventure and dual-sport motorcycle helmets" description="Adventure helmets blend road-oriented visor coverage with an extended peak and off-road-inspired shell shape. Compare visor setup, peak stability, ventilation, weight, intercom provision and certification on the exact model." aside={<Count value={adventure.length}/>} />
+      <HelmetProductGrid products={adventure} />
+      <div className="ui-content-grid topic-grid">
+        <article className="ui-content-card"><h3>Adventure vs full-face</h3><p>Adventure helmets typically add a peak and wider visual opening. That can help mixed-road use, but it can also add wind load compared with a road-focused full-face helmet.</p></article>
+        <article className="ui-content-card"><h3>Dual-sport use</h3><p>Choose by the actual mix of paved and unpaved riding. Check whether the peak is removable, whether goggles fit if needed and how the visor seals in rain.</p></article>
+        <article className="ui-content-card"><h3>Touring practicality</h3><p>For longer road rides, compare noise, visor anti-fog provision, speaker clearance and peak stability rather than assuming every adventure helmet is equally touring-friendly.</p></article>
+      </div>
+    </section>
+
+    <section id="off-road" className="ui-page-section helmet-master-section">
+      <SectionHeader kicker="Helmet type" title="Off-road and motocross motorcycle helmets" description="Off-road helmets prioritize airflow, a large eye port and peak protection for trail or motocross use. Compare goggle compatibility, chin-bar clearance, ventilation, shell weight and the exact certification record." aside={<Count value={offRoad.length}/>} />
+      <HelmetProductGrid products={offRoad} />
+      <div className="ui-content-grid topic-grid">
+        <article className="ui-content-card"><h3>Motocross vs road helmet</h3><p>Most off-road helmets are designed around goggles and high airflow rather than a sealed street visor. Do not assume a motocross helmet gives the same rain, wind and noise protection as a road full-face helmet.</p></article>
+        <article className="ui-content-card"><h3>Goggle fit matters</h3><p>Check eye-port width, nose clearance and strap position with the exact goggles you plan to use. A poor helmet-and-goggle combination can create gaps or pressure points.</p></article>
+        <article className="ui-content-card"><h3>Street use needs a separate check</h3><p>If you plan to use an off-road helmet on public roads, verify the exact local conformity marking, visor or eye-protection setup and whether the model is suitable for your road use.</p></article>
+      </div>
     </section>
 
     <section id="under-3000" className="ui-page-section helmet-master-section">
