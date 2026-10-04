@@ -27,7 +27,7 @@ export default function MopedsPage() {
       kicker="Philippine small-bike guide"
       title="Mopeds in the Philippines"
       description="The word moped is used loosely in Philippine searches for small step-through motorcycles, underbones, scooters and some electric vehicles. Start with the exact vehicle type and legal classification instead of relying on the label alone."
-      actions={<CTAGroup><Link className="button" href="/recommendations/motorcycles-below-150cc-philippines">Compare small motorcycles</Link><Link className="button secondary" href="/motorcycles/scooters">Compare scooters</Link></CTAGroup>}
+      actions={<CTAGroup><Link className="button" href="/motorcycles?max=150">Compare small motorcycles</Link><Link className="button secondary" href="/motorcycles/scooters">Compare scooters</Link></CTAGroup>}
     />
 
     <section className="section">
@@ -50,8 +50,8 @@ export default function MopedsPage() {
     <section className="section">
       <SectionHeader kicker="Better comparisons" title="Choose by the vehicle you actually need" description="These existing MotoIndex hubs answer the decision more precisely than a broad moped label." />
       <div className="ui-content-grid">
-        <Link href="/recommendations/motorcycles-below-150cc-philippines" className="ui-content-card"><h3>Motorcycles below 150cc</h3><p>Compare small gasoline motorcycles by price, engine, transmission, weight and seat height.</p></Link>
-        <Link href="/recommendations/best-underbone-motorcycles-philippines" className="ui-content-card"><h3>Underbone motorcycles</h3><p>Compare step-through and underbone choices with model-specific evidence.</p></Link>
+        <Link href="/motorcycles?max=150" className="ui-content-card"><h3>Motorcycles below 150cc</h3><p>Compare small gasoline motorcycles by price, engine, transmission, weight and seat height.</p></Link>
+        <Link href="/recommendations" className="ui-content-card"><h3>Underbone motorcycles</h3><p>Compare step-through and underbone choices with model-specific evidence.</p></Link>
         <Link href="/motorcycles/scooters" className="ui-content-card"><h3>Scooters</h3><p>Compare current automatic scooters by price and engine class.</p></Link>
         <Link href="/motorcycles/electric" className="ui-content-card"><h3>Electric motorcycles</h3><p>See electric models with stronger LTO and battery evidence.</p></Link>
       </div>
