@@ -73,6 +73,20 @@ export function middleware(request: NextRequest) {
   }
   if (!protectedPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) return NextResponse.next();
 
+  const accessMode = process.env.ADMIN_ACCESS_MODE || "basic";
+  if (accessMode === "cloudflare") {
+    const email = (request.headers.get("cf-access-authenticated-user-email") || "").trim().toLowerCase();
+    const assertion = request.headers.get("cf-access-jwt-assertion") || "";
+    const allowed = new Set((process.env.ADMIN_ACCESS_EMAILS || "").split(",").map(value => value.trim().toLowerCase()).filter(Boolean));
+    if (!email || !assertion || !allowed.size || !allowed.has(email)) return deny("Administrative access denied.", 403);
+    const response = NextResponse.next();
+    response.headers.set("Cache-Control", "no-store");
+    response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+    response.headers.set("Referrer-Policy", "no-referrer");
+    return response;
+  }
+  if (accessMode !== "basic") return deny("Administrative surface unavailable.", 503);
+
   const expectedUser = process.env.ADMIN_USERNAME;
   const expectedPassword = process.env.ADMIN_PASSWORD;
   if (!expectedUser || !expectedPassword) return deny("Administrative surface unavailable.", 503);
