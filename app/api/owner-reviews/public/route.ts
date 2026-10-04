@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { getModelById } from "@/lib/data";
 import { type PublicOwnerReview, summarizeOwnerReviews } from "@/lib/ownerReviewPolicy";
+import { summarizeOwnerIntelligence } from "@/lib/ownerIntelligence";
 
 export const runtime="nodejs";
 export const dynamic="force-dynamic";
@@ -30,5 +31,11 @@ export async function GET(request:Request){
     unscheduledRepairsCount:row.unscheduledRepairsCount,summary:row.summary,likes:row.likes,dislikes:row.dislikes,
     publishedAt:row.publishedAt!.toISOString()
   }));
-  return NextResponse.json({ok:true,available:true,reviews:reviews.slice(0,20),summary:summarizeOwnerReviews(reviews)},{headers});
+  return NextResponse.json({
+    ok:true,
+    available:true,
+    reviews:reviews.slice(0,20),
+    summary:summarizeOwnerReviews(reviews),
+    intelligence:summarizeOwnerIntelligence(rows)
+  },{headers});
 }
