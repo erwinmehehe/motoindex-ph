@@ -652,6 +652,16 @@ model OwnerReview {
   reviewedAt               DateTime?
   publishedAt              DateTime?
   moderatorNote            String?
+  intelligenceConsentedAt  DateTime?
+  intelligenceMonthlyRunningCostPhp Decimal? @db.Decimal(12, 2)
+  intelligenceAnnualMaintenancePhp Decimal? @db.Decimal(12, 2)
+  intelligenceFuelEconomyKmpl Float?
+  intelligenceTireLifeKm    Int?
+  intelligenceMaintenanceEventsPer10kKm Float?
+  intelligenceRepairsPer10kKm Float?
+  intelligenceTrackedDistanceKm Int?
+  intelligenceRecordCount   Int?
+  intelligenceEventCounts   Json?
   createdAt                DateTime     @default(now())
   updatedAt                DateTime     @updatedAt
 
