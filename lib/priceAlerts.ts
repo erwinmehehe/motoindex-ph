@@ -3,6 +3,7 @@ import { getModelById } from "@/lib/data";
 import { observedMarketRange } from "@/lib/marketChecks";
 import { absoluteUrl } from "@/lib/site";
 import { php } from "@/lib/utils";
+import { priceAlertActionToken, verifyPriceAlertActionToken } from "@/lib/actionTokens";
 
 function escapeHtml(value:string){
   return value.replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]||char));
@@ -29,6 +30,19 @@ export function priceAlertConfigStatus(){
     cronSecret:Boolean(process.env.PRICE_ALERT_CRON_SECRET),
     ready:priceAlertsConfigured()
   };
+}
+
+export async function resolvePriceAlertActionToken(token:string,purpose:"confirm"|"unsubscribe"){
+  const dot=token.indexOf(".");
+  if(dot>0){
+    const id=token.slice(0,dot);
+    const subscription=await prisma.priceAlertSubscription.findUnique({where:{id}});
+    if(!subscription)return null;
+    return verifyPriceAlertActionToken(token,subscription.email,purpose)===id?subscription:null;
+  }
+  return purpose==="confirm"
+    ? prisma.priceAlertSubscription.findUnique({where:{confirmToken:token}})
+    : prisma.priceAlertSubscription.findUnique({where:{unsubscribeToken:token}});
 }
 
 export function currentModelAlertPrice(modelId:string){
@@ -143,7 +157,7 @@ export async function runPriceAlertCheck(limit=200){
           currentPricePhp:current.pricePhp,
           targetPricePhp:target,
           checkedAt:current.checkedAt,
-          unsubscribeToken:subscription.unsubscribeToken
+          unsubscribeToken:priceAlertActionToken(subscription.id,subscription.email,"unsubscribe")
           });
           sent+=1;
           await prisma.priceAlertSubscription.update({
