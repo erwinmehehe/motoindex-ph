@@ -75,6 +75,14 @@ const nextConfig = {
       { source: "/recommendations/best-cruiser-philippines", destination: "/recommendations/cruiser-motorcycles-philippines", permanent: true },
       { source: "/recommendations/automatic-philippines", destination: "/recommendations/automatic-motorcycles-philippines", permanent: true },
       { source: "/recommendations/best-moped-philippines", destination: "/guides/moped-vs-scooter-underbone-philippines", permanent: true },
+      // Route unsupported or non-catalog brand searches to source-backed market guides instead of 404/thin brand pages.
+      { source: "/motorcycles/tvs", destination: "/guides/tvs-motorcycle-philippines", permanent: true },
+      { source: "/motorcycles/tvs/ntorq-125", destination: "/guides/tvs-motorcycle-philippines", permanent: true },
+      { source: "/motorcycles/lambretta", destination: "/guides/lambretta-price-philippines", permanent: true },
+      { source: "/motorcycles/nwow", destination: "/guides/nwow-ebike-price-philippines", permanent: true },
+      { source: "/motorcycles/skygo", destination: "/guides/skygo-motorcycle-price-philippines", permanent: true },
+      { source: "/motorcycles/harley-davidson", destination: "/guides/harley-davidson-price-philippines", permanent: true },
+      { source: "/motorcycles/honda-cbr", destination: "/recommendations/honda-cbr-motorcycles-philippines", permanent: true },
       // Canonical buying-guide hub is plural. Preserve singular links and typos with permanent redirects.
       { source: "/recommendation", destination: "/recommendations", permanent: true },
       { source: "/recommendation/:path*", destination: "/recommendations/:path*", permanent: true }
