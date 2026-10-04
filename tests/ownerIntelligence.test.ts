@@ -11,9 +11,11 @@ describe("owner intelligence privacy and aggregation",()=>{
       {id:"f1",motorcycleId:"bike-1",category:"FUEL" as const,date:"2026-01-10",title:"Fuel",amountPhp:500,odometerKm:1000,liters:10,fullTank:true},
       {id:"f2",motorcycleId:"bike-1",category:"FUEL" as const,date:"2026-02-10",title:"Fuel",amountPhp:500,odometerKm:1400,liters:10,fullTank:true},
       {id:"p1",motorcycleId:"bike-1",category:"PMS" as const,date:"2026-03-01",title:"Service at Secret Shop",amountPhp:1500,odometerKm:5000,serviceProvider:"Secret Shop"},
-      {id:"t1",motorcycleId:"bike-1",category:"TIRE" as const,date:"2026-04-01",title:"Tires",amountPhp:3000,odometerKm:3000},
-      {id:"t2",motorcycleId:"bike-1",category:"TIRE" as const,date:"2026-09-01",title:"Tires",amountPhp:3200,odometerKm:10000},
-      {id:"r1",motorcycleId:"bike-1",category:"REPAIR" as const,date:"2026-08-01",title:"Repair",amountPhp:900,odometerKm:9000}
+      {id:"t1",motorcycleId:"bike-1",category:"TIRE" as const,date:"2026-04-01",title:"Tire replacement",amountPhp:3000,odometerKm:3000},
+      {id:"t2",motorcycleId:"bike-1",category:"TIRE" as const,date:"2026-09-01",title:"Tire replacement",amountPhp:3200,odometerKm:10000},
+      {id:"r1",motorcycleId:"bike-1",category:"REPAIR" as const,date:"2026-08-01",title:"Repair",amountPhp:900,odometerKm:9000},
+      {id:"o1",motorcycleId:"bike-1",category:"ODOMETER" as const,date:"2026-06-01",title:"Odometer",odometerKm:7000},
+      {id:"o2",motorcycleId:"bike-1",category:"ODOMETER" as const,date:"2026-07-01",title:"Odometer",odometerKm:8000}
     ];
     const snapshot=deriveOwnerIntelligenceSnapshot(bike,records,new Date("2026-10-01T00:00:00Z"));
     expect(snapshot.fuelEconomyKmpl).toBe(40);
