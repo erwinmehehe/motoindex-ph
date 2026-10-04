@@ -124,6 +124,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}`;
   const intentDepth = modelIntentDepthProfile(model.id);
   const installmentLanding = installmentLandingProfile(model.id);
+  const dedicatedInstallmentHandoff = ["yamaha-aerox-v3", "yamaha-nmax-v3", "honda-click-160", "honda-pcx-160", "honda-click-125i"].includes(model.id);
   const faqs = [...motorcycleEntityFaqs(model), ...canonicalIntentFaqs(model), ...(!topSpeedLanding && performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])];
   const offer = motorcycleOfferSchema(model, canonicalPath, isIndexableModel(model));
   const schema = {
@@ -324,22 +325,32 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <div className="authority-grid motorcycle-decision-grid"><article className="authority-buy"><span>Buy it if</span><ul>{authority.buyIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-skip"><span>Skip it if</span><ul>{authority.skipIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-ph"><span>Philippine ownership</span><ul>{authority.phContext.map((item) => <li key={item}>{item}</li>)}</ul></article></div>
       </section>}
 
-      {!isHistorical ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
+      {!isHistorical && dedicatedInstallmentHandoff ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
         <SectionHeader
           kicker="Monthly payment"
           titleId="installment-heading"
           title={`${model.make} ${model.model} downpayment and monthly installment estimate`}
-          description={installmentLanding ? "This financing intent now has its own focused page, while the calculator stays here for a quick monthly estimate. Open the dedicated guide for dealer observations, variant scenarios and deeper installment context." : aeroxFinanceTarget ? "Compare Standard and SP downpayment examples, then edit the exact cash price, downpayment, term and annual rate using the calculator." : "Use the published price as a starting point, then replace the downpayment, term and rate with the actual dealer or lender quote."}
+          description="This financing intent now has its own focused page so the main motorcycle guide can stay centered on price, variants, specifications, fit and ownership."
+        />
+        <div className="entity-tool-grid">
+          <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/installment`}>
+            <span>Dedicated financing guide</span>
+            <strong>Calculate downpayment and monthly installment</strong>
+            <small>Compare dealer observations, 10/20/30% scenarios, variant prices and an editable loan estimate.</small>
+          </Link>
+        </div>
+      </section> : !isHistorical ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
+        <SectionHeader
+          kicker="Monthly payment"
+          titleId="installment-heading"
+          title={`${model.make} ${model.model} downpayment and monthly installment estimate`}
+          description={installmentLanding ? "Estimate the monthly payment here, then open the focused financing guide for deeper dealer and scenario context." : aeroxFinanceTarget ? "Compare Standard and SP downpayment examples, then edit the exact cash price, downpayment, term and annual rate using the calculator." : "Use the published price as a starting point, then replace the downpayment, term and rate with the actual dealer or lender quote."}
         />
         <InstallmentCalculator price={range.from} priceOptions={financingPriceOptions} />
         <FinancingSnapshot modelName={`${model.make} ${model.model}`} price={range.from} priceOptions={financingPriceOptions} />
         <DealerFinancingSnapshot modelId={model.id} modelName={`${model.make} ${model.model}`} />
         <div className="entity-tool-grid">
-          {installmentLanding ? <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/installment`}>
-            <span>Dedicated financing guide</span>
-            <strong>Open the full installment and downpayment guide</strong>
-            <small>Compare dealer observations, 10/20/30% scenarios, variant prices and financing caveats.</small>
-          </Link> : <Link href={loanToolHref}><span>Need more control?</span><strong>{aeroxFinanceTarget ? "Calculate Aerox V3 downpayment and monthly payment" : "Open the full loan calculator"}</strong><small>{aeroxFinanceTarget ? "Enter an exact peso downpayment or use 10%, 20% and 30% presets, then adjust term and rate." : "Change price, down payment, term and rate with a shareable URL."}</small></Link>}
+          {installmentLanding ? <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/installment`}><span>Focused financing guide</span><strong>Open the installment and downpayment guide</strong><small>See model-specific financing context and scenarios.</small></Link> : <Link href={loanToolHref}><span>Need more control?</span><strong>{aeroxFinanceTarget ? "Calculate Aerox V3 downpayment and monthly payment" : "Open the full loan calculator"}</strong><small>{aeroxFinanceTarget ? "Enter an exact peso downpayment or use 10%, 20% and 30% presets, then adjust term and rate." : "Change price, down payment, term and rate with a shareable URL."}</small></Link>}
         </div>
       </section> : null}
 
