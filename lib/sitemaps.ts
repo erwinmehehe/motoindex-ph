@@ -178,7 +178,12 @@ export function motorcycleSitemapEntries(): Entry[] {
     ...(expresswayModels.length>=3 ? [{url:`${SITE_URL}/motorcycles/expressway-legal`,lastModified:newest(expresswayModels.map(modelCheckedAt)),changeFrequency:"weekly" as const,priority:.9}] : [])
   ];
   const electricPages=[{url:`${SITE_URL}/motorcycles/electric`,lastModified:newest(electricMotorcycles.map(m=>m.checkedAt)),changeFrequency:"weekly" as const,priority:.9}];
-  return [...brands,...families,...categoryPages,...models,...installmentPages,...colorPages,...topSpeedPages,...fuelConsumptionPages,...specsPages,...weightPages,...seatHeightPages,...electricPages];
+  const demandGapPages=[
+    {url:`${SITE_URL}/motorcycles/skygo`,lastModified:"2026-10-04",changeFrequency:"monthly" as const,priority:.86},
+    {url:`${SITE_URL}/motorcycles/nwow`,lastModified:"2026-10-04",changeFrequency:"monthly" as const,priority:.86},
+    {url:`${SITE_URL}/motorcycles/mopeds`,lastModified:"2026-10-04",changeFrequency:"monthly" as const,priority:.84}
+  ];
+  return [...brands,...families,...categoryPages,...demandGapPages,...models,...installmentPages,...colorPages,...topSpeedPages,...fuelConsumptionPages,...specsPages,...weightPages,...seatHeightPages,...electricPages];
 }
 
 export function gearSitemapEntries(): Entry[] {
