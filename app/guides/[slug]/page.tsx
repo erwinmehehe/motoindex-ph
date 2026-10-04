@@ -15,9 +15,21 @@ import { pageMetadata } from "@/lib/site";
 
 const DEFAULT_GUIDE_IMAGE = "/brand/motoindex-og.png";
 
-const guideResearchLinks = [
+const helmetResearchLinks = [
   { href: "/gear/helmets/finder", title: "Find helmets by fit and budget", description: "Use the Helmet Finder after checking size and certification." },
   { href: "/gear/helmets", title: "Browse checked helmet models", description: "Move from general guidance to model-level size and certification records." },
+  { href: "/methodology", title: "See how MotoIndex verifies claims", description: "Review the source, freshness and correction rules behind the research." }
+];
+
+const motorcycleResearchLinks = [
+  { href: "/motorcycles", title: "Browse motorcycle research", description: "Move from a broad guide into current model, price and specification records." },
+  { href: "/recommendations", title: "Compare buying guides", description: "Narrow the market by budget, category, engine class, fit or use case." },
+  { href: "/methodology", title: "See how MotoIndex verifies claims", description: "Review the source, freshness and correction rules behind the research." }
+];
+
+const electricResearchLinks = [
+  { href: "/motorcycles/electric", title: "Browse electric motorcycle research", description: "Compare current electric mobility research, model context and ownership considerations." },
+  { href: "/tools/electric-motorcycle-charging-cost", title: "Estimate charging cost", description: "Model electricity cost using your own charging assumptions." },
   { href: "/methodology", title: "See how MotoIndex verifies claims", description: "Review the source, freshness and correction rules behind the research." }
 ];
 
@@ -49,6 +61,11 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
   if (!guide) return notFound();
   const guideMedia = getEditorialGuideMedia(guide.slug);
   const schemaImage = guideMedia?.image ?? DEFAULT_GUIDE_IMAGE;
+  const guideResearchLinks = /helmet/i.test(guide.slug)
+    ? helmetResearchLinks
+    : /nwow|electric|e-bike/i.test(guide.slug)
+      ? electricResearchLinks
+      : motorcycleResearchLinks;
   const schema = articleSchema({
     headline: guide.title,
     description: guide.description,
