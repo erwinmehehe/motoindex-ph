@@ -62,6 +62,8 @@ import { specsIntentLandingProfile } from "@/lib/modelSpecsLandingPages";
 import { fuelConsumptionLandingProfile } from "@/lib/modelFuelConsumptionLandingPages";
 import { weightIntentLandingProfile } from "@/lib/modelWeightLandingPages";
 import { seatHeightIntentLandingProfile } from "@/lib/modelSeatHeightLandingPages";
+import { getVerifiedOffers } from "@/lib/persistentOffers";
+import { DealerInventoryOffers } from "@/components/DealerInventoryOffers";
 
 const MOTORCYCLE_ANALYTICS_CSS = `
 .motorcycle-analytics-panel{margin:28px 0 18px;padding:34px;border:1px solid rgba(62,82,69,.16);border-radius:16px;background:#fff;box-shadow:0 18px 48px rgba(24,45,32,.055)}
@@ -85,7 +87,7 @@ function AnalyticsMetric({ id, label, value, unit, note, fill, featured = false 
 }
 
 
-export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
+export async function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const isPrevious = model.marketStatus === "previous";
   const isDiscontinued = model.marketStatus === "discontinued";
   const isHistorical = isPrevious || isDiscontinued;
@@ -181,6 +183,9 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
             ? { href: "/recommendations/160cc-scooters-philippines", label: "160cc scooter comparison" }
             : undefined
     : undefined;
+  const dealerInventory = !isHistorical
+    ? await getVerifiedOffers({entityType:"motorcycle",entityId:model.id}).catch(()=>[])
+    : [];
   const priceLabel = observedMarketPriceLabel(model);
   const priceRange = priceLabel.split("–");
   const powerToWeight = model.curbWeightKg > 0 ? model.powerHp / model.curbWeightKg * 100 : 0;
@@ -223,6 +228,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
     <div className="shell motorcycle-entity-nav-wrap">
       <ProductEntityNav items={[
         { href: "#price", label: "Price & variants" },
+        ...(dealerInventory.length ? [{ href: "#dealer-inventory", label: "Dealer inventory" }] : []),
         ...(colorLanding && allColors.length > 0 ? [{ href: "#colors", label: "Colors" }] : []),
         ...(intentDepth ? [{ href: "#buyer-answers", label: "Buyer answers" }] : []),
         ...(specsLanding ? [{ href: `/motorcycles/${model.makeSlug}/${model.slug}/specs`, label: "Specs" }] : [{ href: "#specs", label: "Key specs" }]),
@@ -277,6 +283,8 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         {!isHistorical && <PriceIntelligence model={model} />}
         {!isHistorical && <MarketPriceChecks model={model} />}
       </section>
+
+      <DealerInventoryOffers offers={dealerInventory} makeSlug={model.makeSlug} modelSlug={model.slug}/>
 
       <section className="motorcycle-entity-section global-spec-intent" aria-labelledby="quick-specs-heading">
         <SectionHeader kicker="Quick specs" titleId="quick-specs-heading" title={`${model.make} ${model.model} horsepower, weight, seat height and tire size`} description="These core motorcycle specifications are useful across markets. Philippine pricing is shown separately above so local SRP is not confused with globally applicable technical specifications." />
