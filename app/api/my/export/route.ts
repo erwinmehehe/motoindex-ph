@@ -24,7 +24,21 @@ export async function GET() {
       entityType: true, entityId: true, targetPricePhp: true, status: true, confirmedAt: true,
       lastObservedPricePhp: true, lastAlertedPricePhp: true, lastSentAt: true, createdAt: true, updatedAt: true,
     }}),
-    prisma.dealerLead.findMany({ where: { ownerId: session.ownerId }, include: { deliveries: { include: { quoteResponse: true } } } }),
+    prisma.dealerLead.findMany({
+      where: { ownerId: session.ownerId },
+      select: {
+        modelExternalId: true, make: true, model: true, variant: true, cityProvince: true, purchaseType: true,
+        downPaymentBudget: true, fullName: true, mobile: true, email: true, consentedAt: true, status: true,
+        sourcePath: true, createdAt: true, updatedAt: true,
+        deliveries: { select: {
+          sellerSlug: true, sellerName: true, status: true, sharedAt: true, openedAt: true, expiresAt: true, createdAt: true, updatedAt: true,
+          quoteResponse: { select: {
+            cashPricePhp: true, downPaymentPhp: true, monthlyPhp: true, termMonths: true, availability: true,
+            validUntil: true, dealerNote: true, buyerDecision: true, buyerDecisionAt: true, submittedAt: true, updatedAt: true,
+          }},
+        }},
+      },
+    }),
     prisma.usedListing.findMany({ where: { ownerId: session.ownerId }, include: { inquiries: true } }),
   ]);
   const body = JSON.stringify({ exportedAt: new Date().toISOString(), account: owner, shortlist, garage, priceAlerts, dealerLeads, usedListings }, null, 2);
