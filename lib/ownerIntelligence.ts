@@ -48,11 +48,13 @@ export function deriveOwnerIntelligenceSnapshot(
   const observedMonths = monthsObserved(bike, bikeRecords, now);
   const runningRecords = bikeRecords.filter(record => record.category !== "RESALE");
   const runningSpend = runningRecords.reduce((sum,record)=>sum+(record.amountPhp||0),0);
+  const runningCostRecords = runningRecords.filter(record => (record.amountPhp || 0) > 0);
   const maintenanceRecords = bikeRecords.filter(record => MAINTENANCE_CATEGORIES.has(record.category as never));
   const maintenanceSpend = maintenanceRecords.reduce((sum,record)=>sum+(record.amountPhp||0),0);
+  const maintenanceCostRecords = maintenanceRecords.filter(record => (record.amountPhp || 0) > 0);
 
   const tireRecords = bikeRecords
-    .filter(record => record.category === "TIRE" && record.odometerKm !== undefined)
+    .filter(record => record.category === "TIRE" && record.odometerKm !== undefined && /replace|replacement|changed?|installed|new tire/i.test(record.title))
     .sort((a,b)=>(a.odometerKm||0)-(b.odometerKm||0));
   const tireIntervals:number[]=[];
   for(let i=1;i<tireRecords.length;i+=1){
@@ -72,13 +74,18 @@ export function deriveOwnerIntelligenceSnapshot(
     ? count / trackedDistance * 10000
     : null;
 
+  const enoughRunningCostHistory = Boolean(observedMonths && observedMonths >= 3 && runningCostRecords.length >= 3);
+  const enoughMaintenanceHistory = Boolean(observedMonths && observedMonths >= 6 && maintenanceCostRecords.length >= 2);
+  const enoughEventHistory = Boolean(trackedDistance && trackedDistance >= 2000 && bikeRecords.length >= 5);
+  const enoughRepairHistory = Boolean(trackedDistance && trackedDistance >= 5000 && bikeRecords.length >= 8);
+
   return {
-    monthlyRunningCostPhp: observedMonths ? runningSpend / observedMonths : null,
-    annualMaintenancePhp: observedMonths ? maintenanceSpend / observedMonths * 12 : null,
+    monthlyRunningCostPhp: enoughRunningCostHistory && observedMonths ? runningSpend / observedMonths : null,
+    annualMaintenancePhp: enoughMaintenanceHistory && observedMonths ? maintenanceSpend / observedMonths * 12 : null,
     fuelEconomyKmpl: analytics.fuelEconomyKmL ?? null,
     tireLifeKm: tireIntervals.length ? Math.round(average(tireIntervals) || 0) : null,
-    maintenanceEventsPer10kKm: per10k(maintenanceRecords.length),
-    repairsPer10kKm: per10k(bikeRecords.filter(record => record.category === "REPAIR").length),
+    maintenanceEventsPer10kKm: enoughEventHistory ? per10k(maintenanceRecords.length) : null,
+    repairsPer10kKm: enoughRepairHistory ? per10k(bikeRecords.filter(record => record.category === "REPAIR").length) : null,
     trackedDistanceKm: trackedDistance ? Math.round(trackedDistance) : null,
     recordCount: bikeRecords.length,
     eventCounts,
