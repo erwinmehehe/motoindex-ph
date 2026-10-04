@@ -2191,12 +2191,12 @@ export const recommendationGuides: RecommendationGuide[] = [
   {
     slug: "cafe-racer-motorcycles-philippines",
     kicker: "Cafe racer and modern classic",
-    title: "Cafe racer motorcycles in the Philippines",
-    seoTitle: "Cafe Racer Motorcycles Philippines: Prices & Specs 2026",
-    description: "Compare cafe-racer and modern-classic motorcycles in the Philippines by published price, engine, weight, seat height, ABS and fuel-tank capacity.",
+    title: "Cafe racer and classic motorcycles in the Philippines",
+    seoTitle: "Cafe Racer & Classic Motorcycles Philippines 2026 | Prices",
+    description: "Compare cafe racer and classic motorcycles in the Philippines by price, engine, weight, seat height, ABS and fuel-tank capacity using current model records.",
     primaryKeyword: "cafe racer motorcycles Philippines",
-    secondaryKeywords: ["cafe racer Philippines price", "classic motorcycle Philippines", "retro motorcycle Philippines", "modern classic motorcycles Philippines"],
-    directAnswer: "This guide brings together current cafe-racer, modern-classic and closely related classic-road motorcycle records while keeping the exact category label visible for each model.",
+    secondaryKeywords: ["cafe racer Philippines", "cafe racer motorcycle", "cafe racer price", "classic motorcycle", "classic motorcycle Philippines", "Honda cafe racer", "Honda classic motorcycle", "Yamaha classic motorcycle", "retro motorcycle Philippines", "modern classic motorcycles Philippines"],
+    directAnswer: "This guide consolidates cafe-racer, classic-motorcycle, modern-classic and closely related classic-road searches into one evidence-led comparison instead of splitting near-identical style intent across thin pages.",
     inclusionRules: ["Category is cafe racer, modern classic or classic road bike", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest.",
     tieBreakers: ["Lower curb weight"],
@@ -2211,6 +2211,29 @@ export const recommendationGuides: RecommendationGuide[] = [
     intent: "category"
   },
 
+
+  {
+    slug: "scrambler-motorcycles-philippines",
+    kicker: "Scrambler motorcycle guide",
+    title: "Scrambler motorcycles in the Philippines",
+    seoTitle: "Scrambler Motorcycles Philippines 2026 | Prices & Specs",
+    description: "Compare scrambler motorcycles in the Philippines by published price, engine, power, weight, seat height, ABS, clearance and fuel capacity.",
+    primaryKeyword: "scrambler motorcycle",
+    secondaryKeywords: ["scrambler motorcycle Philippines", "scrambler bike Philippines", "scrambler motorcycle price Philippines", "best scrambler motorcycle Philippines", "scrambler bikes Philippines"],
+    directAnswer: "This guide compares current Philippine-market motorcycles whose stored category explicitly identifies them as scrambler or scrambler/utility models. Price order is used only as a neutral comparison structure, not as a quality ranking.",
+    inclusionRules: ["Category contains scrambler", "Current Philippine-market motorcycle", "Model has a dated price and specification record"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Published prices and core specifications come from each model's dated Philippine-market record. MotoIndex does not infer off-road capability from styling alone.",
+    caveats: ["Scrambler styling does not guarantee the same suspension travel, ground clearance or off-road ability.", "Compare curb weight, seat height, wheels, tires and ground clearance for your actual route.", "Dealer stock, model year, fees and final on-road price can differ from the published record."],
+    tableColumns: ["price","engine","power","weight","seat","clearance","abs","tank"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Scrambler motorcycle price range in the Philippines", "Lightweight scrambler motorcycles", "Lower-seat scrambler choices", "Engine, power and clearance differences", "What to compare beyond scrambler styling"],
+    faqQuestions: ["What scrambler motorcycles are available in the Philippines?", "How much is a scrambler motorcycle in the Philippines?", "Which scrambler is lightest?", "Which scrambler has the lowest seat?", "Are scrambler motorcycles good for off-road riding?"],
+    relatedGuideSlugs: ["cafe-racer-motorcycles-philippines","naked-motorcycles-philippines","adventure-touring-motorcycles-philippines","dual-sport-motorcycles-philippines","motorcycles-400cc-plus-philippines"],
+    intent: "category"
+  },
 
   {
     slug: "125cc-motorcycles-philippines",
@@ -2594,6 +2617,7 @@ export function getRecommendationModels(slug: string) {
     case "kawasaki-ninja-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "kawasaki" && /^ninja\b/i.test(m.model));
     case "honda-adv-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "honda" && /adv/i.test(m.model));
     case "cafe-racer-motorcycles-philippines": return byPrice.filter(m => /cafe racer|modern classic|classic road bike/i.test(m.category));
+    case "scrambler-motorcycles-philippines": return byPrice.filter(m => /scrambler/i.test(m.category));
     case "125cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 115 && m.engineCc <= 130);
     case "motorcycles-below-150cc-philippines": return byPrice.filter(m => m.engineCc < 150);
     case "business-motorcycles-philippines": return byPrice.filter(m => /^Business motorcycle$/i.test(m.category));
