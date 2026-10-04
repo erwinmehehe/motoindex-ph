@@ -32,11 +32,28 @@ if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || /@(example\.(com|org|net)|test|
   failures.push("NEXT_PUBLIC_CONTACT_EMAIL must be a real monitored mailbox for launch.");
 }
 
-const adminUser = process.env.ADMIN_USERNAME || "";
-const adminPassword = process.env.ADMIN_PASSWORD || "";
-if (adminUser.length < 8) failures.push("ADMIN_USERNAME must be set and at least 8 characters.");
-if (adminPassword.length < 20) failures.push("ADMIN_PASSWORD must be set and at least 20 characters.");
-if (adminUser && adminPassword && adminUser === adminPassword) failures.push("ADMIN_USERNAME and ADMIN_PASSWORD must be different.");
+const adminAuthMode=(process.env.ADMIN_AUTH_MODE||"basic").trim().toLowerCase();
+if(adminAuthMode==="cloudflare-access"){
+  const teamDomain=(process.env.CF_ACCESS_TEAM_DOMAIN||"").trim().replace(/^https?:\/\//,"").replace(/\/$/,"");
+  const accessAud=(process.env.CF_ACCESS_AUD||"").trim();
+  const adminEmails=(process.env.ADMIN_ACCESS_EMAILS||"").split(",").map(value=>value.trim()).filter(Boolean);
+  if(!/^[a-z0-9.-]+\.cloudflareaccess\.com$/i.test(teamDomain))failures.push("CF_ACCESS_TEAM_DOMAIN must be a valid Cloudflare Access team domain.");
+  if(accessAud.length<10)failures.push("CF_ACCESS_AUD must contain the Access Application audience tag.");
+  if(!adminEmails.length||adminEmails.some(value=>!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)))failures.push("ADMIN_ACCESS_EMAILS must contain one or more valid administrator emails.");
+}else if(adminAuthMode==="basic"){
+  const adminUser = process.env.ADMIN_USERNAME || "";
+  const adminPassword = process.env.ADMIN_PASSWORD || "";
+  if (adminUser.length < 8) failures.push("ADMIN_USERNAME must be set and at least 8 characters when ADMIN_AUTH_MODE=basic.");
+  if (adminPassword.length < 20) failures.push("ADMIN_PASSWORD must be set and at least 20 characters when ADMIN_AUTH_MODE=basic.");
+  if (adminUser && adminPassword && adminUser === adminPassword) failures.push("ADMIN_USERNAME and ADMIN_PASSWORD must be different.");
+}else{
+  failures.push("ADMIN_AUTH_MODE must be cloudflare-access or basic.");
+}
+
+if(process.env.PRICE_ALERTS_ENABLED==="true"){
+  const actionSecret=process.env.ACTION_LINK_SECRET||"";
+  if(actionSecret.length<32)failures.push("ACTION_LINK_SECRET must be at least 32 characters when price alerts are enabled.");
+}
 
 
 const DAY_MS = 86_400_000;
@@ -79,8 +96,8 @@ checkDynamicSiblings(appDir);
 
 const nextVersion = pkg.dependencies?.next || "";
 const parts = nextVersion.split(".").map(Number);
-if (!(parts[0] === 15 && parts[1] === 5 && parts[2] > 23)) {
-  failures.push(`Next.js ${nextVersion} is below the patched 15.5.24 security baseline. Upgrade to Next.js 15.5.24 or a newer supported 15.5 patch, regenerate the lockfile, and re-run verification.`);
+if (!(parts[0] === 15 && parts[1] === 5 && parts[2] >= 27)) {
+  failures.push(`Next.js ${nextVersion} is below the patched 15.5.27 security baseline. Upgrade to Next.js 15.5.27 or a newer supported 15.5 patch, regenerate the lockfile, and re-run verification.`);
 }
 
 if (warnings.length) console.warn("Launch preflight warnings:\n- " + warnings.join("\n- "));
@@ -88,4 +105,4 @@ if (failures.length) {
   console.error("Launch preflight failed:\n- " + failures.join("\n- "));
   process.exit(1);
 }
-console.log("Launch preflight passed: exact dependencies, lockfile, HTTPS site URL, contact channel, admin credentials, source freshness, and Next.js security baseline are present.");
+console.log("Launch preflight passed: exact dependencies, lockfile, HTTPS site URL, contact channel, administrative perimeter, source freshness, and Next.js security baseline are present.");
