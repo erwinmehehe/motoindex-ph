@@ -9,7 +9,7 @@ import { motorcycles } from "@/lib/data";
 import { officialDealerLocators } from "@/lib/dealerLocators";
 import { allVerifiedDealers } from "@/lib/persistentSellers";
 import { pageMetadata } from "@/lib/site";
-import { citySlug } from "@/lib/sellers";
+import { MIN_PUBLIC_DEALERS_PER_CITY, citySlug } from "@/lib/sellers";
 import { dealerDirectorySchema } from "@/lib/structuredData";
 
 const supported = ["honda", "yamaha", "suzuki", "kawasaki"] as const;
@@ -47,8 +47,12 @@ export default async function BrandDealersPage({ params }: { params: Promise<{ m
   const dealers = allDealers.filter((dealer) => dealer.brands.some((item) => item.toLowerCase() === brand.toLowerCase()));
   const officialLocator = locatorForBrand(brand);
   const cityCounts = new Map<string, number>();
+  const allCityCounts = new Map<string, number>();
+  for (const dealer of allDealers) allCityCounts.set(dealer.city, (allCityCounts.get(dealer.city) || 0) + 1);
   for (const dealer of dealers) cityCounts.set(dealer.city, (cityCounts.get(dealer.city) || 0) + 1);
-  const cities = [...cityCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  const cities = [...cityCounts.entries()]
+    .filter(([city]) => (allCityCounts.get(city) || 0) >= MIN_PUBLIC_DEALERS_PER_CITY)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   const path = "/motorcycles/" + make + "/dealers";
   const schema = dealerDirectorySchema(dealers, path, brand + " motorcycle dealers in the Philippines");
 
