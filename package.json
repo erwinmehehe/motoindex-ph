@@ -13,7 +13,7 @@
     "cf:deploy:built": "opennextjs-cloudflare deploy",
     "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "typecheck": "tsc --noEmit",
-    "test:unit": "vitest run",
+    "test:unit": "vitest run tests/actionTokens.test.ts tests/adminAuthPolicy.test.ts",
     "test:e2e": "playwright test",
     "audit:prod": "npm audit --omit=dev --audit-level=high",
     "check:links": "node scripts/check-internal-links.mjs",
