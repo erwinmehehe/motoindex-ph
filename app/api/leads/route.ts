@@ -3,6 +3,7 @@ import { databaseConfigured, prisma } from "@/lib/db";
 import { getModelById } from "@/lib/data";
 import { matchQuoteEligibleDealers } from "@/lib/persistentSellers";
 import { actionToken, hashActionToken } from "@/lib/actionTokens";
+import { getOwnerSession } from "@/lib/ownerAuth";
 
 export const runtime = "nodejs";
 
@@ -61,6 +62,8 @@ export async function POST(request: Request) {
   if (!["cash", "installment"].includes(purchaseType)) return NextResponse.json({ ok: false, error: "Choose cash or installment." }, { status: 400 });
   if (!consent) return NextResponse.json({ ok: false, error: "Consent is required before we can save and match your request." }, { status: 400 });
 
+  const ownerSession = await getOwnerSession().catch(() => null);
+  const ownerId = ownerSession && (!email || ownerSession.owner.email === email) ? ownerSession.ownerId : null;
   const matched = await matchQuoteEligibleDealers(model.make, cityProvince, 3);
 
   const duplicateSince = new Date(Date.now() - 15 * 60 * 1000);
@@ -73,7 +76,7 @@ export async function POST(request: Request) {
     const buyerAccessExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
     await prisma.dealerLead.update({
       where: { id: duplicate.id },
-      data: { buyerAccessToken: null, buyerAccessTokenHash: hashActionToken(buyerAccessToken), buyerAccessExpiresAt }
+      data: { buyerAccessToken: null, buyerAccessTokenHash: hashActionToken(buyerAccessToken), buyerAccessExpiresAt, ...(ownerId ? { ownerId } : {}) }
     });
     return NextResponse.json({
       ok: true,
@@ -92,6 +95,7 @@ export async function POST(request: Request) {
 
   const lead = await prisma.dealerLead.create({
     data: {
+      ownerId,
       modelExternalId: model.id,
       make: model.make,
       model: model.model,
