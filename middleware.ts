@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { adminAccessAllowedEmails, adminAccessIdentityAllowed, adminAuthMode } from "@/lib/adminAuthPolicy";
 
 const protectedPrefixes = ["/admin", "/api/ingestion", "/api/admin"];
 const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;
@@ -72,6 +73,15 @@ export function middleware(request: NextRequest) {
     }
   }
   if (!protectedPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) return NextResponse.next();
+
+  if (adminAuthMode() === "cloudflare-access") {
+    if (!adminAccessAllowedEmails().size) return deny("Administrative Access allowlist unavailable.", 503);
+    if (!adminAccessIdentityAllowed(request.headers)) return deny("Cloudflare Access authentication required.", 401);
+    const response = NextResponse.next();
+    response.headers.set("Cache-Control", "no-store");
+    response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+    return response;
+  }
 
   const expectedUser = process.env.ADMIN_USERNAME;
   const expectedPassword = process.env.ADMIN_PASSWORD;
