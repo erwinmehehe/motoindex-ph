@@ -82,7 +82,8 @@
     "validate:helmet-media": "python scripts/audit-helmet-media-art-direction.py",
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
-    "test": "npm run test:unit"
+    "test": "npm run test:unit",
+    "test:security": "vitest run tests/actionTokens.test.ts"
   },
   "dependencies": {
     "next": "15.5.27",
