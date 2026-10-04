@@ -129,8 +129,8 @@ export async function POST(request:Request){
     moderatorNote:null
   };
   const review=await prisma.ownerReview.upsert({
-    where:{ownerId_garageMotorcycleLocalId:{ownerId:resolved.session.ownerId,garageMotorcycleLocalId:localId}},
-    update:data,
+    where:{ownerId_modelExternalId:{ownerId:resolved.session.ownerId,modelExternalId:bike.catalogModelId}},
+    update:{garageMotorcycleLocalId:localId,...data},
     create:{ownerId:resolved.session.ownerId,garageMotorcycleLocalId:localId,...data}
   });
   return NextResponse.json({ok:true,id:review.id,status:"pending",message:"Review submitted for moderation. Editing a published review always returns it to review."},{status:201,headers});
