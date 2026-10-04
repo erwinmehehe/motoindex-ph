@@ -23,7 +23,7 @@ vi.mock("@/lib/data",()=>({
   getModelById:(id:string)=>id==="model-1"?{id:"model-1",make:"Honda",model:"Test"}:undefined
 }));
 
-import { GET, POST } from "../app/api/owner-reviews/route";
+import { DELETE, GET, POST } from "../app/api/owner-reviews/route";
 
 beforeEach(()=>{
   vi.clearAllMocks();
@@ -47,6 +47,18 @@ describe("owner review route",()=>{
     }));
     expect(response.status).toBe(400);
     expect(mocks.reviewUpsert).not.toHaveBeenCalled();
+  });
+
+  it("lets the owner delete a review by review ID even after Garage membership changes",async()=>{
+    mocks.reviewDeleteMany.mockResolvedValue({count:1});
+    const response=await DELETE(new Request("http://localhost/api/owner-reviews",{
+      method:"DELETE",headers:{"content-type":"application/json"},
+      body:JSON.stringify({reviewId:"review-1"})
+    }));
+    expect(response.status).toBe(200);
+    expect(mocks.reviewDeleteMany).toHaveBeenCalledWith({
+      where:{ownerId:"owner-1",id:"review-1"}
+    });
   });
 
   it("creates a pending review from the synced Garage motorcycle and trusted odometer",async()=>{
