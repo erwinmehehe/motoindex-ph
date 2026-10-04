@@ -47,7 +47,7 @@ function isPrototypePath(pathname: string) {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   if (process.env.NODE_ENV === "production" && isPrototypePath(pathname)) return deny("Not found.", 404);
-  if (pathname === "/garage" || pathname.startsWith("/garage/")) {
+  if (pathname === "/garage" || pathname.startsWith("/garage/") || pathname === "/dealer-portal" || pathname.startsWith("/dealer-portal/") || pathname.startsWith("/api/dealer-portal/")) {
     const response = NextResponse.next();
     response.headers.set("Cache-Control", "no-store");
     response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
@@ -59,6 +59,16 @@ export function middleware(request: NextRequest) {
     response.headers.set("Cache-Control", "no-store");
     response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
     return response;
+  }
+  if (pathname === "/motorcycles") {
+    const filtered = ["q","make","type","budget","sort","max"].some(key =>
+      request.nextUrl.searchParams.getAll(key).some(value => value.trim().length > 0)
+    );
+    if (filtered) {
+      const response = NextResponse.next();
+      response.headers.set("X-Robots-Tag", "noindex, follow");
+      return response;
+    }
   }
   if (!protectedPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) return NextResponse.next();
 
@@ -95,7 +105,7 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/admin/:path*", "/api/ingestion/:path*", "/api/admin/:path*", "/garage/:path*","/garage", "/price-alerts/confirm/:path*", "/price-alerts/unsubscribe/:path*", "/api/price-alerts/:path*",
-    "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*", "/quote-status/:path*", "/api/quote-status/:path*",
+    "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*", "/quote-status/:path*", "/api/quote-status/:path*", "/dealer-portal/:path*", "/dealer-portal", "/api/dealer-portal/:path*", "/motorcycles",
     "/motorcycles/:make/:slug/used-value", "/motorcycles/:make/:slug/new-vs-used"
   ]
 };
