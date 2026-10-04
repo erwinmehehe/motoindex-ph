@@ -1877,6 +1877,28 @@ export const recommendationGuides: RecommendationGuide[] = [
     intent: "category"
   },
   {
+    slug: "kawasaki-big-bikes-philippines",
+    kicker: "Kawasaki big bikes",
+    title: "Kawasaki big bikes in the Philippines",
+    seoTitle: "Kawasaki Big Bikes Philippines 2026 | Prices, Specs & Models",
+    description: "Compare current Kawasaki big bikes in the Philippines by published price, engine size, power, weight, seat height, ABS, fuel tank and model type.",
+    primaryKeyword: "Kawasaki big bike",
+    secondaryKeywords: ["Kawasaki big bikes Philippines", "Kawasaki big bike price Philippines", "Kawasaki big bike price list Philippines", "Kawasaki 400cc Philippines", "Kawasaki 650cc Philippines", "Kawasaki 1000cc Philippines"],
+    directAnswer: "This guide compares current Kawasaki motorcycles with recorded engine displacement of at least 400cc, from the Z, Ninja, Versys, Vulcan and Eliminator families to supercharged and liter-class models.",
+    inclusionRules: ["Make is Kawasaki", "Recorded engine displacement is at least 400cc", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Each model keeps its own dated Kawasaki Philippines or verified Philippine-market source for price and specification data.",
+    caveats: ["Kawasaki big bikes span cruiser, naked, sport, touring and supersport categories, so engine size is not an overall suitability score.", "For expressway use, verify the exact registered unit and current operator rules rather than relying only on model family or displacement."],
+    tableColumns: ["price","engine","power","weight","seat","abs","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced Kawasaki big bikes", "Kawasaki 400cc to 650cc choices", "Ninja, Z, Versys and cruiser differences", "Lower-seat Kawasaki big bikes", "What to budget beyond the purchase price"],
+    faqQuestions: ["What Kawasaki big bikes are available in the Philippines?", "Which Kawasaki big bike has the lowest published price?", "Which Kawasaki big bike is lightest?", "Which Kawasaki big bike has the lowest seat?", "Which Kawasaki big bikes are 1000cc or larger?"],
+    relatedGuideSlugs: ["motorcycles-400cc-plus-philippines","motorcycles-1000cc-plus-philippines","kawasaki-ninja-motorcycles-philippines","cruiser-motorcycles-philippines","adventure-touring-motorcycles-philippines"],
+    intent: "category"
+  },
+  {
     slug: "maxi-scooters-philippines",
     kicker: "Maxi scooters",
     title: "Maxi scooters in the Philippines",
@@ -2625,6 +2647,7 @@ export function getRecommendationModels(slug: string) {
     case "motorcycles-1000cc-plus-philippines": return byPrice.filter(m => m.engineCc >= 1000);
     case "honda-big-bikes-philippines": return byPrice.filter(m => m.makeSlug === "honda" && m.engineCc >= 400);
     case "yamaha-big-bikes-philippines": return byPrice.filter(m => m.makeSlug === "yamaha" && m.engineCc >= 400);
+    case "kawasaki-big-bikes-philippines": return byPrice.filter(m => m.makeSlug === "kawasaki" && m.engineCc >= 400);
     case "cruiser-motorcycles-philippines": return byPrice.filter(m => m.category === "Cruiser");
     case "motorcycles-under-400cc-philippines": return byPrice.filter(m => m.engineCc < 400);
     case "maxi-scooters-philippines": return byPrice.filter(m => /maxi/i.test(m.category));
