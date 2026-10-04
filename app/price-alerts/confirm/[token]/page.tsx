@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { databaseConfigured, prisma } from "@/lib/db";
+import { databaseConfigured } from "@/lib/db";
 import { getModelById } from "@/lib/data";
 import { php } from "@/lib/utils";
 import { PriceAlertAction } from "@/components/PriceAlertAction";
+import { findPriceAlertByConfirmToken } from "@/lib/actionTokenLookup";
 
 export const metadata:Metadata={title:"Confirm Price Alert",robots:{index:false,follow:false,noarchive:true}};
 export const dynamic="force-dynamic";
@@ -11,7 +12,7 @@ export const dynamic="force-dynamic";
 export default async function ConfirmPriceAlertPage({params}:{params:Promise<{token:string}>}){
   if(!databaseConfigured())return notFound();
   const {token}=await params;
-  const subscription=await prisma.priceAlertSubscription.findUnique({where:{confirmToken:token}});
+  const subscription=await findPriceAlertByConfirmToken(token);
   if(!subscription||subscription.status!=="pending")return notFound();
   if(Date.now()-subscription.updatedAt.getTime()>24*60*60*1000)return notFound();
 
