@@ -75,11 +75,11 @@ export function GarageOwnerReviewsPanel(){
 
   useEffect(()=>{void load();},[]);
 
-  const current=useMemo(
-    ()=>state.reviews.find(review=>review.garageMotorcycleLocalId===selectedId)||null,
-    [state.reviews,selectedId]
-  );
   const selectedBike=state.bikes.find(bike=>bike.garageMotorcycleLocalId===selectedId)||null;
+  const current=useMemo(
+    ()=>state.reviews.find(review=>review.garageMotorcycleLocalId===selectedId||(selectedBike&&review.modelExternalId===selectedBike.modelExternalId))||null,
+    [state.reviews,selectedId,selectedBike]
+  );
 
   async function submit(event:FormEvent<HTMLFormElement>){
     event.preventDefault();
@@ -177,10 +177,11 @@ export function GarageOwnerReviewsPanel(){
         <label className="lead-form-wide"><span>Ownership summary</span><textarea name="summary" rows={5} minLength={60} maxLength={1200} required defaultValue={current?.summary||""} placeholder="What should another rider know after living with this motorcycle?"/></label>
         <label className="lead-form-wide"><span>What you like</span><textarea name="likes" rows={3} minLength={10} maxLength={500} required defaultValue={current?.likes||""}/></label>
         <label className="lead-form-wide"><span>What you dislike</span><textarea name="dislikes" rows={3} minLength={10} maxLength={500} required defaultValue={current?.dislikes||""}/></label>
+        <label className="lead-form-wide"><span>Publication consent</span><span><input name="publishConsent" type="checkbox" value="yes" required/> I understand this review will be public and anonymous after moderation, using the model/year/variant, ownership duration, odometer and review details shown here.</span></label>
       </div>
       <div className="hero-actions">
         <button className="button small" type="submit" disabled={working}>{working?"Submitting…":current?"Update and resubmit":"Submit for moderation"}</button>
-        {current&&<button className="button small ghost" type="button" disabled={working} onClick={()=>void remove(selectedId)}>Delete review</button>}
+        {current&&<button className="button small ghost" type="button" disabled={working} onClick={()=>void remove(current.garageMotorcycleLocalId)}>Delete review</button>}
       </div>
       {current?.moderatorNote&&<p className="muted-note">Moderator note: {current.moderatorNote}</p>}
     </form>}
