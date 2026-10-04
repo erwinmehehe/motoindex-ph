@@ -198,8 +198,7 @@ export const comparisonEditorialBriefs: ComparisonEditorialBrief[] = [
     opening: "The NX500 and Versys 650 are current Philippine-market adventure-touring options with different engine sizes and weights. Compare price, output, curb weight, seat height, tank capacity, tires and braking using the checked local records.",
     sections: ["Philippine price", "Engine displacement", "Power and torque", "Curb weight", "Seat height", "Fuel capacity", "Ground clearance", "Tires", "ABS and braking", "Touring specifications"],
     faqs: ["Which is cheaper, NX500 or Versys 650?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "Which has the larger engine?"]
-  }
-
+  },
   {
     slug: "click-125i-vs-fazzio",
     primaryKeyword: "Click 125 vs Fazzio",
