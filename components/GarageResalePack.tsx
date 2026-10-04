@@ -414,6 +414,7 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
       condition={condition}
       location={location}
       onUseEstimate={(value)=>setAskingPrice(String(value))}
+      excludeListingId={currentListing?.id}
     />}
 
     <section className="section">
