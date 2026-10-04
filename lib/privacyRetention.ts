@@ -45,7 +45,7 @@ export async function runPrivacyRetention(now=new Date()){
   ]=await prisma.$transaction([
     prisma.dealerLead.deleteMany({where:{status:"closed",updatedAt:{lt:cutoff(policy.closedDealerLeadDays,now)}}}),
     prisma.dealerApplication.deleteMany({where:{status:"rejected",updatedAt:{lt:cutoff(policy.rejectedDealerApplicationDays,now)}}}),
-    prisma.usedListingInquiry.deleteMany({where:{status:"closed",createdAt:{lt:cutoff(policy.closedUsedInquiryDays,now)}}}),
+    prisma.usedListingInquiry.deleteMany({where:{createdAt:{lt:cutoff(policy.closedUsedInquiryDays,now)}}}),
     prisma.priceAlertSubscription.deleteMany({where:{status:"unsubscribed",updatedAt:{lt:cutoff(policy.unsubscribedPriceAlertDays,now)}}}),
     prisma.ownerMagicLink.deleteMany({where:{expiresAt:{lt:cutoff(policy.expiredAuthArtifactDays,now)}}}),
     prisma.ownerSession.deleteMany({where:{expiresAt:{lt:cutoff(policy.expiredAuthArtifactDays,now)}}}),
