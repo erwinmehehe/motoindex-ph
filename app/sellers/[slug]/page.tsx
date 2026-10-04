@@ -18,11 +18,11 @@ export function generateStaticParams(){return staticPublicSellers().map(s=>({slu
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
   const {slug}=await params;
   const s=await getVerifiedSellerProfile(slug);
-  const serviceProfile=s?.type==="service";
+  const nonDealerProfile=s?.type!=="dealer";
   return s?pageMetadata({
-    title:serviceProfile?`${s.name}: Service Center Details & Contact`:`${s.name}: Dealer Details & Contact`,
-    description:serviceProfile
-      ?`${s.name} in ${s.city}: checked address, phone, service categories and business-source details.`
+    title:nonDealerProfile?`${s.name}: Shop Details & Contact`:`${s.name}: Dealer Details & Contact`,
+    description:nonDealerProfile
+      ?`${s.name} in ${s.city}: checked address, phone, published business categories and source details.`
       :`${s.name} in ${s.city}: checked address, phone, supported motorcycle brands and official dealer-source details.`,
     path:`/sellers/${s.slug}`,
     index:true
@@ -53,7 +53,7 @@ export default async function SellerPage({params}:{params:Promise<{slug:string}>
     <Breadcrumbs items={[parent,{label:s.name}]} />
     <div className="seller-hero">
       <div>
-        <span className="entity-kicker">{s.type==="service"?"Service center details checked":"Dealer details checked"}</span>
+        <span className="entity-kicker">{s.type==="dealer"?"Dealer details checked":"Shop details checked"}</span>
         <h1>{s.name}</h1>
         <p>{s.description}</p>
         <div className="seller-tags">{s.categories.map(x=><span key={x}>{x}</span>)}{s.brands.map(x=><span key={x}>{x}</span>)}</div>
@@ -70,17 +70,17 @@ export default async function SellerPage({params}:{params:Promise<{slug:string}>
     <section className="dealer-profile-trust">
       <div>
         <span className="section-kicker">Listing check</span>
-        <h2>{s.type==="service"?"Business and service details have a checked verification source":"Branch details have a checked verification source"}</h2>
+        <h2>{s.type==="dealer"?"Branch details have a checked verification source":"Business details have a checked verification source"}</h2>
         <p>{s.verificationNote||"This public profile has an official source on file for its business details."}</p>
       </div>
       {s.sourceUrl?<a href={s.sourceUrl} target="_blank" rel="noopener noreferrer">Open verification source ↗</a>:null}
     </section>
 
     <div className="section-head"><div>
-      <h2>{s.type==="service"?"Checked offers from this business":"Checked prices from this dealer"}</h2>
-      <p>{s.type==="service"
-        ?"Service-center verification does not verify quoted labor, parts availability or repair quality. Any offers appear here only after a separate current price check."
-        :"Dealer profile verification does not automatically verify stock or pricing. Price offers appear here only after a separate current price check."}</p>
+      <h2>{s.type==="dealer"?"Checked prices from this dealer":"Checked offers from this business"}</h2>
+      <p>{s.type==="dealer"
+        ?"Dealer profile verification does not automatically verify stock or pricing. Price offers appear here only after a separate current price check."
+        :"Business verification does not verify quoted labor, parts availability, service quality or offer pricing. Any offers appear here only after a separate current price check."}</p>
     </div></div>
     {offers.length?<div className="seller-offers">{offers.map(o=><Link key={o.id} href={entityHref(o.entityType,o.entityId)}><span><small>{o.entityType}</small><strong>{entityLabel(o.entityType,o.entityId)}</strong></span><span><strong>{o.pricePhp?php(o.pricePhp):"Ask seller"}</strong><small>{o.availability}</small></span><em className="offer-status verified">checked</em></Link>)}</div>:<div className="empty-state large">No current branch-specific checked price offers yet.</div>}
 
