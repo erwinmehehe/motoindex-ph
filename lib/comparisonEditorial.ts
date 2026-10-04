@@ -198,7 +198,6 @@ export const comparisonEditorialBriefs: ComparisonEditorialBrief[] = [
     opening: "The NX500 and Versys 650 are current Philippine-market adventure-touring options with different engine sizes and weights. Compare price, output, curb weight, seat height, tank capacity, tires and braking using the checked local records.",
     sections: ["Philippine price", "Engine displacement", "Power and torque", "Curb weight", "Seat height", "Fuel capacity", "Ground clearance", "Tires", "ABS and braking", "Touring specifications"],
     faqs: ["Which is cheaper, NX500 or Versys 650?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "Which has the larger engine?"]
-  }
   },
   {
     slug: "click-125i-vs-fazzio",
@@ -259,6 +258,7 @@ export const comparisonEditorialBriefs: ComparisonEditorialBrief[] = [
     sections: ["Philippine price", "Shared 948cc engine", "Power and torque", "Curb weight", "Seat height", "Braking hardware", "Suspension differences", "Rider aids", "What the SE price premium buys"],
     faqs: ["How much more does the Z900 SE cost?", "Do the Z900 and Z900 SE have the same engine?", "Which is lighter?", "What brakes does the Z900 SE add?", "How does the suspension differ?", "Which Z900 is better value for road use?"],
     related: [{ href: "/compare/z900-vs-cb650r", label: "Compare Z900 vs CB650R →" }, { href: "/recommendations/kawasaki-big-bikes-philippines", label: "See Kawasaki big bikes →" }]
+  }
 
 ];
 
