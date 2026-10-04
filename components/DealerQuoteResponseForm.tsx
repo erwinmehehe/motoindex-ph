@@ -12,7 +12,7 @@ type InitialQuote={
   dealerNote?:string;
 };
 
-export function DealerQuoteResponseForm({token,initial}:{token:string;initial?:InitialQuote}){
+export function DealerQuoteResponseForm({token,endpoint,initial}:{token?:string;endpoint?:string;initial?:InitialQuote}){
   const [saving,setSaving]=useState(false);
   const [message,setMessage]=useState("");
   const [quoted,setQuoted]=useState(Boolean(initial));
@@ -22,7 +22,7 @@ export function DealerQuoteResponseForm({token,initial}:{token:string;initial?:I
     const form=new FormData(event.currentTarget);
     setSaving(true);setMessage("");
     try{
-      const response=await fetch(`/api/dealer-lead/${token}/quote`,{
+      const response=await fetch(endpoint || `/api/dealer-lead/${token}/quote`,{
         method:"PUT",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
