@@ -1795,7 +1795,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     seoTitle: "Big Bikes Philippines 2026 | 400cc+ Motorcycle Price List",
     description: "Compare big bike prices in the Philippines for 2026 across current 400cc+ motorcycles, including displacement, power, weight, seat height, ABS and ownership context.",
     primaryKeyword: "big bikes Philippines",
-    secondaryKeywords: ["big bike Philippines", "big bike price Philippines", "big bike price list Philippines", "bigbike Philippines", "400cc+ motorcycles Philippines", "400cc motorcycle Philippines", "400cc motorcycles Philippines", "400cc motorcycle price Philippines", "400cc motorcycle price list Philippines", "affordable big bike Philippines", "affordable 400cc motorcycle Philippines", "expressway legal motorcycles Philippines", "400cc expressway motorcycle Philippines"],
+    secondaryKeywords: ["big bike", "big bikes", "big bike Philippines", "big bike price Philippines", "big bike price list Philippines", "bigbike Philippines", "400cc+ motorcycles Philippines", "400cc motorcycle Philippines", "400cc motorcycles Philippines", "400cc motorcycle price Philippines", "400cc motorcycle price list Philippines", "affordable big bike Philippines", "affordable 400cc motorcycle Philippines", "expressway legal motorcycles Philippines", "400cc expressway motorcycle Philippines"],
     directAnswer: "This guide compares current big bikes and 400cc+ motorcycles by published price, recorded displacement, weight, seat height, power and braking. For expressway research, use the linked legal guide separately: the 400cc+ filter is a useful shortlist, but the exact registered unit and current tollway requirements still need to be checked.",
     inclusionRules: ["Recorded engine displacement is at least 400cc", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest within the 400cc+ recorded-displacement set.",
@@ -2164,6 +2164,28 @@ export const recommendationGuides: RecommendationGuide[] = [
     editorialSections: ["Lowest-priced Yamaha Mio models", "Lighter Mio-family scooters", "Lower-seat Mio choices", "Engine and power differences", "Which exact Mio model to open next"],
     faqQuestions: ["What Yamaha Mio models are available in the Philippines?", "Which Yamaha Mio model has the lowest published price?", "Which Mio-family scooter is lightest?", "Which Mio model has the lowest seat?", "Are Mio Aerox generations kept separate?"],
     relatedGuideSlugs: ["yamaha-scooters-philippines","best-scooters-philippines","scooters-under-150k-philippines","best-motorcycles-for-daily-commute-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "honda-cbr-motorcycles-philippines",
+    kicker: "Honda CBR motorcycles",
+    title: "Honda CBR motorcycles in the Philippines",
+    seoTitle: "Honda CBR Philippines 2026 | Prices, Models & Specs",
+    description: "Compare Honda CBR motorcycles in the Philippines by current price, engine, power, weight, seat height, ABS and model positioning.",
+    primaryKeyword: "Honda CBR",
+    secondaryKeywords: ["Honda CBR Philippines", "Honda CBR price Philippines", "Honda CBR motorcycle", "Honda CBR150R Philippines", "Honda CBR650R Philippines"],
+    directAnswer: "This guide groups current Honda CBR sport-bike records so buyers can compare smaller-displacement and big-bike CBR models without merging their very different price, power, weight and licensing considerations.",
+    inclusionRules: ["Make is Honda", "Model name begins with CBR", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Prices and specifications remain attached to each canonical Honda CBR model record and its dated Philippine-market sources.",
+    caveats: ["CBR models span very different engine classes and rider use cases.", "A CBR badge does not imply the same ergonomics, power delivery, insurance cost or expressway context across models."],
+    tableColumns: ["price","engine","power","weight","seat","abs","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest engine",metric:"engine"}],
+    editorialSections: ["Honda CBR price range", "CBR150R vs larger CBR models", "Weight and seat-height differences", "ABS and braking differences", "Which CBR model should you research next"],
+    faqQuestions: ["What Honda CBR motorcycles are available in the Philippines?", "What is the Honda CBR price range in the Philippines?", "Which Honda CBR is cheapest?", "Which Honda CBR is lightest?", "Which Honda CBR models are big bikes?"],
+    relatedGuideSlugs: ["sport-motorcycles-philippines","honda-big-bikes-philippines","motorcycles-400cc-plus-philippines","motorcycles-under-400cc-philippines"],
     intent: "category"
   },
   {
@@ -2659,6 +2681,7 @@ export function getRecommendationModels(slug: string) {
     case "honda-scooters-philippines": return byPrice.filter(m => m.makeSlug === "honda" && /scooter/i.test(m.category));
     case "suzuki-scooters-philippines": return byPrice.filter(m => m.makeSlug === "suzuki" && /scooter/i.test(m.category));
     case "yamaha-mio-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "yamaha" && /mio|aerox|fazzio/i.test(m.model));
+    case "honda-cbr-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "honda" && /^cbr/i.test(m.model));
     case "kawasaki-ninja-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "kawasaki" && /^ninja\b/i.test(m.model));
     case "honda-adv-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "honda" && /adv/i.test(m.model));
     case "cafe-racer-motorcycles-philippines": return byPrice.filter(m => /cafe racer|cafe roadster|modern classic/i.test(m.category));
