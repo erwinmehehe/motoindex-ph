@@ -21,9 +21,12 @@ for (const token of ["model OwnerShortlistItem", "notificationPriceDropEmail", "
 }
 
 const dashboard = fs.readFileSync("app/my/page.tsx", "utf8");
+const accountExport = fs.readFileSync("app/api/my/export/route.ts", "utf8");
 for (const token of ["Next actions", "Recent ownership activity", "Dealer requests", "MyNotificationPreferences", "MyAccountControls"]) {
   if (!dashboard.includes(token)) failures.push(`dashboard missing ${token}`);
 }
+
+if (fs.existsSync("lib/ownerReviewPolicy.ts") && !accountExport.includes("ownerReviews")) failures.push("account export must include owner review data when owner reviews are present");
 
 const shortlist = fs.readFileSync("components/SaveToShortlistButton.tsx", "utf8");
 if (!shortlist.includes("/api/my/shortlist")) failures.push("shortlist saves are not account-synced");
