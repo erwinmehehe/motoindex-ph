@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { databaseConfigured, prisma } from "@/lib/db";
+import { databaseConfigured } from "@/lib/db";
 import { resolvePriceAlertActionToken } from "@/lib/priceAlerts";
 import { getModelById } from "@/lib/data";
 import { php } from "@/lib/utils";
