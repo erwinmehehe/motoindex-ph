@@ -145,8 +145,15 @@ export async function DELETE(request:Request){
   if(!resolved.ok)return resolved.response;
   let body:Record<string,unknown>;
   try{body=await request.json();}catch{return NextResponse.json({ok:false,error:"Invalid request."},{status:400,headers});}
+  const reviewId=cleanReviewText(body.reviewId,100);
   const localId=cleanReviewText(body.garageMotorcycleLocalId,100);
-  if(!localId)return NextResponse.json({ok:false,error:"Review not found."},{status:400,headers});
-  await prisma.ownerReview.deleteMany({where:{ownerId:resolved.session.ownerId,garageMotorcycleLocalId:localId}});
+  if(!reviewId&&!localId)return NextResponse.json({ok:false,error:"Review not found."},{status:400,headers});
+  const deleted=await prisma.ownerReview.deleteMany({
+    where:{
+      ownerId:resolved.session.ownerId,
+      ...(reviewId?{id:reviewId}:{garageMotorcycleLocalId:localId})
+    }
+  });
+  if(deleted.count!==1)return NextResponse.json({ok:false,error:"Review not found."},{status:404,headers});
   return NextResponse.json({ok:true},{headers});
 }
