@@ -32,6 +32,9 @@ CREATE TABLE "OwnerReview" (
 CREATE UNIQUE INDEX "OwnerReview_ownerId_garageMotorcycleLocalId_key"
 ON "OwnerReview"("ownerId", "garageMotorcycleLocalId");
 
+CREATE UNIQUE INDEX "OwnerReview_ownerId_modelExternalId_key"
+ON "OwnerReview"("ownerId", "modelExternalId");
+
 CREATE INDEX "OwnerReview_modelExternalId_status_publishedAt_idx"
 ON "OwnerReview"("modelExternalId", "status", "publishedAt");
 
