@@ -19,13 +19,15 @@ const pairs=[
 for(const pair of pairs){
   if(!changes.includes('fromModelId: "'+pair[0]+'"')||!changes.includes('toModelId: "'+pair[1]+'"'))failures.push("missing curated transition "+pair.join(" -> "));
 }
-for(const token of ["sourceLabel","sourceUrl","upgrade","keepPreviousIf","historical"]){
+for(const token of ["sourceLabel","sourceUrl","upgrade","keepPreviousIf","historical","modelYearUpdates","2022","2026"]){
   if(!changes.includes(token))failures.push("generation change model missing "+token);
 }
 if(changes.includes("Click V3")||changes.includes("Click V4"))failures.push("tracker must not invent an official Click V-number mapping");
+if(!changes.includes("honda-adv-160-2022-2026")||!changes.includes("honda-click-160-2022-2024"))failures.push("within-generation model-year updates missing");
 
 const route=fs.readFileSync("app/motorcycles/[make]/[slug]/changes/page.tsx","utf8");
 if(!route.includes("getModelFamily")||!route.includes("GenerationChangeTracker"))failures.push("generation tracker route is not family-driven");
+if(!route.includes("Generation & model-year change tracker"))failures.push("route must identify both generation and model-year tracking");
 if(!route.includes("Historical launch prices remain historical"))failures.push("generation tracker route must preserve historical-price warning");
 
 const family=fs.readFileSync("components/ModelFamilyView.tsx","utf8");
