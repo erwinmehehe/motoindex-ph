@@ -14,7 +14,7 @@ export async function GET(request:Request){
   const rows=await prisma.ownerReview.findMany({
     where:{modelExternalId:modelId,status:"published",publishedAt:{not:null}},
     orderBy:{publishedAt:"desc"},
-    take:20
+    take:500
   });
   const reviews:PublicOwnerReview[]=rows.map(row=>({
     id:row.id,modelExternalId:row.modelExternalId,variantLabel:row.variantLabel,modelYear:row.modelYear,
@@ -25,5 +25,5 @@ export async function GET(request:Request){
     unscheduledRepairsCount:row.unscheduledRepairsCount,summary:row.summary,likes:row.likes,dislikes:row.dislikes,
     publishedAt:row.publishedAt!.toISOString()
   }));
-  return NextResponse.json({ok:true,available:true,reviews,summary:summarizeOwnerReviews(reviews)},{headers});
+  return NextResponse.json({ok:true,available:true,reviews:reviews.slice(0,20),summary:summarizeOwnerReviews(reviews)},{headers});
 }
