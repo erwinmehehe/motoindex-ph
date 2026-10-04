@@ -328,7 +328,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <SectionHeader
           kicker="Monthly payment"
           titleId="installment-heading"
-          title={`${model.make} ${model.model} installment and downpayment`}
+          title={`${model.make} ${model.model} downpayment and monthly installment estimate`}
           description={installmentLanding ? "Estimate the monthly payment here, then open the focused financing guide for dealer observations, variant scenarios and deeper installment context." : aeroxFinanceTarget ? "Compare Standard and SP downpayment examples, then edit the exact cash price, downpayment, term and annual rate using the calculator." : "Use the published price as a starting point, then replace the downpayment, term and rate with the actual dealer or lender quote."}
         />
         <InstallmentCalculator price={range.from} priceOptions={financingPriceOptions} />
