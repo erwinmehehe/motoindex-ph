@@ -1,0 +1,40 @@
+import type { Motorcycle } from "@/lib/types";
+
+export function toPublicMotorcycle(model:Motorcycle){
+  return {
+    id:model.id,
+    make:model.make,
+    makeSlug:model.makeSlug,
+    model:model.model,
+    slug:model.slug,
+    generation:model.generation,
+    category:model.category,
+    srp:model.srp,
+    engineCc:model.engineCc,
+    powerHp:model.powerHp,
+    torqueNm:model.torqueNm,
+    curbWeightKg:model.curbWeightKg,
+    seatHeightMm:model.seatHeightMm,
+    fuelTankL:model.fuelTankL,
+    fuelConsumptionKmL:model.fuelConsumptionKmL,
+    groundClearanceMm:model.groundClearanceMm,
+    frontTire:model.frontTire,
+    rearTire:model.rearTire,
+    abs:model.abs,
+    colors:model.colors,
+    transmission:model.transmission,
+    marketStatus:model.marketStatus,
+    priceContext:model.priceContext,
+    marketPriceHighPhp:model.marketPriceHighPhp,
+    marketPriceSourceLabel:model.marketPriceSourceLabel,
+    marketPriceSourceUrl:model.marketPriceSourceUrl,
+    marketPriceCheckedAt:model.marketPriceCheckedAt,
+    sourceLabel:model.sourceLabel,
+    sourceUrl:model.sourceUrl,
+    verifiedAt:model.verifiedAt,
+    freshness:model.freshness,
+    summary:model.summary,
+    alsoKnownAs:model.alsoKnownAs,
+    successorId:model.successorId
+  };
+}
