@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { generationTransition, generationTransitionsForIds, latestGenerationTransition } from "../lib/generationChanges";
+import { generationTransition, generationTransitionsForIds, latestGenerationTransition, modelYearUpdatesForIds } from "../lib/generationChanges";
 import { getModelFamily } from "../lib/families";
 
 describe("generation change tracker",()=>{
@@ -47,6 +47,18 @@ describe("generation change tracker",()=>{
     expect(transition?.curated).toBe(false);
     expect(transition?.notes).toEqual([]);
     expect(transition?.measurable.length).toBeGreaterThan(5);
+  });
+
+  it("separates within-generation model-year refreshes from generation changes",()=>{
+    const adv=getModelFamily("honda","adv");
+    const click=getModelFamily("honda","click");
+    const advUpdates=modelYearUpdatesForIds(adv!.generationIds);
+    const clickUpdates=modelYearUpdatesForIds(click!.generationIds);
+    expect(advUpdates.map(item=>item.id)).toContain("honda-adv-160-2022-2026");
+    expect(advUpdates[0].verdict).toBe("Feature refresh");
+    expect(advUpdates[0].notes.some(note=>note.to?.includes("5-inch TFT"))).toBe(true);
+    expect(clickUpdates.map(item=>item.id)).toContain("honda-click-160-2022-2024");
+    expect(clickUpdates[0].verdict).toBe("Mostly cosmetic");
   });
 
   it("keeps historical price context explicit",()=>{
