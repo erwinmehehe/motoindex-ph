@@ -64,6 +64,8 @@ export function summarizeOwnerReviews(reviews:PublicOwnerReview[]){
   const ratingReady=reviews.length>=OWNER_REVIEW_MIN_RATING_SAMPLE;
   const fuel=reviews.map(r=>r.fuelEconomyKmpl).filter((v):v is number=>typeof v==="number");
   const maintenance=reviews.map(r=>r.annualMaintenancePhp).filter((v):v is number=>typeof v==="number");
+  const passenger=reviews.map(r=>r.passengerRating).filter((v):v is number=>typeof v==="number");
+  const highway=reviews.map(r=>r.highwayRating).filter((v):v is number=>typeof v==="number");
   return {
     reviewCount:reviews.length,
     ratingSampleReady:ratingReady,
@@ -71,8 +73,8 @@ export function summarizeOwnerReviews(reviews:PublicOwnerReview[]){
       comfort:average(reviews.map(r=>r.comfortRating)),
       cityTraffic:average(reviews.map(r=>r.cityTrafficRating)),
       maintenance:average(reviews.map(r=>r.maintenanceRating)),
-      passenger:average(reviews.map(r=>r.passengerRating).filter((v):v is number=>typeof v==="number")),
-      highway:average(reviews.map(r=>r.highwayRating).filter((v):v is number=>typeof v==="number")),
+      passenger:passenger.length>=OWNER_REVIEW_MIN_RATING_SAMPLE?average(passenger):null,
+      highway:highway.length>=OWNER_REVIEW_MIN_RATING_SAMPLE?average(highway):null,
     }:null,
     fuelEconomyKmpl:fuel.length>=OWNER_REVIEW_MIN_METRIC_SAMPLE?average(fuel):null,
     fuelSample:fuel.length,
