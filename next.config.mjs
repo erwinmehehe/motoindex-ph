@@ -73,6 +73,13 @@ const nextConfig = {
       { source: "/recommendations/best-big-bikes-philippines", destination: "/recommendations/motorcycles-400cc-plus-philippines", permanent: true },
       { source: "/recommendations/big-bikes-philippines", destination: "/recommendations/motorcycles-400cc-plus-philippines", permanent: true },
       { source: "/recommendations/best-cruiser-philippines", destination: "/recommendations/cruiser-motorcycles-philippines", permanent: true },
+      { source: "/recommendations/best-off-road-philippines", destination: "/recommendations/dual-sport-motorcycles-philippines", permanent: true },
+      { source: "/recommendations/best-dual-sport-philippines", destination: "/recommendations/dual-sport-motorcycles-philippines", permanent: true },
+      { source: "/recommendations/above-1000cc-philippines", destination: "/recommendations/motorcycles-1000cc-plus-philippines", permanent: true },
+      { source: "/recommendations/below-40000-philippines", destination: "/recommendations/motorcycles-under-80k", permanent: true },
+      { source: "/recommendations/40000-60000-philippines", destination: "/recommendations/motorcycles-under-80k", permanent: true },
+      { source: "/recommendations/60000-80000-philippines", destination: "/recommendations/motorcycles-under-80k", permanent: true },
+      { source: "/recommendations/80000-150000-philippines", destination: "/recommendations/motorcycles-under-150k", permanent: true },
       { source: "/recommendations/automatic-philippines", destination: "/recommendations/automatic-motorcycles-philippines", permanent: true },
       { source: "/recommendations/best-moped-philippines", destination: "/guides/moped-vs-scooter-underbone-philippines", permanent: true },
       // Route unsupported or non-catalog brand searches to source-backed market guides instead of 404/thin brand pages.
@@ -84,6 +91,9 @@ const nextConfig = {
       { source: "/motorcycles/harley-davidson", destination: "/guides/harley-davidson-price-philippines", permanent: true },
       { source: "/motorcycles/hatasu", destination: "/guides/hatasu-ebike-price-philippines", permanent: true },
       { source: "/motorcycles/honda-cbr", destination: "/recommendations/honda-cbr-motorcycles-philippines", permanent: true },
+      { source: "/motorcycles/loan", destination: "/tools/motorcycle-loan-calculator", permanent: true },
+      { source: "/motorcycle-loan-calculator", destination: "/tools/motorcycle-loan-calculator", permanent: true },
+      { source: "/tools/motorcycle-installment-calculator", destination: "/tools/motorcycle-loan-calculator", permanent: true },
       // Canonical buying-guide hub is plural. Preserve singular links and typos with permanent redirects.
       { source: "/recommendation", destination: "/recommendations", permanent: true },
       { source: "/recommendation/:path*", destination: "/recommendations/:path*", permanent: true }
