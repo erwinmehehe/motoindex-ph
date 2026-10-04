@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { randomBytes } from "node:crypto";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { getModelById } from "@/lib/data";
 import { matchQuoteEligibleDealers } from "@/lib/persistentSellers";
+import { newActionToken } from "@/lib/actionTokens";
 
 export const runtime = "nodejs";
 
@@ -69,16 +69,13 @@ export async function POST(request: Request) {
     orderBy: { createdAt: "desc" }
   });
   if (duplicate) {
-    let buyerAccessToken = duplicate.buyerAccessToken;
-    let buyerAccessExpiresAt = duplicate.buyerAccessExpiresAt;
-    if (!buyerAccessToken || !buyerAccessExpiresAt || buyerAccessExpiresAt <= new Date()) {
-      buyerAccessToken = randomBytes(32).toString("hex");
-      buyerAccessExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-      await prisma.dealerLead.update({
-        where: { id: duplicate.id },
-        data: { buyerAccessToken, buyerAccessExpiresAt }
-      });
-    }
+    const access = newActionToken();
+    const buyerAccessToken = access.token;
+    const buyerAccessExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    await prisma.dealerLead.update({
+      where: { id: duplicate.id },
+      data: { buyerAccessToken: null, buyerAccessTokenHash: access.tokenHash, buyerAccessExpiresAt }
+    });
     return NextResponse.json({
       ok: true,
       queued: true,
@@ -91,7 +88,8 @@ export async function POST(request: Request) {
     });
   }
 
-  const buyerAccessToken = randomBytes(32).toString("hex");
+  const access = newActionToken();
+  const buyerAccessToken = access.token;
   const buyerAccessExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
   const lead = await prisma.dealerLead.create({
@@ -110,7 +108,8 @@ export async function POST(request: Request) {
       matchedSellerSlugs: matched.map((seller) => seller.slug),
       status: matched.length ? "matched" : "new",
       sourcePath: clean(body.sourcePath, 180) || `/get-quote/${model.makeSlug}/${model.slug}`,
-      buyerAccessToken,
+      buyerAccessToken: null,
+      buyerAccessTokenHash: access.tokenHash,
       buyerAccessExpiresAt,
     }
   });
@@ -123,7 +122,8 @@ export async function POST(request: Request) {
         sellerSlug: seller.slug,
         sellerName: seller.name,
         dealerEmail: seller.leadEmail,
-        deliveryToken: randomBytes(32).toString("hex"),
+        deliveryToken: null,
+        deliveryTokenHash: null,
         expiresAt
       })),
       skipDuplicates: true
