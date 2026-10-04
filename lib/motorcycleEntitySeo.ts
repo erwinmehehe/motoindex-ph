@@ -383,6 +383,12 @@ export function motorcycleEntitySeo(model: Motorcycle) {
     `${keywordBase} maintenance schedule`,
     `${keywordBase} review`,
     `${keywordBase} ownership cost`,
+    ...(!current && !uncertain ? [
+      `${keywordBase} used price philippines`,
+      `${keywordBase} second hand price philippines`,
+      `${keywordBase} used motorcycle price`,
+      `${keywordBase} used value`
+    ] : []),
     ...(model.alsoKnownAs || []).flatMap((alias) => [
       `${alias.toLowerCase()} price philippines`,
       `${alias.toLowerCase()} specs`
