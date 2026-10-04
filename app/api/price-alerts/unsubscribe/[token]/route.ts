@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
+import { hashActionToken } from "@/lib/actionTokens";
 
 export const runtime="nodejs";
 
 export async function POST(_request:Request,{params}:{params:Promise<{token:string}>}){
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Price alert service unavailable."},{status:503});
   const {token}=await params;
-  const subscription=await prisma.priceAlertSubscription.findUnique({where:{unsubscribeToken:token}});
+  const subscription=await prisma.priceAlertSubscription.findFirst({where:{OR:[{unsubscribeTokenHash:hashActionToken(token)},{unsubscribeToken:token}]}});
   if(!subscription)return NextResponse.json({ok:false,error:"Price alert not found."},{status:404});
 
   if(subscription.status!=="unsubscribed"){
