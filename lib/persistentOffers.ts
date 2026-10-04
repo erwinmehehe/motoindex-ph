@@ -256,6 +256,9 @@ export async function getVerifiedOffers(
     termMonths: row.termMonths || undefined, availability: row.availability, status: "verified",
     observedAt: row.observedAt.toISOString().slice(0, 10), verifiedAt: row.verifiedAt?.toISOString().slice(0, 10),
     targetUrl: row.targetUrl || undefined, affiliateUrl: row.affiliateUrl || undefined,
+    sourceKind: row.publicationSource === "dealer_portal" ? "dealer-published" : "motoindex-reviewed",
+    variantLabel: row.variantLabel || undefined, colorLabel: row.colorLabel || undefined,
+    promoLabel: row.promoLabel || undefined, expiresAt: row.expiresAt?.toISOString().slice(0,10),
     note: row.publicationSource === "dealer_portal"
       ? `Dealer-published inventory from ${row.seller.name}. MotoIndex verified the dealer profile, but the branch is responsible for this price, stock and promo information.`
       : "Verified offer published through the reviewed ingestion workflow."
