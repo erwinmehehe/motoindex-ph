@@ -17,12 +17,6 @@
 
 /* Generation & model-year change tracker */
 .generation-change-tracker,.generation-change-card,.generation-year-updates,.generation-year-card,.generation-notes,.generation-delta-section,.generation-change-preview{display:grid;gap:var(--mi-space-4)}
-.generation-change-card,.generation-year-card,.generation-change-preview{padding:var(--mi-space-5);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-lg);background:var(--mi-color-surface)}
-.generation-change-head,.generation-year-card>header,.generation-upgrade-columns,.generation-before-after{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--mi-space-4)}
-.generation-delta-grid,.generation-preview-facts,.generation-note-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--mi-space-3)}
-.generation-note-list{grid-template-columns:repeat(2,minmax(0,1fr))}
-.generation-delta-item,.generation-before-after>div,.generation-upgrade-box,.generation-upgrade-columns article,.generation-preview-facts span,.generation-verdict{padding:var(--mi-space-3);border-radius:var(--mi-radius-sm);background:var(--mi-color-surface-subtle)}
-.generation-verdict,.generation-note-top{display:flex;flex-direction:column;gap:var(--mi-space-1)}
-.generation-note-top{flex-direction:row;justify-content:space-between}
-@media(max-width:900px){.generation-change-head,.generation-year-card>header,.generation-upgrade-columns,.generation-delta-grid,.generation-preview-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:620px){.generation-change-head,.generation-year-card>header,.generation-upgrade-columns,.generation-delta-grid,.generation-preview-facts,.generation-note-list,.generation-before-after{grid-template-columns:1fr}}
+.generation-change-card,.generation-year-card,.generation-change-preview{padding:var(--mi-space-5);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-lg)}
+.generation-change-head,.generation-year-card>header,.generation-delta-grid,.generation-preview-facts,.generation-note-list,.generation-before-after,.generation-upgrade-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--mi-space-3)}
+@media(max-width:620px){.generation-change-head,.generation-year-card>header,.generation-delta-grid,.generation-preview-facts,.generation-note-list,.generation-before-after,.generation-upgrade-columns{grid-template-columns:1fr}}
