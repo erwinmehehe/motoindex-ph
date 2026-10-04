@@ -53,17 +53,19 @@ const profiles: Record<string, BrandSeoGrowthProfile> = {
   },
   bristol: {
     seoTitle: "Bristol Motorcycle Philippines 2026 | Price List & Models",
-    seoDescription: "Bristol motorcycle Philippines price list with current tracked models, prices, engine sizes, seat heights, categories and buyer research.",
+    seoDescription: "Bristol motorcycle Philippines price list with current tracked models, including ADX, Maxxie and Maxie scooters, with prices, engines and buyer research.",
     heroTitle: "Bristol Motorcycle Philippines Price List 2026",
-    heroDescription: "Compare current Bristol motorcycles tracked in the Philippines by published price, engine size, seat height, transmission and category.",
-    intentNote: "This hub owns broad Bristol motorcycle Philippines and Bristol price-list intent. Open the exact model page for specifications, financing, fitment and ownership details."
+    heroDescription: "Compare current Bristol motorcycles and scooters tracked in the Philippines by published price, engine size, seat height, transmission and category.",
+    intentNote: "This hub owns broad Bristol motorcycle, Bristol scooter and Philippine price-list intent. Open the exact model page for specifications, financing, fitment and ownership details.",
+    categorySpotlight: { title: "Bristol scooters in the Philippines", description: "Compare current Bristol scooter records, including adventure, maxi and maxi-style options, on one brand hub instead of a duplicate brand+scooter page.", pattern: "scooter", recommendationHref: "/recommendations/maxi-scooters-philippines", recommendationLabel: "Compare maxi scooters across brands" }
   },
   kymco: {
     seoTitle: "KYMCO Scooter Philippines 2026 | Motorcycle Price List",
     seoDescription: "KYMCO scooter and motorcycle Philippines price list with current tracked models, prices, engine sizes, seat heights and buyer research.",
     heroTitle: "KYMCO Scooter & Motorcycle Price List Philippines 2026",
     heroDescription: "Compare current KYMCO scooters and motorcycles tracked in the Philippines by price, engine size, seat height, transmission and category.",
-    intentNote: "This hub owns broad KYMCO scooter, KYMCO motorcycle and Philippine price-list intent while keeping exact model research on canonical model URLs."
+    intentNote: "This hub owns broad KYMCO scooter, KYMCO motorcycle and Philippine price-list intent while keeping exact model research on canonical model URLs.",
+    categorySpotlight: { title: "KYMCO scooters in the Philippines", description: "Compare current KYMCO commuter, sport, retro, adventure and maxi-style scooter records without creating separate thin moped or scooter URLs.", pattern: "scooter", recommendationHref: "/recommendations/best-scooters-philippines", recommendationLabel: "Compare scooters across brands" }
   },
   benelli: {
     seoTitle: "Benelli Motorcycle Philippines 2026 | Price List & Models",
@@ -88,10 +90,13 @@ const profiles: Record<string, BrandSeoGrowthProfile> = {
   },
   ducati: {
     seoTitle: "Ducati Price Philippines 2026 | Motorcycle Price List",
-    seoDescription: "Ducati price Philippines guide with current tracked motorcycles, published prices, engine sizes, power, seat heights and buyer research.",
+    seoDescription: "Ducati price Philippines guide with current tracked big bikes, including Monster, Scrambler, Streetfighter and Panigale models, prices and specs.",
     heroTitle: "Ducati Motorcycle Price List Philippines 2026",
-    heroDescription: "Compare current Ducati motorcycles tracked in the Philippines by price, engine size, power, seat height and category.",
-    intentNote: "This hub owns broad Ducati price Philippines and motorcycle price-list intent. Confirm the exact dealer quote and model year before purchase."
+    heroDescription: "Compare current Ducati motorcycles and big bikes tracked in the Philippines by price, engine size, power, seat height and category.",
+    intentNote: "This hub owns broad Ducati price Philippines, Ducati big-bike and motorcycle price-list intent. Confirm the exact dealer quote and model year before purchase.",
+    bigBikeMinCc: 400,
+    bigBikeTitle: "Ducati big bikes in the Philippines",
+    bigBikeDescription: "Compare current Ducati motorcycles at 400cc and above by published price, engine size, power, seat height and category."
   },
   bajaj: {
     seoTitle: "Bajaj Price Philippines 2026 | Motorcycle Price List & Models",
@@ -113,6 +118,21 @@ const profiles: Record<string, BrandSeoGrowthProfile> = {
     heroTitle: "KTM Philippines Motorcycle Price List 2026",
     heroDescription: "Compare current KTM motorcycles tracked in the Philippines by published price, engine size, seat height and category.",
     intentNote: "This hub owns broad KTM Philippines and motorcycle price-list intent while exact Duke, RC and Adventure research stays on canonical model pages."
+  },
+  "bmw-motorrad": {
+    seoTitle: "BMW Motorcycle Philippines 2026 | Price List & Adventure Bikes",
+    seoDescription: "BMW motorcycle Philippines price list with current G 310, GS, S and M models, including adventure bikes, superbikes, prices and rider-fit data.",
+    heroTitle: "BMW Motorrad Philippines Motorcycle Price List 2026",
+    heroDescription: "Compare current BMW motorcycles tracked in the Philippines by published price, engine size, seat height and category, including GS adventure bikes and S/M performance models.",
+    intentNote: "This hub owns broad BMW motorcycle Philippines and BMW adventure-bike intent while keeping exact model research on canonical model pages.",
+    categorySpotlight: { title: "BMW adventure bikes in the Philippines", description: "Compare current BMW GS adventure-touring records, from the G 310 GS through larger F and R-series machines, without creating a duplicate brand-category URL.", pattern: "Adventure touring", recommendationHref: "/recommendations/adventure-touring-motorcycles-philippines", recommendationLabel: "Compare adventure motorcycles across brands" }
+  },
+  triumph: {
+    seoTitle: "Triumph Motorcycles Philippines 2026 | Price List & Models",
+    seoDescription: "Triumph motorcycles Philippines price list with current Speed, Scrambler, Trident, Street Triple, Tiger and Daytona models plus prices and specs.",
+    heroTitle: "Triumph Motorcycles Philippines Price List 2026",
+    heroDescription: "Compare current Triumph motorcycles tracked in the Philippines by price, engine size, seat height and category, from modern classics to sport and touring machines.",
+    intentNote: "This hub owns broad Triumph motorcycles Philippines and price-list intent while exact model specifications, financing and ownership stay on canonical model pages."
   },
   vespa: {
     seoTitle: "Vespa Philippines Price List 2026 | GTS, GTV, Sprint & Primavera",
