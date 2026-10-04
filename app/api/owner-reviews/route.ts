@@ -16,7 +16,7 @@ type OwnerSession = NonNullable<Awaited<ReturnType<typeof getOwnerSession>>>;
 async function auth():Promise<{ok:false;response:NextResponse}|{ok:true;session:OwnerSession}>{
   if(!enabled())return {ok:false,response:NextResponse.json({ok:false,available:false,error:"Owner reviews are not enabled."},{status:503,headers})};
   const session=await getOwnerSession();
-  if(!session)return {ok:false,response:NextResponse.json({ok:false,available:true,error:"Sign in to My Garage to manage owner reviews."},{status:401,headers})};
+  if(!session)return {ok:false,response:NextResponse.json({ok:false,available:true,error:"Sign in to your MotoIndex account to manage owner reviews."},{status:401,headers})};
   return {ok:true,session};
 }
 
