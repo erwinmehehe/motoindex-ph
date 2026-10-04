@@ -62,16 +62,16 @@ const recRoute=read("app/recommendations/[slug]/page.tsx");
 const recArchive=read("app/recommendations/RecommendationGuideArchive.tsx");
 const recSitemap=read("lib/recommendationSitemap.ts");
 const motorcyclesIndex=read("app/motorcycles/page.tsx");
+const middlewareSource=read("middleware.ts");
 need(
   motorcyclesIndex.includes('export const dynamic = "force-static"')&&
-  motorcyclesIndex.includes("FilteredCatalogRobots")&&
-  motorcyclesIndex.includes('robots.setAttribute("content", "noindex,follow")')&&
-  motorcyclesIndex.includes("window.location.search"),
-  "Filtered motorcycle catalog states must add noindex while the clean /motorcycles hub remains indexable and statically recoverable"
+  middlewareSource.includes('pathname === "/motorcycles"')&&
+  middlewareSource.includes('"X-Robots-Tag", "noindex, follow"'),
+  "Filtered motorcycle catalog states must add server-side noindex while the clean /motorcycles hub remains indexable and statically recoverable"
 );
 need(
-  motorcyclesIndex.includes('const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const'),
-  "Motorcycle catalog must define the supported filter params that trigger noindex"
+  middlewareSource.includes('const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const'),
+  "Middleware must define the supported motorcycle filter params that trigger server-side noindex"
 );
 need(
   !motorcyclesIndex.includes('query:{ budget:"100to150" }'),
