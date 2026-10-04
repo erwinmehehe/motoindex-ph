@@ -2,6 +2,7 @@
 
 import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { GarageAccountPanel } from "@/components/GarageAccountPanel";
+import { GarageOwnerReviewsPanel } from "@/components/GarageOwnerReviewsPanel";
 import { GarageStatDeck } from "@/components/GarageStatDeck";
 import { GarageLifecyclePanel } from "@/components/GarageLifecyclePanel";
 import { GarageFuelPanel, type GarageFuelRecordInput } from "@/components/GarageFuelPanel";
@@ -491,6 +492,8 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
         setShowBikeForm(restored.motorcycles.length === 0);
       }}
     />
+
+    <GarageOwnerReviewsPanel />
 
     <div className="section-head">
       <div>
