@@ -82,7 +82,12 @@ describe("owner review route",()=>{
     expect(response.status).toBe(201);
     expect(mocks.reviewUpsert).toHaveBeenCalledWith(expect.objectContaining({
       where:{ownerId_modelExternalId:{ownerId:"owner-1",modelExternalId:"model-1"}},
-      create:expect.objectContaining({modelExternalId:"model-1",garageMotorcycleLocalId:"bike-1",odometerKm:4321,status:"pending"})
+      create:expect.objectContaining({
+        modelExternalId:"model-1",garageMotorcycleLocalId:"bike-1",odometerKm:4321,status:"pending",
+        intelligenceConsentedAt:null,
+        intelligenceMonthlyRunningCostPhp:null,
+        intelligenceAnnualMaintenancePhp:null
+      })
     }));
   });
 });

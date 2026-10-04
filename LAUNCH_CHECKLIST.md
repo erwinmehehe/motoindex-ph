@@ -126,3 +126,8 @@ Before setting `OWNER_REVIEWS_ENABLED=true`:
 6. Confirm the public model page exposes no email, plate, documents or other private Garage fields.
 7. Confirm one owner account cannot create multiple reviews for the same MotoIndex model.
 8. Confirm rating aggregates stay hidden below 3 published owners and fuel/maintenance aggregates stay hidden below 5 reports.
+9. Apply `20261004223000_add_owner_intelligence_v2` before enabling Owner Intelligence contribution.
+10. Confirm the Owner Intelligence checkbox is optional and that leaving it unchecked stores no derived intelligence snapshot.
+11. Confirm unchecking Owner Intelligence on an edited review clears the previously stored derived snapshot.
+12. Confirm no public intelligence metric or common maintenance category appears below 5 consented contributors.
+13. Confirm account export includes the owner's intelligence consent and derived snapshot, while public model APIs expose aggregates only.
