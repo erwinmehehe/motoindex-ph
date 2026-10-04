@@ -53,3 +53,8 @@
 .generation-model-entry{margin-top:22px}
 @media(max-width:900px){.generation-change-head,.generation-upgrade-columns{grid-template-columns:1fr}.generation-delta-grid,.generation-preview-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.generation-note-list,.generation-delta-grid,.generation-preview-facts,.generation-before-after{grid-template-columns:1fr}}
+
+.generation-year-updates{display:grid;gap:16px}
+.generation-year-card{display:grid;gap:18px;padding:clamp(18px,3vw,28px);border:1px solid var(--mi-color-line);border-radius:22px;background:var(--mi-color-surface)}
+.generation-year-card>header{display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,280px);gap:20px}
+@media(max-width:900px){.generation-year-card>header{grid-template-columns:1fr}}
