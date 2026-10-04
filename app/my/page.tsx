@@ -3,7 +3,6 @@ import Link from "next/link";
 import { MyAccountControls } from "@/components/MyAccountControls";
 import { MyMotoIndexSignIn } from "@/components/MyMotoIndexSignIn";
 import { MyNotificationPreferences } from "@/components/MyNotificationPreferences";
-import { MyShortlistSync } from "@/components/MyShortlistSync";
 import { PageHero } from "@/components/ui";
 import { getModelById } from "@/lib/data";
 import { databaseConfigured, prisma } from "@/lib/db";
@@ -64,7 +63,6 @@ export default async function MyMotoIndexPage() {
   };
 
   return <main className="page shell my-motoindex-page">
-    <MyShortlistSync />
     <PageHero kicker="My MotoIndex" title="What should you do next?" description="One private home for motorcycles you are considering, dealer conversations and the motorcycles you already own." actions={<><Link className="button" href="/garage">My Garage</Link><Link className="button ghost" href="/shortlist">Shortlist</Link></>} />
 
     <section className="my-summary-grid" aria-label="MotoIndex account summary">
