@@ -20,6 +20,7 @@ CREATE TABLE "OwnerReview" (
     "dislikes" TEXT NOT NULL,
     "status" TEXT NOT NULL DEFAULT 'pending',
     "garageVerifiedAt" TIMESTAMP(3) NOT NULL,
+    "consentedAt" TIMESTAMP(3) NOT NULL,
     "submittedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "reviewedAt" TIMESTAMP(3),
     "publishedAt" TIMESTAMP(3),
