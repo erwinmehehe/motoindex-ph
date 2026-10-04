@@ -1,18 +1,19 @@
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
+import { resolvePriceAlertActionToken } from "@/lib/priceAlerts";
 
 export const runtime="nodejs";
 
 export async function POST(_request:Request,{params}:{params:Promise<{token:string}>}){
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Price alert service unavailable."},{status:503});
   const {token}=await params;
-  const subscription=await prisma.priceAlertSubscription.findUnique({where:{unsubscribeToken:token}});
+  const subscription=await resolvePriceAlertActionToken(token,"unsubscribe");
   if(!subscription)return NextResponse.json({ok:false,error:"Price alert not found."},{status:404});
 
   if(subscription.status!=="unsubscribed"){
     await prisma.priceAlertSubscription.update({
       where:{id:subscription.id},
-      data:{status:"unsubscribed",confirmToken:null,thresholdWasMet:false}
+      data:{status:"unsubscribed",confirmToken:null,unsubscribeToken:null,thresholdWasMet:false}
     });
   }
 
