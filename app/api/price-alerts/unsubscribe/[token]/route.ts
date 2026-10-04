@@ -13,7 +13,7 @@ export async function POST(_request:Request,{params}:{params:Promise<{token:stri
   if(subscription.status!=="unsubscribed"){
     await prisma.priceAlertSubscription.update({
       where:{id:subscription.id},
-      data:{status:"unsubscribed",confirmToken:null,thresholdWasMet:false}
+      data:{status:"unsubscribed",confirmToken:null,confirmTokenHash:null,unsubscribeToken:null,unsubscribeTokenHash:null,thresholdWasMet:false}
     });
   }
 
