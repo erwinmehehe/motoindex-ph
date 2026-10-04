@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
+import { hashBearerToken } from "@/lib/actionTokens";
 
 export const runtime="nodejs";
 
@@ -16,7 +17,7 @@ export async function PUT(request:Request,{params}:{params:Promise<{token:string
   let body:Record<string,unknown>;
   try{body=await request.json();}catch{return NextResponse.json({ok:false,error:"Invalid request."},{status:400});}
 
-  const delivery=await prisma.dealerLeadDelivery.findUnique({where:{deliveryToken:token},include:{lead:true}});
+  const delivery=await prisma.dealerLeadDelivery.findFirst({where:{OR:[{deliveryTokenHash:hashBearerToken(token)},{deliveryToken:token}]},include:{lead:true}});
   if(!delivery||delivery.status==="pending"||delivery.status==="cancelled")return NextResponse.json({ok:false,error:"Secure lead link is not active."},{status:404});
   if(delivery.expiresAt<=new Date())return NextResponse.json({ok:false,error:"Secure lead link has expired."},{status:410});
 
