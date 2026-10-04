@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 export function DealerLeadDeliveryControl({
   leadId,deliveryId,dealerEmail,sellerName,status:initialStatus,expiresAt,buyerName,modelLabel
@@ -10,14 +10,6 @@ export function DealerLeadDeliveryControl({
   const [status,setStatus]=useState(initialStatus);
   const [error,setError]=useState("");
   const [saving,setSaving]=useState(false);
-  const [token,setToken]=useState("");
-
-  const secureUrl=token?(typeof window!=="undefined"?`${window.location.origin}/dealer-lead/${token}`:`/dealer-lead/${token}`):"";
-  const mailto=useMemo(()=>{
-    const subject=`MotoIndex buyer request: ${modelLabel}`;
-    const body=`Hi ${sellerName},\n\nA MotoIndex buyer has requested a dealer quote for ${modelLabel}.\n\nOpen the secure lead here:\n${secureUrl}\n\nBuyer: ${buyerName}\n\nThis secure link expires on ${expiresAt.slice(0,10)}. Please do not forward the buyer details outside the staff handling this request.\n\nMotoIndex PH`;
-    return `mailto:${dealerEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  },[buyerName,dealerEmail,expiresAt,modelLabel,secureUrl,sellerName]);
 
   async function prepare(){
     setSaving(true);setError("");
@@ -28,7 +20,6 @@ export function DealerLeadDeliveryControl({
       const result=await response.json();
       if(!response.ok||!result.ok||!result.token){setError(result.error||"Could not prepare this handoff.");return;}
       setStatus(result.status);
-      setToken(result.token);
       const url=`${window.location.origin}/dealer-lead/${result.token}`;
       const subject=`MotoIndex buyer request: ${modelLabel}`;
       const body=`Hi ${sellerName},\n\nA MotoIndex buyer has requested a dealer quote for ${modelLabel}.\n\nOpen the secure lead here:\n${url}\n\nBuyer: ${buyerName}\n\nThis secure link expires on ${expiresAt.slice(0,10)}. Please do not forward the buyer details outside the staff handling this request.\n\nMotoIndex PH`;
@@ -54,7 +45,6 @@ export function DealerLeadDeliveryControl({
     const result=await response.json();
     if(!response.ok||!result.ok||!result.token)throw new Error(result.error||"Could not prepare this handoff.");
     setStatus(result.status);
-    setToken(result.token);
     return result.token as string;
   }
 
