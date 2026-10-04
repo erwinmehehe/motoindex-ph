@@ -3,6 +3,7 @@ import { getModelById } from "@/lib/data";
 import { observedMarketRange } from "@/lib/marketChecks";
 import { absoluteUrl } from "@/lib/site";
 import { php } from "@/lib/utils";
+import { actionToken, hashActionToken } from "@/lib/actionTokens";
 
 function escapeHtml(value:string){
   return value.replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]||char));
@@ -130,9 +131,16 @@ export async function runPriceAlertCheck(limit=200){
 
     try{
       if(thresholdMet&&!subscription.thresholdWasMet){
+        const unsubscribeToken=actionToken();
         const claimed=await prisma.priceAlertSubscription.updateMany({
           where:{id:subscription.id,status:"active",thresholdWasMet:false},
-          data:{thresholdWasMet:true,lastCheckedAt:now,lastObservedPricePhp:current.pricePhp}
+          data:{
+            thresholdWasMet:true,
+            lastCheckedAt:now,
+            lastObservedPricePhp:current.pricePhp,
+            unsubscribeToken:null,
+            unsubscribeTokenHash:hashActionToken(unsubscribeToken)
+          }
         });
         if(claimed.count!==1)continue;
         try{
@@ -143,7 +151,7 @@ export async function runPriceAlertCheck(limit=200){
           currentPricePhp:current.pricePhp,
           targetPricePhp:target,
           checkedAt:current.checkedAt,
-          unsubscribeToken:subscription.unsubscribeToken
+          unsubscribeToken
           });
           sent+=1;
           await prisma.priceAlertSubscription.update({
