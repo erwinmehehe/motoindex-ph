@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { prisma, databaseConfigured } from "@/lib/db";
 import { getOwnerSession, ownerRequestOriginAllowed } from "@/lib/ownerAuth";
@@ -68,7 +69,8 @@ export async function GET(){
       highwayRating:review.highwayRating,
       fuelEconomyKmpl:review.fuelEconomyKmpl,
       annualMaintenancePhp:review.annualMaintenancePhp?Number(review.annualMaintenancePhp):null,
-      unscheduledRepairsCount:review.unscheduledRepairsCount
+      unscheduledRepairsCount:review.unscheduledRepairsCount,
+      intelligenceConsent:Boolean(review.intelligenceConsentedAt)
     }))
   },{headers});
 }
@@ -142,7 +144,7 @@ export async function POST(request:Request){
     intelligenceRepairsPer10kKm:intelligence?.repairsPer10kKm??null,
     intelligenceTrackedDistanceKm:intelligence?.trackedDistanceKm??null,
     intelligenceRecordCount:intelligence?.recordCount??null,
-    intelligenceEventCounts:intelligence?.eventCounts??undefined
+    intelligenceEventCounts:intelligence?intelligence.eventCounts:Prisma.JsonNull
   };
   const review=await prisma.ownerReview.upsert({
     where:{ownerId_modelExternalId:{ownerId:resolved.session.ownerId,modelExternalId:bike.catalogModelId}},
