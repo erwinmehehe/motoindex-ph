@@ -1,4 +1,5 @@
 import type { PublicUsedListing } from "@/lib/persistentUsedListings";
+import { estimatedGarageResale } from "@/lib/garage";
 
 export type ValuationCondition = "fair" | "good" | "excellent";
 
@@ -67,12 +68,9 @@ function adjustedComparablePrice(listing:PublicUsedListing,input:UsedValuationIn
   return {id:listing.id,value:Math.max(price*.55,Math.min(price*1.55,price+yearAmount+mileageAmount+conditionAmount+regionAmount))};
 }
 function fallbackValue(input:UsedValuationInput){
-  const year=input.currentYear||new Date().getFullYear();
-  const age=Math.max(0,Math.min(12,year-input.modelYear));
-  let factor=1;
-  for(let current=1;current<=age;current+=1)factor*=1-(current===1?.15:current===2?.10:current<=5?.08:.06);
+  const ageBased=estimatedGarageResale(input.currentSrpPhp,input.modelYear);
   const mileagePenalty=Math.max(-.18,Math.min(.08,(10_000-input.mileageKm)/10_000*.025));
-  return input.currentSrpPhp*factor*CONDITION_MULTIPLIER[input.condition]*(1+mileagePenalty);
+  return ageBased*CONDITION_MULTIPLIER[input.condition]*(1+mileagePenalty);
 }
 
 export function estimateUsedMotorcycleValue(listings:PublicUsedListing[],input:UsedValuationInput,now=new Date()):UsedMotorcycleValuation{
