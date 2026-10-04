@@ -13,11 +13,11 @@ const nextConfig = fs.readFileSync(path.join(root, "next.config.mjs"), "utf8");
 
 const nextVersion = String(pkg.dependencies?.next || "");
 const nextParts = nextVersion.split(".").map(Number);
-const patchedNext = nextParts[0] === 15 && nextParts[1] === 5 && nextParts[2] >= 24;
+const patchedNext = nextParts[0] === 15 && nextParts[1] === 5 && nextParts[2] >= 27;
 if (patchedNext) {
-  passes.push(`Next.js ${nextVersion} clears the 15.5.24 critical-security baseline.`);
+  passes.push(`Next.js ${nextVersion} clears the required 15.5.27 maintenance/security baseline.`);
 } else {
-  blockers.push(`Next.js ${nextVersion || "missing"} is below the patched 15.5.24 security baseline.`);
+  blockers.push(`Next.js ${nextVersion || "missing"} is below the required 15.5.27 maintenance/security baseline.`);
 }
 
 const rootLock = lock.packages?.[""];
@@ -42,13 +42,13 @@ else blockers.push("package-lock.json is not in sync with package.json. Regenera
 const securityLockRecords = ["node_modules/next", "node_modules/@next/env"];
 const securityLockNeedsSriRefresh = securityLockRecords.filter((location) => !lock.packages?.[location]?.integrity);
 if (securityLockNeedsSriRefresh.length) {
-  warnings.push("The Next.js 15.5.24 security packages are exact-pinned, but npm-published integrity metadata still needs a one-time refresh in a networked environment. Run npm run refresh:security-lock before the next dependency change.");
+  warnings.push("The Next.js 15.5.27 security packages are exact-pinned, but npm-published integrity metadata still needs a one-time refresh in a networked environment. Run npm run refresh:security-lock before the next dependency change.");
 } else {
   passes.push("Security-patch lockfile records include npm integrity metadata.");
 }
 
 const hasAvif = /formats\s*:\s*\[[^\]]*["']image\/avif["']/s.test(nextConfig);
-if (!patchedNext && hasAvif) blockers.push("AVIF optimization is enabled while Next.js is below 15.5.24.");
+if (!patchedNext && hasAvif) blockers.push("AVIF optimization is enabled while Next.js is below 15.5.27.");
 else if (!patchedNext) warnings.push("AVIF output is disabled as defense in depth, but the Next.js patch is still required before launch.");
 else passes.push("Image optimization is on a patched Next.js baseline.");
 
@@ -63,12 +63,26 @@ if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || /@(example\.(com|org|net)|test|
   blockers.push("NEXT_PUBLIC_CONTACT_EMAIL must be a real monitored mailbox. Use npm run launch:prepare with your real contact address.");
 } else passes.push("A monitored public contact mailbox is configured.");
 
+const adminMode=process.env.ADMIN_AUTH_MODE==="cloudflare-access"?"cloudflare-access":"basic";
 const adminUser = process.env.ADMIN_USERNAME || "";
 const adminPassword = process.env.ADMIN_PASSWORD || "";
-if (adminUser.length < 8) blockers.push("ADMIN_USERNAME must be at least 8 characters. launch:prepare can generate one locally.");
-if (adminPassword.length < 20) blockers.push("ADMIN_PASSWORD must be at least 20 characters. launch:prepare can generate a strong password locally.");
-if (adminUser && adminPassword && adminUser === adminPassword) blockers.push("ADMIN_USERNAME and ADMIN_PASSWORD must be different.");
-if (adminUser.length >= 8 && adminPassword.length >= 20 && adminUser !== adminPassword) passes.push("Admin protection credentials are configured.");
+if(adminMode==="cloudflare-access"){
+  const allowed=(process.env.ADMIN_ACCESS_ALLOWED_EMAILS||"").split(",").map(value=>value.trim()).filter(Boolean);
+  if(!allowed.length)blockers.push("Cloudflare Access mode requires ADMIN_ACCESS_ALLOWED_EMAILS.");
+  else passes.push(`Cloudflare Access application mode is configured with ${allowed.length} allowlisted administrator${allowed.length===1?"":"s"}.`);
+}else{
+  if (adminUser.length < 8) blockers.push("ADMIN_USERNAME must be at least 8 characters. launch:prepare can generate one locally.");
+  if (adminPassword.length < 20) blockers.push("ADMIN_PASSWORD must be at least 20 characters. launch:prepare can generate a strong password locally.");
+  if (adminUser && adminPassword && adminUser === adminPassword) blockers.push("ADMIN_USERNAME and ADMIN_PASSWORD must be different.");
+  if (adminUser.length >= 8 && adminPassword.length >= 20 && adminUser !== adminPassword) passes.push("Basic Auth compatibility credentials are configured.");
+}
+
+if(process.env.DEALER_PORTAL_ENABLED==="true"){
+  if(!process.env.DATABASE_URL)blockers.push("Dealer Portal is enabled without DATABASE_URL.");
+  if(!process.env.RESEND_API_KEY)blockers.push("Dealer Portal is enabled without RESEND_API_KEY.");
+  if(!(process.env.DEALER_AUTH_FROM_EMAIL||process.env.OWNER_AUTH_FROM_EMAIL||process.env.PRICE_ALERT_FROM_EMAIL))blockers.push("Dealer Portal is enabled without a verified sender email.");
+  if(process.env.DATABASE_URL&&process.env.RESEND_API_KEY&&(process.env.DEALER_AUTH_FROM_EMAIL||process.env.OWNER_AUTH_FROM_EMAIL||process.env.PRICE_ALERT_FROM_EMAIL))passes.push("Dealer Portal runtime prerequisites are configured.");
+}else passes.push("Dealer Portal remains fail-closed until explicitly enabled.");
 
 if (process.env.NEXT_PUBLIC_ANALYTICS_CAPTURE_SEARCH_TERMS === "true") {
   warnings.push("Search-term analytics capture is enabled. Confirm the published privacy policy and intentional consent posture before launch.");
