@@ -255,6 +255,9 @@ export async function getVerifiedOffers(
     downpaymentPhp: row.downPaymentPhp ? Number(row.downPaymentPhp) : undefined, monthlyPhp: row.monthlyPhp ? Number(row.monthlyPhp) : undefined,
     termMonths: row.termMonths || undefined, availability: row.availability, status: "verified",
     observedAt: row.observedAt.toISOString().slice(0, 10), verifiedAt: row.verifiedAt?.toISOString().slice(0, 10),
+    publicationSource: row.publicationSource === "dealer_portal" ? "dealer_portal" : "reviewed_ingestion",
+    variantLabel: row.variantLabel || undefined, colorLabel: row.colorLabel || undefined, promoLabel: row.promoLabel || undefined,
+    expiresAt: row.expiresAt?.toISOString() || undefined,
     targetUrl: row.targetUrl || undefined, affiliateUrl: row.affiliateUrl || undefined,
     note: row.publicationSource === "dealer_portal"
       ? `Dealer-published inventory from ${row.seller.name}. MotoIndex verified the dealer profile, but the branch is responsible for this price, stock and promo information.`
@@ -284,6 +287,9 @@ export async function getVerifiedOfferById(id: string, now = new Date()): Promis
     downpaymentPhp: row.downPaymentPhp ? Number(row.downPaymentPhp) : undefined, monthlyPhp: row.monthlyPhp ? Number(row.monthlyPhp) : undefined,
     termMonths: row.termMonths || undefined, availability: row.availability, status: "verified" as const,
     observedAt: row.observedAt.toISOString().slice(0, 10), verifiedAt: row.verifiedAt?.toISOString().slice(0, 10),
+    publicationSource: row.publicationSource === "dealer_portal" ? "dealer_portal" : "reviewed_ingestion",
+    variantLabel: row.variantLabel || undefined, colorLabel: row.colorLabel || undefined, promoLabel: row.promoLabel || undefined,
+    expiresAt: row.expiresAt?.toISOString() || undefined,
     targetUrl: row.targetUrl || undefined, affiliateUrl: row.affiliateUrl || undefined,
     note: row.publicationSource === "dealer_portal"
       ? `Dealer-published inventory from ${row.seller.name}. MotoIndex verified the dealer profile, but the branch is responsible for this price, stock and promo information.`
