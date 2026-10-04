@@ -544,6 +544,57 @@ export const editorialGuides: EditorialGuide[] = [
     ]
   },
 
+
+  {
+    slug: "hatasu-ebike-price-philippines",
+    kicker: "Hatasu e-bike guide",
+    title: "Hatasu e-bike prices in the Philippines",
+    seoTitle: "Hatasu E-Bike Philippines 2026: Prices, Models & Buying Guide",
+    description: "Research Hatasu e-bike prices in the Philippines, including current Kumi, Nero, Haru, Aya and other retail-market references with buyer caveats.",
+    intro: "Hatasu has strong Philippine e-bike search demand, but current prices vary by retailer, location and model generation. MotoIndex keeps current Philippine retail observations separate from fixed national-SRP claims when a single official price source is not available.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "Current Hatasu e-bike price references",
+        body: [
+          "Current Philippine market references place Hatasu two-wheel e-bikes such as Kumi and Nero around the lower end of the brand's range, while larger Aya, Hero, Haru and Buggy products sit higher depending on retailer and configuration.",
+          "ZigWheels currently lists Kumi at ₱19,990 and Nero at ₱24,990. EMCOR's current Hatasu catalog shows retailer-specific ranges, including Kumi 2023 around ₱23,036–₱28,469 and Nero Lite around ₱26,775–₱32,031."
+        ],
+        bullets: ["Kumi: compare national-market and retailer-specific price references", "Nero / Nero Lite: confirm exact model name and battery setup", "Haru, Aya, Hero and Buggy: check whether the unit is two-wheel, three-wheel or utility-focused", "Ask for warranty, charger and registration requirements before purchase"]
+      },
+      {
+        heading: "Why Hatasu prices can differ",
+        body: [
+          "E-bike pricing can change by battery specification, model generation, branch location, financing partner, delivery area and promotion. A retailer price range should not automatically be treated as the brand's national SRP.",
+          "Compare the exact model code and battery configuration before using a price from one seller to judge another listing."
+        ]
+      },
+      {
+        heading: "Hatasu e-bike financing and ownership",
+        body: [
+          "Some Philippine retailers offer installment or BNPL options on Hatasu e-bikes. Compare the total repayment, downpayment, term and fees rather than choosing only by the lowest monthly figure.",
+          "Before purchase, confirm battery warranty, charger replacement cost, parts support, service location and the exact LTO or local-road classification that applies to the unit."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "How much is a Hatasu e-bike in the Philippines?", answer: "Prices vary by exact model, battery setup, retailer and location. Current market references place small two-wheel models such as Kumi and Nero in roughly the ₱20,000–₱32,000 range, while larger models can cost substantially more." },
+      { question: "How much is the Hatasu Kumi?", answer: "ZigWheels currently lists Kumi at ₱19,990, while EMCOR's current Kumi 2023 retailer listing shows roughly ₱23,036–₱28,469 depending on location and terms." },
+      { question: "How much is the Hatasu Nero?", answer: "ZigWheels currently lists Nero at ₱24,990, while EMCOR's Nero Lite retail range is roughly ₱26,775–₱32,031." },
+      { question: "Should I compare Hatasu e-bikes only by price?", answer: "No. Compare the exact battery, charger, warranty, parts support, service location, range claim and applicable road-use or registration requirements." }
+    ],
+    related: [
+      { href: "/motorcycles/electric", title: "Electric scooters Philippines", description: "Compare current verified electric motorcycle and scooter research." },
+      { href: "/guides/nwow-ebike-price-philippines", title: "NWOW e-bike prices", description: "Compare another high-demand Philippine e-bike brand." },
+      { href: "/tools/electric-motorcycle-charging-cost", title: "Electric charging cost calculator", description: "Estimate charging costs using your electricity rate." }
+    ],
+    sources: [
+      { label: "ZigWheels Hatasu Philippines price list", url: "https://www.zigwheels.ph/new-motorcycles/hatasu" },
+      { label: "EMCOR current Hatasu retail catalog", url: "https://emcor.com.ph/brand/hatasu/" },
+      { label: "EMCOR Hatasu electric-bike catalog", url: "https://emcor.com.ph/product-category/electric-bike/hatasu-electric-bike/" }
+    ]
+  },
+
 ];
 
 export function getEditorialGuide(slug: string) {
