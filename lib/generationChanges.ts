@@ -55,6 +55,17 @@ export type GenerationTransition = {
   curated: boolean;
 };
 
+export type ModelYearUpdate = {
+  id: string;
+  modelId: string;
+  fromYear: number;
+  toYear: number;
+  headline: string;
+  summary: string;
+  verdict: "Feature refresh" | "Mostly cosmetic" | "Mechanical update";
+  notes: GenerationChangeNote[];
+};
+
 const curatedTransitions: CuratedGenerationTransition[] = [
   {
     fromModelId: "yamaha-nmax-v2",
@@ -267,6 +278,90 @@ const curatedTransitions: CuratedGenerationTransition[] = [
     }
   }
 ];
+
+export const modelYearUpdates: ModelYearUpdate[] = [
+  {
+    id:"honda-adv-160-2022-2026",
+    modelId:"honda-adv-160",
+    fromYear:2022,
+    toYear:2026,
+    headline:"ADV160 2022 → 2026: technology refresh on the same 157cc platform",
+    summary:"The 2026 Philippine ADV160 keeps the 157cc eSP+ powertrain figures while adding a more modern cockpit/connectivity package and a new RoadSync trim.",
+    verdict:"Feature refresh",
+    notes:[
+      {
+        category:"electronics",
+        title:"5-inch TFT and RoadSync arrive on the 2026 RoadSync type",
+        from:"2022 ADV160 launched with a full-digital LCD meter and the earlier control package.",
+        to:"2026 adds a 5-inch TFT meter, with Honda RoadSync navigation/call/notification connectivity exclusive to the RoadSync type.",
+        impact:"This is the clearest reason to distinguish a 2026 RoadSync unit from an earlier ADV160 even though both are ADV160.",
+        sourceLabel:"Honda Philippines 2026 ADV160 launch",
+        sourceUrl:"https://www.hondaph.com/motorcycle/news/experience-the-suv-pride-with-the-adv160"
+      },
+      {
+        category:"features",
+        title:"Charging and control hardware are updated",
+        from:"2022 launch material documented a USB charging port and the original switch layout.",
+        to:"2026 documents USB Type-C charging, a new multi-function switch and passing-light switch.",
+        impact:"The update is convenience-led rather than a displacement or peak-output change.",
+        sourceLabel:"Honda Philippines 2026 ADV160 launch",
+        sourceUrl:"https://www.hondaph.com/motorcycle/news/experience-the-suv-pride-with-the-adv160"
+      },
+      {
+        category:"storage",
+        title:"30 L under-seat storage remains, Smart Top Box support expands utility",
+        from:"2022 ADV160 increased under-seat luggage capacity to 30 L.",
+        to:"2026 retains the 30 L luggage box and adds compatibility with a Smart Top Box operated through the Smart Key System.",
+        impact:"The built-in storage figure is not a new increase, but the accessory integration changes the current ownership package.",
+        sourceLabel:"Honda Philippines 2026 ADV160 launch",
+        sourceUrl:"https://www.hondaph.com/motorcycle/news/experience-the-suv-pride-with-the-adv160"
+      }
+    ]
+  },
+  {
+    id:"honda-click-160-2022-2024",
+    modelId:"honda-click-160",
+    fromYear:2022,
+    toYear:2024,
+    headline:"Click160 2022 → 2024: styling refresh with core mechanical continuity",
+    summary:"Honda's 2024 Philippine Click160 update emphasizes new two-tone styling while retaining the same documented 157cc eSP+ output, CBS, digital meter, LED lighting, Idling Stop and Smart Key package.",
+    verdict:"Mostly cosmetic",
+    notes:[
+      {
+        category:"engine",
+        title:"157cc eSP+ output remains the same in Honda's 2024 reference",
+        from:"2022 launch: 157cc 4-valve eSP+, 11.3 kW and 13.8 Nm.",
+        to:"2024 reference repeats the 157cc 4-valve eSP+ engine, 11.3 kW and 13.8 Nm.",
+        impact:"Do not treat a 2024 Click160 as a new engine generation solely because it is a newer model year.",
+        sourceLabel:"Honda Philippines 2024 Click160 reference",
+        sourceUrl:"https://www.hondaph.com/motorcycle/news/ready-to-take-on-the-world-step-up-your-game-with-a-sportier-and-more-stylish-the-new-click160"
+      },
+      {
+        category:"features",
+        title:"The 2024 update centers on sportier two-tone styling",
+        from:"2022 introduced the all-new Click160 platform and equipment set.",
+        to:"2024 launch highlights a sportier two-tone color treatment while retaining CBS, digital meter, LED lighting, Idling Stop, USB charging and Smart Key.",
+        impact:"For a clean 2022 Click160 owner, the 2024 refresh alone is a weak mechanical reason to change bikes.",
+        sourceLabel:"Honda Philippines 2024 Click160 reference",
+        sourceUrl:"https://www.hondaph.com/motorcycle/news/ready-to-take-on-the-world-step-up-your-game-with-a-sportier-and-more-stylish-the-new-click160"
+      },
+      {
+        category:"storage",
+        title:"2024 source explicitly documents the luggage-box volume",
+        from:"The 2022 launch described a large luggage box without the same explicit liter figure in the stored change note.",
+        to:"Honda's 2024 reference specifies an 18 L luggage box.",
+        impact:"MotoIndex treats 18 L as a verified 2024/current-model fact, not as proof that storage volume increased between 2022 and 2024.",
+        sourceLabel:"Honda Philippines 2024 Click160 reference",
+        sourceUrl:"https://www.hondaph.com/motorcycle/news/ready-to-take-on-the-world-step-up-your-game-with-a-sportier-and-more-stylish-the-new-click160"
+      }
+    ]
+  }
+];
+
+export function modelYearUpdatesForIds(generationIds:string[]){
+  const allowed=new Set(generationIds);
+  return modelYearUpdates.filter(update=>allowed.has(update.modelId));
+}
 
 function signed(value: number, suffix = "") {
   if (value === 0) return "No change";
