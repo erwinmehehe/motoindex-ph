@@ -94,6 +94,8 @@ export async function POST(request:Request){
   if(!comfortRating||!cityTrafficRating||!maintenanceRating)return NextResponse.json({ok:false,error:"Comfort, city traffic and maintenance ratings are required."},{status:400,headers});
   if((body.passengerRating!==undefined&&body.passengerRating!==""&&passengerRating===null)||(body.highwayRating!==undefined&&body.highwayRating!==""&&highwayRating===null))return NextResponse.json({ok:false,error:"Ratings must be from 1 to 5."},{status:400,headers});
 
+  if(body.publishConsent!=="yes")return NextResponse.json({ok:false,error:"Confirm that this anonymous review may be published after moderation."},{status:400,headers});
+
   const summary=cleanReviewText(body.summary,1200);
   const likes=cleanReviewText(body.likes,500);
   const dislikes=cleanReviewText(body.dislikes,500);
@@ -123,6 +125,7 @@ export async function POST(request:Request){
     summary,likes,dislikes,
     status:"pending",
     garageVerifiedAt:now,
+    consentedAt:now,
     submittedAt:now,
     reviewedAt:null,
     publishedAt:null,
