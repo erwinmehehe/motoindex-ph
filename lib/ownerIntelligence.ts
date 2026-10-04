@@ -3,7 +3,7 @@ import { garageOwnershipAnalytics } from "@/lib/garage";
 
 export const OWNER_INTELLIGENCE_MIN_SAMPLE = 5;
 
-const MAINTENANCE_CATEGORIES = new Set(["PMS","TIRE","BATTERY","OIL","CVT","REPAIR","PART"] as const);
+const MAINTENANCE_CATEGORIES = new Set<string>(["PMS","TIRE","BATTERY","OIL","CVT","REPAIR","PART"]);
 
 type EventCounts = Record<string, number>;
 
@@ -49,7 +49,7 @@ export function deriveOwnerIntelligenceSnapshot(
   const runningRecords = bikeRecords.filter(record => record.category !== "RESALE");
   const runningSpend = runningRecords.reduce((sum,record)=>sum+(record.amountPhp||0),0);
   const runningCostRecords = runningRecords.filter(record => (record.amountPhp || 0) > 0);
-  const maintenanceRecords = bikeRecords.filter(record => MAINTENANCE_CATEGORIES.has(record.category as never));
+  const maintenanceRecords = bikeRecords.filter(record => MAINTENANCE_CATEGORIES.has(record.category));
   const maintenanceSpend = maintenanceRecords.reduce((sum,record)=>sum+(record.amountPhp||0),0);
   const maintenanceCostRecords = maintenanceRecords.filter(record => (record.amountPhp || 0) > 0);
 
