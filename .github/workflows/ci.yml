@@ -68,6 +68,7 @@ jobs:
           npm run audit:freshness
           npm run validate:lockfile
           npm run prisma:validate
+          npm run validate:dealer-platform
 
       - name: Design lint
         run: npm run validate:design
