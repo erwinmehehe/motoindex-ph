@@ -127,14 +127,14 @@ export function GarageOwnerReviewsPanel(){
     return <section className="info-card">
       <span className="field-label">Owner reviews</span>
       <h2>Share real ownership experience</h2>
-      <p>Sign in to My Garage above and save a private cloud copy before submitting a Garage-verified owner review.</p>
+      <p>Sign in to your MotoIndex account and save a private cloud Garage copy before submitting a Garage-verified owner review.</p>
     </section>;
   }
 
   if(!state.bikes.length){
     return <section className="info-card">
       <span className="field-label">Owner reviews</span>
-      <h2>Save an exact MotoIndex motorcycle to cloud first</h2>
+      <h2>Save an exact MotoIndex motorcycle to your cloud Garage first</h2>
       <p>Reviews are accepted only for a motorcycle linked to a MotoIndex model in your private cloud Garage.</p>
       <button className="button small ghost" type="button" onClick={()=>void load()}>Refresh review eligibility</button>
     </section>;
