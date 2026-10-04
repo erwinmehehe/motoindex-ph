@@ -1,6 +1,7 @@
 "use client";
 
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
+import { UsedValuationPanel } from "@/components/UsedValuationPanel";
 import {
   GARAGE_STORAGE_KEY,
   GarageCatalogModel,
@@ -405,6 +406,15 @@ export function GarageResalePack({ catalog }: { catalog: GarageCatalogModel[] })
       <div><span>Documents tracked</span><strong>{checklist.filter((item) => item.present).length} / {checklist.length}</strong><small>Checklist only, not verification</small></div>
       <div><span>History with evidence</span><strong>{evidenceLinkedRecords}</strong><small>Records linked to supporting document records</small></div>
     </div>
+
+    {model&&bike.year&&<UsedValuationPanel
+      modelId={model.id}
+      modelYear={bike.year}
+      mileageKm={bike.odometerKm}
+      condition={condition}
+      location={location}
+      onUseEstimate={(value)=>setAskingPrice(String(value))}
+    />}
 
     <section className="section">
       <div className="section-head"><div><h2>Seller listing</h2><p>Prepare the public listing fields, then submit them for MotoIndex review. Your plate, Garage documents, expense history and private notes are not included in the marketplace submission.</p></div></div>
