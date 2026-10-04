@@ -37,6 +37,16 @@ need(panel.includes("Download account data")&&panel.includes("Delete cloud accou
 const launch=read("scripts/check-launch.mjs");
 need(launch.includes("PRIVACY_RETENTION_ENABLED")&&launch.includes("PRIVACY_RETENTION_CRON_CONFIGURED"),"launch gate must enforce privacy retention for database deployments");
 
+
+const middleware=read("middleware.ts");
+need(middleware.includes("function privatePageResponse"),"private nonce CSP helper missing");
+need(middleware.includes("script-src 'self' 'nonce-")&&middleware.includes("'strict-dynamic'"),"private script CSP must use a nonce and strict-dynamic");
+const privateCspBlock=middleware.slice(middleware.indexOf("function privatePageResponse"),middleware.indexOf("function privateApiResponse"));
+need(!privateCspBlock.includes("'unsafe-inline'")||privateCspBlock.indexOf("'unsafe-inline'")>privateCspBlock.indexOf("style-src"),"private script-src must not allow unsafe-inline");
+for(const layout of ["app/admin/layout.tsx","app/garage/layout.tsx","app/dealer-portal/layout.tsx"]){
+  need(fs.existsSync(layout)&&read(layout).includes('dynamic="force-dynamic"'),`${layout} must stay dynamic for nonce CSP`);
+}
+
 const privacy=read("app/privacy/page.tsx");
 need(privacy.includes("Retention and automated cleanup")&&privacy.includes("Export and account deletion"),"privacy policy must disclose retention and self-service controls");
 
