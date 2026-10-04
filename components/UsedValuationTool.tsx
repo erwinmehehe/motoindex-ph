@@ -42,7 +42,6 @@ export function UsedValuationTool({models}:{models:ModelOption[]}){
       mileageKm={mileageKm}
       condition={condition}
       location={location}
-      onUseEstimate={()=>{}}
     />
 
     <section className="note-box">
