@@ -23,6 +23,7 @@ export async function POST(request:Request){
   const mileageKm=Number(body.mileageKm);
   const condition=text(body.condition,20) as ValuationCondition;
   const location=text(body.location,120);
+  const excludeListingId=text(body.excludeListingId,120);
   const currentYear=new Date().getFullYear();
 
   if(!Number.isInteger(modelYear)||modelYear<1980||modelYear>currentYear+1){
@@ -35,7 +36,8 @@ export async function POST(request:Request){
     return NextResponse.json({ok:false,error:"Choose fair, good or excellent condition."},{status:400,headers});
   }
 
-  const listings=await getVerifiedUsedListings({modelId,limit:100});
+  const listings=(await getVerifiedUsedListings({modelId,limit:100}))
+    .filter(item=>!excludeListingId||item.id!==excludeListingId);
   const valuation=estimateUsedMotorcycleValue(listings,{
     modelId,
     modelYear,
