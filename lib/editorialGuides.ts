@@ -188,7 +188,7 @@ export const editorialGuides: EditorialGuide[] = [
       { label: "Kawasaki: current Ninja H2R closed-course model", url: "https://www.kawasaki.com/en-us/motorcycle/ninja/hypersport/ninja-h2r" },
       { label: "TopGear Philippines: 2018 Ninja H2R review and Philippine availability context", url: "https://www.topgear.com.ph/moto-sapiens/motorcycle-review/review-2018-kawasaki-ninja-h2r-a3459-20181218" }
     ]
-  }
+  },
 
   {
     slug: "nwow-ebike-price-philippines",
