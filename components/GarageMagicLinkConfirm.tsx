@@ -19,11 +19,11 @@ export function GarageMagicLinkConfirm({ token }: { token: string }) {
       setMessage(data.error || "This sign-in link could not be used.");
       return;
     }
-    window.location.replace("/garage?account=connected");
+    window.location.replace("/my?account=connected");
   }
 
   return <section className="note-box">
-    <h2>Continue to My Garage</h2>
+    <h2>Continue to My MotoIndex</h2>
     <p>The email link has been opened. Continue below to create your secure MotoIndex session.</p>
     <button className="button" type="button" onClick={confirm} disabled={status === "working"}>
       {status === "working" ? "Signing in…" : "Continue to My Garage"}
