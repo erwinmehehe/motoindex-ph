@@ -273,6 +273,11 @@ export type SellerOffer = {
   targetUrl?: string;
   affiliateUrl?: string;
   note: string;
+  sourceKind?: "motoindex-reviewed" | "dealer-published";
+  variantLabel?: string;
+  colorLabel?: string;
+  promoLabel?: string;
+  expiresAt?: string;
 };
 
 export type PriceObservation = {
