@@ -4,6 +4,7 @@ import { getOwnerSession, ownerRequestOriginAllowed } from "@/lib/ownerAuth";
 import { parseGarageState } from "@/lib/garage";
 import { getModelById } from "@/lib/data";
 import { boundedInteger, boundedNumber, cleanReviewText, optionalRating, ownershipMonthsFromDate, requiredRating } from "@/lib/ownerReviewPolicy";
+import { deriveOwnerIntelligenceSnapshot } from "@/lib/ownerIntelligence";
 
 export const runtime="nodejs";
 export const dynamic="force-dynamic";
@@ -112,6 +113,8 @@ export async function POST(request:Request){
   if(repairs===null)return NextResponse.json({ok:false,error:"Unscheduled repairs must be between 0 and 50."},{status:400,headers});
 
   const now=new Date();
+  const intelligenceConsent=body.intelligenceConsent==="yes";
+  const intelligence=intelligenceConsent?deriveOwnerIntelligenceSnapshot(bike,garage.records,now):null;
   const data={
     modelExternalId:bike.catalogModelId,
     variantLabel:bike.variant||null,
@@ -129,7 +132,17 @@ export async function POST(request:Request){
     submittedAt:now,
     reviewedAt:null,
     publishedAt:null,
-    moderatorNote:null
+    moderatorNote:null,
+    intelligenceConsentedAt:intelligenceConsent?now:null,
+    intelligenceMonthlyRunningCostPhp:intelligence?.monthlyRunningCostPhp??null,
+    intelligenceAnnualMaintenancePhp:intelligence?.annualMaintenancePhp??null,
+    intelligenceFuelEconomyKmpl:intelligence?.fuelEconomyKmpl??null,
+    intelligenceTireLifeKm:intelligence?.tireLifeKm??null,
+    intelligenceMaintenanceEventsPer10kKm:intelligence?.maintenanceEventsPer10kKm??null,
+    intelligenceRepairsPer10kKm:intelligence?.repairsPer10kKm??null,
+    intelligenceTrackedDistanceKm:intelligence?.trackedDistanceKm??null,
+    intelligenceRecordCount:intelligence?.recordCount??null,
+    intelligenceEventCounts:intelligence?.eventCounts??undefined
   };
   const review=await prisma.ownerReview.upsert({
     where:{ownerId_modelExternalId:{ownerId:resolved.session.ownerId,modelExternalId:bike.catalogModelId}},
