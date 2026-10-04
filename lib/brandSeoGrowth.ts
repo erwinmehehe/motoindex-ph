@@ -51,6 +51,16 @@ const profiles: Record<string, BrandSeoGrowthProfile> = {
     heroDescription: "Compare current Suzuki motorcycles tracked in the Philippines by published price, engine size, seat height and category, including scooters, underbones, sport bikes and larger-displacement models.",
     intentNote: "This Suzuki brand hub owns broad Suzuki motorcycle Philippines and price-list intent. Use its current model table and category sections first, then open the canonical model page for detailed specs, financing, fitment and ownership research."
   },
+  "harley-davidson": {
+    seoTitle: "Harley-Davidson Philippines 2026 | Prices & Models",
+    seoDescription: "Harley-Davidson Philippines motorcycle prices and 2026 specs for Nightster, Sportster S and Pan America 1250 Special, with current market references.",
+    heroTitle: "Harley-Davidson Philippines Motorcycles 2026",
+    heroDescription: "Compare MotoIndex's current Harley-Davidson Philippines coverage using official 2026 APAC specifications and dated Philippine market-price references.",
+    intentNote: "This Harley-Davidson brand hub owns broad Harley-Davidson motorcycle, Philippines price and Sportster research intent. Philippine prices are dated market references, while core 2026 specifications come from Harley-Davidson APAC; confirm the final authorized-dealer quote before purchase.",
+    bigBikeMinCc: 400,
+    bigBikeTitle: "Harley-Davidson big bikes in the Philippines",
+    bigBikeDescription: "Compare the current Nightster, Sportster S and Pan America 1250 Special records by published Philippine market price, engine, power, weight and seat height."
+  },
   vespa: {
     seoTitle: "Vespa Philippines Price List 2026 | GTS, GTV, Sprint & Primavera",
     seoDescription: "Vespa Philippines price list for GTS SuperSport 300, GTV 300, Primavera 150 and Sprint 150 with specs, seat height, ABS and ownership links.",
