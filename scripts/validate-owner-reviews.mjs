@@ -44,6 +44,11 @@ need(moderation.includes('status:"rejected"'),"Admin moderation must support rej
 
 const modelPage=read("app/motorcycles/[make]/[slug]/page.tsx");
 need(modelPage.includes("OwnerReviewsPanel"),"Motorcycle model pages must render the owner review panel");
+const myPage=read("app/my/page.tsx");
+need(myPage.includes("GarageOwnerReviewsPanel"),"My MotoIndex must expose the verified owner review contribution flow");
+need(myPage.includes("ownerReviewsEnabled"),"My MotoIndex owner review UI must stay feature-gated");
+const accountExport=read("app/api/my/export/route.ts");
+need(accountExport.includes("ownerReviews"),"MotoIndex account export must include owner review data");
 const env=read(".env.example");
 need(env.includes("OWNER_REVIEWS_ENABLED=false"),"Owner reviews must default off in environment templates");
 
