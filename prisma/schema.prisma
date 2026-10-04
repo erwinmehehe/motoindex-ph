@@ -637,6 +637,7 @@ model OwnerReview {
   updatedAt                DateTime     @updatedAt
 
   @@unique([ownerId, garageMotorcycleLocalId])
+  @@unique([ownerId, modelExternalId])
   @@index([modelExternalId, status, publishedAt])
   @@index([ownerId, status, updatedAt])
 }
