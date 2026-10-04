@@ -182,7 +182,9 @@ export function motorcycleSitemapEntries(): Entry[] {
     {url:`${SITE_URL}/motorcycles/skygo`,lastModified:"2026-10-04",changeFrequency:"monthly" as const,priority:.86},
     {url:`${SITE_URL}/motorcycles/nwow`,lastModified:"2026-10-04",changeFrequency:"monthly" as const,priority:.86},
     {url:`${SITE_URL}/motorcycles/mopeds`,lastModified:"2026-10-04",changeFrequency:"monthly" as const,priority:.84},
-    {url:`${SITE_URL}/motorcycles/voge`,lastModified:"2026-10-04",changeFrequency:"monthly" as const,priority:.86}
+    {url:`${SITE_URL}/motorcycles/voge`,lastModified:"2026-10-04",changeFrequency:"monthly" as const,priority:.86},
+    {url:`${SITE_URL}/motorcycles/lambretta`,lastModified:"2026-10-04",changeFrequency:"monthly" as const,priority:.84},
+    {url:`${SITE_URL}/motorcycles/hatasu`,lastModified:"2026-10-04",changeFrequency:"monthly" as const,priority:.84}
   ];
   return [...brands,...families,...categoryPages,...demandGapPages,...models,...installmentPages,...colorPages,...topSpeedPages,...fuelConsumptionPages,...specsPages,...weightPages,...seatHeightPages,...electricPages];
 }
