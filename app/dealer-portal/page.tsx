@@ -71,7 +71,7 @@ export default async function DealerPortalPage(){
             <p>{delivery.sellerName} · {delivery.lead.cityProvince} · {delivery.lead.purchaseType}</p>
             <small>{delivery.quoteResponse?"Structured quote submitted":"Quote not submitted yet"} · secure handoff expires {delivery.expiresAt.toISOString().slice(0,10)}</small>
           </div>
-          <div className="dealer-review-actions"><Link className="button small" href={`/dealer-lead/${delivery.deliveryToken}`}>{delivery.quoteResponse?"Review quote":"Open buyer request"}</Link></div>
+          <div className="dealer-review-actions"><Link className="button small" href={`/dealer-portal/leads/${delivery.id}`}>{delivery.quoteResponse?"Review quote":"Open buyer request"}</Link></div>
         </article>)}
         {!deliveries.length&&<div className="note-box"><h3>No active matched buyer requests</h3><p>New requests appear here only after MotoIndex matches the buyer to one of your verified branches.</p></div>}
       </div>
