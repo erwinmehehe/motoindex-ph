@@ -258,6 +258,28 @@ export const comparisonEditorialBriefs: ComparisonEditorialBrief[] = [
     sections: ["Philippine price", "Shared 948cc engine", "Power and torque", "Curb weight", "Seat height", "Braking hardware", "Suspension differences", "Rider aids", "What the SE price premium buys"],
     faqs: ["How much more does the Z900 SE cost?", "Do the Z900 and Z900 SE have the same engine?", "Which is lighter?", "What brakes does the Z900 SE add?", "How does the suspension differ?", "Which Z900 is better value for road use?"],
     related: [{ href: "/compare/z900-vs-cb650r", label: "Compare Z900 vs CB650R →" }, { href: "/recommendations/kawasaki-big-bikes-philippines", label: "See Kawasaki big bikes →" }]
+  },
+  {
+    slug: "xsr155-vs-hunter-350",
+    primaryKeyword: "Yamaha XSR 155 vs Hunter 350",
+    demand: "~2,300/mo in the supplied ZigWheels export",
+    intent: "Retro-roadster buyer comparing a lighter 155cc Yamaha with Royal Enfield's larger 350cc single.",
+    h1: "Yamaha XSR155 vs Royal Enfield Hunter 350: Price and Specs",
+    opening: "The Yamaha XSR155 and Royal Enfield Hunter 350 are often cross-shopped for their retro-roadster styling, but their Philippine records differ sharply in price, displacement, torque, weight, seat height and fuel capacity. The useful decision is whether the Hunter's larger engine and lower seat justify its higher price and much greater mass.",
+    sections: ["Philippine price", "Engine size and output", "Torque", "Curb weight", "Seat height", "Fuel tank", "Tires and brakes", "City maneuverability", "Which gives more motorcycle for the price?", "Which is easier to manage at low speed?"],
+    faqs: ["Which is cheaper, XSR155 or Hunter 350?", "Which has the larger engine?", "Which is lighter?", "Which has the lower seat?", "Which has more torque?", "Which has the larger fuel tank?"],
+    related: [{ href: "/recommendations/classic-motorcycles-philippines", label: "See classic motorcycles in the Philippines →" }, { href: "/motorcycles/yamaha/xsr155", label: "Open Yamaha XSR155 research →" }, { href: "/motorcycles/royal-enfield/hunter-350", label: "Open Hunter 350 research →" }]
+  },
+  {
+    slug: "shotgun-650-vs-super-meteor-650",
+    primaryKeyword: "Shotgun 650 vs Super Meteor 650",
+    demand: "~600/mo in the supplied ZigWheels export",
+    intent: "Royal Enfield 650 buyer choosing between the Shotgun roadster and Super Meteor cruiser.",
+    h1: "Royal Enfield Shotgun 650 vs Super Meteor 650: Price and Specs",
+    opening: "The Shotgun 650 and Super Meteor 650 share Royal Enfield's 648cc twin and nearly identical published power and torque, so the meaningful differences are riding format, seat height, fuel capacity, wheel setup, weight and Philippine price. This page focuses on those measurable differences instead of pretending the shared engine makes the two motorcycles interchangeable.",
+    sections: ["Philippine price", "Shared 648cc engine", "Power and torque", "Curb weight", "Seat height", "Fuel capacity", "Wheel and tire setup", "Ground clearance", "Roadster vs cruiser ergonomics", "Which is easier for shorter riders?", "Which gives more touring range on paper?"],
+    faqs: ["Which is cheaper, Shotgun 650 or Super Meteor 650?", "Do they use the same engine?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "How do the wheel sizes differ?"],
+    related: [{ href: "/recommendations/cruiser-motorcycles-philippines", label: "See cruiser motorcycles →" }, { href: "/motorcycles/royal-enfield/shotgun-650", label: "Open Shotgun 650 research →" }, { href: "/motorcycles/royal-enfield/super-meteor-650", label: "Open Super Meteor 650 research →" }]
   }
 
 ];
