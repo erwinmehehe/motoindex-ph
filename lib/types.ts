@@ -253,7 +253,7 @@ export type TopBoxProduct = {
 
 export type OfferEntityType = "motorcycle" | "helmet" | "tire" | "topbox";
 export type OfferStatus = "demo" | "verified" | "expired";
-export type SellerType = "dealer" | "retailer" | "marketplace" | "official";
+export type SellerType = "dealer" | "service" | "retailer" | "marketplace" | "official";
 
 export type SellerOffer = {
   id: string;
