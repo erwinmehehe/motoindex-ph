@@ -65,7 +65,7 @@ export default async function MyMotoIndexPage() {
   return <main className="page shell my-motoindex-page">
     <PageHero kicker="My MotoIndex" title="What should you do next?" description="One private home for motorcycles you are considering, dealer conversations and the motorcycles you already own." actions={<><Link className="button" href="/garage">My Garage</Link><Link className="button ghost" href="/shortlist">Shortlist</Link></>} />
 
-    <section className="my-summary-grid" aria-label="MotoIndex account summary">
+    <section className="spec-grid" aria-label="MotoIndex account summary">
       <article><span>Garage</span><strong>{garage?.motorcycles.length || 0}</strong><small>{garage?.motorcycles.length === 1 ? "motorcycle" : "motorcycles"} in latest cloud copy</small></article>
       <article><span>Shortlist</span><strong>{shortlist.length}</strong><small>saved to your account</small></article>
       <article><span>Price alerts</span><strong>{alerts.filter(alert => alert.status === "active").length}</strong><small>{alerts.filter(alert => alert.status === "pending").length} awaiting confirmation</small></article>
@@ -75,29 +75,29 @@ export default async function MyMotoIndexPage() {
 
     <section className="my-next-actions">
       <div className="section-head compact"><div><span className="field-label">Next actions</span><h2>Keep the ownership cycle moving</h2></div></div>
-      <div className="my-action-grid">{nextActions.map(item => <article className="info-card" key={item.title}><h3>{item.title}</h3><p>{item.copy}</p><Link className="button small" href={item.href}>{item.cta}</Link></article>)}</div>
+      <div className="spec-grid">{nextActions.map(item => <article className="info-card" key={item.title}><h3>{item.title}</h3><p>{item.copy}</p><Link className="button small" href={item.href}>{item.cta}</Link></article>)}</div>
     </section>
 
     <section className="info-card">
       <div className="section-head compact"><div><span className="field-label">Garage</span><h2>Your owned motorcycles</h2><p>The dashboard reads only the latest explicit cloud save. Device-only document files remain on that device.</p></div><Link className="button small ghost" href="/garage">Manage Garage</Link></div>
-      {garage?.motorcycles.length ? <div className="my-list">{garage.motorcycles.slice(0, 4).map(bike => <div className="my-list-row" key={bike.id}><span><strong>{bike.make} {bike.model}</strong><small>{bike.odometerKm.toLocaleString()} km{bike.registrationExpiry ? ` · registration ${bike.registrationExpiry}` : ""}</small></span><Link href="/garage">Open</Link></div>)}</div> : <p className="muted-note">No cloud Garage motorcycle yet.</p>}
+      {garage?.motorcycles.length ? <div className="spec-grid">{garage.motorcycles.slice(0, 4).map(bike => <div className="info-card" key={bike.id}><span><strong>{bike.make} {bike.model}</strong><small>{bike.odometerKm.toLocaleString()} km{bike.registrationExpiry ? ` · registration ${bike.registrationExpiry}` : ""}</small></span><Link href="/garage">Open</Link></div>)}</div> : <p className="muted-note">No cloud Garage motorcycle yet.</p>}
     </section>
 
     <section className="info-card">
       <div className="section-head compact"><div><span className="field-label">Recent ownership activity</span><h2>What changed in your Garage</h2><p>Recent fuel, service, odometer and ownership records from the latest cloud copy.</p></div><Link className="button small ghost" href="/garage">Open history</Link></div>
-      {recentOwnership.length ? <div className="my-list">{recentOwnership.map(record => <div className="my-list-row" key={record.id}><span><strong>{record.title}</strong><small>{record.date} · {record.category}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}</small></span>{record.amountPhp !== undefined ? <strong>₱{record.amountPhp.toLocaleString("en-PH")}</strong> : <span>Logged</span>}</div>)}</div> : <p className="muted-note">No ownership activity has been cloud-synced yet.</p>}
+      {recentOwnership.length ? <div className="spec-grid">{recentOwnership.map(record => <div className="info-card" key={record.id}><span><strong>{record.title}</strong><small>{record.date} · {record.category}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}</small></span>{record.amountPhp !== undefined ? <strong>₱{record.amountPhp.toLocaleString("en-PH")}</strong> : <span>Logged</span>}</div>)}</div> : <p className="muted-note">No ownership activity has been cloud-synced yet.</p>}
     </section>
 
     <section className="info-card">
       <div className="section-head compact"><div><span className="field-label">Shortlist</span><h2>Motorcycles you are considering</h2><p>When signed in, your browser shortlist is merged into this account list while anonymous browsing continues to use local storage.</p></div><Link className="button small ghost" href="/shortlist">Open shortlist</Link></div>
-      {shortlist.length ? <div className="my-list">{shortlist.map(model => <div className="my-list-row" key={model.id}><span><strong>{model.make} {model.model}</strong><small>{model.category} · from ₱{model.srp.toLocaleString("en-PH")}</small></span><Link href={`/motorcycles/${model.makeSlug}/${model.slug}`}>Research</Link></div>)}</div> : <p className="muted-note">Your account shortlist is empty. Saved browser motorcycles will merge here automatically on this page.</p>}
+      {shortlist.length ? <div className="spec-grid">{shortlist.map(model => <div className="info-card" key={model.id}><span><strong>{model.make} {model.model}</strong><small>{model.category} · from ₱{model.srp.toLocaleString("en-PH")}</small></span><Link href={`/motorcycles/${model.makeSlug}/${model.slug}`}>Research</Link></div>)}</div> : <p className="muted-note">Your account shortlist is empty. Saved browser motorcycles will merge here automatically on this page.</p>}
     </section>
 
     <section className="info-card">
       <div className="section-head compact"><div><span className="field-label">Shopping activity</span><h2>Alerts and dealer quote requests</h2></div></div>
-      <div className="my-commerce-grid">
+      <div className="spec-grid">
         <div><h3>Active price alerts</h3>{alerts.length ? alerts.slice(0, 6).map(alert => { const model = getModelById(alert.entityId); return <p key={alert.id}><strong>{model ? `${model.make} ${model.model}` : alert.entityId}</strong><br/><small>{alert.status} · target ₱{Number(alert.targetPricePhp).toLocaleString("en-PH")}</small></p>; }) : <p className="muted-note">No account-linked alerts yet.</p>}</div>
-        <div><h3>Dealer requests</h3>{leads.length ? leads.slice(0, 6).map(lead => { const quotes = lead.deliveries.filter(delivery => Boolean(delivery.quoteResponse) && delivery.status !== "cancelled"); return <div className="my-quote-request" key={lead.id}><p><strong>{lead.make} {lead.model}</strong><br/><small>{lead.status} · {quotes.length} quote{quotes.length === 1 ? "" : "s"} received · {lead.cityProvince}</small></p>{quotes.map(delivery => { const quote = delivery.quoteResponse!; return <div className="my-quote-summary" key={delivery.id}><span><strong>{delivery.sellerName}</strong><small>{quote.availability}{quote.validUntil ? ` · valid until ${quote.validUntil.toISOString().slice(0,10)}` : ""}</small></span><strong>{quote.cashPricePhp ? `₱${Number(quote.cashPricePhp).toLocaleString("en-PH")}` : quote.monthlyPhp ? `₱${Number(quote.monthlyPhp).toLocaleString("en-PH")}/mo` : "Quote received"}</strong></div>; })}</div>; }) : <p className="muted-note">No account-linked quote requests yet.</p>}</div>
+        <div><h3>Dealer requests</h3>{leads.length ? leads.slice(0, 6).map(lead => { const quotes = lead.deliveries.filter(delivery => Boolean(delivery.quoteResponse) && delivery.status !== "cancelled"); return <div className="note-box" key={lead.id}><p><strong>{lead.make} {lead.model}</strong><br/><small>{lead.status} · {quotes.length} quote{quotes.length === 1 ? "" : "s"} received · {lead.cityProvince}</small></p>{quotes.map(delivery => { const quote = delivery.quoteResponse!; return <div className="spec-grid" key={delivery.id}><span><strong>{delivery.sellerName}</strong><small>{quote.availability}{quote.validUntil ? ` · valid until ${quote.validUntil.toISOString().slice(0,10)}` : ""}</small></span><strong>{quote.cashPricePhp ? `₱${Number(quote.cashPricePhp).toLocaleString("en-PH")}` : quote.monthlyPhp ? `₱${Number(quote.monthlyPhp).toLocaleString("en-PH")}/mo` : "Quote received"}</strong></div>; })}</div>; }) : <p className="muted-note">No account-linked quote requests yet.</p>}</div>
       </div>
     </section>
 
