@@ -11,6 +11,14 @@ export type BrandSeoGrowthProfile = {
 };
 
 const profiles: Record<string, BrandSeoGrowthProfile> = {
+  hero: {
+    seoTitle: "Hero Motorcycle Philippines 2026 | Prices & Models",
+    seoDescription: "Hero motorcycle Philippines price list for XPulse 200 4V, Hunk 160R 4V, Xoom 110 and Xoom 125R with official prices and specs.",
+    heroTitle: "Hero Motorcycle Philippines Price List 2026",
+    heroDescription: "Compare current Hero motorcycles and scooters in the Philippines using Hero MotoCorp Philippines prices and specifications.",
+    intentNote: "This Hero brand hub owns broad Hero motorcycle Philippines intent and routes XPulse, Hunk and Xoom searches to their canonical model pages. Prices and specifications use current Hero MotoCorp Philippines sources.",
+    categorySpotlight: { title: "Hero scooters in the Philippines", description: "Compare the current Hero Xoom scooter records tracked by MotoIndex.", pattern: "scooter" }
+  },
   honda: {
     seoTitle: "Honda Big Bikes Philippines 2026 | Motorcycle Price List",
     seoDescription: "Honda Philippines price list with current motorcycles and tracked big bikes including CB650R, CBR650R, Rebel, X-ADV and Gold Wing, plus specs and buyer tools.",
