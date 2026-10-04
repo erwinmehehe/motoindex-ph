@@ -108,7 +108,7 @@ export function GenerationChangeTracker({ family, compact=false }: { family:Mode
       </div>
       <div className="hero-actions">
         <Link className="button small" href={`/motorcycles/${family.makeSlug}/${family.slug}/changes`}>Open full change tracker</Link>
-        <a className="button small secondary" href={`#${latest.id}`}>{latest.upgrade.verdict}</a>
+        <Link className="button small secondary" href={`/motorcycles/${family.makeSlug}/${family.slug}/changes#${latest.id}`}>{latest.upgrade.verdict}</Link>
       </div>
     </section>;
   }
