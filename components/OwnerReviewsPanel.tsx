@@ -56,21 +56,21 @@ export function OwnerReviewsPanel({modelId}:{modelId:string}){
 
     {!summary?.ratingSampleReady&&<div className="note-box"><strong>{state.reviews.length} published Garage-verified review{state.reviews.length===1?"":"s"}</strong><p>MotoIndex waits for at least 3 published owners before showing rating averages, and at least 5 reports before showing aggregated fuel or maintenance figures.</p></div>}
 
-    <div className="owner-review-list">
-      {state.reviews.map(review=><article className="owner-review-card" key={review.id}>
-        <div className="owner-review-card-head">
+    <div className="dealer-application-list">
+      {state.reviews.map(review=><article className="dealer-application-card" key={review.id}>
+        <div className="section-head">
           <div><strong>Garage-verified owner</strong><small>{review.modelYear?review.modelYear+" · ":""}{review.variantLabel?review.variantLabel+" · ":""}{review.ownershipMonths} months owned · {review.odometerKm.toLocaleString("en-PH")} km</small></div>
           <small>Published {new Date(review.publishedAt).toLocaleDateString("en-PH",{year:"numeric",month:"short",day:"numeric"})}</small>
         </div>
         <p>{review.summary}</p>
-        <div className="owner-review-dimensions">
+        <div className="seller-tags">
           <span>Comfort {review.comfortRating}/5</span>
           <span>City {review.cityTrafficRating}/5</span>
           <span>Maintenance {review.maintenanceRating}/5</span>
           {review.passengerRating&&<span>Passenger {review.passengerRating}/5</span>}
           {review.highwayRating&&<span>Highway {review.highwayRating}/5</span>}
         </div>
-        <div className="owner-review-pros-cons">
+        <div className="dealer-application-details">
           <div><span>Likes</span><p>{review.likes}</p></div>
           <div><span>Dislikes</span><p>{review.dislikes}</p></div>
         </div>
