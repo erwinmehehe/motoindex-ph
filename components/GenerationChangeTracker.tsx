@@ -24,14 +24,14 @@ function SourceLink({ url, label }: { url:string; label:string }) {
 }
 
 function TransitionCard({ transition, featured=false }: { transition:GenerationTransition; featured?:boolean }) {
-  return <article className={`generation-change-card${featured?" is-featured":""}`} id={transition.id}>
-    <header className="generation-change-head">
+  return <article className="info-card" id={transition.id}>
+    <header className="section-head compact">
       <div>
         <span className="section-kicker">{featured?"Latest generation change":"Generation step"}</span>
         <h2>{transition.from.make} {transition.from.model} → {transition.to.model}</h2>
         <p>{transition.summary}</p>
       </div>
-      <div className="generation-verdict">
+      <div className="note-box compact-note">
         <span>Upgrade verdict</span>
         <strong>{transition.upgrade.verdict}</strong>
         <small>{transition.curated?"Sourced change notes + stored spec deltas":"Stored spec deltas; qualitative changes not yet curated"}</small>
@@ -40,8 +40,8 @@ function TransitionCard({ transition, featured=false }: { transition:GenerationT
 
     <section className="generation-delta-section" aria-label={`${transition.from.model} to ${transition.to.model} measurable changes`}>
       <div className="section-head compact"><div><span className="section-kicker">Measurable changes</span><h3>What changed in the stored specs?</h3><p>Price rows keep each generation&apos;s own time context. Historical launch SRP is not treated as a current used value.</p></div></div>
-      <div className="generation-delta-grid">
-        {transition.measurable.map(item=><div className={`generation-delta-item tone-${item.tone}`} key={item.key}>
+      <div className="spec-grid">
+        {transition.measurable.map(item=><div className="info-card" key={item.key}>
           <span>{item.label}</span>
           <strong>{item.from} → {item.to}</strong>
           <small>{item.delta}</small>
@@ -51,7 +51,7 @@ function TransitionCard({ transition, featured=false }: { transition:GenerationT
 
     {transition.notes.length>0 ? <section className="generation-notes">
       <div className="section-head compact"><div><span className="section-kicker">Sourced change log</span><h3>What changed beyond the headline specs?</h3><p>These notes are limited to differences MotoIndex can tie to the stored or cited Philippine-market sources.</p></div></div>
-      <div className="generation-note-list">
+      <div className="spec-grid">
         {transition.notes.map((note,index)=><article className="info-card" key={`${note.category}-${note.title}`}>
           <div className="generation-note-top"><span>{categoryLabel[note.category]}</span><b>Change {index+1}</b></div>
           <h4>{note.title}</h4>
@@ -68,13 +68,13 @@ function TransitionCard({ transition, featured=false }: { transition:GenerationT
       <p>MotoIndex has enough data to compare the stored specs above, but it does not publish an electronics, storage, suspension or feature change unless a checked source supports it.</p>
     </div>}
 
-    <section className="generation-upgrade-box">
+    <section className="note-box">
       <div>
         <span className="section-kicker">Should you upgrade?</span>
         <h3>{transition.upgrade.verdict}</h3>
         <p>{transition.upgrade.bottomLine}</p>
       </div>
-      <div className="generation-upgrade-columns">
+      <div className="spec-grid">
         <article>
           <strong>Upgrade makes more sense when</strong>
           <ul>{transition.upgrade.bestReasons.map(item=><li key={item}>{item}</li>)}</ul>
@@ -95,7 +95,7 @@ function TransitionCard({ transition, featured=false }: { transition:GenerationT
 
 function ModelYearCard({ update }: { update:ModelYearUpdate }) {
   const model=update.modelId;
-  return <article className="generation-year-card" id={update.id}>
+  return <article className="info-card" id={update.id}>
     <header>
       <div>
         <span className="section-kicker">Within-generation update</span>
@@ -138,13 +138,13 @@ export function GenerationChangeTracker({ family, compact=false }: { family:Mode
   const latest=transitions[transitions.length-1];
 
   if(compact&&latest){
-    return <section className="generation-change-preview">
+    return <section className="info-card">
       <div>
         <span className="section-kicker">Generation change tracker</span>
         <h2>{latest.from.model} → {latest.to.model}: what actually changed?</h2>
         <p>{latest.summary}</p>
       </div>
-      <div className="generation-preview-facts">
+      <div className="spec-grid">
         {latest.measurable.slice(0,4).map(item=><span key={item.key}><small>{item.label}</small><strong>{item.delta}</strong></span>)}
       </div>
       <div className="hero-actions">
@@ -160,7 +160,7 @@ export function GenerationChangeTracker({ family, compact=false }: { family:Mode
       featured={index===transitions.length-1}
       key={transition.id}
     />)}
-    {yearUpdates.length>0&&<section className="generation-year-updates">
+    {yearUpdates.length>0&&<section className="section">
       <div className="section-head compact"><div><span className="section-kicker">Model-year updates</span><h2>What changed without a full generation change?</h2><p>These records separate mid-generation feature/styling updates from a true successor generation.</p></div></div>
       <div className="generation-change-tracker">{yearUpdates.map(update=><ModelYearCard update={update} key={update.id}/>)}</div>
     </section>}
