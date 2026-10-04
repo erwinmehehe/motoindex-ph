@@ -7,19 +7,13 @@ export const metadata:Metadata={title:"Owner Review Moderation",robots:{index:fa
 export const dynamic="force-dynamic";
 
 export default async function OwnerReviewModerationPage(){
-  let reviews:Awaited<ReturnType<typeof prisma.ownerReview.findMany>>=[];
-  let loadError=false;
-  if(databaseConfigured()){
-    try{
-      reviews=await prisma.ownerReview.findMany({
-        include:{owner:{select:{email:true}}},
-        orderBy:{updatedAt:"desc"},
-        take:100
-      });
-    }catch{
-      loadError=true;
-    }
-  }
+  const reviewsResult=databaseConfigured()?await prisma.ownerReview.findMany({
+    include:{owner:{select:{email:true}}},
+    orderBy:{updatedAt:"desc"},
+    take:100
+  }).catch(()=>null):[];
+  const loadError=reviewsResult===null;
+  const reviews=reviewsResult||[];
 
   return <section className="page shell">
     <div className="page-head"><h1>Garage-verified owner reviews</h1><p>Review usefulness, plausibility and privacy before publishing. Garage verification confirms only a signed-in account with a matching cloud Garage motorcycle; it is not document verification.</p></div>
