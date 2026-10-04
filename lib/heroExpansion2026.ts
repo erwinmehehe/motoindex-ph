@@ -27,7 +27,7 @@ export const heroExpansion2026: Motorcycle[] = [
     rearTire: "120/80-18",
     abs: "Single-channel ABS with multi-terrain 3-mode ABS settings",
     colors: ["Metallic Nexus Blue White", "Black Sports Red", "Techno Blue Metallic Black"],
-    searchVolume: 700,
+    searchVolume: 2100,
     keywordDifficulty: 0,
     sourceLabel: "Hero MotoCorp Philippines current XPulse 200 4V product page",
     sourceUrl: "https://www.heromotocorp.com/en-ph/products/premium/xpulse-200-4v.html",
