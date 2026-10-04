@@ -142,6 +142,56 @@ export function GarageAccountPanel({
       : "Email reminders are off.");
   }
 
+  async function exportAccountData() {
+    setWorking(true);
+    setStatus("");
+    try {
+      const response=await fetch("/api/garage/account/data",{cache:"no-store"});
+      const data=await response.json();
+      if(!response.ok||!data.ok){setStatus(data.error||"Account export could not be created.");return;}
+      const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+      const url=URL.createObjectURL(blob);
+      const link=document.createElement("a");
+      link.href=url;
+      link.download=`motoindex-account-export-${new Date().toISOString().slice(0,10)}.json`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      setStatus("Account data export downloaded.");
+    } catch {
+      setStatus("Account export could not be created.");
+    } finally {
+      setWorking(false);
+    }
+  }
+
+  async function deleteAccount() {
+    if(!window.confirm("Delete your MotoIndex cloud account, cloud Garage, reminders, and owner-created used listings? This cannot be undone."))return;
+    const confirmation=window.prompt('Type "DELETE MY ACCOUNT" to confirm permanent deletion.');
+    if(confirmation!=="DELETE MY ACCOUNT"){setStatus("Account deletion cancelled.");return;}
+    setWorking(true);
+    setStatus("");
+    try{
+      const response=await fetch("/api/garage/account/data",{
+        method:"DELETE",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({confirm:confirmation})
+      });
+      const data=await response.json().catch(()=>({}));
+      if(!response.ok||!data.ok){setStatus(data.error||"Account could not be deleted.");return;}
+      window.localStorage.removeItem(GARAGE_STORAGE_KEY);
+      onRestore(emptyGarageState());
+      setCloud({revision:0,payload:null});
+      setAccount((current)=>({available:current?.available??true,authenticated:false}));
+      setStatus("Your MotoIndex cloud account and this browser's local Garage were deleted.");
+    }catch{
+      setStatus("Account could not be deleted.");
+    }finally{
+      setWorking(false);
+    }
+  }
+
   async function signOut() {
     setWorking(true);
     await fetch("/api/garage/auth/sign-out", { method: "POST" }).catch(() => {});
@@ -188,6 +238,8 @@ export function GarageAccountPanel({
       <button className="button small ghost" type="button" onClick={restoreCloud} disabled={working || !cloud.payload}>Restore cloud to this device</button>
       <button className="button small ghost" type="button" onClick={toggleReminders} disabled={working || !account.remindersAvailable}>{account.remindersAvailable ? (account.reminderEmailsEnabled ? "Turn off email reminders" : "Turn on email reminders") : "Email reminders unavailable"}</button>
       <button className="button small ghost" type="button" onClick={() => { setCloud({ revision: 0, payload: emptyGarageState() }); void refreshCloud(); }} disabled={working}>Refresh cloud status</button>
+      <button className="button small ghost" type="button" onClick={exportAccountData} disabled={working}>Download account data</button>
+      <button className="button small ghost" type="button" onClick={deleteAccount} disabled={working}>Delete cloud account</button>
     </div>
     <p className="muted-note">{account.remindersAvailable ? "Renewal and PMS emails are opt-in and use only your latest cloud-synced Garage. Save again after changing mileage or due dates so reminders stay current." : "Cloud backup is available, but email reminders stay off until the scheduled notification job is configured."}</p>
     {status && <p className="muted-note" role="status">{status}</p>}
