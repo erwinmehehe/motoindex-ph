@@ -1414,7 +1414,9 @@ export const comparisons: Comparison[] = [
   { slug: "ninja-500-vs-yzf-r3", a: "kawasaki-ninja-500", b: "yamaha-yzf-r3", summary: "Entry and mid-size Japanese sport bikes compared by Philippine price, output, weight, seat height and braking" },
   { slug: "nx500-vs-versys-650", a: "honda-nx500-e-clutch", b: "kawasaki-versys-650", summary: "Adventure-touring motorcycles compared by price, engine size, weight, seat height, tank capacity and road-focused touring specifications" },
   { slug: "crf300l-vs-crf300-rally", a: "honda-crf300l", b: "honda-crf300-rally", summary: "Honda 286cc dual-sport models compared by price, weight, seat height, ground clearance, fuel capacity and touring focus" },
-  { slug: "klx140-vs-klx150", a: "kawasaki-klx-140", b: "kawasaki-klx150", summary: "Kawasaki trail and dual-sport models compared by price, engine size, weight, seat height, wheel size and road-use context" }
+  { slug: "klx140-vs-klx150", a: "kawasaki-klx-140", b: "kawasaki-klx150", summary: "Kawasaki trail and dual-sport models compared by price, engine size, weight, seat height, wheel size and road-use context" },
+  { slug: "rs125-vs-smash-fi", a: "honda-rs125-final-edition", b: "suzuki-smash-fi", summary: "Current Philippine underbones compared by price, engine output, weight, seat height, fuel economy, transmission and braking" },
+  { slug: "z900-vs-z900-se", a: "kawasaki-z900", b: "kawasaki-z900-se", summary: "Kawasaki Z900 Standard and Z900 SE compared by Philippine price, weight, braking hardware, suspension and shared 948cc performance" }
 ];
 
 
