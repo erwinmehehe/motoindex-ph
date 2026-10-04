@@ -135,7 +135,7 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
       <InfoPanel subtle>
         <h3>For motorcycle dealers</h3>
         <p>Verified dealer listings are free. Approved dealers can publish branch details and appear in city and brand searches. Optional paid placements are clearly labeled and do not change MotoIndex verification standards.</p>
-        <CTAGroup><Link className="button" href="/dealers/join">Get listed free</Link><Link className="button secondary" href={featuredJoinHref}>See featured options</Link></CTAGroup>
+        <CTAGroup><Link className="button" href="/dealers/join">Get listed free</Link><Link className="button secondary" href="/dealer-portal">Dealer sign in</Link><Link className="button secondary" href={featuredJoinHref}>See featured options</Link></CTAGroup>
       </InfoPanel>
     </section>
 
