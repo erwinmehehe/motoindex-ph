@@ -1413,6 +1413,8 @@ export const comparisons: Comparison[] = [
   { slug: "xsr700-vs-cb650r", a: "yamaha-xsr700", b: "honda-cb650r", summary: "Retro-styled Yamaha twin and Honda four-cylinder naked bike compared by price, power, weight, seat height and road specifications" },
   { slug: "ninja-500-vs-yzf-r3", a: "kawasaki-ninja-500", b: "yamaha-yzf-r3", summary: "Entry and mid-size Japanese sport bikes compared by Philippine price, output, weight, seat height and braking" },
   { slug: "nx500-vs-versys-650", a: "honda-nx500-e-clutch", b: "kawasaki-versys-650", summary: "Adventure-touring motorcycles compared by price, engine size, weight, seat height, tank capacity and road-focused touring specifications" },
+  { slug: "mt-15-vs-yzf-r15m", a: "yamaha-mt-15", b: "yamaha-yzf-r15m", summary: "Yamaha 155cc naked and sport motorcycles compared by price, output, weight, seat height, transmission and body style" },
+  { slug: "rs125-vs-winner-x", a: "honda-rs125", b: "honda-winner-x", summary: "Honda sport underbones compared by price, engine size, output, weight, fuel economy and braking equipment" },
   { slug: "crf300l-vs-crf300-rally", a: "honda-crf300l", b: "honda-crf300-rally", summary: "Honda 286cc dual-sport models compared by price, weight, seat height, ground clearance, fuel capacity and touring focus" },
   { slug: "klx140-vs-klx150", a: "kawasaki-klx-140", b: "kawasaki-klx150", summary: "Kawasaki trail and dual-sport models compared by price, engine size, weight, seat height, wheel size and road-use context" }
 ];
