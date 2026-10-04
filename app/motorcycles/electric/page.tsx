@@ -10,7 +10,7 @@ import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { CTAGroup, PageHero, StatRow } from "@/components/ui";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Best Electric Scooters Philippines 2026 | Prices & Range",
+  title: "Electric Scooters Philippines 2026 | Prices, Range & LTO",
   description: "Compare the best-researched electric scooters in the Philippines by price, battery, range, charging time, LTO classification and ownership costs.",
   path: "/motorcycles/electric"
 });
