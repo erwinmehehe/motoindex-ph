@@ -13,6 +13,13 @@ ALTER TABLE "OwnerAccount" ADD COLUMN "notificationMaintenanceEmail" BOOLEAN NOT
 ALTER TABLE "OwnerAccount" ADD COLUMN "notificationDealerPromoEmail" BOOLEAN NOT NULL DEFAULT false;
 ALTER TABLE "OwnerAccount" ADD COLUMN "lastDealerPromoEmailAt" TIMESTAMP(3);
 
+-- Preserve existing Garage reminder opt-ins when splitting the legacy master toggle.
+UPDATE "OwnerAccount"
+SET
+  "notificationRegistrationEmail" = "reminderEmailsEnabled",
+  "notificationInsuranceEmail" = "reminderEmailsEnabled",
+  "notificationMaintenanceEmail" = "reminderEmailsEnabled";
+
 CREATE TABLE "OwnerShortlistItem" (
   "id" TEXT NOT NULL,
   "ownerId" TEXT NOT NULL,
