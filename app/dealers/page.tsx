@@ -145,7 +145,7 @@ export default async function DealersPage({ searchParams }: { searchParams: Prom
         title="Choose the motorcycle first"
         description="Compare models and set a budget first, then contact more than one branch for the same exact variant."
       />
-      <CTAGroup><Link className="button" href="/motorcycles">Browse motorcycles</Link><Link className="button secondary" href="/finder">Open motorcycle finder</Link><Link className="button secondary" href="/compare">Compare motorcycles</Link></CTAGroup>
+      <CTAGroup><Link className="button" href="/motorcycles">Browse motorcycles</Link><Link className="button secondary" href="/finder">Open motorcycle finder</Link><Link className="button secondary" href="/compare">Compare motorcycles</Link><Link className="button secondary" href="/service-centers">Find service centers</Link></CTAGroup>
     </section>
   </section>;
 }
