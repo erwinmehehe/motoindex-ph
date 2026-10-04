@@ -8,7 +8,7 @@ import {
   serviceCoverageCounts,
   type ServiceCapability,
   type ServiceProviderProfile,
-} from "@/lib/serviceCenters";
+} from "@/lib/serviceCenterPolicy";
 
 function phoneHref(phone: string) {
   return `tel:${phone.replace(/[^+\d]/g, "")}`;
