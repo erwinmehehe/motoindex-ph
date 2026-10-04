@@ -14,9 +14,3 @@
 .my-motoindex-page{display:grid;gap:24px}
 .my-preference-row input{width:20px;height:20px;accent-color:currentColor}
 @media(max-width:720px){.nav-my-link{display:none}}
-
-/* Generation & model-year change tracker */
-.generation-change-tracker,.generation-change-card,.generation-year-updates,.generation-year-card,.generation-notes,.generation-delta-section,.generation-change-preview{display:grid;gap:var(--mi-space-4)}
-.generation-change-card,.generation-year-card,.generation-change-preview{padding:var(--mi-space-5);border:1px solid var(--mi-color-line);border-radius:var(--mi-radius-lg)}
-.generation-change-head,.generation-year-card>header,.generation-delta-grid,.generation-preview-facts,.generation-note-list,.generation-before-after,.generation-upgrade-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--mi-space-3)}
-@media(max-width:620px){.generation-change-head,.generation-year-card>header,.generation-delta-grid,.generation-preview-facts,.generation-note-list,.generation-before-after,.generation-upgrade-columns{grid-template-columns:1fr}}
