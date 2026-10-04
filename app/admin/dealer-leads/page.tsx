@@ -31,7 +31,6 @@ export default async function DealerLeadsAdmin(){
               deliveryId={delivery.id}
               dealerEmail={delivery.dealerEmail}
               sellerName={delivery.sellerName}
-              token={delivery.deliveryToken}
               status={delivery.status}
               expiresAt={delivery.expiresAt.toISOString()}
               buyerName={lead.fullName}
