@@ -103,13 +103,13 @@ export function GarageOwnerReviewsPanel(){
     setState(currentState=>({...currentState,message:data.message||"Review submitted for moderation."}));
   }
 
-  async function remove(localId:string){
+  async function remove(reviewId:string){
     if(!window.confirm("Delete this owner review? If it is published, it will disappear from the public model page."))return;
     setWorking(true);
     const response=await fetch("/api/owner-reviews",{
       method:"DELETE",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({garageMotorcycleLocalId:localId})
+      body:JSON.stringify({reviewId})
     });
     setWorking(false);
     if(response.ok){
@@ -134,9 +134,19 @@ export function GarageOwnerReviewsPanel(){
   if(!state.bikes.length){
     return <section className="info-card">
       <span className="field-label">Owner reviews</span>
-      <h2>Save an exact MotoIndex motorcycle to your cloud Garage first</h2>
-      <p>Reviews are accepted only for a motorcycle linked to a MotoIndex model in your private cloud Garage.</p>
+      <h2>{state.reviews.length?"Manage your owner reviews":"Save an exact MotoIndex motorcycle to your cloud Garage first"}</h2>
+      <p>{state.reviews.length
+        ?"You can still delete a previous review even if that motorcycle is no longer in your current cloud Garage. Add the motorcycle back to Garage if you want to edit and resubmit it."
+        :"Reviews are accepted only for a motorcycle linked to a MotoIndex model in your private cloud Garage."}</p>
+      {state.reviews.length>0&&<div className="spec-grid">
+        {state.reviews.map(review=><article className="info-card" key={review.id}>
+          <strong>{review.modelExternalId}</strong>
+          <small>Status: {review.status}</small>
+          <button className="button small ghost" type="button" disabled={working} onClick={()=>void remove(review.id)}>Delete review</button>
+        </article>)}
+      </div>}
       <button className="button small ghost" type="button" onClick={()=>void load()}>Refresh review eligibility</button>
+      {state.message&&<p className="muted-note" role="status">{state.message}</p>}
     </section>;
   }
 
@@ -181,7 +191,7 @@ export function GarageOwnerReviewsPanel(){
       </div>
       <div className="hero-actions">
         <button className="button small" type="submit" disabled={working}>{working?"Submitting…":current?"Update and resubmit":"Submit for moderation"}</button>
-        {current&&<button className="button small ghost" type="button" disabled={working} onClick={()=>void remove(current.garageMotorcycleLocalId)}>Delete review</button>}
+        {current&&<button className="button small ghost" type="button" disabled={working} onClick={()=>void remove(current.id)}>Delete review</button>}
       </div>
       {current?.moderatorNote&&<p className="muted-note">Moderator note: {current.moderatorNote}</p>}
     </form>}
