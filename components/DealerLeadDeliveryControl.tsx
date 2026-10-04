@@ -46,8 +46,8 @@ export function DealerLeadDeliveryControl({
   return <div className="lead-delivery-control">
     <div><b>{sellerName}</b><small>{dealerEmail}</small><small>Secure link expires {expiresAt.slice(0,10)}</small></div>
     <div className="lead-delivery-actions">
-      <button type="button" disabled={saving||status==="cancelled"} onClick={prepare}>{saving?"Preparing…":status==="pending"?"Share by email":"Open email again"}</button>
-      <button type="button" disabled={status==="cancelled"} onClick={copyLink}>Copy secure link</button>
+      <button type="button" disabled={saving||status==="cancelled"} onClick={prepare}>{saving?"Preparing…":status==="pending"?"Share by email":"Rotate & email new link"}</button>
+      <button type="button" disabled={status==="cancelled"} onClick={copyLink}>{status==="pending"?"Copy secure link":"Rotate & copy new link"}</button>
     </div>
     <em className={`delivery-status ${status}`}>{status}</em>
     {error&&<small className="form-error">{error}</small>}
