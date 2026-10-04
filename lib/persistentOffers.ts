@@ -155,7 +155,8 @@ export async function publishApprovedBatch(batchId: string) {
         where: {
           sellerId: row.matchedSellerId,
           entityType: row.entityType,
-          entityId: row.entityId
+          entityId: row.entityId,
+          publicationSource: "reviewed_ingestion"
         },
         orderBy: { updatedAt: "desc" }
       });
@@ -171,6 +172,12 @@ export async function publishApprovedBatch(batchId: string) {
         status: "verified",
         observedAt: row.observedAt,
         verifiedAt: new Date(),
+        publicationSource: "reviewed_ingestion",
+        dealerPublishedAt: null,
+        variantLabel: null,
+        colorLabel: null,
+        promoLabel: null,
+        expiresAt: null,
         targetUrl: row.sourceUrl,
         affiliateUrl: row.affiliateUrl
       };
