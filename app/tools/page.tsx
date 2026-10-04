@@ -31,6 +31,7 @@ export default function ToolsPage() {
       kicker="Plan before you buy"
       title="Motorcycle tools for the Philippines"
       description="Start with the decision you are making now, then open the calculator that uses the numbers you can realistically provide."
+      actions={<Link className="button small" href="/tools/used-motorcycle-valuation">Estimate a used motorcycle value</Link>}
     />
 
     <StatRow items={[
