@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const protectedPrefixes = ["/admin", "/api/ingestion", "/api/admin"];
+const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;
 const prototypePrefixes: string[] = [];
 const AUTH_WINDOW_MS = 15 * 60 * 1000;
 const AUTH_MAX_FAILURES = 10;
@@ -61,7 +62,7 @@ export function middleware(request: NextRequest) {
     return response;
   }
   if (pathname === "/motorcycles") {
-    const filtered = ["q","make","type","budget","sort","max"].some(key =>
+    const filtered = CATALOG_FILTER_PARAMS.some(key =>
       request.nextUrl.searchParams.getAll(key).some(value => value.trim().length > 0)
     );
     if (filtered) {
