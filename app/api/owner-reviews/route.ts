@@ -11,11 +11,13 @@ const headers={"Cache-Control":"no-store","X-Robots-Tag":"noindex, nofollow, noa
 
 function enabled(){return process.env.OWNER_REVIEWS_ENABLED==="true"&&databaseConfigured();}
 
-async function auth(){
-  if(!enabled())return {error:NextResponse.json({ok:false,available:false,error:"Owner reviews are not enabled."},{status:503,headers})};
+type OwnerSession = NonNullable<Awaited<ReturnType<typeof getOwnerSession>>>;
+
+async function auth():Promise<{ok:false;response:NextResponse}|{ok:true;session:OwnerSession}>{
+  if(!enabled())return {ok:false,response:NextResponse.json({ok:false,available:false,error:"Owner reviews are not enabled."},{status:503,headers})};
   const session=await getOwnerSession();
-  if(!session)return {error:NextResponse.json({ok:false,available:true,error:"Sign in to My Garage to manage owner reviews."},{status:401,headers})};
-  return {session};
+  if(!session)return {ok:false,response:NextResponse.json({ok:false,available:true,error:"Sign in to My Garage to manage owner reviews."},{status:401,headers})};
+  return {ok:true,session};
 }
 
 function publicBike(bike:{id:string;catalogModelId?:string;make:string;model:string;variant?:string;year?:number;purchaseDate?:string;odometerKm:number}){
@@ -32,7 +34,7 @@ function publicBike(bike:{id:string;catalogModelId?:string;make:string;model:str
 
 export async function GET(){
   const resolved=await auth();
-  if("error" in resolved)return resolved.error;
+  if(!resolved.ok)return resolved.response;
   const ownerId=resolved.session.ownerId;
   const [snapshot,reviews]=await Promise.all([
     prisma.garageSnapshot.findUnique({where:{ownerId}}),
@@ -73,7 +75,7 @@ export async function GET(){
 export async function POST(request:Request){
   if(!ownerRequestOriginAllowed(request))return NextResponse.json({ok:false,error:"Invalid request origin."},{status:403,headers});
   const resolved=await auth();
-  if("error" in resolved)return resolved.error;
+  if(!resolved.ok)return resolved.response;
   let body:Record<string,unknown>;
   try{body=await request.json();}catch{return NextResponse.json({ok:false,error:"Invalid request."},{status:400,headers});}
 
@@ -137,7 +139,7 @@ export async function POST(request:Request){
 export async function DELETE(request:Request){
   if(!ownerRequestOriginAllowed(request))return NextResponse.json({ok:false,error:"Invalid request origin."},{status:403,headers});
   const resolved=await auth();
-  if("error" in resolved)return resolved.error;
+  if(!resolved.ok)return resolved.response;
   let body:Record<string,unknown>;
   try{body=await request.json();}catch{return NextResponse.json({ok:false,error:"Invalid request."},{status:400,headers});}
   const localId=cleanReviewText(body.garageMotorcycleLocalId,100);
