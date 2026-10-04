@@ -325,7 +325,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <div className="authority-grid motorcycle-decision-grid"><article className="authority-buy"><span>Buy it if</span><ul>{authority.buyIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-skip"><span>Skip it if</span><ul>{authority.skipIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-ph"><span>Philippine ownership</span><ul>{authority.phContext.map((item) => <li key={item}>{item}</li>)}</ul></article></div>
       </section>}
 
-      {!isHistorical && dedicatedInstallmentHandoff ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
+      {!isHistorical && dedicatedInstallmentHandoff ? <><span id="installment" aria-hidden="true" /><section className="motorcycle-entity-section" aria-labelledby="installment-heading">
         <SectionHeader
           kicker="Monthly payment"
           titleId="installment-heading"
@@ -339,7 +339,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
             <small>Compare dealer observations, 10/20/30% scenarios, variant prices and an editable loan estimate.</small>
           </Link>
         </div>
-      </section> : !isHistorical ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
+      </section></> : !isHistorical ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
         <SectionHeader
           kicker="Monthly payment"
           titleId="installment-heading"
