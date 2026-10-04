@@ -69,6 +69,7 @@ jobs:
           npm run validate:lockfile
           npm run prisma:validate
           npm run validate:dealer-platform
+          npm run validate:security-product-hardening
 
       - name: Design lint
         run: npm run validate:design
