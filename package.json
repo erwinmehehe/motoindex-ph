@@ -21,7 +21,7 @@
     "visual:qa": "node scripts/visual-qa.mjs && node scripts/visual-qa-editorial.mjs && node scripts/visual-qa-model-fallback.mjs",
     "validate:all": "npm run validate:post-audit && npm run validate:seo-hardening && npm run validate:market-hubs && npm run validate:catalog-uniqueness && npm run validate:priority-model-growth && npm run validate:priority-source-provenance && npm run validate:intent-depth && npm run validate:intent-depth-wave2 && npm run validate:intent-depth-wave3 && npm run validate:intent-depth-wave4 && npm run validate:intent-depth-wave5 && npm run validate:intent-depth-wave6 && npm run validate:intent-depth-wave7 && npm run validate:intent-depth-wave8 && npm run validate:category-authority-wave4 && npm run validate:semantic-consolidation-wave5 && npm run validate:original-research-wave2 && npm run validate:model-coverage-truth && npm run validate:demand-backed-availability && npm run validate:model-intent-split && npm run validate:model-color-intent-split && npm run validate:model-top-speed-intent-split && npm run validate:model-fuel-consumption-intent-split && npm run validate:model-specs-intent-split && npm run validate:model-weight-intent-split && npm run validate:model-seat-height-intent-split && npm run validate:comparisons && npm run validate:budget-displacement && npm run validate:no-competitors && npm run validate:copy-tone && npm run validate:public-trust && npm run validate:adsense && node scripts/validate-authority-growth.mjs && node scripts/validate-premium-light.mjs && npm run check:links && npm run check:legacy-links && npm run audit:freshness && node scripts/validate-content.mjs && node scripts/validate-product-layer.mjs && npm run validate:media && npm run validate:media-backfill && npm run validate:motorcycle-media",
     "prisma:validate": "node scripts/prisma-validate.mjs",
-    "verify": "npm run validate:all && npm run validate:lockfile && npm run prisma:validate && npm run validate:design && npm run validate:garage && npm run validate:dealer-platform && npm run lint && npm run typecheck && npm run test:unit && npm run build",
+    "verify": "npm run validate:all && npm run validate:lockfile && npm run prisma:validate && npm run validate:design && npm run validate:garage && npm run validate:dealer-platform && npm run validate:security-product-hardening && npm run lint && npm run typecheck && npm run test:unit && npm run build",
     "check:launch": "node scripts/check-launch.mjs",
     "smoke:production": "node scripts/smoke-production.mjs",
     "verify:launch": "npm run check:launch && npm run check:affiliate-build && npm run verify",
@@ -81,6 +81,7 @@
     "validate:comparisons": "node scripts/validate-comparison-briefs.mjs",
     "validate:garage": "node scripts/garage-qa.mjs",
     "validate:dealer-platform": "node scripts/validate-dealer-platform.mjs",
+    "validate:security-product-hardening": "node scripts/validate-security-product-hardening.mjs",
     "validate:helmet-media": "python scripts/audit-helmet-media-art-direction.py"
   },
   "dependencies": {
