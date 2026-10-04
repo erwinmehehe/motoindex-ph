@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { databaseConfigured, prisma } from "@/lib/db";
+import { hashActionToken } from "@/lib/actionTokens";
 import { getModelById } from "@/lib/data";
 import { PriceAlertAction } from "@/components/PriceAlertAction";
 
@@ -10,7 +11,7 @@ export const dynamic="force-dynamic";
 export default async function UnsubscribePriceAlertPage({params}:{params:Promise<{token:string}>}){
   if(!databaseConfigured())return notFound();
   const {token}=await params;
-  const subscription=await prisma.priceAlertSubscription.findUnique({where:{unsubscribeToken:token}});
+  const subscription=await prisma.priceAlertSubscription.findFirst({where:{OR:[{unsubscribeTokenHash:hashActionToken(token)},{unsubscribeToken:token}]}});
   if(!subscription)return notFound();
   const model=getModelById(subscription.entityId);
 
