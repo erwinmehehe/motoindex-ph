@@ -2,11 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ServiceCenterFinder } from "@/components/ServiceCenterFinder";
 import { InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
-import {
-  SERVICE_CAPABILITIES,
-  allVerifiedServiceProviders,
-  serviceCoverageCounts,
-} from "@/lib/serviceCenterPolicy";
+import { SERVICE_CAPABILITIES, serviceCoverageCounts } from "@/lib/serviceCenterPolicy";
+import { allVerifiedServiceProviders } from "@/lib/serviceCenters";
 import { pageMetadata } from "@/lib/site";
 import styles from "../styles/hub-index.module.css";
 
