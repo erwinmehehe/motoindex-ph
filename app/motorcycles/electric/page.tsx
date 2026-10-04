@@ -156,6 +156,15 @@ export default function ElectricMotorcyclesPage() {
       </div>
     </section>
 
+    <section className="motorcycle-entity-section" aria-labelledby="electric-brand-research">
+      <div className="section-head compact"><div><span className="section-kicker">More electric research</span><h2 id="electric-brand-research">Other electric scooter and e-bike brands searched in the Philippines</h2><p>These brands have meaningful Philippine search demand, but their vehicle formats and availability do not always match the L3 electric motorcycles in the comparison table above. Use the source-backed guides before treating them as direct substitutes.</p></div></div>
+      <div className="commute-tool-grid">
+        <Link href="/guides/tvs-motorcycle-philippines"><span>TVS</span><h3>TVS iQube and Ntorq status</h3><p>Check the current official TVS Philippines lineup, iQube price and whether Ntorq is locally listed.</p></Link>
+        <Link href="/guides/nwow-ebike-price-philippines"><span>NWOW</span><h3>NWOW e-bike prices</h3><p>Research current two-wheel and multi-wheel NWOW products without mixing their vehicle classifications.</p></Link>
+        <Link href="/guides/hatasu-ebike-price-philippines"><span>Hatasu</span><h3>Hatasu e-bike prices</h3><p>Compare current Philippine retail price references, battery context and ownership checks.</p></Link>
+      </div>
+    </section>
+
     <section id="tools" className="motorcycle-entity-section">
       <div className="section-head compact"><div><span className="section-kicker">Use your numbers</span><h2>Electric motorcycle calculators</h2><p>Tools stay separate because they perform a real task rather than repeating another editorial page.</p></div></div>
       <div className="commute-tool-grid">
