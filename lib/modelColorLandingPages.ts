@@ -6,6 +6,10 @@ export type ColorIntentLandingProfile = {
   description: string;
   heading: string;
   intro: string;
+  colors?: string[];
+  sourceLabel?: string;
+  sourceUrl?: string;
+  checkedAt?: string;
 };
 
 export const colorIntentLandingProfiles: ColorIntentLandingProfile[] = [
@@ -71,6 +75,19 @@ export const colorIntentLandingProfiles: ColorIntentLandingProfile[] = [
     description: "Suzuki Raider R150 colors Philippines 2026 with Metallic Matte Blue, Pearl Bright Ivory, Bordeaux Red and Fibroin Gray options plus stock-check guidance.",
     heading: "Suzuki Raider R150 colors in the Philippines",
     intro: "Compare the current Raider R150 paint names in one place, then verify the exact dealer unit because color allocation can vary by branch and model-year inventory."
+  },
+  {
+    modelId: "yamaha-mio-i-125",
+    keyword: "mio i 125 colors",
+    keywordVolume: 800,
+    title: "Yamaha Mio i 125 Colors Philippines 2026 | 5 Paint Options",
+    description: "Yamaha Mio i 125 colors Philippines 2026 with Yellow, Magenta, Matt Black, Cyan Metallic and Matte Blue plus current-stock verification guidance.",
+    heading: "Yamaha Mio i 125 colors in the Philippines",
+    intro: "Two current Philippine motorcycle-market references list five Mio i 125 colors: Yellow, Magenta, Matt Black, Cyan Metallic and Matte Blue. MotoIndex keeps this color evidence separate from Yamaha's primary model/specification source and recommends checking the exact dealer unit before reserving.",
+    colors: ["Yellow", "Magenta", "Matt Black", "Cyan Metallic", "Matte Blue"],
+    sourceLabel: "Current Philippine Mio i 125 color listings cross-checked on ZigWheels and Carmudi",
+    sourceUrl: "https://www.zigwheels.ph/new-motorcycles/yamaha/mio-i-125",
+    checkedAt: "2026-10-04"
   },
   {
     modelId: "yamaha-mio-gear",
