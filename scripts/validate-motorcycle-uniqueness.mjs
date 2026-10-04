@@ -18,7 +18,8 @@ const modelFiles = [
   "lib/zigwheelsGapWave7_2026.ts",
   "lib/heroExpansion2026.ts",
   "lib/kawasakiScooterExpansion2026.ts",
-  "lib/currentModelGapCloseout2026.ts"
+  "lib/currentModelGapCloseout2026.ts",
+  "lib/historicalGapCloseout2026.ts"
 ];
 
 const records = [];
