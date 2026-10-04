@@ -45,8 +45,8 @@ export function MyNotificationPreferences({ initial }: { initial: MyNotification
 
   return <section className="info-card" id="notifications">
     <div className="section-head compact"><div><span className="field-label">Notifications</span><h2>Choose what MotoIndex emails you</h2><p>Transactional sign-in and confirmation emails are separate from these optional ongoing notifications.</p></div></div>
-    <div className="my-preference-list">
-      {options.map(option => <label className="my-preference-row" key={option.key}>
+    <div className="spec-grid">
+      {options.map(option => <label className="info-card" key={option.key}>
         <span><strong>{option.title}</strong><small>{option.copy}</small></span>
         <input type="checkbox" checked={settings[option.key]} onChange={() => void toggle(option.key)} />
       </label>)}
