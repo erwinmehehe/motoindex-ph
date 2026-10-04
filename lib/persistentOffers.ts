@@ -206,11 +206,17 @@ export async function publishApprovedBatch(batchId: string) {
 export async function expireStaleOffers(maxAgeDays = commerceFreshDays) {
   if (!databaseConfigured()) throw new Error("DATABASE_URL is required.");
   const { lower: cutoff } = commerceFreshnessWindow(new Date(), Math.max(1, maxAgeDays));
-  const result = await prisma.sellerOffer.updateMany({
-    where: { status: "verified", observedAt: { lt: cutoff } },
-    data: { status: "expired" }
-  });
-  return { expired: result.count, cutoff: cutoff.toISOString() };
+  const [reviewed,dealer] = await prisma.$transaction([
+    prisma.sellerOffer.updateMany({
+      where: { status: "verified", observedAt: { lt: cutoff } },
+      data: { status: "expired" }
+    }),
+    prisma.sellerOffer.updateMany({
+      where: { status: "dealer_published", expiresAt: { lte: new Date() } },
+      data: { status: "expired" }
+    })
+  ]);
+  return { expired: reviewed.count + dealer.count, cutoff: cutoff.toISOString() };
 }
 
 export async function getPriceHistory(entityType: OfferEntityType, entityId: string) {
