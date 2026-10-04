@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
+import { findBuyerLeadByToken } from "@/lib/actionTokenLookup";
 
 export const runtime="nodejs";
 const allowed=new Set(["interested","declined"]);
@@ -13,10 +14,7 @@ export async function PATCH(request:Request,{params}:{params:Promise<{token:stri
   const decision=typeof body.decision==="string"?body.decision:"";
   if(!allowed.has(decision))return NextResponse.json({ok:false,error:"Invalid quote response."},{status:400});
 
-  const lead=await prisma.dealerLead.findUnique({
-    where:{buyerAccessToken:token},
-    select:{id:true,buyerAccessExpiresAt:true}
-  });
+  const lead=await findBuyerLeadByToken(token);
   if(!lead||!lead.buyerAccessExpiresAt||lead.buyerAccessExpiresAt<=new Date())return NextResponse.json({ok:false,error:"Private quote-status link is unavailable or expired."},{status:404});
 
   const quote=await prisma.dealerQuoteResponse.findFirst({
