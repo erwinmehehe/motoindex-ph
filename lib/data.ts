@@ -1946,7 +1946,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     slug: "dual-sport-motorcycles-philippines",
     kicker: "Dual sport & trail",
     title: "Dual-sport and trail motorcycles in the Philippines",
-    seoTitle: "Dirt Bikes & Dual-Sport Motorcycles Philippines 2026 | Prices",
+    seoTitle: "Dual-Sport & Trail Motorcycles Philippines 2026 | Prices",
     description: "Compare dirt bikes, dual-sport, trail and enduro motorcycles in the Philippines by price, weight, seat height, clearance, wheel setup, fuel tank and road-use context.",
     primaryKeyword: "dual sport motorcycles Philippines",
     secondaryKeywords: ["dirt bike Philippines", "dirt bike price Philippines", "dirt bikes Philippines", "best dirt bike Philippines", "best dual sport motorcycles Philippines", "dual purpose motorcycles Philippines", "trail bike Philippines", "trail motorcycles Philippines", "off road motorcycle Philippines", "off-road motorcycle Philippines", "off road bike Philippines", "enduro motorcycle Philippines", "enduro motorcycles Philippines", "enduro bike Philippines", "enduro motorcycle price Philippines", "street legal trail bike Philippines"],
@@ -1959,7 +1959,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     caveats: ["Off-road capability cannot be ranked from specifications alone.", "A tall seat and high ground clearance can help trail clearance while making low-speed footing harder for shorter riders.", "A dual-sport category label does not by itself prove that every individual unit has complete public-road registration paperwork."],
     tableColumns: ["price", "engine", "power", "weight", "seat", "clearance", "abs", "tank"],
     quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Largest engine",metric:"engine"},{label:"Largest fuel tank",metric:"tank"}],
-    editorialSections: ["Dirt bike vs dual-sport vs trail bike vs enduro", "21/18-inch wheels and rough-road priorities", "Seat height versus ground clearance", "Weight, tires and low-speed trail control", "ABS and loose-surface use", "What to check before riding on public roads"],
+    editorialSections: ["Dual-sport vs trail bike vs off-road motorcycle", "Dirt bike vs enduro vs motocross", "21/18-inch wheels and rough-road priorities", "Seat height versus ground clearance", "Weight, tires and low-speed trail control", "ABS and loose-surface use", "What to check before riding on public roads"],
     faqQuestions: ["What dirt bikes are available in the Philippines?", "What dual-sport motorcycles are available in the Philippines?", "Are dual-sport, trail bikes and off-road motorcycles the same?", "Which dual-sport motorcycles use 21/18-inch wheels?", "What matters most for trail and rough-road use?", "Do dual-sport motorcycles need ABS?", "Can I use a dual-sport motorcycle on public roads in the Philippines?"],
     relatedGuideSlugs: ["lightweight-motorcycles-philippines", "best-motorcycles-for-short-riders", "motorcycles-with-abs-philippines", "motorcycles-under-400cc-philippines", "adventure-touring-motorcycles-philippines"],
     intent: "category"
