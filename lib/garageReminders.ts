@@ -223,6 +223,12 @@ export async function runGarageReminderCheck(limit = 300) {
 
   for (const reminder of reminders) {
     checked += 1;
+    const allowed = reminder.kind === "registration"
+      ? reminder.owner.notificationRegistrationEmail
+      : reminder.kind === "insurance"
+        ? reminder.owner.notificationInsuranceEmail
+        : reminder.owner.notificationMaintenanceEmail;
+    if (!allowed) continue;
     const notice = (reminder.dueDate ? dateNotice(reminder.dueDate) : null) || mileageNotice(reminder.dueKm, reminder.currentOdometerKm);
     if (!notice || notice.marker === reminder.lastNotifiedMarker) continue;
     try {
