@@ -2,8 +2,10 @@ import Link from "next/link";
 import type { ModelFamily } from "@/lib/families";
 import {
   generationTransitionsForIds,
+  modelYearUpdatesForIds,
   type GenerationChangeCategory,
   type GenerationTransition,
+  type ModelYearUpdate,
 } from "@/lib/generationChanges";
 
 const categoryLabel: Record<GenerationChangeCategory,string> = {
@@ -91,12 +93,51 @@ function TransitionCard({ transition, featured=false }: { transition:GenerationT
   </article>;
 }
 
+function ModelYearCard({ update }: { update:ModelYearUpdate }) {
+  const model=update.modelId;
+  return <article className="generation-year-card" id={update.id}>
+    <header>
+      <div>
+        <span className="section-kicker">Within-generation update</span>
+        <h2>{update.headline}</h2>
+        <p>{update.summary}</p>
+      </div>
+      <div className="generation-verdict">
+        <span>Update type</span>
+        <strong>{update.verdict}</strong>
+        <small>{update.fromYear} → {update.toYear}</small>
+      </div>
+    </header>
+    <div className="generation-note-list">
+      {update.notes.map(note=><article className="info-card" key={note.title}>
+        <div className="generation-note-top"><span>{categoryLabel[note.category]}</span><b>{update.fromYear} → {update.toYear}</b></div>
+        <h4>{note.title}</h4>
+        {(note.from||note.to)&&<div className="generation-before-after">
+          <div><small>{update.fromYear}</small><p>{note.from||"No sourced baseline recorded."}</p></div>
+          <div><small>{update.toYear}</small><p>{note.to||"No sourced update recorded."}</p></div>
+        </div>}
+        <p><strong>Why it matters:</strong> {note.impact}</p>
+        <small><SourceLink url={note.sourceUrl} label={note.sourceLabel}/></small>
+      </article>)}
+    </div>
+    <p className="muted-note">This model-year record is separate from generation-to-generation changes. A newer year does not automatically mean a new engine or chassis generation.</p>
+    <Link className="button small secondary" href={`/motorcycles/${getModelHref(model)}`}>Open current model guide</Link>
+  </article>;
+}
+
+function getModelHref(modelId:string){
+  const [make,...rest]=modelId.split("-");
+  const slug=rest.join("-");
+  return `${make}/${slug}`;
+}
+
 export function GenerationChangeTracker({ family, compact=false }: { family:ModelFamily; compact?:boolean }) {
   const transitions=generationTransitionsForIds(family.generationIds);
-  if(!transitions.length)return null;
+  const yearUpdates=modelYearUpdatesForIds(family.generationIds);
+  if(!transitions.length&&!yearUpdates.length)return null;
   const latest=transitions[transitions.length-1];
 
-  if(compact){
+  if(compact&&latest){
     return <section className="generation-change-preview">
       <div>
         <span className="section-kicker">Generation change tracker</span>
@@ -119,5 +160,9 @@ export function GenerationChangeTracker({ family, compact=false }: { family:Mode
       featured={index===transitions.length-1}
       key={transition.id}
     />)}
+    {yearUpdates.length>0&&<section className="generation-year-updates">
+      <div className="section-head compact"><div><span className="section-kicker">Model-year updates</span><h2>What changed without a full generation change?</h2><p>These records separate mid-generation feature/styling updates from a true successor generation.</p></div></div>
+      <div className="generation-change-tracker">{yearUpdates.map(update=><ModelYearCard update={update} key={update.id}/>)}</div>
+    </section>}
   </div>;
 }
