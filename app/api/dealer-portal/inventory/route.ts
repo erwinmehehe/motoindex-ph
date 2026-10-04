@@ -43,14 +43,16 @@ export async function POST(request:Request){
   if(!allowedUrl(targetUrl))return NextResponse.json({ok:false,error:"Dealer URL must be a valid web address."},{status:400,headers});
 
   const now=new Date();
+  const variantLabel=clean(body.variantLabel,80)||null;
+  const colorLabel=clean(body.colorLabel,80)||null;
   const existing=await prisma.sellerOffer.findFirst({
-    where:{sellerId,entityType:"motorcycle",entityId,publicationSource:"dealer_portal",status:"dealer_published"},
+    where:{sellerId,entityType:"motorcycle",entityId,publicationSource:"dealer_portal",status:"dealer_published",variantLabel,colorLabel},
     orderBy:{updatedAt:"desc"}
   });
   const data={
     sellerId,entityType:"motorcycle",entityId,pricePhp,downPaymentPhp,monthlyPhp,termMonths,
     availability,status:"dealer_published",observedAt:now,verifiedAt:null,publicationSource:"dealer_portal",
-    dealerPublishedAt:now,variantLabel:clean(body.variantLabel,80)||null,colorLabel:clean(body.colorLabel,80)||null,
+    dealerPublishedAt:now,variantLabel,colorLabel,
     promoLabel:clean(body.promoLabel,120)||null,expiresAt,targetUrl:targetUrl||membership.seller.website||null,affiliateUrl:null
   };
   const offer=existing
