@@ -32,7 +32,7 @@ function availabilityLabel(value:string){
 export default async function QuoteStatusPage({params}:{params:Promise<{token:string}>}){
   if(!databaseConfigured())return notFound();
   const {token}=await params;
-  const lead=await prisma.dealerLead.findUnique({
+  const lead=await prisma.dealerLead.findFirst({
     where:{OR:[{buyerAccessTokenHash:hashBearerToken(token)},{buyerAccessToken:token}]},
     include:{deliveries:{orderBy:{createdAt:"asc"},include:{quoteResponse:true}}}
   });
