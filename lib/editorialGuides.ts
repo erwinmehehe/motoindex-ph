@@ -493,6 +493,57 @@ export const editorialGuides: EditorialGuide[] = [
     ]
   },
 
+
+  {
+    slug: "tvs-motorcycle-philippines",
+    kicker: "TVS Philippines guide",
+    title: "TVS motorcycles and scooters in the Philippines",
+    seoTitle: "TVS Motorcycle Philippines 2026: iQube Price & Ntorq Status",
+    description: "Check the current TVS Philippines lineup, TVS iQube price and specs, plus the current Philippine availability status of the TVS Ntorq 125.",
+    intro: "TVS has meaningful Philippine search demand, but global TVS model pages can be mistaken for local availability. This guide separates the current official TVS Philippines catalog from models such as the Ntorq 125 that appear on TVS pages for other countries.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "What TVS currently lists in the Philippines",
+        body: [
+          "The current official TVS Philippines product catalog lists the TVS iQube electric scooter plus the King Deluxe and Kargo three-wheelers. MotoIndex uses that local catalog as the primary availability reference rather than assuming the wider global TVS range is officially sold here.",
+          "For two-wheel buyers, the iQube is the current official Philippine scooter product visible on TVS's local site."
+        ],
+        bullets: ["TVS iQube: current Philippine electric scooter", "King Deluxe: current Philippine three-wheeler", "Kargo: current Philippine three-wheeler", "Check the Philippine TVS catalog before treating a global TVS model as locally current"]
+      },
+      {
+        heading: "TVS iQube price in the Philippines",
+        body: [
+          "TVS's Philippine iQube product page currently shows an SRP of ₱99,800. The same page lists a 3.4 kWh battery, 100 km stated range, 78 km/h top speed and 0–80% charging time of about 4.5 hours.",
+          "Price and specifications can change, so confirm the exact dealer quote, warranty, charger inclusion and registration processing before paying."
+        ]
+      },
+      {
+        heading: "Is the TVS Ntorq 125 officially listed in the Philippines?",
+        body: [
+          "The Ntorq 125 is a real TVS scooter and appears on TVS websites for other markets, but it is not currently listed in the official TVS Philippines product catalog checked by MotoIndex on October 4, 2026.",
+          "That does not prove that no private, grey-market or old-stock unit exists. It means MotoIndex should not present the Ntorq 125 as a current official Philippine model without a local TVS source."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "What TVS motorcycles are available in the Philippines?", answer: "The current official TVS Philippines catalog lists the iQube electric scooter plus the King Deluxe and Kargo three-wheelers." },
+      { question: "How much is the TVS iQube in the Philippines?", answer: "The current official TVS Philippines iQube page lists an SRP of ₱99,800. Confirm the current dealer quote before purchase." },
+      { question: "Is the TVS Ntorq 125 available in the Philippines?", answer: "The Ntorq 125 is not currently listed in the official TVS Philippines product catalog MotoIndex checked on October 4, 2026. Verify any locally offered unit's source, warranty and registration status." },
+      { question: "Why does the TVS global site show more motorcycles than the Philippine site?", answer: "TVS sells different lineups by country. A model appearing on another country's TVS site is not proof of current official Philippine availability." }
+    ],
+    related: [
+      { href: "/motorcycles/electric", title: "Electric scooters Philippines", description: "Compare current verified Philippine electric scooter research." },
+      { href: "/motorcycles/scooters", title: "Scooters Philippines", description: "Compare the wider current scooter market by price and specifications." },
+      { href: "/tools/motorcycle-loan-calculator", title: "Motorcycle loan calculator", description: "Estimate monthly payments from a current dealer quote." }
+    ],
+    sources: [
+      { label: "TVS Motor Philippines current product catalog", url: "https://www.tvsmotor.com/en/ph/our-products" },
+      { label: "TVS Motor Philippines iQube product page", url: "https://www.tvsmotor.com/en/ph/our-products/tvs-iqube" },
+      { label: "TVS Motor Philippines homepage", url: "https://www.tvsmotor.com/en/ph" }
+    ]
+  },
+
 ];
 
 export function getEditorialGuide(slug: string) {
