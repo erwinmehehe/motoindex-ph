@@ -21,10 +21,12 @@ need(schema.includes("model OwnerReview"),"Prisma schema must define OwnerReview
 need(schema.includes("@@unique([ownerId, garageMotorcycleLocalId])"),"One owner review must be unique per Garage motorcycle");
 need(schema.includes("@@unique([ownerId, modelExternalId])"),"One account must not publish multiple reviews for the same model");
 need(schema.includes("garageVerifiedAt"),"Owner reviews must store Garage verification time");
+need(schema.includes("consentedAt"),"Owner reviews must store explicit publication consent time");
 
 const ownerRoute=read("app/api/owner-reviews/route.ts");
 need(ownerRoute.includes('process.env.OWNER_REVIEWS_ENABLED==="true"'),"Owner review submissions must be feature-gated");
 need(ownerRoute.includes("prisma.garageSnapshot.findUnique"),"Owner review submissions must verify the private cloud Garage");
+need(ownerRoute.includes('body.publishConsent!=="yes"'),"Owner review submissions must require explicit publication consent");
 need(ownerRoute.includes('status:"pending"'),"Owner review submissions must enter moderation");
 need(ownerRoute.includes("publishedAt:null"),"Owner review edits must unpublish until re-moderated");
 
