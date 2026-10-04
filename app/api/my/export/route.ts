@@ -10,7 +10,7 @@ export async function GET() {
   if (!ownerAuthConfigured()) return NextResponse.json({ ok: false, error: "MotoIndex accounts are not enabled." }, { status: 503, headers });
   const session = await getOwnerSession();
   if (!session) return NextResponse.json({ ok: false, error: "Sign in to export your data." }, { status: 401, headers });
-  const [owner, shortlist, garage, priceAlerts, dealerLeads, usedListings] = await Promise.all([
+  const [owner, shortlist, garage, priceAlerts, dealerLeads, usedListings, ownerReviews] = await Promise.all([
     prisma.ownerAccount.findUnique({ where: { id: session.ownerId }, select: {
       email: true, verifiedAt: true, reminderEmailsEnabled: true,
       notificationPriceDropEmail: true, notificationQuoteEmail: true,
@@ -40,8 +40,19 @@ export async function GET() {
       },
     }),
     prisma.usedListing.findMany({ where: { ownerId: session.ownerId }, include: { inquiries: true } }),
+    prisma.ownerReview.findMany({
+      where: { ownerId: session.ownerId },
+      select: {
+        id: true, modelExternalId: true, garageMotorcycleLocalId: true, variantLabel: true, modelYear: true,
+        ownershipMonths: true, odometerKm: true, comfortRating: true, cityTrafficRating: true,
+        maintenanceRating: true, passengerRating: true, highwayRating: true, fuelEconomyKmpl: true,
+        annualMaintenancePhp: true, unscheduledRepairsCount: true, summary: true, likes: true, dislikes: true,
+        status: true, garageVerifiedAt: true, consentedAt: true, submittedAt: true, reviewedAt: true,
+        publishedAt: true, moderatorNote: true, createdAt: true, updatedAt: true,
+      },
+    }).catch(() => []),
   ]);
-  const body = JSON.stringify({ exportedAt: new Date().toISOString(), account: owner, shortlist, garage, priceAlerts, dealerLeads, usedListings }, null, 2);
+  const body = JSON.stringify({ exportedAt: new Date().toISOString(), account: owner, shortlist, garage, priceAlerts, dealerLeads, usedListings, ownerReviews }, null, 2);
   return new NextResponse(body, { headers: {
     ...headers,
     "Content-Type": "application/json; charset=utf-8",

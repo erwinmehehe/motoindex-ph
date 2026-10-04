@@ -619,8 +619,46 @@ model OwnerAccount {
   priceAlerts                     PriceAlertSubscription[]
   dealerLeads                     DealerLead[]
   usedListings                    UsedListing[]
+  ownerReviews                    OwnerReview[]
   createdAt                       DateTime         @default(now())
   updatedAt                       DateTime         @updatedAt
+}
+
+model OwnerReview {
+  id                       String       @id @default(cuid())
+  ownerId                  String
+  owner                    OwnerAccount @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  modelExternalId          String
+  garageMotorcycleLocalId  String
+  variantLabel             String?
+  modelYear                Int?
+  ownershipMonths          Int
+  odometerKm               Int
+  comfortRating            Int
+  cityTrafficRating        Int
+  maintenanceRating        Int
+  passengerRating          Int?
+  highwayRating            Int?
+  fuelEconomyKmpl          Float?
+  annualMaintenancePhp     Decimal?     @db.Decimal(12, 2)
+  unscheduledRepairsCount  Int          @default(0)
+  summary                  String
+  likes                    String
+  dislikes                 String
+  status                   String       @default("pending")
+  garageVerifiedAt         DateTime
+  consentedAt              DateTime
+  submittedAt              DateTime     @default(now())
+  reviewedAt               DateTime?
+  publishedAt              DateTime?
+  moderatorNote            String?
+  createdAt                DateTime     @default(now())
+  updatedAt                DateTime     @updatedAt
+
+  @@unique([ownerId, garageMotorcycleLocalId])
+  @@unique([ownerId, modelExternalId])
+  @@index([modelExternalId, status, publishedAt])
+  @@index([ownerId, status, updatedAt])
 }
 
 model OwnerMagicLink {

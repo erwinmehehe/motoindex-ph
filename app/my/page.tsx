@@ -3,6 +3,7 @@ import Link from "next/link";
 import { MyAccountControls } from "@/components/MyAccountControls";
 import { MyMotoIndexSignIn } from "@/components/MyMotoIndexSignIn";
 import { MyNotificationPreferences } from "@/components/MyNotificationPreferences";
+import { GarageOwnerReviewsPanel } from "@/components/GarageOwnerReviewsPanel";
 import { PageHero } from "@/components/ui";
 import { getModelById } from "@/lib/data";
 import { databaseConfigured, prisma } from "@/lib/db";
@@ -30,13 +31,17 @@ export default async function MyMotoIndexPage() {
     </main>;
   }
 
-  const [owner, shortlistRows, snapshot, alerts, leads, reminders] = await Promise.all([
+  const ownerReviewsEnabled = process.env.OWNER_REVIEWS_ENABLED === "true";
+  const [owner, shortlistRows, snapshot, alerts, leads, reminders, ownerReviews] = await Promise.all([
     prisma.ownerAccount.findUnique({ where: { id: session.ownerId } }),
     prisma.ownerShortlistItem.findMany({ where: { ownerId: session.ownerId }, orderBy: { position: "asc" } }),
     prisma.garageSnapshot.findUnique({ where: { ownerId: session.ownerId } }),
     prisma.priceAlertSubscription.findMany({ where: { ownerId: session.ownerId, status: { in: ["pending", "active"] } }, orderBy: { updatedAt: "desc" } }),
     prisma.dealerLead.findMany({ where: { ownerId: session.ownerId }, include: { deliveries: { include: { quoteResponse: true } } }, orderBy: { createdAt: "desc" }, take: 12 }),
     prisma.garageReminder.findMany({ where: { ownerId: session.ownerId, active: true }, orderBy: [{ dueDate: "asc" }, { updatedAt: "desc" }], take: 20 }),
+    ownerReviewsEnabled
+      ? prisma.ownerReview.findMany({ where: { ownerId: session.ownerId }, select: { modelExternalId: true, status: true, updatedAt: true }, orderBy: { updatedAt: "desc" } }).catch(() => [])
+      : Promise.resolve([]),
   ]);
   if (!owner) return null;
 
@@ -45,11 +50,16 @@ export default async function MyMotoIndexPage() {
   const quoteCount = leads.reduce((count, lead) => count + lead.deliveries.filter(delivery => Boolean(delivery.quoteResponse) && delivery.status !== "cancelled").length, 0);
   const recentOwnership = garage ? [...garage.records].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 6) : [];
   const upcoming = reminders.filter(item => item.dueDate ? dueSoon(item.dueDate) : item.dueKm !== null && item.currentOdometerKm !== null && item.dueKm - item.currentOdometerKm <= 1000).slice(0, 5);
+  const reviewedModels = new Set(ownerReviews.map(review => review.modelExternalId));
+  const reviewEligibleBike = ownerReviewsEnabled
+    ? garage?.motorcycles.find(bike => bike.catalogModelId && !reviewedModels.has(bike.catalogModelId))
+    : undefined;
   const nextActions = [
     !garage?.motorcycles.length ? { title: "Add your motorcycle", copy: "Start an ownership record for reminders, costs and resale history.", href: "/garage", cta: "Open Garage" } : null,
     shortlist.length < 2 ? { title: "Build a shortlist", copy: "Save at least two motorcycles to make the next comparison useful.", href: "/motorcycles", cta: "Browse motorcycles" } : null,
     alerts.length === 0 && shortlist[0] ? { title: "Watch a price", copy: `Set a target for ${shortlist[0].make} ${shortlist[0].model} or another saved motorcycle.`, href: `/motorcycles/${shortlist[0].makeSlug}/${shortlist[0].slug}`, cta: "Set price alert" } : null,
     leads.length === 0 && shortlist[0] ? { title: "Ask dealers for a quote", copy: "Move from research into a real dealer response when you are ready.", href: `/get-quote/${shortlist[0].makeSlug}/${shortlist[0].slug}`, cta: "Request quotes" } : null,
+    reviewEligibleBike ? { title: "Share real ownership experience", copy: `Help other riders with your experience owning the ${reviewEligibleBike.make} ${reviewEligibleBike.model}.`, href: "/my#owner-reviews", cta: "Write owner review" } : null,
     upcoming[0] ? { title: upcoming[0].title, copy: `${upcoming[0].motorcycleLabel} has an upcoming ownership task.`, href: "/garage", cta: "Review reminder" } : null,
   ].filter((item): item is NonNullable<typeof item> => Boolean(item)).slice(0, 4);
 
@@ -71,6 +81,7 @@ export default async function MyMotoIndexPage() {
       <article><span>Price alerts</span><strong>{alerts.filter(alert => alert.status === "active").length}</strong><small>{alerts.filter(alert => alert.status === "pending").length} awaiting confirmation</small></article>
       <article><span>Dealer quotes</span><strong>{quoteCount}</strong><small>across {leads.length} request{leads.length === 1 ? "" : "s"}</small></article>
       <article><span>Upcoming</span><strong>{upcoming.length}</strong><small>renewal or maintenance items near due</small></article>
+      {ownerReviewsEnabled && <article><span>Owner reviews</span><strong>{ownerReviews.length}</strong><small>{ownerReviews.filter(review => review.status === "pending").length} pending moderation</small></article>}
     </section>
 
     <section className="my-next-actions">
@@ -101,8 +112,9 @@ export default async function MyMotoIndexPage() {
       </div>
     </section>
 
+    {ownerReviewsEnabled && <section id="owner-reviews"><GarageOwnerReviewsPanel /></section>}
     <MyNotificationPreferences initial={settings} />
     <MyAccountControls />
-    <p className="muted-note">Signed in as {owner.email}. MotoIndex does not expose your Garage, shortlist, alerts or dealer-request history publicly.</p>
+    <p className="muted-note">Signed in as {owner.email}. MotoIndex does not expose your Garage, shortlist, alerts, dealer-request history or review account identity publicly.</p>
   </main>;
 }
