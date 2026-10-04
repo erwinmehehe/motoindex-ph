@@ -199,6 +199,47 @@ export const comparisonEditorialBriefs: ComparisonEditorialBrief[] = [
     sections: ["Philippine price", "Engine displacement", "Power and torque", "Curb weight", "Seat height", "Fuel capacity", "Ground clearance", "Tires", "ABS and braking", "Touring specifications"],
     faqs: ["Which is cheaper, NX500 or Versys 650?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "Which has the larger engine?"]
   }
+
+  {
+    slug: "crf300l-vs-crf300-rally",
+    primaryKeyword: "Honda CRF300L vs CRF300 Rally",
+    intent: "Honda dual-sport buyer choosing between the lighter CRF300L and the larger-tank Rally version.",
+    h1: "Honda CRF300L vs CRF300 Rally: Price, Weight and Specs",
+    opening: "The CRF300L and CRF300 Rally share the same 286cc engine family, but their current Philippine records differ in price, curb weight, seat height, ground clearance and fuel capacity. This comparison keeps those measurable differences separate from subjective styling or adventure claims.",
+    sections: ["Philippine price", "Engine and output", "Curb weight", "Seat height", "Ground clearance", "Fuel tank and range context", "Wheel and tire setup", "ABS and braking", "Which is lighter for trail use?", "Which has more range headroom?"],
+    faqs: ["Which is cheaper, CRF300L or CRF300 Rally?", "Do CRF300L and CRF300 Rally use the same engine size?", "Which is lighter?", "Which has the lower seat?", "Which has more ground clearance?", "Which has the larger fuel tank?"],
+    related: [{ href: "/recommendations/dual-sport-motorcycles-philippines", label: "Compare dual-sport motorcycles →" }]
+  },
+  {
+    slug: "crf300l-vs-klx230",
+    primaryKeyword: "CRF300L vs KLX230",
+    intent: "Philippine dual-sport buyer comparing two current road-and-trail motorcycles.",
+    h1: "Honda CRF300L vs Kawasaki KLX230: Price and Specs",
+    opening: "The Honda CRF300L and Kawasaki KLX230 are both current dual-sport choices, but they differ in price, displacement, published output, curb weight, seat height, ground clearance and fuel capacity. Both use 21/18-inch wheel layouts, so the useful differences come from the rest of the specification and ownership picture.",
+    sections: ["Philippine price", "Engine displacement", "Power and torque", "Curb weight", "Seat height", "Ground clearance", "Fuel capacity", "21/18-inch wheel setup", "Braking equipment", "Which is lighter?", "Which has more clearance?"],
+    faqs: ["Which is cheaper, CRF300L or KLX230?", "Which has the larger engine?", "Which is lighter?", "Which has the lower seat?", "Which has more ground clearance?", "Do both use 21/18-inch wheels?"],
+    related: [{ href: "/compare/crf300l-vs-crf300-rally", label: "Compare CRF300L vs CRF300 Rally →" }]
+  },
+  {
+    slug: "ninja-500-vs-z500",
+    primaryKeyword: "Ninja 500 vs Z500",
+    intent: "Kawasaki buyer choosing between the current 451cc faired sport and naked-bike siblings.",
+    h1: "Kawasaki Ninja 500 vs Z500: Price, Weight and Specs",
+    opening: "The Ninja 500 and Z500 share Kawasaki's 451cc platform, so this comparison focuses on their current Philippine prices, curb weight, seat height, fuel capacity, tires and braking rather than treating engine displacement as the deciding factor.",
+    sections: ["Philippine price", "Shared 451cc engine context", "Curb weight", "Seat height", "Fuel capacity", "Tires", "ABS and braking", "Faired sport vs naked format", "Which is lighter?", "Which costs less?"],
+    faqs: ["Which is cheaper, Ninja 500 or Z500?", "Do Ninja 500 and Z500 use the same engine size?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "How do their braking packages compare?"]
+  },
+  {
+    slug: "cb650r-vs-z650",
+    primaryKeyword: "CB650R vs Z650",
+    intent: "Middleweight naked-bike buyer comparing Honda's inline-four with Kawasaki's parallel twin.",
+    h1: "Honda CB650R vs Kawasaki Z650: Price, Power and Specs",
+    opening: "The Honda CB650R and Kawasaki Z650 sit in the same broad middleweight naked-bike market but use very different engine layouts. Compare their current Philippine price references, published output, curb weight, seat height, fuel capacity, tires and braking before deciding which package better matches your priorities.",
+    sections: ["Philippine price", "Engine layout and displacement", "Horsepower and torque", "Curb weight", "Seat height", "Fuel tank", "Tires", "ABS and braking", "Power-to-weight context", "Which is lighter?", "Which makes more power on paper?"],
+    faqs: ["Which is cheaper, CB650R or Z650?", "Which makes more horsepower?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "How do their engine layouts differ?"],
+    related: [{ href: "/compare/mt-07-vs-cb650r", label: "Compare MT-07 vs CB650R →" }, { href: "/compare/mt-07-vs-z650", label: "Compare MT-07 vs Z650 →" }]
+  },
+
 ];
 
 export const pendingComparisonEditorialBriefs: ComparisonEditorialBrief[] = [
