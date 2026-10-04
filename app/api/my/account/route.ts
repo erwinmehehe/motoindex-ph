@@ -12,9 +12,9 @@ export async function DELETE(request: Request) {
   const session = await getOwnerSession();
   if (!session) return NextResponse.json({ ok: false, error: "Sign in to delete your account." }, { status: 401, headers });
   await prisma.$transaction(async tx => {
-    await tx.priceAlertSubscription.updateMany({ where: { ownerId: session.ownerId }, data: { ownerId: null } });
-    await tx.dealerLead.updateMany({ where: { ownerId: session.ownerId }, data: { ownerId: null } });
-    await tx.usedListing.updateMany({ where: { ownerId: session.ownerId }, data: { ownerId: null } });
+    await tx.priceAlertSubscription.deleteMany({ where: { ownerId: session.ownerId } });
+    await tx.dealerLead.deleteMany({ where: { ownerId: session.ownerId } });
+    await tx.usedListing.deleteMany({ where: { ownerId: session.ownerId } });
     await tx.ownerAccount.delete({ where: { id: session.ownerId } });
   });
   const response = NextResponse.json({ ok: true }, { headers });
