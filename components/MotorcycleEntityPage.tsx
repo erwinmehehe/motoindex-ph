@@ -62,6 +62,9 @@ import { specsIntentLandingProfile } from "@/lib/modelSpecsLandingPages";
 import { fuelConsumptionLandingProfile } from "@/lib/modelFuelConsumptionLandingPages";
 import { weightIntentLandingProfile } from "@/lib/modelWeightLandingPages";
 import { seatHeightIntentLandingProfile } from "@/lib/modelSeatHeightLandingPages";
+import { databaseConfigured } from "@/lib/db";
+import { getVerifiedOffers } from "@/lib/persistentOffers";
+import { LiveDealerInventory } from "@/components/LiveDealerInventory";
 
 const MOTORCYCLE_ANALYTICS_CSS = `
 .motorcycle-analytics-panel{margin:28px 0 18px;padding:34px;border:1px solid rgba(62,82,69,.16);border-radius:16px;background:#fff;box-shadow:0 18px 48px rgba(24,45,32,.055)}
@@ -85,7 +88,8 @@ function AnalyticsMetric({ id, label, value, unit, note, fill, featured = false 
 }
 
 
-export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
+export async function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
+  const currentOffers = databaseConfigured() ? await getVerifiedOffers({entityType:"motorcycle",entityId:model.id}).catch(()=>[]) : [];
   const isPrevious = model.marketStatus === "previous";
   const isDiscontinued = model.marketStatus === "discontinued";
   const isHistorical = isPrevious || isDiscontinued;
@@ -276,6 +280,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         </div>}
         {!isHistorical && <PriceIntelligence model={model} />}
         {!isHistorical && <MarketPriceChecks model={model} />}
+        {!isHistorical && <LiveDealerInventory model={model} offers={currentOffers} />}
       </section>
 
       <section className="motorcycle-entity-section global-spec-intent" aria-labelledby="quick-specs-heading">
