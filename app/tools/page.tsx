@@ -43,7 +43,7 @@ export default function ToolsPage() {
       <SectionHeader
         kicker="Most useful first"
         title="Purchase and ownership calculators"
-        description="These tools cover buying, resale and ownership decisions with editable assumptions and source-backed market context."
+        description="These tools cover buying, resale and ownership decisions with editable assumptions and current market context."
       />
       <div className={styles.decisionList}>
         {coreTools.map(item=><Link className={styles.decisionRow} href={item.href} key={item.href}>
