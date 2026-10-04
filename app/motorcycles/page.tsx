@@ -155,6 +155,7 @@ export default function MotorcyclesPage() {
             <Link className="button secondary" href="/motorcycles/skygo">Skygo motorcycles</Link>
             <Link className="button secondary" href="/motorcycles/nwow">NWOW e-bikes</Link>
             <Link className="button secondary" href="/motorcycles/harley-davidson">Harley-Davidson</Link>
+            <Link className="button secondary" href="/motorcycles/voge">VOGE motorcycles</Link>
           </CTAGroup>
         </section>
 
