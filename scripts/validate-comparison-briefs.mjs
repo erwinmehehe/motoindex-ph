@@ -10,7 +10,7 @@ const required=[
   'aerox-vs-nmax','aerox-v3-vs-nmax-v3','adv-160-vs-pcx-160','click-160-vs-aerox-v3',
   'raider-r150-vs-sniper-155','click-125i-vs-mio-gear','click-125i-vs-burgman-street',
   'adv-160-vs-nmax-v3','adv-160-vs-aerox-v3','fazzio-vs-giorno-plus','tmx125-alpha-vs-ytx-125',
-  'ninja-500-vs-450sr'
+  'ninja-500-vs-450sr','click-125i-vs-fazzio','pcx-160-vs-aerox-v3','tmax-vs-xmax','z900-vs-cb650r'
 ];
 const errors=[];
 for(const slug of required){
