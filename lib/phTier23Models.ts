@@ -13,6 +13,7 @@ import { zigwheelsGapWave5_2026 } from "./zigwheelsGapWave5_2026";
 import { zigwheelsGapWave6_2026 } from "./zigwheelsGapWave6_2026";
 import { zigwheelsGapWave7_2026 } from "./zigwheelsGapWave7_2026";
 import { harleyDavidsonGapExpansion2026 } from "./harleyDavidsonGapExpansion2026";
+import { heroGapExpansion2026 } from "./heroGapExpansion2026";
 
 export const phTier23Motorcycles = [
   ...baseMotorcycles,
@@ -30,4 +31,5 @@ export const phTier23Motorcycles = [
   ...zigwheelsGapWave6_2026,
   ...zigwheelsGapWave7_2026,
   ...harleyDavidsonGapExpansion2026,
+  ...heroGapExpansion2026,
 ];
