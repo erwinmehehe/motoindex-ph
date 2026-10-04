@@ -63,7 +63,7 @@ function adjustedComparablePrice(listing:PublicUsedListing,input:UsedValuationIn
   const mileageRate=price*.03/10_000;
   const mileageAmount=Math.max(-price*.18,Math.min(price*.18,mileageDifference*mileageRate));
   const conditionAmount=conditionAdjustment(price,input.condition,listing.condition);
-  const regionAmount=sameRegion(input.location,listing.location)?price*regionFactor:0;
+  const regionAmount=regionFactor&&input.location&&!sameRegion(input.location,listing.location)?price*regionFactor:0;
   return {id:listing.id,value:Math.max(price*.55,Math.min(price*1.55,price+yearAmount+mileageAmount+conditionAmount+regionAmount))};
 }
 function fallbackValue(input:UsedValuationInput){
