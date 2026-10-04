@@ -2195,9 +2195,9 @@ export const recommendationGuides: RecommendationGuide[] = [
     seoTitle: "Cafe Racer Motorcycles Philippines: Prices & Specs 2026",
     description: "Compare cafe-racer and modern-classic motorcycles in the Philippines by published price, engine, weight, seat height, ABS and fuel-tank capacity.",
     primaryKeyword: "cafe racer motorcycles Philippines",
-    secondaryKeywords: ["cafe racer Philippines price", "classic motorcycle Philippines", "retro motorcycle Philippines", "modern classic motorcycles Philippines"],
-    directAnswer: "This guide brings together current cafe-racer, modern-classic and closely related classic-road motorcycle records while keeping the exact category label visible for each model.",
-    inclusionRules: ["Category is cafe racer, modern classic or classic road bike", "Current Philippine-market motorcycle"],
+    secondaryKeywords: ["cafe racer Philippines price", "cafe racer motorcycle price Philippines", "best cafe racer Philippines", "cafe racer 150 Philippines"],
+    directAnswer: "This guide focuses on cafe-racer and cafe-roadster motorcycles, with closely related modern-classic choices included only where the current model record supports that styling. A separate classic-motorcycle guide owns the broader retro and modern-classic search intent.",
+    inclusionRules: ["Category is cafe racer or cafe roadster, plus closely related modern classics", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest.",
     tieBreakers: ["Lower curb weight"],
     orderLabel: "Price order",
@@ -2211,6 +2211,51 @@ export const recommendationGuides: RecommendationGuide[] = [
     intent: "category"
   },
 
+
+  {
+    slug: "classic-motorcycles-philippines",
+    kicker: "Classic motorcycles",
+    title: "Classic motorcycles in the Philippines",
+    seoTitle: "Classic Motorcycles Philippines 2026: Prices & Models",
+    description: "Compare classic, modern-classic and retro road motorcycles in the Philippines by price, engine, weight, seat height, power and ABS.",
+    primaryKeyword: "classic motorcycle Philippines",
+    secondaryKeywords: ["classic motorcycles Philippines", "classic motorcycle price Philippines", "retro motorcycle Philippines", "modern classic motorcycle Philippines", "honda classic motorcycle", "yamaha classic motorcycle"],
+    directAnswer: "This guide compares current classic-road, modern-classic and retro-roadster motorcycles sold or tracked in the Philippine market. It separates the broad classic-motorcycle intent from the narrower cafe-racer style while keeping exact model categories visible.",
+    inclusionRules: ["Category is classic road bike, modern classic or retro roadster", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Prices and specifications come from each model's dated model-specific record. Classic and retro labels follow the stored category rather than being assigned from appearance alone.",
+    caveats: ["Classic styling does not mean old technology or identical ergonomics.", "Some retro roadsters overlap with naked-bike or cafe-racer use cases.", "Check the exact model's parts support, rider fit and braking equipment before buying by style alone."],
+    tableColumns: ["price","engine","power","weight","seat","abs","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced classic motorcycles", "Modern classic vs retro roadster", "Lighter classic motorcycles", "Lower-seat classic choices", "What to compare beyond styling"],
+    faqQuestions: ["What classic motorcycles are available in the Philippines?", "Which classic motorcycle has the lowest published price?", "Which classic motorcycle is lightest?", "Which classic motorcycle has the lowest seat?", "What is the difference between a classic motorcycle and a cafe racer?"],
+    relatedGuideSlugs: ["cafe-racer-motorcycles-philippines","naked-motorcycles-philippines","scrambler-motorcycles-philippines","motorcycles-under-400cc-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "scrambler-motorcycles-philippines",
+    kicker: "Scrambler motorcycles",
+    title: "Scrambler motorcycles in the Philippines",
+    seoTitle: "Scrambler Motorcycles Philippines 2026: Prices & Models",
+    description: "Compare current scrambler motorcycles in the Philippines by price, engine, power, weight, seat height, clearance, ABS and fuel capacity.",
+    primaryKeyword: "scrambler motorcycle",
+    secondaryKeywords: ["scrambler motorcycle Philippines", "scrambler motorcycle price Philippines", "best scrambler Philippines", "scrambler bike Philippines"],
+    directAnswer: "This guide compares current motorcycles explicitly recorded as scramblers or scrambler-style utility motorcycles, including models from Triumph, Husqvarna, Royal Enfield and Yamaha where the stored category supports the match.",
+    inclusionRules: ["Category contains scrambler", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Higher ground clearance"],
+    orderLabel: "Price order",
+    sourcePolicy: "Price and specifications stay tied to each canonical model record. The page includes only models whose stored category explicitly contains scrambler.",
+    caveats: ["Scrambler styling does not guarantee off-road capability.", "Tire choice, suspension travel, ground clearance and weight matter more than styling for rough-road use.", "Verify exact trim and ABS behavior before planning unpaved riding."],
+    tableColumns: ["price","engine","power","weight","seat","clearance","abs","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest engine",metric:"engine"}],
+    editorialSections: ["Lowest-priced scrambler motorcycles", "Lighter scrambler choices", "Seat-height differences", "Ground-clearance and road-use differences", "What to compare beyond scrambler styling"],
+    faqQuestions: ["What scrambler motorcycles are available in the Philippines?", "Which scrambler motorcycle has the lowest published price?", "Which scrambler is lightest?", "Which scrambler has the lowest seat?", "Are scrambler motorcycles good off road?"],
+    relatedGuideSlugs: ["classic-motorcycles-philippines","cafe-racer-motorcycles-philippines","dual-sport-motorcycles-philippines","adventure-touring-motorcycles-philippines"],
+    intent: "category"
+  },
 
   {
     slug: "125cc-motorcycles-philippines",
@@ -2593,7 +2638,9 @@ export function getRecommendationModels(slug: string) {
     case "yamaha-mio-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "yamaha" && /mio|aerox|fazzio/i.test(m.model));
     case "kawasaki-ninja-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "kawasaki" && /^ninja\b/i.test(m.model));
     case "honda-adv-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "honda" && /adv/i.test(m.model));
-    case "cafe-racer-motorcycles-philippines": return byPrice.filter(m => /cafe racer|modern classic|classic road bike/i.test(m.category));
+    case "cafe-racer-motorcycles-philippines": return byPrice.filter(m => /cafe racer|cafe roadster|modern classic/i.test(m.category));
+    case "classic-motorcycles-philippines": return byPrice.filter(m => /classic road bike|modern classic|retro roadster/i.test(m.category));
+    case "scrambler-motorcycles-philippines": return byPrice.filter(m => /scrambler/i.test(m.category));
     case "125cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 115 && m.engineCc <= 130);
     case "motorcycles-below-150cc-philippines": return byPrice.filter(m => m.engineCc < 150);
     case "business-motorcycles-philippines": return byPrice.filter(m => /^Business motorcycle$/i.test(m.category));
