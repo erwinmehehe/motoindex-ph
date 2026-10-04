@@ -271,6 +271,10 @@ model SellerOffer {
   verifiedAt     DateTime?
   publicationSource String @default("reviewed_ingestion")
   dealerPublishedAt DateTime?
+  variantLabel   String?
+  colorLabel     String?
+  promoLabel     String?
+  expiresAt      DateTime?
   targetUrl      String?
   affiliateUrl   String?
   observations   OfferPriceObservation[]
