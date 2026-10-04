@@ -44,6 +44,7 @@ export default async function MyMotoIndexPage() {
   const garage = snapshot ? parseGarageState(JSON.stringify(snapshot.payload)) : null;
   const shortlist = shortlistRows.map(row => getModelById(row.modelId)).filter((model): model is NonNullable<ReturnType<typeof getModelById>> => Boolean(model));
   const quoteCount = leads.reduce((count, lead) => count + lead.deliveries.filter(delivery => Boolean(delivery.quoteResponse) && delivery.status !== "cancelled").length, 0);
+  const recentOwnership = garage ? [...garage.records].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 6) : [];
   const upcoming = reminders.filter(item => item.dueDate ? dueSoon(item.dueDate) : item.dueKm !== null && item.currentOdometerKm !== null && item.dueKm - item.currentOdometerKm <= 1000).slice(0, 5);
   const nextActions = [
     !garage?.motorcycles.length ? { title: "Add your motorcycle", copy: "Start an ownership record for reminders, costs and resale history.", href: "/garage", cta: "Open Garage" } : null,
@@ -85,6 +86,11 @@ export default async function MyMotoIndexPage() {
     </section>
 
     <section className="info-card">
+      <div className="section-head compact"><div><span className="field-label">Recent ownership activity</span><h2>What changed in your Garage</h2><p>Recent fuel, service, odometer and ownership records from the latest cloud copy.</p></div><Link className="button small ghost" href="/garage">Open history</Link></div>
+      {recentOwnership.length ? <div className="my-list">{recentOwnership.map(record => <div className="my-list-row" key={record.id}><span><strong>{record.title}</strong><small>{record.date} · {record.category}{record.odometerKm !== undefined ? ` · ${record.odometerKm.toLocaleString()} km` : ""}</small></span>{record.amountPhp !== undefined ? <strong>₱{record.amountPhp.toLocaleString("en-PH")}</strong> : <span>Logged</span>}</div>)}</div> : <p className="muted-note">No ownership activity has been cloud-synced yet.</p>}
+    </section>
+
+    <section className="info-card">
       <div className="section-head compact"><div><span className="field-label">Shortlist</span><h2>Motorcycles you are considering</h2><p>When signed in, your browser shortlist is merged into this account list while anonymous browsing continues to use local storage.</p></div><Link className="button small ghost" href="/shortlist">Open shortlist</Link></div>
       {shortlist.length ? <div className="my-list">{shortlist.map(model => <div className="my-list-row" key={model.id}><span><strong>{model.make} {model.model}</strong><small>{model.category} · from ₱{model.srp.toLocaleString("en-PH")}</small></span><Link href={`/motorcycles/${model.makeSlug}/${model.slug}`}>Research</Link></div>)}</div> : <p className="muted-note">Your account shortlist is empty. Saved browser motorcycles will merge here automatically on this page.</p>}
     </section>
@@ -93,7 +99,7 @@ export default async function MyMotoIndexPage() {
       <div className="section-head compact"><div><span className="field-label">Shopping activity</span><h2>Alerts and dealer quote requests</h2></div></div>
       <div className="my-commerce-grid">
         <div><h3>Active price alerts</h3>{alerts.length ? alerts.slice(0, 6).map(alert => { const model = getModelById(alert.entityId); return <p key={alert.id}><strong>{model ? `${model.make} ${model.model}` : alert.entityId}</strong><br/><small>{alert.status} · target ₱{Number(alert.targetPricePhp).toLocaleString("en-PH")}</small></p>; }) : <p className="muted-note">No account-linked alerts yet.</p>}</div>
-        <div><h3>Dealer requests</h3>{leads.length ? leads.slice(0, 6).map(lead => { const quotes = lead.deliveries.filter(delivery => Boolean(delivery.quoteResponse) && delivery.status !== "cancelled"); return <p key={lead.id}><strong>{lead.make} {lead.model}</strong><br/><small>{lead.status} · {quotes.length} quote{quotes.length === 1 ? "" : "s"} received</small></p>; }) : <p className="muted-note">No account-linked quote requests yet.</p>}</div>
+        <div><h3>Dealer requests</h3>{leads.length ? leads.slice(0, 6).map(lead => { const quotes = lead.deliveries.filter(delivery => Boolean(delivery.quoteResponse) && delivery.status !== "cancelled"); return <div className="my-quote-request" key={lead.id}><p><strong>{lead.make} {lead.model}</strong><br/><small>{lead.status} · {quotes.length} quote{quotes.length === 1 ? "" : "s"} received · {lead.cityProvince}</small></p>{quotes.map(delivery => { const quote = delivery.quoteResponse!; return <div className="my-quote-summary" key={delivery.id}><span><strong>{delivery.sellerName}</strong><small>{quote.availability}{quote.validUntil ? ` · valid until ${quote.validUntil.toISOString().slice(0,10)}` : ""}</small></span><strong>{quote.cashPricePhp ? `₱${Number(quote.cashPricePhp).toLocaleString("en-PH")}` : quote.monthlyPhp ? `₱${Number(quote.monthlyPhp).toLocaleString("en-PH")}/mo` : "Quote received"}</strong></div>; })}</div>; }) : <p className="muted-note">No account-linked quote requests yet.</p>}</div>
       </div>
     </section>
 
