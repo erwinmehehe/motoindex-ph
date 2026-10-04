@@ -20,9 +20,10 @@ export const kawasakiBigBikeExpansion2026: Motorcycle[] = [
   {
     id: "kawasaki-z900", make: "Kawasaki", makeSlug: "kawasaki", model: "Z900", slug: "z900", generation: "Current Philippine standard model", category: "Naked street bike",
     srp: 566500, engineCc: 948, powerHp: 123.64, torqueNm: 98.6, curbWeightKg: 212, seatHeightMm: 810, fuelTankL: 17, groundClearanceMm: 145,
-    frontTire: "120/70 ZR17", rearTire: "180/55 ZR17", abs: "ABS with Kawasaki Traction Control (KTRC)", colors: [], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Kawasaki current Z900 technical specification", sourceUrl: "https://www.kawasaki.com/en-us/motorcycle/z/supernaked/z900/2026-z900-abs", verifiedAt: "2026-09-20", freshness: "verified", marketStatus: "current", transmission: "Manual",
-    marketPriceSourceLabel: "Kawasaki Philippines current Z900 Standard MSRP", marketPriceSourceUrl: "https://kawasakileisurebikes.ph/motorcycles/sports/z900-standard/", marketPriceCheckedAt: "2026-09-20",
+    frontTire: "120/70 ZR17", rearTire: "180/55 ZR17", abs: "ABS with Kawasaki Traction Control (KTRC)", colors: [], searchVolume: 1000, keywordDifficulty: 4,
+    sourceLabel: "Kawasaki current Z900 technical specification", sourceUrl: "https://www.kawasaki.com/en-us/motorcycle/z/supernaked/z900/2026-z900-abs", verifiedAt: "2026-10-04", freshness: "verified", marketStatus: "current", transmission: "Manual",
+    marketPriceSourceLabel: "Kawasaki Philippines current Z900 Standard MSRP", marketPriceSourceUrl: "https://kawasakileisurebikes.ph/motorcycles/sports/z900-standard/", marketPriceCheckedAt: "2026-10-04",
+    priceContext: "Kawasaki Leisure Bikes Philippines currently lists the Z900 Standard at ₱566,500 MSRP, excluding freight and other charges. Confirm the exact dealer quote and unit specification before purchase.",
     summary: "948cc inline-four naked bike with 123.64 hp, 98.6 Nm, an 810 mm seat, 17 L tank and six-speed manual transmission."
   },
   {
