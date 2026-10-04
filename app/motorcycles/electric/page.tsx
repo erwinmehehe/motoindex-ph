@@ -60,6 +60,7 @@ export default function ElectricMotorcyclesPage() {
     ]} />
 
     <nav className="product-entity-nav" aria-label="Electric motorcycle guide sections">
+      <a href="#best">Best picks</a>
       <a href="#models">Models</a>
       <a href="#battery-price">Battery & price</a>
       <a href="#range">Range</a>
@@ -70,6 +71,16 @@ export default function ElectricMotorcyclesPage() {
       <a href="#tools">Tools</a>
       <a href="#faq">FAQ</a>
     </nav>
+
+    <section id="best" className="motorcycle-entity-section">
+      <div className="section-head compact"><div><span className="section-kicker">Best electric scooters by measurable priority</span><h2>Best electric scooters in the Philippines for price, range and speed</h2><p>There is no single best electric scooter for every rider. MotoIndex separates the current verified models by measurable priorities so the recommendation stays tied to price, claimed range and published maximum speed.</p></div></div>
+      <div className="topic-grid">
+        <article><span className="section-kicker">Lowest starting price</span><h3>${byPrice[0].make} ${byPrice[0].model}</h3><p><strong>${php(byPrice[0].priceFromPhp)}</strong> published starting price. Best starting point when upfront vehicle price matters most, but compare the battery arrangement before assuming it is the lowest total-cost setup.</p><Link href={electricModelHref(byPrice[0].slug)}>Open model research →</Link></article>
+        <article><span className="section-kicker">Longest two-battery claim</span><h3>${byRange[0].make} ${byRange[0].model}</h3><p><strong>${byRange[0].rangeTwoKm} km</strong> manufacturer two-battery range claim, the highest in the current verified set. Use a reserve below the claimed figure for real route planning.</p><Link href={electricModelHref(byRange[0].slug)}>Open model research →</Link></article>
+        <article><span className="section-kicker">Highest published speed</span><h3>${bySpeed[0].make} ${bySpeed[0].model}</h3><p><strong>${bySpeed[0].topSpeedKph} km/h</strong> listed maximum speed, the highest in the current verified set. Speed does not replace range, charging and rider-fit checks.</p><Link href={electricModelHref(bySpeed[0].slug)}>Open model research →</Link></article>
+      </div>
+      <div className="note-box"><h3>How MotoIndex uses “best”</h3><p>These are category leaders on one published metric, not overall winners. Battery ownership terms, real-world range, service support, registration, rider fit and charging access still matter.</p></div>
+    </section>
 
     <section id="models" className="motorcycle-entity-section">
       <div className="section-head compact"><div><span className="section-kicker">Current models</span><h2>Electric motorcycle and electric scooter prices in the Philippines</h2><p>These road-going electric scooters are tracked as L3 electric motorcycles, with Philippine price, battery, range, charging and LTO-classification evidence in the current MotoIndex data.</p></div></div>
