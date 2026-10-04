@@ -12,6 +12,7 @@ import { absoluteUrl } from "@/lib/site";
 import { ModelFamilyGuide } from "@/components/ModelFamilyGuide";
 import { AuthorBox } from "@/components/AuthorBox";
 import { authorPersonSchema } from "@/lib/author";
+import { GenerationChangeTracker } from "@/components/GenerationChangeTracker";
 
 export function ModelFamilyView({ family }: { family: ModelFamily }) {
   const models = getFamilyModels(family);
@@ -129,6 +130,7 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
       <nav className="model-family-nav" aria-label={`${family.make} ${family.name} page sections`}>
         <a href="#generations">Generations</a>
         <a href="#quick-compare">Quick compare</a>
+        <a href="#change-tracker">Change tracker</a>
         {family.nicknames && <a href="#names">Naming guide</a>}
         <a href="#buying-guide">Buying guide</a>
         <a href="#faq">FAQ</a>
@@ -185,6 +187,10 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
             <strong aria-hidden="true">→</strong>
           </Link>)}
         </div>
+      </section>
+
+      <section id="change-tracker" className="model-family-section">
+        <GenerationChangeTracker family={family} compact />
       </section>
 
       {family.nicknames && <section id="names" className="model-family-section model-family-nickname-section">
