@@ -637,7 +637,7 @@ export const motorcycles: Motorcycle[] = [
     id: "suzuki-burgman-street-ex", make: "Suzuki", makeSlug: "suzuki", model: "Burgman Street EX", slug: "burgman-street-ex", generation: "Current", category: "Premium scooter",
     marketStatus: "current",
     srp: 93400, engineCc: 124, powerHp: 8.6, torqueNm: 10.0, curbWeightKg: 112, seatHeightMm: 780, fuelTankL: 5.5,
-    frontTire: "90/90-12", rearTire: "100/80-12", abs: "No ABS", colors: ["Black", "Gray"], searchVolume: 0, keywordDifficulty: 0,
+    frontTire: "90/90-12", rearTire: "100/80-12", abs: "No ABS", colors: ["Black", "Gray"], searchVolume: 5900, keywordDifficulty: 0,
     sourceLabel: "Suzuki Motorcycles Philippines current Burgman Street 125 EX product reference", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/burgman-street-125-ex/", verifiedAt: "2026-10-03", freshness: "verified",
     marketPriceSourceLabel: "Suzuki Motorcycles Philippines",
     marketPriceSourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/burgman-street-125-ex/",
