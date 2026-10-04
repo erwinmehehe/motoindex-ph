@@ -15,9 +15,21 @@ import { pageMetadata } from "@/lib/site";
 
 const DEFAULT_GUIDE_IMAGE = "/brand/motoindex-og.png";
 
-const guideResearchLinks = [
+const helmetResearchLinks = [
   { href: "/gear/helmets/finder", title: "Find helmets by fit and budget", description: "Use the Helmet Finder after checking size and certification." },
   { href: "/gear/helmets", title: "Browse checked helmet models", description: "Move from general guidance to model-level size and certification records." },
+  { href: "/methodology", title: "See how MotoIndex verifies claims", description: "Review the source, freshness and correction rules behind the research." }
+];
+
+const motorcycleResearchLinks = [
+  { href: "/motorcycles", title: "Browse motorcycle research", description: "Move from a broad guide into current model, price and specification records." },
+  { href: "/recommendations", title: "Compare buying guides", description: "Narrow the market by budget, category, engine class, fit or use case." },
+  { href: "/methodology", title: "See how MotoIndex verifies claims", description: "Review the source, freshness and correction rules behind the research." }
+];
+
+const electricResearchLinks = [
+  { href: "/motorcycles/electric", title: "Browse electric motorcycle research", description: "Compare current electric mobility research, model context and ownership considerations." },
+  { href: "/tools/electric-motorcycle-charging-cost", title: "Estimate charging cost", description: "Model electricity cost using your own charging assumptions." },
   { href: "/methodology", title: "See how MotoIndex verifies claims", description: "Review the source, freshness and correction rules behind the research." }
 ];
 
@@ -49,6 +61,11 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
   if (!guide) return notFound();
   const guideMedia = getEditorialGuideMedia(guide.slug);
   const schemaImage = guideMedia?.image ?? DEFAULT_GUIDE_IMAGE;
+  const guideResearchLinks = /helmet/i.test(guide.slug)
+    ? helmetResearchLinks
+    : /nwow|electric|e-bike/i.test(guide.slug)
+      ? electricResearchLinks
+      : motorcycleResearchLinks;
   const schema = articleSchema({
     headline: guide.title,
     description: guide.description,
@@ -82,7 +99,7 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
       <div>
         <span className="section-kicker">At a glance</span>
         <h2 id="guide-at-a-glance">Use the guide as a verification checklist</h2>
-        <p>Start with the buyer decision, then confirm the exact helmet model and the current source before purchasing. MotoIndex keeps the source links beside the guidance so changing fit or compliance details can be checked directly.</p>
+        <p>Start with the buyer decision, then confirm the exact model, product or rule against the current source before acting. MotoIndex keeps source links beside the guidance so changing prices, specifications, availability and requirements can be checked directly.</p>
       </div>
       <div className="info-card">
         <h3>Quick verification path</h3>
@@ -96,7 +113,7 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
     </section>)}
 
     <section className="section" aria-labelledby="guide-research-tools">
-      <div className="section-head compact"><div><h2 id="guide-research-tools">Put this guide to work</h2><p>Continue from general guidance into model-level research without creating another thin search page.</p></div></div>
+      <div className="section-head compact"><div><h2 id="guide-research-tools">Put this guide to work</h2><p>Continue from general guidance into model-level research, comparison and verification without creating another thin search page.</p></div></div>
       <div className="guide-strip">{guideResearchLinks.map((item) => <Link href={item.href} key={item.href}><strong>{item.title}</strong><small>{item.description}</small></Link>)}</div>
     </section>
 

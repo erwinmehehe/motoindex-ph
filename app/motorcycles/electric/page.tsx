@@ -11,7 +11,7 @@ import { CTAGroup, PageHero, StatRow } from "@/components/ui";
 
 export const metadata: Metadata = pageMetadata({
   title: "Electric Scooters Philippines 2026 | Prices, Range & LTO",
-  description: "Compare current electric scooters in the Philippines by price, battery options, claimed range, charging time, LTO classification, ownership costs and buyer fit.",
+  description: "Compare the best-researched electric scooters in the Philippines by price, battery, range, charging time, LTO classification and ownership costs.",
   path: "/motorcycles/electric"
 });
 
@@ -26,7 +26,7 @@ export default function ElectricMotorcyclesPage() {
     description:"One guide to Philippine electric motorcycles covering models, prices, battery options, claimed range, charging, registration, classification and ownership trade-offs.",
     path:"/motorcycles/electric",
     about:"electric motorcycles Philippines",
-    keywords:["electric scooter Philippines","electric scooters Philippines","best electric scooters Philippines","electric motorcycle Philippines","electric scooter price Philippines","electric motorcycle price Philippines","electric motorcycle registration Philippines","e-bike vs motorcycle Philippines"],
+    keywords:["best electric scooters","best electric scooters Philippines","electric scooter Philippines","electric scooters Philippines","e bike price","electric motorcycle Philippines","electric scooter price Philippines","electric motorcycle price Philippines","electric motorcycle registration Philippines","e-bike vs motorcycle Philippines"],
     checkedDates
   });
 
@@ -48,7 +48,7 @@ export default function ElectricMotorcyclesPage() {
     <PageHero
       kicker="Electric motorcycle buying guide"
       title="Electric motorcycles and scooters in the Philippines"
-      description="Compare current verified Philippine electric scooters by price, battery setup, claimed range, charging time, LTO classification and ownership trade-offs."
+      description="Compare current verified Philippine electric scooters by price, battery setup, claimed range, charging time, LTO classification and ownership trade-offs. “Best” here means best matched to your use, not a universal ranking."
       actions={<CTAGroup><a className="button" href="#models">Compare electric models</a><Link className="button secondary" href="/tools/electric-motorcycle-charging-cost">Calculate charging cost</Link></CTAGroup>}
     />
 
@@ -60,6 +60,7 @@ export default function ElectricMotorcyclesPage() {
     ]} />
 
     <nav className="product-entity-nav" aria-label="Electric motorcycle guide sections">
+      <a href="#best">Best picks</a>
       <a href="#models">Models</a>
       <a href="#battery-price">Battery & price</a>
       <a href="#range">Range</a>
@@ -70,6 +71,16 @@ export default function ElectricMotorcyclesPage() {
       <a href="#tools">Tools</a>
       <a href="#faq">FAQ</a>
     </nav>
+
+    <section id="best" className="motorcycle-entity-section">
+      <div className="section-head compact"><div><span className="section-kicker">Best electric scooters by measurable priority</span><h2>Best electric scooters in the Philippines for price, range and speed</h2><p>There is no single best electric scooter for every rider. MotoIndex separates the current verified models by measurable priorities so the recommendation stays tied to price, claimed range and published maximum speed.</p></div></div>
+      <div className="topic-grid">
+        <article><span className="section-kicker">Lowest starting price</span><h3>{byPrice[0].make} {byPrice[0].model}</h3><p><strong>{php(byPrice[0].priceFromPhp)}</strong> published starting price. Best starting point when upfront vehicle price matters most, but compare the battery arrangement before assuming it is the lowest total-cost setup.</p><Link href={electricModelHref(byPrice[0].slug)}>Open model research →</Link></article>
+        <article><span className="section-kicker">Longest two-battery claim</span><h3>{byRange[0].make} {byRange[0].model}</h3><p><strong>{byRange[0].rangeTwoKm} km</strong> manufacturer two-battery range claim, the highest in the current verified set. Use a reserve below the claimed figure for real route planning.</p><Link href={electricModelHref(byRange[0].slug)}>Open model research →</Link></article>
+        <article><span className="section-kicker">Highest published speed</span><h3>{bySpeed[0].make} {bySpeed[0].model}</h3><p><strong>{bySpeed[0].topSpeedKph} km/h</strong> listed maximum speed, the highest in the current verified set. Speed does not replace range, charging and rider-fit checks.</p><Link href={electricModelHref(bySpeed[0].slug)}>Open model research →</Link></article>
+      </div>
+      <div className="note-box"><h3>How MotoIndex uses “best”</h3><p>These are category leaders on one published metric, not overall winners. Battery ownership terms, real-world range, service support, registration, rider fit and charging access still matter.</p></div>
+    </section>
 
     <section id="models" className="motorcycle-entity-section">
       <div className="section-head compact"><div><span className="section-kicker">Current models</span><h2>Electric motorcycle and electric scooter prices in the Philippines</h2><p>These road-going electric scooters are tracked as L3 electric motorcycles, with Philippine price, battery, range, charging and LTO-classification evidence in the current MotoIndex data.</p></div></div>
@@ -153,6 +164,15 @@ export default function ElectricMotorcyclesPage() {
         <Link href="/motorcycles/scooters"><span>Gas comparison</span><h3>Compare regular scooters</h3><p>See the scooter research hub and continue into current gasoline models by engine class, brand and use case.</p></Link>
         <Link href="/motorcycles"><span>Market comparison</span><h3>Browse current motorcycles</h3><p>Compare electric starting prices with the wider current Philippine motorcycle catalog and its price research tools.</p></Link>
         <Link href="/guides/electric-motorcycle-registration-philippines"><span>Registration guide</span><h3>Electric motorcycle registration</h3><p>Review Philippine registration and classification context before purchase.</p></Link>
+      </div>
+    </section>
+
+    <section className="motorcycle-entity-section" aria-labelledby="electric-brand-research">
+      <div className="section-head compact"><div><span className="section-kicker">More electric research</span><h2 id="electric-brand-research">Other electric scooter and e-bike brands searched in the Philippines</h2><p>These brands are also researched by Philippine buyers, but their vehicle formats and availability do not always match the L3 electric motorcycles in the comparison table above. Check each brand guide before treating them as direct substitutes.</p></div></div>
+      <div className="commute-tool-grid">
+        <Link href="/guides/tvs-motorcycle-philippines"><span>TVS</span><h3>TVS iQube and Ntorq status</h3><p>Check the current official TVS Philippines lineup, iQube price and whether Ntorq is locally listed.</p></Link>
+        <Link href="/guides/nwow-ebike-price-philippines"><span>NWOW</span><h3>NWOW e-bike prices</h3><p>Research current two-wheel and multi-wheel NWOW products without mixing their vehicle classifications.</p></Link>
+        <Link href="/guides/hatasu-ebike-price-philippines"><span>Hatasu</span><h3>Hatasu e-bike prices</h3><p>Compare current Philippine retail price references, battery context and ownership checks.</p></Link>
       </div>
     </section>
 

@@ -19,9 +19,9 @@ function artKind(slug: string, title: string): ArtKind {
   if (value.includes("long ride") || value.includes("touring") || value.includes("adventure") || value.includes("400cc")) return "touring";
   if (value.includes("underbone")) return "underbone";
   if (value.includes("dual-sport") || value.includes("dual sport") || value.includes("trail")) return "dual";
-  if (value.includes("ninja") || value.includes("sport motorcycle")) return "sport";
+  if (value.includes("ninja") || value.includes("r6") || value.includes("sport motorcycle")) return "sport";
   if (value.includes("cafe racer") || value.includes("classic") || value.includes("retro")) return "classic";
-  if (value.includes("scooter") || value.includes("mio")) return "scooter";
+  if (value.includes("scooter") || value.includes("mio") || value.includes("lambretta")) return "scooter";
   if (value.includes("100k") || value.includes("150k") || value.includes("budget") || value.includes("affordable")) return "budget";
   return "motorcycle";
 }

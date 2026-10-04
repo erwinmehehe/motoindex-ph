@@ -39,7 +39,7 @@ export default async function ModelColorsPage({ params }: { params: Promise<{ ma
   if (!profile || !isIndexableModel(model)) return notFound();
 
   const variants = getVerifiedVariantsForModel(model.id);
-  const allColors = [...new Set([...model.colors, ...variants.flatMap((variant) => variant.colors || [])])];
+  const allColors = [...new Set([...model.colors, ...(profile.colors || []), ...variants.flatMap((variant) => variant.colors || [])])];
   if (!allColors.length) return notFound();
 
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}/colors`;
@@ -124,7 +124,7 @@ export default async function ModelColorsPage({ params }: { params: Promise<{ ma
       { label: "Listed colors", value: String(allColors.length), note: "Current MotoIndex color coverage" },
       { label: "Verified variants", value: String(variants.length), note: variants.length > 1 ? "Check trim-specific paint mapping" : "Single/unsplit trim coverage" },
       { label: "Model status", value: model.marketStatus === "uncertain" ? "Availability to verify" : model.marketStatus === "previous" ? "Previous generation" : "Current", note: model.generation },
-      { label: "Color source check", value: model.verifiedAt, note: model.sourceLabel }
+      { label: "Color source check", value: profile.checkedAt || model.verifiedAt, note: profile.sourceLabel || model.sourceLabel }
     ]} />
 
     <section className="section" id="color-list" aria-labelledby="color-list-heading">
@@ -186,9 +186,9 @@ export default async function ModelColorsPage({ params }: { params: Promise<{ ma
       </div>
       <div className="info-card">
         <h3>Primary model reference</h3>
-        <p>{model.sourceLabel}</p>
-        <a className="text-link" href={model.sourceUrl} target="_blank" rel="noreferrer">Open source reference →</a>
-        <small>Checked {model.verifiedAt}</small>
+        <p>{profile.sourceLabel || model.sourceLabel}</p>
+        <a className="text-link" href={profile.sourceUrl || model.sourceUrl} target="_blank" rel="noreferrer">Open source reference →</a>
+        <small>Checked {profile.checkedAt || model.verifiedAt}</small>
       </div>
     </section>
 

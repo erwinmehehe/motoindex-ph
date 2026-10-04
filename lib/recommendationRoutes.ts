@@ -30,6 +30,8 @@ const recommendationSectionBySlug: Record<string, string> = {
   "sport-motorcycles-philippines": "categories",
   "motorcycles-under-400cc-philippines": "categories",
   "cafe-racer-motorcycles-philippines": "categories",
+  "classic-motorcycles-philippines": "categories",
+  "scrambler-motorcycles-philippines": "categories",
   "manual-motorcycles-philippines": "categories",
 
   "yamaha-scooters-philippines": "brands",
@@ -38,10 +40,14 @@ const recommendationSectionBySlug: Record<string, string> = {
   "yamaha-mio-motorcycles-philippines": "brands",
   "kawasaki-ninja-motorcycles-philippines": "brands",
   "honda-adv-motorcycles-philippines": "brands",
+  "honda-cbr-motorcycles-philippines": "brands",
   "suzuki-burgman-motorcycles-philippines": "brands",
   "suzuki-raider-motorcycles-philippines": "brands",
   "ktm-duke-motorcycles-philippines": "brands",
-  "cfmoto-sr-motorcycles-philippines": "brands"
+  "cfmoto-sr-motorcycles-philippines": "brands",
+  "honda-big-bikes-philippines": "brands",
+  "yamaha-big-bikes-philippines": "brands",
+  "kawasaki-big-bikes-philippines": "brands"
 };
 
 export function recommendationSectionForSlug(slug: string) {

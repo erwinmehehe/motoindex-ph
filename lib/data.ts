@@ -637,7 +637,7 @@ export const motorcycles: Motorcycle[] = [
     id: "suzuki-burgman-street-ex", make: "Suzuki", makeSlug: "suzuki", model: "Burgman Street EX", slug: "burgman-street-ex", generation: "Current", category: "Premium scooter",
     marketStatus: "current",
     srp: 93400, engineCc: 124, powerHp: 8.6, torqueNm: 10.0, curbWeightKg: 112, seatHeightMm: 780, fuelTankL: 5.5,
-    frontTire: "90/90-12", rearTire: "100/80-12", abs: "No ABS", colors: ["Black", "Gray"], searchVolume: 0, keywordDifficulty: 0,
+    frontTire: "90/90-12", rearTire: "100/80-12", abs: "No ABS", colors: ["Black", "Gray"], searchVolume: 5900, keywordDifficulty: 0,
     sourceLabel: "Suzuki Motorcycles Philippines current Burgman Street 125 EX product reference", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/burgman-street-125-ex/", verifiedAt: "2026-10-03", freshness: "verified",
     marketPriceSourceLabel: "Suzuki Motorcycles Philippines",
     marketPriceSourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/burgman-street-125-ex/",
@@ -1412,7 +1412,9 @@ export const comparisons: Comparison[] = [
   { slug: "mt-07-vs-z650", a: "yamaha-mt-07", b: "kawasaki-z650", summary: "Popular Japanese middleweight naked bikes compared by price, twin-cylinder output, weight, rider fit and fuel capacity" },
   { slug: "xsr700-vs-cb650r", a: "yamaha-xsr700", b: "honda-cb650r", summary: "Retro-styled Yamaha twin and Honda four-cylinder naked bike compared by price, power, weight, seat height and road specifications" },
   { slug: "ninja-500-vs-yzf-r3", a: "kawasaki-ninja-500", b: "yamaha-yzf-r3", summary: "Entry and mid-size Japanese sport bikes compared by Philippine price, output, weight, seat height and braking" },
-  { slug: "nx500-vs-versys-650", a: "honda-nx500-e-clutch", b: "kawasaki-versys-650", summary: "Adventure-touring motorcycles compared by price, engine size, weight, seat height, tank capacity and road-focused touring specifications" }
+  { slug: "nx500-vs-versys-650", a: "honda-nx500-e-clutch", b: "kawasaki-versys-650", summary: "Adventure-touring motorcycles compared by price, engine size, weight, seat height, tank capacity and road-focused touring specifications" },
+  { slug: "crf300l-vs-crf300-rally", a: "honda-crf300l", b: "honda-crf300-rally", summary: "Honda 286cc dual-sport models compared by price, weight, seat height, ground clearance, fuel capacity and touring focus" },
+  { slug: "klx140-vs-klx150", a: "kawasaki-klx-140", b: "kawasaki-klx150", summary: "Kawasaki trail and dual-sport models compared by price, engine size, weight, seat height, wheel size and road-use context" }
 ];
 
 
@@ -1560,7 +1562,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     seoTitle: "Best Scooters Philippines 2026: Prices, Specs & Picks",
     description: "Compare the best scooters in the Philippines by price, engine, seat height, weight, ABS, fuel economy, rider fit and ownership costs using current model data.",
     primaryKeyword: "best scooters Philippines",
-    secondaryKeywords: ["scooters Philippines", "scooter price Philippines", "scooter Philippines price list", "best scooter for city commuting Philippines", "best automatic scooter Philippines", "125cc scooters Philippines", "150cc scooters Philippines", "155cc scooters Philippines", "160cc scooters Philippines", "maxi scooters Philippines", "Honda scooters Philippines", "Yamaha scooters Philippines", "scooters with ABS Philippines"],
+    secondaryKeywords: ["best scooter Philippines", "scooters Philippines", "scooter price Philippines", "scooter Philippines price list", "best scooter for city commuting Philippines", "best automatic scooter Philippines", "125cc scooters Philippines", "150cc scooters Philippines", "155cc scooters Philippines", "160cc scooters Philippines", "maxi scooters Philippines", "Honda scooters Philippines", "Yamaha scooters Philippines", "scooters with ABS Philippines"],
     directAnswer: "There is no single best scooter for every rider. This guide compares current Philippine scooters by published price, engine size, curb weight, seat height, braking, fuel tank and available fuel-economy data so you can shortlist around budget, rider fit and daily use.",
     inclusionRules: ["Scooter category in the current Philippine motorcycle coverage", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest for display only; price order is not an overall quality ranking.",
@@ -1795,7 +1797,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     seoTitle: "Big Bikes Philippines 2026 | 400cc+ Motorcycle Price List",
     description: "Compare big bike prices in the Philippines for 2026 across current 400cc+ motorcycles, including displacement, power, weight, seat height, ABS and ownership context.",
     primaryKeyword: "big bikes Philippines",
-    secondaryKeywords: ["big bike Philippines", "big bike price Philippines", "big bike price list Philippines", "bigbike Philippines", "400cc+ motorcycles Philippines", "400cc motorcycle Philippines", "400cc motorcycles Philippines", "400cc motorcycle price Philippines", "400cc motorcycle price list Philippines", "affordable big bike Philippines", "affordable 400cc motorcycle Philippines", "expressway legal motorcycles Philippines", "400cc expressway motorcycle Philippines"],
+    secondaryKeywords: ["big bike", "big bikes", "400 cc motorcycle", "400cc motorcycle", "big bike Philippines", "big bike price Philippines", "big bike price list Philippines", "bigbike Philippines", "400cc+ motorcycles Philippines", "400cc motorcycle Philippines", "400cc motorcycles Philippines", "400cc motorcycle price Philippines", "400cc motorcycle price list Philippines", "affordable big bike Philippines", "affordable 400cc motorcycle Philippines", "expressway legal motorcycles Philippines", "400cc expressway motorcycle Philippines"],
     directAnswer: "This guide compares current big bikes and 400cc+ motorcycles by published price, recorded displacement, weight, seat height, power and braking. For expressway research, use the linked legal guide separately: the 400cc+ filter is a useful shortlist, but the exact registered unit and current tollway requirements still need to be checked.",
     inclusionRules: ["Recorded engine displacement is at least 400cc", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest within the 400cc+ recorded-displacement set.",
@@ -1877,13 +1879,35 @@ export const recommendationGuides: RecommendationGuide[] = [
     intent: "category"
   },
   {
+    slug: "kawasaki-big-bikes-philippines",
+    kicker: "Kawasaki big bikes",
+    title: "Kawasaki big bikes in the Philippines",
+    seoTitle: "Kawasaki Big Bikes Philippines 2026 | Prices, Specs & Models",
+    description: "Compare current Kawasaki big bikes in the Philippines by published price, engine size, power, weight, seat height, ABS, fuel tank and model type.",
+    primaryKeyword: "Kawasaki big bike",
+    secondaryKeywords: ["Kawasaki big bikes Philippines", "Kawasaki big bike price Philippines", "Kawasaki big bike price list Philippines", "Kawasaki 400cc Philippines", "Kawasaki 650cc Philippines", "Kawasaki 1000cc Philippines"],
+    directAnswer: "This guide compares current Kawasaki motorcycles with recorded engine displacement of at least 400cc, from the Z, Ninja, Versys, Vulcan and Eliminator families to supercharged and liter-class models.",
+    inclusionRules: ["Make is Kawasaki", "Recorded engine displacement is at least 400cc", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Each model keeps its own dated Kawasaki Philippines or verified Philippine-market source for price and specification data.",
+    caveats: ["Kawasaki big bikes span cruiser, naked, sport, touring and supersport categories, so engine size is not an overall suitability score.", "For expressway use, verify the exact registered unit and current operator rules rather than relying only on model family or displacement."],
+    tableColumns: ["price","engine","power","weight","seat","abs","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced Kawasaki big bikes", "Kawasaki 400cc to 650cc choices", "Ninja, Z, Versys and cruiser differences", "Lower-seat Kawasaki big bikes", "What to budget beyond the purchase price"],
+    faqQuestions: ["What Kawasaki big bikes are available in the Philippines?", "Which Kawasaki big bike has the lowest published price?", "Which Kawasaki big bike is lightest?", "Which Kawasaki big bike has the lowest seat?", "Which Kawasaki big bikes are 1000cc or larger?"],
+    relatedGuideSlugs: ["motorcycles-400cc-plus-philippines","motorcycles-1000cc-plus-philippines","kawasaki-ninja-motorcycles-philippines","cruiser-motorcycles-philippines","adventure-touring-motorcycles-philippines"],
+    intent: "category"
+  },
+  {
     slug: "maxi-scooters-philippines",
     kicker: "Maxi scooters",
     title: "Maxi scooters in the Philippines",
     seoTitle: "Maxi Scooters in the Philippines: Prices & Specs 2026",
     description: "Compare current maxi and maxi-style scooters in the Philippines by published price, engine size, weight, seat height, tank capacity and ABS equipment.",
     primaryKeyword: "maxi scooters Philippines",
-    secondaryKeywords: ["maxi scooter Philippines price", "best maxi scooter Philippines", "maxi scooters 2026 Philippines", "XMAX price Philippines", "ADV 350 price Philippines", "Burgman 400 price Philippines", "TMAX price Philippines"],
+    secondaryKeywords: ["maxi scooter", "400cc scooter", "maxi scooter Philippines price", "best maxi scooter Philippines", "maxi scooters 2026 Philippines", "XMAX price Philippines", "ADV 350 price Philippines", "Burgman 400 price Philippines", "TMAX price Philippines"],
     directAnswer: "MotoIndex groups current maxi and maxi-style scooters so riders can compare measurable differences in price, engine size, weight, seat height, fuel capacity and braking equipment before choosing a model.",
     inclusionRules: ["Category contains maxi scooter or maxi-style scooter", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest; this is a comparison order, not an overall quality ranking.",
@@ -1905,7 +1929,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     seoTitle: "Naked Motorcycles Philippines: Prices & Specs 2026",
     description: "Compare current naked street motorcycles in the Philippines using published price, engine, power, weight, seat height, ABS and fuel-tank data.",
     primaryKeyword: "naked motorcycles Philippines",
-    secondaryKeywords: ["naked bikes Philippines", "naked bike Philippines price", "street motorcycles Philippines"],
+    secondaryKeywords: ["naked bikes", "naked bikes Philippines", "naked bike Philippines price", "street motorcycles Philippines"],
     directAnswer: "This page compares current naked street motorcycles in MotoIndex using published prices and published specifications rather than a subjective overall ranking.",
     inclusionRules: ["Category is naked street bike", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest.",
@@ -1925,10 +1949,10 @@ export const recommendationGuides: RecommendationGuide[] = [
     kicker: "Dual sport & trail",
     title: "Dual-sport and trail motorcycles in the Philippines",
     seoTitle: "Dual-Sport & Trail Motorcycles Philippines 2026 | Prices",
-    description: "Compare dual-sport, trail and enduro motorcycles in the Philippines by price, weight, seat height, clearance, wheel setup, fuel tank, ABS and road-use context.",
+    description: "Compare dirt bikes, dual-sport, trail and enduro motorcycles in the Philippines by price, weight, seat height, clearance, wheel setup and road-use context.",
     primaryKeyword: "dual sport motorcycles Philippines",
-    secondaryKeywords: ["best dual sport motorcycles Philippines", "dual purpose motorcycles Philippines", "trail bike Philippines", "trail motorcycles Philippines", "off road motorcycle Philippines", "off-road motorcycle Philippines", "off road bike Philippines", "enduro motorcycle Philippines", "enduro motorcycles Philippines", "enduro bike Philippines", "enduro motorcycle price Philippines", "street legal trail bike Philippines"],
-    directAnswer: "For Philippine road-and-trail use, compare dual-sport motorcycles on weight, seat height, ground clearance, wheel setup, fuel capacity, braking equipment and registration status. This page absorbs trail-bike and off-road-motorcycle research without mixing in motocross-only machines.",
+    secondaryKeywords: ["dirt bike Philippines", "dirt bike price Philippines", "dirt bikes Philippines", "best dirt bike Philippines", "best dual sport motorcycles Philippines", "dual purpose motorcycles Philippines", "trail bike Philippines", "trail motorcycles Philippines", "off road motorcycle Philippines", "off-road motorcycle Philippines", "off road bike Philippines", "enduro motorcycle Philippines", "enduro motorcycles Philippines", "enduro bike Philippines", "enduro motorcycle price Philippines", "street legal trail bike Philippines"],
+    directAnswer: "For Philippine dirt-bike and road-and-trail research, compare dual-sport motorcycles on weight, seat height, ground clearance, wheel setup, fuel capacity, braking equipment and registration status. This page absorbs dirt-bike, trail-bike, enduro and off-road-motorcycle searches without pretending motocross-only machines are road motorcycles.",
     inclusionRules: ["Category is dual-sport", "Current Philippine-market motorcycle", "Road-and-trail oriented rather than motocross-only"],
     orderingRule: "Published starting price from lowest to highest.",
     tieBreakers: ["Lower curb weight", "Higher ground clearance"],
@@ -1937,8 +1961,8 @@ export const recommendationGuides: RecommendationGuide[] = [
     caveats: ["Off-road capability cannot be ranked from specifications alone.", "A tall seat and high ground clearance can help trail clearance while making low-speed footing harder for shorter riders.", "A dual-sport category label does not by itself prove that every individual unit has complete public-road registration paperwork."],
     tableColumns: ["price", "engine", "power", "weight", "seat", "clearance", "abs", "tank"],
     quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Largest engine",metric:"engine"},{label:"Largest fuel tank",metric:"tank"}],
-    editorialSections: ["Dual-sport vs trail bike vs off-road motorcycle", "21/18-inch wheels and rough-road priorities", "Seat height versus ground clearance", "Weight, tires and low-speed trail control", "ABS and loose-surface use", "What to check before riding on public roads"],
-    faqQuestions: ["What dual-sport motorcycles are available in the Philippines?", "Are dual-sport, trail bikes and off-road motorcycles the same?", "Which dual-sport motorcycles use 21/18-inch wheels?", "What matters most for trail and rough-road use?", "Do dual-sport motorcycles need ABS?", "Can I use a dual-sport motorcycle on public roads in the Philippines?"],
+    editorialSections: ["Dual-sport vs trail bike vs off-road motorcycle", "Dirt bike vs enduro vs motocross", "21/18-inch wheels and rough-road priorities", "Seat height versus ground clearance", "Weight, tires and low-speed trail control", "ABS and loose-surface use", "What to check before riding on public roads"],
+    faqQuestions: ["What dirt bikes are available in the Philippines?", "What dual-sport motorcycles are available in the Philippines?", "Are dual-sport, trail bikes and off-road motorcycles the same?", "Which dual-sport motorcycles use 21/18-inch wheels?", "What matters most for trail and rough-road use?", "Do dual-sport motorcycles need ABS?", "Can I use a dual-sport motorcycle on public roads in the Philippines?"],
     relatedGuideSlugs: ["lightweight-motorcycles-philippines", "best-motorcycles-for-short-riders", "motorcycles-with-abs-philippines", "motorcycles-under-400cc-philippines", "adventure-touring-motorcycles-philippines"],
     intent: "category"
   },
@@ -1949,7 +1973,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     seoTitle: "Adventure Touring Motorcycles Philippines 2026",
     description: "Compare current adventure-touring motorcycles in the Philippines by published price, engine, power, weight, seat height, tank capacity and ABS equipment.",
     primaryKeyword: "adventure touring motorcycles Philippines",
-    secondaryKeywords: ["adventure bikes Philippines", "adventure motorcycle Philippines price", "touring motorcycles Philippines"],
+    secondaryKeywords: ["adventure bike", "adventure bikes Philippines", "adventure motorcycle Philippines price", "touring motorcycle", "touring motorcycles Philippines"],
     directAnswer: "This guide compares current adventure-touring motorcycles using published prices and published engine, weight, seat-height, tank and braking data. It does not infer comfort or off-road ability from category labels alone.",
     inclusionRules: ["Category is adventure touring", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest.",
@@ -2015,7 +2039,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     seoTitle: "Cruiser Motorcycles Philippines 2026 | Prices, Specs & Fit",
     description: "Compare cruiser motorcycles in the Philippines by current price, engine, power, weight, seat height, ABS, fuel tank, rider fit and ownership trade-offs.",
     primaryKeyword: "cruiser motorcycle Philippines",
-    secondaryKeywords: ["cruiser motorcycles Philippines", "cruiser motorcycle price Philippines", "best cruiser motorcycle Philippines", "cruiser bikes Philippines", "low seat cruiser Philippines", "cruiser bike price Philippines"],
+    secondaryKeywords: ["cruiser motorcycle", "cruiser motorcycles Philippines", "cruiser motorcycle price Philippines", "best cruiser motorcycle Philippines", "cruiser bikes Philippines", "low seat cruiser Philippines", "cruiser bike price Philippines"],
     directAnswer: "MotoIndex currently tracks Philippine-market cruisers from Honda, Kawasaki and Royal Enfield. This guide compares their dated price records with engine, power, curb-weight, seat-height, fuel-tank and braking specifications on one category page.",
     inclusionRules: ["Category is Cruiser", "Current Philippine-market motorcycle", "Model has a dated price and specification record"],
     orderingRule: "Published starting price from lowest to highest.",
@@ -2145,6 +2169,28 @@ export const recommendationGuides: RecommendationGuide[] = [
     intent: "category"
   },
   {
+    slug: "honda-cbr-motorcycles-philippines",
+    kicker: "Honda CBR motorcycles",
+    title: "Honda CBR motorcycles in the Philippines",
+    seoTitle: "Honda CBR Philippines 2026 | Prices, Models & Specs",
+    description: "Compare Honda CBR motorcycles in the Philippines by current price, engine, power, weight, seat height, ABS and model positioning.",
+    primaryKeyword: "Honda CBR",
+    secondaryKeywords: ["Honda CBR Philippines", "Honda CBR price Philippines", "Honda CBR motorcycle", "Honda CBR150R Philippines", "Honda CBR650R Philippines"],
+    directAnswer: "This guide groups current Honda CBR sport-bike records so buyers can compare smaller-displacement and big-bike CBR models without merging their very different price, power, weight and licensing considerations.",
+    inclusionRules: ["Make is Honda", "Model name begins with CBR", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Prices and specifications remain attached to each canonical Honda CBR model record and its dated Philippine-market sources.",
+    caveats: ["CBR models span very different engine classes and rider use cases.", "A CBR badge does not imply the same ergonomics, power delivery, insurance cost or expressway context across models."],
+    tableColumns: ["price","engine","power","weight","seat","abs","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest engine",metric:"engine"}],
+    editorialSections: ["Honda CBR price range", "CBR150R vs larger CBR models", "Weight and seat-height differences", "ABS and braking differences", "Which CBR model should you research next"],
+    faqQuestions: ["What Honda CBR motorcycles are available in the Philippines?", "What is the Honda CBR price range in the Philippines?", "Which Honda CBR is cheapest?", "Which Honda CBR is lightest?", "Which Honda CBR models are big bikes?"],
+    relatedGuideSlugs: ["sport-motorcycles-philippines","honda-big-bikes-philippines","motorcycles-400cc-plus-philippines","motorcycles-under-400cc-philippines"],
+    intent: "category"
+  },
+  {
     slug: "kawasaki-ninja-motorcycles-philippines",
     kicker: "Kawasaki Ninja",
     title: "Kawasaki Ninja motorcycles in the Philippines",
@@ -2195,9 +2241,9 @@ export const recommendationGuides: RecommendationGuide[] = [
     seoTitle: "Cafe Racer Motorcycles Philippines: Prices & Specs 2026",
     description: "Compare cafe-racer and modern-classic motorcycles in the Philippines by published price, engine, weight, seat height, ABS and fuel-tank capacity.",
     primaryKeyword: "cafe racer motorcycles Philippines",
-    secondaryKeywords: ["cafe racer Philippines price", "classic motorcycle Philippines", "retro motorcycle Philippines", "modern classic motorcycles Philippines"],
-    directAnswer: "This guide brings together current cafe-racer, modern-classic and closely related classic-road motorcycle records while keeping the exact category label visible for each model.",
-    inclusionRules: ["Category is cafe racer, modern classic or classic road bike", "Current Philippine-market motorcycle"],
+    secondaryKeywords: ["cafe racer Philippines price", "cafe racer motorcycle price Philippines", "best cafe racer Philippines", "cafe racer 150 Philippines"],
+    directAnswer: "This guide focuses on cafe-racer and cafe-roadster motorcycles, with closely related modern-classic choices included only where the current model record supports that styling. A separate classic-motorcycle guide owns the broader retro and modern-classic search intent.",
+    inclusionRules: ["Category is cafe racer or cafe roadster, plus closely related modern classics", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest.",
     tieBreakers: ["Lower curb weight"],
     orderLabel: "Price order",
@@ -2211,6 +2257,51 @@ export const recommendationGuides: RecommendationGuide[] = [
     intent: "category"
   },
 
+
+  {
+    slug: "classic-motorcycles-philippines",
+    kicker: "Classic motorcycles",
+    title: "Classic motorcycles in the Philippines",
+    seoTitle: "Classic Motorcycles Philippines 2026: Prices & Models",
+    description: "Compare classic, modern-classic and retro road motorcycles in the Philippines by price, engine, weight, seat height, power and ABS.",
+    primaryKeyword: "classic motorcycle Philippines",
+    secondaryKeywords: ["classic motorcycles Philippines", "classic motorcycle price Philippines", "retro motorcycle Philippines", "modern classic motorcycle Philippines", "honda classic motorcycle", "yamaha classic motorcycle"],
+    directAnswer: "This guide compares current classic-road, modern-classic and retro-roadster motorcycles sold or tracked in the Philippine market. It separates the broad classic-motorcycle intent from the narrower cafe-racer style while keeping exact model categories visible.",
+    inclusionRules: ["Category is classic road bike, modern classic or retro roadster", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Lower seat height"],
+    orderLabel: "Price order",
+    sourcePolicy: "Prices and specifications come from each model's dated model-specific record. Classic and retro labels follow the stored category rather than being assigned from appearance alone.",
+    caveats: ["Classic styling does not mean old technology or identical ergonomics.", "Some retro roadsters overlap with naked-bike or cafe-racer use cases.", "Check the exact model's parts support, rider fit and braking equipment before buying by style alone."],
+    tableColumns: ["price","engine","power","weight","seat","abs","tank","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest fuel tank",metric:"tank"}],
+    editorialSections: ["Lowest-priced classic motorcycles", "Modern classic vs retro roadster", "Lighter classic motorcycles", "Lower-seat classic choices", "What to compare beyond styling"],
+    faqQuestions: ["What classic motorcycles are available in the Philippines?", "Which classic motorcycle has the lowest published price?", "Which classic motorcycle is lightest?", "Which classic motorcycle has the lowest seat?", "What is the difference between a classic motorcycle and a cafe racer?"],
+    relatedGuideSlugs: ["cafe-racer-motorcycles-philippines","naked-motorcycles-philippines","scrambler-motorcycles-philippines","motorcycles-under-400cc-philippines"],
+    intent: "category"
+  },
+  {
+    slug: "scrambler-motorcycles-philippines",
+    kicker: "Scrambler motorcycles",
+    title: "Scrambler motorcycles in the Philippines",
+    seoTitle: "Scrambler Motorcycles Philippines 2026: Prices & Models",
+    description: "Compare current scrambler motorcycles in the Philippines by price, engine, power, weight, seat height, clearance, ABS and fuel capacity.",
+    primaryKeyword: "scrambler motorcycle",
+    secondaryKeywords: ["scrambler motorcycle Philippines", "scrambler motorcycle price Philippines", "best scrambler Philippines", "scrambler bike Philippines"],
+    directAnswer: "This guide compares current motorcycles explicitly recorded as scramblers or scrambler-style utility motorcycles, including models from Triumph, Husqvarna, Royal Enfield and Yamaha where the stored category supports the match.",
+    inclusionRules: ["Category contains scrambler", "Current Philippine-market motorcycle"],
+    orderingRule: "Published starting price from lowest to highest.",
+    tieBreakers: ["Lower curb weight", "Higher ground clearance"],
+    orderLabel: "Price order",
+    sourcePolicy: "Price and specifications stay tied to each canonical model record. The page includes only models whose stored category explicitly contains scrambler.",
+    caveats: ["Scrambler styling does not guarantee off-road capability.", "Tire choice, suspension travel, ground clearance and weight matter more than styling for rough-road use.", "Verify exact trim and ABS behavior before planning unpaved riding."],
+    tableColumns: ["price","engine","power","weight","seat","clearance","abs","context"],
+    quickPicks: [{label:"Lowest price",metric:"price"},{label:"Lightest",metric:"weight"},{label:"Lowest seat",metric:"seat"},{label:"Highest power",metric:"power"},{label:"Largest engine",metric:"engine"}],
+    editorialSections: ["Lowest-priced scrambler motorcycles", "Lighter scrambler choices", "Seat-height differences", "Ground-clearance and road-use differences", "What to compare beyond scrambler styling"],
+    faqQuestions: ["What scrambler motorcycles are available in the Philippines?", "Which scrambler motorcycle has the lowest published price?", "Which scrambler is lightest?", "Which scrambler has the lowest seat?", "Are scrambler motorcycles good off road?"],
+    relatedGuideSlugs: ["classic-motorcycles-philippines","cafe-racer-motorcycles-philippines","dual-sport-motorcycles-philippines","adventure-touring-motorcycles-philippines"],
+    intent: "category"
+  },
 
   {
     slug: "125cc-motorcycles-philippines",
@@ -2395,7 +2486,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     seoTitle: "Automatic Motorcycles Philippines: Prices & Specs 2026",
     description: "Compare current automatic motorcycles and scooters in the Philippines by price, engine, weight, seat height, ABS and fuel economy.",
     primaryKeyword: "automatic motorcycle Philippines",
-    secondaryKeywords: ["automatic motorcycle price Philippines", "automatic scooter Philippines", "best automatic motorcycle Philippines", "scooter price Philippines", "automatic motorcycle price list Philippines"],
+    secondaryKeywords: ["automatic motorcycle", "cvt motorcycle", "automatic motorcycle price Philippines", "automatic scooter Philippines", "best automatic motorcycle Philippines", "scooter price Philippines", "automatic motorcycle price list Philippines"],
     directAnswer: "This page filters current motorcycles to models with an automatic transmission, then compares price, engine size, weight, seat height and braking equipment.",
     inclusionRules: ["Transmission is Automatic", "Current Philippine-market motorcycle"],
     orderingRule: "Published starting price from lowest to highest.",
@@ -2580,6 +2671,7 @@ export function getRecommendationModels(slug: string) {
     case "motorcycles-1000cc-plus-philippines": return byPrice.filter(m => m.engineCc >= 1000);
     case "honda-big-bikes-philippines": return byPrice.filter(m => m.makeSlug === "honda" && m.engineCc >= 400);
     case "yamaha-big-bikes-philippines": return byPrice.filter(m => m.makeSlug === "yamaha" && m.engineCc >= 400);
+    case "kawasaki-big-bikes-philippines": return byPrice.filter(m => m.makeSlug === "kawasaki" && m.engineCc >= 400);
     case "cruiser-motorcycles-philippines": return byPrice.filter(m => m.category === "Cruiser");
     case "motorcycles-under-400cc-philippines": return byPrice.filter(m => m.engineCc < 400);
     case "maxi-scooters-philippines": return byPrice.filter(m => /maxi/i.test(m.category));
@@ -2591,9 +2683,12 @@ export function getRecommendationModels(slug: string) {
     case "honda-scooters-philippines": return byPrice.filter(m => m.makeSlug === "honda" && /scooter/i.test(m.category));
     case "suzuki-scooters-philippines": return byPrice.filter(m => m.makeSlug === "suzuki" && /scooter/i.test(m.category));
     case "yamaha-mio-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "yamaha" && /mio|aerox|fazzio/i.test(m.model));
+    case "honda-cbr-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "honda" && /^cbr/i.test(m.model));
     case "kawasaki-ninja-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "kawasaki" && /^ninja\b/i.test(m.model));
     case "honda-adv-motorcycles-philippines": return byPrice.filter(m => m.makeSlug === "honda" && /adv/i.test(m.model));
-    case "cafe-racer-motorcycles-philippines": return byPrice.filter(m => /cafe racer|modern classic|classic road bike/i.test(m.category));
+    case "cafe-racer-motorcycles-philippines": return byPrice.filter(m => /cafe racer|cafe roadster|modern classic/i.test(m.category));
+    case "classic-motorcycles-philippines": return byPrice.filter(m => /classic road bike|modern classic|retro roadster/i.test(m.category));
+    case "scrambler-motorcycles-philippines": return byPrice.filter(m => /scrambler/i.test(m.category));
     case "125cc-motorcycles-philippines": return byPrice.filter(m => m.engineCc >= 115 && m.engineCc <= 130);
     case "motorcycles-below-150cc-philippines": return byPrice.filter(m => m.engineCc < 150);
     case "business-motorcycles-philippines": return byPrice.filter(m => /^Business motorcycle$/i.test(m.category));

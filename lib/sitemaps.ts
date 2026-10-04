@@ -14,6 +14,7 @@ import { fuelConsumptionLandingProfiles } from "@/lib/modelFuelConsumptionLandin
 import { specsIntentLandingProfiles } from "@/lib/modelSpecsLandingPages";
 import { weightIntentLandingProfiles } from "@/lib/modelWeightLandingPages";
 import { seatHeightIntentLandingProfiles } from "@/lib/modelSeatHeightLandingPages";
+import { officialDealerLocators } from "@/lib/dealerLocators";
 
 type Entry = { url: string; lastModified: string; changeFrequency?: "daily"|"weekly"|"monthly"|"yearly"; priority?: number };
 const iso = (value?: string) => value || RELEASE_DATE;
@@ -62,6 +63,7 @@ export function coreSitemapEntries(): Entry[] {
     {path:"/guides",priority:.74,lastModified:latestEditorialDate},
     {path:"/tires",priority:.75,lastModified:latestTireDate},
     {path:"/maintenance",priority:.78,lastModified:latestModelDate},
+    {path:"/used-motorcycles",priority:.86,lastModified:latestModelDate},
     {path:"/used-motorcycles/repo",priority:.82,lastModified:latestModelDate},
     {path:"/used-motorcycles/buying-checklist",priority:.74,lastModified:RELEASE_DATE},
     {path:"/tools",priority:.84,lastModified:RELEASE_DATE},
@@ -136,7 +138,7 @@ export function motorcycleSitemapEntries(): Entry[] {
   });
   const fuelConsumptionPages=fuelConsumptionLandingProfiles.flatMap(profile=>{
     const model=motorcycles.find(item=>item.id===profile.modelId);
-    return model&&isIndexableModel(model)&&model.fuelConsumptionKmL&&profile.keywordVolume>0?[{
+    return model&&isIndexableModel(model)&&(model.fuelConsumptionKmL||profile.economyKmL)&&profile.keywordVolume>0?[{
       url:`${SITE_URL}/motorcycles/${model.makeSlug}/${model.slug}/fuel-consumption`,
       lastModified:iso(profile.checkedAt),
       changeFrequency:"monthly" as const,
@@ -209,7 +211,14 @@ export function commerceSitemapEntries(): Entry[] {
   const provinceUrls=pampangaDealers.length>=5
     ? [{url:`${SITE_URL}/dealers/pampanga`,lastModified:newest(pampangaDealers.map(s=>iso(s.lastChecked))),changeFrequency:"weekly" as const,priority:.66}]
     : [];
-  return [...sellerUrls,...dealerUrls,...provinceUrls];
+  const brandSlugByName:Record<string,string>={Honda:"honda",Yamaha:"yamaha",Suzuki:"suzuki",Kawasaki:"kawasaki"};
+  const brandDealerUrls=officialDealerLocators.flatMap(locator=>{
+    const make=brandSlugByName[locator.brand];
+    if(!make)return [];
+    const rows=publicSellersByType("dealer").filter(s=>s.brands.some(brand=>brand.toLowerCase()===locator.brand.toLowerCase()));
+    return [{url:`${SITE_URL}/motorcycles/${make}/dealers`,lastModified:newest([locator.checkedAt,...rows.map(s=>iso(s.lastChecked))]),changeFrequency:"weekly" as const,priority:.76}];
+  });
+  return [...sellerUrls,...dealerUrls,...provinceUrls,...brandDealerUrls];
 }
 
 export function sitemapXml(entries: Entry[]) {

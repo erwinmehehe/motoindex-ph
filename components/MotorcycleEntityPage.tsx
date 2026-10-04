@@ -124,6 +124,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}`;
   const intentDepth = modelIntentDepthProfile(model.id);
   const installmentLanding = installmentLandingProfile(model.id);
+  const dedicatedInstallmentHandoff = ["yamaha-aerox-v3", "yamaha-nmax-v3", "honda-click-160", "honda-pcx-160", "honda-click-125i"].includes(model.id);
   const faqs = [...motorcycleEntityFaqs(model), ...canonicalIntentFaqs(model), ...(!topSpeedLanding && performance ? [{ question: `What is the ${model.make} ${model.model} top speed?`, answer: performance.answer }] : [])];
   const offer = motorcycleOfferSchema(model, canonicalPath, isIndexableModel(model));
   const schema = {
@@ -324,11 +325,11 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         <div className="authority-grid motorcycle-decision-grid"><article className="authority-buy"><span>Buy it if</span><ul>{authority.buyIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-skip"><span>Skip it if</span><ul>{authority.skipIf.map((item) => <li key={item}>{item}</li>)}</ul></article><article className="authority-ph"><span>Philippine ownership</span><ul>{authority.phContext.map((item) => <li key={item}>{item}</li>)}</ul></article></div>
       </section>}
 
-      {!isHistorical && installmentLanding ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
+      {!isHistorical && dedicatedInstallmentHandoff ? <><span id="installment" aria-hidden="true" /><section className="motorcycle-entity-section" aria-labelledby="installment-heading">
         <SectionHeader
           kicker="Monthly payment"
           titleId="installment-heading"
-          title={`${model.make} ${model.model} installment and downpayment`}
+          title={`${model.make} ${model.model} downpayment and monthly installment estimate`}
           description="This financing intent now has its own focused page so the main motorcycle guide can stay centered on price, variants, specifications, fit and ownership."
         />
         <div className="entity-tool-grid">
@@ -338,17 +339,19 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
             <small>Compare dealer observations, 10/20/30% scenarios, variant prices and an editable loan estimate.</small>
           </Link>
         </div>
-      </section> : !isHistorical ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
+      </section></> : !isHistorical ? <section id="installment" className="motorcycle-entity-section" aria-labelledby="installment-heading">
         <SectionHeader
           kicker="Monthly payment"
           titleId="installment-heading"
           title={`${model.make} ${model.model} downpayment and monthly installment estimate`}
-          description={aeroxFinanceTarget ? "Compare Standard and SP downpayment examples, then edit the exact cash price, downpayment, term and annual rate using the calculator." : "Use the published price as a starting point, then replace the downpayment, term and rate with the actual dealer or lender quote."}
+          description={installmentLanding ? "Estimate the monthly payment here, then open the focused financing guide for deeper dealer and scenario context." : aeroxFinanceTarget ? "Compare Standard and SP downpayment examples, then edit the exact cash price, downpayment, term and annual rate using the calculator." : "Use the published price as a starting point, then replace the downpayment, term and rate with the actual dealer or lender quote."}
         />
         <InstallmentCalculator price={range.from} priceOptions={financingPriceOptions} />
         <FinancingSnapshot modelName={`${model.make} ${model.model}`} price={range.from} priceOptions={financingPriceOptions} />
         <DealerFinancingSnapshot modelId={model.id} modelName={`${model.make} ${model.model}`} />
-        <div className="entity-tool-grid"><Link href={loanToolHref}><span>Need more control?</span><strong>{aeroxFinanceTarget ? "Calculate Aerox V3 downpayment and monthly payment" : "Open the full loan calculator"}</strong><small>{aeroxFinanceTarget ? "Enter an exact peso downpayment or use 10%, 20% and 30% presets, then adjust term and rate." : "Change price, down payment, term and rate with a shareable URL."}</small></Link></div>
+        <div className="entity-tool-grid">
+          {installmentLanding ? <Link href={`/motorcycles/${model.makeSlug}/${model.slug}/installment`}><span>Focused financing guide</span><strong>Open the installment and downpayment guide</strong><small>See model-specific financing context and scenarios.</small></Link> : <Link href={loanToolHref}><span>Need more control?</span><strong>{aeroxFinanceTarget ? "Calculate Aerox V3 downpayment and monthly payment" : "Open the full loan calculator"}</strong><small>{aeroxFinanceTarget ? "Enter an exact peso downpayment or use 10%, 20% and 30% presets, then adjust term and rate." : "Change price, down payment, term and rate with a shareable URL."}</small></Link>}
+        </div>
       </section> : null}
 
       <section id="rider-fit" className="motorcycle-entity-section" aria-labelledby="fit-heading">
@@ -413,7 +416,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
 
       <section id="safety" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>Safety, recalls and service campaigns</summary>{safetyNotices.length > 0 ? <div className="safety-notice-list entity-safety-list">{safetyNotices.map((notice) => <article key={`${notice.modelId}-${notice.publishedAt}`}><span>{notice.publishedAt}</span><h3>{notice.title}</h3><p>{notice.summary}</p></article>)}</div> : <div className="note-box compact-note"><h3>No model-specific notice is listed here right now</h3><p>This is not proof that no recall, product update or service campaign applies. Check the exact VIN/frame number with the manufacturer.</p></div>}</details></section>
 
-      <section id="used" className="motorcycle-entity-section"><details className="entity-disclosure" open={isHistorical}><summary>Used value and depreciation</summary>{usedListings.length === 0 ? <div className="note-box compact-note"><h3>Used-market sample not available yet</h3><p>The calculator below is an estimate, not a live appraisal. Listing samples appear only after they pass verification.</p></div> : <><UsedMarketSummary modelId={model.id} />{!isHistorical && <div className="new-used-grid entity-new-used-grid"><article><span>New reference</span><strong>{observedMarketPriceLabel(model)}</strong></article><article><span>Used median ask</span><strong>{php(usedSummary.medianPrice)}</strong><p>{usedSummary.included} verified listing samples.</p></article></div>}<details className="entity-disclosure"><summary>Show used listing samples</summary><UsedListingTable items={usedListings} /></details></>}<UsedValueCalculator model={forClient(model)} /><details className="entity-disclosure"><summary>Show illustrative depreciation table</summary><div className="depreciation-table"><div className="depreciation-row head"><span>Age</span><span>Fair</span><span>Good</span><span>Excellent</span></div>{usedCurve.map((row) => <div className="depreciation-row" key={row.age}><strong>{row.age} year{row.age===1?"":"s"}</strong><span>{php(row.fair)}</span><span>{php(row.good)}</span><span>{php(row.excellent)}</span></div>)}</div></details></details></section>
+      <section id="used" className="motorcycle-entity-section"><details className="entity-disclosure" open={isHistorical}><summary>Used value and depreciation</summary>{usedListings.length === 0 ? <div className="note-box compact-note"><h3>Used-market sample not available yet</h3><p>The calculator below is an estimate, not a live appraisal. Listing samples appear only after they pass verification.</p></div> : <><UsedMarketSummary modelId={model.id} />{!isHistorical && <div className="new-used-grid entity-new-used-grid"><article><span>New reference</span><strong>{observedMarketPriceLabel(model)}</strong></article><article><span>Used median ask</span><strong>{php(usedSummary.medianPrice)}</strong><p>{usedSummary.included} verified listing samples.</p></article></div>}<details className="entity-disclosure"><summary>Show used listing samples</summary><UsedListingTable items={usedListings} /></details></>}<UsedValueCalculator model={forClient(model)} />{isHistorical && <CTAGroup><Link className="button secondary" href="/used-motorcycles">Used motorcycle research</Link><Link className="button secondary" href="/used-motorcycles/buying-checklist">Buying checklist</Link>{successor ? <Link className="button secondary" href={`/motorcycles/${successor.makeSlug}/${successor.slug}`}>Compare current {successor.model}</Link> : null}</CTAGroup>}<details className="entity-disclosure"><summary>Show illustrative depreciation table</summary><div className="depreciation-table"><div className="depreciation-row head"><span>Age</span><span>Fair</span><span>Good</span><span>Excellent</span></div>{usedCurve.map((row) => <div className="depreciation-row" key={row.age}><strong>{row.age} year{row.age===1?"":"s"}</strong><span>{php(row.fair)}</span><span>{php(row.good)}</span><span>{php(row.excellent)}</span></div>)}</div></details></details></section>
 
       {!colorLanding && allColors.length > 0 && <section id="colors" className="motorcycle-entity-section"><details className="entity-disclosure"><summary>{model.make} {model.model} colors and variants</summary><div className="entity-color-grid">{allColors.map((color) => <article key={color}><strong>{color}</strong></article>)}</div></details></section>}
 

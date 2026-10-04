@@ -103,6 +103,7 @@ export default function MotorcyclesPage() {
           <Link href="/recommendations/motorcycles-below-150cc-philippines"><span>Displacement</span><strong>Below 150cc</strong><small>Small-engine market guide →</small></Link>
           <Link href="/recommendations/motorcycles-400cc-plus-philippines"><span>Displacement</span><strong>400cc+</strong><small>Big-bike research →</small></Link>
           <Link href="/motorcycles/electric"><span>Electric</span><strong>Electric motorcycles</strong><small>Battery, range and charging research →</small></Link>
+          <Link href="/used-motorcycles"><span>Used</span><strong>Second-hand motorcycles</strong><small>Used value, repo and buying research →</small></Link>
         </div>
       </div>
     </div>

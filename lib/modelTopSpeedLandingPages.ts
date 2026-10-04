@@ -151,6 +151,21 @@ export const topSpeedLandingProfiles: TopSpeedLandingProfile[] = [
     checkedAt: "2026-10-03"
   },
   {
+    modelId: "bmw-m-1000-rr",
+    keyword: "bmw m1000rr top speed",
+    keywordVolume: 700,
+    title: "BMW M 1000 RR Top Speed Philippines | 314 km/h Official",
+    description: "BMW M 1000 RR top speed guide with BMW's official 314 km/h maximum-speed figure, aerodynamic context, model-year notes and closed-course safety caveats.",
+    heading: "BMW M 1000 RR top speed: official 314 km/h figure",
+    observedTopSpeedKph: 314,
+    evidenceLabel: "BMW Motorrad official maximum-speed figure",
+    answer: "BMW Motorrad states that the 2023-generation M 1000 RR increased maximum speed from 306 km/h to 314 km/h through major aerodynamic development. MotoIndex uses that manufacturer figure as generation-specific evidence.",
+    caution: "Maximum speed is highly sensitive to model year, configuration, tires, aerodynamics and conditions. This is not a public-road target; high-speed testing belongs on a controlled closed course.",
+    sourceLabel: "BMW Motorrad M 1000 RR maximum-speed technical Q&A",
+    sourceUrl: "https://support.bmw-motorrad.com/s/article/M-1000-RR-2023-higher-maximum-speed-uzQOa?language=en_GB",
+    checkedAt: "2026-10-04"
+  },
+  {
     modelId: "yamaha-yzf-r7",
     keyword: "yamaha r7 top speed",
     keywordVolume: 700,

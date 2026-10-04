@@ -10,6 +10,15 @@ export type SeatHeightIntentLandingProfile = {
 
 export const seatHeightIntentLandingProfiles: SeatHeightIntentLandingProfile[] = [
   {
+    modelId: "royal-enfield-shotgun-650",
+    keyword: "shotgun 650 seat height",
+    keywordVolume: 1200,
+    title: "Royal Enfield Shotgun 650 Seat Height | 795 mm Rider Guide",
+    description: "Royal Enfield Shotgun 650 seat height guide with 795 mm seat, 240 kg curb weight, rider-reach caveats, nearby comparisons and low-speed fit context.",
+    heading: "Royal Enfield Shotgun 650 seat height and rider-fit context",
+    intro: "MotoIndex stores the Royal Enfield Shotgun 650 at 795 mm seat height and 240 kg curb weight. This page puts those figures together because a relatively approachable seat height can still feel very different once motorcycle width and mass are considered."
+  },
+  {
     modelId: "honda-click-160",
     keyword: "honda click seat height",
     keywordVolume: 700,

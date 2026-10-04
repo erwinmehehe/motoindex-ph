@@ -29,6 +29,20 @@ export const installmentLandingProfiles: InstallmentLandingProfile[] = [
     intro: "Compare the current PCX 160 variant prices with dated CBS/ABS dealer financing observations, then test your own downpayment, term and annual rate. Dealer trim naming and financing assumptions must be confirmed before purchase."
   },
   {
+    modelId: "honda-adv-160",
+    title: "Honda ADV160 Installment Philippines | Downpayment & Monthly 2026",
+    description: "Honda ADV160 installment Philippines guide with current ABS/RoadSync prices, editable downpayment and monthly calculator, loan scenarios and financing caveats.",
+    heading: "Honda ADV160 installment, downpayment and monthly payment",
+    intro: "Use the current ADV160 ABS and RoadSync prices as the starting point, then replace MotoIndex planning assumptions with the dealer's actual cash price, downpayment, loan term, rate method and fees. The monthly result is an estimate, not a lender offer."
+  },
+  {
+    modelId: "yamaha-fazzio",
+    title: "Yamaha Fazzio Installment Philippines | Downpayment & Monthly 2026",
+    description: "Yamaha Fazzio installment Philippines guide with current price, editable downpayment and monthly calculator, 10/20/30% scenarios and finance caveats.",
+    heading: "Yamaha Fazzio installment, downpayment and monthly payment",
+    intro: "Start with the current Fazzio price reference, then test the downpayment and term you are actually considering. Older inventory and dealer promotions can surface different prices, so use the exact branch cash quote before comparing monthly payments."
+  },
+  {
     modelId: "yamaha-nmax-v3",
     title: "Yamaha NMAX V3 Installment Philippines | Downpayment 2026",
     description: "Yamaha NMAX V3 installment Philippines guide with Standard/Tech Max dealer snapshots, variant prices, editable downpayment/monthly calculator and loan caveats.",

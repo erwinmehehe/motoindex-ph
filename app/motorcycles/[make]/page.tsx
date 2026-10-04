@@ -188,7 +188,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
           kicker="Philippines · Price list · Models · Specs"
           title={brandGrowth?.heroTitle || `${brand} Motorcycle Philippines Price List`}
           description={brandGrowth?.heroDescription || `Compare the current ${brand} motorcycle Philippines price list by model, published price, engine size, seat height and transmission. Open any motorcycle for detailed specs, financing estimates, fitment, maintenance and alternatives.`}
-          actions={<><CTAGroup><Link className="button" href="#price-list">View {brand} price list</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link></CTAGroup></>}
+          actions={<><CTAGroup><Link className="button" href="#price-list">View {brand} price list</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link>{["honda","yamaha","suzuki","kawasaki"].includes(make) ? <Link className="button secondary" href={`/motorcycles/${make}/dealers`}>Find {brand} dealers</Link> : null}</CTAGroup></>}
         />
         {brandGrowth ? <InfoPanel subtle><p>{brandGrowth.intentNote}</p></InfoPanel> : null}
         <StatRow items={[

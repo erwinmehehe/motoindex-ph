@@ -7,7 +7,7 @@ import { FuelRangeCalculator } from "@/components/FuelRangeCalculator";
 import { JsonLd } from "@/components/JsonLd";
 import { CTAGroup, PageHero, SectionHeader, StatRow } from "@/components/ui";
 import { getModel, getModelById, isIndexableModel } from "@/lib/data";
-import { efficiencyEvidence, fuelCostForDistance, planningRangeKm, theoreticalRangeKm } from "@/lib/efficiency";
+import { efficiencyEvidence } from "@/lib/efficiency";
 import { fuelConsumptionLandingProfile, fuelConsumptionLandingProfiles } from "@/lib/modelFuelConsumptionLandingPages";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { php } from "@/lib/utils";
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
     title: profile.title,
     description: profile.description,
     path: `/motorcycles/${model.makeSlug}/${model.slug}/fuel-consumption`,
-    index: isIndexableModel(model) && Boolean(model.fuelConsumptionKmL)
+    index: isIndexableModel(model) && Boolean(model.fuelConsumptionKmL || profile.economyKmL)
   });
 }
 
@@ -40,25 +40,31 @@ export default async function ModelFuelConsumptionPage({ params }: { params: Pro
   const model = getModel(make, slug);
   if (!model) return notFound();
   const profile = fuelConsumptionLandingProfile(model.id);
-  const efficiency = efficiencyEvidence(model);
-  if (!profile || !isIndexableModel(model) || efficiency.status !== "listed") return notFound();
+  if (!profile || !isIndexableModel(model)) return notFound();
+  const baseEfficiency = efficiencyEvidence(model);
+  const efficiency = profile.economyKmL
+    ? { ...baseEfficiency, kmPerL: profile.economyKmL, status: "listed" as const, label: profile.evidenceLabel || "Model-specific evidence" }
+    : baseEfficiency;
+  if (efficiency.status !== "listed") return notFound();
 
   const modelName = `${model.make} ${model.model}`;
   const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}/fuel-consumption`;
   const modelPath = `/motorcycles/${model.makeSlug}/${model.slug}`;
-  const fullTankRange = theoreticalRangeKm(model);
-  const planningRange = planningRangeKm(model);
+  const fullTankRange = Math.round(efficiency.kmPerL * model.fuelTankL);
+  const planningRange = Math.round(fullTankRange * 0.85);
   const monthlyScenarios = [500, 1000, 1500].map((distanceKm) => ({
     distanceKm,
     liters: distanceKm / efficiency.kmPerL,
-    costPhp: fuelCostForDistance(model, distanceKm, planningFuelPricePhp)
+    costPhp: distanceKm / efficiency.kmPerL * planningFuelPricePhp
   }));
 
   const evidenceContext = model.id === "honda-click-125i"
     ? "Honda's 2026 launch material cites 50.3 km/L, while the current specification PDF distinguishes 49.3 km/L for Standard and 50.3 km/L for Smart Edition under WMTC. Match the efficiency figure to the exact variant."
     : model.id === "honda-tmx125-alpha"
       ? "Honda's TMX125 Alpha reference states 62.5 km/L at a constant 45 km/h. That test condition is different from stop-and-go city riding, loaded delivery work or mixed-speed commuting."
-      : `The stored ${efficiency.kmPerL} km/L figure is a published model reference. Real-world consumption can differ because the test cycle and riding conditions are not identical to daily use.`;
+      : model.id === "yamaha-nmax-v3"
+        ? "Top Gear Philippines reported an overall average of about 37 km/L on its Philippine NMAX Tech Max first-impressions ride, with 40–41 km/L on flatter sections. MotoIndex treats 37 km/L as independent road-test evidence rather than an official Yamaha laboratory figure."
+        : `The stored ${efficiency.kmPerL} km/L figure is a published model reference. Real-world consumption can differ because the test cycle and riding conditions are not identical to daily use.`;
 
   const faqs: FaqItem[] = [
     {
@@ -151,7 +157,7 @@ export default async function ModelFuelConsumptionPage({ params }: { params: Pro
         title={`${modelName} fuel-cost and range calculator`}
         description="Change monthly distance and fuel-price assumptions. The calculator starts from the listed model-specific economy figure, not a generic engine-size estimate."
       />
-      <FuelRangeCalculator model={model} />
+      <FuelRangeCalculator model={model} economyKmL={profile.economyKmL} evidenceLabel={profile.evidenceLabel} />
     </section>
 
     <section className="section" aria-labelledby="monthly-fuel-scenarios-heading">

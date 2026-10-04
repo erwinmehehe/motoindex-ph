@@ -188,7 +188,511 @@ export const editorialGuides: EditorialGuide[] = [
       { label: "Kawasaki: current Ninja H2R closed-course model", url: "https://www.kawasaki.com/en-us/motorcycle/ninja/hypersport/ninja-h2r" },
       { label: "TopGear Philippines: 2018 Ninja H2R review and Philippine availability context", url: "https://www.topgear.com.ph/moto-sapiens/motorcycle-review/review-2018-kawasaki-ninja-h2r-a3459-20181218" }
     ]
-  }
+  },
+
+  {
+    slug: "nwow-ebike-price-philippines",
+    kicker: "NWOW e-bike price guide",
+    title: "NWOW e-bike prices in the Philippines",
+    seoTitle: "NWOW E-Bike Price Philippines 2026: Models & Prices",
+    description: "Check NWOW e-bike prices in the Philippines, including current official product references and popular TK10, ARS and WSP market prices.",
+    intro: "NWOW has substantial Philippine search demand, but its lineup mixes two-wheel electric scooters, tricycles and other electric vehicles. This guide keeps those formats separate and uses current Philippine price references rather than treating every NWOW product as a conventional motorcycle.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "What NWOW currently sells in the Philippines",
+        body: [
+          "NWOW Philippines currently lists electric two-wheel and multi-wheel products on its local site. Current examples on the official homepage include ERV2 at ₱42,800, ERVS4 at ₱66,800, ERVSD at ₱96,000 and EMC-GOLF2 at ₱128,000.",
+          "Model availability and pricing can vary by area. NWOW product pages explicitly warn that listed prices may apply only to selected Luzon areas, so a branch quote remains necessary before purchase."
+        ],
+        bullets: ["Confirm whether the unit is two-wheel, three-wheel or four-wheel", "Ask for the branch-specific cash price", "Verify battery specification and warranty", "Confirm registration and road-use requirements for the exact unit"]
+      },
+      {
+        heading: "NWOW TK10, ARS and WSP price searches",
+        body: [
+          "TK10, ARS and WSP are among the most searched NWOW names in the Philippines. Current comparison-market references list TK10 around ₱38,800 and ARS around ₱34,000, while a Philippine specialist retailer lists WSP around ₱43,000.",
+          "Treat third-party prices as market observations, not manufacturer-wide SRPs. Stock, battery version, branch location, financing and promotions can change the transaction price."
+        ]
+      },
+      {
+        heading: "Why MotoIndex does not mix NWOW with gasoline motorcycles",
+        body: [
+          "Electric scooters and tricycles have different decision variables from gasoline motorcycles: motor wattage, battery voltage and capacity, charging time, usable range, charger availability and battery replacement cost matter more than engine displacement.",
+          "MotoIndex therefore connects NWOW research to its electric-mobility tools instead of forcing every unit into a cc-based motorcycle comparison."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "How much is an NWOW e-bike in the Philippines?", answer: "Prices vary by model and area. Current official NWOW Philippines examples range from roughly ₱42,800 for ERV2 to ₱128,000 for EMC-GOLF2, while popular models such as TK10 and ARS have separate market price references." },
+      { question: "How much is the NWOW TK10?", answer: "Current Philippine comparison listings place the TK10 at about ₱38,800. Confirm the exact branch price, battery specification and financing terms before purchase." },
+      { question: "How much is the NWOW ARS?", answer: "Current Philippine comparison listings place the ARS at about ₱34,000, while retailer pricing can differ. Confirm the exact unit and branch quote." },
+      { question: "Are all NWOW vehicles motorcycles?", answer: "No. NWOW sells two-wheel electric scooters as well as three-wheel and four-wheel electric vehicles, so the exact model and vehicle classification matter." }
+    ],
+    related: [
+      { href: "/motorcycles/electric", title: "Electric motorcycles Philippines", description: "Compare MotoIndex electric-mobility research and current model coverage." },
+      { href: "/tools/electric-motorcycle-charging-cost", title: "Charging cost calculator", description: "Estimate electricity cost for an electric two-wheeler." },
+      { href: "/tools/electric-motorcycle-range-calculator", title: "Electric range calculator", description: "Model range assumptions before choosing an EV." }
+    ],
+    sources: [
+      { label: "NWOW Philippines official product catalog", url: "https://www.nwow.com.ph/" },
+      { label: "NWOW Philippines EP product page and regional price disclaimer", url: "https://www.nwow.com.ph/Product-Details.html?product_id=595" },
+      { label: "Philippine NWOW retailer model list", url: "https://www.ebikeandecarsuperstore.com/nwow-models" }
+    ]
+  },
+  {
+    slug: "skygo-motorcycle-price-philippines",
+    kicker: "Skygo price guide",
+    title: "Skygo motorcycle prices in the Philippines",
+    seoTitle: "Skygo Motorcycle Price Philippines 2026: Models & Price List",
+    description: "See current Skygo motorcycle prices in the Philippines, including Earl, Boss 150 and the official Skygo model price range.",
+    intro: "Skygo's official Philippine catalog currently lists 13 motorcycles with published prices. This guide targets the broad Skygo motorcycle and price-list searches while keeping individual model claims tied to Skygo's own current product pages.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "Current Skygo motorcycle price range",
+        body: [
+          "Skygo's current official shop lists models from the Prince 125 at ₱43,000 through the Bolt 150 at ₱115,000. Other listed models include Wizard, King, Hero, Boss 150, Earl, Blink, Stallion, Lance 150 and KPV.",
+          "The official list is more useful than an undated marketplace roundup because it exposes the current catalog and published price on the same source."
+        ],
+        bullets: ["Prince 125: ₱43,000", "Boss 150: ₱55,000", "Earl: ₱55,000", "KPV: ₱109,800", "Bolt 150: ₱115,000"]
+      },
+      {
+        heading: "Skygo Earl 150",
+        body: [
+          "Skygo's official Earl page lists a 150cc single-cylinder air-cooled four-stroke engine, 106 kg dry weight, 780 mm seat height, 14 L fuel tank and ₱55,000 SRP.",
+          "The model is positioned around a classic look, so buyers searching for Earl 150 should compare price, rider fit, parts availability and the exact dealer financing terms rather than relying only on styling."
+        ]
+      },
+      {
+        heading: "Skygo Boss 150",
+        body: [
+          "Skygo's official Boss 150 page lists ₱55,000 SRP, 129 kg dry weight, 780 mm seat height, 10.5 L fuel tank, front disc brake and tubeless tires.",
+          "Skygo states that 12-, 24- and 36-month installment terms are available, but the final downpayment and monthly amount should be confirmed with the selling branch."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "How much is a Skygo motorcycle in the Philippines?", answer: "Skygo's current official catalog spans roughly ₱43,000 to ₱115,000 depending on model. The exact branch quote and financing can differ." },
+      { question: "How much is the Skygo Earl 150?", answer: "Skygo currently lists the Earl at ₱55,000 SRP with a 150cc engine." },
+      { question: "How much is the Skygo Boss 150?", answer: "Skygo currently lists the Boss 150 at ₱55,000 SRP." },
+      { question: "Does Skygo offer installment?", answer: "Skygo's official Earl and Boss pages state that 12-, 24- and 36-month installment options are available. Confirm the required downpayment, fees and monthly amount with the branch." }
+    ],
+    related: [
+      { href: "/motorcycles", title: "Motorcycle price list Philippines", description: "Compare MotoIndex's current motorcycle catalog by price and category." },
+      { href: "/recommendations/motorcycles-under-100k", title: "Motorcycles under ₱100K", description: "Compare current budget motorcycles with verified model data." },
+      { href: "/tools/motorcycle-loan-calculator", title: "Motorcycle loan calculator", description: "Estimate downpayment and monthly payments using your own assumptions." }
+    ],
+    sources: [
+      { label: "Skygo official motorcycle catalog", url: "https://www.skygo.com.ph/index.php/shop/" },
+      { label: "Skygo official Earl product page", url: "https://www.skygo.com.ph/index.php/product/earl/" },
+      { label: "Skygo official Boss 150 product page", url: "https://www.skygo.com.ph/index.php/product/boss-150/" }
+    ]
+  },
+  {
+    slug: "harley-davidson-price-philippines",
+    kicker: "Harley-Davidson price guide",
+    title: "Harley-Davidson prices in the Philippines",
+    seoTitle: "Harley-Davidson Price Philippines 2026: Models & Price List",
+    description: "Research Harley-Davidson motorcycle prices in the Philippines for 2026, including Nightster, Sportster S, cruiser and touring price ranges.",
+    intro: "Harley-Davidson searches in the Philippines are strongly price-led. Current Philippine market references place the 2026 lineup from about ₱799,000 for the Nightster to ₱4.35 million for the CVO Road Glide, with Sportster, cruiser, touring and adventure models between them.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "Harley-Davidson Philippines 2026 price range",
+        body: [
+          "Current Philippine price references list the Nightster at ₱799,000 as the lowest-priced new Harley-Davidson and the CVO Road Glide at ₱4.35 million at the top of the range.",
+          "The lineup spans Sport, Cruiser, Touring, Adventure Touring and three-wheel models, so price comparisons should stay within the intended use case rather than treating the entire brand as one class."
+        ],
+        bullets: ["Nightster: ₱799,000", "Nightster Special: ₱835,000", "Sportster S: ₱959,000", "Street Bob: ₱1.38M", "Pan America 1250: ₱1.38M"]
+      },
+      {
+        heading: "Harley-Davidson Sportster price in the Philippines",
+        body: [
+          "The Sportster S is currently listed around ₱959,000 in Philippine price references, while the Nightster and Nightster Special sit below it as the lower-priced Revolution Max entries.",
+          "Before paying a reservation or financing fee, confirm the model year, color, dealer stock, insurance, registration and final on-road quotation."
+        ]
+      },
+      {
+        heading: "Why dealer verification matters on premium motorcycles",
+        body: [
+          "Large-displacement premium motorcycles can have meaningful differences between published list price and final transaction cost because of model year, allocation, accessories, insurance and dealer-specific offers.",
+          "Use the published figure to shortlist, then request a written quote from an authorized Philippine dealer for the exact unit."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "How much is a Harley-Davidson in the Philippines?", answer: "Current 2026 Philippine references range from about ₱799,000 for the Nightster to ₱4.35 million for the CVO Road Glide." },
+      { question: "What is the cheapest Harley-Davidson in the Philippines?", answer: "The Nightster is currently listed at about ₱799,000 and is the lowest-priced model in current Philippine 2026 price lists." },
+      { question: "How much is the Harley-Davidson Sportster S?", answer: "Current Philippine 2026 references list the Sportster S at about ₱959,000." },
+      { question: "Should I treat an online Harley price as the final dealer price?", answer: "No. Confirm the exact model year, stock, accessories, registration, insurance and dealer quotation before purchase." }
+    ],
+    related: [
+      { href: "/recommendations/cruiser-motorcycles-philippines", title: "Cruiser motorcycles Philippines", description: "Compare current cruiser alternatives using MotoIndex model data." },
+      { href: "/recommendations/motorcycles-1000cc-plus-philippines", title: "1000cc+ motorcycles", description: "Compare large-displacement motorcycles by price, output, weight and fit." },
+      { href: "/motorcycles", title: "Motorcycle price list Philippines", description: "Browse MotoIndex's current model catalog." }
+    ],
+    sources: [
+      { label: "YugaMoto Harley-Davidson Philippines 2026 price list", url: "https://moto.yugatech.com/motorcycle/harley-davidson-philippines-price-list-2026/" },
+      { label: "ZigWheels Harley-Davidson Philippines 2026 price list", url: "https://www.zigwheels.ph/new-motorcycles/harley-davidson" },
+      { label: "Harley-Davidson Philippines market overview", url: "https://www.carmudi.com.ph/new-motorcycles/harley-davidson/" }
+    ]
+  },
+  {
+    slug: "moped-vs-scooter-underbone-philippines",
+    kicker: "Motorcycle terminology",
+    title: "Moped vs scooter vs underbone in the Philippines",
+    seoTitle: "Moped Philippines: Moped vs Scooter vs Underbone Explained",
+    description: "What does moped mean in the Philippines? Compare mopeds, scooters and underbone motorcycles so you can search and shop using the correct vehicle type.",
+    intro: "The word moped gets searched heavily, but Philippine listings often use scooter, underbone or e-bike for vehicles that users casually call mopeds. Knowing the distinction prevents a generic moped search from sending you to the wrong motorcycle type.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "What is a moped?",
+        body: [
+          "Traditionally, a moped is a low-powered two-wheeler associated with pedals or moped-style construction. Modern usage varies by country, and many riders use the word loosely for small automatic motorcycles or electric two-wheelers.",
+          "In the Philippines, mainstream motorcycle catalogs more commonly classify small two-wheelers as scooters, underbones, business motorcycles or electric vehicles rather than using moped as a primary product category."
+        ]
+      },
+      {
+        heading: "Moped vs scooter",
+        body: [
+          "A scooter normally has a step-through body and automatic transmission, with the engine or electric drive integrated around the rear section. Philippine examples include common 110cc to 160cc commuter scooters.",
+          "If your search goal is an easy automatic city motorcycle, the scooter category is usually more useful than searching only for moped."
+        ]
+      },
+      {
+        heading: "Moped vs underbone",
+        body: [
+          "An underbone uses a motorcycle-style frame with a low central step area and typically larger wheels than a scooter. Many popular Philippine commuter motorcycles fall into the underbone category.",
+          "If you want models such as sport underbones or semi-automatic commuter motorcycles, use the underbone guide rather than assuming they are mopeds."
+        ],
+        bullets: ["Automatic city use: start with scooters", "Light manual or semi-automatic commuters: check underbones", "Electric two-wheelers: check electric vehicle classification", "Always verify LTO registration requirements for the exact vehicle"]
+      }
+    ],
+    faqs: [
+      { question: "What is a moped in the Philippines?", answer: "Moped is often used loosely, but Philippine motorcycle catalogs more commonly use categories such as scooter, underbone and electric vehicle. Check the exact vehicle design and registration classification." },
+      { question: "Is a scooter the same as a moped?", answer: "Not necessarily. A scooter is a distinct vehicle layout and can have much more power than a traditional moped." },
+      { question: "Is an underbone a moped?", answer: "No. Underbones are a separate motorcycle format even though casual language sometimes mixes the terms." },
+      { question: "Where should I compare small motorcycles?", answer: "Use MotoIndex's scooter, underbone and below-150cc guides so the vehicles are compared within the correct format." }
+    ],
+    related: [
+      { href: "/motorcycles/scooters", title: "Scooters Philippines", description: "Compare current scooter prices and models." },
+      { href: "/recommendations/best-underbone-motorcycles-philippines", title: "Underbone motorcycles Philippines", description: "Compare current underbones by price, weight and specifications." },
+      { href: "/recommendations/motorcycles-below-150cc-philippines", title: "Motorcycles below 150cc", description: "Compare small-displacement Philippine motorcycles across categories." }
+    ],
+    sources: [
+      { label: "Honda Philippines motorcycle catalog", url: "https://www.hondaph.com/motorcycle/list" },
+      { label: "MotoIndex current motorcycle taxonomy and model data", url: "https://motoindexph.com/motorcycles" }
+    ]
+  },
+
+
+  {
+    slug: "lambretta-price-philippines",
+    kicker: "Lambretta Philippines guide",
+    title: "Lambretta prices in the Philippines",
+    seoTitle: "Lambretta Price Philippines 2026: X300, G350 & Current Models",
+    description: "Research Lambretta prices in the Philippines, including current X300 and G350 availability, price-on-request status and the limited X300 Casa Lambretta price.",
+    intro: "Lambretta is currently visible in the Philippine market, but the standard X300 and G350 do not have an official public Philippine price in the main comparison listings MotoIndex checked. This page keeps that uncertainty explicit instead of turning overseas or converted prices into a local SRP.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "What is the current Lambretta price in the Philippines?",
+        body: [
+          "Current Philippine comparison listings show both the Lambretta X300 and G350 as available but price-on-request rather than publishing a standard peso SRP. That means the useful next step is a dealer quote for the exact model, model year and color.",
+          "A third-party 2026 price table may show peso estimates, but MotoIndex does not treat converted or unverified figures as an official Philippine retail price."
+        ],
+        bullets: ["X300: current Philippine listing, price on request", "G350: current Philippine listing, price on request", "Ask for model year and exact variant", "Request the written cash and financing quote separately"]
+      },
+      {
+        heading: "Lambretta X300 Casa price in the Philippines",
+        body: [
+          "The limited-edition X300 Casa Lambretta was launched in the Philippines in November 2025 with a starting price of ₱409,900. Only 36 units were allocated to the Philippine market according to the launch coverage.",
+          "That limited-edition price should not be reused as the standard X300 price. Collector editions, standard models and later dealer stock need separate price references."
+        ]
+      },
+      {
+        heading: "X300 vs G350",
+        body: [
+          "Current Philippine comparison references list the X300 as a 275cc CVT scooter and the G350 as a 330cc CVT scooter. They occupy different engine and price positions even when a public local SRP is unavailable.",
+          "For a real buying comparison, confirm the dealer's current cash price, warranty, parts availability, service location, insurance cost and exact unit specifications before deciding."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "How much is a Lambretta in the Philippines?", answer: "Current Philippine listings for the standard X300 and G350 are price on request. MotoIndex does not publish an invented local SRP when the current public price is unavailable." },
+      { question: "How much is the Lambretta X300 in the Philippines?", answer: "The standard X300 is currently listed as price on request. The limited X300 Casa Lambretta launched in the Philippines at ₱409,900 in November 2025, but that collector edition price should not be used as the standard X300 price." },
+      { question: "How much is the Lambretta G350 in the Philippines?", answer: "Current Philippine comparison listings show the G350 as price on request. Ask a Lambretta dealer for the exact current cash and financing quote." },
+      { question: "Is Lambretta available in the Philippines?", answer: "Yes. Current Philippine motorcycle listings include the X300 and G350, and the limited X300 Casa Lambretta received a Philippine allocation in 2025." }
+    ],
+    related: [
+      { href: "/motorcycles/scooters", title: "Scooters in the Philippines", description: "Compare current scooters by price, engine, weight and rider fit." },
+      { href: "/recommendations/maxi-scooters-philippines", title: "Maxi scooters Philippines", description: "Compare larger automatic scooters using MotoIndex model data." },
+      { href: "/tools/motorcycle-loan-calculator", title: "Motorcycle loan calculator", description: "Model a dealer quote using your own downpayment, rate and term." }
+    ],
+    sources: [
+      { label: "MotoPinas: X300 Casa Lambretta Philippine launch and ₱409,900 price", url: "https://www.motopinas.com/motorcycle-news/limited-edition-lambretta-x300-now-in-the-ph-starts-at-php-409-900.html" },
+      { label: "ZigWheels Philippines: Lambretta X300 current price-on-request listing", url: "https://www.zigwheels.ph/new-motorcycles/lambretta/x300/price" },
+      { label: "ZigWheels Philippines: Lambretta G350 current price-on-request listing", url: "https://www.zigwheels.ph/new-motorcycles/lambretta/g350" }
+    ]
+  },
+  {
+    slug: "yamaha-r6-price-philippines",
+    kicker: "Discontinued model price guide",
+    title: "Yamaha R6 price in the Philippines",
+    seoTitle: "Yamaha R6 Price Philippines: Historical SRP, Specs & Used Context",
+    description: "Research the Yamaha YZF-R6 price in the Philippines with its historical ₱749,000 local price, 599cc specs, discontinuation context and used-bike checks.",
+    intro: "The Yamaha YZF-R6 still attracts strong Philippine price searches even though the road-going model was discontinued. The useful answer is historical price plus used-market context, not a fake 2026 new-bike SRP.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "What was the Yamaha R6 price in the Philippines?",
+        body: [
+          "Philippine coverage of the final road-going YZF-R6 generation reported a local retail price of ₱749,000 from its 2017 launch era through the model's final years.",
+          "That figure is a historical new-bike reference. A used R6 today can sell above or below it depending on year, condition, mileage, service history, modifications, documentation and collector demand."
+        ],
+        bullets: ["Historical Philippine new-bike price: ₱749,000", "Road-going R6 discontinued after the 2020 model era", "Used price depends on exact year and condition", "Do not relabel an overseas race-model price as a Philippine road-bike SRP"]
+      },
+      {
+        heading: "Yamaha R6 specifications buyers still search for",
+        body: [
+          "The 2020 YZF-R6 used a 599cc liquid-cooled inline-four engine, six-speed transmission, 850 mm seat, 190 kg curb weight, 17 L fuel tank and 120/70ZR17 front and 180/55ZR17 rear tires.",
+          "Philippine 2017 launch coverage listed 61.7 Nm of maximum torque. These specifications are useful for identifying the generation, but a modified used motorcycle may no longer match stock equipment."
+        ]
+      },
+      {
+        heading: "What replaced the road-going R6?",
+        body: [
+          "Yamaha discontinued the road-going R6 as emissions and market priorities changed. Race-only R6 versions continued in some markets, but those should not be confused with a street-registered Philippine YZF-R6.",
+          "For a current road-going Yamaha sport-bike purchase, compare current Philippine R-series models rather than assuming a new R6 is still available locally."
+        ]
+      },
+      {
+        heading: "What to check before buying a used R6",
+        body: [
+          "Verify the chassis and engine numbers against the OR/CR, inspect service history, check for crash or track-use evidence, confirm cooling-system condition, inspect fork seals and brakes, and identify non-stock ECU, exhaust or suspension changes.",
+          "A specialist pre-purchase inspection is worth considering on a high-revving supersport, especially when service records are incomplete."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "How much is a Yamaha R6 in the Philippines?", answer: "The final road-going YZF-R6 had a historical Philippine new-bike price of about ₱749,000. It is discontinued, so current prices are used-market prices rather than a 2026 SRP." },
+      { question: "Is the Yamaha R6 still available brand new in the Philippines?", answer: "The road-going R6 was discontinued. Any current unit should be checked carefully to determine whether it is old stock, imported, used or a race-only version." },
+      { question: "What engine does the Yamaha R6 have?", answer: "The final road-going generation used a 599cc liquid-cooled inline-four engine with a six-speed transmission." },
+      { question: "What should I check when buying a used R6?", answer: "Check documentation, service history, crash or track-use evidence, cooling system, suspension, brakes, tires and modifications, and consider a specialist inspection." }
+    ],
+    related: [
+      { href: "/motorcycles/yamaha/yzf-r7", title: "Yamaha YZF-R7", description: "See a current Yamaha road-going sport-bike option tracked by MotoIndex." },
+      { href: "/motorcycles/yamaha/yzf-r1m", title: "Yamaha YZF-R1M", description: "Research Yamaha's current liter-class R-series model." },
+      { href: "/recommendations/sport-motorcycles-philippines", title: "Sport motorcycles Philippines", description: "Compare current sport motorcycles by price, output, weight and rider fit." }
+    ],
+    sources: [
+      { label: "MotoPinas: Yamaha R6 discontinuation and Philippine ₱749,000 price context", url: "https://www.motopinas.com/motorcycle-news/yamaha-to-discontinue-r6.html" },
+      { label: "MotoPH: 2017 Philippine YZF-R6 launch specifications", url: "https://www.motoph.com/the-all-new-yamaha-yzf-r6-specifications-availability-and-price/" },
+      { label: "Yamaha 2020 YZF-R6 owner-manual specification reference", url: "https://www.carmanualsonline.info/yamaha-yzf-r6-2020-owners-manual/?srch=height" }
+    ]
+  },
+
+
+  {
+    slug: "tvs-motorcycle-philippines",
+    kicker: "TVS Philippines guide",
+    title: "TVS motorcycles and scooters in the Philippines",
+    seoTitle: "TVS Motorcycle Philippines 2026: iQube Price & Ntorq Status",
+    description: "Check the current TVS Philippines lineup, TVS iQube price and specs, plus the current Philippine availability status of the TVS Ntorq 125.",
+    intro: "TVS has meaningful Philippine search demand, but global TVS model pages can be mistaken for local availability. This guide separates the current official TVS Philippines catalog from models such as the Ntorq 125 that appear on TVS pages for other countries.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "What TVS currently lists in the Philippines",
+        body: [
+          "The current official TVS Philippines product catalog lists the TVS iQube electric scooter plus the King Deluxe and Kargo three-wheelers. MotoIndex uses that local catalog as the primary availability reference rather than assuming the wider global TVS range is officially sold here.",
+          "For two-wheel buyers, the iQube is the current official Philippine scooter product visible on TVS's local site."
+        ],
+        bullets: ["TVS iQube: current Philippine electric scooter", "King Deluxe: current Philippine three-wheeler", "Kargo: current Philippine three-wheeler", "Check the Philippine TVS catalog before treating a global TVS model as locally current"]
+      },
+      {
+        heading: "TVS iQube price in the Philippines",
+        body: [
+          "TVS's Philippine iQube product page currently shows an SRP of ₱99,800. The same page lists a 3.4 kWh battery, 100 km stated range, 78 km/h top speed and 0–80% charging time of about 4.5 hours.",
+          "Price and specifications can change, so confirm the exact dealer quote, warranty, charger inclusion and registration processing before paying."
+        ]
+      },
+      {
+        heading: "Is the TVS Ntorq 125 officially listed in the Philippines?",
+        body: [
+          "The Ntorq 125 is a real TVS scooter and appears on TVS websites for other markets, but it is not currently listed in the official TVS Philippines product catalog checked by MotoIndex on October 4, 2026.",
+          "That does not prove that no private, grey-market or old-stock unit exists. It means MotoIndex should not present the Ntorq 125 as a current official Philippine model without a local TVS source."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "What TVS motorcycles are available in the Philippines?", answer: "The current official TVS Philippines catalog lists the iQube electric scooter plus the King Deluxe and Kargo three-wheelers." },
+      { question: "How much is the TVS iQube in the Philippines?", answer: "The current official TVS Philippines iQube page lists an SRP of ₱99,800. Confirm the current dealer quote before purchase." },
+      { question: "Is the TVS Ntorq 125 available in the Philippines?", answer: "The Ntorq 125 is not currently listed in the official TVS Philippines product catalog MotoIndex checked on October 4, 2026. Verify any locally offered unit's source, warranty and registration status." },
+      { question: "Why does the TVS global site show more motorcycles than the Philippine site?", answer: "TVS sells different lineups by country. A model appearing on another country's TVS site is not proof of current official Philippine availability." }
+    ],
+    related: [
+      { href: "/motorcycles/electric", title: "Electric scooters Philippines", description: "Compare current verified Philippine electric scooter research." },
+      { href: "/motorcycles/scooters", title: "Scooters Philippines", description: "Compare the wider current scooter market by price and specifications." },
+      { href: "/tools/motorcycle-loan-calculator", title: "Motorcycle loan calculator", description: "Estimate monthly payments from a current dealer quote." }
+    ],
+    sources: [
+      { label: "TVS Motor Philippines current product catalog", url: "https://www.tvsmotor.com/en/ph/our-products" },
+      { label: "TVS Motor Philippines iQube product page", url: "https://www.tvsmotor.com/en/ph/our-products/tvs-iqube" },
+      { label: "TVS Motor Philippines homepage", url: "https://www.tvsmotor.com/en/ph" }
+    ]
+  },
+
+
+  {
+    slug: "hatasu-ebike-price-philippines",
+    kicker: "Hatasu e-bike guide",
+    title: "Hatasu e-bike prices in the Philippines",
+    seoTitle: "Hatasu E-Bike Philippines 2026: Prices, Models & Buying Guide",
+    description: "Research Hatasu e-bike prices in the Philippines, including current Kumi, Nero, Haru, Aya and other retail-market references with buyer caveats.",
+    intro: "Hatasu has strong Philippine e-bike search demand, but current prices vary by retailer, location and model generation. MotoIndex keeps current Philippine retail observations separate from fixed national-SRP claims when a single official price source is not available.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "Current Hatasu e-bike price references",
+        body: [
+          "Current Philippine market references place Hatasu two-wheel e-bikes such as Kumi and Nero around the lower end of the brand's range, while larger Aya, Hero, Haru and Buggy products sit higher depending on retailer and configuration.",
+          "ZigWheels currently lists Kumi at ₱19,990 and Nero at ₱24,990. EMCOR's current Hatasu catalog shows retailer-specific ranges, including Kumi 2023 around ₱23,036–₱28,469 and Nero Lite around ₱26,775–₱32,031."
+        ],
+        bullets: ["Kumi: compare national-market and retailer-specific price references", "Nero / Nero Lite: confirm exact model name and battery setup", "Haru, Aya, Hero and Buggy: check whether the unit is two-wheel, three-wheel or utility-focused", "Ask for warranty, charger and registration requirements before purchase"]
+      },
+      {
+        heading: "Why Hatasu prices can differ",
+        body: [
+          "E-bike pricing can change by battery specification, model generation, branch location, financing partner, delivery area and promotion. A retailer price range should not automatically be treated as the brand's national SRP.",
+          "Compare the exact model code and battery configuration before using a price from one seller to judge another listing."
+        ]
+      },
+      {
+        heading: "Hatasu e-bike financing and ownership",
+        body: [
+          "Some Philippine retailers offer installment or BNPL options on Hatasu e-bikes. Compare the total repayment, downpayment, term and fees rather than choosing only by the lowest monthly figure.",
+          "Before purchase, confirm battery warranty, charger replacement cost, parts support, service location and the exact LTO or local-road classification that applies to the unit."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "How much is a Hatasu e-bike in the Philippines?", answer: "Prices vary by exact model, battery setup, retailer and location. Current market references place small two-wheel models such as Kumi and Nero in roughly the ₱20,000–₱32,000 range, while larger models can cost substantially more." },
+      { question: "How much is the Hatasu Kumi?", answer: "ZigWheels currently lists Kumi at ₱19,990, while EMCOR's current Kumi 2023 retailer listing shows roughly ₱23,036–₱28,469 depending on location and terms." },
+      { question: "How much is the Hatasu Nero?", answer: "ZigWheels currently lists Nero at ₱24,990, while EMCOR's Nero Lite retail range is roughly ₱26,775–₱32,031." },
+      { question: "Should I compare Hatasu e-bikes only by price?", answer: "No. Compare the exact battery, charger, warranty, parts support, service location, range claim and applicable road-use or registration requirements." }
+    ],
+    related: [
+      { href: "/motorcycles/electric", title: "Electric scooters Philippines", description: "Compare current verified electric motorcycle and scooter research." },
+      { href: "/guides/nwow-ebike-price-philippines", title: "NWOW e-bike prices", description: "Compare another high-demand Philippine e-bike brand." },
+      { href: "/tools/electric-motorcycle-charging-cost", title: "Electric charging cost calculator", description: "Estimate charging costs using your electricity rate." }
+    ],
+    sources: [
+      { label: "ZigWheels Hatasu Philippines price list", url: "https://www.zigwheels.ph/new-motorcycles/hatasu" },
+      { label: "EMCOR current Hatasu retail catalog", url: "https://emcor.com.ph/brand/hatasu/" },
+      { label: "EMCOR Hatasu electric-bike catalog", url: "https://emcor.com.ph/product-category/electric-bike/hatasu-electric-bike/" }
+    ]
+  },
+
+
+  {
+    slug: "voge-motorcycle-philippines",
+    kicker: "VOGE Philippines guide",
+    title: "VOGE motorcycles in the Philippines",
+    seoTitle: "VOGE Motorcycle Philippines 2026: Models, Prices & Specs",
+    description: "See the current VOGE Philippines motorcycle lineup, including DS900X, 525DSX, 525R, 525RR, 300 Rally and scooter models with official prices.",
+    intro: "VOGE now has a substantial official Philippine model catalog spanning adventure, naked, sport, classic, cruiser and scooter categories. This guide uses VOGE Philippines' own current catalog so broad brand searches lead to a verified local lineup rather than an imported-market list.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "Current VOGE motorcycle prices in the Philippines",
+        body: [
+          "VOGE Philippines currently publishes a broad local lineup with prices for many models. Current examples include the SR150GT at ₱115,000, 300 AC at ₱170,000, 300 ACX and 300 ACT at ₱180,000, 300 DS at ₱200,000, 300 Rally at ₱210,000, 525R at ₱330,000, 650 DS at ₱340,000, 525RR at ₱350,000, 525ACX at ₱360,000, 525DSX at ₱380,000 and DS900X at ₱630,000.",
+          "Several newer or specialty models are listed without a public peso price, so MotoIndex does not invent one. Confirm current dealer stock and the written final quote for the exact unit."
+        ],
+        bullets: ["SR150GT: ₱115,000", "300 AC: ₱170,000", "300 Rally: ₱210,000", "525R: ₱330,000", "525DSX: ₱380,000", "DS900X: ₱630,000"]
+      },
+      {
+        heading: "Adventure motorcycles are a major part of the VOGE lineup",
+        body: [
+          "The Philippine catalog includes the 300 DS, 300 Rally, 525DSX, 650 DS and DS900X across different adventure and rally-oriented price points.",
+          "Do not choose only from engine size. Compare seat height, curb or dry weight, wheel setup, ground clearance, fuel capacity, ABS and the percentage of your riding that is actually paved."
+        ]
+      },
+      {
+        heading: "VOGE sport, naked, classic and scooter choices",
+        body: [
+          "The current local catalog also includes machines such as the 525R naked bike, 525RR sport bike, 300 AC/ACX/ACT classic-road models and SR-series scooters.",
+          "Because the lineup is broad, start with category and budget, then verify the exact model's current price and dealer availability."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "Is VOGE available in the Philippines?", answer: "Yes. VOGE Philippines currently publishes a local motorcycle catalog and dealer network covering adventure, naked, sport, classic, cruiser and scooter categories." },
+      { question: "How much is a VOGE motorcycle in the Philippines?", answer: "Current published prices vary widely by model. Examples range from ₱115,000 for the SR150GT to ₱630,000 for the DS900X, while some models are listed without a public price." },
+      { question: "How much is the VOGE 525R?", answer: "VOGE Philippines currently lists the 525R at ₱330,000." },
+      { question: "How much is the VOGE DS900X?", answer: "VOGE Philippines currently lists the DS900X at ₱630,000." }
+    ],
+    related: [
+      { href: "/recommendations/adventure-touring-motorcycles-philippines", title: "Adventure motorcycles Philippines", description: "Compare adventure-touring motorcycles across brands." },
+      { href: "/recommendations/naked-motorcycles-philippines", title: "Naked motorcycles Philippines", description: "Compare current naked-road motorcycles by price and specifications." },
+      { href: "/tools/motorcycle-loan-calculator", title: "Motorcycle loan calculator", description: "Model a current dealer quote with your own downpayment and loan term." }
+    ],
+    sources: [
+      { label: "VOGE Philippines official model catalog", url: "https://www.vogephilippines.com/all-products" },
+      { label: "VOGE Philippines official homepage and dealer network", url: "https://www.vogephilippines.com/" }
+    ]
+  },
+  {
+    slug: "italjet-price-philippines",
+    kicker: "Italjet Philippines guide",
+    title: "Italjet price and availability in the Philippines",
+    seoTitle: "Italjet Philippines 2026: Dragster Price, Specs & Dealer Info",
+    description: "Research Italjet Philippines availability, the Dragster 200's current ₱360,000 market price, specifications and official Philippine distributor context.",
+    intro: "Italjet has an active Philippine owner community and official distributor relationship, while current Philippine comparison listings center on the Dragster 200. This guide separates that local market evidence from newer global Italjet models that do not yet have a confirmed Philippine price.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "Italjet Dragster 200 price in the Philippines",
+        body: [
+          "Current Philippine comparison-market listings place the Italjet Dragster 200 at ₱360,000. The same listings describe a 200cc CVT scooter with 20 hp, 17 Nm, 770 mm seat height and ABS-equipped disc brakes.",
+          "Treat the ₱360,000 figure as a current Philippine market reference and confirm the exact dealer quote, model year, warranty and registration package before purchase."
+        ]
+      },
+      {
+        heading: "Is Italjet officially represented in the Philippines?",
+        body: [
+          "Italjet's own current dealer finder includes the Philippines as a country option, and Italjet has published a 2026 feature about its Philippine owner community.",
+          "In that official feature, Italjet identifies Access Plus as its Philippine distributor. This gives the brand stronger local-market evidence than an isolated grey-market listing."
+        ]
+      },
+      {
+        heading: "Do not assume every new global Italjet is already a Philippine model",
+        body: [
+          "Italjet's global range now includes newer Dragster 125/200/300 and Dragster 459 products, plus the Roadster 400 Founders Edition. Global availability or European pricing is not the same as a current Philippine retail launch.",
+          "MotoIndex will keep Philippine price claims tied to locally supported evidence rather than converting overseas prices."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "How much is an Italjet in the Philippines?", answer: "Current Philippine listings center on the Italjet Dragster 200 at about ₱360,000. Confirm the exact dealer quote before purchase." },
+      { question: "Is Italjet available in the Philippines?", answer: "Yes. Italjet's official dealer system includes the Philippines, and Italjet identifies Access Plus as its Philippine distributor in a current brand feature." },
+      { question: "How much is the Italjet Dragster 200?", answer: "Current Philippine comparison listings place the Dragster 200 at ₱360,000." },
+      { question: "Is the Italjet Dragster 459 already priced in the Philippines?", answer: "MotoIndex has not found a confirmed current Philippine price for the newer Dragster 459, so it should not be presented with a converted overseas price." }
+    ],
+    related: [
+      { href: "/motorcycles/scooters", title: "Scooters Philippines", description: "Compare the wider Philippine scooter market." },
+      { href: "/recommendations/maxi-scooters-philippines", title: "Maxi scooters Philippines", description: "Compare larger premium automatic scooters." },
+      { href: "/tools/motorcycle-loan-calculator", title: "Motorcycle loan calculator", description: "Estimate financing using the exact dealer cash price." }
+    ],
+    sources: [
+      { label: "Italjet official Philippine community and distributor feature", url: "https://italjet.com/blogs/italjet-news/riding-with-the-italjet-philippines-community" },
+      { label: "Italjet official dealer finder", url: "https://italjet.com/pages/italjet-dealer-finder" },
+      { label: "ZigWheels Philippines current Dragster price and specification listing", url: "https://www.zigwheels.ph/new-motorcycles/italjet/dragster" }
+    ]
+  },
+
 ];
 
 export function getEditorialGuide(slug: string) {
