@@ -1413,9 +1413,10 @@ export const comparisons: Comparison[] = [
   { slug: "xsr700-vs-cb650r", a: "yamaha-xsr700", b: "honda-cb650r", summary: "Retro-styled Yamaha twin and Honda four-cylinder naked bike compared by price, power, weight, seat height and road specifications" },
   { slug: "ninja-500-vs-yzf-r3", a: "kawasaki-ninja-500", b: "yamaha-yzf-r3", summary: "Entry and mid-size Japanese sport bikes compared by Philippine price, output, weight, seat height and braking" },
   { slug: "nx500-vs-versys-650", a: "honda-nx500-e-clutch", b: "kawasaki-versys-650", summary: "Adventure-touring motorcycles compared by price, engine size, weight, seat height, tank capacity and road-focused touring specifications" },
-  { slug: "crf300l-vs-crf300-rally", a: "honda-crf300l", b: "honda-crf300-rally", summary: "Honda 286cc dual-sport siblings compared by price, weight, seat height, fuel capacity, ground clearance and touring bias" },
+  { slug: "crf300l-vs-crf300-rally", a: "honda-crf300l", b: "honda-crf300-rally", summary: "Honda 286cc dual-sport models compared by price, weight, seat height, ground clearance, fuel capacity and touring focus" },
+  { slug: "klx140-vs-klx150", a: "kawasaki-klx-140", b: "kawasaki-klx150", summary: "Kawasaki trail and dual-sport models compared by price, engine size, weight, seat height, wheel size and road-use context" },
   { slug: "crf300l-vs-klx230", a: "honda-crf300l", b: "kawasaki-klx230", summary: "Road-and-trail dual-sports compared by Philippine price, engine output, weight, seat height, clearance, fuel capacity and wheel setup" },
-  { slug: "ninja-500-vs-z500", a: "kawasaki-ninja-500", b: "kawasaki-z500", summary: "Kawasaki 451cc sport and naked siblings compared by price, rider position, weight, seat height, braking and everyday road use" },
+  { slug: "ninja-500-vs-z500", a: "kawasaki-ninja-500", b: "kawasaki-z500", summary: "Kawasaki 451cc sport and naked siblings compared by price, weight, seat height, fuel capacity, braking and everyday road use" },
   { slug: "cb650r-vs-z650", a: "honda-cb650r", b: "kawasaki-z650", summary: "Current Japanese middleweight naked bikes compared by Philippine price, engine configuration, output, weight, seat height and road use" }
 ];
 
