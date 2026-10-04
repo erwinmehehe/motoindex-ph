@@ -318,7 +318,9 @@ model PriceAlertSubscription {
   targetPricePhp      Decimal  @db.Decimal(12, 2)
   status              String   @default("pending")
   confirmToken        String?  @unique
-  unsubscribeToken    String   @unique
+  confirmTokenHash    String?  @unique
+  unsubscribeToken    String?  @unique
+  unsubscribeTokenHash String? @unique
   confirmedAt         DateTime?
   lastCheckedAt       DateTime?
   lastObservedPricePhp Decimal? @db.Decimal(12, 2)
@@ -442,7 +444,8 @@ model DealerLead {
   matchedSellerSlugs String[]
   status             String   @default("new")
   sourcePath         String
-  buyerAccessToken   String?  @unique
+  buyerAccessToken     String?  @unique
+  buyerAccessTokenHash String?  @unique
   buyerAccessExpiresAt DateTime?
   deliveries         DealerLeadDelivery[]
   createdAt          DateTime @default(now())
@@ -487,8 +490,9 @@ model DealerLeadDelivery {
   sellerSlug    String
   sellerName    String
   dealerEmail   String
-  deliveryToken String     @unique @default(cuid())
-  status        String     @default("pending")
+  deliveryToken     String?    @unique
+  deliveryTokenHash String?    @unique
+  status            String     @default("pending")
   sharedAt      DateTime?
   openedAt      DateTime?
   expiresAt     DateTime
