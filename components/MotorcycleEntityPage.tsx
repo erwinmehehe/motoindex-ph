@@ -343,19 +343,6 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
         </div>
       </section> : null}
 
-      {false ? <section id="installment-deprecated" className="motorcycle-entity-section" aria-labelledby="installment-heading">
-        <SectionHeader
-          kicker="Monthly payment"
-          titleId="installment-heading"
-          title={`${model.make} ${model.model} downpayment and monthly installment estimate`}
-          description={aeroxFinanceTarget ? "Compare Standard and SP downpayment examples, then edit the exact cash price, downpayment, term and annual rate using the calculator." : "Use the published price as a starting point, then replace the downpayment, term and rate with the actual dealer or lender quote."}
-        />
-        <InstallmentCalculator price={range.from} priceOptions={financingPriceOptions} />
-        <FinancingSnapshot modelName={`${model.make} ${model.model}`} price={range.from} priceOptions={financingPriceOptions} />
-        <DealerFinancingSnapshot modelId={model.id} modelName={`${model.make} ${model.model}`} />
-        <div className="entity-tool-grid"><Link href={loanToolHref}><span>Need more control?</span><strong>{aeroxFinanceTarget ? "Calculate Aerox V3 downpayment and monthly payment" : "Open the full loan calculator"}</strong><small>{aeroxFinanceTarget ? "Enter an exact peso downpayment or use 10%, 20% and 30% presets, then adjust term and rate." : "Change price, down payment, term and rate with a shareable URL."}</small></Link></div>
-      </section> : null}
-
       <section id="rider-fit" className="motorcycle-entity-section" aria-labelledby="fit-heading">
         <SectionHeader kicker="Rider fit" titleId="fit-heading" title={<>Will the {model.make} {model.model} fit you?</>} description="Seat height is only a starting point. Use your inseam with the recorded seat height and curb weight, then sit on the exact motorcycle when possible." />
         <div className="entity-fit-kpis"><HeroFact label="Seat height" value={`${model.seatHeightMm} mm`} /><HeroFact label="Curb weight" value={`${model.curbWeightKg} kg`} /><HeroFact label="Power" value={`${model.powerHp} hp`} note={`${model.engineCc} cc`} /><HeroFact label="Transmission" value={model.transmission || "Not listed"} /></div>
