@@ -303,3 +303,41 @@ export async function recordOutboundClick(offer: SellerOffer, sourceBacked: bool
     }
   });
 }
+
+
+export async function getDealerPublishedInventory(modelId:string, now=new Date()){
+  if(!databaseConfigured())return [];
+  const {lower,upper}=commerceFreshnessWindow(now);
+  const rows=await prisma.sellerOffer.findMany({
+    where:{
+      entityType:"motorcycle",
+      entityId:modelId,
+      status:"dealer_published",
+      publicationSource:"dealer_portal",
+      observedAt:{gte:lower,lte:upper},
+      expiresAt:{gt:now},
+      seller:{type:"dealer",status:"verified"}
+    },
+    include:{seller:{select:{name:true,slug:true,city:true,province:true,website:true}}},
+    orderBy:[{pricePhp:"asc"},{observedAt:"desc"}],
+    take:24
+  });
+  return rows.map(row=>({
+    id:row.id,
+    sellerName:row.seller.name,
+    sellerSlug:row.seller.slug,
+    city:row.seller.city||"",
+    province:row.seller.province||"",
+    variantLabel:row.variantLabel,
+    colorLabel:row.colorLabel,
+    promoLabel:row.promoLabel,
+    availability:row.availability,
+    pricePhp:row.pricePhp?Number(row.pricePhp):null,
+    downPaymentPhp:row.downPaymentPhp?Number(row.downPaymentPhp):null,
+    monthlyPhp:row.monthlyPhp?Number(row.monthlyPhp):null,
+    termMonths:row.termMonths,
+    observedAt:row.observedAt.toISOString().slice(0,10),
+    expiresAt:row.expiresAt?.toISOString().slice(0,10)||null,
+    targetUrl:row.targetUrl||row.seller.website||null
+  }));
+}
