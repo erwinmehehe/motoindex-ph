@@ -9,6 +9,8 @@ export type FuelConsumptionLandingProfile = {
   sourceLabel: string;
   sourceUrl: string;
   checkedAt: string;
+  economyKmL?: number;
+  evidenceLabel?: string;
 };
 
 export const fuelConsumptionLandingProfiles: FuelConsumptionLandingProfile[] = [
@@ -23,6 +25,20 @@ export const fuelConsumptionLandingProfiles: FuelConsumptionLandingProfile[] = [
     sourceLabel: "Honda Philippines Click125 2026 launch and specification reference",
     sourceUrl: "https://www.hondaph.com/motorcycle/news/game-changer-upgrade-honda-introduces-the-click125-2026-year-model",
     checkedAt: "2026-10-03"
+  },
+  {
+    modelId: "yamaha-nmax-v3",
+    keyword: "nmax fuel consumption",
+    keywordVolume: 800,
+    title: "Yamaha NMAX Fuel Consumption Philippines | 37 km/L Test",
+    description: "Yamaha NMAX fuel consumption Philippines guide with a 37 km/L Philippine road-test average, tank-range planning, monthly fuel-cost calculator and caveats.",
+    heading: "Yamaha NMAX fuel consumption in the Philippines",
+    intro: "A Philippine first-impressions road test of the current NMAX Tech Max returned an overall average of about 37 km/L, with 40–41 km/L reported on flatter sections. MotoIndex treats 37 km/L as independent road-test evidence, not an official Yamaha laboratory claim or a guaranteed result.",
+    sourceLabel: "Top Gear Philippines 2025 NMAX Tech Max Philippine road test",
+    sourceUrl: "https://www.topgear.com.ph/moto-sapiens/motorcycle-review/yamaha-nmax-tech-max-2025-first-impressions-a5361-20250327-lfrm",
+    checkedAt: "2026-10-04",
+    economyKmL: 37,
+    evidenceLabel: "Independent Philippine road-test average"
   },
   {
     modelId: "honda-adv-160",
