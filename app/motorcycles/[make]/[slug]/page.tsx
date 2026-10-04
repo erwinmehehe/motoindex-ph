@@ -15,6 +15,7 @@ import { modelIntentDepthProfile } from "@/lib/modelIntentDepth2026";
 import { getRenderableMedia } from "@/lib/renderableMedia";
 import { ElectricMotorcycleDetail } from "@/components/ElectricMotorcycleDetail";
 import { DealerInventoryPanel } from "@/components/DealerInventoryPanel";
+import { OwnerReviewsPanel } from "@/components/OwnerReviewsPanel";
 import { electricMotorcycles, getElectricMotorcycle } from "@/lib/electricMotorcycles";
 
 const LEGACY_MODEL_REDIRECTS: Record<string, { make: string; slug: string; title: string; description: string }> = {
@@ -128,6 +129,7 @@ export default async function ModelPage({ params }: { params: Promise<{ make: st
     <RecentlyViewedTracker model={{ id: model.id, make: model.make, model: model.model, makeSlug: model.makeSlug, slug: model.slug }} />
     <MotorcycleEntityPage model={model} />
     {(!model.marketStatus||model.marketStatus==="current")&&<div className="shell"><DealerInventoryPanel modelId={model.id} makeSlug={model.makeSlug} modelSlug={model.slug}/></div>}
+    <div className="shell"><OwnerReviewsPanel modelId={model.id}/></div>
     <PriorityModelBrief model={model} />
     <GrowthModelBrief model={model} />
     {!model.marketStatus || model.marketStatus === "current" ? <div className="shell model-decision-path-wrap"><DecisionPath stage="model" modelName={`${model.make} ${model.model}`} make={model.make} makeSlug={model.makeSlug} modelSlug={model.slug} /></div> : null}
