@@ -12,7 +12,7 @@ import { CTAGroup, InfoPanel, PageHero, ProductGrid, SectionHeader, StatRow } fr
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Helmets Philippines 2026: Prices, Types & Brands",
-  description: "Compare motorcycle helmets in the Philippines by price and type, including full-face, modular, open-face, adventure, dual-sport, off-road and motocross helmets."
+  description: "Compare motorcycle helmets in the Philippines by price and type, including full-face, modular, open-face, adventure, dual-sport, off-road and motocross helmets.",
   path: "/gear/helmets",
   index: true,
   image: "/media/helmets/kyt-tt-course.webp",
