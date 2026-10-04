@@ -198,7 +198,68 @@ export const comparisonEditorialBriefs: ComparisonEditorialBrief[] = [
     opening: "The NX500 and Versys 650 are current Philippine-market adventure-touring options with different engine sizes and weights. Compare price, output, curb weight, seat height, tank capacity, tires and braking using the checked local records.",
     sections: ["Philippine price", "Engine displacement", "Power and torque", "Curb weight", "Seat height", "Fuel capacity", "Ground clearance", "Tires", "ABS and braking", "Touring specifications"],
     faqs: ["Which is cheaper, NX500 or Versys 650?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "Which has the larger engine?"]
+  },
+  {
+    slug: "click-125i-vs-fazzio",
+    primaryKeyword: "Click 125 vs Fazzio",
+    intent: "125cc automatic scooter buyer comparing a practical Honda commuter with Yamaha's lifestyle-oriented Fazzio.",
+    h1: "Honda Click 125 vs Yamaha Fazzio: Price and Specs Compared",
+    opening: "The Click 125i and Fazzio sit in the same everyday 125cc automatic class but differ on price, curb weight, seat height, fuel capacity, wheel size, engine output and braking equipment. This comparison keeps the decision anchored to those measurable Philippine-market differences.",
+    sections: ["Philippine price", "125cc engine output", "Curb weight", "Seat height", "Fuel tank", "Wheel and tire sizes", "Braking equipment", "Daily commuting fit", "What changes for the price difference?"],
+    faqs: ["Which is cheaper, Click 125 or Fazzio?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "Which has stronger published engine output?", "Do either of these records list ABS?"],
+    related: [{ href: "/compare/click-125i-vs-mio-gear", label: "Compare Click 125 vs Mio Gear →" }, { href: "/recommendations/125cc-scooters-philippines", label: "See 125cc scooters →" }]
+  },
+  {
+    slug: "pcx-160-vs-aerox-v3",
+    primaryKeyword: "PCX 160 vs Aerox 155",
+    intent: "Buyer comparing Honda's comfort-led premium scooter with Yamaha's sport-oriented 155cc scooter.",
+    h1: "Honda PCX 160 vs Yamaha Aerox 155: Price and Specs",
+    opening: "The PCX 160 and current Aerox V3 overlap in engine class but differ materially in price range, curb weight, seat height, fuel capacity, tire setup and variant equipment. The useful decision is the measurable trade-off rather than a generic comfort-versus-sport label.",
+    sections: ["Philippine price and variants", "Engine and output", "Curb weight", "Seat height", "Fuel tank and economy", "Tires and wheel setup", "ABS and traction equipment", "City-use considerations", "Longer-ride considerations"],
+    faqs: ["Which is cheaper, PCX 160 or Aerox?", "Which makes more power?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "How do their braking packages differ?"],
+    related: [{ href: "/compare/pcx-160-vs-nmax-v3", label: "Compare PCX 160 vs NMAX →" }, { href: "/compare/adv-160-vs-aerox-v3", label: "Compare ADV160 vs Aerox →" }]
+  },
+  {
+    slug: "tmax-vs-xmax",
+    primaryKeyword: "Yamaha TMAX vs XMAX",
+    intent: "Maxi-scooter buyer deciding whether Yamaha's 562cc flagship justifies its much higher price over the XMAX.",
+    h1: "Yamaha TMAX vs XMAX: Price, Power and Maxi-Scooter Specs",
+    opening: "The TMAX Tech Max and XMAX are both current Yamaha maxi scooters, but they occupy very different price and performance tiers. Compare published Philippine price, displacement, power, weight, seat height, fuel capacity, tires and braking before deciding whether the flagship step-up matches your use.",
+    sections: ["Philippine price", "Engine displacement and output", "Curb weight", "Seat height", "Fuel tank", "Wheel and tire sizes", "Braking equipment", "City maneuverability", "Long-distance specifications", "What the TMAX price premium buys on paper"],
+    faqs: ["How much more expensive is the TMAX than the XMAX?", "Which makes more power?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "Which has larger wheels?"],
+    related: [{ href: "/recommendations/maxi-scooters-philippines", label: "See maxi scooters in the Philippines →" }]
+  },
+  {
+    slug: "z900-vs-cb650r",
+    primaryKeyword: "Kawasaki Z900 vs Honda CB650R",
+    intent: "Japanese naked-bike buyer comparing two current inline-four motorcycles at different output and price levels.",
+    h1: "Kawasaki Z900 vs Honda CB650R: Price, Power and Specs",
+    opening: "The Z900 and CB650R are current Philippine-market inline-four naked bikes, but they differ substantially in displacement, output, curb weight, seat height and price. This comparison keeps those differences visible without treating peak horsepower as the only buying criterion.",
+    sections: ["Philippine price", "Engine size and layout", "Horsepower and torque", "Curb weight", "Seat height", "Fuel tank", "Tires", "ABS and rider aids", "Power-to-weight context", "Everyday road-use considerations"],
+    faqs: ["Which is cheaper, Z900 or CB650R?", "Which makes more power?", "Which is lighter?", "Which has the lower seat?", "Which has the larger fuel tank?", "How do their rider aids differ?"],
+    related: [{ href: "/compare/mt-07-vs-cb650r", label: "Compare MT-07 vs CB650R →" }, { href: "/recommendations/kawasaki-big-bikes-philippines", label: "See Kawasaki big bikes →" }]
+  },
+  {
+    slug: "rs125-vs-smash-fi",
+    primaryKeyword: "Honda RS125 vs Suzuki Smash Fi",
+    intent: "Budget underbone buyer comparing two practical current Philippine commuter motorcycles.",
+    h1: "Honda RS125 vs Suzuki Smash Fi: Price and Specs Compared",
+    opening: "The Honda RS125 and Suzuki Smash Fi target practical underbone buyers at different price and specification points. Compare their current Philippine price, engine output, weight, seat height, fuel economy, transmission and braking before deciding which commuter better fits the budget.",
+    sections: ["Philippine price", "Engine displacement and output", "Curb weight", "Seat height", "Fuel economy", "Transmission", "Braking equipment", "Daily commuting fit"],
+    faqs: ["Which is cheaper, RS125 or Smash Fi?", "Which is lighter?", "Which has the lower seat?", "Which has stronger published output?", "Which is more fuel efficient?", "How do their brakes differ?"],
+    related: [{ href: "/compare/rs125-vs-winner-x", label: "Compare RS125 vs Winner X →" }, { href: "/recommendations/best-underbone-motorcycles-philippines", label: "See underbone motorcycles →" }]
+  },
+  {
+    slug: "z900-vs-z900-se",
+    primaryKeyword: "Z900 vs Z900 SE",
+    intent: "Kawasaki buyer deciding whether the Z900 SE's chassis and braking upgrades justify its higher Philippine price.",
+    h1: "Kawasaki Z900 vs Z900 SE: Price, Brakes and Suspension",
+    opening: "The Z900 Standard and Z900 SE share the same core 948cc performance platform, so the useful comparison is the price premium against braking, suspension and equipment differences. This page keeps those variant differences on one canonical decision URL.",
+    sections: ["Philippine price", "Shared 948cc engine", "Power and torque", "Curb weight", "Seat height", "Braking hardware", "Suspension differences", "Rider aids", "What the SE price premium buys"],
+    faqs: ["How much more does the Z900 SE cost?", "Do the Z900 and Z900 SE have the same engine?", "Which is lighter?", "What brakes does the Z900 SE add?", "How does the suspension differ?", "Which Z900 is better value for road use?"],
+    related: [{ href: "/compare/z900-vs-cb650r", label: "Compare Z900 vs CB650R →" }, { href: "/recommendations/kawasaki-big-bikes-philippines", label: "See Kawasaki big bikes →" }]
   }
+
 ];
 
 export const pendingComparisonEditorialBriefs: ComparisonEditorialBrief[] = [

@@ -67,6 +67,13 @@ const nextConfig = {
       { source: "/motorcycles/yamaha/aerox-v4", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
       { source: "/motorcycles/yamaha/aerox-2025", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
       { source: "/motorcycles/yamaha/nmax-turbo", destination: "/motorcycles/yamaha/nmax-v3", permanent: true },
+      // Consolidate helmet-type aliases into the canonical helmet authority page.
+      { source: "/gear/helmets/open-face", destination: "/gear/helmets#open-face", permanent: true },
+      { source: "/gear/helmets/adventure", destination: "/gear/helmets#adventure", permanent: true },
+      { source: "/gear/helmets/dual-sport", destination: "/gear/helmets#adventure", permanent: true },
+      { source: "/gear/helmets/dual-sport-adventure", destination: "/gear/helmets#adventure", permanent: true },
+      { source: "/gear/helmets/off-road", destination: "/gear/helmets#off-road", permanent: true },
+      { source: "/gear/helmets/motocross", destination: "/gear/helmets#off-road", permanent: true },
       // Consolidate keyword-shaped category aliases into the canonical authority pages.
       { source: "/recommendations/electric-scooters-philippines", destination: "/motorcycles/electric", permanent: true },
       { source: "/recommendations/best-electric-scooters-philippines", destination: "/motorcycles/electric", permanent: true },
@@ -96,6 +103,17 @@ const nextConfig = {
       { source: "/motorcycles/loan", destination: "/tools/motorcycle-loan-calculator", permanent: true },
       { source: "/motorcycle-loan-calculator", destination: "/tools/motorcycle-loan-calculator", permanent: true },
       { source: "/tools/motorcycle-installment-calculator", destination: "/tools/motorcycle-loan-calculator", permanent: true },
+      // Consolidate reverse-order comparison searches into one canonical URL per pair.
+      { source: "/compare/nmax-v3-vs-aerox-v3", destination: "/compare/aerox-v3-vs-nmax-v3", permanent: true },
+      { source: "/compare/nmax-v3-vs-pcx-160", destination: "/compare/pcx-160-vs-nmax-v3", permanent: true },
+      { source: "/compare/giorno-plus-vs-fazzio", destination: "/compare/fazzio-vs-giorno-plus", permanent: true },
+      { source: "/compare/click-160-vs-click-125i", destination: "/compare/click-125i-vs-click-160", permanent: true },
+      { source: "/compare/fazzio-vs-click-125i", destination: "/compare/click-125i-vs-fazzio", permanent: true },
+      { source: "/compare/aerox-v3-vs-pcx-160", destination: "/compare/pcx-160-vs-aerox-v3", permanent: true },
+      { source: "/compare/xmax-vs-tmax", destination: "/compare/tmax-vs-xmax", permanent: true },
+      { source: "/compare/cb650r-vs-z900", destination: "/compare/z900-vs-cb650r", permanent: true },
+      { source: "/compare/smash-fi-vs-rs125", destination: "/compare/rs125-vs-smash-fi", permanent: true },
+      { source: "/compare/z900-se-vs-z900", destination: "/compare/z900-vs-z900-se", permanent: true },
       // Canonical buying-guide hub is plural. Preserve singular links and typos with permanent redirects.
       { source: "/recommendation", destination: "/recommendations", permanent: true },
       { source: "/recommendation/:path*", destination: "/recommendations/:path*", permanent: true }

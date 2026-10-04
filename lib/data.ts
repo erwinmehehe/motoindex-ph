@@ -1416,7 +1416,13 @@ export const comparisons: Comparison[] = [
   { slug: "mt-15-vs-yzf-r15m", a: "yamaha-mt-15", b: "yamaha-yzf-r15m", summary: "Yamaha 155cc naked and sport motorcycles compared by price, output, weight, seat height, transmission and body style" },
   { slug: "rs125-vs-winner-x", a: "honda-rs125", b: "honda-winner-x", summary: "Honda sport underbones compared by price, engine size, output, weight, fuel economy and braking equipment" },
   { slug: "crf300l-vs-crf300-rally", a: "honda-crf300l", b: "honda-crf300-rally", summary: "Honda 286cc dual-sport models compared by price, weight, seat height, ground clearance, fuel capacity and touring focus" },
-  { slug: "klx140-vs-klx150", a: "kawasaki-klx-140", b: "kawasaki-klx150", summary: "Kawasaki trail and dual-sport models compared by price, engine size, weight, seat height, wheel size and road-use context" }
+  { slug: "klx140-vs-klx150", a: "kawasaki-klx-140", b: "kawasaki-klx150", summary: "Kawasaki trail and dual-sport models compared by price, engine size, weight, seat height, wheel size and road-use context" },
+  { slug: "click-125i-vs-fazzio", a: "honda-click-125i", b: "yamaha-fazzio", summary: "Mainstream 125cc automatic scooters compared by Philippine price, weight, seat height, fuel capacity, output and braking" },
+  { slug: "pcx-160-vs-aerox-v3", a: "honda-pcx-160", b: "yamaha-aerox-v3", summary: "Premium comfort-led and sport-oriented 160cc-class scooters compared by price, output, weight, seat, tank and equipment" },
+  { slug: "tmax-vs-xmax", a: "yamaha-tmax", b: "yamaha-xmax", summary: "Yamaha maxi scooters compared by price, displacement, power, weight, seat height, fuel tank and road-touring specifications" },
+  { slug: "z900-vs-cb650r", a: "kawasaki-z900", b: "honda-cb650r", summary: "Japanese inline-four naked bikes compared by Philippine price, output, weight, seat height, tank capacity and braking equipment" },
+  { slug: "rs125-vs-smash-fi", a: "honda-rs125", b: "suzuki-smash-fi", summary: "Current Philippine underbones compared by price, engine output, weight, seat height, fuel economy, transmission and braking" },
+  { slug: "z900-vs-z900-se", a: "kawasaki-z900", b: "kawasaki-z900-se", summary: "Kawasaki Z900 Standard and Z900 SE compared by Philippine price, weight, braking hardware, suspension and shared 948cc performance" }
 ];
 
 
