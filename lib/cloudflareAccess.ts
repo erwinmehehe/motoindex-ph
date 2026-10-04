@@ -8,7 +8,9 @@ type AccessPayload={
   [key:string]:unknown;
 };
 
-let jwksCache:{expiresAt:number;keys:JsonWebKey[]}|null=null;
+type AccessJwk=JsonWebKey & {kid?:string};
+
+let jwksCache:{expiresAt:number;keys:AccessJwk[]}|null=null;
 
 function decodeBase64Url(value:string){
   const normalized=value.replace(/-/g,"+").replace(/_/g,"/");
@@ -34,7 +36,7 @@ async function accessKeys(teamDomain:string){
   if(jwksCache&&jwksCache.expiresAt>now)return jwksCache.keys;
   const response=await fetch(`https://${teamDomain}/cdn-cgi/access/certs`,{headers:{"Accept":"application/json"}});
   if(!response.ok)throw new Error("Cloudflare Access JWKS unavailable.");
-  const body=await response.json() as {keys?:JsonWebKey[]};
+  const body=await response.json() as {keys?:AccessJwk[]};
   if(!Array.isArray(body.keys)||!body.keys.length)throw new Error("Cloudflare Access JWKS empty.");
   jwksCache={expiresAt:now+5*60*1000,keys:body.keys};
   return body.keys;
