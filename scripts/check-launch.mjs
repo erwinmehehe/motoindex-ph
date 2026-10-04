@@ -32,11 +32,25 @@ if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || /@(example\.(com|org|net)|test|
   failures.push("NEXT_PUBLIC_CONTACT_EMAIL must be a real monitored mailbox for launch.");
 }
 
+const adminMode = process.env.ADMIN_AUTH_MODE === "cloudflare-access" ? "cloudflare-access" : "basic";
 const adminUser = process.env.ADMIN_USERNAME || "";
 const adminPassword = process.env.ADMIN_PASSWORD || "";
-if (adminUser.length < 8) failures.push("ADMIN_USERNAME must be set and at least 8 characters.");
-if (adminPassword.length < 20) failures.push("ADMIN_PASSWORD must be set and at least 20 characters.");
-if (adminUser && adminPassword && adminUser === adminPassword) failures.push("ADMIN_USERNAME and ADMIN_PASSWORD must be different.");
+if (adminMode === "cloudflare-access") {
+  const allowedEmails=(process.env.ADMIN_ACCESS_ALLOWED_EMAILS||"").split(",").map(value=>value.trim()).filter(Boolean);
+  if (!allowedEmails.length) failures.push("ADMIN_ACCESS_ALLOWED_EMAILS must contain at least one administrator in Cloudflare Access mode.");
+} else {
+  if (adminUser.length < 8) failures.push("ADMIN_USERNAME must be set and at least 8 characters.");
+  if (adminPassword.length < 20) failures.push("ADMIN_PASSWORD must be set and at least 20 characters.");
+  if (adminUser && adminPassword && adminUser === adminPassword) failures.push("ADMIN_USERNAME and ADMIN_PASSWORD must be different.");
+}
+
+if (process.env.DEALER_PORTAL_ENABLED === "true") {
+  if (!process.env.DATABASE_URL) failures.push("DEALER_PORTAL_ENABLED requires DATABASE_URL.");
+  if (!process.env.RESEND_API_KEY) failures.push("DEALER_PORTAL_ENABLED requires RESEND_API_KEY.");
+  if (!(process.env.DEALER_AUTH_FROM_EMAIL || process.env.OWNER_AUTH_FROM_EMAIL || process.env.PRICE_ALERT_FROM_EMAIL)) {
+    failures.push("DEALER_PORTAL_ENABLED requires a verified dealer/owner/price-alert sender email.");
+  }
+}
 
 
 const DAY_MS = 86_400_000;
@@ -79,8 +93,8 @@ checkDynamicSiblings(appDir);
 
 const nextVersion = pkg.dependencies?.next || "";
 const parts = nextVersion.split(".").map(Number);
-if (!(parts[0] === 15 && parts[1] === 5 && parts[2] > 23)) {
-  failures.push(`Next.js ${nextVersion} is below the patched 15.5.24 security baseline. Upgrade to Next.js 15.5.24 or a newer supported 15.5 patch, regenerate the lockfile, and re-run verification.`);
+if (!(parts[0] === 15 && parts[1] === 5 && parts[2] >= 27)) {
+  failures.push(`Next.js ${nextVersion} is below the required 15.5.27 maintenance/security baseline. Upgrade to Next.js 15.5.27 or a newer supported 15.5 patch, regenerate the lockfile, and re-run verification.`);
 }
 
 if (warnings.length) console.warn("Launch preflight warnings:\n- " + warnings.join("\n- "));
@@ -88,4 +102,4 @@ if (failures.length) {
   console.error("Launch preflight failed:\n- " + failures.join("\n- "));
   process.exit(1);
 }
-console.log("Launch preflight passed: exact dependencies, lockfile, HTTPS site URL, contact channel, admin credentials, source freshness, and Next.js security baseline are present.");
+console.log("Launch preflight passed: exact dependencies, lockfile, HTTPS site URL, contact channel, admin perimeter, source freshness, dealer feature gates, and Next.js security baseline are present.");
