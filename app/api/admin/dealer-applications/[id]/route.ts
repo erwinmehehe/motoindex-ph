@@ -59,10 +59,22 @@ export async function PATCH(request:Request,{params}:{params:Promise<{id:string}
     ? await prisma.seller.update({where:{id:application.publishedSellerId},data:sellerData})
     : await prisma.seller.create({data:sellerData});
 
-  await prisma.dealerApplication.update({
-    where:{id},
-    data:{status:"approved",reviewNote,reviewedAt:new Date(),publishedSellerId:seller.id}
+  await prisma.$transaction(async tx=>{
+    await tx.dealerApplication.update({
+      where:{id},
+      data:{status:"approved",reviewNote,reviewedAt:new Date(),publishedSellerId:seller.id}
+    });
+    const account=await tx.dealerAccount.upsert({
+      where:{email:application.contactEmail.toLowerCase()},
+      update:{},
+      create:{email:application.contactEmail.toLowerCase()}
+    });
+    await tx.dealerMembership.upsert({
+      where:{accountId_sellerId:{accountId:account.id,sellerId:seller.id}},
+      update:{role:"manager"},
+      create:{accountId:account.id,sellerId:seller.id,role:"manager"}
+    });
   });
 
-  return NextResponse.json({ok:true,status:"approved",sellerSlug:seller.slug,message:"Dealer approved and published to the verified seller database."});
+  return NextResponse.json({ok:true,status:"approved",sellerSlug:seller.slug,message:"Dealer approved, published, and connected to Dealer Portal access."});
 }
