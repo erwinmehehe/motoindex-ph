@@ -22,3 +22,12 @@ test("quote page fails closed without an approved receiver",async({page})=>{
   await expect(page.getByText(/No approved quote receiver is active/i)).toBeVisible();
   await expect(page.getByRole("link",{name:/Browse Honda dealers/i})).toBeVisible();
 });
+
+
+test("owner reviews fail closed until explicitly enabled",async({request})=>{
+  const response=await request.get("/api/owner-reviews/public?modelId=honda-adv-160");
+  expect(response.ok()).toBeTruthy();
+  const data=await response.json();
+  expect(data.available).toBe(false);
+  expect(data.reviews).toEqual([]);
+});
