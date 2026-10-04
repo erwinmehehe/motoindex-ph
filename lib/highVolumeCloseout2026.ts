@@ -212,7 +212,7 @@ export const highVolumeCloseout2026: Motorcycle[] = [
     transmission: "Manual",
     successorId: "honda-nx500-e-clutch",
     summary: "Previous Philippine 471cc CB500X with 46.9 hp-equivalent output, 43 Nm, 834 mm seat, 17.7 L tank and 2-channel ABS; current new-bike research should move to the NX500."
-  }
+  },
   {
     id: "honda-crf300l",
     alsoKnownAs: ["Honda CRF300L", "CRF 300L", "CRF300 L"],
