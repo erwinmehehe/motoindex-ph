@@ -595,6 +595,104 @@ export const editorialGuides: EditorialGuide[] = [
     ]
   },
 
+
+  {
+    slug: "voge-motorcycle-philippines",
+    kicker: "VOGE Philippines guide",
+    title: "VOGE motorcycles in the Philippines",
+    seoTitle: "VOGE Motorcycle Philippines 2026: Models, Prices & Specs",
+    description: "See the current VOGE Philippines motorcycle lineup, including DS900X, 525DSX, 525R, 525RR, 300 Rally and scooter models with official prices.",
+    intro: "VOGE now has a substantial official Philippine model catalog spanning adventure, naked, sport, classic, cruiser and scooter categories. This guide uses VOGE Philippines' own current catalog so broad brand searches lead to a verified local lineup rather than an imported-market list.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "Current VOGE motorcycle prices in the Philippines",
+        body: [
+          "VOGE Philippines currently publishes a broad local lineup with prices for many models. Current examples include the SR150GT at ₱115,000, 300 AC at ₱170,000, 300 ACX and 300 ACT at ₱180,000, 300 DS at ₱200,000, 300 Rally at ₱210,000, 525R at ₱330,000, 650 DS at ₱340,000, 525RR at ₱350,000, 525ACX at ₱360,000, 525DSX at ₱380,000 and DS900X at ₱630,000.",
+          "Several newer or specialty models are listed without a public peso price, so MotoIndex does not invent one. Confirm current dealer stock and the written final quote for the exact unit."
+        ],
+        bullets: ["SR150GT: ₱115,000", "300 AC: ₱170,000", "300 Rally: ₱210,000", "525R: ₱330,000", "525DSX: ₱380,000", "DS900X: ₱630,000"]
+      },
+      {
+        heading: "Adventure motorcycles are a major part of the VOGE lineup",
+        body: [
+          "The Philippine catalog includes the 300 DS, 300 Rally, 525DSX, 650 DS and DS900X across different adventure and rally-oriented price points.",
+          "Do not choose only from engine size. Compare seat height, curb or dry weight, wheel setup, ground clearance, fuel capacity, ABS and the percentage of your riding that is actually paved."
+        ]
+      },
+      {
+        heading: "VOGE sport, naked, classic and scooter choices",
+        body: [
+          "The current local catalog also includes machines such as the 525R naked bike, 525RR sport bike, 300 AC/ACX/ACT classic-road models and SR-series scooters.",
+          "Because the lineup is broad, start with category and budget, then verify the exact model's current price and dealer availability."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "Is VOGE available in the Philippines?", answer: "Yes. VOGE Philippines currently publishes a local motorcycle catalog and dealer network covering adventure, naked, sport, classic, cruiser and scooter categories." },
+      { question: "How much is a VOGE motorcycle in the Philippines?", answer: "Current published prices vary widely by model. Examples range from ₱115,000 for the SR150GT to ₱630,000 for the DS900X, while some models are listed without a public price." },
+      { question: "How much is the VOGE 525R?", answer: "VOGE Philippines currently lists the 525R at ₱330,000." },
+      { question: "How much is the VOGE DS900X?", answer: "VOGE Philippines currently lists the DS900X at ₱630,000." }
+    ],
+    related: [
+      { href: "/recommendations/adventure-touring-motorcycles-philippines", title: "Adventure motorcycles Philippines", description: "Compare adventure-touring motorcycles across brands." },
+      { href: "/recommendations/naked-motorcycles-philippines", title: "Naked motorcycles Philippines", description: "Compare current naked-road motorcycles by price and specifications." },
+      { href: "/tools/motorcycle-loan-calculator", title: "Motorcycle loan calculator", description: "Model a current dealer quote with your own downpayment and loan term." }
+    ],
+    sources: [
+      { label: "VOGE Philippines official model catalog", url: "https://www.vogephilippines.com/all-products" },
+      { label: "VOGE Philippines official homepage and dealer network", url: "https://www.vogephilippines.com/" }
+    ]
+  },
+  {
+    slug: "italjet-price-philippines",
+    kicker: "Italjet Philippines guide",
+    title: "Italjet price and availability in the Philippines",
+    seoTitle: "Italjet Philippines 2026: Dragster Price, Specs & Dealer Info",
+    description: "Research Italjet Philippines availability, the Dragster 200's current ₱360,000 market price, specifications and official Philippine distributor context.",
+    intro: "Italjet has an active Philippine owner community and official distributor relationship, while current Philippine comparison listings center on the Dragster 200. This guide separates that local market evidence from newer global Italjet models that do not yet have a confirmed Philippine price.",
+    lastChecked: "2026-10-04",
+    sections: [
+      {
+        heading: "Italjet Dragster 200 price in the Philippines",
+        body: [
+          "Current Philippine comparison-market listings place the Italjet Dragster 200 at ₱360,000. The same listings describe a 200cc CVT scooter with 20 hp, 17 Nm, 770 mm seat height and ABS-equipped disc brakes.",
+          "Treat the ₱360,000 figure as a current Philippine market reference and confirm the exact dealer quote, model year, warranty and registration package before purchase."
+        ]
+      },
+      {
+        heading: "Is Italjet officially represented in the Philippines?",
+        body: [
+          "Italjet's own current dealer finder includes the Philippines as a country option, and Italjet has published a 2026 feature about its Philippine owner community.",
+          "In that official feature, Italjet identifies Access Plus as its Philippine distributor. This gives the brand stronger local-market evidence than an isolated grey-market listing."
+        ]
+      },
+      {
+        heading: "Do not assume every new global Italjet is already a Philippine model",
+        body: [
+          "Italjet's global range now includes newer Dragster 125/200/300 and Dragster 459 products, plus the Roadster 400 Founders Edition. Global availability or European pricing is not the same as a current Philippine retail launch.",
+          "MotoIndex will keep Philippine price claims tied to locally supported evidence rather than converting overseas prices."
+        ]
+      }
+    ],
+    faqs: [
+      { question: "How much is an Italjet in the Philippines?", answer: "Current Philippine listings center on the Italjet Dragster 200 at about ₱360,000. Confirm the exact dealer quote before purchase." },
+      { question: "Is Italjet available in the Philippines?", answer: "Yes. Italjet's official dealer system includes the Philippines, and Italjet identifies Access Plus as its Philippine distributor in a current brand feature." },
+      { question: "How much is the Italjet Dragster 200?", answer: "Current Philippine comparison listings place the Dragster 200 at ₱360,000." },
+      { question: "Is the Italjet Dragster 459 already priced in the Philippines?", answer: "MotoIndex has not found a confirmed current Philippine price for the newer Dragster 459, so it should not be presented with a converted overseas price." }
+    ],
+    related: [
+      { href: "/motorcycles/scooters", title: "Scooters Philippines", description: "Compare the wider Philippine scooter market." },
+      { href: "/recommendations/maxi-scooters-philippines", title: "Maxi scooters Philippines", description: "Compare larger premium automatic scooters." },
+      { href: "/tools/motorcycle-loan-calculator", title: "Motorcycle loan calculator", description: "Estimate financing using the exact dealer cash price." }
+    ],
+    sources: [
+      { label: "Italjet official Philippine community and distributor feature", url: "https://italjet.com/blogs/italjet-news/riding-with-the-italjet-philippines-community" },
+      { label: "Italjet official dealer finder", url: "https://italjet.com/pages/italjet-dealer-finder" },
+      { label: "ZigWheels Philippines current Dragster price and specification listing", url: "https://www.zigwheels.ph/new-motorcycles/italjet/dragster" }
+    ]
+  },
+
 ];
 
 export function getEditorialGuide(slug: string) {
