@@ -1947,7 +1947,7 @@ export const recommendationGuides: RecommendationGuide[] = [
     kicker: "Dual sport & trail",
     title: "Dual-sport and trail motorcycles in the Philippines",
     seoTitle: "Dual-Sport & Trail Motorcycles Philippines 2026 | Prices",
-    description: "Compare dirt bikes, dual-sport, trail and enduro motorcycles in the Philippines by price, weight, seat height, clearance, wheel setup, fuel tank and road-use context.",
+    description: "Compare dirt bikes, dual-sport, trail and enduro motorcycles in the Philippines by price, weight, seat height, clearance, wheel setup and road-use context.",
     primaryKeyword: "dual sport motorcycles Philippines",
     secondaryKeywords: ["dirt bike Philippines", "dirt bike price Philippines", "dirt bikes Philippines", "best dirt bike Philippines", "best dual sport motorcycles Philippines", "dual purpose motorcycles Philippines", "trail bike Philippines", "trail motorcycles Philippines", "off road motorcycle Philippines", "off-road motorcycle Philippines", "off road bike Philippines", "enduro motorcycle Philippines", "enduro motorcycles Philippines", "enduro bike Philippines", "enduro motorcycle price Philippines", "street legal trail bike Philippines"],
     directAnswer: "For Philippine dirt-bike and road-and-trail research, compare dual-sport motorcycles on weight, seat height, ground clearance, wheel setup, fuel capacity, braking equipment and registration status. This page absorbs dirt-bike, trail-bike, enduro and off-road-motorcycle searches without pretending motocross-only machines are road motorcycles.",
