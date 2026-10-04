@@ -629,6 +629,7 @@ model OwnerReview {
   dislikes                 String
   status                   String       @default("pending")
   garageVerifiedAt         DateTime
+  consentedAt              DateTime
   submittedAt              DateTime     @default(now())
   reviewedAt               DateTime?
   publishedAt              DateTime?
