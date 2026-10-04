@@ -23,8 +23,18 @@ describe("owner review aggregation privacy",()=>{
     const summary=summarizeOwnerReviews([review("1"),review("2"),review("3")]);
     expect(summary.ratingSampleReady).toBe(true);
     expect(summary.ratings?.comfort).toBe(4);
+    expect(summary.ratings?.passenger).toBe(4);
     expect(summary.fuelEconomyKmpl).toBeNull();
     expect(summary.annualMaintenancePhp).toBeNull();
+  });
+
+  it("does not average an optional dimension from a single response",()=>{
+    const summary=summarizeOwnerReviews([
+      review("1",{passengerRating:5}),
+      review("2",{passengerRating:null}),
+      review("3",{passengerRating:null})
+    ]);
+    expect(summary.ratings?.passenger).toBeNull();
   });
 
   it("publishes aggregate fuel and maintenance only from five reports",()=>{
