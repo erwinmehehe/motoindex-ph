@@ -76,14 +76,14 @@ export function OwnerReviewsPanel({modelId}:{modelId:string}){
     {state.intelligence?.ready&&<section className="note-box owner-intelligence-block" aria-label="Anonymous owner intelligence">
       <span className="field-label">Owner Intelligence</span>
       <h3>What Garage data shows in real ownership</h3>
-      <p>These figures use only owners who separately opted in to anonymous Garage-derived intelligence. MotoIndex stores derived metrics rather than publishing raw Garage records.</p>
+      <p>These figures use only owners who separately opted in to anonymous Garage-derived intelligence and whose Garage history met the minimum logging depth for each metric. MotoIndex stores derived metrics rather than publishing raw Garage records.</p>
       <div className="spec-grid">
-        {state.intelligence.monthlyRunningCostPhp!==null&&<div><span>Typical monthly running cost</span><strong>{money(state.intelligence.monthlyRunningCostPhp)}</strong><small>{state.intelligence.monthlyRunningCostSample} owner samples</small></div>}
+        {state.intelligence.monthlyRunningCostPhp!==null&&<div><span>Average logged monthly running cost</span><strong>{money(state.intelligence.monthlyRunningCostPhp)}</strong><small>{state.intelligence.monthlyRunningCostSample} owner samples</small></div>}
         {state.intelligence.fuelEconomyKmpl!==null&&<div><span>Garage-derived fuel economy</span><strong>{state.intelligence.fuelEconomyKmpl.toFixed(1)} km/L</strong><small>{state.intelligence.fuelEconomySample} owner samples</small></div>}
-        {state.intelligence.annualMaintenancePhp!==null&&<div><span>Annualized maintenance spend</span><strong>{money(state.intelligence.annualMaintenancePhp)}</strong><small>{state.intelligence.annualMaintenanceSample} owner samples</small></div>}
-        {state.intelligence.tireLifeKm!==null&&<div><span>Observed tire life</span><strong>{Math.round(state.intelligence.tireLifeKm).toLocaleString("en-PH")} km</strong><small>{state.intelligence.tireLifeSample} owner samples</small></div>}
-        {state.intelligence.maintenanceEventsPer10kKm!==null&&<div><span>Maintenance events</span><strong>{state.intelligence.maintenanceEventsPer10kKm.toFixed(1)} / 10,000 km</strong><small>{state.intelligence.maintenanceEventsSample} owner samples</small></div>}
-        {state.intelligence.repairsPer10kKm!==null&&<div><span>Unscheduled repairs</span><strong>{state.intelligence.repairsPer10kKm.toFixed(1)} / 10,000 km</strong><small>{state.intelligence.repairsSample} owner samples</small></div>}
+        {state.intelligence.annualMaintenancePhp!==null&&<div><span>Annualized logged maintenance spend</span><strong>{money(state.intelligence.annualMaintenancePhp)}</strong><small>{state.intelligence.annualMaintenanceSample} owner samples</small></div>}
+        {state.intelligence.tireLifeKm!==null&&<div><span>Observed tire replacement interval</span><strong>{Math.round(state.intelligence.tireLifeKm).toLocaleString("en-PH")} km</strong><small>{state.intelligence.tireLifeSample} owner samples</small></div>}
+        {state.intelligence.maintenanceEventsPer10kKm!==null&&<div><span>Logged maintenance events</span><strong>{state.intelligence.maintenanceEventsPer10kKm.toFixed(1)} / 10,000 km</strong><small>{state.intelligence.maintenanceEventsSample} owner samples</small></div>}
+        {state.intelligence.repairsPer10kKm!==null&&<div><span>Logged repair events</span><strong>{state.intelligence.repairsPer10kKm.toFixed(1)} / 10,000 km</strong><small>{state.intelligence.repairsSample} owner samples</small></div>}
       </div>
       {state.intelligence.commonMaintenance.length>0&&<div className="seller-tags" aria-label="Common logged maintenance categories">
         {state.intelligence.commonMaintenance.map(item=><span key={item.category}>{item.category} · {item.ownerSample} owners</span>)}
