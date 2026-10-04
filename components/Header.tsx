@@ -28,6 +28,7 @@ const ownership = [
   ["My Garage", "/garage"] as const,
   ["Ownership", "/ownership"] as const,
   ["Dealers", "/dealers"] as const,
+  ["Service centers", "/service-centers"] as const,
   ["Seller offers", "/deals"] as const,
   ["Commute", "/commute"] as const,
   ...(hasModels ? [["Fitment finder", "/fitment"] as const] : []),
