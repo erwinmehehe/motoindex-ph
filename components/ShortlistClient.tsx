@@ -60,10 +60,11 @@ export function ShortlistClient({models,initialSlugs=EMPTY_SLUGS}:{models:Motorc
     localStorage.setItem(SHORTLIST_KEY,JSON.stringify(next));
     setIds(next);
     window.dispatchEvent(new CustomEvent("motoindex-shortlist"));
+    void fetch("/api/my/shortlist",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({modelIds:next})}).catch(()=>{});
   }
 
   function remove(id:string){persist(ids.filter(item=>item!==id));trackEvent("shortlist_remove",{id})}
-  function clear(){localStorage.removeItem(SHORTLIST_KEY);setIds([]);window.dispatchEvent(new CustomEvent("motoindex-shortlist"))}
+  function clear(){persist([])}
 
   async function share(){
     if(!saved.length)return;
