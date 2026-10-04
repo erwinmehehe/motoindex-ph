@@ -236,8 +236,12 @@ export async function getVerifiedOffers(
   const { lower, upper } = commerceFreshnessWindow(now);
   const rows = await prisma.sellerOffer.findMany({
     where: {
-      status: "verified",
+      status: { in: ["verified", "dealer_published"] },
       observedAt: { gte: lower, lte: upper },
+      OR: [
+        { status: "verified" },
+        { status: "dealer_published", publicationSource: "dealer_portal", expiresAt: { gt: now } }
+      ],
       ...(filters?.entityType ? { entityType: filters.entityType } : {}),
       ...(filters?.entityId ? { entityId: filters.entityId } : {})
     },
@@ -252,7 +256,9 @@ export async function getVerifiedOffers(
     termMonths: row.termMonths || undefined, availability: row.availability, status: "verified",
     observedAt: row.observedAt.toISOString().slice(0, 10), verifiedAt: row.verifiedAt?.toISOString().slice(0, 10),
     targetUrl: row.targetUrl || undefined, affiliateUrl: row.affiliateUrl || undefined,
-    note: "Verified offer published through the reviewed ingestion workflow."
+    note: row.publicationSource === "dealer_portal"
+      ? `Dealer-published inventory from ${row.seller.name}. MotoIndex verified the dealer profile, but the branch is responsible for this price, stock and promo information.`
+      : "Verified offer published through the reviewed ingestion workflow."
   }));
 }
 
@@ -260,7 +266,15 @@ export async function getVerifiedOfferById(id: string, now = new Date()): Promis
   if (!databaseConfigured()) return null;
   const { lower, upper } = commerceFreshnessWindow(now);
   const row = await prisma.sellerOffer.findFirst({
-    where: { id, status: "verified", observedAt: { gte: lower, lte: upper } },
+    where: {
+      id,
+      status: { in: ["verified", "dealer_published"] },
+      observedAt: { gte: lower, lte: upper },
+      OR: [
+        { status: "verified" },
+        { status: "dealer_published", publicationSource: "dealer_portal", expiresAt: { gt: now } }
+      ]
+    },
     include: { seller: { select: { name: true, slug: true, type: true } } }
   });
   if (!row) return null;
@@ -271,7 +285,9 @@ export async function getVerifiedOfferById(id: string, now = new Date()): Promis
     termMonths: row.termMonths || undefined, availability: row.availability, status: "verified" as const,
     observedAt: row.observedAt.toISOString().slice(0, 10), verifiedAt: row.verifiedAt?.toISOString().slice(0, 10),
     targetUrl: row.targetUrl || undefined, affiliateUrl: row.affiliateUrl || undefined,
-    note: "Verified offer published through the reviewed ingestion workflow."
+    note: row.publicationSource === "dealer_portal"
+      ? `Dealer-published inventory from ${row.seller.name}. MotoIndex verified the dealer profile, but the branch is responsible for this price, stock and promo information.`
+      : "Verified offer published through the reviewed ingestion workflow."
   };
 }
 
