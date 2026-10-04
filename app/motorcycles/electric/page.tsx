@@ -47,7 +47,7 @@ export default function ElectricMotorcyclesPage() {
     <Breadcrumbs items={[{label:"Motorcycles",href:"/motorcycles"},{label:"Electric motorcycles"}]}/>
     <PageHero
       kicker="Electric motorcycle buying guide"
-      title="Best electric scooters and motorcycles in the Philippines"
+      title="Electric motorcycles and scooters in the Philippines"
       description="Compare current verified Philippine electric scooters by price, battery setup, claimed range, charging time, LTO classification and ownership trade-offs. “Best” here means best matched to your use, not a universal ranking."
       actions={<CTAGroup><a className="button" href="#models">Compare electric models</a><Link className="button secondary" href="/tools/electric-motorcycle-charging-cost">Calculate charging cost</Link></CTAGroup>}
     />
