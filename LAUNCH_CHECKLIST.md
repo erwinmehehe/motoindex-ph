@@ -47,9 +47,10 @@ ADMIN_ACCESS_EMAILS=<comma-separated approved admin email identities>
 ADMIN_USERNAME=<8+ character private username; local/basic fallback only>
 ADMIN_PASSWORD=<20+ character unique password; local/basic fallback only>
 NEXT_PUBLIC_ANALYTICS_CAPTURE_SEARCH_TERMS=false
+OWNER_REVIEWS_ENABLED=false
 ```
 
-Keep `NEXT_PUBLIC_ANALYTICS_CAPTURE_SEARCH_TERMS=false` unless you deliberately choose to capture search terms under the published privacy policy.
+Keep `NEXT_PUBLIC_ANALYTICS_CAPTURE_SEARCH_TERMS=false` unless you deliberately choose to capture search terms under the published privacy policy. Keep `OWNER_REVIEWS_ENABLED=false` until the owner-review migration is deployed and a moderator is ready to review submissions.
 
 `DATABASE_URL is optional` for the static public research launch, but v2.4.4 now uses `@prisma/client` for persistent offer ingestion. Without Postgres, the public research pages keep their static/source-gated fallbacks while staging, review, publishing, price history and expiry stay unavailable. To activate persistence, set `DATABASE_URL`, then run `npm run db:migrate` and `npm run db:seed`.
 
@@ -113,3 +114,15 @@ Before setting `ADMIN_ACCESS_MODE=cloudflare`:
 4. Verify Cloudflare injects both the authenticated-user email header and Access JWT assertion.
 5. Confirm direct-origin access cannot bypass Cloudflare.
 6. Test an approved identity, a denied identity, and an unauthenticated request before production enablement.
+
+
+## Garage-verified owner review production gate
+Before setting `OWNER_REVIEWS_ENABLED=true`:
+1. Configure `DATABASE_URL`, Garage cloud sync and owner email authentication.
+2. Apply all Prisma migrations, including `20261004190000_add_owner_reviews`.
+3. Confirm `/admin/owner-reviews` is protected by the production admin perimeter.
+4. Assign a moderator and review the published privacy notice.
+5. Submit a test review from a synced Garage motorcycle and confirm it remains `pending` until an administrator explicitly publishes it.
+6. Confirm the public model page exposes no email, plate, documents or other private Garage fields.
+7. Confirm one owner account cannot create multiple reviews for the same MotoIndex model.
+8. Confirm rating aggregates stay hidden below 3 published owners and fuel/maintenance aggregates stay hidden below 5 reports.
