@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
+import { hashActionToken } from "@/lib/actionTokens";
 
 export const runtime="nodejs";
 const allowed=new Set(["opened","contacted","closed"]);
@@ -12,7 +13,7 @@ export async function PATCH(request:Request,{params}:{params:Promise<{token:stri
   const action=typeof body.action==="string"?body.action:"";
   if(!allowed.has(action))return NextResponse.json({ok:false,error:"Invalid action."},{status:400});
 
-  const delivery=await prisma.dealerLeadDelivery.findUnique({where:{deliveryToken:token},include:{lead:true}});
+  const delivery=await prisma.dealerLeadDelivery.findFirst({where:{OR:[{deliveryTokenHash:hashActionToken(token)},{deliveryToken:token}]},include:{lead:true}});
   if(!delivery||delivery.status==="pending"||delivery.status==="cancelled")return NextResponse.json({ok:false,error:"Secure lead link is not active."},{status:404});
   if(delivery.expiresAt<=new Date())return NextResponse.json({ok:false,error:"Secure lead link has expired."},{status:410});
 
