@@ -1,7 +1,7 @@
-import { randomBytes } from "node:crypto";
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { currentModelAlertPrice, priceAlertsConfigured, sendPriceAlertConfirmation } from "@/lib/priceAlerts";
+import { actionToken, hashActionToken } from "@/lib/actionTokens";
 
 export const runtime="nodejs";
 
@@ -36,8 +36,7 @@ export async function POST(request:Request){
     return NextResponse.json({ok:true,alreadyActive:true,message:"An active alert already exists for this email and motorcycle. Use its unsubscribe link before creating a replacement target."});
   }
 
-  const confirmToken=randomBytes(32).toString("hex");
-  const unsubscribeToken=randomBytes(32).toString("hex");
+  const confirmToken=actionToken();
   const recentPending=await prisma.priceAlertSubscription.findFirst({
     where:{entityType:"motorcycle",entityId:modelId,email,status:"pending"},
     orderBy:{updatedAt:"desc"}
@@ -48,8 +47,10 @@ export async function POST(request:Request){
         where:{id:recentPending.id},
         data:{
           targetPricePhp:Math.round(target),
-          confirmToken,
-          unsubscribeToken,
+          confirmToken:null,
+          confirmTokenHash:hashActionToken(confirmToken),
+          unsubscribeToken:null,
+          unsubscribeTokenHash:null,
           confirmedAt:null,
           thresholdWasMet:false,
           lastCheckedAt:null,
@@ -65,8 +66,10 @@ export async function POST(request:Request){
           email,
           targetPricePhp:Math.round(target),
           status:"pending",
-          confirmToken,
-          unsubscribeToken
+          confirmToken:null,
+          confirmTokenHash:hashActionToken(confirmToken),
+          unsubscribeToken:null,
+          unsubscribeTokenHash:null
         }
       });
 

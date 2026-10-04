@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
+import { actionToken, hashActionToken } from "@/lib/actionTokens";
 
 export const runtime="nodejs";
 
@@ -20,9 +21,15 @@ export async function PATCH(request:Request,{params}:{params:Promise<{id:string;
     return NextResponse.json({ok:true,status:updated.status});
   }
 
+  const rawToken=actionToken();
   const updated=await prisma.dealerLeadDelivery.update({
     where:{id:delivery.id},
-    data:{status:delivery.status==="pending"?"ready":delivery.status,sharedAt:delivery.sharedAt||new Date()}
+    data:{
+      status:delivery.status==="pending"?"ready":delivery.status,
+      sharedAt:delivery.sharedAt||new Date(),
+      deliveryToken:null,
+      deliveryTokenHash:hashActionToken(rawToken)
+    }
   });
-  return NextResponse.json({ok:true,status:updated.status,sharedAt:updated.sharedAt?.toISOString()});
+  return NextResponse.json({ok:true,status:updated.status,sharedAt:updated.sharedAt?.toISOString(),token:rawToken});
 }

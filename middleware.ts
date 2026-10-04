@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const protectedPrefixes = ["/admin", "/api/ingestion", "/api/admin"];
+const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;
 const prototypePrefixes: string[] = [];
 const AUTH_WINDOW_MS = 15 * 60 * 1000;
 const AUTH_MAX_FAILURES = 10;
@@ -47,7 +48,7 @@ function isPrototypePath(pathname: string) {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   if (process.env.NODE_ENV === "production" && isPrototypePath(pathname)) return deny("Not found.", 404);
-  if (pathname === "/garage" || pathname.startsWith("/garage/")) {
+  if (pathname === "/garage" || pathname.startsWith("/garage/") || pathname === "/dealer-portal" || pathname.startsWith("/dealer-portal/") || pathname.startsWith("/api/dealer-portal/")) {
     const response = NextResponse.next();
     response.headers.set("Cache-Control", "no-store");
     response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
@@ -60,7 +61,31 @@ export function middleware(request: NextRequest) {
     response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
     return response;
   }
+  if (pathname === "/motorcycles") {
+    const filtered = CATALOG_FILTER_PARAMS.some(key =>
+      request.nextUrl.searchParams.getAll(key).some(value => value.trim().length > 0)
+    );
+    if (filtered) {
+      const response = NextResponse.next();
+      response.headers.set("X-Robots-Tag", "noindex, follow");
+      return response;
+    }
+  }
   if (!protectedPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) return NextResponse.next();
+
+  const accessMode = process.env.ADMIN_ACCESS_MODE || "basic";
+  if (accessMode === "cloudflare") {
+    const email = (request.headers.get("cf-access-authenticated-user-email") || "").trim().toLowerCase();
+    const assertion = request.headers.get("cf-access-jwt-assertion") || "";
+    const allowed = new Set((process.env.ADMIN_ACCESS_EMAILS || "").split(",").map(value => value.trim().toLowerCase()).filter(Boolean));
+    if (!email || !assertion || !allowed.size || !allowed.has(email)) return deny("Administrative access denied.", 403);
+    const response = NextResponse.next();
+    response.headers.set("Cache-Control", "no-store");
+    response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+    response.headers.set("Referrer-Policy", "no-referrer");
+    return response;
+  }
+  if (accessMode !== "basic") return deny("Administrative surface unavailable.", 503);
 
   const expectedUser = process.env.ADMIN_USERNAME;
   const expectedPassword = process.env.ADMIN_PASSWORD;
@@ -95,7 +120,7 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/admin/:path*", "/api/ingestion/:path*", "/api/admin/:path*", "/garage/:path*","/garage", "/price-alerts/confirm/:path*", "/price-alerts/unsubscribe/:path*", "/api/price-alerts/:path*",
-    "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*", "/quote-status/:path*", "/api/quote-status/:path*",
+    "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*", "/quote-status/:path*", "/api/quote-status/:path*", "/dealer-portal/:path*", "/dealer-portal", "/api/dealer-portal/:path*", "/motorcycles",
     "/motorcycles/:make/:slug/used-value", "/motorcycles/:make/:slug/new-vs-used"
   ]
 };

@@ -69,12 +69,12 @@ export default async function DealsPage(){
   return <section className="page shell current-offers-page">
     <div className="page-head">
       <span className="entity-kicker">Current seller offers</span>
-      <h1>Fresh motorcycle and gear offers in the Philippines</h1>
-      <p>These are recent, attributable seller observations that still pass MotoIndex freshness checks. An offer is not automatically a discount; compare it with the product or motorcycle page before buying.</p>
+      <h1>Current motorcycle and gear offers in the Philippines</h1>
+      <p>These are recent, attributable seller observations that pass MotoIndex freshness checks. Some rows come from MotoIndex review and others may be published directly by a verified dealer; check the offer note and confirm final price and stock with the seller.</p>
     </div>
 
     <div className="buyer-status-summary current-offer-summary">
-      <article><span>Fresh offers</span><strong>{offers.length}</strong><small>Only current verified rows</small></article>
+      <article><span>Fresh offers</span><strong>{offers.length}</strong><small>Current attributable rows</small></article>
       <article><span>Merchants</span><strong>{merchants.size}</strong><small>Distinct attributable sellers</small></article>
       <article><span>Motorcycles</span><strong>{motorcycleOffers.length}</strong><small>Current dealer/seller offers</small></article>
       <article><span>Gear</span><strong>{gearOffers.length}</strong><small>Helmets, tires and top boxes</small></article>

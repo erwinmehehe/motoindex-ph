@@ -14,6 +14,7 @@ const forbidText = (file, text, message) => {
 
 const home = read("app", "page.tsx");
 const motorcycles = read("app", "motorcycles", "page.tsx");
+const middleware = read("middleware.ts");
 const faq = read("components", "FaqSection.tsx");
 const jsonLd = read("components", "JsonLd.tsx");
 const media = read("components", "EntityMedia.tsx");
@@ -44,10 +45,10 @@ forbidText(home, "Your next <span>motorcycle</span><br />starts here.", "Homepag
 forbidText(home, "/motorcycles?budget=under100", "Homepage should link the under-100K intent to the consolidated recommendation section, not a crawlable filter URL.");
 requireText(motorcycles, "<h1>Motorcycle prices", "Motorcycle hub must keep a query-led H1 that starts with Motorcycle prices.");
 requireText(motorcycles, "href=\"/recommendations/motorcycles-under-100k\"", "Motorcycle hub should route under-100K intent to the canonical budget guide.");
-requireText(motorcycles, 'const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;', "Motorcycle catalog must retain the canonical set of faceted filter params.");
+requireText(middleware, 'const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;', "Middleware must retain the canonical set of faceted filter params.");
 requireText(motorcycles, 'export const dynamic = "force-static"', "Motorcycle catalog must remain statically recoverable at the Cloudflare edge.");
-requireText(motorcycles, "FilteredCatalogRobots", "Filtered motorcycle catalog states must keep a dedicated robots guard.");
-requireText(motorcycles, 'robots.setAttribute("content", "noindex,follow")', "Filtered motorcycle catalog states must remain noindex while the clean catalog stays indexable.");
+requireText(middleware, 'pathname === "/motorcycles"', "Filtered motorcycle catalog states must keep a dedicated server-side robots guard.");
+requireText(middleware, '"X-Robots-Tag", "noindex, follow"', "Filtered motorcycle catalog states must remain server-side noindex while the clean catalog stays indexable.");
 forbidText(faq, "FAQPage", "FaqSection should remain visible HTML and leave structured data to the parent page.");
 forbidText(faq, "JsonLd", "FaqSection should remain visible HTML without duplicate JSON-LD.");
 requireText(jsonLd, "data.map(normalizeStructuredData)", "JsonLd should preserve supplied structured-data nodes while normalizing Product markup.");

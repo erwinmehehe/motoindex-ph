@@ -29,8 +29,6 @@ const MOTORCYCLE_BRAND_LOGOS = new Set([
   "rusi", "suzuki", "triumph", "vespa", "yamaha", "zontes"
 ]);
 
-const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;
-
 export const dynamic = "force-static";
 export const revalidate = false;
 
@@ -40,23 +38,6 @@ export const metadata: Metadata = pageMetadata({
   path: "/motorcycles",
   index: currentModels.length > 0
 });
-
-function FilteredCatalogRobots() {
-  const filterParams = JSON.stringify(CATALOG_FILTER_PARAMS);
-  const script = `(() => {
-    const params = new URLSearchParams(window.location.search);
-    const filtered = ${filterParams}.some((key) => params.getAll(key).some((value) => value.trim().length > 0));
-    if (!filtered) return;
-    let robots = document.head.querySelector('meta[name="robots"]');
-    if (!robots) {
-      robots = document.createElement("meta");
-      robots.setAttribute("name", "robots");
-      document.head.appendChild(robots);
-    }
-    robots.setAttribute("content", "noindex,follow");
-  })();`;
-  return <script id="catalog-filter-robots" dangerouslySetInnerHTML={{ __html: script }} />;
-}
 
 export default function MotorcyclesPage() {
   const makes = [...new Map(currentModels.map((m) => [m.makeSlug, m.make])).entries()];
@@ -75,7 +56,7 @@ export default function MotorcyclesPage() {
   }).sort((a,b) => b.count - a.count || a.name.localeCompare(b.name));
   const recentModels = currentModels.map(({ id, make, model, makeSlug, slug }) => ({ id, make, model, makeSlug, slug }));
 
-  return <><FilteredCatalogRobots/><section className={`${styles.page} motorcycles-index-v300`}>
+  return <><section className={`${styles.page} motorcycles-index-v300`}>
     <div className="motorcycle-index-hero">
       <div className="shell">
         <div className={`motorcycle-index-hero-grid ${styles.heroGrid}`}>

@@ -17,16 +17,22 @@ function validGaragePayload(value: unknown): value is Record<string, unknown> {
   return Array.isArray(payload.motorcycles) && Array.isArray(payload.records) && Array.isArray(payload.documents);
 }
 
-async function ownerOr401() {
-  if (!ownerAuthConfigured()) return { error: NextResponse.json({ ok: false, error: "Garage cloud sync is not enabled." }, { status: 503, headers }) };
+type OwnerSession = NonNullable<Awaited<ReturnType<typeof getOwnerSession>>>;
+
+async function ownerOr401(): Promise<{ ok: false; response: NextResponse } | { ok: true; session: OwnerSession }> {
+  if (!ownerAuthConfigured()) {
+    return { ok: false, response: NextResponse.json({ ok: false, error: "Garage cloud sync is not enabled." }, { status: 503, headers }) };
+  }
   const session = await getOwnerSession();
-  if (!session) return { error: NextResponse.json({ ok: false, error: "Sign in to use Garage cloud sync." }, { status: 401, headers }) };
-  return { session };
+  if (!session) {
+    return { ok: false, response: NextResponse.json({ ok: false, error: "Sign in to use Garage cloud sync." }, { status: 401, headers }) };
+  }
+  return { ok: true, session };
 }
 
 export async function GET() {
   const auth = await ownerOr401();
-  if ("error" in auth) return auth.error;
+  if (!auth.ok) return auth.response;
   const snapshot = await prisma.garageSnapshot.findUnique({ where: { ownerId: auth.session.ownerId } });
   return NextResponse.json({
     ok: true,
@@ -41,7 +47,7 @@ export async function GET() {
 export async function PUT(request: Request) {
   if (!ownerRequestOriginAllowed(request)) return NextResponse.json({ ok: false, error: "Invalid request origin." }, { status: 403, headers });
   const auth = await ownerOr401();
-  if ("error" in auth) return auth.error;
+  if (!auth.ok) return auth.response;
 
   const declaredLength = Number(request.headers.get("content-length") || 0);
   if (declaredLength > MAX_PAYLOAD_BYTES) {

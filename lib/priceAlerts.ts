@@ -3,6 +3,7 @@ import { getModelById } from "@/lib/data";
 import { observedMarketRange } from "@/lib/marketChecks";
 import { absoluteUrl } from "@/lib/site";
 import { php } from "@/lib/utils";
+import { actionToken, hashActionToken } from "@/lib/actionTokens";
 
 function escapeHtml(value:string){
   return value.replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]||char));
@@ -130,26 +131,40 @@ export async function runPriceAlertCheck(limit=200){
 
     try{
       if(thresholdMet&&!subscription.thresholdWasMet){
-        await sendThresholdEmail({
+        const unsubscribeToken=actionToken();
+        const claimed=await prisma.priceAlertSubscription.updateMany({
+          where:{id:subscription.id,status:"active",thresholdWasMet:false},
+          data:{
+            thresholdWasMet:true,
+            lastCheckedAt:now,
+            lastObservedPricePhp:current.pricePhp,
+            unsubscribeToken:null,
+            unsubscribeTokenHash:hashActionToken(unsubscribeToken)
+          }
+        });
+        if(claimed.count!==1)continue;
+        try{
+          await sendThresholdEmail({
           email:subscription.email,
           modelLabel:`${current.model.make} ${current.model.model}`,
           modelHref:`/motorcycles/${current.model.makeSlug}/${current.model.slug}`,
           currentPricePhp:current.pricePhp,
           targetPricePhp:target,
           checkedAt:current.checkedAt,
-          unsubscribeToken:subscription.unsubscribeToken
-        });
-        sent+=1;
-        await prisma.priceAlertSubscription.update({
-          where:{id:subscription.id},
-          data:{
-            thresholdWasMet:true,
-            lastCheckedAt:now,
-            lastObservedPricePhp:current.pricePhp,
-            lastAlertedPricePhp:current.pricePhp,
-            lastSentAt:now
-          }
-        });
+          unsubscribeToken
+          });
+          sent+=1;
+          await prisma.priceAlertSubscription.update({
+            where:{id:subscription.id},
+            data:{lastAlertedPricePhp:current.pricePhp,lastSentAt:now}
+          });
+        }catch(error){
+          await prisma.priceAlertSubscription.update({
+            where:{id:subscription.id},
+            data:{thresholdWasMet:false,lastCheckedAt:now,lastObservedPricePhp:current.pricePhp}
+          }).catch(()=>{});
+          throw error;
+        }
       }else{
         await prisma.priceAlertSubscription.update({
           where:{id:subscription.id},

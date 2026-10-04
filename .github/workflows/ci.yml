@@ -68,15 +68,25 @@ jobs:
           npm run audit:freshness
           npm run validate:lockfile
           npm run prisma:validate
+          npm run validate:dealer-platform
 
       - name: Design lint
         run: npm run validate:design
+
+      - name: Unit tests
+        run: npm run test:unit
 
       - name: Lint
         run: npm run lint
 
       - name: Typecheck
         run: npm run typecheck
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser tests
+        run: npm run test:e2e
 
       - name: Build
         run: npm run build
