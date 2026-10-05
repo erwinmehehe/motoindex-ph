@@ -99,8 +99,8 @@ describe("helmet market expansion", () => {
 
     const representatives = [
       ["kyt", "nz-race", "XS", "53-54"],
-      ["ls2", "stream-ii", "2XS", "51-52"],
-      ["ls2", "kid", "S", "47-48"],
+      ["ls2", "ff808-stream-ii", "2XS", "51-52"],
+      ["ls2", "ff812-kid", "S", "47-48"],
       ["agv", "k1-s", "XS", "53-54"],
       ["hjc", "c10", "3XS", "50-51"],
       ["shark", "spartan-gt-pro", "XXL", "63"],
