@@ -15,7 +15,7 @@ import { specsIntentLandingProfiles } from "@/lib/modelSpecsLandingPages";
 import { weightIntentLandingProfiles } from "@/lib/modelWeightLandingPages";
 import { seatHeightIntentLandingProfiles } from "@/lib/modelSeatHeightLandingPages";
 import { officialDealerLocators } from "@/lib/dealerLocators";
-import { helmetSeoComparisons, isIndexableHelmetSeoComparison } from "@/lib/helmetSeoComparisons";
+import { getHelmetSeoComparisonSides, helmetSeoComparisons, isIndexableHelmetSeoComparison } from "@/lib/helmetSeoComparisons";
 import { helmetSeoCollections, getHelmetSeoCollectionProducts, isIndexableHelmetSeoCollection } from "@/lib/helmetSeoCollections";
 
 type Entry = { url: string; lastModified: string; changeFrequency?: "daily"|"weekly"|"monthly"|"yearly"; priority?: number };
@@ -196,9 +196,9 @@ export function gearSitemapEntries(): Entry[] {
   const verifiedHelmets=helmetProducts.filter(p=>p.status==="verified");
   const categorySlugs: HelmetCategorySlug[]=["full-face","modular","half-face","open-face","adventure","off-road"];
   const helmetTypePages=categorySlugs.map(slug=>({url:`${SITE_URL}/gear/helmets/${slug}`,lastModified:newest(getHelmetCategoryProducts(slug).map(p=>iso(p.lastChecked))),changeFrequency:"monthly" as const,priority:.8}));
-  const categories=["/gear/helmets/finder","/gear/helmets/compare"].map(path=>({url:`${SITE_URL}${path}`,lastModified:newest(verifiedHelmets.map(p=>iso(p.lastChecked))),changeFrequency:"monthly" as const,priority:.76}));
+  const categories=["/gear/helmets/brands","/gear/helmets/finder","/gear/helmets/compare"].map(path=>({url:`${SITE_URL}${path}`,lastModified:newest(verifiedHelmets.map(p=>iso(p.lastChecked))),changeFrequency:"monthly" as const,priority:path.endsWith("/brands")?.8:.76}));
   const brands=helmetBrands.filter(h=>isIndexableHelmetBrand(h.slug)).map(h=>{const p=helmetProducts.filter(x=>x.brandSlug===h.slug&&x.status==="verified");return {url:`${SITE_URL}/gear/helmets/${h.slug}`,lastModified:newest(p.map(x=>iso(x.lastChecked))),changeFrequency:"monthly" as const,priority:.78};});
-  const helmetComparisons=helmetSeoComparisons.filter(c=>c.kind==="brand"&&isIndexableHelmetSeoComparison(c.slug)).map(c=>({url:`${SITE_URL}/gear/helmets/compare/${c.slug}`,lastModified:newest(verifiedHelmets.filter(p=>p.brandSlug===c.leftBrandSlug||p.brandSlug===c.rightBrandSlug).map(p=>iso(p.lastChecked))),changeFrequency:"monthly" as const,priority:.76}));
+  const helmetComparisons=helmetSeoComparisons.filter(c=>isIndexableHelmetSeoComparison(c.slug)).map(c=>{const sides=getHelmetSeoComparisonSides(c);const products=[...sides.left,...sides.right];return {url:`${SITE_URL}/gear/helmets/compare/${c.slug}`,lastModified:newest(products.map(p=>iso(p.lastChecked))),changeFrequency:"monthly" as const,priority:c.kind==="format"?.8:.76};});
   const helmetCollections=helmetSeoCollections.filter(c=>isIndexableHelmetSeoCollection(c.slug)).map(c=>({url:`${SITE_URL}/gear/helmets/${c.slug}`,lastModified:newest(getHelmetSeoCollectionProducts(c.slug).map(p=>iso(p.lastChecked))),changeFrequency:"monthly" as const,priority:.78}));
   const products=verifiedHelmets.map(p=>({url:`${SITE_URL}/gear/helmets/${p.brandSlug}/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.74}));
   const tires=tireProducts.filter(p=>p.status==="verified").map(p=>({url:`${SITE_URL}/tires/${p.brandSlug}/${p.slug}`,lastModified:iso(p.lastChecked),changeFrequency:"monthly" as const,priority:.68}));

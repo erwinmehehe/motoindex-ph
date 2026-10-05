@@ -187,7 +187,7 @@ export default function HelmetsPage(){
     </section>
 
     <section id="brands" className="ui-page-section helmet-master-section">
-      <SectionHeader kicker="Browse by brand" title="Motorcycle helmet brands" description="Brand pages stay separate because each is a real product family with its own current lineup and source trail." />
+      <SectionHeader kicker="Browse by brand" title="Motorcycle helmet brands" description="Brand pages stay separate because each is a real product family with its own current lineup and source trail." aside={<Link href="/gear/helmets/brands">All helmet brands →</Link>} />
       <div className="ui-content-grid helmet-brand-grid">{brands.map(h=><article className="ui-content-card" key={h.slug}><h3>{h.brand}</h3><p>{h.positioning}</p><Link href={`/gear/helmets/${h.slug}`}>View {h.brand} →</Link></article>)}</div>
     </section>
 
