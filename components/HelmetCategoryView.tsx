@@ -8,6 +8,7 @@ import { articleSchema } from "@/lib/articleSchema";
 import { helmetCategoryInternalLinks } from "@/lib/internalLinks";
 import { HelmetFormatGuide } from "@/components/HelmetFormatGuide";
 import { AuthorBox } from "@/components/AuthorBox";
+import { absoluteUrl } from "@/lib/site";
 
 const categoryCopy: Record<HelmetCategorySlug, {
   kicker:string;
@@ -79,6 +80,18 @@ export function HelmetCategoryView({slug}:{slug:HelmetCategorySlug}){
     keywords: [...c.keywords, "motorcycle helmet Philippines"],
     checkedDates: products.map(p => p.lastChecked)
   });
+  const itemList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: c.title,
+    numberOfItems: products.length,
+    itemListElement: products.map((product,index)=>({
+      "@type": "ListItem",
+      position: index + 1,
+      name: `${product.brand} ${product.model}`,
+      url: absoluteUrl(`/gear/helmets/${product.brandSlug}/${product.slug}`)
+    }))
+  };
   return <section className="page shell helmet-category-page">
     <Breadcrumbs items={[{label:"Helmets",href:"/gear/helmets"},{label:c.title.replace(" in the Philippines","")}]} />
     <div className="page-head helmet-category-head"><h1>{c.title}</h1><p>{c.intro}</p></div>
@@ -87,6 +100,6 @@ export function HelmetCategoryView({slug}:{slug:HelmetCategorySlug}){
     {products.length>visibleProducts.length&&<p className="helmet-master-note">Showing {visibleProducts.length} of {products.length} verified models. <Link href="/gear/helmets/finder">Use Helmet Finder for the full catalog →</Link></p>}
     <HelmetFormatGuide format={slug} products={products} />
     <div className="split section helmet-buying-notes"><div><h2>Choose the format for how you ride</h2><p>{c.tradeoff}</p><p>Do not choose only by price or graphics. A correctly fitted helmet with the required local conformity mark matters more than a long feature list.</p></div><div className="info-card"><h3>Check before buying</h3><ul className="checklist">{c.check.map(x=><li key={x}>{x}</li>)}</ul></div></div><AuthorBox /><RelatedLinks title="More helmet information" links={helmetCategoryInternalLinks(slug)} />
-    <JsonLd data={categoryArticle} />
+    <JsonLd data={[categoryArticle, itemList]} />
   </section>
 }
