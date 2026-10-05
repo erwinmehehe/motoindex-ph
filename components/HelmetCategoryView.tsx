@@ -69,7 +69,8 @@ const categoryCopy: Record<HelmetCategorySlug, {
 
 export function HelmetCategoryView({slug}:{slug:HelmetCategorySlug}){
   const c=categoryCopy[slug];
-  const products=getHelmetCategoryProducts(slug);
+  const products=getHelmetCategoryProducts(slug).sort((a,b)=>(a.priceFromPhp??Number.MAX_SAFE_INTEGER)-(b.priceFromPhp??Number.MAX_SAFE_INTEGER)||a.brand.localeCompare(b.brand)||a.model.localeCompare(b.model));
+  const visibleProducts=products.slice(0,48);
   const categoryArticle = articleSchema({
     headline: c.title,
     description: c.intro,
@@ -82,7 +83,8 @@ export function HelmetCategoryView({slug}:{slug:HelmetCategorySlug}){
     <Breadcrumbs items={[{label:"Helmets",href:"/gear/helmets"},{label:c.title.replace(" in the Philippines","")}]} />
     <div className="page-head helmet-category-head"><h1>{c.title}</h1><p>{c.intro}</p></div>
     <div className="section-head inline-head"><div><h2>Helmets to compare</h2></div></div>
-    <div className="product-grid ui-product-grid helmet-category-grid">{products.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:p.helmetType,brand:p.brand,model:p.model,meta:[p.certification,p.shell].filter(Boolean).join(" · ")||p.visor,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</div>
+    <div className="product-grid ui-product-grid helmet-category-grid">{visibleProducts.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/gear/helmets/${p.brandSlug}/${p.slug}`,category:p.helmetType,brand:p.brand,model:p.model,meta:[p.certification,p.shell].filter(Boolean).join(" · ")||p.visor,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</div>
+    {products.length>visibleProducts.length&&<p className="helmet-master-note">Showing {visibleProducts.length} of {products.length} verified models. <Link href="/gear/helmets/finder">Use Helmet Finder for the full catalog →</Link></p>}
     <HelmetFormatGuide format={slug} products={products} />
     <div className="split section helmet-buying-notes"><div><h2>Choose the format for how you ride</h2><p>{c.tradeoff}</p><p>Do not choose only by price or graphics. A correctly fitted helmet with the required local conformity mark matters more than a long feature list.</p></div><div className="info-card"><h3>Check before buying</h3><ul className="checklist">{c.check.map(x=><li key={x}>{x}</li>)}</ul></div></div><AuthorBox /><RelatedLinks title="More helmet information" links={helmetCategoryInternalLinks(slug)} />
     <JsonLd data={categoryArticle} />
