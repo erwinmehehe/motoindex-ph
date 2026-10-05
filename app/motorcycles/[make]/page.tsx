@@ -21,7 +21,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ make: string }> }): Promise<Metadata> {
   const { make } = await params;
-  const models = motorcycles.filter((m) => m.makeSlug === make);
+  const models = motorcycles.filter((m) => m.makeSlug === make).filter((model, index, models) => models.findIndex(candidate => candidate.id === model.id) === index);
   if (!models.length) return {};
   const brand = models[0].make;
   const publicModels = models.filter(isIndexableModel);
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
 
 export default async function BrandPage({ params }: { params: Promise<{ make: string }> }) {
   const { make } = await params;
-  const models = motorcycles.filter((m) => m.makeSlug === make);
+  const models = motorcycles.filter((m) => m.makeSlug === make).filter((model, index, models) => models.findIndex(candidate => candidate.id === model.id) === index);
   if (!models.length) return notFound();
 
   const brand = models[0].make;

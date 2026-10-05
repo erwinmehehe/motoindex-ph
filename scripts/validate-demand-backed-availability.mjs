@@ -46,7 +46,7 @@ for(const token of [
   '&& model.searchVolume > 0',
   'model.freshness === "verified"',
   'export const indexableMotorcycles = motorcycles.filter(isIndexableModel);',
-  'export const publicMotorcycles = currentMotorcycles.filter(isIndexableModel);'
+  'export const publicMotorcycles = currentMotorcycles.filter(isIndexableModel)'
 ]){
   requireText(data,token,`Demand-backed indexation architecture missing: ${token}`);
 }
