@@ -5,6 +5,37 @@ import type { EntityMedia } from "./types";
 // upstream image for provenance and a temporary runtime fallback while local assets are synced.
 // Local motorcycle WebP derivatives are art-directed to a 1200x1200 white catalog canvas; source provenance remains below.
 export const entityMedia: EntityMedia[] = [
+  // Exact upstream fallbacks for the 2026-10-05 helmet model-gap closeout.
+  {
+    id: "gille-astral-pro-source-20261005", entityType: "helmet", entityId: "gille-astral-pro", role: "primary",
+    src: "/media/helmets/gille-astral-pro.webp", sourceImageUrl: "https://down-ph.img.susercontent.com/file/ph-11134207-820l5-mr2hwat9e8lgfc", alt: "Gille Astral Pro full-face dual-visor motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Gille Helmets Mall / Shopee", sourceLabel: "Official-store exact-model image · Gille Astral Pro", sourceUrl: "https://shopee.ph/GILLE-ASTRAL-PRO-Full-Face-Dual-Visor-Motorcycle-Helmet-i.505955057.28482526381", lastChecked: "2026-10-05"
+  },
+  {
+    id: "evo-gsx3000-v2-source-20261005", entityType: "helmet", entityId: "evo-gsx3000-v2", role: "primary",
+    src: "/media/helmets/evo-gsx3000-v2.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2020/12/MATTE-BK_1-768x768.jpg", alt: "EVO GSX3000 v2 full-face motorcycle helmet in matte black", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "Manufacturer exact-model image · EVO GSX3000 v2", sourceUrl: "https://evohelmet.com/product/gsx3000v2/", lastChecked: "2026-10-05"
+  },
+  {
+    id: "sec-surge-source-20261005", entityType: "helmet", entityId: "sec-surge", role: "primary",
+    src: "/media/helmets/sec-surge.webp", sourceImageUrl: "https://secmotosupply.com/cdn/shop/products/DSEC-04362-1_2.png?v=1665650345", alt: "SEC Surge modular motorcycle helmet in matte black", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SEC Motosupply", sourceLabel: "SEC exact-model image · Surge", sourceUrl: "https://secmotosupply.com/products/i008329", lastChecked: "2026-10-05"
+  },
+  {
+    id: "sec-dynasty-source-20261005", entityType: "helmet", entityId: "sec-dynasty", role: "primary",
+    src: "/media/helmets/sec-dynasty.webp", sourceImageUrl: "https://secmotosupply.com/cdn/shop/files/DSEC-06388_DYNASTY_BRAND_-_BLACK_COOL_WHITE_GLOSS_1_603be406-9ca9-400a-93fd-65162b77af76.jpg?v=1750927971", alt: "SEC Dynasty modular motorcycle helmet in white and grey", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SEC Motosupply", sourceLabel: "SEC exact-model image · Dynasty", sourceUrl: "https://secmotosupply.com/products/i014880", lastChecked: "2026-10-05"
+  },
+  {
+    id: "sec-sportgrade-v2-source-20261005", entityType: "helmet", entityId: "sec-sportgrade-v2", role: "primary",
+    src: "/media/helmets/sec-sportgrade-v2.webp", sourceImageUrl: "https://secmotosupply.com/cdn/shop/products/DSEC-05314_1.png?v=1665625292", alt: "SEC Sportgrade V2 full-face motorcycle helmet in gloss black", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SEC Motosupply", sourceLabel: "SEC exact-model image · Sportgrade V2", sourceUrl: "https://secmotosupply.com/products/i010641", lastChecked: "2026-10-05"
+  },
+  {
+    id: "sec-ace-source-20261005", entityType: "helmet", entityId: "sec-ace", role: "primary",
+    src: "/media/helmets/sec-ace.webp", sourceImageUrl: "https://secmotosupply.com/cdn/shop/products/DSEC-05600_1.png?v=1681183232", alt: "SEC ACE Sport full-face motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SEC Motosupply", sourceLabel: "SEC exact-model image · ACE", sourceUrl: "https://secmotosupply.com/products/i011583", lastChecked: "2026-10-05"
+  },
   // Exact upstream fallbacks for the 2026-10-05 helmet expansion.
   // Local 1200x1200 WebP derivatives can be synced later without changing entity URLs.
   {
@@ -696,8 +727,8 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "gille-astral-gbrands", entityType: "helmet", entityId: "gille-astral", role: "primary",
-    src: "/media/helmets/gille-astral.webp", sourceImageUrl: "https://gbrands.ph/wp-content/uploads/2024/10/gille-astral-matte-light-grey-600x600.jpg", alt: "Gille Astral full-face motorcycle helmet in matte light gray", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "GBrands Philippines", sourceLabel: "Philippine retailer product image · Gille Astral", sourceUrl: "https://gbrands.ph/shop/gille-helmet-astral-matte-light-gray/", lastChecked: "2026-08-25"
+    src: "/media/helmets/gille-astral.webp", sourceImageUrl: "https://down-ph.img.susercontent.com/file/ph-11134207-820l9-mr2s7buwk0ljcb", alt: "Gille Astral full-face dual-visor motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Gille Helmets Mall / Shopee", sourceLabel: "Official-store exact-model image · Gille Astral", sourceUrl: "https://shopee.ph/GILLE-ASTRAL-Plain-Color-Motorcycle-Helmet-Full-Face-Dual-Visor-With-Keychain-i.505955057.25015970279", lastChecked: "2026-10-05"
   },
   {
     id: "gille-vertix-z501-kranos", entityType: "helmet", entityId: "gille-vertix-z501", role: "primary",
