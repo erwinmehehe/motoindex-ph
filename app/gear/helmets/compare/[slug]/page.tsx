@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound, permanentRedirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection } from "@/components/FaqSection";
 import { ProductCard } from "@/components/ProductCard";
@@ -14,7 +14,6 @@ export function generateStaticParams(){
 
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
   const {slug}=await params;
-  if(slug==="full-face-vs-modular") return {};
   const comparison=getHelmetSeoComparison(slug);
   if(!comparison) return {};
   return pageMetadata({
@@ -27,7 +26,6 @@ export async function generateMetadata({params}:{params:Promise<{slug:string}>})
 
 export default async function HelmetSeoComparisonPage({params}:{params:Promise<{slug:string}>}){
   const {slug}=await params;
-  if(slug==="full-face-vs-modular") permanentRedirect("/gear/helmets#full-face");
   const comparison=getHelmetSeoComparison(slug);
   if(!comparison) return notFound();
 
@@ -92,6 +90,8 @@ export default async function HelmetSeoComparisonPage({params}:{params:Promise<{
         <Link className="button" href="/gear/helmets/compare">Open helmet comparison</Link>
         {comparison.leftBrandSlug&&<Link className="button ghost" href={`/gear/helmets/${comparison.leftBrandSlug}`}>Browse {comparison.leftLabel}</Link>}
         {comparison.rightBrandSlug&&<Link className="button ghost" href={`/gear/helmets/${comparison.rightBrandSlug}`}>Browse {comparison.rightLabel}</Link>}
+        {comparison.leftType==="Full face"&&<Link className="button ghost" href="/gear/helmets/full-face">Full-face guide</Link>}
+        {comparison.rightType==="Modular"&&<Link className="button ghost" href="/gear/helmets/modular">Modular guide</Link>}
       </div>
     </section>
 
