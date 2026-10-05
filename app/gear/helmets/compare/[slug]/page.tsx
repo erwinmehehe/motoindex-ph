@@ -3,10 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection } from "@/components/FaqSection";
+import { JsonLd } from "@/components/JsonLd";
 import { ProductCard } from "@/components/ProductCard";
 import { getHelmetSeoComparison, getHelmetSeoComparisonSides, helmetSeoComparisons, isIndexableHelmetSeoComparison } from "@/lib/helmetSeoComparisons";
 import { pageMetadata } from "@/lib/site";
 import { php } from "@/lib/utils";
+import { faqPageSchema } from "@/lib/structuredData";
 
 export function generateStaticParams(){
   return helmetSeoComparisons.map(comparison=>({slug:comparison.slug}));
@@ -96,5 +98,6 @@ export default async function HelmetSeoComparisonPage({params}:{params:Promise<{
     </section>
 
     <FaqSection title={`${comparison.leftLabel} vs ${comparison.rightLabel} questions`} items={comparison.faqs} />
+    <JsonLd data={faqPageSchema(comparison.faqs)} />
   </section>;
 }
