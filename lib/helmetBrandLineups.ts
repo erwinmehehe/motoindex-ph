@@ -78,6 +78,7 @@ const helmetCatalogAliases: Record<string, string> = {
   "gille:medusa-863": "863-medusa-forged",
   "evo:sr-x": "sr-x-mono",
   "evo:tourer": "tourer-180-flip",
+  "evo:riot-ii-xt-300": "xt-300-riot-ii",
   "nhk:s2-gp-pro-ultimate": "s2-ultimate",
 };
 
