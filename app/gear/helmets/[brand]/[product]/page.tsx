@@ -24,6 +24,8 @@ import { ProductEntityShell } from "@/components/ProductEntityShell";
 import { ProductHero } from "@/components/ProductHero";
 import { ProductTrustRow } from "@/components/ProductTrustRow";
 import { getRenderableMedia } from "@/lib/renderableMedia";
+import { getVerifiedHelmetSizing } from "@/lib/helmetSizing";
+import { SourceRef } from "@/components/SourceRef";
 
 export const revalidate = 3600;
 
@@ -96,6 +98,8 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
   const faqs = helmetFaqs(p);
   const canonicalPath = `/gear/helmets/${p.brandSlug}/${p.slug}`;
   const productMedia = getRenderableMedia("helmet", p.id)[0];
+  const verifiedSizing = p.sizeChart?.length ? undefined : getVerifiedHelmetSizing(p);
+  const effectiveSizeChart = p.sizeChart?.length ? p.sizeChart : verifiedSizing?.chart;
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -174,7 +178,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
       <div className="helmet-fit-layout">
         <div className="helmet-fit-data info-card">
           <span className="helmet-sub-label">Available sizes</span>
-          {p.sizeChart?.length ? <div className="entity-size-table">{p.sizeChart.map((row) => <div key={row.size}><strong>{row.size}</strong><span>{row.headCm} cm head circumference</span></div>)}</div> : p.sizes.length ? <div className="size-chips">{p.sizes.map((size) => <span key={size}>{size}</span>)}</div> : <div className="helmet-inline-note"><strong>Exact size chart not verified yet.</strong><span>Use the current manufacturer chart before ordering.</span></div>}
+          {effectiveSizeChart?.length ? <><div className="entity-size-table">{effectiveSizeChart.map((row) => <div key={row.size}><strong>{row.size}</strong><span>{row.headCm} cm head circumference</span></div>)}</div>{verifiedSizing && <div className="helmet-inline-note"><strong>Manufacturer size source</strong><span>{verifiedSizing.note} Checked {verifiedSizing.checkedAt}. <SourceRef url={verifiedSizing.sourceUrl} label={verifiedSizing.sourceLabel} /></span></div>}</> : p.sizes.length ? <div className="size-chips">{p.sizes.map((size) => <span key={size}>{size}</span>)}</div> : <div className="helmet-inline-note"><strong>Exact size chart not verified yet.</strong><span>Use the current manufacturer chart before ordering.</span></div>}
         </div>
         <div className="helmet-fit-help info-card"><h3>Measure before ordering</h3><p>Measure around the widest part of your head using the helmet maker&apos;s method. A size letter from another helmet is not a reliable shortcut.</p><Link href="/guides/motorcycle-helmet-size-guide">Open the helmet sizing guide →</Link></div>
       </div>
