@@ -4,12 +4,14 @@ import path from "node:path";
 const root = process.cwd();
 const backfillPath = path.join(root, "scripts/backfill-product-media.mjs");
 const workflowPath = path.join(root, ".github/workflows/product-image-backfill.yml");
+const coverageWorkflowPath = path.join(root, ".github/workflows/media-coverage-audit.yml");
 const generatedPath = path.join(root, "lib/generatedProductMedia.ts");
 const helmetNormalizerPath = path.join(root, "scripts/art-direct-helmet-media.py");
 const motorcycleNormalizerPath = path.join(root, "scripts/art-direct-motorcycle-media.py");
 
 const backfill = fs.readFileSync(backfillPath, "utf8");
 const workflow = fs.readFileSync(workflowPath, "utf8");
+const coverageWorkflow = fs.readFileSync(coverageWorkflowPath, "utf8");
 const generatedSource = fs.readFileSync(generatedPath, "utf8");
 const helmetNormalizer = fs.readFileSync(helmetNormalizerPath, "utf8");
 const motorcycleNormalizer = fs.readFileSync(motorcycleNormalizerPath, "utf8");
@@ -48,6 +50,15 @@ if (!workflow.includes("rev-list --count HEAD..origin/main")) {
 }
 if (!workflow.includes("Run Product Image Backfill from a dedicated media/* or fix/* branch, not main.")) {
   errors.push("media backfill workflow must refuse direct mutation of main");
+}
+if (!coverageWorkflow.includes("lib/catalog.ts")) {
+  errors.push("media coverage audit must trigger when the product catalog changes");
+}
+if (!coverageWorkflow.includes("MEDIA_COVERAGE_STRICT=1 node scripts/audit-product-media-coverage.mjs")) {
+  errors.push("media coverage audit must fail when a verified catalog product has no exact media");
+}
+if (!coverageWorkflow.includes("MEDIA_STRICT_LOCAL=1 npm run validate:media")) {
+  errors.push("media coverage audit must fail when a standardized local derivative is missing");
 }
 if (!backfill.includes("const generated = previousGenerated.filter(hasLocalAsset)")) {
   errors.push("backfill script must preserve existing generated records with local assets");
