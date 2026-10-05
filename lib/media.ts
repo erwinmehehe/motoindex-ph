@@ -89,13 +89,13 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "evo-vxr-5000-source-20261005", entityType: "helmet", entityId: "evo-vxr-5000", role: "primary",
-    src: "/media/helmets/evo-vxr-5000.webp", sourceImageUrl: "https://ph-live-01.slatic.net/p/68ce777bfe9982b5864cdce554b8a6a0.jpg", alt: "EVO VXR-5000 modular motorcycle helmet in gloss grey", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Lazada / EVO Helmets Philippines", sourceLabel: "Marketplace exact-model image · EVO VXR-5000", sourceUrl: "https://www.lazada.com.ph/tag/evo-modular-helmet/", lastChecked: "2026-10-05"
+    src: "/media/helmets/evo-vxr-5000.webp", sourceImageUrl: "https://down-ph.img.susercontent.com/file/ph-11134207-7r98o-lyhnobyi34lade", alt: "EVO VXR-5000 modular motorcycle helmet in white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets Philippines Official / Shopee", sourceLabel: "Official-store exact-model image · EVO VXR-5000", sourceUrl: "https://shopee.ph/EVO-Vxr-5000-Plain-Modular-Dual-Visor-Helmet-Motorcycle-with-Free-Clear-Lens-i.268029312.27506939801", lastChecked: "2026-10-05"
   },
   {
     id: "evo-gt-sport-source-20261005", entityType: "helmet", entityId: "evo-gt-sport", role: "primary",
     src: "/media/helmets/evo-gt-sport.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2025/08/GT-SPORTS-M.Black-3-768x768.jpg", alt: "EVO GT-Sport full-face motorcycle helmet in matte black", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "Manufacturer exact-model image · EVO GT-Sport", sourceUrl: "https://evohelmet.com/product/gt-sport-mono-colors/", lastChecked: "2026-10-05"
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "Manufacturer exact-model image · EVO GT-Sport", sourceUrl: "https://leksmotogears.com/product/evo-helmet-full-face-gt-sport-mono-matte-turquoise-blue/", lastChecked: "2026-10-05"
   },
   {
     id: "evo-xt-300-riot-ii-source-20261005", entityType: "helmet", entityId: "evo-xt-300-riot-ii", role: "primary",
@@ -104,13 +104,13 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "evo-gx-1-source-20261005", entityType: "helmet", entityId: "evo-gx-1", role: "primary",
-    src: "/media/helmets/evo-gx-1.webp", sourceImageUrl: "https://img.ws.mms.shopee.ph/ph-11134210-7rasc-m7bludmbj7md7b", alt: "EVO GX-1 full-face motorcycle helmet", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "EVO Helmets Philippines / Shopee", sourceLabel: "Official-store exact-model image · EVO GX-1", sourceUrl: "https://shopee.ph/evohelmetsphilippinesofficial", lastChecked: "2026-10-05"
+    src: "/media/helmets/evo-gx-1.webp", sourceImageUrl: "https://down-ph.img.susercontent.com/file/ph-11134207-7ras9-m7ab86wb35q157", alt: "EVO GX-1 full-face motorcycle helmet in yellow", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets Philippines Official / Shopee", sourceLabel: "Official-store exact-model image · EVO GX-1", sourceUrl: "https://shopee.ph/EVO-GX-1-Plain-Full-Face-Dual-Visor-Helmet-Motorcycle-With-Free-Clear-Lens-i.268029312.29379441725", lastChecked: "2026-10-05"
   },
   {
     id: "evo-dx-7-source-20261005", entityType: "helmet", entityId: "evo-dx-7", role: "primary",
     src: "/media/helmets/evo-dx-7.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2021/01/DX7-PLAIN-MATTE-BLACK-768x768.jpg", alt: "EVO DX-7 dual-sport motorcycle helmet in matte black", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "Manufacturer exact-model image · EVO DX-7", sourceUrl: "https://evohelmet.com/product/dx-7-dual-sports-mono-colors/", lastChecked: "2026-10-05"
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "Manufacturer exact-model image · EVO DX-7", sourceUrl: "https://shopee.ph/EVO-DX-7-MONO-DUAL-VISOR-DUAL-SPORT-HELMET-W-FREE-CLEAR-LENS-i.53706460.24257565686", lastChecked: "2026-10-05"
   },
   {
     id: "sec-windstorm-v3-source-20261005", entityType: "helmet", entityId: "sec-windstorm-v3", role: "primary",

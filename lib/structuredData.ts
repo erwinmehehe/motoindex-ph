@@ -2,6 +2,23 @@ import type { CatalogStatus, Motorcycle, SellerProfile } from "./types";
 import { observedMarketRange } from "./marketChecks";
 import { absoluteUrl } from "./site";
 
+type FaqSchemaItem = { question: string; answer: string };
+
+export function faqPageSchema(items: FaqSchemaItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer
+      }
+    }))
+  };
+}
+
 type CatalogPricedItem = {
   status: CatalogStatus;
   priceFromPhp?: number;

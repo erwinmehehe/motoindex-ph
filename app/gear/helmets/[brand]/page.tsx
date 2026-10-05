@@ -16,6 +16,7 @@ import { getHelmetBrandLineup, helmetCatalogCanonicalSlug } from "@/lib/helmetBr
 import { HelmetBrandGuide } from "@/components/HelmetBrandGuide";
 import { AuthorBox } from "@/components/AuthorBox";
 import { getRenderableMedia } from "@/lib/renderableMedia";
+import { faqPageSchema } from "@/lib/structuredData";
 
 export function generateStaticParams(){return helmetBrands.map(h=>({brand:h.slug}));}
 export async function generateMetadata({params}:{params:Promise<{brand:string}>}):Promise<Metadata>{
@@ -88,6 +89,6 @@ export default async function HelmetBrandPage({params}:{params:Promise<{brand:st
     {trackedCount>0&&<FaqSection title={`${h.brand} helmet price and buying questions`} items={faqs}/>} 
     <AuthorBox />
     <RelatedLinks title={`Explore ${h.brand} and related helmet guides`} links={helmetBrandInternalLinks(h.slug)} />
-    <JsonLd data={brandArticle} />
+    <JsonLd data={[brandArticle, faqPageSchema(faqs)]} />
   </section>;
 }
