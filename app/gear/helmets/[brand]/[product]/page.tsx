@@ -10,7 +10,7 @@ import { RelatedLinks } from "@/components/RelatedLinks";
 import { JsonLd } from "@/components/JsonLd";
 import { helmetProductInternalLinks } from "@/lib/internalLinks";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
-import { catalogProductOfferSchema } from "@/lib/structuredData";
+import { catalogProductOfferSchema, faqPageSchema } from "@/lib/structuredData";
 import { EntityMedia } from "@/components/EntityMedia";
 import { CommercePriceComparison } from "@/components/CommercePriceComparison";
 // AffiliateOffer remains rendered by CommercePriceComparison for approved affiliate destinations.
@@ -95,6 +95,8 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
   const compareTargets = helmetComparisonTargets(p, 2);
   const faqs = helmetFaqs(p);
   const canonicalPath = `/gear/helmets/${p.brandSlug}/${p.slug}`;
+  const productMedia = getRenderableMedia("helmet", p.id)[0];
+  const hasExactMedia = Boolean(productMedia && !productMedia.src.includes("/media/placeholders/"));
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -103,6 +105,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     brand: { "@type": "Brand", name: p.brand },
     category: `Motorcycle helmet — ${p.helmetType}`,
     description: p.description,
+    ...(hasExactMedia ? { image: absoluteUrl(productMedia.src) } : {}),
     ...(catalogProductOfferSchema(p, canonicalPath) ? { offers: catalogProductOfferSchema(p, canonicalPath) } : {}),
   };
 
@@ -222,6 +225,6 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
 
     <AuthorBox />
     <RelatedLinks title={`More about ${p.brand} and ${p.helmetType.toLowerCase()} helmets`} links={helmetProductInternalLinks(p)} />
-    <JsonLd data={schema} />
+    <JsonLd data={[schema, faqPageSchema(faqs)]} />
   </ProductEntityShell>;
 }
