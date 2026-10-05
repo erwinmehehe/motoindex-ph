@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getHelmetBrand } from "../lib/data";
-import { getHelmetProduct, isIndexableHelmetBrand } from "../lib/catalog";
+import { getHelmetCategoryProducts, getHelmetProduct, isIndexableHelmetBrand } from "../lib/catalog";
 import { helmetCatalogAliasTarget } from "../lib/helmetBrandLineups";
 import { getHelmetSeoComparison, isIndexableHelmetSeoComparison } from "../lib/helmetSeoComparisons";
 
@@ -32,6 +32,27 @@ describe("helmet market expansion", () => {
     ] as const) {
       expect(getHelmetProduct(brand, slug)?.status).toBe("verified");
     }
+  });
+
+  it("keeps helmet type landing pages distinct and substantial", () => {
+    const fullFace = getHelmetCategoryProducts("full-face");
+    const modular = getHelmetCategoryProducts("modular");
+    const halfFace = getHelmetCategoryProducts("half-face");
+    const openFace = getHelmetCategoryProducts("open-face");
+    const adventure = getHelmetCategoryProducts("adventure");
+    const offRoad = getHelmetCategoryProducts("off-road");
+
+    expect(fullFace.length).toBeGreaterThanOrEqual(100);
+    expect(modular.length).toBeGreaterThanOrEqual(30);
+    expect(openFace.length).toBeGreaterThanOrEqual(30);
+    expect(halfFace.length).toBeGreaterThanOrEqual(3);
+    expect(adventure.length).toBeGreaterThanOrEqual(10);
+    expect(offRoad.length).toBeGreaterThanOrEqual(10);
+
+    expect(halfFace.every(item => item.helmetType === "Half face")).toBe(true);
+    expect(openFace.every(item => item.helmetType === "Open face" || item.helmetType === "Hybrid")).toBe(true);
+    expect(adventure.every(item => item.helmetType === "Adventure")).toBe(true);
+    expect(offRoad.every(item => item.helmetType === "Off-road")).toBe(true);
   });
 
   it("canonicalizes the EVO Riot II lineup name to the verified product page", () => {
