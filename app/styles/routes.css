@@ -74,7 +74,7 @@ body .recommendation-detail-scope .faq-list p{font-size:14px;line-height:1.75;co
 .reviewed-design .button{background:var(--reviewed-blue);border-color:var(--reviewed-blue);color:var(--mi-color-surface);border-radius:10px}
 .reviewed-design .button.secondary,.reviewed-design .button.ghost{background:var(--mi-color-surface);color:var(--reviewed-blue);border-color:var(--reviewed-line)}
 .reviewed-design .ui-page-hero,.reviewed-design .page-head{padding:28px;border:1px solid var(--reviewed-line);border-radius:16px;background:linear-gradient(115deg,var(--mi-color-surface),var(--reviewed-soft))}
-.reviewed-design h1{color:var(--mi-color-ink);font-size:clamp(30px,3.5vw,48px);line-height:1.12;letter-spacing:-.04em}
+.reviewed-design h1{color:var(--mi-color-ink);font-size:clamp(34px,3.5vw,48px);line-height:1.12;letter-spacing:-.04em}
 .reviewed-design .ui-page-hero__description,.reviewed-design .page-head>p{font-size:15px;line-height:1.7;color:var(--mi-color-copy)}
 .reviewed-design .ui-page-hero__kicker,.reviewed-design .entity-kicker{color:var(--reviewed-blue)}
 .reviewed-design .ph-brand-hero{background:var(--reviewed-canvas);padding-block:24px}
@@ -156,7 +156,7 @@ body:has(.reviewed-design){--mi-control-fill:var(--reviewed-blue)}
 
 .reviewed-catalog-hero .ui-page-hero{max-width:none;width:100%}
 .reviewed-catalog-art{mix-blend-mode:multiply}
-.reviewed-catalog-hero h1{font-size:clamp(30px,3.2vw,44px)}
+.reviewed-catalog-hero h1{font-size:clamp(34px,3.2vw,44px)}
 
 .reviewed-price-list{margin:28px 0;padding:24px;border:1px solid var(--reviewed-line);border-radius:16px;background:var(--mi-color-surface);scroll-margin-top:90px}
 .reviewed-price-list h2{font-size:28px;margin:8px 0}
