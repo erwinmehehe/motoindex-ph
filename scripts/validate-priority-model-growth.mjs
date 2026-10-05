@@ -820,7 +820,8 @@ for (const token of [
   'id: "yamaha-mt-15"',
   'slug: "mt-15"',
   'marketStatus: "current"',
-  'srp: 180000'
+  'srp: 180000',
+  'searchVolume: 1800'
 ]) {
   if (!currentModelGapCloseout.includes(token)) {
     errors.push(`Canonical MT-15 closeout: missing token ${token}`);
