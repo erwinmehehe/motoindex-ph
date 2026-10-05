@@ -173,6 +173,66 @@ function modelSpecificFaqs(model: Motorcycle): FaqItem[] {
       }
     ];
   }
+  if (model.id === "honda-wave-rsx") {
+    return [
+      {
+        question: "Is Honda Wave 110 the same as the current Wave RSX?",
+        answer: "Honda has used the Wave name across multiple generations and markets. For current Philippine shopping intent, MotoIndex routes generic Honda Wave and Wave 110 searches to the current 109cc Wave RSX page. If you are researching an older registered Wave model, confirm its exact year and model code before ordering parts or comparing specifications."
+      },
+      {
+        question: "How much is the Honda Wave RSX in the Philippines?",
+        answer: "MotoIndex currently tracks the Honda Wave RSX from ₱62,900 to ₱64,900 depending on brake variant. Confirm the exact current dealer quote and variant before purchase."
+      }
+    ];
+  }
+  if (model.id === "honda-supra-gtr150") {
+    return [
+      {
+        question: "Is the Honda Supra GTR150 still a current Honda Philippines model?",
+        answer: "MotoIndex keeps the Supra GTR150 as a previous Philippine model because it is no longer surfaced in Honda Philippines' current national product selector. Use the page for historical specifications and used-bike research, and verify any remaining dealer stock directly."
+      },
+      {
+        question: "How much was the Honda Supra GTR150 in the Philippines?",
+        answer: "Honda Philippines launched the Supra GTR150 at ₱102,900 in 2019. That is historical launch-price context, not a current 2026 new-bike quote."
+      }
+    ];
+  }
+  if (model.id === "kawasaki-w175") {
+    return [
+      {
+        question: "Is the Kawasaki W175 discontinued in the Philippines?",
+        answer: "Yes. Current Philippine comparison references mark the W175 as discontinued. MotoIndex keeps the page for historical specifications, owner research and used-bike shopping."
+      },
+      {
+        question: "How much was the Kawasaki W175 in the Philippines?",
+        answer: "The retained historical Philippine price reference is ₱130,000. That is not a current new-bike quote."
+      }
+    ];
+  }
+  if (model.id === "kawasaki-ninja-250sl") {
+    return [
+      {
+        question: "Is the Kawasaki Ninja 250SL discontinued in the Philippines?",
+        answer: "Yes. Current Philippine comparison references mark the Ninja 250SL as discontinued. Use the page for historical specifications and used-unit research."
+      },
+      {
+        question: "How much was the Kawasaki Ninja 250SL in the Philippines?",
+        answer: "The retained historical Philippine price reference is ₱195,000. Used-bike value now depends on model year, mileage, condition, service history and documentation."
+      }
+    ];
+  }
+  if (model.id === "yamaha-vega-force-i") {
+    return [
+      {
+        question: "Is the Yamaha Vega Force i discontinued?",
+        answer: "Yes. Current Philippine comparison references mark the Vega Force i as discontinued. MotoIndex keeps the model for specification, owner and used-bike research."
+      },
+      {
+        question: "How much was the Yamaha Vega Force i in the Philippines?",
+        answer: "The retained historical Philippine price reference is ₱68,200. Do not treat that old new-bike price as today's used value."
+      }
+    ];
+  }
   if (model.id === "yamaha-sight") {
     return [
       {
