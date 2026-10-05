@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { php } from "@/lib/utils";
 import type { HelmetProduct } from "@/lib/types";
+import { effectiveHelmetCertification } from "@/lib/helmetCertification";
 
 // Brand-level buying guidance for helmet hub pages.
 //
@@ -29,7 +30,7 @@ function priceBand(min?: number, max?: number) {
 
 export function HelmetBrandGuide({ brand, verified, types, minPrice, maxPrice, trackedCount }: Props) {
   const band = priceBand(minPrice, maxPrice);
-  const certStrings = verified.map(p => p.certification || "").filter(Boolean);
+  const certStrings = verified.map(p => effectiveHelmetCertification(p) || "").filter(Boolean);
   const mentionsPsIcc = certStrings.some(c => /PS|ICC|BPS/i.test(c));
   const mentionsEce = certStrings.some(c => /ECE/i.test(c));
   const mentionsDot = certStrings.some(c => /DOT/i.test(c));
