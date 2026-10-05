@@ -19,6 +19,7 @@ on:
       - scripts/refresh-sourced-product-media.mjs
       - scripts/audit-helmet-media-art-direction.py
       - scripts/validate-media-backfill-safety.mjs
+      - scripts/validate-new-product-media.mjs
       - components/ProductMedia.tsx
       - app/gear/**
       - package.json
@@ -51,7 +52,9 @@ jobs:
       - name: Verify non-destructive media pipeline
         run: node scripts/validate-media-backfill-safety.mjs
       - name: Audit verified exact-image coverage
-        run: MEDIA_COVERAGE_STRICT=1 node scripts/audit-product-media-coverage.mjs
+        run: node scripts/audit-product-media-coverage.mjs
+      - name: Block newly verified products without exact local media
+        run: node scripts/validate-new-product-media.mjs
       - name: Validate media records with strict local coverage
         run: MEDIA_STRICT_LOCAL=1 npm run validate:media
       - name: Audit exact motorcycle image coverage
