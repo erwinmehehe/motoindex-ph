@@ -1250,7 +1250,7 @@ export const indexableMotorcycles = motorcycles.filter(isIndexableModel);
 
 // Public catalog surfaces remain current-lineup focused. Search-demand availability
 // research can still be indexable through exact model URLs, XML sitemaps and LLM indexes.
-export const publicMotorcycles = currentMotorcycles.filter(isIndexableModel);
+export const publicMotorcycles = currentMotorcycles.filter(isIndexableModel).filter((model, index, models) => models.findIndex(candidate => candidate.id === model.id) === index);
 
 export const helmetBrands: HelmetBrand[] = [
   { brand: "KYT", slug: "kyt", searchVolume: 11000, keywordDifficulty: 0, positioning: "Race-inspired full-face and modular helmets" },
@@ -2552,7 +2552,14 @@ export function hasConfirmedAbs(value: string) {
 }
 
 export function getRecommendationModels(slug: string) {
-  const models = [...publicMotorcycles];
+  // Keep the first catalog record, matching getModel's canonical lookup.
+  // Expansion imports can repeat an ID; guides should compare each model once.
+  const seenModelIds = new Set<string>();
+  const models = publicMotorcycles.filter(model => {
+    if (seenModelIds.has(model.id)) return false;
+    seenModelIds.add(model.id);
+    return true;
+  });
   const byPrice = [...models].sort((a,b) => observedMarketRange(a).from - observedMarketRange(b).from || a.curbWeightKg - b.curbWeightKg);
   switch (slug) {
     case "motorcycles-under-100k": return byPrice.filter(m => observedMarketRange(m).from < 100000);

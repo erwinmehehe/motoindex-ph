@@ -3,10 +3,16 @@ import { observedMarketRange } from "./marketChecks";
 import type { Motorcycle } from "./types";
 
 const NON_CURRENT = new Set(["previous", "uncertain", "discontinued"]);
+const seenPublicModelIds = new Set<string>();
 
 export const currentPublicMotorcycles = motorcycles.filter(
   (model) => isIndexableModel(model) && !NON_CURRENT.has(model.marketStatus || "")
-);
+).filter(model => {
+  // Match the first canonical record and count each motorcycle only once.
+  if (seenPublicModelIds.has(model.id)) return false;
+  seenPublicModelIds.add(model.id);
+  return true;
+});
 
 export const currentScooters = currentPublicMotorcycles.filter((model) =>
   /scooter/i.test(model.category)

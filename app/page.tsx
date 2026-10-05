@@ -11,8 +11,7 @@ import {
 import { helmetProducts, tireProducts, topBoxProducts } from "@/lib/catalog";
 import { ProductCard } from "@/components/ProductCard";
 import { MotorcycleCard } from "@/components/MotorcycleCard";
-import { observedMarketPriceLabel } from "@/lib/marketChecks";
-import { siteStats } from "@/lib/siteStats";
+import { ReviewedHomeHero } from "@/components/ReviewedHomeHero";
 
 export const dynamic = "force-static";
 export const revalidate = false;
@@ -36,7 +35,6 @@ const startPoints = [
 export default function HomePage() {
   const verifiedModels = currentMotorcycles.filter(isIndexableModel);
   const featured = verifiedModels.slice(0, 4);
-  const heroModel = verifiedModels.find((model) => model.makeSlug === "yamaha" && model.slug.toLowerCase().includes("aerox")) ?? featured[0];
   const hasComparisons = comparisons.some((comparison) => isIndexableComparison(comparison.slug));
   const featuredHelmets = helmetProducts.filter((p) => p.status === "verified" && typeof p.priceFromPhp === "number").slice(0, 2);
   const featuredTires = tireProducts.filter((p) => p.status === "verified" && typeof p.priceFromPhp === "number").slice(0, 2);
@@ -53,39 +51,8 @@ export default function HomePage() {
     .slice(0, 6);
 
   return (
-    <div className="mi-home">
-      <section className="mi-hero" aria-labelledby="mi-home-title">
-        <div className="mi-grid-bg" aria-hidden="true" />
-        <div className="mi-glow mi-glow-red" aria-hidden="true" />
-        <div className="mi-glow mi-glow-blue" aria-hidden="true" />
-        <div className="shell mi-hero-layout">
-          <div className="mi-hero-copy">
-            <div className="mi-badge"><b>Motorcycle prices, specs and ownership tools</b><em>Philippines</em></div>
-            <h1 id="mi-home-title">Compare <span>motorcycle prices</span><br />and specs in the Philippines.</h1>
-            <p>Find your next motorcycle with current published prices, rider fit, specifications and ownership costs kept together in one research flow.</p>
-            <form className="mi-search" action="/motorcycles" method="get" role="search">
-              <label className="sr-only" htmlFor="mi-home-search">Search motorcycles by brand or model</label>
-              <input id="mi-home-search" type="search" name="q" placeholder="Search Aerox, ADV, Click, Honda..." />
-              <button type="submit">Search bikes</button>
-            </form>
-            <div className="mi-popular"><b>Popular:</b><Link href="/recommendations#scooters">Scooters</Link><Link href="/recommendations#commuting">Daily commute</Link><Link href="/recommendations#400cc">400cc+</Link><Link href="/recommendations#budget">Under ₱100K ↗</Link></div>
-            <div className="mi-trust"><span>✓ {siteStats.currentMotorcycles} current models</span><span>✓ Compare up to 3</span><span>✓ Save a shortlist</span></div>
-          </div>
-
-          <div className="mi-hero-visual mi-hero-product-visual">
-            <div className="mi-research-shell">
-              <div className="mi-research-toolbar"><div><span className="mi-research-dot" aria-hidden="true" /><strong>MotoIndex research snapshot</strong></div><span className="mi-research-status">Current model data</span></div>
-              {heroModel ? <>
-                <div className="mi-research-model-head"><div><span className="mi-research-kicker">Researching now</span><h2>{heroModel.make} {heroModel.model}</h2><p>Price, key specifications, rider fit and ownership planning in one decision flow.</p></div><Link className="mi-research-open" href={`/motorcycles/${heroModel.makeSlug}/${heroModel.slug}`}>Open model <span aria-hidden="true">↗</span></Link></div>
-                <div className="mi-research-price-card"><span>Published price</span><strong>{observedMarketPriceLabel(heroModel)}</strong><small>Open the model page for source details and the latest checked date.</small></div>
-                <div className="mi-research-metrics" aria-label={`${heroModel.make} ${heroModel.model} key specifications`}><div><span>Engine</span><strong>{heroModel.engineCc} cc</strong></div><div><span>Power</span><strong>{heroModel.powerHp} hp</strong></div><div><span>Seat height</span><strong>{heroModel.seatHeightMm} mm</strong></div></div>
-                <div className="mi-research-flow"><div className="mi-research-flow-head"><span>Continue the research</span><small>Use the same model across MotoIndex tools</small></div><div className="mi-research-actions"><Link href="/finder"><b>Finder</b><span>Match by budget, use and rider fit</span><i aria-hidden="true">→</i></Link>{hasComparisons && <Link href="/compare"><b>Compare</b><span>Put up to three motorcycles side by side</span><i aria-hidden="true">→</i></Link>}<Link href={`/ownership/cost-calculator?bike=${heroModel.id}`}><b>Cost to own</b><span>Estimate the monthly ownership picture</span><i aria-hidden="true">→</i></Link></div></div>
-              </> : <div className="mi-research-empty"><strong>Research motorcycles with the numbers that matter.</strong><Link href="/motorcycles">Explore motorcycles →</Link></div>}
-            </div>
-            <div className="mi-research-chip mi-research-chip-one" aria-hidden="true"><span>01</span><b>Price context</b></div><div className="mi-research-chip mi-research-chip-two" aria-hidden="true"><span>02</span><b>Rider fit</b></div><div className="mi-research-chip mi-research-chip-three" aria-hidden="true"><span>03</span><b>Ownership math</b></div>
-          </div>
-        </div>
-      </section>
+    <div className="mi-home reviewed-design">
+      <ReviewedHomeHero />
 
       {featuredBrands.length > 0 && <section className="mi-brand-shelf"><div className="shell"><div className="mi-section-head compact"><div><span className="mi-eyebrow">Browse by brand</span><h2>Start with the names you know.</h2></div><Link href="/motorcycles">All motorcycles →</Link></div><nav className="mi-brand-grid" aria-label="Featured motorcycle brands">{featuredBrands.map(([slug, name]) => <Link key={slug} href={`/motorcycles/${slug}`}><span className="mi-brand-mark" aria-hidden="true"><Image src={`/brand/motorcycle/${slug}.svg`} alt="" width={120} height={40} unoptimized /></span><strong>{name}</strong><span>Models and prices ↗</span></Link>)}</nav></div></section>}
 

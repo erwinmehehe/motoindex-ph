@@ -182,3 +182,25 @@ h1, h2, h3, h4, h5, h6, .brand-word {
   --helmet-f9fbff: #f9fbff;
   --helmet-fff: #fff;
 }
+
+/* Reviewed page palette. */
+:root {
+  --reviewed-blue: #2c60f5;
+  --reviewed-canvas: #f6f9ff;
+  --reviewed-line: #d7e4fb;
+  --reviewed-gray: #eef1f5;
+  --reviewed-soft: #eaf3ff;
+  --reviewed-editorial-0: #142039;
+  --reviewed-editorial-1: #285eff;
+  --reviewed-editorial-2: #476080;
+  --reviewed-editorial-3: #5b6d89;
+  --reviewed-editorial-4: #dce7fb;
+  --reviewed-editorial-5: #e4ecf8;
+  --reviewed-editorial-6: #eaf3ff;
+  --reviewed-editorial-7: #eef1f5;
+  --reviewed-editorial-8: #f5f9ff;
+  --reviewed-editorial-9: #f8fbff;
+  --reviewed-editorial-10: #fff;
+}
+
+:root { --mi-control-fill: linear-gradient(135deg,#444CE7 0%,#5d55e7 55%,#7A5AF8 100%); --mi-home-surface: transparent; }

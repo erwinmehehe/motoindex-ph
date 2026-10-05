@@ -7,8 +7,8 @@ const nextDir = path.join(root, ".next");
 const publicDir = path.join(root, "public");
 
 const budgets = {
-  // Includes the scoped, tokenized helmet-detail redesign (about 13 KB compiled).
-  cssTotalBytes: 474 * 1024,
+  // Includes the reviewed public-route and article styles (about 20 KB beyond the helmet release).
+  cssTotalBytes: 493 * 1024,
   largestJsChunkBytes: 350 * 1024,
   jsTotalBytes: 4 * 1024 * 1024,
   largestPublicImageBytes: 1500 * 1024,

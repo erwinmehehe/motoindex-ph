@@ -143,9 +143,9 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
 }
 .button:not(.ghost),.mi-btn.dark,.mi-btn.red,.mi-search button,
 .footer-intro-actions a:first-child{
-  background:linear-gradient(135deg,#444CE7 0%,#5d55e7 55%,#7A5AF8 100%)!important;
+  background:var(--mi-control-fill);
   border:1px solid rgba(68,76,231,.86)!important;
-  color:#fff!important;
+  color:var(--mi-color-surface);
   box-shadow:0 14px 32px rgba(68,76,231,.24)!important;
 }
 .button:not(.ghost):hover,.mi-btn.dark:hover,.mi-btn.red:hover,.mi-search button:hover,
@@ -179,7 +179,7 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
 :is(.button,.mi-btn,.nav-match,.mi-search button,.footer-intro-actions a):hover:after{transform:rotate(18deg) translateX(560%)}
 
 /* Homepage */
-.mi-home{background:transparent!important;color:#0f172a!important}
+.mi-home{background:var(--mi-home-surface);color:var(--mi-color-ink)}
 .mi-hero{
   position:relative;
   background:

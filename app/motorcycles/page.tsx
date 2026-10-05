@@ -1,3 +1,5 @@
+import { ReviewedPriceList } from "@/components/ReviewedPriceList";
+import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -66,6 +68,7 @@ export default function MotorcyclesPage() {
             <p>Compare current motorcycle prices, specifications and model research by brand, category, engine size and budget. Each published model is reviewed before it enters the current catalog.</p>
             <div className="motorcycle-index-actions">
               <a className="button" href="#browse-models">Browse motorcycles</a>
+              <a className="button secondary" href="#price-list">View price list</a>
               <Link className="button secondary" href="/finder">Find my match</Link>
               <Link className="button secondary" href="/compare">Compare models</Link>
             </div>
@@ -91,6 +94,7 @@ export default function MotorcyclesPage() {
 
     <div className="shell motorcycle-index-body">
       {currentModels.length === 0 ? <div className="note-box"><h2>Motorcycle data is being updated</h2><p>Prices and specifications are still being checked. Gear and ownership tools remain available in the meantime.</p></div> : <>
+        <ReviewedPriceList items={currentModels.map(model => ({id:model.id,name:`${model.make} ${model.model}`,brand:model.make,category:model.category,cc:model.engineCc,price:observedMarketPriceLabel(model),href:`/motorcycles/${model.makeSlug}/${model.slug}`}))} />
         <section id="browse-models" className="motorcycle-catalog-section">
           <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Full price list</span><h2>Browse and filter current motorcycle models</h2><p>Use filters to narrow the market, then open a model page for prices, specifications, financing context, fitment and ownership information.</p></div></div>
           <ModelExplorer models={forClient(currentModels)} />

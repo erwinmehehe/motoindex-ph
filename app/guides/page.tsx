@@ -1,3 +1,4 @@
+import { ReviewedCatalogArt } from "@/components/ReviewedCatalogArt";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -15,7 +16,7 @@ export const metadata: Metadata = pageMetadata({
 export default function GuidesPage() {
   return <section className="page shell">
     <Breadcrumbs items={[{ label: "Guides" }]} />
-    <div className="page-head"><span className="entity-kicker">Rider guides</span><h1>Motorcycle guides for Philippine riders</h1><p>Start with the task you are trying to solve, then open the detailed guide or tool only when you need it.</p></div>
+    <div className="reviewed-catalog-hero"><ReviewedCatalogArt entityId="yamaha-aerox-v3" /><div className="page-head ui-page-hero"><span className="entity-kicker">Rider guides</span><h1>Motorcycle guides for Philippine riders</h1><p>Start with the task you are trying to solve, then open the detailed guide or tool only when you need it.</p></div></div>
 
     <div className="section-head compact"><div><span className="section-kicker">Choose a starting point</span><h2>What are you trying to do?</h2></div></div>
     <div className="topic-grid">

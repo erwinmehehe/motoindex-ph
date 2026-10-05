@@ -1,3 +1,6 @@
+import { ReviewedHelmetExplorer } from "@/components/ReviewedHelmetExplorer";
+import { getRenderableMedia } from "@/lib/renderableMedia";
+import { ReviewedCatalogArt } from "@/components/ReviewedCatalogArt";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
@@ -31,7 +34,7 @@ function compactHelmetMeta(product: (typeof helmetProducts)[number]) {
   return [certificationLabel, product.intercomReady ? "Intercom-ready" : undefined].filter(Boolean).join(" · ");
 }
 
-function HelmetProductGrid({ products, limit = 8 }: { products: typeof helmetProducts; limit?: number }) {
+function HelmetProductGrid({ products, limit = 6 }: { products: typeof helmetProducts; limit?: number }) {
   const visible = products.filter(product=>hasRenderableProductMedia(product.id)).slice(0, limit);
   if (!visible.length) return <InfoPanel subtle><p>No matching verified helmet is published right now.</p></InfoPanel>;
   return <ProductGrid className="helmet-product-grid" density="compact">{visible.map(p=><ProductCard key={p.id} item={{
@@ -80,13 +83,14 @@ export default function HelmetsPage(){
   ];
 
   return <section className="page shell helmet-hub-page">
-    <PageHero
+    <div className="reviewed-catalog-hero"><ReviewedCatalogArt entityType="helmet" entityId="spyder-surge-v2" /><PageHero
       kicker="Philippine helmet buying guide"
-      title="Motorcycle helmets in the Philippines: prices, types and brands"
+      title="Motorcycle helmets in the Philippines"
       description="Use one guide to compare helmet prices, protection formats, ECE 22.06 references, intercom provision, commuting choices, sizing and current brand/model pages. Open the exact helmet before buying to verify fit and the marking on the local unit."
       actions={<CTAGroup><Link className="button" href="/gear/helmets/finder">Find my helmet</Link><Link className="button secondary" href="/gear/helmets/compare">Compare exact helmets</Link></CTAGroup>}
-    />
+    /></div>
 
+    <ReviewedHelmetExplorer items={verified.flatMap(product => { const image=getRenderableMedia("helmet",product.id)[0]; return image ? [{id:product.id,brand:product.brand,model:product.model,href:`/gear/helmets/${product.brandSlug}/${product.slug}`,type:product.helmetType,price:product.priceFromPhp,image:image.src,alt:image.alt}] : []; })} />
     <StatRow items={[
       {label:"Verified models",value:verified.length},
       {label:"Brands",value:brands.length},

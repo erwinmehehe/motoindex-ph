@@ -85,7 +85,7 @@ function AnalyticsMetric({ id, label, value, unit, note, fill, featured = false 
 }
 
 
-export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
+export function MotorcycleEntityPage({ model, omitHero = false }: { model: Motorcycle; omitHero?: boolean }) {
   const isPrevious = model.marketStatus === "previous";
   const isDiscontinued = model.marketStatus === "discontinued";
   const isHistorical = isPrevious || isDiscontinued;
@@ -187,7 +187,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
   const powerDensity = model.engineCc > 0 ? model.powerHp / model.engineCc * 100 : 0;
 
   return <article className="motorcycle-entity-page">
-    <section className="motorcycle-entity-hero" id="overview">
+    {!omitHero && <section className="motorcycle-entity-hero" id="overview">
       <div className="shell">
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: model.make, href: `/motorcycles/${model.makeSlug}` }, { label: model.model }]} />
         <div className="motorcycle-hero-grid">
@@ -218,7 +218,7 @@ export function MotorcycleEntityPage({ model }: { model: Motorcycle }) {
           </div>
         </div>
       </div>
-    </section>
+    </section>}
 
     <div className="shell motorcycle-entity-nav-wrap">
       <ProductEntityNav items={[

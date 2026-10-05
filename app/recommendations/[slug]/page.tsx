@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { comparisons, getRecommendationGuide, getRecommendationModels, hasConfirmedAbs, recommendationGuides, isIndexableRecommendation } from "@/lib/data";
 import { GuideModelAnalysisCard } from "@/components/GuideModelAnalysisCard";
+import { EntityMedia } from "@/components/EntityMedia";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { pageMetadata } from "@/lib/site";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -506,6 +507,7 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
     .map((pick)=>({pick,model:metricModel(models,pick.metric)}))
     .filter((item)=>Boolean(item.model)) as {pick:RecommendationGuide["quickPicks"][number];model:Motorcycle}[];
   const uniqueQuickPicks = quickPicks.filter((item,index,all)=>all.findIndex((other)=>other.model.id===item.model.id)===index);
+  const coverModel = models.find(model => getRenderableMedia("motorcycle", model.id).length > 0);
   const editorialSummaries = guide.editorialSections
     .map((title)=>({title,summary:sectionSummary(title,models)}))
     .filter((item,index,all)=>all.findIndex((other)=>other.summary===item.summary)===index);
@@ -553,22 +555,25 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
 
   return <section className="page shell">
     <Breadcrumbs items={[{label:"Buying guides",href:"/recommendations"},{label:guide.title}]} />
-    <div className="page-head guide-page-head"><span className="guide-kicker">{guide.kicker}</span><h1>{guide.title}</h1></div>
-    <div style={{margin:"18px 0 28px"}}><GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker}/></div>
+    <header className="guide-article-hero">
+      <div className="page-head guide-page-head"><span className="guide-kicker">{guide.kicker} · Buying guide</span><h1>{guide.title}</h1><p className="guide-hero-description">{guide.description}</p><div className="guide-hero-meta"><span>{models.length} motorcycles compared</span><span>Latest recorded check: {newestCheck}</span></div><a className="guide-hero-action" href="#comparison">Explore the comparison ↓</a></div>
+      <div className="guide-hero-art">{coverModel ? <EntityMedia entityType="motorcycle" entityId={coverModel.id} priority sizes="(max-width: 700px) 90vw, 440px" showCredit={false} fallback={null} /> : <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker}/>}</div>
+    </header>
+    <nav className="guide-jump-links" aria-label="In this guide"><span>In this guide</span><a href="#quick-picks">Quick picks</a><a href="#comparison">Comparison</a><a href="#model-breakdowns">Model breakdowns</a><a href="#methodology">Methodology</a>{faqItems.length > 0 && <a href="#guide-faq">FAQs</a>}</nav>
     <div className="guide-direct-answer"><p>{guide.directAnswer}</p><strong>Compare {models.length} motorcycle{models.length===1?"":"s"} that match this guide.</strong>{guide.slug === "best-scooters-philippines" && <Link href="/motorcycles/scooters">View the full Philippines scooter market, price list and engine-size hubs →</Link>}{brandScooterSlug && <><Link href="/motorcycles/scooters">Compare the full Philippines scooter price list →</Link><Link href={`/motorcycles/${brandScooterSlug}`}>Open the full {brandScooterSlug[0].toUpperCase()+brandScooterSlug.slice(1)} motorcycle price list →</Link></>}{guide.slug === "motorcycles-400cc-plus-philippines" && <Link href="/motorcycles/expressway-legal">Check the separate expressway-legal rule, borderline sub-400cc models and registration checks →</Link>}</div>
     {brandScooterSlug&&brandScooterPriorityModels.length>0&&<div className="guide-quick-picks" data-brand-scooter-commercial-links={brandScooterSlug}>
-      <div className="section-head compact"><div><span className="section-kicker">Popular scooter research</span><h2>Check prices, variants and monthly-payment examples</h2><p>Open the model pages most useful for comparing current prices, trim differences and published dealer financing snapshots.</p></div></div>
+      <div className="section-head compact" data-guide-section-head><div><span className="section-kicker">Popular scooter research</span><h2>Check prices, variants and monthly-payment examples</h2><p>Open the model pages most useful for comparing current prices, trim differences and published dealer financing snapshots.</p></div></div>
       <div className="guide-pick-grid">
         {brandScooterPriorityModels.map(model=><Link href={modelHref(model)} key={model.id}><span>{model.make} scooter</span><strong>{model.model}</strong><small>{dealerSnapshotLabel(model)}</small></Link>)}
       </div>
     </div>}
     {scooterCcGuide&&<div className="guide-quick-picks" aria-label="Scooter engine-size research">
-      <div className="section-head compact"><div><span className="section-kicker">Scooter engine-size cluster</span><h2>Compare the nearby scooter classes</h2><p>Move between the broad scooter market, 125cc, 150cc-class, exact 155cc and 160cc research without duplicating individual model pages.</p></div></div>
+      <div className="section-head compact" data-guide-section-head><div><span className="section-kicker">Scooter engine-size cluster</span><h2>Compare the nearby scooter classes</h2><p>Move between the broad scooter market, 125cc, 150cc-class, exact 155cc and 160cc research without duplicating individual model pages.</p></div></div>
       <div className="guide-pick-grid">
         <Link href="/motorcycles/scooters"><span>Parent market</span><strong>All scooter prices</strong><small>Full Philippines scooter price list</small></Link>
         {scooterCcCluster.map(item=><Link href={`/recommendations/${item.slug}`} key={item.slug}><span>{item.slug===slug?"Current class":"Engine class"}</span><strong>{item.label}</strong><small>{item.detail}</small></Link>)}
       </div>
-      <div className="section-head compact"><div><span className="section-kicker">Price + monthly-payment research</span><h2>Check the exact scooter before you finance it</h2><p>Open each model for its current price evidence, variant details and installment-planning tools before comparing dealer quotes.</p></div></div>
+      <div className="section-head compact" data-guide-section-head><div><span className="section-kicker">Price + monthly-payment research</span><h2>Check the exact scooter before you finance it</h2><p>Open each model for its current price evidence, variant details and installment-planning tools before comparing dealer quotes.</p></div></div>
       <div className="guide-pick-grid">
         {scooterCcCommercialModels.map(model=><Link href={`${modelHref(model)}#installment`} key={`finance-${model.id}`}><span>{model.engineCc}cc · payment research</span><strong>{model.make} {model.model}</strong><small>{dealerSnapshotLabel(model)}</small></Link>)}
       </div>
@@ -580,20 +585,20 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
     </div>}
     {!isIndexableRecommendation(slug)&&<div className="note-box"><h2>Some entries need a fresh check</h2><p>Open the individual model pages before buying to confirm the latest price and exact variant.</p></div>}
 
-    <div className="guide-quick-picks">
-      <div className="section-head compact"><div><h2>Quick picks</h2><p>Useful shortcuts based on the prices and specifications in this comparison.</p></div></div>
-      <div className="guide-pick-grid">{uniqueQuickPicks.map(({pick,model:m})=><Link key={pick.label + "-" + m.id} href={modelHref(m)}><span>{pick.label}</span><strong>{m.make} {m.model}</strong><small>{quickPickDetail(m,pick.metric)}</small></Link>)}</div>
+    <div className="guide-quick-picks" id="quick-picks">
+      <div className="section-head compact" data-guide-section-head><div><h2>Quick picks</h2><p>Useful shortcuts based on the prices and specifications in this comparison.</p></div></div>
+      <div className="guide-pick-grid">{uniqueQuickPicks.map(({pick,model:m})=><Link key={pick.label + "-" + m.id} href={modelHref(m)}><span>{pick.label}</span><EntityMedia entityType="motorcycle" entityId={m.id} className="guide-pick-media" sizes="(max-width: 700px) 90vw, 260px" showCredit={false} fallback={<div className="guide-pick-media guide-pick-fallback">{m.make}</div>} /><strong>{m.make} {m.model}</strong><small>{quickPickDetail(m,pick.metric)}</small></Link>)}</div>
     </div>
 
-    <div className="section-head compact"><div><h2>Full comparison table</h2><p>Compare price, engine, fit and equipment side by side. On smaller screens, swipe the table horizontally.</p></div></div>
-    <div className="guide-table-wrap" role="region" aria-label={guide.title + " comparison table"} tabIndex={0}>
+    <div className="section-head compact" data-guide-section-head><div><h2>Full comparison table</h2><p>Compare price, engine, fit and equipment side by side. On smaller screens, swipe the table horizontally.</p></div></div>
+    <div className="guide-table-wrap" id="comparison" role="region" aria-label={guide.title + " comparison table"} tabIndex={0}>
       <table className="guide-comparison-table guide-comparison-table-wide">
         <thead><tr><th scope="col">{guide.orderLabel}</th><th scope="col">Model</th>{guide.tableColumns.map(col=><th scope="col" key={col}>{label[col]}</th>)}<th scope="col" className="guide-why-col">Why it&apos;s here</th></tr></thead>
         <tbody>{models.map((m,index)=><tr key={m.id}><td className="guide-order-cell">{index+1}</td><th scope="row"><Link href={modelHref(m)}>{m.make} {m.model}</Link></th>{guide.tableColumns.map(col=><td key={col}>{cell(m,col)}</td>)}<td className="guide-why-cell">{positionReason(guide,m,index)}</td></tr>)}</tbody>
       </table>
     </div>
 
-    <section className="method-card guide-method guide-method-detailed">
+    <section className="method-card guide-method guide-method-detailed" id="methodology">
       <div><span>How this guide works</span><h2>What qualifies for this comparison</h2><p>{friendlyRule(guide.orderingRule)}</p></div>
       <div className="guide-method-grid">
         <div><strong>What qualifies</strong><ul>{guide.inclusionRules.map(rule=><li key={rule}>{friendlyRule(rule)}</li>)}</ul></div>
@@ -603,22 +608,22 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
       </div>
     </section>
 
-    <div className="section-head compact"><div><h2>Model-by-model breakdown</h2><p>See why each motorcycle appears here, who it suits, and the main tradeoff to consider.</p></div></div>
-    <div className="guide-model-analysis-list">{models.map((m,index)=><GuideModelAnalysisCard key={m.id} model={m} orderLabel={guide.orderLabel} position={index+1} why={positionReason(guide,m,index)} consider={considerReason(guide,m)} alternative={alternativeReason(guide,m,models)} comparison={comparisonFor(m,models)}/>)}</div>
+    <div className="section-head compact" data-guide-section-head><div><h2>Model-by-model breakdown</h2><p>See why each motorcycle appears here, who it suits, and the main tradeoff to consider.</p></div></div>
+    <div className="guide-model-analysis-list" id="model-breakdowns">{models.map((m,index)=><GuideModelAnalysisCard key={m.id} model={m} orderLabel={guide.orderLabel} position={index+1} why={positionReason(guide,m,index)} consider={considerReason(guide,m)} alternative={alternativeReason(guide,m,models)} comparison={comparisonFor(m,models)}/>)}</div>
 
     {editorialSummaries.length>0&&<div className="guide-topic-grid">{editorialSummaries.map(({title,summary})=><article key={title}><h2>{title}</h2><p>{summary}</p></article>)}</div>}
 
     <section className="guide-decision-section">
-      <div className="section-head compact"><div><h2>Which one should you choose?</h2><p>Start with the budget, fit or use-case factor that matters most, then check the exact variant.</p></div></div>
+      <div className="section-head compact" data-guide-section-head><div><h2>Which one should you choose?</h2><p>Start with the budget, fit or use-case factor that matters most, then check the exact variant.</p></div></div>
       <div className="guide-decision-grid">{decisions.map(({prompt,model,detail})=><article key={prompt + "-" + model.id}><span>{prompt}</span><h3>{model.make} {model.model}</h3><p>{detail}</p><Link href={modelHref(model)}>Check the model →</Link></article>)}</div>
     </section>
 
     <GuideOwnershipCost models={models} guideTitle={guide.title} />
     <div className="note-box guide-caveat"><h2>Before you buy</h2><ul>{guide.caveats.map(caveat=><li key={caveat}>{caveat}</li>)}</ul></div>
     <JsonLd data={guideSchema} />
-    {faqItems.length>0&&<FaqSection title="Questions about this guide" items={faqItems}/>}
+    {faqItems.length>0&&<div id="guide-faq"><FaqSection title="Questions about this guide" items={faqItems}/></div>}
     <AuthorBox />
 
-    {related.length>0&&<><div className="section-head compact"><div><h2>Related motorcycle guides</h2><p>Compare nearby budgets, categories and rider-fit options.</p></div></div><div className="guide-related-grid">{related.map(g=><Link key={g.slug} href={"/recommendations/" + g.slug}><strong>{g.title}</strong><small>{g.description}</small></Link>)}</div></>}
+    {related.length>0&&<><div className="section-head compact" data-guide-section-head><div><h2>Related motorcycle guides</h2><p>Compare nearby budgets, categories and rider-fit options.</p></div></div><div className="guide-related-grid">{related.map(g=><Link key={g.slug} href={"/recommendations/" + g.slug}><strong>{g.title}</strong><small>{g.description}</small></Link>)}</div></>}
   </section>;
 }
