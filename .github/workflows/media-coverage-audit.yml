@@ -51,8 +51,8 @@ jobs:
         run: node scripts/validate-media-backfill-safety.mjs
       - name: Audit verified exact-image coverage
         run: node scripts/audit-product-media-coverage.mjs
-      - name: Validate media records
-        run: npm run validate:media
+      - name: Validate media records with strict local coverage
+        run: MEDIA_STRICT_LOCAL=1 npm run validate:media
       - name: Audit exact motorcycle image coverage
         run: npm run validate:motorcycle-media
       - name: Audit helmet image composition
