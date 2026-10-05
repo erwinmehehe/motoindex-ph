@@ -8,6 +8,7 @@ import { articleSchema } from "@/lib/articleSchema";
 import { getHelmetSeoCollection, getHelmetSeoCollectionProducts, type HelmetSeoCollectionSlug } from "@/lib/helmetSeoCollections";
 import { absoluteUrl } from "@/lib/site";
 import { php } from "@/lib/utils";
+import { faqPageSchema } from "@/lib/structuredData";
 
 export function HelmetSeoCollectionPage({ slug }: { slug: HelmetSeoCollectionSlug }) {
   const collection = getHelmetSeoCollection(slug);
@@ -95,6 +96,6 @@ export function HelmetSeoCollectionPage({ slug }: { slug: HelmetSeoCollectionSlu
 
     <FaqSection title="Helmet buying questions" items={collection.faqs} />
     <RelatedLinks title="Continue your helmet research" links={related} />
-    <JsonLd data={[article, itemList]} />
+    <JsonLd data={[article, itemList, faqPageSchema(collection.faqs)]} />
   </section>;
 }
