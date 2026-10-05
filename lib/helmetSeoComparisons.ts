@@ -1,7 +1,7 @@
 import { helmetProducts } from "@/lib/catalog";
 import type { HelmetProduct } from "@/lib/types";
 
-export type HelmetSeoComparisonSlug = "kyt-vs-ls2" | "evo-vs-spyder" | "full-face-vs-modular";
+export type HelmetSeoComparisonSlug = "kyt-vs-ls2" | "evo-vs-spyder" | "ls2-vs-hjc" | "agv-vs-hjc" | "nolan-vs-shoei" | "full-face-vs-modular";
 
 export type HelmetSeoComparison = {
   slug: HelmetSeoComparisonSlug;
@@ -64,6 +64,72 @@ export const helmetSeoComparisons: HelmetSeoComparison[] = [
       {question:"Is EVO or Spyder better for commuting?",answer:"There is no universal brand-level answer. Compare the exact helmet type, fit, visor setup, ventilation and intercom provision for the models within your budget."},
       {question:"Which brand has cheaper helmets?",answer:"Observed starting prices vary by model, size, graphic and seller. MotoIndex shows the current recorded price range for the verified models included in this comparison."},
       {question:"Do EVO and Spyder helmets all have the same certification?",answer:"No. Certification is model and market specific. Verify the exact model record and the PS or ICC conformity marking on the unit you are buying."}
+    ]
+  },
+  {
+    slug:"ls2-vs-hjc",
+    title:"LS2 vs HJC helmets in the Philippines",
+    seoTitle:"LS2 vs HJC Helmets Philippines: Prices, Models & Features",
+    description:"Compare verified LS2 and HJC helmet models in the Philippines by observed price, helmet type, visor setup, shell, intercom provision and certification notes.",
+    kicker:"Helmet brand comparison",
+    leftLabel:"LS2",
+    rightLabel:"HJC",
+    intro:"LS2 and HJC both cover mainstream road helmets as well as higher-spec touring and sport choices. Compare the exact model rather than treating either badge as one quality level.",
+    kind:"brand",
+    leftBrandSlug:"ls2",
+    rightBrandSlug:"hjc",
+    sections:[
+      {heading:"Compare the exact price tier and helmet format",body:["LS2 spans budget, modular, touring, adventure and premium carbon models, while HJC also covers entry road helmets through RPHA performance models. A useful comparison starts with two helmets solving the same riding job.","Check the current seller price, shell construction, visor and anti-fog provision, weight where published and replacement-part availability before deciding."]},
+      {heading:"Fit and local conformity still come first",body:["Brand reputation cannot tell you which internal shape fits your head. Use the exact model size chart and try the helmet on when possible.","For Philippine use, inspect the actual unit for the applicable PS or ICC conformity marking and do not transfer one model's international certification to another model in the same brand."]}
+    ],
+    faqs:[
+      {question:"Is LS2 better than HJC?",answer:"There is no useful brand-wide winner. Compare the exact LS2 and HJC models at the same price and helmet type, then choose by fit, certification, visor system, weight and replacement parts."},
+      {question:"Which has more affordable helmet choices, LS2 or HJC?",answer:"MotoIndex records multiple LS2 price tiers and several HJC road models. The cheapest option changes with model, size, graphic and seller promotion, so use the price rows below as dated references."},
+      {question:"Can I choose based only on ECE certification?",answer:"No. Compare the exact certification of the model and inspect the PS or ICC conformity marking on the Philippine unit. Fit and condition remain essential."}
+    ]
+  },
+  {
+    slug:"agv-vs-hjc",
+    title:"AGV vs HJC helmets in the Philippines",
+    seoTitle:"AGV vs HJC Helmets Philippines: Prices & Model Comparison",
+    description:"Compare verified AGV and HJC helmet records in the Philippines by price, helmet type, shell, visor features and model-specific certification notes.",
+    kicker:"Helmet brand comparison",
+    leftLabel:"AGV",
+    rightLabel:"HJC",
+    intro:"AGV and HJC overlap in sport and road helmets but span very different price points within their own ranges. Compare the exact helmet model and riding use instead of choosing from brand image alone.",
+    kind:"brand",
+    leftBrandSlug:"agv",
+    rightBrandSlug:"hjc",
+    sections:[
+      {heading:"Premium branding is not the same as the right helmet",body:["AGV's range includes premium racing and road helmets, while HJC spans accessible road models through the RPHA performance family. Match helmet type and price tier before comparing features.","Look at shell construction, visor optics, ventilation, fit and included anti-fog hardware on the exact models you are considering."]},
+      {heading:"Use local-unit checks before paying",body:["A model can be sold in more than one market configuration. Verify the actual helmet's certification label and Philippine conformity marking, then confirm the size and production condition.","Price differences may also reflect graphics, carbon construction or bundled visors rather than a simple safety ranking."]}
+    ],
+    faqs:[
+      {question:"Is AGV better than HJC?",answer:"Not as a blanket rule. AGV and HJC each sell multiple helmet tiers. Compare equivalent models by fit, certification, shell, visor system and price."},
+      {question:"Why can AGV cost more than HJC?",answer:"Some AGV models use premium shell construction, racing development and higher-end finishing, but both brands have multiple tiers. Compare equivalent models rather than average brand price."},
+      {question:"Which brand should I choose for daily riding?",answer:"Choose the exact model that fits correctly and has the visor, ventilation, weight and local conformity you need for your route. Brand name alone is not enough."}
+    ]
+  },
+  {
+    slug:"nolan-vs-shoei",
+    title:"Nolan vs Shoei helmets in the Philippines",
+    seoTitle:"Nolan vs Shoei Helmets Philippines: Modular & Touring Comparison",
+    description:"Compare verified Nolan and Shoei helmet models in the Philippines by observed price, helmet type, shell, visor systems, touring features and certification notes.",
+    kicker:"Helmet brand comparison",
+    leftLabel:"Nolan",
+    rightLabel:"Shoei",
+    intro:"Nolan and Shoei both have touring-oriented helmets, but their Philippine price bands and model formats differ. Use the exact modular, open-face or full-face model as the comparison unit.",
+    kind:"brand",
+    leftBrandSlug:"nolan",
+    rightBrandSlug:"shoei",
+    sections:[
+      {heading:"Touring convenience depends on the exact model",body:["Nolan's current Philippine listings include flip-back and crossover modular designs as well as open-face and adventure options. Shoei's range includes premium modular, touring full-face and open-face helmets.","Compare chin-bar mechanism, visor and sun-shield setup, intercom provision, weight and replacement parts rather than assuming every touring helmet has the same features."]},
+      {heading:"Premium price still needs a fit check",body:["A premium helmet is only useful when the internal shape and size fit the rider correctly. Use each model's chart and confirm cheek-pad and forehead pressure before buying.","Inspect the actual Philippine unit for its conformity marking and certification label, especially when a model family is sold in several markets."]}
+    ],
+    faqs:[
+      {question:"Is Nolan or Shoei better for touring?",answer:"Both brands have touring-focused models, but the answer depends on the exact helmet. Compare fit, modular mechanism where applicable, visor, sun shield, intercom provision, weight and price."},
+      {question:"Which is cheaper, Nolan or Shoei?",answer:"The current Philippine Nolan listings include models below several Shoei premium models, but the ranges are not directly equivalent. Compare helmets with the same format and purpose."},
+      {question:"Are Nolan and Shoei helmets legal in the Philippines?",answer:"Legality depends on the exact unit's applicable Philippine conformity marking, not the brand alone. Check the PS or ICC mark on the helmet you are buying."}
     ]
   },
   {

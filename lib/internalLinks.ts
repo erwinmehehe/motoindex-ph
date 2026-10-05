@@ -40,6 +40,9 @@ export function helmetProductInternalLinks(product: HelmetProduct): RelatedLink[
   const comparisonLinks: RelatedLink[] = [
     ...(["kyt","ls2"].includes(product.brandSlug) ? [{ href:"/gear/helmets/compare/kyt-vs-ls2", title:"KYT vs LS2 helmets", eyebrow:"Brand comparison", description:"Compare verified KYT and LS2 model records." }] : []),
     ...(["evo","spyder"].includes(product.brandSlug) ? [{ href:"/gear/helmets/compare/evo-vs-spyder", title:"EVO vs Spyder helmets", eyebrow:"Brand comparison", description:"Compare verified EVO and Spyder model records." }] : []),
+    ...(["ls2","hjc"].includes(product.brandSlug) ? [{ href:"/gear/helmets/compare/ls2-vs-hjc", title:"LS2 vs HJC helmets", eyebrow:"Brand comparison", description:"Compare verified LS2 and HJC model records." }] : []),
+    ...(["agv","hjc"].includes(product.brandSlug) ? [{ href:"/gear/helmets/compare/agv-vs-hjc", title:"AGV vs HJC helmets", eyebrow:"Brand comparison", description:"Compare verified AGV and HJC model records." }] : []),
+    ...(["nolan","shoei"].includes(product.brandSlug) ? [{ href:"/gear/helmets/compare/nolan-vs-shoei", title:"Nolan vs Shoei helmets", eyebrow:"Brand comparison", description:"Compare touring, modular and premium helmet records." }] : []),
     ...(["Full face","Modular"].includes(product.helmetType) ? [{ href:"/gear/helmets/compare/full-face-vs-modular", title:"Full-face vs modular helmets", eyebrow:"Format comparison", description:"Compare coverage, convenience and equipment tradeoffs." }] : [])
   ];
   const isRoadHelmet = ["Full face", "Modular", "Half face", "Open face"].includes(product.helmetType);
@@ -71,7 +74,10 @@ export function helmetBrandInternalLinks(brandSlug: string): RelatedLink[] {
   const hasBudgetModels = products.some(p => typeof p.priceFromPhp === "number" && p.priceFromPhp <= 5000);
   const seoCompare: RelatedLink[] = [
     ...(["kyt","ls2"].includes(brandSlug)?[{href:"/gear/helmets/compare/kyt-vs-ls2",title:"KYT vs LS2 helmets",eyebrow:"Brand comparison",description:"Compare verified KYT and LS2 records."}]:[]),
-    ...(["evo","spyder"].includes(brandSlug)?[{href:"/gear/helmets/compare/evo-vs-spyder",title:"EVO vs Spyder helmets",eyebrow:"Brand comparison",description:"Compare verified EVO and Spyder records."}]:[])
+    ...(["evo","spyder"].includes(brandSlug)?[{href:"/gear/helmets/compare/evo-vs-spyder",title:"EVO vs Spyder helmets",eyebrow:"Brand comparison",description:"Compare verified EVO and Spyder records."}]:[]),
+    ...(["ls2","hjc"].includes(brandSlug)?[{href:"/gear/helmets/compare/ls2-vs-hjc",title:"LS2 vs HJC helmets",eyebrow:"Brand comparison",description:"Compare verified LS2 and HJC records."}]:[]),
+    ...(["agv","hjc"].includes(brandSlug)?[{href:"/gear/helmets/compare/agv-vs-hjc",title:"AGV vs HJC helmets",eyebrow:"Brand comparison",description:"Compare verified AGV and HJC records."}]:[]),
+    ...(["nolan","shoei"].includes(brandSlug)?[{href:"/gear/helmets/compare/nolan-vs-shoei",title:"Nolan vs Shoei helmets",eyebrow:"Brand comparison",description:"Compare touring and premium helmet records."}]:[])
   ];
   return [{href:"/gear/helmets/finder",title:"Helmet Finder",eyebrow:"Finder",description:"Filter verified helmets by budget, type, size and equipment."},{href:"/gear/helmets/compare",title:"Compare helmets",eyebrow:"Compare",description:"Compare two or three verified helmet models side by side."},...seoCompare,{href:"/guides/motorcycle-helmet-size-guide",title:"Helmet size guide",eyebrow:"Fit",description:"Measure your head and use the exact model chart."},{href:"/guides/motorcycle-helmet-certification-philippines",title:"Helmet certification guide",eyebrow:"Certification",description:"Understand PS, ICC and model-level certification references."}, ...(hasBudgetModels?[{href:"/gear/helmets#under-5000",title:"Helmets under ₱5,000",eyebrow:"Budget",description:"Compare checked models in the same price band."}]:[]), ...categoryLinks, ...products.slice(0,3).map(p=>({href:`/gear/helmets/${p.brandSlug}/${p.slug}`,title:`${p.brand} ${p.model}`,eyebrow:"Model",description:p.helmetType}))].slice(0,11);
 }
