@@ -4,6 +4,22 @@ import type { EntityMedia } from "./types";
 // Local WebP derivatives are used at runtime; sourceImageUrl and sourceUrl preserve provenance.
 export const generatedProductMedia: EntityMedia[] = [
   {
+    "id": "nhk-gt-avenger-mark-ii-generated-product",
+    "entityType": "helmet",
+    "entityId": "nhk-gt-avenger-mark-ii",
+    "role": "primary",
+    "src": "/media/helmets/nhk-gt-avenger-mark-ii.webp",
+    "sourceImageUrl": "https://nhkhelmet.com/wp-content/uploads/2022/06/GT-AVENGER-MARK-II-LEFT-FRONTSIDE-600x600.png",
+    "alt": "NHK GT Avenger Mark II product image",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "sourceLabel": "Checked product-page image · NHK GT Avenger Mark II",
+    "sourceUrl": "https://nhkhelmet.com/gt-avenger-mark2/",
+    "lastChecked": "2026-09-21",
+    "rightsHolder": "NHK"
+  },
+  {
     "id": "spyder-force-v2-generated-product",
     "entityType": "helmet",
     "entityId": "spyder-force-v2",
