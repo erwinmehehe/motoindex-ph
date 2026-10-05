@@ -167,7 +167,7 @@ export const currentModelGapCloseout2026: Motorcycle[] = [
     rearTire: "140/70-17",
     abs: "No ABS listed in the current Philippine comparison-market specification",
     colors: ["Ice Storm", "Tech Black"],
-    searchVolume: 1400,
+    searchVolume: 1800,
     keywordDifficulty: 8,
     sourceLabel: "Current Philippine Yamaha dealer listing with price and specifications",
     sourceUrl: "https://www.guanzongroup.com.ph/product/mt-15/",
