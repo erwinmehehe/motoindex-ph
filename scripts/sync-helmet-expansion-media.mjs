@@ -64,16 +64,26 @@ function htmlImageCandidates(html,base){
   return [...new Set(raw.map(v=>v.replace(/&amp;/g,"&")).map(v=>{try{return new URL(v,base).href}catch{return ""}}).filter(Boolean))];
 }
 async function request(url){
-  const res=await fetch(url,{
-    redirect:"follow",
-    headers:{
-      "user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/153 Safari/537.36",
-      "accept":"image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
-      "accept-language":"en-US,en;q=0.9"
+  let lastError;
+  for(let attempt=1;attempt<=2;attempt+=1){
+    try{
+      const res=await fetch(url,{
+        redirect:"follow",
+        signal:AbortSignal.timeout(20000),
+        headers:{
+          "user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/153 Safari/537.36",
+          "accept":"image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+          "accept-language":"en-US,en;q=0.9"
+        }
+      });
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res;
+    }catch(error){
+      lastError=error;
+      if(attempt<2) await new Promise(resolve=>setTimeout(resolve,500));
     }
-  });
-  if(!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res;
+  }
+  throw lastError;
 }
 async function fetchImage(url){
   const res=await request(url);
