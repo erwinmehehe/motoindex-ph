@@ -1,3 +1,6 @@
+import { ModelExplorer } from "@/components/ModelExplorer";
+import { forClient } from "@/lib/competitors";
+import { ReviewedCatalogArt } from "@/components/ReviewedCatalogArt";
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import Link from "next/link";
@@ -90,7 +93,7 @@ export default function ScootersPage() {
   return <main className="page">
     <div className="shell">
       <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: "Scooters" }]} />
-      <PageHero
+      <div className="reviewed-catalog-hero"><ReviewedCatalogArt entityId="yamaha-nmax-155" /><PageHero
         kicker="Philippines scooter price guide"
         title="Scooter prices in the Philippines"
         description="Compare current scooter prices, models and specifications in the Philippines for 2026. Start with the full price list, then narrow by 125cc, 150cc-class, exact 155cc, 160cc, brand, budget or rider need."
@@ -99,7 +102,8 @@ export default function ScootersPage() {
           <Link className="button secondary" href="/finder">Find a motorcycle</Link>
           <Link className="button secondary" href="/compare">Compare models</Link>
         </CTAGroup>}
-      />
+      /></div>
+      <section className="reviewed-catalog-models" aria-label="Browse scooters"><ModelExplorer models={forClient(scooters)} initialFilters={{category:"scooter",sort:"price-asc"}} /></section>
 
       <section className="section" aria-labelledby="scooter-price-philippines">
         <SectionHeader

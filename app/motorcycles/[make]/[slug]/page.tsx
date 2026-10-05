@@ -1,3 +1,4 @@
+import { ReviewedModelHero } from "@/components/ReviewedModelHero";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
@@ -129,7 +130,8 @@ export default async function ModelPage({ params }: { params: Promise<{ make: st
   const generationFamily=getModelFamilyForModel(model.id);
   return <>
     <RecentlyViewedTracker model={{ id: model.id, make: model.make, model: model.model, makeSlug: model.makeSlug, slug: model.slug }} />
-    <MotorcycleEntityPage model={model} />
+    {(!model.marketStatus || model.marketStatus === "current") && <ReviewedModelHero model={model} />}
+    <MotorcycleEntityPage model={model} omitHero={!model.marketStatus || model.marketStatus === "current"} />
     {generationFamily&&<div className="shell generation-model-entry">
       <section className="info-card">
         <span className="section-kicker">Generation change tracker</span>

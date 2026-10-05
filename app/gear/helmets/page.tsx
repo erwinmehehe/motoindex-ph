@@ -1,3 +1,6 @@
+import { ReviewedHelmetExplorer } from "@/components/ReviewedHelmetExplorer";
+import { getRenderableMedia } from "@/lib/renderableMedia";
+import { ReviewedCatalogArt } from "@/components/ReviewedCatalogArt";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
@@ -80,13 +83,14 @@ export default function HelmetsPage(){
   ];
 
   return <section className="page shell helmet-hub-page">
-    <PageHero
+    <div className="reviewed-catalog-hero"><ReviewedCatalogArt entityType="helmet" entityId="spyder-surge-v2" /><PageHero
       kicker="Philippine helmet buying guide"
       title="Motorcycle helmets in the Philippines: prices, types and brands"
       description="Use one guide to compare helmet prices, protection formats, ECE 22.06 references, intercom provision, commuting choices, sizing and current brand/model pages. Open the exact helmet before buying to verify fit and the marking on the local unit."
       actions={<CTAGroup><Link className="button" href="/gear/helmets/finder">Find my helmet</Link><Link className="button secondary" href="/gear/helmets/compare">Compare exact helmets</Link></CTAGroup>}
-    />
+    /></div>
 
+    <ReviewedHelmetExplorer items={verified.flatMap(product => { const image=getRenderableMedia("helmet",product.id)[0]; return image ? [{id:product.id,brand:product.brand,model:product.model,href:`/gear/helmets/${product.brandSlug}/${product.slug}`,type:product.helmetType,price:product.priceFromPhp,image:image.src,alt:image.alt}] : []; })} />
     <StatRow items={[
       {label:"Verified models",value:verified.length},
       {label:"Brands",value:brands.length},

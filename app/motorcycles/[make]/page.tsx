@@ -1,3 +1,4 @@
+import { ReviewedCatalogArt } from "@/components/ReviewedCatalogArt";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -184,12 +185,14 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     <div className="ph-brand-hero">
       <div className="shell">
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
+        <div className="reviewed-catalog-hero">{current[0] && <ReviewedCatalogArt entityId={current.find(model=>model.slug.includes("aerox"))?.id ?? current[0].id} />}
         <PageHero
           kicker="Philippines · Price list · Models · Specs"
           title={brandGrowth?.heroTitle || `${brand} Motorcycle Philippines Price List`}
           description={brandGrowth?.heroDescription || `Compare the current ${brand} motorcycle Philippines price list by model, published price, engine size, seat height and transmission. Open any motorcycle for detailed specs, financing estimates, fitment, maintenance and alternatives.`}
           actions={<><CTAGroup><Link className="button" href="#price-list">View {brand} price list</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link>{["honda","yamaha","suzuki","kawasaki"].includes(make) ? <Link className="button secondary" href={`/motorcycles/${make}/dealers`}>Find {brand} dealers</Link> : null}</CTAGroup></>}
         />
+        </div>
         {brandGrowth ? <InfoPanel subtle><p>{brandGrowth.intentNote}</p></InfoPanel> : null}
         <StatRow items={[
           {label:"Models covered",value:current.length,note:"Current models on MotoIndex"},

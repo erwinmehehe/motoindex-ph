@@ -9,3 +9,147 @@
 @import "../model-detail.css";
 @import "../model-buying-flow.css";
 @import "./product-entity-layout-fix.css";
+
+/* Reviewed motorcycle buying articles. */
+body .recommendation-detail-scope{background:var(--reviewed-editorial-8);color:var(--reviewed-editorial-0)}
+body .recommendation-detail-scope>.page.shell{width:min(1180px,calc(100% - 40px));padding-top:24px}
+body .recommendation-detail-scope [id]{scroll-margin-top:100px}
+body .recommendation-detail-scope .guide-article-hero{display:grid;grid-template-columns:1.2fr 1fr;align-items:center;gap:24px;padding:36px;border:1px solid var(--reviewed-editorial-4);border-radius:20px;background:linear-gradient(120deg,var(--reviewed-editorial-10),var(--reviewed-editorial-6));overflow:hidden}
+body .recommendation-detail-scope .guide-page-head{margin:0;padding:0;max-width:none}
+body .recommendation-detail-scope .guide-page-head h1{font-size:clamp(34px,3.5vw,48px);line-height:1.1;letter-spacing:-.04em}
+body .recommendation-detail-scope .guide-kicker{color:var(--reviewed-editorial-1);font-size:11px}
+body .recommendation-detail-scope .guide-hero-description{margin:18px 0;color:var(--reviewed-editorial-3);font-size:15px;line-height:1.7;max-width:580px}
+body .recommendation-detail-scope .guide-hero-meta{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--reviewed-editorial-3);font-size:11px;line-height:1.6}
+body .recommendation-detail-scope .guide-hero-action{display:inline-flex;align-items:center;min-height:44px;margin-top:22px;padding:12px 18px;border-radius:9px;background:var(--reviewed-editorial-1);color:var(--reviewed-editorial-10);font-size:13px;font-weight:800}
+body .recommendation-detail-scope .guide-hero-art{min-width:0}
+body .recommendation-detail-scope .guide-hero-art .entity-media{height:300px;background:var(--reviewed-editorial-7);border:0;border-radius:16px;margin:0;isolation:isolate;overflow:hidden}
+body .recommendation-detail-scope .guide-hero-art img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+body .recommendation-detail-scope .guide-jump-links{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:20px 0 24px}
+body .recommendation-detail-scope .guide-jump-links>span{font-size:11px;font-weight:800;color:var(--reviewed-editorial-3);margin-right:8px}
+body .recommendation-detail-scope .guide-jump-links a{display:inline-flex;align-items:center;min-height:40px;padding:9px 14px;border:1px solid var(--reviewed-editorial-4);border-radius:8px;background:var(--reviewed-editorial-10);color:var(--reviewed-editorial-1);font-size:12px;font-weight:700}
+body .recommendation-detail-scope .guide-jump-links a:hover{background:var(--reviewed-editorial-6)}
+body .recommendation-detail-scope .guide-direct-answer{border-color:var(--reviewed-editorial-4);border-radius:14px;box-shadow:none;margin-bottom:28px}
+body .recommendation-detail-scope .guide-direct-answer strong{color:var(--reviewed-editorial-1)}
+body .recommendation-detail-scope .guide-quick-picks{border:0;padding:0;margin-bottom:34px}
+body .recommendation-detail-scope [data-guide-section-head] h2{font-size:28px;line-height:1.2}
+body .recommendation-detail-scope [data-guide-section-head] p{font-size:13px}
+body .recommendation-detail-scope .guide-pick-grid{gap:14px}
+body .recommendation-detail-scope .guide-pick-grid>a{padding:18px;border-color:var(--reviewed-editorial-4);border-radius:14px}
+body .recommendation-detail-scope .guide-pick-grid span{color:var(--reviewed-editorial-1);font-size:10px}
+body .recommendation-detail-scope .guide-pick-grid strong{font-size:17px}
+body .recommendation-detail-scope .guide-pick-grid small{color:var(--reviewed-editorial-1);font-size:14px;font-weight:800}
+body .recommendation-detail-scope .guide-pick-media{height:140px;width:100%;margin:12px 0 4px;overflow:hidden;background:var(--reviewed-editorial-7);border-radius:10px;isolation:isolate}
+body .recommendation-detail-scope .guide-pick-media img{width:100%;height:100%;object-fit:contain;padding:8px;mix-blend-mode:multiply}
+body .recommendation-detail-scope .guide-pick-fallback{display:grid;place-items:center;color:var(--reviewed-editorial-3)}
+body .recommendation-detail-scope .guide-table-wrap{border-color:var(--reviewed-editorial-4);border-radius:14px}
+body .recommendation-detail-scope .guide-comparison-table th,body .recommendation-detail-scope .guide-comparison-table td{font-size:12px;padding:16px;border-color:var(--reviewed-editorial-5)}
+body .recommendation-detail-scope .guide-comparison-table thead th{background:var(--reviewed-editorial-6);color:var(--reviewed-editorial-2);font-size:10px}
+body .recommendation-detail-scope .guide-comparison-table tbody tr:nth-child(even){background:var(--reviewed-editorial-9)}
+body .recommendation-detail-scope .guide-method{background:var(--reviewed-editorial-10);color:var(--reviewed-editorial-0);border-color:var(--reviewed-editorial-4);border-radius:14px}
+body .recommendation-detail-scope .guide-method>div:first-child>span{color:var(--reviewed-editorial-1)}
+body .recommendation-detail-scope .guide-method>div:first-child>p{color:var(--reviewed-editorial-3);font-size:14px}
+body .recommendation-detail-scope .guide-method-grid{background:var(--reviewed-editorial-4);border-color:var(--reviewed-editorial-4);border-radius:10px;overflow:hidden}
+body .recommendation-detail-scope .guide-method-grid>div{background:var(--reviewed-editorial-8)}
+body .recommendation-detail-scope .guide-method-grid strong{color:var(--reviewed-editorial-0);font-size:13px}
+body .recommendation-detail-scope .guide-method-grid p,body .recommendation-detail-scope .guide-method-grid li{color:var(--reviewed-editorial-3);font-size:12px;line-height:1.7}
+body .recommendation-detail-scope .guide-model-analysis-list{gap:18px;border:0}
+body .recommendation-detail-scope .guide-model-analysis{grid-template-columns:220px minmax(0,1fr);padding:24px;border:1px solid var(--reviewed-editorial-4);border-radius:14px;background:var(--reviewed-editorial-10)}
+body .recommendation-detail-scope .guide-model-position,body .recommendation-detail-scope .guide-model-actions a{color:var(--reviewed-editorial-1);font-size:12px}
+body .recommendation-detail-scope .guide-model-media{height:190px;background:var(--reviewed-editorial-7);border-color:var(--reviewed-editorial-5);isolation:isolate}
+body .recommendation-detail-scope .guide-model-media img{mix-blend-mode:multiply}
+body .recommendation-detail-scope .guide-model-price strong{color:var(--reviewed-editorial-1);font-size:19px}
+body .recommendation-detail-scope .guide-model-kpis small{font-size:10px}
+body .recommendation-detail-scope .guide-model-kpis b{font-size:12px;line-height:1.5}
+body .recommendation-detail-scope .guide-model-editorial strong{font-size:12px}
+body .recommendation-detail-scope .guide-model-editorial p{font-size:13px;line-height:1.7}
+body .recommendation-detail-scope .guide-topic-grid p,body .recommendation-detail-scope .guide-decision-grid p,body .recommendation-detail-scope .guide-related-grid small{font-size:13px;line-height:1.7}
+body .recommendation-detail-scope .faq-list details{padding:18px 20px;background:var(--reviewed-editorial-10);border:1px solid var(--reviewed-editorial-4);border-radius:12px;margin-bottom:10px}
+body .recommendation-detail-scope .faq-list summary{font-size:15px;font-weight:700;cursor:pointer}
+body .recommendation-detail-scope .faq-list p{font-size:14px;line-height:1.75;color:var(--reviewed-editorial-3)}
+@media(max-width:980px){body .recommendation-detail-scope .guide-article-hero{padding:26px;gap:16px}body .recommendation-detail-scope .guide-model-analysis{grid-template-columns:160px minmax(0,1fr)}body .recommendation-detail-scope .guide-model-editorial{grid-template-columns:1fr}}
+@media(max-width:700px){body .recommendation-detail-scope .guide-article-hero{grid-template-columns:1fr;padding:24px}body .recommendation-detail-scope .guide-page-head h1{font-size:34px}body .recommendation-detail-scope .guide-hero-art .entity-media{height:210px}body .recommendation-detail-scope .guide-jump-links>span{flex-basis:100%}body .recommendation-detail-scope .guide-pick-grid{grid-template-columns:1fr}body .recommendation-detail-scope .guide-model-analysis{grid-template-columns:1fr;padding:20px}body .recommendation-detail-scope .guide-model-media{height:220px}body .recommendation-detail-scope .guide-direct-answer{padding:20px}}
+
+/* The approved blue-and-white treatment, scoped to the reviewed public routes. */
+.reviewed-design{background:var(--reviewed-canvas);color:var(--mi-color-ink);padding-block:1px;--mi-color-primary:var(--reviewed-blue);--mi-color-line:var(--reviewed-line)}
+.reviewed-design .button{background:var(--reviewed-blue);border-color:var(--reviewed-blue);color:var(--mi-color-surface);border-radius:10px}
+.reviewed-design .button.secondary,.reviewed-design .button.ghost{background:var(--mi-color-surface);color:var(--reviewed-blue);border-color:var(--reviewed-line)}
+.reviewed-design .ui-page-hero,.reviewed-design .page-head{padding:28px;border:1px solid var(--reviewed-line);border-radius:16px;background:linear-gradient(115deg,var(--mi-color-surface),var(--reviewed-soft))}
+.reviewed-design h1{color:var(--mi-color-ink);font-size:clamp(30px,3.5vw,48px);line-height:1.12;letter-spacing:-.04em}
+.reviewed-design .ui-page-hero__description,.reviewed-design .page-head>p{font-size:15px;line-height:1.7;color:var(--mi-color-copy)}
+.reviewed-design .ui-page-hero__kicker,.reviewed-design .entity-kicker{color:var(--reviewed-blue)}
+.reviewed-design .ph-brand-hero{background:var(--reviewed-canvas);padding-block:24px}
+.reviewed-design .ph-brand-nav,.reviewed-design .product-entity-nav,.reviewed-design .motorcycle-entity-nav{background:var(--mi-color-surface);border:1px solid var(--reviewed-line);border-radius:12px}
+.reviewed-design .ph-brand-nav a,.reviewed-design .product-entity-nav a,.reviewed-design .motorcycle-entity-nav a{color:var(--mi-color-ink)}
+.reviewed-design .info-card,.reviewed-design .ui-info-panel,.reviewed-design .topic-grid>article,.reviewed-design .guide-card{background:var(--mi-color-surface);border-color:var(--reviewed-line);border-radius:14px}
+.reviewed-design .motorcycle-entity-section{background:var(--mi-color-surface);border:1px solid var(--reviewed-line);border-radius:16px;padding:24px;margin-block:18px}
+.reviewed-design .entity-disclosure>summary{color:var(--mi-color-ink);font-size:20px}
+.reviewed-design [data-motorcycle-card="standard"]{border-color:var(--reviewed-line);border-radius:16px;background:var(--mi-color-surface)}
+.reviewed-design [data-motorcycle-card="standard"]>div:first-child{background:var(--reviewed-gray)}
+.reviewed-design [data-motorcycle-card="standard"]>div:first-child img{mix-blend-mode:multiply}
+.reviewed-design [data-motorcycle-card="standard"] h3 a,.reviewed-design [data-motorcycle-card="standard"] .price{color:var(--reviewed-blue)}
+.reviewed-design .ui-product-card{border-color:var(--reviewed-line);border-radius:14px;background:var(--mi-color-surface)}
+.reviewed-design .ui-product-card h3,.reviewed-design .ui-product-card-foot>strong{color:var(--reviewed-blue)}
+.reviewed-design .guide-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.reviewed-catalog-hero{position:relative;isolation:isolate;margin-block:16px 24px}
+.reviewed-catalog-hero .ui-page-hero{padding-right:42%;min-height:270px}
+.reviewed-catalog-art{position:absolute;right:24px;top:20px;bottom:20px;width:36%;z-index:1;pointer-events:none;display:grid;align-items:center}
+.reviewed-catalog-art .entity-media{position:relative;width:100%;height:230px;background:transparent}
+.reviewed-catalog-art img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.reviewed-catalog-models{margin-block:28px}
+.reviewed-home-hero{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:24px;min-height:440px;margin-block:24px;padding:40px;border:1px solid var(--reviewed-line);border-radius:18px;background:linear-gradient(110deg,var(--mi-color-surface),var(--reviewed-soft))}
+.reviewed-home-hero h1{font-size:clamp(36px,4vw,58px);margin:16px 0}
+.reviewed-home-hero p{font-size:16px;line-height:1.65;max-width:440px;color:var(--mi-color-copy)}
+.reviewed-home-hero>a{display:block;min-width:0}
+.reviewed-home-hero .entity-media{height:340px;background:transparent}
+.reviewed-home-hero img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.reviewed-home-search{display:flex;gap:8px;margin-top:22px}
+.reviewed-home-search input{min-width:0;flex:1;border:1px solid var(--reviewed-line);border-radius:10px;background:var(--mi-color-surface);padding:14px;font-size:13px}
+.reviewed-design.mi-home .mi-brand-shelf,.reviewed-design.mi-home .mi-section,.reviewed-design.mi-home .mi-tools,.reviewed-design.mi-home .mi-final{background:var(--reviewed-canvas);color:var(--mi-color-ink)}
+.reviewed-design.mi-home .mi-section-head h2,.reviewed-design.mi-home .mi-final h2,.reviewed-design.mi-home .mi-final h2 em{color:var(--mi-color-ink)}
+.reviewed-design.mi-home .mi-section-head p,.reviewed-design.mi-home .mi-final p{color:var(--mi-color-copy)}
+.reviewed-design.mi-home .mi-eyebrow,.reviewed-design.mi-home .mi-section-head a,.reviewed-design.mi-home .mi-section-head h2 em{color:var(--reviewed-blue)}
+.reviewed-design.mi-home .mi-brand-grid>a,.reviewed-design.mi-home .mi-category-card,.reviewed-design.mi-home .mi-tool-grid>a{background:var(--mi-color-surface);border:1px solid var(--reviewed-line);color:var(--mi-color-ink);border-radius:14px}
+.reviewed-design.mi-home .mi-tool-grid p{color:var(--mi-color-copy)}
+.reviewed-design.mi-home .mi-tool-grid b{color:var(--reviewed-blue)}
+.reviewed-model-intro{padding-top:24px}
+.reviewed-model-hero{display:grid;grid-template-columns:1fr 1.15fr;gap:30px;padding:30px;border:1px solid var(--reviewed-line);border-radius:16px;background:linear-gradient(115deg,var(--mi-color-surface),var(--reviewed-soft))}
+.reviewed-model-copy h1{margin:12px 0 16px}
+.reviewed-model-copy>p{font-size:15px;line-height:1.75;color:var(--mi-color-copy)}
+.reviewed-model-price{display:block;margin:16px 0 8px;color:var(--reviewed-blue);font-size:28px}
+.reviewed-model-copy>small{display:block;font-size:12px;color:var(--mi-color-copy)}
+.reviewed-model-actions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.reviewed-model-links{display:flex;gap:18px;margin-bottom:18px;color:var(--reviewed-blue);font-size:13px}
+.reviewed-model-gallery{min-width:0}
+.reviewed-model-stage{position:relative;height:320px;background:var(--reviewed-gray);border-radius:12px;isolation:isolate}
+.reviewed-model-stage .reviewed-model-photo{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;padding:24px}
+.reviewed-model-stage .reviewed-brand-logo{position:absolute;right:16px;top:12px;width:90px;height:28px;object-fit:contain;z-index:1}
+.reviewed-model-thumbnails{display:flex;gap:8px;margin-top:12px;overflow-x:auto;padding-bottom:4px}
+.reviewed-model-thumbnails button{flex:0 0 76px;height:64px;border:1px solid var(--reviewed-line);border-radius:8px;padding:4px;background:var(--mi-color-surface);cursor:pointer}
+.reviewed-model-thumbnails button[aria-pressed="true"]{border:2px solid var(--reviewed-blue)}
+.reviewed-model-thumbnails img{width:100%;height:100%;object-fit:contain}
+.reviewed-model-colors{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0;font-size:12px}
+.reviewed-model-colors span{padding:6px 10px;border:1px solid var(--reviewed-line);border-radius:20px;background:var(--mi-color-surface)}
+.reviewed-spec-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:1px solid var(--reviewed-line);border-radius:12px;background:var(--mi-color-surface);overflow:hidden}
+.reviewed-spec-strip>div{display:flex;flex-direction:column;gap:7px;min-width:0;padding:18px;border-right:1px solid var(--reviewed-line)}
+.reviewed-spec-strip b{font-size:14px;overflow-wrap:anywhere}
+.reviewed-spec-strip small{font-size:11px;color:var(--mi-color-copy)}
+@media(max-width:760px){.reviewed-home-hero,.reviewed-model-hero{grid-template-columns:1fr;padding:22px;gap:18px}.reviewed-home-hero{margin-block:16px}.reviewed-home-hero h1{font-size:40px}.reviewed-home-hero .entity-media{height:240px}.reviewed-model-stage{height:260px}.reviewed-spec-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.reviewed-catalog-hero .ui-page-hero{padding:22px 22px 230px}.reviewed-catalog-art{top:auto;bottom:12px;right:10%;width:80%;height:200px}.reviewed-catalog-art .entity-media{height:200px}.reviewed-design .guide-grid{grid-template-columns:1fr}.reviewed-design .motorcycle-entity-section{padding:18px}.reviewed-home-search{flex-wrap:wrap}.reviewed-home-search input{flex-basis:100%}}
+
+body:has(.reviewed-design){--mi-control-fill:var(--reviewed-blue)}
+.reviewed-design.mi-home{--mi-home-surface:var(--reviewed-canvas)}
+.reviewed-model-stage{overflow:hidden}
+.reviewed-model-stage .reviewed-model-photo{transform:scale(1.4)}
+.reviewed-home-hero{background-image:linear-gradient(90deg,var(--mi-color-surface),transparent 75%),url('/media/reviewed-home-scenery.webp');background-size:cover;background-position:center}
+.reviewed-helmet-explorer{margin-block:28px}
+.reviewed-helmet-filters{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:12px}
+.reviewed-helmet-filters input,.reviewed-helmet-filters select{width:100%;min-width:0;padding:12px;border:1px solid var(--reviewed-line);border-radius:9px;background:var(--mi-color-surface);font-size:14px}
+.reviewed-helmet-explorer>p{font-size:13px;color:var(--mi-color-copy);margin:18px 0}
+.reviewed-helmet-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-bottom:20px}
+.reviewed-helmet-card{display:flex;flex-direction:column;gap:8px;min-width:0;border:1px solid var(--reviewed-line);border-radius:14px;background:var(--mi-color-surface);padding:16px}
+.reviewed-helmet-card>div{height:200px;position:relative;background:var(--reviewed-gray);border-radius:9px}
+.reviewed-helmet-card img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.reviewed-helmet-card>span,.reviewed-helmet-card>small{font-size:12px;color:var(--mi-color-copy)}
+.reviewed-helmet-card>h2{font-size:17px;line-height:1.4;margin:4px 0;color:var(--mi-color-ink)}
+.reviewed-helmet-card>strong{font-size:17px;color:var(--reviewed-blue)}
+@media(max-width:760px){.reviewed-helmet-filters{grid-template-columns:1fr 1fr}.reviewed-helmet-filters input{grid-column:1/-1}.reviewed-helmet-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.reviewed-helmet-card{padding:10px}.reviewed-helmet-card>div{height:150px}.reviewed-helmet-card>h2{font-size:14px}}
+@media(max-width:380px){.reviewed-helmet-grid{grid-template-columns:1fr}}
