@@ -186,18 +186,18 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     }
   },
   "yamaha-mt-15": {
-    seoTitle: "Yamaha MT-15 Philippines | Availability & Specs Reference",
-    seoDescription: "Yamaha MT-15 Philippines reference with 155cc specs and ₱180,000 secondary-market pricing; current Yamaha PH model-level availability remains unverified.",
-    intentIntro: "MT-15 demand exists in the Philippines, but MotoIndex has not verified a current model-level Yamaha Philippines product listing. Treat the stored ₱180,000 figure and specifications as secondary-market research only until Yamaha PH or an authorized dealer publishes a current model-level reference.",
-    moneyQuestion: "Is a brand-new Yamaha MT-15 currently available through an authorized Yamaha Philippines dealer, and what is the exact branch quote for the verified unit?",
-    ownershipQuestion: "If verified local stock exists, compare 17-inch tires, chain and sprocket service, insurance, parts support and the 810 mm seat with XSR155, R15M and other current Yamaha 155cc manual motorcycles.",
+    seoTitle: "Yamaha MT-15 Price Philippines 2026 | Specs & Dealer Price",
+    seoDescription: "Yamaha MT-15 price Philippines 2026 with ₱180,000 Guanzon dealer reference, 155cc specs, 810mm seat, 6-speed gearbox and current branch-stock guidance.",
+    intentIntro: "The MT-15 now has current Philippine dealer evidence from Guanzon, which lists the Yamaha model at ₱180,000 with its 155cc specifications and financing examples. MotoIndex treats ₱180,000 as a current dealer reference that can vary by branch, not as a guaranteed nationwide Yamaha Philippines SRP.",
+    moneyQuestion: "Which dealer branch has current MT-15 stock, and what exact cash price, model year, warranty and registration package apply to the unit?",
+    ownershipQuestion: "Compare 17-inch tires, chain and sprocket service, insurance, parts support and the 810 mm seat with XSR155, R15M and other current 155cc manual motorcycles.",
     alternativeIds: ["yamaha-xsr155", "yamaha-yzf-r15m", "honda-cb150r"],
     relatedIds: ["yamaha-xsr155"],
     recommendationHref: "/recommendations/naked-motorcycles-philippines",
-    recommendationLabel: "Compare verified naked motorcycles",
+    recommendationLabel: "Compare naked motorcycles",
     legacyContext: {
-      heading: "Current Philippine availability is not verified",
-      body: "MotoIndex keeps this route indexed as an availability-to-verify research reference because the model has stored search demand and dated evidence. It must not be presented as confirmed current Yamaha Philippines inventory until model-level availability is verified."
+      heading: "Current dealer listing, verify branch stock",
+      body: "Guanzon currently lists the MT-15 at ₱180,000 and identifies Yamaha 3S locations in its branch network. Confirm the exact branch stock, model year and final quote because dealer prices and availability can change."
     }
   },
 
