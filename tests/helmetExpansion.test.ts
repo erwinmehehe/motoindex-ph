@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { getHelmetBrand } from "../lib/data";
 import { getHelmetCategoryProducts, getHelmetProduct, isIndexableHelmetBrand } from "../lib/catalog";
@@ -75,6 +77,7 @@ describe("helmet market expansion", () => {
       "oneal-2srs","oneal-3srs","oneal-3srs-ii"
     ]) {
       expect(hasRenderableProductMedia(id)).toBe(true);
+      expect(existsSync(join(process.cwd(), "public", "media", "helmets", `${id}.webp`))).toBe(true);
     }
   });
 
