@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { getHelmetBrand } from "../lib/data";
-import { getHelmetCategoryProducts, getHelmetProduct, isIndexableHelmetBrand } from "../lib/catalog";
+import { getHelmetCategoryProducts, getHelmetProduct, helmetProducts, isIndexableHelmetBrand } from "../lib/catalog";
 import { helmetCatalogAliasTarget } from "../lib/helmetBrandLineups";
 import { getHelmetSeoComparison, isIndexableHelmetSeoComparison } from "../lib/helmetSeoComparisons";
 import { getHelmetSeoCollectionProducts, isIndexableHelmetSeoCollection } from "../lib/helmetSeoCollections";
 import { hasRenderableProductMedia } from "../lib/renderableMedia";
+import { getVerifiedHelmetSizing } from "../lib/helmetSizing";
 
 describe("helmet market expansion", () => {
   it("publishes the new Philippine helmet brand hubs", () => {
@@ -75,6 +76,32 @@ describe("helmet market expansion", () => {
       "oneal-2srs","oneal-3srs","oneal-3srs-ii"
     ]) {
       expect(hasRenderableProductMedia(id)).toBe(true);
+    }
+  });
+
+  it("expands centimeter size-chart coverage from verified manufacturer sources", () => {
+    const effectiveCoverage = helmetProducts.filter((product) =>
+      product.status === "verified" &&
+      (Boolean(product.sizeChart?.length) || Boolean(getVerifiedHelmetSizing(product)?.chart.length))
+    );
+
+    expect(effectiveCoverage.length).toBeGreaterThanOrEqual(85);
+
+    const representatives = [
+      ["kyt", "nz-race", "XS", "53-54"],
+      ["ls2", "stream-ii", "2XS", "51-52"],
+      ["ls2", "kid", "S", "47-48"],
+      ["agv", "k1-s", "XS", "53-54"],
+      ["hjc", "c10", "3XS", "50-51"],
+      ["shark", "spartan-gt-pro", "XXL", "63"],
+    ] as const;
+
+    for (const [brand, slug, size, headCm] of representatives) {
+      const product = getHelmetProduct(brand, slug);
+      expect(product).toBeTruthy();
+      const sizing = product && getVerifiedHelmetSizing(product);
+      expect(sizing?.chart).toContainEqual({ size, headCm });
+      expect(sizing?.sourceUrl).toMatch(/^https:\/\//);
     }
   });
 
