@@ -1,20 +1,10 @@
 name: Product Image Backfill
 
 on:
-  push:
-    branches: [fix/product-image-coverage]
-    paths:
-      - scripts/backfill-product-media.mjs
-      - scripts/backfill-ls2-media.mjs
-      - scripts/backfill-smk-media.mjs
-      - scripts/normalize-generated-product-media.mjs
-      - scripts/localize-motorcycle-media.mjs
-      - scripts/validate-media-backfill-safety.mjs
-      - .github/workflows/product-image-backfill.yml
   workflow_dispatch:
 
 concurrency:
-  group: product-image-backfill
+  group: product-image-backfill-${{ github.ref_name }}
   cancel-in-progress: true
 
 permissions:
@@ -25,11 +15,26 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
-      - name: Checkout
+      - name: Checkout selected media branch
         uses: actions/checkout@v7
         with:
-          ref: fix/product-image-coverage
           fetch-depth: 0
+
+      - name: Require a current non-main branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${GITHUB_REF_NAME}" = "main" ]; then
+            echo "Run Product Image Backfill from a dedicated media/* or fix/* branch, not main."
+            exit 1
+          fi
+          git fetch origin main --depth=1
+          behind="$(git rev-list --count HEAD..origin/main)"
+          if [ "$behind" -ne 0 ]; then
+            echo "Selected branch is $behind commit(s) behind main. Rebase or recreate it from current main before running media backfill."
+            exit 1
+          fi
+          echo "Backfill branch ${GITHUB_REF_NAME} is current with main."
 
       - name: Setup Node
         uses: actions/setup-node@v7
@@ -68,7 +73,7 @@ jobs:
         run: node scripts/audit-product-media-coverage.mjs
 
       - name: Validate media records
-        run: npm run validate:media
+        run: MEDIA_STRICT_LOCAL=1 npm run validate:media
 
       - name: Typecheck
         run: npm run typecheck
@@ -82,7 +87,9 @@ jobs:
 
       - name: Commit localized product media
         if: success()
+        shell: bash
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A lib/media.ts lib/generatedProductMedia.ts public/media/motorcycles public/media/helmets public/media/tires public/media/topboxes
@@ -91,6 +98,6 @@ jobs:
             exit 0
           fi
           git commit -m "Localize verified product images"
-          git fetch origin fix/product-image-coverage
-          git rebase origin/fix/product-image-coverage
-          git push origin HEAD:fix/product-image-coverage
+          git fetch origin "${GITHUB_REF_NAME}"
+          git rebase "origin/${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
