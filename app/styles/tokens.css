@@ -159,3 +159,26 @@ h1, h2, h3, h4, h5, h6, .brand-word {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
+
+/* Reviewed helmet product-page palette. */
+:root {
+  --helmet-101b38: #101b38;
+  --helmet-24195d: #24195d;
+  --helmet-2861ed: #2861ed;
+  --helmet-2964ef: #2964ef;
+  --helmet-42526b: #42526b;
+  --helmet-52617a: #52617a;
+  --helmet-604cf5: #604cf5;
+  --helmet-647086: #647086;
+  --helmet-d7e4fb: #d7e4fb;
+  --helmet-e1e9f5: #e1e9f5;
+  --helmet-e4edff: #e4edff;
+  --helmet-e8f4ff: #e8f4ff;
+  --helmet-eaf2ff: #eaf2ff;
+  --helmet-edf2fb: #edf2fb;
+  --helmet-ee4d2d: #ee4d2d;
+  --helmet-eef5fc: #eef5fc;
+  --helmet-f8fbff: #f8fbff;
+  --helmet-f9fbff: #f9fbff;
+  --helmet-fff: #fff;
+}

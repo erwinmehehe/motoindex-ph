@@ -1,4 +1,4 @@
-.mx-review { --mx-blue:#2861ed; --mx-ink:#101b38; --mx-muted:#647086; --mx-line:#e1e9f5; color:var(--mx-ink); background:linear-gradient(140deg,#f9fbff,#eef5fc); font-family:var(--font-inter),Arial,sans-serif; min-height:100vh; padding-bottom:94px; font-size:14px; }
+.mx-review { --mx-blue:var(--helmet-2861ed); --mx-ink:var(--helmet-101b38); --mx-muted:var(--helmet-647086); --mx-line:var(--helmet-e1e9f5); color:var(--mx-ink); background:linear-gradient(140deg,var(--helmet-f9fbff),var(--helmet-eef5fc)); font-family:var(--font-inter),Arial,sans-serif; min-height:100vh; padding-bottom:94px; font-size:14px; }
 .mx-review *, .mx-review *::before, .mx-review *::after { box-sizing:border-box; }
 .mx-review h1,.mx-review h2,.mx-review h3,.mx-review p { margin:0; color:inherit; }
 .mx-review h1,.mx-review h2,.mx-review h3 { font-family:var(--font-inter),Arial,sans-serif; letter-spacing:-.035em; }
@@ -8,52 +8,52 @@
 .mx-review button:disabled { opacity:.4; cursor:default; }
 .mx-review svg { width:20px; height:20px; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
 .mx-review img { display:block; max-width:100%; }
-.mx-review :focus-visible { outline:3px solid #2861ed; outline-offset:3px; }
+.mx-review :focus-visible { outline:3px solid var(--helmet-2861ed); outline-offset:3px; }
 .mx-shell { max-width:1120px; width:calc(100% - 56px); margin:0 auto; }
 .mx-helmet-detail { padding-bottom:0; }
-.mx-helmet-detail .helmet-product-page { max-width:1120px; width:calc(100% - 56px); padding:24px 0 48px; margin:0 auto; --mi-line:#e1e9f5; --mi-muted:#647086; --accent:#2861ed; --ink:#101b38; --muted:#647086; }
+.mx-helmet-detail .helmet-product-page { max-width:1120px; width:calc(100% - 56px); padding:24px 0 48px; margin:0 auto; --mi-line:var(--helmet-e1e9f5); --mi-muted:var(--helmet-647086); --accent:var(--helmet-2861ed); --ink:var(--helmet-101b38); --muted:var(--helmet-647086); }
 .mx-helmet-detail .breadcrumbs { font-size:11px; margin:0 0 18px; }
-.mx-helmet-detail .helmet-review-hero { display:grid; grid-template-columns:1fr 1.1fr; align-items:center; gap:28px; padding:24px 28px; background:linear-gradient(110deg,#f8fbff,#e8f4ff); border:1px solid #e1e9f5; border-radius:12px; }
+.mx-helmet-detail .helmet-review-hero { display:grid; grid-template-columns:1fr 1.1fr; align-items:center; gap:28px; padding:24px 28px; background:linear-gradient(110deg,var(--helmet-f8fbff),var(--helmet-e8f4ff)); border:1px solid var(--helmet-e1e9f5); border-radius:12px; }
 .mx-helmet-detail .product-detail-summary { order:1; }
 .mx-helmet-detail .product-detail-media { order:2; }
 .mx-helmet-detail .product-detail-media>.entity-media { height:310px; border:0; border-radius:0; background:transparent; box-shadow:none; }
 .mx-helmet-detail .product-detail-media>.entity-media img { padding:12px!important; background:transparent!important; mix-blend-mode:multiply; }
 .mx-helmet-detail .product-detail-eyebrow { margin-bottom:10px; }
-.mx-helmet-detail .product-type-pill { color:#647086; background:#edf2fb; }
-.mx-helmet-detail .product-status-pill { color:#2861ed; background:#e4edff; }
-.mx-helmet-detail .product-detail-summary h1 { font-size:42px; line-height:1.08; font-weight:850; color:#101b38; }
-.mx-helmet-detail .product-detail-description p { font-size:13px; line-height:1.65; margin:14px 0; color:#52617a; }
+.mx-helmet-detail .product-type-pill { color:var(--helmet-647086); background:var(--helmet-edf2fb); }
+.mx-helmet-detail .product-status-pill { color:var(--helmet-2861ed); background:var(--helmet-e4edff); }
+.mx-helmet-detail .product-detail-summary h1 { font-size:42px; line-height:1.08; font-weight:850; color:var(--helmet-101b38); }
+.mx-helmet-detail .product-detail-description p { font-size:13px; line-height:1.65; margin:14px 0; color:var(--helmet-52617a); }
 .mx-helmet-detail .product-detail-price-block { margin:16px 0; gap:10px; }
-.mx-helmet-detail .product-detail-price { color:#2861ed; font-size:27px; }
-.mx-helmet-detail .product-detail-price-block small { font-size:10px; color:#647086; }
-.mx-helmet-detail .button { background:linear-gradient(110deg,#2964ef,#604cf5); color:#fff; border:1px solid transparent; border-radius:6px; padding:11px 18px; font-size:12px; box-shadow:none; }
+.mx-helmet-detail .product-detail-price { color:var(--helmet-2861ed); font-size:27px; }
+.mx-helmet-detail .product-detail-price-block small { font-size:10px; color:var(--helmet-647086); }
+.mx-helmet-detail .button { background:linear-gradient(110deg,var(--helmet-2964ef),var(--helmet-604cf5)); color:var(--helmet-fff); border:1px solid transparent; border-radius:6px; padding:11px 18px; font-size:12px; box-shadow:none; }
 .mx-helmet-detail .product-trust-row { margin-top:15px; font-size:10px; }
-.mx-helmet-detail .product-detail-facts { grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; margin:16px 0; background:#fff; border:1px solid #e1e9f5; border-radius:10px; overflow:hidden; }
-.mx-helmet-detail .product-fact { border:0; border-right:1px solid #e1e9f5; border-radius:0; padding:17px; }
+.mx-helmet-detail .product-detail-facts { grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; margin:16px 0; background:var(--helmet-fff); border:1px solid var(--helmet-e1e9f5); border-radius:10px; overflow:hidden; }
+.mx-helmet-detail .product-fact { border:0; border-right:1px solid var(--helmet-e1e9f5); border-radius:0; padding:17px; }
 .mx-helmet-detail .product-fact:last-child { border-right:0; }
-.mx-helmet-detail .product-fact span { color:#647086; font-size:10px; }
-.mx-helmet-detail .product-fact strong { font-size:12px; line-height:1.45; color:#101b38; }
+.mx-helmet-detail .product-fact span { color:var(--helmet-647086); font-size:10px; }
+.mx-helmet-detail .product-fact strong { font-size:12px; line-height:1.45; color:var(--helmet-101b38); }
 .mx-helmet-detail .product-entity-nav { display:flex; flex-wrap:wrap; gap:8px; padding:8px 0 16px; background:transparent; border:0; position:static; }
-.mx-helmet-detail .product-entity-nav a { background:#fff; border:1px solid #e1e9f5; border-radius:6px; padding:9px 14px; font-size:11px; color:#42526b; }
-.mx-helmet-detail .product-entity-nav a:first-child { background:#2861ed; color:white; border-color:#2861ed; }
-.mx-helmet-detail .helmet-product-page .product-entity-section { padding:24px; margin:18px 0; border:1px solid #e1e9f5; border-radius:12px; background:#fff; scroll-margin-top:20px; }
+.mx-helmet-detail .product-entity-nav a { background:var(--helmet-fff); border:1px solid var(--helmet-e1e9f5); border-radius:6px; padding:9px 14px; font-size:11px; color:var(--helmet-42526b); }
+.mx-helmet-detail .product-entity-nav a:first-child { background:var(--helmet-2861ed); color:white; border-color:var(--helmet-2861ed); }
+.mx-helmet-detail .helmet-product-page .product-entity-section { padding:24px; margin:18px 0; border:1px solid var(--helmet-e1e9f5); border-radius:12px; background:var(--helmet-fff); scroll-margin-top:20px; }
 .mx-helmet-detail .section-head { margin-bottom:18px; }
 .mx-helmet-detail .section-head h2,.mx-helmet-detail .helmet-product-page>div>h2 { font-size:25px; line-height:1.25; margin:5px 0 10px; }
-.mx-helmet-detail .helmet-product-page p { font-size:14px; line-height:1.7; margin:10px 0; color:#52617a; }
-.mx-helmet-detail .helmet-product-page .section-kicker,.mx-helmet-detail .helmet-product-page .primary-price-card strong { color:#2861ed; }
+.mx-helmet-detail .helmet-product-page p { font-size:14px; line-height:1.7; margin:10px 0; color:var(--helmet-52617a); }
+.mx-helmet-detail .helmet-product-page .section-kicker,.mx-helmet-detail .helmet-product-page .primary-price-card strong { color:var(--helmet-2861ed); }
 .mx-helmet-detail .helmet-product-page .product-grid { display:grid!important; grid-template-columns:repeat(3,minmax(0,1fr))!important; gap:16px!important; overflow:visible!important; }
-.mx-helmet-detail .product-card-shell { min-width:0; border:1px solid #e1e9f5; border-radius:10px; background:#f8fbff; overflow:hidden; }
+.mx-helmet-detail .product-card-shell { min-width:0; border:1px solid var(--helmet-e1e9f5); border-radius:10px; background:var(--helmet-f8fbff); overflow:hidden; }
 .mx-helmet-detail .product-card { border:0; }
 .mx-helmet-detail .product-card h3 { font-size:18px; line-height:1.3; }
-.mx-helmet-detail .helmet-product-page a:not(.button):not(.product-card):not(.product-entity-nav a) { color:#2861ed; }
-.mx-helmet-detail .note-box { background:#eaf2ff; border:1px solid #d7e4fb; border-radius:12px; }
+.mx-helmet-detail .helmet-product-page a:not(.button):not(.product-card):not(.product-entity-nav a) { color:var(--helmet-2861ed); }
+.mx-helmet-detail .note-box { background:var(--helmet-eaf2ff); border:1px solid var(--helmet-d7e4fb); border-radius:12px; }
 @media(max-width:700px) {
  .mx-helmet-detail .helmet-product-page { width:calc(100% - 30px); padding-top:18px; }
  .mx-helmet-detail .helmet-review-hero { grid-template-columns:1fr; padding:20px; gap:8px; }
  .mx-helmet-detail .product-detail-summary h1 { font-size:32px; }
  .mx-helmet-detail .product-detail-media>.entity-media { height:240px; }
  .mx-helmet-detail .product-detail-facts { grid-template-columns:repeat(2,minmax(0,1fr)); }
- .mx-helmet-detail .product-fact { padding:13px; border-bottom:1px solid #e1e9f5; }
+ .mx-helmet-detail .product-fact { padding:13px; border-bottom:1px solid var(--helmet-e1e9f5); }
  .mx-helmet-detail .product-fact:nth-child(2n) { border-right:0; }
  .mx-helmet-detail .product-fact:nth-last-child(-n+2) { border-bottom:0; }
  .mx-helmet-detail .helmet-product-page .product-entity-section { padding:18px; }
@@ -62,36 +62,36 @@
  .mx-helmet-detail .product-entity-nav { gap:6px; }
  .mx-helmet-detail .product-entity-nav a { padding:8px 10px; font-size:10px; }
 }
-html body .mx-helmet-detail .helmet-product-page .product-entity-section { padding:24px!important; margin:18px 0!important; border:1px solid #e1e9f5!important; border-radius:12px!important; background:#fff!important; }
+html body .mx-helmet-detail .helmet-product-page .product-entity-section { padding:24px!important; margin:18px 0!important; border:1px solid var(--helmet-e1e9f5)!important; border-radius:12px!important; background:var(--helmet-fff)!important; }
 html body .mx-helmet-detail .helmet-product-page .section-head h2 { font-size:25px!important; line-height:1.25!important; }
 html body .mx-helmet-detail .helmet-product-page .product-entity-nav { padding:8px 0 16px!important; border:0!important; background:transparent!important; gap:8px!important; }
-html body .mx-helmet-detail .helmet-product-page .product-entity-nav a { padding:9px 14px!important; background:#fff!important; border:1px solid #e1e9f5!important; border-radius:6px!important; color:#42526b!important; }
-html body .mx-helmet-detail .helmet-product-page .product-entity-nav a:first-child { background:#2861ed!important; color:white!important; }
+html body .mx-helmet-detail .helmet-product-page .product-entity-nav a { padding:9px 14px!important; background:var(--helmet-fff)!important; border:1px solid var(--helmet-e1e9f5)!important; border-radius:6px!important; color:var(--helmet-42526b)!important; }
+html body .mx-helmet-detail .helmet-product-page .product-entity-nav a:first-child { background:var(--helmet-2861ed)!important; color:white!important; }
 .mx-helmet-detail .product-detail-media { mix-blend-mode:multiply; }
 .mx-helmet-detail .product-detail-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
 .mx-helmet-detail .product-detail-actions .affiliate-card-action { display:contents!important; }
 .mx-helmet-detail .product-detail-actions :is(.button,.affiliate-button) { display:inline-flex; justify-content:center; gap:6px; align-items:center; flex:1 1 130px; width:auto; min-height:44px; box-sizing:border-box; margin:0; padding:10px; border-radius:6px; font-size:11px; font-weight:700; box-shadow:none!important; }
-.mx-helmet-detail .affiliate-hero-disclosure { flex-basis:100%; color:#647086; font-size:10px; line-height:1.6; }
+.mx-helmet-detail .affiliate-hero-disclosure { flex-basis:100%; color:var(--helmet-647086); font-size:10px; line-height:1.6; }
 @media(max-width:700px) { .mx-helmet-detail .product-detail-actions :is(.button,.affiliate-button) { flex:1 1 100%; } }
 .mx-helmet-detail .helmet-price-summary { gap:12px!important; border:0!important; margin-bottom:24px; }
-.mx-helmet-detail .helmet-price-summary>article { padding:20px!important; border:1px solid #e1e9f5!important; border-radius:10px!important; background:#f8fbff; }
-.mx-helmet-detail .helmet-price-summary>article>span { display:block; margin-bottom:8px; font-size:11px; color:#647086; }
+.mx-helmet-detail .helmet-price-summary>article { padding:20px!important; border:1px solid var(--helmet-e1e9f5)!important; border-radius:10px!important; background:var(--helmet-f8fbff); }
+.mx-helmet-detail .helmet-price-summary>article>span { display:block; margin-bottom:8px; font-size:11px; color:var(--helmet-647086); }
 .mx-helmet-detail .helmet-price-summary>article>strong { display:block; margin-bottom:8px; font-size:17px; line-height:1.4; }
-.mx-helmet-detail .helmet-price-summary>article>small { display:block; margin-top:8px; color:#647086; font-size:12px; line-height:1.6; }
+.mx-helmet-detail .helmet-price-summary>article>small { display:block; margin-top:8px; color:var(--helmet-647086); font-size:12px; line-height:1.6; }
 .mx-helmet-detail .commerce-price-head { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; margin-bottom:18px; }
-.mx-helmet-detail .commerce-price-head>div>span { display:block; font-size:10px; font-weight:800; text-transform:uppercase; color:#2861ed; margin-bottom:6px; }
+.mx-helmet-detail .commerce-price-head>div>span { display:block; font-size:10px; font-weight:800; text-transform:uppercase; color:var(--helmet-2861ed); margin-bottom:6px; }
 .mx-helmet-detail .commerce-price-head h3 { font-size:20px; line-height:1.4; margin:0; }
 .mx-helmet-detail .commerce-price-head>a { flex-shrink:0; font-size:12px; margin-top:22px; }
-.mx-helmet-detail .commerce-offer-list { border:1px solid #e1e9f5; border-radius:10px; overflow:hidden; }
-.mx-helmet-detail .commerce-offer-row { gap:20px; align-items:center; padding:20px; border-bottom:1px solid #e1e9f5; }
+.mx-helmet-detail .commerce-offer-list { border:1px solid var(--helmet-e1e9f5); border-radius:10px; overflow:hidden; }
+.mx-helmet-detail .commerce-offer-row { gap:20px; align-items:center; padding:20px; border-bottom:1px solid var(--helmet-e1e9f5); }
 .mx-helmet-detail .commerce-offer-row:last-child { border-bottom:0; }
 .mx-helmet-detail .commerce-offer-row>div { min-width:0; }
 .mx-helmet-detail .commerce-offer-row strong { display:block; font-size:14px; line-height:1.5; }
-.mx-helmet-detail .commerce-offer-row small { display:block; margin-top:5px; font-size:11px; line-height:1.6; color:#647086; }
-.mx-helmet-detail .commerce-price strong { color:#2861ed; font-size:19px; }
-.mx-helmet-detail .commerce-offer-row>a { padding:11px 14px; background:#eaf2ff; border-radius:6px; font-size:12px; font-weight:700; text-align:center; }
-.mx-helmet-detail .commerce-disclosure { margin-top:16px; padding:14px 16px; background:#f8fbff; border-radius:8px; color:#647086; font-size:12px; line-height:1.7; }
-.mx-helmet-detail .commerce-disclosure>b { color:#42526b; }
+.mx-helmet-detail .commerce-offer-row small { display:block; margin-top:5px; font-size:11px; line-height:1.6; color:var(--helmet-647086); }
+.mx-helmet-detail .commerce-price strong { color:var(--helmet-2861ed); font-size:19px; }
+.mx-helmet-detail .commerce-offer-row>a { padding:11px 14px; background:var(--helmet-eaf2ff); border-radius:6px; font-size:12px; font-weight:700; text-align:center; }
+.mx-helmet-detail .commerce-disclosure { margin-top:16px; padding:14px 16px; background:var(--helmet-f8fbff); border-radius:8px; color:var(--helmet-647086); font-size:12px; line-height:1.7; }
+.mx-helmet-detail .commerce-disclosure>b { color:var(--helmet-42526b); }
 @media(max-width:700px) {
  .mx-helmet-detail .helmet-price-summary { grid-template-columns:1fr!important; }
  .mx-helmet-detail .commerce-price-head { flex-direction:column; gap:0; }
@@ -103,16 +103,16 @@ html body .mx-helmet-detail .helmet-product-page .product-entity-nav a:first-chi
 .mx-helmet-detail .entity-comparisons { display:grid; gap:24px; }
 .mx-helmet-detail .entity-comparisons>article { min-width:0; }
 .mx-helmet-detail .entity-comparisons h3 { margin:0 0 12px; font-size:18px; line-height:1.4; }
-.mx-helmet-detail .mini-compare-table { margin-bottom:12px; border-color:#e1e9f5; }
-.mx-helmet-detail .mini-compare-table>div { align-items:stretch; border-bottom:1px solid #e1e9f5; }
+.mx-helmet-detail .mini-compare-table { margin-bottom:12px; border-color:var(--helmet-e1e9f5); }
+.mx-helmet-detail .mini-compare-table>div { align-items:stretch; border-bottom:1px solid var(--helmet-e1e9f5); }
 .mx-helmet-detail .mini-compare-table>div:last-child { border-bottom:0; }
 .mx-helmet-detail .mini-compare-table>div>* { padding:14px 16px; font-size:13px; line-height:1.6; }
-.mx-helmet-detail .mini-compare-table>div>*+* { border-left:1px solid #e1e9f5; }
-.mx-helmet-detail .mini-compare-table>div>span { color:#647086; }
-.mx-helmet-detail .mini-compare-table>.head { background:#eaf2ff; }
-.mx-helmet-detail .mini-compare-table>div:nth-child(odd):not(.head) { background:#f8fbff; }
-.mx-helmet-detail .helmet-product-page .affiliate-button.shopee { color:#fff!important; background:#ee4d2d; }
-.mx-helmet-detail .helmet-product-page .affiliate-button.lazada { color:#fff!important; background:#24195d; }
+.mx-helmet-detail .mini-compare-table>div>*+* { border-left:1px solid var(--helmet-e1e9f5); }
+.mx-helmet-detail .mini-compare-table>div>span { color:var(--helmet-647086); }
+.mx-helmet-detail .mini-compare-table>.head { background:var(--helmet-eaf2ff); }
+.mx-helmet-detail .mini-compare-table>div:nth-child(odd):not(.head) { background:var(--helmet-f8fbff); }
+.mx-helmet-detail .helmet-product-page .affiliate-button.shopee { color:var(--helmet-fff)!important; background:var(--helmet-ee4d2d); }
+.mx-helmet-detail .helmet-product-page .affiliate-button.lazada { color:var(--helmet-fff)!important; background:var(--helmet-24195d); }
 @media(max-width:700px) {
  .mx-helmet-detail .entity-comparisons h3 { font-size:16px; }
  .mx-helmet-detail .mini-compare-table { overflow-x:auto; }
