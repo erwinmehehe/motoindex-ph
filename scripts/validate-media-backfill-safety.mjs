@@ -4,12 +4,14 @@ import path from "node:path";
 const root = process.cwd();
 const backfillPath = path.join(root, "scripts/backfill-product-media.mjs");
 const workflowPath = path.join(root, ".github/workflows/product-image-backfill.yml");
+const coverageWorkflowPath = path.join(root, ".github/workflows/media-coverage-audit.yml");
 const generatedPath = path.join(root, "lib/generatedProductMedia.ts");
 const helmetNormalizerPath = path.join(root, "scripts/art-direct-helmet-media.py");
 const motorcycleNormalizerPath = path.join(root, "scripts/art-direct-motorcycle-media.py");
 
 const backfill = fs.readFileSync(backfillPath, "utf8");
 const workflow = fs.readFileSync(workflowPath, "utf8");
+const coverageWorkflow = fs.readFileSync(coverageWorkflowPath, "utf8");
 const generatedSource = fs.readFileSync(generatedPath, "utf8");
 const helmetNormalizer = fs.readFileSync(helmetNormalizerPath, "utf8");
 const motorcycleNormalizer = fs.readFileSync(motorcycleNormalizerPath, "utf8");
@@ -36,6 +38,30 @@ if (backfill.includes("REBUILD_GENERATED_MEDIA")) {
 }
 if (workflow.includes("REBUILD_GENERATED_MEDIA")) {
   errors.push("workflow must not request destructive generated-media rebuilds");
+}
+if (workflow.includes("fix/product-image-coverage")) {
+  errors.push("media backfill workflow must not hardcode the legacy fix/product-image-coverage branch");
+}
+if (!workflow.includes("GITHUB_REF_NAME")) {
+  errors.push("media backfill workflow must operate on the explicitly selected branch");
+}
+if (!workflow.includes("rev-list --count HEAD..origin/main")) {
+  errors.push("media backfill workflow must refuse branches that are behind main");
+}
+if (!workflow.includes("Run Product Image Backfill from a dedicated media/* or fix/* branch, not main.")) {
+  errors.push("media backfill workflow must refuse direct mutation of main");
+}
+if (!coverageWorkflow.includes("lib/catalog.ts")) {
+  errors.push("media coverage audit must trigger when the product catalog changes");
+}
+if (!coverageWorkflow.includes("scripts/validate-new-product-media.mjs")) {
+  errors.push("media coverage audit must rerun when the new-product media validator changes");
+}
+if (!coverageWorkflow.includes("node scripts/validate-new-product-media.mjs")) {
+  errors.push("media coverage audit must block newly verified catalog products without exact local media");
+}
+if (!coverageWorkflow.includes("MEDIA_STRICT_LOCAL=1 npm run validate:media")) {
+  errors.push("media coverage audit must fail when a standardized local derivative is missing");
 }
 if (!backfill.includes("const generated = previousGenerated.filter(hasLocalAsset)")) {
   errors.push("backfill script must preserve existing generated records with local assets");

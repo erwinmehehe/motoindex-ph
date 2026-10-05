@@ -4,6 +4,7 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - lib/catalog.ts
       - lib/media.ts
       - lib/generatedProductMedia.ts
       - public/media/**
@@ -18,6 +19,7 @@ on:
       - scripts/refresh-sourced-product-media.mjs
       - scripts/audit-helmet-media-art-direction.py
       - scripts/validate-media-backfill-safety.mjs
+      - scripts/validate-new-product-media.mjs
       - components/ProductMedia.tsx
       - app/gear/**
       - package.json
@@ -51,8 +53,10 @@ jobs:
         run: node scripts/validate-media-backfill-safety.mjs
       - name: Audit verified exact-image coverage
         run: node scripts/audit-product-media-coverage.mjs
-      - name: Validate media records
-        run: npm run validate:media
+      - name: Block newly verified products without exact local media
+        run: node scripts/validate-new-product-media.mjs
+      - name: Validate media records with strict local coverage
+        run: MEDIA_STRICT_LOCAL=1 npm run validate:media
       - name: Audit exact motorcycle image coverage
         run: npm run validate:motorcycle-media
       - name: Audit helmet image composition
