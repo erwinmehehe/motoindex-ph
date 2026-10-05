@@ -28,7 +28,7 @@ jobs:
             echo "Run Product Image Backfill from a dedicated media/* or fix/* branch, not main."
             exit 1
           fi
-          git fetch origin main --depth=1
+          git fetch origin main
           behind="$(git rev-list --count HEAD..origin/main)"
           if [ "$behind" -ne 0 ]; then
             echo "Selected branch is $behind commit(s) behind main. Rebase or recreate it from current main before running media backfill."
