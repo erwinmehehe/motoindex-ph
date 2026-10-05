@@ -53,7 +53,6 @@ const knownBacklog = new Set([
   "benelli-motobi-200-evo",
   "honda-cb150r",
   "suzuki-smash-carb",
-  "honda-rs125-final-edition",
   "kymco-xciting-vs-400",
   "kymco-like-125-italia",
   "benelli-rfs-150i",

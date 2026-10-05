@@ -19,7 +19,7 @@ export const helmetBrandLineups: HelmetBrandLineup[] = [
   { brandSlug:"ryo", sourceLabel:"Motoworld Philippines current RYO helmet range", sourceUrl:"https://www.motoworld.com.ph/collections/brand-ryo/motorcycle-helmets", checkedAt:"2026-10-05", models:["RF-4SV (FS-868)","RF-5V (FS-V8)","RF-6V","RO-4SV (FS-766)"] },
   { brandSlug:"kyt", sourceLabel:"KYT Asia official 2026 helmet range", sourceUrl:"https://kytasia.com/", checkedAt:"2026-09-09", models:["KX-1 Race GP","NZ Race","R1R","R2R","TT-Course","TT-Revo","D-City","TTR-Jet","Skyhawk"] },
   { brandSlug:"spyder", sourceLabel:"Team Spyder current motorcycle helmet range", sourceUrl:"https://www.teamspyder.com/collections/moto-helmets", checkedAt:"2026-09-09", models:["Fury Rapid S8","Neo Icon","Neo Blade","Reboot 2.0","Neo Ace","Recon 2.0 Plain A+","Force+ Plain V2","Rogue+ Plain V2","Shift+ Plain","NF1 Plain","Surge Plain V2","Corsa Plain V2"] },
-  { brandSlug:"gille", sourceLabel:"Gille Helmets official Philippine shop", sourceUrl:"https://shopee.ph/gillehelmets", checkedAt:"2026-08-26", models:["Phoenix A5009","Kerena FF007","GTS V1 135","Circuit FF012","Astral","Astral Pro","Vertix ILM-Z501","Celeste 873","Medusa 863","GVR-V1 172","Squadron YM-926","GXR SH-526","Inizio 833","Orion AF-10","Paragon AH-16"] },
+  { brandSlug:"gille", sourceLabel:"Gille Helmets official Philippine shop", sourceUrl:"https://shopee.ph/gillehelmets", checkedAt:"2026-10-05", models:["Phoenix A5009","Kerena FF007","GTS V1 135","Circuit FF012","Astral","Astral Pro","Vertix ILM-Z501","Celeste 873","Medusa 863","GVR-V1 172","Squadron YM-926","GXR SH-526","Inizio 833","Orion AF-10","Paragon AH-16"] },
   { brandSlug:"evo", sourceLabel:"EVO Helmets current product and Philippine retail catalogue references", sourceUrl:"https://evohelmet.com/product/", checkedAt:"2026-10-05", models:["Tourer 180° Flip","VXR-5000","SR-X","GT-Sport","GT-PRO","Riot II XT-300","Carbon","Tourer","GX-1","GSX3000 v2","DX-7"] },
   { brandSlug:"sec", sourceLabel:"SEC Motosupply current helmet catalogue", sourceUrl:"https://secmotosupply.com/collections/helmets", checkedAt:"2026-10-05", models:["Whirlwind","Surge","Dynasty","Windstorm V3","Odyssey","Sportgrade","ACE","Rise V2","Refined","Integra","Pilot 2025","Breach","Element"] },
   { brandSlug:"arai", sourceLabel:"Arai Europe current family reference", sourceUrl:"https://www.araihelmet.eu/", checkedAt:"2026-09-09", models:["RX-7V EVO","Quantic","Concept-XE","Tour-X5","SZ-R VAS","MX-V"] },
@@ -80,6 +80,7 @@ const helmetCatalogAliases: Record<string, string> = {
   "evo:sr-x": "sr-x-mono",
   "evo:tourer": "tourer-180-flip",
   "evo:riot-ii-xt-300": "xt-300-riot-ii",
+  "sec:sportgrade": "sportgrade-v2",
   "nhk:s2-gp-pro-ultimate": "s2-ultimate",
 };
 
