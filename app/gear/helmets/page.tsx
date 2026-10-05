@@ -95,7 +95,7 @@ export default function HelmetsPage(){
     ]}/>
 
     <nav className="product-entity-nav helmet-master-nav" aria-label="Helmet guide sections">
-      <a href="#full-face">Full-face</a><a href="#modular">Modular</a><a href="#open-face">Open-face</a><a href="#adventure">Adventure</a><a href="#off-road">Off-road</a><a href="#under-3000">Under ₱3K</a><a href="#under-5000">Under ₱5K</a><a href="#ece-22-06">ECE 22.06</a><a href="#intercom-ready">Intercom</a><a href="#commuting">Commuting</a><a href="#brands">Brands</a><a href="#models">Model preview</a>
+      <a href="#full-face">Full-face</a><a href="#modular">Modular</a><a href="#open-face">Open-face</a><a href="#adventure">Adventure</a><a href="#off-road">Off-road</a><Link href="/gear/helmets/under-3000">Under ₱3K</Link><Link href="/gear/helmets/under-5000">Under ₱5K</Link><Link href="/gear/helmets/ece-22-06">ECE 22.06</Link><Link href="/gear/helmets/intercom-ready">Intercom</Link><Link href="/gear/helmets/for-commuting">Commuting</Link><a href="#brands">Brands</a><a href="#models">Model preview</a>
     </nav>
 
     <InfoPanel className="helmet-master-intro">
@@ -153,23 +153,25 @@ export default function HelmetsPage(){
     <section id="under-3000" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Budget" title="Motorcycle helmets under ₱3,000" description="This is a price filter, not a safety ranking. Check the exact Philippine unit for PS or ICC marking, correct fit, secure retention and replacement-visor availability." aside={<Count value={under3000.length}/>} />
       <HelmetProductGrid products={under3000} />
+      <p className="helmet-master-note"><Link href="/gear/helmets/under-3000">Open the complete helmets under ₱3,000 guide →</Link></p>
     </section>
 
     <section id="under-5000" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Budget" title="Motorcycle helmets under ₱5,000" description="Use the wider budget to compare fit, ventilation, visor quality, removable liners and parts availability. A graphic or visor bundle can push a specific variant above the starting price shown." aside={<Count value={under5000.length}/>} />
       <HelmetProductGrid products={under5000} />
+      <p className="helmet-master-note"><Link href="/gear/helmets/under-5000">Open the complete helmets under ₱5,000 guide →</Link></p>
     </section>
 
     <section id="ece-22-06" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Certification" title="ECE 22.06 motorcycle helmets" description="These models explicitly reference ECE 22.06 or R22.06 in the checked product record. For Philippine use, also inspect the exact helmet for the applicable PS or ICC conformity marking." aside={<Count value={ece2206.length}/>} />
       <HelmetProductGrid products={ece2206} />
-      <p className="helmet-master-note"><Link href="/guides/motorcycle-helmet-certification-philippines">Read the Philippine helmet certification guide →</Link></p>
+      <p className="helmet-master-note"><Link href="/gear/helmets/ece-22-06">Open the ECE 22.06 helmet model guide →</Link> · <Link href="/guides/motorcycle-helmet-certification-philippines">Certification explained →</Link></p>
     </section>
 
     <section id="intercom-ready" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Communication" title="Intercom-ready motorcycle helmets" description="Speaker pockets or communication-system provision can make installation cleaner, but speaker depth, microphone routing and mount clearance still need to match your exact intercom." aside={<Count value={intercom.length}/>} />
       <HelmetProductGrid products={intercom} />
-      <p className="helmet-master-note"><Link href="/accessories/intercoms">Read the motorcycle helmet intercom buying guide →</Link></p>
+      <p className="helmet-master-note"><Link href="/gear/helmets/intercom-ready">Open the intercom-ready helmet guide →</Link> · <Link href="/accessories/intercoms">Compare intercoms →</Link></p>
     </section>
 
     <section id="commuting" className="ui-page-section helmet-master-section">
@@ -181,7 +183,7 @@ export default function HelmetsPage(){
         <article className="ui-content-card"><h3>Daily fit check</h3><p>The helmet should stay stable without painful pressure points or starting loose.</p></article>
       </div>
       <HelmetProductGrid products={commuting} />
-      <p className="helmet-master-note"><Link href="/accessories/rain-gear">Compare motorcycle rain gear for daily commuting →</Link></p>
+      <p className="helmet-master-note"><Link href="/gear/helmets/for-commuting">Open the commuter helmet guide →</Link> · <Link href="/accessories/rain-gear">Compare motorcycle rain gear →</Link></p>
     </section>
 
     <section id="brands" className="ui-page-section helmet-master-section">
