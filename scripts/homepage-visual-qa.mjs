@@ -70,13 +70,13 @@ async function waitForComplete(send) {
 }
 
 const inspect = `(() => {
-  const hero = document.querySelector('.mi-hero');
-  const layout = document.querySelector('.mi-hero-layout');
-  const heading = document.querySelector('.mi-hero h1');
-  const search = document.querySelector('.mi-search');
-  const searchInput = document.querySelector('.mi-search input');
-  const searchButton = document.querySelector('.mi-search button');
-  const research = document.querySelector('.mi-research-shell');
+  const hero = document.querySelector('.reviewed-home-hero, .mi-hero');
+  const layout = document.querySelector('.reviewed-home-hero, .mi-hero-layout');
+  const heading = document.querySelector('.reviewed-home-hero h1, .mi-hero h1');
+  const search = document.querySelector('.reviewed-home-search, .mi-search');
+  const searchInput = document.querySelector('.reviewed-home-search input, .mi-search input');
+  const searchButton = document.querySelector('.reviewed-home-search button, .mi-search button');
+  const research = document.querySelector('.reviewed-home-hero > a, .mi-research-shell');
   if (!hero || !layout || !heading || !search || !searchInput || !searchButton || !research) {
     return { missing: true, found: { hero:!!hero, layout:!!layout, heading:!!heading, search:!!search, searchInput:!!searchInput, searchButton:!!searchButton, research:!!research } };
   }
@@ -101,10 +101,10 @@ const inspect = `(() => {
     headingSize:parseFloat(headingStyle.fontSize || '0'),
     searchDisplay:searchStyle.display,
     heroHeight:Math.round(heroRect.height),
-    layoutWidth:Math.round(layoutRect.width),
+    layoutWidth:Math.round(layoutRect.width - parseFloat(layoutStyle.paddingLeft) - parseFloat(layoutStyle.paddingRight)),
     researchWidth:Math.round(researchRect.width),
     researchLeft:Math.round(researchRect.left),
-    layoutLeft:Math.round(layoutRect.left),
+    layoutLeft:Math.round(layoutRect.left + parseFloat(layoutStyle.paddingLeft)),
     inputHeight:Math.round(inputRect.height),
     buttonHeight:Math.round(buttonRect.height)
   };
@@ -148,7 +148,7 @@ try {
       continue;
     }
     if (row.layoutDisplay !== "grid") failures.push(`${width}px: hero layout is ${row.layoutDisplay}, expected grid`);
-    if (row.searchDisplay !== "grid") failures.push(`${width}px: homepage search is ${row.searchDisplay}, expected grid`);
+    if (!["grid", "flex"].includes(row.searchDisplay)) failures.push(`${width}px: homepage search is ${row.searchDisplay}, expected grid or flex`);
     if (row.scrollWidth > width + 5) failures.push(`${width}px: homepage overflows horizontally by ${row.scrollWidth - width}px`);
     if (row.inputHeight < 40 || row.buttonHeight < 40) failures.push(`${width}px: search controls collapsed below a usable 40px height`);
     if (/rgb\(9,\s*10,\s*13\)|rgb\(7,\s*8,\s*10\)/.test(row.heroBackground) || /rgb\(9,\s*10,\s*13\)|rgb\(7,\s*8,\s*10\)/.test(row.heroBackgroundColor)) failures.push(`${width}px: retired near-black homepage hero returned`);
@@ -156,12 +156,12 @@ try {
     if (!/rgb\(15,\s*23,\s*42\)/.test(row.headingColor)) failures.push(`${width}px: hero heading color ${row.headingColor} is not the intended readable slate ink`);
     if (width === 1440) {
       if (row.headingSize > 61) failures.push(`1440px: homepage H1 is ${row.headingSize}px, above the 60px design cap`);
-      if (row.researchWidth < 420) failures.push(`1440px: research snapshot collapsed to ${row.researchWidth}px`);
+      if (row.researchWidth < 420) failures.push(`1440px: motorcycle hero visual collapsed to ${row.researchWidth}px`);
       if (!row.layoutColumns || row.layoutColumns.split(" ").length < 2) failures.push(`1440px: hero no longer resolves to two desktop columns (${row.layoutColumns})`);
     } else {
       if (row.headingSize > 50) failures.push(`390px: homepage H1 is ${row.headingSize}px, too large for mobile`);
-      if (row.researchWidth > row.layoutWidth + 2) failures.push(`390px: research snapshot is wider than the hero layout`);
-      if (Math.abs(row.researchLeft - row.layoutLeft) > 6) failures.push(`390px: research snapshot is misaligned with the mobile hero shell`);
+      if (row.researchWidth > row.layoutWidth + 2) failures.push(`390px: motorcycle hero visual is wider than the hero layout`);
+      if (Math.abs(row.researchLeft - row.layoutLeft) > 6) failures.push(`390px: motorcycle hero visual is misaligned with the mobile hero shell`);
     }
   }
 

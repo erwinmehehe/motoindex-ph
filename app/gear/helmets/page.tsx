@@ -34,7 +34,7 @@ function compactHelmetMeta(product: (typeof helmetProducts)[number]) {
   return [certificationLabel, product.intercomReady ? "Intercom-ready" : undefined].filter(Boolean).join(" · ");
 }
 
-function HelmetProductGrid({ products, limit = 8 }: { products: typeof helmetProducts; limit?: number }) {
+function HelmetProductGrid({ products, limit = 6 }: { products: typeof helmetProducts; limit?: number }) {
   const visible = products.filter(product=>hasRenderableProductMedia(product.id)).slice(0, limit);
   if (!visible.length) return <InfoPanel subtle><p>No matching verified helmet is published right now.</p></InfoPanel>;
   return <ProductGrid className="helmet-product-grid" density="compact">{visible.map(p=><ProductCard key={p.id} item={{
