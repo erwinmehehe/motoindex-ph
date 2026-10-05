@@ -85,13 +85,6 @@ export const phTier23Motorcycles: Motorcycle[] = [
   },
 
   {
-    id: "bristol-adx-160", make: "Bristol", makeSlug: "bristol", model: "ADX 160", slug: "adx-160", generation: "Current", category: "Adventure scooter",
-    srp: 178800, engineCc: 155, powerHp: 13, torqueNm: 14, curbWeightKg: 151, seatHeightMm: 790, fuelTankL: 11,
-    frontTire: "110/80-14", rearTire: "130/70-13", abs: "Disc-brake configuration; confirm exact ABS equipment on the local unit", colors: ["Black", "Red"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Independent PH current Bristol ADX 160 price and specification reference", sourceUrl: "https://www.carmudi.com.ph/new-motorcycles/bristol/adx-160/standard/", verifiedAt, freshness: "verified", marketStatus: "current", transmission: "Automatic",
-    summary: "155cc adventure-style automatic scooter with a 790 mm seat, 11 L tank and mixed 14/13-inch wheel setup."
-  },
-  {
     id: "bristol-maxie-400", make: "Bristol", makeSlug: "bristol", model: "Maxie 400", slug: "maxie-400", generation: "Current", category: "Maxi scooter",
     srp: 368000, engineCc: 377, powerHp: 29.1, torqueNm: 33.5, curbWeightKg: 208, seatHeightMm: 730, fuelTankL: 17.4, fuelConsumptionKmL: 25, groundClearanceMm: 170,
     frontTire: "120/70-14", rearTire: "150/70-13", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
@@ -106,21 +99,7 @@ export const phTier23Motorcycles: Motorcycle[] = [
     sourceLabel: "Independent PH current Benelli 180S price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/benelli/180s/specifications", verifiedAt, freshness: "verified", marketStatus: "current", transmission: "Manual",
     summary: "175.3cc naked street motorcycle with a six-speed manual transmission, 17-inch tires and a 10 L tank."
   },
-  {
-    id: "benelli-trk-502x", make: "Benelli", makeSlug: "benelli", model: "TRK 502X", slug: "trk-502x", generation: "Current", category: "Adventure touring",
-    srp: 399000, engineCc: 500, powerHp: 47, torqueNm: 46, curbWeightKg: 213, seatHeightMm: 840, fuelTankL: 20, fuelConsumptionKmL: 20, groundClearanceMm: 220,
-    frontTire: "110/80-19", rearTire: "150/70-17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Independent PH current Benelli TRK 502X price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/benelli/trk502x/standard", verifiedAt, freshness: "verified", marketStatus: "current", transmission: "Manual",
-    summary: "500cc adventure-touring motorcycle with ABS, 19/17-inch wheels, 220 mm ground clearance and a 20 L tank."
-  },
 
-  {
-    id: "ktm-390-duke", make: "KTM", makeSlug: "ktm", model: "390 Duke", slug: "390-duke", generation: "Current", category: "Naked street bike",
-    srp: 289000, engineCc: 373, powerHp: 43, torqueNm: 37, curbWeightKg: 139, seatHeightMm: 800, fuelTankL: 11, fuelConsumptionKmL: 28, groundClearanceMm: 170,
-    frontTire: "110/70-17", rearTire: "150/60-17", abs: "ABS", colors: ["White", "Orange"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Independent PH current KTM 390 Duke price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/ktm/duke-390/specifications", verifiedAt, freshness: "verified", marketStatus: "current", transmission: "Manual",
-    summary: "373cc naked street bike with 43 hp, ABS, 17-inch tires and a six-speed manual transmission."
-  },
   {
     id: "ktm-390-adventure", make: "KTM", makeSlug: "ktm", model: "390 Adventure", slug: "390-adventure", generation: "Current", category: "Adventure touring",
     srp: 338000, engineCc: 373, powerHp: 43, torqueNm: 37, curbWeightKg: 158, seatHeightMm: 830, fuelTankL: 14.5, groundClearanceMm: 160,
@@ -553,14 +532,6 @@ export const phTier23Motorcycles: Motorcycle[] = [
     sourceLabel: "Kawasaki Leisure Bikes Philippines archived 2017 Z1000 R Edition specification and MSRP", sourceUrl: "https://www.kawasakileisurebikes.ph/motorcycles/sports/z100r/", verifiedAt: "2026-09-19", freshness: "verified", marketStatus: "previous", transmission: "Manual",
     priceContext: "Historical Philippine MSRP of ₱710,000 from Kawasaki's official 2017 Z1000 R Edition page. Do not treat this as a current 2026 dealer quote.",
     summary: "Previous 1043cc Z1000 R Edition retained for historical Philippine price and specification research; Kawasaki's official page describes the 2017 model."
-  },
-  {
-    id: "keeway-cafe-racer-152", make: "Keeway", makeSlug: "keeway", model: "Cafe Racer 152", slug: "cafe-racer-152", generation: "Current Philippine model", category: "Cafe racer",
-    srp: 69900, engineCc: 149, powerHp: 11.3, torqueNm: 11.1, curbWeightKg: 108, seatHeightMm: 770, fuelTankL: 12.1, groundClearanceMm: 160,
-    frontTire: "3.00-17", rearTire: "110/80-17", abs: "ABS is not stated in the manufacturer specification; front disc and rear drum brakes are listed", colors: ["Black", "Silver"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Keeway official Cafe Racer 152 specification with current Philippine price cross-check", sourceUrl: "https://www.keeway.com/int-en/products/cafe-racer-152", verifiedAt: "2026-09-09", freshness: "verified", marketStatus: "current", transmission: "Manual",
-    marketPriceSourceLabel: "Current Philippine Cafe Racer 152 SRP reference", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/keeway/cafe-racer-152", marketPriceCheckedAt: "2026-09-09",
-    summary: "149cc retro cafe racer with a five-speed manual gearbox, 770 mm seat, 12.1 L tank and spoke wheels."
   },
   {
     id: "honda-cbr150r", make: "Honda", makeSlug: "honda", model: "CBR150R", slug: "cbr150r", generation: "Current Philippine model", category: "Sport bike",

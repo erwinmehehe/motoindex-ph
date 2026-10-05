@@ -7,6 +7,7 @@ const errors=[];
 
 const data=read("lib","data.ts");
 const wave7=read("lib","zigwheelsGapWave7_2026.ts");
+const currentCloseout=read("lib","currentModelGapCloseout2026.ts");
 const growth=read("lib","priorityModelGrowth.ts");
 const growthBrief=read("components","GrowthModelBrief.tsx");
 const page=read("app","motorcycles","[make]","[slug]","page.tsx");
@@ -22,11 +23,12 @@ requireText(sitemap,'const indexableModels = motorcycles.filter(isIndexableModel
 
 for(const token of [
   'id: "yamaha-mt-15"',
-  'marketStatus: "uncertain"',
-  'official Yamaha PH availability needs verification',
-  'This page remains an availability-to-verify research reference and is indexed for demand-backed research, not presented as confirmed current inventory.'
+  'slug: "mt-15"',
+  'marketStatus: "current"',
+  'srp: 180000',
+  'sourceUrl: "https://www.guanzongroup.com.ph/product/mt-15/"'
 ]){
-  requireText(wave7,token,`MT-15 truth guard missing: ${token}`);
+  requireText(currentCloseout,token,`MT-15 current dealer truth guard missing: ${token}`);
 }
 
 for(const token of [
@@ -34,9 +36,9 @@ for(const token of [
   'seoDescription: "Honda CRF300 Rally price Philippines 2026 with ₱309,900 Honda reference, 286cc specs, 885mm seat, 21/18 wheels and CRF250 Rally successor context for buyers."',
   'heading: "Looking for the Honda CRF250 Rally?"',
   'permanently redirects CRF250 Rally research here',
-  'seoTitle: "Yamaha MT-15 Philippines | Availability & Specs Reference"',
-  'current Yamaha PH model-level availability remains unverified',
-  'heading: "Current Philippine availability is not verified"'
+  'seoTitle: "Yamaha MT-15 Price Philippines 2026 | Specs & Dealer Price"',
+  '₱180,000 as a current dealer reference',
+  'heading: "Current dealer listing, verify branch stock"'
 ]){
   requireText(growth,token,`Coverage truth growth profile missing: ${token}`);
 }
@@ -49,8 +51,8 @@ const metadata=[
   },
   {
     id:"yamaha-mt-15",
-    title:"Yamaha MT-15 Philippines | Availability & Specs Reference",
-    description:"Yamaha MT-15 Philippines reference with 155cc specs and ₱180,000 secondary-market pricing; current Yamaha PH model-level availability remains unverified."
+    title:"Yamaha MT-15 Price Philippines 2026 | Specs & Dealer Price",
+    description:"Yamaha MT-15 price Philippines 2026 with ₱180,000 Guanzon dealer reference, 155cc specs, 810mm seat, 6-speed gearbox and current branch-stock guidance."
   }
 ];
 for(const row of metadata){
@@ -62,7 +64,7 @@ for(const token of [
   '"honda-crf300-rally": {',
   '"yamaha-mt-15": {',
   'Use the current CRF300 Rally page for CRF250 Rally successor research',
-  'Do not treat the ₱180,000 secondary-market reference as a current Yamaha Philippines SRP.'
+  'Guanzon currently lists ₱180,000, but its pricing notice says figures can vary by branch and change without notice.'
 ]){
   requireText(growthBrief,token,`Coverage truth buyer brief missing: ${token}`);
 }

@@ -8,25 +8,49 @@ const modelFiles = [
   "lib/phCoverageExpansion2026.ts",
   "lib/globalDemandExpansion2026.ts",
   "lib/kawasakiBigBikeExpansion2026.ts",
+  "lib/motortradeGapExpansion2026.ts",
+  "lib/zigwheelsGapExpansion2026.ts",
+  "lib/zigwheelsGapWave2_2026.ts",
+  "lib/zigwheelsGapWave3_2026.ts",
+  "lib/zigwheelsGapWave4_2026.ts",
+  "lib/zigwheelsGapWave5_2026.ts",
+  "lib/zigwheelsGapWave6_2026.ts",
+  "lib/zigwheelsGapWave7_2026.ts",
+  "lib/heroExpansion2026.ts",
+  "lib/kawasakiScooterExpansion2026.ts",
+  "lib/currentModelGapCloseout2026.ts",
+  "lib/historicalGapCloseout2026.ts"
 ];
 
-const seen = new Map();
-const duplicates = [];
-
+const records = [];
 for (const file of modelFiles) {
   const source = fs.readFileSync(file, "utf8");
-  for (const match of source.matchAll(/\bid:\s*"([^"]+)"/g)) {
-    const id = match[1];
-    const previous = seen.get(id);
-    if (previous) duplicates.push({ id, first: previous, duplicate: file });
-    else seen.set(id, file);
+  const matcher = /\bid:\s*"([^"]+)"[\s\S]{0,900}?\bmakeSlug:\s*"([^"]+)"[\s\S]{0,900}?\bslug:\s*"([^"]+)"/g;
+  for (const match of source.matchAll(matcher)) {
+    records.push({ id: match[1], makeSlug: match[2], slug: match[3], file });
   }
 }
 
-if (duplicates.length) {
-  console.error("Duplicate motorcycle IDs found across composed catalog sources:");
-  for (const row of duplicates) console.error(`- ${row.id}: ${row.first} and ${row.duplicate}`);
+function duplicatesBy(keyFor) {
+  const seen = new Map();
+  const duplicates = [];
+  for (const record of records) {
+    const key = keyFor(record);
+    const previous = seen.get(key);
+    if (previous) duplicates.push({ key, first: previous.file, duplicate: record.file });
+    else seen.set(key, record);
+  }
+  return duplicates;
+}
+
+const duplicateIds = duplicatesBy((record) => record.id);
+const duplicateRoutes = duplicatesBy((record) => `${record.makeSlug}/${record.slug}`);
+
+if (duplicateIds.length || duplicateRoutes.length) {
+  console.error("Motorcycle catalog uniqueness validation failed:");
+  for (const row of duplicateIds) console.error(`- duplicate id ${row.key}: ${row.first} and ${row.duplicate}`);
+  for (const row of duplicateRoutes) console.error(`- duplicate route ${row.key}: ${row.first} and ${row.duplicate}`);
   process.exit(1);
 }
 
-console.log(`Motorcycle entity uniqueness OK: ${seen.size} IDs across ${modelFiles.length} catalog sources.`);
+console.log(`Motorcycle entity uniqueness OK: ${records.length} IDs/routes across ${modelFiles.length} catalog sources.`);
