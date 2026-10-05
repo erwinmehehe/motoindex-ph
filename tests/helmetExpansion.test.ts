@@ -110,7 +110,7 @@ describe("helmet market expansion", () => {
     const covered = helmetProducts.filter((product) =>
       product.status === "verified" && Boolean(effectiveHelmetCertification(product))
     );
-    expect(covered.length).toBeGreaterThanOrEqual(200);
+    expect(covered.length).toBeGreaterThanOrEqual(203);
 
     const expected = [
       ["scorpion", "exo-r1-air-carbon", "ECE 22.06"],
@@ -118,6 +118,9 @@ describe("helmet market expansion", () => {
       ["scorpion", "exo-covert-fx", "ECE 22.06"],
       ["scorpion", "covert-2", "DOT FMVSS No. 218"],
       ["ryo", "rf-4sv-fs-868", "ECE 22.06"],
+      ["evo", "gt-sport", "ECE certified"],
+      ["evo", "gx-1", "ICC certified"],
+      ["nolan", "n120-1", "UNECE R 22-06"],
     ] as const;
 
     for (const [brand, slug, certificationText] of expected) {
@@ -130,7 +133,7 @@ describe("helmet market expansion", () => {
     }
 
     const eceIds = new Set(getHelmetSeoCollectionProducts("ece-22-06").map((product) => product.id));
-    for (const id of ["scorpion-exo-r1-air-carbon", "scorpion-exo-adf-9000-air", "scorpion-exo-covert-fx", "ryo-rf-4sv"]) {
+    for (const id of ["scorpion-exo-r1-air-carbon", "scorpion-exo-adf-9000-air", "scorpion-exo-covert-fx", "ryo-rf-4sv", "nolan-n120-1"]) {
       expect(eceIds.has(id)).toBe(true);
     }
   });
