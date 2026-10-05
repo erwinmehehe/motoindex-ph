@@ -35,8 +35,15 @@ export function modelInternalLinks(model: Motorcycle): RelatedLink[] {
 }
 
 export function helmetProductInternalLinks(product: HelmetProduct): RelatedLink[] {
-  const category: HelmetCategorySlug | undefined = product.helmetType === "Full face" ? "full-face" : product.helmetType === "Modular" ? "modular" : (product.helmetType === "Half face" || product.helmetType === "Open face") ? "half-face" : undefined;
-  const categoryHref = category === "full-face" ? "/gear/helmets#full-face" : category === "modular" ? "/gear/helmets#modular" : category ? "/gear/helmets#open-face" : undefined;
+  const category: HelmetCategorySlug | undefined =
+    product.helmetType === "Full face" ? "full-face" :
+    product.helmetType === "Modular" ? "modular" :
+    product.helmetType === "Half face" ? "half-face" :
+    product.helmetType === "Open face" || product.helmetType === "Hybrid" ? "open-face" :
+    product.helmetType === "Adventure" ? "adventure" :
+    product.helmetType === "Off-road" ? "off-road" :
+    undefined;
+  const categoryHref = category ? `/gear/helmets/${category}` : undefined;
   const comparisonLinks: RelatedLink[] = [
     ...(["kyt","ls2"].includes(product.brandSlug) ? [{ href:"/gear/helmets/compare/kyt-vs-ls2", title:"KYT vs LS2 helmets", eyebrow:"Brand comparison", description:"Compare verified KYT and LS2 model records." }] : []),
     ...(["evo","spyder"].includes(product.brandSlug) ? [{ href:"/gear/helmets/compare/evo-vs-spyder", title:"EVO vs Spyder helmets", eyebrow:"Brand comparison", description:"Compare verified EVO and Spyder model records." }] : []),
@@ -68,9 +75,12 @@ export function helmetBrandInternalLinks(brandSlug: string): RelatedLink[] {
   const products = helmetProducts.filter(p => p.status === "verified" && p.brandSlug === brandSlug);
   const types = [...new Set(products.map(p => p.helmetType))];
   const categoryLinks: RelatedLink[] = [];
-  if (types.some(t => t === "Full face")) categoryLinks.push({href:"/gear/helmets#full-face",title:"Full-face helmets",eyebrow:"Category",description:"Compare full-face options across brands."});
-  if (types.some(t => t === "Modular")) categoryLinks.push({href:"/gear/helmets#modular",title:"Modular helmets",eyebrow:"Category",description:"Compare flip-up helmets across brands."});
-  if (types.some(t => t === "Half face" || t === "Open face")) categoryLinks.push({href:"/gear/helmets#open-face",title:"Half-face helmets",eyebrow:"Category",description:"Compare open-face and half-face options."});
+  if (types.some(t => t === "Full face")) categoryLinks.push({href:"/gear/helmets/full-face",title:"Full-face helmets",eyebrow:"Category",description:"Compare full-face options across brands."});
+  if (types.some(t => t === "Modular")) categoryLinks.push({href:"/gear/helmets/modular",title:"Modular helmets",eyebrow:"Category",description:"Compare flip-up helmets across brands."});
+  if (types.some(t => t === "Half face")) categoryLinks.push({href:"/gear/helmets/half-face",title:"Half-face helmets",eyebrow:"Category",description:"Compare compact half-face options across brands."});
+  if (types.some(t => t === "Open face" || t === "Hybrid")) categoryLinks.push({href:"/gear/helmets/open-face",title:"Open-face helmets",eyebrow:"Category",description:"Compare open-face, jet and hybrid city helmets."});
+  if (types.some(t => t === "Adventure")) categoryLinks.push({href:"/gear/helmets/adventure",title:"Adventure helmets",eyebrow:"Category",description:"Compare adventure and dual-sport helmets."});
+  if (types.some(t => t === "Off-road")) categoryLinks.push({href:"/gear/helmets/off-road",title:"Off-road helmets",eyebrow:"Category",description:"Compare motocross and off-road helmets."});
   const hasBudgetModels = products.some(p => typeof p.priceFromPhp === "number" && p.priceFromPhp <= 5000);
   const seoCompare: RelatedLink[] = [
     ...(["kyt","ls2"].includes(brandSlug)?[{href:"/gear/helmets/compare/kyt-vs-ls2",title:"KYT vs LS2 helmets",eyebrow:"Brand comparison",description:"Compare verified KYT and LS2 records."}]:[]),
