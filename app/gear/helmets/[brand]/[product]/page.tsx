@@ -13,7 +13,7 @@ import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { catalogProductOfferSchema, faqPageSchema } from "@/lib/structuredData";
 import { EntityMedia } from "@/components/EntityMedia";
 import { CommercePriceComparison } from "@/components/CommercePriceComparison";
-// AffiliateOffer remains rendered by CommercePriceComparison for approved affiliate destinations.
+import { AffiliateOffer } from "@/components/AffiliateOffer";
 import { helmetEditorial } from "@/lib/productEditorial";
 import { helmetAlternatives, helmetComparisonTargets, helmetFaqs } from "@/lib/productSeo";
 import { ProductEntityNav } from "@/components/ProductEntityNav";
@@ -126,13 +126,14 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     <Breadcrumbs items={[{ label: "Helmets", href: "/gear/helmets" }, { label: p.brand, href: `/gear/helmets/${p.brandSlug}` }, { label: p.model }]} />
 
     <ProductHero
+      presentation="review"
       media={<EntityMedia entityType="helmet" entityId={p.id} priority fallback={<div className="product-hero-card"><span>Helmet</span><strong>H</strong><div><small>{p.brand}</small><h2>{p.model}</h2></div></div>} />}
       eyebrow={<><span className="product-type-pill">Helmet</span><span className={`product-status-pill ${p.status}`}>{p.status === "verified" ? "Verified product" : "Needs checking"}</span></>}
       title={<>{p.brand} {p.model}</>}
       description={<p>{p.description}</p>}
       price={p.priceFromPhp ? php(p.priceFromPhp) : "Price not verified yet"}
       priceNote="Observed Philippine starting price"
-      actions={<a className="button helmet-primary-cta" href="#price">Compare prices</a>}
+      actions={<><a className="button helmet-primary-cta" href="#price">Compare prices</a><AffiliateOffer productId={p.id} productName={`${p.brand} ${p.model}`} compact showDisclosure /></>}
       facts={heroFacts}
       trust={<ProductTrustRow
         status={p.status}
@@ -215,7 +216,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     </section>
 
     {compareTargets.length > 0 && <section id="compare" className="product-entity-section">
-      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Compare</span><h2>{p.brand} {p.model} comparisons</h2><p>Comparison intent stays on this strong entity page instead of being split into separate thin URLs.</p></div><Link href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Open interactive compare →</Link></div>
+      <div className="section-head compact helmet-section-head"><div><span className="section-kicker">Compare</span><h2>{p.brand} {p.model} comparisons</h2><p>Compare starting prices, shell materials, sizes and visor features with similar helmets.</p></div><Link href={`/gear/helmets/compare?a=${encodeURIComponent(p.id)}`}>Open interactive compare →</Link></div>
       <div className="entity-comparisons">{compareTargets.map((other) => <article key={other.id}>
         <h3>{p.brand} {p.model} vs {other.brand} {other.model}</h3>
         <div className="mini-compare-table">

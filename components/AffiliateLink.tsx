@@ -8,13 +8,15 @@ export function AffiliateLink({
   productName,
   merchant,
   network,
-  compact = false
+  compact = false,
+  shortLabel = false
 }: {
   productId: string;
   productName: string;
   merchant: "shopee" | "lazada";
   network: "shopee_direct" | "involve_asia";
   compact?: boolean;
+  shortLabel?: boolean;
 }) {
   const href = `/go/affiliate/${encodeURIComponent(productId)}/${merchant}`;
   const merchantLabel = merchant === "lazada" ? "Lazada" : "Shopee";
@@ -31,6 +33,6 @@ export function AffiliateLink({
       placement: compact ? "catalog_card" : "product_detail"
     })}
   >
-    Check price on {merchantLabel} <span aria-hidden="true">↗</span>
+    {shortLabel ? "Shop on" : "Check price on"} {merchantLabel} <span aria-hidden="true">↗</span>
   </Link>;
 }

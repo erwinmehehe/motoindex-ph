@@ -14,7 +14,7 @@ type Status = {
   }>;
 };
 
-export function AffiliateOffer({ productId, productName, compact = false }: { productId: string; productName: string; compact?: boolean }) {
+export function AffiliateOffer({ productId, productName, compact = false, showDisclosure = false }: { productId: string; productName: string; compact?: boolean; showDisclosure?: boolean }) {
   const [status,setStatus]=useState<Status|undefined>(undefined);
 
   useEffect(()=>{
@@ -28,7 +28,7 @@ export function AffiliateOffer({ productId, productName, compact = false }: { pr
 
   const offers=status?.offers||[];
   if(!status?.active||!offers.length)return null;
-  if(compact)return <><style>{MARKETPLACE_AFFILIATE_CSS}</style><div className="affiliate-card-action">{offers.map(offer=><AffiliateLink key={offer.merchant} productId={productId} productName={productName} merchant={offer.merchant} network={offer.network} compact />)}</div></>;
+  if(compact)return <><style>{MARKETPLACE_AFFILIATE_CSS}</style><div className="affiliate-card-action">{offers.map(offer=><AffiliateLink key={offer.merchant} productId={productId} productName={productName} merchant={offer.merchant} network={offer.network} compact shortLabel={showDisclosure} />)}</div>{showDisclosure&&<small className="affiliate-hero-disclosure">We may earn a commission at no extra cost to you. <Link href="/affiliate-disclosure">Affiliate disclosure</Link>.</small>}</>;
   return <><style>{MARKETPLACE_AFFILIATE_CSS}</style><aside className="affiliate-offer marketplace-affiliate-offer" aria-label="Marketplace affiliate offers">
     <div><span className="affiliate-kicker">Verified marketplace links</span><h2>Compare marketplace prices</h2><p>Check the exact helmet size, graphic, seller rating, stock, shipping and checkout total before ordering.</p></div>
     <div className="affiliate-offer-action"><div className="affiliate-marketplace-actions">{offers.map(offer=><AffiliateLink key={offer.merchant} productId={productId} productName={productName} merchant={offer.merchant} network={offer.network} />)}</div><small>MotoIndex may earn a commission from qualifying purchases at no extra cost to you. Marketplace links may use direct or approved affiliate-network tracking. Rankings and editorial conclusions are not affected. <Link href="/affiliate-disclosure">Affiliate disclosure</Link>.</small></div>
