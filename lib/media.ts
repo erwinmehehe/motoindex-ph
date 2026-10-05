@@ -5,6 +5,148 @@ import type { EntityMedia } from "./types";
 // upstream image for provenance and a temporary runtime fallback while local assets are synced.
 // Local motorcycle WebP derivatives are art-directed to a 1200x1200 white catalog canvas; source provenance remains below.
 export const entityMedia: EntityMedia[] = [
+  // Exact upstream fallbacks for the 2026-10-05 helmet expansion.
+  // Local 1200x1200 WebP derivatives can be synced later without changing entity URLs.
+  {
+    id: "studds-helios-source-20261005", entityType: "helmet", entityId: "studds-helios", role: "primary",
+    src: "/media/helmets/studds-helios.webp", sourceImageUrl: "https://www.motoworld.com.ph/cdn/shop/files/STUDDS_HELIOS_white_with_extra_visor.jpg?v=1770090307&width=460", alt: "Studds Helios full-face helmet with extra visor", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motoworld / Studds", sourceLabel: "Motoworld exact-model image · Studds Helios", sourceUrl: "https://www.motoworld.com.ph/products/studds-helios-motorcycle-fullface-helmet", lastChecked: "2026-10-05"
+  },
+  {
+    id: "studds-trooper-sport-source-20261005", entityType: "helmet", entityId: "studds-trooper-sport", role: "primary",
+    src: "/media/helmets/studds-trooper-sport.webp", sourceImageUrl: "https://zeptoparts.com/cdn/shop/files/TROOPER-D4-BLACK-GREY-BLUE-3.webp?v=1757024816&width=1024", alt: "Studds Trooper Sport modular motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Zepto Parts / Studds", sourceLabel: "Retailer exact-model image · Studds Trooper Sport", sourceUrl: "https://zeptoparts.com/products/studds-tropper-flip-up-helmet-black-grey-blue", lastChecked: "2026-10-05"
+  },
+  {
+    id: "scorpion-exo-r1-air-carbon-source-20261005", entityType: "helmet", entityId: "scorpion-exo-r1-air-carbon", role: "primary",
+    src: "/media/helmets/scorpion-exo-r1-air-carbon.webp", sourceImageUrl: "https://cdn.shopify.com/s/files/1/0470/6526/8386/products/13310.jpg?crop=center&height=800&v=1743670869&width=800", alt: "Scorpion EXO-R1 Air Carbon full-face helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Helmetking / Scorpion", sourceLabel: "Retailer exact-model image · Scorpion EXO-R1 Air Carbon", sourceUrl: "https://www.helmetking.com/products/scorpionexo-r1aircarbonmg", lastChecked: "2026-10-05"
+  },
+  {
+    id: "scorpion-exo-adx-2-source-20261005", entityType: "helmet", entityId: "scorpion-exo-adx-2", role: "primary",
+    src: "/media/helmets/scorpion-exo-adx-2.webp", sourceImageUrl: "https://medias.speedway.fr/676568/casque-scorpion-adx-2-lewis-noir-mat-argent.jpg", alt: "Scorpion EXO ADX-2 modular adventure helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Speedway / Scorpion", sourceLabel: "Retailer exact-model image · Scorpion EXO ADX-2", sourceUrl: "https://www.speedway.fr/351714-casque-scorpion-adx-2-lewis-noir-mat-argent.html", lastChecked: "2026-10-05"
+  },
+  {
+    id: "scorpion-exo-adf-9000-air-source-20261005", entityType: "helmet", entityId: "scorpion-exo-adf-9000-air", role: "primary",
+    src: "/media/helmets/scorpion-exo-adf-9000-air.webp", sourceImageUrl: "https://d188x8onqy9zqs.cloudfront.net/images/detailed/137/184-472-292_1_new.jpg?t=1773915271", alt: "Scorpion EXO ADF-9000 Air adventure helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "KMC Motoshop / Scorpion", sourceLabel: "Retailer exact-model image · Scorpion EXO ADF-9000 Air", sourceUrl: "https://kmc-motoshop.hr/kacige/tip-kacige/integralne-kacige/scorpion-adf-9000-air-feat-adventure-kaciga/", lastChecked: "2026-10-05"
+  },
+  {
+    id: "scorpion-exo-covert-fx-source-20261005", entityType: "helmet", entityId: "scorpion-exo-covert-fx", role: "primary",
+    src: "/media/helmets/scorpion-exo-covert-fx.webp", sourceImageUrl: "https://imageflow.rad.eu/1/7O8Ryibbgxc6M1f6SRcJb45h9UiTESdLl67gP7K0CRDm8/full-face-helmet-scorpion-covert-fx-danko-matt-pearl-white-black.jpg", alt: "Scorpion EXO Covert FX full-face helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "RAD / Scorpion", sourceLabel: "Retailer exact-model image · Scorpion EXO Covert FX", sourceUrl: "https://www.rad.eu/en/c/p/84838-scorpion-covert-fx-danko-matt-pearl-white-black.htm", lastChecked: "2026-10-05"
+  },
+  {
+    id: "scorpion-covert-2-source-20261005", entityType: "helmet", entityId: "scorpion-covert-2", role: "primary",
+    src: "/media/helmets/scorpion-covert-2.webp", sourceImageUrl: "https://peakboys.ca/cdn/shop/files/Scorpion-Exo-_Covert_2_II_White_profile-left_Web_img_2048x.jpg?v=1708542147", alt: "Scorpion Covert 2 open-face helmet with removable mask", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Peakboys / Scorpion", sourceLabel: "Retailer exact-model image · Scorpion Covert 2", sourceUrl: "https://peakboys.ca/products/scorpion-covert-2-helmet", lastChecked: "2026-10-05"
+  },
+  {
+    id: "nolan-n120-1-source-20261005", entityType: "helmet", entityId: "nolan-n120-1", role: "primary",
+    src: "/media/helmets/nolan-n120-1.webp", sourceImageUrl: "https://www.motoworld.com.ph/cdn/shop/files/n120-1349.jpg?v=1750305036&width=1214", alt: "Nolan N120-1 modular motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motoworld / Nolan", sourceLabel: "Motoworld exact-model image · Nolan N120-1", sourceUrl: "https://www.motoworld.com.ph/products/nolan-n120-1-classic-modular-helmet", lastChecked: "2026-10-05"
+  },
+  {
+    id: "nolan-n70-2-x-source-20261005", entityType: "helmet", entityId: "nolan-n70-2-x", role: "primary",
+    src: "/media/helmets/nolan-n70-2-x.webp", sourceImageUrl: "https://www.moto1.nz/cdn/shop/articles/02318eb7267d4af419972e1a75c6b8fe_grande_b45baa7d-997a-4d35-b8a4-ba57229732e2.webp?v=1722742427", alt: "Nolan N70-2 X crossover motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Moto1 / Nolan", sourceLabel: "Retailer editorial exact-model image · Nolan N70-2 X", sourceUrl: "https://www.moto1.nz/blogs/learn/top-helmets-for-long-distance-adventure-riding", lastChecked: "2026-10-05"
+  },
+  {
+    id: "nolan-n21-visor-source-20261005", entityType: "helmet", entityId: "nolan-n21-visor", role: "primary",
+    src: "/media/helmets/nolan-n21-visor.webp", sourceImageUrl: "https://cf-cdn.motocard.com/cdn-cgi/image/w%3D550%2Ch%3D550%2Cq%3D91%2Cfit%3Dcover%2Cf%3Dauto/products/images/06676/n21_visor_duetto_flat_black_7-1-M-0667601.jpg?v=d6996eb64b491283f3f6377e68892553", alt: "Nolan N21 Visor open-face motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motocard / Nolan", sourceLabel: "Retailer exact-model image · Nolan N21 Visor", sourceUrl: "https://www.motocard.com/en/helmets/nolan-n21_visor_duetto_flat_black_7.aspx", lastChecked: "2026-10-05"
+  },
+  {
+    id: "nolan-x-804rs-ultra-carbon-source-20261005", entityType: "helmet", entityId: "nolan-x-804rs-ultra-carbon", role: "primary",
+    src: "/media/helmets/nolan-x-804rs-ultra-carbon.webp", sourceImageUrl: "https://static.wixstatic.com/media/e7c204_07d773d8d76347fbb75215c6ce337ead~mv2.jpg/v1/fit/w_500%2Ch_500%2Cq_90/file.jpg", alt: "Nolan X-804RS Ultra Carbon full-face racing helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Nolan Helmets Thailand", sourceLabel: "Distributor exact-model image · Nolan X-804RS Ultra Carbon", sourceUrl: "https://www.nolanhelmetsthailand.com/product-page/x-804rs-hot-lap-grey-11", lastChecked: "2026-10-05"
+  },
+  {
+    id: "nolan-x-552-ultra-carbon-source-20261005", entityType: "helmet", entityId: "nolan-x-552-ultra-carbon", role: "primary",
+    src: "/media/helmets/nolan-x-552-ultra-carbon.webp", sourceImageUrl: "https://cdn2.louis.de/dynamic/articles/o_resize%2Cw_1800%2Ch_1800%2Cm_limit%2Cc_fff%2Co_quality%2Cq_best%3A%3Ao_extension%2Ce_webp/fe.9d.24.ARG213740NOLANXSERIESX552ULTRACARBONPURONCOMpsD3.JPG", alt: "Nolan X-552 Ultra Carbon adventure motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Louis Moto / Nolan", sourceLabel: "Retailer exact-model image · Nolan X-552 Ultra Carbon", sourceUrl: "https://www.louis-moto.fr/fr/nolan-x-552-casque-integral-213740", lastChecked: "2026-10-05"
+  },
+  {
+    id: "ryo-rf-4sv-source-20261005", entityType: "helmet", entityId: "ryo-rf-4sv", role: "primary",
+    src: "/media/helmets/ryo-rf-4sv.webp", sourceImageUrl: "https://www.motoworld.com.ph/cdn/shop/files/WHITE_1_379d79f7-7247-4b7e-ac4a-2925a5e477f5.jpg?v=1741239029&width=1500", alt: "RYO RF-4SV full-face motorcycle helmet in white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motoworld / RYO", sourceLabel: "Motoworld exact-model image · RYO RF-4SV", sourceUrl: "https://www.motoworld.com.ph/products/ryo-rf-4sv-motorcycle-full-face-helmet", lastChecked: "2026-10-05"
+  },
+  {
+    id: "ryo-rf-5v-source-20261005", entityType: "helmet", entityId: "ryo-rf-5v", role: "primary",
+    src: "/media/helmets/ryo-rf-5v.webp", sourceImageUrl: "https://www.motoworld.com.ph/cdn/shop/files/RF-5V.jpg?v=1768894075&width=640", alt: "RYO RF-5V full-face motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motoworld / RYO", sourceLabel: "Motoworld exact-model image · RYO RF-5V", sourceUrl: "https://www.motoworld.com.ph/products/ryo-rf-5v-motorcycle-full-face-helemt-w-free-extra-visor", lastChecked: "2026-10-05"
+  },
+  {
+    id: "ryo-rf-6v-source-20261005", entityType: "helmet", entityId: "ryo-rf-6v", role: "primary",
+    src: "/media/helmets/ryo-rf-6v.webp", sourceImageUrl: "https://www.motoworld.com.ph/cdn/shop/files/RYO_RF-6V_metal_red..jpg?v=1738231822&width=1125", alt: "RYO RF-6V full-face motorcycle helmet in red", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motoworld / RYO", sourceLabel: "Motoworld exact-model image · RYO RF-6V", sourceUrl: "https://www.motoworld.com.ph/products/ryo-rf-6v-motorcycle-full-face-helmet", lastChecked: "2026-10-05"
+  },
+  {
+    id: "ryo-ro-4sv-source-20261005", entityType: "helmet", entityId: "ryo-ro-4sv", role: "primary",
+    src: "/media/helmets/ryo-ro-4sv.webp", sourceImageUrl: "https://www.motoworld.com.ph/cdn/shop/files/WHITE_1_d4a0a707-14b6-4a57-9623-8d423dbe0737.jpg?v=1741240138&width=900", alt: "RYO RO-4SV open-face motorcycle helmet in white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motoworld / RYO", sourceLabel: "Motoworld exact-model image · RYO RO-4SV", sourceUrl: "https://www.motoworld.com.ph/products/ryo-ro-4sv-motorcycle-open-face-helmet", lastChecked: "2026-10-05"
+  },
+  {
+    id: "evo-vxr-5000-source-20261005", entityType: "helmet", entityId: "evo-vxr-5000", role: "primary",
+    src: "/media/helmets/evo-vxr-5000.webp", sourceImageUrl: "https://ph-live-01.slatic.net/p/68ce777bfe9982b5864cdce554b8a6a0.jpg", alt: "EVO VXR-5000 modular motorcycle helmet in gloss grey", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Lazada / EVO Helmets Philippines", sourceLabel: "Marketplace exact-model image · EVO VXR-5000", sourceUrl: "https://www.lazada.com.ph/tag/evo-modular-helmet/", lastChecked: "2026-10-05"
+  },
+  {
+    id: "evo-gt-sport-source-20261005", entityType: "helmet", entityId: "evo-gt-sport", role: "primary",
+    src: "/media/helmets/evo-gt-sport.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2025/08/GT-SPORTS-M.Black-3-768x768.jpg", alt: "EVO GT-Sport full-face motorcycle helmet in matte black", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "Manufacturer exact-model image · EVO GT-Sport", sourceUrl: "https://evohelmet.com/product/gt-sport-mono-colors/", lastChecked: "2026-10-05"
+  },
+  {
+    id: "evo-xt-300-riot-ii-source-20261005", entityType: "helmet", entityId: "evo-xt-300-riot-ii", role: "primary",
+    src: "/media/helmets/evo-xt-300-riot-ii.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2022/10/riot-1-768x768.webp", alt: "EVO XT-300 Riot II full-face motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "Manufacturer exact-model image · EVO XT-300 Riot II", sourceUrl: "https://evohelmet.com/product/xt-300-riot-ii/", lastChecked: "2026-10-05"
+  },
+  {
+    id: "evo-gx-1-source-20261005", entityType: "helmet", entityId: "evo-gx-1", role: "primary",
+    src: "/media/helmets/evo-gx-1.webp", sourceImageUrl: "https://img.ws.mms.shopee.ph/ph-11134210-7rasc-m7bludmbj7md7b", alt: "EVO GX-1 full-face motorcycle helmet", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets Philippines / Shopee", sourceLabel: "Official-store exact-model image · EVO GX-1", sourceUrl: "https://shopee.ph/evohelmetsphilippinesofficial", lastChecked: "2026-10-05"
+  },
+  {
+    id: "evo-dx-7-source-20261005", entityType: "helmet", entityId: "evo-dx-7", role: "primary",
+    src: "/media/helmets/evo-dx-7.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2021/01/DX7-PLAIN-MATTE-BLACK-768x768.jpg", alt: "EVO DX-7 dual-sport motorcycle helmet in matte black", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "Manufacturer exact-model image · EVO DX-7", sourceUrl: "https://evohelmet.com/product/dx-7-dual-sports-mono-colors/", lastChecked: "2026-10-05"
+  },
+  {
+    id: "sec-windstorm-v3-source-20261005", entityType: "helmet", entityId: "sec-windstorm-v3", role: "primary",
+    src: "/media/helmets/sec-windstorm-v3.webp", sourceImageUrl: "https://secmotosupply.com/cdn/shop/products/DSEC-04914.png?v=1665645192", alt: "SEC Windstorm V3 modular motorcycle helmet in gloss black", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SEC Motosupply", sourceLabel: "Manufacturer-retailer exact-model image · SEC Windstorm V3", sourceUrl: "https://secmotosupply.com/collections/helmets?page=8", lastChecked: "2026-10-05"
+  },
+  {
+    id: "sec-whirlwind-source-20261005", entityType: "helmet", entityId: "sec-whirlwind", role: "primary",
+    src: "/media/helmets/sec-whirlwind.webp", sourceImageUrl: "https://down-ph.img.susercontent.com/file/ph-11134207-81zte-ml1pyn39vmdj75", alt: "SEC Whirlwind modular motorcycle helmets", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SEC Motosupply / Shopee", sourceLabel: "Official-retailer exact-model image · SEC Whirlwind", sourceUrl: "https://shopee.ph/SEC-Modular-Helmet-for-Motorcycle-Whirlwind-Plain-%28Gloss-Matte%29-%28S-XL%29-i.125116170.27135847813", lastChecked: "2026-10-05"
+  },
+  {
+    id: "sec-rise-v2-source-20261005", entityType: "helmet", entityId: "sec-rise-v2", role: "primary",
+    src: "/media/helmets/sec-rise-v2.webp", sourceImageUrl: "https://secmotosupply.com/cdn/shop/products/DSEC-04902-3.jpg?v=1665625387", alt: "SEC Rise V2 modular motorcycle helmet in gloss white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SEC Motosupply", sourceLabel: "Manufacturer-retailer exact-model image · SEC Rise V2", sourceUrl: "https://secmotosupply.com/products/i009639", lastChecked: "2026-10-05"
+  },
+  {
+    id: "sec-element-source-20261005", entityType: "helmet", entityId: "sec-element", role: "primary",
+    src: "/media/helmets/sec-element.webp", sourceImageUrl: "https://secmotosupply.com/cdn/shop/files/DSEC-06660_ELEMENT_WHTBLKGREY_e8705bee-2197-4b0a-86f3-15defb6e0542.jpg?v=1750928061", alt: "SEC Element modular motorcycle helmet in white black and grey", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SEC Motosupply", sourceLabel: "Manufacturer-retailer exact-model image · SEC Element", sourceUrl: "https://secmotosupply.com/products/i015726", lastChecked: "2026-10-05"
+  },
+  {
+    id: "oneal-2srs-source-20261005", entityType: "helmet", entityId: "oneal-2srs", role: "primary",
+    src: "/media/helmets/oneal-2srs.webp", sourceImageUrl: "https://dirtstore.co.uk/cdn/shop/files/uonh0200s83.jpg?v=1737645794&width=1214", alt: "O'Neal 2SRS motocross motorcycle helmet in black", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Dirt Store / O'Neal", sourceLabel: "Retailer exact-model image · O'Neal 2SRS", sourceUrl: "https://dirtstore.co.uk/products/oneal-2srs-helmet-slick-black-g", lastChecked: "2026-10-05"
+  },
+  {
+    id: "oneal-3srs-source-20261005", entityType: "helmet", entityId: "oneal-3srs", role: "primary",
+    src: "/media/helmets/oneal-3srs.webp", sourceImageUrl: "https://dirtstore.co.uk/cdn/shop/files/0625-18_45front_left.png?crop=center&height=1200&v=1756480151&width=1200", alt: "O'Neal 3SRS motocross motorcycle helmet in black grey and red", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Dirt Store / O'Neal", sourceLabel: "Retailer exact-model image · O'Neal 3SRS", sourceUrl: "https://dirtstore.co.uk/products/oneal-3srs-helmet-haze-black-gray-red", lastChecked: "2026-10-05"
+  },
+  {
+    id: "oneal-3srs-ii-source-20261005", entityType: "helmet", entityId: "oneal-3srs-ii", role: "primary",
+    src: "/media/helmets/oneal-3srs-ii.webp", sourceImageUrl: "https://www.motoworld.com.ph/cdn/shop/files/ONEAL_3SRS_II_RIDE_BLWHRED.jpg?crop=center&height=1200&v=1756783643&width=1200", alt: "O'Neal 3SRS II motocross motorcycle helmet in blue white and red", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Motoworld / O'Neal", sourceLabel: "Motoworld exact-model image · O'Neal 3SRS II", sourceUrl: "https://www.motoworld.com.ph/products/oneal-3srs-ii-static-mx-helmet", lastChecked: "2026-10-05"
+  },
   {
     id: "yamaha-mio-gravis-wheeltek", entityType: "motorcycle", entityId: "yamaha-mio-gravis", role: "primary",
     src: "/media/motorcycles/yamaha-mio-gravis.webp", sourceImageUrl: "https://wheeltek.com.ph/wp-content/uploads/2025/03/MIO-GRAVIS-matte-brown.jpg", alt: "Yamaha Mio Gravis motorcycle in Matte Brown", width: 1200, height: 1200,

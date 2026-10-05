@@ -4,6 +4,7 @@ import { getHelmetCategoryProducts, getHelmetProduct, isIndexableHelmetBrand } f
 import { helmetCatalogAliasTarget } from "../lib/helmetBrandLineups";
 import { getHelmetSeoComparison, isIndexableHelmetSeoComparison } from "../lib/helmetSeoComparisons";
 import { getHelmetSeoCollectionProducts, isIndexableHelmetSeoCollection } from "../lib/helmetSeoCollections";
+import { hasRenderableProductMedia } from "../lib/renderableMedia";
 
 describe("helmet market expansion", () => {
   it("publishes the new Philippine helmet brand hubs", () => {
@@ -60,6 +61,20 @@ describe("helmet market expansion", () => {
     for (const slug of ["under-3000", "under-5000", "ece-22-06", "intercom-ready", "for-commuting"] as const) {
       expect(getHelmetSeoCollectionProducts(slug).length).toBeGreaterThanOrEqual(3);
       expect(isIndexableHelmetSeoCollection(slug)).toBe(true);
+    }
+  });
+
+  it("has exact renderable media for the helmet expansion", () => {
+    for (const id of [
+      "studds-helios","studds-trooper-sport",
+      "scorpion-exo-r1-air-carbon","scorpion-exo-adx-2","scorpion-exo-adf-9000-air","scorpion-exo-covert-fx","scorpion-covert-2",
+      "nolan-n120-1","nolan-n70-2-x","nolan-n21-visor","nolan-x-804rs-ultra-carbon","nolan-x-552-ultra-carbon",
+      "ryo-rf-4sv","ryo-rf-5v","ryo-rf-6v","ryo-ro-4sv",
+      "evo-vxr-5000","evo-gt-sport","evo-xt-300-riot-ii","evo-gx-1","evo-dx-7",
+      "sec-windstorm-v3","sec-whirlwind","sec-rise-v2","sec-element",
+      "oneal-2srs","oneal-3srs","oneal-3srs-ii"
+    ]) {
+      expect(hasRenderableProductMedia(id)).toBe(true);
     }
   });
 
