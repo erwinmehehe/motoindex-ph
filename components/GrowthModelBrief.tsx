@@ -177,17 +177,17 @@ const growthBriefs: Record<string, GrowthBrief> = {
   },
   "yamaha-mt-15": {
     fit: [
-      "You are specifically researching the MT-15 and understand that MotoIndex has not verified a current model-level Yamaha Philippines listing.",
-      "You want the stored 155cc specification context while you independently confirm whether a new authorized Philippine unit is actually available."
+      "You want the current dealer-listed MT-15 with a 155cc engine, six-speed gearbox and 810 mm seat.",
+      "A lightweight naked-bike layout matters more to you than scooter storage or automatic convenience."
     ],
     check: [
-      "Do not treat the ₱180,000 secondary-market reference as a current Yamaha Philippines SRP.",
-      "Ask an authorized Yamaha dealer for the exact model year, official invoice price, warranty status and registration papers before paying a reservation."
+      "Guanzon currently lists ₱180,000, but its pricing notice says figures can vary by branch and change without notice.",
+      "Confirm the exact branch stock, model year, final cash price, warranty and registration package before paying a reservation."
     ],
-    ownership: "If current authorized stock is verified, compare 17-inch tires, chain and sprocket service, insurance, parts support and the 810 mm seat with current XSR155, R15M and other verified 155cc manual motorcycles.",
+    ownership: "Compare 17-inch tires, chain and sprocket service, insurance, parts support and the 810 mm seat with XSR155, R15M and other current 155cc manual motorcycles.",
     alternatives: ["yamaha-xsr155", "yamaha-yzf-r15m", "honda-cb150r"],
     guideHref: "/recommendations/naked-motorcycles-philippines",
-    guideLabel: "Verified naked motorcycles"
+    guideLabel: "Naked motorcycle guide"
   },
 
   "honda-crf150l": {
