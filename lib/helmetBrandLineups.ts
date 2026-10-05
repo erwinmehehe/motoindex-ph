@@ -12,6 +12,7 @@ export type HelmetBrandLineup = {
 // brand or Philippine retail catalog; it does not create a price, certification or
 // product-detail claim until that exact model is researched separately.
 export const helmetBrandLineups: HelmetBrandLineup[] = [
+  { brandSlug:"oneal", sourceLabel:"Motoworld Philippines current O'Neal helmet range", sourceUrl:"https://www.motoworld.com.ph/collections/brand/oneal-motorcycle-helmets-motocross", checkedAt:"2026-10-05", models:["2SRS","3SRS","3SRS II","EX-SRS","Sierra","Sierra R"] },
   { brandSlug:"studds", sourceLabel:"Motoworld Philippines current Studds helmet listings", sourceUrl:"https://www.motoworld.com.ph/collections/brand-studds", checkedAt:"2026-10-05", models:["Helios","Trooper Sport"] },
   { brandSlug:"scorpion", sourceLabel:"Motoworld Philippines current Scorpion helmet range", sourceUrl:"https://www.motoworld.com.ph/collections/scorpion/motorcycle-helmets", checkedAt:"2026-10-05", models:["EXO-R1 Air Carbon","EXO ADX-2","EXO ADF-9000 Air","EXO Covert FX","Covert 2"] },
   { brandSlug:"nolan", sourceLabel:"Motoworld Philippines current Nolan helmet range", sourceUrl:"https://www.motoworld.com.ph/collections/brand-nolan/motorcycle-helmets", checkedAt:"2026-10-05", models:["N120-1","N70-2 X","N21 Visor","X-804RS Ultra Carbon","X-552 Ultra Carbon"] },
