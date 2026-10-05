@@ -11,6 +11,27 @@ export type HelmetCertificationEvidence = {
 const checkedAt = "2026-10-05";
 
 const evidenceByProductId: Record<string, HelmetCertificationEvidence> = {
+  "evo-gt-sport": {
+    certification: "ECE certified / ICC certified",
+    sourceLabel: "EVO Helmets official GT-Sport certification",
+    sourceUrl: "https://evohelmet.com/product/gt-sport-mono-colors/",
+    checkedAt,
+    note: "EVO Helmets explicitly lists ECE and ICC certification for the GT-Sport mono-color product family.",
+  },
+  "evo-gx-1": {
+    certification: "ECE certified / ICC certified",
+    sourceLabel: "EVO Helmets official GX-1 certification",
+    sourceUrl: "https://evohelmet.com/product/gx-1-mono-colors/",
+    checkedAt,
+    note: "EVO Helmets explicitly lists ECE certification and ICC certification for the GX-1 mono-color product family.",
+  },
+  "nolan-n120-1": {
+    certification: "UNECE R 22-06 / P/J homologation",
+    sourceLabel: "Nolan official N120-1 certification",
+    sourceUrl: "https://nolan-helmets.com/en/products/n120-1-classic-black-glossy",
+    checkedAt,
+    note: "Nolan lists UNECE R 22-06 approval and P/J homologation for the N120-1 on its current official product page.",
+  },
   "scorpion-exo-r1-air-carbon": {
     certification: "DOT FMVSS No. 218 certified / ECE 22.06 approved",
     sourceLabel: "ScorpionEXO official EXO-R1 Air Carbon certification",
