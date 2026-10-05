@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cloudflareAccessConfigured, verifyCloudflareAccess } from "@/lib/cloudflareAccess";
 
 const protectedPrefixes = ["/admin", "/api/ingestion", "/api/admin"];
 const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;
@@ -45,7 +46,7 @@ function isPrototypePath(pathname: string) {
   return /^\/motorcycles\/[^/]+\/[^/]+\/(used-value|new-vs-used)\/?$/.test(pathname);
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   if (process.env.NODE_ENV === "production" && isPrototypePath(pathname)) return deny("Not found.", 404);
   if (pathname === "/my" || pathname.startsWith("/api/my/") || pathname === "/garage" || pathname.startsWith("/garage/") || pathname === "/dealer-portal" || pathname.startsWith("/dealer-portal/") || pathname.startsWith("/api/dealer-portal/")) {
@@ -73,12 +74,11 @@ export function middleware(request: NextRequest) {
   }
   if (!protectedPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) return NextResponse.next();
 
-  const accessMode = process.env.ADMIN_ACCESS_MODE || "basic";
-  if (accessMode === "cloudflare") {
-    const email = (request.headers.get("cf-access-authenticated-user-email") || "").trim().toLowerCase();
-    const assertion = request.headers.get("cf-access-jwt-assertion") || "";
-    const allowed = new Set((process.env.ADMIN_ACCESS_EMAILS || "").split(",").map(value => value.trim().toLowerCase()).filter(Boolean));
-    if (!email || !assertion || !allowed.size || !allowed.has(email)) return deny("Administrative access denied.", 403);
+  const accessMode = (process.env.ADMIN_ACCESS_MODE || "basic").trim().toLowerCase();
+  if (accessMode === "cloudflare" || accessMode === "cloudflare-access") {
+    if (!cloudflareAccessConfigured()) return deny("Administrative surface unavailable.", 503);
+    const access = await verifyCloudflareAccess(request);
+    if (!access.ok) return deny("Administrative access denied.", 403);
     const response = NextResponse.next();
     response.headers.set("Cache-Control", "no-store");
     response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");

@@ -32,11 +32,25 @@ if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || /@(example\.(com|org|net)|test|
   failures.push("NEXT_PUBLIC_CONTACT_EMAIL must be a real monitored mailbox for launch.");
 }
 
-const adminUser = process.env.ADMIN_USERNAME || "";
-const adminPassword = process.env.ADMIN_PASSWORD || "";
-if (adminUser.length < 8) failures.push("ADMIN_USERNAME must be set and at least 8 characters.");
-if (adminPassword.length < 20) failures.push("ADMIN_PASSWORD must be set and at least 20 characters.");
-if (adminUser && adminPassword && adminUser === adminPassword) failures.push("ADMIN_USERNAME and ADMIN_PASSWORD must be different.");
+const adminAccessMode = (process.env.ADMIN_ACCESS_MODE || "basic").trim().toLowerCase();
+if (adminAccessMode === "cloudflare" || adminAccessMode === "cloudflare-access") {
+  const teamDomain = (process.env.CF_ACCESS_TEAM_DOMAIN || "").trim().replace(/^https?:\/\//, "").replace(/\/$/, "");
+  const audience = (process.env.CF_ACCESS_AUD || "").trim();
+  const adminEmails = (process.env.ADMIN_ACCESS_EMAILS || "").split(",").map((value) => value.trim()).filter(Boolean);
+  if (!teamDomain) failures.push("CF_ACCESS_TEAM_DOMAIN must be set when ADMIN_ACCESS_MODE=cloudflare.");
+  if (!audience) failures.push("CF_ACCESS_AUD must be set when ADMIN_ACCESS_MODE=cloudflare.");
+  if (!adminEmails.length || adminEmails.some((value) => !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))) {
+    failures.push("ADMIN_ACCESS_EMAILS must contain one or more valid email addresses when ADMIN_ACCESS_MODE=cloudflare.");
+  }
+} else if (adminAccessMode === "basic") {
+  const adminUser = process.env.ADMIN_USERNAME || "";
+  const adminPassword = process.env.ADMIN_PASSWORD || "";
+  if (adminUser.length < 8) failures.push("ADMIN_USERNAME must be set and at least 8 characters.");
+  if (adminPassword.length < 20) failures.push("ADMIN_PASSWORD must be set and at least 20 characters.");
+  if (adminUser && adminPassword && adminUser === adminPassword) failures.push("ADMIN_USERNAME and ADMIN_PASSWORD must be different.");
+} else {
+  failures.push(`ADMIN_ACCESS_MODE must be "basic" or "cloudflare"; found ${adminAccessMode || "empty"}.`);
+}
 
 
 const DAY_MS = 86_400_000;
