@@ -26,6 +26,7 @@ const zigwheelsGapWave4 = read("lib", "zigwheelsGapWave4_2026.ts");
 const zigwheelsGapWave5 = read("lib", "zigwheelsGapWave5_2026.ts");
 const zigwheelsGapWave6 = read("lib", "zigwheelsGapWave6_2026.ts");
 const zigwheelsGapWave7 = read("lib", "zigwheelsGapWave7_2026.ts");
+const currentModelGapCloseout = read("lib", "currentModelGapCloseout2026.ts");
 for (const token of [
   'const isDiscontinued = model.marketStatus === "discontinued";',
   'const isHistorical = isPrevious || isDiscontinued;',
@@ -672,7 +673,6 @@ for (const modelId of [
   "suzuki-gixxer-sf-155",
   "suzuki-smash-carb",
   "kawasaki-klx150",
-  "honda-rs125-final-edition",
   "suzuki-smash-fi",
   "suzuki-gixxer-155",
   "suzuki-burgman-400",
@@ -684,9 +684,6 @@ for (const modelId of [
 }
 
 for (const token of [
-  'id: "honda-rs125-final-edition"',
-  'marketStatus: "current"',
-  'srp: 77000',
   'id: "kawasaki-klx150"',
   'srp: 134900',
   'id: "suzuki-smash-carb"',
@@ -775,7 +772,6 @@ for (const token of [
 
 for (const modelId of [
   "kawasaki-ninja-zx-10r",
-  "yamaha-mt-15",
   "yamaha-mt-10-sp",
   "yamaha-tenere-700",
   "yamaha-xsr900",
@@ -790,8 +786,6 @@ for (const modelId of [
 for (const token of [
   'id: "kawasaki-ninja-zx-10r"',
   'srp: 999800',
-  'id: "yamaha-mt-15"',
-  'marketStatus: "uncertain"',
   'id: "yamaha-mt-10-sp"',
   'srp: 1099000',
   'id: "yamaha-tenere-700"',
@@ -806,6 +800,30 @@ for (const token of [
 ]) {
   if (!zigwheelsGapWave7.includes(token)) {
     errors.push(`ZigWheels keyword-gap wave 7: source/status guard missing ${token}`);
+  }
+}
+
+
+for (const token of [
+  'id: "honda-rs125"',
+  'slug: "rs125"',
+  'marketStatus: "current"',
+  'srp: 77000',
+  'searchVolume: 9900'
+]) {
+  if (!currentModelGapCloseout.includes(token)) {
+    errors.push(`Canonical RS125 closeout: missing token ${token}`);
+  }
+}
+
+for (const token of [
+  'id: "yamaha-mt-15"',
+  'slug: "mt-15"',
+  'marketStatus: "current"',
+  'srp: 180000'
+]) {
+  if (!currentModelGapCloseout.includes(token)) {
+    errors.push(`Canonical MT-15 closeout: missing token ${token}`);
   }
 }
 
