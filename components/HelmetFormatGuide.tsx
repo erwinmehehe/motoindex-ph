@@ -13,7 +13,7 @@ import type { HelmetProduct } from "@/lib/types";
 // helmet open like a jet, and P/J means it passed both series of tests — so a
 // modular is only safe to ride with the bar raised if it carries J or P/J.
 
-type Format = "half-face" | "modular" | "full-face";
+type Format = "half-face" | "open-face" | "modular" | "full-face" | "adventure" | "off-road";
 type Props = { format: Format; products: HelmetProduct[] };
 
 export function HelmetFormatGuide({ format, products }: Props) {
@@ -30,7 +30,7 @@ export function HelmetFormatGuide({ format, products }: Props) {
   return <div className="format-guide">
     <div className="split section">
       <div>
-        {format === "half-face" && <>
+        {(format === "half-face" || format === "open-face") && <>
           <h2>What an open-face actually gives up</h2>
           <p>
             The trade is straightforward and worth being blunt about: an open-face leaves your chin and jaw
@@ -84,6 +84,34 @@ export function HelmetFormatGuide({ format, products }: Props) {
           </p>
         </>}
 
+        {format === "adventure" && <>
+          <h2>Why adventure helmets feel different on the road</h2>
+          <p>
+            Adventure helmets blend a road-style face shield with a peak and a wider eye opening. That makes them useful for riders who split time between pavement, rough provincial roads and light trail sections, but the peak can add wind load and noise at highway speed.
+          </p>
+          <p>
+            Compare whether the peak is removable, how well the visor seals in rain, whether the eye port accepts goggles, and how much room the interior leaves for speakers if you use navigation or an intercom.
+          </p>
+          <h3>Dual-sport does not mean every terrain equally well</h3>
+          <p>
+            Some models lean toward touring with a quieter visor and smaller peak, while others are closer to off-road shells with more airflow and goggle clearance. Match the helmet to the percentage of road versus dirt you actually ride rather than the category label alone.
+          </p>
+        </>}
+
+        {format === "off-road" && <>
+          <h2>Built around goggles, airflow and movement</h2>
+          <p>
+            Off-road and motocross helmets use a large eye port, pronounced chin bar and peak because they are designed around goggles, high ventilation and active riding. That setup is very different from a sealed road full-face helmet.
+          </p>
+          <p>
+            Check goggle width, nose clearance, strap position and peak hardware together. A good helmet can still be a poor setup if the goggles leave gaps or create pressure against the eye port.
+          </p>
+          <h3>Road use needs a separate check</h3>
+          <p>
+            If you plan to use an off-road helmet on public roads, verify the exact local conformity marking and make sure your eye-protection setup works in rain, dust and night riding. A motocross peak and goggles do not provide the same weather isolation as a road visor.
+          </p>
+        </>}
+
         {format === "full-face" && <>
           <h2>The most coverage, and the thing to actually compare</h2>
           <p>
@@ -115,14 +143,16 @@ export function HelmetFormatGuide({ format, products }: Props) {
       <div className="info-card">
         <h3>What this page lists</h3>
         <p>
-          {products.length} {format === "half-face" ? "open-face and half-face" : format} model
+          {products.length} {format === "open-face" ? "open-face and hybrid" : format} model
           {products.length === 1 ? "" : "s"} with checked MotoIndex records
           {brands.length > 1 && `, across ${brands.length} brands`}.
           {min && max && ` Observed starting prices run ${min === max ? php(min) : `${php(min)} to ${php(max)}`}.`}
         </p>
         <ul className="checklist">
           {format === "modular" && <li>Look for P/J if you want to ride with the bar up</li>}
-          {format === "half-face" && <li>Plan for eye protection — visor or goggles</li>}
+          {(format === "half-face" || format === "open-face") && <li>Plan for eye protection — visor or goggles</li>}
+          {format === "adventure" && <li>Check peak stability, visor sealing and goggle compatibility</li>}
+          {format === "off-road" && <li>Check goggle fit, peak hardware and road-use conformity</li>}
           {format === "full-face" && <li>Check shell-size count, not just helmet size</li>}
           <li>Find the PS or ICC mark on the shell, not the box</li>
           <li>Match the size chart for the model, not the brand</li>

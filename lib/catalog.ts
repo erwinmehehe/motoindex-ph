@@ -333,11 +333,14 @@ export function getTopBoxProduct(slug: string) {
 export function getHelmetProductsForBrand(brand: string) {
   return helmetProducts.filter(p => p.brandSlug === brand);
 }
-export type HelmetCategorySlug = "half-face" | "modular" | "full-face";
+export type HelmetCategorySlug = "half-face" | "open-face" | "modular" | "full-face" | "adventure" | "off-road";
 export function getHelmetCategoryProducts(slug: HelmetCategorySlug) {
   const verified = helmetProducts.filter(p => p.status === "verified");
-  if (slug === "half-face") return verified.filter(p => p.helmetType === "Half face" || p.helmetType === "Open face");
+  if (slug === "half-face") return verified.filter(p => p.helmetType === "Half face");
+  if (slug === "open-face") return verified.filter(p => p.helmetType === "Open face" || p.helmetType === "Hybrid");
   if (slug === "modular") return verified.filter(p => p.helmetType === "Modular");
+  if (slug === "adventure") return verified.filter(p => p.helmetType === "Adventure");
+  if (slug === "off-road") return verified.filter(p => p.helmetType === "Off-road");
   return verified.filter(p => p.helmetType === "Full face");
 }
 
