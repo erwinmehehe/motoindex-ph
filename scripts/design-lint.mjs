@@ -65,7 +65,7 @@ const helmetCss="app/gear/helmets/[brand]/[product]/helmet-review.css";
 const helmetSource=fs.existsSync(helmetCss)?fs.readFileSync(helmetCss,"utf8"):"";
 const helmetRules=helmetSource.replace(/@media[^{}]+\{/g,"").matchAll(/([^{}]+)\{([^{}]*)\}/g);
 for(const [,selector] of helmetRules){
-  if(!selector.split(",").every(part=>part.includes(".mx-helmet-detail")||part.includes(".mx-review"))){
+  if(!selector.split(/,(?![^()]*\))/).every(part=>part.includes(".mx-helmet-detail")||part.includes(".mx-review"))){
     throw new Error(`Helmet styles must remain namespaced: ${selector}`);
   }
 }

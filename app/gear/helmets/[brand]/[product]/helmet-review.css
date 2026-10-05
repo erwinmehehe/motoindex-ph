@@ -9,7 +9,6 @@
 .mx-review svg { width:20px; height:20px; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
 .mx-review img { display:block; max-width:100%; }
 .mx-review :focus-visible { outline:3px solid var(--helmet-2861ed); outline-offset:3px; }
-.mx-shell { max-width:1120px; width:calc(100% - 56px); margin:0 auto; }
 .mx-helmet-detail { padding-bottom:0; }
 .mx-helmet-detail .helmet-product-page { max-width:1120px; width:calc(100% - 56px); padding:24px 0 48px; margin:0 auto; --mi-line:var(--helmet-e1e9f5); --mi-muted:var(--helmet-647086); --accent:var(--helmet-2861ed); --ink:var(--helmet-101b38); --muted:var(--helmet-647086); }
 .mx-helmet-detail .breadcrumbs { font-size:11px; margin:0 0 18px; }
