@@ -6,7 +6,7 @@ import { getHelmetSeoComparison, isIndexableHelmetSeoComparison } from "../lib/h
 
 describe("helmet market expansion", () => {
   it("publishes the new Philippine helmet brand hubs", () => {
-    for (const slug of ["studds", "scorpion", "nolan", "ryo"]) {
+    for (const slug of ["studds", "scorpion", "nolan", "ryo", "oneal"]) {
       expect(getHelmetBrand(slug)).toBeTruthy();
       expect(isIndexableHelmetBrand(slug)).toBe(true);
     }
@@ -26,6 +26,9 @@ describe("helmet market expansion", () => {
       ["evo", "dx-7"],
       ["sec", "windstorm-v3"],
       ["sec", "rise-v2"],
+      ["oneal", "2srs"],
+      ["oneal", "3srs"],
+      ["oneal", "3srs-ii"],
     ] as const) {
       expect(getHelmetProduct(brand, slug)?.status).toBe("verified");
     }
