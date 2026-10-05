@@ -4,6 +4,7 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - lib/catalog.ts
       - lib/media.ts
       - lib/generatedProductMedia.ts
       - public/media/**
@@ -50,7 +51,7 @@ jobs:
       - name: Verify non-destructive media pipeline
         run: node scripts/validate-media-backfill-safety.mjs
       - name: Audit verified exact-image coverage
-        run: node scripts/audit-product-media-coverage.mjs
+        run: MEDIA_COVERAGE_STRICT=1 node scripts/audit-product-media-coverage.mjs
       - name: Validate media records with strict local coverage
         run: MEDIA_STRICT_LOCAL=1 npm run validate:media
       - name: Audit exact motorcycle image coverage
