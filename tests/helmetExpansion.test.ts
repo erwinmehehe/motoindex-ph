@@ -1,12 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { getHelmetBrand } from "../lib/data";
-import { getHelmetCategoryProducts, getHelmetProduct, isIndexableHelmetBrand } from "../lib/catalog";
+import { getHelmetCategoryProducts, getHelmetProduct, helmetProducts, isIndexableHelmetBrand } from "../lib/catalog";
 import { helmetCatalogAliasTarget } from "../lib/helmetBrandLineups";
 import { getHelmetSeoComparison, isIndexableHelmetSeoComparison } from "../lib/helmetSeoComparisons";
 import { getHelmetSeoCollectionProducts, isIndexableHelmetSeoCollection } from "../lib/helmetSeoCollections";
 import { hasRenderableProductMedia } from "../lib/renderableMedia";
 import { getVerifiedHelmetSizing } from "../lib/helmetSizing";
-import { helmetProducts } from "../lib/catalog";
 
 describe("helmet market expansion", () => {
   it("publishes the new Philippine helmet brand hubs", () => {
