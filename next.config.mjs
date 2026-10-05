@@ -67,6 +67,9 @@ const nextConfig = {
       { source: "/motorcycles/yamaha/aerox-v4", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
       { source: "/motorcycles/yamaha/aerox-2025", destination: "/motorcycles/yamaha/aerox-v3", permanent: true },
       { source: "/motorcycles/yamaha/nmax-turbo", destination: "/motorcycles/yamaha/nmax-v3", permanent: true },
+      { source: "/motorcycles/honda/wave-110", destination: "/motorcycles/honda/wave-rsx", permanent: true },
+      { source: "/motorcycles/honda/wave110", destination: "/motorcycles/honda/wave-rsx", permanent: true },
+      { source: "/motorcycles/honda/nx500-e-clutch", destination: "/motorcycles/honda/nx500", permanent: true },
       // Consolidate helmet-type aliases into the canonical helmet authority page.
       { source: "/gear/helmets/open-face", destination: "/gear/helmets#open-face", permanent: true },
       { source: "/gear/helmets/adventure", destination: "/gear/helmets#adventure", permanent: true },

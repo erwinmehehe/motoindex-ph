@@ -39,14 +39,6 @@ export const phCoverageExpansion2026: Motorcycle[] = [
     summary: "135cc compact street bike with 13 hp, 10.8 Nm, a 780 mm seat, 121 kg kerb weight and 12-inch tyres."
   },
   {
-    id: "benelli-302s", make: "Benelli", makeSlug: "benelli", model: "302S", slug: "302s", generation: "2026 Philippine listing", category: "Naked street bike",
-    srp: 222800, engineCc: 300, powerHp: 38, torqueNm: 25.6, curbWeightKg: 185, seatHeightMm: 795, fuelTankL: 16, groundClearanceMm: 175,
-    frontTire: "120/70 ZR17", rearTire: "160/60 ZR17", abs: "ABS", colors: [], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Current Philippine Benelli 302S price and specification reference", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/benelli/302-s/specifications", verifiedAt, freshness: "verified", marketStatus: "current", transmission: "Manual",
-    marketPriceSourceLabel: "Current Philippine 2026 price reference", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/benelli/302-s", marketPriceCheckedAt: verifiedAt,
-    summary: "300cc parallel-twin naked motorcycle with 38 hp, 25.6 Nm, a 795 mm seat, 185 kg kerb weight, 16 L tank and ABS."
-  },
-  {
     id: "aprilia-tuareg-660", make: "Aprilia", makeSlug: "aprilia", model: "Tuareg 660", slug: "tuareg-660", generation: "2026 Philippine listing", category: "Adventure touring",
     srp: 750000, engineCc: 659, powerHp: 80, torqueNm: 70, curbWeightKg: 204, seatHeightMm: 860, fuelTankL: 18,
     frontTire: "90/90-21", rearTire: "150/70 R18", abs: "Multi-map dual-channel ABS with traction control and four riding modes", colors: ["Acid Gold", "Indaco Tagelmust", "Martian Red"], searchVolume: 0, keywordDifficulty: 0,

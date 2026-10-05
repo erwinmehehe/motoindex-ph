@@ -694,12 +694,12 @@ export const motorcycles: Motorcycle[] = [
     summary: "149cc six-speed underbone with a 795 mm seat and ABS available on higher variants."
   },
   {
-    id: "honda-wave-rsx", make: "Honda", makeSlug: "honda", model: "Wave RSX", slug: "wave-rsx", generation: "Current", category: "Underbone",
+    id: "honda-wave-rsx", alsoKnownAs: ["Honda Wave 110", "Wave 110", "Wave110", "Honda Wave RSX 110"], make: "Honda", makeSlug: "honda", model: "Wave RSX", slug: "wave-rsx", generation: "Current", category: "Underbone",
     marketStatus: "current",
     srp: 62900, engineCc: 109, powerHp: 8.6, torqueNm: 8.7, curbWeightKg: 98, seatHeightMm: 760, fuelTankL: 4.0, fuelConsumptionKmL: 69.5, groundClearanceMm: 135,
-    frontTire: "70/90-17", rearTire: "80/90-17", abs: "No ABS; brake equipment varies by Drum/Disc variant", colors: [], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Independent PH 2026 Wave RSX price and specification page", sourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/wave-rsx/specifications", verifiedAt: "2026-08-25", freshness: "verified",
-    marketPriceHighPhp: 64900, marketPriceSourceLabel: "Philippine comparison site", marketPriceSourceUrl: "https://www.zigwheels.ph/new-motorcycles/honda/wave-rsx", marketPriceCheckedAt: "2026-09-30", transmission: "Manual",
+    frontTire: "70/90-17", rearTire: "80/90-17", abs: "No ABS; brake equipment varies by Drum/Disc variant", colors: ["Infinity Red", "Poseidon Black Metallic", "Pearl Iceberg White", "Matte Galaxy Black Metallic"], searchVolume: 2500, keywordDifficulty: 2,
+    sourceLabel: "Honda Philippines current Wave RSX catalog and official specification", sourceUrl: "https://www.hondaph.com/motor/wave-rsx-disc", verifiedAt: "2026-10-04", freshness: "verified",
+    marketPriceHighPhp: 64900, marketPriceSourceLabel: "Wheeltek current Wave RSX Drum and Disc listings", marketPriceSourceUrl: "https://wheeltek.com.ph/products/regular-bikes/", marketPriceCheckedAt: "2026-10-04", priceContext: "Honda Philippines currently lists the Wave RSX in its product catalog. Wheeltek lists the Drum at ₱62,900 and Disc at ₱64,900; confirm the exact branch quote before purchase.", transmission: "Manual",
     summary: "109cc underbone with a 760 mm seat, light curb weight and published fuel-economy data."
   },
   {
@@ -787,21 +787,6 @@ export const motorcycles: Motorcycle[] = [
     summary: "292cc maxi-scooter with a 13 L fuel tank, ABS and 15/14-inch wheels."
   },
   {
-    id: "suzuki-avenis", make: "Suzuki", makeSlug: "suzuki", model: "Avenis", slug: "avenis", generation: "Current", category: "Sport scooter",
-    srp: 81400, engineCc: 124, powerHp: 8.58, torqueNm: 10, curbWeightKg: 106, seatHeightMm: 780, fuelTankL: 5.2, fuelConsumptionKmL: 54, groundClearanceMm: 160,
-    frontTire: "90/90-12", rearTire: "90/100-10", abs: "No ABS; front disc with combined brake system", colors: ["Metallic Matte Stellar Blue", "Metallic Matte Black", "Pearl Brilliant White"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Suzuki Motorcycles Philippines current Avenis product page", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/avenis/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current", transmission: "Automatic",
-    summary: "124cc automatic scooter with a 780 mm seat, combined braking and Suzuki's published 54 km/L test figure."
-  },
-  {
-    id: "suzuki-smash-fi", alsoKnownAs: ["Suzuki Smash 115", "Smash 115"], make: "Suzuki", makeSlug: "suzuki", model: "Smash FI", slug: "smash-fi", generation: "Current", category: "Underbone",
-    srp: 68400, engineCc: 113, powerHp: 9.25, torqueNm: 9.1, curbWeightKg: 94, seatHeightMm: 755, fuelTankL: 3.7, fuelConsumptionKmL: 68, groundClearanceMm: 145,
-    frontTire: "70/90-17", rearTire: "80/90-17", abs: "No ABS; brake equipment differs by configuration", colors: ["Candy Summer Red", "New Titan Black", "Metallic Matte Blue"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Suzuki Motorcycles Philippines current Smash FI product page", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/underbone/smash-fi/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current",
-    priceContext: "Current manufacturer pricing spans model configurations from ₱68,400 to ₱73,400. Trim prices are kept together on one model page.", marketPriceHighPhp: 73400, transmission: "Manual",
-    summary: "113cc fuel-injected underbone with a 755 mm seat and a manufacturer-published 68 km/L test figure."
-  },
-  {
     id: "suzuki-raider-j-crossover", make: "Suzuki", makeSlug: "suzuki", model: "Raider J Crossover", slug: "raider-j-crossover", generation: "Current", category: "Dual-purpose underbone",
     srp: 71900, engineCc: 113, powerHp: 9.12, torqueNm: 9, curbWeightKg: 96, seatHeightMm: 765, fuelTankL: 3.7, fuelConsumptionKmL: 52.6, groundClearanceMm: 145,
     frontTire: "70/90-17", rearTire: "80/90-17", abs: "No ABS; front disc and rear drum", colors: ["Champion Yellow", "Flame Red", "Solid Black"], searchVolume: 0, keywordDifficulty: 0,
@@ -816,32 +801,11 @@ export const motorcycles: Motorcycle[] = [
     summary: "147cc six-speed underbone with front ABS and a manufacturer-published 43.4 km/L test figure."
   },
   {
-    id: "suzuki-gixxer-155", make: "Suzuki", makeSlug: "suzuki", model: "Gixxer 155", slug: "gixxer-155", generation: "Current", category: "Naked street bike",
-    srp: 106400, engineCc: 155, powerHp: 13.94, torqueNm: 14, curbWeightKg: 140, seatHeightMm: 795, fuelTankL: 12, fuelConsumptionKmL: 53.3, groundClearanceMm: 160,
-    frontTire: "100/80-17", rearTire: "140/60R17", abs: "No ABS; front and rear disc brakes", colors: ["Metallic Triton Blue", "Glass Sparkle Black", "Pearl Mira Red"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Suzuki Motorcycles Philippines current Gixxer 155 product page", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/gixxer-155/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current", transmission: "Manual",
-    summary: "155cc naked street bike with a 12 L tank, 795 mm seat and manufacturer-published 53.3 km/L test figure."
-  },
-  {
-    id: "suzuki-gixxer-sf-155", make: "Suzuki", makeSlug: "suzuki", model: "Gixxer SF 155", slug: "gixxer-sf-155", generation: "Current", category: "Sport bike",
-    srp: 116900, engineCc: 155, powerHp: 13.94, torqueNm: 14, curbWeightKg: 146, seatHeightMm: 795, fuelTankL: 12, fuelConsumptionKmL: 50.2, groundClearanceMm: 165,
-    frontTire: "100/80-17", rearTire: "140/60R17", abs: "No ABS; front and rear disc brakes", colors: ["Metallic Triton Blue", "Glass Sparkle Black", "Pearl Mira Red"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Suzuki Motorcycles Philippines current Gixxer SF 155 product page", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/gixxer-sf-155/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current", transmission: "Manual",
-    summary: "155cc full-faired road bike with a 12 L tank and a published 50.2 km/L test figure."
-  },
-  {
     id: "suzuki-gixxer-250", make: "Suzuki", makeSlug: "suzuki", model: "Gixxer 250", slug: "gixxer-250", generation: "Current", category: "Naked street bike",
     srp: 182900, engineCc: 249, powerHp: 26.13, torqueNm: 22.6, curbWeightKg: 156, seatHeightMm: 800, fuelTankL: 12, fuelConsumptionKmL: 37, groundClearanceMm: 165,
     frontTire: "110/70-17", rearTire: "150/60R17", abs: "Dual-channel ABS", colors: ["Metallic Triton Blue", "Matte Black"], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Suzuki Motorcycles Philippines current Gixxer 250 product page", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/gixxer-250/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current", transmission: "Manual",
     summary: "249cc naked street bike with dual-channel ABS, 17-inch road tires and a 12 L fuel tank."
-  },
-  {
-    id: "suzuki-gixxer-sf250", make: "Suzuki", makeSlug: "suzuki", model: "Gixxer SF250", slug: "gixxer-sf250", generation: "Current", category: "Sport bike",
-    srp: 192900, engineCc: 249, powerHp: 26.13, torqueNm: 22.6, curbWeightKg: 161, seatHeightMm: 800, fuelTankL: 12, fuelConsumptionKmL: 36.6, groundClearanceMm: 165,
-    frontTire: "110/70-17", rearTire: "150/60R17", abs: "Dual-channel ABS", colors: ["Metallic Triton Blue and Glacier White", "Matte Black"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Suzuki Motorcycles Philippines current Gixxer SF250 product page", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/backbone/gixxer-sf-250/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current", transmission: "Manual",
-    summary: "249cc full-faired sport bike with dual-channel ABS, a 12 L tank and a manufacturer-published 36.6 km/L test figure."
   },
   {
     id: "suzuki-v-strom-250-sx", make: "Suzuki", makeSlug: "suzuki", model: "V-Strom 250 SX", slug: "v-strom-250-sx", generation: "Current", category: "Adventure touring",
@@ -884,13 +848,6 @@ export const motorcycles: Motorcycle[] = [
     frontTire: "90/90-12", rearTire: "90/90-10", abs: "No ABS; combined braking system", colors: ["Candy Summer Red", "New Titan Black", "Pearl Mirage White", "Metallic Matte Titanium Silver"], searchVolume: 0, keywordDifficulty: 0,
     sourceLabel: "Suzuki Motorcycles Philippines current Burgman Street product page", sourceUrl: "https://mc.suzuki.com.ph/motorcycles/scooter/burgman-street/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current", transmission: "Automatic",
     summary: "124cc maxi-style commuter scooter with a 5.5 L tank and a manufacturer-published 54.9 km/L test figure."
-  },
-  {
-    id: "kawasaki-klx150", make: "Kawasaki", makeSlug: "kawasaki", model: "KLX150", slug: "klx150", generation: "Current", category: "Dual-sport",
-    srp: 134900, engineCc: 144, powerHp: 11.53, torqueNm: 11.3, curbWeightKg: 119, seatHeightMm: 866, fuelTankL: 6.9,
-    frontTire: "2.75-21", rearTire: "4.10-18", abs: "No ABS; off-road-oriented brake package", colors: ["Lime Green"], searchVolume: 0, keywordDifficulty: 0,
-    sourceLabel: "Kawasaki Philippines current KLX150 model, price and chassis reference", sourceUrl: "https://kawasakileisurebikes.ph/motorcycles/dual-purpose/klx150/", verifiedAt: "2026-08-25", freshness: "verified", marketStatus: "current", transmission: "Manual",
-    summary: "144cc dual-sport with 21/18-inch wheels and a published 119 kg curb weight."
   },
   {
     id: "kawasaki-klx230", make: "Kawasaki", makeSlug: "kawasaki", model: "KLX 230", slug: "klx230", generation: "Current", category: "Dual-sport",
@@ -947,39 +904,6 @@ export const motorcycles: Motorcycle[] = [
     priceContext: "The 2026 Lexi 155 is a current Philippine model at ₱99,900. Confirm the exact color, stock and final dealer quote before purchase.",
     transmission: "Automatic",
     summary: "155cc automatic scooter launched in the Philippines for 2026 with a 770 mm seat, 116 kg curb weight and introductory ₱99,900 SRP."
-  },
-  {
-    id: "suzuki-burgman-400",
-    make: "Suzuki",
-    makeSlug: "suzuki",
-    model: "Burgman 400",
-    slug: "burgman-400",
-    generation: "Current Philippine model",
-    marketStatus: "current",
-    category: "Maxi scooter",
-    srp: 566000,
-    engineCc: 400,
-    powerHp: 30.0,
-    torqueNm: 35,
-    curbWeightKg: 218,
-    seatHeightMm: 755,
-    fuelTankL: 13.5,
-    groundClearanceMm: 125,
-    frontTire: "120/70-15",
-    rearTire: "150/70-13",
-    abs: "Suzuki Antilock Braking System (ABS)",
-    colors: ["Metallic Matte Sword Silver"],
-    searchVolume: 0,
-    keywordDifficulty: 0,
-    sourceLabel: "Suzuki Motorcycles Philippines current Burgman 400 price and specification page",
-    sourceUrl: "https://mc.suzuki.com.ph/motorcycles/big-bike/burgman-400/",
-    verifiedAt: "2026-09-08",
-    freshness: "verified",
-    marketPriceSourceLabel: "Suzuki Motorcycles Philippines",
-    marketPriceSourceUrl: "https://mc.suzuki.com.ph/motorcycles/big-bike/burgman-400/",
-    marketPriceCheckedAt: "2026-09-08",
-    transmission: "Automatic",
-    summary: "400cc maxi scooter with a 755 mm seat, 218 kg curb mass, 13.5 L tank, traction control and standard ABS."
   },
   {
     id: "honda-airblade-160",
@@ -1051,41 +975,6 @@ export const motorcycles: Motorcycle[] = [
     priceContext: "Current detailed Philippine dealer listing is ₱299,000. Some older dealer archive indexes still surface ₱294,000, so use the current detailed listing as the reference and confirm the branch quote.",
     transmission: "Manual",
     summary: "321cc twin-cylinder sport motorcycle with 41.4 hp, a 780 mm seat, 169 kg curb weight, six-speed transmission and ABS."
-  },
-  {
-    id: "honda-nx500-e-clutch",
-    alsoKnownAs: ["Honda NX500", "NX500"],
-    make: "Honda",
-    makeSlug: "honda",
-    model: "NX500 E-Clutch",
-    slug: "nx500-e-clutch",
-    generation: "2026 Philippine model",
-    marketStatus: "current",
-    category: "Adventure touring",
-    srp: 420000,
-    engineCc: 471,
-    powerHp: 46.9,
-    torqueNm: 43,
-    curbWeightKg: 199,
-    seatHeightMm: 830,
-    fuelTankL: 17.5,
-    groundClearanceMm: 180,
-    frontTire: "110/80-19",
-    rearTire: "160/60-17",
-    abs: "2-channel ABS",
-    colors: ["Pearl Horizon Black", "Matte Gunpowder Black Metallic"],
-    searchVolume: 0,
-    keywordDifficulty: 0,
-    sourceLabel: "Honda Philippines current Big Bike catalog and 2026 NX500 E-Clutch launch",
-    sourceUrl: "https://www.hondaph.com/big-bike/list",
-    verifiedAt: "2026-09-20",
-    freshness: "verified",
-    marketPriceSourceLabel: "Honda Philippines",
-    marketPriceSourceUrl: "https://www.hondaph.com/big-bike/list",
-    marketPriceCheckedAt: "2026-09-20",
-    priceContext: "Honda Philippines currently lists the NX500 E-Clutch at ₱420,000. Confirm final dealer stock and quote before purchase.",
-    transmission: "Manual",
-    summary: "471cc adventure motorcycle with Honda E-Clutch, a 5-inch TFT display and current ₱420,000 Philippine SRP."
   },
   {
     id: "honda-xl750-transalp",
