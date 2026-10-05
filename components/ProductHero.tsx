@@ -11,10 +11,11 @@ type Props = {
   facts: ProductFact[];
   trust: ReactNode;
   actions?: ReactNode;
+  presentation?: "default" | "review";
 };
 
-export function ProductHero({ media, eyebrow, title, description, price, priceNote, facts, trust, actions }: Props) {
-  return <div className="product-detail-hero">
+export function ProductHero({ media, eyebrow, title, description, price, priceNote, facts, trust, actions, presentation = "default" }: Props) {
+  return <><div className={`product-detail-hero${presentation === "review" ? " helmet-review-hero" : ""}`}>
     <div className="product-detail-media">{media}</div>
     <div className="product-detail-summary">
       {eyebrow && <div className="product-detail-eyebrow">{eyebrow}</div>}
@@ -25,8 +26,8 @@ export function ProductHero({ media, eyebrow, title, description, price, priceNo
         {priceNote && <small>{priceNote}</small>}
       </div>}
       {actions && <div className="product-detail-actions">{actions}</div>}
-      <ProductFactsGrid facts={facts} />
+      {presentation !== "review" && <ProductFactsGrid facts={facts} />}
       {trust}
     </div>
-  </div>;
+  </div>{presentation === "review" && <ProductFactsGrid facts={facts} />}</>;
 }

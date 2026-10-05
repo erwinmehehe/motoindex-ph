@@ -67,6 +67,7 @@ export function HelmetCatalogModelPage({ item }: { item: HelmetCatalogModel }) {
     ]} />
 
     <ProductHero
+      presentation="review"
       media={<div className="entity-media"><EntityVerificationFallback brand={brandName} model={item.model} kind="helmet" className="product-hero-card" /></div>}
       eyebrow={<><span className="product-type-pill">Helmet</span><span className="product-status-pill research">Catalog reference</span></>}
       title={<>{brandName} {item.model}</>}
