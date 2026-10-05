@@ -1422,7 +1422,9 @@ export const comparisons: Comparison[] = [
   { slug: "tmax-vs-xmax", a: "yamaha-tmax", b: "yamaha-xmax", summary: "Yamaha maxi scooters compared by price, displacement, power, weight, seat height, fuel tank and road-touring specifications" },
   { slug: "z900-vs-cb650r", a: "kawasaki-z900", b: "honda-cb650r", summary: "Japanese inline-four naked bikes compared by Philippine price, output, weight, seat height, tank capacity and braking equipment" },
   { slug: "rs125-vs-smash-fi", a: "honda-rs125", b: "suzuki-smash-fi", summary: "Current Philippine underbones compared by price, engine output, weight, seat height, fuel economy, transmission and braking" },
-  { slug: "z900-vs-z900-se", a: "kawasaki-z900", b: "kawasaki-z900-se", summary: "Kawasaki Z900 Standard and Z900 SE compared by Philippine price, weight, braking hardware, suspension and shared 948cc performance" }
+  { slug: "z900-vs-z900-se", a: "kawasaki-z900", b: "kawasaki-z900-se", summary: "Kawasaki Z900 Standard and Z900 SE compared by Philippine price, weight, braking hardware, suspension and shared 948cc performance" },
+  { slug: "xsr155-vs-hunter-350", a: "yamaha-xsr155", b: "royal-enfield-hunter-350", summary: "Yamaha XSR155 and Royal Enfield Hunter 350 compared by Philippine price, engine character, weight, seat height, fuel capacity and everyday road use" },
+  { slug: "shotgun-650-vs-super-meteor-650", a: "royal-enfield-shotgun-650", b: "royal-enfield-super-meteor-650", summary: "Royal Enfield 650 twins compared by Philippine price, weight, seat height, fuel capacity, wheel setup and roadster-versus-cruiser ergonomics" }
 ];
 
 
