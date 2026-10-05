@@ -9,6 +9,7 @@ import { getHelmetSeoComparison, getHelmetSeoComparisonSides, helmetSeoCompariso
 import { pageMetadata } from "@/lib/site";
 import { php } from "@/lib/utils";
 import { faqPageSchema } from "@/lib/structuredData";
+import { articleSchema } from "@/lib/articleSchema";
 
 export function generateStaticParams(){
   return helmetSeoComparisons.map(comparison=>({slug:comparison.slug}));
@@ -36,6 +37,14 @@ export default async function HelmetSeoComparisonPage({params}:{params:Promise<{
   const rightPriced=right.map(item=>item.priceFromPhp).filter((value):value is number=>typeof value==="number");
   const leftMin=leftPriced.length?Math.min(...leftPriced):undefined;
   const rightMin=rightPriced.length?Math.min(...rightPriced):undefined;
+  const comparisonArticle=articleSchema({
+    headline:comparison.title,
+    description:comparison.description,
+    path:`/gear/helmets/compare/${comparison.slug}`,
+    about:`${comparison.leftLabel} vs ${comparison.rightLabel} motorcycle helmets`,
+    keywords:[comparison.seoTitle,"motorcycle helmet Philippines"],
+    checkedDates:[...left,...right].map(item=>item.lastChecked)
+  });
 
   return <section className="page shell helmet-brand-comparison-page">
     <Breadcrumbs items={[{label:"Helmets",href:"/gear/helmets"},{label:"Compare",href:"/gear/helmets/compare"},{label:`${comparison.leftLabel} vs ${comparison.rightLabel}`}]} />
@@ -98,6 +107,6 @@ export default async function HelmetSeoComparisonPage({params}:{params:Promise<{
     </section>
 
     <FaqSection title={`${comparison.leftLabel} vs ${comparison.rightLabel} questions`} items={comparison.faqs} />
-    <JsonLd data={faqPageSchema(comparison.faqs)} />
+    <JsonLd data={[comparisonArticle, faqPageSchema(comparison.faqs)]} />
   </section>;
 }
