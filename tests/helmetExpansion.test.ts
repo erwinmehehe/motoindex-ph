@@ -3,6 +3,7 @@ import { getHelmetBrand } from "../lib/data";
 import { getHelmetCategoryProducts, getHelmetProduct, isIndexableHelmetBrand } from "../lib/catalog";
 import { helmetCatalogAliasTarget } from "../lib/helmetBrandLineups";
 import { getHelmetSeoComparison, isIndexableHelmetSeoComparison } from "../lib/helmetSeoComparisons";
+import { getHelmetSeoCollectionProducts, isIndexableHelmetSeoCollection } from "../lib/helmetSeoCollections";
 
 describe("helmet market expansion", () => {
   it("publishes the new Philippine helmet brand hubs", () => {
@@ -53,6 +54,13 @@ describe("helmet market expansion", () => {
     expect(openFace.every(item => item.helmetType === "Open face" || item.helmetType === "Hybrid")).toBe(true);
     expect(adventure.every(item => item.helmetType === "Adventure")).toBe(true);
     expect(offRoad.every(item => item.helmetType === "Off-road")).toBe(true);
+  });
+
+  it("publishes the curated helmet collection intents", () => {
+    for (const slug of ["under-3000", "under-5000", "ece-22-06", "intercom-ready", "for-commuting"] as const) {
+      expect(getHelmetSeoCollectionProducts(slug).length).toBeGreaterThanOrEqual(3);
+      expect(isIndexableHelmetSeoCollection(slug)).toBe(true);
+    }
   });
 
   it("canonicalizes the EVO Riot II lineup name to the verified product page", () => {
