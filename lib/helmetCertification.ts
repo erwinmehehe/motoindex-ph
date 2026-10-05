@@ -11,6 +11,20 @@ export type HelmetCertificationEvidence = {
 const checkedAt = "2026-10-05";
 
 const evidenceByProductId: Record<string, HelmetCertificationEvidence> = {
+  "nolan-x-804rs-ultra-carbon": {
+    certification: "UNECE R 22-06",
+    sourceLabel: "Nolan official X-804 RS Ultra Carbon approval",
+    sourceUrl: "https://nolan-helmets.com/en/products/x-804-rs-ultra-carbon-pure-black",
+    checkedAt,
+    note: "Nolan explicitly lists UNECE R 22-06 approval for the X-804 RS Ultra Carbon on its current official product page.",
+  },
+  "nolan-x-552-ultra-carbon": {
+    certification: "ECE 22.06 / P homologation",
+    sourceLabel: "Motoblouz exact X-552 Ultra Carbon certification listing",
+    sourceUrl: "https://www.motoblouz.es/casco-integral-nolan-x-552-ultra-carbon-triplonero-265920-v.html",
+    checkedAt,
+    note: "The current exact-model specialist retailer listing states ECE 22.06 homologation for the Nolan X-552 Ultra Carbon; Nolan continues to publish current technical sheets for this model.",
+  },
   "evo-gt-sport": {
     certification: "ECE certified / ICC certified",
     sourceLabel: "EVO Helmets official GT-Sport certification",
