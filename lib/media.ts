@@ -95,7 +95,7 @@ export const entityMedia: EntityMedia[] = [
   {
     id: "evo-gt-sport-source-20261005", entityType: "helmet", entityId: "evo-gt-sport", role: "primary",
     src: "/media/helmets/evo-gt-sport.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2025/08/GT-SPORTS-M.Black-3-768x768.jpg", alt: "EVO GT-Sport full-face motorcycle helmet in matte black", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "Manufacturer exact-model image · EVO GT-Sport", sourceUrl: "https://evohelmet.com/product/gt-sport-mono-colors/", lastChecked: "2026-10-05"
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "Manufacturer exact-model image · EVO GT-Sport", sourceUrl: "https://leksmotogears.com/product/evo-helmet-full-face-gt-sport-mono-matte-turquoise-blue/", lastChecked: "2026-10-05"
   },
   {
     id: "evo-xt-300-riot-ii-source-20261005", entityType: "helmet", entityId: "evo-xt-300-riot-ii", role: "primary",
@@ -110,7 +110,7 @@ export const entityMedia: EntityMedia[] = [
   {
     id: "evo-dx-7-source-20261005", entityType: "helmet", entityId: "evo-dx-7", role: "primary",
     src: "/media/helmets/evo-dx-7.webp", sourceImageUrl: "https://evohelmet.com/wp-content/uploads/2021/01/DX7-PLAIN-MATTE-BLACK-768x768.jpg", alt: "EVO DX-7 dual-sport motorcycle helmet in matte black", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "Manufacturer exact-model image · EVO DX-7", sourceUrl: "https://evohelmet.com/product/dx-7-dual-sports-mono-colors/", lastChecked: "2026-10-05"
+    rightsStatus: "external-reference", rightsHolder: "EVO Helmets", sourceLabel: "Manufacturer exact-model image · EVO DX-7", sourceUrl: "https://shopee.ph/EVO-DX-7-MONO-DUAL-VISOR-DUAL-SPORT-HELMET-W-FREE-CLEAR-LENS-i.53706460.24257565686", lastChecked: "2026-10-05"
   },
   {
     id: "sec-windstorm-v3-source-20261005", entityType: "helmet", entityId: "sec-windstorm-v3", role: "primary",
