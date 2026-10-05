@@ -145,7 +145,7 @@ a,button{transition:color .2s ease,background .2s ease,border-color .2s ease,box
 .footer-intro-actions a:first-child{
   background:var(--mi-control-fill);
   border:1px solid rgba(68,76,231,.86)!important;
-  color:#fff!important;
+  color:var(--mi-color-surface);
   box-shadow:0 14px 32px rgba(68,76,231,.24)!important;
 }
 .button:not(.ghost):hover,.mi-btn.dark:hover,.mi-btn.red:hover,.mi-search button:hover,

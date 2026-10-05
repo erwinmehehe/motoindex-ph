@@ -153,3 +153,7 @@ body:has(.reviewed-design){--mi-control-fill:var(--reviewed-blue)}
 .reviewed-helmet-card>strong{font-size:17px;color:var(--reviewed-blue)}
 @media(max-width:760px){.reviewed-helmet-filters{grid-template-columns:1fr 1fr}.reviewed-helmet-filters input{grid-column:1/-1}.reviewed-helmet-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.reviewed-helmet-card{padding:10px}.reviewed-helmet-card>div{height:150px}.reviewed-helmet-card>h2{font-size:14px}}
 @media(max-width:380px){.reviewed-helmet-grid{grid-template-columns:1fr}}
+
+.reviewed-catalog-hero .ui-page-hero{max-width:none;width:100%}
+.reviewed-catalog-art{mix-blend-mode:multiply}
+.reviewed-catalog-hero h1{font-size:clamp(30px,3.2vw,44px)}

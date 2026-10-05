@@ -93,7 +93,7 @@ export default function ScootersPage() {
   return <main className="page">
     <div className="shell">
       <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: "Scooters" }]} />
-      <div className="reviewed-catalog-hero"><ReviewedCatalogArt entityId="yamaha-nmax-155" /><PageHero
+      <div className="reviewed-catalog-hero"><ReviewedCatalogArt entityId="yamaha-nmax-v3" /><PageHero
         kicker="Philippines scooter price guide"
         title="Scooter prices in the Philippines"
         description="Compare current scooter prices, models and specifications in the Philippines for 2026. Start with the full price list, then narrow by 125cc, 150cc-class, exact 155cc, 160cc, brand, budget or rider need."
