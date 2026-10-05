@@ -13,6 +13,7 @@ export function HelmetSeoCollectionPage({ slug }: { slug: HelmetSeoCollectionSlu
   const collection = getHelmetSeoCollection(slug);
   if (!collection) return null;
   const products = getHelmetSeoCollectionProducts(slug);
+  const visibleProducts = products.slice(0, 48);
   const brands = [...new Set(products.map((product) => product.brand))];
   const prices = products.map((product) => product.priceFromPhp).filter((value): value is number => typeof value === "number");
   const minPrice = prices.length ? Math.min(...prices) : undefined;
@@ -68,7 +69,7 @@ export function HelmetSeoCollectionPage({ slug }: { slug: HelmetSeoCollectionSlu
 
     {products.length > 0 ? <>
       <div className="section-head inline-head"><div><h2>Helmets to compare</h2><p>Open a model for its dated price source, sizing, visor, shell and certification notes.</p></div><Link href="/gear/helmets/compare">Compare helmets →</Link></div>
-      <div className="product-grid">{products.map((product) => <ProductCard key={product.id} item={{
+      <div className="product-grid">{visibleProducts.map((product) => <ProductCard key={product.id} item={{
         entityId: product.id,
         href: `/gear/helmets/${product.brandSlug}/${product.slug}`,
         category: product.helmetType,
@@ -78,6 +79,7 @@ export function HelmetSeoCollectionPage({ slug }: { slug: HelmetSeoCollectionSlu
         status: product.status,
         priceFromPhp: product.priceFromPhp
       }} />)}</div>
+      {products.length > visibleProducts.length && <p className="helmet-master-note">Showing {visibleProducts.length} of {products.length} verified models. <Link href="/gear/helmets/finder">Use Helmet Finder for the full catalog →</Link></p>}
     </> : <div className="empty-state large"><h2>No models meet this filter yet</h2><p>MotoIndex will not fill a collection with unverified product records just to make the page look larger.</p></div>}
 
     <div className="split section">
