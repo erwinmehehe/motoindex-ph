@@ -1275,7 +1275,8 @@ export const helmetBrands: HelmetBrand[] = [
   { brand: "LS2", slug: "ls2", searchVolume: 2700, keywordDifficulty: 28, positioning: "Broad road, modular, adventure and off-road helmet range with strong Philippine retail availability" },
   { brand: "NHK", slug: "nhk", searchVolume: 700, keywordDifficulty: 43, positioning: "Race, street, modular and open-face helmets with a broad Asian-market catalogue" },
   { brand: "SMK", slug: "smk", searchVolume: 500, keywordDifficulty: 0, positioning: "Full-face, modular, flip-back, off-road and open-face helmets" },
-  { brand: "Alpinestars", slug: "alpinestars", searchVolume: 400, keywordDifficulty: 0, positioning: "Premium road-racing and motocross helmets" }
+  { brand: "Alpinestars", slug: "alpinestars", searchVolume: 400, keywordDifficulty: 0, positioning: "Premium road-racing and motocross helmets" },
+  { brand: "O'Neal", slug: "oneal", searchVolume: 0, keywordDifficulty: 0, positioning: "Motocross and off-road helmets with Philippine retail availability" }
 ];
 
 export const comparisons: Comparison[] = [
