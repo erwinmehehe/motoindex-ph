@@ -33,6 +33,13 @@ describe("helmet market expansion", () => {
       ["oneal", "2srs"],
       ["oneal", "3srs"],
       ["oneal", "3srs-ii"],
+      ["gille", "astral"],
+      ["gille", "astral-pro"],
+      ["evo", "gsx3000-v2"],
+      ["sec", "surge"],
+      ["sec", "dynasty"],
+      ["sec", "sportgrade-v2"],
+      ["sec", "ace"],
     ] as const) {
       expect(getHelmetProduct(brand, slug)?.status).toBe("verified");
     }
@@ -74,7 +81,9 @@ describe("helmet market expansion", () => {
       "ryo-rf-4sv","ryo-rf-5v","ryo-rf-6v","ryo-ro-4sv",
       "evo-vxr-5000","evo-gt-sport","evo-xt-300-riot-ii","evo-gx-1","evo-dx-7",
       "sec-windstorm-v3","sec-whirlwind","sec-rise-v2","sec-element",
-      "oneal-2srs","oneal-3srs","oneal-3srs-ii"
+      "oneal-2srs","oneal-3srs","oneal-3srs-ii",
+      "gille-astral","gille-astral-pro","evo-gsx3000-v2",
+      "sec-surge","sec-dynasty","sec-sportgrade-v2","sec-ace"
     ]) {
       expect(hasRenderableProductMedia(id)).toBe(true);
     }
@@ -142,6 +151,7 @@ describe("helmet market expansion", () => {
 
   it("canonicalizes the EVO Riot II lineup name to the verified product page", () => {
     expect(helmetCatalogAliasTarget("evo", "riot-ii-xt-300")).toBe("xt-300-riot-ii");
+    expect(helmetCatalogAliasTarget("sec", "sportgrade")).toBe("sportgrade-v2");
   });
 
   it("publishes the new brand comparison intents", () => {
