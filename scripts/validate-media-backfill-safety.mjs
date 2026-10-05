@@ -54,8 +54,11 @@ if (!workflow.includes("Run Product Image Backfill from a dedicated media/* or f
 if (!coverageWorkflow.includes("lib/catalog.ts")) {
   errors.push("media coverage audit must trigger when the product catalog changes");
 }
-if (!coverageWorkflow.includes("MEDIA_COVERAGE_STRICT=1 node scripts/audit-product-media-coverage.mjs")) {
-  errors.push("media coverage audit must fail when a verified catalog product has no exact media");
+if (!coverageWorkflow.includes("scripts/validate-new-product-media.mjs")) {
+  errors.push("media coverage audit must rerun when the new-product media validator changes");
+}
+if (!coverageWorkflow.includes("node scripts/validate-new-product-media.mjs")) {
+  errors.push("media coverage audit must block newly verified catalog products without exact local media");
 }
 if (!coverageWorkflow.includes("MEDIA_STRICT_LOCAL=1 npm run validate:media")) {
   errors.push("media coverage audit must fail when a standardized local derivative is missing");
