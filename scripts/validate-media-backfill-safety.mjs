@@ -37,6 +37,18 @@ if (backfill.includes("REBUILD_GENERATED_MEDIA")) {
 if (workflow.includes("REBUILD_GENERATED_MEDIA")) {
   errors.push("workflow must not request destructive generated-media rebuilds");
 }
+if (workflow.includes("fix/product-image-coverage")) {
+  errors.push("media backfill workflow must not hardcode the legacy fix/product-image-coverage branch");
+}
+if (!workflow.includes("GITHUB_REF_NAME")) {
+  errors.push("media backfill workflow must operate on the explicitly selected branch");
+}
+if (!workflow.includes("rev-list --count HEAD..origin/main")) {
+  errors.push("media backfill workflow must refuse branches that are behind main");
+}
+if (!workflow.includes("Run Product Image Backfill from a dedicated media/* or fix/* branch, not main.")) {
+  errors.push("media backfill workflow must refuse direct mutation of main");
+}
 if (!backfill.includes("const generated = previousGenerated.filter(hasLocalAsset)")) {
   errors.push("backfill script must preserve existing generated records with local assets");
 }
