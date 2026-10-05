@@ -101,31 +101,37 @@ export default function HelmetsPage(){
     <InfoPanel className="helmet-master-intro">
       <SectionHeader kicker="Start here" title="Choose the helmet by fit and riding use first" description="A helmet category is only the starting point. The exact fit, conformity marking, visor system, ventilation, weight and replacement-parts availability decide whether a model works for you day to day." />
       <div className="ui-content-grid topic-grid">
-        <article className="ui-content-card"><h3>Full-face</h3><p>A fixed chin bar gives the most complete coverage among the common road formats. Good for riders prioritizing coverage, weather protection and highway use.</p><a href="#full-face">See full-face models →</a></article>
-        <article className="ui-content-card"><h3>Modular</h3><p>A flip-up chin bar is convenient at stops and checkpoints but usually adds weight and mechanical complexity.</p><a href="#modular">See modular models →</a></article>
-        <article className="ui-content-card"><h3>Open-face</h3><p>More airflow and easier communication in city use, while the chin and jaw remain more exposed than in a full-face helmet.</p><a href="#open-face">See open-face models →</a></article>
-        <article className="ui-content-card"><h3>Fit before graphics</h3><p>Measure your head and use the exact model chart. A helmet that looks right but moves excessively or creates a pressure hotspot is the wrong choice.</p><Link href="/guides/motorcycle-helmet-size-guide">Helmet size guide →</Link></article>
+        <article className="ui-content-card"><h3>Full-face</h3><p>A fixed chin bar gives the most complete coverage among common road formats, with model-level differences in ventilation, weight and visor systems.</p><Link href="/gear/helmets/full-face">Full-face helmet guide →</Link></article>
+        <article className="ui-content-card"><h3>Modular</h3><p>A flip-up chin bar is convenient at stops and checkpoints but usually adds weight and mechanical complexity.</p><Link href="/gear/helmets/modular">Modular helmet guide →</Link></article>
+        <article className="ui-content-card"><h3>Open-face</h3><p>Open-face and jet helmets favor airflow and city visibility while leaving the chin and jaw more exposed.</p><Link href="/gear/helmets/open-face">Open-face helmet guide →</Link></article>
+        <article className="ui-content-card"><h3>Half-face</h3><p>True half-face helmets are a smaller, more compact subset and now have their own exact-model comparison page.</p><Link href="/gear/helmets/half-face">Half-face helmet guide →</Link></article>
+        <article className="ui-content-card"><h3>Adventure / dual-sport</h3><p>Road visors, peaks and wider eye ports target riders mixing pavement with rougher surfaces.</p><Link href="/gear/helmets/adventure">Adventure helmet guide →</Link></article>
+        <article className="ui-content-card"><h3>Motocross / off-road</h3><p>Large eye ports, goggles, peaks and high airflow separate off-road helmets from sealed road full-face designs.</p><Link href="/gear/helmets/off-road">Off-road helmet guide →</Link></article>
       </div>
     </InfoPanel>
 
     <section id="full-face" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Helmet type" title="Full-face motorcycle helmets" description="Fixed-chin-bar helmets for commuting, touring and sport riding. Compare fit, visor setup, ventilation, shell construction and certification on the exact model." aside={<Count value={fullFace.length}/>} />
       <HelmetProductGrid products={fullFace} />
+      <p className="helmet-master-note"><Link href="/gear/helmets/full-face">Open the full-face helmet price and model guide →</Link></p>
     </section>
 
     <section id="modular" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Helmet type" title="Modular and flip-up motorcycle helmets" description="Useful for riders who want a chin bar that can open at stops. Check P/J homologation where claimed, hinge operation, weight and intercom clearance." aside={<Count value={modular.length}/>} />
       <HelmetProductGrid products={modular} />
+      <p className="helmet-master-note"><Link href="/gear/helmets/modular">Open the modular helmet price and model guide →</Link></p>
     </section>
 
     <section id="open-face" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Helmet type" title="Open-face and half-face motorcycle helmets" description="City-focused choices with more airflow and facial openness. Compare visor coverage, sun visor, fit and local conformity marking before buying." aside={<Count value={openFace.length}/>} />
       <HelmetProductGrid products={openFace} />
+      <p className="helmet-master-note"><Link href="/gear/helmets/open-face">Open the open-face guide →</Link> · <Link href="/gear/helmets/half-face">True half-face helmets →</Link></p>
     </section>
 
     <section id="adventure" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Helmet type" title="Adventure and dual-sport motorcycle helmets" description="Adventure helmets blend road-oriented visor coverage with an extended peak and off-road-inspired shell shape. Compare visor setup, peak stability, ventilation, weight, intercom provision and certification on the exact model." aside={<Count value={adventure.length}/>} />
       <HelmetProductGrid products={adventure} />
+      <p className="helmet-master-note"><Link href="/gear/helmets/adventure">Open the adventure and dual-sport helmet guide →</Link></p>
       <div className="ui-content-grid topic-grid">
         <article className="ui-content-card"><h3>Adventure vs full-face</h3><p>Adventure helmets typically add a peak and wider visual opening. That can help mixed-road use, but it can also add wind load compared with a road-focused full-face helmet.</p></article>
         <article className="ui-content-card"><h3>Dual-sport use</h3><p>Choose by the actual mix of paved and unpaved riding. Check whether the peak is removable, whether goggles fit if needed and how the visor seals in rain.</p></article>
@@ -136,6 +142,7 @@ export default function HelmetsPage(){
     <section id="off-road" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Helmet type" title="Off-road and motocross motorcycle helmets" description="Off-road helmets prioritize airflow, a large eye port and peak protection for trail or motocross use. Compare goggle compatibility, chin-bar clearance, ventilation, shell weight and the exact certification record." aside={<Count value={offRoad.length}/>} />
       <HelmetProductGrid products={offRoad} />
+      <p className="helmet-master-note"><Link href="/gear/helmets/off-road">Open the motocross and off-road helmet guide →</Link></p>
       <div className="ui-content-grid topic-grid">
         <article className="ui-content-card"><h3>Motocross vs road helmet</h3><p>Most off-road helmets are designed around goggles and high airflow rather than a sealed street visor. Do not assume a motocross helmet gives the same rain, wind and noise protection as a road full-face helmet.</p></article>
         <article className="ui-content-card"><h3>Goggle fit matters</h3><p>Check eye-port width, nose clearance and strap position with the exact goggles you plan to use. A poor helmet-and-goggle combination can create gaps or pressure points.</p></article>
