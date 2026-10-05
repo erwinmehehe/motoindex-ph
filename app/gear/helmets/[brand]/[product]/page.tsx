@@ -26,6 +26,7 @@ import { ProductTrustRow } from "@/components/ProductTrustRow";
 import { getRenderableMedia } from "@/lib/renderableMedia";
 import { getVerifiedHelmetSizing } from "@/lib/helmetSizing";
 import { SourceRef } from "@/components/SourceRef";
+import { effectiveHelmetCertification, getVerifiedHelmetCertification } from "@/lib/helmetCertification";
 
 export const revalidate = 3600;
 
@@ -100,6 +101,8 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
   const productMedia = getRenderableMedia("helmet", p.id)[0];
   const verifiedSizing = p.sizeChart?.length ? undefined : getVerifiedHelmetSizing(p);
   const effectiveSizeChart = p.sizeChart?.length ? p.sizeChart : verifiedSizing?.chart;
+  const certificationEvidence = getVerifiedHelmetCertification(p);
+  const certification = effectiveHelmetCertification(p);
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -168,7 +171,8 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
         <div role="row"><span role="cell">Helmet type</span><strong role="cell">{p.helmetType}</strong></div>
         {p.shell && <div role="row"><span role="cell">Shell / material</span><strong role="cell">{p.shell}</strong></div>}
         {p.weightG && <div role="row"><span role="cell">Weight</span><strong role="cell">{p.weightG.toLocaleString("en-PH")} g</strong></div>}
-        {p.certification && <div role="row"><span role="cell">Safety certification</span><strong role="cell">{p.certification}</strong></div>}
+        {certification && <div role="row"><span role="cell">Safety certification</span><strong role="cell">{certification}</strong></div>}
+        {certificationEvidence && <div role="row"><span role="cell">Certification source</span><strong role="cell"><SourceRef url={certificationEvidence.sourceUrl} label={certificationEvidence.sourceLabel} /></strong></div>}
         {p.intercomReady && <div role="row"><span role="cell">Intercom / speaker provision</span><strong role="cell">Listed for this model</strong></div>}
       </div>
     </section>
@@ -224,7 +228,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
 
     <section id="faq" className="product-entity-section"><FaqSection title={`${p.brand} ${p.model} questions`} items={faqs} /></section>
 
-    <div className="note-box"><h2>Philippine helmet check</h2><p>Inspect the conformity marking on the exact helmet offered locally, confirm the fit in your size, and match replacement visors or inserts to the exact model before buying.</p><Link className="text-link" href="/methodology">How MotoIndex checks product information →</Link></div>
+    <div className="note-box"><h2>Philippine helmet check</h2><p>Inspect the conformity marking on the exact helmet offered locally, confirm the fit in your size, and match replacement visors or inserts to the exact model before buying.</p>{certificationEvidence && <p><strong>Certification evidence:</strong> {certificationEvidence.note} Checked {certificationEvidence.checkedAt}.</p>}<p><Link className="text-link" href="/guides/motorcycle-helmet-certification-philippines">Read the Philippine helmet certification guide →</Link></p><Link className="text-link" href="/methodology">How MotoIndex checks product information →</Link></div>
 
     <AuthorBox />
     <RelatedLinks title={`More about ${p.brand} and ${p.helmetType.toLowerCase()} helmets`} links={helmetProductInternalLinks(p)} />
