@@ -39,7 +39,11 @@ if(portal.includes("/dealer-lead/${delivery.deliveryToken}")) failures.push("aut
 const middleware=fs.readFileSync("middleware.ts","utf8");
 if(!middleware.includes('pathname === "/dealer-portal"')) failures.push("dealer portal no-store middleware missing");
 if(!middleware.includes('"X-Robots-Tag", "noindex, follow"')) failures.push("server-side faceted noindex missing");
-if(!middleware.includes('accessMode === "cloudflare"')||!middleware.includes("cf-access-jwt-assertion")) failures.push("Cloudflare Access admin mode missing");
+if(!middleware.includes('accessMode === "cloudflare"')||!middleware.includes("verifyCloudflareAccess")) failures.push("Cloudflare Access admin mode missing");
+const accessVerifier=fs.readFileSync("lib/cloudflareAccess.ts","utf8");
+for(const token of ["cf-access-jwt-assertion","CF_ACCESS_AUD","crypto.subtle.verify","Cloudflare Access issuer mismatch"]) {
+  if(!accessVerifier.includes(token)) failures.push(`Cloudflare Access verifier missing ${token}`);
+}
 const alerts=fs.readFileSync("lib/priceAlerts.ts","utf8");
 if(!alerts.includes("claimed.count!==1")) failures.push("atomic price-alert claim missing");
 if(failures.length){console.error(failures.join("\n"));process.exit(1);}
