@@ -52,7 +52,7 @@ async function accessKeys(teamDomain: string) {
   const cached = jwksCache.get(teamDomain);
   if (cached && cached.expiresAt > now) return cached.keys;
 
-  const response = await fetch(\`https://\${teamDomain}/cdn-cgi/access/certs\`, {
+  const response = await fetch(`https://${teamDomain}/cdn-cgi/access/certs`, {
     headers: { Accept: "application/json" },
     cache: "no-store",
   });
@@ -118,7 +118,7 @@ export async function verifyCloudflareAccess(request: Request) {
     return { ok: false, error: "Cloudflare Access audience mismatch." } as const;
   }
 
-  const expectedIssuer = \`https://\${teamDomain}\`;
+  const expectedIssuer = `https://${teamDomain}`;
   if (!payload.iss || payload.iss.replace(/\/$/, "") !== expectedIssuer) {
     return { ok: false, error: "Cloudflare Access issuer mismatch." } as const;
   }
@@ -142,7 +142,7 @@ export async function verifyCloudflareAccess(request: Request) {
       false,
       ["verify"]
     );
-    const data = new TextEncoder().encode(\`\${parts[0]}.\${parts[1]}\`);
+    const data = new TextEncoder().encode(`${parts[0]}.${parts[1]}`);
     const signature = decodeBase64Url(parts[2]);
     const valid = await crypto.subtle.verify(
       "RSASSA-PKCS1-v1_5",
