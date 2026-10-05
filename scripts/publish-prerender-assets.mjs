@@ -67,7 +67,7 @@ const requiredRoutes = [
   "/",
   "/motorcycles",
   "/motorcycles/yamaha/aerox-v3",
-  "/compare/selection",
+  "/compare",
   "/recommendations",
   "/recommendations/motorcycles-under-100k"
 ];
