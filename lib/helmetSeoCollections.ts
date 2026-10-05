@@ -1,5 +1,6 @@
 import { helmetProducts } from "@/lib/catalog";
 import type { HelmetProduct } from "@/lib/types";
+import { effectiveHelmetCertification } from "@/lib/helmetCertification";
 
 export type HelmetSeoCollectionSlug =
   | "under-3000"
@@ -72,7 +73,7 @@ export const helmetSeoCollections: HelmetSeoCollection[] = [
     description: "Compare checked motorcycle helmets with ECE 22.06 certification references, plus Philippine PS or ICC marking guidance, prices and helmet types.",
     kicker: "Certification guide",
     intro: "These verified MotoIndex records explicitly reference ECE 22.06 or R22.06 in the checked model data. That certification reference does not replace the Philippine requirement to inspect the PS or ICC conformity marking on the exact unit offered locally.",
-    selectionNote: "Included only when the stored model-level certification text explicitly references ECE 22.06 or R22.06. MotoIndex does not infer certification from a brand name.",
+    selectionNote: "Included only when verified model-level certification evidence explicitly references ECE 22.06 or R22.06. MotoIndex does not infer certification from a brand name.",
     buyingHeading: "ECE 22.06 and Philippine conformity are separate checks",
     buyingCopy: [
       "ECE 22.06 is a model-level homologation reference. For a Philippine purchase, also inspect the actual helmet for the local PS or ICC marking rather than assuming an overseas certification label is enough by itself.",
@@ -136,7 +137,7 @@ export function getHelmetSeoCollectionProducts(slug: HelmetSeoCollectionSlug) {
   let products: HelmetProduct[];
   if (slug === "under-3000") products = verified.filter((product) => typeof product.priceFromPhp === "number" && product.priceFromPhp <= 3000);
   else if (slug === "under-5000") products = verified.filter((product) => typeof product.priceFromPhp === "number" && product.priceFromPhp <= 5000);
-  else if (slug === "ece-22-06") products = verified.filter((product) => /(?:ECE\s*)?(?:R?22[.\s-]?06|22\.06)/i.test(product.certification || ""));
+  else if (slug === "ece-22-06") products = verified.filter((product) => /(?:ECE\s*)?(?:R?22[.\s-]?06|22\.06)/i.test(effectiveHelmetCertification(product) || ""));
   else if (slug === "intercom-ready") products = verified.filter((product) => product.intercomReady);
   else products = verified.filter((product) => roadTypes.has(product.helmetType));
   return products.sort((a, b) => (a.priceFromPhp ?? Number.MAX_SAFE_INTEGER) - (b.priceFromPhp ?? Number.MAX_SAFE_INTEGER) || a.brand.localeCompare(b.brand) || a.model.localeCompare(b.model));

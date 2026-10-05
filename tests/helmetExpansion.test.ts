@@ -6,6 +6,7 @@ import { getHelmetSeoComparison, isIndexableHelmetSeoComparison } from "../lib/h
 import { getHelmetSeoCollectionProducts, isIndexableHelmetSeoCollection } from "../lib/helmetSeoCollections";
 import { hasRenderableProductMedia } from "../lib/renderableMedia";
 import { getVerifiedHelmetSizing } from "../lib/helmetSizing";
+import { effectiveHelmetCertification, getVerifiedHelmetCertification } from "../lib/helmetCertification";
 
 describe("helmet market expansion", () => {
   it("publishes the new Philippine helmet brand hubs", () => {
@@ -102,6 +103,35 @@ describe("helmet market expansion", () => {
       const sizing = product && getVerifiedHelmetSizing(product);
       expect(sizing?.chart).toContainEqual({ size, headCm });
       expect(sizing?.sourceUrl).toMatch(/^https:\/\//);
+    }
+  });
+
+  it("closes high-confidence helmet certification gaps", () => {
+    const covered = helmetProducts.filter((product) =>
+      product.status === "verified" && Boolean(effectiveHelmetCertification(product))
+    );
+    expect(covered.length).toBeGreaterThanOrEqual(200);
+
+    const expected = [
+      ["scorpion", "exo-r1-air-carbon", "ECE 22.06"],
+      ["scorpion", "exo-adf-9000-air", "ECE R22.06"],
+      ["scorpion", "exo-covert-fx", "ECE 22.06"],
+      ["scorpion", "covert-2", "DOT FMVSS No. 218"],
+      ["ryo", "rf-4sv-fs-868", "ECE 22.06"],
+    ] as const;
+
+    for (const [brand, slug, certificationText] of expected) {
+      const product = getHelmetProduct(brand, slug);
+      expect(product).toBeTruthy();
+      if (!product) continue;
+      const evidence = getVerifiedHelmetCertification(product);
+      expect(evidence?.certification).toContain(certificationText);
+      expect(evidence?.sourceUrl).toMatch(/^https:\/\//);
+    }
+
+    const eceIds = new Set(getHelmetSeoCollectionProducts("ece-22-06").map((product) => product.id));
+    for (const id of ["scorpion-exo-r1-air-carbon", "scorpion-exo-adf-9000-air", "scorpion-exo-covert-fx", "ryo-rf-4sv"]) {
+      expect(eceIds.has(id)).toBe(true);
     }
   });
 
