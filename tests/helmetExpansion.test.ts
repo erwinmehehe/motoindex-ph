@@ -83,7 +83,7 @@ describe("helmet market expansion", () => {
   });
 
   it("publishes the new brand comparison intents", () => {
-    for (const slug of ["ls2-vs-hjc", "agv-vs-hjc", "nolan-vs-shoei"] as const) {
+    for (const slug of ["ls2-vs-hjc", "agv-vs-hjc", "nolan-vs-shoei", "full-face-vs-modular"] as const) {
       expect(getHelmetSeoComparison(slug)).toBeTruthy();
       expect(isIndexableHelmetSeoComparison(slug)).toBe(true);
     }
