@@ -96,7 +96,6 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
   const faqs = helmetFaqs(p);
   const canonicalPath = `/gear/helmets/${p.brandSlug}/${p.slug}`;
   const productMedia = getRenderableMedia("helmet", p.id)[0];
-  const hasExactMedia = Boolean(productMedia && !productMedia.src.includes("/media/placeholders/"));
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -105,7 +104,7 @@ export default async function HelmetProductPage({ params }: { params: Promise<{ 
     brand: { "@type": "Brand", name: p.brand },
     category: `Motorcycle helmet — ${p.helmetType}`,
     description: p.description,
-    ...(hasExactMedia ? { image: absoluteUrl(productMedia.src) } : {}),
+    ...(productMedia && !productMedia.src.includes("/media/placeholders/") ? { image: absoluteUrl(productMedia.src) } : {}),
     ...(catalogProductOfferSchema(p, canonicalPath) ? { offers: catalogProductOfferSchema(p, canonicalPath) } : {}),
   };
 
