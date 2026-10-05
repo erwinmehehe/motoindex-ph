@@ -18,6 +18,7 @@ const wave2=read("lib","zigwheelsGapWave2_2026.ts");
 const wave3=read("lib","zigwheelsGapWave3_2026.ts");
 const wave6=read("lib","zigwheelsGapWave6_2026.ts");
 const wave7=read("lib","zigwheelsGapWave7_2026.ts");
+const currentCloseout=read("lib","currentModelGapCloseout2026.ts");
 
 const expected=[
   {id:"yamaha-mio-sporty",source:wave1,volume:17000},
@@ -27,7 +28,6 @@ const expected=[
   {id:"suzuki-gsx-s150",source:wave2,volume:8640},
   {id:"tvs-ntorq-125",source:wave6,volume:7120},
   {id:"benelli-motobi-200-evo",source:wave3,volume:6790},
-  {id:"yamaha-mt-15",source:wave7,volume:1800},
   {id:"honda-cbr500r",source:wave1,volume:1300},
   {id:"yamaha-sr400",source:wave7,volume:900},
 ];
@@ -75,11 +75,15 @@ for(const token of [
 }
 
 for(const token of [
-  'indexed for demand-backed research, not presented as confirmed current inventory',
-  'indexed as an availability-to-verify research reference because the model has stored search demand and dated evidence'
+  'id: "yamaha-mt-15"',
+  'marketStatus: "current"',
+  'searchVolume: 1800',
+  'sourceUrl: "https://www.guanzongroup.com.ph/product/mt-15/"'
 ]){
-  requireText(wave7+growth,token,`MT-15 demand-backed truth copy missing: ${token}`);
+  requireText(currentCloseout,token,`MT-15 current canonical guard missing: ${token}`);
 }
+requireText(growth,'seoTitle: "Yamaha MT-15 Price Philippines 2026 | Specs & Dealer Price"',"MT-15 current SEO title missing.");
+requireText(brief,'"yamaha-mt-15": {',"MT-15 current buyer brief missing.");
 
 const metadata=[
   ["yamaha-mio-sporty","Yamaha Mio Sporty Price Philippines | Dealer Stock & Specs","Yamaha Mio Sporty price Philippines reference with ₱73,900 dealer listings, 114cc specs, 745mm seat and availability-to-verify guidance for PH buyers."],
