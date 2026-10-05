@@ -65,11 +65,11 @@ describe("Cloudflare Access verification", () => {
         ...overrides,
       })
     );
-    const data = new TextEncoder().encode(\`\${header}.\${payload}\`);
+    const data = new TextEncoder().encode(`${header}.${payload}`);
     const signature = new Uint8Array(
       await crypto.subtle.sign("RSASSA-PKCS1-v1_5", privateKey, data)
     );
-    return \`\${header}.\${payload}.\${base64url(signature)}\`;
+    return `${header}.${payload}.${base64url(signature)}`;
   }
 
   it("accepts a correctly signed allowed identity", async () => {
