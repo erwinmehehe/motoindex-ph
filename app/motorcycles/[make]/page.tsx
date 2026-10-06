@@ -51,6 +51,10 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const uncertain = publicModels.filter((m) => m.marketStatus === "uncertain").sort((a, b) => a.model.localeCompare(b.model));
   const previous = publicModels.filter((m) => m.marketStatus === "previous").sort((a, b) => a.model.localeCompare(b.model));
   const discontinued = publicModels.filter((m) => m.marketStatus === "discontinued").sort((a, b) => a.model.localeCompare(b.model));
+  const catalogModels = [...current, ...previous, ...discontinued].sort((a, b) => {
+    const statusRank = (model: (typeof publicModels)[number]) => model.marketStatus === "current" || !model.marketStatus ? 0 : 1;
+    return statusRank(a) - statusRank(b) || a.srp - b.srp || a.model.localeCompare(b.model);
+  });
   const families = modelFamilies.filter((f) => f.makeSlug === make && f.generationIds.length > 0 && f.generationIds.every((id) => publicIds.has(id)));
   const priority = getPhBrandPriority(make);
   if (!publicModels.length) {
@@ -75,9 +79,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         </div>
       </div>
       <div className="shell">
+        {catalogModels.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Motorcycle models" title={`${brand} motorcycle models in the Philippines`} description="Browse verified model pages by motorcycle first. Current, previous-generation and discontinued status is shown on each model where it matters." /><div className="card-grid">{catalogModels.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
         {uncertain.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Availability to verify" title={`${brand} motorcycles with Philippine market references`} description="These models have Philippine pricing or specification evidence, but current national-catalog availability still needs verification." /><div className="card-grid">{uncertain.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
-        {previous.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Archive" title={`Previous ${brand} motorcycle models and prices`} description="Previous-generation references are kept separate from current pricing so historical launch prices are not mistaken for today's dealer quotes." /><div className="card-grid">{previous.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
-        {discontinued.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Discontinued archive" title={`Discontinued ${brand} motorcycle models and prices`} description="Discontinued-model references stay available for specifications, owner research, parts research and used-bike shopping." /><div className="card-grid">{discontinued.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
       </div>
     </section>;
   }
@@ -120,7 +123,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     },
     {
       question: `How many ${brand} motorcycles are covered on this page?`,
-      answer: `There are ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} covered here${previous.length ? `, plus ${previous.length} previous-generation ${previous.length === 1 ? "model" : "models"}` : ""}${discontinued.length ? ` and ${discontinued.length} discontinued ${discontinued.length === 1 ? "model" : "models"} kept for owner and used-bike research` : ""}.`
+      answer: `MotoIndex covers ${catalogModels.length} verified ${brand} motorcycle ${catalogModels.length === 1 ? "model" : "models"} on this page, including ${current.length} current model${current.length === 1 ? "" : "s"}. Lifecycle status is shown on each model instead of moving discontinued motorcycles into a separate archive experience.`
     },
     {
       question: `What is the cheapest ${brand} motorcycle currently tracked?`,
@@ -161,8 +164,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       url: absoluteUrl(`/motorcycles/${make}`),
       mainEntity: {
         "@type": "ItemList",
-        numberOfItems: current.length,
-        itemListElement: current.map((m, index) => ({
+        numberOfItems: catalogModels.length,
+        itemListElement: catalogModels.map((m, index) => ({
           "@type": "ListItem",
           position: index + 1,
           name: `${m.make} ${m.model}`,
@@ -217,9 +220,9 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
       {families.length > 0 && <div className="guide-strip ph-brand-families">{families.map((f) => <Link key={f.slug} href={`/motorcycles/${f.makeSlug}/${f.slug}`}><span>Model family</span><strong>{f.make} {f.name}</strong><small>Compare generations</small></Link>)}</div>}
 
-      <section id="models" className={`ph-brand-section ph-brand-models-section${current.length <= 2 ? " is-sparse" : ""}`}>
-        <SectionHeader kicker="Current motorcycles" title={`Compare ${brand} motorcycle models in the Philippines`} description={current.length <= 2 ? `Compare the ${current.length} current ${brand} ${current.length === 1 ? "model" : "models"} by price and key specifications.` : `Compare ${current.length} current ${brand} motorcycle models by price, engine, seat height and transmission, then open a model for financing, fitment and ownership details.`} />
-        <div className="card-grid ph-brand-model-grid" style={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: 14 }}>{current.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div>
+      <section id="models" className={`ph-brand-section ph-brand-models-section${catalogModels.length <= 2 ? " is-sparse" : ""}`}>
+        <SectionHeader kicker="Motorcycle models" title={`Compare ${brand} motorcycle models in the Philippines`} description={`Browse ${catalogModels.length} verified ${brand} motorcycle model pages. Current, previous-generation and discontinued status stays secondary to the motorcycle itself and is shown on the relevant model card.`} />
+        <div className="card-grid ph-brand-model-grid" style={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: 14 }}>{catalogModels.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div>
       </section>
 
       {bigBikes.length > 0 && brandGrowth?.bigBikeTitle && brandGrowth.bigBikeDescription ? <section id="big-bikes" className="ph-brand-section">
@@ -302,10 +305,6 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       </section>
 
       {uncertain.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Availability to verify" title={`${brand} models needing a current lineup check`} description="These model pages remain available for research, but they stay outside the current price list until present-day official availability is confirmed." /><div className="card-grid">{uncertain.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
-
-      {previous.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Archive" title={`Previous ${brand} motorcycle models and prices`} description="Previous-generation references are kept separate from the current price list so historical launch pricing is not mistaken for today&apos;s price." /><div className="card-grid">{previous.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
-
-      {discontinued.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Discontinued archive" title={`Discontinued ${brand} motorcycle models and prices`} description="Discontinued-model references stay available for specifications, owner research, parts research and used-bike shopping. Historical prices are not current new-bike quotes." /><div className="card-grid">{discontinued.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
 
       <section id="faq" className="ph-brand-section">
         <SectionHeader kicker="Quick answers" title={`${brand} Motorcycle Philippines Price List FAQ`} />
