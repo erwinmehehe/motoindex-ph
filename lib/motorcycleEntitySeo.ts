@@ -200,60 +200,60 @@ function modelSpecificFaqs(model: Motorcycle): FaqItem[] {
   if (model.id === "kawasaki-w175") {
     return [
       {
-        question: "Is the Kawasaki W175 discontinued in the Philippines?",
-        answer: "Yes. Current Philippine comparison references mark the W175 as discontinued. MotoIndex keeps the page for historical specifications, owner research and used-bike shopping."
+        question: "How much is the Kawasaki W175 in the Philippines?",
+        answer: "The last published Philippine new-bike price reference retained by MotoIndex is ₱130,000. The W175 is discontinued, so use that as a dated model price rather than a current dealer SRP."
       },
       {
-        question: "How much was the Kawasaki W175 in the Philippines?",
-        answer: "The retained historical Philippine price reference is ₱130,000. That is not a current new-bike quote."
+        question: "Is the Kawasaki W175 discontinued in the Philippines?",
+        answer: "Yes. Discontinued status affects current new-bike availability, but the W175 remains a normal motorcycle model page for specifications, fitment, maintenance, alternatives and ownership research."
       }
     ];
   }
   if (model.id === "kawasaki-ninja-250sl") {
     return [
       {
-        question: "Is the Kawasaki Ninja 250SL discontinued in the Philippines?",
-        answer: "Yes. Current Philippine comparison references mark the Ninja 250SL as discontinued. Use the page for historical specifications and used-unit research."
+        question: "How much is the Kawasaki Ninja 250SL in the Philippines?",
+        answer: "The last published Philippine new-bike price reference retained by MotoIndex is ₱195,000. Because the Ninja 250SL is discontinued, that figure is a dated model price rather than a current dealer SRP."
       },
       {
-        question: "How much was the Kawasaki Ninja 250SL in the Philippines?",
-        answer: "The retained historical Philippine price reference is ₱195,000. Used-bike value now depends on model year, mileage, condition, service history and documentation."
+        question: "Is the Kawasaki Ninja 250SL discontinued in the Philippines?",
+        answer: "Yes. The Ninja 250SL remains a normal motorcycle model page; discontinued status is shown separately to clarify new-bike availability."
       }
     ];
   }
   if (model.id === "yamaha-vega-force-i") {
     return [
       {
-        question: "Is the Yamaha Vega Force i discontinued?",
-        answer: "Yes. Current Philippine comparison references mark the Vega Force i as discontinued. MotoIndex keeps the model for specification, owner and used-bike research."
+        question: "How much is the Yamaha Vega Force i in the Philippines?",
+        answer: "The last published Philippine new-bike price reference retained by MotoIndex is ₱68,200. The Vega Force i is discontinued, so it is a dated model price rather than a current dealer SRP."
       },
       {
-        question: "How much was the Yamaha Vega Force i in the Philippines?",
-        answer: "The retained historical Philippine price reference is ₱68,200. Do not treat that old new-bike price as today's used value."
+        question: "Is the Yamaha Vega Force i discontinued?",
+        answer: "Yes. The model remains available on MotoIndex as a normal motorcycle page for specifications, fitment, maintenance and ownership research."
       }
     ];
   }
   if (model.id === "yamaha-sight") {
     return [
       {
-        question: "How much was the Yamaha Sight in the Philippines?",
-        answer: "Historical Philippine pricing was ₱59,900 for the spoke-wheel Sight and ₱62,900 for the cast-wheel version. Those figures are historical, not current new-bike quotations."
+        question: "How much is the Yamaha Sight in the Philippines?",
+        answer: "The last published Philippine new-bike prices retained by MotoIndex are ₱59,900 for the spoke-wheel Sight and ₱62,900 for the cast-wheel version. The model is discontinued, so these are dated price references rather than current dealer SRPs."
       },
       {
         question: "Is the Yamaha Sight discontinued?",
-        answer: "Yes. Current Philippine comparison listings mark the Yamaha Sight as discontinued. MotoIndex keeps the page for specifications, parts research and used-bike shopping."
+        answer: "Yes. The Yamaha Sight still has a normal motorcycle model page for specifications, fitment, parts, maintenance and ownership research."
       }
     ];
   }
   if (model.id === "honda-zoomer-x") {
     return [
       {
-        question: "How much was the Honda Zoomer-X in the Philippines?",
-        answer: "Honda's fuel-injected Zoomer-X was launched in the Philippines at a historical ₱93,900 price. That figure should be used only as launch-price context for today's used-bike research."
+        question: "How much is the Honda Zoomer-X in the Philippines?",
+        answer: "The Honda Zoomer-X launched in the Philippines at ₱93,900. The model is no longer treated as current, so that remains a dated new-bike price reference rather than a current dealer SRP."
       },
       {
         question: "Is the Honda Zoomer-X still available new in the Philippines?",
-        answer: "MotoIndex does not treat the Zoomer-X as a current Honda Philippines model. Use this page for historical specifications and compare actual used-unit condition, registration and modifications before buying."
+        answer: "MotoIndex does not treat the Zoomer-X as a current Honda Philippines model. Its motorcycle page remains useful for specifications, fitment, maintenance, parts and ownership research."
       }
     ];
   }
