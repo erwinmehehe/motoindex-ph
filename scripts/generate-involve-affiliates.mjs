@@ -144,6 +144,7 @@ async function readGenerated() {
     return {
       version: 1,
       generatedAt: parsed.generatedAt || null,
+      ...(Array.isArray(parsed.helmetDefaults) ? { helmetDefaults: parsed.helmetDefaults } : {}),
       links: parsed.links && typeof parsed.links === "object" && !Array.isArray(parsed.links) ? parsed.links : {}
     };
   } catch (error) {

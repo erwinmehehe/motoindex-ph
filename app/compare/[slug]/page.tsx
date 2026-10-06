@@ -14,6 +14,7 @@ import { ComparisonDecisionWorkbench } from "@/components/ComparisonDecisionWork
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
 import { CTAGroup, InfoPanel, PageHero } from "@/components/ui";
+import styles from "./ComparisonDetailPage.module.css";
 
 export function generateStaticParams(){return comparisons.map(c=>({slug:c.slug}));}
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{
@@ -35,7 +36,7 @@ export default async function ComparisonPage({params}:{params:Promise<{slug:stri
     {href:`/motorcycles/${c.b.makeSlug}/${c.b.slug}#tires-fitment`,title:`${c.b.model} tire size`,eyebrow:"Fitment",description:`${c.b.frontTire} / ${c.b.rearTire}`},
     {href:"/compare",title:"Compare other motorcycles",eyebrow:"Compare",description:"Build another side-by-side comparison."}
   ];
-  const compareArticle=articleSchema({headline:`${c.a.make} ${c.a.model} vs ${c.b.make} ${c.b.model}`,description:brief?.opening||`Compare the ${c.a.make} ${c.a.model} and ${c.b.make} ${c.b.model} on checked Philippine prices, engine, dimensions, fuel and tires.`,path:`/compare/${c.slug}`,about:`${c.a.model} vs ${c.b.model} Philippines`,keywords:[`${c.a.model} vs ${c.b.model}`,`${c.a.model} or ${c.b.model}`,"motorcycle comparison Philippines"],checkedDates:[c.a.marketPriceCheckedAt||c.a.verifiedAt,c.b.marketPriceCheckedAt||c.b.verifiedAt]});return <section className="page shell comparison-page"><Breadcrumbs items={[{label:"Compare",href:"/compare"},{label:`${c.a.model} vs ${c.b.model}`}]} />
+  const compareArticle=articleSchema({headline:`${c.a.make} ${c.a.model} vs ${c.b.make} ${c.b.model}`,description:brief?.opening||`Compare the ${c.a.make} ${c.a.model} and ${c.b.make} ${c.b.model} on checked Philippine prices, engine, dimensions, fuel and tires.`,path:`/compare/${c.slug}`,about:`${c.a.model} vs ${c.b.model} Philippines`,keywords:[`${c.a.model} vs ${c.b.model}`,`${c.a.model} or ${c.b.model}`,"motorcycle comparison Philippines"],checkedDates:[c.a.marketPriceCheckedAt||c.a.verifiedAt,c.b.marketPriceCheckedAt||c.b.verifiedAt]});return <section className={`page shell comparison-page ${styles.page}`}><Breadcrumbs items={[{label:"Compare",href:"/compare"},{label:`${c.a.model} vs ${c.b.model}`}]} />
     <PageHero
       kicker="Motorcycle comparison"
       title={brief?.h1||`${c.a.make} ${c.a.model} vs ${c.b.make} ${c.b.model}`}

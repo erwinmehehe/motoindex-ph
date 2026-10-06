@@ -4,6 +4,7 @@ import type { ComparisonEditorialBrief } from "@/lib/comparisonEditorial";
 import { observedMarketRange, observedMarketPriceLabel } from "@/lib/marketChecks";
 import { getVerifiedVariantsForModel } from "@/lib/variants";
 import { php } from "@/lib/utils";
+import styles from "./ComparisonEditorial.module.css";
 
 const dash = "Not yet normalized";
 const signed=(n:number,unit:string)=>`${Math.abs(n).toLocaleString("en-PH",{maximumFractionDigits:1})} ${unit}`;
@@ -126,7 +127,5 @@ export function ComparisonEditorial({a,b,brief,phase="all"}:{a:Motorcycle;b:Moto
     <section className="comparison-faqs"><div className="section-head compact"><div><h2>FAQs</h2></div></div>{brief.faqs.map(q=><details key={q}><summary>{q}</summary><p>{faqAnswer(q,a,b)}</p></details>)}</section>
     {brief.related?.length&&!brief.note?<div className="comparison-related-inline">{brief.related.map(link=><Link key={link.href} href={link.href}>{link.label}</Link>)}</div>:null}
   </>;
-  if(phase==="pre")return pre;
-  if(phase==="post")return post;
-  return <>{pre}{post}</>;
+  return <div className={styles.editorial}>{phase === "pre" ? pre : phase === "post" ? post : <>{pre}{post}</>}</div>;
 }

@@ -162,7 +162,12 @@ export function getAffiliateLink(productId: string) {
 }
 
 export function getAffiliateLinks(productId: string) {
-  return readAffiliateMap().links[productId] || [];
+  const configured = readAffiliateMap().links[productId] || [];
+  const product = allCatalogProducts().find(product => product.id === productId);
+  if (product?.category !== "Helmet") return configured;
+  // General marketplace links are shared across helmets; exact offers override each merchant.
+  const defaults = validateEntries(productId, generatedAffiliateData.helmetDefaults, []);
+  return defaults.map(link => configured.find(offer => offer.merchant === link.merchant) || link);
 }
 
 export function hasAffiliateLink(productId: string) {
