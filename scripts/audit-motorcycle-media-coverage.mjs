@@ -88,11 +88,11 @@ const suppressedRecordIds = new Set([...suppressedBody.matchAll(/"([^"]+)"/g)].m
 
 const renderableByEntity = new Map();
 for (const block of mediaBlocks) {
-  if (!/entityType:\s*"motorcycle"/.test(block)) continue;
-  const recordId = block.match(/\bid:\s*"([^"]+)"/)?.[1];
-  const entityId = block.match(/entityId:\s*"([^"]+)"/)?.[1];
-  const src = block.match(/src:\s*"([^"]+)"/)?.[1];
-  const rightsStatus = block.match(/rightsStatus:\s*"([^"]+)"/)?.[1];
+  if (!/"?entityType"?\s*:\s*"motorcycle"/.test(block)) continue;
+  const recordId = block.match(/"?id"?\s*:\s*"([^"]+)"/)?.[1];
+  const entityId = block.match(/"?entityId"?\s*:\s*"([^"]+)"/)?.[1];
+  const src = block.match(/"?src"?\s*:\s*"([^"]+)"/)?.[1];
+  const rightsStatus = block.match(/"?rightsStatus"?\s*:\s*"([^"]+)"/)?.[1];
   if (!recordId || !entityId || !src || rightsStatus === "pending" || suppressedRecordIds.has(recordId)) continue;
   renderableByEntity.set(entityId, { recordId, src });
 }
