@@ -10,6 +10,7 @@ import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import { lifecycleLabel } from "@/lib/lifecycle";
 import { php } from "@/lib/utils";
 import styles from "./MotorcycleCard.module.css";
+import { hasConfirmedAbs } from "@/lib/abs";
 
 const brandLogos: Record<string, string> = {
   Aprilia: "/brand/motorcycle/aprilia.svg",
@@ -53,7 +54,7 @@ function compactPeso(value: number) {
 }
 
 function absAvailable(model: Motorcycle) {
-  return /\bABS\b/i.test(model.abs) && !/^No ABS/i.test(model.abs);
+  return hasConfirmedAbs(model.abs);
 }
 
 function MotorcycleFallback({ model, href, className }: { model: Motorcycle; href: string; className: string }) {

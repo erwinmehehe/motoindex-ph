@@ -1,4 +1,4 @@
-import { isIndexableModel, motorcycles } from "./data";
+import { hasConfirmedAbs, isIndexableModel, motorcycles } from "./data";
 import { observedMarketRange } from "./marketChecks";
 import type { Motorcycle } from "./types";
 
@@ -49,5 +49,5 @@ export function marketBrandCount(models: Motorcycle[]) {
 }
 
 export function hasAbs(model: Motorcycle) {
-  return /\bABS\b/i.test(model.abs) && !/^No ABS/i.test(model.abs);
+  return hasConfirmedAbs(model.abs);
 }

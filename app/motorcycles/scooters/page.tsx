@@ -1,4 +1,5 @@
 import { ModelExplorer } from "@/components/ModelExplorer";
+import catalogStyles from "../motorcycles.module.css";
 import { forClient } from "@/lib/competitors";
 import { ReviewedCatalogArt } from "@/components/ReviewedCatalogArt";
 import type { Metadata } from "next";
@@ -103,7 +104,7 @@ export default function ScootersPage() {
           <Link className="button secondary" href="/compare">Compare models</Link>
         </CTAGroup>}
       /></div>
-      <section className="reviewed-catalog-models" aria-label="Browse scooters"><ModelExplorer models={forClient(scooters)} initialFilters={{category:"scooter",sort:"price-asc"}} /></section>
+      <section className={`${catalogStyles.page} reviewed-catalog-models`} aria-label="Browse scooters"><ModelExplorer models={forClient(scooters)} initialFilters={{category:"scooter",sort:"price-asc"}} /></section>
 
       <section className="section" aria-labelledby="scooter-price-philippines">
         <SectionHeader

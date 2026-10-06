@@ -12,7 +12,7 @@ export async function GET(_request:Request,{params}:{params:Promise<{productId:s
   }
   const primary=offers.find(({merchant})=>merchant==="shopee")||offers[0];
   return NextResponse.json(
-    {active:true,merchant:primary.merchant,network:primary.network,offers:offers.map(({merchant,network})=>({merchant,network}))},
+    {active:true,merchant:primary.merchant,network:primary.network,offers:offers.map(({merchant,network,destination})=>({merchant,network,...(destination ? {destination} : {})}))},
     {headers:{"Cache-Control":"no-store","X-Robots-Tag":"noindex, nofollow"}}
   );
 }

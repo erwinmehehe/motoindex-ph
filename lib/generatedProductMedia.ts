@@ -2178,5 +2178,21 @@ export const generatedProductMedia: EntityMedia[] = [
     "sourceUrl": "https://www.zigwheels.ph/new-motorcycles/kawasaki/vulcan-s",
     "lastChecked": "2026-09-21",
     "rightsHolder": "Kawasaki"
+  },
+  {
+    "id": "gille-inizio-833-generated-product",
+    "entityType": "helmet",
+    "entityId": "gille-inizio-833",
+    "role": "primary",
+    "src": "/media/helmets/gille-inizio-833.webp",
+    "sourceImageUrl": "https://edinmbioqvpfartakqli.supabase.co/storage/v1/object/public/product-images/46a2fb58-74a2-492b-80a5-520cadd1cb9c/1790345840544-d72d4c23-c946-4efb-84d2-f4604f7d7785-imgi_8_ph-11134207-820le-ms6gh9yzrabl79.jpeg",
+    "alt": "Gille Inizio 833 product image",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "sourceLabel": "Checked product-page image · Gille Inizio 833",
+    "sourceUrl": "https://motomaster.ph/products/gille-ym-833-inizio-plain",
+    "lastChecked": "2026-10-06",
+    "rightsHolder": "Gille / MotoMaster"
   }
 ];

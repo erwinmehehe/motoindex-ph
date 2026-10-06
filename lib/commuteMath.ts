@@ -1,4 +1,5 @@
 import type { Motorcycle } from "./types";
+import { hasConfirmedAbs } from "./abs";
 import { estimatedEfficiency, ownershipDefaults } from "./ownership";
 
 export const DEFAULT_COMMUTE_DAYS = 22;
@@ -6,7 +7,7 @@ export const DEFAULT_DAILY_KM = 20;
 export const DEFAULT_FUEL_PRICE_PHP = 65;
 
 export function hasAbs(model: Motorcycle) {
-  return /\bABS\b/i.test(model.abs) && !/^No ABS/i.test(model.abs);
+  return hasConfirmedAbs(model.abs);
 }
 
 export function modelEfficiency(model: Motorcycle) {

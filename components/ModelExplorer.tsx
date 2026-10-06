@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { Motorcycle } from "@/lib/types";
 import { MotorcycleCard } from "@/components/MotorcycleCard";
 import { observedMarketRange } from "@/lib/marketChecks";
+import styles from "./ModelExplorer.module.css";
 
 type ExplorerFilters = { q?: string; make?: string; category?: string; budget?: string; sort?: string; maxPrice?: number };
 const allowedBudgets = new Set(["all","under100","100to150","150to200","over200"]);
@@ -146,7 +147,7 @@ export function ModelExplorer({ models, initialFilters = {} }: { models: Motorcy
     <label><span>Sort</span><select value={sort} onChange={e=>setSort(e.target.value)}><option value="recommended">Recommended order</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option><option value="engine-desc">Largest engine first</option><option value="seat-asc">Lowest seat first</option></select></label>
   </div>;
 
-  return <div className="model-explorer-v400">
+  return <div className={`model-explorer-v400 ${styles.explorer}`}>
     <div className="model-explorer-mobile-bar"><button type="button" onClick={()=>setMobileFiltersOpen(true)}>Filters <span>{dirty ? "•" : ""}</span></button><label><span className="sr-only">Sort motorcycles</span><select value={sort} onChange={e=>setSort(e.target.value)}><option value="recommended">Recommended</option><option value="price-asc">Lowest price</option><option value="price-desc">Highest price</option><option value="engine-desc">Largest engine</option><option value="seat-asc">Lowest seat</option></select></label></div>
     {mobileFiltersOpen&&<div className="model-filter-drawer" role="dialog" aria-modal="true" aria-label="Motorcycle filters"><button className="model-filter-drawer-backdrop" type="button" aria-label="Close filters" onClick={()=>setMobileFiltersOpen(false)} /><div className="model-filter-drawer-panel"><div className="model-filter-drawer-title"><strong>Filter motorcycles</strong><button type="button" onClick={()=>setMobileFiltersOpen(false)}>Done</button></div>{filterPanel}</div></div>}
     <div className="model-explorer-layout">
