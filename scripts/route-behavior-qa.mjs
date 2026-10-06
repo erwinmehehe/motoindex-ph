@@ -24,6 +24,10 @@ const redirects = [
   { source: "/motorcycles/yamaha/aerox-v4", destination: "/motorcycles/yamaha/aerox-v3" },
   { source: "/motorcycles/yamaha/aerox-2025", destination: "/motorcycles/yamaha/aerox-v3" },
   { source: "/motorcycles/yamaha/nmax-turbo", destination: "/motorcycles/yamaha/nmax-v3" },
+  { source: "/guides/yamaha-r6-price-philippines", destination: "/motorcycles/yamaha/yzf-r6" },
+  { source: "/guides/yamaha-yzf-r6-price-philippines", destination: "/motorcycles/yamaha/yzf-r6" },
+  { source: "/motorcycles/yamaha/r6", destination: "/motorcycles/yamaha/yzf-r6" },
+  { source: "/motorcycles/yamaha/yamaha-r6", destination: "/motorcycles/yamaha/yzf-r6" },
 ];
 
 function normalizedRoute(value) {
