@@ -10,6 +10,8 @@ const nextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "bikeluggage.co.uk" },
       { protocol: "https", hostname: "cdn-iutgbvdd.sportsbikeshop.co.uk" },
+      { protocol: "https", hostname: "gearchangeonline.com" },
+      { protocol: "https", hostname: "www.24helmets.de" },
       { protocol: "https", hostname: "www.martimotos.com" },
       { protocol: "https", hostname: "rrmoto.pl" },
       { protocol: "https", hostname: "www.revzilla.com" },
