@@ -9,6 +9,10 @@ describe("helmet image format", () => {
     "agv-k7",
     "agv-tourmodular",
     "alpinestars-supertech-m8",
+    "hjc-rpha-91",
+    "arai-quantic",
+    "arai-tour-x5",
+    "arai-rx-7v-evo",
   ])("has exact media for %s", (id) => {
     const media = getRenderableMedia("helmet", id)[0];
     expect(media).toBeDefined();
