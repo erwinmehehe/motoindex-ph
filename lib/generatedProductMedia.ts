@@ -2194,5 +2194,21 @@ export const generatedProductMedia: EntityMedia[] = [
     "sourceUrl": "https://motomaster.ph/products/gille-ym-833-inizio-plain",
     "lastChecked": "2026-10-06",
     "rightsHolder": "Gille / MotoMaster"
+  },
+  {
+    "id": "alpinestars-sm5-generated-product",
+    "entityType": "helmet",
+    "entityId": "alpinestars-sm5",
+    "role": "primary",
+    "src": "/media/helmets/alpinestars-sm5.webp",
+    "sourceImageUrl": "http://www.alpinestars.com/cdn/shop/files/1200x628_Jett_1.jpg?v=1769126783",
+    "alt": "Alpinestars SM5 product image",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "sourceLabel": "Checked product-page image · Alpinestars SM5",
+    "sourceUrl": "https://www.alpinestars.com/products/sm5-solid-helmet-black-matte",
+    "lastChecked": "2026-10-06",
+    "rightsHolder": "Alpinestars"
   }
 ];
