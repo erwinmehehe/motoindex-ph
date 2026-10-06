@@ -17,38 +17,45 @@ const catalogFiles = [
   "lib/zigwheelsGapWave3_2026.ts",
   "lib/zigwheelsGapWave4_2026.ts",
   "lib/zigwheelsGapWave5_2026.ts",
-  "lib/zigwheelsGapWave6_2026.ts"
+  "lib/zigwheelsGapWave6_2026.ts",
+  "lib/zigwheelsGapWave7_2026.ts",
+  "lib/heroExpansion2026.ts",
+  "lib/currentModelGapCloseout2026.ts",
+  "lib/historicalGapCloseout2026.ts"
 ];
 
 const knownBacklog = new Set([
-  "honda-genio",
-  "yamaha-aerox-v1",
-  "honda-dio",
-  "yamaha-nmax-v1",
-  "yamaha-mio-sporty",
-  "yamaha-yzf-r15-v3",
-  "yamaha-sniper-150",
-  "kawasaki-ninja-zx-6r",
-  "suzuki-hayabusa",
-  "honda-rs150r",
-  "honda-scoopy",
-  "honda-cbr500r",
-  "suzuki-gsx-r150",
-  "suzuki-gsx-s150",
-  "yamaha-xtz-125",
-  "honda-zoomer-x",
-  "yamaha-sight",
-  "yamaha-sz",
-  "vespa-s-125",
-  "honda-pcx150",
-  "yamaha-tricity",
-  "honda-wave125-alpha",
   "benelli-motobi-200-evo",
   "honda-cb150r",
-  "suzuki-smash-carb",
+  "honda-crf250-rally",
+  "honda-dio",
+  "honda-genio",
+  "honda-pcx150",
+  "honda-rs125",
+  "honda-rs150r",
+  "honda-scoopy",
+  "honda-supra-gtr150",
+  "honda-wave125-alpha",
+  "honda-zoomer-x",
+  "kawasaki-klx-140",
+  "kawasaki-ninja-zx-10r",
+  "kawasaki-ninja-zx-6r",
   "kawasaki-z900-se",
   "keeway-superlight-200",
-  "tvs-ntorq-125"
+  "suzuki-gsx-s150",
+  "suzuki-smash-carb",
+  "tvs-ntorq-125",
+  "vespa-s-125",
+  "yamaha-aerox-v1",
+  "yamaha-mio-sporty",
+  "yamaha-nmax-v1",
+  "yamaha-sight",
+  "yamaha-sniper-150",
+  "yamaha-sr400",
+  "yamaha-sz",
+  "yamaha-tricity",
+  "yamaha-vega-force-i",
+  "yamaha-yzf-r15-v3"
 ]);
 
 function read(relativePath) {
@@ -70,8 +77,12 @@ for (const relativePath of catalogFiles.slice(1)) {
 }
 
 const mediaSource = read("lib/media.ts");
+const generatedMediaSource = read("lib/generatedProductMedia.ts");
 const renderableSource = read("lib/renderableMedia.ts");
-const mediaBlocks = mediaSource.match(/  \{[\s\S]*?\n  \},/g) || [];
+const mediaBlocks = [
+  ...(mediaSource.match(/  \{[\s\S]*?\n  \},/g) || []),
+  ...(generatedMediaSource.match(/  \{[\s\S]*?\n  \},/g) || [])
+];
 const suppressedBody = renderableSource.match(/const SUPPRESSED_MEDIA_IDS = new Set\(\[([\s\S]*?)\]\);/)?.[1] || "";
 const suppressedRecordIds = new Set([...suppressedBody.matchAll(/"([^"]+)"/g)].map((match) => match[1]));
 
