@@ -1,4 +1,7 @@
 .explorer { min-width: 0; }
+.explorer :global(.motorcycle-catalog-grid) { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 14px; }
+.explorer :global(.result-meta) { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.explorer :global(.result-meta small) { display: block; color: var(--mi-color-copy); }
 .explorer :global(.model-explorer-layout) { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 32px; align-items: start; }
 .explorer :global(.model-explorer-rail) { position: sticky; top: 92px; padding-right: 24px; border-right: 1px solid var(--mi-color-line); }
 .explorer :global(.model-filter-panel) { display: grid; gap: 16px; min-width: 0; }
