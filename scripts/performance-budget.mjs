@@ -8,7 +8,7 @@ const publicDir = path.join(root, "public");
 
 const budgets = {
   // Includes the reviewed public routes, three-bike comparison and scoped catalog
-  // filters. Their measured compiled CSS is 498.6 KB; keep a bounded 500 KB cap.
+  // filters. Their measured compiled CSS is 498.7 KB; keep a bounded 500 KB cap.
   cssTotalBytes: 500 * 1024,
   largestJsChunkBytes: 350 * 1024,
   jsTotalBytes: 4 * 1024 * 1024,
