@@ -2,6 +2,14 @@
   "version": 1,
   "generatedAt": "2026-09-30T14:08:05.000Z",
   "links": {
+    "spyder-surge-v2": [
+      {
+        "merchant": "shopee",
+        "network": "involve_asia",
+        "destination": "merchant_homepage",
+        "url": "https://invl.me/clo1b14?url=https%3A%2F%2Fshopee.ph%2Funiversal-link%2F"
+      }
+    ],
     "gille-883-falcon": [
       {
         "merchant": "shopee",

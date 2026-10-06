@@ -23,8 +23,8 @@ export function EntityMedia({ entityType, entityId, fallback, className, priorit
   const useContainedStage = entityType === "helmet" || entityType === "topbox";
   const mediaClass = `${className || "entity-media"}${useContainedStage ? " entity-media-contained" : ""}`;
 
-  if (!asset) {
-    if (useContainedStage) return <div className={mediaClass}>{fallback}</div>;
+  if (!asset || asset.src.startsWith("/media/placeholders/")) {
+    if (useContainedStage || forceFill) return <div className={mediaClass}>{fallback}</div>;
     return <>{fallback}</>;
   }
 

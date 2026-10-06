@@ -9,6 +9,7 @@ export type AffiliateLinkConfig = {
   merchant: AffiliateMerchant;
   network: AffiliateNetwork;
   url: string;
+  destination?: "merchant_homepage";
 };
 
 export type AffiliateConfigIssue = {
@@ -46,12 +47,14 @@ function validateEntry(productId: string, rawValue: unknown, issues: AffiliateCo
   let merchant: AffiliateMerchant = "shopee";
   let network: AffiliateNetwork | undefined;
   let rawUrl: unknown;
+  let destination: "merchant_homepage" | undefined;
 
   if (typeof rawValue === "string") {
     rawUrl = rawValue;
   } else if (rawValue && typeof rawValue === "object" && !Array.isArray(rawValue)) {
     const entry = rawValue as Record<string, unknown>;
     rawUrl = entry.url;
+    if (entry.destination === "merchant_homepage") destination = "merchant_homepage";
     if (entry.merchant !== undefined && entry.merchant !== "shopee" && entry.merchant !== "lazada") {
       issues.push({ productId, message: "Unsupported merchant. Catalog affiliate offers support Shopee and Lazada destinations." });
       return undefined;
@@ -87,7 +90,7 @@ function validateEntry(productId: string, rawValue: unknown, issues: AffiliateCo
       issues.push({ productId, message: "Configured affiliate network does not match the URL host." });
       return undefined;
     }
-    return { productId, merchant, network: network ?? inferred, url: url.toString() };
+    return { productId, merchant, network: network ?? inferred, url: url.toString(), ...(destination ? { destination } : {}) };
   } catch {
     issues.push({ productId, message: "Affiliate link is not a valid URL." });
     return undefined;

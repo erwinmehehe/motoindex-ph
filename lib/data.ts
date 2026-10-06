@@ -1,3 +1,4 @@
+import { hasConfirmedAbs } from "./abs";
 import type { AccessoryCategory, Comparison, FitmentRecommendation, HelmetBrand, Motorcycle, RecommendationGuide } from "./types";
 import { getTopBoxFitmentsForModel } from "./topBoxFitment";
 import { modelSourceNeedsRefresh } from "./freshnessPolicy";
@@ -2545,11 +2546,7 @@ export function getRecommendationGuide(slug: string) {
   return recommendationGuides.find((guide) => guide.slug === slug);
 }
 
-export function hasConfirmedAbs(value: string) {
-  const normalized = value.toLowerCase();
-  if (!normalized.includes("abs")) return false;
-  return !/no abs|without abs|not confirmed|not stated|not listed|confirm exact abs|abs equipment is not confirmed/.test(normalized);
-}
+export { hasConfirmedAbs } from "./abs";
 
 export function getRecommendationModels(slug: string) {
   // Keep the first catalog record, matching getModel's canonical lookup.
