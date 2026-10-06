@@ -15,6 +15,7 @@ on:
       - scripts/normalize-generated-product-media.mjs
       - scripts/audit-product-media-coverage.mjs
       - scripts/audit-motorcycle-media-coverage.mjs
+      - scripts/audit-helmet-media-coverage.mjs
       - scripts/art-direct-helmet-media.py
       - scripts/refresh-sourced-product-media.mjs
       - scripts/audit-helmet-media-art-direction.py
@@ -59,6 +60,8 @@ jobs:
         run: MEDIA_STRICT_LOCAL=1 npm run validate:media
       - name: Audit exact motorcycle image coverage
         run: npm run validate:motorcycle-media
+      - name: Audit exact helmet image coverage
+        run: npm run validate:helmet-coverage
       - name: Audit helmet image composition
         run: npm run validate:helmet-media
       - name: Security audit (production dependencies)
