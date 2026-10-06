@@ -52,13 +52,13 @@ export const entityMedia: EntityMedia[] = [
   },
   {
     id: "suzuki-hayabusa-source-20261006", entityType: "motorcycle", entityId: "suzuki-hayabusa", role: "primary",
-    src: "/media/motorcycles/suzuki-hayabusa.webp", sourceImageUrl: "https://cf.autodeft2.pw/uploads/images/2022-suzuki-hayabusa-special-colors---bce-2022_6.jpg", alt: "Third-generation Suzuki Hayabusa hypersport motorcycle studio image", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Suzuki / AutoDeft", sourceLabel: "Exact-generation product image · Suzuki Hayabusa", sourceUrl: "https://www.autodeft.com/deftride/suzuki-releases-21-colors-hayabusa", lastChecked: "2026-10-06"
+    src: "/media/motorcycles/suzuki-hayabusa.webp", sourceImageUrl: "https://www.webbikeworld.com/wp-content/uploads/2022/01/2022-Suzuki-Hayabusa.jpg", alt: "Third-generation Suzuki Hayabusa hypersport motorcycle studio image", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Suzuki / webBikeWorld", sourceLabel: "Exact-generation product image · 2022 Suzuki Hayabusa", sourceUrl: "https://www.webbikeworld.com/2022-suzuki-motorcycle-lineup/", lastChecked: "2026-10-06"
   },
   {
     id: "honda-cbr500r-source-20261006", entityType: "motorcycle", entityId: "honda-cbr500r", role: "primary",
-    src: "/media/motorcycles/honda-cbr500r.webp", sourceImageUrl: "https://www.moto-honda.re/publicmedia/formatted/114/55/fr/CBR500R-blanc.jpg%3Bh%3D486%2Cw%3D864.jpg", alt: "Honda CBR500R sport motorcycle studio image", width: 1200, height: 1200,
-    rightsStatus: "external-reference", rightsHolder: "Honda Moto Réunion", sourceLabel: "Honda distributor exact-model image · CBR500R", sourceUrl: "https://www.moto-honda.re/sportive/cbr500r/prix-et-caracteristiques", lastChecked: "2026-10-06"
+    src: "/media/motorcycles/honda-cbr500r.webp", sourceImageUrl: "https://media.motorbox.com/image/honda-cbr500r-2021-nei-concessionari-a-inizio-ottobre/6/8/8/688181/688181-16x9-lg.jpg", alt: "2021 Honda CBR500R sport motorcycle studio image", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda / MotorBox", sourceLabel: "Exact-generation product image · 2021 Honda CBR500R", sourceUrl: "https://www.motorbox.com/moto/magazine-moto/moto-novita/honda-cbr500r-2021-novita-prezzo-quando-esce", lastChecked: "2026-10-06"
   },
   {
     id: "yamaha-xtz-125-source-20261006", entityType: "motorcycle", entityId: "yamaha-xtz-125", role: "primary",
