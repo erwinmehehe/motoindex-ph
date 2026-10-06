@@ -75,6 +75,11 @@ const nextConfig = {
       { source: "/motorcycles/honda/supra-gtr150", destination: "/motorcycles/honda/supra-gtr-150", permanent: true },
       { source: "/motorcycles/kawasaki/ninja-250-sl", destination: "/motorcycles/kawasaki/ninja-250sl", permanent: true },
       { source: "/motorcycles/yamaha/vega-force-fi", destination: "/motorcycles/yamaha/vega-force-i", permanent: true },
+      // Legacy Yamaha R6 URLs consolidate into the canonical YZF-R6 motorcycle entity.
+      { source: "/guides/yamaha-r6-price-philippines", destination: "/motorcycles/yamaha/yzf-r6", permanent: true },
+      { source: "/guides/yamaha-yzf-r6-price-philippines", destination: "/motorcycles/yamaha/yzf-r6", permanent: true },
+      { source: "/motorcycles/yamaha/r6", destination: "/motorcycles/yamaha/yzf-r6", permanent: true },
+      { source: "/motorcycles/yamaha/yamaha-r6", destination: "/motorcycles/yamaha/yzf-r6", permanent: true },
       // Consolidate helmet-type aliases into the canonical helmet authority page.
       { source: "/gear/helmets/open-face", destination: "/gear/helmets#open-face", permanent: true },
       { source: "/gear/helmets/adventure", destination: "/gear/helmets#adventure", permanent: true },
