@@ -5,6 +5,27 @@ import type { EntityMedia } from "./types";
 // upstream image for provenance and a temporary runtime fallback while local assets are synced.
 // Local motorcycle WebP derivatives are art-directed to a 1200x1200 white catalog canvas; source provenance remains below.
 export const entityMedia: EntityMedia[] = [
+  {
+    id: "hjc-rpha-91-source-20261006", entityType: "helmet", entityId: "hjc-rpha-91", role: "primary",
+    src: "/media/helmets/hjc-rpha-91.webp", sourceImageUrl: "https://cdn-iutgbvdd.sportsbikeshop.co.uk/image/upload/spin-still/762335_Helmets_HJC_HJC-R-PHA-91-Pearl-White/62.jpg", alt: "HJC RPHA 91 modular motorcycle helmet in pearl white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SportsBikeShop / HJC", sourceLabel: "Retailer exact-model studio image · HJC RPHA 91", sourceUrl: "https://www.sportsbikeshop.co.uk/motorcycle_parts/content_prod/762335", lastChecked: "2026-10-06"
+  },
+  {
+    id: "arai-quantic-source-20261006", entityType: "helmet", entityId: "arai-quantic", role: "primary",
+    src: "/media/helmets/arai-quantic.webp", sourceImageUrl: "https://gearchangeonline.com/cdn/shop/products/quantic_diamond_white_front.png?v=1767374618", alt: "Arai Quantic full-face motorcycle helmet in diamond white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Gear Change / Arai", sourceLabel: "Retailer exact-model studio image · Arai Quantic", sourceUrl: "https://gearchangeonline.com/products/arai-quantic-diamond-white", lastChecked: "2026-10-06"
+  },
+  {
+    id: "arai-tour-x5-source-20261006", entityType: "helmet", entityId: "arai-tour-x5", role: "primary",
+    src: "/media/helmets/arai-tour-x5.webp", sourceImageUrl: "https://www.24helmets.de/media/e1/8d/1b/1770391634/arai-helmet-tour-x5-white.png?ts=1783545148", alt: "Arai Tour-X5 adventure motorcycle helmet in diamond white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "24Helmets / Arai", sourceLabel: "Retailer exact-model studio image · Arai Tour-X5", sourceUrl: "https://www.24helmets.de/en/arai-tour-x-5-white", lastChecked: "2026-10-06"
+  },
+  {
+    id: "arai-rx-7v-evo-source-20261006", entityType: "helmet", entityId: "arai-rx-7v-evo", role: "primary",
+    src: "/media/helmets/arai-rx-7v-evo.webp", sourceImageUrl: "https://cdn-iutgbvdd.sportsbikeshop.co.uk/image/upload/spin-still/2415848_Helmets_Arai_Arai-RX-7V-Evo-FIM-Racing-2-Solid-White/62.jpg", alt: "Arai RX-7V EVO FIM Racing 2 full-face motorcycle helmet in solid white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SportsBikeShop / Arai", sourceLabel: "Retailer exact-model studio image · Arai RX-7V EVO", sourceUrl: "https://www.sportsbikeshop.co.uk/motorcycle_parts/content_prod/2415848", lastChecked: "2026-10-06"
+  },
+
   // 2026-10-06 exact-product media closeout: helmets. Local derivatives use
   // the canonical 1200x1200 white MotoIndex canvas; checked upstream images
   // remain as temporary fallbacks until the local sync job has materialized them.
