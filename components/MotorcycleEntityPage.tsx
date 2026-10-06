@@ -374,7 +374,7 @@ export function MotorcycleEntityPage({ model, omitHero = false }: { model: Motor
           {scooterClassGuide && <Link href={scooterClassGuide.href}>Compare this model in the {scooterClassGuide.label} →</Link>}
         </div>}
         <SimilarMotorcycles model={model} />
-      </section>}
+      </section>
 
       <SectionHeader className="entity-research-divider" kicker="Detailed research" title="Evidence for the deeper check" description="Open these sections when the motorcycle is already on your shortlist." />
 
