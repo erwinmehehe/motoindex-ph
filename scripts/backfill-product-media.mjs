@@ -137,7 +137,7 @@ function imageCandidates(html, pageUrl, product) {
   for (const tag of html.match(/<img\b[^>]*>/gi) || []) {
     const a = attrs(tag); const label = `${a.alt || ""} ${a.title || ""}`.toLowerCase();
     const matches = productTerms.filter((term) => label.includes(term)).length;
-    if (matches >= Math.min(2, productTerms.length)) push(a.src || a["data-src"] || a["data-lazy-src"] || a.srcset?.split(/\s+/)[0], 55 + matches * 3, "matching img alt");
+    if (matches >= Math.min(2, productTerms.length)) push(a.src || a["data-src"] || a["data-lazy-src"] || a.srcset?.split(/\s+/)[0], 150 + matches * 15, "exact product img alt");
   }
   const seen = new Set();
   return candidates.sort((a, b) => b.score - a.score).filter((item) => !seen.has(item.url) && seen.add(item.url));
