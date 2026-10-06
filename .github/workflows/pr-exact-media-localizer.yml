@@ -1,4 +1,5 @@
 name: Temporary Exact Media Localizer
+# rerun: corrected exact-product sources
 
 on:
   push:
