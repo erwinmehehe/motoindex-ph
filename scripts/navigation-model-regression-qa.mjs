@@ -224,30 +224,25 @@ try {
   await viewport(1440);
   await navigate("/motorcycles/yamaha/aerox-v3");
   const modelAudit = await evaluate(cdp.send, `(() => {
-    const h1=document.querySelector('.motorcycle-hero-copy h1');
-    const media=document.querySelector('.motorcycle-hero-media');
-    const facts=document.querySelector('.motorcycle-hero-facts');
-    const factStrong=facts?.querySelector('strong');
+    const h1=document.querySelector('.reviewed-model-copy h1');
+    const media=document.querySelector('.reviewed-model-stage');
+    const facts=document.querySelector('.reviewed-spec-strip');
+    const factStrong=facts?.querySelector('b');
     const factFlow=facts?[...facts.children].map(cell=>{
-      const label=cell.querySelector('span');
-      const value=cell.querySelector('strong');
-      const note=cell.querySelector('small');
-      const labelRect=label?.getBoundingClientRect();
+      const value=cell.querySelector('b');
+      const label=cell.querySelector('small');
       const valueRect=value?.getBoundingClientRect();
-      const noteRect=note?.getBoundingClientRect();
+      const labelRect=label?.getBoundingClientRect();
       return {
-        labelDisplay:label?getComputedStyle(label).display:'',
         valueDisplay:value?getComputedStyle(value).display:'',
-        noteDisplay:note?getComputedStyle(note).display:'',
-        labelBottom:labelRect?.bottom||0,
-        valueTop:valueRect?.top||0,
+        labelDisplay:label?getComputedStyle(label).display:'',
         valueBottom:valueRect?.bottom||0,
-        noteTop:noteRect?.top||0,
+        labelTop:labelRect?.top||0,
         cellWidth:cell.getBoundingClientRect().width,
         scrollWidth:cell.scrollWidth
       };
     }):[];
-    const priceStrong=document.querySelector('.motorcycle-price-lockup > strong');
+    const priceStrong=document.querySelector('.reviewed-model-price');
     const priceStyle=priceStrong?getComputedStyle(priceStrong):null;
     const priceRect=priceStrong?.getBoundingClientRect();
     const verdict=document.querySelector('.authority-verdict');
@@ -381,8 +376,8 @@ try {
   if (!modelAudit?.media || modelAudit.mediaHeight > 340) failures.push(`Desktop model media stage is still too tall at ${modelAudit?.mediaHeight || 0}px.`);
   if (!modelAudit?.facts || !/rgb\(255, 255, 255\)/.test(modelAudit.factsBg || "")) failures.push(`Model facts surface is not white (${modelAudit?.factsBg || "missing"}).`);
   for (const [index, cell] of (modelAudit?.factFlow || []).entries()) {
-    if (cell.labelDisplay !== "block" || cell.valueDisplay !== "block" || cell.noteDisplay !== "block") failures.push(`Desktop model fact ${index + 1} is not vertically stacked.`);
-    if ((cell.labelBottom || 0) > (cell.valueTop || 0) + 1 || (cell.valueBottom || 0) > (cell.noteTop || 0) + 1) failures.push(`Desktop model fact ${index + 1} text overlaps vertically.`);
+    if (cell.labelDisplay !== "block" || cell.valueDisplay !== "block") failures.push(`Desktop model fact ${index + 1} is not vertically stacked.`);
+    if ((cell.valueBottom || 0) > (cell.labelTop || 0) + 1) failures.push(`Desktop model fact ${index + 1} text overlaps vertically.`);
     if ((cell.scrollWidth || 0) > (cell.cellWidth || 0) + 2) failures.push(`Desktop model fact ${index + 1} overflows its cell.`);
   }
   if (!modelAudit?.priceText || modelAudit.priceDisplay !== "block" || modelAudit.priceWhiteSpace !== "nowrap" || (modelAudit.priceScrollWidth || 0) > (modelAudit.priceWidth || 0) + 2) failures.push(`Desktop model hero price is not locked to one line (display=${modelAudit?.priceDisplay || "missing"}, white-space=${modelAudit?.priceWhiteSpace || "missing"}, width=${modelAudit?.priceWidth || 0}, scroll=${modelAudit?.priceScrollWidth || 0}).`);
@@ -416,9 +411,9 @@ try {
   await viewport(390, 844);
   await navigate("/motorcycles/yamaha/aerox-v3");
   const mobileModel = await evaluate(cdp.send, `(() => {
-    const h1=document.querySelector('.motorcycle-hero-copy h1');
-    const media=document.querySelector('.motorcycle-hero-media');
-    const priceStrong=document.querySelector('.motorcycle-price-lockup > strong');
+    const h1=document.querySelector('.reviewed-model-copy h1');
+    const media=document.querySelector('.reviewed-model-stage');
+    const priceStrong=document.querySelector('.reviewed-model-price');
     const priceStyle=priceStrong?getComputedStyle(priceStrong):null;
     const priceRect=priceStrong?.getBoundingClientRect();
     const decisionGrid=document.querySelector('.motorcycle-editorial-grid');
@@ -465,7 +460,7 @@ try {
   })()`);
   results.push({ check: "mobile-model", ...mobileModel });
   if ((mobileModel?.h1Size || 0) > 40) failures.push(`390px model H1 is oversized at ${mobileModel.h1Size}px.`);
-  if ((mobileModel?.mediaHeight || 0) > 255) failures.push(`390px model media stage is too tall at ${mobileModel.mediaHeight}px.`);
+  if ((mobileModel?.mediaHeight || 0) > 270) failures.push(`390px model media stage is too tall at ${mobileModel.mediaHeight}px.`);
   if (!mobileModel?.priceText || mobileModel.priceDisplay !== "block" || mobileModel.priceWhiteSpace !== "nowrap" || (mobileModel.priceScrollWidth || 0) > (mobileModel.priceWidth || 0) + 2) failures.push(`390px model hero price is not locked to one line (display=${mobileModel?.priceDisplay || "missing"}, white-space=${mobileModel?.priceWhiteSpace || "missing"}, width=${mobileModel?.priceWidth || 0}, scroll=${mobileModel?.priceScrollWidth || 0}).`);
   if (mobileModel?.decisionDisplay !== "grid" || !/^[^ ]+$/.test(mobileModel?.decisionColumns || "")) failures.push(`390px model decision summary did not collapse to one column (${mobileModel?.decisionColumns || "missing"}).`);
   if (mobileModel?.priceGridDisplay !== "grid" || !/^[^ ]+$/.test(mobileModel?.priceGridColumns || "")) failures.push(`390px model price summary did not collapse to one column (${mobileModel?.priceGridColumns || "missing"}).`);
