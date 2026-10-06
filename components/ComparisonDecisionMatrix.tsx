@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
 import { allScenarioComparisons } from "@/lib/comparisonDecision";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
+import styles from "./ComparisonDecisionMatrix.module.css";
 
 function fitLabel(winnerId: string | undefined, modelId: string) {
   if (!winnerId) return "Good fit";
@@ -13,7 +14,7 @@ export function ComparisonDecisionMatrix({ a, b }: { a: Motorcycle; b: Motorcycl
   const aWins = rows.filter((row) => row.winner?.id === a.id).length;
   const bWins = rows.filter((row) => row.winner?.id === b.id).length;
   const ties = rows.length - aWins - bWins;
-  return <section className="comparison-decision-matrix">
+  return <section className={`comparison-decision-matrix ${styles.matrix}`}>
     <div className="section-head compact"><div><span className="decision-kicker">Decision matrix</span><h2>Which one suits which kind of ride?</h2><p>These are plain-language judgments based on the measurable MotoIndex decision factors. They are not universal motorcycle scores.</p></div></div>
     <div className="comparison-decision-summary">
       <article><span>{a.make}</span><strong>{a.model}</strong><b>{aWins} profile {aWins === 1 ? "lead" : "leads"}</b><small>{observedMarketPriceLabel(a)}</small></article>

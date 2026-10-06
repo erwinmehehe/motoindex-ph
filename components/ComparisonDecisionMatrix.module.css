@@ -1,0 +1,17 @@
+.matrix{display:grid;gap:24px;padding:28px;background:var(--mi-color-surface);border:1px solid var(--mi-color-line);border-radius:20px;min-width:0}
+.matrix :global(.comparison-decision-summary){display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:16px}
+.matrix :global(.comparison-decision-summary) article{display:grid;gap:8px;padding:20px;background:var(--mi-color-surface-subtle);border-radius:14px}
+.matrix small,.matrix p{color:var(--mi-color-copy);line-height:1.6}
+.matrix :global(.comparison-scenario-list){display:grid;gap:12px}
+.matrix :global(.comparison-scenario-list)>article{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.65fr) minmax(0,1fr) minmax(0,.65fr);gap:16px;align-items:center;padding:20px;border:1px solid var(--mi-color-line);border-radius:14px}
+.matrix :global(.comparison-scenario-copy)>span{font-weight:800}
+.matrix :global(.comparison-scenario-copy)>p{margin:8px 0 0;font-size:13px}
+.matrix :global(.comparison-scenario-score),.matrix :global(.comparison-scenario-verdict){display:grid;gap:8px}
+.matrix :global(.comparison-scenario-score){padding:12px;border-radius:10px;background:var(--mi-color-surface-subtle)}
+.matrix :global(.winner){color:var(--mi-color-primary);background:var(--mi-color-primary-soft)}
+.matrix :global(.comparison-score-method){padding:16px;border:1px solid var(--mi-color-line);border-radius:12px}
+.matrix summary{cursor:pointer;font-weight:700}
+.matrix :global(.comparison-decision-cta){display:flex;justify-content:space-between;gap:20px;align-items:center}
+.matrix :global(.comparison-decision-cta)>div{display:grid;gap:8px}
+@media(max-width:900px){.matrix :global(.comparison-scenario-list)>article{grid-template-columns:repeat(2,minmax(0,1fr))}.matrix :global(.comparison-scenario-copy),.matrix :global(.comparison-scenario-verdict){grid-column:1/-1}.matrix :global(.comparison-scenario-verdict){grid-row:3}.matrix :global(.comparison-scenario-score){grid-row:2}}
+@media(max-width:600px){.matrix{padding:18px;gap:18px}.matrix :global(.comparison-decision-summary){grid-template-columns:1fr}.matrix :global(.comparison-decision-cta){flex-direction:column;align-items:stretch}.matrix :global(.comparison-scenario-list)>article{padding:14px;gap:12px}}
