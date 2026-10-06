@@ -1,5 +1,5 @@
 .page{max-width:var(--mi-page-max);padding-top:0;padding-bottom:var(--mi-space-20)}
-.hero{max-width:880px;padding-bottom:var(--mi-space-5)}
+.hero{max-width:100%;padding-bottom:var(--mi-space-5)}
 @media(max-width:640px){
   .page{padding-bottom:var(--mi-space-16)}
   .hero{padding-bottom:var(--mi-space-4)}
