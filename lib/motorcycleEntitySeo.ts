@@ -399,9 +399,9 @@ export function motorcycleEntitySeo(model: Motorcycle) {
             `${name} Price Philippines`,
           ])
         : firstTitleThatFits([
-            `${name} Historical Price & Specs Philippines`,
-            `${name} Used Price & Specs Philippines`,
-            `${name} Specs & Used Value Philippines`,
+            `${name} Price Philippines: Specs & Model Guide`,
+            `${name} Price Philippines | Specs & Guide`,
+            `${name} Price Philippines | Specs`,
           ]);
   const description = globalDemand && current
     ? `${name} specs, price reference, seat height, weight, tire sizes, rider fit and ownership research. Philippine pricing is shown when a current source is available.`
@@ -409,7 +409,7 @@ export function motorcycleEntitySeo(model: Motorcycle) {
       ? `${name} price in the Philippines, ${model.engineCc}cc specs, rider fit, installment planning and ownership costs${authority ? ", plus buyer advice and local after-sales context" : ""}.`
       : uncertain
         ? `${name} price and specs in the Philippines, with financing tools and a clear note to confirm current dealer availability.`
-        : `${name} Philippines guide with historical price context, ${model.engineCc}cc specs, tire sizes, rider fit, maintenance references and used-value planning.`;
+        : `${name} price in the Philippines, ${model.engineCc}cc specs, rider fit, tires, maintenance and ownership research. The model status and dated price source are shown on the page.`;
   const aliasNote = model.alsoKnownAs?.length
     ? ` Also listed as ${model.alsoKnownAs.slice(0, 2).join(" and ")}.`
     : "";
@@ -419,14 +419,14 @@ export function motorcycleEntitySeo(model: Motorcycle) {
       ? `${name}: price, specs and ownership guide`
       : uncertain
         ? `${name}: price, specs and availability guide`
-        : `${name}: historical price, specs and ownership guide`;
+        : `${name}: price, specs and ownership guide`;
   const intro = globalDemand && current
     ? `Compare the ${name} specifications, price reference, rider fit, tires, fuel use and ownership details in one place. Market availability and pricing vary by country, so the dated source stays attached to the record.`
     : current
       ? authority ? `Compare the ${name} price, specs, rider fit and ownership costs, with clear reasons to buy or skip it, direct alternatives and Philippine after-sales links.` : `Compare the ${name} price, variants, financing, specs, rider fit, tires, fuel use, maintenance, ownership cost and used-value estimates in one place.`
       : uncertain
         ? `Check the ${name} price, specifications and financing tools, then confirm current dealer stock and the exact model year before buying.`
-        : `Use this ${name} page for historical launch pricing, specifications, fitment and used-bike ownership research without confusing the old SRP with today's market value.`;
+        : `Compare the ${name} price reference, specifications, rider fit, tires, maintenance and ownership details in one motorcycle page. Its discontinued or previous-generation status is shown separately so the lifecycle note does not replace the model itself.`;
   const keywordBase = name.toLowerCase();
   const phKeywords = [
     `${keywordBase} price philippines`,
