@@ -489,3 +489,54 @@ html body .motorcycle-entity-page .motorcycle-hero-media img{
     max-height:calc(100% - 28px)!important;
   }
 }
+
+
+/* Helmet catalog format: every helmet is presented as one centered product on a
+   clean white stage. This is the final visual authority across detail, finder,
+   comparison and catalog cards so source-image styling cannot leak through. */
+html body .helmet-product-page .entity-media-contained,
+html body .mx-helmet-detail .product-detail-media>.entity-media,
+html body .helmet-finder-media,
+html body .helmet-comparison-media,
+html body .helmet-compare-media,
+html body .helmet-product-page .product-card-media{
+  position:relative!important;
+  overflow:hidden!important;
+  background:#fff!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  isolation:isolate!important;
+}
+html body .helmet-product-page .entity-media-contained img,
+html body .mx-helmet-detail .product-detail-media>.entity-media img,
+html body .helmet-finder-media img,
+html body .helmet-comparison-media img,
+html body .helmet-compare-media img,
+html body .helmet-product-page .product-card-media img{
+  display:block!important;
+  width:calc(100% - 28px)!important;
+  height:calc(100% - 28px)!important;
+  max-width:calc(100% - 28px)!important;
+  max-height:calc(100% - 28px)!important;
+  margin:auto!important;
+  padding:0!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:#fff!important;
+  mix-blend-mode:normal!important;
+  filter:none!important;
+  transform:none!important;
+}
+@media(max-width:700px){
+  html body .helmet-product-page .entity-media-contained img,
+  html body .mx-helmet-detail .product-detail-media>.entity-media img,
+  html body .helmet-finder-media img,
+  html body .helmet-comparison-media img,
+  html body .helmet-compare-media img,
+  html body .helmet-product-page .product-card-media img{
+    width:calc(100% - 20px)!important;
+    height:calc(100% - 20px)!important;
+    max-width:calc(100% - 20px)!important;
+    max-height:calc(100% - 20px)!important;
+  }
+}
