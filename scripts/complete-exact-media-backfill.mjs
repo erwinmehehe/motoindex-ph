@@ -29,7 +29,7 @@ const brandFor = (id) => id.split("-")[0];
 const words = (str) => String(str).toLowerCase().replace(/[^a-z0-9]/g, "");
 const today = new Date().toISOString().slice(0, 10);
 const userAgent = "Mozilla/5.0 (compatible; MotoIndexMediaVerifier/1.0; +https://motoindexph.com/methodology)";
-const badImage = /(logo|favicon|sprite|icon|payment|placeholder|spinner|loading|badge|avatar|tracking|pixel|banner|social|pinlock|visor-only|detail|retention|cheek-pad|parts|mechanism|size-chart|dimensions|specification|feature|ventilation)/i;
+const badImage = /(logo|favicon|sprite|icon|payment|placeholder|spinner|loading|badge|avatar|tracking|pixel|banner|social|pinlock|visor-only|detail|retention|cheek-pad|parts|mechanism|size-chart|dimensions|specification|feature|ventilation|front.tyre|rear.tyre|front.wheel|rear.wheel|main.kv|key.visual|campaign|poster|close.up|engine.close)/i;
 const badPage = /(shopee\.ph|\/search\/|\?q=)/i;
 const sources = new Set(generated.map((x) => x.sourceImageUrl).filter(Boolean));
 for (const m of media.matchAll(/sourceImageUrl\s*:\s*"([^"]+)"/g)) sources.add(m[1]);
@@ -43,7 +43,8 @@ function item(type, id) {
   const fileList = type === "helmet" ? ["lib/catalog.ts"] : motorcycleFiles;
   for (const filename of fileList) {
     const text = files.get(filename);
-    const index = text.indexOf('id: "' + id + '"');
+    let index = text.indexOf('id:"' + id + '"');
+    if (index < 0) index = text.indexOf('id: "' + id + '"');
     if (index === -1) continue;
     const portion = text.slice(index, index + 2200);
     const get = (name) => portion.match(new RegExp("\\b" + name + "\\s*:\\s*\"([^\"]+)\""))?.[1] || "";
@@ -179,6 +180,7 @@ if (success.length) {
       return !id || !installed.has(id);
     });
     fs.writeFileSync(manifest, filtered.join("\n"));
+    console.log("UPDATED BACKLOG " + type + ": " + installed.size + " removed, " + filtered.filter((line) => /^\s*"[^"]+"/.test(line)).length + " retained");
   }
 }
 fs.mkdirSync(path.join(root, "artifacts"), { recursive: true });
