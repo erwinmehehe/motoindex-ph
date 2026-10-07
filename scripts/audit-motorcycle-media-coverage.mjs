@@ -40,6 +40,7 @@ const knownBacklog = new Set([
   "kawasaki-klx-140",
   "kawasaki-ninja-zx-10r",
   "kawasaki-ninja-zx-6r",
+  "kawasaki-w175",
   "kawasaki-z900-se",
   "keeway-superlight-200",
   "suzuki-gsx-s150",
