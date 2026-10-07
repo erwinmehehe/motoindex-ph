@@ -2,7 +2,7 @@ import type { EntityMedia } from "./types";
 
 // Generated from checked product source pages by scripts/backfill-product-media.mjs.
 // Local WebP derivatives are used at runtime; sourceImageUrl and sourceUrl preserve provenance.
-export const generatedProductMedia: EntityMedia[] = [
+export const generatedProductMedia: EntityMedia[] =  [
   {
     "id": "nhk-gt-avenger-mark-ii-generated-product",
     "entityType": "helmet",
@@ -2196,38 +2196,6 @@ export const generatedProductMedia: EntityMedia[] = [
     "rightsHolder": "Gille / MotoMaster"
   },
   {
-    "id": "kyt-skyhawk-exact-product-20261007",
-    "entityType": "helmet",
-    "entityId": "kyt-skyhawk",
-    "role": "primary",
-    "src": "/media/helmets/kyt-skyhawk.webp",
-    "sourceImageUrl": "https://kytasia.com/wp-content/uploads/2022/12/SKYHAWK-frontino.png",
-    "alt": "KYT Skyhawk exact product photo",
-    "width": 1200,
-    "height": 1200,
-    "rightsStatus": "external-reference",
-    "rightsHolder": "KYT",
-    "sourceLabel": "Exact-model labeled image from verified source page",
-    "sourceUrl": "https://kytasia.com/skyhawk/",
-    "lastChecked": "2026-10-07"
-  },
-  {
-    "id": "nhk-n1-elite-exact-product-20261007",
-    "entityType": "helmet",
-    "entityId": "nhk-n1-elite",
-    "role": "primary",
-    "src": "/media/helmets/nhk-n1-elite.webp",
-    "sourceImageUrl": "https://nhkhelmet.com/wp-content/uploads/2025/08/micromatic-n1-elite.jpg",
-    "alt": "NHK N1 Elite exact product photo",
-    "width": 1200,
-    "height": 1200,
-    "rightsStatus": "external-reference",
-    "rightsHolder": "NHK",
-    "sourceLabel": "Exact-model labeled image from verified source page",
-    "sourceUrl": "https://nhkhelmet.com/n1-elite/",
-    "lastChecked": "2026-10-07"
-  },
-  {
     "id": "nhk-n2-max-exact-product-20261007",
     "entityType": "helmet",
     "entityId": "nhk-n2-max",
@@ -2241,22 +2209,6 @@ export const generatedProductMedia: EntityMedia[] = [
     "rightsHolder": "NHK",
     "sourceLabel": "Exact-model labeled image from verified source page",
     "sourceUrl": "https://nhkhelmet.com/n2-max/",
-    "lastChecked": "2026-10-07"
-  },
-  {
-    "id": "nhk-n1-max-exact-product-20261007",
-    "entityType": "helmet",
-    "entityId": "nhk-n1-max",
-    "role": "primary",
-    "src": "/media/helmets/nhk-n1-max.webp",
-    "sourceImageUrl": "https://nhkhelmet.com/wp-content/uploads/2025/08/interiror-liner-N1-MAX2.jpg",
-    "alt": "NHK N1 Max exact product photo",
-    "width": 1200,
-    "height": 1200,
-    "rightsStatus": "external-reference",
-    "rightsHolder": "NHK",
-    "sourceLabel": "Exact-model labeled image from verified source page",
-    "sourceUrl": "https://nhkhelmet.com/n1-max/",
     "lastChecked": "2026-10-07"
   },
   {
@@ -2468,22 +2420,6 @@ export const generatedProductMedia: EntityMedia[] = [
     "lastChecked": "2026-10-07"
   },
   {
-    "id": "honda-pcx150-exact-product-20261007",
-    "entityType": "motorcycle",
-    "entityId": "honda-pcx150",
-    "role": "primary",
-    "src": "/media/motorcycles/honda-pcx150.webp",
-    "sourceImageUrl": "https://imgcdn.zigwheels.ph/large/gallery/exterior/73/1247/honda-pcx150-head-light-view-856923.jpg",
-    "alt": "honda PCX150 exact product photo",
-    "width": 1200,
-    "height": 1200,
-    "rightsStatus": "external-reference",
-    "rightsHolder": "honda",
-    "sourceLabel": "Exact-model labeled image from verified source page",
-    "sourceUrl": "https://www.zigwheels.ph/new-motorcycles/honda/pcx150/standard",
-    "lastChecked": "2026-10-07"
-  },
-  {
     "id": "honda-supra-gtr150-exact-product-20261007",
     "entityType": "motorcycle",
     "entityId": "honda-supra-gtr150",
@@ -2609,22 +2545,6 @@ export const generatedProductMedia: EntityMedia[] = [
     "rightsHolder": "yamaha",
     "sourceLabel": "Exact-model labeled image from verified source page",
     "sourceUrl": "https://www.motorcyclephilippines.com/yamaha/yamaha-sight/",
-    "lastChecked": "2026-10-07"
-  },
-  {
-    "id": "yamaha-sr400-exact-product-20261007",
-    "entityType": "motorcycle",
-    "entityId": "yamaha-sr400",
-    "role": "primary",
-    "src": "/media/motorcycles/yamaha-sr400.webp",
-    "sourceImageUrl": "https://imgcdn.zigwheels.ph/large/gallery/exterior/86/3064/yamaha-sr400-fuel-tank-view-845916.jpg",
-    "alt": "yamaha SR400 exact product photo",
-    "width": 1200,
-    "height": 1200,
-    "rightsStatus": "external-reference",
-    "rightsHolder": "yamaha",
-    "sourceLabel": "Exact-model labeled image from verified source page",
-    "sourceUrl": "https://www.zigwheels.ph/new-motorcycles/yamaha/sr400",
     "lastChecked": "2026-10-07"
   },
   {
