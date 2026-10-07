@@ -5,6 +5,11 @@ import sharp from "sharp";
 
 const root = process.cwd();
 const pairs = [
+  ["smk-stellar", "Stellar", "https://smkhelmets.com/full-face-helmets/stellar/", "https://smkhelmets.com/wp-content/uploads/2022/11/steller-unicolor-black.webp"],
+  ["smk-gullwing", "Gullwing", "https://smkhelmets.com/modular-helmets/gullwing/", "https://smkhelmets.com/wp-content/uploads/2022/11/BLACK-GL-200-OPEN-ISO.png"],
+  ["smk-retro-jet", "Retro Jet", "https://smkhelmets.com/open-face-helmets/retro-jet/", "https://smkhelmets.com/wp-content/uploads/2022/11/unicolor3-1-1.png"],
+  ["smk-titan", "Titan", "https://smkhelmets.com/full-face-helmets/titan/", "https://smkhelmets.com/wp-content/uploads/2022/10/TITAN-SOLID-MATT-BLACK.webp"],
+  ["smk-retro", "Retro", "https://smkhelmets.com/full-face-helmets/retro/", "https://smkhelmets.com/wp-content/uploads/2022/11/RETRO-UNICOLOUR-3-1.png"],
   ["smk-bionic-youth", "Bionic Youth", "https://smkhelmets.com/helmet/full-face-helmets/bionic-youth/bionic-youth-solid/", "https://smkhelmets.com/wp-content/uploads/2022/11/BIONICY-SOLID-MATT-BLACK-MA-200.webp"],
   ["smk-bionic-adult", "Bionic Adult", "https://smkhelmets.com/helmet/full-face-helmets/bionicadult/bionic-adult-kore/", "https://smkhelmets.com/wp-content/uploads/2024/10/BIONIC-ADULT-KORE-GL-153-ISO.png"],
   ["smk-agnar", "Agnar", "https://smkhelmets.com/helmet/full-face-helmets/agnar/agnar-solid/", "https://smkhelmets.com/wp-content/uploads/2023/10/AGNAR-SOLID-ANTHRACITE-GLDA-600-4.webp"],
