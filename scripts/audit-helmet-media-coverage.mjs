@@ -20,22 +20,17 @@ const knownBacklog = new Set([
   "nhk-r1",
   "nhk-r6",
   "nhk-c1",
-  "smk-titan",
   "smk-titan-carbon",
   "smk-allterra",
-  "smk-retro-jet",
   "smk-gtj",
   "smk-delta-tour",
   "smk-stellar-sport",
   "smk-nova",
-  "smk-retro",
-  "smk-stellar",
   "alpinestars-sm5",
   "arai-concept-xe",
   "hnj-818a",
   "hnj-a607",
   "smk-typhoon",
-  "smk-gullwing"
 ]);
 
 function read(relativePath) {
