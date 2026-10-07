@@ -15,8 +15,8 @@
 .mx-helmet-detail .helmet-review-hero { display:grid; grid-template-columns:1fr 1.1fr; align-items:center; gap:28px; padding:24px 28px; background:linear-gradient(110deg,var(--helmet-f8fbff),var(--helmet-e8f4ff)); border:1px solid var(--helmet-e1e9f5); border-radius:12px; }
 .mx-helmet-detail .product-detail-summary { order:1; }
 .mx-helmet-detail .product-detail-media { order:2; }
-.mx-helmet-detail .product-detail-media>.entity-media { height:310px; border:0; border-radius:0; background:#fff; box-shadow:none; }
-.mx-helmet-detail .product-detail-media>.entity-media img { padding:12px!important; background:#fff!important; mix-blend-mode:normal!important; object-fit:contain!important; object-position:center!important; }
+.mx-helmet-detail .product-detail-media>.entity-media { height:310px; border:0; border-radius:0; background:var(--mi-color-surface); box-shadow:none; }
+.mx-helmet-detail .product-detail-media>.entity-media img { padding:12px!important; background:var(--mi-color-surface)!important; mix-blend-mode:normal; object-fit:contain; object-position:center; }
 .mx-helmet-detail .product-detail-eyebrow { margin-bottom:10px; }
 .mx-helmet-detail .product-type-pill { color:var(--helmet-647086); background:var(--helmet-edf2fb); }
 .mx-helmet-detail .product-status-pill { color:var(--helmet-2861ed); background:var(--helmet-e4edff); }
