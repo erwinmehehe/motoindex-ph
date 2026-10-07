@@ -1,0 +1,59 @@
+name: PR Exact Helmet And Motorcycle Image Completion
+on:
+  push:
+    branches: [fix/discontinued-models-normal-pages]
+    paths:
+      - .github/workflows/pr-exact-media-completion.yml
+permissions:
+  contents: write
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    steps:
+      - name: Checkout exact PR revision
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install
+        run: npm ci
+      - name: Discover and localize exact-model assets
+        run: node scripts/complete-exact-media-backfill.mjs
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Image audit dependencies
+        run: python -m pip install --disable-pip-version-check opencv-python-headless==4.12.0.88 numpy==2.2.6
+      - name: Art-direct new helmets only
+        run: |
+          ONLY="$(node -e 'const f=require("./artifacts/exact-media-completion.json"); process.stdout.write(f.added.filter(x=>x.entityType==="helmet").map(x=>x.entityId).join(","))')"
+          if [ -n "$ONLY" ]; then python scripts/art-direct-helmet-media.py "--only=$ONLY"; fi
+      - name: Validate only verified exact local media
+        run: |
+          node scripts/validate-media-backfill-safety.mjs
+          MEDIA_STRICT_LOCAL=1 npm run validate:media
+          npm run validate:motorcycle-media
+          npm run validate:helmet-coverage
+          npm run validate:helmet-media
+          npm run typecheck
+      - name: Commit verified additions to draft PR only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add lib/generatedProductMedia.ts scripts/audit-helmet-media-coverage.mjs scripts/audit-motorcycle-media-coverage.mjs public/media/helmets public/media/motorcycles
+          if git diff --cached --quiet; then
+            echo 'No verified media additions'
+            exit 0
+          fi
+          git commit -m 'Backfill exact-model helmet and motorcycle product photos'
+          git fetch origin fix/discontinued-models-normal-pages
+          git rebase origin/fix/discontinued-models-normal-pages
+          git push origin HEAD:fix/discontinued-models-normal-pages
