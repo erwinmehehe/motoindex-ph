@@ -20,7 +20,8 @@ const files = new Map([...["lib/catalog.ts", ...motorcycleFiles],].map((p) => [p
 const generatedPath = path.join(root, "lib/generatedProductMedia.ts");
 const generatedText = fs.readFileSync(generatedPath, "utf8");
 const start = generatedText.indexOf("export const generatedProductMedia");
-const generated = JSON.parse("[" + generatedText.slice(generatedText.indexOf("[", start) + 1, generatedText.lastIndexOf("]")).trim() + "]");
+const arrayStart = generatedText.indexOf("= [", start);
+const generated = JSON.parse("[" + generatedText.slice(arrayStart + 3, generatedText.lastIndexOf("];")).trim() + "]");
 const media = fs.readFileSync(path.join(root, "lib/media.ts"), "utf8");
 const errors = [];
 const results = [];
