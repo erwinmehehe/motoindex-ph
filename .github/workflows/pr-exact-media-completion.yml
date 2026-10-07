@@ -1,5 +1,5 @@
 name: PR Exact Helmet And Motorcycle Image Completion
-# Rerun after typed array parser correction
+# Rerun with compact catalog metadata and strict gallery image filters
 on:
   push:
     branches: [fix/discontinued-models-normal-pages]
