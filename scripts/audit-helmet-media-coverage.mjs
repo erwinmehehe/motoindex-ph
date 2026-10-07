@@ -3,6 +3,7 @@ import path from "node:path";
 
 const root = process.cwd();
 const knownBacklog = new Set([
+  "nhk-n1-max",
   "nhk-n1-elite",
   "kyt-skyhawk",
   "kyt-tt-revo",
