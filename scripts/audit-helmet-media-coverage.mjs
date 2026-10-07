@@ -3,7 +3,6 @@ import path from "node:path";
 
 const root = process.cwd();
 const knownBacklog = new Set([
-  "kyt-skyhawk",
   "kyt-tt-revo",
   "gille-kerena-ff007",
   "gille-gts-v1-135",
@@ -18,17 +17,6 @@ const knownBacklog = new Set([
   "nhk-r1",
   "nhk-r6",
   "nhk-c1",
-  "nhk-n1-max",
-  "nhk-n1-elite",
-  "nhk-n2-max",
-  "nhk-n2-elite",
-  "nhk-rx-9",
-  "nhk-terminator-2v",
-  "nhk-tr-one-1v",
-  "nhk-tr-one-2v",
-  "nhk-s2-gp-pro",
-  "nhk-s1-gp-pro",
-  "nhk-terminator-tt",
   "smk-bionic-youth",
   "smk-bionic-adult",
   "smk-agnar",
@@ -50,8 +38,6 @@ const knownBacklog = new Set([
   "arai-concept-xe",
   "hnj-818a",
   "hnj-a607",
-  "nhk-k5r",
-  "nhk-gp-prime",
   "smk-typhoon",
   "smk-gullwing"
 ]);
