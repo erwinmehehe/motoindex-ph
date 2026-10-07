@@ -1,5 +1,5 @@
 name: PR Curated SMK Helmet Images
-# Rerun with robust coverage audit array parser
+# Rerun to add five additional verified full-helmet images
 on:
   push:
     branches: [fix/discontinued-models-normal-pages]
