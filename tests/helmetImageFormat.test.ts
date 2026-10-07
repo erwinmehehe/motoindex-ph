@@ -38,8 +38,9 @@ describe("helmet image format", () => {
     const detailCss = fs.readFileSync("app/gear/helmets/[brand]/[product]/helmet-review.css", "utf8");
     const cleanupCss = fs.readFileSync("app/image-stage-cleanup.css", "utf8");
     expect(detailCss).not.toContain("mix-blend-mode:multiply");
-    expect(cleanupCss).toContain("Helmet catalog format");
-    expect(cleanupCss).toContain("mix-blend-mode:normal!important");
+    expect(detailCss).toContain("mix-blend-mode:normal");
+    expect(detailCss).toContain("object-fit:contain");
+    expect(cleanupCss).toContain("html body .entity-media-contained");
     expect(cleanupCss).toContain("background:#fff!important");
     expect(cleanupCss).toContain("object-fit:contain!important");
   });
