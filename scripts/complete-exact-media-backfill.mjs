@@ -127,7 +127,7 @@ async function run(p) {
     if (!response.ok) throw new Error("source HTTP " + response.status);
     const url = response.url || p.sourceUrl;
     const html = await response.text();
-    if (!exactIn(html.slice(0, 35000), p.model, p.id)) throw new Error("model text not confirmed on source page");
+    if (!exactIn(html.slice(0, 250000), p.model, p.id)) throw new Error("model text not confirmed on source page");
     const choices = candidates(html, url, p).slice(0, 12);
     if (!choices.length) throw new Error("no exact-model labeled image");
     for (const choice of choices) {
@@ -168,6 +168,17 @@ if (success.length) {
   const additions = success.filter((p) => !original.has(p.entityType + ":" + p.entityId));
   const header = 'import type { EntityMedia } from "./types";\n\n// Generated from checked product source pages by scripts/backfill-product-media.mjs.\n// Local WebP derivatives are used at runtime; sourceImageUrl and sourceUrl preserve provenance.\n';
   fs.writeFileSync(generatedPath, header + "export const generatedProductMedia: EntityMedia[] = " + JSON.stringify([...generated, ...additions], null, 2) + ";\n");
+  for (const type of ["helmet", "motorcycle"]) {
+    const manifest = path.join(root, scripts[type]);
+    const installed = new Set(additions.filter((p) => p.entityType === type).map((p) => p.entityId));
+    if (!installed.size) continue;
+    const lines = fs.readFileSync(manifest, "utf8").split("\n");
+    const filtered = lines.filter((line) => {
+      const id = line.trim().match(/^"([^"]+)"[,]?$/)?.[1];
+      return !id || !installed.has(id);
+    });
+    fs.writeFileSync(manifest, filtered.join("\n"));
+  }
 }
 fs.mkdirSync(path.join(root, "artifacts"), { recursive: true });
 fs.writeFileSync(path.join(root, "artifacts", "exact-media-completion.json"), JSON.stringify({ date: today, targeted: work.length, added: success.map((x) => ({ entityId: x.entityId, entityType: x.entityType, sourceImageUrl: x.sourceImageUrl })), unresolved: results, failedCandidateUrls: errors }, null, 2));
