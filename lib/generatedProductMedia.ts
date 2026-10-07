@@ -2194,4 +2194,5 @@ export const generatedProductMedia: EntityMedia[] = [
     "sourceUrl": "https://motomaster.ph/products/gille-ym-833-inizio-plain",
     "lastChecked": "2026-10-06",
     "rightsHolder": "Gille / MotoMaster"
-  }  ;
+  }
+];
