@@ -29,7 +29,7 @@ const brandFor = (id) => id.split("-")[0];
 const words = (str) => String(str).toLowerCase().replace(/[^a-z0-9]/g, "");
 const today = new Date().toISOString().slice(0, 10);
 const userAgent = "Mozilla/5.0 (compatible; MotoIndexMediaVerifier/1.0; +https://motoindexph.com/methodology)";
-const badImage = /(logo|favicon|sprite|icon|payment|placeholder|spinner|loading|badge|avatar|tracking|pixel|banner|social|pinlock|visor-only|detail|retention|cheek-pad|parts|mechanism|size-chart|dimensions|specification|feature|ventilation|front.tyre|rear.tyre|front.wheel|rear.wheel|main.kv|key.visual|campaign|poster|close.up|engine.close)/i;
+const badImage = /(logo|favicon|sprite|icon|payment|placeholder|spinner|loading|badge|avatar|tracking|pixel|banner|social|pinlock|visor-only|detail|retention|cheek-pad|parts|mechanism|size-chart|dimensions|specification|feature|ventilation|front.tyre|rear.tyre|front.wheel|rear.wheel|main.kv|key.visual|campaign|poster|close.up|engine.close|frontino|micromatic|interiror|interior|liner|head.light|fuel.tank|tyre|closeup)/i;
 const badPage = /(shopee\.ph|\/search\/|\?q=)/i;
 const sources = new Set(generated.map((x) => x.sourceImageUrl).filter(Boolean));
 for (const m of media.matchAll(/sourceImageUrl\s*:\s*"([^"]+)"/g)) sources.add(m[1]);
