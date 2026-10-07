@@ -80,7 +80,7 @@ for (const relativePath of catalogFiles.slice(1)) {
 const mediaSource = read("lib/media.ts");
 const generatedMediaSource = read("lib/generatedProductMedia.ts");
 const renderableSource = read("lib/renderableMedia.ts");
-const mediaBlocks = mediaSource.match(/  \\{[\\s\\S]*?\\n  \\},/g) || [];
+const mediaBlocks = mediaSource.match(/  \{[\s\S]*?\n  \},/g) || [];
 const generatedArrayStart = generatedMediaSource.indexOf("= [");
 if (generatedArrayStart < 0) throw new Error("Missing generated product media array.");
 const generatedRecords = JSON.parse("[" + generatedMediaSource.slice(generatedArrayStart + 3, generatedMediaSource.lastIndexOf("];")).trim() + "]");
