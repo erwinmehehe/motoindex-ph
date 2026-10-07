@@ -15,9 +15,10 @@ const pairs = [
 ];
 const mediaPath = path.join(root, "lib/generatedProductMedia.ts");
 const mediaText = fs.readFileSync(mediaPath, "utf8");
-const pos = mediaText.indexOf("= [", mediaText.indexOf("export const generatedProductMedia"));
-if (pos < 0) throw new Error("Missing generated product media array");
-const prior = JSON.parse("[" + mediaText.slice(pos + 3, mediaText.lastIndexOf("];")).trim() + "]");
+const assignment = mediaText.indexOf("=", mediaText.indexOf("export const generatedProductMedia"));
+const pos = mediaText.indexOf("[", assignment);
+if (assignment < 0 || pos < 0) throw new Error("Missing generated product media array");
+const prior = JSON.parse(mediaText.slice(pos, mediaText.lastIndexOf("]") + 1));
 const preexisting = new Set(prior.map((x) => x.entityType + ":" + x.entityId));
 const knownImages = new Set(prior.map((x) => x.sourceImageUrl));
 const helmetSource = fs.readFileSync(path.join(root, "lib/catalog.ts"), "utf8");
@@ -77,7 +78,7 @@ for (const [entityId, model, sourceUrl, imageUrl] of pairs) {
   }
 }
 if (added.length) {
-  fs.writeFileSync(mediaPath, mediaText.slice(0, pos + 2) + " " + JSON.stringify([...prior, ...added], null, 2) + ";\n");
+  fs.writeFileSync(mediaPath, mediaText.slice(0, pos) + JSON.stringify([...prior, ...added], null, 2) + ";\n");
   const auditPath = path.join(root, "scripts/audit-helmet-media-coverage.mjs");
   const audit = fs.readFileSync(auditPath, "utf8");
   const installed = new Set(added.map((x) => x.entityId));
