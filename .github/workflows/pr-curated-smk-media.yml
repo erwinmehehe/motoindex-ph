@@ -1,0 +1,54 @@
+name: PR Curated SMK Helmet Images
+on:
+  push:
+    branches: [fix/discontinued-models-normal-pages]
+    paths:
+      - .github/workflows/pr-curated-smk-media.yml
+permissions:
+  contents: write
+jobs:
+  localize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Localize curated official SMK helmet photos
+        run: node scripts/localize-curated-helmet-images.mjs
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Image dependencies
+        run: python -m pip install --disable-pip-version-check opencv-python-headless==4.12.0.88 numpy==2.2.6
+      - name: Art-direct only newly localized helmets
+        run: |
+          ONLY="$(node -e 'const f=require("./artifacts/curated-helmet-media-report.json");process.stdout.write(f.localized.join(","))')"
+          if [ -n "$ONLY" ]; then python scripts/art-direct-helmet-media.py "--only=$ONLY"; fi
+      - name: Verify all media and tests
+        run: |
+          node scripts/validate-media-backfill-safety.mjs
+          MEDIA_STRICT_LOCAL=1 npm run validate:media
+          npm run validate:helmet-coverage
+          npm run validate:motorcycle-media
+          npm run validate:helmet-media
+          npm run typecheck
+      - name: Commit curated assets
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add lib/generatedProductMedia.ts scripts/audit-helmet-media-coverage.mjs public/media/helmets
+          if git diff --cached --quiet; then
+            echo "No new verified assets."
+            exit 0
+          fi
+          git commit -m "Add curated official SMK helmet hero photos"
+          git fetch origin fix/discontinued-models-normal-pages
+          git rebase origin/fix/discontinued-models-normal-pages
+          git push origin HEAD:fix/discontinued-models-normal-pages
