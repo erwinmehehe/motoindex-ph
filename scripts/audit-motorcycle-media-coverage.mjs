@@ -69,9 +69,10 @@ const mediaSource = read("lib/media.ts");
 const generatedMediaSource = read("lib/generatedProductMedia.ts");
 const renderableSource = read("lib/renderableMedia.ts");
 const mediaBlocks = mediaSource.match(/  \{[\s\S]*?\n  \},/g) || [];
-const generatedArrayStart = generatedMediaSource.indexOf("= [");
-if (generatedArrayStart < 0) throw new Error("Missing generated product media array.");
-const generatedRecords = JSON.parse("[" + generatedMediaSource.slice(generatedArrayStart + 3, generatedMediaSource.lastIndexOf("];")).trim() + "]");
+const generatedAssignment = generatedMediaSource.indexOf("=", generatedMediaSource.indexOf("export const generatedProductMedia"));
+const generatedArrayStart = generatedMediaSource.indexOf("[", generatedAssignment);
+if (generatedAssignment < 0 || generatedArrayStart < 0) throw new Error("Missing generated product media array.");
+const generatedRecords = JSON.parse(generatedMediaSource.slice(generatedArrayStart, generatedMediaSource.lastIndexOf("]") + 1));
 const suppressedBody = renderableSource.match(/const SUPPRESSED_MEDIA_IDS = new Set\(\[([\s\S]*?)\]\);/)?.[1] || "";
 const suppressedRecordIds = new Set([...suppressedBody.matchAll(/"([^"]+)"/g)].map((match) => match[1]));
 
