@@ -1,4 +1,5 @@
 name: PR Curated SMK Helmet Images
+# Rerun with robust media array parser
 on:
   push:
     branches: [fix/discontinued-models-normal-pages]
