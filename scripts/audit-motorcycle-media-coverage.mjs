@@ -80,10 +80,10 @@ for (const relativePath of catalogFiles.slice(1)) {
 const mediaSource = read("lib/media.ts");
 const generatedMediaSource = read("lib/generatedProductMedia.ts");
 const renderableSource = read("lib/renderableMedia.ts");
-const mediaBlocks = [
-  ...(mediaSource.match(/  \{[\s\S]*?\n  \},/g) || []),
-  ...(generatedMediaSource.match(/  \{[\s\S]*?\n  \},/g) || [])
-];
+const mediaBlocks = mediaSource.match(/  \\{[\\s\\S]*?\\n  \\},/g) || [];
+const generatedArrayStart = generatedMediaSource.indexOf("= [");
+if (generatedArrayStart < 0) throw new Error("Missing generated product media array.");
+const generatedRecords = JSON.parse("[" + generatedMediaSource.slice(generatedArrayStart + 3, generatedMediaSource.lastIndexOf("];")).trim() + "]");
 const suppressedBody = renderableSource.match(/const SUPPRESSED_MEDIA_IDS = new Set\(\[([\s\S]*?)\]\);/)?.[1] || "";
 const suppressedRecordIds = new Set([...suppressedBody.matchAll(/"([^"]+)"/g)].map((match) => match[1]));
 
@@ -96,6 +96,12 @@ for (const block of mediaBlocks) {
   const rightsStatus = block.match(/"?rightsStatus"?\s*:\s*"([^"]+)"/)?.[1];
   if (!recordId || !entityId || !src || rightsStatus === "pending" || suppressedRecordIds.has(recordId)) continue;
   renderableByEntity.set(entityId, { recordId, src });
+}
+
+for (const record of generatedRecords) {
+  if (record.entityType !== "motorcycle" || !record.entityId || !record.src ||
+      record.rightsStatus === "pending" || suppressedRecordIds.has(record.id)) continue;
+  renderableByEntity.set(record.entityId, { recordId: record.id, src: record.src });
 }
 
 const missing = [...catalogIds]
