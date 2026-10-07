@@ -25,6 +25,7 @@ const catalogFiles = [
 ];
 
 const knownBacklog = new Set([
+  "honda-pcx150",
   "benelli-motobi-200-evo",
   "honda-genio",
   "honda-rs125",
