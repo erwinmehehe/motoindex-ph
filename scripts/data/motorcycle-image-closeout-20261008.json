@@ -143,5 +143,6 @@
       "sourceLabel": "Exact-model photo candidate for yamaha-yzf-r15-v3; preserve exterior/bodywork"
     }
   ],
-  "review": []
+  "review": [],
+  "pipelineReady": true
 }
