@@ -13,11 +13,16 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: production
     timeout-minutes: 30
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      ADMIN_ACCESS_MODE: cloudflare
+      CF_ACCESS_TEAM_DOMAIN: ${{ secrets.CF_ACCESS_TEAM_DOMAIN }}
+      CF_ACCESS_AUD: ${{ secrets.CF_ACCESS_AUD }}
+      ADMIN_ACCESS_EMAILS: ${{ secrets.ADMIN_ACCESS_EMAILS }}
       NEXT_PUBLIC_SITE_URL: https://motoindexph.com
       NEXT_PUBLIC_CONTACT_EMAIL: hello@motoindexph.com
       NEXT_PUBLIC_ANALYTICS_CAPTURE_SEARCH_TERMS: "false"
@@ -41,6 +46,9 @@ jobs:
         run: |
           test -n "$CLOUDFLARE_API_TOKEN" || (echo "CLOUDFLARE_API_TOKEN is not configured" && exit 1)
           test -n "$CLOUDFLARE_ACCOUNT_ID" || (echo "CLOUDFLARE_ACCOUNT_ID is not configured" && exit 1)
+
+      - name: Production preflight
+        run: npm run check:launch
 
       - name: Typecheck
         run: npm run typecheck
