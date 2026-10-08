@@ -120,7 +120,7 @@ async function localize(item) {
 }
 
 for (const item of manifest.accepted) {
-  if (!ids.has(item.entityId)) throw new Error(`Unknown motorcycle catalog ID: ${item.entityId}`);
+  if (!ids.has(item.entityId) && !(byId.has(item.entityId) && fs.existsSync(path.join(root, "public/media/motorcycles", `${item.entityId}.webp`)))) throw new Error(`Motorcycle ID is neither an open gap nor a verified existing asset: ${item.entityId}`);
   if (manifest.review.some((x) => x.entityId === item.entityId)) throw new Error(`Conflicting status: ${item.entityId}`);
   const existingFile = path.join(root, "public/media/motorcycles", `${item.entityId}.webp`);
   if (fs.existsSync(existingFile)) {
