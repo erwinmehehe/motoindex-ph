@@ -11,9 +11,10 @@ const helmetBlock = catalog.split("export const helmetProducts")[1]?.split("expo
 const ids = new Set([...helmetBlock.matchAll(/\bid:\s*"([^"]+)"/g)].map((m) => m[1]));
 const existingSource = fs.readFileSync(generatedPath, "utf8");
 const start = existingSource.indexOf("export const generatedProductMedia");
-const arrayStart = existingSource.indexOf("[", start);
+const assignment = existingSource.indexOf("=", start);
+const arrayStart = existingSource.indexOf("[", assignment);
 const arrayEnd = existingSource.lastIndexOf("]");
-if (start < 0 || arrayStart < 0 || arrayEnd < arrayStart) throw new Error("Generated media array not found");
+if (start < 0 || assignment < 0 || arrayStart < 0 || arrayEnd < arrayStart) throw new Error("Generated media array not found");
 const records = JSON.parse(existingSource.slice(arrayStart, arrayEnd + 1));
 const byId = new Map(records.filter((x) => x.entityType === "helmet").map((x) => [x.entityId, x]));
 const report = { checkedAt: manifest.checkedAt, accepted: manifest.accepted.length, added: [], existing: [], rejected: [], needsReview: manifest.review.map((x) => x.entityId) };
