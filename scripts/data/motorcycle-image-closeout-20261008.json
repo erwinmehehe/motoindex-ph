@@ -32,10 +32,10 @@
     },
     {
       "entityId": "honda-rs125",
-      "imageUrl": "https://cms.hondaph.com/images/products/66e26447df321.png",
-      "sourceUrl": "https://www.hondaph.com/motor/rs125",
-      "rightsHolder": "Honda Philippines",
-      "sourceLabel": "Official Honda Philippines RS125 product photograph"
+      "imageUrl": "https://imgcdn.zigwheels.ph/large/gallery/color/73/962/honda-rs125-fi-color-801863.jpg",
+      "sourceUrl": "https://www.zigwheels.ph/new-motorcycles/honda/rs125-fi/images",
+      "rightsHolder": "Honda / Zigwheels Philippines",
+      "sourceLabel": "Exact-model Honda RS125 Fi blue studio color image (Zigwheels Philippines)"
     },
     {
       "entityId": "honda-rs150r",
@@ -146,5 +146,5 @@
   "review": [],
   "pipelineReady": true,
   "pipelineUpdate": "Use official Honda RS125 image after MotoPinas CDN 403",
-  "finalPass": "Official Honda RS125 source + KLX140/Tricity composition cleanup"
+  "finalPass": "Use Zigwheels Philippines RS125 Fi studio photo after official Honda CMS failed; retain two motorcycle composition corrections"
 }
