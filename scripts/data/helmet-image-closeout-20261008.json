@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-08",
+  "note": "Only accepted URLs are eligible for localization. Review rows must remain uncovered until exact full-helmet images are verified. All assets remain external references; source attribution is not reuse permission.",
+  "accepted": [
+    {
+      "entityId": "nhk-n1-max",
+      "imageUrl": "https://down-ph.img.susercontent.com/file/id-11134207-7ra0o-mcg1x0d7qrxa2b",
+      "sourceUrl": "https://shopee.ph/NHK-N1-MAX-SOLID-WHITE-HANDSOME-PACKAGE-NHK-N1-MAX-HALF-FACE-HELMET-i.489403526.26438839060",
+      "rightsHolder": "NHK / Marketplace seller",
+      "sourceLabel": "Checked exact-model product photo · nhk-n1-max"
+    },
+    {
+      "entityId": "nhk-n1-elite",
+      "imageUrl": "https://shoplineimg.com/60c8263d404902005c229ae7/670cc7ca5c115c000f6e279d/800x.png",
+      "sourceUrl": "https://www.riderment.com/products/nhk-n-1-elite-solid-helment",
+      "rightsHolder": "NHK / Riderment",
+      "sourceLabel": "Checked exact-model product photo · nhk-n1-elite"
+    },
+    {
+      "entityId": "kyt-skyhawk",
+      "imageUrl": "https://hhrperformance.com/cdn/shop/files/mattbluered1_04226336-f734-4d82-a783-b80c12c930cd.png?v=1732138466",
+      "sourceUrl": "https://hhrperformance.com/products/kyt-skyhawk-helmet-hyperflow-matte-blue-red",
+      "rightsHolder": "KYT / HHR Performance",
+      "sourceLabel": "Checked exact-model product photo · kyt-skyhawk"
+    },
+    {
+      "entityId": "kyt-tt-revo",
+      "imageUrl": "https://superbikesupply.com/cdn/shop/files/Y6TR0022-KYT_TT-REVO_GEAR_BLACKYELLOW_3.png?v=1740525180&width=1946",
+      "sourceUrl": "https://superbikesupply.com/products/tt-revo",
+      "rightsHolder": "KYT / Superbike Supply",
+      "sourceLabel": "Checked exact-model product photo · kyt-tt-revo"
+    },
+    {
+      "entityId": "gille-kerena-ff007",
+      "imageUrl": "https://down-ph.img.susercontent.com/file/ph-11134208-7rasc-m9e8e9auc6fy6d",
+      "sourceUrl": "https://shopee.ph/%E3%80%90GILLE%E3%80%91-FF007-KERENA-Helmet-Full-Face-for-Motorcycle-Revo-Visor-and-Women-With-Free-Clear-Visor-i.556685906.26025191755",
+      "rightsHolder": "Gille / Marketplace seller",
+      "sourceLabel": "Checked exact-model product photo · gille-kerena-ff007"
+    },
+    {
+      "entityId": "gille-gts-v1-135",
+      "imageUrl": "https://down-ph.img.susercontent.com/file/1d3dd62a0cc2a56248864a82e46f894c",
+      "sourceUrl": "https://shopee.ph/Gille-GTS-V1-Series-V1-Engine-helmet-full-face-for-motorcycle-Helmet-Dual-Visor-Motor-i.556685906.16511074398",
+      "rightsHolder": "Gille / Marketplace seller",
+      "sourceLabel": "Checked exact-model product photo · gille-gts-v1-135"
+    },
+    {
+      "entityId": "gille-circuit-ff012",
+      "imageUrl": "https://down-ph.img.susercontent.com/file/ph-11134207-7rasf-m2krfac9pon32d",
+      "sourceUrl": "https://shopee.ph/Gille-FF012-Circuit-Gauge-Full-Face-Dual-Visor-Motorcycle-Helmet-i.505955057.29817601409",
+      "rightsHolder": "Gille Helmets Mall",
+      "sourceLabel": "Checked exact-model product photo · gille-circuit-ff012"
+    },
+    {
+      "entityId": "gille-orion-af-10",
+      "imageUrl": "https://down-ph.img.susercontent.com/file/ph-11134207-7rasl-m70m8m0v31zh60",
+      "sourceUrl": "https://shopee.ph/GILLE-Helmets-AF-10-ORION-Men%27s-motorcycle-modular-helmet-full-face-dual-visor-for-women-i.556691608.28626676417",
+      "rightsHolder": "Gille / Marketplace seller",
+      "sourceLabel": "Checked exact-model product photo · gille-orion-af-10"
+    },
+    {
+      "entityId": "agv-pista-gp-rr",
+      "imageUrl": "https://dainese-cdn.thron.com/api/v1/content-delivery/shares/lxnwxt/contents/f32d5319-0df2-4a69-a234-2c284dca5a1e/image/image?format=webp&h=1920&q_auto=high&w=1920",
+      "sourceUrl": "https://www.agv.com/us/en/pista-gp-rr-mono-white---full-face-motorcycle-helmet-e2206-dot-2118356018042.html",
+      "rightsHolder": "AGV",
+      "sourceLabel": "Checked exact-model product photo · agv-pista-gp-rr"
+    },
+    {
+      "entityId": "nhk-r1",
+      "imageUrl": "https://durianbikers.com/cdn/shop/products/IMG_0118_3208a443-33f2-4b90-bf9c-4940b032cde3.jpg?v=1621654553&width=1946",
+      "sourceUrl": "https://durianbikers.com/products/nhk-r1-v2-0-solid-white-glossy-d-ring",
+      "rightsHolder": "NHK / Durian Bikers",
+      "sourceLabel": "Checked exact-model product photo · nhk-r1"
+    },
+    {
+      "entityId": "nhk-r6",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0551/5155/8824/products/cc956faf58786cb4bd1274b9ed28e569_1200x1200.jpg?v=1662791261",
+      "sourceUrl": "https://durianbikers.com/products/nhk-helmets-r6-v2-solid-gold-glossy",
+      "rightsHolder": "NHK / Durian Bikers",
+      "sourceLabel": "Checked exact-model product photo · nhk-r6"
+    },
+    {
+      "entityId": "smk-titan-carbon",
+      "imageUrl": "https://www.ridersindia.com/cdn/shop/files/smk-titan-carbon-full-face-dual-visor-helmet-glossy-black-glca-200-ece-2206-certified-2438413.png?v=1768382327",
+      "sourceUrl": "https://www.ridersindia.com/products/smk-titan-carbon-full-face-dual-visor-helmet-glossy-black-glca-200",
+      "rightsHolder": "SMK / Riders India",
+      "sourceLabel": "Checked exact-model product photo · smk-titan-carbon"
+    },
+    {
+      "entityId": "smk-allterra",
+      "imageUrl": "https://data.outletmoto.eu/imgprodotto/casco-moto-cross-smk-allterra-x-aces-gl657-blu-bianco_260999_zoom.jpg",
+      "sourceUrl": "https://www.outletmoto.eu/casco-moto-cross-smk-allterra-x-aces-gl657-blu-bianco-P155937.htm",
+      "rightsHolder": "SMK / OutletMoto",
+      "sourceLabel": "Checked exact-model product photo · smk-allterra"
+    },
+    {
+      "entityId": "smk-gtj",
+      "imageUrl": "https://www.sparify.co/cdn/shop/files/1_0d56ef54-93ad-4f89-a04e-4d094100afce.webp?v=1741171393&width=1445",
+      "sourceUrl": "https://www.sparify.co/products/smk-gtj-solid-open-face-half-helmet-gloss-black-dot-ece-22-o6-certified",
+      "rightsHolder": "SMK / Sparify",
+      "sourceLabel": "Checked exact-model product photo · smk-gtj"
+    },
+    {
+      "entityId": "smk-stellar-sport",
+      "imageUrl": "https://www.infinitymotorcycles.com/media/catalog/product/s/m/smk_stellar_sport_flight_blue_6.png?bg-color=255%2C255%2C255&canvas=700%2C700&fit=bounds&height=700&quality=80&width=700",
+      "sourceUrl": "https://www.infinitymotorcycles.com/product/smk-stellar-sport-flight-black-white-blue-red",
+      "rightsHolder": "SMK / Infinity Motorcycles",
+      "sourceLabel": "Checked exact-model product photo · smk-stellar-sport"
+    },
+    {
+      "entityId": "smk-nova",
+      "imageUrl": "https://www.motoworld.com.ph/cdn/shop/files/smknoveblack.jpg?v=1778643421&width=1214",
+      "sourceUrl": "https://www.motoworld.com.ph/products/smk-nova-full-face-motorcycle-helmet",
+      "rightsHolder": "SMK / Motoworld Philippines",
+      "sourceLabel": "Checked exact-model product photo · smk-nova"
+    },
+    {
+      "entityId": "alpinestars-sm5",
+      "imageUrl": "https://sprocketz.store/cdn/shop/files/astarssm5solidblkmt1.jpg?v=1751573152",
+      "sourceUrl": "https://sprocketz.store/products/alpinestars-sm5-solid-helmet",
+      "rightsHolder": "Alpinestars / Sprocketz",
+      "sourceLabel": "Checked exact-model product photo · alpinestars-sm5"
+    },
+    {
+      "entityId": "arai-concept-xe",
+      "imageUrl": "https://motopasionstore.com/133172-pdt_771/arai-concept-xe-solid-blanco.jpg",
+      "sourceUrl": "https://motopasionstore.com/es/cascos-integrales/177136-arai-concept-xe-solid-blanco.html",
+      "rightsHolder": "Arai / MotoPasion",
+      "sourceLabel": "Checked exact-model product photo · arai-concept-xe"
+    },
+    {
+      "entityId": "hnj-818a",
+      "imageUrl": "https://down-ph.img.susercontent.com/file/4426ca2f50845f6031248ef60dfe4212",
+      "sourceUrl": "https://shopee.ph/HNJ-818a-Women-Half-Face-Motorcycle-Helmet-Double-Shade-Motor-Men-Universal-i.556685906.16359449289",
+      "rightsHolder": "HNJ / Marketplace seller",
+      "sourceLabel": "Checked exact-model product photo · hnj-818a"
+    },
+    {
+      "entityId": "smk-typhoon",
+      "imageUrl": "https://ahhelmets.in/cdn/shop/files/GL-213-1.png?v=1781623779",
+      "sourceUrl": "https://ahhelmets.in/products/smk-typhoon-rival-gloss-black-white-red-helmet-gl213-ece-22-06",
+      "rightsHolder": "SMK / AH Helmets",
+      "sourceLabel": "Checked exact-model product photo · smk-typhoon"
+    }
+  ],
+  "review": [
+    {
+      "entityId": "gille-gvr-v1-172",
+      "sourceUrl": "https://shopee.ph/GILLE-172-GVR-V1-Mono-Color-Dual-Visor-Half-Face-Motorcycle-Helmet-i.505955057.13220557840",
+      "reason": "Available leading photos are multi-angle promotional composites; need clean full-helmet hero"
+    },
+    {
+      "entityId": "gille-squadron-ym-926",
+      "sourceUrl": "https://motomaster.ph/products/gille-ym-926-squadron-plain",
+      "reason": "Visible reference has large promotional typography; need clean product photo"
+    },
+    {
+      "entityId": "gille-paragon-ah-16",
+      "sourceUrl": "https://www.motomaster.ph/products/gille-ah-16-paragon-two-tone",
+      "reason": "Visible reference has multi-view promotional collage; need clean product photo"
+    },
+    {
+      "entityId": "nhk-s2-ultimate",
+      "sourceUrl": "https://nhkhelmet.com/s2-ultimate/",
+      "reason": "Manufacturer exact-model page confirmed; need full-resolution full-helmet hero URL"
+    },
+    {
+      "entityId": "nhk-s2-gp",
+      "sourceUrl": "https://nhkhelmet.com/s2-gp-2v/",
+      "reason": "Manufacturer exact-model page confirmed; need direct full-helmet hero URL"
+    },
+    {
+      "entityId": "nhk-c1",
+      "sourceUrl": "https://nhkhelmet.com/c1/",
+      "reason": "Manufacturer exact-model page confirmed; need direct full-helmet hero URL"
+    },
+    {
+      "entityId": "smk-delta-tour",
+      "sourceUrl": "https://smkhelmets.com/helmet/demi-jet-helmets/delta-tour/delta-tour-solid/",
+      "reason": "Manufacturer exact-model page confirmed; need direct single-helmet hero URL"
+    },
+    {
+      "entityId": "hnj-a607",
+      "sourceUrl": "",
+      "reason": "Exact A607 helmet source not yet verified; do not confuse with A4-007-A or HNJ 807"
+    }
+  ]
+}
