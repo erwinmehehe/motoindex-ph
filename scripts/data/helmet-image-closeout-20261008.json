@@ -142,6 +142,34 @@
       "sourceUrl": "https://ahhelmets.in/products/smk-typhoon-rival-gloss-black-white-red-helmet-gl213-ece-22-06",
       "rightsHolder": "SMK / AH Helmets",
       "sourceLabel": "Checked exact-model product photo · smk-typhoon"
+    },
+    {
+      "entityId": "nhk-s2-ultimate",
+      "imageUrl": "https://nhkhelmet.com/wp-content/uploads/2026/07/S2-ULTIMATE.jpg",
+      "sourceUrl": "https://nhkhelmet.com/open-face-helmet/",
+      "rightsHolder": "NHK Helmets",
+      "sourceLabel": "Official NHK open-face collection exact-model photograph · S2 Ultimate"
+    },
+    {
+      "entityId": "nhk-s2-gp",
+      "imageUrl": "https://nhkhelmet.com/wp-content/uploads/2026/07/S2-GP.jpg",
+      "sourceUrl": "https://nhkhelmet.com/open-face-helmet/",
+      "rightsHolder": "NHK Helmets",
+      "sourceLabel": "Official NHK open-face collection exact-model photograph · S2 GP"
+    },
+    {
+      "entityId": "nhk-c1",
+      "imageUrl": "https://nhkhelmet.com/wp-content/uploads/2025/06/C-1.jpg",
+      "sourceUrl": "https://nhkhelmet.com/open-face-helmet/",
+      "rightsHolder": "NHK Helmets",
+      "sourceLabel": "Official NHK open-face collection exact-model photograph · C1"
+    },
+    {
+      "entityId": "smk-delta-tour",
+      "imageUrl": "https://smkhelmets.com/wp-content/uploads/2025/10/DELTA-TOUR-ANTHRACITE-GLDA-600.png",
+      "sourceUrl": "https://smkhelmets.com/helmet/demi-jet-helmets/delta-tour/delta-tour-solid/",
+      "rightsHolder": "SMK Helmets",
+      "sourceLabel": "Official SMK Delta Tour Solid exact-model color photo"
     }
   ],
   "review": [
@@ -161,30 +189,10 @@
       "reason": "Visible reference has multi-view promotional collage; need clean product photo"
     },
     {
-      "entityId": "nhk-s2-ultimate",
-      "sourceUrl": "https://nhkhelmet.com/s2-ultimate/",
-      "reason": "Manufacturer exact-model page confirmed; need full-resolution full-helmet hero URL"
-    },
-    {
-      "entityId": "nhk-s2-gp",
-      "sourceUrl": "https://nhkhelmet.com/s2-gp-2v/",
-      "reason": "Manufacturer exact-model page confirmed; need direct full-helmet hero URL"
-    },
-    {
-      "entityId": "nhk-c1",
-      "sourceUrl": "https://nhkhelmet.com/c1/",
-      "reason": "Manufacturer exact-model page confirmed; need direct full-helmet hero URL"
-    },
-    {
-      "entityId": "smk-delta-tour",
-      "sourceUrl": "https://smkhelmets.com/helmet/demi-jet-helmets/delta-tour/delta-tour-solid/",
-      "reason": "Manufacturer exact-model page confirmed; need direct single-helmet hero URL"
-    },
-    {
       "entityId": "hnj-a607",
       "sourceUrl": "",
       "reason": "Exact A607 helmet source not yet verified; do not confuse with A4-007-A or HNJ 807"
     }
   ],
-  "pipelineUpdatedAt": "2026-10-08"
+  "pipelineUpdatedAt": "2026-10-08 manufacturer gallery source pass"
 }
