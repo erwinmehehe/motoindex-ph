@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { dealerPlacementLabels, normalizeDealerPlacementTier } from "@/lib/dealerPlacements";
+import { ownerRequestOriginAllowed } from "@/lib/ownerAuth";
 
 export const runtime="nodejs";
 
@@ -9,6 +10,7 @@ function phone(value:string){return value.replace(/[^0-9+]/g,"");}
 function validUrl(value:string){if(!value)return true;try{const url=new URL(value);return url.protocol==="https:"||url.protocol==="http:";}catch{return false;}}
 
 export async function POST(request:Request){
+  if(!ownerRequestOriginAllowed(request))return NextResponse.json({ok:false,error:"Invalid request origin."},{status:403});
   const contentLength=Number(request.headers.get("content-length")||0);
   if(contentLength>30_000)return NextResponse.json({ok:false,error:"Request too large."},{status:413});
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Dealer applications are temporarily unavailable while the production database is being configured."},{status:503});
