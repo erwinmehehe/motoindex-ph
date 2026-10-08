@@ -3490,5 +3490,21 @@ export const generatedProductMedia: EntityMedia[] =  [
     "sourceLabel": "Exact-model photo candidate for yamaha-yzf-r15-v3; preserve exterior/bodywork",
     "sourceUrl": "https://www.motownindia.com/Bureau/auto-pit-bikes/597/Yamaha-introduces-Dual-Channel-ABS-for-YZF-R15-V30-at-Rs-139-lakh-onward-Motown-India-Bureau",
     "lastChecked": "2026-10-08"
+  },
+  {
+    "id": "honda-rs125-exact-source-20261008",
+    "entityType": "motorcycle",
+    "entityId": "honda-rs125",
+    "role": "primary",
+    "src": "/media/motorcycles/honda-rs125.webp",
+    "sourceImageUrl": "https://imgcdn.zigwheels.ph/large/gallery/color/73/962/honda-rs125-fi-color-801863.jpg",
+    "alt": "honda rs125 exact-model motorcycle motorcycle product photograph",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "rightsHolder": "Honda / Zigwheels Philippines",
+    "sourceLabel": "Exact-model Honda RS125 Fi blue studio color image (Zigwheels Philippines)",
+    "sourceUrl": "https://www.zigwheels.ph/new-motorcycles/honda/rs125-fi/images",
+    "lastChecked": "2026-10-08"
   }
 ];

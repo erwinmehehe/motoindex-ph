@@ -25,7 +25,7 @@ const catalogFiles = [
 ];
 
 const knownBacklog = new Set([
-  "honda-rs125",
+
 ]);
 
 function read(relativePath) {

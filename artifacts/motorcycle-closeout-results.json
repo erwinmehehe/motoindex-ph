@@ -1,7 +1,9 @@
 {
   "checkedAt": "2026-10-08",
   "accepted": 20,
-  "added": [],
+  "added": [
+    "honda-rs125"
+  ],
   "existing": [
     "yamaha-sr400",
     "honda-pcx150",
@@ -23,14 +25,7 @@
     "yamaha-tricity",
     "yamaha-yzf-r15-v3"
   ],
-  "rejected": [
-    {
-      "entityId": "honda-rs125",
-      "reason": "fetch failed"
-    }
-  ],
+  "rejected": [],
   "needsReview": [],
-  "remaining": [
-    "honda-rs125"
-  ]
+  "remaining": []
 }
