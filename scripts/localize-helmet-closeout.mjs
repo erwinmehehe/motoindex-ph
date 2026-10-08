@@ -41,12 +41,68 @@ async function fetchSource(item) {
   return bytes;
 }
 
+function normalizedRectangle(rect, width, height) {
+  const left = Math.max(0, Math.floor(rect.left * width));
+  const top = Math.max(0, Math.floor(rect.top * height));
+  const right = Math.min(width, Math.ceil((rect.left + rect.width) * width));
+  const bottom = Math.min(height, Math.ceil((rect.top + rect.height) * height));
+  if (right <= left || bottom <= top) throw new Error("Invalid source crop/cleanup rectangle");
+  return { left, top, width: right - left, height: bottom - top };
+}
+
+async function prepareSource(item, bytes) {
+  let prepared = await sharp(bytes, { failOn: "warning" }).rotate().flatten({ background: white }).png().toBuffer();
+  const meta = await sharp(prepared).metadata();
+  if (item.whiteOutFrac?.length) {
+    const overlays = [];
+    for (const rect of item.whiteOutFrac) {
+      const x = normalizedRectangle(rect, meta.width, meta.height);
+      const patch = await sharp({ create: { width: x.width, height: x.height, channels: 4, background: white } }).png().toBuffer();
+      overlays.push({ input: patch, left: x.left, top: x.top });
+    }
+    prepared = await sharp(prepared).composite(overlays).png().toBuffer();
+  }
+  if (item.cropFrac) {
+    const crop = normalizedRectangle(item.cropFrac, meta.width, meta.height);
+    prepared = await sharp(prepared).extract(crop).png().toBuffer();
+  }
+  if (item.removeNeutralBackdrop) {
+    const { data, info } = await sharp(prepared).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+    const { width, height, channels } = info;
+    const seen = new Uint8Array(width * height);
+    const queue = new Int32Array(width * height);
+    let front = 0, back = 0;
+    const eligible = (index) => {
+      const p = index * channels;
+      const r = data[p], g = data[p + 1], b = data[p + 2];
+      return Math.max(r, g, b) - Math.min(r, g, b) <= 12 && Math.min(r, g, b) >= 90;
+    };
+    const enqueue = (index) => {
+      if (seen[index] || !eligible(index)) return;
+      seen[index] = 1;
+      queue[back++] = index;
+    };
+    for (let x = 0; x < width; x++) { enqueue(x); enqueue((height - 1) * width + x); }
+    for (let y = 0; y < height; y++) { enqueue(y * width); enqueue(y * width + width - 1); }
+    while (front < back) {
+      const index = queue[front++], x = index % width, y = Math.floor(index / width);
+      const p = index * channels;
+      data[p] = data[p + 1] = data[p + 2] = 255;
+      if (x > 0) enqueue(index - 1);
+      if (x + 1 < width) enqueue(index + 1);
+      if (y > 0) enqueue(index - width);
+      if (y + 1 < height) enqueue(index + width);
+    }
+    prepared = await sharp(data, { raw: { width, height, channels } }).png().toBuffer();
+  }
+  return prepared;
+}
+
 async function localize(item) {
   const target = path.join(root, "public/media/helmets", `${item.entityId}.webp`);
   const bytes = await fetchSource(item);
-  const subject = await sharp(bytes, { failOn: "warning" })
-    .rotate()
-    .flatten({ background: white })
+  const cleaned = await prepareSource(item, bytes);
+  const subject = await sharp(cleaned, { failOn: "warning" })
     .resize({ width: 900, height: 900, fit: "inside", withoutEnlargement: false })
     .png()
     .toBuffer();
