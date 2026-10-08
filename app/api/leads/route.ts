@@ -4,6 +4,7 @@ import { getModelById } from "@/lib/data";
 import { matchQuoteEligibleDealers } from "@/lib/persistentSellers";
 import { actionToken, hashActionToken } from "@/lib/actionTokens";
 import { getOwnerSession, ownerRequestOriginAllowed } from "@/lib/ownerAuth";
+import { verifyPublicFormChallenge } from "@/lib/publicFormChallenge";
 
 export const runtime = "nodejs";
 
@@ -62,6 +63,9 @@ export async function POST(request: Request) {
   if (cityProvince.length < 3) return NextResponse.json({ ok: false, error: "Enter your city or province." }, { status: 400 });
   if (!["cash", "installment"].includes(purchaseType)) return NextResponse.json({ ok: false, error: "Choose cash or installment." }, { status: 400 });
   if (!consent) return NextResponse.json({ ok: false, error: "Consent is required before we can save and match your request." }, { status: 400 });
+
+  const challenge = await verifyPublicFormChallenge(body.turnstileToken, "buyer_quote");
+  if (!challenge.ok) return NextResponse.json({ ok: false, error: challenge.error }, { status: challenge.status, headers: { "Cache-Control": "no-store" } });
 
   const ownerSession = await getOwnerSession().catch(() => null);
   const ownerId = ownerSession && (!email || ownerSession.owner.email === email) ? ownerSession.ownerId : null;
