@@ -32,6 +32,11 @@ if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || /@(example\.(com|org|net)|test|
   failures.push("NEXT_PUBLIC_CONTACT_EMAIL must be a real monitored mailbox for launch.");
 }
 
+if (process.env.REQUIRE_FORM_BOT_PROTECTION === "true") {
+  if (!(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "").trim()) failures.push("NEXT_PUBLIC_TURNSTILE_SITE_KEY is required for protected public forms.");
+  if (!(process.env.TURNSTILE_SECRET_KEY || "").trim()) failures.push("TURNSTILE_SECRET_KEY is required for protected public forms.");
+}
+
 const adminAccessMode = (process.env.ADMIN_ACCESS_MODE || "basic").trim().toLowerCase();
 if (adminAccessMode === "cloudflare" || adminAccessMode === "cloudflare-access") {
   const teamDomain = (process.env.CF_ACCESS_TEAM_DOMAIN || "").trim().replace(/^https?:\/\//, "").replace(/\/$/, "");
