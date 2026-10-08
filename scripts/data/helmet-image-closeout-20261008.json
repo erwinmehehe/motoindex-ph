@@ -170,6 +170,13 @@
       "sourceUrl": "https://smkhelmets.com/helmet/demi-jet-helmets/delta-tour/delta-tour-solid/",
       "rightsHolder": "SMK Helmets",
       "sourceLabel": "Official SMK Delta Tour Solid exact-model color photo"
+    },
+    {
+      "entityId": "gille-squadron-ym-926",
+      "imageUrl": "https://cf.shopee.ph/file/e06127db8bd2e21f708a42143475533e",
+      "sourceUrl": "https://shopee.ph/Gille-Squadron-Solid-Full-Face-Dual-Sports-Convertible-to-Half-Face-Single-Visor-Motorcycle-Helmet-i.505955057.19236636302",
+      "rightsHolder": "Gille Helmets Mall",
+      "sourceLabel": "Official-store exact-model clean studio product photo · Gille Squadron YM-926"
     }
   ],
   "review": [
@@ -177,11 +184,6 @@
       "entityId": "gille-gvr-v1-172",
       "sourceUrl": "https://shopee.ph/GILLE-172-GVR-V1-Mono-Color-Dual-Visor-Half-Face-Motorcycle-Helmet-i.505955057.13220557840",
       "reason": "Available leading photos are multi-angle promotional composites; need clean full-helmet hero"
-    },
-    {
-      "entityId": "gille-squadron-ym-926",
-      "sourceUrl": "https://motomaster.ph/products/gille-ym-926-squadron-plain",
-      "reason": "Visible reference has large promotional typography; need clean product photo"
     },
     {
       "entityId": "gille-paragon-ah-16",
