@@ -1,5 +1,5 @@
 import { getModelById, publicMotorcycles } from "./data";
-import { observedMarketRange } from "./marketChecks";
+import { latestPriceReference, observedMarketRange } from "./marketChecks";
 import { financingScenario } from "./financing";
 import { dealerFinancingObservations } from "./dealerFinancing";
 
@@ -8,11 +8,14 @@ export const researchMotorcycles = [...publicMotorcycles].sort((a, b) =>
 );
 
 export function latestResearchCheck() {
-  return researchMotorcycles
-    .map((model) => model.marketPriceCheckedAt || model.verifiedAt)
-    .filter(Boolean)
-    .sort()
-    .at(-1) || "2026-08-27";
+  // Dataset publication and price-check timestamps, not specification-only checks.
+  return [
+    PRICE_INDEX_BASELINE_DATE,
+    ...researchMotorcycles
+      .map(latestPriceReference)
+      .filter((reference) => reference.kind === "price-check")
+      .map((reference) => reference.date)
+  ].sort().at(-1)!;
 }
 
 export function median(values: number[]) {
@@ -29,7 +32,9 @@ export function researchPriceRows() {
       model,
       fromPhp: range.from,
       toPhp: range.to,
-      checkedAt: model.marketPriceCheckedAt || model.verifiedAt,
+      checkedAt: latestPriceReference(model).kind === "price-check"
+        ? latestPriceReference(model).date
+        : "Price not separately checked",
     };
   });
 }
@@ -82,18 +87,20 @@ export function researchPriceSegments() {
 export function researchBrandPriceBenchmarks(minModels = 3) {
   const groups = new Map<string, ReturnType<typeof researchPriceRows>>();
   for (const row of researchPriceRows()) {
-    const existing = groups.get(row.model.make) || [];
+    // Group by canonical brand slug: 'Kymco' and 'KYMCO' are one brand.
+    const existing = groups.get(row.model.makeSlug) || [];
     existing.push(row);
-    groups.set(row.model.make, existing);
+    groups.set(row.model.makeSlug, existing);
   }
 
   return [...groups.entries()]
     .filter(([, rows]) => rows.length >= minModels)
-    .map(([make, rows]) => {
+    .map(([makeSlug, rows]) => {
+      const make = makeSlug === "kymco" ? "KYMCO" : rows[0].model.make;
       const values = rows.map((row) => row.fromPhp);
       return {
         make,
-        makeSlug: rows[0].model.makeSlug,
+        makeSlug,
         count: rows.length,
         medianPhp: Math.round(median(values)),
         minPhp: Math.min(...values),
