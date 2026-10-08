@@ -2,6 +2,11 @@ name: Product Image Backfill
 
 on:
   workflow_dispatch:
+  push:
+    branches: [fix/discontinued-models-normal-pages]
+    paths:
+      - scripts/data/helmet-image-closeout-20261008.json
+      - scripts/localize-helmet-closeout.mjs
 
 concurrency:
   group: product-image-backfill-${{ github.ref_name }}
@@ -51,19 +56,27 @@ jobs:
       - name: Verify non-destructive media pipeline
         run: node scripts/validate-media-backfill-safety.mjs
 
+      - name: Localize reviewed exact-model helmet source images
+        run: node scripts/localize-helmet-closeout.mjs
+
       - name: Localize external motorcycle images
+        if: github.event_name == 'workflow_dispatch'
         run: node scripts/localize-motorcycle-media.mjs
 
       - name: Backfill missing gear product images
+        if: github.event_name == 'workflow_dispatch'
         run: node scripts/backfill-product-media.mjs
 
       - name: Backfill missing SMK images from official sources
+        if: github.event_name == 'workflow_dispatch'
         run: node scripts/backfill-smk-media.mjs
 
       - name: Backfill missing LS2 images from official mirror
+        if: github.event_name == 'workflow_dispatch'
         run: node scripts/backfill-ls2-media.mjs
 
       - name: Normalize generated media metadata
+        if: github.event_name == 'workflow_dispatch'
         run: node scripts/normalize-generated-product-media.mjs
 
       - name: Verify non-destructive media pipeline after generation
@@ -71,6 +84,9 @@ jobs:
 
       - name: Show updated exact-image coverage
         run: node scripts/audit-product-media-coverage.mjs
+
+      - name: Validate exact helmet coverage
+        run: npm run validate:helmet-coverage
 
       - name: Validate media records
         run: MEDIA_STRICT_LOCAL=1 npm run validate:media
@@ -92,7 +108,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A lib/media.ts lib/generatedProductMedia.ts public/media/motorcycles public/media/helmets public/media/tires public/media/topboxes
+          git add -A lib/media.ts lib/generatedProductMedia.ts scripts/audit-helmet-media-coverage.mjs public/media/motorcycles public/media/helmets public/media/tires public/media/topboxes
           if git diff --cached --quiet; then
             echo "No product media changes to commit."
             exit 0
