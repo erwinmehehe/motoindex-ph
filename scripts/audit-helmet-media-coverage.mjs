@@ -3,34 +3,10 @@ import path from "node:path";
 
 const root = process.cwd();
 const knownBacklog = new Set([
-  "nhk-n1-max",
-  "nhk-n1-elite",
-  "kyt-skyhawk",
-  "kyt-tt-revo",
-  "gille-kerena-ff007",
-  "gille-gts-v1-135",
-  "gille-circuit-ff012",
   "gille-gvr-v1-172",
-  "gille-squadron-ym-926",
-  "gille-orion-af-10",
   "gille-paragon-ah-16",
-  "agv-pista-gp-rr",
-  "nhk-s2-ultimate",
-  "nhk-s2-gp",
   "nhk-r1",
-  "nhk-r6",
-  "nhk-c1",
-  "smk-titan-carbon",
-  "smk-allterra",
-  "smk-gtj",
-  "smk-delta-tour",
-  "smk-stellar-sport",
-  "smk-nova",
-  "alpinestars-sm5",
-  "arai-concept-xe",
-  "hnj-818a",
   "hnj-a607",
-  "smk-typhoon",
 ]);
 
 function read(relativePath) {
