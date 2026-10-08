@@ -2,9 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
-const knownBacklog = new Set([
-  "hnj-a607",
-]);
+const knownBacklog = new Set([]);
 
 function read(relativePath) {
   return fs.readFileSync(path.join(root, relativePath), "utf8");
