@@ -2,7 +2,7 @@ import type { Motorcycle } from "./types";
 import type { FaqItem } from "@/components/FaqSection";
 import { financingScenario } from "./financing";
 import { php } from "./utils";
-import { observedMarketRange } from "./marketChecks";
+import { latestPriceReference, observedMarketRange } from "./marketChecks";
 import { hasInstallmentLandingPage } from "./modelIntentLandingPages";
 
 export type PriceSeoTarget = {
@@ -132,6 +132,7 @@ export function priceFaqsForModel(model: Motorcycle, priceLabel: string): FaqIte
   const range = observedMarketRange(model);
   const finance = financingScenario(range.from, 20, 36, 12);
   const financeHigh = financingScenario(range.to && range.to > range.from ? range.to : range.from, 20, 36, 12);
+  const reference = latestPriceReference(model);
 
   if (model.marketStatus === "discontinued") {
     return [
@@ -186,7 +187,9 @@ export function priceFaqsForModel(model: Motorcycle, priceLabel: string): FaqIte
     }] : []),
     {
       question: `When was the ${modelName} price checked?`,
-      answer: `The latest price reference on this page was checked on ${model.marketPriceCheckedAt || model.verifiedAt}. Dealer prices can change after that date, so confirm the current quote before buying.`
+      answer: reference.kind === "price-check"
+        ? `The latest recorded price-source check was on ${reference.date}. Prices can change, so confirm the exact variant and final dealer quote before buying.`
+        : `MotoIndex last verified the model source on ${reference.date}, but has no separate dated price check for this model. Treat the listed amount as a reference and confirm the latest price with a seller.`
     }
   ];
 }
