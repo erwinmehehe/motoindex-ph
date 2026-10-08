@@ -145,5 +145,6 @@
   ],
   "review": [],
   "pipelineReady": true,
-  "pipelineUpdate": "Use official Honda RS125 image after MotoPinas CDN 403"
+  "pipelineUpdate": "Use official Honda RS125 image after MotoPinas CDN 403",
+  "finalPass": "Official Honda RS125 source + KLX140/Tricity composition cleanup"
 }
