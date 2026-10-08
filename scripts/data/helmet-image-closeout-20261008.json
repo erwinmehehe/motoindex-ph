@@ -68,10 +68,10 @@
     },
     {
       "entityId": "nhk-r1",
-      "imageUrl": "https://durianbikers.com/cdn/shop/products/IMG_0118_3208a443-33f2-4b90-bf9c-4940b032cde3.jpg?v=1621654553&width=1946",
-      "sourceUrl": "https://durianbikers.com/products/nhk-r1-v2-0-solid-white-glossy-d-ring",
-      "rightsHolder": "NHK / Durian Bikers",
-      "sourceLabel": "Checked exact-model product photo · nhk-r1"
+      "imageUrl": "https://nhkhelmet.com/wp-content/uploads/2020/10/R1-2.jpg",
+      "sourceUrl": "https://nhkhelmet.com/open-face-helmet/",
+      "rightsHolder": "NHK Helmets",
+      "sourceLabel": "Official NHK gallery exact-model product photograph · R1"
     },
     {
       "entityId": "nhk-r6",
@@ -177,24 +177,49 @@
       "sourceUrl": "https://shopee.ph/Gille-Squadron-Solid-Full-Face-Dual-Sports-Convertible-to-Half-Face-Single-Visor-Motorcycle-Helmet-i.505955057.19236636302",
       "rightsHolder": "Gille Helmets Mall",
       "sourceLabel": "Official-store exact-model clean studio product photo · Gille Squadron YM-926"
-    }
-  ],
-  "review": [
+    },
     {
       "entityId": "gille-gvr-v1-172",
-      "sourceUrl": "https://shopee.ph/GILLE-172-GVR-V1-Mono-Color-Dual-Visor-Half-Face-Motorcycle-Helmet-i.505955057.13220557840",
-      "reason": "Available leading photos are multi-angle promotional composites; need clean full-helmet hero"
+      "imageUrl": "https://down-ph.img.susercontent.com/file/f1b5dc6fa73e71dc1b66f0ae2257d632",
+      "sourceUrl": "https://shopee.ph/Gille-Helmet-172-GVR-V1-PLAIN-Motorcycle-Half-Face-Helmet-Dual-Visor-With-Keychain-i.505955057.13220557840",
+      "rightsHolder": "Gille Helmets Mall",
+      "sourceLabel": "Official-store exact GVR-V1 172 product photo, promotional label cropped",
+      "cropFrac": {
+        "left": 0.02,
+        "top": 0.055,
+        "width": 0.96,
+        "height": 0.76
+      },
+      "whiteOutFrac": [
+        {
+          "left": 0,
+          "top": 0,
+          "width": 0.34,
+          "height": 0.12
+        }
+      ]
     },
     {
       "entityId": "gille-paragon-ah-16",
-      "sourceUrl": "https://www.motomaster.ph/products/gille-ah-16-paragon-two-tone",
-      "reason": "Visible reference has multi-view promotional collage; need clean product photo"
-    },
+      "imageUrl": "https://down-ph.img.susercontent.com/file/ph-11134207-820lf-mtg9e5uo9nnuaf",
+      "sourceUrl": "https://shopee.ph/GILLE-AH-16-PARAGON-Two-Tone-Dual-Visor-Modular-Motorcycle-Helmet-w-Free-Clear-Visor-i.505955057.42624608807",
+      "rightsHolder": "Gille Helmets Mall",
+      "sourceLabel": "Official-store exact AH-16 Paragon product photo, promotional labels cropped and neutral background removed",
+      "cropFrac": {
+        "left": 0.095,
+        "top": 0.195,
+        "width": 0.805,
+        "height": 0.685
+      },
+      "removeNeutralBackdrop": true
+    }
+  ],
+  "review": [
     {
       "entityId": "hnj-a607",
       "sourceUrl": "",
       "reason": "Exact A607 helmet source not yet verified; do not confuse with A4-007-A or HNJ 807"
     }
   ],
-  "pipelineUpdatedAt": "2026-10-08 manufacturer gallery source pass"
+  "pipelineUpdatedAt": "2026-10-08 final closeout candidate wave"
 }
