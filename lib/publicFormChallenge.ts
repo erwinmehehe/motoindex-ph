@@ -5,7 +5,7 @@ type ChallengeResult = { ok: true } | { ok: false; status: number; error: string
 export async function verifyPublicFormChallenge(value: unknown, action: PublicFormAction): Promise<ChallengeResult> {
   const secret = (process.env.TURNSTILE_SECRET_KEY || "").trim();
   const siteKey = (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "").trim();
-  const required = process.env.NODE_ENV === "production" || process.env.PUBLIC_FORMS_TURNSTILE_REQUIRED === "true";
+  const required = process.env.NODE_ENV === "production" || process.env.REQUIRE_FORM_BOT_PROTECTION === "true";
 
   // Local tests and development are not forced to use external Cloudflare credentials.
   if (!required && !secret && !siteKey) return { ok: true };

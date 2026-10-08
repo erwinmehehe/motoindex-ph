@@ -50,6 +50,11 @@ export async function POST(request:Request){
     orderBy:{updatedAt:"desc"}
   });
 
+  // Avoid rotating confirmation tokens and sending repeated email for the same pending alert.
+  if(recentPending?.updatedAt && recentPending.updatedAt.getTime()>Date.now()-15*60*1000){
+    return NextResponse.json({ok:true,message:"If you recently requested this alert, check your inbox. You can request another confirmation after 15 minutes."},{headers:{"Cache-Control":"no-store"}});
+  }
+
   const subscription=recentPending
     ? await prisma.priceAlertSubscription.update({
         where:{id:recentPending.id},
