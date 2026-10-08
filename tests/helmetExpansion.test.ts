@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getHelmetBrand } from "../lib/data";
+import { gearSitemapEntries } from "../lib/sitemaps";
 import { getHelmetCategoryProducts, getHelmetProduct, helmetProducts, isIndexableHelmetBrand } from "../lib/catalog";
 import { helmetCatalogAliasTarget } from "../lib/helmetBrandLineups";
 import { getHelmetSeoComparison, isIndexableHelmetSeoComparison } from "../lib/helmetSeoComparisons";
@@ -9,6 +10,13 @@ import { getVerifiedHelmetSizing } from "../lib/helmetSizing";
 import { effectiveHelmetCertification, getVerifiedHelmetCertification } from "../lib/helmetCertification";
 
 describe("helmet market expansion", () => {
+
+  it("excludes unsupported HNJ A607 from the public helmet catalog and sitemap", () => {
+    expect(helmetProducts.some(product => product.id === "hnj-a607")).toBe(false);
+    expect(getHelmetProduct("hnj", "a607")).toBeUndefined();
+    expect(gearSitemapEntries().some(entry => entry.url.endsWith("/gear/helmets/hnj/a607"))).toBe(false);
+  });
+
   it("publishes the new Philippine helmet brand hubs", () => {
     for (const slug of ["studds", "scorpion", "nolan", "ryo", "oneal"]) {
       expect(getHelmetBrand(slug)).toBeTruthy();
