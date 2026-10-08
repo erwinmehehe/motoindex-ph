@@ -3138,5 +3138,53 @@ export const generatedProductMedia: EntityMedia[] =  [
     "sourceLabel": "Official-store exact-model clean studio product photo · Gille Squadron YM-926",
     "sourceUrl": "https://shopee.ph/Gille-Squadron-Solid-Full-Face-Dual-Sports-Convertible-to-Half-Face-Single-Visor-Motorcycle-Helmet-i.505955057.19236636302",
     "lastChecked": "2026-10-08"
+  },
+  {
+    "id": "nhk-r1-exact-source-20261008",
+    "entityType": "helmet",
+    "entityId": "nhk-r1",
+    "role": "primary",
+    "src": "/media/helmets/nhk-r1.webp",
+    "sourceImageUrl": "https://nhkhelmet.com/wp-content/uploads/2020/10/R1-2.jpg",
+    "alt": "nhk r1 exact-model motorcycle helmet product photograph",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "rightsHolder": "NHK Helmets",
+    "sourceLabel": "Official NHK gallery exact-model product photograph · R1",
+    "sourceUrl": "https://nhkhelmet.com/open-face-helmet/",
+    "lastChecked": "2026-10-08"
+  },
+  {
+    "id": "gille-gvr-v1-172-exact-source-20261008",
+    "entityType": "helmet",
+    "entityId": "gille-gvr-v1-172",
+    "role": "primary",
+    "src": "/media/helmets/gille-gvr-v1-172.webp",
+    "sourceImageUrl": "https://down-ph.img.susercontent.com/file/f1b5dc6fa73e71dc1b66f0ae2257d632",
+    "alt": "gille gvr v1 172 exact-model motorcycle helmet product photograph",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "rightsHolder": "Gille Helmets Mall",
+    "sourceLabel": "Official-store exact GVR-V1 172 product photo, promotional label cropped",
+    "sourceUrl": "https://shopee.ph/Gille-Helmet-172-GVR-V1-PLAIN-Motorcycle-Half-Face-Helmet-Dual-Visor-With-Keychain-i.505955057.13220557840",
+    "lastChecked": "2026-10-08"
+  },
+  {
+    "id": "gille-paragon-ah-16-exact-source-20261008",
+    "entityType": "helmet",
+    "entityId": "gille-paragon-ah-16",
+    "role": "primary",
+    "src": "/media/helmets/gille-paragon-ah-16.webp",
+    "sourceImageUrl": "https://down-ph.img.susercontent.com/file/ph-11134207-820lf-mtg9e5uo9nnuaf",
+    "alt": "gille paragon ah 16 exact-model motorcycle helmet product photograph",
+    "width": 1200,
+    "height": 1200,
+    "rightsStatus": "external-reference",
+    "rightsHolder": "Gille Helmets Mall",
+    "sourceLabel": "Official-store exact AH-16 Paragon product photo, promotional labels cropped and neutral background removed",
+    "sourceUrl": "https://shopee.ph/GILLE-AH-16-PARAGON-Two-Tone-Dual-Visor-Modular-Motorcycle-Helmet-w-Free-Clear-Visor-i.505955057.42624608807",
+    "lastChecked": "2026-10-08"
   }
 ];
