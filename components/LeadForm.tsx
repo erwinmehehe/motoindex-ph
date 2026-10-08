@@ -15,6 +15,20 @@ export function LeadForm({ model }: { model: Motorcycle }) {
   const [challengeToken, setChallengeToken] = useState("");
   const [challengeResetKey, setChallengeResetKey] = useState(0);
   const [noCoverage, setNoCoverage] = useState(false);
+  const [cityProvince, setCityProvince] = useState("");
+  const [coverage, setCoverage] = useState<"unchecked" | "checking" | "available" | "unavailable" | "error">("unchecked");
+
+  async function checkCoverage() {
+    if (cityProvince.trim().length < 3) { setCoverage("error"); return; }
+    setCoverage("checking");
+    try {
+      const params = new URLSearchParams({ make: model.make, cityProvince: cityProvince.trim() });
+      const response = await fetch(`/api/dealer-coverage?${params.toString()}`, { cache: "no-store" });
+      const result = await response.json() as { ok: boolean; available?: boolean };
+      if (!response.ok || !result.ok) { setCoverage("error"); return; }
+      setCoverage(result.available ? "available" : "unavailable");
+    } catch { setCoverage("error"); }
+  }
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -91,7 +105,12 @@ export function LeadForm({ model }: { model: Motorcycle }) {
 
     <div className="lead-form-grid">
       <label><span>Variant <small>optional</small></span><input name="variant" placeholder="e.g. Standard, ABS, RoadSync" /></label>
-      <label><span>City or province</span><input name="cityProvince" required placeholder="e.g. San Fernando, Pampanga" autoComplete="address-level2" /></label>
+      <label><span>City or province</span><input name="cityProvince" required value={cityProvince} onChange={event => { setCityProvince(event.target.value); setCoverage("unchecked"); setNoCoverage(false); }} placeholder="e.g. San Fernando, Pampanga" autoComplete="address-level2" /></label>
+      <div className="lead-form-wide"><button className="button ghost small" type="button" onClick={checkCoverage} disabled={coverage === "checking"}>{coverage === "checking" ? "Checking dealers…" : "Check local dealer coverage"}</button>
+        {coverage === "available" && <p role="status">A checked quote partner covers this location. Final stock and price still need dealer confirmation.</p>}
+        {coverage === "unavailable" && <p role="status">No approved quote partner currently covers this location. <Link href={{ pathname: "/dealers", query: { brand: model.make } }}>Browse checked {model.make} dealers →</Link></p>}
+        {coverage === "error" && <p role="status">Coverage could not be checked. You can browse the dealer directory or try again.</p>}
+      </div>
       <label><span>Buying method</span><select name="purchaseType" required defaultValue="cash"><option value="cash">Cash</option><option value="installment">Installment</option></select></label>
       <label><span>Down payment budget <small>optional</small></span><input name="downPaymentBudget" type="number" min="0" step="1000" inputMode="numeric" placeholder="₱20,000" /></label>
       <label><span>Name</span><input name="fullName" required autoComplete="name" /></label>
