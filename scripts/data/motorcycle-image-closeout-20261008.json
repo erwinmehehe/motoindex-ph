@@ -32,10 +32,10 @@
     },
     {
       "entityId": "honda-rs125",
-      "imageUrl": "https://www.motopinas.com/image.php?src=%2Fimages%2Fposts%2Fpost13318.jpg&w=1200",
-      "sourceUrl": "https://www.motopinas.com/motorcycle-news/honda-follows-up-xrm-with-new-rs-125-for-2021.html",
-      "rightsHolder": "Honda / MotoPinas",
-      "sourceLabel": "Exact-model photo candidate for honda-rs125; preserve exterior/bodywork"
+      "imageUrl": "https://cms.hondaph.com/images/products/66e26447df321.png",
+      "sourceUrl": "https://www.hondaph.com/motor/rs125",
+      "rightsHolder": "Honda Philippines",
+      "sourceLabel": "Official Honda Philippines RS125 product photograph"
     },
     {
       "entityId": "honda-rs150r",
@@ -144,5 +144,6 @@
     }
   ],
   "review": [],
-  "pipelineReady": true
+  "pipelineReady": true,
+  "pipelineUpdate": "Use official Honda RS125 image after MotoPinas CDN 403"
 }
