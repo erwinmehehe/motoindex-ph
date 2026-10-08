@@ -1,7 +1,8 @@
 {
   "checkedAt": "2026-10-08",
   "accepted": 20,
-  "added": [
+  "added": [],
+  "existing": [
     "yamaha-sr400",
     "honda-pcx150",
     "benelli-motobi-200-evo",
@@ -22,11 +23,10 @@
     "yamaha-tricity",
     "yamaha-yzf-r15-v3"
   ],
-  "existing": [],
   "rejected": [
     {
       "entityId": "honda-rs125",
-      "reason": "Source HTTP 403"
+      "reason": "fetch failed"
     }
   ],
   "needsReview": [],
