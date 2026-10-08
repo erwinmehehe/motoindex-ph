@@ -214,12 +214,13 @@
       "removeNeutralBackdrop": true
     }
   ],
-  "review": [
+  "review": [],
+  "pipelineUpdatedAt": "2026-10-08 final closeout candidate wave",
+  "excludedFromCatalog": [
     {
       "entityId": "hnj-a607",
-      "sourceUrl": "",
-      "reason": "Exact A607 helmet source not yet verified; do not confuse with A4-007-A or HNJ 807"
+      "reason": "Removed from verified helmet catalog; source was generic retailer search, no confirmed exact-model evidence",
+      "date": "2026-10-08"
     }
-  ],
-  "pipelineUpdatedAt": "2026-10-08 final closeout candidate wave"
+  ]
 }
