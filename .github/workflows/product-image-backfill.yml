@@ -3,12 +3,10 @@ name: Product Image Backfill
 on:
   workflow_dispatch:
   push:
-    branches: [media/motorcycle-exact-closeout-oct8]
+    branches: [fix/discontinued-models-normal-pages]
     paths:
       - scripts/data/helmet-image-closeout-20261008.json
       - scripts/localize-helmet-closeout.mjs
-      - scripts/data/motorcycle-image-closeout-20261008.json
-      - scripts/localize-motorcycle-closeout.mjs
 
 concurrency:
   group: product-image-backfill-${{ github.ref_name }}
@@ -61,9 +59,6 @@ jobs:
       - name: Localize reviewed exact-model helmet source images
         run: node scripts/localize-helmet-closeout.mjs
 
-      - name: Localize checked exact-model motorcycle images
-        run: node scripts/localize-motorcycle-closeout.mjs
-
       - name: Localize external motorcycle images
         if: github.event_name == 'workflow_dispatch'
         run: node scripts/localize-motorcycle-media.mjs
@@ -84,28 +79,11 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: node scripts/normalize-generated-product-media.mjs
 
-      - name: Set up Python for targeted motorcycle image composition
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-
-      - name: Install image QA dependencies
-        run: python -m pip install --disable-pip-version-check opencv-python-headless==4.12.0.88 numpy==2.2.6
-
-      - name: Normalize two undersized exact-model motorcycle photos
-        run: python scripts/art-direct-motorcycle-media.py --only=kawasaki-klx-140,yamaha-tricity,honda-rs125
-
-      - name: Audit whole motorcycle photo composition
-        run: python scripts/audit-motorcycle-media-art-direction.py
-
       - name: Verify non-destructive media pipeline after generation
         run: node scripts/validate-media-backfill-safety.mjs
 
       - name: Show updated exact-image coverage
         run: node scripts/audit-product-media-coverage.mjs
-
-      - name: Validate exact motorcycle coverage
-        run: npm run validate:motorcycle-media
 
       - name: Validate exact helmet coverage
         run: npm run validate:helmet-coverage
@@ -130,7 +108,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A lib/media.ts lib/generatedProductMedia.ts scripts/audit-helmet-media-coverage.mjs scripts/audit-motorcycle-media-coverage.mjs artifacts/motorcycle-closeout-results.json public/media/motorcycles public/media/helmets public/media/tires public/media/topboxes
+          git add -A lib/media.ts lib/generatedProductMedia.ts scripts/audit-helmet-media-coverage.mjs public/media/motorcycles public/media/helmets public/media/tires public/media/topboxes
           if git diff --cached --quiet; then
             echo "No product media changes to commit."
             exit 0
