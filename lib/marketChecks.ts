@@ -111,6 +111,22 @@ export function priceChecksForModel(modelId: string) {
   return marketPriceChecks.filter((row) => row.modelId === modelId);
 }
 
+/**
+ * The latest *price* evidence can be newer than a model's specification or
+ * baseline catalog verification. Only market-price observations and the
+ * explicit model-level price-check date qualify as price-check evidence.
+ */
+export function latestPriceReference(model: Motorcycle): { date: string; kind: "price-check" | "model-source" } {
+  const dates = [
+    model.marketPriceCheckedAt,
+    ...priceChecksForModel(model.id).map((row) => row.checkedAt)
+  ].filter((date): date is string => Boolean(date && /^\d{4}-\d{2}-\d{2}$/.test(date)));
+  if (dates.length) return { date: dates.sort().at(-1)!, kind: "price-check" };
+
+  // This is a model/source verification date, NOT a separately checked price.
+  return { date: model.verifiedAt, kind: "model-source" };
+}
+
 export function observedMarketRange(model: Motorcycle) {
   const checks = priceChecksForModel(model.id);
   if (!checks.length) return { from: model.srp, to: model.marketPriceHighPhp };
