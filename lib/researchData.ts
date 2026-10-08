@@ -28,13 +28,14 @@ export function median(values: number[]) {
 export function researchPriceRows() {
   return researchMotorcycles.map((model) => {
     const range = observedMarketRange(model);
+    const reference = latestPriceReference(model);
     return {
       model,
       fromPhp: range.from,
       toPhp: range.to,
-      checkedAt: latestPriceReference(model).kind === "price-check"
-        ? latestPriceReference(model).date
-        : "Price not separately checked",
+      // Keep CSV checked_at blank instead of implying that a specification check
+      // independently verified the price.
+      checkedAt: reference.kind === "price-check" ? reference.date : "",
     };
   });
 }
