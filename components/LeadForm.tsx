@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
+import { PublicFormChallenge } from "@/components/PublicFormChallenge";
+import { trackEvent } from "@/lib/track";
 
 type Result = { ok: boolean; message?: string; error?: string; matchedDealers?: number; statusPath?: string };
 
@@ -10,6 +12,9 @@ export function LeadForm({ model }: { model: Motorcycle }) {
   const [state, setState] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [statusPath, setStatusPath] = useState("");
+  const [challengeToken, setChallengeToken] = useState("");
+  const [challengeResetKey, setChallengeResetKey] = useState(0);
+  const [noCoverage, setNoCoverage] = useState(false);
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -17,6 +22,7 @@ export function LeadForm({ model }: { model: Motorcycle }) {
     const data = new FormData(form);
     setState("sending");
     setMessage("");
+    setNoCoverage(false);
 
     const payload = {
       modelId: model.id,
@@ -30,6 +36,7 @@ export function LeadForm({ model }: { model: Motorcycle }) {
       consent: data.get("consent") === "on",
       website: String(data.get("website") || ""),
       sourcePath: window.location.pathname,
+      turnstileToken: challengeToken,
     };
 
     try {
@@ -40,17 +47,23 @@ export function LeadForm({ model }: { model: Motorcycle }) {
       });
       const result = await response.json() as Result;
       if (!response.ok || !result.ok) {
+        setNoCoverage(response.status === 422);
+        trackEvent("dealer_quote_error", { model_id: model.id, http_status: response.status });
         setState("error");
         setMessage(result.error || "We could not save your request.");
         return;
       }
+      trackEvent("dealer_quote_request", { model_id: model.id, matched_dealers: result.matchedDealers || 0 });
       setState("success");
-      setMessage(result.message || "Your dealer request has been saved.");
+      setMessage(result.message || "Your dealer request has been received.");
       setStatusPath(result.statusPath || "");
       form.reset();
     } catch {
       setState("error");
       setMessage("We could not save your request. Please try again.");
+    } finally {
+      setChallengeToken("");
+      setChallengeResetKey(value => value + 1);
     }
   }
 
@@ -88,7 +101,8 @@ export function LeadForm({ model }: { model: Motorcycle }) {
 
     <label className="lead-consent"><input type="checkbox" name="consent" required /> <span>I agree that MotoIndex may store these details and share them with up to three relevant verified dealer partners when there is a match for this motorcycle and location.</span></label>
 
-    {state === "error" && <p className="form-error" role="alert">{message}</p>}
+    <PublicFormChallenge action="buyer_quote" onToken={setChallengeToken} resetKey={challengeResetKey} />
+    {state === "error" && <div className="form-error" role="alert"><p>{message}</p>{noCoverage && <Link href={{ pathname: "/dealers", query: { brand: model.make } }}>Find checked {model.make} dealers →</Link>}</div>}
     <button className="button" type="submit" disabled={state === "sending"}>{state === "sending" ? "Saving request…" : "Get dealer prices"}</button>
     <small>Your details are not shared with a public directory listing unless that dealer is also an approved MotoIndex quote partner.</small>
   </form>;
