@@ -66,6 +66,9 @@ jobs:
       - name: Build OpenNext Worker
         run: npm run cf:build
 
+      - name: Publish prerendered HTML to static edge assets
+        run: node scripts/publish-prerender-assets.mjs
+
       - name: Recheck release gates before deploy
         run: node scripts/verify-production-release.mjs
         env:
