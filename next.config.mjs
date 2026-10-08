@@ -9,6 +9,17 @@ const nextConfig = {
     // Remote patterns remain only as a migration fallback if a local asset has not been synced yet.
     remotePatterns: [
       { protocol: "https", hostname: "bikeluggage.co.uk" },
+      { protocol: "https", hostname: "cdn-iutgbvdd.sportsbikeshop.co.uk" },
+      { protocol: "https", hostname: "gearchangeonline.com" },
+      { protocol: "https", hostname: "www.24helmets.de" },
+      { protocol: "https", hostname: "www.martimotos.com" },
+      { protocol: "https", hostname: "rrmoto.pl" },
+      { protocol: "https", hostname: "www.revzilla.com" },
+      { protocol: "https", hostname: "storage.kawasaki.eu" },
+      { protocol: "https", hostname: "cdn.monkeymotoblog.com" },
+      { protocol: "https", hostname: "www.webbikeworld.com" },
+      { protocol: "https", hostname: "media.motorbox.com" },
+      { protocol: "https", hostname: "static.wixstatic.com" },
       { protocol: "https", hostname: "cdn.aripitstop.com" },
       { protocol: "https", hostname: "cdn.awsli.com.br" },
       { protocol: "https", hostname: "cdn.idealo.com" },
@@ -75,6 +86,11 @@ const nextConfig = {
       { source: "/motorcycles/honda/supra-gtr150", destination: "/motorcycles/honda/supra-gtr-150", permanent: true },
       { source: "/motorcycles/kawasaki/ninja-250-sl", destination: "/motorcycles/kawasaki/ninja-250sl", permanent: true },
       { source: "/motorcycles/yamaha/vega-force-fi", destination: "/motorcycles/yamaha/vega-force-i", permanent: true },
+      // Legacy Yamaha R6 URLs consolidate into the canonical YZF-R6 motorcycle entity.
+      { source: "/guides/yamaha-r6-price-philippines", destination: "/motorcycles/yamaha/yzf-r6", permanent: true },
+      { source: "/guides/yamaha-yzf-r6-price-philippines", destination: "/motorcycles/yamaha/yzf-r6", permanent: true },
+      { source: "/motorcycles/yamaha/r6", destination: "/motorcycles/yamaha/yzf-r6", permanent: true },
+      { source: "/motorcycles/yamaha/yamaha-r6", destination: "/motorcycles/yamaha/yzf-r6", permanent: true },
       // Consolidate helmet-type aliases into the canonical helmet authority page.
       { source: "/gear/helmets/open-face", destination: "/gear/helmets#open-face", permanent: true },
       { source: "/gear/helmets/adventure", destination: "/gear/helmets#adventure", permanent: true },

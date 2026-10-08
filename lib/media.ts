@@ -5,6 +5,88 @@ import type { EntityMedia } from "./types";
 // upstream image for provenance and a temporary runtime fallback while local assets are synced.
 // Local motorcycle WebP derivatives are art-directed to a 1200x1200 white catalog canvas; source provenance remains below.
 export const entityMedia: EntityMedia[] = [
+  {
+    id: "hjc-rpha-91-source-20261006", entityType: "helmet", entityId: "hjc-rpha-91", role: "primary",
+    src: "/media/helmets/hjc-rpha-91.webp", sourceImageUrl: "https://cdn-iutgbvdd.sportsbikeshop.co.uk/image/upload/spin-still/762335_Helmets_HJC_HJC-R-PHA-91-Pearl-White/62.jpg", alt: "HJC RPHA 91 modular motorcycle helmet in pearl white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SportsBikeShop / HJC", sourceLabel: "Retailer exact-model studio image · HJC RPHA 91", sourceUrl: "https://www.sportsbikeshop.co.uk/motorcycle_parts/content_prod/762335", lastChecked: "2026-10-06"
+  },
+  {
+    id: "arai-quantic-source-20261006", entityType: "helmet", entityId: "arai-quantic", role: "primary",
+    src: "/media/helmets/arai-quantic.webp", sourceImageUrl: "https://gearchangeonline.com/cdn/shop/products/quantic_diamond_white_front.png?v=1767374618", alt: "Arai Quantic full-face motorcycle helmet in diamond white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Gear Change / Arai", sourceLabel: "Retailer exact-model studio image · Arai Quantic", sourceUrl: "https://gearchangeonline.com/products/arai-quantic-diamond-white", lastChecked: "2026-10-06"
+  },
+  {
+    id: "arai-tour-x5-source-20261006", entityType: "helmet", entityId: "arai-tour-x5", role: "primary",
+    src: "/media/helmets/arai-tour-x5.webp", sourceImageUrl: "https://www.24helmets.de/media/e1/8d/1b/1770391634/arai-helmet-tour-x5-white.png?ts=1783545148", alt: "Arai Tour-X5 adventure motorcycle helmet in diamond white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "24Helmets / Arai", sourceLabel: "Retailer exact-model studio image · Arai Tour-X5", sourceUrl: "https://www.24helmets.de/en/arai-tour-x-5-white", lastChecked: "2026-10-06"
+  },
+  {
+    id: "arai-rx-7v-evo-source-20261006", entityType: "helmet", entityId: "arai-rx-7v-evo", role: "primary",
+    src: "/media/helmets/arai-rx-7v-evo.webp", sourceImageUrl: "https://cdn-iutgbvdd.sportsbikeshop.co.uk/image/upload/spin-still/2415848_Helmets_Arai_Arai-RX-7V-Evo-FIM-Racing-2-Solid-White/62.jpg", alt: "Arai RX-7V EVO FIM Racing 2 full-face motorcycle helmet in solid white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SportsBikeShop / Arai", sourceLabel: "Retailer exact-model studio image · Arai RX-7V EVO", sourceUrl: "https://www.sportsbikeshop.co.uk/motorcycle_parts/content_prod/2415848", lastChecked: "2026-10-06"
+  },
+
+  // 2026-10-06 exact-product media closeout: helmets. Local derivatives use
+  // the canonical 1200x1200 white MotoIndex canvas; checked upstream images
+  // remain as temporary fallbacks until the local sync job has materialized them.
+  {
+    id: "hjc-f71-source-20261006", entityType: "helmet", entityId: "hjc-f71", role: "primary",
+    src: "/media/helmets/hjc-f71.webp", sourceImageUrl: "https://cdn11.bigcommerce.com/s-coxd9/images/stencil/1280x1280/products/158683/637455/hjc-f71-helmet-white-5__05238.1692648231.jpg?c=2", alt: "HJC F71 full-face motorcycle helmet in pearl white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Sportbike Track Gear / HJC", sourceLabel: "Retailer exact-model studio image · HJC F71", sourceUrl: "https://www.sportbiketrackgear.com/hjc-f71-solid-helmet/", lastChecked: "2026-10-06"
+  },
+  {
+    id: "bell-eliminator-source-20261006", entityType: "helmet", entityId: "bell-eliminator", role: "primary",
+    src: "/media/helmets/bell-eliminator.webp", sourceImageUrl: "https://cdn-iutgbvdd.sportsbikeshop.co.uk/image/upload/spin-still/881599_Helmets_Bell_Bell-Eliminator-Gloss-White/62.jpg", alt: "Bell Eliminator full-face motorcycle helmet in gloss white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "SportsBikeShop / Bell", sourceLabel: "Retailer exact-model studio image · Bell Eliminator", sourceUrl: "https://www.sportsbikeshop.co.uk/motorcycle_parts/content_prod/881599", lastChecked: "2026-10-06"
+  },
+  {
+    id: "agv-k7-source-20261006", entityType: "helmet", entityId: "agv-k7", role: "primary",
+    src: "/media/helmets/agv-k7.webp", sourceImageUrl: "https://data.outletmoto.eu/imgprodotto/agv-k7-mono-full-face-motorcycle-helmet-white_276186_zoom.jpg", alt: "AGV K7 full-face motorcycle helmet in mono white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "OutletMoto / AGV", sourceLabel: "Retailer exact-model studio image · AGV K7", sourceUrl: "https://www.outletmoto.eu/en/agv-k7-mono-full-face-motorcycle-helmet-white-P148178.htm", lastChecked: "2026-10-06"
+  },
+  {
+    id: "agv-tourmodular-source-20261006", entityType: "helmet", entityId: "agv-tourmodular", role: "primary",
+    src: "/media/helmets/agv-tourmodular.webp", sourceImageUrl: "https://rrmoto.pl/hpeciai/d9139622b79ce92e48186b43920b200d/pol_pl_Kask-szczekowy-AGV-TOURMODULAR-WHITE-bialy-19339_3.jpg", alt: "AGV Tourmodular flip-up motorcycle helmet in white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "RRmoto / AGV", sourceLabel: "Retailer exact-model studio image · AGV Tourmodular", sourceUrl: "https://rrmoto.pl/product-pol-19339-Kask-szczekowy-AGV-TOURMODULAR-WHITE-bialy.html", lastChecked: "2026-10-06"
+  },
+  {
+    id: "alpinestars-supertech-m8-source-20261006", entityType: "helmet", entityId: "alpinestars-supertech-m8", role: "primary",
+    src: "/media/helmets/alpinestars-supertech-m8.webp", sourceImageUrl: "https://www.martimotos.com/30306-large_default/alpinestars-supertech-m8-monocolor.jpg", alt: "Alpinestars Supertech M8 off-road motorcycle helmet in white", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Martimotos / Alpinestars", sourceLabel: "Retailer exact-model studio image · Alpinestars Supertech M8", sourceUrl: "https://www.martimotos.com/ca/18402-alpinestars-supertech-m8-monocolor", lastChecked: "2026-10-06"
+  },
+
+  // 2026-10-06 exact-product media closeout: motorcycle model gaps.
+  {
+    id: "yamaha-yzf-r6-source-20261006", entityType: "motorcycle", entityId: "yamaha-yzf-r6", role: "primary",
+    src: "/media/motorcycles/yamaha-yzf-r6.webp", sourceImageUrl: "https://www.revzilla.com/blog_content_image/image/32614/gallery/2017_Yamaha_YZF-R6_white_right.jpg", alt: "2017 Yamaha YZF-R6 supersport motorcycle studio image", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Yamaha / RevZilla", sourceLabel: "Yamaha-provided exact-generation image · 2017 YZF-R6", sourceUrl: "https://www.revzilla.com/common-tread/2017-yamaha-yzf-r6-first-look", lastChecked: "2026-10-06"
+  },
+  {
+    id: "kawasaki-ninja-250sl-source-20261006", entityType: "motorcycle", entityId: "kawasaki-ninja-250sl", role: "primary",
+    src: "/media/motorcycles/kawasaki-ninja-250sl.webp", sourceImageUrl: "https://storage.kawasaki.eu/public/kawasaki.eu/en-EU/model/15BX250B_47SWHTDLS3CG_C.jpg", alt: "Kawasaki Ninja 250SL sport motorcycle studio image", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Kawasaki Motors Europe", sourceLabel: "Manufacturer exact-model studio image · Ninja 250SL", sourceUrl: "https://www.kawasaki.cz/cs/products/Supersport___Sport/2015/Ninja_250SL/overview", lastChecked: "2026-10-06"
+  },
+  {
+    id: "suzuki-gsx-r150-source-20261006", entityType: "motorcycle", entityId: "suzuki-gsx-r150", role: "primary",
+    src: "/media/motorcycles/suzuki-gsx-r150.webp", sourceImageUrl: "https://cdn.monkeymotoblog.com/2018/07/suzuki-gsx-r150-brilliant-white-cw-vigor-blue1499399663..jpg", alt: "Suzuki GSX-R150 sport motorcycle in white and blue", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Suzuki / Monkey Moto Blog", sourceLabel: "Exact-model product image · Suzuki GSX-R150", sourceUrl: "https://monkeymotoblog.com/2018/07/warna-baru-suzuki-gsx-r1000-putih-biru-gurih/", lastChecked: "2026-10-06"
+  },
+  {
+    id: "suzuki-hayabusa-source-20261006", entityType: "motorcycle", entityId: "suzuki-hayabusa", role: "primary",
+    src: "/media/motorcycles/suzuki-hayabusa.webp", sourceImageUrl: "https://www.webbikeworld.com/wp-content/uploads/2022/01/2022-Suzuki-Hayabusa.jpg", alt: "Third-generation Suzuki Hayabusa hypersport motorcycle studio image", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Suzuki / webBikeWorld", sourceLabel: "Exact-generation product image · 2022 Suzuki Hayabusa", sourceUrl: "https://www.webbikeworld.com/2022-suzuki-motorcycle-lineup/", lastChecked: "2026-10-06"
+  },
+  {
+    id: "honda-cbr500r-source-20261006", entityType: "motorcycle", entityId: "honda-cbr500r", role: "primary",
+    src: "/media/motorcycles/honda-cbr500r.webp", sourceImageUrl: "https://media.motorbox.com/image/honda-cbr500r-2021-nei-concessionari-a-inizio-ottobre/6/8/8/688181/688181-16x9-lg.jpg", alt: "2021 Honda CBR500R sport motorcycle studio image", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Honda / MotorBox", sourceLabel: "Exact-generation product image · 2021 Honda CBR500R", sourceUrl: "https://www.motorbox.com/moto/magazine-moto/moto-novita/honda-cbr500r-2021-novita-prezzo-quando-esce", lastChecked: "2026-10-06"
+  },
+  {
+    id: "yamaha-xtz-125-source-20261006", entityType: "motorcycle", entityId: "yamaha-xtz-125", role: "primary",
+    src: "/media/motorcycles/yamaha-xtz-125.webp", sourceImageUrl: "https://static.wixstatic.com/media/57335c_9d6f75dac64c42698fcc35efb1d3e444~mv2.jpg/v1/fill/w_2834%2Ch_2832%2Cal_c%2Clg_2%2Cq_85/57335c_9d6f75dac64c42698fcc35efb1d3e444~mv2.jpg", alt: "Yamaha XTZ 125 dual-sport motorcycle studio image", width: 1200, height: 1200,
+    rightsStatus: "external-reference", rightsHolder: "Yamaha Costa Rica", sourceLabel: "Yamaha distributor exact-model image · XTZ 125", sourceUrl: "https://www.yamahacostarica.com/product-page/xtz125", lastChecked: "2026-10-06"
+  },
+
   // Exact upstream fallbacks for the 2026-10-05 helmet model-gap closeout.
   {
     id: "gille-astral-pro-source-20261005", entityType: "helmet", entityId: "gille-astral-pro", role: "primary",

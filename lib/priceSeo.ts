@@ -133,6 +133,19 @@ export function priceFaqsForModel(model: Motorcycle, priceLabel: string): FaqIte
   const finance = financingScenario(range.from, 20, 36, 12);
   const financeHigh = financingScenario(range.to && range.to > range.from ? range.to : range.from, 20, 36, 12);
 
+  if (model.marketStatus === "discontinued") {
+    return [
+      {
+        question: `How much is the ${modelName} in the Philippines?`,
+        answer: `The last published Philippine new-bike price reference on MotoIndex is ${priceLabel}. The ${modelName} is discontinued, so this remains the model's dated price reference rather than a current dealer SRP.`
+      },
+      {
+        question: `Is the ${modelName} price still current?`,
+        answer: "No. Discontinued status changes availability, not the motorcycle's identity. Use the published price as a dated reference and verify the actual asking price of the exact unit you are considering."
+      }
+    ];
+  }
+
   if (model.marketStatus === "previous") {
     return [
       {

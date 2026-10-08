@@ -830,11 +830,12 @@ for (const token of [
 
 for (const token of [
   'const discontinued = publicModels.filter((m) => m.marketStatus === "discontinued")',
-  'title={`Discontinued ${brand} motorcycle models and prices`}',
-  'Historical prices are not current new-bike quotes.'
+  'const catalogModels = [...current, ...previous, ...discontinued]',
+  'title={`${brand} motorcycle models in the Philippines`}',
+  'Current, previous-generation and discontinued status is shown on each model where it matters.'
 ]) {
   if (!brandPage.includes(token)) {
-    errors.push(`brand archive: discontinued-model discovery guard missing: ${token}`);
+    errors.push(`brand catalog: discontinued-model discovery guard missing: ${token}`);
   }
 }
 

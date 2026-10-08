@@ -11,6 +11,11 @@ const generatedPath = path.join(root, "lib/generatedProductMedia.ts");
 const generatedSource = fs.existsSync(generatedPath) ? fs.readFileSync(generatedPath, "utf8") : "";
 const today = new Date().toISOString().slice(0, 10);
 const userAgent = "Mozilla/5.0 (compatible; MotoIndexMediaVerifier/1.0; +https://motoindexph.com/methodology)";
+const args = process.argv.slice(2);
+const typesArg = args.find((arg) => arg.startsWith("--types="));
+const targetTypes = new Set((typesArg ? typesArg.split("=", 2)[1] : "helmet,tire,topbox").split(",").filter(Boolean));
+const onlyArg = args.find((arg) => arg.startsWith("--only="));
+const onlyIds = onlyArg ? new Set(onlyArg.split("=", 2)[1].split(",").filter(Boolean)) : null;
 
 function extractArray(source, declaration) {
   const start = source.indexOf(declaration);
@@ -132,7 +137,7 @@ function imageCandidates(html, pageUrl, product) {
   for (const tag of html.match(/<img\b[^>]*>/gi) || []) {
     const a = attrs(tag); const label = `${a.alt || ""} ${a.title || ""}`.toLowerCase();
     const matches = productTerms.filter((term) => label.includes(term)).length;
-    if (matches >= Math.min(2, productTerms.length)) push(a.src || a["data-src"] || a["data-lazy-src"] || a.srcset?.split(/\s+/)[0], 55 + matches * 3, "matching img alt");
+    if (matches >= Math.min(2, productTerms.length)) push(a.src || a["data-src"] || a["data-lazy-src"] || a.srcset?.split(/\s+/)[0], 150 + matches * 15, "exact product img alt");
   }
   const seen = new Set();
   return candidates.sort((a, b) => b.score - a.score).filter((item) => !seen.has(item.url) && seen.add(item.url));
@@ -175,7 +180,7 @@ const products = [
   ...catalogRecords("export const helmetProducts", "helmet"),
   ...catalogRecords("export const tireProducts", "tire"),
   ...catalogRecords("export const topBoxProducts", "topbox")
-];
+].filter((item) => targetTypes.has(item.entityType) && (!onlyIds || onlyIds.has(item.id)));
 const previousGenerated = existingGeneratedRecords();
 const generated = previousGenerated.filter(hasLocalAsset);
 const missingLocalRecords = previousGenerated.filter((asset) => !hasLocalAsset(asset));

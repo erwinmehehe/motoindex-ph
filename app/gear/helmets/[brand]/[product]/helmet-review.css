@@ -15,8 +15,8 @@
 .mx-helmet-detail .helmet-review-hero { display:grid; grid-template-columns:1fr 1.1fr; align-items:center; gap:28px; padding:24px 28px; background:linear-gradient(110deg,var(--helmet-f8fbff),var(--helmet-e8f4ff)); border:1px solid var(--helmet-e1e9f5); border-radius:12px; }
 .mx-helmet-detail .product-detail-summary { order:1; }
 .mx-helmet-detail .product-detail-media { order:2; }
-.mx-helmet-detail .product-detail-media>.entity-media { height:310px; border:0; border-radius:0; background:transparent; box-shadow:none; }
-.mx-helmet-detail .product-detail-media>.entity-media img { padding:12px!important; background:transparent!important; mix-blend-mode:multiply; }
+.mx-helmet-detail .product-detail-media>.entity-media { height:310px; border:0; border-radius:0; background:var(--mi-color-surface); box-shadow:none; }
+.mx-helmet-detail .product-detail-media>.entity-media img { padding:12px!important; background:var(--mi-color-surface)!important; mix-blend-mode:normal; object-fit:contain; object-position:center; }
 .mx-helmet-detail .product-detail-eyebrow { margin-bottom:10px; }
 .mx-helmet-detail .product-type-pill { color:var(--helmet-647086); background:var(--helmet-edf2fb); }
 .mx-helmet-detail .product-status-pill { color:var(--helmet-2861ed); background:var(--helmet-e4edff); }
@@ -66,7 +66,7 @@ html body .mx-helmet-detail .helmet-product-page .section-head h2 { font-size:25
 html body .mx-helmet-detail .helmet-product-page .product-entity-nav { padding:8px 0 16px!important; border:0!important; background:transparent!important; gap:8px!important; }
 html body .mx-helmet-detail .helmet-product-page .product-entity-nav a { padding:9px 14px!important; background:var(--helmet-fff)!important; border:1px solid var(--helmet-e1e9f5)!important; border-radius:6px!important; color:var(--helmet-42526b)!important; }
 html body .mx-helmet-detail .helmet-product-page .product-entity-nav a:first-child { background:var(--helmet-2861ed)!important; color:white!important; }
-.mx-helmet-detail .product-detail-media { mix-blend-mode:multiply; }
+.mx-helmet-detail .product-detail-media { mix-blend-mode:normal; }
 .mx-helmet-detail .product-detail-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
 .mx-helmet-detail .product-detail-actions .affiliate-card-action { display:contents!important; }
 .mx-helmet-detail .product-detail-actions :is(.button,.affiliate-button) { display:inline-flex; justify-content:center; gap:6px; align-items:center; flex:1 1 130px; width:auto; min-height:44px; box-sizing:border-box; margin:0; padding:10px; border-radius:6px; font-size:11px; font-weight:700; box-shadow:none!important; }

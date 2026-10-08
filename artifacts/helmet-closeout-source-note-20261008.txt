@@ -1,0 +1,1 @@
+Exact-model helmet media sourcing in progress. No images are marked covered until local normalized WebP files exist and pass checks.
