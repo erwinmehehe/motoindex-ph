@@ -1,0 +1,147 @@
+{
+  "checkedAt": "2026-10-08",
+  "purpose": "Source-provenance/byte-validated candidate list for unfinished motorcycle model pages; all sources are external references not redistributable-license claims",
+  "accepted": [
+    {
+      "entityId": "yamaha-sr400",
+      "imageUrl": "https://d1uzk9o9cg136f.cloudfront.net/f/16782548/rc/2021/04/27/d865b1e295b676e64662251d2e3f4a9d53a5769b_xlarge.jpg",
+      "sourceUrl": "https://www.autoby.jp/_ct/17449188/album/16799356/image/16933666",
+      "rightsHolder": "Yamaha / webオートバイ",
+      "sourceLabel": "Exact-model photo candidate for yamaha-sr400; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "honda-pcx150",
+      "imageUrl": "https://sabacyclet.com/wp-content/uploads/2021/09/pcx-150-1.jpg",
+      "sourceUrl": "https://sabacyclet.com/%D9%87%D9%88%D9%86%D8%AF%D8%A7-pcx-150/",
+      "rightsHolder": "Honda / Saba Cycle",
+      "sourceLabel": "Exact-model photo candidate for honda-pcx150; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "benelli-motobi-200-evo",
+      "imageUrl": "https://cdn.keeway.com/benelli-3-0/media/10855/conversions/2560x2180-%281%29-md.png",
+      "sourceUrl": "https://www.benelli.com/ph-en/products/motobi-200-evo",
+      "rightsHolder": "Benelli",
+      "sourceLabel": "Exact-model photo candidate for benelli-motobi-200-evo; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "honda-genio",
+      "imageUrl": "https://cdn.tmcblog.com/2023/07/New_Honda_Genio_Radiant-Red-Black-1536x1025.jpg",
+      "sourceUrl": "https://tmcblog.com/2023/07/25/ahm-rilis-warna-dan-striping-baru-honda-genio-2023/",
+      "rightsHolder": "Honda / TMCBlog",
+      "sourceLabel": "Exact-model photo candidate for honda-genio; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "honda-rs125",
+      "imageUrl": "https://www.motopinas.com/image.php?src=%2Fimages%2Fposts%2Fpost13318.jpg&w=1200",
+      "sourceUrl": "https://www.motopinas.com/motorcycle-news/honda-follows-up-xrm-with-new-rs-125-for-2021.html",
+      "rightsHolder": "Honda / MotoPinas",
+      "sourceLabel": "Exact-model photo candidate for honda-rs125; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "honda-rs150r",
+      "imageUrl": "https://paultan.org/image/2022/03/2022-Honda-RS150R-Radiate-Grey-Metallic-8-1200x899.png",
+      "sourceUrl": "https://paultan.org/2022/03/03/2022-honda-rs150r-updated-for-malaysia-rm8299/2022-honda-rs150r-radiate-grey-metallic-8/",
+      "rightsHolder": "Honda / Paultan",
+      "sourceLabel": "Exact-model photo candidate for honda-rs150r; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "honda-scoopy",
+      "imageUrl": "https://static.wixstatic.com/media/0ea478_3b6c1a6b23ce46f983ad99a7a2728059~mv2.webp/v1/fill/w_1200%2Ch_1200%2Cal_c%2Cq_85%2Cenc_avif%2Cquality_auto/0ea478_3b6c1a6b23ce46f983ad99a7a2728059~mv2.webp",
+      "sourceUrl": "https://www.taveesubyanyont.com/product-page/all-new-honda-scoopy-2024-prestige",
+      "rightsHolder": "Honda / Tawee Sub Yanyont",
+      "sourceLabel": "Exact-model photo candidate for honda-scoopy; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "kawasaki-klx-140",
+      "imageUrl": "https://s1.cdn.autoevolution.com/images/moto_gallery/KAWASAKI-KLX140-6831_3.jpg",
+      "sourceUrl": "https://www.autoevolution.com/moto/kawasaki-klx140-2014.html",
+      "rightsHolder": "Kawasaki / autoevolution",
+      "sourceLabel": "Exact-model photo candidate for kawasaki-klx-140; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "kawasaki-ninja-zx-10r",
+      "imageUrl": "https://bikes.thaimotorshow.com/images/22/02/vu-1enzvzrbrpn498.jpg",
+      "sourceUrl": "https://bikes.thaimotorshow.com/en/cdzenb-kawasaki-ninja-zx-r",
+      "rightsHolder": "Kawasaki / Thai Motor Show",
+      "sourceLabel": "Exact-model photo candidate for kawasaki-ninja-zx-10r; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "kawasaki-ninja-zx-6r",
+      "imageUrl": "https://www.kawasaki.at/content/dam/products/pim/resource/nin/Resource_325666_26MY_Ninja_ZX-6R_Performance_GY2_Front.jpg/jcr%3Acontent/renditions/cq5dam.web.1280.1280.png",
+      "sourceUrl": "https://www.kawasaki.at/de_at/Motorcycles/Supersport_Sport/Ninja_zx-6r_2026.html/ZX636JTFAN/ZX636JTFANPE/MetallicMatteGrapheneSteelGrayMetallicSparkBlackLimeGreen",
+      "rightsHolder": "Kawasaki",
+      "sourceLabel": "Exact-model photo candidate for kawasaki-ninja-zx-6r; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "kawasaki-z900-se",
+      "imageUrl": "https://as.sobrenet.pt/s/image/tsr/brandm/product/og/hzhp5ozatggw12eaqw3jzect3a3.png",
+      "sourceUrl": "https://www.andardemoto.pt/motos-novas/p-3910/kawasaki-z900-se/",
+      "rightsHolder": "Kawasaki / Andar de Moto",
+      "sourceLabel": "Exact-model photo candidate for kawasaki-z900-se; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "suzuki-smash-carb",
+      "imageUrl": "https://curupekspress.bacakoran.co/upload/d593cc75d8a1a302ec2f8999dc6f626d.jpg",
+      "sourceUrl": "https://mc.suzuki.com.ph/motorcycles/underbone/smash-carb/",
+      "rightsHolder": "Suzuki / press image",
+      "sourceLabel": "Exact-model photo candidate for suzuki-smash-carb; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "tvs-ntorq-125",
+      "imageUrl": "https://static-data2.manualslib.com/product-images/e5f/2113778/tvs-ntorq-125-scooter.jpg",
+      "sourceUrl": "https://www.manualslib.com/manual/2113778/Tvs-Ntorq-125.html",
+      "rightsHolder": "TVS / ManualsLib",
+      "sourceLabel": "Exact-model photo candidate for tvs-ntorq-125; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "vespa-s-125",
+      "imageUrl": "https://www.motorival.com/wp-content/uploads/2019/11/2020-vespa-s-125-get-02.jpg",
+      "sourceUrl": "https://www.motorival.com/2020-vespa-s-125-get-yellow/",
+      "rightsHolder": "Vespa / MotoRival",
+      "sourceLabel": "Exact-model photo candidate for vespa-s-125; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "yamaha-aerox-v1",
+      "imageUrl": "https://storagetym.blob.core.windows.net/www2021/images/product-2021/commuter/model-year-2017/aerox-2017/line-up/aerox-155---standard---white/aerox155-st-white-001.png",
+      "sourceUrl": "https://www.yamaha-motor.co.th/commuter/yamaha-aerox-155/specification",
+      "rightsHolder": "Thai Yamaha Motor",
+      "sourceLabel": "Exact-model photo candidate for yamaha-aerox-v1; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "yamaha-nmax-v1",
+      "imageUrl": "https://storage.googleapis.com/bm-garage-image-bucket/1657976291623-YAMAHA%20NMAX%20155%20V1.png",
+      "sourceUrl": "https://www.bmgarage.sg/services/bike-servicing/19W8UrLyn0A47tYrTFxP",
+      "rightsHolder": "Yamaha / BM Garage",
+      "sourceLabel": "Exact-model photo candidate for yamaha-nmax-v1; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "yamaha-sniper-150",
+      "imageUrl": "https://imgcdn.zigwheels.ph/large/gallery/color/86/1099/yamaha-sniper-150-color-576715.jpg",
+      "sourceUrl": "https://www.zigwheels.ph/new-motorcycles/yamaha/sniper-150/colors",
+      "rightsHolder": "Yamaha / Zigwheels Philippines",
+      "sourceLabel": "Exact-model photo candidate for yamaha-sniper-150; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "yamaha-sz",
+      "imageUrl": "https://suertemotoplaza.com/wp-content/uploads/2020/10/SZ_RED.png",
+      "sourceUrl": "https://suertemotoplaza.com/products/yamaha-sz/",
+      "rightsHolder": "Yamaha / Suerte Motoplaza",
+      "sourceLabel": "Exact-model photo candidate for yamaha-sz; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "yamaha-tricity",
+      "imageUrl": "https://www.motouutiset.fi/images/cms-image-000001271.jpg",
+      "sourceUrl": "https://www.motouutiset.fi/fi/moottoripyorat/uutiset/495/Yamaha-Tricity--skootteri-urbaani-kallistuva-kolmipy%C3%B6r%C3%A4-Yamaha-Tricity.htm",
+      "rightsHolder": "Yamaha / Motouutiset",
+      "sourceLabel": "Exact-model photo candidate for yamaha-tricity; preserve exterior/bodywork"
+    },
+    {
+      "entityId": "yamaha-yzf-r15-v3",
+      "imageUrl": "https://motownindia.com/images/auto-pit-bikes/Yamaha-introduces-Dual-Channel-ABS-for-YZF-R15-V30-at-Rs-139-lakh-onward-Motown-India-Bureau-1-597.jpg",
+      "sourceUrl": "https://www.motownindia.com/Bureau/auto-pit-bikes/597/Yamaha-introduces-Dual-Channel-ABS-for-YZF-R15-V30-at-Rs-139-lakh-onward-Motown-India-Bureau",
+      "rightsHolder": "Yamaha / Motown India",
+      "sourceLabel": "Exact-model photo candidate for yamaha-yzf-r15-v3; preserve exterior/bodywork"
+    }
+  ],
+  "review": []
+}
