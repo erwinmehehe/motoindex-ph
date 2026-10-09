@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { allCatalogProducts } from "@/lib/catalog";
 import { getAffiliateLink } from "@/lib/affiliate";
-import { sourcedShopeeProductListing } from "@/lib/affiliateDestinations";
+import { sourcedShopeeProductListing, sourcedRetailerProductListing } from "@/lib/affiliateDestinations";
 import { validateRuntimeAffiliateUrl } from "@/lib/runtimeAffiliate";
 import { AffiliateLinkManager } from "@/components/AffiliateLinkManager";
 
@@ -41,7 +41,7 @@ export default async function AffiliateLinksAdmin(){
     const fallback=getAffiliateLink(product.id);
     return {
       ...product,
-      sourceListing:sourcedShopeeProductListing(product.id),
+      sourceListing:sourcedShopeeProductListing(product.id) || sourcedRetailerProductListing(product.id),
       dbLink:db?{
         url:db.url,
         network:db.network,

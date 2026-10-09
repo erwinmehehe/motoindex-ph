@@ -22,7 +22,7 @@ type ProductRow={
   fallback?:{
     network:string;
   };
-  sourceListing?:{url:string;checkedAt:string};
+  sourceListing?:{url:string;checkedAt:string;merchant?:"shopee"|"retailer";sourceName?:string};
   clicks7:number;
   clicks30:number;
 };
@@ -61,7 +61,7 @@ function AffiliateRow({row}:{row:ProductRow}){
       <h2>{row.brand} {row.model}</h2>
       <p>{row.detail}</p>
       <small>{row.id}</small>
-      <div className="affiliate-admin-links"><Link href={row.slug} target="_blank">Open product page ↗</Link>{row.sourceListing&&<a href={row.sourceListing.url} target="_blank" rel="noopener noreferrer">Exact Shopee source ↗</a>}{status==="active"&&<a href={`/go/affiliate/${encodeURIComponent(row.id)}`} target="_blank" rel="noreferrer">Test redirect ↗</a>}</div>
+      <div className="affiliate-admin-links"><Link href={row.slug} target="_blank">Open product page ↗</Link>{row.sourceListing&&<a href={row.sourceListing.url} target="_blank" rel="noopener noreferrer">{row.sourceListing.merchant==="retailer"?"Exact retailer source ↗":"Exact Shopee source ↗"}</a>}{status==="active"&&<a href={`/go/affiliate/${encodeURIComponent(row.id)}`} target="_blank" rel="noreferrer">Test redirect ↗</a>}</div>
     </div>
 
     <div className="affiliate-admin-form">
@@ -102,6 +102,9 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
   const disabled=rows.filter(row=>row.dbLink?.status==="disabled").length;
   const needsReview=rows.filter(row=>row.dbLink?.status==="needs_review").length;
   const fallback=rows.filter(row=>row.fallback).length;
+  const shopeeSources=rows.filter(row=>row.sourceListing && row.sourceListing.merchant!=="retailer").length;
+  const retailerSources=rows.filter(row=>row.sourceListing?.merchant==="retailer").length;
+  const sourceResearchNeeded=rows.length-shopeeSources-retailerSources;
   const clicks7=rows.reduce((sum,row)=>sum+row.clicks7,0);
   const clicks30=rows.reduce((sum,row)=>sum+row.clicks30,0);
 
@@ -146,10 +149,14 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
       <div><span>DB disabled</span><strong>{disabled}</strong></div>
       <div><span>Invalid links</span><strong>{needsReview}</strong></div>
       <div><span>Legacy fallback</span><strong>{fallback}</strong></div>
+      <div><span>Exact Shopee sources*</span><strong>{shopeeSources}</strong></div>
+      <div><span>Retailer product sources*</span><strong>{retailerSources}</strong></div>
+      <div><span>Need source research</span><strong>{sourceResearchNeeded}</strong></div>
       <div><span>Clicks · 7d</span><strong>{clicks7}</strong></div>
       <div><span>Clicks · 30d</span><strong>{clicks30}</strong></div>
     </div>
 
+    <p className="affiliate-source-note">* Non-affiliate editorial sources only, not proof of stock or commission tracking.</p>
     {!databaseConfigured&&<div className="note-box"><h2>Production database is not configured</h2><p>Runtime affiliate management requires DATABASE_URL and the latest Prisma migration. Existing environment/JSON links can still work as fallback.</p></div>}
 
     <section className="affiliate-bulk-panel">
