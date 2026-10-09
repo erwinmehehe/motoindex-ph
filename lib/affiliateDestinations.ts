@@ -49,6 +49,6 @@ export function sourcedShopeeProductListing(productId: string): { url: string; c
   if (!product || !("priceSourceUrl" in product) || typeof product.priceSourceUrl !== "string" || !isExactShopeeProductUrl(product.priceSourceUrl)) return undefined;
   return {
     url: new URL(product.priceSourceUrl).toString(),
-    checkedAt: product.lastChecked
+    checkedAt: product.lastChecked || "not recently verified"
   };
 }
