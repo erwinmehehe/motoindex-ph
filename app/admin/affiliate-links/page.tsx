@@ -3,6 +3,7 @@ import { databaseConfigured, prisma } from "@/lib/db";
 import { allCatalogProducts } from "@/lib/catalog";
 import { getAffiliateLink } from "@/lib/affiliate";
 import { sourcedShopeeProductListing, sourcedRetailerProductListing } from "@/lib/affiliateDestinations";
+import { getAffiliateResearchCandidate } from "@/lib/affiliateResearch";
 import { validateRuntimeAffiliateUrl } from "@/lib/runtimeAffiliate";
 import { AffiliateLinkManager } from "@/components/AffiliateLinkManager";
 
@@ -42,6 +43,7 @@ export default async function AffiliateLinksAdmin(){
     return {
       ...product,
       sourceListing:sourcedShopeeProductListing(product.id) || sourcedRetailerProductListing(product.id),
+      researchCandidate:getAffiliateResearchCandidate(product.id),
       dbLink:db?{
         url:db.url,
         network:db.network,
@@ -60,7 +62,7 @@ export default async function AffiliateLinksAdmin(){
   return <section className="page shell">
     <div className="page-head">
       <h1>Affiliate link manager</h1>
-      <p>Approve or disable Shopee and Involve Asia destinations by MotoIndex product ID. Database changes take effect at runtime, so public commerce CTAs do not require a content rebuild.</p>
+      <p>Review exact-item retailer research before creating approved Shopee or Involve Asia tracking links. Database affiliate activations take effect at runtime; research candidates are never purchase offers.</p>
       <div className="hero-actions"><a className="button ghost small" href="/admin/data-health">Data health</a><a className="button ghost small" href="/affiliate-disclosure" target="_blank">Affiliate disclosure ↗</a></div>
     </div>
     <div className="note-box"><h2>Publication rule</h2><p>Only product-specific HTTPS Shopee or Involve Asia links may be activated. Shared homepages and known generic shortlinks are blocked. Verify each final landing product before approval. An explicit database Disabled record blocks older JSON/environment fallbacks for that product.</p></div>
