@@ -106,7 +106,7 @@ export default async function ModelInstallmentPage({ params }: { params: Promise
     mainEntity: faqs.map(item => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } }))
   };
 
-  return <main className="shell installment-landing" data-installment-page={model.id}>
+  return <div className="shell installment-landing" data-installment-page={model.id}>
     <JsonLd data={[webPageSchema, faqSchema]} />
     <Breadcrumbs items={[
       { label: "Motorcycles", href: "/motorcycles" },
@@ -131,7 +131,7 @@ export default async function ModelInstallmentPage({ params }: { params: Promise
       </div>
       <aside className="installment-hero-estimate" aria-label="Illustrative financing summary">
         <span className="installment-hero-estimate-tag">Quick planning snapshot</span>
-        <span className="installment-hero-estimate-label">Estimated monthly from</span>
+        <span className="installment-hero-estimate-label">Illustrative monthly payment</span>
         <strong className="installment-hero-monthly">{php(Math.round(baseline.monthlyPhp))}<small>/mo</small></strong>
         <div className="installment-hero-metrics">
           <div><span>20% downpayment</span><strong>{php(Math.round(baseline.downPaymentPhp))}</strong></div>
@@ -225,5 +225,5 @@ export default async function ModelInstallmentPage({ params }: { params: Promise
         <Link className="button secondary" href="/dealers">Find checked dealers</Link>
       </CTAGroup>
     </section>
-  </main>;
+  </div>;
 }

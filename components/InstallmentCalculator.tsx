@@ -156,7 +156,7 @@ export function InstallmentCalculator({ price, priceOptions = [] }: { price: num
 
       <aside className="calc-result finance-result" aria-label="Calculated motorcycle financing estimate">
         <span>Estimated monthly payment</span>
-        <strong>{peso(result.monthlyPhp)}</strong>
+        <strong aria-live="polite" aria-atomic="true">{peso(result.monthlyPhp)}</strong>
         <small>{result.months} payments · {result.annualRatePct}% annual amortizing interest</small>
         <div className="finance-result-upfront"><span>Cash to prepare upfront</span><strong>{peso(result.cashNeededUpfrontPhp)}</strong><small>Downpayment + entered upfront fees</small></div>
         <div className="finance-result-facts">
