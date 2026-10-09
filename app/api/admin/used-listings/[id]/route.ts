@@ -1,3 +1,4 @@
+import { requirePrivilegedApiAccess } from "@/lib/privilegedApiAccess";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { ownerRequestOriginAllowed } from "@/lib/ownerAuth";
@@ -9,7 +10,8 @@ export const dynamic = "force-dynamic";
 const headers = { "Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow, noarchive" };
 const actions = new Set(["verify", "reject", "expire"]);
 
-export async function POST(request: Request, context: { params: Promise<{ id: string }> }) {
+export async function POST(request: Request, context: { params: Promise<{ id: string }> }){const denied=await requirePrivilegedApiAccess(request);if(denied)return denied;
+
   if (!ownerRequestOriginAllowed(request)) {
     return NextResponse.json({ ok: false, error: "Invalid request origin." }, { status: 403, headers });
   }

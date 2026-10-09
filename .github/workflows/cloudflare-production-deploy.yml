@@ -9,18 +9,34 @@ concurrency:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   deploy:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: production
     timeout-minutes: 30
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      ADMIN_ACCESS_MODE: cloudflare
+      CF_ACCESS_TEAM_DOMAIN: ${{ secrets.CF_ACCESS_TEAM_DOMAIN }}
+      CF_ACCESS_AUD: ${{ secrets.CF_ACCESS_AUD }}
+      ADMIN_ACCESS_EMAILS: ${{ secrets.ADMIN_ACCESS_EMAILS }}
       NEXT_PUBLIC_SITE_URL: https://motoindexph.com
-      NEXT_PUBLIC_CONTACT_EMAIL: hello@motoindexph.com
+      NEXT_PUBLIC_CONTACT_EMAIL: ${{ vars.MOTOINDEX_CONTACT_EMAIL }}
+      NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.MOTOINDEX_TURNSTILE_SITE_KEY }}
+      TURNSTILE_SECRET_KEY: ${{ secrets.MOTOINDEX_TURNSTILE_SECRET_KEY }}
+      REQUIRE_FORM_BOT_PROTECTION: "true"
       NEXT_PUBLIC_ANALYTICS_CAPTURE_SEARCH_TERMS: "false"
+      NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ vars.MOTOINDEX_GA_MEASUREMENT_ID }}
+      NEXT_PUBLIC_PLAUSIBLE_SCRIPT_SRC: ${{ vars.MOTOINDEX_PLAUSIBLE_SCRIPT_SRC }}
+      NEXT_PUBLIC_PLAUSIBLE_DOMAIN: ${{ vars.MOTOINDEX_PLAUSIBLE_DOMAIN }}
+      NEXT_PUBLIC_ADSENSE_ENABLED: ${{ vars.MOTOINDEX_ADSENSE_ENABLED || 'false' }}
+      NEXT_PUBLIC_ADSENSE_CLIENT_ID: ${{ vars.MOTOINDEX_ADSENSE_CLIENT_ID }}
+      ADSENSE_PUBLISHER_ID: ${{ vars.MOTOINDEX_ADSENSE_PUBLISHER_ID }}
       PRICE_ALERTS_ENABLED: "false"
       PRICE_ALERT_CRON_CONFIGURED: "false"
 
@@ -34,6 +50,11 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Verify production release gates
+        run: node scripts/verify-production-release.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
@@ -41,6 +62,14 @@ jobs:
         run: |
           test -n "$CLOUDFLARE_API_TOKEN" || (echo "CLOUDFLARE_API_TOKEN is not configured" && exit 1)
           test -n "$CLOUDFLARE_ACCOUNT_ID" || (echo "CLOUDFLARE_ACCOUNT_ID is not configured" && exit 1)
+
+      - name: Verify Worker runtime secret bindings
+        run: |
+          npx wrangler secret list --format json > /tmp/motoindex-worker-secret-names.json
+          node scripts/verify-worker-binding-names.mjs /tmp/motoindex-worker-secret-names.json
+
+      - name: Production preflight
+        run: npm run check:launch
 
       - name: Typecheck
         run: npm run typecheck
@@ -51,5 +80,19 @@ jobs:
       - name: Build OpenNext Worker
         run: npm run cf:build
 
+      - name: Publish prerendered HTML to static edge assets
+        run: node scripts/publish-prerender-assets.mjs
+
+      - name: Recheck release gates before deploy
+        run: node scripts/verify-production-release.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
       - name: Deploy Worker
         run: npm run cf:deploy:built
+
+      - name: Verify production public pages and contact channel
+        run: node scripts/smoke-public-core.mjs
+        env:
+          BASE_URL: https://motoindexph.com
+          EXPECTED_COMMIT_SHA: ${{ github.sha }}

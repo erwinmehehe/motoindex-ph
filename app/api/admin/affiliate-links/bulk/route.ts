@@ -1,3 +1,4 @@
+import { requirePrivilegedApiAccess } from "@/lib/privilegedApiAccess";
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { validateRuntimeAffiliateUrl } from "@/lib/runtimeAffiliate";
@@ -6,7 +7,8 @@ export const runtime="nodejs";
 
 function clean(value:unknown,max=1000){return typeof value==="string"?value.trim().slice(0,max):"";}
 
-export async function POST(request:Request){
+export async function POST(request:Request){const denied=await requirePrivilegedApiAccess(request);if(denied)return denied;
+
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Production database is not configured."},{status:503});
   let body:Record<string,unknown>;
   try{body=await request.json();}catch{return NextResponse.json({ok:false,error:"Invalid request."},{status:400});}

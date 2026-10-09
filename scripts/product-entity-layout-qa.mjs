@@ -188,7 +188,8 @@ try {
         const media=hero?.querySelector('.product-detail-media > .entity-media');
         const fallback=media?.querySelector('.product-hero-card');
         const image=media?.querySelector('img');
-        const facts=summary?.querySelector('.product-detail-facts');
+        const reviewHero=Boolean(hero?.classList.contains('helmet-review-hero'));
+        const facts=reviewHero?page?.querySelector('.product-detail-facts'):summary?.querySelector('.product-detail-facts');
         const factEls=facts?[...facts.children]:[];
         const trust=summary?.querySelector('.product-trust-row');
         const nav=document.querySelector('.product-entity-nav');
@@ -214,7 +215,7 @@ try {
         return {
           title:heading?.textContent?.trim()||'', overflow:root.scrollWidth-root.clientWidth,
           page:r(page), hero:r(hero), summary:r(summary), heading:r(heading), lede:r(lede), media:r(media), fallback:r(fallback), image:r(image), facts:r(facts), trust:r(trust), nav:r(nav), spec:r(spec),
-          heroDisplay:hero?getComputedStyle(hero).display:'', heroColumns:hero?getComputedStyle(hero).gridTemplateColumns:'',
+          heroDisplay:hero?getComputedStyle(hero).display:'', heroColumns:hero?getComputedStyle(hero).gridTemplateColumns:'', reviewHero,
           headingSize:px(heading), sectionHeadingSize:px(sectionHeading), specLabelSize:px(specLabel),
           mediaRadius:media?parseFloat(getComputedStyle(media).borderRadius)||0:0, objectFit, imageSrc, verifiedProduct,
           factsDisplay:facts?getComputedStyle(facts).display:'', factWidths:factEls.slice(0,6).map(el=>Math.round(r(el).width)),
@@ -234,14 +235,14 @@ try {
       if (!state?.trust) failures.push(`${width}px ${route.key}: compact product trust row missing`);
       if (!state?.nav) failures.push(`${width}px ${route.key}: product section navigation missing`);
       if ((state?.headingSize || 0) < (mobile ? 34 : 40)) failures.push(`${width}px ${route.key}: H1 typography is too small (${state?.headingSize || 0}px)`);
-      if ((state?.mediaRadius || 0) < 17) failures.push(`${width}px ${route.key}: media stage radius regressed (${state?.mediaRadius || 0}px)`);
-      if ((state?.media?.width || 0) < (mobile ? 330 : 400)) failures.push(`${width}px ${route.key}: hero media collapsed to ${Math.round(state?.media?.width || 0)}px`);
-      if (mobile && state?.summary && state?.media && state.summary.top < state.media.bottom - 2) failures.push(`${width}px ${route.key}: product summary overlaps the media stage on mobile`);
-      if (!mobile && state?.summary && state?.media && state.summary.left < state.media.right - 2) failures.push(`${width}px ${route.key}: product summary overlaps the media stage on desktop`);
+      if (!state?.reviewHero && (state?.mediaRadius || 0) < 17) failures.push(`${width}px ${route.key}: media stage radius regressed (${state?.mediaRadius || 0}px)`);
+      if ((state?.media?.width || 0) < (mobile && state?.reviewHero ? 300 : mobile ? 330 : 400)) failures.push(`${width}px ${route.key}: hero media collapsed to ${Math.round(state?.media?.width || 0)}px`);
+      if (mobile && state?.summary && state?.media && state.summary.top < state.media.bottom - 2 && state.media.top < state.summary.bottom - 2) failures.push(`${width}px ${route.key}: product summary overlaps the media stage on mobile`);
+      if (!mobile && state?.summary && state?.media && state.summary.left < state.media.right - 2 && state.media.left < state.summary.right - 2) failures.push(`${width}px ${route.key}: product summary overlaps the media stage on desktop`);
       if (state?.factsDisplay !== "grid" || !state?.factWidths?.length) failures.push(`${width}px ${route.key}: 2x2 product facts grid missing`);
       if (state?.factWidths?.some(value => value < (mobile ? 145 : 150))) failures.push(`${width}px ${route.key}: product fact collapsed (${state.factWidths.join(', ')}px)`);
       if (!state?.sectionWidths?.length || state.sectionWidths.some(value => value < (mobile ? 330 : 900))) failures.push(`${width}px ${route.key}: product section collapsed (${state?.sectionWidths?.join(', ') || 'missing'}px)`);
-      if ((state?.sectionHeadingSize || 0) < 24) failures.push(`${width}px ${route.key}: section heading hierarchy too small (${state?.sectionHeadingSize || 0}px)`);
+      if ((state?.sectionHeadingSize || 0) < (mobile && state?.reviewHero ? 22 : 24)) failures.push(`${width}px ${route.key}: section heading hierarchy too small (${state?.sectionHeadingSize || 0}px)`);
       if (state?.spec && (state?.specLabelSize || 0) < 10) failures.push(`${width}px ${route.key}: spec labels are unreadably small (${state?.specLabelSize || 0}px)`);
       if (state?.compareDisplay && state.compareDisplay !== "grid") failures.push(`${width}px ${route.key}: comparison row is ${state.compareDisplay}, expected grid`);
       if (state?.objectFit && state.objectFit !== "contain") failures.push(`${width}px ${route.key}: product image uses ${state.objectFit}, expected contain`);

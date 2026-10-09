@@ -1,10 +1,12 @@
+import { requirePrivilegedApiAccess } from "@/lib/privilegedApiAccess";
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { sellerSlug } from "@/lib/persistentSellers";
 
 export const runtime="nodejs";
 
-export async function PATCH(request:Request,{params}:{params:Promise<{id:string}>}){
+export async function PATCH(request:Request,{params}:{params:Promise<{id:string}>}){const denied=await requirePrivilegedApiAccess(request);if(denied)return denied;
+
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Database unavailable."},{status:503});
   const {id}=await params;
   let body:Record<string,unknown>;

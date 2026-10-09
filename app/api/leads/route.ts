@@ -3,7 +3,8 @@ import { databaseConfigured, prisma } from "@/lib/db";
 import { getModelById } from "@/lib/data";
 import { matchQuoteEligibleDealers } from "@/lib/persistentSellers";
 import { actionToken, hashActionToken } from "@/lib/actionTokens";
-import { getOwnerSession } from "@/lib/ownerAuth";
+import { getOwnerSession, ownerRequestOriginAllowed } from "@/lib/ownerAuth";
+import { verifyPublicFormChallenge } from "@/lib/publicFormChallenge";
 
 export const runtime = "nodejs";
 
@@ -16,6 +17,7 @@ function normalizePhone(value: string) {
 }
 
 export async function POST(request: Request) {
+  if (!ownerRequestOriginAllowed(request)) return NextResponse.json({ ok: false, error: "Invalid request origin." }, { status: 403 });
   const contentLength = Number(request.headers.get("content-length") || 0);
   if (contentLength > 20_000) return NextResponse.json({ ok: false, error: "Request too large." }, { status: 413 });
 
@@ -62,33 +64,21 @@ export async function POST(request: Request) {
   if (!["cash", "installment"].includes(purchaseType)) return NextResponse.json({ ok: false, error: "Choose cash or installment." }, { status: 400 });
   if (!consent) return NextResponse.json({ ok: false, error: "Consent is required before we can save and match your request." }, { status: 400 });
 
+  const challenge = await verifyPublicFormChallenge(body.turnstileToken, "buyer_quote");
+  if (!challenge.ok) return NextResponse.json({ ok: false, error: challenge.error }, { status: challenge.status, headers: { "Cache-Control": "no-store" } });
+
   const ownerSession = await getOwnerSession().catch(() => null);
   const ownerId = ownerSession && (!email || ownerSession.owner.email === email) ? ownerSession.ownerId : null;
   const matched = await matchQuoteEligibleDealers(model.make, cityProvince, 3);
+
+  if (!matched.length) return NextResponse.json({ ok: false, error: "No approved dealer partner currently covers this brand and location. Use the checked dealer directory instead." }, { status: 422 });
 
   const duplicateSince = new Date(Date.now() - 15 * 60 * 1000);
   const duplicate = await prisma.dealerLead.findFirst({
     where: { modelExternalId: model.id, mobile, createdAt: { gte: duplicateSince } },
     orderBy: { createdAt: "desc" }
   });
-  if (duplicate) {
-    const buyerAccessToken = actionToken();
-    const buyerAccessExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-    await prisma.dealerLead.update({
-      where: { id: duplicate.id },
-      data: { buyerAccessToken: null, buyerAccessTokenHash: hashActionToken(buyerAccessToken), buyerAccessExpiresAt, ...(ownerId ? { ownerId } : {}) }
-    });
-    return NextResponse.json({
-      ok: true,
-      queued: true,
-      leadId: duplicate.id,
-      statusPath: `/quote-status/${buyerAccessToken}`,
-      matchedDealers: duplicate.matchedSellerSlugs.length,
-      message: duplicate.matchedSellerSlugs.length
-        ? `Your recent request is already saved and matched with ${duplicate.matchedSellerSlugs.length} verified dealer partner${duplicate.matchedSellerSlugs.length === 1 ? "" : "s"}.`
-        : "Your recent request is already saved. No verified dealer match is available for your area yet."
-    });
-  }
+  if (duplicate) return NextResponse.json({ ok: true, queued: true, message: "If your earlier request was received, it remains in the queue. Keep your original private status link; contact MotoIndex support if you lost it." });
 
   const buyerAccessToken = actionToken();
   const buyerAccessExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);

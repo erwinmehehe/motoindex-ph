@@ -1,9 +1,11 @@
+import { requirePrivilegedApiAccess } from "@/lib/privilegedApiAccess";
 import { NextResponse } from "next/server";
 import { expireStaleOffers } from "@/lib/persistentOffers";
 
 export const runtime = "nodejs";
 
-export async function POST(req: Request) {
+export async function POST(req: Request){const denied=await requirePrivilegedApiAccess(req);if(denied)return denied;
+
   try {
     const body = await req.json().catch(() => ({}));
     const requested = Number(body.maxAgeDays);

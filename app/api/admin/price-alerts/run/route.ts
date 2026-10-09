@@ -1,9 +1,11 @@
+import { requirePrivilegedApiAccess } from "@/lib/privilegedApiAccess";
 import { NextResponse } from "next/server";
 import { priceAlertsConfigured, runPriceAlertCheck } from "@/lib/priceAlerts";
 
 export const runtime="nodejs";
 
-export async function POST(){
+export async function POST(request:Request){const denied=await requirePrivilegedApiAccess(request);if(denied)return denied;
+
   if(!priceAlertsConfigured())return NextResponse.json({ok:false,error:"Price alerts are not fully configured."},{status:503});
   try{
     const result=await runPriceAlertCheck(500);

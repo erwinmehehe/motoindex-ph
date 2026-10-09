@@ -9,6 +9,7 @@ const publicRoutes = [
   "/motorcycles/yamaha/aerox-v3",
   "/compare/selection?bikes=aerox-v3,nmax-v3",
   "/recommendations",
+  "/contact",
   "/recommendations/motorcycles-under-100k",
 ];
 
@@ -55,8 +56,26 @@ for (const path of publicRoutes) {
     if (response.status !== 200) failures.push(`${path}: expected 200, got ${response.status}`);
     if (cloudflareFailurePattern.test(body)) failures.push(`${path}: response contains a Cloudflare Worker resource/server error`);
     if (!body.trim()) failures.push(`${path}: empty response body`);
+    if (path === "/contact" && (body.includes("Contact email is not configured yet") || body.includes("NEXT_PUBLIC_CONTACT_EMAIL"))) failures.push("/contact: public contact channel is not configured");
+    if (path === "/contact" && !body.includes("mailto:")) failures.push("/contact: no working email action rendered");
   } catch (error) {
     failures.push(`${path}: ${error instanceof Error ? error.message : String(error)}`);
+  }
+}
+
+// A routing or middleware regression must never expose privileged data.
+for (const path of ["/api/admin/dealer-leads/export", "/api/ingestion/batches"]) {
+  try {
+    const response = await fetchWithTimeout(path, { redirect: "manual" });
+    const contentType = response.headers.get("content-type") || "";
+    if (response.status >= 200 && response.status < 300) {
+      failures.push(`${path}: unauthenticated privileged endpoint returned ${response.status}`);
+    }
+    if (contentType.includes("text/csv")) {
+      failures.push(`${path}: sensitive CSV export is accessible without authorization`);
+    }
+  } catch (error) {
+    failures.push(`${path}: admin access smoke check failed: ${error instanceof Error ? error.message : String(error)}`);
   }
 }
 

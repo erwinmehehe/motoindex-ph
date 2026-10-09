@@ -1,10 +1,13 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { PublicFormChallenge } from "@/components/PublicFormChallenge";
 
 export function UsedListingInquiryForm({ listingId, listingTitle }: { listingId: string; listingTitle: string }) {
   const [working, setWorking] = useState(false);
   const [status, setStatus] = useState("");
+  const [challengeToken,setChallengeToken]=useState("");
+  const [challengeResetKey,setChallengeResetKey]=useState(0);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -17,6 +20,7 @@ export function UsedListingInquiryForm({ listingId, listingTitle }: { listingId:
 
     setWorking(true);
     setStatus("");
+    try {
     const response = await fetch(`/api/used-listings/${encodeURIComponent(listingId)}/inquiries`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -27,10 +31,10 @@ export function UsedListingInquiryForm({ listingId, listingTitle }: { listingId:
         message: data.get("message"),
         company: data.get("company"),
         consent: true,
+        turnstileToken:challengeToken,
       }),
     });
     const body = await response.json().catch(() => ({}));
-    setWorking(false);
 
     if (!response.ok) {
       setStatus(body.error || "Your inquiry could not be sent.");
@@ -39,6 +43,13 @@ export function UsedListingInquiryForm({ listingId, listingTitle }: { listingId:
 
     form.reset();
     setStatus("Inquiry sent to the seller. They can reply directly to your email.");
+    } catch {
+      setStatus("Your inquiry could not be sent. Please try again.");
+    } finally {
+      setWorking(false);
+      setChallengeToken("");
+      setChallengeResetKey(value=>value+1);
+    }
   }
 
   return <form className="lead-form" onSubmit={submit}>
@@ -57,6 +68,7 @@ export function UsedListingInquiryForm({ listingId, listingTitle }: { listingId:
       <input name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" hidden />
       <label className="lead-form-wide"><input name="consent" type="checkbox" required /> I agree that MotoIndex may send these contact details and this message to the seller for this inquiry.</label>
     </div>
+    <PublicFormChallenge action="used_listing_inquiry" onToken={setChallengeToken} resetKey={challengeResetKey} />
     <button className="button" type="submit" disabled={working}>{working ? "Sending…" : "Send inquiry"}</button>
     {status && <p className="muted-note" role="status">{status}</p>}
   </form>;

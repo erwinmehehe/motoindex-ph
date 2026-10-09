@@ -16,7 +16,7 @@ export async function DealerInventoryPanel({modelId,makeSlug,modelSlug}:{modelId
   return <section className="motorcycle-entity-section dealer-live-inventory" id="dealer-inventory">
     <div className="section-head compact">
       <div><span className="section-kicker">Dealer inventory</span><h2>Current dealer-published stock and promos</h2><p>These entries come directly from verified dealer accounts and pass MotoIndex freshness rules. The dealer—not MotoIndex—is responsible for the stock, price, color and promotion shown.</p></div>
-      <Link className="button small" href={`/get-quote/${makeSlug}/${modelSlug}`}>Request dealer quotes</Link>
+      <Link className="button small" href="/dealers">Find checked dealers</Link>
     </div>
     <div className="current-offer-list">
       {inventory.map(item=><article className="current-offer-card" key={item.id}>
@@ -32,7 +32,7 @@ export async function DealerInventoryPanel({modelId,makeSlug,modelSlug}:{modelId
         </div>
         <div className="current-offer-actions">
           <Link className="button ghost small" href={`/sellers/${item.sellerSlug}`}>Dealer profile</Link>
-          <Link className="button small" href={`/get-quote/${makeSlug}/${modelSlug}`}>Request quote</Link>
+          <Link className="button small" href={`/sellers/${item.sellerSlug}`}>Contact dealer</Link>
         </div>
       </article>)}
     </div>
