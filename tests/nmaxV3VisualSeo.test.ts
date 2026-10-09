@@ -10,11 +10,12 @@ describe("Yamaha NMAX V3 visual redesign preserves indexed motorcycle research",
   const page = source("app/motorcycles/[make]/[slug]/page.tsx");
   const hero = source("components/ReviewedModelHero.tsx");
   const entity = source("components/MotorcycleEntityPage.tsx");
-  const css = source("app/motorcycles/[make]/[slug]/nmax-v3.css");
+  const css = source("public/styles/nmax-v3.css");
 
   it("isolates the design to NMAX V3 without changing other motorcycle templates", () => {
     expect(page).toContain('model.id === "yamaha-nmax-v3"');
-    expect(page).toContain('<div className="nmax-v3-showcase">{content}</div>');
+    expect(page).toContain('<div className="nmax-v3-showcase"><link rel="stylesheet" href="/styles/nmax-v3.css" precedence="high" />{content}</div>');
+    expect(page).not.toContain('import "./nmax-v3.css"');
     expect(page).toContain(": content;");
     expect(page).toContain('<ReviewedModelHero model={model} />');
     expect(page).toContain('<MotorcycleEntityPage model={model} omitHero=');
