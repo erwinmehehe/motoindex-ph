@@ -164,7 +164,7 @@ function readAffiliateMap(): { links: Record<string, AffiliateLinkConfig[]>; iss
   // exact item URL, even when a custom shortlink is not on the denylist.
   for (const [id, links] of Object.entries(merged)) {
     for (const link of links) {
-      for (const target of [link.url, link.destinationUrl].filter((v): v is string => Boolean(v))) {
+      for (const target of [link.url]) {
         const key = link.merchant + "|" + target;
         const previous = owners.get(key);
         if (previous && previous !== id) collisions.add(key);
@@ -175,7 +175,7 @@ function readAffiliateMap(): { links: Record<string, AffiliateLinkConfig[]>; iss
   const safe: Record<string, AffiliateLinkConfig[]> = {};
   for (const [id, links] of Object.entries(merged)) {
     const valid = links.filter(link => {
-      const repeated = [link.url, link.destinationUrl].filter((v): v is string => Boolean(v))
+      const repeated = [link.url]
         .some(value => collisions.has(link.merchant + "|" + value));
       if (repeated) issues.push({ productId: id, message: "Affiliate link or exact item is shared across multiple product IDs and needs review." });
       return !repeated;

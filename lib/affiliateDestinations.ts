@@ -92,7 +92,10 @@ export function isSpecificRetailerProductUrl(value: string): boolean {
     if (url.protocol !== "https:" || url.username || url.password || url.port) return false;
     if (!verifiedRetailerHosts.has(url.hostname.toLowerCase())) return false;
     const parts = decodeURIComponent(url.pathname).split("/").filter(Boolean);
-    const detailIndex = parts.findLastIndex(part => ["product", "products", "shop"].includes(part.toLowerCase()));
+    let detailIndex = -1;
+    for (let i = parts.length - 1; i >= 0; i--) {
+      if (["product", "products", "shop"].includes(parts[i].toLowerCase())) { detailIndex = i; break; }
+    }
     if (detailIndex < 0 || detailIndex !== parts.length - 2) return false;
     const slug = parts[detailIndex + 1]?.toLowerCase();
     return Boolean(slug && slug.length >= 4 && !["page", "search", "category", "collections", "all", "shop"].includes(slug));
@@ -103,6 +106,8 @@ export function isSpecificRetailerProductUrl(value: string): boolean {
 
 export function sourcedRetailerProductListing(productId: string):
   { url: string; checkedAt: string; sourceName: string; merchant: "retailer" } | undefined {
+  // Shopee sources take precedence when a product has more than one recorded source.
+  if (sourcedShopeeProductListing(productId)) return undefined;
   const product = [...helmetProducts, ...tireProducts, ...topBoxProducts]
     .find(entry => entry.id === productId && entry.status === "verified");
   if (!product) return undefined;
