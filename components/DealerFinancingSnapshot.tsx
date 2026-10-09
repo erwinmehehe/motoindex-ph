@@ -8,8 +8,9 @@ function readableDate(date: string) {
   return Number.isNaN(parsed.getTime()) ? date : parsed.toLocaleDateString("en-PH", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 }
 
-export function DealerFinancingSnapshot({ modelId, modelName }: { modelId: string; modelName: string }) {
+export function DealerFinancingSnapshot({ modelId, modelName, showEmptyState = false }: { modelId: string; modelName: string; showEmptyState?: boolean }) {
   const observations = dealerFinancingObservationsFor(modelId);
+  if (!observations.length && !showEmptyState) return null;
 
   return <div className="financing-snapshot installment-dealer-snapshot" data-dealer-financing-snapshot={modelId}>
     <SectionHeader

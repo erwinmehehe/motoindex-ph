@@ -182,7 +182,7 @@ export default async function ModelInstallmentPage({ params }: { params: Promise
     </section>
 
     <section className="installment-page-section installment-dealer-section" id="dealer-evidence" aria-label="Dated dealer financing observations">
-      <DealerFinancingSnapshot modelId={model.id} modelName={modelName} />
+      <DealerFinancingSnapshot modelId={model.id} modelName={modelName} showEmptyState />
     </section>
 
     <section className="installment-page-section installment-guidance" id="finance-checklist" aria-labelledby="finance-assumptions-heading">
