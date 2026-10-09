@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { currentModelAlertPrice, priceAlertsConfigured, sendPriceAlertConfirmation } from "@/lib/priceAlerts";
 import { actionToken, hashActionToken } from "@/lib/actionTokens";
-import { getOwnerSession } from "@/lib/ownerAuth";
+import { getOwnerSession, ownerRequestOriginAllowed } from "@/lib/ownerAuth";
+import { verifyPublicFormChallenge } from "@/lib/publicFormChallenge";
 
 export const runtime="nodejs";
 
@@ -11,6 +12,7 @@ function clean(value:unknown,max=160){
 }
 
 export async function POST(request:Request){
+  if(!ownerRequestOriginAllowed(request))return NextResponse.json({ok:false,error:"Invalid request origin."},{status:403});
   if(!priceAlertsConfigured()||!databaseConfigured()){
     return NextResponse.json({ok:false,error:"Price alerts are not fully configured yet."},{status:503,headers:{"Cache-Control":"no-store"}});
   }
@@ -32,6 +34,9 @@ export async function POST(request:Request){
   if(!Number.isFinite(target)||target<1000||target>20_000_000)return NextResponse.json({ok:false,error:"Enter a valid target price in PHP."},{status:400});
   if(target>=current.pricePhp)return NextResponse.json({ok:false,error:`Set a target below the current published starting-price reference of ₱${current.pricePhp.toLocaleString("en-PH")}.`},{status:400});
 
+  const challenge=await verifyPublicFormChallenge(body.turnstileToken,"price_alert");
+  if(!challenge.ok)return NextResponse.json({ok:false,error:challenge.error},{status:challenge.status,headers:{"Cache-Control":"no-store"}});
+
   const active=await prisma.priceAlertSubscription.findFirst({
     where:{entityType:"motorcycle",entityId:modelId,email,status:"active"}
   });
@@ -44,6 +49,11 @@ export async function POST(request:Request){
     where:{entityType:"motorcycle",entityId:modelId,email,status:"pending"},
     orderBy:{updatedAt:"desc"}
   });
+
+  // Avoid rotating confirmation tokens and sending repeated email for the same pending alert.
+  if(recentPending?.updatedAt && recentPending.updatedAt.getTime()>Date.now()-15*60*1000){
+    return NextResponse.json({ok:true,message:"If you recently requested this alert, check your inbox. You can request another confirmation after 15 minutes."},{headers:{"Cache-Control":"no-store"}});
+  }
 
   const subscription=recentPending
     ? await prisma.priceAlertSubscription.update({

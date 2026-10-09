@@ -154,7 +154,7 @@ try {
       await new Promise(resolve => setTimeout(resolve, 250));
 
       const audit = await evaluate(cdp.send, `(() => {
-        const h1=document.querySelector('.motorcycle-hero-copy h1');
+        const h1=document.querySelector('.reviewed-model-copy h1, .motorcycle-hero-copy h1');
         const sections=[...document.querySelectorAll('.priority-model-brief')];
         const commercial=sections.find(section=>/price, monthly payment and alternatives/i.test(section.querySelector('h2')?.textContent||''));
         const links=[...document.querySelectorAll('a')].map(a=>a.getAttribute('href')||'');
@@ -190,7 +190,7 @@ try {
           installmentRouteLink:links.some(href=>href===modelPath+'/installment'),
           priceIndex:links.some(href=>href.includes('/research/motorcycle-price-index-philippines')),
           financeIndex:links.some(href=>href.includes('/research/motorcycle-financing-index-philippines')),
-          quoteLink:links.some(href=>href.includes('/get-quote/')),
+          dealerDiscoveryLink:Boolean(document.querySelector('.reviewed-model-links a[href^="/dealers?brand="]')),
           financingMode:financing?.getAttribute('data-financing-snapshot')||'',
           financingVariants,
           planner:Boolean(planner),
@@ -253,7 +253,7 @@ try {
             }
           }
         }
-        if (!audit?.quoteLink) failures.push(`${width}px ${pathname}: dealer quote link is missing.`);
+        if (!audit?.dealerDiscoveryLink) failures.push(`${width}px ${pathname}: checked dealer discovery CTA is missing from the primary model actions.`);
       }
       if ((audit?.overflow || 0) > 5) failures.push(`${width}px ${pathname}: horizontal overflow is ${audit.overflow}px.`);
       if (audit?.commercial && (audit.sectionLeft < -5 || audit.sectionRight > width + 5)) failures.push(`${width}px ${pathname}: commercial section leaves the viewport.`);
