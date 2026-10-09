@@ -1,4 +1,4 @@
-import { allCatalogProducts } from "@/lib/catalog";
+import { helmetProducts } from "@/lib/catalog";
 
 /**
  * Only an item listing, with shop and item identifiers, qualifies as an
@@ -43,8 +43,10 @@ export function isKnownGenericAffiliateDestination(value: string): boolean {
  * commissioned affiliate URL, and the listing can become unavailable.
  */
 export function sourcedShopeeProductListing(productId: string): { url: string; checkedAt: string } | undefined {
-  const product = allCatalogProducts().find(entry => entry.id === productId);
-  if (!product?.priceSourceUrl || !isExactShopeeProductUrl(product.priceSourceUrl)) return undefined;
+  // The lightweight allCatalogProducts() index deliberately omits source
+  // URLs; use the verified helmet research record with its item-level source.
+  const product = helmetProducts.find(entry => entry.id === productId);
+  if (!product || !("priceSourceUrl" in product) || typeof product.priceSourceUrl !== "string" || !isExactShopeeProductUrl(product.priceSourceUrl)) return undefined;
   return {
     url: new URL(product.priceSourceUrl).toString(),
     checkedAt: product.lastChecked
