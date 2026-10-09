@@ -114,7 +114,7 @@ try {
       await new Promise(resolve => setTimeout(resolve, 350));
       const result = await evaluate(cdp.send, `(() => {
         const stage=document.querySelector(${JSON.stringify(check.selector)});
-        const image=stage?.querySelector('img');
+        const image=stage?.querySelector(${JSON.stringify(check.name === "motorcycle hero" ? ".reviewed-model-photo" : "img")});
         const placeholder=stage?.matches('.model-media-placeholder,.media-unavailable') ? stage : stage?.querySelector('.model-media-placeholder,.media-unavailable');
         const root=document.documentElement;
         const rect=stage?.getBoundingClientRect();
@@ -148,6 +148,7 @@ try {
       if ((result?.right||0) > (result?.viewport||width) + 5) failures.push(`${width}px ${check.name}: surface leaves the viewport`);
       const maxHeight = check.maxHeight?.[width];
       if (maxHeight && (result?.height||0) > maxHeight + 1) failures.push(`${width}px ${check.name}: ${Math.round(result.height)}px tall, expected no more than ${maxHeight}px`);
+      if (check.name === "motorcycle hero" && result?.imageObjectFit !== "contain") failures.push(`${width}px motorcycle hero: exact-model gallery photo is missing or does not use object-fit contain`);
       if (check.requireContain && result?.imageObjectFit !== "contain") failures.push(`${width}px ${check.name}: image object-fit is ${result?.imageObjectFit || "missing"}, expected contain`);
       if (check.requireContain && result?.imageTransform && result.imageTransform !== "none") failures.push(`${width}px ${check.name}: image transform is ${result.imageTransform}, expected none`);
       if (check.maxImageWidthRatio && result?.imageRect && result?.stageRect && result.imageRect.width > result.stageRect.width * check.maxImageWidthRatio + 1) {
