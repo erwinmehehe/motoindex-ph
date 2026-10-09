@@ -32,6 +32,7 @@ export function LeadForm({ model }: { model: Motorcycle }) {
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (coverage !== "available") return;
     const form = event.currentTarget;
     const data = new FormData(form);
     setState("sending");
@@ -62,6 +63,7 @@ export function LeadForm({ model }: { model: Motorcycle }) {
       const result = await response.json() as Result;
       if (!response.ok || !result.ok) {
         setNoCoverage(response.status === 422);
+        if (response.status === 422) setCoverage("unavailable");
         trackEvent("dealer_quote_error", { model_id: model.id, http_status: response.status });
         setState("error");
         setMessage(result.error || "We could not save your request.");
@@ -111,18 +113,22 @@ export function LeadForm({ model }: { model: Motorcycle }) {
         {coverage === "unavailable" && <p role="status">No approved quote partner currently covers this location. <Link href={{ pathname: "/dealers", query: { brand: model.make } }}>Browse checked {model.make} dealers →</Link></p>}
         {coverage === "error" && <p role="status">Coverage could not be checked. You can browse the dealer directory or try again.</p>}
       </div>
+      {coverage === "available" && <>
       <label><span>Buying method</span><select name="purchaseType" required defaultValue="cash"><option value="cash">Cash</option><option value="installment">Installment</option></select></label>
       <label><span>Down payment budget <small>optional</small></span><input name="downPaymentBudget" type="number" min="0" step="1000" inputMode="numeric" placeholder="₱20,000" /></label>
       <label><span>Name</span><input name="fullName" required autoComplete="name" /></label>
       <label><span>Mobile number</span><input name="mobile" required inputMode="tel" autoComplete="tel" placeholder="09XXXXXXXXX" /></label>
       <label className="lead-form-wide"><span>Email <small>optional</small></span><input name="email" type="email" autoComplete="email" placeholder="you@example.com" /></label>
+      </>}
     </div>
 
+    {coverage === "available" && <>
     <label className="lead-consent"><input type="checkbox" name="consent" required /> <span>I agree that MotoIndex may store these details and share them with up to three relevant verified dealer partners when there is a match for this motorcycle and location.</span></label>
 
     <PublicFormChallenge action="buyer_quote" onToken={setChallengeToken} resetKey={challengeResetKey} />
-    {state === "error" && <div className="form-error" role="alert"><p>{message}</p>{noCoverage && <Link href={{ pathname: "/dealers", query: { brand: model.make } }}>Find checked {model.make} dealers →</Link>}</div>}
     <button className="button" type="submit" disabled={state === "sending"}>{state === "sending" ? "Saving request…" : "Get dealer prices"}</button>
     <small>Your details are not shared with a public directory listing unless that dealer is also an approved MotoIndex quote partner.</small>
+    </>}
+    {state === "error" && <div className="form-error" role="alert"><p>{message}</p>{noCoverage && <Link href={{ pathname: "/dealers", query: { brand: model.make } }}>Find checked {model.make} dealers →</Link>}</div>}
   </form>;
 }
