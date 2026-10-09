@@ -63,7 +63,7 @@ describe("original motorcycle price research integrity", () => {
   it("exports true price-check dates and preserves the dataset baseline", () => {
     const rows = researchPriceRows();
     expect(rows.find((row) => row.model.id === "honda-pcx-160")?.checkedAt).toBe("2026-10-01");
-    expect(rows.every((row) => row.checkedAt === "" || /^\\d{4}-\\d{2}-\\d{2}$/.test(row.checkedAt))).toBe(true);
+    expect(rows.every((row) => row.checkedAt === "" || /^\d{4}-\d{2}-\d{2}$/.test(row.checkedAt))).toBe(true);
     expect(latestResearchCheck() >= PRICE_INDEX_BASELINE_DATE).toBe(true);
   });
 });
