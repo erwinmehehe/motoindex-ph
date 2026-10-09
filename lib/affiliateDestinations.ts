@@ -8,7 +8,7 @@ export function isExactShopeeProductUrl(value: string): boolean {
   try {
     const url = new URL(value);
     const host = url.hostname.toLowerCase();
-    if (url.protocol !== "https:" || (host !== "shopee.ph" && host !== "www.shopee.ph")) return false;
+    if (url.protocol !== "https:" || (host !== "shopee.ph" && host !== "www.shopee.ph") || url.username || url.password || url.port) return false;
     const path = decodeURIComponent(url.pathname);
     return /^\/product\/\d+\/\d+\/?$/i.test(path) || /-i\.\d+\.\d+\/?$/i.test(path);
   } catch {
