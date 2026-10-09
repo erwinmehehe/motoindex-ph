@@ -40,8 +40,9 @@ for(const token of [
   "<InstallmentCalculator",
   "<FinancingSnapshot",
   "<DealerFinancingSnapshot",
-  "How downpayment changes the monthly estimate",
-  "Dealer cards can use different downpayments",
+  "installment-scenario-grid",
+  "Total paid, no fees",
+  "Dealer observations are dated advertised figures",
   "FAQPage",
   '/motorcycles/${model.makeSlug}/${model.slug}/installment'
 ]){

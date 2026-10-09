@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import "@/app/installment-experience.css";
 import { calculateInstallmentPlan } from "@/lib/installmentPlan";
 
 const money = new Intl.NumberFormat("en-PH", { style: "currency", currency: "PHP", maximumFractionDigits: 0 });
@@ -18,6 +19,9 @@ export function InstallmentCalculator({ price, priceOptions = [] }: { price: num
   const [rate, setRate] = useState(12);
   const [upfrontFees, setUpfrontFees] = useState(0);
   const [copyStatus, setCopyStatus] = useState("");
+
+  const invalidPrice = !Number.isFinite(purchasePrice) || purchasePrice < 1_000 || purchasePrice > 10_000_000;
+  const invalidFees = !Number.isFinite(upfrontFees) || upfrontFees < 0 || upfrontFees > 1_000_000;
 
   const result = useMemo(() => calculateInstallmentPlan({
     pricePhp: purchasePrice, downPaymentPct: down, months, annualRatePct: rate, upfrontFeesPhp: upfrontFees
@@ -90,8 +94,9 @@ export function InstallmentCalculator({ price, priceOptions = [] }: { price: num
           <label htmlFor="finance-purchase-price">Cash purchase price</label>
           <div className="finance-price-field">
             <span aria-hidden="true">₱</span>
-            <input id="finance-purchase-price" type="number" inputMode="numeric" min="1000" max="10000000" step="100" value={purchasePrice} onChange={event => { setSelectedOption(""); setPurchasePrice(Number(event.target.value)); setCopyStatus(""); }} />
+            <input id="finance-purchase-price" type="number" inputMode="numeric" min="1000" max="10000000" step="100" value={purchasePrice} aria-invalid={invalidPrice} onBlur={() => setPurchasePrice(result.pricePhp)} onChange={event => { setSelectedOption(""); setPurchasePrice(Number(event.target.value)); setCopyStatus(""); }} />
           </div>
+          {invalidPrice && <small className="finance-input-warning" role="status">Enter ₱1,000–₱10,000,000. The calculation temporarily uses {peso(result.pricePhp)}.</small>}
         </div>
 
         <div className="finance-step-heading finance-step-divider">
@@ -125,7 +130,7 @@ export function InstallmentCalculator({ price, priceOptions = [] }: { price: num
 
         <div className="finance-step-heading finance-step-divider">
           <span className="finance-step-number" aria-hidden="true">03</span>
-          <div><h3>Adjust the actual loan terms</h3><p>Rate assumptions and upfront fees are separate.</p></div>
+          <div><h3>Set the interest assumption and fees</h3><p>A flat or add-on dealer rate cannot be entered as an equivalent amortizing rate.</p></div>
         </div>
         <div className="finance-extra-grid">
           <div className="finance-rate-block">
@@ -137,9 +142,10 @@ export function InstallmentCalculator({ price, priceOptions = [] }: { price: num
             <label htmlFor="finance-upfront-fees">Fees paid upfront <small>(optional)</small></label>
             <div className="finance-price-field">
               <span aria-hidden="true">₱</span>
-              <input id="finance-upfront-fees" type="number" inputMode="numeric" min="0" max="1000000" step="100" value={upfrontFees} onChange={event => { setUpfrontFees(Number(event.target.value)); setCopyStatus(""); }} />
+              <input id="finance-upfront-fees" type="number" inputMode="numeric" min="0" max="1000000" step="100" value={upfrontFees} aria-invalid={invalidFees} onBlur={() => setUpfrontFees(result.upfrontFeesPhp)} onChange={event => { setUpfrontFees(Number(event.target.value)); setCopyStatus(""); }} />
             </div>
             <small>Only include fees you will pay in cash, not fees added to the loan.</small>
+            {invalidFees && <small className="finance-input-warning" role="status">Fees must be between ₱0 and ₱1,000,000; the calculation uses {peso(result.upfrontFeesPhp)}.</small>}
           </div>
         </div>
         <div className="finance-controls-footer">

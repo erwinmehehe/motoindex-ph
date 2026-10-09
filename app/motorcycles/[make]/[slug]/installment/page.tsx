@@ -48,12 +48,12 @@ export default async function ModelInstallmentPage({ params }: { params: Promise
   const model = getModel(make, slug);
   if (!model) return notFound();
   const profile = installmentLandingProfile(model.id);
-  if (!profile) permanentRedirect("/motorcycles/" + model.makeSlug + "/" + model.slug + "#installment");
+  if (!profile) permanentRedirect(`/motorcycles/${model.makeSlug}/${model.slug}#installment`);
   if (!isIndexableModel(model)) return notFound();
 
   const modelName = model.make + " " + model.model;
   const modelHref = "/motorcycles/" + model.makeSlug + "/" + model.slug;
-  const canonicalPath = modelHref + "/installment";
+  const canonicalPath = `/motorcycles/${model.makeSlug}/${model.slug}/installment`;
   const range = observedMarketRange(model);
   const priceOptions = variantPriceOptions(model.id);
   const examples = [10, 20, 30].map(down => financingScenario(range.from, down, 36, 12));

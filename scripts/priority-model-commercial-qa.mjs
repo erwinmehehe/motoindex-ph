@@ -284,7 +284,7 @@ try {
           const plannerResultRect=plannerResult?.getBoundingClientRect();
           const monthlyResult=planner?.querySelector('.finance-result>strong');
           const presets=planner?[...planner.querySelectorAll('.finance-preset-groups .calc-presets button')]:[];
-          const scenarios=document.querySelectorAll('[data-financing-snapshot] .finance-scenario-row .ui-stat-row__item');
+          const scenarios=document.querySelectorAll('.installment-scenario-card');
           return {
             canonicalPath:(()=>{const href=document.querySelector('link[rel="canonical"]')?.getAttribute('href')||'';try{return href?new URL(href,location.href).pathname:'';}catch{return '';}})(),
             h1:Boolean(document.querySelector('h1')),
@@ -298,6 +298,12 @@ try {
             plannerControlsWidth:plannerControlsRect?.width||0,
             plannerResultWidth:plannerResultRect?.width||0,
             monthlyResult:monthlyResult?.textContent?.trim()||'',
+            totalCashPaid:planner?.querySelector('.finance-result-total>strong')?.textContent?.trim()||'',
+            upfrontFeesInput:Boolean(planner?.querySelector('#finance-upfront-fees')),
+            heroSummary:Boolean(document.querySelector('.installment-hero-monthly')),
+            dealerEvidence:Boolean(document.querySelector('[data-dealer-financing-snapshot]')),
+            scenarioTotals:[...document.querySelectorAll('.installment-scenario-card')].every(card=>card.textContent?.includes('Total paid, no fees')),
+
             presetCount:presets.length,
             scenarioCount:scenarios.length,
             installmentOverflow:planner?Math.max(0,planner.scrollWidth-planner.clientWidth):0,
@@ -310,6 +316,11 @@ try {
         if (installmentAudit?.canonicalPath !== installmentPath) failures.push(`${width}px ${installmentPath}: canonical path is ${installmentAudit?.canonicalPath || "missing"}.`);
         if (!installmentAudit?.planner) failures.push(`${width}px ${installmentPath}: installment planner is missing.`);
         if (!installmentAudit?.monthlyResult || !installmentAudit.monthlyResult.includes("₱")) failures.push(`${width}px ${installmentPath}: installment monthly result is missing.`);
+        if (!installmentAudit?.heroSummary) failures.push(`${width}px ${installmentPath}: installment hero payment summary is missing.`);
+        if (!installmentAudit?.upfrontFeesInput) failures.push(`${width}px ${installmentPath}: optional upfront-fee input is missing.`);
+        if (!installmentAudit?.totalCashPaid || !installmentAudit.totalCashPaid.includes("₱")) failures.push(`${width}px ${installmentPath}: all-in cash paid estimate is missing.`);
+        if (!installmentAudit?.dealerEvidence) failures.push(`${width}px ${installmentPath}: dated dealer evidence or an explicit no-data state is missing.`);
+        if (!installmentAudit?.scenarioTotals) failures.push(`${width}px ${installmentPath}: side-by-side scenario total paid values are missing.`);
         if ((installmentAudit?.presetCount || 0) < 6) failures.push(`${width}px ${installmentPath}: installment quick presets are incomplete.`);
         if ((installmentAudit?.scenarioCount || 0) < 2) failures.push(`${width}px ${installmentPath}: financing comparison strip is incomplete.`);
         if ((installmentAudit?.installmentOverflow || 0) > 5) failures.push(`${width}px ${installmentPath}: installment planner overflows by ${installmentAudit.installmentOverflow}px.`);
