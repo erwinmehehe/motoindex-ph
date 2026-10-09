@@ -28,9 +28,26 @@ export async function POST(request:Request){
     prepared.push({productId,url:checked.url,network:checked.network,reviewNote});
   }
 
+  const uploadUrls=new Map<string,string>();
+  for(const row of prepared){
+    const previous=uploadUrls.get(row.url);
+    if(previous && previous!==row.productId)
+      issues.push(`Tracked URL is shared by ${previous} and ${row.productId}.`);
+    else uploadUrls.set(row.url,row.productId);
+  }
   if(issues.length)return NextResponse.json({ok:false,error:"Bulk validation failed.",issues},{status:400});
 
   try{
+    const existing=await prisma.affiliateProductLink.findMany({
+      where:{status:"active",url:{in:prepared.map(row=>row.url)}},
+      select:{productId:true,url:true}
+    });
+    for(const row of prepared){
+      const duplicate=existing.find(item=>item.productId!==row.productId && item.url===row.url);
+      if(duplicate)issues.push(`Product ${row.productId}: link already used by ${duplicate.productId}.`);
+    }
+    if(issues.length)return NextResponse.json({ok:false,error:"Existing product destination conflicts.",issues},{status:409});
+
     await prisma.$transaction(prepared.map(row=>prisma.affiliateProductLink.upsert({
       where:{productId:row.productId},
       update:{merchant:"shopee",network:row.network,url:row.url,status:"active",reviewNote:row.reviewNote,approvedAt:new Date()},

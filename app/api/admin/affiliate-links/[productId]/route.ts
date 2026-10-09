@@ -28,6 +28,13 @@ export async function PUT(request:Request,{params}:{params:Promise<{productId:st
 
   let row;
   try{
+    if(status==="active"){
+      const duplicate=await prisma.affiliateProductLink.findFirst({
+        where:{productId:{not:productId},status:"active",url:checked.url},
+        select:{productId:true}
+      });
+      if(duplicate)return NextResponse.json({ok:false,error:"Tracking URL already belongs to another product: "+duplicate.productId},{status:409});
+    }
     row=await prisma.affiliateProductLink.upsert({
     where:{productId},
     update:{
