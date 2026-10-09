@@ -75,7 +75,7 @@ export default async function TireProductPage({ params }: { params: Promise<{ sl
     <Breadcrumbs items={[{ label: "Tires", href: "/tires" }, { label: p.brand }, { label: p.model }]} />
 
     <ProductHero
-      media={<EntityMedia entityType="tire" entityId={p.id} priority fallback={<div className="product-hero-card"><span>Tire family</span><strong>T</strong><div><small>{p.brand}</small><h2>{p.model}</h2></div></div>} />}
+      media={<EntityMedia entityType="tire" entityId={p.id} priority forceFill fallback={<div className="product-hero-card"><span>Tire family</span><strong>T</strong><div><small>{p.brand}</small><h2>{p.model}</h2></div></div>} />}
       eyebrow={<><span className="product-type-pill">Motorcycle tire</span><span className={`product-status-pill ${p.status}`}>{p.status === "verified" ? "Verified product" : "Needs checking"}</span></>}
       title={<>{p.brand} {p.model}</>}
       description={<p>{p.description}</p>}
