@@ -39,6 +39,24 @@ export function isKnownGenericAffiliateDestination(value: string): boolean {
 }
 
 /**
+ * Opaque affiliate-network links cannot prove what item they reach just from
+ * the short URL. Store an independently reviewed exact merchant item URL
+ * alongside each tracked shortlink (and recheck it in the provider console).
+ */
+export function isExactMerchantProductUrl(merchant: "shopee" | "lazada", value: string): boolean {
+  if (merchant === "shopee") return isExactShopeeProductUrl(value);
+  try {
+    const url = new URL(value);
+    const host = url.hostname.toLowerCase();
+    if (url.protocol !== "https:" || (host !== "lazada.com.ph" && host !== "www.lazada.com.ph")) return false;
+    if (url.username || url.password || url.port) return false;
+    return /^\/products\/[^/?#]+-i\d+-s\d+\.html$/i.test(url.pathname);
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Editorial reference only. The linked source is NOT an automatically
  * commissioned affiliate URL, and the listing can become unavailable.
  */
