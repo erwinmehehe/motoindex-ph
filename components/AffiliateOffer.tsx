@@ -8,6 +8,7 @@ const MARKETPLACE_AFFILIATE_CSS = `.affiliate-kicker{display:block;color:var(--a
 
 type Status = {
   active: boolean;
+  sourceListing?: { merchant: "shopee"; url: string; checkedAt: string };
   offers?: Array<{
     merchant: "shopee" | "lazada";
     network: "shopee_direct" | "involve_asia";
@@ -28,10 +29,25 @@ export function AffiliateOffer({ productId, productName, compact = false, showDi
   },[productId]);
 
   const offers=status?.offers||[];
-  if(!status?.active||!offers.length)return null;
+  if(!status?.active||!offers.length){
+    const source=status?.sourceListing;
+    if(!source)return null;
+    const action=<a
+      className={compact ? "affiliate-button compact shopee" : "affiliate-button shopee"}
+      href={source.url}
+      target="_blank"
+      rel="nofollow noopener noreferrer"
+    >View referenced product on Shopee <span aria-hidden="true">↗</span></a>;
+    if(compact)return <><style>{MARKETPLACE_AFFILIATE_CSS}</style><div className="affiliate-card-action">{action}</div>
+      {showDisclosure&&<small className="affiliate-hero-disclosure">Editorial source listing, not an affiliate link. Check the exact variant and stock.</small>}</>;
+    return <><style>{MARKETPLACE_AFFILIATE_CSS}</style><aside className="affiliate-offer marketplace-affiliate-offer" aria-label="Product source listing">
+      <div><span className="affiliate-kicker">Product source, not an affiliate offer</span><h2>Check the original Shopee listing</h2><p>This link references a specific listing used for MotoIndex price research, checked {source.checkedAt}. Stock, size and seller details may have changed.</p></div>
+      <div className="affiliate-offer-action">{action}<small>MotoIndex has no confirmed product-level affiliate link for this item. This is a direct editorial source link, not a commission-tracked referral.</small></div>
+    </aside></>;
+  }
   if(compact)return <><style>{MARKETPLACE_AFFILIATE_CSS}</style><div className="affiliate-card-action">{offers.map(offer=><AffiliateLink key={offer.merchant} productId={productId} productName={productName} merchant={offer.merchant} network={offer.network} compact shortLabel={showDisclosure || offer.destination === "merchant_homepage"} />)}</div>{showDisclosure&&<small className="affiliate-hero-disclosure">We may earn a commission at no extra cost to you. <Link href="/affiliate-disclosure">Affiliate disclosure</Link>.</small>}</>;
   return <><style>{MARKETPLACE_AFFILIATE_CSS}</style><aside className="affiliate-offer marketplace-affiliate-offer" aria-label="Marketplace affiliate offers">
-    <div><span className="affiliate-kicker">Verified marketplace links</span><h2>Compare marketplace prices</h2><p>Check the exact helmet size, graphic, seller rating, stock, shipping and checkout total before ordering.</p></div>
+    <div><span className="affiliate-kicker">Configured product-level marketplace links</span><h2>Compare marketplace prices</h2><p>Check the exact helmet size, graphic, seller rating, stock, shipping and checkout total before ordering.</p></div>
     <div className="affiliate-offer-action"><div className="affiliate-marketplace-actions">{offers.map(offer=><AffiliateLink key={offer.merchant} productId={productId} productName={productName} merchant={offer.merchant} network={offer.network} shortLabel={offer.destination === "merchant_homepage"} />)}</div><small>MotoIndex may earn a commission from qualifying purchases at no extra cost to you. Marketplace links may use direct or approved affiliate-network tracking. Rankings and editorial conclusions are not affected. <Link href="/affiliate-disclosure">Affiliate disclosure</Link>.</small></div>
   </aside></>;
 }

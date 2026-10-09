@@ -1,6 +1,7 @@
 import { databaseConfigured, prisma } from "@/lib/db";
 import { getAffiliateLinks, type AffiliateLinkConfig, type AffiliateMerchant, type AffiliateNetwork } from "@/lib/affiliate";
 import { allCatalogProducts } from "@/lib/catalog";
+import { isKnownGenericAffiliateDestination } from "@/lib/affiliateDestinations";
 
 const catalogIds = new Set(allCatalogProducts().map(product=>product.id));
 
@@ -20,6 +21,7 @@ export function validateRuntimeAffiliateUrl(productId:string, rawUrl:string){
   try{
     const url=new URL(value);
     if(url.protocol!=="https:") return {ok:false as const,error:"Affiliate URL must use HTTPS."};
+    if(isKnownGenericAffiliateDestination(url.toString()))return {ok:false as const,error:"This link leads to a store, search page, or shared marketplace shortcut. Generate an affiliate URL for the exact product listing instead."};
     let network:AffiliateNetwork|undefined;
     if(allowedShopeeHost(url.hostname))network="shopee_direct";
     else if(allowedInvolveAsiaHost(url.hostname))network="involve_asia";

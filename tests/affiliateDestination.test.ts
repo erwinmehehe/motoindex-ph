@@ -1,24 +1,47 @@
 import { describe, expect, it } from "vitest";
 import { getAffiliateLinks } from "../lib/affiliate";
+import { sourcedShopeeProductListing, isExactShopeeProductUrl, isKnownGenericAffiliateDestination } from "../lib/affiliateDestinations";
 import { allCatalogProducts } from "../lib/catalog";
+import { validateRuntimeAffiliateUrl } from "../lib/runtimeAffiliate";
 
-describe("Spyder merchant destination", () => {
-  it("preserves the supplied tracking URL and identifies its general store destination", () => {
-    const offer = getAffiliateLinks("spyder-surge-v2").find(link => link.merchant === "shopee");
-    expect(offer?.url).toBe("https://invl.me/clo1b14?url=https%3A%2F%2Fshopee.ph%2Funiversal-link%2F");
-    expect(offer?.destination).toBe("merchant_homepage");
+describe("product-specific marketplace redirects", () => {
+  it("never gives every helmet a shared Shopee or Lazada homepage CTA", () => {
+    expect(getAffiliateLinks("gille-kerena-ff007")).toEqual([]);
+    expect(getAffiliateLinks("spyder-surge-v2")).toEqual([]);
+    expect(getAffiliateLinks("gille-883-falcon")).toEqual([]);
+    expect(allCatalogProducts().filter(x => x.category === "Helmet" && getAffiliateLinks(x.id).length)).toEqual([]);
   });
-  it("uses the approved global Lazada link", () => {
-    expect(getAffiliateLinks("spyder-surge-v2").find(link => link.merchant === "lazada")?.url).toBe("https://invl.me/clo1b1b");
+
+  it("preserves an exact Kerena FF007 listing as an editorial, non-affiliate source", () => {
+    const source = sourcedShopeeProductListing("gille-kerena-ff007");
+    expect(source?.url).toContain("-i.505955057.25840894725");
+    expect(source?.checkedAt).toBe("2026-09-09");
+    expect(isExactShopeeProductUrl(source?.url || "")).toBe(true);
   });
-  it("provides both marketplace defaults for every verified helmet", () => {
-    for (const helmet of allCatalogProducts().filter(product => product.category === "Helmet")) {
-      expect(getAffiliateLinks(helmet.id).map(link => link.merchant)).toEqual(["shopee", "lazada"]);
+
+  it("rejects Shopee homepages, searches and generic network shortcuts", () => {
+    for (const url of [
+      "https://shopee.ph/",
+      "https://shopee.ph/search?keyword=Gille%20Kerena%20FF007",
+      "https://shopee.ph/universal-link/",
+      "https://invl.me/clo1b14",
+      "https://invl.me/clo1b14?url=https%3A%2F%2Fshopee.ph%2Funiversal-link%2F",
+      "https://invl.me/clo1b1b"
+    ]) {
+      expect(isKnownGenericAffiliateDestination(url)).toBe(true);
+      expect(validateRuntimeAffiliateUrl("gille-kerena-ff007", url).ok).toBe(false);
     }
   });
-  it("does not apply helmet defaults to unknown products or other categories", () => {
-    expect(getAffiliateLinks("not-a-product")).toEqual([]);
-    const tire = allCatalogProducts().find(product => product.category === "Tire")!;
-    expect(getAffiliateLinks(tire.id)).toEqual([]);
+
+  it("accepts an exact item URL without inventing tracking attribution", () => {
+    const url = sourcedShopeeProductListing("gille-kerena-ff007")!.url;
+    const checked = validateRuntimeAffiliateUrl("gille-kerena-ff007", url);
+    expect(checked.ok).toBe(true);
+    if (checked.ok) expect(checked.network).toBe("shopee_direct");
+  });
+
+  it("does not turn an unknown product ID or arbitrary retailer URL into an exact Shopee source", () => {
+    expect(sourcedShopeeProductListing("unknown-product")).toBeUndefined();
+    expect(isExactShopeeProductUrl("https://attacker.example/product/123/456")).toBe(false);
   });
 });
