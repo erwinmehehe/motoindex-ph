@@ -229,6 +229,8 @@ const inspect=`(() => {
       if(escapes||style.objectFit!=="contain"){
         mediaProblems.push({
           stage:stage.className,
+          src:(image.currentSrc||image.getAttribute("src")||"").slice(0,180),
+          alt:(image.getAttribute("alt")||"").slice(0,100),
           objectFit:style.objectFit,
           stage:[Math.round(stageRect.width),Math.round(stageRect.height)],
           image:[Math.round(rect.width),Math.round(rect.height)],
@@ -407,7 +409,7 @@ try{
       const maxH1=width<=390?58:width<=768?64:76;
       if((row?.h1Size||0)<28||(row?.h1Size||0)>maxH1)failures.push(`${width}px ${route.name}: H1 size ${row?.h1Size}px is outside approved range`);
       if(row?.h1Contrast!=null&&row.h1Contrast<3)failures.push(`${width}px ${route.name}: H1 contrast ratio ${row.h1Contrast.toFixed(2)} is below 3:1`);
-      if((row?.mediaProblems||[]).length)failures.push(`${width}px ${route.name}: ${row.mediaProblems.length} product image(s) escape their stage or are not object-fit:contain`);
+      if((row?.mediaProblems||[]).length)failures.push(`${width}px ${route.name}: ${row.mediaProblems.length} product image(s) escape their stage or are not object-fit:contain; details: ${JSON.stringify(row.mediaProblems.slice(0,5))}`);
       if((row?.unloadedProductImages||0)>0)failures.push(`${width}px ${route.name}: ${row.unloadedProductImages} product image(s) failed to load after lazy-media warmup`);
       if((row?.unavailableProductMedia||0)>0)failures.push(`${width}px ${route.name}: ${row.unavailableProductMedia} product media fallback(s) rendered as unavailable`);
       if((row?.collapsedCards||0)>0)failures.push(`${width}px ${route.name}: ${row.collapsedCards} canonical product card(s) collapsed`);
