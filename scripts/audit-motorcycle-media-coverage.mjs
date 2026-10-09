@@ -25,26 +25,7 @@ const catalogFiles = [
 ];
 
 const knownBacklog = new Set([
-  "yamaha-sr400",
-  "honda-pcx150",
-  "benelli-motobi-200-evo",
-  "honda-genio",
-  "honda-rs125",
-  "honda-rs150r",
-  "honda-scoopy",
-  "kawasaki-klx-140",
-  "kawasaki-ninja-zx-10r",
-  "kawasaki-ninja-zx-6r",
-  "kawasaki-z900-se",
-  "suzuki-smash-carb",
-  "tvs-ntorq-125",
-  "vespa-s-125",
-  "yamaha-aerox-v1",
-  "yamaha-nmax-v1",
-  "yamaha-sniper-150",
-  "yamaha-sz",
-  "yamaha-tricity",
-  "yamaha-yzf-r15-v3"
+
 ]);
 
 function read(relativePath) {
