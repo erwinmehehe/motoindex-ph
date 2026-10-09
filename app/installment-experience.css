@@ -1,0 +1,300 @@
+/* MotoIndex installment landing pages: decision-first, brand-consistent surfaces. */
+.installment-landing{max-width:1180px;padding-bottom:64px;color:var(--mi-color-ink)}
+.installment-landing>.breadcrumbs{margin:24px 0 20px}
+.installment-landing [id]{scroll-margin-top:138px}
+
+.installment-hero{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);
+  gap:clamp(24px,4vw,54px);
+  align-items:center;
+  padding:clamp(28px,4.2vw,52px);
+  border:1px solid var(--mi-color-line);
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 10% 100%,rgba(68,76,231,.07),transparent 34%),
+    linear-gradient(128deg,#fff 0%,#f8faff 100%);
+  box-shadow:0 14px 40px rgba(16,24,40,.045)
+}
+.installment-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--mi-color-primary);
+  font-size:11px;
+  font-weight:850;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+}
+.installment-eyebrow:before{content:"";width:8px;height:8px;flex:none;border-radius:100%;background:var(--mi-color-primary)}
+.installment-hero-copy h1{
+  max-width:710px;
+  margin:18px 0;
+  color:var(--mi-color-ink);
+  font-size:clamp(35px,4.4vw,60px);
+  line-height:1.065;
+  letter-spacing:-.052em;
+  text-wrap:balance
+}
+.installment-hero-copy>p{max-width:675px;margin:0;color:var(--mi-color-slate-600);font-size:15px;line-height:1.78}
+.installment-hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.installment-hero-actions .button{min-height:46px;gap:12px;font-size:13px}
+.installment-hero-actions .button.ghost{border:1px solid var(--mi-color-line);color:var(--mi-color-ink);background:#fff}
+.installment-reference-line{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 22px;
+  margin-top:24px;
+  padding-top:18px;
+  border-top:1px solid var(--mi-color-line-soft);
+  color:var(--mi-color-slate-600);
+  font-size:11px;
+  line-height:1.5;
+}
+.installment-reference-line strong{color:var(--mi-color-ink)}
+.installment-hero-estimate{
+  min-width:0;
+  padding:clamp(24px,3vw,34px);
+  border:1px solid #253258;
+  border-radius:24px;
+  background:linear-gradient(145deg,#182a4b 0%,#101828 67%,#1c1c45 100%);
+  color:#fff;
+  box-shadow:0 22px 42px rgba(16,24,40,.15)
+}
+.installment-hero-estimate-tag{
+  display:inline-block;
+  margin-bottom:34px;
+  padding:7px 11px;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
+  color:#edf0ff;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.055em;
+  text-transform:uppercase
+}
+.installment-hero-estimate-label{display:block;color:#c3d0e9;font-size:12px;font-weight:600}
+.installment-hero-monthly{
+  display:block;
+  margin:7px 0 27px;
+  color:#fff;
+  font-size:clamp(37px,4vw,52px);
+  line-height:1.05;
+  letter-spacing:-.045em;
+  font-variant-numeric:tabular-nums;
+  overflow-wrap:anywhere
+}
+.installment-hero-monthly small{margin-left:4px;color:#c3d0e9;font-size:18px;letter-spacing:0}
+.installment-hero-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid rgba(255,255,255,.19)}
+.installment-hero-metrics>div{min-width:0;padding:15px 8px 12px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.installment-hero-metrics>div:last-child{grid-column:1/-1;border-bottom:0}
+.installment-hero-metrics span,.installment-hero-metrics strong{display:block}
+.installment-hero-metrics span{margin-bottom:6px;color:#bdc9e2;font-size:10px}
+.installment-hero-metrics strong{color:#fff;font-size:16px;line-height:1.2;font-variant-numeric:tabular-nums}
+.installment-hero-estimate>p{margin:10px 0 0;color:#c3d0e9;font-size:11px;line-height:1.65}
+
+.installment-jump-nav{
+  position:sticky;
+  top:72px;
+  z-index:21;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  min-width:0;
+  margin:18px 0 0;
+  padding:10px 12px;
+  overflow-x:auto;
+  scrollbar-width:thin;
+  border:1px solid var(--mi-color-line);
+  border-radius:14px;
+  background:rgba(255,255,255,.96);
+  box-shadow:0 8px 22px rgba(15,23,42,.05);
+  backdrop-filter:blur(12px)
+}
+.installment-jump-nav a{
+  flex:none;
+  min-height:36px;
+  display:inline-flex;
+  align-items:center;
+  padding:0 14px;
+  border-radius:9px;
+  color:var(--mi-color-slate-600);
+  font-size:12px;
+  font-weight:750;
+  white-space:nowrap
+}
+.installment-jump-nav a:hover,.installment-jump-nav a:focus-visible{color:var(--mi-color-primary);background:var(--mi-color-primary-soft)}
+.installment-page-section{padding:52px 0;border-bottom:1px solid var(--mi-color-line-soft)}
+.installment-page-section .ui-section-header{margin-bottom:20px}
+.installment-page-section .ui-section-header h2{max-width:910px}
+.installment-page-section .ui-section-header p{max-width:830px}
+.installment-calculator-section{padding-top:42px}
+
+/* Step-based estimator: retain existing selector contracts used by visual regression. */
+[data-calculator="installment"] .finance-planner-head{align-items:center}
+[data-calculator="installment"] .finance-planner-head h2{margin:6px 0 10px;font-size:clamp(24px,2.5vw,33px);line-height:1.1;letter-spacing:-.035em}
+[data-calculator="installment"] .finance-planner-head p{max-width:700px;margin:0;font-size:13px}
+[data-calculator="installment"] .finance-estimate-badge{flex:none;padding:9px 12px;border-radius:999px;background:var(--mi-color-primary-soft);color:var(--mi-color-primary);font-size:10px;font-weight:800}
+[data-calculator="installment"] .finance-controls{gap:16px;background:#fbfcff}
+[data-calculator="installment"] .finance-step-heading{display:flex;align-items:center;gap:13px}
+[data-calculator="installment"] .finance-step-heading h3{margin:0;color:var(--mi-color-ink);font-size:16px;line-height:1.25;letter-spacing:-.025em}
+[data-calculator="installment"] .finance-step-heading p{margin:4px 0 0;color:var(--mi-color-copy);font-size:11px}
+[data-calculator="installment"] .finance-step-divider{margin-top:9px;padding-top:19px;border-top:1px solid var(--mi-color-line)}
+[data-calculator="installment"] .finance-step-number{display:grid;place-items:center;flex:none;width:34px;height:34px;border:1px solid rgba(68,76,231,.16);border-radius:11px;background:rgba(68,76,231,.07);color:var(--mi-color-primary);font-size:12px;font-weight:850}
+[data-calculator="installment"] .variant-price-picker{display:grid;gap:7px}
+[data-calculator="installment"] .variant-price-picker label{font-size:12px}
+[data-calculator="installment"] .variant-price-picker small{color:var(--mi-color-muted);font-size:10px;line-height:1.6}
+[data-calculator="installment"] .finance-price-input label,[data-calculator="installment"] .finance-fee-block label,[data-calculator="installment"] .finance-rate-block>label{display:block;color:var(--mi-color-slate-700);font-size:12px;font-weight:800}
+[data-calculator="installment"] .finance-price-field{min-height:48px;margin-top:7px;overflow:hidden;border-radius:12px;background:#fff}
+[data-calculator="installment"] .finance-price-field>span{padding:0 0 0 14px;color:var(--mi-color-slate-600);font-weight:800}
+[data-calculator="installment"] .finance-price-field input{min-width:0;min-height:46px;margin:0;padding-left:9px;font-size:16px;font-weight:750;font-variant-numeric:tabular-nums}
+[data-calculator="installment"] .finance-price-field:focus-within{border-color:var(--mi-color-primary);box-shadow:var(--mi-shadow-focus)}
+[data-calculator="installment"] .finance-preset-groups{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+[data-calculator="installment"] .finance-preset-label{display:block;margin-bottom:8px;color:var(--mi-color-slate-600);font-size:11px;font-weight:800}
+[data-calculator="installment"] .calc-presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+[data-calculator="installment"] .calc-presets button{width:100%;min-height:43px;padding:0 5px;border-radius:11px;background:#fff;font-size:12px}
+[data-calculator="installment"] .calc-presets button.active{border-color:var(--mi-color-primary);background:var(--mi-color-primary);color:#fff}
+[data-calculator="installment"] .finance-slider-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+[data-calculator="installment"] .finance-slider-grid label{display:block;padding-top:10px}
+[data-calculator="installment"] .finance-slider-grid label span{display:block;color:var(--mi-color-slate-600);font-size:11px}
+[data-calculator="installment"] .finance-slider-grid label strong{display:block;float:none;margin-top:4px;color:var(--mi-color-ink);font-size:12px}
+[data-calculator="installment"] input[type="range"]{min-height:34px;cursor:pointer}
+[data-calculator="installment"] .finance-extra-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+[data-calculator="installment"] .finance-rate-value{display:flex;align-items:center;gap:8px;margin-top:6px}
+[data-calculator="installment"] .finance-rate-value>strong{color:var(--mi-color-ink);font-size:17px}
+[data-calculator="installment"] .finance-rate-value input{width:73px!important;min-height:39px!important;margin:0 0 0 auto!important;padding:5px 9px!important;font-size:13px}
+[data-calculator="installment"] .finance-rate-value>span{font-size:12px;color:var(--mi-color-muted)}
+[data-calculator="installment"] .finance-fee-block>small{display:block;margin-top:6px;color:var(--mi-color-muted);font-size:10px;line-height:1.45}
+[data-calculator="installment"] .finance-controls-footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding-top:13px;border-top:1px solid var(--mi-color-line)}
+[data-calculator="installment"] .finance-reset{min-height:42px;padding:0 14px;border:1px solid var(--mi-color-line);border-radius:10px;background:#fff;color:var(--mi-color-ink);font-size:12px;font-weight:800;cursor:pointer}
+[data-calculator="installment"] .finance-controls-footer>span{color:var(--mi-color-muted);font-size:10px}
+[data-calculator="installment"] .finance-result{min-width:0;background:linear-gradient(150deg,#f1f3ff 0%,#fff 62%);border-color:rgba(68,76,231,.24);box-shadow:0 14px 28px rgba(68,76,231,.06)}
+[data-calculator="installment"] .finance-result>strong{white-space:normal;overflow-wrap:anywhere;font-size:clamp(33px,3.4vw,48px);font-variant-numeric:tabular-nums}
+[data-calculator="installment"] .finance-result>small{padding-bottom:19px}
+[data-calculator="installment"] .finance-result-upfront{display:grid;gap:6px;margin-top:19px;padding:17px;border:1px solid rgba(68,76,231,.12);border-radius:14px;background:#fff}
+[data-calculator="installment"] .finance-result-upfront>span{color:var(--mi-color-slate-600);font-size:11px;font-weight:800}
+[data-calculator="installment"] .finance-result-upfront strong{color:var(--mi-color-ink);font-size:clamp(23px,2.2vw,30px);line-height:1.12;font-variant-numeric:tabular-nums}
+[data-calculator="installment"] .finance-result-upfront small{color:var(--mi-color-muted);font-size:10px}
+[data-calculator="installment"] .finance-result-facts{margin-top:12px}
+[data-calculator="installment"] .finance-result-facts>div>span{font-size:11px}
+[data-calculator="installment"] .finance-result-facts>div>strong{font-size:13px;font-variant-numeric:tabular-nums}
+[data-calculator="installment"] .finance-result-total{display:grid;gap:6px;margin-top:15px;padding:18px;border-radius:15px;background:#172448;color:#fff}
+[data-calculator="installment"] .finance-result-total>span:first-child{color:#d2dcfa;font-size:11px;font-weight:700}
+[data-calculator="installment"] .finance-result-total>strong{color:#fff;font-size:clamp(25px,2.4vw,32px);font-variant-numeric:tabular-nums}
+[data-calculator="installment"] .finance-result-total>small{color:#c4cfea;font-size:10px}
+[data-calculator="installment"] .finance-result-total .finance-result-difference{margin-top:8px;padding-top:11px;border-top:1px solid rgba(255,255,255,.19);color:#e0e6fa;font-size:10px;line-height:1.45}
+[data-calculator="installment"] .finance-result>p{margin:14px 0;padding:12px 0 0;color:var(--mi-color-slate-600);font-size:11px;line-height:1.55}
+[data-calculator="installment"] .finance-copy-button{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:44px;padding:0 14px;border:1px solid var(--mi-color-primary);border-radius:11px;background:var(--mi-color-primary);color:#fff;font-size:12px;font-weight:800;cursor:pointer}
+[data-calculator="installment"] .finance-copy-button:hover{background:var(--mi-color-primary-hover)}
+[data-calculator="installment"] .finance-copy-status{margin-top:10px;padding:0;border:0;color:var(--mi-color-slate-700);font-size:11px}
+[data-calculator="installment"] button:focus-visible,
+[data-calculator="installment"] select:focus-visible,
+[data-calculator="installment"] input:focus-visible,
+.installment-jump-nav a:focus-visible{
+  outline:3px solid rgba(68,76,231,.45);
+  outline-offset:2px
+}
+@media(min-width:1024px){
+  .installment-landing [data-calculator="installment"]{overflow:clip}
+  .installment-landing [data-calculator="installment"] .finance-result{position:sticky;top:135px}
+}
+
+/* Compare cash today, total outlay, and dealer observations without mixing assumptions. */
+.installment-scenario-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
+.installment-scenario-card{min-width:0;padding:24px;border:1px solid var(--mi-color-line);border-radius:18px;background:#fff;box-shadow:var(--mi-shadow-xs)}
+.installment-scenario-card:nth-child(2){border-color:rgba(68,76,231,.30);background:linear-gradient(160deg,#f7f8ff 0%,#fff 60%)}
+.installment-scenario-tag{display:inline-block;color:var(--mi-color-primary);font-size:11px;font-weight:850}
+.installment-scenario-card>strong{display:block;margin:13px 0 17px;color:var(--mi-color-ink);font-size:clamp(26px,2.5vw,36px);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.installment-scenario-card>strong small{margin-left:3px;color:var(--mi-color-slate-600);font-size:13px;letter-spacing:0}
+.installment-scenario-card dl{display:grid;gap:0;margin:0;padding:0;border-top:1px solid var(--mi-color-line)}
+.installment-scenario-card dl>div{display:flex;justify-content:space-between;gap:13px;padding:12px 0;border-bottom:1px solid var(--mi-color-line-soft)}
+.installment-scenario-card dl>div:last-child{border-bottom:0}
+.installment-scenario-card dt{color:var(--mi-color-slate-600);font-size:11px}
+.installment-scenario-card dd{margin:0;color:var(--mi-color-ink);font-size:11px;font-weight:850;text-align:right;font-variant-numeric:tabular-nums}
+.installment-landing .financing-snapshot.finance-scenario-section{margin-top:32px}
+.installment-dealer-snapshot{padding-top:0}
+.installment-dealer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:24px}
+.installment-dealer-card{display:grid;min-width:0;align-content:start;padding:24px;border:1px solid var(--mi-color-line);border-radius:18px;background:#fff;box-shadow:var(--mi-shadow-xs)}
+.installment-dealer-card-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.installment-dealer-source{display:block;margin-bottom:8px;color:var(--mi-color-primary);font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.06em}
+.installment-dealer-card h3{margin:0;color:var(--mi-color-ink);font-size:19px;line-height:1.2;letter-spacing:-.025em}
+.installment-dealer-card time{flex:none;padding:7px 9px;border:1px solid var(--mi-color-line);border-radius:999px;color:var(--mi-color-slate-600);font-size:10px}
+.installment-dealer-figures{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:22px;padding:17px 0;border-top:1px solid var(--mi-color-line);border-bottom:1px solid var(--mi-color-line)}
+.installment-dealer-figures>div{display:grid;align-content:start;gap:6px;min-width:0}
+.installment-dealer-figures span{color:var(--mi-color-slate-600);font-size:10px}
+.installment-dealer-figures strong{color:var(--mi-color-ink);font-size:clamp(17px,1.8vw,22px);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.installment-dealer-figures .installment-dealer-monthly strong{color:var(--mi-color-primary)}
+.installment-dealer-empty strong{color:var(--mi-color-slate-600);font-size:15px}
+.installment-dealer-card>p{margin:17px 0;color:var(--mi-color-slate-600);font-size:12px;line-height:1.65}
+.installment-dealer-card-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:16px;border-top:1px solid var(--mi-color-line-soft);font-size:11px}
+.installment-dealer-card-footer>span{color:var(--mi-color-slate-600)}
+.installment-dealer-card-footer a{color:var(--mi-color-primary);font-weight:850;text-decoration:underline;text-underline-offset:3px}
+.installment-dealer-disclaimer{margin:22px 0 0;padding:15px 18px;border:1px solid rgba(68,76,231,.12);border-radius:12px;background:var(--mi-color-primary-soft);color:var(--mi-color-slate-700);font-size:12px;line-height:1.65}
+.installment-dealer-empty-state{max-width:800px;padding:25px;border:1px dashed rgba(68,76,231,.35);border-radius:16px;background:var(--mi-color-surface-subtle)}
+.installment-dealer-empty-state h3{margin:0 0 9px;font-size:19px}
+.installment-dealer-empty-state p{margin:0 0 18px;color:var(--mi-color-copy);font-size:13px;line-height:1.6}
+
+/* Decision support near the handoff, not a generic footnote. */
+.installment-guidance{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:32px;align-items:start}
+.installment-guidance-copy h2{max-width:780px;margin:15px 0 19px;color:var(--mi-color-ink);font-size:clamp(27px,3vw,40px);line-height:1.16;letter-spacing:-.04em;text-wrap:balance}
+.installment-guidance-copy p{max-width:660px;margin:0 0 15px;color:var(--mi-color-slate-600);font-size:14px;line-height:1.75}
+.installment-guidance-copy p strong{color:var(--mi-color-ink)}
+.installment-guidance-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:23px}
+.installment-guidance-actions .button{min-height:44px;font-size:12px}
+.installment-guidance-checklist{padding:27px;border:1px solid var(--mi-color-line);border-radius:20px;background:var(--mi-color-surface-subtle)}
+.installment-guidance-checklist h3{margin:0 0 17px;color:var(--mi-color-ink);font-size:20px;letter-spacing:-.03em}
+.installment-guidance-checklist ol{display:grid;gap:0;margin:0;padding:0;list-style:none;counter-reset:finance-check}
+.installment-guidance-checklist li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;align-items:start;padding:11px 0;border-top:1px solid var(--mi-color-line-soft);color:var(--mi-color-slate-700);font-size:12px;line-height:1.5;counter-increment:finance-check}
+.installment-guidance-checklist li:before{content:counter(finance-check,decimal-leading-zero);color:var(--mi-color-primary);font-size:10px;font-weight:850}
+.installment-guidance-checklist>small{display:block;margin-top:15px;color:var(--mi-color-muted);font-size:11px;line-height:1.6}
+.installment-next-steps{border-bottom:0}
+
+@media(max-width:1020px){
+  .installment-hero{grid-template-columns:minmax(0,1fr) minmax(300px,.86fr);gap:22px;padding:30px}
+  .installment-hero-copy h1{font-size:clamp(35px,4.4vw,49px)}
+  .installment-guidance{grid-template-columns:1fr 1fr;gap:22px}
+  .installment-dealer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:780px){
+  .installment-hero{grid-template-columns:1fr}
+  .installment-hero-estimate{max-width:none}
+  .installment-jump-nav{top:66px}
+  .installment-scenario-grid{grid-template-columns:1fr}
+  .installment-dealer-grid{grid-template-columns:1fr}
+  .installment-guidance{grid-template-columns:1fr}
+  [data-calculator="installment"] .finance-extra-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){
+  .installment-landing{padding-bottom:32px}
+  .installment-landing>.breadcrumbs{margin:17px 0}
+  .installment-hero{padding:25px 21px;border-radius:20px}
+  .installment-hero-copy h1{font-size:clamp(31px,9vw,43px)}
+  .installment-hero-copy>p{font-size:13px;line-height:1.7}
+  .installment-hero-actions{gap:9px;margin-top:21px}
+  .installment-hero-actions .button{width:100%;justify-content:center}
+  .installment-hero-estimate{padding:23px;border-radius:18px}
+  .installment-hero-estimate-tag{margin-bottom:19px}
+  .installment-hero-monthly{font-size:clamp(35px,9vw,45px)}
+  .installment-jump-nav{margin-top:11px;padding:7px;top:64px}
+  .installment-jump-nav a{font-size:11px;padding:0 12px}
+  .installment-page-section{padding:35px 0}
+  .installment-calculator-section{padding-top:30px}
+  [data-calculator="installment"] .finance-planner-head{padding:20px 19px 15px}
+  [data-calculator="installment"] .finance-planner-layout{padding:0 12px 12px}
+  [data-calculator="installment"] .finance-controls{padding:18px;gap:15px}
+  [data-calculator="installment"] .finance-step-heading h3{font-size:15px}
+  [data-calculator="installment"] .finance-preset-groups{grid-template-columns:1fr;gap:13px}
+  [data-calculator="installment"] .finance-slider-grid{grid-template-columns:1fr}
+  [data-calculator="installment"] .finance-extra-grid{grid-template-columns:1fr}
+  [data-calculator="installment"] .finance-result{padding:20px}
+  [data-calculator="installment"] .finance-result>strong{font-size:clamp(32px,9vw,46px)}
+  .installment-scenario-card,.installment-dealer-card{padding:19px}
+  .installment-dealer-card-heading{display:block}
+  .installment-dealer-card time{display:inline-block;margin-top:11px}
+  .installment-dealer-figures{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .installment-guidance-checklist{padding:21px}
+}
+@media(prefers-reduced-motion:reduce){
+  .installment-landing *,[data-calculator="installment"] *{scroll-behavior:auto;transition:none}
+}
