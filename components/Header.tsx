@@ -76,7 +76,7 @@ export function Header() {
           </div>
         </details>
       </nav>
-      <div className="nav-actions"><ShortlistNav /><Link className="nav-my-link" href="/my">My MotoIndex</Link><Link className="button small" href="/finder">Find my bike</Link></div>
+      <div className="nav-actions"><ShortlistNav /><a className="nav-my-link" href="/my">My MotoIndex</a><Link className="button small" href="/finder">Find my bike</Link></div>
       <details className="mobile-menu">
         <summary aria-label="Open navigation">Menu</summary>
         <div className="mobile-menu-panel"><nav aria-label="Mobile navigation">
@@ -101,7 +101,7 @@ export function Header() {
           <Link href="/guides">Editorial guides</Link>
           {navGuides.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
           <strong className="mobile-menu-heading">Ownership & local research</strong>
-          {ownership.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
+          {ownership.map(([label, href]) => href === "/my" || href === "/garage" ? <a href={href} key={href}>{label}</a> : <Link href={href} key={href}>{label}</Link>)}
           <Link href="/shortlist">Shortlist</Link><Link href="/search">Search</Link>
         </nav></div>
       </details>
