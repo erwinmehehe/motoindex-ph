@@ -5,6 +5,7 @@ The code in draft PR #461 adds release checks and Cloudflare Turnstile. It does 
 ## Release workflow
 
 - There must be exactly one deployment workflow: `.github/workflows/cloudflare-production-deploy.yml` (manual dispatch only).
+- Disable or protect any external Cloudflare Workers Builds Git integration that would auto-deploy on a push; it could bypass GitHub release gates.
 - The release gate verifies the **current main SHA** and successful main-branch **CI**, **Visual QA**, and **Cloudflare Runtime Compatibility** push runs. A missing, failed or pending check blocks deployment.
 - The workflow preserves static HTML publishing via `scripts/publish-prerender-assets.mjs` and runs public-route/contact smoke tests after deployment.
 - In GitHub, protect `main`: require pull requests, a human review, and the `CI / build`, `Visual QA / browser-qa`, and `Cloudflare Runtime Compatibility / validate` status checks. Prevent direct pushes and force pushes.

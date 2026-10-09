@@ -38,6 +38,9 @@ if (process.env.REQUIRE_FORM_BOT_PROTECTION === "true") {
 }
 
 const adminAccessMode = (process.env.ADMIN_ACCESS_MODE || "basic").trim().toLowerCase();
+if (process.env.REQUIRE_FORM_BOT_PROTECTION === "true" && adminAccessMode !== "cloudflare" && adminAccessMode !== "cloudflare-access") {
+  failures.push("Production launch requires Cloudflare Access admin authentication, not Basic Auth.");
+}
 if (adminAccessMode === "cloudflare" || adminAccessMode === "cloudflare-access") {
   const teamDomain = (process.env.CF_ACCESS_TEAM_DOMAIN || "").trim().replace(/^https?:\/\//, "").replace(/\/$/, "");
   const audience = (process.env.CF_ACCESS_AUD || "").trim();

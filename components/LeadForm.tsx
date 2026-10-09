@@ -67,7 +67,7 @@ export function LeadForm({ model }: { model: Motorcycle }) {
         setMessage(result.error || "We could not save your request.");
         return;
       }
-      trackEvent("dealer_quote_request", { model_id: model.id, matched_dealers: result.matchedDealers || 0 });
+      trackEvent(result.statusPath ? "dealer_quote_request" : "dealer_quote_duplicate", { model_id: model.id, matched_dealers: result.matchedDealers || 0 });
       setState("success");
       setMessage(result.message || "Your dealer request has been received.");
       setStatusPath(result.statusPath || "");
@@ -83,7 +83,7 @@ export function LeadForm({ model }: { model: Motorcycle }) {
 
   if (state === "success") {
     return <div className="lead-form lead-form-success" aria-live="polite">
-      <div className="lead-form-head"><span>Request received</span><h2>We saved your dealer request.</h2><p>{message}</p></div>
+      <div className="lead-form-head"><span>Request received</span><h2>{statusPath ? "We saved your dealer request." : "Check your earlier request."}</h2><p>{message}</p></div>
       <div className="hero-actions">
         {statusPath&&<Link className="button" href={statusPath}>View quote status</Link>}
         <Link className={statusPath?"button ghost":"button"} href={`/motorcycles/${model.makeSlug}/${model.slug}`}>Back to {model.model}</Link>

@@ -12,6 +12,7 @@ type TurnstileApi = {
     "expired-callback": () => void;
     "error-callback": () => void;
     "response-field": boolean;
+    size: "flexible" | "normal" | "compact";
   }) => string;
   reset: (id: string) => void;
   remove: (id: string) => void;
@@ -47,7 +48,8 @@ export function PublicFormChallenge({
       callback: token => onTokenRef.current(token),
       "expired-callback": () => onTokenRef.current(""),
       "error-callback": () => onTokenRef.current(""),
-      "response-field": false
+      "response-field": false,
+      size: "flexible"
     });
     widgetId.current = id;
     return () => {
