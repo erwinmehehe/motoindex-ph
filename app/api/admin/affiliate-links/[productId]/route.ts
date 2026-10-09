@@ -34,6 +34,12 @@ export async function PUT(request:Request,{params}:{params:Promise<{productId:st
     const fallback=getAffiliateLink(productId);
     if(!fallback)return NextResponse.json({ok:false,error:"There is no active affiliate link to disable for this product."},{status:404});
     url=fallback.url;
+    const checked=validateRuntimeAffiliateUrl(productId,url,destinationUrl||fallback.destinationUrl);
+    if(!checked.ok)return NextResponse.json({ok:false,error:checked.error},{status:400});
+    const row=await prisma.affiliateProductLink.create({
+      data:{productId,merchant:"shopee",network:checked.network,url:checked.url,destinationUrl:checked.destinationUrl,status:"disabled",reviewNote,approvedAt:null}
+    });
+    return NextResponse.json({ok:true,productId:row.productId,merchant:row.merchant,network:row.network,status:row.status,approvedAt:null});
   }
   const checked=validateRuntimeAffiliateUrl(productId,url,destinationUrl||undefined);
   if(!checked.ok)return NextResponse.json({ok:false,error:checked.error},{status:400});
