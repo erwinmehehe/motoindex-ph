@@ -23,9 +23,11 @@ describe("application event tracking privacy guard", () => {
   it("keeps non-personal public conversion events working", () => {
     const gtag = vi.fn();
     const plausible = vi.fn();
-    vi.stubGlobal("window", { location: { pathname: "/motorcycles/yamaha/aerox-v3" }, gtag, plausible });
+    vi.stubGlobal("window", { location: { origin: "https://motoindexph.com", pathname: "/motorcycles/yamaha/aerox-v3", search: "?email=sensitive%40example.com" }, gtag, plausible });
     trackEvent("dealer_coverage_checked", { model_id: "aerox-v3", available: 1 });
-    expect(gtag).toHaveBeenCalledWith("event", "dealer_coverage_checked", { model_id: "aerox-v3", available: 1 });
-    expect(plausible).toHaveBeenCalledWith("dealer_coverage_checked", { props: { model_id: "aerox-v3", available: 1 } });
+    expect(gtag).toHaveBeenCalledWith("event", "dealer_coverage_checked", { model_id: "aerox-v3", available: 1, page_location: "https://motoindexph.com/motorcycles/yamaha/aerox-v3", page_path: "/motorcycles/yamaha/aerox-v3" });
+    expect(plausible).toHaveBeenCalledWith("dealer_coverage_checked", { props: { model_id: "aerox-v3", available: 1 }, url: "https://motoindexph.com/motorcycles/yamaha/aerox-v3" });
+    expect(JSON.stringify(gtag.mock.calls)).not.toContain("sensitive");
+    expect(JSON.stringify(plausible.mock.calls)).not.toContain("sensitive");
   });
 });
