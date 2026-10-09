@@ -1,21 +1,17 @@
-/* Scoped to the Yamaha NMAX V3 guide. Research copy and SEO are untouched. */
+/* NMAX V3 only; original SEO content is unchanged. */
 .nmax-v3-showcase{display:flow-root;background:var(--reviewed-canvas)}
-.nmax-v3-showcase .reviewed-model-hero{grid-template-columns:1fr 1.05fr;gap:32px;align-items:center;padding:42px;border:1px solid var(--mi-color-slate-700);border-radius:26px;background:var(--mi-color-slate-900);box-shadow:var(--mi-shadow-lg)}
-.nmax-v3-showcase .reviewed-model-copy h1{color:var(--mi-color-surface);font-size:clamp(46px,5vw,68px);line-height:1.02}
-.nmax-v3-showcase .reviewed-model-copy>p{color:var(--reviewed-editorial-5);line-height:1.7}
-.nmax-v3-showcase .reviewed-model-copy>small{color:var(--reviewed-editorial-5)}
+.nmax-v3-showcase .reviewed-model-hero{grid-template-columns:1fr 1.05fr;gap:28px;align-items:center;padding:40px;border-radius:26px;background:var(--mi-color-slate-900)}
+.nmax-v3-showcase .reviewed-model-copy h1{color:var(--mi-color-surface);font-size:clamp(46px,5vw,68px);line-height:1}
+.nmax-v3-showcase .reviewed-model-copy>p,.nmax-v3-showcase .reviewed-model-copy>small{color:var(--reviewed-editorial-5)}
 .nmax-v3-showcase .reviewed-model-price{color:var(--mi-color-surface);font-size:clamp(28px,3vw,38px);white-space:normal}
-.nmax-v3-showcase .reviewed-model-links{flex-wrap:wrap;gap:10px}
-.nmax-v3-showcase .reviewed-model-links a{padding:12px 15px;border:1px solid var(--mi-color-slate-400);border-radius:10px;color:var(--mi-color-surface);font-weight:750}
+.nmax-v3-showcase .reviewed-model-links a{padding:11px 15px;border:1px solid var(--mi-color-slate-400);border-radius:10px;color:var(--mi-color-surface)}
 .nmax-v3-showcase .reviewed-model-links a:first-child{background:var(--reviewed-blue);border-color:var(--reviewed-blue)}
-.nmax-v3-showcase .reviewed-model-stage{height:390px;border-radius:20px;background:var(--reviewed-gray)}
-.nmax-v3-showcase .reviewed-model-stage .reviewed-model-photo{padding:20px;transform:scale(1.03);object-fit:contain}
+.nmax-v3-showcase .reviewed-model-stage{height:380px;border-radius:20px;background:var(--reviewed-gray)}
+.nmax-v3-showcase .reviewed-model-stage .reviewed-model-photo{padding:18px;transform:scale(1.03);object-fit:contain}
 .nmax-v3-showcase .reviewed-spec-strip{grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;border:0;background:transparent}
-.nmax-v3-showcase .reviewed-spec-strip>div{min-height:95px;padding:16px;border:1px solid var(--reviewed-line);border-radius:14px;background:var(--mi-color-surface)}
-.nmax-v3-showcase .motorcycle-entity-nav-wrap{position:sticky;top:72px;z-index:24;padding:8px 0;background:var(--reviewed-canvas)}
-.nmax-v3-showcase .motorcycle-entity-nav-wrap .product-entity-nav{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:6px;background:var(--mi-color-surface)}
-.nmax-v3-showcase .product-entity-nav a{flex:0 0 auto;white-space:nowrap}
-.nmax-v3-showcase .motorcycle-entity-page .motorcycle-entity-section{margin:15px 0;padding:26px;border:1px solid var(--reviewed-line);border-radius:20px;background:var(--mi-color-surface)}
-.nmax-v3-showcase .motorcycle-entity-page #price{border-top:4px solid var(--reviewed-blue);background:var(--reviewed-editorial-9)}
-@media(max-width:800px){.nmax-v3-showcase .reviewed-model-hero{grid-template-columns:1fr;padding:26px}.nmax-v3-showcase .reviewed-model-stage{height:330px}.nmax-v3-showcase .reviewed-spec-strip{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:600px){.nmax-v3-showcase .reviewed-model-hero{padding:19px;border-radius:18px}.nmax-v3-showcase .reviewed-model-copy h1{font-size:43px}.nmax-v3-showcase .reviewed-model-stage{height:240px}.nmax-v3-showcase .reviewed-spec-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.nmax-v3-showcase .motorcycle-entity-nav-wrap{top:60px}}
+.nmax-v3-showcase .reviewed-spec-strip>div{padding:16px;border:1px solid var(--reviewed-line);border-radius:14px;background:var(--mi-color-surface)}
+.nmax-v3-showcase .motorcycle-entity-nav-wrap{position:sticky;top:72px;z-index:24;background:var(--reviewed-canvas)}
+.nmax-v3-showcase .product-entity-nav{display:flex;flex-wrap:nowrap;overflow-x:auto}
+.nmax-v3-showcase .motorcycle-entity-page #price{border-top:4px solid var(--reviewed-blue)}
+@media(max-width:800px){.nmax-v3-showcase .reviewed-model-hero{grid-template-columns:1fr;padding:26px}.nmax-v3-showcase .reviewed-model-stage{height:320px}.nmax-v3-showcase .reviewed-spec-strip{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.nmax-v3-showcase .reviewed-model-hero{padding:18px}.nmax-v3-showcase .reviewed-model-copy h1{font-size:42px}.nmax-v3-showcase .reviewed-model-stage{height:240px}.nmax-v3-showcase .reviewed-spec-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
