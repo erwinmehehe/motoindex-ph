@@ -6,6 +6,8 @@ test("NMAX V3 redesign keeps canonical SEO, product schema, FAQ and research sec
   const response = await page.goto(modelPath);
   expect(response?.status()).toBe(200);
   await expect(page.locator(".nmax-v3-showcase")).toHaveCount(1);
+  await expect(page.locator('link[rel="stylesheet"][href="/styles/nmax-v3.css"]')).toHaveCount(1);
+  await expect(page.locator(".nmax-v3-showcase .reviewed-model-hero")).toHaveCSS("background-color", "rgb(15, 23, 42)");
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.getByRole("heading", { level: 1 })).toContainText("NMAX V3");
 
@@ -68,5 +70,6 @@ for (const width of [390, 768, 1440]) {
 test("NMAX redesign does not change the Aerox V3 shared model template", async ({ page }) => {
   await page.goto("/motorcycles/yamaha/aerox-v3");
   await expect(page.locator(".nmax-v3-showcase")).toHaveCount(0);
+  await expect(page.locator('link[href="/styles/nmax-v3.css"]')).toHaveCount(0);
   await expect(page.locator(".reviewed-model-hero")).toBeVisible();
 });
