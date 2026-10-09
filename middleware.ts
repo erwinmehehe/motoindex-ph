@@ -60,6 +60,7 @@ export async function middleware(request: NextRequest) {
     const response = NextResponse.next();
     response.headers.set("Cache-Control", "no-store");
     response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+    response.headers.set("Referrer-Policy", "no-referrer");
     return response;
   }
   if (pathname === "/motorcycles") {
