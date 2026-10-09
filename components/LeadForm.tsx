@@ -24,8 +24,12 @@ export function LeadForm({ model }: { model: Motorcycle }) {
     const requestId = ++coverageRequestId.current;
     setCoverage("checking");
     try {
-      const params = new URLSearchParams({ make: model.make, cityProvince: cityProvince.trim() });
-      const response = await fetch(`/api/dealer-coverage?${params.toString()}`, { cache: "no-store" });
+      const response = await fetch("/api/dealer-coverage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+        body: JSON.stringify({ make: model.make, cityProvince: cityProvince.trim() })
+      });
       const result = await response.json() as { ok: boolean; available?: boolean };
       if (requestId !== coverageRequestId.current) return;
       if (!response.ok || !result.ok) { setCoverage("error"); return; }
