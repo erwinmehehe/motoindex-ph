@@ -178,10 +178,33 @@ function readAffiliateMap(): { links: Record<string, AffiliateLinkConfig[]>; iss
   const legacy = parseMap(process.env.SHOPEE_AFFILIATE_LINKS_JSON, "SHOPEE_AFFILIATE_LINKS_JSON");
   const unified = parseMap(process.env.AFFILIATE_LINKS_JSON, "AFFILIATE_LINKS_JSON");
   // Generated cache is the baseline; deploy-time maps can override it without editing the repository.
-  return {
-    links: { ...generated.links, ...legacy.links, ...unified.links },
-    issues: [...generated.issues, ...legacy.issues, ...unified.issues]
-  };
+  const merged = { ...generated.links, ...legacy.links, ...unified.links };
+  const issues = [...generated.issues, ...legacy.issues, ...unified.issues];
+  const owners = new Map<string, string>();
+  const collisions = new Set<string>();
+  // Never let two unrelated products inherit the same tracked URL or item
+  // destination, even if an unknown shortlink is not on our denylist.
+  for (const [id, records] of Object.entries(merged)) {
+    for (const record of records) {
+      for (const target of [record.url, record.destinationUrl].filter((v): v is string => Boolean(v))) {
+        const key = record.merchant + "|" + target;
+        const existing = owners.get(key);
+        if (existing && existing !== id) collisions.add(key);
+        else owners.set(key, id);
+      }
+    }
+  }
+  const safe: Record<string, AffiliateLinkConfig[]> = {};
+  for (const [id, records] of Object.entries(merged)) {
+    const valid = records.filter(record => {
+      const targets = [record.url, record.destinationUrl].filter((v): v is string => Boolean(v));
+      const repeated = targets.some(target => collisions.has(record.merchant + "|" + target));
+      if (repeated) issues.push({ productId: id, message: "This exact item or affiliate tracking URL is assigned to multiple products and requires separate review." });
+      return !repeated;
+    });
+    if (valid.length) safe[id] = valid;
+  }
+  return { links: safe, issues };
 }
 
 export function getAffiliateLink(productId: string) {
