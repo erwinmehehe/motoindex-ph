@@ -3,6 +3,7 @@ import { databaseConfigured, prisma } from "@/lib/db";
 import { allCatalogProducts } from "@/lib/catalog";
 import { getAffiliateLink } from "@/lib/affiliate";
 import { sourcedShopeeProductListing } from "@/lib/affiliateDestinations";
+import { validateRuntimeAffiliateUrl } from "@/lib/runtimeAffiliate";
 import { AffiliateLinkManager } from "@/components/AffiliateLinkManager";
 
 export const metadata:Metadata={title:"Affiliate Links",robots:{index:false,follow:false}};
@@ -36,6 +37,7 @@ export default async function AffiliateLinksAdmin(){
   }
   const rows=allCatalogProducts().map(product=>{
     const db=byId.get(product.id);
+    const checked=db?.status==="active"?validateRuntimeAffiliateUrl(product.id,db.url):null;
     const fallback=getAffiliateLink(product.id);
     return {
       ...product,
@@ -43,7 +45,8 @@ export default async function AffiliateLinksAdmin(){
       dbLink:db?{
         url:db.url,
         network:db.network,
-        status:db.status,
+        status:db.status==="active"&&checked&&!checked.ok?"needs_review":db.status,
+        validationError:checked&&!checked.ok?checked.error:undefined,
         reviewNote:db.reviewNote||"",
         approvedAt:db.approvedAt?.toISOString(),
         updatedAt:db.updatedAt.toISOString()

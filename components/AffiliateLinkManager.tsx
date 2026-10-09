@@ -14,6 +14,7 @@ type ProductRow={
     url:string;
     network:string;
     status:string;
+    validationError?:string;
     reviewNote:string;
     approvedAt?:string;
     updatedAt:string;
@@ -71,6 +72,7 @@ function AffiliateRow({row}:{row:ProductRow}){
         <button type="button" disabled={saving} onClick={()=>save("active")}>{saving?"Saving…":"Save & activate"}</button>
         <button type="button" disabled={saving||(!url&&!row.fallback)} onClick={()=>save("disabled")}>Save disabled</button>
       </div>
+      {row.dbLink?.validationError&&status==="needs_review"&&<small role="alert">Existing affiliate URL is blocked: {row.dbLink.validationError} Update this product with an exact-item tracking link.</small>}
       {message&&<small className={message.includes("active")?"review-success":""}>{message}</small>}
     </div>
 
@@ -98,6 +100,7 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
   },[query,rows]);
   const active=rows.filter(row=>row.dbLink?.status==="active").length;
   const disabled=rows.filter(row=>row.dbLink?.status==="disabled").length;
+  const needsReview=rows.filter(row=>row.dbLink?.status==="needs_review").length;
   const fallback=rows.filter(row=>row.fallback).length;
   const clicks7=rows.reduce((sum,row)=>sum+row.clicks7,0);
   const clicks30=rows.reduce((sum,row)=>sum+row.clicks30,0);
@@ -141,6 +144,7 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
       <div><span>Catalog products</span><strong>{rows.length}</strong></div>
       <div><span>DB active</span><strong>{active}</strong></div>
       <div><span>DB disabled</span><strong>{disabled}</strong></div>
+      <div><span>Invalid links</span><strong>{needsReview}</strong></div>
       <div><span>Legacy fallback</span><strong>{fallback}</strong></div>
       <div><span>Clicks · 7d</span><strong>{clicks7}</strong></div>
       <div><span>Clicks · 30d</span><strong>{clicks30}</strong></div>
