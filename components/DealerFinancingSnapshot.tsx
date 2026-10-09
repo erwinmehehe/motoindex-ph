@@ -47,6 +47,6 @@ export function DealerFinancingSnapshot({ modelId, modelName }: { modelId: strin
       <p>We do not fill gaps with invented downpayments or monthly offers. Use the calculator above for planning, then ask a dealer for a written breakdown.</p>
       <Link className="button ghost" href="/dealers">Find checked dealer records</Link>
     </div>}
-    <p className="installment-dealer-disclaimer">Dealer cards and MotoIndex estimates use different assumptions. Do not compare the monthly amounts directly without knowing the exact downpayment, number of payments, interest-rate method, fees and variant.</p>
+    <p className="installment-dealer-disclaimer">Dealer figures are indicative observations, not guaranteed quotes. Dealer cards and MotoIndex estimates use different assumptions. Do not compare the monthly amounts directly without knowing the exact downpayment, number of payments, interest-rate method, fees and variant.</p>
   </div>;
 }
