@@ -94,7 +94,7 @@ export function LeadForm({ model }: { model: Motorcycle }) {
     return <div className="lead-form lead-form-success" aria-live="polite">
       <div className="lead-form-head"><span>Request received</span><h2>{statusPath ? "We saved your dealer request." : "Check your earlier request."}</h2><p>{message}</p></div>
       <div className="hero-actions">
-        {statusPath&&<Link className="button" href={statusPath}>View quote status</Link>}
+        {statusPath&&<a className="button" href={statusPath} rel="noreferrer">View quote status</a>}
         <Link className={statusPath?"button ghost":"button"} href={`/motorcycles/${model.makeSlug}/${model.slug}`}>Back to {model.model}</Link>
         <Link className="button ghost" href="/dealers">Browse verified dealers</Link>
       </div>
