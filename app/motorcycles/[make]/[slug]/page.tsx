@@ -1,5 +1,4 @@
 import { ReviewedModelHero } from "@/components/ReviewedModelHero";
-import "./nmax-v3.css";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
@@ -153,6 +152,6 @@ export default async function ModelPage({ params }: { params: Promise<{ make: st
     {!model.marketStatus || model.marketStatus === "current" ? <div className="shell model-decision-path-wrap"><DecisionPath stage="model" modelName={`${model.make} ${model.model}`} make={model.make} makeSlug={model.makeSlug} modelSlug={model.slug} /></div> : null}
   </>;
   return model.id === "yamaha-nmax-v3"
-    ? <div className="nmax-v3-showcase">{content}</div>
+    ? <div className="nmax-v3-showcase"><link rel="stylesheet" href="/styles/nmax-v3.css" precedence="high" />{content}</div>
     : content;
 }
