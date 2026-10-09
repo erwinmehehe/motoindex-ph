@@ -15,5 +15,6 @@ export function adsenseClientId() {
 }
 
 export function adsenseEnabled() {
-  return process.env.NEXT_PUBLIC_ADSENSE_ENABLED !== "false" && Boolean(adsenseClientId());
+  // Monetization and cookie-bearing ad scripts require explicit operator opt-in.
+  return process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true" && Boolean(adsenseClientId());
 }
