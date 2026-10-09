@@ -33,6 +33,19 @@ The production lead, dealer application, price alert and used-listing inquiry en
 
 Turnstile is **not** a replacement for rate limiting. In Cloudflare WAF, configure and test distributed per-IP rules for these endpoints, and the sign-in request endpoints, plus alerting on elevated 403/429/503 responses. Set thresholds from legitimate traffic; do not block customers behind shared carrier NATs without monitoring. Require approval for rules and use a staging preview before enabling.
 
+## Explicit tracking build configuration
+
+The canonical manual deployment workflow now passes **GitHub production environment variables**, rather than silently relying on a hardcoded GA4 fallback or enabling advertising implicitly:
+
+- `MOTOINDEX_GA_MEASUREMENT_ID` → `NEXT_PUBLIC_GA_MEASUREMENT_ID`
+- `MOTOINDEX_PLAUSIBLE_SCRIPT_SRC` → `NEXT_PUBLIC_PLAUSIBLE_SCRIPT_SRC`
+- `MOTOINDEX_PLAUSIBLE_DOMAIN` → legacy compatible `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`
+- `MOTOINDEX_ADSENSE_ENABLED` → `NEXT_PUBLIC_ADSENSE_ENABLED` (default `false`)
+- `MOTOINDEX_ADSENSE_CLIENT_ID` → `NEXT_PUBLIC_ADSENSE_CLIENT_ID`
+- `MOTOINDEX_ADSENSE_PUBLISHER_ID` → `ADSENSE_PUBLISHER_ID`
+
+Do not enable advertising until CSP, consent and actual AdSense account access are verified. GA4 requires disabling Enhanced Measurement history-based automatic pageviews to avoid private SPA URL collection after privacy PR #465. Setting GitHub variables alone does not prove the provider settings are safe. Track account setup in issue #466, and coordinate the merge order with #465.
+
 ## Operational gates still outstanding
 
 - Test real database migrations, backups and restoration.
