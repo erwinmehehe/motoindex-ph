@@ -17,7 +17,16 @@ const inbound=new Map([...staticRoutes.keys()].map(r=>[r,0]));
 const sources=[];
 for(const base of ["app","components"]){const dir=path.join(root,base);const rec=d=>{for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name).split(path.sep).join("/");if(e.isDirectory()){if(p.includes("/admin/")||p.includes("/api/"))continue;rec(p)}else if(/\.tsx$/.test(e.name))sources.push(p)}};rec(dir)}
 
-function validRoute(candidate){return patterns.some(p=>p.re.test(pathnameOnly(candidate)));}
+function validRoute(candidate){
+  const pathname=pathnameOnly(candidate);
+  // The public route checker also sees stylesheet hrefs in server-rendered
+  // JSX. Permit only actual files under public/styles, never arbitrary paths.
+  if(/^\/styles\/[a-z0-9/_-]+\.css$/i.test(pathname)){
+    const stylesheet=path.join(root,"public",pathname.slice(1));
+    return fs.existsSync(stylesheet)&&fs.statSync(stylesheet).isFile();
+  }
+  return patterns.some(p=>p.re.test(pathname));
+}
 for(const file of sources){const src=fs.readFileSync(file,"utf8");
   for(const m of src.matchAll(/href=["'](\/[^"'#?]*)["']/g)){
     const href=m[1]||"/"; if(!validRoute(href))errors.push(`${path.relative(root,file).split(path.sep).join("/")} links to missing route ${href}`); if(inbound.has(href))inbound.set(href,inbound.get(href)+1);
