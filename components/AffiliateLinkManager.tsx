@@ -62,8 +62,8 @@ function AffiliateRow({row}:{row:ProductRow}){
       <h2>{row.brand} {row.model}</h2>
       <p>{row.detail}</p>
       <small>{row.id}</small>
-      <div className="affiliate-admin-links"><Link href={row.slug} target="_blank">Open product page ↗</Link>{row.sourceListing&&<a href={row.sourceListing.url} target="_blank" rel="noopener noreferrer">{row.sourceListing.merchant==="retailer"?"Exact retailer source ↗":"Exact Shopee source ↗"}</a>}{!row.sourceListing&&row.researchCandidate&&<a href={row.researchCandidate.sourceUrl} target="_blank" rel="noopener noreferrer">Research candidate · check exact item ↗</a>}{status==="active"&&<a href={`/go/affiliate/${encodeURIComponent(row.id)}`} target="_blank" rel="noreferrer">Test redirect ↗</a>}</div>
-      {!row.sourceListing&&row.researchCandidate&&<p className="affiliate-source-note">Research candidate from {row.researchCandidate.researchedAt}. {row.researchCandidate.reviewNote} Not yet approved for public commerce or affiliate tracking.</p>}
+      <div className="affiliate-admin-links"><Link href={row.slug} target="_blank">Open product page ↗</Link>{row.sourceListing&&<a href={row.sourceListing.url} target="_blank" rel="noopener noreferrer">{row.sourceListing.merchant==="retailer"?"Exact retailer source ↗":"Exact Shopee source ↗"}</a>}{!row.sourceListing&&row.researchCandidate&&<a href={row.researchCandidate.sourceUrl} target="_blank" rel="noopener noreferrer">Pending link · verify exact item ↗</a>}{status==="active"&&<a href={`/go/affiliate/${encodeURIComponent(row.id)}`} target="_blank" rel="noreferrer">Test redirect ↗</a>}</div>
+      {!row.sourceListing&&row.researchCandidate&&<p className="affiliate-source-note">Link found on {row.researchCandidate.researchedAt}. {row.researchCandidate.reviewNote} Not yet approved for public commerce or affiliate tracking.</p>}
     </div>
 
     <div className="affiliate-admin-form">
@@ -168,7 +168,7 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
       <div><span>Clicks · 30d</span><strong>{clicks30}</strong></div>
     </div>
 
-    <p className="affiliate-source-note">* Previously recorded editorial sources are not proof of live stock or commission tracking. Research candidates are separate, pending manual seller/model/variant verification, and are never activated as offers.</p>
+    <p className="affiliate-source-note">* Previously recorded editorial sources are not proof of live stock or commission tracking. Pending links are separate, pending manual seller/model/variant verification, and are never activated as offers.</p>
     {!databaseConfigured&&<div className="note-box"><h2>Production database is not configured</h2><p>Runtime affiliate management requires DATABASE_URL and the latest Prisma migration. Existing environment/JSON links can still work as fallback.</p></div>}
 
     <section className="affiliate-bulk-panel">
