@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
 import { PublicFormChallenge } from "@/components/PublicFormChallenge";
@@ -17,17 +17,20 @@ export function LeadForm({ model }: { model: Motorcycle }) {
   const [noCoverage, setNoCoverage] = useState(false);
   const [cityProvince, setCityProvince] = useState("");
   const [coverage, setCoverage] = useState<"unchecked" | "checking" | "available" | "unavailable" | "error">("unchecked");
+  const coverageRequestId = useRef(0);
 
   async function checkCoverage() {
     if (cityProvince.trim().length < 3) { setCoverage("error"); return; }
+    const requestId = ++coverageRequestId.current;
     setCoverage("checking");
     try {
       const params = new URLSearchParams({ make: model.make, cityProvince: cityProvince.trim() });
       const response = await fetch(`/api/dealer-coverage?${params.toString()}`, { cache: "no-store" });
       const result = await response.json() as { ok: boolean; available?: boolean };
+      if (requestId !== coverageRequestId.current) return;
       if (!response.ok || !result.ok) { setCoverage("error"); return; }
       setCoverage(result.available ? "available" : "unavailable");
-    } catch { setCoverage("error"); }
+    } catch { if (requestId === coverageRequestId.current) setCoverage("error"); }
   }
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
@@ -107,7 +110,7 @@ export function LeadForm({ model }: { model: Motorcycle }) {
 
     <div className="lead-form-grid">
       <label><span>Variant <small>optional</small></span><input name="variant" placeholder="e.g. Standard, ABS, RoadSync" /></label>
-      <label><span>City or province</span><input name="cityProvince" required value={cityProvince} onChange={event => { setCityProvince(event.target.value); setCoverage("unchecked"); setNoCoverage(false); }} placeholder="e.g. San Fernando, Pampanga" autoComplete="address-level2" /></label>
+      <label><span>City or province</span><input name="cityProvince" required value={cityProvince} onChange={event => { coverageRequestId.current += 1; setCityProvince(event.target.value); setCoverage("unchecked"); setNoCoverage(false); }} placeholder="e.g. San Fernando, Pampanga" autoComplete="address-level2" /></label>
       <div className="lead-form-wide"><button className="button ghost small" type="button" onClick={checkCoverage} disabled={coverage === "checking"}>{coverage === "checking" ? "Checking dealers…" : "Check local dealer coverage"}</button>
         {coverage === "available" && <p role="status">A checked quote partner covers this location. Final stock and price still need dealer confirmation.</p>}
         {coverage === "unavailable" && <p role="status">No approved quote partner currently covers this location. <Link href={{ pathname: "/dealers", query: { brand: model.make } }}>Browse checked {model.make} dealers →</Link></p>}
