@@ -63,6 +63,22 @@ for (const path of publicRoutes) {
   }
 }
 
+// A routing or middleware regression must never expose privileged data.
+for (const path of ["/api/admin/dealer-leads/export", "/api/ingestion/batches"]) {
+  try {
+    const response = await fetchWithTimeout(path, { redirect: "manual" });
+    const contentType = response.headers.get("content-type") || "";
+    if (response.status >= 200 && response.status < 300) {
+      failures.push(`${path}: unauthenticated privileged endpoint returned ${response.status}`);
+    }
+    if (contentType.includes("text/csv")) {
+      failures.push(`${path}: sensitive CSV export is accessible without authorization`);
+    }
+  } catch (error) {
+    failures.push(`${path}: admin access smoke check failed: ${error instanceof Error ? error.message : String(error)}`);
+  }
+}
+
 try {
   const home = await fetchWithTimeout("/");
   for (const [header, expected] of [

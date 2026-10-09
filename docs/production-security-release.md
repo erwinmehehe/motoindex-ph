@@ -55,3 +55,9 @@ Do not enable advertising until CSP, consent and actual AdSense account access a
 - Review live GA4/GSC query + page data for SEO work rather than inventing performance improvements.
 
 Do not merge or deploy draft PR #461 until required CI and manual production configuration are complete.
+
+## Defense-in-depth for admin and ingestion APIs
+
+The privileged route handlers require a valid signed Cloudflare Access identity in production, independently of middleware. Missing Cloudflare configuration fails closed (503); an invalid identity returns 403 with no-store, noindex and no-referrer response headers. This is intentional and cannot be bypassed by switching production to Basic Auth. Development and unit tests still rely on the existing local middleware Basic Auth where explicitly configured.
+
+The post-deployment public smoke now requests `/api/admin/dealer-leads/export` and `/api/ingestion/batches` anonymously with redirects disabled, and fails if either returns a successful response or discloses the CSV export. It is a negative access check: verify successful MFA-authorized administrative operations separately in an approved browser session.

@@ -4,6 +4,7 @@ const mocks = vi.hoisted(() => ({
   configured: vi.fn(),
   verify: vi.fn(),
   leadFind: vi.fn(),
+  batchFind: vi.fn(),
 }));
 
 vi.mock("@/lib/cloudflareAccess", () => ({
@@ -15,7 +16,12 @@ vi.mock("@/lib/db", () => ({
   prisma: { dealerLead: { findMany: mocks.leadFind } },
 }));
 
+vi.mock("@/lib/persistentOffers", () => ({
+  listImportBatches: mocks.batchFind,
+}));
+
 import { requirePrivilegedApiAccess } from "../lib/privilegedApiAccess";
+import { GET as listIngestionBatches } from "../app/api/ingestion/batches/route";
 import { GET as exportDealerLeads } from "../app/api/admin/dealer-leads/export/route";
 
 const request = () => new Request("https://motoindexph.com/api/admin/dealer-leads/export");
@@ -50,6 +56,12 @@ describe("server-side privileged API gate", () => {
     expect(result.status).toBe(403);
     expect(result.headers.get("Referrer-Policy")).toBe("no-referrer");
     expect(mocks.leadFind).not.toHaveBeenCalled();
+  });
+
+  it("does not expose import staging records without production Access authorization", async () => {
+    const result = await listIngestionBatches(new Request("https://motoindexph.com/api/ingestion/batches"));
+    expect(result.status).toBe(403);
+    expect(mocks.batchFind).not.toHaveBeenCalled();
   });
 
   it("does not allow database access if token verification fails unexpectedly", async () => {
