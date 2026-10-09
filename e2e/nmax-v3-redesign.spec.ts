@@ -17,7 +17,7 @@ test("NMAX V3 redesign keeps canonical SEO, product schema, FAQ and research sec
   for (const section of ["overview", "price", "specs", "installment", "rider-fit", "ownership", "alternatives", "faq"]) {
     await expect(page.locator(`#${section}`), `Missing indexed section ${section}`).toHaveCount(1);
   }
-  await expect(page.locator(".reviewed-model-intro .breadcrumbs a")).toHaveCount(2);
+  await expect(page.locator(".reviewed-model-intro .breadcrumbs a")).toHaveCount(3);
   await expect(page.locator(".motorcycle-entity-nav-wrap a[href='#price']")).toBeVisible();
   await expect(page.locator(".motorcycle-entity-nav-wrap a[href='#installment']")).toBeVisible();
   await expect(page.locator(".reviewed-model-stage .reviewed-model-photo")).toBeVisible();
