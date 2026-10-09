@@ -21,6 +21,7 @@ type ProductRow={
   fallback?:{
     network:string;
   };
+  sourceListing?:{url:string;checkedAt:string};
   clicks7:number;
   clicks30:number;
 };
@@ -59,11 +60,12 @@ function AffiliateRow({row}:{row:ProductRow}){
       <h2>{row.brand} {row.model}</h2>
       <p>{row.detail}</p>
       <small>{row.id}</small>
-      <div className="affiliate-admin-links"><Link href={row.slug} target="_blank">Open product page ↗</Link>{status==="active"&&<a href={`/go/affiliate/${encodeURIComponent(row.id)}`} target="_blank" rel="noreferrer">Test redirect ↗</a>}</div>
+      <div className="affiliate-admin-links"><Link href={row.slug} target="_blank">Open product page ↗</Link>{row.sourceListing&&<a href={row.sourceListing.url} target="_blank" rel="noopener noreferrer">Exact Shopee source ↗</a>}{status==="active"&&<a href={`/go/affiliate/${encodeURIComponent(row.id)}`} target="_blank" rel="noreferrer">Test redirect ↗</a>}</div>
     </div>
 
     <div className="affiliate-admin-form">
-      <label><span>Shopee / Involve Asia URL</span><input value={url} onChange={e=>setUrl(e.target.value)} placeholder="https://shopee.ph/... or https://invl.me/..."/></label>
+      <label><span>Exact-product affiliate URL</span><input value={url} onChange={e=>setUrl(e.target.value)} placeholder="Specific Shopee item link or its generated tracking link"/></label>
+      <small>Do not reuse a Shopee homepage, general store URL, or shared invl.me/clo1b14 and clo1b1b shortcuts. Open each tracking link first to confirm it lands on this exact product listing.</small>
       <label><span>Review note</span><input value={note} onChange={e=>setNote(e.target.value)} placeholder="Checked merchant, exact product and destination."/></label>
       <div className="affiliate-admin-actions">
         <button type="button" disabled={saving} onClick={()=>save("active")}>{saving?"Saving…":"Save & activate"}</button>
@@ -147,7 +149,7 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
     {!databaseConfigured&&<div className="note-box"><h2>Production database is not configured</h2><p>Runtime affiliate management requires DATABASE_URL and the latest Prisma migration. Existing environment/JSON links can still work as fallback.</p></div>}
 
     <section className="affiliate-bulk-panel">
-      <div><span className="section-kicker">Bulk activation</span><h2>Paste affiliate links from Google Sheets</h2><p>Use three columns: product ID, Shopee/Involve Asia URL, review note. Paste tab-separated rows directly from a sheet. You can also use the <code>|</code> character as a separator.</p></div>
+      <div><span className="section-kicker">Bulk activation</span><h2>Paste affiliate links from Google Sheets</h2><p>Use three columns: product ID, exact-product Shopee/Involve Asia URL, review note. Generic marketplace links will be rejected. Paste tab-separated rows directly from a sheet. You can also use the <code>|</code> character as a separator.</p></div>
       <textarea value={bulk} onChange={e=>setBulk(e.target.value)} rows={6} placeholder={"kyt-d-city\thttps://invl.me/example\tChecked exact KYT D-City listing\nevo-m2\thttps://shopee.ph/example\tChecked exact EVO M2 listing"}/>
       <div className="affiliate-bulk-actions"><button type="button" disabled={bulkSaving||!databaseConfigured} onClick={activateBulk}>{bulkSaving?"Validating…":"Validate & activate all"}</button><small>{bulkMessage}</small></div>
     </section>

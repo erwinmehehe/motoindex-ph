@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { allCatalogProducts } from "@/lib/catalog";
 import { getAffiliateLink } from "@/lib/affiliate";
+import { sourcedShopeeProductListing } from "@/lib/affiliateDestinations";
 import { AffiliateLinkManager } from "@/components/AffiliateLinkManager";
 
 export const metadata:Metadata={title:"Affiliate Links",robots:{index:false,follow:false}};
@@ -38,6 +39,7 @@ export default async function AffiliateLinksAdmin(){
     const fallback=getAffiliateLink(product.id);
     return {
       ...product,
+      sourceListing:sourcedShopeeProductListing(product.id),
       dbLink:db?{
         url:db.url,
         network:db.network,
@@ -58,7 +60,7 @@ export default async function AffiliateLinksAdmin(){
       <p>Approve or disable Shopee and Involve Asia destinations by MotoIndex product ID. Database changes take effect at runtime, so public commerce CTAs do not require a content rebuild.</p>
       <div className="hero-actions"><a className="button ghost small" href="/admin/data-health">Data health</a><a className="button ghost small" href="/affiliate-disclosure" target="_blank">Affiliate disclosure ↗</a></div>
     </div>
-    <div className="note-box"><h2>Publication rule</h2><p>Only HTTPS links on approved Shopee or Involve Asia hosts can be activated. An explicit database Disabled record blocks older JSON/environment fallbacks for that product.</p></div>
+    <div className="note-box"><h2>Publication rule</h2><p>Only product-specific HTTPS Shopee or Involve Asia links may be activated. Shared homepages and known generic shortlinks are blocked. Verify each final landing product before approval. An explicit database Disabled record blocks older JSON/environment fallbacks for that product.</p></div>
     <AffiliateLinkManager rows={rows} databaseConfigured={databaseReady}/>
   </section>;
 }
