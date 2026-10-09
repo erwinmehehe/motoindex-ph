@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getRuntimeAffiliateLinks } from "@/lib/runtimeAffiliate";
-import { sourcedShopeeProductListing } from "@/lib/affiliateDestinations";
+import { sourcedShopeeProductListing, sourcedRetailerProductListing } from "@/lib/affiliateDestinations";
 
 export const runtime="nodejs";
 export const dynamic="force-dynamic";
@@ -9,8 +9,8 @@ export async function GET(_request:Request,{params}:{params:Promise<{productId:s
   const {productId}=await params;
   const offers=await getRuntimeAffiliateLinks(productId);
   if(!offers.length){
-    const source = sourcedShopeeProductListing(productId);
-    return NextResponse.json({active:false,...(source?{sourceListing:{merchant:"shopee",...source}}:{})},{headers:{"Cache-Control":"no-store","X-Robots-Tag":"noindex, nofollow"}});
+    const source = sourcedShopeeProductListing(productId) || sourcedRetailerProductListing(productId);
+    return NextResponse.json({active:false,...(source?{sourceListing:{"merchant":("merchant" in source?source.merchant:"shopee"),...source}}:{})},{headers:{"Cache-Control":"no-store","X-Robots-Tag":"noindex, nofollow"}});
   }
   const primary=offers.find(({merchant})=>merchant==="shopee")||offers[0];
   return NextResponse.json(
