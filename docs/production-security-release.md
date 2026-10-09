@@ -15,6 +15,10 @@ The code in draft PR #461 adds release checks and Cloudflare Turnstile. It does 
 
 Set GitHub **production environment variable** `MOTOINDEX_CONTACT_EMAIL` to a genuine monitored mailbox. Confirm you can receive messages there. The build fails its launch preflight when the variable is blank, and the post-deployment smoke checks for a working contact link. These checks do **not** prove inbox delivery; send a test message.
 
+## Deployed Worker secret bindings
+
+The canonical release workflow now fails before deployment unless Cloudflare reports runtime secrets for `DATABASE_URL`, `TURNSTILE_SECRET_KEY`, `CF_ACCESS_TEAM_DOMAIN`, `CF_ACCESS_AUD`, and `ADMIN_ACCESS_EMAILS`. It uses `wrangler secret list --format json` to check names only and does not print secret values. Configure these as encrypted *Worker runtime secrets* as well as any corresponding GitHub release environment values; having them in GitHub alone does not satisfy the deployed Worker check. The release workflow also fails if `main` is not protected.
+
 ## Cloudflare Access / MFA
 
 Set Cloudflare Access to protect `/admin*`, `/api/admin*`, and `/api/ingestion*`. Require MFA, an explicit identity allowlist and a policy for privileged sessions. In the GitHub production environment, set `CF_ACCESS_TEAM_DOMAIN`, `CF_ACCESS_AUD` and `ADMIN_ACCESS_EMAILS`. Configure the equivalent settings for the **deployed Worker runtime**, not only for the build job. Production middleware rejects Basic Auth.
