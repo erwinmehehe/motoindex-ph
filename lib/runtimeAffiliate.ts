@@ -41,6 +41,13 @@ export async function getRuntimeAffiliateLinks(productId:string):Promise<Affilia
         if(row.status!=="active")return [];
         const checked=validateRuntimeAffiliateUrl(productId,row.url);
         if(!checked.ok)return [];
+        // A saved custom shortlink must not silently serve several unrelated
+        // products, even when the URL is not on the generic-link denylist.
+        const duplicate=await prisma.affiliateProductLink.findFirst({
+          where:{productId:{not:productId},status:"active",url:checked.url},
+          select:{productId:true}
+        });
+        if(duplicate)return fallback;
         const merchant:AffiliateMerchant=row.merchant==="lazada"?"lazada":"shopee";
         const databaseLink={productId,merchant,network:checked.network,url:checked.url};
         return [databaseLink,...fallback.filter(link=>link.merchant!==merchant)];
