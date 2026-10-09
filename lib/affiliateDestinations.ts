@@ -1,4 +1,4 @@
-import { helmetProducts } from "@/lib/catalog";
+import { helmetProducts, tireProducts, topBoxProducts } from "@/lib/catalog";
 
 /**
  * Only an item listing, with shop and item identifiers, qualifies as an
@@ -68,5 +68,55 @@ export function sourcedShopeeProductListing(productId: string): { url: string; c
   return {
     url: new URL(product.priceSourceUrl).toString(),
     checkedAt: product.lastChecked || "not recently verified"
+  };
+}
+
+/**
+ * A source-checked retailer product detail page is an editorial reference,
+ * not an approved marketplace affiliate link or evidence of today's stock.
+ * Restrict this to previously researched direct product pages. Official
+ * model pages, retailer homepages and filtered category/search pages are
+ * deliberately excluded from purchase-link fallback.
+ */
+const verifiedRetailerHosts = new Set([
+  "www.motoworld.com.ph", "shop.motoworld.com.ph",
+  "secmotosupply.com", "www.teamspyder.com", "evohelmet.com",
+  "kranosgears.com", "www.tenplus.ph", "gbrands.ph",
+  "motomaster.ph", "pieza.ph", "leksmotogears.com",
+  "teamgraphitee.com", "ridemanila.com", "shopmotoman.com"
+]);
+
+export function isSpecificRetailerProductUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    if (url.protocol !== "https:" || url.username || url.password || url.port) return false;
+    if (!verifiedRetailerHosts.has(url.hostname.toLowerCase())) return false;
+    const parts = decodeURIComponent(url.pathname).split("/").filter(Boolean);
+    const detailIndex = parts.findLastIndex(part => ["product", "products", "shop"].includes(part.toLowerCase()));
+    if (detailIndex < 0 || detailIndex !== parts.length - 2) return false;
+    const slug = parts[detailIndex + 1]?.toLowerCase();
+    return Boolean(slug && slug.length >= 4 && !["page", "search", "category", "collections", "all", "shop"].includes(slug));
+  } catch {
+    return false;
+  }
+}
+
+export function sourcedRetailerProductListing(productId: string):
+  { url: string; checkedAt: string; sourceName: string; merchant: "retailer" } | undefined {
+  const product = [...helmetProducts, ...tireProducts, ...topBoxProducts]
+    .find(entry => entry.id === productId && entry.status === "verified");
+  if (!product) return undefined;
+  const sources = [
+    "priceSourceUrl" in product ? product.priceSourceUrl : undefined,
+    "sourceUrl" in product ? product.sourceUrl : undefined
+  ];
+  const exact = sources.find((value): value is string =>
+    typeof value === "string" && isSpecificRetailerProductUrl(value));
+  if (!exact) return undefined;
+  return {
+    url: new URL(exact).toString(),
+    checkedAt: product.lastChecked || "not recently verified",
+    sourceName: product.sourceLabel || "Previously checked retailer item",
+    merchant: "retailer"
   };
 }
