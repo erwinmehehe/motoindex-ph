@@ -25,7 +25,7 @@ For the Gille Kerena FF007, the catalog's September 9, 2026 source is:
 5. Reopen `/go/affiliate/gille-kerena-ff007/shopee`. It should now redirect through the new verified affiliate URL rather than to the direct editorial source.
 6. Verify the mobile button, desktop button, app handoff, and affiliate network conversion events. Do not mark conversions as verified from clicks alone.
 
-The runtime admin page writes to the `AffiliateProductLink` database table, so a successfully saved *new runtime mapping* does not require rebuilding static product content. Changes made to environment JSON or `data/affiliate-links.generated.json` **do** require a new build/deploy. Database migrations and admin authentication must already be working.
+The runtime admin page writes to the `AffiliateProductLink` database table, so a successfully saved *new runtime mapping* does not require rebuilding static product content. **Build-time affiliate configuration:** changes made to environment JSON or `data/affiliate-links.generated.json` **require a rebuild and redeploy** to take effect. Do not expect a runtime-only environment change to update statically generated content. Database migrations and admin authentication must already be working.
 
 Do not invent or reuse tracking IDs, and **do not post affiliate account credentials in source, public issues, or chat**. A direct Shopee listing is not automatically commission-tracked just because it links to Shopee.
 
