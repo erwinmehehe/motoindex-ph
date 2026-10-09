@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { allCatalogProducts } from "@/lib/catalog";
 import { getAffiliateLink } from "@/lib/affiliate";
-import { sourcedShopeeProductListing } from "@/lib/affiliateDestinations";
+import { sourcedShopeeProductListing, sourcedRetailerProductListing } from "@/lib/affiliateDestinations";
 import { validateRuntimeAffiliateUrl } from "@/lib/runtimeAffiliate";
 import { AffiliateLinkManager } from "@/components/AffiliateLinkManager";
 
@@ -37,13 +37,14 @@ export default async function AffiliateLinksAdmin(){
   }
   const rows=allCatalogProducts().map(product=>{
     const db=byId.get(product.id);
-    const checked=db?.status==="active"?validateRuntimeAffiliateUrl(product.id,db.url):null;
+    const checked=db?.status==="active"?validateRuntimeAffiliateUrl(product.id,db.url,db.destinationUrl||undefined):null;
     const fallback=getAffiliateLink(product.id);
     return {
       ...product,
-      sourceListing:sourcedShopeeProductListing(product.id),
+      sourceListing:sourcedShopeeProductListing(product.id) || sourcedRetailerProductListing(product.id),
       dbLink:db?{
         url:db.url,
+        destinationUrl:db.destinationUrl||"",
         network:db.network,
         status:db.status==="active"&&checked&&!checked.ok?"needs_review":db.status,
         validationError:checked&&!checked.ok?checked.error:undefined,
@@ -60,10 +61,10 @@ export default async function AffiliateLinksAdmin(){
   return <section className="page shell">
     <div className="page-head">
       <h1>Affiliate link manager</h1>
-      <p>Approve or disable Shopee and Involve Asia destinations by MotoIndex product ID. Database changes take effect at runtime, so public commerce CTAs do not require a content rebuild.</p>
+      <p>Activate only item-specific Shopee links or tracked links with separately reviewed exact-item destinations. Generic store links cannot be published as product offers.</p>
       <div className="hero-actions"><a className="button ghost small" href="/admin/data-health">Data health</a><a className="button ghost small" href="/affiliate-disclosure" target="_blank">Affiliate disclosure ↗</a></div>
     </div>
-    <div className="note-box"><h2>Publication rule</h2><p>Only product-specific HTTPS Shopee or Involve Asia links may be activated. Shared homepages and known generic shortlinks are blocked. Verify each final landing product before approval. An explicit database Disabled record blocks older JSON/environment fallbacks for that product.</p></div>
+    <div className="note-box"><h2>Publication rule</h2><p>Any Involve Asia shortlink also needs the exact Shopee item URL recorded separately. Verify it opens the correct product in a browser. A database Disabled record blocks older JSON/environment fallbacks.</p></div>
     <AffiliateLinkManager rows={rows} databaseConfigured={databaseReady}/>
   </section>;
 }

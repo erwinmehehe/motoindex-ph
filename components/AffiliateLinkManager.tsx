@@ -12,6 +12,7 @@ type ProductRow={
   detail:string;
   dbLink?:{
     url:string;
+    destinationUrl:string;
     network:string;
     status:string;
     validationError?:string;
@@ -22,13 +23,14 @@ type ProductRow={
   fallback?:{
     network:string;
   };
-  sourceListing?:{url:string;checkedAt:string};
+  sourceListing?:{url:string;checkedAt:string;merchant?:"shopee"|"retailer";sourceName?:string};
   clicks7:number;
   clicks30:number;
 };
 
 function AffiliateRow({row}:{row:ProductRow}){
   const [url,setUrl]=useState(row.dbLink?.url||"");
+  const [destinationUrl,setDestinationUrl]=useState(row.dbLink?.destinationUrl||"");
   const [note,setNote]=useState(row.dbLink?.reviewNote||"");
   const [status,setStatus]=useState(row.dbLink?.status||"unconfigured");
   const [network,setNetwork]=useState(row.dbLink?.network||row.fallback?.network||"");
@@ -41,7 +43,7 @@ function AffiliateRow({row}:{row:ProductRow}){
       const response=await fetch(`/api/admin/affiliate-links/${encodeURIComponent(row.id)}`,{
         method:"PUT",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({url,reviewNote:note,status:nextStatus})
+        body:JSON.stringify({url,destinationUrl,reviewNote:note,status:nextStatus})
       });
       const result=await response.json();
       if(!response.ok||!result.ok){setMessage(result.error||"Could not save affiliate link.");return;}
@@ -61,12 +63,13 @@ function AffiliateRow({row}:{row:ProductRow}){
       <h2>{row.brand} {row.model}</h2>
       <p>{row.detail}</p>
       <small>{row.id}</small>
-      <div className="affiliate-admin-links"><Link href={row.slug} target="_blank">Open product page ↗</Link>{row.sourceListing&&<a href={row.sourceListing.url} target="_blank" rel="noopener noreferrer">Exact Shopee source ↗</a>}{status==="active"&&<a href={`/go/affiliate/${encodeURIComponent(row.id)}`} target="_blank" rel="noreferrer">Test redirect ↗</a>}</div>
+      <div className="affiliate-admin-links"><Link href={row.slug} target="_blank">Open product page ↗</Link>{row.sourceListing&&<a href={row.sourceListing.url} target="_blank" rel="noopener noreferrer">{row.sourceListing.merchant==="retailer"?"Exact retailer source ↗":"Exact Shopee source ↗"}</a>}{status==="active"&&<a href={`/go/affiliate/${encodeURIComponent(row.id)}`} target="_blank" rel="noreferrer">Test redirect ↗</a>}</div>
     </div>
 
     <div className="affiliate-admin-form">
-      <label><span>Exact-product affiliate URL</span><input value={url} onChange={e=>setUrl(e.target.value)} placeholder="Specific Shopee item link or its generated tracking link"/></label>
-      <small>Do not reuse a Shopee homepage, general store URL, or shared invl.me/clo1b14 and clo1b1b shortcuts. Open each tracking link first to confirm it lands on this exact product listing.</small>
+      <label><span>Direct Shopee product URL or affiliate tracking URL</span><input value={url} onChange={e=>setUrl(e.target.value)} placeholder="https://invl.me/YOUR_PRODUCT_LINK"/></label>
+      <label><span>Verified exact-item destination URL</span><input value={destinationUrl} onChange={e=>setDestinationUrl(e.target.value)} placeholder="https://shopee.ph/...-i.505955057.25840894725"/></label>
+      <small>A network shortlink requires the original exact Shopee item URL above. Check the tracking link in a browser before activation. Direct Shopee product URLs do not need a second URL.</small>
       <label><span>Review note</span><input value={note} onChange={e=>setNote(e.target.value)} placeholder="Checked merchant, exact product and destination."/></label>
       <div className="affiliate-admin-actions">
         <button type="button" disabled={saving} onClick={()=>save("active")}>{saving?"Saving…":"Save & activate"}</button>
@@ -102,6 +105,9 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
   const disabled=rows.filter(row=>row.dbLink?.status==="disabled").length;
   const needsReview=rows.filter(row=>row.dbLink?.status==="needs_review").length;
   const fallback=rows.filter(row=>row.fallback).length;
+  const sourceShopee=rows.filter(row=>row.sourceListing?.merchant!=="retailer" && row.sourceListing).length;
+  const sourceRetailer=rows.filter(row=>row.sourceListing?.merchant==="retailer").length;
+  const sourceMissing=rows.length-sourceShopee-sourceRetailer;
   const clicks7=rows.reduce((sum,row)=>sum+row.clicks7,0);
   const clicks30=rows.reduce((sum,row)=>sum+row.clicks30,0);
 
@@ -113,7 +119,8 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
         row:index+1,
         productId:(parts[0]||"").trim(),
         url:(parts[1]||"").trim(),
-        reviewNote:(parts.slice(2).join(" | ")||"").trim()
+        destinationUrl:parts.length>=4?(parts[2]||"").trim():"",
+        reviewNote:(parts.slice(parts.length>=4?3:2).join(" | ")||"").trim()
       };
     });
     if(!parsed.length){setBulkMessage("Paste at least one row first.");return;}
@@ -146,15 +153,19 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
       <div><span>DB disabled</span><strong>{disabled}</strong></div>
       <div><span>Invalid links</span><strong>{needsReview}</strong></div>
       <div><span>Legacy fallback</span><strong>{fallback}</strong></div>
+      <div><span>Exact Shopee sources*</span><strong>{sourceShopee}</strong></div>
+      <div><span>Retailer product sources*</span><strong>{sourceRetailer}</strong></div>
+      <div><span>Need source research</span><strong>{sourceMissing}</strong></div>
       <div><span>Clicks · 7d</span><strong>{clicks7}</strong></div>
       <div><span>Clicks · 30d</span><strong>{clicks30}</strong></div>
     </div>
 
+    <p className="affiliate-source-note">* Source links are non-affiliate editorial references, not proof of availability or commission tracking. Only approved merchant links count as active affiliates.</p>
     {!databaseConfigured&&<div className="note-box"><h2>Production database is not configured</h2><p>Runtime affiliate management requires DATABASE_URL and the latest Prisma migration. Existing environment/JSON links can still work as fallback.</p></div>}
 
     <section className="affiliate-bulk-panel">
-      <div><span className="section-kicker">Bulk activation</span><h2>Paste affiliate links from Google Sheets</h2><p>Use three columns: product ID, exact-product Shopee/Involve Asia URL, review note. Generic marketplace links will be rejected. Paste tab-separated rows directly from a sheet. You can also use the <code>|</code> character as a separator.</p></div>
-      <textarea value={bulk} onChange={e=>setBulk(e.target.value)} rows={6} placeholder={"kyt-d-city\thttps://invl.me/example\tChecked exact KYT D-City listing\nevo-m2\thttps://shopee.ph/example\tChecked exact EVO M2 listing"}/>
+      <div><span className="section-kicker">Bulk activation</span><h2>Paste affiliate links from Google Sheets</h2><p>Use four columns: product ID, tracking URL, exact item URL, review note. For a direct product URL, the third column can be empty. Paste tab-separated rows or separate with <code>|</code>.</p></div>
+      <textarea value={bulk} onChange={e=>setBulk(e.target.value)} rows={6} placeholder={"gille-kerena-ff007\thttps://invl.me/YOUR_LINK\thttps://shopee.ph/product/505955057/25840894725\tChecked exact Gille FF007 landing\nevo-m2\thttps://shopee.ph/product/123/456\t\tChecked exact EVO M2 listing"}/>
       <div className="affiliate-bulk-actions"><button type="button" disabled={bulkSaving||!databaseConfigured} onClick={activateBulk}>{bulkSaving?"Validating…":"Validate & activate all"}</button><small>{bulkMessage}</small></div>
     </section>
 
