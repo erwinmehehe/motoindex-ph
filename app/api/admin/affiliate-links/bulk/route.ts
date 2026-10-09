@@ -22,10 +22,11 @@ export async function POST(request:Request){
     const productId=clean(row.productId,120);
     const url=clean(row.url,1200);
     const reviewNote=clean(row.reviewNote,1000);
-    const checked=validateRuntimeAffiliateUrl(productId,url);
+    const destinationUrl=clean(row.destinationUrl,1200);
+    const checked=validateRuntimeAffiliateUrl(productId,url,destinationUrl||undefined);
     if(!checked.ok){issues.push(`Row ${index+1} (${productId||"no product ID"}): ${checked.error}`);continue;}
     if(reviewNote.length<5){issues.push(`Row ${index+1} (${productId}): review note is too short.`);continue;}
-    prepared.push({productId,url:checked.url,network:checked.network,reviewNote});
+    prepared.push({productId,url:checked.url,destinationUrl:checked.destinationUrl,network:checked.network,reviewNote});
   }
 
   if(issues.length)return NextResponse.json({ok:false,error:"Bulk validation failed.",issues},{status:400});
@@ -33,8 +34,8 @@ export async function POST(request:Request){
   try{
     await prisma.$transaction(prepared.map(row=>prisma.affiliateProductLink.upsert({
       where:{productId:row.productId},
-      update:{merchant:"shopee",network:row.network,url:row.url,status:"active",reviewNote:row.reviewNote,approvedAt:new Date()},
-      create:{productId:row.productId,merchant:"shopee",network:row.network,url:row.url,status:"active",reviewNote:row.reviewNote,approvedAt:new Date()}
+      update:{merchant:"shopee",network:row.network,url:row.url,destinationUrl:row.destinationUrl,status:"active",reviewNote:row.reviewNote,approvedAt:new Date()},
+      create:{productId:row.productId,merchant:"shopee",network:row.network,url:row.url,destinationUrl:row.destinationUrl,status:"active",reviewNote:row.reviewNote,approvedAt:new Date()}
     })));
   }catch{
     return NextResponse.json({ok:false,error:"Bulk affiliate write failed. Apply the latest Prisma migration and try again."},{status:503});

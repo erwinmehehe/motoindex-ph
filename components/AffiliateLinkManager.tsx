@@ -12,6 +12,7 @@ type ProductRow={
   detail:string;
   dbLink?:{
     url:string;
+    destinationUrl:string;
     network:string;
     status:string;
     validationError?:string;
@@ -29,6 +30,7 @@ type ProductRow={
 
 function AffiliateRow({row}:{row:ProductRow}){
   const [url,setUrl]=useState(row.dbLink?.url||"");
+  const [destinationUrl,setDestinationUrl]=useState(row.dbLink?.destinationUrl||"");
   const [note,setNote]=useState(row.dbLink?.reviewNote||"");
   const [status,setStatus]=useState(row.dbLink?.status||"unconfigured");
   const [network,setNetwork]=useState(row.dbLink?.network||row.fallback?.network||"");
@@ -41,7 +43,7 @@ function AffiliateRow({row}:{row:ProductRow}){
       const response=await fetch(`/api/admin/affiliate-links/${encodeURIComponent(row.id)}`,{
         method:"PUT",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({url,reviewNote:note,status:nextStatus})
+        body:JSON.stringify({url,destinationUrl,reviewNote:note,status:nextStatus})
       });
       const result=await response.json();
       if(!response.ok||!result.ok){setMessage(result.error||"Could not save affiliate link.");return;}
@@ -65,8 +67,9 @@ function AffiliateRow({row}:{row:ProductRow}){
     </div>
 
     <div className="affiliate-admin-form">
-      <label><span>Exact-product affiliate URL</span><input value={url} onChange={e=>setUrl(e.target.value)} placeholder="Specific Shopee item link or its generated tracking link"/></label>
-      <small>Do not reuse a Shopee homepage, general store URL, or shared invl.me/clo1b14 and clo1b1b shortcuts. Open each tracking link first to confirm it lands on this exact product listing.</small>
+      <label><span>Direct Shopee product URL or affiliate tracking URL</span><input value={url} onChange={e=>setUrl(e.target.value)} placeholder="https://invl.me/YOUR_PRODUCT_LINK"/></label>
+      <label><span>Verified exact-item destination URL</span><input value={destinationUrl} onChange={e=>setDestinationUrl(e.target.value)} placeholder="https://shopee.ph/...-i.505955057.25840894725"/></label>
+      <small>A network shortlink requires the original exact Shopee item URL above. Check the tracking link in a browser before activation. Direct Shopee product URLs do not need a second URL.</small>
       <label><span>Review note</span><input value={note} onChange={e=>setNote(e.target.value)} placeholder="Checked merchant, exact product and destination."/></label>
       <div className="affiliate-admin-actions">
         <button type="button" disabled={saving} onClick={()=>save("active")}>{saving?"Saving…":"Save & activate"}</button>
@@ -113,7 +116,8 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
         row:index+1,
         productId:(parts[0]||"").trim(),
         url:(parts[1]||"").trim(),
-        reviewNote:(parts.slice(2).join(" | ")||"").trim()
+        destinationUrl:parts.length>=4?(parts[2]||"").trim():"",
+        reviewNote:(parts.slice(parts.length>=4?3:2).join(" | ")||"").trim()
       };
     });
     if(!parsed.length){setBulkMessage("Paste at least one row first.");return;}
@@ -153,8 +157,8 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
     {!databaseConfigured&&<div className="note-box"><h2>Production database is not configured</h2><p>Runtime affiliate management requires DATABASE_URL and the latest Prisma migration. Existing environment/JSON links can still work as fallback.</p></div>}
 
     <section className="affiliate-bulk-panel">
-      <div><span className="section-kicker">Bulk activation</span><h2>Paste affiliate links from Google Sheets</h2><p>Use three columns: product ID, exact-product Shopee/Involve Asia URL, review note. Generic marketplace links will be rejected. Paste tab-separated rows directly from a sheet. You can also use the <code>|</code> character as a separator.</p></div>
-      <textarea value={bulk} onChange={e=>setBulk(e.target.value)} rows={6} placeholder={"kyt-d-city\thttps://invl.me/example\tChecked exact KYT D-City listing\nevo-m2\thttps://shopee.ph/example\tChecked exact EVO M2 listing"}/>
+      <div><span className="section-kicker">Bulk activation</span><h2>Paste affiliate links from Google Sheets</h2><p>Use four columns: product ID, tracking URL, exact item URL, review note. For a direct product URL, the third column can be empty. Paste tab-separated rows or separate with <code>|</code>.</p></div>
+      <textarea value={bulk} onChange={e=>setBulk(e.target.value)} rows={6} placeholder={"gille-kerena-ff007\thttps://invl.me/YOUR_LINK\thttps://shopee.ph/product/505955057/25840894725\tChecked exact Gille FF007 landing\nevo-m2\thttps://shopee.ph/product/123/456\t\tChecked exact EVO M2 listing"}/>
       <div className="affiliate-bulk-actions"><button type="button" disabled={bulkSaving||!databaseConfigured} onClick={activateBulk}>{bulkSaving?"Validating…":"Validate & activate all"}</button><small>{bulkMessage}</small></div>
     </section>
 
