@@ -31,7 +31,7 @@ for (const [file, text, tokens] of [
   ["merchant redirect route", redirect, ["merchant", "sourcedShopeeProductListing", "non-affiliate-product-source"]],
   ["Shopee compatibility route", shopeeRedirect, ["getRuntimeShopeeAffiliateLink", "sourcedShopeeProductListing"]],
   ["affiliate API", api, ["active:true", "sourceListing"]],
-  ["source destination helper", source, ["isExactShopeeProductUrl", "gille-kerena"]]
+  ["source destination helper", source, ["isExactShopeeProductUrl", "sourcedShopeeProductListing"]]
 ]) {
   for (const token of tokens) if (!text.includes(token)) throw new Error(file + " missing " + token);
 }
