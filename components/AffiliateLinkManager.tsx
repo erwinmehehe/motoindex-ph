@@ -63,9 +63,8 @@ function AffiliateRow({row}:{row:ProductRow}){
       <p>{row.detail}</p>
       <small>{row.id}</small>
       <div className="affiliate-admin-links"><Link href={row.slug} target="_blank">Open product page ↗</Link>{row.sourceListing&&<a href={row.sourceListing.url} target="_blank" rel="noopener noreferrer">{row.sourceListing.merchant==="retailer"?"Exact retailer source ↗":"Exact Shopee source ↗"}</a>}{!row.sourceListing&&row.researchCandidate&&<a href={row.researchCandidate.sourceUrl} target="_blank" rel="noopener noreferrer">Research candidate · check exact item ↗</a>}{status==="active"&&<a href={`/go/affiliate/${encodeURIComponent(row.id)}`} target="_blank" rel="noreferrer">Test redirect ↗</a>}</div>
+      {!row.sourceListing&&row.researchCandidate&&<p className="affiliate-source-note">Research candidate from {row.researchCandidate.researchedAt}. {row.researchCandidate.reviewNote} Not yet approved for public commerce or affiliate tracking.</p>}
     </div>
-
-    {!row.sourceListing&&row.researchCandidate&&<p className="affiliate-source-note">Research candidate from {row.researchCandidate.researchedAt}. {row.researchCandidate.reviewNote} Not yet approved for public commerce or affiliate tracking.</p>}
 
     <div className="affiliate-admin-form">
       <label><span>Exact-product affiliate URL</span><input value={url} onChange={e=>setUrl(e.target.value)} placeholder="Specific Shopee item link or its generated tracking link"/></label>
