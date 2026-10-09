@@ -42,6 +42,7 @@
   background:
     radial-gradient(ellipse at 85% 18%, var(--mi-color-slate-700), transparent 58%),
     linear-gradient(145deg, var(--mi-color-slate-900), var(--reviewed-editorial-0));
+  background-color: var(--mi-color-slate-900);
   box-shadow: var(--mi-shadow-lg);
 }
 
