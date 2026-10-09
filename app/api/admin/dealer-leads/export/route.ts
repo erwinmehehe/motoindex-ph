@@ -1,3 +1,4 @@
+import { requirePrivilegedApiAccess } from "@/lib/privilegedApiAccess";
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 
@@ -8,7 +9,8 @@ function csv(value:unknown){
   return `"${text.replace(/"/g,'""')}"`;
 }
 
-export async function GET(){
+export async function GET(request:Request){const denied=await requirePrivilegedApiAccess(request);if(denied)return denied;
+
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Database unavailable."},{status:503});
 
   const leads=await prisma.dealerLead.findMany({
