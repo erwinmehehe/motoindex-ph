@@ -28,6 +28,7 @@ async function main() {
 
   const branch = await get(`/repos/${repository}/branches/main`);
   if (branch.commit?.sha !== sha) throw new Error(`main moved from release SHA ${sha.slice(0, 12)}; restart against current main.`);
+  if (branch.protected !== true) throw new Error("Production release blocked: main branch protection or ruleset is not enabled. Configure required PR review and status checks first.");
 
   const payload = await get(`/repos/${repository}/actions/runs?branch=main&event=push&per_page=100`);
   const runs = (payload.workflow_runs || [])
