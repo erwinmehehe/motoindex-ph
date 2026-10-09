@@ -58,6 +58,16 @@ export async function getRuntimeAffiliateLinks(productId:string):Promise<Affilia
         const checked=validateRuntimeAffiliateUrl(productId,row.url,row.destinationUrl||undefined,merchant);
         // Old unverified shortlinks cannot override a safe, product-specific fallback.
         if(!checked.ok)return fallback;
+        // Protect pre-existing records that may have been imported with a
+        // shared shortlink before item-level validation existed.
+        const duplicate=await prisma.affiliateProductLink.findFirst({
+          where:{productId:{not:productId},status:"active",OR:[
+            {url:checked.url},
+            {destinationUrl:checked.destinationUrl}
+          ]},
+          select:{productId:true}
+        });
+        if(duplicate)return fallback;
         const databaseLink={productId,merchant,network:checked.network,url:checked.url,destinationUrl:checked.destinationUrl};
         return [databaseLink,...fallback.filter(link=>link.merchant!==merchant)];
       }

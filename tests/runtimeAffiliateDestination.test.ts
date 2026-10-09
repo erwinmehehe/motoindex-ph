@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const mocks=vi.hoisted(()=>({ findUnique:vi.fn() }));
+const mocks=vi.hoisted(()=>({ findUnique:vi.fn(), findFirst:vi.fn() }));
 vi.mock("@/lib/db",()=>({
   databaseConfigured:()=>true,
-  prisma:{affiliateProductLink:{findUnique:mocks.findUnique}}
+  prisma:{affiliateProductLink:{findUnique:mocks.findUnique,findFirst:mocks.findFirst}}
 }));
 
 import { getRuntimeAffiliateLinks } from "../lib/runtimeAffiliate";
@@ -11,7 +11,7 @@ import { getRuntimeAffiliateLinks } from "../lib/runtimeAffiliate";
 const productId="gille-kerena-ff007";
 const source="https://shopee.ph/product/505955057/25840894725";
 
-beforeEach(()=>{vi.clearAllMocks();});
+beforeEach(()=>{vi.clearAllMocks();mocks.findFirst.mockResolvedValue(null);});
 
 describe("safe runtime affiliate destination precedence",()=>{
   it("blocks an old active merchant shortlink with no product proof",async()=>{
@@ -29,6 +29,11 @@ describe("safe runtime affiliate destination precedence",()=>{
     expect(await getRuntimeAffiliateLinks(productId)).toEqual([]);
   });
 
+  it("refuses a pre-existing duplicate active item URL at runtime",async()=>{
+    mocks.findUnique.mockResolvedValue({productId,merchant:"shopee",status:"active",url:"https://invl.me/checked-gille-link",destinationUrl:source});
+    mocks.findFirst.mockResolvedValue({productId:"spyder-surge-v2"});
+    expect(await getRuntimeAffiliateLinks(productId)).toEqual([]);
+  });
   it("accepts an Involve Asia tracked link with an exact inspected source",async()=>{
     mocks.findUnique.mockResolvedValue({productId,merchant:"shopee",status:"active",url:"https://invl.me/checked-gille-link",destinationUrl:source});
     const offers=await getRuntimeAffiliateLinks(productId);

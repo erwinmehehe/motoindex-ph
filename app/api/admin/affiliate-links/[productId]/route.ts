@@ -46,6 +46,14 @@ export async function PUT(request:Request,{params}:{params:Promise<{productId:st
 
   let row;
   try{
+    const conflict=await prisma.affiliateProductLink.findFirst({
+      where:{productId:{not:productId},status:"active",OR:[
+        {url:checked.url},
+        {destinationUrl:checked.destinationUrl}
+      ]},
+      select:{productId:true}
+    });
+    if(conflict) return NextResponse.json({ok:false,error:"The tracked URL or exact item is already assigned to another product: "+conflict.productId},{status:409});
     row=await prisma.affiliateProductLink.upsert({
     where:{productId},
     update:{

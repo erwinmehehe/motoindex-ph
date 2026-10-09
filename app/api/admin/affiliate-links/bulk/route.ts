@@ -29,9 +29,31 @@ export async function POST(request:Request){
     prepared.push({productId,url:checked.url,destinationUrl:checked.destinationUrl,network:checked.network,reviewNote});
   }
 
+  const targetOwners=new Map<string,string>();
+  for(const row of prepared){
+    for(const value of [row.url,row.destinationUrl]){
+      const previous=targetOwners.get(value);
+      if(previous&&previous!==row.productId)issues.push(`The same tracking or destination URL is assigned to both ${previous} and ${row.productId}.`);
+      else targetOwners.set(value,row.productId);
+    }
+  }
   if(issues.length)return NextResponse.json({ok:false,error:"Bulk validation failed.",issues},{status:400});
 
   try{
+    const existing=await prisma.affiliateProductLink.findMany({
+      where:{status:"active",OR:[
+        {url:{in:prepared.map(row=>row.url)}},
+        {destinationUrl:{in:prepared.map(row=>row.destinationUrl)}}
+      ]},
+      select:{productId:true,url:true,destinationUrl:true}
+    });
+    for(const row of prepared){
+      const conflict=existing.find(entry=>entry.productId!==row.productId &&
+        (entry.url===row.url||entry.destinationUrl===row.destinationUrl||entry.url===row.destinationUrl||entry.destinationUrl===row.url));
+      if(conflict)issues.push(`Product ${row.productId}: exact item or tracking URL already belongs to ${conflict.productId}.`);
+    }
+    if(issues.length)return NextResponse.json({ok:false,error:"Bulk destination conflict.",issues},{status:409});
+
     await prisma.$transaction(prepared.map(row=>prisma.affiliateProductLink.upsert({
       where:{productId:row.productId},
       update:{merchant:"shopee",network:row.network,url:row.url,destinationUrl:row.destinationUrl,status:"active",reviewNote:row.reviewNote,approvedAt:new Date()},
