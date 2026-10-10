@@ -72,22 +72,14 @@ export async function POST(request: Request) {
     orderBy: { createdAt: "desc" }
   });
   if (duplicate) {
-    const buyerAccessToken = actionToken();
-    const buyerAccessExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-    await prisma.dealerLead.update({
-      where: { id: duplicate.id },
-      data: { buyerAccessToken: null, buyerAccessTokenHash: hashActionToken(buyerAccessToken), buyerAccessExpiresAt, ...(ownerId ? { ownerId } : {}) }
-    });
+    // A matching phone number and model are not proof of lead ownership.
+    // Never rotate an existing buyer's private status token or return a fresh
+    // status link to an unauthenticated duplicate submission.
     return NextResponse.json({
       ok: true,
       queued: true,
-      leadId: duplicate.id,
-      statusPath: `/quote-status/${buyerAccessToken}`,
-      matchedDealers: duplicate.matchedSellerSlugs.length,
-      message: duplicate.matchedSellerSlugs.length
-        ? `Your recent request is already saved and matched with ${duplicate.matchedSellerSlugs.length} verified dealer partner${duplicate.matchedSellerSlugs.length === 1 ? "" : "s"}.`
-        : "Your recent request is already saved. No verified dealer match is available for your area yet."
-    });
+      message: "Request received. If you submitted this request recently, use the original private quote-status link to check updates."
+    }, { status: 201, headers: { "Cache-Control": "no-store" } });
   }
 
   const buyerAccessToken = actionToken();
