@@ -20,7 +20,7 @@ describe("motorcycle brand price-list SEO", () => {
     expect(brandRoute).toContain("title: motorcycleBrandPriceListTitle(brand)");
     expect(brandRoute).toContain("description: motorcycleBrandPriceListDescription(brand, low, high)");
     expect(brandRoute).toContain("const priceListTitle = motorcycleBrandPriceListTitle(brand)");
-    expect(brandRoute.match(/title=\\{priceListTitle\\}/g)?.length).toBeGreaterThanOrEqual(4);
+    expect(brandRoute.match(/title=\{priceListTitle\}/g)?.length).toBeGreaterThanOrEqual(4);
     expect(brandRoute).toContain("description={`${priceListTitle}:");
     expect(brandRoute).toContain("name: priceListTitle");
     expect(brandRoute).not.toContain("brandGrowth?.seoTitle");
