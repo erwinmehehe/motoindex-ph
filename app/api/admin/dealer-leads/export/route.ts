@@ -5,7 +5,10 @@ export const runtime="nodejs";
 
 function csv(value:unknown){
   const text=value===null||value===undefined?"":String(value);
-  return `"${text.replace(/"/g,'""')}"`;
+  // Prefix spreadsheet formulas so CSV viewers treat user input as text.
+  // Quoting alone does not prevent formula evaluation on import.
+  const safe=/^[\\s\\u0000-\\u001f]*[=+@-]/.test(text) ? "'" + text : text;
+  return `"${safe.replace(/"/g,'""')}"`;
 }
 
 export async function GET(){
