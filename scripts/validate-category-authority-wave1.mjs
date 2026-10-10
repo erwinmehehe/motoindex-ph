@@ -47,21 +47,27 @@ for (const token of [
 
 for (const token of [
   'suzuki: {',
-  'seoTitle: "Suzuki Motorcycles Philippines 2026 | Price List & Models"',
-  'seoDescription: "Suzuki motorcycles Philippines 2026 price list with current scooters, underbones, sport and big-bike models, plus engine sizes, seat heights and buyer research."',
-  'heroTitle: "Suzuki Motorcycle Philippines Price List 2026"',
   'This Suzuki brand hub owns broad Suzuki motorcycle Philippines and price-list intent.'
 ]) {
   if (!brandGrowth.includes(token)) errors.push(`Suzuki brand authority guard missing: ${token}`);
 }
 
+// All brand hubs now share the same metadata and H1 intent. Category-specific
+// growth profiles enrich page content but must not override the price-list title.
+const brandPriceListSeo = read("lib", "brandPriceListSeo.ts");
 for (const token of [
+  'motorcycleBrandPriceListTitle(brand)',
+  'motorcycleBrandPriceListDescription(brand, low, high)',
   'brandSeoGrowthProfile(make)',
-  'brandGrowth?.seoTitle',
-  'brandGrowth?.seoDescription',
   'brandGrowth.intentNote'
 ]) {
-  if (!brandPage.includes(token)) errors.push(`Suzuki brand renderer guard missing: ${token}`);
+  if (!brandPage.includes(token)) errors.push(`Brand price-list renderer guard missing: ${token}`);
+}
+for (const token of [
+  'export function motorcycleBrandPriceListTitle(brand: string)',
+  'export function motorcycleBrandPriceListDescription(brand: string, low?: number, high?: number)'
+]) {
+  if (!brandPriceListSeo.includes(token)) errors.push(`Shared brand SEO format missing: ${token}`);
 }
 
 for (const token of [
