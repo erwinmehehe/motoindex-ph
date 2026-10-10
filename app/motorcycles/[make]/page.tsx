@@ -15,6 +15,18 @@ import { php, phpRange } from "@/lib/utils";
 import { CTAGroup, DataTable, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
 import { brandSeoGrowthProfile } from "@/lib/brandSeoGrowth";
 
+// All motorcycle brand hubs target the same brand + motorcycle Philippines price list intent.
+// Big bikes, scooters and specialist categories retain their own sections beneath this title.
+const brandPriceListTitle = (brand: string) => `${brand} Motorcycle Philippines Price List`;
+
+function brandPriceListDescription(brand: string, low?: number, high?: number) {
+  const keyword = brandPriceListTitle(brand);
+  if (low !== undefined && high !== undefined) {
+    return `${keyword}: Compare model prices from ${php(low)} to ${php(high)}, engine sizes, specs and seat heights. Explore model details.`;
+  }
+  return `${keyword}: Browse model specs and price references. Confirm availability, current prices and dealer quotes before buying.`;
+}
+
 export function generateStaticParams() {
   return [...new Set(motorcycles.map((m) => m.makeSlug))].map((make) => ({ make }));
 }
@@ -25,14 +37,12 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   if (!models.length) return {};
   const brand = models[0].make;
   const publicModels = models.filter(isIndexableModel);
-  const brandGrowth = brandSeoGrowthProfile(make);
   const current = publicModels.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued");
   const low = current.length ? Math.min(...current.map((m) => observedMarketRange(m).from)) : undefined;
   const high = current.length ? Math.max(...current.map((m) => observedMarketRange(m).to || observedMarketRange(m).from)) : undefined;
-  const priceContext = low && high ? ` Current prices run from ${php(low)} to ${php(high)}.` : "";
   return pageMetadata({
-    title: brandGrowth?.seoTitle || `${brand} Motorcycle Philippines Price List`,
-    description: brandGrowth?.seoDescription || `See the ${brand} motorcycle Philippines price list with current model prices, specs, engine sizes, seat heights and key buying details.${priceContext}`,
+    title: brandPriceListTitle(brand),
+    description: brandPriceListDescription(brand, low, high),
     path: `/motorcycles/${make}`,
     index: publicModels.length > 0
   });
@@ -44,6 +54,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   if (!models.length) return notFound();
 
   const brand = models[0].make;
+  const priceListTitle = brandPriceListTitle(brand);
   const publicModels = models.filter(isIndexableModel);
   const brandGrowth = brandSeoGrowthProfile(make);
   const publicIds = new Set(publicModels.map((m) => m.id));
@@ -60,7 +71,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   if (!publicModels.length) {
     return <section className="page shell">
       <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
-      <PageHero kicker="Philippines motorcycle price list" title={`${brand} Motorcycle Philippines Price List`} description="Model prices and specifications are being checked before publication." />
+      <PageHero kicker="Philippines motorcycle price list" title={priceListTitle} description="Model prices and specifications are being checked before publication." />
       <InfoPanel subtle><h2>{brand} price list data is being updated</h2><p>Current prices and specifications still need checking before this list is published.</p></InfoPanel>
     </section>;
   }
@@ -72,7 +83,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
           <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
           <PageHero
             kicker="Philippines · Model research"
-            title={`${brand} Motorcycle Philippines Price List`}
+            title={priceListTitle}
             description={`MotoIndex currently has ${publicModels.length} ${brand} ${publicModels.length === 1 ? "model" : "models"} with Philippine research coverage, but no model is being presented as a verified current national-catalog motorcycle yet.`}
           />
           <InfoPanel subtle><h2>Current availability still needs verification</h2><p>Use the model research below for specifications and price context, then confirm current Philippine dealer stock and the final quote before purchase.</p></InfoPanel>
@@ -159,7 +170,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: `${brand} Motorcycle Philippines Price List`,
+      name: priceListTitle,
       description: `${brand} motorcycle Philippines price list with current model prices, specifications and buying research.`,
       url: absoluteUrl(`/motorcycles/${make}`),
       mainEntity: {
@@ -191,12 +202,12 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <div className="reviewed-catalog-hero">{current[0] && <ReviewedCatalogArt entityId={current.find(model=>model.slug.includes("aerox"))?.id ?? current[0].id} />}
         <PageHero
           kicker="Philippines · Price list · Models · Specs"
-          title={brandGrowth?.heroTitle || `${brand} Motorcycle Philippines Price List`}
-          description={brandGrowth?.heroDescription || `Compare the current ${brand} motorcycle Philippines price list by model, published price, engine size, seat height and transmission. Open any motorcycle for detailed specs, financing estimates, fitment, maintenance and alternatives.`}
+          title={priceListTitle}
+          description={`${priceListTitle}: ${brandGrowth?.heroDescription || `Compare current ${brand} motorcycles by model, published price, engine size, seat height and transmission. Open any motorcycle for specifications and ownership details.`}`}
           actions={<><CTAGroup><Link className="button" href="#price-list">View {brand} price list</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link>{["honda","yamaha","suzuki","kawasaki"].includes(make) ? <Link className="button secondary" href={`/motorcycles/${make}/dealers`}>Find {brand} dealers</Link> : null}</CTAGroup></>}
         />
         </div>
-        {brandGrowth ? <InfoPanel subtle><p>{brandGrowth.intentNote}</p></InfoPanel> : null}
+        {brandGrowth ? <InfoPanel subtle><p>Use the {priceListTitle} to compare models, prices, specifications and categories. {brandGrowth.intentNote}</p></InfoPanel> : null}
         <StatRow items={[
           {label:"Models covered",value:current.length,note:"Current models on MotoIndex"},
           {label:"Price range",value:`${php(low)}–${php(high)}`,note:"Published prices across current models"},
@@ -271,7 +282,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       </section> : null}
 
       <section id="price-list" className="ph-brand-section">
-        <SectionHeader kicker="Current model prices" title={`${brand} Motorcycle Philippines Price List`} description={`Compare current ${brand} motorcycle prices in one table. Use these price references as a starting point, then open the exact model to compare variants, financing and ownership details.`} />
+        <SectionHeader kicker="Current model prices" title={priceListTitle} description={`Use the ${priceListTitle} to compare current model prices in one table. Open any model to review variants, specifications, financing and ownership details.`} />
         <DataTable className="ph-brand-price-table" label={`${brand} motorcycle Philippines price list`}>
           <div className="head" role="row"><span>Model</span><span>Price reference</span><span>Engine</span><span>Seat</span><span>Transmission</span></div>
           {ranges.map(({ model, from, to }) => <Link role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}`} key={model.id}>
@@ -307,7 +318,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       {uncertain.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Availability to verify" title={`${brand} models needing a current lineup check`} description="These model pages remain available for research, but they stay outside the current price list until present-day official availability is confirmed." /><div className="card-grid">{uncertain.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
 
       <section id="faq" className="ph-brand-section">
-        <SectionHeader kicker="Quick answers" title={`${brand} Motorcycle Philippines Price List FAQ`} />
+        <SectionHeader kicker="Quick answers" title={`${priceListTitle} FAQ`} />
         <div className="ph-brand-faq">{faq.map((item) => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div>
       </section>
     </div>
