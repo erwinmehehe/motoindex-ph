@@ -14,18 +14,7 @@ import { modelAuthorityProfile } from "@/lib/modelAuthority";
 import { php, phpRange } from "@/lib/utils";
 import { CTAGroup, DataTable, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
 import { brandSeoGrowthProfile } from "@/lib/brandSeoGrowth";
-
-// All motorcycle brand hubs target the same brand + motorcycle Philippines price list intent.
-// Big bikes, scooters and specialist categories retain their own sections beneath this title.
-const brandPriceListTitle = (brand: string) => `${brand} Motorcycle Philippines Price List`;
-
-function brandPriceListDescription(brand: string, low?: number, high?: number) {
-  const keyword = brandPriceListTitle(brand);
-  if (low !== undefined && high !== undefined) {
-    return `${keyword}: Compare model prices from ${php(low)} to ${php(high)}, engine sizes, specs and seat heights. Explore model details.`;
-  }
-  return `${keyword}: Browse model specs and price references. Confirm availability, current prices and dealer quotes before buying.`;
-}
+import { motorcycleBrandDisplayName, motorcycleBrandPriceListDescription, motorcycleBrandPriceListTitle } from "@/lib/brandPriceListSeo";
 
 export function generateStaticParams() {
   return [...new Set(motorcycles.map((m) => m.makeSlug))].map((make) => ({ make }));
@@ -35,14 +24,14 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const { make } = await params;
   const models = motorcycles.filter((m) => m.makeSlug === make).filter((model, index, models) => models.findIndex(candidate => candidate.id === model.id) === index);
   if (!models.length) return {};
-  const brand = models[0].make;
+  const brand = motorcycleBrandDisplayName(make, models[0].make);
   const publicModels = models.filter(isIndexableModel);
   const current = publicModels.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued");
   const low = current.length ? Math.min(...current.map((m) => observedMarketRange(m).from)) : undefined;
   const high = current.length ? Math.max(...current.map((m) => observedMarketRange(m).to || observedMarketRange(m).from)) : undefined;
   return pageMetadata({
-    title: brandPriceListTitle(brand),
-    description: brandPriceListDescription(brand, low, high),
+    title: motorcycleBrandPriceListTitle(brand),
+    description: motorcycleBrandPriceListDescription(brand, low, high),
     path: `/motorcycles/${make}`,
     index: publicModels.length > 0
   });
@@ -53,8 +42,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   const models = motorcycles.filter((m) => m.makeSlug === make).filter((model, index, models) => models.findIndex(candidate => candidate.id === model.id) === index);
   if (!models.length) return notFound();
 
-  const brand = models[0].make;
-  const priceListTitle = brandPriceListTitle(brand);
+  const brand = motorcycleBrandDisplayName(make, models[0].make);
+  const priceListTitle = motorcycleBrandPriceListTitle(brand);
   const publicModels = models.filter(isIndexableModel);
   const brandGrowth = brandSeoGrowthProfile(make);
   const publicIds = new Set(publicModels.map((m) => m.id));
@@ -71,7 +60,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   if (!publicModels.length) {
     return <section className="page shell">
       <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
-      <PageHero kicker="Philippines motorcycle price list" title={priceListTitle} description="Model prices and specifications are being checked before publication." />
+      <PageHero kicker="Philippines motorcycle price list" title={priceListTitle} description={`${priceListTitle}: Model prices and specifications are being checked before publication.`} />
       <InfoPanel subtle><h2>{brand} price list data is being updated</h2><p>Current prices and specifications still need checking before this list is published.</p></InfoPanel>
     </section>;
   }
@@ -84,7 +73,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
           <PageHero
             kicker="Philippines · Model research"
             title={priceListTitle}
-            description={`MotoIndex currently has ${publicModels.length} ${brand} ${publicModels.length === 1 ? "model" : "models"} with Philippine research coverage, but no model is being presented as a verified current national-catalog motorcycle yet.`}
+            description={`${priceListTitle}: MotoIndex currently has ${publicModels.length} ${brand} ${publicModels.length === 1 ? "model" : "models"} with Philippine research coverage, but no model is being presented as a verified current national-catalog motorcycle yet.`}
           />
           <InfoPanel subtle><h2>Current availability still needs verification</h2><p>Use the model research below for specifications and price context, then confirm current Philippine dealer stock and the final quote before purchase.</p></InfoPanel>
         </div>
@@ -171,7 +160,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       name: priceListTitle,
-      description: `${brand} motorcycle Philippines price list with current model prices, specifications and buying research.`,
+      description: `${priceListTitle} with current model prices, specifications and buying research.`,
       url: absoluteUrl(`/motorcycles/${make}`),
       mainEntity: {
         "@type": "ItemList",
