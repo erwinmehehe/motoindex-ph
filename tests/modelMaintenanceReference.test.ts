@@ -6,7 +6,7 @@ import { motorcycleSitemapEntries } from "../lib/sitemaps";
 const expected = [
   ["honda-click-160", 0.8, 0.12, "NGK LMAR8L-9", "Philippines"],
   ["honda-pcx-160", 0.8, 0.12, "NGK LMAR8L-9", "Philippines"],
-  ["honda-adv-160", 0.75, 0.12, "NGK LMAR8L-9", "Philippines"],
+  ["honda-adv-160", 0.75, 0.11, "NGK LMAR8L-9", "Philippines"],
   ["yamaha-nmax-v3", 0.9, 0.1, "NGK CPR8EA-9", "Regional manual"],
   ["yamaha-aerox-v3", 1, 0.1, "NGK CPR8EA-9", "Regional manual"]
 ] as const;
