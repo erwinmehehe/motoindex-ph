@@ -82,7 +82,7 @@ export function ModelMaintenanceReference({
         <dl>
           <div><dt>Model / manual</dt><dd>{specs.manualModelCode}</dd></div>
           <div><dt>Market evidence</dt><dd>{specs.sourceMarket}</dd></div>
-          <div><dt>Source checked</dt><dd>{schedule.lastChecked}</dd></div>
+          <div><dt>Source checked</dt><dd>{specs.checkedAt}</dd></div>
         </dl>
         <p>{specs.applicability}</p>
         <a className={styles.manualLink} href={schedule.sourceUrl} rel="noreferrer" target="_blank">Open manufacturer manual <span aria-hidden="true">↗</span></a>
