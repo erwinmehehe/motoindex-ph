@@ -8,7 +8,7 @@ import { AuthorBox } from "@/components/AuthorBox";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
 import { tireFamilyHubs, tireModelSeoHubs, getTireFamilyModels } from "@/lib/tireSeo";
-import { CTAGroup, InfoPanel, PageHero, ProductGrid, SectionHeader, StatRow } from "@/components/ui";
+import { CTAGroup, DataTable, InfoPanel, PageHero, ProductGrid, SectionHeader, StatRow } from "@/components/ui";
 import styles from "../styles/hub-index.module.css";
 
 export const metadata: Metadata = pageMetadata({
@@ -48,6 +48,19 @@ export default function TiresPage(){
     keywords:["motorcycle tire size chart","motorcycle tire size Philippines","Aerox tire size","NMAX tire size","Honda Click tire size"],
     checkedDates:publicMotorcycles.map(m=>m.verifiedAt)
   });
+
+  // Reading a size code is not the same as confirming compatibility.
+  // Bridgestone lists 90/90-14 M/C 46P TL as an actual motorcycle tire marking.
+  const sidewallParts=[
+    {part:"90 — first number",meaning:"Nominal tire section width in millimetres, not the inflated tire's guaranteed measured width."},
+    {part:"90 — after slash",meaning:"Aspect ratio: the nominal sidewall height is 90% of section width."},
+    {part:"- (or R)",meaning:"Construction marking: a hyphen denotes bias-ply; R denotes radial on tires using this format."},
+    {part:"14",meaning:"Rim or bead-seat diameter in inches. It must match the wheel."},
+    {part:"M/C",meaning:"Designation for motorcycle use."},
+    {part:"46",meaning:"Load-index code, not 46 kilograms. Confirm its rating in the tire maker's load chart."},
+    {part:"P",meaning:"Speed-rating code, not the tire's size. Confirm suitability for the motorcycle."},
+    {part:"TL",meaning:"Tubeless marking. Check the rim, valve and manufacturer tire/tube requirements."}
+  ];
 
   return <section className="page shell tire-master-page">
     <PageHero
@@ -156,21 +169,42 @@ export default function TiresPage(){
       <CTAGroup className={styles.actions}><Link className="button secondary small" href="/fitment">Search all {publicMotorcycles.length} motorcycles</Link></CTAGroup>
     </section>
 
-    <section id="size-chart" className={styles.section}>
+    <section id="size-chart" className={styles.section} aria-labelledby="tire-marking-heading">
       <SectionHeader
-        kicker="How to read the number"
-        title="How motorcycle tire sizes work"
-        description="A marking such as 110/80-14 combines width, aspect ratio and rim diameter. Those three numbers are only the starting point."
+        kicker="Motorcycle tire size chart"
+        title="How to read motorcycle tire sizes and sidewall markings"
+        titleId="tire-marking-heading"
+        description="Motorcycle tire sizes combine nominal width, aspect ratio, construction, rim diameter and separate load/speed markings. Knowing the numbers helps you read a label; the owner's manual determines what fits."
       />
+      <h3>Example: 90/90-14 M/C 46P TL</h3>
+      <p>Bridgestone publishes this motorcycle-tire marking. It is an example for learning the code, not a recommended fitment for your motorcycle.</p>
       <StatRow items={[
-        {label:"Width",value:"110 mm",note:"Nominal section width"},
-        {label:"Aspect ratio",value:"80%",note:"Approximate sidewall ratio"},
-        {label:"Rim diameter",value:"14 in",note:"Must match the wheel"}
+        {label:"Nominal width",value:"90 mm",note:"First 90: tire section width"},
+        {label:"Aspect ratio",value:"90%",note:"Second 90: sidewall proportion"},
+        {label:"Rim diameter",value:"14 in",note:"Wheel bead-seat diameter"}
       ]}/>
+      <DataTable label="Meaning of each motorcycle tire size marking">
+        <div role="row" className="head" style={{gridTemplateColumns:"minmax(150px, .7fr) minmax(290px, 2fr)"}}>
+          <span role="columnheader">Sidewall code</span>
+          <span role="columnheader">What it means</span>
+        </div>
+        {sidewallParts.map(item=><div role="row" style={{gridTemplateColumns:"minmax(150px, .7fr) minmax(290px, 2fr)"}} key={item.part}>
+          <strong role="cell">{item.part}</strong>
+          <span role="cell">{item.meaning}</span>
+        </div>)}
+      </DataTable>
       <InfoPanel subtle>
-        <h3>Also confirm the full fitment specification</h3>
-        <p>Check front or rear application, load index, speed rating, construction, tube or tubeless requirement, approved rim width and physical clearance. A wider tire is not automatically an upgrade.</p>
+        <h3>Stock size versus replacement compatibility</h3>
+        <p>Do not decide on a replacement using width and wheel diameter alone. Find your exact make, model, generation and market in the motorcycle's manual, then check these details with the tire manufacturer or a qualified installer.</p>
+        <ul>
+          <li><strong>Front and rear:</strong> use the correct position and orientation; a matching size string does not establish interchangeability.</li>
+          <li><strong>Construction:</strong> follow the approved radial/bias specification. Do not assume they can be mixed.</li>
+          <li><strong>Load and speed:</strong> both index codes must meet the motorcycle's requirements.</li>
+          <li><strong>Rim and fitment:</strong> verify supported rim width, clearance, tire/tube requirements and cold inflation pressure for the intended load.</li>
+        </ul>
+        <p>For stock sizes by generation, see the <Link href="/tires/aerox-tire-size">Aerox</Link>, <Link href="/tires/nmax-tire-size">NMAX</Link> and <Link href="/tires/honda-click-tire-size">Honda Click</Link> family guides. You can also <Link href="/fitment">check the motorcycle fitment finder</Link>.</p>
       </InfoPanel>
+      <p><strong>Manufacturer references:</strong> <a href="https://www.michelin.com.ph/motorbike/advice-motorbike/tire-basics/motorcycle-tire-size" target="_blank" rel="noopener noreferrer">Michelin Philippines tire-size guide</a> · <a href="https://www.pirelli.com/tyres/en-ww/motorcycle/tyre-reading" target="_blank" rel="noopener noreferrer">Pirelli sidewall marking guide</a> · <a href="https://tires.bridgestone.com/en-us/learn/motorcycle/tire-maintenance/motorcycle-tire-safety-and-maintenance-manual" target="_blank" rel="noopener noreferrer">Bridgestone motorcycle tire safety manual</a></p>
     </section>
 
     <div className="fitment-crosslinks">
