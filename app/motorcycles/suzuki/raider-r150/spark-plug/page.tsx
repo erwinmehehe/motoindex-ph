@@ -21,9 +21,6 @@ function evidence() {
   return model && isIndexableModel(model) && guide ? { model, guide } : undefined;
 }
 
-export function generateStaticParams() {
-  return evidence() ? [{}] : [];
-}
 
 export function generateMetadata(): Metadata {
   const data = evidence();
