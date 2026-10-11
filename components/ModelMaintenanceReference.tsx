@@ -1,11 +1,17 @@
 import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
 import type { MaintenanceSchedule } from "@/lib/maintenance";
-import styles from "./ModelMaintenanceReference.module.css";
+import { DataTable, SectionHeader } from "@/components/ui";
+
+// Share the model page's existing responsive cards, editorial columns and
+// data-table styles. A separate page-wide stylesheet exceeded the CSS budget.
+const serviceColumns = {
+  gridTemplateColumns: "minmax(150px, 1fr) minmax(96px, .5fr) minmax(220px, 1.5fr)"
+};
 
 /**
- * Server-rendered, manufacturer-referenced maintenance information on the canonical
- * motorcycle page. Do not emit a new indexable URL per specification.
+ * Manufacturer-referenced service information on the canonical model page.
+ * The model and manual edition must match before applying any specifications.
  */
 export function ModelMaintenanceReference({
   model,
@@ -25,88 +31,70 @@ export function ModelMaintenanceReference({
       tirePressure.soloRearPsi === tirePressure.passengerRearPsi
     : false;
 
-  return <section id="maintenance" className={"motorcycle-entity-section " + styles.root} aria-labelledby="service-specifications-heading">
-    <div className={styles.heading}>
-      <div>
-        <h2 id="service-specifications-heading">{modelName} maintenance and service specifications</h2>
-        <p>Engine and transmission oil, spark plug, tire pressure and servicing intervals—kept with the exact model-manual reference.</p>
-      </div>
-      <span className={exactPhilippinesManual ? styles.sourceStatus : styles.sourceStatusRegional}>
-        {exactPhilippinesManual ? "Philippines manual" : "Regional manual reference"}
-      </span>
-    </div>
+  return <section id="maintenance" className="motorcycle-entity-section" aria-labelledby="service-specifications-heading">
+    <SectionHeader
+      kicker="Manufacturer reference"
+      title={modelName + " maintenance and service specifications"}
+      titleId="service-specifications-heading"
+      description="Engine and final-drive oil, spark-plug code, cold tire pressures and service intervals, with the cited model-manual edition."
+      aside={<span className="ui-section-count">{exactPhilippinesManual ? "Philippines manual" : "Regional manual reference"}</span>}
+    />
 
-    <div className={styles.specGrid} aria-label={modelName + " quick service specifications"}>
-      <div className={styles.specCard}>
-        <span>Engine oil refill</span>
-        <strong>{specs.engineOilAfterDrainL.toFixed(2)} <small>L</small></strong>
-        <p>After normal draining</p>
-      </div>
-      <div className={styles.specCard}>
-        <span>Final-drive oil refill</span>
-        <strong>{specs.finalDriveOilAfterDrainL.toFixed(2)} <small>L</small></strong>
-        <p>After normal draining</p>
-      </div>
-      <div className={styles.specCard}>
-        <span>Spark plug</span>
-        <strong className={styles.partCode}>{specs.sparkPlugCode}</strong>
-        <p>Gap: {specs.sparkPlugGapMm}</p>
-      </div>
-      <div className={styles.specCard}>
-        <span>Engine-oil viscosity</span>
-        <strong className={styles.oilGrade}>{specs.engineOilViscosity}</strong>
-        <p>{specs.engineOilStandard}</p>
-      </div>
+    <div className="entity-fit-kpis" aria-label={modelName + " quick service specifications"}>
+      <div><span>Engine oil refill</span><strong>{specs.engineOilAfterDrainL.toFixed(2)} L</strong><small>After normal draining</small></div>
+      <div><span>Final-drive oil refill</span><strong>{specs.finalDriveOilAfterDrainL.toFixed(2)} L</strong><small>After normal draining</small></div>
+      <div><span>Spark plug</span><strong>{specs.sparkPlugCode}</strong><small>Gap: {specs.sparkPlugGapMm}</small></div>
+      <div><span>Engine-oil viscosity</span><strong>{specs.engineOilViscosity}</strong><small>{specs.engineOilStandard}</small></div>
     </div>
-    <p className={styles.fillingNote}>Refill amounts are for an ordinary oil change after draining—not a dry-fill specification. Use the dipstick/inspection procedure in the owner's manual and confirm the exact motorcycle generation.</p>
+    <p className="entity-section-note">These are ordinary oil-change refill amounts, not dry-engine capacities. Verify the exact year and variant, and follow the manual's oil-level inspection procedure.</p>
 
-    <div className={styles.contentGrid}>
-      <div className={styles.serviceTableWrap}>
-        <div className={styles.serviceTableHeading}>
-          <h3>Owner-manual service intervals</h3>
-          <p>{schedule.items.length} referenced service items. Inspection and replacement are different actions.</p>
-        </div>
-        <div className={styles.tableScroll}>
-          <table className={styles.serviceTable}>
-            <thead><tr><th scope="col">Service item</th><th scope="col">Action</th><th scope="col">When</th></tr></thead>
-            <tbody>{schedule.items.map((entry) => <tr key={entry.item}>
-              <td><strong>{entry.item}</strong>{entry.note ? <small>{entry.note}</small> : null}</td>
-              <td><span className={entry.action === "Replace" ? styles.replace : styles.inspect}>{entry.action}</span></td>
-              <td>{entry.interval}</td>
-            </tr>)}</tbody>
-          </table>
-        </div>
-      </div>
-      <aside className={styles.evidenceCard}>
+    <div className="motorcycle-editorial-grid">
+      <article className="editorial-best">
+        <span>Owner's manual</span>
+        <h3>Service intervals</h3>
+        <p>{schedule.items.length} referenced service items. An inspection interval does not automatically require replacement.</p>
+        <DataTable label={modelName + " maintenance intervals"}>
+          <div role="row" className="head" style={serviceColumns}>
+            <span role="columnheader">Service item</span>
+            <span role="columnheader">Action</span>
+            <span role="columnheader">When</span>
+          </div>
+          {schedule.items.map((item) => <div role="row" style={serviceColumns} key={item.item}>
+            <span role="cell"><strong>{item.item}</strong>{item.note && <small>{item.note}</small>}</span>
+            <span role="cell">{item.action}</span>
+            <span role="cell">{item.interval}</span>
+          </div>)}
+        </DataTable>
+      </article>
+
+      <article>
+        <span>Model evidence</span>
         <h3>Reference and applicability</h3>
-        <dl>
-          <div><dt>Model / manual</dt><dd>{specs.manualModelCode}</dd></div>
-          <div><dt>Market evidence</dt><dd>{specs.sourceMarket}</dd></div>
-          <div><dt>Source checked</dt><dd>{specs.checkedAt}</dd></div>
-        </dl>
+        <ul>
+          <li>Model / manual: <strong>{specs.manualModelCode}</strong></li>
+          <li>Market: <strong>{specs.sourceMarket}</strong></li>
+          <li>Specifications checked: <strong>{specs.checkedAt}</strong></li>
+        </ul>
         <p>{specs.applicability}</p>
-        <a className={styles.manualLink} href={schedule.sourceUrl} rel="noreferrer" target="_blank">Open manufacturer manual <span aria-hidden="true">↗</span></a>
-        <div className={styles.sourceCaution}>
-          <strong>Important service note</strong>
-          <p>{specs.serviceNote}</p>
-        </div>
-      </aside>
+        <p><a className="button secondary" href={schedule.sourceUrl} target="_blank" rel="noreferrer">Open manufacturer manual ↗</a></p>
+        <p><strong>Important service note:</strong> {specs.serviceNote}</p>
+      </article>
+
+      {tirePressure && <article>
+        <span>Cold tire pressure</span>
+        <h3>Front / rear pressure</h3>
+        <p>Verify against the label on your motorcycle and the cited manual.</p>
+        <ul>
+          <li><strong>Rider only:</strong> {tirePressure.soloFrontPsi} / {tirePressure.soloRearPsi} psi</li>
+          {!samePressureWithPassenger && <li><strong>Rider + passenger:</strong> {tirePressure.passengerFrontPsi} / {tirePressure.passengerRearPsi} psi</li>}
+        </ul>
+      </article>}
     </div>
 
-    {tirePressure && <div className={styles.pressureSection}>
-      <div>
-        <h3>Cold tire-pressure reference</h3>
-        <p>Front and rear pressure from the cited model manual; check your own motorcycle's label.</p>
-      </div>
-      <div className={styles.pressureStats}>
-        <div><span>Rider only</span><strong>{tirePressure.soloFrontPsi} / {tirePressure.soloRearPsi} <small>psi</small></strong><small>Front / rear</small></div>
-        {!samePressureWithPassenger && <div><span>Rider + passenger</span><strong>{tirePressure.passengerFrontPsi} / {tirePressure.passengerRearPsi} <small>psi</small></strong><small>Front / rear</small></div>}
-      </div>
-    </div>}
-
-    <div className={styles.footerNav}>
-      <Link href="/maintenance">Explore maintenance topics →</Link>
+    <p className="entity-section-note">
+      <Link href="/maintenance">Explore motorcycle maintenance topics →</Link>
+      {" · "}
       <Link href="/tires">Check tire-size guides →</Link>
-    </div>
+    </p>
   </section>;
 }
