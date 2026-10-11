@@ -8,6 +8,7 @@ export type MaintenanceItem = {
 };
 
 export type MaintenanceServiceSpecs = {
+  checkedAt: string;
   manualModelCode: string;
   sourceMarket: "Philippines" | "Regional manual";
   applicability: string;
@@ -126,7 +127,7 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
     modelId: "honda-click-160",
     sourceLabel: "Honda Click160 Philippines Owner's Manual · maintenance schedule",
     sourceUrl: "https://2rom-prd-data.hondamotopub.com/om/HPI/Click160/2022/Click160_32K2SF000_0.pdf",
-    lastChecked: "2026-10-11",
+    lastChecked: "2026-08-25",
     exact: true,
     items: [
       { item: "Engine oil", interval: "First at 1,000 km; then every 6,000 km", action: "Replace", note: "The manual's OIL CHANGE indicator calls for the first change at about 1,000 km and every 6,000 km after the first reset." },
@@ -136,6 +137,7 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
       { item: "Brake fluid", interval: "Every 2 years", action: "Replace" },
     ],
     serviceSpecs: {
+      checkedAt: "2026-10-11",
       manualModelCode: "ACB160CBT · 32K2SF000",
       sourceMarket: "Philippines",
       applicability: "Honda Click160 2022 Philippine type ACB160CBT; confirm exact model year and owner's booklet.",
@@ -153,7 +155,7 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
     modelId: "honda-pcx-160",
     sourceLabel: "Honda PCX160 Philippines Owner's Manual · maintenance schedule",
     sourceUrl: "https://2rom-prd-data.hondamotopub.com/om/HPI/PCX160/2021/PCX160_32K1ZE000_0.pdf",
-    lastChecked: "2026-10-11",
+    lastChecked: "2026-08-25",
     exact: true,
     items: [
       { item: "Engine oil", interval: "First at 1,000 km; then every 6,000 km", action: "Replace", note: "The manual's oil-change indicator first appears at 1,000 km and then every 6,000 km after reset." },
@@ -163,6 +165,7 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
       { item: "Brake fluid", interval: "Every 2 years", action: "Replace" },
     ],
     serviceSpecs: {
+      checkedAt: "2026-10-11",
       manualModelCode: "PCX160 · 32K1ZE000",
       sourceMarket: "Philippines",
       applicability: "Honda PCX160 2021 Philippine-market manual; verify the current generation and year before servicing.",
@@ -180,7 +183,7 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
     modelId: "honda-adv-160",
     sourceLabel: "Honda ADV160 Philippines Owner's Manual · ADV160A PH type · 32K0WA100",
     sourceUrl: "https://2rom-prd-data.hondamotopub.com/om/HPI/ADV160/2023/ADV160_32K0WA100_0.pdf",
-    lastChecked: "2026-10-11",
+    lastChecked: "2026-09-25",
     exact: true,
     items: [
       { item: "Engine oil", interval: "First at 1,000 km; then every 6,000 km", action: "Replace", note: "The manual's oil-change indicator first appears at 1,000 km and then every 6,000 km after the first reset." },
@@ -191,6 +194,7 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
       { item: "Brake fluid", interval: "Every 2 years", action: "Replace" },
     ],
     serviceSpecs: {
+      checkedAt: "2026-10-11",
       manualModelCode: "ADV160A PH · 32K0WA100",
       sourceMarket: "Philippines",
       applicability: "Honda ADV160 2023 PH type, document 32K0WA100; check revisions for your own model year.",
@@ -208,7 +212,7 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
     modelId: "yamaha-nmax-v3",
     sourceLabel: "Yamaha NMAX 155 current-generation Owner's Manual · GPD155-A · BTF-FU199-E0",
     sourceUrl: "https://www.yamaha-motor.co.th/docs/default-document-library/btf-fu199-e0.pdf?Status=Master&sfvrsn=d035e32e_0",
-    lastChecked: "2026-10-11",
+    lastChecked: "2026-09-25",
     exact: true,
     items: [
       { item: "Engine oil", interval: "First at 1,000 km; next at 4,000 km; then every 4,000 km", action: "Replace", note: "The oil-change indicator appears at 1,000 km, then 3,000 km after reset, and every 4,000 km after that." },
@@ -221,6 +225,7 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
       { item: "Fuel filter", interval: "Every 12,000 km", action: "Inspect", note: "Check condition and replace if necessary." },
     ],
     serviceSpecs: {
+      checkedAt: "2026-10-11",
       manualModelCode: "GPD155-A · BTF-FU199-E0",
       sourceMarket: "Regional manual",
       applicability: "Yamaha NMAX GPD155-A manual, regional edition. Philippine-market model and Tech Max equipment may differ.",
@@ -238,7 +243,7 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
     modelId: "yamaha-aerox-v3",
     sourceLabel: "Yamaha AEROX current-generation Owner's Manual · GPR155D-A · D13-F8199-E0",
     sourceUrl: "https://www.yamaha-motor.co.th/docs/owner-manual/commuter/en/d13-f8199-e0.pdf?Status=Master&sfvrsn=ebc82eb6_2",
-    lastChecked: "2026-10-11",
+    lastChecked: "2026-09-25",
     exact: true,
     items: [
       { item: "Engine oil", interval: "First at 1,000 km; then every 4,000 km", action: "Replace", note: "The manual's maintenance indicator lists the first oil change at 1,000 km and every 4,000 km thereafter." },
@@ -251,6 +256,7 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
       { item: "Fuel filter", interval: "Every 12,000 km", action: "Inspect", note: "Check for clogging or damage and replace if necessary." },
     ],
     serviceSpecs: {
+      checkedAt: "2026-10-11",
       manualModelCode: "GPR155D-A · D13-F8199-E0",
       sourceMarket: "Regional manual",
       applicability: "Yamaha AEROX GPR155D-A YECVT regional owner manual, 2026 edition. Confirm the exact Philippine variant before use.",
