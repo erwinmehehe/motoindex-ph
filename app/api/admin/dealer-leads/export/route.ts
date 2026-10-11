@@ -7,7 +7,7 @@ function csv(value:unknown){
   const text=value===null||value===undefined?"":String(value);
   // Prefix spreadsheet formulas so CSV viewers treat user input as text.
   // Quoting alone does not prevent formula evaluation on import.
-  const safe=/^[\\s\\u0000-\\u001f]*[=+@-]/.test(text) ? "'" + text : text;
+  const safe=/^[\s\u0000-\u001f]*[=+@-]/.test(text) ? "'" + text : text;
   return `"${safe.replace(/"/g,'""')}"`;
 }
 
