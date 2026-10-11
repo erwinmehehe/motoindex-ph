@@ -199,12 +199,12 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
       sourceMarket: "Philippines",
       applicability: "Honda ADV160 2023 PH type, document 32K0WA100; check revisions for your own model year.",
       engineOilAfterDrainL: 0.75,
-      finalDriveOilAfterDrainL: 0.12,
+      finalDriveOilAfterDrainL: 0.11,
       engineOilViscosity: "SAE 10W-30",
       engineOilStandard: "JASO MB · API SJ or higher",
       sparkPlugCode: "NGK LMAR8L-9",
       sparkPlugGapMm: "0.8–0.9 mm",
-      serviceNote: "The Honda ADV160 manual lists 0.75 L for a normal engine-oil change; do not reuse the Click160 or PCX160 0.8 L amount. Final-drive refill after draining is 0.12 L in this PH manual."
+      serviceNote: "The Honda ADV160 manual lists 0.75 L for a normal engine-oil change; do not reuse the Click160 or PCX160 0.8 L amount. Final-drive refill after draining is 0.11 L in this PH manual."
     },
     tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 33 },
   },
