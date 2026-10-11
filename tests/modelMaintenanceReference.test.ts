@@ -24,6 +24,7 @@ describe("source-backed model maintenance specifications", () => {
     expect(schedule?.serviceSpecs?.sourceMarket).toBe(market);
     expect(schedule?.serviceSpecs?.sparkPlugGapMm).toBe("0.8–0.9 mm");
     expect(schedule?.serviceSpecs?.manualModelCode).toBeTruthy();
+    expect(schedule?.serviceSpecs?.checkedAt).toBe("2026-10-11");
     expect(schedule?.serviceSpecs?.applicability.length).toBeGreaterThan(30);
   });
 
