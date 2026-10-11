@@ -10,7 +10,7 @@ const serviceColumns = {
 };
 
 /**
- * Manufacturer-referenced service information on the canonical model page.
+ * Manufacturer-referenced service information beside the motorcycle's details.
  * The model and manual edition must match before applying any specifications.
  */
 export function ModelMaintenanceReference({
