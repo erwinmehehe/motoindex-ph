@@ -4,7 +4,7 @@ import type { MaintenanceSchedule } from "@/lib/maintenance";
 import styles from "./ModelMaintenanceReference.module.css";
 
 /**
- * Server-rendered, source-backed maintenance information on the canonical
+ * Server-rendered, manufacturer-referenced maintenance information on the canonical
  * motorcycle page. Do not emit a new indexable URL per specification.
  */
 export function ModelMaintenanceReference({
