@@ -100,7 +100,7 @@ export default function MaintenanceGuidePage() {
           const model=getModelById(schedule.modelId);
           return model?<Link className={styles.decisionRow} href={`/motorcycles/${model.makeSlug}/${model.slug}#maintenance`} key={schedule.modelId}>
             <span className={styles.decisionLabel}>{model.make}</span>
-            <span className={styles.decisionCopy}><h3>{model.model}</h3><p>{schedule.serviceSpecs ? `${schedule.serviceSpecs.engineOilAfterDrainL.toFixed(2)} L engine-oil refill · ${schedule.serviceSpecs.sparkPlugCode} spark plug · ${schedule.items.length} service items · ${schedule.serviceSpecs.sourceMarket} · checked ${schedule.lastChecked}` : `${schedule.items.length} manual-derived service items · checked ${schedule.lastChecked}`}</p></span>
+            <span className={styles.decisionCopy}><h3>{model.model}</h3><p>{schedule.serviceSpecs ? `${schedule.serviceSpecs.engineOilAfterDrainL.toFixed(2)} L engine-oil refill · ${schedule.serviceSpecs.sparkPlugCode} spark plug · ${schedule.items.length} service items · ${schedule.serviceSpecs.sourceMarket} · checked ${schedule.serviceSpecs.checkedAt}` : `${schedule.items.length} manual-derived service items · checked ${schedule.lastChecked}`}</p></span>
             <span className={styles.decisionMeta}>Open schedule →</span>
           </Link>:null;
         })}
