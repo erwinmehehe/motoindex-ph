@@ -14,7 +14,7 @@ export function QuickAnswer({ question, answer, checkedAt, variant = "default", 
   return <section className={variant === "plain" ? styles.plain : styles.block} aria-label="Quick answer" data-aeo-quick-answer>
     <div className={styles.meta}>
       <span>Quick answer</span>
-      {checkedAt && <small>Sources checked <time dateTime={checkedAt}>{checkedAt}</time></small>}
+      {checkedAt && <small>Latest source check <time dateTime={checkedAt}>{checkedAt}</time></small>}
     </div>
     <h2 className={styles.question}>{question}</h2>
     <p className={styles.answer}>{answer}</p>
