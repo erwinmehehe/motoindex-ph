@@ -2,15 +2,22 @@
 
 This inventory covers all **246 verified gear products** in the MotoIndex source catalog: **232 helmets, 3 tires and 11 top boxes**.
 
-| Source-level status | Records | What a user can safely open |
+### Current research branch: candidate links still require QA
+
+| Evidence / review status | Records | Publication status |
 |---|---:|---|
-| Exact Shopee item URL in dated research | 18 | Direct Shopee item; editorial, **not affiliate-tracked** |
-| Exact retailer item page in dated research | 85 | Direct product page at the recorded retailer; editorial, **not affiliate-tracked** |
-| No reviewed exact retailer/item URL | 143 | Do not show a generic shopping redirect; source research is needed |
+| Earlier exact Shopee references | 18 | Previously researched editorial sources; **not affiliate-tracked** |
+| Earlier exact retailer references | 85 | Previously researched editorial sources; **not affiliate-tracked** |
+| **New product-specific retailer or Shopee candidates** | **24** | **Must complete live desktop/mobile item and variant review before approval** |
+| Still missing a specific retailer item reference | 119 | Keep shopping destination hidden until researched and checked |
 
-**Source-level direct product references: 103/246.** The repository's generated affiliate map is empty; live database records and environment overrides were **not** queried, so the number of truly active commissioned affiliate links cannot be established from this inventory.
+There are **127 dated item references in the inventory**, including 24 *unapproved research candidates*. This does **not** mean that 127 live purchase buttons or 127 affiliate links are ready. The repository-generated affiliate map is empty; production database/environment overrides and affiliate account attribution were not audited.
 
-See [the complete 246-row CSV](./affiliate-product-coverage-2026-10-09.csv) for each product ID, published source, date, and next action. Source identity is not proof of current availability, product variants, affiliate approval or commission attribution.
+The reviewed earlier baseline was 103 source references and 143 gaps. The research branch records 24 more candidates (including 14 newly sourced in this increment). All candidates are stored in `data/affiliate-research-candidates.json` as `needs_live_browser_review`.
+
+The protected `/admin/affiliate-links` manager now shows the candidate URL, source date, review note, and filters for pending or still-unmatched gear. `/admin/affiliate-links/research.csv` exports the entire **143-product research queue** (24 pending candidates plus 119 without any exact item reference). The export is a research aid, **not** an affiliate activation import.
+
+See [the complete 246-row CSV](./affiliate-product-coverage-2026-10-09.csv) for each product ID, reference, date and next action. Source identity does not prove current availability, the correct product variant, affiliate approval or commission attribution.
 
 ## Release rules
 
