@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { comparisons, getRecommendationGuide, getRecommendationModels, hasConfirmedAbs, recommendationGuides, isIndexableRecommendation } from "@/lib/data";
+import { comparisons, getRecommendationGuide, getRecommendationModels, getModelById, hasConfirmedAbs, recommendationGuides, isIndexableRecommendation } from "@/lib/data";
 import { GuideModelAnalysisCard } from "@/components/GuideModelAnalysisCard";
 import { EntityMedia } from "@/components/EntityMedia";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
@@ -12,6 +12,7 @@ import type { Motorcycle, RecommendationGuide, RecommendationQuickPickMetric, Re
 import { evaluateMotorcycle } from "@/lib/decisionEngine";
 import { GuideOwnershipCost } from "@/components/GuideOwnershipCost";
 import { GuideFeaturedArt } from "@/components/GuideFeaturedArt";
+import { answerAbsGuideQuestion } from "@/lib/absGuideFaq";
 import { JsonLd } from "@/components/JsonLd";
 import { RELEASE_DATE, absoluteUrl } from "@/lib/site";
 import { articleSchema } from "@/lib/articleSchema";
@@ -369,6 +370,10 @@ function sectionSummary(title:string,models:Motorcycle[]){
 
 function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide){
   const lower=question.toLowerCase();
+  if(guide.slug==="motorcycles-with-abs-philippines"){
+    const focused=answerAbsGuideQuestion(question,models,getModelById("honda-click-160"));
+    if(focused)return focused;
+  }
   if(!models.length)return "No current models are available for this question.";
   const price=[...models].sort((a,b)=>observedMarketRange(a).from-observedMarketRange(b).from);
   const seat=[...models].sort((a,b)=>a.seatHeightMm-b.seatHeightMm);
