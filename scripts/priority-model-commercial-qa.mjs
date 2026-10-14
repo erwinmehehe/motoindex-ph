@@ -154,7 +154,7 @@ try {
       await new Promise(resolve => setTimeout(resolve, 250));
 
       const audit = await evaluate(cdp.send, `(() => {
-        const h1=document.querySelector('.motorcycle-hero-copy h1');
+        const h1=document.querySelector('.reviewed-model-copy h1, .motorcycle-hero-copy h1');
         const sections=[...document.querySelectorAll('.priority-model-brief')];
         const commercial=sections.find(section=>/price, monthly payment and alternatives/i.test(section.querySelector('h2')?.textContent||''));
         const links=[...document.querySelectorAll('a')].map(a=>a.getAttribute('href')||'');
