@@ -50,6 +50,7 @@ export const recommendationLeadQuestions: Record<string, string> = {
   "155cc-scooters-philippines": "Which scooters have exactly 155cc recorded displacement?",
   "160cc-scooters-philippines": "Which 160cc-class scooters can riders compare?",
   "automatic-motorcycles-philippines": "Which automatic motorcycles can riders compare?",
+  "manual-motorcycles-philippines": "Which manual-transmission motorcycles can riders compare?",
   "motorcycles-under-80k": "Which motorcycles cost below ₱80,000?",
   "motorcycles-150k-to-250k": "Which motorcycles are listed from ₱150,000 to ₱250,000?",
   "suzuki-burgman-motorcycles-philippines": "Which Suzuki Burgman models can riders compare?",
