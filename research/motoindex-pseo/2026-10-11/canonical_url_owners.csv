@@ -1,0 +1,14 @@
+Intent owner,Preferred canonical path,Coverage,Rule
+Motorcycle tire-size chart,/tires#size-chart,Existing main,Old /tires/motorcycle-tire-size-chart redirects here
+Yamaha Aerox tire sizes,/tires/aerox-tire-size,Existing main,V2/V3 source-backed; V1 unverified
+Yamaha NMAX tire sizes,/tires/nmax-tire-size,Existing main,V2/V3 source-backed; V1 unverified
+Honda Click tire sizes,/tires/honda-click-tire-size,Existing main,Generation differences on single family hub
+Honda ADV160 tire size,/tires/adv-160-tire-size,Existing main,Exact model fitment
+Honda Click 160 maintenance,/motorcycles/honda/click-160#maintenance,Draft PR #479,Parent-model first; no thin /maintenance alias
+Honda PCX 160 maintenance,/motorcycles/honda/pcx-160#maintenance,Draft PR #479,Parent-model first
+Honda ADV 160 maintenance,/motorcycles/honda/adv-160#maintenance,Draft PR #479,Parent-model first
+Yamaha NMAX V3 maintenance,/motorcycles/yamaha/nmax-v3#maintenance,Draft PR #479,Regional-manual caveats must be visible
+Yamaha Aerox V3 maintenance,/motorcycles/yamaha/aerox-v3#maintenance,Draft PR #479,Regional-manual caveats must be visible
+Suzuki Raider R150 FI spark plug,/motorcycles/suzuki/raider-r150/spark-plug,Draft PR #478,Exact FI manual and independent intent
+LTO renewal,/ownership/registration-renewal,Existing main,Refresh existing legal source
+Top-box compatibility,/accessories/top-box,Existing main,Do not claim fitment without SKU evidence
