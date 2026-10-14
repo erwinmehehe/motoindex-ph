@@ -27,15 +27,6 @@
     "enabled": true
   },
   "build": {
-    "command": "node scripts/ensure-cloudflare-worker.mjs",
-    "watch_dir": [
-      "app",
-      "components",
-      "lib",
-      "public",
-      "next.config.mjs",
-      "open-next.config.ts",
-      "package.json"
-    ]
+    "command": "node scripts/ensure-cloudflare-worker.mjs"
   }
 }
