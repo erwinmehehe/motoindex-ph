@@ -78,7 +78,14 @@ export async function POST(request: Request) {
     where: { modelExternalId: model.id, mobile, createdAt: { gte: duplicateSince } },
     orderBy: { createdAt: "desc" }
   });
-  if (duplicate) return NextResponse.json({ ok: true, queued: true, message: "If your earlier request was received, it remains in the queue. Keep your original private status link; contact MotoIndex support if you lost it." });
+  if (duplicate) {
+    // A matching phone number and model do not establish ownership.
+    // Never rotate or disclose the existing buyer's private status token.
+    return NextResponse.json(
+      { ok: true, queued: true, message: "If your earlier request was received, it remains in the queue. Keep your original private status link; contact MotoIndex support if you lost it." },
+      { headers: { "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" } }
+    );
+  }
 
   const buyerAccessToken = actionToken();
   const buyerAccessExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
@@ -131,5 +138,5 @@ export async function POST(request: Request) {
     message: matched.length
       ? `Request saved and matched with ${matched.length} verified dealer partner${matched.length === 1 ? "" : "s"} covering your area. MotoIndex reviews the handoff before any buyer details are shared.`
       : "Request saved. No verified dealer partner is currently available to receive this request in your area, so your details have not been shared with a dealer."
-  }, { status: 201 });
+  }, { status: 201, headers: { "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" } });
 }
