@@ -60,7 +60,7 @@ describe("PostgreSQL affiliate destination migration (runner-local only)", () =>
         run("sudo", [
           "-u", "postgres", "psql", "-X", "-v", "ON_ERROR_STOP=1",
           "-h", "/var/run/postgresql", "-d", "postgres", "-c", statement
-        ], { env: { PATH: process.env.PATH, HOME: "/tmp" } });
+        ], { env: { PATH: process.env.PATH, HOME: "/tmp", NODE_ENV: "test" } });
       const localEnv = {
         ...process.env,
         DATABASE_URL: localUrl,
@@ -76,7 +76,7 @@ describe("PostgreSQL affiliate destination migration (runner-local only)", () =>
       try {
         if (!existsSync(cli)) throw new Error("Prisma CLI not installed.");
         run("sudo", ["systemctl", "start", "postgresql.service"], {
-          env: { PATH: process.env.PATH, HOME: "/tmp" },
+          env: { PATH: process.env.PATH, HOME: "/tmp", NODE_ENV: "test" },
           timeout: 30_000
         });
         admin('CREATE ROLE "' + role + '" LOGIN PASSWORD ' + "'" + password + "'");
