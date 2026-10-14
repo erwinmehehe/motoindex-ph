@@ -5,6 +5,8 @@ import { AuthorBox } from "@/components/AuthorBox";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection } from "@/components/FaqSection";
 import { GuideFeaturedArt } from "@/components/GuideFeaturedArt";
+import { QuickAnswer } from "@/components/QuickAnswer";
+import { ArticleJumpLinks, articleSectionId } from "@/components/ArticleJumpLinks";
 import { JsonLd } from "@/components/JsonLd";
 import { RelatedLinks } from "@/components/RelatedLinks";
 import { SourceRef } from "@/components/SourceRef";
@@ -12,6 +14,8 @@ import { articleSchema } from "@/lib/articleSchema";
 import { editorialGuides, getEditorialGuide } from "@/lib/editorialGuides";
 import { getEditorialGuideMedia } from "@/lib/editorialGuideMedia";
 import { pageMetadata } from "@/lib/site";
+import { editorialLeadQuestions, leadQuestion } from "@/lib/aeoContent";
+import { faqPageSchema } from "@/lib/structuredData";
 
 const DEFAULT_GUIDE_IMAGE = "/brand/motoindex-og.png";
 
@@ -83,12 +87,13 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
     <header className="page-head">
       <span className="section-kicker">{guide.kicker}</span>
       <h1>{guide.title}</h1>
-      <p>{guide.intro}</p>
       <p className="article-meta">
         {guideMedia?.publishedAt && <>Published <time dateTime={guideMedia.publishedAt}>{readableDate(guideMedia.publishedAt)}</time> · </>}
         Last source check <time dateTime={guide.lastChecked}>{readableDate(guide.lastChecked)}</time>
       </p>
     </header>
+
+    <QuickAnswer question={leadQuestion(guide.slug, editorialLeadQuestions, guide.title)} answer={guide.intro} checkedAt={guide.lastChecked} />
 
     <figure className="info-card guide-hero-media">
       <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} />
@@ -107,8 +112,10 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
       </div>
     </section>
 
-    {guide.sections.map((section) => <section className="split section" key={section.heading}>
-      <div><h2>{section.heading}</h2>{section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+    <ArticleJumpLinks sections={guide.sections} />
+
+    {guide.sections.map((section, index) => <section className="split section" key={section.heading}>
+      <div><h2 id={articleSectionId(section.heading, index)}>{section.heading}</h2>{section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
       {section.bullets && <div className="info-card"><h3>Quick check</h3><ul className="checklist">{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul></div>}
     </section>)}
 
@@ -124,6 +131,6 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
     <FaqSection title="Frequently asked questions" items={guide.faqs} />
     <AuthorBox />
     <RelatedLinks title="Continue your research" links={guide.related} />
-    <JsonLd data={schema} />
+    <JsonLd data={[schema, faqPageSchema(guide.faqs)]} />
   </article>;
 }
