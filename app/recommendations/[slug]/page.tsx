@@ -15,6 +15,7 @@ import { GuideFeaturedArt } from "@/components/GuideFeaturedArt";
 import { QuickAnswer } from "@/components/QuickAnswer";
 import { recommendationLeadQuestions, leadQuestion } from "@/lib/aeoContent";
 import { faqPageSchema } from "@/lib/structuredData";
+import { preciseRecommendationFaq } from "@/lib/recommendationFaqDirect";
 import { answerAbsGuideQuestion } from "@/lib/absGuideFaq";
 import { JsonLd } from "@/components/JsonLd";
 import { RELEASE_DATE, absoluteUrl } from "@/lib/site";
@@ -378,6 +379,8 @@ function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide
     if(focused)return focused;
   }
   if(!models.length)return "No current models are available for this question.";
+  const precise=preciseRecommendationFaq(question,models);
+  if(precise)return precise;
   const price=[...models].sort((a,b)=>observedMarketRange(a).from-observedMarketRange(b).from);
   const seat=[...models].sort((a,b)=>a.seatHeightMm-b.seatHeightMm);
   const weight=[...models].sort((a,b)=>a.curbWeightKg-b.curbWeightKg);
