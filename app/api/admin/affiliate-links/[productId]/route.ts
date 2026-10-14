@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { validateRuntimeAffiliateUrl } from "@/lib/runtimeAffiliate";
 import { getAffiliateLink } from "@/lib/affiliate";
+import { requirePrivilegedApiAccess } from "@/lib/privilegedApiAccess";
 
 export const runtime="nodejs";
 
@@ -10,6 +11,8 @@ function clean(value:unknown,max=500){
 }
 
 export async function PUT(request:Request,{params}:{params:Promise<{productId:string}>}){
+  const denied = await requirePrivilegedApiAccess(request);
+  if(denied) return denied;
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Production database is not configured."},{status:503});
   const {productId}=await params;
   let body:Record<string,unknown>;
@@ -90,7 +93,9 @@ export async function PUT(request:Request,{params}:{params:Promise<{productId:st
   });
 }
 
-export async function DELETE(_request:Request,{params}:{params:Promise<{productId:string}>}){
+export async function DELETE(request:Request,{params}:{params:Promise<{productId:string}>}){
+  const denied = await requirePrivilegedApiAccess(request);
+  if(denied) return denied;
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Production database is not configured."},{status:503});
   const {productId}=await params;
   const existing=await prisma.affiliateProductLink.findUnique({where:{productId}});
