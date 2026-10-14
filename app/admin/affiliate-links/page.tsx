@@ -4,6 +4,7 @@ import { allCatalogProducts } from "@/lib/catalog";
 import { getAffiliateLink } from "@/lib/affiliate";
 import { sourcedShopeeProductListing, sourcedRetailerProductListing } from "@/lib/affiliateDestinations";
 import { getAffiliateResearchCandidate } from "@/lib/affiliateResearch";
+import { cloudflareAccessConfigured } from "@/lib/cloudflareAccess";
 import { validateRuntimeAffiliateUrl } from "@/lib/runtimeAffiliate";
 import { AffiliateLinkManager } from "@/components/AffiliateLinkManager";
 
@@ -59,6 +60,10 @@ export default async function AffiliateLinksAdmin(){
     };
   });
 
+  const mode = (process.env.ADMIN_ACCESS_MODE || (process.env.NODE_ENV === "production" ? "cloudflare" : "basic")).trim().toLowerCase();
+  const researchExportAvailable = process.env.NODE_ENV !== "production" ||
+    ((mode === "cloudflare" || mode === "cloudflare-access") && cloudflareAccessConfigured());
+
   return <section className="page shell">
     <div className="page-head">
       <h1>Affiliate link manager</h1>
@@ -66,6 +71,6 @@ export default async function AffiliateLinksAdmin(){
       <div className="hero-actions"><a className="button ghost small" href="/admin/data-health">Data health</a><a className="button ghost small" href="/affiliate-disclosure" target="_blank">Affiliate disclosure ↗</a></div>
     </div>
     <div className="note-box"><h2>Publication rule</h2><p>Only product-specific HTTPS Shopee or Involve Asia links may be activated. Shared homepages and known generic shortlinks are blocked. Verify each final landing product before approval. An explicit database Disabled record blocks older JSON/environment fallbacks for that product.</p></div>
-    <AffiliateLinkManager rows={rows} databaseConfigured={databaseReady}/>
+    <AffiliateLinkManager rows={rows} databaseConfigured={databaseReady} researchExportAvailable={researchExportAvailable}/>
   </section>;
 }
