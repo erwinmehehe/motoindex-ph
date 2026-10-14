@@ -1,6 +1,7 @@
 import { allCatalogProducts } from "@/lib/catalog";
 import { sourcedRetailerProductListing, sourcedShopeeProductListing } from "@/lib/affiliateDestinations";
 import { getAffiliateResearchCandidate } from "@/lib/affiliateResearch";
+import { requirePrivilegedApiAccess } from "@/lib/privilegedApiAccess";
 
 export const dynamic = "force-dynamic";
 
@@ -15,7 +16,10 @@ function csvCell(value: string): string {
  * Includes unreviewed candidates AND still-unmatched catalog products.
  * Never exports an assumed tracking URL, stock level or commission result.
  */
-export function GET() {
+export async function GET(request: Request) {
+  // Independent of middleware: a rewrite must not expose the admin research queue.
+  const denied = await requirePrivilegedApiAccess(request);
+  if (denied) return denied;
   const header = ["productId", "category", "brand", "model", "researchStatus", "candidateUrl", "researchDate", "nextAction"];
   const rows = allCatalogProducts()
     .filter((product) => !sourcedShopeeProductListing(product.id) && !sourcedRetailerProductListing(product.id))
@@ -39,7 +43,8 @@ export function GET() {
       "Content-Type": "text/csv; charset=utf-8",
       "Content-Disposition": 'attachment; filename="motoindex-affiliate-research-queue.csv"',
       "Cache-Control": "private, no-store",
-      "X-Robots-Tag": "noindex, nofollow"
+      "X-Robots-Tag": "noindex, nofollow, noarchive",
+      "Referrer-Policy": "no-referrer"
     }
   });
 }
