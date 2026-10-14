@@ -39,7 +39,7 @@ export default async function AffiliateLinksAdmin(){
   }
   const rows=allCatalogProducts().map(product=>{
     const db=byId.get(product.id);
-    const checked=db?.status==="active"?validateRuntimeAffiliateUrl(product.id,db.url):null;
+    const checked=db?.status==="active"?validateRuntimeAffiliateUrl(product.id,db.url,db.destinationUrl||undefined):null;
     const fallback=getAffiliateLink(product.id);
     return {
       ...product,
@@ -47,6 +47,7 @@ export default async function AffiliateLinksAdmin(){
       researchCandidate:getAffiliateResearchCandidate(product.id),
       dbLink:db?{
         url:db.url,
+        destinationUrl:db.destinationUrl||"",
         network:db.network,
         status:db.status==="active"&&checked&&!checked.ok?"needs_review":db.status,
         validationError:checked&&!checked.ok?checked.error:undefined,
