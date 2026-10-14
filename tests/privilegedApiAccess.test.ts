@@ -76,6 +76,37 @@ describe("server-side privileged API gate", () => {
     await expect(requirePrivilegedApiAccess(request())).resolves.toBeNull();
   });
 
+  it("returns a protected CSV with formula-safe buyer and dealer text after signed Access verification", async () => {
+    mocks.verify.mockResolvedValue({ ok: true, email: "admin@example.com" });
+    mocks.leadFind.mockResolvedValue([{
+      createdAt: new Date("2026-10-01T00:00:00Z"),
+      status: "matched", make: "Honda", model: "Click", variant: null,
+      cityProvince: "Pampanga", purchaseType: "cash", downPaymentBudget: null,
+      fullName: "\t=HYPERLINK(1,2)", mobile: "09171234567",
+      email: "buyer@example.com", matchedSellerSlugs: ["test-dealer"],
+      sourcePath: "/get-quote/honda/click",
+      deliveries: [{
+        sellerName: "  +malicious", sellerSlug: "test-dealer",
+        dealerEmail: "dealer@example.com", status: "queued",
+        sharedAt: null, openedAt: null, expiresAt: null,
+        quoteResponse: { dealerNote: "@SUM(1,2)", submittedAt: null,
+          cashPricePhp: null, downPaymentPhp: null, monthlyPhp: null,
+          termMonths: null, availability: null, validUntil: null },
+      }],
+    }]);
+    const result = await exportDealerLeads(request());
+    expect(result.status).toBe(200);
+    expect(result.headers.get("Cache-Control")).toBe("no-store");
+    expect(result.headers.get("Content-Type")).toContain("text/csv");
+    const csv = await result.text();
+    expect(csv).toContain('"\'\t=HYPERLINK(1,2)"');
+    expect(csv).toContain('"\'  +malicious"');
+    expect(csv).toContain('"\'@SUM(1,2)"');
+    expect(csv).toContain('"Honda"');
+    expect(csv).not.toContain('"=HYPERLINK');
+    expect(mocks.leadFind).toHaveBeenCalledTimes(1);
+  });
+
   it("keeps local and test-only route authorization with middleware unchanged", async () => {
     vi.stubEnv("NODE_ENV", "test");
     await expect(requirePrivilegedApiAccess(request())).resolves.toBeNull();
