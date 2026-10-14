@@ -83,3 +83,11 @@ The public click route logs a product-level outbound event only for valid active
 ## Editorial and safety rule
 
 MotoIndex should never describe a generic marketplace page as the exact item's purchase offer. For Shopee product sources, a URL must point to a specific listing such as `-i.<shopId>.<itemId>` or `/product/<shopId>/<itemId>`. Seller, price, variations and availability can change. Disclosure and retailer-quality review remain necessary.
+
+## Exact product redirect verification (October 2026)
+
+The user-facing `/go/affiliate/gille-kerena-ff007/shopee` path now redirects to the exact Shopee source listing when there is no valid product-specific commission-tracked link. That fallback is **not an affiliate link** and cannot be counted as commission. Global store, universal-link and keyword-search destinations are not offered as exact products.
+
+To activate a genuine Involve Asia tracking URL, apply Prisma migration `20261009120000_add_affiliate_exact_destination` and open `/admin/affiliate-links`. Store both the generated shortlink and the **original exact-product destination URL**, then open the shortlink in a browser and verify it lands on that exact item. This human check is necessary: an opaque shortlink alone cannot prove its real redirect. Direct Shopee item URLs work without a second destination URL, but only the affiliate provider can establish whether a given link earns commission.
+
+Bulk uploads now support product ID, tracking URL, exact product URL and review note. Existing opaque shortcuts without destination evidence will be hidden until reviewed. The generator no longer uses search-page fallbacks; existing generated tracking links are reused only when their stored destination matches the exact requested item.

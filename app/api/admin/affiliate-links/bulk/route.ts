@@ -1,12 +1,15 @@
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { validateRuntimeAffiliateUrl } from "@/lib/runtimeAffiliate";
+import { requirePrivilegedApiAccess } from "@/lib/privilegedApiAccess";
 
 export const runtime="nodejs";
 
 function clean(value:unknown,max=1000){return typeof value==="string"?value.trim().slice(0,max):"";}
 
 export async function POST(request:Request){
+  const denied = await requirePrivilegedApiAccess(request);
+  if(denied) return denied;
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Production database is not configured."},{status:503});
   let body:Record<string,unknown>;
   try{body=await request.json();}catch{return NextResponse.json({ok:false,error:"Invalid request."},{status:400});}
@@ -22,36 +25,42 @@ export async function POST(request:Request){
     const productId=clean(row.productId,120);
     const url=clean(row.url,1200);
     const reviewNote=clean(row.reviewNote,1000);
-    const checked=validateRuntimeAffiliateUrl(productId,url);
+    const destinationUrl=clean(row.destinationUrl,1200);
+    const checked=validateRuntimeAffiliateUrl(productId,url,destinationUrl||undefined);
     if(!checked.ok){issues.push(`Row ${index+1} (${productId||"no product ID"}): ${checked.error}`);continue;}
     if(reviewNote.length<5){issues.push(`Row ${index+1} (${productId}): review note is too short.`);continue;}
-    prepared.push({productId,url:checked.url,network:checked.network,reviewNote});
+    prepared.push({productId,url:checked.url,destinationUrl:checked.destinationUrl,network:checked.network,reviewNote});
   }
 
-  const uploadUrls=new Map<string,string>();
+  const targetOwners=new Map<string,string>();
   for(const row of prepared){
-    const previous=uploadUrls.get(row.url);
-    if(previous && previous!==row.productId)
-      issues.push(`Tracked URL is shared by ${previous} and ${row.productId}.`);
-    else uploadUrls.set(row.url,row.productId);
+    for(const value of [row.url,row.destinationUrl]){
+      const previous=targetOwners.get(value);
+      if(previous&&previous!==row.productId)issues.push(`The same tracking or destination URL is assigned to both ${previous} and ${row.productId}.`);
+      else targetOwners.set(value,row.productId);
+    }
   }
   if(issues.length)return NextResponse.json({ok:false,error:"Bulk validation failed.",issues},{status:400});
 
   try{
     const existing=await prisma.affiliateProductLink.findMany({
-      where:{status:"active",url:{in:prepared.map(row=>row.url)}},
-      select:{productId:true,url:true}
+      where:{status:"active",OR:[
+        {url:{in:prepared.map(row=>row.url)}},
+        {destinationUrl:{in:prepared.map(row=>row.destinationUrl)}}
+      ]},
+      select:{productId:true,url:true,destinationUrl:true}
     });
     for(const row of prepared){
-      const duplicate=existing.find(item=>item.productId!==row.productId && item.url===row.url);
-      if(duplicate)issues.push(`Product ${row.productId}: link already used by ${duplicate.productId}.`);
+      const conflict=existing.find(entry=>entry.productId!==row.productId &&
+        (entry.url===row.url||entry.destinationUrl===row.destinationUrl||entry.url===row.destinationUrl||entry.destinationUrl===row.url));
+      if(conflict)issues.push(`Product ${row.productId}: exact item or tracking URL already belongs to ${conflict.productId}.`);
     }
-    if(issues.length)return NextResponse.json({ok:false,error:"Existing product destination conflicts.",issues},{status:409});
+    if(issues.length)return NextResponse.json({ok:false,error:"Bulk destination conflict.",issues},{status:409});
 
     await prisma.$transaction(prepared.map(row=>prisma.affiliateProductLink.upsert({
       where:{productId:row.productId},
-      update:{merchant:"shopee",network:row.network,url:row.url,status:"active",reviewNote:row.reviewNote,approvedAt:new Date()},
-      create:{productId:row.productId,merchant:"shopee",network:row.network,url:row.url,status:"active",reviewNote:row.reviewNote,approvedAt:new Date()}
+      update:{merchant:"shopee",network:row.network,url:row.url,destinationUrl:row.destinationUrl,status:"active",reviewNote:row.reviewNote,approvedAt:new Date()},
+      create:{productId:row.productId,merchant:"shopee",network:row.network,url:row.url,destinationUrl:row.destinationUrl,status:"active",reviewNote:row.reviewNote,approvedAt:new Date()}
     })));
   }catch{
     return NextResponse.json({ok:false,error:"Bulk affiliate write failed. Apply the latest Prisma migration and try again."},{status:503});

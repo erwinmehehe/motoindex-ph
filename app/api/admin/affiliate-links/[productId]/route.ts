@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { validateRuntimeAffiliateUrl } from "@/lib/runtimeAffiliate";
 import { getAffiliateLink } from "@/lib/affiliate";
+import { requirePrivilegedApiAccess } from "@/lib/privilegedApiAccess";
 
 export const runtime="nodejs";
 
@@ -10,6 +11,8 @@ function clean(value:unknown,max=500){
 }
 
 export async function PUT(request:Request,{params}:{params:Promise<{productId:string}>}){
+  const denied = await requirePrivilegedApiAccess(request);
+  if(denied) return denied;
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Production database is not configured."},{status:503});
   const {productId}=await params;
   let body:Record<string,unknown>;
@@ -18,29 +21,49 @@ export async function PUT(request:Request,{params}:{params:Promise<{productId:st
   let url=clean(body.url,1200);
   const status=body.status==="disabled"?"disabled":"active";
   const reviewNote=clean(body.reviewNote,1000);
-  if(!url&&status==="disabled"){
-    const existing=await prisma.affiliateProductLink.findUnique({where:{productId}});
-    url=existing?.url||getAffiliateLink(productId)?.url||"";
-  }
-  const checked=validateRuntimeAffiliateUrl(productId,url);
-  if(!checked.ok)return NextResponse.json({ok:false,error:status==="disabled"&&!url?"No existing affiliate destination is available to disable.":checked.error},{status:400});
+  const destinationUrl=clean(body.destinationUrl,1200);
   if(reviewNote.length<5)return NextResponse.json({ok:false,error:"Add a short review note before saving the affiliate destination."},{status:400});
+
+  // Let administrators disable an invalid old shortcut without first
+  // certifying the obsolete link as a product-specific destination.
+  if(status==="disabled"){
+    const existing=await prisma.affiliateProductLink.findUnique({where:{productId}});
+    if(existing){
+      const row=await prisma.affiliateProductLink.update({
+        where:{productId},data:{status:"disabled",approvedAt:null,reviewNote}
+      });
+      return NextResponse.json({ok:true,productId:row.productId,merchant:row.merchant,network:row.network,status:row.status,approvedAt:null});
+    }
+    const fallback=getAffiliateLink(productId);
+    if(!fallback)return NextResponse.json({ok:false,error:"There is no active affiliate link to disable for this product."},{status:404});
+    url=fallback.url;
+    const checked=validateRuntimeAffiliateUrl(productId,url,destinationUrl||fallback.destinationUrl);
+    if(!checked.ok)return NextResponse.json({ok:false,error:checked.error},{status:400});
+    const row=await prisma.affiliateProductLink.create({
+      data:{productId,merchant:"shopee",network:checked.network,url:checked.url,destinationUrl:checked.destinationUrl,status:"disabled",reviewNote,approvedAt:null}
+    });
+    return NextResponse.json({ok:true,productId:row.productId,merchant:row.merchant,network:row.network,status:row.status,approvedAt:null});
+  }
+  const checked=validateRuntimeAffiliateUrl(productId,url,destinationUrl||undefined);
+  if(!checked.ok)return NextResponse.json({ok:false,error:checked.error},{status:400});
 
   let row;
   try{
-    if(status==="active"){
-      const duplicate=await prisma.affiliateProductLink.findFirst({
-        where:{productId:{not:productId},status:"active",url:checked.url},
-        select:{productId:true}
-      });
-      if(duplicate)return NextResponse.json({ok:false,error:"Tracking URL already belongs to another product: "+duplicate.productId},{status:409});
-    }
+    const conflict=await prisma.affiliateProductLink.findFirst({
+      where:{productId:{not:productId},status:"active",OR:[
+        {url:checked.url},
+        {destinationUrl:checked.destinationUrl}
+      ]},
+      select:{productId:true}
+    });
+    if(conflict) return NextResponse.json({ok:false,error:"The tracked URL or exact item is already assigned to another product: "+conflict.productId},{status:409});
     row=await prisma.affiliateProductLink.upsert({
     where:{productId},
     update:{
       merchant:"shopee",
       network:checked.network,
       url:checked.url,
+      destinationUrl:checked.destinationUrl,
       status,
       reviewNote,
       approvedAt:status==="active"?new Date():null
@@ -50,6 +73,7 @@ export async function PUT(request:Request,{params}:{params:Promise<{productId:st
       merchant:"shopee",
       network:checked.network,
       url:checked.url,
+      destinationUrl:checked.destinationUrl,
       status,
       reviewNote,
       approvedAt:status==="active"?new Date():null
@@ -69,7 +93,9 @@ export async function PUT(request:Request,{params}:{params:Promise<{productId:st
   });
 }
 
-export async function DELETE(_request:Request,{params}:{params:Promise<{productId:string}>}){
+export async function DELETE(request:Request,{params}:{params:Promise<{productId:string}>}){
+  const denied = await requirePrivilegedApiAccess(request);
+  if(denied) return denied;
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Production database is not configured."},{status:503});
   const {productId}=await params;
   const existing=await prisma.affiliateProductLink.findUnique({where:{productId}});
