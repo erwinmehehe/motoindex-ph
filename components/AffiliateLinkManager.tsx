@@ -90,7 +90,7 @@ function AffiliateRow({row}:{row:ProductRow}){
   </article>;
 }
 
-export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[];databaseConfigured:boolean}){
+export function AffiliateLinkManager({rows,databaseConfigured,researchExportAvailable=false}:{rows:ProductRow[];databaseConfigured:boolean;researchExportAvailable?:boolean}){
   // This admin-only route is intentionally excluded from the public internal-link audit.
   const researchExportHref="/admin/affiliate-links/research.csv";
   const [query,setQuery]=useState("");
@@ -191,7 +191,7 @@ export function AffiliateLinkManager({rows,databaseConfigured}:{rows:ProductRow[
       </select></label>
       <small>{filtered.length} products shown</small>
     </div>
-    <p className="affiliate-source-note"><a href={researchExportHref}>Download outstanding research queue (CSV) ↗</a> · Includes pending candidates and unmatched products, not commission-tracked links.</p>
+    <p className="affiliate-source-note">{researchExportAvailable ? <><a href={researchExportHref}>Download outstanding research queue (CSV) ↗</a> · Includes pending candidates and unmatched products, not commission-tracked links.</> : <>Research export requires signed administrative Access in production. Candidate records remain pending and are not active affiliate links.</>}</p>
 
     <div className="affiliate-admin-list">{filtered.map(row=><AffiliateRow key={row.id} row={row}/>)}</div>
   </div>;
