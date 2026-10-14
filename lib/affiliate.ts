@@ -199,7 +199,7 @@ function readAffiliateMap(): { links: Record<string, AffiliateLinkConfig[]>; iss
     const valid = records.filter(record => {
       const targets = [record.url, record.destinationUrl].filter((v): v is string => Boolean(v));
       const repeated = targets.some(target => collisions.has(record.merchant + "|" + target));
-      if (repeated) issues.push({ productId: id, message: "This exact item or affiliate tracking URL is assigned to multiple products and requires separate review." });
+      if (repeated) issues.push({ productId: id, message: "Affiliate link or exact item is shared across multiple product IDs and needs review." });
       return !repeated;
     });
     if (valid.length) safe[id] = valid;
