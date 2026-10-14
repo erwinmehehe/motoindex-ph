@@ -4,12 +4,12 @@
 
 The external **Workers Builds: motoindex-ph** GitHub check reported failure on both the then-current `main` commit `4b8494d` and AEO draft PR #486 at `2402293`. At the same commits, the separate **Cloudflare Runtime Compatibility** GitHub Actions workflow built the OpenNext Worker and passed `wrangler deploy --dry-run` and Worker route QA. This does **not** establish the specific external failure, since Workers Builds logs and dashboard trigger configuration were not accessible from the GitHub connection.
 
-GitHub dry-run (successful, PR #486): `Total Upload: 20792.32 KiB / gzip: 3275.14 KiB`. Cloudflare's September 2026 limit is 64 MiB uncompressed across plans, so this measured bundle is below the published Worker size limit.
+GitHub dry-run (successful, before this fix, PR #486): `Total Upload: 20792.32 KiB / gzip: 3275.14 KiB`. Cloudflare's September 2026 limit is 64 MiB uncompressed across plans, so this measured bundle is below the published Worker size limit.
 
 ## Repository-side compatibility fix
 
 - `.node-version` pins Cloudflare to Node 22.23.2, matching the Node 22 major version used in GitHub Actions, instead of Cloudflare's new Node 24 default.
-- `wrangler.jsonc` uses a custom `build.command` to ensure `.open-next/worker.js` exists before Wrangler deploys. If OpenNext already ran, it is a no-op. If only `next build` ran, it runs the adapter's `--skipNextBuild` conversion. On a clean checkout with neither artifact, it runs the full `npm run cf:build`.
+- `wrangler.jsonc` uses a custom `build.command` to ensure `.open-next/worker.js` exists before Wrangler deploys. If OpenNext already ran, it is a no-op. Otherwise it runs the full `npm run cf:build`, including the framework build, because plain `next build` output lacks the standalone manifest required by OpenNext's `--skipNextBuild` mode.
 - `cloudflare-runtime-compat.yml` now exercises the incomplete-build case in a clean PR checkout: plain `npm run build` followed by `wrangler deploy --dry-run`. The test is successful only when OpenNext produces a real Worker and local Worker route QA succeeds.
 
 These repository changes may fix a missing-entrypoint failure, but do **not** override Cloudflare account-level authentication, Build trigger settings or previews.
