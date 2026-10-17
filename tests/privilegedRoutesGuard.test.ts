@@ -35,6 +35,15 @@ describe("privileged routes fail closed even if middleware is bypassed", () => {
     });
   }
 
+  it("also protects the dealer-lead CSV export merged in #487", () => {
+    const source = readFileSync(new URL("../app/api/admin/dealer-leads/export/route.ts", import.meta.url), "utf8");
+    const access = source.indexOf("const denied = await requirePrivilegedApiAccess(request)");
+    const query = source.indexOf("prisma.dealerLead.findMany");
+    expect(access).toBeGreaterThan(0);
+    expect(query).toBeGreaterThan(access);
+    expect(source).toContain("if (denied) return denied;");
+  });
+
   it("does not fall back to administrative Basic Auth in production", () => {
     const source = readFileSync(new URL("../middleware.ts", import.meta.url), "utf8");
     expect(source).toContain('process.env.NODE_ENV === "production" ? "cloudflare" : "basic"');
