@@ -60,10 +60,11 @@ export async function getRuntimeAffiliateLinks(productId:string):Promise<Affilia
         if(!checked.ok)return fallback;
         // Protect pre-existing records that may have been imported with a
         // shared shortlink before item-level validation existed.
+        const targets=[...new Set([checked.url,checked.destinationUrl])];
         const duplicate=await prisma.affiliateProductLink.findFirst({
           where:{productId:{not:productId},status:"active",OR:[
-            {url:checked.url},
-            {destinationUrl:checked.destinationUrl}
+            {url:{in:targets}},
+            {destinationUrl:{in:targets}}
           ]},
           select:{productId:true}
         });
