@@ -30,6 +30,18 @@ describe("public form Turnstile verification", () => {
     await expect(verifyPublicFormChallenge("unused", "buyer_quote")).resolves.toMatchObject({ ok: false, status: 503 });
   });
 
+  it("fails closed with Cloudflare's public test credentials even when the verification endpoint could be contacted", async () => {
+    configure();
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    vi.stubEnv("NEXT_PUBLIC_TURNSTILE_SITE_KEY", "1x00000000000000000000AA");
+    await expect(verifyPublicFormChallenge("test-token", "buyer_quote")).resolves.toMatchObject({ ok: false, status: 503 });
+    vi.stubEnv("NEXT_PUBLIC_TURNSTILE_SITE_KEY", "actual-production-widget-placeholder");
+    vi.stubEnv("TURNSTILE_SECRET_KEY", "1x0000000000000000000000000000000AA");
+    await expect(verifyPublicFormChallenge("test-token", "buyer_quote")).resolves.toMatchObject({ ok: false, status: 503 });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it("requires a nonempty token when configured", async () => {
     configure();
     await expect(verifyPublicFormChallenge("", "dealer_application")).resolves.toMatchObject({ ok: false, status: 400 });

@@ -6,6 +6,22 @@ export async function verifyPublicFormChallenge(value: unknown, action: PublicFo
   const secret = (process.env.TURNSTILE_SECRET_KEY || "").trim();
   const siteKey = (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "").trim();
   const required = process.env.NODE_ENV === "production" || process.env.REQUIRE_FORM_BOT_PROTECTION === "true";
+  // Cloudflare's public dummy credentials are intended for tests; a production
+  // runtime must not accept them even if deployment preflight was bypassed.
+  const cloudflareTestSiteKeys = new Set([
+    "1x00000000000000000000AA", "2x00000000000000000000AB",
+    "1x00000000000000000000BB", "2x00000000000000000000BB",
+    "3x00000000000000000000FF"
+  ]);
+  const cloudflareTestSecretKeys = new Set([
+    "1x0000000000000000000000000000000AA",
+    "2x0000000000000000000000000000000AA",
+    "3x0000000000000000000000000000000AA"
+  ]);
+  if (process.env.NODE_ENV === "production" &&
+      (cloudflareTestSiteKeys.has(siteKey) || cloudflareTestSecretKeys.has(secret))) {
+    return { ok: false, status: 503, error: "Spam protection is temporarily unavailable." };
+  }
 
   // Local tests and development are not forced to use external Cloudflare credentials.
   if (!required && !secret && !siteKey) return { ok: true };
