@@ -82,14 +82,18 @@ export function researchPriceSegments() {
 export function researchBrandPriceBenchmarks(minModels = 3) {
   const groups = new Map<string, ReturnType<typeof researchPriceRows>>();
   for (const row of researchPriceRows()) {
-    const existing = groups.get(row.model.make) || [];
+    // makeSlug is the stable brand identity; display casing can vary by record.
+    const key = row.model.makeSlug.toLowerCase();
+    const existing = groups.get(key) || [];
     existing.push(row);
-    groups.set(row.model.make, existing);
+    groups.set(key, existing);
   }
 
   return [...groups.entries()]
     .filter(([, rows]) => rows.length >= minModels)
-    .map(([make, rows]) => {
+    .map(([, rows]) => {
+      const makeSlug = rows[0].model.makeSlug;
+      const make = makeSlug === "kymco" ? "KYMCO" : rows[0].model.make;
       const values = rows.map((row) => row.fromPhp);
       return {
         make,

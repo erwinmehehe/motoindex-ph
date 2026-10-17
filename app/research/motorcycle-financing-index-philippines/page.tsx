@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { AuthorBox } from "@/components/AuthorBox";
+import { QuickAnswer } from "@/components/QuickAnswer";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { latestResearchCheck, median, researchDealerFinancingRows, researchFinancingRows } from "@/lib/researchData";
 import { php } from "@/lib/utils";
@@ -45,6 +46,8 @@ export default function MotorcycleFinancingIndexPage() {
       <h1>Motorcycle downpayment and monthly payment Philippines</h1>
       <p>Compare one standardized financing scenario across current motorcycles tracked by MotoIndex. Every row uses the model&apos;s published starting-price reference, 20% down, 36 months and a 12% annual amortizing-rate assumption.</p>
     </div>
+
+    <QuickAnswer question="How can you compare motorcycle down payments and monthly estimates?" answer={`MotoIndex applies the same 20% down payment, 36-month term and 12% annual amortizing-rate assumption to ${rows.length} current motorcycle price references. The dataset median estimated monthly payment is ${php(medianMonthly)} under those assumptions. These are planning calculations, not lender offers, and exclude insurance and processing charges.`} checkedAt={checkedAt} />
 
     <div className="entity-price-grid">
       <article><span>Current models compared</span><strong>{rows.length}</strong><small>Current, indexable motorcycle records</small></article>

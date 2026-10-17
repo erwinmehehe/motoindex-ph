@@ -4,6 +4,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection } from "@/components/FaqSection";
 import { AuthorBox } from "@/components/AuthorBox";
 import { JsonLd } from "@/components/JsonLd";
+import { QuickAnswer } from "@/components/QuickAnswer";
+import { faqPageSchema } from "@/lib/structuredData";
 import { articleSchema } from "@/lib/articleSchema";
 import { electricModelHref, electricMotorcycles, php } from "@/lib/electricMotorcycles";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
@@ -43,6 +45,15 @@ export default function ElectricMotorcyclesPage() {
     }))
   };
 
+  const faqItems = [
+      {question:"Do electric motorcycles need LTO registration in the Philippines?",answer:"The VinFast Evo, Feliz II and Viper in the current MotoIndex set are classified by LTO as L3 motorcycles without sidecars and follow motorcycle registration requirements. Rules differ for other electric vehicle categories."},
+      {question:"How much does an electric motorcycle cost in the Philippines?",answer:`The current verified models start at ${php(byPrice[0].priceFromPhp)}. Battery subscription, one-battery and two-battery purchase options can produce different final prices.`},
+      {question:"What electric scooters are available in the Philippines?",answer:"MotoIndex currently tracks the VinFast Evo, Feliz II and Viper as road-going electric scooter-style motorcycles with LTO L3 classification evidence. Model availability, battery plans and seller terms should be confirmed before purchase."},
+      {question:"How far can an electric motorcycle travel on one charge?",answer:`The current model pages list manufacturer claims of ${Math.min(...electricMotorcycles.map(m=>m.rangeOneKm))}–${Math.max(...electricMotorcycles.map(m=>m.rangeOneKm))} km with one battery and ${Math.min(...electricMotorcycles.map(m=>m.rangeTwoKm))}–${Math.max(...electricMotorcycles.map(m=>m.rangeTwoKm))} km with two batteries. Real range can be lower.`},
+      {question:"Is an e-bike the same as an electric motorcycle?",answer:"No. The legal category depends on the exact vehicle classification and performance, not only the seller's label. Check the LTO classification before buying."},
+      {question:"Is an electric motorcycle always cheaper to run?",answer:"No. Electricity can cost less per kilometer in many scenarios, but purchase price, battery plan, charging losses, financing, maintenance and resale also affect total ownership cost."}
+    ];
+
   return <section className="page shell electric-master-page">
     <Breadcrumbs items={[{label:"Motorcycles",href:"/motorcycles"},{label:"Electric motorcycles"}]}/>
     <PageHero
@@ -51,6 +62,8 @@ export default function ElectricMotorcyclesPage() {
       description="Compare current verified Philippine electric scooters by price, battery setup, claimed range, charging time, LTO classification and ownership trade-offs. “Best” here means best matched to your use, not a universal ranking."
       actions={<CTAGroup><a className="button" href="#models">Compare electric models</a><Link className="button secondary" href="/tools/electric-motorcycle-charging-cost">Calculate charging cost</Link></CTAGroup>}
     />
+
+    <QuickAnswer question="How much do electric scooters and motorcycles cost in the Philippines?" answer={`MotoIndex currently compares ${electricMotorcycles.length} source-checked, road-going electric motorcycle records in the Philippines, with published starting prices from ${php(byPrice[0].priceFromPhp)}. Compare the exact battery plan, claimed range, charging time and registration classification before choosing. Manufacturer range figures are not guaranteed riding distances, and seller prices can change.`} checkedAt={checkedDates.filter(Boolean).sort().at(-1)} />
 
     <StatRow items={[
       { label: "Current verified models", value: String(electricMotorcycles.length), note: "Philippine records with checked evidence" },
@@ -186,14 +199,8 @@ export default function ElectricMotorcyclesPage() {
 
     <JsonLd data={schema}/>
     <JsonLd data={itemListSchema}/>
-    <div id="faq"><FaqSection title="Electric motorcycle questions" items={[
-      {question:"Do electric motorcycles need LTO registration in the Philippines?",answer:"The VinFast Evo, Feliz II and Viper in the current MotoIndex set are classified by LTO as L3 motorcycles without sidecars and follow motorcycle registration requirements. Rules differ for other electric vehicle categories."},
-      {question:"How much does an electric motorcycle cost in the Philippines?",answer:`The current verified models start at ${php(byPrice[0].priceFromPhp)}. Battery subscription, one-battery and two-battery purchase options can produce different final prices.`},
-      {question:"What electric scooters are available in the Philippines?",answer:"MotoIndex currently tracks the VinFast Evo, Feliz II and Viper as road-going electric scooter-style motorcycles with LTO L3 classification evidence. Model availability, battery plans and seller terms should be confirmed before purchase."},
-      {question:"How far can an electric motorcycle travel on one charge?",answer:`The current model pages list manufacturer claims of ${Math.min(...electricMotorcycles.map(m=>m.rangeOneKm))}–${Math.max(...electricMotorcycles.map(m=>m.rangeOneKm))} km with one battery and ${Math.min(...electricMotorcycles.map(m=>m.rangeTwoKm))}–${Math.max(...electricMotorcycles.map(m=>m.rangeTwoKm))} km with two batteries. Real range can be lower.`},
-      {question:"Is an e-bike the same as an electric motorcycle?",answer:"No. The legal category depends on the exact vehicle classification and performance, not only the seller's label. Check the LTO classification before buying."},
-      {question:"Is an electric motorcycle always cheaper to run?",answer:"No. Electricity can cost less per kilometer in many scenarios, but purchase price, battery plan, charging losses, financing, maintenance and resale also affect total ownership cost."}
-    ]}/></div>
+    <JsonLd data={faqPageSchema(faqItems)}/>
+    <div id="faq"><FaqSection title="Electric motorcycle questions" items={faqItems}/></div>
     <AuthorBox/>
   </section>;
 }

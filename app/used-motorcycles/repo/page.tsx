@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection } from "@/components/FaqSection";
+import { QuickAnswer } from "@/components/QuickAnswer";
+import { faqPageSchema } from "@/lib/structuredData";
 import { JsonLd } from "@/components/JsonLd";
 import { pageMetadata } from "@/lib/site";
 import { repoObservations, repoPriceRange, REPO_MARKET_CHECKED_AT, SB_FINANCE_REPO_CENTRAL_URL, SB_FINANCE_REPO_WAREHOUSE_URL } from "@/lib/repoMarket";
@@ -26,7 +28,9 @@ export default function RepoMotorcyclesPage(){
   const itemList={"@context":"https://schema.org","@type":"ItemList",name:"Repo motorcycle price observations in the Philippines",dateModified:REPO_MARKET_CHECKED_AT,itemListElement:repoObservations.map((x,i)=>({"@type":"ListItem",position:i+1,name:x.label,url:x.sourceUrl}))};
   return <section className="page shell">
     <Breadcrumbs items={[{label:"Used motorcycles",href:"/used-motorcycles"},{label:"Repo motorcycles"}]}/>
-    <div className="page-head"><h1>Repo motorcycle prices in the Philippines</h1><p>This is a price board based on current seller-published pages, not a MotoIndex marketplace. The current snapshot includes {range.count} advertised repo-unit price cards from {php(range.low)} to {php(range.high)}. Price, stock, mileage and condition can change by unit, so verify the exact seller record before paying.</p><small className="source-date">Source snapshot checked {REPO_MARKET_CHECKED_AT}</small></div>
+    <div className="page-head"><h1>Repo motorcycle prices in the Philippines</h1><small className="source-date">Source snapshot checked {REPO_MARKET_CHECKED_AT}</small></div>
+
+    <QuickAnswer question="What do repossessed motorcycles cost in the Philippines?" answer={`The current MotoIndex snapshot contains ${range.count} seller-advertised repo-unit price observations, from ${php(range.low)} to ${php(range.high)}. These are not MotoIndex marketplace offers or guaranteed current stock. Verify the exact unit, mileage, condition, paperwork and seller quote before paying.`} checkedAt={REPO_MARKET_CHECKED_AT} />
 
     <div className="note-box"><h2>What this page can and cannot tell you</h2><p>The table helps you compare advertised repo prices and jump into MotoIndex model research. It does <strong>not</strong> establish fair market value: repo condition, mileage, model year, variant, documents, financing terms and repair needs can materially change what a unit is worth.</p></div>
 
@@ -37,6 +41,6 @@ export default function RepoMotorcyclesPage(){
 
     <div className="source-ladder"><article><span>Primary price source</span><h2>SB Finance Repo Central</h2><p>Current repo price cards used for the table above.</p><div><a className="text-link" href={SB_FINANCE_REPO_CENTRAL_URL} target="_blank" rel="noreferrer">Open source ↗</a><small>Checked {REPO_MARKET_CHECKED_AT}</small></div></article><article><span>Seller guidance</span><h2>SB Finance repo warehouse</h2><p>Seller page covering repo financing, sample price ranges, warehouse information and unit caveats.</p><div><a className="text-link" href={SB_FINANCE_REPO_WAREHOUSE_URL} target="_blank" rel="noreferrer">Open source ↗</a><small>Checked {REPO_MARKET_CHECKED_AT}</small></div></article></div>
     <FaqSection title="Repo motorcycle questions" items={faqs}/>
-    <JsonLd data={itemList}/>
+    <JsonLd data={[itemList, faqPageSchema(faqs)]}/>
   </section>;
 }

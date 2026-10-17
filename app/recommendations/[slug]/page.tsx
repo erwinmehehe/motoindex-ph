@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { comparisons, getRecommendationGuide, getRecommendationModels, hasConfirmedAbs, recommendationGuides, isIndexableRecommendation } from "@/lib/data";
+import { comparisons, getRecommendationGuide, getRecommendationModels, getModelById, hasConfirmedAbs, recommendationGuides, isIndexableRecommendation } from "@/lib/data";
 import { GuideModelAnalysisCard } from "@/components/GuideModelAnalysisCard";
 import { EntityMedia } from "@/components/EntityMedia";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
@@ -12,6 +12,11 @@ import type { Motorcycle, RecommendationGuide, RecommendationQuickPickMetric, Re
 import { evaluateMotorcycle } from "@/lib/decisionEngine";
 import { GuideOwnershipCost } from "@/components/GuideOwnershipCost";
 import { GuideFeaturedArt } from "@/components/GuideFeaturedArt";
+import { QuickAnswer } from "@/components/QuickAnswer";
+import { recommendationLeadQuestions, leadQuestion } from "@/lib/aeoContent";
+import { faqPageSchema } from "@/lib/structuredData";
+import { preciseRecommendationFaq } from "@/lib/recommendationFaqDirect";
+import { answerAbsGuideQuestion } from "@/lib/absGuideFaq";
 import { JsonLd } from "@/components/JsonLd";
 import { RELEASE_DATE, absoluteUrl } from "@/lib/site";
 import { articleSchema } from "@/lib/articleSchema";
@@ -369,7 +374,13 @@ function sectionSummary(title:string,models:Motorcycle[]){
 
 function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide){
   const lower=question.toLowerCase();
+  if(guide.slug==="motorcycles-with-abs-philippines"){
+    const focused=answerAbsGuideQuestion(question,models,getModelById("honda-click-160"));
+    if(focused)return focused;
+  }
   if(!models.length)return "No current models are available for this question.";
+  const precise=preciseRecommendationFaq(question,models);
+  if(precise)return precise;
   const price=[...models].sort((a,b)=>observedMarketRange(a).from-observedMarketRange(b).from);
   const seat=[...models].sort((a,b)=>a.seatHeightMm-b.seatHeightMm);
   const weight=[...models].sort((a,b)=>a.curbWeightKg-b.curbWeightKg);
@@ -542,18 +553,7 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
         url: absoluteUrl(`/motorcycles/${m.makeSlug}/${m.slug}`)
       }))
     },
-    ...(faqItems.length ? [{
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: faqItems.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer
-        }
-      }))
-    }] : [])
+    ...(faqItems.length ? [faqPageSchema(faqItems)] : [])
   ];
 
   return <section className="page shell">
@@ -563,7 +563,7 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
       <div className="guide-hero-art">{coverModel ? <EntityMedia entityType="motorcycle" entityId={coverModel.id} priority sizes="(max-width: 700px) 90vw, 440px" showCredit={false} fallback={null} /> : <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker}/>}</div>
     </header>
     <nav className="guide-jump-links" aria-label="In this guide"><span>In this guide</span><a href="#quick-picks">Quick picks</a><a href="#comparison">Comparison</a><a href="#model-breakdowns">Model breakdowns</a><a href="#methodology">Methodology</a>{faqItems.length > 0 && <a href="#guide-faq">FAQs</a>}</nav>
-    <div className="guide-direct-answer"><p>{guide.directAnswer}</p><strong>Compare {models.length} motorcycle{models.length===1?"":"s"} that match this guide.</strong>{guide.slug === "best-scooters-philippines" && <Link href="/motorcycles/scooters">View the full Philippines scooter market, price list and engine-size hubs →</Link>}{brandScooterSlug && <><Link href="/motorcycles/scooters">Compare the full Philippines scooter price list →</Link><Link href={`/motorcycles/${brandScooterSlug}`}>Open the full {brandScooterSlug[0].toUpperCase()+brandScooterSlug.slice(1)} motorcycle price list →</Link></>}{guide.slug === "motorcycles-400cc-plus-philippines" && <Link href="/motorcycles/expressway-legal">Check the separate expressway-legal rule, borderline sub-400cc models and registration checks →</Link>}</div>
+    <div className="guide-direct-answer"><QuickAnswer variant="plain" question={leadQuestion(guide.slug,recommendationLeadQuestions,"What does this motorcycle guide compare?")} answer={guide.directAnswer} checkedAt={newestCheck} /><strong>Compare {models.length} motorcycle{models.length===1?"":"s"} that match this guide.</strong>{guide.slug === "best-scooters-philippines" && <Link href="/motorcycles/scooters">View the full Philippines scooter market, price list and engine-size hubs →</Link>}{brandScooterSlug && <><Link href="/motorcycles/scooters">Compare the full Philippines scooter price list →</Link><Link href={`/motorcycles/${brandScooterSlug}`}>Open the full {brandScooterSlug[0].toUpperCase()+brandScooterSlug.slice(1)} motorcycle price list →</Link></>}{guide.slug === "motorcycles-400cc-plus-philippines" && <Link href="/motorcycles/expressway-legal">Check the separate expressway-legal rule, borderline sub-400cc models and registration checks →</Link>}</div>
     {brandScooterSlug&&brandScooterPriorityModels.length>0&&<div className="guide-quick-picks" data-brand-scooter-commercial-links={brandScooterSlug}>
       <div className="section-head compact" data-guide-section-head><div><span className="section-kicker">Popular scooter research</span><h2>Check prices, variants and monthly-payment examples</h2><p>Open the model pages most useful for comparing current prices, trim differences and published dealer financing snapshots.</p></div></div>
       <div className="guide-pick-grid">
