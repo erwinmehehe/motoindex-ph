@@ -43,7 +43,7 @@ export const recommendationLeadQuestions: Record<string, string> = {
   "scrambler-motorcycles-philippines": "Which scrambler motorcycles can riders compare?",
   "125cc-motorcycles-philippines": "Which 125cc-class motorcycles can riders compare?",
   "motorcycles-below-150cc-philippines": "Which motorcycles have less than 150cc recorded displacement?",
-  "150cc-motorcycles-philippines": "Which 145cc–155cc motorcycles can riders compare in the Philippines?",
+  "150cc-motorcycles-philippines": "Which 140cc–155cc motorcycles can riders compare in the Philippines?",
   "business-motorcycles-philippines": "What motorcycles can riders compare for business use?",
   "street-motorcycles-philippines": "What road-focused motorcycles can riders compare?",
   "125cc-scooters-philippines": "Which 125cc-class scooters can riders compare?",
