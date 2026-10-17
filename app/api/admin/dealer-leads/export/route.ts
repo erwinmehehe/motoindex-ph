@@ -1,10 +1,13 @@
 import { safeCsvCell } from "@/lib/safeCsvCell";
+import { requirePrivilegedApiAccess } from "@/lib/privilegedApiAccess";
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 
 export const runtime="nodejs";
 
-export async function GET(){
+export async function GET(request: Request){
+  const denied = await requirePrivilegedApiAccess(request);
+  if (denied) return denied;
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Database unavailable."},{status:503});
 
   const leads=await prisma.dealerLead.findMany({
