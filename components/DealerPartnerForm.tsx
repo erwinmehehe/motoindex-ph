@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { dealerPlacementLabels, dealerPlacementPlans, type DealerPlacementTier } from "@/lib/dealerPlacements";
+import { PublicFormChallenge } from "@/components/PublicFormChallenge";
 
 type Result={ok:boolean;message?:string;error?:string};
 
@@ -13,6 +14,8 @@ export function DealerPartnerForm({defaultCity="",defaultProvince="",defaultPlan
   const [state,setState]=useState<"idle"|"sending"|"success"|"error">("idle");
   const [message,setMessage]=useState("");
   const [submittedPlan,setSubmittedPlan]=useState<DealerPlacementTier>(defaultPlan);
+  const [challengeToken,setChallengeToken]=useState("");
+  const [challengeResetKey,setChallengeResetKey]=useState(0);
 
   async function submit(event:React.FormEvent<HTMLFormElement>){
     event.preventDefault();
@@ -40,7 +43,8 @@ export function DealerPartnerForm({defaultCity="",defaultProvince="",defaultPlan
       sourcePath,
       notes:String(data.get("notes")||""),
       consent:data.get("consent")==="on",
-      websiteCheck:String(data.get("websiteCheck")||"")
+      websiteCheck:String(data.get("websiteCheck")||""),
+      turnstileToken:challengeToken
     };
     try{
       const response=await fetch("/api/dealer-partners",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
@@ -48,6 +52,7 @@ export function DealerPartnerForm({defaultCity="",defaultProvince="",defaultPlan
       if(!response.ok||!result.ok){setState("error");setMessage(result.error||"Application could not be saved.");return;}
       setState("success");setMessage(result.message||"Application received.");form.reset();
     }catch{setState("error");setMessage("Application could not be saved. Please try again.");}
+    finally{setChallengeToken("");setChallengeResetKey(value=>value+1);}
   }
 
   if(state==="success")return <div className="lead-form lead-form-success" aria-live="polite"><div className="lead-form-head"><span>Application received</span><h2>We saved your dealer application.</h2><p>{message}</p></div><small>{submittedPlan==="free"?"Your free listing application will now go through branch verification.":`${dealerPlacementLabels[submittedPlan]} interest was recorded. Paid placement is discussed only after verification and never changes verification status.`}</small></div>;
@@ -80,6 +85,7 @@ export function DealerPartnerForm({defaultCity="",defaultProvince="",defaultPlan
     </div>
 
     <label className="lead-consent"><input type="checkbox" name="consent" required/><span>I confirm that I am authorized to submit these branch details and agree that MotoIndex may store them, contact me about verification, and publish the business information if the branch is approved.</span></label>
+    <PublicFormChallenge action="dealer_application" onToken={setChallengeToken} resetKey={challengeResetKey} />
     {state==="error"&&<p className="form-error" role="alert">{message}</p>}
     <button className="button" type="submit" disabled={state==="sending"}>{state==="sending"?"Saving application…":"Submit dealer application"}</button>
     <small>The verified standard listing is free. Selecting a paid option creates no charge and does not guarantee placement or buyer leads.</small>
