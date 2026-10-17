@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import type { Motorcycle } from "@/lib/types";
+import { PublicFormChallenge } from "@/components/PublicFormChallenge";
+import { trackEvent } from "@/lib/track";
 
 type Result = { ok: boolean; message?: string; error?: string; matchedDealers?: number; statusPath?: string };
 
@@ -10,13 +12,39 @@ export function LeadForm({ model }: { model: Motorcycle }) {
   const [state, setState] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [statusPath, setStatusPath] = useState("");
+  const [challengeToken, setChallengeToken] = useState("");
+  const [challengeResetKey, setChallengeResetKey] = useState(0);
+  const [noCoverage, setNoCoverage] = useState(false);
+  const [cityProvince, setCityProvince] = useState("");
+  const [coverage, setCoverage] = useState<"unchecked" | "checking" | "available" | "unavailable" | "error">("unchecked");
+  const coverageRequestId = useRef(0);
+
+  async function checkCoverage() {
+    if (cityProvince.trim().length < 3) { setCoverage("error"); return; }
+    const requestId = ++coverageRequestId.current;
+    setCoverage("checking");
+    try {
+      const response = await fetch("/api/dealer-coverage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+        body: JSON.stringify({ make: model.make, cityProvince: cityProvince.trim() })
+      });
+      const result = await response.json() as { ok: boolean; available?: boolean };
+      if (requestId !== coverageRequestId.current) return;
+      if (!response.ok || !result.ok) { setCoverage("error"); return; }
+      setCoverage(result.available ? "available" : "unavailable");
+    } catch { if (requestId === coverageRequestId.current) setCoverage("error"); }
+  }
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (coverage !== "available") return;
     const form = event.currentTarget;
     const data = new FormData(form);
     setState("sending");
     setMessage("");
+    setNoCoverage(false);
 
     const payload = {
       modelId: model.id,
@@ -30,6 +58,7 @@ export function LeadForm({ model }: { model: Motorcycle }) {
       consent: data.get("consent") === "on",
       website: String(data.get("website") || ""),
       sourcePath: window.location.pathname,
+      turnstileToken: challengeToken,
     };
 
     try {
@@ -40,25 +69,32 @@ export function LeadForm({ model }: { model: Motorcycle }) {
       });
       const result = await response.json() as Result;
       if (!response.ok || !result.ok) {
+        setNoCoverage(response.status === 422);
+        if (response.status === 422) setCoverage("unavailable");
+        trackEvent("dealer_quote_error", { model_id: model.id, http_status: response.status });
         setState("error");
         setMessage(result.error || "We could not save your request.");
         return;
       }
+      trackEvent(result.statusPath ? "dealer_quote_request" : "dealer_quote_duplicate", { model_id: model.id, matched_dealers: result.matchedDealers || 0 });
       setState("success");
-      setMessage(result.message || "Your dealer request has been saved.");
+      setMessage(result.message || "Your dealer request has been received.");
       setStatusPath(result.statusPath || "");
       form.reset();
     } catch {
       setState("error");
       setMessage("We could not save your request. Please try again.");
+    } finally {
+      setChallengeToken("");
+      setChallengeResetKey(value => value + 1);
     }
   }
 
   if (state === "success") {
     return <div className="lead-form lead-form-success" aria-live="polite">
-      <div className="lead-form-head"><span>Request received</span><h2>We saved your dealer request.</h2><p>{message}</p></div>
+      <div className="lead-form-head"><span>Request received</span><h2>{statusPath ? "We saved your dealer request." : "Check your earlier request."}</h2><p>{message}</p></div>
       <div className="hero-actions">
-        {statusPath&&<Link className="button" href={statusPath}>View quote status</Link>}
+        {statusPath&&<a className="button" href={statusPath} rel="noreferrer">View quote status</a>}
         <Link className={statusPath?"button ghost":"button"} href={`/motorcycles/${model.makeSlug}/${model.slug}`}>Back to {model.model}</Link>
         <Link className="button ghost" href="/dealers">Browse verified dealers</Link>
       </div>
@@ -78,18 +114,28 @@ export function LeadForm({ model }: { model: Motorcycle }) {
 
     <div className="lead-form-grid">
       <label><span>Variant <small>optional</small></span><input name="variant" placeholder="e.g. Standard, ABS, RoadSync" /></label>
-      <label><span>City or province</span><input name="cityProvince" required placeholder="e.g. San Fernando, Pampanga" autoComplete="address-level2" /></label>
+      <label><span>City or province</span><input name="cityProvince" required value={cityProvince} onChange={event => { coverageRequestId.current += 1; setCityProvince(event.target.value); setCoverage("unchecked"); setNoCoverage(false); }} placeholder="e.g. San Fernando, Pampanga" autoComplete="address-level2" /></label>
+      <div className="lead-form-wide"><button className="button ghost small" type="button" onClick={checkCoverage} disabled={coverage === "checking"}>{coverage === "checking" ? "Checking dealers…" : "Check local dealer coverage"}</button>
+        {coverage === "available" && <p role="status">A checked quote partner covers this location. Final stock and price still need dealer confirmation.</p>}
+        {coverage === "unavailable" && <p role="status">No approved quote partner currently covers this location. <Link href={{ pathname: "/dealers", query: { brand: model.make } }}>Browse checked {model.make} dealers →</Link></p>}
+        {coverage === "error" && <p role="status">Coverage could not be checked. You can browse the dealer directory or try again.</p>}
+      </div>
+      {coverage === "available" && <>
       <label><span>Buying method</span><select name="purchaseType" required defaultValue="cash"><option value="cash">Cash</option><option value="installment">Installment</option></select></label>
       <label><span>Down payment budget <small>optional</small></span><input name="downPaymentBudget" type="number" min="0" step="1000" inputMode="numeric" placeholder="₱20,000" /></label>
       <label><span>Name</span><input name="fullName" required autoComplete="name" /></label>
       <label><span>Mobile number</span><input name="mobile" required inputMode="tel" autoComplete="tel" placeholder="09XXXXXXXXX" /></label>
       <label className="lead-form-wide"><span>Email <small>optional</small></span><input name="email" type="email" autoComplete="email" placeholder="you@example.com" /></label>
+      </>}
     </div>
 
+    {coverage === "available" && <>
     <label className="lead-consent"><input type="checkbox" name="consent" required /> <span>I agree that MotoIndex may store these details and share them with up to three relevant verified dealer partners when there is a match for this motorcycle and location.</span></label>
 
-    {state === "error" && <p className="form-error" role="alert">{message}</p>}
+    <PublicFormChallenge action="buyer_quote" onToken={setChallengeToken} resetKey={challengeResetKey} />
     <button className="button" type="submit" disabled={state === "sending"}>{state === "sending" ? "Saving request…" : "Get dealer prices"}</button>
     <small>Your details are not shared with a public directory listing unless that dealer is also an approved MotoIndex quote partner.</small>
+    </>}
+    {state === "error" && <div className="form-error" role="alert"><p>{message}</p>{noCoverage && <Link href={{ pathname: "/dealers", query: { brand: model.make } }}>Find checked {model.make} dealers →</Link>}</div>}
   </form>;
 }

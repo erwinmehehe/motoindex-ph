@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { PublicFormChallenge } from "@/components/PublicFormChallenge";
 
 type AlertModel={
   id:string;
@@ -15,6 +16,8 @@ export function PriceAlertForm({models,initialModelId}:{models:AlertModel[];init
   const [target,setTarget]=useState(()=>selected?Math.max(1000,Math.floor(selected.currentPricePhp*.95/100)*100):0);
   const [state,setState]=useState<"idle"|"sending"|"success"|"error">("idle");
   const [message,setMessage]=useState("");
+  const [challengeToken,setChallengeToken]=useState("");
+  const [challengeResetKey,setChallengeResetKey]=useState(0);
 
   function changeModel(nextId:string){
     setModelId(nextId);
@@ -34,7 +37,8 @@ export function PriceAlertForm({models,initialModelId}:{models:AlertModel[];init
           modelId,
           targetPricePhp:target,
           email:String(data.get("email")||""),
-          consent:data.get("consent")==="on"
+          consent:data.get("consent")==="on",
+          turnstileToken:challengeToken
         })
       });
       const result=await response.json();
@@ -48,6 +52,9 @@ export function PriceAlertForm({models,initialModelId}:{models:AlertModel[];init
     }catch{
       setState("error");
       setMessage("Could not create this price alert.");
+    }finally{
+      setChallengeToken("");
+      setChallengeResetKey(value=>value+1);
     }
   }
 
@@ -70,6 +77,7 @@ export function PriceAlertForm({models,initialModelId}:{models:AlertModel[];init
 
     <label className="lead-consent"><input type="checkbox" name="consent" required/><span>I agree to receive this MotoIndex motorcycle price alert and understand that the published reference may differ from the final dealer cash price, fees, stock or promotion.</span></label>
 
+    <PublicFormChallenge action="price_alert" onToken={setChallengeToken} resetKey={challengeResetKey} />
     {state==="error"&&<p className="form-error" role="alert">{message}</p>}
     <button className="button" type="submit" disabled={state==="sending"}>{state==="sending"?"Sending confirmation…":"Create price alert"}</button>
     <small>The alert triggers only when the published starting-price reference crosses from above your target to at or below it.</small>

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { dealerPlacementLabels, normalizeDealerPlacementTier } from "@/lib/dealerPlacements";
+import { ownerRequestOriginAllowed } from "@/lib/ownerAuth";
+import { verifyPublicFormChallenge } from "@/lib/publicFormChallenge";
 
 export const runtime="nodejs";
 
@@ -9,6 +11,7 @@ function phone(value:string){return value.replace(/[^0-9+]/g,"");}
 function validUrl(value:string){if(!value)return true;try{const url=new URL(value);return url.protocol==="https:"||url.protocol==="http:";}catch{return false;}}
 
 export async function POST(request:Request){
+  if(!ownerRequestOriginAllowed(request))return NextResponse.json({ok:false,error:"Invalid request origin."},{status:403});
   const contentLength=Number(request.headers.get("content-length")||0);
   if(contentLength>30_000)return NextResponse.json({ok:false,error:"Request too large."},{status:413});
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Dealer applications are temporarily unavailable while the production database is being configured."},{status:503});
@@ -45,6 +48,9 @@ export async function POST(request:Request){
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail))return NextResponse.json({ok:false,error:"Enter a valid contact email."},{status:400});
   if(!validUrl(website)||!validUrl(officialSourceUrl))return NextResponse.json({ok:false,error:"Website and verification-source URLs must be valid web addresses."},{status:400});
   if(!consent)return NextResponse.json({ok:false,error:"Authorization and consent are required."},{status:400});
+
+  const challenge=await verifyPublicFormChallenge(body.turnstileToken,"dealer_application");
+  if(!challenge.ok)return NextResponse.json({ok:false,error:challenge.error},{status:challenge.status,headers:{"Cache-Control":"no-store"}});
 
   const recent=await prisma.dealerApplication.findFirst({where:{contactEmail,businessName,createdAt:{gte:new Date(Date.now()-24*60*60*1000)}},orderBy:{createdAt:"desc"}});
   if(recent)return NextResponse.json({ok:true,message:"A recent application for this business is already in the review queue."});
