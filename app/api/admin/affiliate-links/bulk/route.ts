@@ -10,7 +10,7 @@ function clean(value:unknown,max=1000){return typeof value==="string"?value.trim
 
 export async function POST(request:Request){
   const denied = await requirePrivilegedApiAccess(request);
-  if(denied) return denied;
+  if (denied) return denied;
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Production database is not configured."},{status:503});
   let body:Record<string,unknown>;
   try{body=await request.json();}catch{return NextResponse.json({ok:false,error:"Invalid request."},{status:400});}
