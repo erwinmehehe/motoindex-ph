@@ -32,5 +32,6 @@
 - `scripts/verify-production-release.mjs` rejects missing protection, moved SHA, or missing/failed exact-main push workflow checks. The gate runs both before build and immediately before deploy.
 - `scripts/verify-worker-binding-names.mjs` verifies only the required binding *names*, not their values, and fails on missing names.
 - Adds test coverage for these guardrails.
+- Pins Cloudflare Node.js to 22.23.2, adds the Wrangler OpenNext missing-worker build fallback, and runs a clean-checkout Workers compatibility simulation. These changes are ported from the known-green #486 head and require fresh validation on this PR.
 
 **Limit:** A repository workflow cannot itself configure Cloudflare Workers Builds triggers, GitHub admin branch rules, identity policies or a live mailbox; those require owner/operator access and independent evidence.
