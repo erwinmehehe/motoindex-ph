@@ -29,7 +29,7 @@ describe("privileged routes fail closed even if middleware is bypassed", () => {
       expect(guardCount).toBe(methodCount);
       for (const method of source.matchAll(/export async function (?:GET|POST|PUT|PATCH|DELETE)\(/g)) {
         expect(source.slice(method.index, method.index + 400)).toMatch(
-          /const denied = await requirePrivilegedApiAccess\((?:request|req|_req)\);\s*if \(denied\) return denied;/
+          /const denied = await requirePrivilegedApiAccess\((?:request|req|_req|_request)\);\s*if \(denied\) return denied;/
         );
       }
     });
