@@ -1,5 +1,5 @@
 import { getModelById, publicMotorcycles } from "./data";
-import { observedMarketRange } from "./marketChecks";
+import { latestPriceReference, observedMarketRange } from "./marketChecks";
 import { financingScenario } from "./financing";
 import { dealerFinancingObservations } from "./dealerFinancing";
 
@@ -8,11 +8,14 @@ export const researchMotorcycles = [...publicMotorcycles].sort((a, b) =>
 );
 
 export function latestResearchCheck() {
-  return researchMotorcycles
-    .map((model) => model.marketPriceCheckedAt || model.verifiedAt)
-    .filter(Boolean)
-    .sort()
-    .at(-1) || "2026-08-27";
+  // Never treat an unrelated model specification edit as a fresh price observation.
+  return [
+    PRICE_INDEX_BASELINE_DATE,
+    ...researchMotorcycles
+      .map(latestPriceReference)
+      .filter((item) => item.kind === "price-check")
+      .map((item) => item.date),
+  ].sort().at(-1)!;
 }
 
 export function median(values: number[]) {
@@ -25,11 +28,12 @@ export function median(values: number[]) {
 export function researchPriceRows() {
   return researchMotorcycles.map((model) => {
     const range = observedMarketRange(model);
+    const reference = latestPriceReference(model);
     return {
       model,
       fromPhp: range.from,
       toPhp: range.to,
-      checkedAt: model.marketPriceCheckedAt || model.verifiedAt,
+      checkedAt: reference.kind === "price-check" ? reference.date : "",
     };
   });
 }
