@@ -49,11 +49,16 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
-      - name: Build OpenNext Worker
-        run: npm run cf:build
+      # Mirror a default Cloudflare Workers Builds checkout: only Next.js has
+      # been built, then Wrangler must create the OpenNext Worker itself.
+      - name: Build Next.js (default Git integration behavior)
+        run: npm run build
 
-      - name: Validate Worker bundle
-        run: npx wrangler deploy --dry-run
+      - name: Validate missing-worker recovery and Worker bundle
+        run: |
+          test ! -f .open-next/worker.js || (echo 'Expected a fresh OpenNext output for this test' && exit 1)
+          npx wrangler deploy --dry-run
+          test -s .open-next/worker.js || (echo 'OpenNext Worker not generated' && exit 1)
 
       - name: Start local Cloudflare Worker
         run: |
