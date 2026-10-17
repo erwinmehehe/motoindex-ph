@@ -18,6 +18,7 @@ export async function POST(request:Request){
 
   const prepared=[];
   const issues:string[]=[];
+  const seenProductIds=new Set<string>();
   for(let index=0;index<body.rows.length;index++){
     const raw=body.rows[index];
     if(!raw||typeof raw!=="object"||Array.isArray(raw)){issues.push(`Row ${index+1}: invalid row.`);continue;}
@@ -29,6 +30,11 @@ export async function POST(request:Request){
     const checked=validateRuntimeAffiliateUrl(productId,url,destinationUrl||undefined);
     if(!checked.ok){issues.push(`Row ${index+1} (${productId||"no product ID"}): ${checked.error}`);continue;}
     if(reviewNote.length<5){issues.push(`Row ${index+1} (${productId}): review note is too short.`);continue;}
+    if(seenProductIds.has(productId)){
+      issues.push(`Row ${index+1} (${productId}): the same catalog product is listed more than once.`);
+      continue;
+    }
+    seenProductIds.add(productId);
     prepared.push({productId,url:checked.url,destinationUrl:checked.destinationUrl,network:checked.network,reviewNote});
   }
 
@@ -43,10 +49,13 @@ export async function POST(request:Request){
   if(issues.length)return NextResponse.json({ok:false,error:"Bulk validation failed.",issues},{status:400});
 
   try{
+    // Both URL fields are an identifier for the same exact item. Query the
+    // complete union so cross-column duplicates cannot evade collision QA.
+    const targets=[...new Set(prepared.flatMap(row=>[row.url,row.destinationUrl]))];
     const existing=await prisma.affiliateProductLink.findMany({
       where:{status:"active",OR:[
-        {url:{in:prepared.map(row=>row.url)}},
-        {destinationUrl:{in:prepared.map(row=>row.destinationUrl)}}
+        {url:{in:targets}},
+        {destinationUrl:{in:targets}}
       ]},
       select:{productId:true,url:true,destinationUrl:true}
     });
