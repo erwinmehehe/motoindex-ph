@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getEditorialGuide, editorialGuides } from "../lib/editorialGuides";
 import { getModelById, getRecommendationGuide, getRecommendationModels, isIndexableRecommendation } from "../lib/data";
-import { coreSitemapEntries } from "../lib/sitemaps";
+import { coreSitemapEntries, gearSitemapEntries } from "../lib/sitemaps";
 import { recommendationSitemapEntries } from "../lib/recommendationSitemap";
 import { getTireModelSeoHub, tireGuideHrefForModel } from "../lib/tireSeo";
 
@@ -73,6 +73,6 @@ describe("2026 keyword-gap guides: unique, sourced and indexable", () => {
     expect(beat?.sourceUrl).toBe("https://cms.hondaph.com/files/products/650bce64c3201.pdf");
     expect(tire?.modelId).toBe("honda-beat");
     expect(tireGuideHrefForModel("honda-beat")).toBe("/tires/honda-beat-tire-size");
-    expect(coreSitemapEntries().some(x=>x.url.endsWith("/tires/honda-beat-tire-size"))).toBe(true);
+    expect(gearSitemapEntries().some(x=>x.url.endsWith("/tires/honda-beat-tire-size"))).toBe(true);
   });
 });
