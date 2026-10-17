@@ -21,12 +21,18 @@ The repository's approved production release path is manual **Deploy MotoIndex P
 1. Open Cloudflare **Workers & Pages > motoindex-ph > Settings > Builds** (may appear as **Settings > Build**).
 2. Check Build History for the original failing build and note whether the error occurred during **Install**, **Build**, or **Deploy/Preview**; capture only sanitized error lines.
 3. **Preferred:** Disable automatic production branch Builds and disable preview branch Builds, or disconnect the Git repository from Workers Builds, leaving the deployed Worker intact. Keep GitHub Actions as the sole approved production deployment path. Do not delete the Worker or its routes.
-4. If the operator intentionally keeps Workers Builds enabled, verify the project root is `/`, build command is **`npm run cf:build`** (not bare `npm run build`), deploy command is **`npm run cf:deploy:built`** for an explicitly authorized production trigger, and branch preview command matches the account's configured Worker Previews mode. Automatically deploying `main` can bypass the controlled GitHub production gate; obtain explicit release approval before enabling that path.
+4. If the operator intentionally keeps Workers Builds enabled, verify the project root is `/` and the build command is **`npm run cf:build`** (not bare `npm run build`). For Git-triggered production builds, set the Cloudflare dashboard **Deploy command** to **`npx wrangler versions upload`** so a build produces a non-active Worker version rather than publishing to live traffic; reserve **`npm run cf:deploy:built`** for the separately approved manual GitHub Actions production job. Confirm the branch preview command and bindings match the account's configured Worker Previews mode and remain isolated. **Do not leave automatic `wrangler deploy` on main** while relying on GitHub's release gate.
 5. Verify the Cloudflare build environment has Node 22 (the committed `.node-version` should select it) and only the required approved build-time `NEXT_PUBLIC_...` values. Keep production secrets in appropriate secure account bindings, never in GitHub or source files.
 6. Re-run the failing Cloudflare build or create a new preview after confirming its trigger configuration. Review the latest GitHub Actions **CI**, **Cloudflare Runtime Compatibility**, and **Visual QA** on the exact PR head as well.
 7. Only after review and successful checks, merge through the protected release process, dispatch the production deploy workflow manually, then run `BASE_URL=https://motoindexph.com npm run smoke:production` and confirm key page routes and access controls.
 
 If Workers Builds continues to fail after the repository fix, its **first actual error line** is required to identify an environment, authentication, quota, dependency or permissions problem. A successful dry run cannot prove that a remote upload has succeeded.
+
+## Automatic Git production build failsafe
+
+MotoIndex additionally rejects Cloudflare Workers Builds jobs where the injected `WORKERS_CI=1` and `WORKERS_CI_BRANCH=main`, or the branch is missing. The guard is wired into npm's default `prebuild`, explicit `precf:build`, and the Wrangler OpenNext build hook. This ensures the usual repository-defined build paths cannot publish on an unmanaged production branch push. A deliberately successful **preview** build may still run on a non-production branch.
+
+This code fails closed but is **not** proof of the Cloudflare account's build/deploy settings, and direct/unexpected commands may bypass it. Cloudflare Workers Builds production auto-deployment must still be disconnected or configured for non-active version uploads, with operator evidence, before PR merges. Manual GitHub Actions releases do not set `WORKERS_CI` and instead pass the protected-main + production-environment approval checks.
 
 ## Worker commands
 

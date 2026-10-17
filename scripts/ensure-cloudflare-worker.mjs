@@ -12,6 +12,7 @@
  *
  * Never invokes a deployment and never reads or prints credentials.
  */
+import { rejectWorkersGitProductionBuild } from "./reject-workers-git-production-build.mjs";
 import { existsSync, statSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -36,6 +37,9 @@ function run(command, args) {
       " exit " + String(result.status) + "). Review the build logs.");
   }
 }
+
+// Never let a Git push publish a production Worker outside the manual release gate.
+rejectWorkersGitProductionBuild();
 
 if (isWorkerReady()) {
   console.log("[MotoIndex] OpenNext Worker exists; skipping duplicate build.");

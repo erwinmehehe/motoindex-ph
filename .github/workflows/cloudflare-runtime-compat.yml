@@ -3,24 +3,16 @@ name: Cloudflare Runtime Compatibility
 on:
   pull_request:
     branches: [main]
-    paths:
-      - app/**
-      - components/**
-      - lib/**
-      - public/**
-      - next.config.mjs
-      - open-next.config.ts
-      - wrangler.jsonc
-      - package.json
-      - package-lock.json
-      - .github/workflows/cloudflare-runtime-compat.yml
-      - scripts/route-behavior-qa.mjs
   push:
     branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: motoindex-runtime-compat-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:

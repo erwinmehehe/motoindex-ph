@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/write-build-info.mjs",
+    "prebuild": "node scripts/reject-workers-git-production-build.mjs && node scripts/write-build-info.mjs",
     "build": "next build",
     "start": "next start",
     "cf:build": "opennextjs-cloudflare build",
@@ -90,7 +90,8 @@
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
     "test": "npm run test:unit",
-    "test:security": "vitest run tests/actionTokens.test.ts"
+    "test:security": "vitest run tests/actionTokens.test.ts",
+    "precf:build": "node scripts/reject-workers-git-production-build.mjs"
   },
   "dependencies": {
     "next": "15.5.27",
