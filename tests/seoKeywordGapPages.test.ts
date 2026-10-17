@@ -40,7 +40,7 @@ describe("2026 keyword-gap guides: unique, sourced and indexable", () => {
     expect(guide.sources.some(x=>x.url.includes("SMASH-FI.pdf"))).toBe(true);
     expect(guide.intro).toContain("foot lever");
     expect(guide.sections.flatMap(x=>x.body).join(" ")).toMatch(/centrifugal clutch/i);
-    expect(guide.faqs.some(x=>x.answer.includes("not") && x.answer.includes("CVT"))).toBe(true);
+    expect(guide.faqs.some(x=>/\b(no|not)\b/i.test(x.answer) && x.answer.includes("CVT"))).toBe(true);
   });
 
   it("treats modeled financing as educational, not a lender quote", () => {
