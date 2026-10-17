@@ -43,6 +43,7 @@ export const recommendationLeadQuestions: Record<string, string> = {
   "scrambler-motorcycles-philippines": "Which scrambler motorcycles can riders compare?",
   "125cc-motorcycles-philippines": "Which 125cc-class motorcycles can riders compare?",
   "motorcycles-below-150cc-philippines": "Which motorcycles have less than 150cc recorded displacement?",
+  "150cc-motorcycles-philippines": "Which 140cc–155cc motorcycles can riders compare in the Philippines?",
   "business-motorcycles-philippines": "What motorcycles can riders compare for business use?",
   "street-motorcycles-philippines": "What road-focused motorcycles can riders compare?",
   "125cc-scooters-philippines": "Which 125cc-class scooters can riders compare?",
@@ -60,6 +61,9 @@ export const recommendationLeadQuestions: Record<string, string> = {
 };
 
 export const editorialLeadQuestions: Record<string, string> = {
+  "semi-automatic-motorcycles-philippines": "What semi-automatic motorcycles can riders verify in the Philippines?",
+  "motorcycle-brands-philippines": "Which 10 Philippine motorcycle brands can buyers compare?",
+  "motorcycle-loan-philippines": "How do Philippine motorcycle loans, rates and down payments work?",
   "motorcycle-helmet-size-guide": "How do you find the right motorcycle helmet size?",
   "motorcycle-helmet-certification-philippines": "What motorcycle helmet certification should buyers check in the Philippines?",
   "kawasaki-ninja-h2r-price-philippines": "Is there a verified Kawasaki Ninja H2R retail price in the Philippines?",

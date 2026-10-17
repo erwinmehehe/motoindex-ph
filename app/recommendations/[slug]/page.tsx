@@ -210,6 +210,27 @@ function sectionSummary(title:string,models:Motorcycle[]){
   const manual=models.filter(m=>m.transmission!=="Automatic");
   const scooters=models.filter(m=>/scooter/i.test(m.category));
   const underbones=models.filter(m=>/underbone/i.test(m.category));
+  if (lower.includes("150cc motorcycle price range across categories")) {
+    return `In the current 140–155cc all-category selection, published starting-price references run from ${observedMarketPriceLabel(price[0])} for ${price[0].make} ${price[0].model} to ${observedMarketPriceLabel(price.at(-1)!)} for ${price.at(-1)!.make} ${price.at(-1)!.model}. Compare cash quotations by exact model and variant; this is a price order, not a 'best' ranking.`;
+  }
+  if (lower.includes("what counts as the 150cc motorcycle class")) {
+    return "MotoIndex defines this nearby-displacement comparison as 140–155cc inclusive and displays the exact engine capacity on each row. The scooter-only 150cc page has its own narrower vehicle-category filter, while the below-150cc page excludes engines at or above 150cc.";
+  }
+  if (lower.includes("150cc scooters versus underbones and road bikes")) {
+    const others = models.filter(m => !/scooter/i.test(m.category));
+    return `This guide contains ${scooters.length} scooter${scooters.length===1?"":"s"} and ${others.length} non-scooter motorcycle${others.length===1?"":"s"}, including ${underbones.length} underbone${underbones.length===1?"":"s"}. Transmission and riding use differ: automatic scooters generally use a CVT, while geared machines need exact clutch and gearbox verification.`;
+  }
+  if (lower.includes("yamaha, honda and other 150cc-class choices")) {
+    const yamaha = models.filter(m=>m.make==="Yamaha");
+    const honda = models.filter(m=>m.make==="Honda");
+    return `Yamaha choices in this class include ${modelNames(yamaha,8)||"none currently qualifying"}, while Honda choices include ${modelNames(honda,8)||"none currently qualifying"}. Other brands remain in the table. Compare actual 150cc/155cc displacement and braking by exact variant rather than treating a marketing class as a precise specification.`;
+  }
+  if (lower.includes("lightest 150cc-class motorcycles and lowest seats")) {
+    return `${weight[0].make} ${weight[0].model} is the lightest in this current class at ${weight[0].curbWeightKg} kg, while ${seat[0].make} ${seat[0].model} has the lowest recorded seat at ${seat[0].seatHeightMm} mm. Seat width, suspension sag and balance still require an in-person fit check.`;
+  }
+  if (lower.includes("what to verify beyond engine size before buying")) {
+    return "Compare the actual model year, listed ABS/CBS equipment, transmission and clutch, curb weight, seat height, tires and dealer network. Request a dated cash quote and ask separately about registration, insurance and financing. This displacement class is not an expressway-eligibility category.";
+  }
   if(lower.includes("below 150cc motorcycle price range")){
     return `The current below-150cc set runs from ${observedMarketPriceLabel(price[0])} for ${price[0].make} ${price[0].model} to ${observedMarketPriceLabel(price.at(-1)!)} for ${price.at(-1)!.make} ${price.at(-1)!.model}. This is a price range across different motorcycle formats, not an overall value ranking.`;
   }
@@ -387,6 +408,14 @@ function faqAnswer(question:string,models:Motorcycle[],guide:RecommendationGuide
   const economy=models.filter(m=>m.fuelConsumptionKmL).sort((a,b)=>(b.fuelConsumptionKmL||0)-(a.fuelConsumptionKmL||0));
   const tank=[...models].sort((a,b)=>b.fuelTankL-a.fuelTankL);
   const brandMatch=["honda","yamaha","suzuki","kawasaki"].find(brand=>lower.includes(brand));
+  if (guide.slug === "150cc-motorcycles-philippines") {
+    if (lower.includes("which 150cc-class motorcycles are available")) return `This current all-category comparison includes ${models.length} motorcycles from 140cc through 155cc: ${modelNames(models,12)}. Each row shows actual displacement, price and transmission.`;
+    if (lower.includes("how much does a 150cc motorcycle cost")) return `Published starting prices in this current comparison range from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)}. Dealer stock, variants and financing charges can differ.`;
+    if (lower.includes("have to be exactly 150cc")) return "No. This guide compares the 140–155cc market class and prints the exact cc per model. For exactly 155cc scooters, use the separate 155cc scooter guide.";
+    if (lower.includes("include 150cc scooters and underbones")) return "Yes. It includes qualifying scooters, underbones and other motorcycles, unlike the scooter-only 150cc guide.";
+    if (lower.includes("150cc-class model is lightest")) return `${weight[0].make} ${weight[0].model} has the lowest recorded curb weight in this qualifying set at ${weight[0].curbWeightKg} kg. Confirm rider fit on the actual motorcycle.`;
+    if (lower.includes("150cc motorcycle enter philippine expressways")) return "A motorcycle in the 140–155cc class is below the ordinary 400cc minimum displacement used by Philippine toll expressways. Verify the current expressway rules and registered engine displacement before travelling.";
+  }
   if(lower.includes("what motorcycles below 150cc are available"))return `This guide currently includes ${models.length} current motorcycles below 150cc across scooters, underbones, business motorcycles and other categories. Use the comparison table for the exact models and their current published price references.`;
   if(lower.includes("how much is a motorcycle below 150cc"))return `Published starting-price references in this current below-150cc set run from ${observedMarketPriceLabel(price[0])} to ${observedMarketPriceLabel(price.at(-1)!)}. Final dealer quotes, registration, promotions and financing can differ.`;
   if(lower.includes("125cc scooters included"))return `Yes. Current 125cc-class scooters under 150cc are included, alongside other motorcycle formats. Use the dedicated 125cc scooter guide when you only want automatic scooter choices.`;
