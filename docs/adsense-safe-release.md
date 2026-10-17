@@ -1,13 +1,20 @@
-# MotoIndex AdSense explicit opt-in — operator acceptance
+# MotoIndex AdSense release contract — strict opt-in without breaking publisher identity
 
-This PR removes the silent AdSense client and publisher fallbacks. Advertising no longer loads unless the build is explicitly configured with both `NEXT_PUBLIC_ADSENSE_ENABLED=true` and a valid `NEXT_PUBLIC_ADSENSE_CLIENT_ID`. The `ads.txt` route requires an explicitly configured `ADSENSE_PUBLISHER_ID`; with no verified publisher it responds 404 rather than declaring an unapproved advertising account.
+## What this code changes
 
-## Before activating advertising
-1. Identify and verify ownership and authorization of the **actual MotoIndex** AdSense publisher account, client ID, `ads.txt` seller relationship and intended domains. Never copy a hardcoded account as proof of authorization.
-2. Review applicable regional advertising consent, cookie and privacy notices. Confirm CSP and browser behavior for third-party resources.
-3. Do not enable advertising on private account, garage, buyer quote-status, token, admin or API routes. The client loader checks the same public-route filter as analytics. Browser script objects can still persist after single-page navigation; verify actual requests on **public → private → public** navigations and direct private-route loads in a staging browser before activation.
-4. Confirm there is no hidden auto-enabled setting in the provider account or app. If approved, configure `NEXT_PUBLIC_ADSENSE_ENABLED=true` and the vetted client ID **at build time**, along with the approved publisher ID where the `ads.txt` route is served.
-5. Review the impact on existing monetization: changing from legacy implicit loading to explicit opt-in may pause ads upon future deployment. Do not activate blindly or count green CI as evidence of provider approval.
-6. Keep issue #466 open until account-level evidence and runtime consent/network checks are documented.
+The repository's `validate:adsense` contract explicitly pins the MotoIndex publisher `pub-1900865456140693`, its matching `ca-pub` client ID, a root `/ads.txt` declaration, the Google certification authority ID, and the `beforeInteractive` document-head bootstrap. This PR **preserves those existing public identifiers and their validated integration** rather than assuming they belong to somebody else. An operator must still confirm the actual account ownership and active revenue before a production release.
 
-No changes to Cloudflare or AdSense accounts were made. This code cannot delete historical tracking data and does not launch a production deployment.
+The advertising script now loads **only when `NEXT_PUBLIC_ADSENSE_ENABLED=true` is explicitly configured at build time**. The missing/unset flag is OFF, not implicitly enabled. An invalid override is rejected rather than silently falling back; the existing pinned IDs are retained when an override is empty. The root `ads.txt` seller record stays available for ownership discovery even when script activation is disabled.
+
+## Release prerequisites
+
+1. Verify the actual MotoIndex AdSense account access, publisher ownership, property authorization and observed baseline revenue. Do not treat a source-code identifier as independent provider-side authorization.
+2. Confirm consent and privacy disclosures for applicable visitors before activating third-party scripts. **Private routes** (including buyer status links and sign-in tokens) still inherit scripts inserted into the root document head when advertising is enabled. This change intentionally does **not** claim to solve public-to-private SPA tracking.
+3. Perform network and cookie QA with a clean browser on public → /quote-status/{redacted-token} → public navigation and direct private-route loads. Ensure no private token, email, phone or query parameters are sent to third parties. Record redacted proof on issue #466.
+4. Leave `NEXT_PUBLIC_ADSENSE_ENABLED=false` when operator checks have not been completed. Turning it on requires a separately reviewed and approved deployment configuration; never turn it on as a workaround for missed advertising events.
+5. Confirm the intended AdSense revenue effect of the explicit opt-in: if the current production build relied on implicit activation and the flag is not configured, ads intentionally pause on the next release. To preserve advertising after approval, configure the flag `true` using the verified current IDs.
+6. Plan a separate privacy-safe advertising architecture if ad scripts must not load at all on private account/token routes. Global document-head scripts cannot guarantee that privacy by checking the route only once.
+
+## What this does not do
+
+No AdSense/Cloudflare account settings, secret values, domain controls, WAF or production deployment are changed. Green CI proves code correctness, **not** operator authorization, private-route network safety or publisher revenue stability. Keep #466 open until provider-side and browser evidence is attached.
