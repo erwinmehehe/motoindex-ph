@@ -49,10 +49,13 @@ export async function PUT(request:Request,{params}:{params:Promise<{productId:st
 
   let row;
   try{
+    // A tracking URL may have been saved in another product's destination
+    // field (or vice versa); compare both candidate URLs against both fields.
+    const targets=[...new Set([checked.url,checked.destinationUrl])];
     const conflict=await prisma.affiliateProductLink.findFirst({
       where:{productId:{not:productId},status:"active",OR:[
-        {url:checked.url},
-        {destinationUrl:checked.destinationUrl}
+        {url:{in:targets}},
+        {destinationUrl:{in:targets}}
       ]},
       select:{productId:true}
     });
