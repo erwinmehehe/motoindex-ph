@@ -111,6 +111,20 @@ export function priceChecksForModel(modelId: string) {
   return marketPriceChecks.filter((row) => row.modelId === modelId);
 }
 
+/**
+ * Distinguish an independently dated price observation from a generic
+ * model/specification update. Specification review is not price verification.
+ */
+export function latestPriceReference(model: Motorcycle): { date: string; kind: "price-check" | "model-source" } {
+  const checkedDates = [
+    model.marketPriceCheckedAt,
+    ...priceChecksForModel(model.id).map((check) => check.checkedAt),
+  ].filter((date): date is string => Boolean(date && /^\d{4}-\d{2}-\d{2}$/.test(date)));
+
+  if (checkedDates.length) return { date: checkedDates.sort().at(-1)!, kind: "price-check" };
+  return { date: model.verifiedAt, kind: "model-source" };
+}
+
 export function observedMarketRange(model: Motorcycle) {
   const checks = priceChecksForModel(model.id);
   if (!checks.length) return { from: model.srp, to: model.marketPriceHighPhp };
