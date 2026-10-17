@@ -4,9 +4,16 @@
 
 ## GitHub: owner or authorized administrator must configure
 
-1. Navigate to **Repository > Settings > Rules > Rulesets** (or Branches > branch protection) and create an **active** branch rule targeting `main`.
+1. An **active** reviewed-main ruleset payload is checked in at `docs/github-main-protection-ruleset.json`. A repository administrator with **Administration: write** permissions can check out this PR branch and apply it using GitHub CLI (this GitHub connector itself cannot write rulesets):
+
+   ```bash
+   gh auth status
+   gh api --method POST repos/erwinmehehe/motoindex-ph/rulesets --input docs/github-main-protection-ruleset.json
+   ```
+
+   Do this **once** after verifying a second person can review pull requests; rerunning POST could produce a duplicate. The payload enforces independent approval, current-head checks, no force-push or deletion, and no explicit bypass actors. Inspect the created active ruleset in **Repository > Settings > Rules > Rulesets**. The exact check-run context names are `build`, `browser-qa` and `validate` from GitHub Actions app ID `15368` (displayed in the Actions UI as CI / build, Visual QA / browser-qa, Cloudflare Runtime Compatibility / validate).
 2. Require pull requests before changes to `main`, at least one **independent human review**, dismissal or refresh of outdated approvals, block force-pushes and deletions, and restrict bypasses/direct pushes.
-3. Require **exact** current-commit checks: `CI / build`, `Visual QA / browser-qa` and `Cloudflare Runtime Compatibility / validate`. Confirm they are expected contexts in the GitHub UI; do not silently weaken checks to force a merge.
+3. The ruleset config requires exact current-commit GitHub Actions checks: `build`, `browser-qa`, and `validate` (with app ID `15368`). The Cloudflare runtime workflow now triggers for **every PR** against `main`, including docs-only changes; otherwise an ordinary docs-only PR would wait forever for a required check that never runs. Confirm these are the intended contexts in GitHub Settings and never weaken checks simply to force a merge.
 4. Create the GitHub **production** Environment, require designated reviewers, and configure least-privilege deployment secrets and approved variables. Confirm the environment does not auto-approve its own initiator.
 5. Verify `GET /repos/erwinmehehe/motoindex-ph/branches/main` now reports `protected: true`. That boolean alone is insufficient: review the actual rules in the GitHub settings UI, because this integration has no permission to read or edit branch protection.
 
