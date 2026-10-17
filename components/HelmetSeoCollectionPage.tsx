@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection } from "@/components/FaqSection";
+import { QuickAnswer } from "@/components/QuickAnswer";
 import { JsonLd } from "@/components/JsonLd";
 import { ProductCard } from "@/components/ProductCard";
 import { RelatedLinks } from "@/components/RelatedLinks";
@@ -9,6 +10,14 @@ import { getHelmetSeoCollection, getHelmetSeoCollectionProducts, type HelmetSeoC
 import { absoluteUrl } from "@/lib/site";
 import { php } from "@/lib/utils";
 import { faqPageSchema } from "@/lib/structuredData";
+
+const helmetQuestions: Record<HelmetSeoCollectionSlug, string> = {
+  "under-3000": "Which motorcycle helmets cost ₱3,000 or less in the Philippines?",
+  "under-5000": "Which motorcycle helmets cost ₱5,000 or less in the Philippines?",
+  "ece-22-06": "Which motorcycle helmets list ECE 22.06 certification?",
+  "intercom-ready": "Which motorcycle helmets support intercom installation?",
+  "for-commuting": "What motorcycle helmets can riders compare for commuting?"
+};
 
 export function HelmetSeoCollectionPage({ slug }: { slug: HelmetSeoCollectionSlug }) {
   const collection = getHelmetSeoCollection(slug);
@@ -54,8 +63,8 @@ export function HelmetSeoCollectionPage({ slug }: { slug: HelmetSeoCollectionSlu
     <div className="page-head">
       <span className="section-kicker">{collection.kicker}</span>
       <h1>{collection.title}</h1>
-      <p>{collection.intro}</p>
     </div>
+    <QuickAnswer question={helmetQuestions[slug]} answer={collection.intro} checkedAt={checkedDates.filter(Boolean).sort().at(-1)} />
 
     <div className="brand-facts">
       <div><span>Checked models</span><strong>{products.length}</strong></div>

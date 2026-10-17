@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { AuthorBox } from "@/components/AuthorBox";
+import { QuickAnswer } from "@/components/QuickAnswer";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { latestResearchCheck, median, researchSeatRows } from "@/lib/researchData";
 import { phpRange } from "@/lib/utils";
@@ -69,6 +70,8 @@ export default function MotorcycleSeatHeightDatabasePage() {
         <Link className="button secondary" href="/finder">Find a motorcycle</Link>
       </CTAGroup>}
     />
+
+    <QuickAnswer question="How do motorcycle seat heights compare in the Philippines?" answer={`MotoIndex currently compares published seat heights for ${rows.length} motorcycle records. The dataset median is ${medianSeat} mm${lowest ? `, and the lowest recorded seat is ${lowest.model.seatHeightMm} mm on the ${lowest.model.make} ${lowest.model.model}` : ""}. Seat height does not guarantee rider fit; seat width, suspension sag, curb weight and your inseam also matter.`} checkedAt={checkedAt} />
 
     <StatRow items={[
       {label:"Current models",value:String(rows.length),note:"Current indexable records"},

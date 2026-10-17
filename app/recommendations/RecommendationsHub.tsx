@@ -9,6 +9,8 @@ import { EntityMedia } from "@/components/EntityMedia";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
+import { QuickAnswer } from "@/components/QuickAnswer";
+import { faqPageSchema } from "@/lib/structuredData";
 
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Buying Guides Philippines 2026 | MotoIndex PH",
@@ -71,6 +73,7 @@ export default function RecommendationsPage() {
     .sort((a, b) => b.count - a.count)
     .slice(0, 10);
   const brands = [...new Map(current.map((m) => [m.makeSlug, m.make])).entries()].sort((a, b) => a[1].localeCompare(b[1]));
+  const newestCheck = current.map((model) => model.marketPriceCheckedAt || model.verifiedAt).filter(Boolean).sort().at(-1);
 
   const faqs: FaqItem[] = [
     { question: "What is the best motorcycle in the Philippines?", answer: "There is no single best motorcycle for every rider. Start with budget and intended use, then compare physical fit, transmission, weight, braking, fuel use, dealer support and the exact current price." },
@@ -111,6 +114,10 @@ export default function RecommendationsPage() {
         </aside>
       </div>
     </header>
+
+    <div className="shell">
+      <QuickAnswer question="How should I choose a motorcycle in the Philippines?" answer="Start with the amount you can spend, the roads you regularly use, and how the motorcycle fits your height and experience. Compare the exact variant, braking equipment, running costs and dated Philippine price references. A low price or large engine alone cannot identify the right motorcycle for every rider." checkedAt={newestCheck} />
+    </div>
 
     <div className="rec-nav-wrap">
       <nav className="shell rec-nav" aria-label="Buying guide sections">
@@ -175,7 +182,7 @@ export default function RecommendationsPage() {
 
       <section id="explore" className="rec-explore">
         <div className="rec-explore-copy"><span>Keep exploring</span><h2>Browse by type or go straight to a brand.</h2><p>Use these as navigation, not as another wall of SEO pages.</p><Link className="rec-primary" href="/motorcycles">Browse all motorcycles →</Link></div>
-        <div className="rec-explore-links"><div id="categories"><span>Popular categories</span><GuideLinks items={[{ href: "/recommendations/cruiser-motorcycles-philippines", label: "Cruisers" }, { href: "/recommendations/naked-motorcycles-philippines", label: "Naked bikes" }, { href: "/recommendations/automatic-motorcycles-philippines", label: "Automatic motorcycles" }, { href: "/tools/motorcycle-loan-calculator", label: "Loan calculator" }]} />{categories.map((item) => <Link href={`/finder?category=${encodeURIComponent(item.category)}`} key={item.category}><strong>{item.category}</strong><small>{item.count}</small></Link>)}<GuideLinks items={[{ href: "/recommendations/cafe-racer-motorcycles-philippines", label: "Cafe racers" }, { href: "/recommendations/classic-motorcycles-philippines", label: "Classic motorcycles" }, { href: "/recommendations/scrambler-motorcycles-philippines", label: "Scramblers" }]} /></div><div id="brands"><span>Brands</span><div className="rec-brand-cloud">{brands.map(([slug, name]) => <Link href={`/motorcycles/${slug}`} key={slug}>{name}</Link>)}</div></div></div>
+        <div className="rec-explore-links"><div id="categories"><span>Popular categories</span><GuideLinks items={[{ href: "/recommendations/cruiser-motorcycles-philippines", label: "Cruisers" }, { href: "/recommendations/naked-motorcycles-philippines", label: "Naked bikes" }, { href: "/recommendations/automatic-motorcycles-philippines", label: "Automatic motorcycles" }, { href: "/recommendations/150cc-motorcycles-philippines", label: "150cc motorcycles" }, { href: "/guides/semi-automatic-motorcycles-philippines", label: "Semi-automatic shifting" }, { href: "/guides/motorcycle-brands-philippines", label: "10 motorcycle brands" }, { href: "/guides/motorcycle-loan-philippines", label: "Motorcycle loan guide" }, { href: "/tools/motorcycle-loan-calculator", label: "Loan calculator" }]} />{categories.map((item) => <Link href={`/finder?category=${encodeURIComponent(item.category)}`} key={item.category}><strong>{item.category}</strong><small>{item.count}</small></Link>)}<GuideLinks items={[{ href: "/recommendations/cafe-racer-motorcycles-philippines", label: "Cafe racers" }, { href: "/recommendations/classic-motorcycles-philippines", label: "Classic motorcycles" }, { href: "/recommendations/scrambler-motorcycles-philippines", label: "Scramblers" }]} /></div><div id="brands"><span>Brands</span><div className="rec-brand-cloud">{brands.map(([slug, name]) => <Link href={`/motorcycles/${slug}`} key={slug}>{name}</Link>)}</div></div></div>
       </section>
 
       <section className="rec-final-cta">
@@ -184,7 +191,10 @@ export default function RecommendationsPage() {
       </section>
 
       <div className="rec-editorial-footer">
-        <JsonLd data={schema} />
+        <nav aria-label="More MotoIndex research">
+          <GuideLinks items={[{href:"/guides",label:"Detailed how-to articles"},{href:"/ownership",label:"Ownership and LTO guides"},{href:"/research",label:"Price and financing research"},{href:"/methodology",label:"Research methodology"}]} />
+        </nav>
+        <JsonLd data={[schema, faqPageSchema(faqs)]} />
         <FaqSection title="Motorcycle buying questions" items={faqs} />
         <AuthorBox />
       </div>
