@@ -69,4 +69,20 @@ describe("safe runtime affiliate destination precedence",()=>{
     expect(mocks.findFirst).not.toHaveBeenCalled();
   });
 
+
+  it("rejects a database tracking URL claimed by another configured product", async () => {
+    const shared="https://invl.me/shared-db-config-token";
+    vi.stubEnv("AFFILIATE_LINKS_JSON", JSON.stringify({
+      "spyder-surge-v2": {
+        merchant:"shopee", network:"involve_asia", url:shared,
+        destinationUrl:"https://shopee.ph/product/123456/654321"
+      }
+    }));
+    mocks.findUnique.mockResolvedValue({
+      productId, merchant:"shopee", status:"active", url:shared, destinationUrl:source
+    });
+    expect(await getRuntimeAffiliateLinks(productId)).toEqual([]);
+    expect(mocks.findFirst).not.toHaveBeenCalled();
+  });
+
 });
