@@ -25,5 +25,8 @@
   },
   "observability": {
     "enabled": true
+  },
+  "build": {
+    "command": "node scripts/ensure-cloudflare-worker.mjs"
   }
 }
