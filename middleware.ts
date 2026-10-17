@@ -74,7 +74,8 @@ export async function middleware(request: NextRequest) {
   }
   if (!protectedPrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) return NextResponse.next();
 
-  const accessMode = (process.env.ADMIN_ACCESS_MODE || "basic").trim().toLowerCase();
+  const accessMode = (process.env.ADMIN_ACCESS_MODE || (process.env.NODE_ENV === "production" ? "cloudflare" : "basic")).trim().toLowerCase();
+  if (process.env.NODE_ENV === "production" && accessMode === "basic") return deny("Administrative Basic Auth is disabled in production.", 503);
   if (accessMode === "cloudflare" || accessMode === "cloudflare-access") {
     if (!cloudflareAccessConfigured()) return deny("Administrative surface unavailable.", 503);
     const access = await verifyCloudflareAccess(request);
