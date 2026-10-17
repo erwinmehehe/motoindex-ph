@@ -1,3 +1,5 @@
+import { seoGapGuides2026 } from "./seoGapGuides2026";
+
 export type EditorialGuide = {
   slug: string;
   kicker: string;
@@ -634,7 +636,7 @@ export const editorialGuides: EditorialGuide[] = [
       { label: "ZigWheels Philippines current Dragster price and specification listing", url: "https://www.zigwheels.ph/new-motorcycles/italjet/dragster" }
     ]
   },
-
+  ...seoGapGuides2026,
 ];
 
 export function getEditorialGuide(slug: string) {

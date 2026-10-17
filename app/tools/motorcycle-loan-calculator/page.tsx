@@ -48,6 +48,7 @@ export default async function MotorcycleLoanCalculatorPage({ searchParams }: { s
       <p>Calculate estimated monthly amortization using the motorcycle price, down payment, loan term and annual interest rate. This motorcycle loan calculator with down payment for the Philippines also shows the financed amount, estimated interest and total cash paid.</p>
     </div>
 
+    <p className="muted-note">Comparing actual lender quotes? <Link href="/guides/motorcycle-loan-philippines">Read the Philippine motorcycle-loan guide on EIR, down payments, fees and documents</Link> before accepting a financing offer.</p>
     <LoanCalculator initialPrice={price} initialDownPct={down} initialDownAmount={downAmount} initialMonths={term} initialRate={rate} modelLabel={safeModel} />
 
     <section className="split section" aria-labelledby="loan-down-payment">
