@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 const ruleset=JSON.parse(readFileSync(new URL("../docs/github-main-protection-ruleset.json",import.meta.url),"utf8"));
+const workerWorkflow=readFileSync(new URL("../.github/workflows/cloudflare-runtime-compat.yml",import.meta.url),"utf8");
 
 describe("proposed MotoIndex protected-main ruleset",()=>{
   it("targets only main, is active, and has no explicit bypass actors",()=>{
@@ -17,6 +18,11 @@ describe("proposed MotoIndex protected-main ruleset",()=>{
     expect(pr.parameters.required_review_thread_resolution).toBe(true);
     expect(ruleset.rules.map((r:any)=>r.type)).toContain("deletion");
     expect(ruleset.rules.map((r:any)=>r.type)).toContain("non_fast_forward");
+  });
+  it("runs required runtime compatibility on every main-targeting pull request",()=>{
+    const pullTrigger=workerWorkflow.split("  pull_request:")[1]?.split("  push:")[0] ?? "";
+    expect(pullTrigger).toContain("branches: [main]");
+    expect(pullTrigger).not.toMatch(/\bpaths(-ignore)?:/);
   });
   it("requires all three current GitHub Actions checks on an up-to-date PR head",()=>{
     const status=ruleset.rules.find((rule:any)=>rule.type==="required_status_checks");
