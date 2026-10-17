@@ -17,7 +17,7 @@ describe("AdSense account, consent and release contracts", () => {
   });
   it("documents private-route and consent QA as mandatory before activating global scripts", () => {
     const doc = read("docs/adsense-safe-release.md");
-    expect(doc).toContain("private routes");
+    expect(doc.toLowerCase()).toContain("private routes");
     expect(doc).toContain("consent");
     expect(read(".env.example")).toContain("NEXT_PUBLIC_ADSENSE_ENABLED=false");
   });
