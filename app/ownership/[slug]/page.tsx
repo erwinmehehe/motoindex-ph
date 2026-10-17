@@ -9,6 +9,10 @@ import { MotorcycleInsuranceCalculator } from "@/components/MotorcycleInsuranceC
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { AuthorBox } from "@/components/AuthorBox";
 import { articleSchema } from "@/lib/articleSchema";
+import { QuickAnswer } from "@/components/QuickAnswer";
+import { ArticleJumpLinks, articleSectionId } from "@/components/ArticleJumpLinks";
+import { ownershipLeadQuestions, ownershipLeadAnswers, leadQuestion } from "@/lib/aeoContent";
+import { faqPageSchema } from "@/lib/structuredData";
 
 
 const guideFaqs: Record<string, FaqItem[]> = {
@@ -81,6 +85,9 @@ export default async function OwnershipGuidePage({ params }: { params: Promise<{
       <small className="source-date">Sources checked {guide.lastChecked}</small>
     </div>
 
+    <QuickAnswer question={leadQuestion(guide.slug, ownershipLeadQuestions, guide.title)} answer={ownershipLeadAnswers[guide.slug] || guide.sections[0].body} checkedAt={guide.lastChecked} />
+    <ArticleJumpLinks sections={guide.sections} />
+
     {guide.slug === "registration-renewal" && <div className="ownership-guide-tool"><LtoRegistrationCalculator /></div>}
     {guide.slug === "motorcycle-insurance" && <div className="ownership-guide-tool"><MotorcycleInsuranceCalculator /></div>}
     {guide.slug === "dl-code-b-motorcycle-philippines" && <div className="note-box"><h2>Short answer: DL Code B alone is not a motorcycle code</h2><p>LTO assigns <strong>DL Code A</strong> to motorcycles and <strong>DL Code B</strong> to passenger vehicles. If the license only shows B, the rider should not treat that as authority to operate a motorcycle.</p><div className="comparison-wrap"><table className="comparison-table"><thead><tr><th>DL code</th><th>LTO description</th><th>Motorcycle?</th></tr></thead><tbody><tr><td><strong>A</strong></td><td>Motorcycle</td><td>Yes</td></tr><tr><td><strong>A1</strong></td><td>Tricycle</td><td>Three-wheel / tricycle category</td></tr><tr><td><strong>B</strong></td><td>Passenger vehicle</td><td>No, not by itself</td></tr></tbody></table></div></div>}
@@ -88,7 +95,7 @@ export default async function OwnershipGuidePage({ params }: { params: Promise<{
     <div className="method-steps ownership-guide-sections">
       {guide.sections.map((section, index) => <article key={section.heading}>
         <b>{String(index + 1).padStart(2, "0")}</b>
-        <h2>{section.heading}</h2>
+        <h2 id={articleSectionId(section.heading, index)}>{section.heading}</h2>
         <p>{section.body}</p>
         {section.bullets && <ul className="checklist">{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
       </article>)}
@@ -103,7 +110,7 @@ export default async function OwnershipGuidePage({ params }: { params: Promise<{
       </article>)}
     </div>
     {guideFaqs[guide.slug]&&<FaqSection title={`${guide.kicker} questions`} items={guideFaqs[guide.slug]}/>}
-    <JsonLd data={schema} />
+    <JsonLd data={guideFaqs[guide.slug]?.length ? [schema, faqPageSchema(guideFaqs[guide.slug])] : schema} />
     <AuthorBox />
   </section>;
 }
