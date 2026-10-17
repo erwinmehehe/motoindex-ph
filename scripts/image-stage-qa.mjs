@@ -4,10 +4,10 @@ import { spawn, spawnSync } from "node:child_process";
 
 const base = new URL(process.env.BASE_URL || "http://127.0.0.1:3000");
 const checks = [
-  { name: "catalog", path: "/motorcycles", selector: ".model-card-media", maxHeight: { 390: 180, 1440: 190 }, requireContain: true, maxImageWidthRatio: 0.9, maxImageHeightRatio: 0.84 },
+  { name: "catalog", path: "/motorcycles", selector: ".model-card-media", expectedBackground: "rgb(238, 241, 245)", maxHeight: { 390: 180, 1440: 190 }, requireContain: true, maxImageWidthRatio: 0.9, maxImageHeightRatio: 0.84 },
   { name: "comparison media", path: "/compare/selection?bikes=aerox-v3,nmax-v3", selector: ".compare-product-media", maxHeight: { 390: 125, 1440: 160 }, maxImageWidthRatio: 0.9, maxImageHeightRatio: 0.84 },
   { name: "comparison card", path: "/compare/selection?bikes=aerox-v3,nmax-v3", selector: ".compare-product-card", requireWhite: true, maxHeight: { 390: 220, 1440: 230 } },
-  { name: "motorcycle hero", path: "/motorcycles/yamaha/aerox-v3", selector: ".motorcycle-hero-media", maxHeight: { 390: 270, 1440: 430 } },
+  { name: "motorcycle hero", path: "/motorcycles/yamaha/aerox-v3", selector: ".reviewed-model-stage", expectedBackground: "rgb(238, 241, 245)", requireWhiteImage: false, maxHeight: { 390: 270, 1440: 430 } },
 ];
 const widths = [390, 1440];
 
@@ -114,7 +114,7 @@ try {
       await new Promise(resolve => setTimeout(resolve, 350));
       const result = await evaluate(cdp.send, `(() => {
         const stage=document.querySelector(${JSON.stringify(check.selector)});
-        const image=stage?.querySelector('img');
+        const image=stage?.querySelector(${JSON.stringify(check.name === "motorcycle hero" ? ".reviewed-model-photo" : "img")});
         const placeholder=stage?.matches('.model-media-placeholder,.media-unavailable') ? stage : stage?.querySelector('.model-media-placeholder,.media-unavailable');
         const root=document.documentElement;
         const rect=stage?.getBoundingClientRect();
@@ -141,13 +141,14 @@ try {
       })()`);
       results.push({ width, ...check, ...result });
       if (!result?.found) failures.push(`${width}px ${check.name}: shared product surface is missing`);
-      const expectsWhite = check.requireWhite !== false;
-      if (expectsWhite && result?.background !== "rgb(255, 255, 255)") failures.push(`${width}px ${check.name}: background is ${result?.background || "missing"}, expected white`);
-      if (result?.imageBackground && result.imageBackground !== "rgb(255, 255, 255)") failures.push(`${width}px ${check.name}: image background is ${result.imageBackground}, expected white`);
+      const expectedBackground = check.expectedBackground || (check.requireWhite === false ? null : "rgb(255, 255, 255)");
+      if (expectedBackground && result?.background !== expectedBackground) failures.push(`${width}px ${check.name}: background is ${result?.background || "missing"}, expected ${expectedBackground}`);
+      if (check.requireWhiteImage !== false && result?.imageBackground && result.imageBackground !== "rgb(255, 255, 255)") failures.push(`${width}px ${check.name}: image background is ${result.imageBackground}, expected white`);
       if ((result?.overflow||0) > 5) failures.push(`${width}px ${check.name}: page overflows horizontally by ${result.overflow}px`);
       if ((result?.right||0) > (result?.viewport||width) + 5) failures.push(`${width}px ${check.name}: surface leaves the viewport`);
       const maxHeight = check.maxHeight?.[width];
       if (maxHeight && (result?.height||0) > maxHeight + 1) failures.push(`${width}px ${check.name}: ${Math.round(result.height)}px tall, expected no more than ${maxHeight}px`);
+      if (check.name === "motorcycle hero" && result?.imageObjectFit !== "contain") failures.push(`${width}px motorcycle hero: exact-model gallery photo is missing or does not use object-fit contain`);
       if (check.requireContain && result?.imageObjectFit !== "contain") failures.push(`${width}px ${check.name}: image object-fit is ${result?.imageObjectFit || "missing"}, expected contain`);
       if (check.requireContain && result?.imageTransform && result.imageTransform !== "none") failures.push(`${width}px ${check.name}: image transform is ${result.imageTransform}, expected none`);
       if (check.maxImageWidthRatio && result?.imageRect && result?.stageRect && result.imageRect.width > result.stageRect.width * check.maxImageWidthRatio + 1) {
@@ -174,7 +175,7 @@ try {
     console.error(`Shared product visual QA failed:\n${failures.map(item=>`- ${item}`).join("\n")}`);
     process.exitCode = 1;
   } else {
-    console.log(`Shared product visual QA passed: ${results.length} catalog, comparison and detail checks use compact white product surfaces.`);
+    console.log(`Shared product visual QA passed: ${results.length} catalog, comparison and detail checks match current stage backgrounds and layout.`);
   }
 } finally {
   proc.kill("SIGTERM");

@@ -7,6 +7,20 @@ export type MaintenanceItem = {
   note?: string;
 };
 
+export type MaintenanceServiceSpecs = {
+  checkedAt: string;
+  manualModelCode: string;
+  sourceMarket: "Philippines" | "Regional manual";
+  applicability: string;
+  engineOilAfterDrainL: number;
+  finalDriveOilAfterDrainL: number;
+  engineOilViscosity: string;
+  engineOilStandard: string;
+  sparkPlugCode: string;
+  sparkPlugGapMm: string;
+  serviceNote: string;
+};
+
 export type MaintenanceSchedule = {
   modelId: string;
   sourceLabel: string;
@@ -14,6 +28,7 @@ export type MaintenanceSchedule = {
   lastChecked: string;
   exact: boolean;
   items: MaintenanceItem[];
+  serviceSpecs?: MaintenanceServiceSpecs;
   tirePressure?: { soloFrontPsi: number; soloRearPsi: number; passengerFrontPsi: number; passengerRearPsi: number };
 };
 
@@ -121,6 +136,19 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
       { item: "Final drive oil", interval: "Every 2 years", action: "Replace" },
       { item: "Brake fluid", interval: "Every 2 years", action: "Replace" },
     ],
+    serviceSpecs: {
+      checkedAt: "2026-10-11",
+      manualModelCode: "ACB160CBT · 32K2SF000",
+      sourceMarket: "Philippines",
+      applicability: "Honda Click160 2022 Philippine type ACB160CBT; confirm exact model year and owner's booklet.",
+      engineOilAfterDrainL: 0.8,
+      finalDriveOilAfterDrainL: 0.12,
+      engineOilViscosity: "SAE 10W-30",
+      engineOilStandard: "JASO MB · API SJ or higher",
+      sparkPlugCode: "NGK LMAR8L-9",
+      sparkPlugGapMm: "0.8–0.9 mm",
+      serviceNote: "Engine oil: 0.8 L after normal draining; 0.85 L after cleaning strainer. Final drive: 0.12 L after draining. These are refill amounts, not dry-engine capacities."
+    },
     tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 33 },
   },
   {
@@ -136,6 +164,19 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
       { item: "Final drive oil", interval: "Every 2 years", action: "Replace" },
       { item: "Brake fluid", interval: "Every 2 years", action: "Replace" },
     ],
+    serviceSpecs: {
+      checkedAt: "2026-10-11",
+      manualModelCode: "PCX160 · 32K1ZE000",
+      sourceMarket: "Philippines",
+      applicability: "Honda PCX160 2021 Philippine-market manual; verify the current generation and year before servicing.",
+      engineOilAfterDrainL: 0.8,
+      finalDriveOilAfterDrainL: 0.12,
+      engineOilViscosity: "SAE 10W-30",
+      engineOilStandard: "JASO MB · API SG or higher",
+      sparkPlugCode: "NGK LMAR8L-9",
+      sparkPlugGapMm: "0.8–0.9 mm",
+      serviceNote: "Engine oil: 0.8 L after normal draining; 0.85 L after strainer cleaning. Transmission oil: 0.12 L after draining. Rider-only and passenger tire pressures differ."
+    },
     tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 36 },
   },
   {
@@ -152,6 +193,19 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
       { item: "Final drive oil", interval: "Every 2 years", action: "Replace" },
       { item: "Brake fluid", interval: "Every 2 years", action: "Replace" },
     ],
+    serviceSpecs: {
+      checkedAt: "2026-10-11",
+      manualModelCode: "ADV160A PH · 32K0WA100",
+      sourceMarket: "Philippines",
+      applicability: "Honda ADV160 2023 PH type, document 32K0WA100; check revisions for your own model year.",
+      engineOilAfterDrainL: 0.75,
+      finalDriveOilAfterDrainL: 0.11,
+      engineOilViscosity: "SAE 10W-30",
+      engineOilStandard: "JASO MB · API SJ or higher",
+      sparkPlugCode: "NGK LMAR8L-9",
+      sparkPlugGapMm: "0.8–0.9 mm",
+      serviceNote: "The Honda ADV160 manual lists 0.75 L for a normal engine-oil change; do not reuse the Click160 or PCX160 0.8 L amount. Final-drive refill after draining is 0.11 L in this PH manual."
+    },
     tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 33 },
   },
   {
@@ -170,6 +224,19 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
       { item: "Coolant", interval: "Every 3 years", action: "Replace" },
       { item: "Fuel filter", interval: "Every 12,000 km", action: "Inspect", note: "Check condition and replace if necessary." },
     ],
+    serviceSpecs: {
+      checkedAt: "2026-10-11",
+      manualModelCode: "GPD155-A · BTF-FU199-E0",
+      sourceMarket: "Regional manual",
+      applicability: "Yamaha NMAX GPD155-A manual, regional edition. Philippine-market model and Tech Max equipment may differ.",
+      engineOilAfterDrainL: 0.9,
+      finalDriveOilAfterDrainL: 0.1,
+      engineOilViscosity: "SAE 10W-40",
+      engineOilStandard: "JASO MA or MB · API SG or higher",
+      sparkPlugCode: "NGK CPR8EA-9",
+      sparkPlugGapMm: "0.8–0.9 mm",
+      serviceNote: "0.90 L engine-oil change and 0.10 L final transmission-oil refill apply to the cited GPD155-A manual; do not automatically transfer them to other NMAX generations or variants."
+    },
     tirePressure: { soloFrontPsi: 22, soloRearPsi: 36, passengerFrontPsi: 22, passengerRearPsi: 36 },
   },
   {
@@ -188,6 +255,19 @@ export const maintenanceSchedules: MaintenanceSchedule[] = [
       { item: "Coolant", interval: "Every 3 years", action: "Replace" },
       { item: "Fuel filter", interval: "Every 12,000 km", action: "Inspect", note: "Check for clogging or damage and replace if necessary." },
     ],
+    serviceSpecs: {
+      checkedAt: "2026-10-11",
+      manualModelCode: "GPR155D-A · D13-F8199-E0",
+      sourceMarket: "Regional manual",
+      applicability: "Yamaha AEROX GPR155D-A YECVT regional owner manual, 2026 edition. Confirm the exact Philippine variant before use.",
+      engineOilAfterDrainL: 1,
+      finalDriveOilAfterDrainL: 0.1,
+      engineOilViscosity: "SAE 10W-40",
+      engineOilStandard: "JASO MA or MB · API SG or higher",
+      sparkPlugCode: "NGK CPR8EA-9",
+      sparkPlugGapMm: "0.8–0.9 mm",
+      serviceNote: "The GPR155D-A / YECVT manual specifies 1.00 L for oil change and 0.10 L final transmission oil. Older Aerox generations and Philippine Standard/SP configurations may have different capacities."
+    },
     tirePressure: { soloFrontPsi: 29, soloRearPsi: 33, passengerFrontPsi: 29, passengerRearPsi: 33 },
   },
 ];

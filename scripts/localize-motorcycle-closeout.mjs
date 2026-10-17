@@ -4,6 +4,34 @@ import sharp from "sharp";
 
 const root = process.cwd();
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "scripts/data/motorcycle-image-closeout-20261008.json"), "utf8"));
+
+const candidates = Array.isArray(manifest.candidates) ? manifest.candidates : [];
+const approvals = Array.isArray(manifest.approved) ? manifest.approved : [];
+const sources = new Map(candidates.map((entry) => [entry.entityId, entry]));
+if (sources.size !== candidates.length) throw new Error("Duplicate motorcycle image source candidates");
+
+function authorizedCandidate(approval) {
+  const entry = sources.get(approval.entityId);
+  const rights = approval.rightsEvidence;
+  if (!entry || !rights || approval.imageUrl !== entry.imageUrl ||
+      !rights.rightsHolder || !rights.licenseReference || !rights.reviewedBy ||
+      !/^\\d{4}-\\d{2}-\\d{2}$/.test(rights.approvedAt || "") ||
+      rights.commercialUse !== true || rights.hosting !== true ||
+      rights.derivativeWorks !== true || rights.redistribution !== true ||
+      rights.exactModelVisuallyVerified !== true ||
+      !approval.alt || approval.alt.trim().length < 15) {
+    throw new Error("Missing independent commercial license or exact-model visual approval: " + approval.entityId);
+  }
+  return { ...entry, rightsHolder: rights.rightsHolder, approvedAt: rights.approvedAt, alt: approval.alt.trim() };
+}
+const approved = approvals.map(authorizedCandidate);
+const approvedIds = new Set(approved.map((entry) => entry.entityId));
+if (approvedIds.size !== approved.length) throw new Error("Duplicate motorcycle license approvals");
+if (!approved.length) {
+  console.log("No licensed motorcycle images approved. Candidate sources preserved; no media files or mappings written.");
+  process.exit(0);
+}
+
 const generatedPath = path.join(root, "lib/generatedProductMedia.ts");
 const backlogPath = path.join(root, "scripts/audit-motorcycle-media-coverage.mjs");
 const auditPreflight = fs.readFileSync(path.join(root, "scripts/audit-motorcycle-media-coverage.mjs"), "utf8");
@@ -18,13 +46,13 @@ const arrayEnd = existingSource.lastIndexOf("]");
 if (start < 0 || assignment < 0 || arrayStart < 0 || arrayEnd < arrayStart) throw new Error("Generated media array not found");
 const records = JSON.parse(existingSource.slice(arrayStart, arrayEnd + 1));
 const byId = new Map(records.filter((x) => x.entityType === "motorcycle").map((x) => [x.entityId, x]));
-const report = { checkedAt: manifest.checkedAt, accepted: manifest.accepted.length, added: [], existing: [], rejected: [], needsReview: manifest.review.map((x) => x.entityId) };
+const report = { checkedAt: manifest.checkedAt, accepted: approved.length, added: [], existing: [], rejected: [], needsReview: candidates.filter((entry) => !approvedIds.has(entry.entityId)).map((entry) => entry.entityId) };
 const white = { r: 255, g: 255, b: 255, alpha: 1 };
 const userAgent = "MotoIndexMotorcycleSourceCloseout/1.0 (+https://motoindexph.com/methodology)";
 
 async function fetchSource(item) {
   const url = new URL(item.imageUrl);
-  if (!["http:", "https:"].includes(url.protocol)) throw new Error("Invalid source protocol");
+  if (url.protocol !== "https:") throw new Error("Unapproved or insecure image-source protocol");
   const res = await fetch(url, {
     signal: AbortSignal.timeout(25000),
     redirect: "follow",
@@ -119,9 +147,8 @@ async function localize(item) {
   return target;
 }
 
-for (const item of manifest.accepted) {
+for (const item of approved) {
   if (!ids.has(item.entityId) && !(byId.has(item.entityId) && fs.existsSync(path.join(root, "public/media/motorcycles", `${item.entityId}.webp`)))) throw new Error(`Motorcycle ID is neither an open gap nor a verified existing asset: ${item.entityId}`);
-  if (manifest.review.some((x) => x.entityId === item.entityId)) throw new Error(`Conflicting status: ${item.entityId}`);
   const existingFile = path.join(root, "public/media/motorcycles", `${item.entityId}.webp`);
   if (fs.existsSync(existingFile)) {
     report.existing.push(item.entityId);
@@ -135,12 +162,12 @@ for (const item of manifest.accepted) {
         entityType: "motorcycle", entityId: item.entityId, role: "primary",
         src: `/media/motorcycles/${item.entityId}.webp`,
         sourceImageUrl: item.imageUrl,
-        alt: `${item.entityId.replaceAll("-", " ")} exact-model motorcycle motorcycle product photograph`,
-        width: 1200, height: 1200, rightsStatus: "external-reference",
+        alt: item.alt,
+        width: 1200, height: 1200, rightsStatus: "licensed",
         rightsHolder: item.rightsHolder,
         sourceLabel: item.sourceLabel,
         sourceUrl: item.sourceUrl,
-        lastChecked: manifest.checkedAt
+        lastChecked: item.approvedAt
       };
       records.push(row);
       byId.set(item.entityId, row);
@@ -153,6 +180,7 @@ for (const item of manifest.accepted) {
     console.warn(`UNRESOLVED motorcycle:${item.entityId}: ${message}`);
   }
 }
+if (report.rejected.length) throw new Error("Licensed motorcycle closeout had download or processing failures; do not commit partial outputs.");
 const successful = new Set([...report.added, ...report.existing]);
 const next = existingSource.slice(0, arrayStart) + JSON.stringify(records, null, 2) + existingSource.slice(arrayEnd + 1);
 fs.writeFileSync(generatedPath, next);

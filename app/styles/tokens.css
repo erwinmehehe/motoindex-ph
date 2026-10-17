@@ -160,6 +160,33 @@ h1, h2, h3, h4, h5, h6, .brand-word {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
 
+
+/* Installment-page semantic colors: keep route CSS free of one-off color literals. */
+:root {
+  --mi-finance-dark-outline: #253258;
+  --mi-finance-dark-start: #182a4b;
+  --mi-finance-dark-end: #1c1c45;
+  --mi-finance-light-ink: #edf0ff;
+  --mi-finance-dark-copy: #c3d0e9;
+  --mi-finance-dark-meta: #bdc9e2;
+  --mi-finance-result-bg: #f1f3ff;
+  --mi-finance-total-bg: #172448;
+  --mi-finance-total-meta: #d2dcfa;
+  --mi-finance-total-soft: #c4cfea;
+  --mi-finance-total-accent: #e0e6fa;
+  --mi-finance-dark-border: rgba(255, 255, 255, .19);
+  --mi-finance-dark-glass: rgba(255, 255, 255, .07);
+  --mi-finance-overlay: rgba(255, 255, 255, .96);
+  --mi-finance-primary-border: rgba(68, 76, 231, .16);
+  --mi-finance-primary-border-strong: rgba(68, 76, 231, .30);
+  --mi-finance-primary-border-soft: rgba(68, 76, 231, .12);
+  --mi-finance-primary-glow: rgba(68, 76, 231, .06);
+  --mi-finance-focus-line: rgba(68, 76, 231, .45);
+  --mi-finance-shadow-soft: rgba(16, 24, 40, .045);
+  --mi-finance-shadow-bold: rgba(16, 24, 40, .15);
+  --mi-finance-shadow-neutral: rgba(15, 23, 42, .05);
+}
+
 /* Reviewed helmet product-page palette. */
 :root {
   --helmet-101b38: #101b38;

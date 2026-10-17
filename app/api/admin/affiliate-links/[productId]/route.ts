@@ -1,3 +1,4 @@
+import { requirePrivilegedApiAccess } from "@/lib/privilegedApiAccess";
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { validateRuntimeAffiliateUrl } from "@/lib/runtimeAffiliate";
@@ -10,6 +11,9 @@ function clean(value:unknown,max=500){
 }
 
 export async function PUT(request:Request,{params}:{params:Promise<{productId:string}>}){
+  const denied = await requirePrivilegedApiAccess(request);
+  if (denied) return denied;
+
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Production database is not configured."},{status:503});
   const {productId}=await params;
   let body:Record<string,unknown>;
@@ -28,6 +32,13 @@ export async function PUT(request:Request,{params}:{params:Promise<{productId:st
 
   let row;
   try{
+    if(status==="active"){
+      const duplicate=await prisma.affiliateProductLink.findFirst({
+        where:{productId:{not:productId},status:"active",url:checked.url},
+        select:{productId:true}
+      });
+      if(duplicate)return NextResponse.json({ok:false,error:"Tracking URL already belongs to another product: "+duplicate.productId},{status:409});
+    }
     row=await prisma.affiliateProductLink.upsert({
     where:{productId},
     update:{
@@ -63,6 +74,9 @@ export async function PUT(request:Request,{params}:{params:Promise<{productId:st
 }
 
 export async function DELETE(_request:Request,{params}:{params:Promise<{productId:string}>}){
+  const denied = await requirePrivilegedApiAccess(_request);
+  if (denied) return denied;
+
   if(!databaseConfigured())return NextResponse.json({ok:false,error:"Production database is not configured."},{status:503});
   const {productId}=await params;
   const existing=await prisma.affiliateProductLink.findUnique({where:{productId}});

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
 import { AuthorBox } from "@/components/AuthorBox";
+import { QuickAnswer } from "@/components/QuickAnswer";
+import { faqPageSchema } from "@/lib/structuredData";
 import { maintenanceSeoTopics } from "@/lib/maintenanceSeo";
 import { maintenanceSchedules, brandMaintenanceGuides, brandServiceResources } from "@/lib/maintenance";
 import { getModelById } from "@/lib/data";
@@ -43,6 +45,8 @@ export default function MaintenanceGuidePage() {
       description="Use the common-system guidance here, then check the exact motorcycle or manufacturer source for service intervals, fluid grade, capacity, torque values and part numbers."
       actions={<CTAGroup><a className="button" href="#model-schedules">Find model schedules</a><a className="button secondary" href="#official-resources">Official resources</a></CTAGroup>}
     />
+
+    <QuickAnswer question="How should I maintain my motorcycle in the Philippines?" answer="Motorcycle maintenance intervals, oil specifications, coolant type, CVT service and replacement parts depend on the exact model and year. Start with the manufacturer’s owner manual, then compare the relevant model schedule and sourced maintenance topics below. Generic intervals should never replace the manual for the motorcycle you actually ride." checkedAt={[...maintenanceSeoTopics.map(t=>t.lastChecked),...maintenanceSchedules.map(s=>s.lastChecked),...brandMaintenanceGuides.map(g=>g.lastChecked),...brandServiceResources.map(r=>r.lastChecked)].filter(Boolean).sort().at(-1)} />
 
     <StatRow items={[
       {label:"Maintenance topics",value:String(maintenanceSeoTopics.length),note:"Oil, coolant, battery, CVT and parts"},
@@ -100,7 +104,7 @@ export default function MaintenanceGuidePage() {
           const model=getModelById(schedule.modelId);
           return model?<Link className={styles.decisionRow} href={`/motorcycles/${model.makeSlug}/${model.slug}#maintenance`} key={schedule.modelId}>
             <span className={styles.decisionLabel}>{model.make}</span>
-            <span className={styles.decisionCopy}><h3>{model.model}</h3><p>{schedule.items.length} manual-derived service items · checked {schedule.lastChecked}</p></span>
+            <span className={styles.decisionCopy}><h3>{model.model}</h3><p>{schedule.serviceSpecs ? `${schedule.serviceSpecs.engineOilAfterDrainL.toFixed(2)} L engine-oil refill · ${schedule.serviceSpecs.sparkPlugCode} spark plug · ${schedule.items.length} service items · ${schedule.serviceSpecs.sourceMarket} · checked ${schedule.serviceSpecs.checkedAt}` : `${schedule.items.length} manual-derived service items · checked ${schedule.lastChecked}`}</p></span>
             <span className={styles.decisionMeta}>Open schedule →</span>
           </Link>:null;
         })}
@@ -145,7 +149,7 @@ export default function MaintenanceGuidePage() {
       </div>
     </section>
 
-    <JsonLd data={schema}/>
+    <JsonLd data={[schema,faqPageSchema(faqs)]}/>
     <FaqSection title="Motorcycle maintenance questions" items={faqs}/>
     <AuthorBox/>
   </section>;

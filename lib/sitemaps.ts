@@ -7,6 +7,7 @@ import { ownershipGuides } from "@/lib/ownershipGuides";
 import { editorialGuides } from "@/lib/editorialGuides";
 import { electricMotorcycles } from "@/lib/electricMotorcycles";
 import { tireFamilyHubs, tireModelSeoHubs } from "@/lib/tireSeo";
+import { modelSparkPlugGuide } from "@/lib/modelSparkPlugGuides";
 import { installmentLandingProfiles } from "@/lib/modelIntentLandingPages";
 import { colorIntentLandingProfiles } from "@/lib/modelColorLandingPages";
 import { topSpeedLandingProfiles } from "@/lib/modelTopSpeedLandingPages";
@@ -184,12 +185,21 @@ export function motorcycleSitemapEntries(): Entry[] {
   // Electric models are consolidated into one authoritative buying guide rather than separate thin URLs.
   const scooterModels=indexableModels.filter(m=>/scooter/i.test(m.category)&&!["previous","uncertain","discontinued"].includes(m.marketStatus||""));
   const expresswayModels=indexableModels.filter(m=>m.engineCc>=400&&!["previous","uncertain","discontinued"].includes(m.marketStatus||""));
+  const sparkPlugPages = indexableModels.flatMap(m => {
+    const guide = modelSparkPlugGuide(m.id);
+    return guide && m.id === "suzuki-raider-r150" ? [{
+      url: `${SITE_URL}/motorcycles/suzuki/raider-r150/spark-plug`,
+      lastModified: guide.checkedAt,
+      changeFrequency: "yearly" as const,
+      priority: .75
+    }] : [];
+  });
   const categoryPages=[
     ...(scooterModels.length>=5 ? [{url:`${SITE_URL}/motorcycles/scooters`,lastModified:newest(scooterModels.map(modelCheckedAt)),changeFrequency:"weekly" as const,priority:.9}] : []),
     ...(expresswayModels.length>=3 ? [{url:`${SITE_URL}/motorcycles/expressway-legal`,lastModified:newest(expresswayModels.map(modelCheckedAt)),changeFrequency:"weekly" as const,priority:.9}] : [])
   ];
   const electricPages=[{url:`${SITE_URL}/motorcycles/electric`,lastModified:newest(electricMotorcycles.map(m=>m.checkedAt)),changeFrequency:"weekly" as const,priority:.9}];
-  return [...brands,...families,...categoryPages,...models,...installmentPages,...colorPages,...topSpeedPages,...fuelConsumptionPages,...specsPages,...weightPages,...seatHeightPages,...electricPages];
+  return [...brands,...families,...categoryPages,...models,...sparkPlugPages,...installmentPages,...colorPages,...topSpeedPages,...fuelConsumptionPages,...specsPages,...weightPages,...seatHeightPages,...electricPages];
 }
 
 export function gearSitemapEntries(): Entry[] {

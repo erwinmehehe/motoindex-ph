@@ -30,6 +30,10 @@ on:
       - .github/workflows/security-lock-refresh.yml
   workflow_dispatch:
 
+concurrency:
+  group: motoindex-media-audit-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   audit:
     runs-on: ubuntu-latest

@@ -42,6 +42,11 @@ export const tireFamilyHubs: TireFamilyHub[] = [
 ];
 
 export const priorityTireModelSeo: Record<string, { title: string; description: string; keywordLabel: string }> = {
+  "honda-beat": {
+    title: "Honda BeAT Tire Size Philippines — Front & Rear",
+    description: "Honda BeAT 110 stock tire size: 80/90-14 front and 90/90-14 rear. Verify exact generation, tubeless load ratings, pressure and replacement fitment.",
+    keywordLabel: "Honda BeAT tire size"
+  },
   "honda-adv-160": {
     title: "Honda ADV 160 Tire Size Philippines — Front & Rear",
     description: "Honda ADV 160 stock front and rear tire sizes, tire-pressure reference where available, replacement-size matches and fitment warnings.",
@@ -90,6 +95,15 @@ export type TireModelSeoHub = {
 };
 
 export const tireModelSeoHubs: TireModelSeoHub[] = [
+  {
+    slug: "honda-beat-tire-size",
+    modelId: "honda-beat",
+    title: "Honda BeAT Tire Size Philippines: 80/90-14 Front, 90/90-14 Rear",
+    description: "Honda BeAT Playful and Premium 110cc tire-size reference for the Philippines: recorded 80/90-14 front, 90/90-14 rear, tire-pressure guidance and replacement checks.",
+    keywordLabel: "Honda BeAT tire size",
+    queryVolume: 880,
+    aliases: ["honda beat tire size", "beat front tire size", "beat rear tire size", "honda beat 110 tire size", "honda beat tire size philippines"]
+  },
   {
     slug: "adv-160-tire-size",
     modelId: "honda-adv-160",

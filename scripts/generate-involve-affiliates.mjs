@@ -179,7 +179,7 @@ function buildCandidates(products, destinationOverrides, generated, useSearchFal
         destination = shopeeSearchUrl(product);
         destinationType = "shopee-search";
       }
-      if (!destination || !isShopeeDestination(destination)) return undefined;
+      if (!destination || !isShopeeProductDestination(destination)) return undefined;
       return {
         ...product,
         destinationUrl: new URL(destination).toString(),
@@ -352,7 +352,8 @@ async function main() {
   const products = parseCatalog(catalogSource);
   const destinationOverrides = readJsonEnv("AFFILIATE_DESTINATIONS_JSON");
   const generated = await readGenerated();
-  const useSearchFallback = process.env.INVOLVE_ASIA_SHOPEE_SEARCH_FALLBACK?.trim().toLowerCase() !== "false";
+  const useSearchFallback = false; // Exact item pages only, never a marketplace search fallback.
+  if (process.env.INVOLVE_ASIA_SHOPEE_SEARCH_FALLBACK === "true") console.warn("Search-result affiliate targets are disabled: use exact item URLs.");
   let candidates = buildCandidates(products, destinationOverrides, generated, useSearchFallback);
 
   if (onlyProductId && !products.some((product) => product.id === onlyProductId)) {

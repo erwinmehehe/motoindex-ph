@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getRuntimeAffiliateLink } from "@/lib/runtimeAffiliate";
 import { databaseConfigured, prisma } from "@/lib/db";
+import { sourcedShopeeProductListing } from "@/lib/affiliateDestinations";
 
 export const dynamic = "force-dynamic";
 
@@ -8,7 +9,15 @@ export async function GET(_request: Request, { params }: { params: Promise<{ pro
   const { productId } = await params;
   const affiliate = await getRuntimeAffiliateLink(productId);
   if (!affiliate) {
-    return NextResponse.json({ error: "Affiliate link is not configured for this product." }, { status: 404, headers: { "Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow" } });
+    const source = sourcedShopeeProductListing(productId);
+    if (source) {
+      const redirect = NextResponse.redirect(source.url, 302);
+      redirect.headers.set("Cache-Control", "no-store");
+      redirect.headers.set("X-Robots-Tag", "noindex, nofollow");
+      redirect.headers.set("X-MotoIndex-Link-Type", "non-affiliate-product-source");
+      return redirect;
+    }
+    return NextResponse.json({ error: "Exact product affiliate link is not configured." }, { status: 404, headers: { "Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow" } });
   }
   if(databaseConfigured()){
     try{

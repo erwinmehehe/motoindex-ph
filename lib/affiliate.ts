@@ -1,5 +1,6 @@
 import { allCatalogProducts } from "./catalog";
 import generatedAffiliateData from "../data/affiliate-links.generated.json";
+import { isKnownGenericAffiliateDestination } from "./affiliateDestinations";
 
 export type AffiliateMerchant = "shopee" | "lazada";
 export type AffiliateNetwork = "shopee_direct" | "involve_asia";
@@ -86,6 +87,10 @@ function validateEntry(productId: string, rawValue: unknown, issues: AffiliateCo
       issues.push({ productId, message: "Affiliate URL must use an approved Shopee or Involve Asia tracking host." });
       return undefined;
     }
+    if (destination === "merchant_homepage" || isKnownGenericAffiliateDestination(url.toString())) {
+      issues.push({ productId, message: "Generic store, campaign, or shared affiliate shortcuts cannot be used as product-level destinations." });
+      return undefined;
+    }
     if (network && network !== inferred) {
       issues.push({ productId, message: "Configured affiliate network does not match the URL host." });
       return undefined;
@@ -151,10 +156,33 @@ function readAffiliateMap(): { links: Record<string, AffiliateLinkConfig[]>; iss
   const legacy = parseMap(process.env.SHOPEE_AFFILIATE_LINKS_JSON, "SHOPEE_AFFILIATE_LINKS_JSON");
   const unified = parseMap(process.env.AFFILIATE_LINKS_JSON, "AFFILIATE_LINKS_JSON");
   // Generated cache is the baseline; deploy-time maps can override it without editing the repository.
-  return {
-    links: { ...generated.links, ...legacy.links, ...unified.links },
-    issues: [...generated.issues, ...legacy.issues, ...unified.issues]
-  };
+  const merged = { ...generated.links, ...legacy.links, ...unified.links };
+  const issues = [...generated.issues, ...legacy.issues, ...unified.issues];
+  const owners = new Map<string, string>();
+  const collisions = new Set<string>();
+  // Unrelated catalog items must never inherit a shared tracking URL or
+  // exact item URL, even when a custom shortlink is not on the denylist.
+  for (const [id, links] of Object.entries(merged)) {
+    for (const link of links) {
+      for (const target of [link.url]) {
+        const key = link.merchant + "|" + target;
+        const previous = owners.get(key);
+        if (previous && previous !== id) collisions.add(key);
+        else owners.set(key, id);
+      }
+    }
+  }
+  const safe: Record<string, AffiliateLinkConfig[]> = {};
+  for (const [id, links] of Object.entries(merged)) {
+    const valid = links.filter(link => {
+      const repeated = [link.url]
+        .some(value => collisions.has(link.merchant + "|" + value));
+      if (repeated) issues.push({ productId: id, message: "Affiliate link or exact item is shared across multiple product IDs and needs review." });
+      return !repeated;
+    });
+    if (valid.length) safe[id] = valid;
+  }
+  return { links: safe, issues };
 }
 
 export function getAffiliateLink(productId: string) {
@@ -162,12 +190,9 @@ export function getAffiliateLink(productId: string) {
 }
 
 export function getAffiliateLinks(productId: string) {
-  const configured = readAffiliateMap().links[productId] || [];
-  const product = allCatalogProducts().find(product => product.id === productId);
-  if (product?.category !== "Helmet") return configured;
-  // General marketplace links are shared across helmets; exact offers override each merchant.
-  const defaults = validateEntries(productId, generatedAffiliateData.helmetDefaults, []);
-  return defaults.map(link => configured.find(offer => offer.merchant === link.merchant) || link);
+  // Never display a generic Shopee/Lazada homepage or shared shortlink as an
+  // item-specific purchase CTA. Only explicit per-product mappings qualify.
+  return readAffiliateMap().links[productId] || [];
 }
 
 export function hasAffiliateLink(productId: string) {

@@ -1,5 +1,7 @@
 # Motorcycle image reuse and exact-model review (release gate)
 
+**Scope of the updated PR:** 20 candidate source references and a licensed-only importer. No new motorcycle photo binaries or rendered-media mappings are included in this PR; the existing 20-image backlog remains unresolved until approved sources are committed in a separate review.
+
 Generated from `scripts/data/motorcycle-image-closeout-20261008.json` (dated 2026-10-08). This is an **evidence checklist**, not proof of copyright ownership or permission.
 
 **Decision:** Do not merge PR #459 or redistribute its 20 photo files until each image is either (a) supported by permission/license allowing MotoIndex hosting, redistribution, editing/cropping and commercial website use, or (b) replaced with a licensed or owned exact-model image. Credit, provenance, a public URL, and a manufacturer name do not establish permission.
@@ -41,3 +43,30 @@ For every image: verify that the photography depicts the exact model / generatio
 Tracking issue: https://github.com/erwinmehehe/motoindex-ph/issues/463
 
 No rights approvals are asserted by this checklist. No unverified image should be merged on the strength of test coverage alone.
+
+## Authorizing one image after actual permission is secured
+
+The `scripts/data/motorcycle-image-closeout-20261008.json` file contains **candidates**, not accepted photos. Its `approved` array intentionally starts empty. To import an image, the operator must document the true rights owner and actual commercial permission; the repository fields do not themselves create those rights.
+
+Example approval record (illustrative field names; do not copy as real evidence):
+
+```json
+{
+  "entityId": "example-model-id",
+  "imageUrl": "https://actual-image-host.example/image.jpg",
+  "alt": "Verified model name, generation and pictured color",
+  "rightsEvidence": {
+    "rightsHolder": "Actual authorized copyright holder",
+    "licenseReference": "Internal or public record identifier; no confidential license text",
+    "reviewedBy": "Independent human reviewer",
+    "approvedAt": "2026-10-17",
+    "commercialUse": true,
+    "hosting": true,
+    "derivativeWorks": true,
+    "redistribution": true,
+    "exactModelVisuallyVerified": true
+  }
+}
+```
+
+An approval's URL must exactly match the candidate image and the required fields must be complete. The importer exits without downloading or changing repository files if there are zero approvals; if an approved download fails, the command exits unsuccessfully. Output records receive `rightsStatus: "licensed"` only after authorization. The reviewer must verify document authenticity, source/variant accuracy, permission scope, and image composition before a separate image merge. Maintain the existing backlog until those individually cleared images are committed and all media/visual tests pass.

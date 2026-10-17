@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { allCatalogProducts } from "@/lib/catalog";
 import { getAffiliateLink } from "@/lib/affiliate";
+import { sourcedShopeeProductListing, sourcedRetailerProductListing } from "@/lib/affiliateDestinations";
+import { getAffiliateResearchCandidate } from "@/lib/affiliateResearch";
+import { cloudflareAccessConfigured } from "@/lib/cloudflareAccess";
+import { validateRuntimeAffiliateUrl } from "@/lib/runtimeAffiliate";
 import { AffiliateLinkManager } from "@/components/AffiliateLinkManager";
 
 export const metadata:Metadata={title:"Affiliate Links",robots:{index:false,follow:false}};
@@ -35,13 +39,17 @@ export default async function AffiliateLinksAdmin(){
   }
   const rows=allCatalogProducts().map(product=>{
     const db=byId.get(product.id);
+    const checked=db?.status==="active"?validateRuntimeAffiliateUrl(product.id,db.url):null;
     const fallback=getAffiliateLink(product.id);
     return {
       ...product,
+      sourceListing:sourcedShopeeProductListing(product.id) || sourcedRetailerProductListing(product.id),
+      researchCandidate:getAffiliateResearchCandidate(product.id),
       dbLink:db?{
         url:db.url,
         network:db.network,
-        status:db.status,
+        status:db.status==="active"&&checked&&!checked.ok?"needs_review":db.status,
+        validationError:checked&&!checked.ok?checked.error:undefined,
         reviewNote:db.reviewNote||"",
         approvedAt:db.approvedAt?.toISOString(),
         updatedAt:db.updatedAt.toISOString()
@@ -52,13 +60,17 @@ export default async function AffiliateLinksAdmin(){
     };
   });
 
+  const mode = (process.env.ADMIN_ACCESS_MODE || (process.env.NODE_ENV === "production" ? "cloudflare" : "basic")).trim().toLowerCase();
+  const researchExportAvailable = process.env.NODE_ENV !== "production" ||
+    ((mode === "cloudflare" || mode === "cloudflare-access") && cloudflareAccessConfigured());
+
   return <section className="page shell">
     <div className="page-head">
       <h1>Affiliate link manager</h1>
-      <p>Approve or disable Shopee and Involve Asia destinations by MotoIndex product ID. Database changes take effect at runtime, so public commerce CTAs do not require a content rebuild.</p>
+      <p>Review exact-item retailer research before creating approved Shopee or Involve Asia tracking links. Database affiliate activations take effect at runtime; research candidates are never purchase offers.</p>
       <div className="hero-actions"><a className="button ghost small" href="/admin/data-health">Data health</a><a className="button ghost small" href="/affiliate-disclosure" target="_blank">Affiliate disclosure ↗</a></div>
     </div>
-    <div className="note-box"><h2>Publication rule</h2><p>Only HTTPS links on approved Shopee or Involve Asia hosts can be activated. An explicit database Disabled record blocks older JSON/environment fallbacks for that product.</p></div>
-    <AffiliateLinkManager rows={rows} databaseConfigured={databaseReady}/>
+    <div className="note-box"><h2>Publication rule</h2><p>Only product-specific HTTPS Shopee or Involve Asia links may be activated. Shared homepages and known generic shortlinks are blocked. Verify each final landing product before approval. An explicit database Disabled record blocks older JSON/environment fallbacks for that product.</p></div>
+    <AffiliateLinkManager rows={rows} databaseConfigured={databaseReady} researchExportAvailable={researchExportAvailable}/>
   </section>;
 }

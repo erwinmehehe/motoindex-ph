@@ -1,118 +1,85 @@
-# MotoIndex PH affiliate setup — Involve Asia
+# MotoIndex product-specific Shopee and Lazada links
 
-MotoIndex now uses a **pre-generate + cache** workflow for Involve Asia deeplinks. The public site never sends the API key/secret to the browser and never spends a deeplink-generation request when a visitor clicks a product.
+## What went wrong with the Gille Kerena FF007
 
-## Build-time configuration and redeploy requirement
+The generated affiliate cache previously applied the **same Shopee `invl.me/clo1b14` and Lazada `invl.me/clo1b1b` links to every verified helmet**. Those are general marketplace shortcuts, **not** deep links to the model-specific product pages. The `/go/affiliate/:productId/:merchant` route correctly redirected to that configured URL, but the target did not know which helmet the visitor was researching.
 
-Product pages are statically generated, so the affiliate map is read at **build time**, not
-per request. A runtime-only environment variable produces **zero** affiliate CTAs, and the
-failure is silent — it looks identical to correct fail-closed behaviour.
+The cache now has **no generic fallback**. The merchant CTA is shown as an affiliate offer **only** when a mapping for that exact catalog product is configured. Known shared shortlinks and homepage/search URLs are refused.
 
-- Set `AFFILIATE_LINKS_JSON` in the **build** environment, before `next build`.
-- Changing, adding or removing a link requires a **redeploy**, not a restart.
-- `npm run check:affiliate-build` warns when the map is empty at build time; set
-  `REQUIRE_AFFILIATE_LINKS=true` to make that a hard build failure once you are live.
+### What happens until a specific affiliate link is ready?
 
-## Accepted tracking hosts
+For models with an exact Shopee price-source listing in the checked catalog, MotoIndex can show **View referenced product on Shopee**. This link goes straight to the source listing and is explicitly labelled **editorial/non-affiliate**. Previous `/go/affiliate/:productId/shopee` bookmarks also redirect to the exact source listing when no active product-level affiliate link is available. This fallback **does not attach affiliate tracking or claim commissions**.
 
-`/deeplink/generate` returns short links on **`invl.me`** (see the Involve Asia API docs
-sample response). The accepted tracking hosts are therefore `invol.co`, `involve.asia` and
-`invl.me`. Any other host fails closed with a 404 and renders no CTA.
+For the Gille Kerena FF007, the catalog's September 9, 2026 source is:
 
-## 1. Keep credentials out of the repository
+`https://shopee.ph/Gille-FF007-Kerena-Full-Face-Motorcycle-Helmet-with-Revo-Lens-and-Single-Visor-i.505955057.25840894725`
 
-Create `.env.local` (already ignored by Git) and add your **current** Involve Asia credentials:
+**Open this listing manually to confirm it is still live, matches the exact model/variant, and is sold by the seller you intend to reference.** Source provenance is not proof of current inventory or stock.
+
+## Create a real product-level affiliate link
+
+1. Open the **exact item listing** in Shopee—not Shopee's homepage, store directory, campaign page, or search results.
+2. In your own approved Shopee Affiliate account, use its current **Custom Link** tool and the exact product URL, then generate/copy the product's affiliate link. Alternatively, use your approved Involve Asia offer and generate a tracking deeplink for the same exact product URL.
+3. **Test the resulting link in a private browser/mobile session** and confirm the final page's Shop ID and Item ID match the intended product. Shopee may open its app depending on platform and login state.
+4. Open MotoIndex's protected **`/admin/affiliate-links`** page and search for product ID `gille-kerena-ff007`. Paste the **new, exact-item tracking link**, add a meaningful dated review note, and select **Save & activate**.
+5. Reopen `/go/affiliate/gille-kerena-ff007/shopee`. It should now redirect through the new verified affiliate URL rather than to the direct editorial source.
+6. Verify the mobile button, desktop button, app handoff, and affiliate network conversion events. Do not mark conversions as verified from clicks alone.
+
+The runtime admin page writes to the `AffiliateProductLink` database table, so a successfully saved *new runtime mapping* does not require rebuilding static product content. **Build-time affiliate configuration:** changes made to environment JSON or `data/affiliate-links.generated.json` **require a rebuild and redeploy** to take effect. Do not expect a runtime-only environment change to update statically generated content. Database migrations and admin authentication must already be working.
+
+Do not invent or reuse tracking IDs, and **do not post affiliate account credentials in source, public issues, or chat**. A direct Shopee listing is not automatically commission-tracked just because it links to Shopee.
+
+## Bulk upload
+
+The admin bulk editor accepts three tab-separated columns:
+
+```text
+productId    exact-item-affiliate-url    reviewNote
+```
+
+Each product ID must match a verified MotoIndex catalog record. Known generic `clo1b14`/`clo1b1b` shortlinks, general Shopee homepages, and Shopee search URLs are rejected. The admin must confirm that any opaque `invl.me` or `shope.ee` redirect lands on the correct product (the shortened URL itself does not expose the destination).
+
+## Generate Involve Asia links in bulk
+
+The optional generator uses approved server-side Involve Asia credentials from `.env.local`:
 
 ```env
 INVOLVE_ASIA_API_KEY=
 INVOLVE_ASIA_API_SECRET=
 INVOLVE_ASIA_API_BASE_URL=https://api.involve.asia/api
 INVOLVE_ASIA_SHOPEE_PH_OFFER_ID=
-INVOLVE_ASIA_SHOPEE_PH_OFFER_NAME=Shopee
-INVOLVE_ASIA_SHOPEE_SEARCH_FALLBACK=true
+INVOLVE_ASIA_SHOPEE_SEARCH_FALLBACK=false
 ```
 
-Do not prefix credentials with `NEXT_PUBLIC_`. Never put real credentials in `.env.example`, source files, screenshots, issues, or commits.
-
-The generator defaults to the `/auth` path. If Involve Asia's current docs use a different Authentication HTTP Request URL, set it explicitly:
+No credentials should use the `NEXT_PUBLIC_` prefix. You can select exact listing overrides:
 
 ```env
-INVOLVE_ASIA_AUTH_URL=https://api.involve.asia/api/<current-auth-path>
+AFFILIATE_DESTINATIONS_JSON={"gille-kerena-ff007":"https://shopee.ph/Gille-FF007-Kerena-Full-Face-Motorcycle-Helmet-with-Revo-Lens-and-Single-Visor-i.505955057.25840894725"}
 ```
 
-## 2. Preview what MotoIndex will monetize
+Commands:
 
 ```bash
 npm run affiliates:preview
-```
-
-Preview mode does not call Involve Asia. It lists the verified catalog products that will receive affiliate destinations, plus already-cached mappings.
-
-MotoIndex intentionally does not turn editorial/manufacturer `sourceUrl` values into shopping links. Instead, destination priority is: (1) your explicit override, (2) a verified Shopee `priceSourceUrl`, then (3) a Shopee search for the exact `Brand Model`. The search fallback is enabled by default so the full verified gear catalog can be monetized without inventing seller/product URLs. Set `INVOLVE_ASIA_SHOPEE_SEARCH_FALLBACK=false` if you want direct/explicit destinations only.
-
-## 3. Add destination overrides when needed
-
-For a catalog product whose checked price source is an official/retailer page but you have a preferred Shopee listing, add an override in `.env.local`:
-
-```env
-AFFILIATE_DESTINATIONS_JSON={"your-product-id":"https://shopee.ph/your-approved-destination"}
-```
-
-Object form is also accepted when a product needs a specific Involve Asia offer ID:
-
-```env
-AFFILIATE_DESTINATIONS_JSON={"your-product-id":{"url":"https://shopee.ph/your-approved-destination","offerId":12345}}
-```
-
-## 4. Generate missing Involve Asia deeplinks
-
-```bash
-npm run affiliates:generate
-```
-
-The generator:
-
-- authenticates server-side with the API Key + Secret;
-- uses `INVOLVE_ASIA_SHOPEE_PH_OFFER_ID` when supplied, otherwise searches `/offers/all` and refuses ambiguous offer matches;
-- sends the chosen direct or Shopee-search destination to `/deeplink/generate`;
-- tags links with MotoIndex product/category/brand sub-IDs;
-- saves successful mappings in `data/affiliate-links.generated.json`;
-- skips existing cached links unless `--force` is used;
-- spaces generation calls to avoid bursting the API;
-- preserves successful/existing mappings when one product fails.
-
-Useful targeted commands:
-
-```bash
-node scripts/generate-involve-affiliates.mjs --product=zebra-atlas-2026
-node scripts/generate-involve-affiliates.mjs --limit=5
-node scripts/generate-involve-affiliates.mjs --offer-id=12345 --product=zebra-atlas-2026
-```
-
-Use `--force` sparingly. Involve Asia limits unique deeplink generation, so cached links should normally be reused rather than regenerated.
-
-## 5. Build and deploy
-
-`lib/affiliate.ts` merges mappings in this order:
-
-1. `data/affiliate-links.generated.json` — generated baseline;
-2. legacy `SHOPEE_AFFILIATE_LINKS_JSON` — optional migration override;
-3. `AFFILIATE_LINKS_JSON` — highest-priority deploy-time override.
-
-Then run:
-
-```bash
+node scripts/generate-involve-affiliates.mjs --dry-run --product=gille-kerena-ff007
+node scripts/generate-involve-affiliates.mjs --product=gille-kerena-ff007
 npm run check:affiliate-build
-npm run build
 ```
 
-The existing `/go/affiliate/[productId]` route remains the public redirect surface, so raw affiliate destinations do not need to be scattered throughout components.
+**Search-result fallback generation is now disabled even if a legacy environment variable enables it.** The generator uses only known exact Shopee item URLs or explicit exact-product overrides. It writes validated shortlinks into `data/affiliate-links.generated.json`; commit/review that generated result and redeploy before using it. Keep a dated source/verification record, because the network's returned shortlink is opaque and may later point to a removed or altered product.
 
-The customer-facing commerce CTA remains **Check price on Shopee** and routes through that redirect surface only when a validated affiliate mapping exists.
+The public click route logs a product-level outbound event only for valid active affiliate links. A direct editorial source fallback is explicitly identified as non-affiliate and is not logged as a commissioned affiliate click.
 
-## Safety and maintenance
+## Common failure checks
 
-- The API Key and Secret are credentials; generated deeplink URLs are not credentials.
-- Rotate any credential that has been pasted into chat, a ticket, a commit, or other shared text before using it in production.
-- If `/deeplink/generate` returns a generic HTTP 500, confirm both the `offer_id` and that the destination host is whitelisted for the selected offer.
-- If Shopee listings change, update `AFFILIATE_DESTINATIONS_JSON`, regenerate only the affected product, and redeploy.
+- **Goes to Shopee homepage or a store:** A shared/generic tracking link was configured. Replace it with a product-specific tracking link.
+- **Goes to search results:** The link was generated from a keyword search, not the product URL; regenerate using the Shop ID and Item ID page.
+- **Item removed or wrong variant:** Recheck the exact Shopee listing and update your product mapping; do not silently send users to an unrelated helmet.
+- **404 from MotoIndex:** Neither an approved affiliate link nor a checked exact Shopee source listing exists.
+- **Involve Asia reports an error:** Confirm the account's active merchant offer and approved target URL; do not assume Shopee acceptance. Never put API keys in the browser.
+- **Your redirect still uses an old URL:** Check whether the runtime database record overrides the generated/environment mapping, and whether the last configuration edit was deployed.
+- **Link opens Shopee but no commission appears:** A direct editorial source isn't an affiliate tracking link. For real affiliate links, consult the Shopee/Involve Asia attribution reporting and program terms.
+
+## Editorial and safety rule
+
+MotoIndex should never describe a generic marketplace page as the exact item's purchase offer. For Shopee product sources, a URL must point to a specific listing such as `-i.<shopId>.<itemId>` or `/product/<shopId>/<itemId>`. Seller, price, variations and availability can change. Disclosure and retailer-quality review remain necessary.
