@@ -33,5 +33,6 @@
 - `scripts/verify-worker-binding-names.mjs` verifies only the required binding *names*, not their values, and fails on missing names.
 - Adds test coverage for these guardrails.
 - Pins Cloudflare Node.js to 22.23.2, adds the Wrangler OpenNext missing-worker build fallback, and runs a clean-checkout Workers compatibility simulation. These changes are ported from the known-green #486 head and require fresh validation on this PR.
+- The `WORKERS_CI` / `WORKERS_CI_BRANCH` fail-closed build guard rejects Git-connected `main` builds (including unknown branches) through `npm run build`, `npm run cf:build`, and Wrangler's OpenNext build hook. Explicit, human-reviewed GitHub Actions deployments run without `WORKERS_CI`. This is **defense in depth only**: an account-level deployment path that bypasses these build entrypoints would not be stopped, so Cloudflare trigger verification remains mandatory.
 
 **Limit:** A repository workflow cannot itself configure Cloudflare Workers Builds triggers, GitHub admin branch rules, identity policies or a live mailbox; those require owner/operator access and independent evidence.
