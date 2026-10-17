@@ -13,7 +13,7 @@
 ## Cloudflare: independent account-level gate (must be confirmed before any merge)
 
 1. Under **Cloudflare > Workers & Pages > motoindex-ph > Settings > Builds**, inspect the Git-connected Workers Builds pipeline. The GitHub external check currently runs separately from GitHub Actions.
-2. **Disable automatic production deployments on `main`**, or disconnect the repository's Workers Builds Git integration while preserving the deployed Worker and routes. Disable or scope preview deployments if they could share production bindings. This prevents a Git merge from bypassing manual deployment controls.
+2. **Disable automatic production deployments on `main`**. The preferred simple option is **Settings > Builds > Disconnect**, preserving the already deployed Worker and its routes. If keeping Git-connected builds, configure the production **Deploy command** to `npx wrangler versions upload` (upload a non-active version rather than deploying); verify this in Cloudflare's build history and do not use `wrangler deploy` for automatic builds. Disable or isolate preview builds if they use production bindings. This prevents a Git merge from bypassing manual deployment controls.
 3. Inspect the actual recent build logs and check preview-vs-production targets; a successful `Workers Builds` check does *not* prove no automatic deployment can occur.
 4. Set and check runtime Worker secret names as required by `scripts/verify-worker-binding-names.mjs`. Configure Cloudflare Access/MFA, Turnstile and WAF per issue #462. Never put secret values into issues or logs.
 5. Preserve redacted screenshots or configuration exports showing triggers, environments and Access status. Require another person to sign off on the release gate before marking #462 complete.
