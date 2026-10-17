@@ -84,6 +84,51 @@ describe("exact-item affiliate admin approval",()=>{
     expect(res.status).toBe(409);
     expect(mocks.transaction).not.toHaveBeenCalled();
   });
+  it("checks both URL columns for single-item tracking and exact-destination collisions",async()=>{
+    const res=await PUT(request({url:short,destinationUrl:target,status:"active",reviewNote:"Checked exact Gille item"}),{params:Promise.resolve({productId:"gille-kerena-ff007"})});
+    expect(res.status).toBe(200);
+    expect(mocks.findFirst).toHaveBeenCalledWith(expect.objectContaining({
+      where:expect.objectContaining({
+        OR:[{url:{in:[short,target]}},{destinationUrl:{in:[short,target]}}]
+      })
+    }));
+  });
+  it("rejects a bulk tracking URL already stored as another product's destination",async()=>{
+    mocks.findMany.mockImplementation(async (args:any)=>{
+      const searched=args.where.OR[1].destinationUrl.in;
+      return searched.includes(short) ? [{productId:"spyder-surge-v2",url:"https://invl.me/other",destinationUrl:short}] : [];
+    });
+    const res=await POST(new Request("https://motoindexph.com/api/admin/affiliate-links/bulk",{
+      method:"POST",headers:{"content-type":"application/json"},
+      body:JSON.stringify({rows:[{productId:"gille-kerena-ff007",url:short,destinationUrl:target,reviewNote:"Checked Gille item"}]})
+    }));
+    expect(res.status).toBe(409);
+    expect(mocks.transaction).not.toHaveBeenCalled();
+  });
+  it("rejects a bulk destination URL already stored as another product's tracking URL",async()=>{
+    mocks.findMany.mockImplementation(async (args:any)=>{
+      const searched=args.where.OR[0].url.in;
+      return searched.includes(target) ? [{productId:"spyder-surge-v2",url:target,destinationUrl:"https://shopee.ph/product/999/888"}] : [];
+    });
+    const res=await POST(new Request("https://motoindexph.com/api/admin/affiliate-links/bulk",{
+      method:"POST",headers:{"content-type":"application/json"},
+      body:JSON.stringify({rows:[{productId:"gille-kerena-ff007",url:short,destinationUrl:target,reviewNote:"Checked Gille item"}]})
+    }));
+    expect(res.status).toBe(409);
+    expect(mocks.transaction).not.toHaveBeenCalled();
+  });
+  it("rejects a duplicate catalog product in the same bulk approval",async()=>{
+    const res=await POST(new Request("https://motoindexph.com/api/admin/affiliate-links/bulk",{
+      method:"POST",headers:{"content-type":"application/json"},
+      body:JSON.stringify({rows:[
+        {productId:"gille-kerena-ff007",url:short,destinationUrl:target,reviewNote:"Checked Gille item"},
+        {productId:"gille-kerena-ff007",url:"https://invl.me/second-item-token",destinationUrl:"https://shopee.ph/product/505955057/25840894726",reviewNote:"Different mapped item"}
+      ]})
+    }));
+    expect(res.status).toBe(400);
+    expect(mocks.transaction).not.toHaveBeenCalled();
+  });
+
   it("allows bulk tracked URLs after a verified destination is recorded",async()=>{
     const res=await POST(new Request("https://motoindexph.com/api/admin/affiliate-links/bulk",{
       method:"POST",headers:{"content-type":"application/json"},
