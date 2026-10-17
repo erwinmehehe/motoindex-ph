@@ -187,7 +187,7 @@ function readAffiliateMap(): { links: Record<string, AffiliateLinkConfig[]>; iss
   for (const [id, records] of Object.entries(merged)) {
     for (const record of records) {
       for (const target of [record.url, record.destinationUrl].filter((v): v is string => Boolean(v))) {
-        const key = record.merchant + "|" + target;
+        const key = target; // An opaque tracking URL must belong to one catalog product across all merchants.
         const existing = owners.get(key);
         if (existing && existing !== id) collisions.add(key);
         else owners.set(key, id);
@@ -198,13 +198,31 @@ function readAffiliateMap(): { links: Record<string, AffiliateLinkConfig[]>; iss
   for (const [id, records] of Object.entries(merged)) {
     const valid = records.filter(record => {
       const targets = [record.url, record.destinationUrl].filter((v): v is string => Boolean(v));
-      const repeated = targets.some(target => collisions.has(record.merchant + "|" + target));
+      const repeated = targets.some(target => collisions.has(target));
       if (repeated) issues.push({ productId: id, message: "Affiliate link or exact item is shared across multiple product IDs and needs review." });
       return !repeated;
     });
     if (valid.length) safe[id] = valid;
   }
   return { links: safe, issues };
+}
+
+/**
+ * A database-approved offer must not reuse a URL already claimed by another
+ * product in the generated or environment-configured fallback maps.
+ * Compare both opaque tracking URLs and independently checked item URLs.
+ */
+export function findStaticAffiliateDestinationOwner(productId: string, targets: string[]): string | undefined {
+  const candidates = new Set(targets.filter(Boolean));
+  if (!candidates.size) return undefined;
+  const { links } = readAffiliateMap();
+  for (const [ownerId, configured] of Object.entries(links)) {
+    if (ownerId === productId) continue;
+    if (configured.some(link => [link.url, link.destinationUrl].some(value => value && candidates.has(value)))) {
+      return ownerId;
+    }
+  }
+  return undefined;
 }
 
 export function getAffiliateLink(productId: string) {

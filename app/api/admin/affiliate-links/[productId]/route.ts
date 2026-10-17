@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { validateRuntimeAffiliateUrl } from "@/lib/runtimeAffiliate";
-import { getAffiliateLink } from "@/lib/affiliate";
+import { findStaticAffiliateDestinationOwner, getAffiliateLink } from "@/lib/affiliate";
 import { requirePrivilegedApiAccess } from "@/lib/privilegedApiAccess";
 
 export const runtime="nodejs";
@@ -46,6 +46,8 @@ export async function PUT(request:Request,{params}:{params:Promise<{productId:st
   }
   const checked=validateRuntimeAffiliateUrl(productId,url,destinationUrl||undefined);
   if(!checked.ok)return NextResponse.json({ok:false,error:checked.error},{status:400});
+  const configuredOwner=findStaticAffiliateDestinationOwner(productId,[checked.url,checked.destinationUrl]);
+  if(configuredOwner)return NextResponse.json({ok:false,error:"Affiliate tracking or exact-item URL already belongs to configured product: "+configuredOwner},{status:409});
 
   let row;
   try{

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks=vi.hoisted(()=>({ findUnique:vi.fn(), findFirst:vi.fn() }));
 vi.mock("@/lib/db",()=>({
@@ -12,6 +12,7 @@ const productId="gille-kerena-ff007";
 const source="https://shopee.ph/product/505955057/25840894725";
 
 beforeEach(()=>{vi.clearAllMocks();mocks.findFirst.mockResolvedValue(null);});
+afterEach(()=>vi.unstubAllEnvs());
 
 describe("safe runtime affiliate destination precedence",()=>{
   it("blocks an old active merchant shortlink with no product proof",async()=>{
@@ -52,4 +53,20 @@ describe("safe runtime affiliate destination precedence",()=>{
     expect(offers[0].network).toBe("involve_asia");
     expect(offers[0].destinationUrl).toBe(source);
   });
+  it("rejects a database offer colliding with another product in configured fallbacks", async () => {
+    vi.stubEnv("AFFILIATE_LINKS_JSON", JSON.stringify({
+      "spyder-surge-v2": {
+        merchant: "shopee", network: "involve_asia",
+        url: "https://invl.me/spider-unique-token",
+        destinationUrl: source
+      }
+    }));
+    mocks.findUnique.mockResolvedValue({
+      productId, merchant: "shopee", status: "active",
+      url: "https://invl.me/database-gille-token", destinationUrl: source
+    });
+    expect(await getRuntimeAffiliateLinks(productId)).toEqual([]);
+    expect(mocks.findFirst).not.toHaveBeenCalled();
+  });
+
 });

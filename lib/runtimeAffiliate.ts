@@ -1,5 +1,5 @@
 import { databaseConfigured, prisma } from "@/lib/db";
-import { getAffiliateLinks, type AffiliateLinkConfig, type AffiliateMerchant, type AffiliateNetwork } from "@/lib/affiliate";
+import { findStaticAffiliateDestinationOwner, getAffiliateLinks, type AffiliateLinkConfig, type AffiliateMerchant, type AffiliateNetwork } from "@/lib/affiliate";
 import { allCatalogProducts } from "@/lib/catalog";
 import { isExactMerchantProductUrl, isExactShopeeProductUrl, isKnownGenericAffiliateDestination } from "@/lib/affiliateDestinations";
 
@@ -61,6 +61,7 @@ export async function getRuntimeAffiliateLinks(productId:string):Promise<Affilia
         // Protect pre-existing records that may have been imported with a
         // shared shortlink before item-level validation existed.
         const targets=[...new Set([checked.url,checked.destinationUrl])];
+        if(findStaticAffiliateDestinationOwner(productId,targets))return fallback;
         const duplicate=await prisma.affiliateProductLink.findFirst({
           where:{productId:{not:productId},status:"active",OR:[
             {url:{in:targets}},

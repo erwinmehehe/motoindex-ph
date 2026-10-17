@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks=vi.hoisted(()=>({
   upsert:vi.fn(), update:vi.fn(), findUnique:vi.fn(), findFirst:vi.fn(), findMany:vi.fn(), transaction:vi.fn()
@@ -28,6 +28,7 @@ beforeEach(()=>{
   mocks.upsert.mockImplementation(async(args:any)=>({productId:args.where.productId,merchant:"shopee",network:"involve_asia",status:"active",approvedAt:new Date()}));
   mocks.transaction.mockResolvedValue([]);
 });
+afterEach(()=>vi.unstubAllEnvs());
 
 describe("exact-item affiliate admin approval",()=>{
   it("rejects a new opaque tracked link when its item destination is absent",async()=>{
@@ -137,4 +138,33 @@ describe("exact-item affiliate admin approval",()=>{
     expect(res.status).toBe(200);
     expect(mocks.transaction).toHaveBeenCalledOnce();
   });
+  it("rejects single-item activation colliding with a configured link on another product", async () => {
+    vi.stubEnv("AFFILIATE_LINKS_JSON", JSON.stringify({
+      "spyder-surge-v2": {
+        merchant: "shopee", network: "involve_asia",
+        url: "https://invl.me/spyder-unique-token",
+        destinationUrl: target
+      }
+    }));
+    const res=await PUT(request({url:short,destinationUrl:target,status:"active",reviewNote:"Checked item and merchant"}),{params:Promise.resolve({productId:"gille-kerena-ff007"})});
+    expect(res.status).toBe(409);
+    expect(mocks.upsert).not.toHaveBeenCalled();
+  });
+
+  it("rejects bulk activation colliding with configured fallbacks", async () => {
+    vi.stubEnv("AFFILIATE_LINKS_JSON", JSON.stringify({
+      "spyder-surge-v2": {
+        merchant: "shopee", network: "involve_asia",
+        url: "https://invl.me/spyder-unique-token",
+        destinationUrl: target
+      }
+    }));
+    const res=await POST(new Request("https://motoindexph.com/api/admin/affiliate-links/bulk", {
+      method:"POST",headers:{"content-type":"application/json"},
+      body:JSON.stringify({rows:[{productId:"gille-kerena-ff007",url:short,destinationUrl:target,reviewNote:"Checked Gille item"}]})
+    }));
+    expect(res.status).toBe(409);
+    expect(mocks.transaction).not.toHaveBeenCalled();
+  });
+
 });

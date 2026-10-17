@@ -84,4 +84,21 @@ describe("product-specific marketplace redirects", () => {
     expect(offer?.destinationUrl).toBe(target);
   });
 
+  it("rejects a tracked shortlink shared across Shopee and Lazada product IDs", () => {
+    vi.stubEnv("AFFILIATE_LINKS_JSON", JSON.stringify({
+      "gille-kerena-ff007": {
+        merchant: "shopee", network: "involve_asia",
+        url: "https://invl.me/cross-merchant-shared-token",
+        destinationUrl: "https://shopee.ph/product/505955057/25840894725"
+      },
+      "spyder-surge-v2": {
+        merchant: "lazada", network: "involve_asia",
+        url: "https://invl.me/cross-merchant-shared-token",
+        destinationUrl: "https://www.lazada.com.ph/products/spyder-surge-v2-i12345-s67890.html"
+      }
+    }));
+    expect(getAffiliateLinks("gille-kerena-ff007")).toEqual([]);
+    expect(getAffiliateLinks("spyder-surge-v2")).toEqual([]);
+  });
+
 });

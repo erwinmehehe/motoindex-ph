@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { validateRuntimeAffiliateUrl } from "@/lib/runtimeAffiliate";
+import { findStaticAffiliateDestinationOwner } from "@/lib/affiliate";
 import { requirePrivilegedApiAccess } from "@/lib/privilegedApiAccess";
 
 export const runtime="nodejs";
@@ -47,6 +48,12 @@ export async function POST(request:Request){
     }
   }
   if(issues.length)return NextResponse.json({ok:false,error:"Bulk validation failed.",issues},{status:400});
+
+  for(const row of prepared){
+    const configuredOwner=findStaticAffiliateDestinationOwner(row.productId,[row.url,row.destinationUrl]);
+    if(configuredOwner)issues.push(`Product ${row.productId}: tracking or destination URL already belongs to configured product ${configuredOwner}.`);
+  }
+  if(issues.length)return NextResponse.json({ok:false,error:"Configured affiliate destination conflicts.",issues},{status:409});
 
   try{
     // Both URL fields are an identifier for the same exact item. Query the
