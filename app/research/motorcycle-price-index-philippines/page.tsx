@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { AuthorBox } from "@/components/AuthorBox";
+import { QuickAnswer } from "@/components/QuickAnswer";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { PRICE_INDEX_BASELINE_DATE, PRICE_INDEX_METHOD_VERSION, latestResearchCheck, median, researchBrandPriceBenchmarks, researchBudgetBands, researchPriceRows, researchPriceSegments } from "@/lib/researchData";
 import { php, phpRange } from "@/lib/utils";
@@ -58,6 +59,8 @@ export default function MotorcyclePriceIndexPage() {
         <Link className="button secondary" href="/methodology">Read methodology</Link>
       </CTAGroup>}
     />
+
+    <QuickAnswer question="What is the median motorcycle starting price in the MotoIndex Philippine dataset?" answer={`Across ${rows.length} current Philippine-market motorcycles in the MotoIndex catalog, the median published starting price is ${php(medianPrice)}. This is the midpoint of the tracked model prices, not a national sales-weighted average or a dealer quotation. Open individual model sources to confirm current variants and prices.`} checkedAt={checkedAt} />
 
     <StatRow items={[
       {label:"Current models",value:String(rows.length),note:"Indexable Philippine-market records"},
