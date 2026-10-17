@@ -34,6 +34,17 @@ describe("safe runtime affiliate destination precedence",()=>{
     mocks.findFirst.mockResolvedValue({productId:"spyder-surge-v2"});
     expect(await getRuntimeAffiliateLinks(productId)).toEqual([]);
   });
+  it("queries both DB columns with tracking and exact-item values before publishing an offer",async()=>{
+    const tracked="https://invl.me/checked-gille-link";
+    mocks.findUnique.mockResolvedValue({productId,merchant:"shopee",status:"active",url:tracked,destinationUrl:source});
+    expect(await getRuntimeAffiliateLinks(productId)).toHaveLength(1);
+    expect(mocks.findFirst).toHaveBeenCalledWith(expect.objectContaining({
+      where:expect.objectContaining({
+        OR:[{url:{in:[tracked,source]}},{destinationUrl:{in:[tracked,source]}}]
+      })
+    }));
+  });
+
   it("accepts an Involve Asia tracked link with an exact inspected source",async()=>{
     mocks.findUnique.mockResolvedValue({productId,merchant:"shopee",status:"active",url:"https://invl.me/checked-gille-link",destinationUrl:source});
     const offers=await getRuntimeAffiliateLinks(productId);
