@@ -3,6 +3,15 @@ const expectedCommit = (process.env.EXPECTED_COMMIT_SHA || "").trim();
 const timeoutMs = Math.max(5000, Number(process.env.SMOKE_REQUEST_TIMEOUT_MS || 15000));
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+// Required SEO content destinations from PR #493. Merge does not prove live publication.
+const seoReleaseRoutes = [
+  "/guides/motorcycle-loan-philippines",
+  "/guides/semi-automatic-motorcycles-philippines",
+  "/recommendations/150cc-motorcycles-philippines",
+  "/tires/honda-beat-tire-size",
+  "/guides/motorcycle-brands-philippines",
+];
+
 const publicRoutes = [
   "/",
   "/motorcycles",
@@ -10,6 +19,10 @@ const publicRoutes = [
   "/compare/selection?bikes=aerox-v3,nmax-v3",
   "/recommendations",
   "/recommendations/motorcycles-under-100k",
+  "/motorcycles/yamaha/nmax-v3",
+  "/motorcycles/honda/adv-160",
+  "/motorcycles/honda/click-160",
+  ...seoReleaseRoutes,
 ];
 
 const cloudflareFailurePattern = /error\s*1102|worker exceeded resource limits|error\s*503|service unavailable/i;
@@ -55,6 +68,24 @@ for (const path of publicRoutes) {
     if (response.status !== 200) failures.push(`${path}: expected 200, got ${response.status}`);
     if (cloudflareFailurePattern.test(body)) failures.push(`${path}: response contains a Cloudflare Worker resource/server error`);
     if (!body.trim()) failures.push(`${path}: empty response body`);
+    if (seoReleaseRoutes.includes(path) && response.status === 200) {
+      const title = body.match(/<title\b[^>]*>([^<]+)<\/title>/i)?.[1]?.trim();
+      if (!title || title.length < 12) failures.push(path + ": missing HTML title");
+      const tags = body.match(/<meta\b[^>]*>/gi) || [];
+      const description = tags.find(tag => /\bname\s*=\s*(["'])description\1/i.test(tag));
+      if (!description || !/\bcontent\s*=\s*(["'])[^"']{40,}\1/i.test(description)) {
+        failures.push(path + ": missing or short meta description");
+      }
+      const canonicalTag = (body.match(/<link\b[^>]*>/gi) || [])
+        .find(tag => /\brel\s*=\s*(["'])canonical\1/i.test(tag));
+      const canonical = canonicalTag?.match(/\bhref\s*=\s*(["'])(.*?)\1/i)?.[2];
+      if (canonical !== new URL(path, base).href) {
+        failures.push(path + ": canonical mismatch (" + (canonical || "missing") + ")");
+      }
+      if (!/application\/ld\+json/i.test(body)) failures.push(path + ": missing JSON-LD");
+      const robotsTag = tags.find(tag => /\bname\s*=\s*(["'])robots\1/i.test(tag));
+      if (robotsTag && /\bnoindex\b/i.test(robotsTag)) failures.push(path + ": unexpectedly noindex");
+    }
   } catch (error) {
     failures.push(`${path}: ${error instanceof Error ? error.message : String(error)}`);
   }
