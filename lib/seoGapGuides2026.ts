@@ -27,7 +27,7 @@ export const seoGapGuides2026: EditorialGuide[] = [
       {
         "heading": "Verified Philippine examples: Suzuki Smash Fi and Smash Carb",
         "body": [
-          "Suzuki's current Philippine pages identify the Smash Fi with a 113cc engine, four-speed constant-mesh transmission and automatic centrifugal clutch. Its brochure describes an all-down gearshift pattern. This is a source-backed example of a semi-automatic underbone; fuel injection does not determine the shift type.",
+          "Suzuki's current Philippine pages identify the Smash Fi with a 113cc engine, four-speed constant-mesh transmission and automatic centrifugal clutch. Suzuki's Smash Fi owner's manual records an all-down gearshift pattern and explains the foot-lever operation. This is a source-backed example of a semi-automatic underbone; fuel injection does not determine the shift type.",
           "The Suzuki Smash Carb is also documented with a four-speed constant-mesh gearbox and automatic centrifugal clutch. Compare its carburetor variant separately from Smash Fi for maintenance, fueling, braking equipment and availability. A similar-looking underbone from another brand does not automatically share the same clutch mechanism.",
           "Some Philippine listings market underbones simply as manual motorcycles because the rider selects gears. That broad catalog category is not enough to identify the clutch, and MotoIndex does not yet maintain a validated semi-automatic transmission field for every model."
         ],
@@ -125,7 +125,7 @@ export const seoGapGuides2026: EditorialGuide[] = [
         "url": "https://mc.suzuki.com.ph/motorcycles/underbone/smash-fi/"
       },
       {
-        "label": "Suzuki — Smash Fi brochure with clutch and gearbox specification",
+        "label": "Suzuki Philippines — Smash Fi owner's manual, clutch and gearshift pattern",
         "url": "https://mc.suzuki.com.ph/wp-content/uploads/2024/04/SMASH-FI.pdf"
       },
       {
