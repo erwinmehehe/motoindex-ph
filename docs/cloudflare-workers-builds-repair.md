@@ -28,6 +28,12 @@ The repository's approved production release path is manual **Deploy MotoIndex P
 
 If Workers Builds continues to fail after the repository fix, its **first actual error line** is required to identify an environment, authentication, quota, dependency or permissions problem. A successful dry run cannot prove that a remote upload has succeeded.
 
+## Automatic Git production build failsafe
+
+MotoIndex additionally rejects Cloudflare Workers Builds jobs where the injected `WORKERS_CI=1` and `WORKERS_CI_BRANCH=main`, or the branch is missing. The guard is wired into npm's default `prebuild`, explicit `precf:build`, and the Wrangler OpenNext build hook. This ensures the usual repository-defined build paths cannot publish on an unmanaged production branch push. A deliberately successful **preview** build may still run on a non-production branch.
+
+This code fails closed but is **not** proof of the Cloudflare account's build/deploy settings, and direct/unexpected commands may bypass it. Cloudflare Workers Builds production auto-deployment must still be disconnected or configured for non-active version uploads, with operator evidence, before PR merges. Manual GitHub Actions releases do not set `WORKERS_CI` and instead pass the protected-main + production-environment approval checks.
+
 ## Worker commands
 
 - Build a Worker explicitly: `npm run cf:build`
