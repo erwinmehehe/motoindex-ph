@@ -15,7 +15,7 @@ function authorizedCandidate(approval) {
   const rights = approval.rightsEvidence;
   if (!entry || !rights || approval.imageUrl !== entry.imageUrl ||
       !rights.rightsHolder || !rights.licenseReference || !rights.reviewedBy ||
-      !/^\\d{4}-\\d{2}-\\d{2}$/.test(rights.approvedAt || "") ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(rights.approvedAt || "") ||
       rights.commercialUse !== true || rights.hosting !== true ||
       rights.derivativeWorks !== true || rights.redistribution !== true ||
       rights.exactModelVisuallyVerified !== true ||
