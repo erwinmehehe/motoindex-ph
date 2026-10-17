@@ -13,6 +13,11 @@ const adminBulk = readFileSync(
   new URL("../app/api/admin/affiliate-links/bulk/route.ts", import.meta.url), "utf8"
 );
 
+const manualRelease = readFileSync(
+  new URL("../.github/workflows/cloudflare-production-deploy.yml", import.meta.url),
+  "utf8"
+);
+
 describe("exact-item affiliate destination rollout contract", () => {
   it("uses only an additive, nullable migration for legacy link records", () => {
     expect(migration).toMatch(/ALTER TABLE "AffiliateProductLink" ADD COLUMN "destinationUrl" TEXT;/);
@@ -29,5 +34,14 @@ describe("exact-item affiliate destination rollout contract", () => {
         .toBeLessThan(source.indexOf("if(!databaseConfigured())"));
     }
     expect(adminSingle).toContain('export async function DELETE(request:Request');
+  });
+
+  it("blocks manual release when production Prisma migrations are pending", () => {
+    const check = "npx prisma migrate status --schema prisma/schema.prisma";
+    expect(manualRelease).toContain(check);
+    expect(manualRelease.indexOf(check)).toBeGreaterThan(manualRelease.indexOf("Install dependencies"));
+    expect(manualRelease.indexOf(check)).toBeLessThan(manualRelease.indexOf("Deploy Worker"));
+    expect(manualRelease).not.toContain("npx prisma migrate deploy");
+    expect(manualRelease).toContain("workflow_dispatch:");
   });
 });

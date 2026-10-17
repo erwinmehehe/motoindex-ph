@@ -24,7 +24,7 @@ PR #485 adds a **nullable** `AffiliateProductLink.destinationUrl` column. The mi
 
 - Take/verify a fresh production backup and capture migration-status evidence.
 - Apply `prisma migrate deploy` against production before deploying code that references `destinationUrl`.
-- Release from the approved manual workflow only after staging, account-level affiliate and Access evidence pass. Avoid turning on Git-triggered automatic deploys to work around this gate.
+- Release from the approved manual workflow only after staging, account-level affiliate and Access evidence pass. The release job now performs a **read-only** `npx prisma migrate status --schema prisma/schema.prisma` before building or deploying, and stops if any schema migrations are still pending, failed or divergent (or database access fails). It **never** applies the migration automatically. Avoid turning on Git-triggered automatic deploys to work around this gate.
 - Monitor admin errors, unexpected fallbacks and conversion links. On failure, **roll back the application deployment first**; retain the harmless nullable column rather than dropping schema changes without a documented data restoration plan.
 
 **Current status:** No staging or production migration has been performed by this PR. No tracking URL is deemed verified merely because it passes syntactic URL validation. Keep #469 draft until operators provide evidence.

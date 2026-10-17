@@ -71,6 +71,9 @@ jobs:
       - name: Production preflight
         run: npm run check:launch
 
+      - name: Verify approved database migrations before building
+        run: npx prisma migrate status --schema prisma/schema.prisma
+
       - name: Typecheck
         run: npm run typecheck
 
