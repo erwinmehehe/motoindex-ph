@@ -27,14 +27,14 @@ PR #485 adds a **nullable** `AffiliateProductLink.destinationUrl` column. The mi
 - Release from the approved manual workflow only after staging, account-level affiliate and Access evidence pass. The release job now performs a **read-only** `npx prisma migrate status --schema prisma/schema.prisma` before building or deploying, and stops if any schema migrations are still pending, failed or divergent (or database access fails). It **never** applies the migration automatically. Avoid turning on Git-triggered automatic deploys to work around this gate.
 - Monitor admin errors, unexpected fallbacks and conversion links. On failure, **roll back the application deployment first**; retain the harmless nullable column rather than dropping schema changes without a documented data restoration plan.
 
-**Current status:** No staging or production migration has been performed by this PR. No tracking URL is deemed verified merely because it passes syntactic URL validation. Keep #469 draft until operators provide evidence.
+**Current status:** No MotoIndex staging or production migration has been performed by PR #485. No tracking URL is deemed verified merely because it passes syntactic URL validation. Keep **#485** draft until the operator provides real staging, merchant and access-review evidence.
 
 ## Recorded evidence — 14 October 2026
 
 - Integrated PR #485 at `0534d49` passed CI, Cloudflare Runtime Compatibility, and Visual QA before this evidence/test fixture update. Fresh-HEAD checks must be re-run for any later commit.
 - Read-only connector discovery found no **confirmed MotoIndex staging database**. Connected Neon branches are labelled PayrollPH; the connected active Supabase project's public tables belong to a recruiting platform. Neither was modified. **Do not assume these are MotoIndex resources.**
 - The Shopee product page `https://shopee.ph/GILLE-FF007-Kerena-Mono-Color-Revo-Lens-Full-Face-Single-Visor-Motorcycle-Helmet-i.505955057.25840894725` independently displays a Gille FF007 Kerena item under **Gille Helmets Mall** and matches shop ID `505955057`, item ID `25840894725`. Search-indexed/public-page evidence only: current stock, price, variants, actual checkout, and any opaque Involve Asia redirect still require authenticated mobile/desktop review. This is **editorial**, not an approved commission link.
-- `scripts/sql/affiliate-destination-pre-migration.sql` and `scripts/sql/affiliate-destination-post-migration.sql` were added to verify legacy-row preservation and new nullable exact-destination storage. These are **unexecuted fixtures until a disposable PostgreSQL or verified staging environment is connected**. Static Vitest tests validate their presence/contract; they do **not** simulate a real SQL migration.
+- `scripts/sql/affiliate-destination-pre-migration.sql` and `scripts/sql/affiliate-destination-post-migration.sql` verify legacy-row preservation and new nullable exact-destination storage. They were initially static fixtures; the later GitHub Actions CI now executes these assertions against its own disposable local PostgreSQL instance. **This is not a MotoIndex staging or production migration.**
 
 ### Isolated PostgreSQL rehearsal procedure
 
@@ -48,3 +48,16 @@ Run this only in a disposable PostgreSQL test database expressly created for Mot
 6. Run `npx prisma migrate status` and repeat `npx prisma migrate deploy` to verify there is no pending migration. Preserve the evidence as an isolated PostgreSQL run, **not** as a completed real MotoIndex staging rehearsal.
 
 **Outstanding:** Verify the actual MotoIndex database provider and staging database identity. Do not run the migration against live data; keep PR #485 in draft until the verified application staging migration, rollback practice, protected-route authentication, and genuine merchant tracking-link approvals are documented. Cloudflare's live deployment remains unchanged.
+
+## Latest verified source-only CI evidence — 18 October 2026
+
+On integration commit `40e95b789be879f29ce07a022922e5c2de530af0`, GitHub CI run [39132716202](https://github.com/erwinmehehe/motoindex-ph/actions/runs/39132716202) passed **309 tests in 63 test files**. The log specifically records `tests/affiliateDestinationPostgresRehearsal.test.ts` **1 passed**, approximately 9.9 seconds, against a randomly named **runner-local disposable PostgreSQL** database. The test creates and drops its own local database/role, confirms legacy preservation, applies the nullable migration, and checks idempotence. CI, Visual QA, Cloudflare Runtime Compatibility, and Workers Builds checks all passed for that commit.
+
+These results **do not constitute live merchant approval, actual MotoIndex staging/production migration, backup/restore evidence, an operational MFA review, or a production deployment**. Any later edits to this PR require fresh checks for the new HEAD.
+
+### Verified staging account and merchant blockers
+
+- A read-only discovery of the connected database services identified **no project explicitly verified as MotoIndex staging**. Do not use any merely generic, unrelated or unnamed database as a migration target.
+- The owner must identify a MotoIndex-owned staging database, approve its use and demonstrate a backup/restore rehearsal before applying `prisma migrate deploy` there.
+- The first Gille Kerena FF007 editorial source (Shopee shop `505955057`, item `25840894725`) is **not** an approved commission-tracked destination. Generate a unique exact-item tracking link in the merchant's approved account, verify the resolved shop/item on desktop and mobile, and attach redacted results (never credentials).
+- Release-protection issue [#462](https://github.com/erwinmehehe/motoindex-ph/issues/462) and the separate draft [#491](https://github.com/erwinmehehe/motoindex-ph/pull/491) may both touch the manual release workflow. Reconcile their gates before either branch is allowed into production.
