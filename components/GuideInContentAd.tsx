@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { adsenseClientId, adsenseEnabled } from "@/lib/adsense";
-import styles from "./GuideInContentAd.module.css";
 
 const AD_CLIENT = "ca-pub-1900865456140693";
 const AD_SLOT = "6431580274";
@@ -45,11 +44,12 @@ export function GuideInContentAd() {
   if (!enabled) return null;
 
   return (
-    <aside className={styles.container} aria-label="Advertisement">
-      <span className={styles.label}>Advertisement</span>
+    <aside aria-label="Advertisement" style={{ clear: "both", width: "100%", minWidth: 0, margin: "2rem auto", padding: "0.75rem 0", overflow: "hidden" }}>
+      <span style={{ display: "block", marginBottom: "0.75rem", color: "#5f6972", fontSize: "0.75rem", lineHeight: 1.4, textAlign: "center" }}>Advertisement</span>
       <ins
         ref={adRef}
-        className={`adsbygoogle ${styles.unit}`}
+        className="adsbygoogle"
+        style={{ display: "block", width: "100%", minHeight: 250 }}
         data-ad-client={AD_CLIENT}
         data-ad-slot={AD_SLOT}
         data-ad-format="auto"
