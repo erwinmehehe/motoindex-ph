@@ -11,6 +11,7 @@ function check(overrides: Record<string, string> = {}) {
     cwd: process.cwd(),
     encoding: "utf8",
     env: {
+      NODE_ENV: "production",
       PATH: process.env.PATH,
       REQUIRE_FORM_BOT_PROTECTION: "true",
       NEXT_PUBLIC_TURNSTILE_SITE_KEY: "configured-site-key",
