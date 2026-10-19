@@ -111,3 +111,4 @@ jobs:
         env:
           BASE_URL: https://motoindexph.com
           EXPECTED_COMMIT_SHA: ${{ github.sha }}
+          EXPECT_ADS_ONLY: ${{ inputs.release_mode == 'ads-only' && 'true' || 'false' }}
