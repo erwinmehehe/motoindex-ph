@@ -87,6 +87,9 @@ export async function middleware(request: NextRequest) {
       (!isAdSenseMotorcycleDocument(pathname) || Boolean(request.nextUrl.search))) {
     const response = NextResponse.next();
     response.headers.set("Content-Security-Policy", nonAdvertisingMotorcycleCsp());
+    if (pathname === "/motorcycles" && CATALOG_FILTER_PARAMS.some(key =>
+      request.nextUrl.searchParams.getAll(key).some(value => value.trim().length > 0)
+    )) response.headers.set("X-Robots-Tag", "noindex, follow");
     return response;
   }
   if (pathname === "/my" || pathname.startsWith("/api/my/") || pathname === "/garage" || pathname.startsWith("/garage/") || pathname === "/dealer-portal" || pathname.startsWith("/dealer-portal/") || pathname.startsWith("/api/dealer-portal/")) {
