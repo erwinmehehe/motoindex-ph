@@ -22,12 +22,24 @@ describe("existing AdSense publisher, explicit activation", () => {
     }
   });
 
-  it("requires explicit true with a valid current client ID", () => {
+  it("requires BOTH operator opt-ins and a valid current client ID", () => {
     vi.stubEnv("NEXT_PUBLIC_ADSENSE_ENABLED", "true");
+    vi.stubEnv("NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED", "true");
     vi.stubEnv("NEXT_PUBLIC_ADSENSE_CLIENT_ID", "ca-pub-0000000000000000");
     expect(adsenseEnabled()).toBe(true);
     vi.stubEnv("NEXT_PUBLIC_ADSENSE_CLIENT_ID", "ca-pub-invalid");
     expect(adsenseEnabled()).toBe(false);
+  });
+
+  it("fails closed if someone enables AdSense before release gates are approved", () => {
+    vi.stubEnv("NEXT_PUBLIC_ADSENSE_ENABLED", "true");
+    vi.stubEnv("NEXT_PUBLIC_ADSENSE_CLIENT_ID", "ca-pub-1900865456140693");
+    for (const value of ["", "false", "TRUE", "yes"]) {
+      vi.stubEnv("NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED", value);
+      expect(adsenseEnabled()).toBe(false);
+    }
+    vi.stubEnv("NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED", "true");
+    expect(adsenseEnabled()).toBe(true);
   });
 
   it("rejects explicitly malformed publisher identifiers rather than publishing them", async () => {
