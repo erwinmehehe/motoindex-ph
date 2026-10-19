@@ -2,6 +2,15 @@ name: Deploy MotoIndex Production to Cloudflare
 
 on:
   workflow_dispatch:
+    inputs:
+      release_mode:
+        description: "Deployment: public research + AdSense only, or all backend features"
+        type: choice
+        required: true
+        default: ads-only
+        options:
+          - ads-only
+          - full
 
 concurrency:
   group: motoindex-cloudflare-production
@@ -21,7 +30,10 @@ jobs:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      ADMIN_ACCESS_MODE: cloudflare
+      # ads-only disables account/dealer/admin services before routing and
+      # deliberately does not require PostgreSQL, Turnstile or Zero Trust.
+      NEXT_PUBLIC_MOTOINDEX_ADS_ONLY_MODE: ${{ inputs.release_mode == 'ads-only' && 'true' || 'false' }}
+      ADMIN_ACCESS_MODE: ${{ inputs.release_mode == 'ads-only' && 'disabled' || 'cloudflare' }}
       CF_ACCESS_TEAM_DOMAIN: ${{ secrets.CF_ACCESS_TEAM_DOMAIN }}
       CF_ACCESS_AUD: ${{ secrets.CF_ACCESS_AUD }}
       ADMIN_ACCESS_EMAILS: ${{ secrets.ADMIN_ACCESS_EMAILS }}
@@ -66,6 +78,7 @@ jobs:
           test -n "$CLOUDFLARE_ACCOUNT_ID" || (echo "CLOUDFLARE_ACCOUNT_ID is not configured" && exit 1)
 
       - name: Verify Worker runtime secret bindings
+        if: inputs.release_mode == 'full'
         run: |
           npx wrangler secret list --format json > /tmp/motoindex-worker-secret-names.json
           node scripts/verify-worker-binding-names.mjs /tmp/motoindex-worker-secret-names.json
