@@ -13,14 +13,14 @@ type AdSenseWindow = Window & {
 /**
  * Manual display-ad placement for long-form editorial guides only.
  *
- * The global AdSense bootstrap already lives in components/AdSense.tsx.
+ * The nonce-protected AdSense bootstrap lives only in editorial guide pages.
  * Do not add the Google script a second time in this component.
  * Advertising remains off until an operator explicitly enables it after
  * the account, consent, CSP and private-route checks in issue #466.
  */
-export function GuideInContentAd() {
+export function GuideInContentAd({ nonceReady = false }: { nonceReady?: boolean }) {
   const adRef = useRef<HTMLModElement>(null);
-  const enabled = adsenseEnabled() && adsenseClientId() === AD_CLIENT;
+  const enabled = nonceReady && adsenseEnabled() && adsenseClientId() === AD_CLIENT;
 
   useEffect(() => {
     const element = adRef.current;

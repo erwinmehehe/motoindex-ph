@@ -9,7 +9,7 @@ import { Analytics } from "@/components/Analytics";
 import { CompareTray } from "@/components/CompareTray";
 import { MotionEnhancer } from "@/components/MotionEnhancer";
 import { publicMotorcycles } from "@/lib/data";
-import { AdSense } from "@/components/AdSense";
+import { AdSenseNavigationSafety } from "@/components/AdSenseNavigationSafety";
 import { MyShortlistSync } from "@/components/MyShortlistSync";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -72,5 +72,5 @@ const websiteSchema = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en-PH" data-theme="premium-light" className={`${inter.variable} ${jakarta.variable}`}><body><Analytics/><AdSense/><MotionEnhancer/><MyShortlistSync/><a className="skip-link" href="#main-content">Skip to main content</a><Header /><main id="main-content" tabIndex={-1}>{children}</main><CompareTray models={publicMotorcycles.map(({id,make,model,slug})=>({id,make,model,slug}))}/><Footer /><JsonLd data={[organizationSchema, websiteSchema]} /></body></html>;
+  return <html lang="en-PH" data-theme="premium-light" className={`${inter.variable} ${jakarta.variable}`}><body><Analytics/><AdSenseNavigationSafety/><MotionEnhancer/><MyShortlistSync/><a className="skip-link" href="#main-content">Skip to main content</a><Header /><main id="main-content" tabIndex={-1}>{children}</main><CompareTray models={publicMotorcycles.map(({id,make,model,slug})=>({id,make,model,slug}))}/><Footer /><JsonLd data={[organizationSchema, websiteSchema]} /></body></html>;
 }

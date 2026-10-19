@@ -157,18 +157,50 @@ const nextConfig = {
       "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io",
       ...(process.env.NODE_ENV === "production" ? ["upgrade-insecure-requests"] : []),
     ].join("; ");
-    return [{
-      source: "/:path*",
-      headers: [
-        { key: "Content-Security-Policy", value: csp },
-        { key: "X-Content-Type-Options", value: "nosniff" },
-        { key: "X-Frame-Options", value: "SAMEORIGIN" },
-        { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-        { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-        { key: "X-DNS-Prefetch-Control", value: "off" },
-        ...(process.env.NODE_ENV === "production" ? [{ key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" }] : [])
-      ]
-    }];
+    // AdSense HTML documents get a fresh nonce-based CSP in middleware.
+    // Do not send a second, incompatible global script-src to those pages.
+    const adDocumentsEnabled =
+      process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true" &&
+      process.env.NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED === "true";
+    // Keep security headers on every path. Exclude only the conflicting
+    // *global CSP* from the advertising guides; middleware adds a nonce CSP.
+    // Next.js static headers can supersede middleware's Referrer-Policy on
+    // the final OpenNext Worker response. Add specific private-route overrides
+    // AFTER the shared policy, preserving affiliate referrers on public pages.
+    const privateReferrerPaths = [
+      "/my/:path*", "/garage/:path*", "/dealer-portal/:path*",
+      "/quote-status/:path*", "/dealer-lead/:path*",
+      "/price-alerts/confirm/:path*", "/price-alerts/unsubscribe/:path*",
+      "/admin/:path*", "/api/my/:path*", "/api/dealer-portal/:path*",
+      "/api/quote-status/:path*", "/api/dealer-lead/:path*",
+      "/api/price-alerts/:path*", "/api/admin/:path*", "/api/ingestion/:path*",
+    ];
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          // Do not set Referrer-Policy in the global Next.js static header
+          // manifest: OpenNext reapplies it after middleware and overrides
+          // no-referrer on private account/token routes. Modern browsers use
+          // strict-origin-when-cross-origin by default on public pages.
+          // Private routes have explicit no-referrer in both middleware and
+          // the privateReferrerPaths overrides below.
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          { key: "X-DNS-Prefetch-Control", value: "off" },
+          ...(process.env.NODE_ENV === "production" ? [{ key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" }] : [])
+        ]
+      },
+      {
+        source: adDocumentsEnabled ? "/((?!guides/).*)" : "/:path*",
+        headers: [{ key: "Content-Security-Policy", value: csp }]
+      },
+      ...privateReferrerPaths.map(source => ({
+        source,
+        headers: [{ key: "Referrer-Policy", value: "no-referrer" }]
+      }))
+    ];
   }
 };
 export default nextConfig;

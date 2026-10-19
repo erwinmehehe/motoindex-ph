@@ -9,7 +9,7 @@ describe("AdSense account, consent and release contracts", () => {
     expect(config).toContain('process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true"');
     expect(config).toContain('process.env.NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED === "true"');
     const workflow = read(".github/workflows/cloudflare-production-deploy.yml");
-    expect(workflow).not.toContain("NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED:");
+    expect(workflow).toContain("vars.MOTOINDEX_ADSENSE_RELEASE_GATES_APPROVED || 'false'");
     expect(config).toContain('pub-1900865456140693');
     expect(config).toContain('ca-pub-1900865456140693');
   });
@@ -20,12 +20,15 @@ describe("AdSense account, consent and release contracts", () => {
     expect(preflight).toContain("failures.push(\"AdSense release is blocked under #466:");
   });
 
-  it("preserves the verified document-head bootstrap requirement", () => {
+  it("requires guide-scoped nonce bootstrap and no global AdSense loader", () => {
     const component = read("components/AdSense.tsx");
     expect(component).toContain("adsenseEnabled()");
-    expect(component).toContain('strategy="beforeInteractive"');
+    expect(component).toContain('strategy="afterInteractive"');
+    expect(component).toContain("nonce={nonce}");
+    expect(read("app/layout.tsx")).not.toContain("<AdSense/>");
+    expect(read("app/guides/[slug]/page.tsx")).toContain("<AdSense nonce={adNonce} />");
   });
-  it("documents private-route and consent QA as mandatory before activating global scripts", () => {
+  it("documents private-route and consent QA as mandatory before activating advertising scripts", () => {
     const doc = read("docs/adsense-safe-release.md");
     expect(doc.toLowerCase()).toContain("private routes");
     expect(doc).toContain("consent");

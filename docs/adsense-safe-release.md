@@ -1,28 +1,28 @@
-# MotoIndex AdSense release contract — strict opt-in without breaking publisher identity
+# MotoIndex guide-only AdSense release contract — #466
 
-## What this code changes
+## Built-in monetization integration
+- Publisher `pub-1900865456140693`, matching `ca-pub` client and the root `/ads.txt` seller line remain intact. Account ownership, approved site and actual ad delivery still require Google AdSense verification.
+- Only actual public editorial guide documents at `/guides/[slug]` mount the Google AdSense bootstrap and one manual unit (slot `6431580274`, after section two). No AdSense script is mounted in the global root layout. The slot renders only with a request-scoped nonce.
+- The guide middleware issues a new random nonce for each eligible HTML document, passes it into Next.js rendering, and sets Google's documented `strict-dynamic` nonce CSP. The old global CSP is excluded only for approved ad-guide documents. Private direct routes keep their stricter CSP, no-referrer, no-store and noindex.
+- When advertising is enabled, `AdSenseNavigationSafety` forces full same-origin document loads entering/leaving an ad guide rather than carrying a previously loaded Google script and its document CSP into a private route. This is a client-side defense-in-depth measure, **not an independently verified browser guarantee**, especially for programmatic router navigation/back-forward history.
 
-The repository's `validate:adsense` contract explicitly pins the MotoIndex publisher `pub-1900865456140693`, its matching `ca-pub` client ID, a root `/ads.txt` declaration, the Google certification authority ID, and the `beforeInteractive` document-head bootstrap. This PR **preserves those existing public identifiers and their validated integration** rather than assuming they belong to somebody else. An operator must still confirm the actual account ownership and active revenue before a production release.
+## Two independent default-OFF launch gates
+`NEXT_PUBLIC_ADSENSE_ENABLED=true` **and** `NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED=true` must both be present at build time. Invalid or missing values fail closed. The manual Cloudflare production workflow maps these solely from owner-controlled GitHub production Environment variables:
+- `MOTOINDEX_ADSENSE_ENABLED`
+- `MOTOINDEX_ADSENSE_RELEASE_GATES_APPROVED`
 
-The advertising script now loads **only when `NEXT_PUBLIC_ADSENSE_ENABLED=true` is explicitly configured at build time**. The missing/unset flag is OFF, not implicitly enabled. An invalid override is rejected rather than silently falling back; the existing pinned IDs are retained when an override is empty. The root `ads.txt` seller record stays available for ownership discovery even when script activation is disabled.
+Both default to `false`. They are **not automatically enabled** by merging this code. `npm run check:launch` refuses enabling the first flag without the independent approval flag.
 
-## Additional hard stop for issue #466
+## Private routes and response headers
+Private routes including `/garage`, `/my`, `/dealer-portal`, `/quote-status/{token}`, `/dealer-lead/{token}`, and price-alert confirmation/unsubscribe paths must return `Referrer-Policy: no-referrer`, `Cache-Control: no-store`, and a provider-blocking CSP. Both middleware and final Cloudflare Worker HTTP responses must preserve these protections. Tests use synthetic private links and never collect real customer tokens.
 
-A second independent build-time gate, `NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED=true`, is now required **in addition to** `NEXT_PUBLIC_ADSENSE_ENABLED=true`. Both flags default to false and the manual GitHub production deployment workflow deliberately does **not** map the new release approval flag. Setting only `MOTOINDEX_ADSENSE_ENABLED=true` in the GitHub production Environment will **not** start ad delivery.
+## Required account and live acceptance
+1. Confirm the actual AdSense account is authorized for `motoindexph.com`, that publisher `pub-1900865456140693` and manual ad slot `6431580274` belong to the approved property, and that root `/ads.txt` serves the correct seller line.
+2. Confirm region-appropriate consent/CMP behavior and disclosures, including test cases where visitors decline optional personalized advertising.
+3. On a **non-production** Cloudflare preview with **both** approved flags, verify actual guide script request, nonce propagation, rendered manual ad, AdSense account impressions, and CSP console/network behavior. Google's guidance recommends testing CSP in report-only mode first: https://support.google.com/adsense/answer/16283098
+4. With synthetic or otherwise authorized tokens, exercise direct `/quote-status/{token}`, `/dealer-lead/{token}`, `/garage` landings, public model → guide → private, back/forward, and programmatic router transitions. **No private path, token, buyer name, phone or email may reach any third-party ad/analytics request.** Save redacted HAR evidence.
+5. Verify first-party key conversion events, responsive ads/no layout shift, normal SEO indexing, Worker CPU consumption from dynamically rendered ad guides, and an actual AdSense impression baseline.
+6. Require green protected-main GitHub checks and production Environment approval before using the **manual** Cloudflare production workflow. Monitor revenue, errors and privacy; rollback by switching both vars off and rebuilding if needed.
 
-This is a protective release lock, **not evidence** that the Google account, privacy consent, CSP, or SPA-private-route architecture have been approved. A separately reviewed change must explicitly wire approval into the production build after all independent acceptance tests pass.
-
-For direct visits to token/account pages, middleware now sends a no-referrer, no-store, noindex response with provider-blocking CSP (no AdSense, GA4, Plausible, or third-party frame/connect source). The current static Next.js document still uses inline hydration scripts. **This is not a nonce-based AdSense CSP and does not fix public-to-private Next.js client-side transitions:** loaded third-party scripts and the public document CSP may persist when routing without a full document navigation. Do not activate ads based on direct-route tests alone.
-
-## Release prerequisites
-
-1. Verify the actual MotoIndex AdSense account access, publisher ownership, property authorization and observed baseline revenue. Do not treat a source-code identifier as independent provider-side authorization.
-2. Confirm consent and privacy disclosures for applicable visitors before activating third-party scripts. **Private routes** (including buyer status links and sign-in tokens) still inherit scripts inserted into the root document head when advertising is enabled. This change intentionally does **not** claim to solve public-to-private SPA tracking.
-3. Perform network and cookie QA with a clean browser on public → /quote-status/{redacted-token} → public navigation and direct private-route loads. Ensure no private token, email, phone or query parameters are sent to third parties. Record redacted proof on issue #466.
-4. Leave `NEXT_PUBLIC_ADSENSE_ENABLED=false` and `NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED=false` when operator checks have not been completed. Turning it on requires a separately reviewed and approved deployment configuration; never turn it on as a workaround for missed advertising events.
-5. Confirm the intended AdSense revenue effect of the explicit opt-in: if the current production build relied on implicit activation and the flag is not configured, ads intentionally pause on the next release. To preserve advertising after approval, configure the flag `true` using the verified current IDs.
-6. Plan a separate privacy-safe advertising architecture if ad scripts must not load at all on private account/token routes. Global document-head scripts cannot guarantee that privacy by checking the route only once.
-
-## What this does not do
-
-No AdSense/Cloudflare account settings, secret values, domain controls, WAF or production deployment are changed. Green CI proves code correctness, **not** operator authorization, private-route network safety or publisher revenue stability. Keep #466 open until provider-side and browser evidence is attached.
+## What merging does NOT do
+No provider account/CMP/Cloudflare secret or variable has been changed by this code. Neither a green CI nor a successful preview **proves the provider approved the site or that revenue is live**. Do not close issue #466 before independently documented consent, live-browser privacy and real ad-delivery acceptance.
