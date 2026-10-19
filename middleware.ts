@@ -80,6 +80,7 @@ export async function middleware(request: NextRequest) {
     response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
     return response;
   }
+  if (process.env.NODE_ENV === "production" && isPrototypePath(pathname)) return deny("Not found.", 404);
   // Ad-supported motorcycle URLs use middleware CSP instead of the static
   // next.config CSP. Utility/derivative and query-filtered URLs stay strict.
   if (adsenseEnabled() && (pathname === "/motorcycles" || pathname.startsWith("/motorcycles/")) &&
@@ -88,7 +89,6 @@ export async function middleware(request: NextRequest) {
     response.headers.set("Content-Security-Policy", nonAdvertisingMotorcycleCsp());
     return response;
   }
-  if (process.env.NODE_ENV === "production" && isPrototypePath(pathname)) return deny("Not found.", 404);
   if (pathname === "/my" || pathname.startsWith("/api/my/") || pathname === "/garage" || pathname.startsWith("/garage/") || pathname === "/dealer-portal" || pathname.startsWith("/dealer-portal/") || pathname.startsWith("/api/dealer-portal/")) {
     const response = NextResponse.next();
     response.headers.set("Cache-Control", "no-store");
