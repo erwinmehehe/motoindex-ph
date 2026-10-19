@@ -26,7 +26,7 @@ export function AdSenseNavigationSafety() {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       const target = event.target;
       if (!(target instanceof Element)) return;
-      const anchor = target.closest("a[href]");
+      const anchor = target.closest<HTMLAnchorElement>("a[href]");
       if (!anchor || anchor.hasAttribute("download") || (anchor.target && anchor.target !== "_self")) return;
       let next: URL;
       try { next = new URL(anchor.href, window.location.href); } catch { return; }
