@@ -95,6 +95,16 @@ const requiredRoutes = [
   "/recommendations/motorcycles-under-100k"
 ];
 
+// Wrangler serves static assets before the Worker. Old/prebuilt redirect
+// source HTML may remain in .open-next/assets even when the source was not
+// copied by this pass; remove exact redirect-source files so they cannot
+// shadow configured 308 responses.
+for (const redirectSource of redirectSourcePaths) {
+  if (!redirectSource.startsWith("/") || redirectSource === "/") continue;
+  const destination = destinationFor(redirectSource);
+  if (fs.existsSync(destination)) fs.unlinkSync(destination);
+}
+
 const missing = requiredRoutes.filter((route) => !copiedRoutes.includes(route));
 if (missing.length) {
   throw new Error(`Static edge publish is missing required routes: ${missing.join(", ")}`);
