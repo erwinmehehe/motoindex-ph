@@ -8,7 +8,7 @@ const read = (file: string) => readFileSync(new URL("../" + file, import.meta.ur
 
 afterEach(() => vi.unstubAllEnvs());
 
-describe("issue #466 guide-only AdSense runtime", () => {
+describe("issue #466 public-guide AdSense runtime", () => {
   it("limits advertising to a public editorial document route", () => {
     expect(isAdSenseGuideDocument("/guides/motorcycle-helmet-size-guide")).toBe(true);
     for (const pathname of [
@@ -72,6 +72,6 @@ describe("issue #466 guide-only AdSense runtime", () => {
     expect(loader).toContain("nonce={nonce}");
     expect(boundary).toContain('document.addEventListener("click", forceDocumentBoundary, true)');
     expect(boundary).toContain("window.location.assign(next.href)");
-    expect(config).toContain('"/((?!guides/).*)"');
+    expect(config).toContain('"/((?!guides/|motorcycles).*)"');
   });
 });
