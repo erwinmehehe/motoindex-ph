@@ -53,6 +53,13 @@ if (adminAccessMode === "cloudflare" || adminAccessMode === "cloudflare-access")
 }
 
 
+// Issue #466: fail the release preflight rather than silently dropping ad revenue
+// or loading third-party scripts before privacy/CSP/private-route approval.
+if (process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true" &&
+    process.env.NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED !== "true") {
+  failures.push("AdSense release is blocked under #466: NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED must be explicitly approved after consent, CSP, private-route and publisher QA.");
+}
+
 const DAY_MS = 86_400_000;
 const ageDays = (date) => {
   const ms = Date.parse(`${date}T00:00:00Z`);
