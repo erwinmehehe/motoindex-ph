@@ -157,8 +157,13 @@ const nextConfig = {
       "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io",
       ...(process.env.NODE_ENV === "production" ? ["upgrade-insecure-requests"] : []),
     ].join("; ");
+    // AdSense HTML documents get a fresh nonce-based CSP in middleware.
+    // Do not send a second, incompatible global script-src to those pages.
+    const adDocumentsEnabled =
+      process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true" &&
+      process.env.NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED === "true";
     return [{
-      source: "/:path*",
+      source: adDocumentsEnabled ? "/((?!guides/).*)" : "/:path*",
       headers: [
         { key: "Content-Security-Policy", value: csp },
         { key: "X-Content-Type-Options", value: "nosniff" },
