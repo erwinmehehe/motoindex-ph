@@ -50,6 +50,7 @@ import { tireGuideHrefForModel } from "@/lib/tireSeo";
 import { getModelFamilyForModel } from "@/lib/families";
 import { performanceAnswerFor } from "@/lib/modelPerformance";
 import { AuthorBox } from "@/components/AuthorBox";
+import { MotorcycleInContentAd } from "@/components/MotorcycleInContentAd";
 import { authorPersonSchema } from "@/lib/author";
 import { getModelGearGuide } from "@/lib/modelGearGuides";
 import { OwnershipCatalogLinks } from "@/components/OwnershipCatalogLinks";
@@ -86,7 +87,7 @@ function AnalyticsMetric({ id, label, value, unit, note, fill, featured = false 
 }
 
 
-export function MotorcycleEntityPage({ model, omitHero = false }: { model: Motorcycle; omitHero?: boolean }) {
+export function MotorcycleEntityPage({ model, omitHero = false, nonceReady = false }: { model: Motorcycle; omitHero?: boolean; nonceReady?: boolean }) {
   const isPrevious = model.marketStatus === "previous";
   const isDiscontinued = model.marketStatus === "discontinued";
   const isHistorical = isPrevious || isDiscontinued;
@@ -258,6 +259,8 @@ export function MotorcycleEntityPage({ model, omitHero = false }: { model: Motor
         <div className="motorcycle-editorial-grid"><article className="editorial-best"><span>Best fit for</span><h3>{editorial.bestFor}</h3><p>{model.summary}</p></article><article><span>Pros</span><ul>{editorial.strengths.map((item) => <li key={item}>{item}</li>)}</ul></article><article><span>Trade-offs</span><ul>{editorial.watchOuts.map((item) => <li key={item}>{item}</li>)}</ul></article></div>
       </section>
 
+      <MotorcycleInContentAd nonceReady={nonceReady} />
+
       <section id="price" className="motorcycle-entity-section" aria-labelledby="price-heading">
         <SectionHeader kicker="Price & variants" titleId="price-heading" title={<>{model.make} {model.model} price in the Philippines</>} description={isHistorical ? "The last published new-bike price stays on the motorcycle page, with model status shown separately." : "Start with the published price and exact variant, then confirm the current dealer quote before purchase."} />
         <div className="entity-price-grid motorcycle-price-grid"><article><span>{isHistorical ? "Last published price" : "Published price"}</span><strong>{observedMarketPriceLabel(model)}</strong><small>{isHistorical ? "Dated new-bike reference; check the exact unit and current market price." : "Confirm the current dealer quote before purchase."}</small></article><article><span>Model status</span><strong>{isDiscontinued ? "Discontinued" : isPrevious ? "Previous generation" : availabilityUncertain ? "Availability needs verification" : "Current model"}</strong><small>{model.generation} · {model.category}</small></article></div>
@@ -294,6 +297,8 @@ export function MotorcycleEntityPage({ model, omitHero = false }: { model: Motor
         </div>
         <p className="entity-lede">{model.make} {model.model} uses a {model.engineCc} cc engine rated at {model.powerHp} hp and {model.torqueNm} Nm. Recorded curb weight is {model.curbWeightKg} kg, seat height is {model.seatHeightMm} mm, and fuel capacity is {model.fuelTankL} L.</p>
       </section>
+
+      <MotorcycleInContentAd nonceReady={nonceReady} />
 
       {specsLanding ? <section id="specs" className="motorcycle-entity-section" aria-labelledby="specs-heading">
         <SectionHeader
