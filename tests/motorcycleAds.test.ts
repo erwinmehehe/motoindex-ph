@@ -76,6 +76,9 @@ describe("motorcycle page AdSense expansion with per-document CSP", () => {
       expect(csp).toContain("script-src 'self'");
       expect(csp).not.toContain("'strict-dynamic'");
       expect(res.headers.get("x-middleware-request-x-nonce")).toBeNull();
+      if (path.startsWith("/motorcycles?q=")) {
+        expect(res.headers.get("X-Robots-Tag")).toBe("noindex, follow");
+      }
     }
     for (const header of ["rsc", "next-router-prefetch"]) {
       const res = await middleware(new NextRequest("https://motoindexph.com/motorcycles/yamaha/aerox-v3", { headers: { [header]: "1" } }));
