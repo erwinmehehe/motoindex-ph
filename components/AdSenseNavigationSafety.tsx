@@ -3,11 +3,11 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { adsenseEnabled } from "@/lib/adsense";
-import { isAdSenseGuideDocument } from "@/lib/adsenseGuideCsp";
+import { isAdSensePublicDocument } from "@/lib/adsenseGuideCsp";
 
 /**
  * AdSense's loaded script stays in the document after Next.js SPA navigation.
- * Before entering OR leaving an ad-supported guide, navigate to a fresh HTML
+ * Before entering OR leaving an ad-supported public guide or motorcycle page, navigate to a fresh HTML
  * document with the correct (strict guide or private) CSP.
  *
  * Ordinary navigation stays SPA-fast when ads are disabled, and between
@@ -33,7 +33,7 @@ export function AdSenseNavigationSafety() {
       if (next.origin !== window.location.origin || !/^https?:$/.test(next.protocol)) return;
       const now = new URL(window.location.href);
       if (next.pathname === now.pathname && next.search === now.search) return; // anchor jumps are safe
-      if (!isAdSenseGuideDocument(next.pathname) && !isAdSenseGuideDocument(now.pathname) && !hasAdScript()) return;
+      if (!isAdSensePublicDocument(next.pathname) && !isAdSensePublicDocument(now.pathname) && !hasAdScript()) return;
 
       // Intercept before Next's <Link> click handler: the browser must apply
       // the new document's CSP before any private URL becomes visible.
@@ -49,7 +49,7 @@ export function AdSenseNavigationSafety() {
   // Guard programmatic router navigation and history changes as a fallback.
   // The approved release still requires real browser-network QA of this path.
   useEffect(() => {
-    if (!adsenseEnabled() || !pathname || isAdSenseGuideDocument(pathname)) return;
+    if (!adsenseEnabled() || !pathname || isAdSensePublicDocument(pathname)) return;
     if (document.querySelector('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]')) {
       window.location.replace(window.location.href);
     }
