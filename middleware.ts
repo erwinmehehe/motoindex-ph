@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cloudflareAccessConfigured, verifyCloudflareAccess } from "@/lib/cloudflareAccess";
+import { privateDocumentCsp } from "@/lib/privateDocumentCsp";
 
 const protectedPrefixes = ["/admin", "/api/ingestion", "/api/admin"];
 const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;
@@ -19,6 +20,8 @@ function deny(message: string, status: number, challenge = false, retryAfterSeco
   const headers = new Headers({ "Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow, noarchive" });
   if (challenge) headers.set("WWW-Authenticate", 'Basic realm="MotoIndex Admin", charset="UTF-8"');
   if (retryAfterSeconds) headers.set("Retry-After", String(retryAfterSeconds));
+  headers.set("Referrer-Policy", "no-referrer");
+  headers.set("Content-Security-Policy", privateDocumentCsp());
   return new NextResponse(message, { status, headers });
 }
 
@@ -54,12 +57,15 @@ export async function middleware(request: NextRequest) {
     response.headers.set("Cache-Control", "no-store");
     response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
     response.headers.set("Referrer-Policy", "no-referrer");
+    response.headers.set("Content-Security-Policy", privateDocumentCsp());
     return response;
   }
   if (pathname.startsWith("/dealer-lead/") || pathname.startsWith("/api/dealer-lead/") || pathname.startsWith("/quote-status/") || pathname.startsWith("/api/quote-status/") || pathname.startsWith("/price-alerts/confirm/") || pathname.startsWith("/price-alerts/unsubscribe/") || pathname.startsWith("/api/price-alerts/")) {
     const response = NextResponse.next();
     response.headers.set("Cache-Control", "no-store");
     response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+    response.headers.set("Referrer-Policy", "no-referrer");
+    response.headers.set("Content-Security-Policy", privateDocumentCsp());
     return response;
   }
   if (pathname === "/motorcycles") {
@@ -84,6 +90,7 @@ export async function middleware(request: NextRequest) {
     response.headers.set("Cache-Control", "no-store");
     response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
     response.headers.set("Referrer-Policy", "no-referrer");
+    response.headers.set("Content-Security-Policy", privateDocumentCsp());
     return response;
   }
   if (accessMode !== "basic") return deny("Administrative surface unavailable.", 503);
@@ -115,6 +122,8 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   response.headers.set("Cache-Control", "no-store");
   response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+  response.headers.set("Referrer-Policy", "no-referrer");
+  response.headers.set("Content-Security-Policy", privateDocumentCsp());
   return response;
 }
 
