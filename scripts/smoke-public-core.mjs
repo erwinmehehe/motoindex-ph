@@ -126,6 +126,23 @@ if (process.env.EXPECT_ADS_ONLY === "true") {
     failures.push("Ads-only guide check failed: " + (error instanceof Error ? error.name : "unknown"));
   }
 
+  // AdSense motorcycle expansion: verify published HTML and privacy policy
+  // using only anonymous public documents (never bearer URLs).
+  for (const path of ["/motorcycles", "/motorcycles/yamaha", "/motorcycles/yamaha/aerox-v3"]) {
+    try {
+      const response = await fetchWithTimeout(path);
+      const csp = response.headers.get("content-security-policy") || "";
+      const html = await response.text();
+      if (response.status !== 200) failures.push("Motorcycle ad document returned HTTP " + response.status);
+      if (!csp.includes("'strict-dynamic'") || !csp.includes("'nonce-")) failures.push("Motorcycle ad document missing nonce CSP");
+      if (!/no-store/.test(response.headers.get("cache-control") || "")) failures.push("Motorcycle ad document missing no-store");
+      if (!html.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) failures.push("Motorcycle ad document missing Google loader");
+      if (!html.includes("6431580274")) failures.push("Motorcycle ad document missing approved slot");
+    } catch (error) {
+      failures.push("Motorcycle ad document smoke failed: " + (error instanceof Error ? error.name : "unknown"));
+    }
+  }
+
   for (const path of ["/garage", "/dealer-portal", "/quote-status/motoindex-synthetic-466"]) {
     try {
       const response = await fetchWithTimeout(path, { redirect: "manual" });

@@ -22,6 +22,7 @@
     "binding": "ASSETS",
     "run_worker_first": [
       "/guides/*",
+      "/motorcycles", "/motorcycles/*",
       "/api/*",
       "/admin", "/admin/*",
       "/my", "/my/*",
@@ -33,10 +34,7 @@
       "/get-quote/*",
       "/dealers/join", "/dealers/join/*",
       "/used-motorcycles/listing/*",
-      "/go/*", "/sellers",
-      "/motorcycles/*/price",
-      "/motorcycles/*/specifications",
-      "/motorcycles/*/colors"
+      "/go/*", "/sellers"
     ],
     "html_handling": "drop-trailing-slash"
   },

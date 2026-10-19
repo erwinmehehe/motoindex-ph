@@ -70,7 +70,7 @@ describe("MotoIndex ads-only / no-database release", () => {
     expect(workerFirst).toContain("/api/*");
     expect(workerFirst).toContain("/garage");
     expect(workerFirst).toContain("/quote-status/*");
-    expect(workerFirst).toContain("/motorcycles/*/colors");
+    expect(workerFirst).toContain("/motorcycles/*");
     expect(workerFirst).not.toContain("/*");
     expect(assetPublisher).toContain('process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true"');
     expect(assetPublisher).toContain('process.env.NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED === "true"');

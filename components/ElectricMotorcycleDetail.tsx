@@ -4,11 +4,12 @@ import { FaqSection } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
 import { AuthorBox } from "@/components/AuthorBox";
 import { authorPersonSchema } from "@/lib/author";
+import { MotorcycleInContentAd } from "@/components/MotorcycleInContentAd";
 import type { ElectricMotorcycle } from "@/lib/electricMotorcycles";
 import { electricModelHref, electricMotorcycles, php } from "@/lib/electricMotorcycles";
 import { absoluteUrl } from "@/lib/site";
 
-export function ElectricMotorcycleDetail({ model }: { model: ElectricMotorcycle }) {
+export function ElectricMotorcycleDetail({ model, nonceReady = false }: { model: ElectricMotorcycle; nonceReady?: boolean }) {
   const name=`${model.make} ${model.model}`;
   const canonicalPath=`/motorcycles/electric/${model.slug}`;
   const siblings=electricMotorcycles.filter(item=>item.slug!==model.slug);
@@ -76,6 +77,8 @@ export function ElectricMotorcycleDetail({ model }: { model: ElectricMotorcycle 
       </div>
       <p className="variant-footnote">The subscription starting price comes from the manufacturer. One- and two-battery purchase prices are recorded from a dated Philippine motorcycle-news report. <a href={model.purchasePriceSourceUrl} target="_blank" rel="nofollow noopener noreferrer">Check the battery-purchase price source</a>.</p>
     </section>
+
+    <MotorcycleInContentAd nonceReady={nonceReady} />
 
     <section className="motorcycle-entity-section">
       <div className="section-head compact"><div><h2>Battery, range and charging</h2></div></div>

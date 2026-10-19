@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cloudflareAccessConfigured, verifyCloudflareAccess } from "@/lib/cloudflareAccess";
 import { privateDocumentCsp } from "@/lib/privateDocumentCsp";
 import { adsenseEnabled } from "@/lib/adsense";
-import { adsenseGuideCsp, isAdSenseGuideDocument } from "@/lib/adsenseGuideCsp";
+import { adsenseGuideCsp, isAdSenseGuideDocument, isAdSenseMotorcycleDocument, nonAdvertisingMotorcycleCsp } from "@/lib/adsenseGuideCsp";
 import { adsOnlyModeEnabled, adsOnlyDisablesRequest } from "@/lib/adsOnlyMode";
 
 const protectedPrefixes = ["/admin", "/api/ingestion", "/api/admin"];
@@ -63,7 +63,8 @@ export async function middleware(request: NextRequest) {
   // A fresh, document-scoped nonce is essential for Google's strict AdSense CSP.
   // Never apply this policy to private routes, RSC prefetches or non-HTML assets.
   if (
-    adsenseEnabled() && isAdSenseGuideDocument(pathname) &&
+    adsenseEnabled() &&
+    (isAdSenseGuideDocument(pathname) || (isAdSenseMotorcycleDocument(pathname) && !request.nextUrl.search)) &&
     !request.headers.has("rsc") &&
     !request.headers.has("next-router-prefetch") &&
     request.method === "GET"
@@ -80,6 +81,17 @@ export async function middleware(request: NextRequest) {
     return response;
   }
   if (process.env.NODE_ENV === "production" && isPrototypePath(pathname)) return deny("Not found.", 404);
+  // Ad-supported motorcycle URLs use middleware CSP instead of the static
+  // next.config CSP. Utility/derivative and query-filtered URLs stay strict.
+  if (adsenseEnabled() && (pathname === "/motorcycles" || pathname.startsWith("/motorcycles/")) &&
+      (!isAdSenseMotorcycleDocument(pathname) || Boolean(request.nextUrl.search))) {
+    const response = NextResponse.next();
+    response.headers.set("Content-Security-Policy", nonAdvertisingMotorcycleCsp());
+    if (pathname === "/motorcycles" && CATALOG_FILTER_PARAMS.some(key =>
+      request.nextUrl.searchParams.getAll(key).some(value => value.trim().length > 0)
+    )) response.headers.set("X-Robots-Tag", "noindex, follow");
+    return response;
+  }
   if (pathname === "/my" || pathname.startsWith("/api/my/") || pathname === "/garage" || pathname.startsWith("/garage/") || pathname === "/dealer-portal" || pathname.startsWith("/dealer-portal/") || pathname.startsWith("/api/dealer-portal/")) {
     const response = NextResponse.next();
     response.headers.set("Cache-Control", "no-store");
@@ -159,7 +171,7 @@ export const config = {
   matcher: [
     "/admin/:path*", "/api/ingestion/:path*", "/api/admin/:path*", "/my", "/api/my/:path*", "/garage/:path*","/garage", "/price-alerts/confirm/:path*", "/price-alerts/unsubscribe/:path*", "/api/price-alerts/:path*",
     "/api/:path*", "/get-quote/:path*", "/dealers/join/:path*", "/used-motorcycles/listing/:path*", "/price-alerts",
-    "/guides/:path*", "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*", "/quote-status/:path*", "/api/quote-status/:path*", "/dealer-portal/:path*", "/dealer-portal", "/api/dealer-portal/:path*", "/motorcycles",
+    "/motorcycles/:path*", "/guides/:path*", "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*", "/quote-status/:path*", "/api/quote-status/:path*", "/dealer-portal/:path*", "/dealer-portal", "/api/dealer-portal/:path*", "/motorcycles",
     "/motorcycles/:make/:slug/used-value", "/motorcycles/:make/:slug/new-vs-used"
   ]
 };

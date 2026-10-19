@@ -13,8 +13,9 @@ import { ModelFamilyGuide } from "@/components/ModelFamilyGuide";
 import { AuthorBox } from "@/components/AuthorBox";
 import { authorPersonSchema } from "@/lib/author";
 import { GenerationChangeTracker } from "@/components/GenerationChangeTracker";
+import { MotorcycleInContentAd } from "@/components/MotorcycleInContentAd";
 
-export function ModelFamilyView({ family }: { family: ModelFamily }) {
+export function ModelFamilyView({ family, nonceReady = false }: { family: ModelFamily; nonceReady?: boolean }) {
   const models = getFamilyModels(family);
   const current = models.find((m) => m?.id === family.currentModelId);
   const previous = models.find((m) => m && m.id !== family.currentModelId);
@@ -135,6 +136,8 @@ export function ModelFamilyView({ family }: { family: ModelFamily }) {
         <a href="#buying-guide">Buying guide</a>
         <a href="#faq">FAQ</a>
       </nav>
+
+      <MotorcycleInContentAd nonceReady={nonceReady} />
 
       <section id="generations" className="model-family-section">
         <div className="section-head compact"><div><span className="section-kicker">Choose the exact model</span><h2>Which {family.name} are you looking for?</h2><p>Open a generation below to see its price, current-market status and model-specific details.</p></div></div>

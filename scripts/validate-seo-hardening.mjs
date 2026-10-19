@@ -48,7 +48,17 @@ forbidText(home, "/motorcycles?budget=under100", "Homepage should link the under
 requireText(motorcycles, "<h1>Motorcycle prices", "Motorcycle hub must keep a query-led H1 that starts with Motorcycle prices.");
 requireText(motorcycles, "href=\"/recommendations/motorcycles-under-100k\"", "Motorcycle hub should route under-100K intent to the canonical budget guide.");
 requireText(middleware, 'const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;', "Middleware must retain the canonical set of faceted filter params.");
-requireText(motorcycles, 'export const dynamic = "force-static"', "Motorcycle catalog must remain statically recoverable at the Cloudflare edge.");
+// The ad-disabled catalog remains statically generated; an approved AdSense
+// build must opt into dynamic rendering to emit fresh document nonce/CSP.
+const motorcycleNonceDocument = read("lib", "adsenseMotorcycleDocument.ts");
+const prerenderPublisher = read("scripts", "publish-prerender-assets.mjs");
+if (!(motorcycles.includes('export const dynamic = "force-static"') ||
+    (motorcycles.includes("await motorcycleAdNonce()") &&
+     motorcycleNonceDocument.includes("if (!adsenseEnabled()) return undefined;") &&
+     motorcycleNonceDocument.includes("await connection()") &&
+     prerenderPublisher.includes('...(!adDocumentsEnabled ? ["/motorcycles", "/motorcycles/yamaha/aerox-v3"]')))) {
+  errors.push("Motorcycle catalog must be static without ads and dynamically nonce-protected when AdSense is enabled.");
+}
 requireText(middleware, 'pathname === "/motorcycles"', "Filtered motorcycle catalog states must keep a dedicated server-side robots guard.");
 requireText(middleware, '"X-Robots-Tag", "noindex, follow"', "Filtered motorcycle catalog states must remain server-side noindex while the clean catalog stays indexable.");
 forbidText(faq, "FAQPage", "FaqSection should remain visible HTML and leave structured data to the parent page.");

@@ -18,6 +18,8 @@ import { getRenderableMedia } from "@/lib/renderableMedia";
 import { ElectricMotorcycleDetail } from "@/components/ElectricMotorcycleDetail";
 import { DealerInventoryPanel } from "@/components/DealerInventoryPanel";
 import { OwnerReviewsPanel } from "@/components/OwnerReviewsPanel";
+import { AdSense } from "@/components/AdSense";
+import { motorcycleAdNonce } from "@/lib/adsenseMotorcycleDocument";
 import { electricMotorcycles, getElectricMotorcycle } from "@/lib/electricMotorcycles";
 
 const LEGACY_MODEL_REDIRECTS: Record<string, { make: string; slug: string; title: string; description: string }> = {
@@ -118,20 +120,31 @@ export default async function ModelPage({ params }: { params: Promise<{ make: st
   if (make === "electric") {
     const electricModel = getElectricMotorcycle(slug);
     if (!electricModel) return notFound();
-    return <ElectricMotorcycleDetail model={electricModel}/>;
+    const adNonce = await motorcycleAdNonce();
+    return <><AdSense nonce={adNonce} /><ElectricMotorcycleDetail model={electricModel} nonceReady={Boolean(adNonce)}/></>;
   }
   if (make === "honda" && slug === "crf250-rally") permanentRedirect("/motorcycles/honda/crf300-rally");
   const legacy = legacyTarget(make, slug);
   if (legacy) permanentRedirect(`/motorcycles/${legacy.make}/${legacy.slug}`);
   const family = getModelFamily(make, slug);
-  if (family) return <ModelFamilyView family={family}/>;
+  if (family) {
+    const hasPublicGenerations = family.generationIds.some(id => {
+      const generation = getModelById(id);
+      return Boolean(generation && isIndexableModel(generation));
+    });
+    const adNonce = hasPublicGenerations ? await motorcycleAdNonce() : undefined;
+    return <><AdSense nonce={adNonce} /><ModelFamilyView family={family} nonceReady={Boolean(adNonce)} /></>;
+  }
   const model = getModel(make, slug);
   if (!model) return notFound();
+  // Only indexable model research is eligible for advertising.
+  const adNonce = isIndexableModel(model) ? await motorcycleAdNonce() : undefined;
   const generationFamily=getModelFamilyForModel(model.id);
   return <>
+    <AdSense nonce={adNonce} />
     <RecentlyViewedTracker model={{ id: model.id, make: model.make, model: model.model, makeSlug: model.makeSlug, slug: model.slug }} />
     {(!model.marketStatus || model.marketStatus === "current") && <ReviewedModelHero model={model} />}
-    <MotorcycleEntityPage model={model} omitHero={!model.marketStatus || model.marketStatus === "current"} />
+    <MotorcycleEntityPage model={model} omitHero={!model.marketStatus || model.marketStatus === "current"} nonceReady={Boolean(adNonce)} />
     {generationFamily&&<div className="shell generation-model-entry">
       <section className="info-card">
         <span className="section-kicker">Generation change tracker</span>

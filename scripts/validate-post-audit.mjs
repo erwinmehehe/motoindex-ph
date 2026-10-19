@@ -63,11 +63,22 @@ const recArchive=read("app/recommendations/RecommendationGuideArchive.tsx");
 const recSitemap=read("lib/recommendationSitemap.ts");
 const motorcyclesIndex=read("app/motorcycles/page.tsx");
 const middlewareSource=read("middleware.ts");
+// Ads-off builds retain the static public catalog. When AdSense is enabled,
+// the index must be dynamic so its nonce/CSP is fresh per full HTML document.
+// Query-filtered catalog URLs still receive noindex at the middleware layer.
+const motorcycleAdDocument = read("lib/adsenseMotorcycleDocument.ts");
+const staticMotorcycleAssetPublisher = read("scripts/publish-prerender-assets.mjs");
+const motorcycleIndexRenderContract =
+  motorcyclesIndex.includes('export const dynamic = "force-static"') ||
+  (motorcyclesIndex.includes("await motorcycleAdNonce()") &&
+   motorcycleAdDocument.includes("if (!adsenseEnabled()) return undefined;") &&
+   motorcycleAdDocument.includes("await connection()") &&
+   staticMotorcycleAssetPublisher.includes('!adDocumentsEnabled ? ["/motorcycles", "/motorcycles/yamaha/aerox-v3"]'));
 need(
-  motorcyclesIndex.includes('export const dynamic = "force-static"')&&
-  middlewareSource.includes('pathname === "/motorcycles"')&&
+  motorcycleIndexRenderContract &&
+  middlewareSource.includes('pathname === "/motorcycles"') &&
   middlewareSource.includes('"X-Robots-Tag", "noindex, follow"'),
-  "Filtered motorcycle catalog states must add server-side noindex while the clean /motorcycles hub remains indexable and statically recoverable"
+  "Motorcycle catalog must remain indexable, static when ads are OFF, nonce-dynamic with ads ON, and noindex filtered search URLs"
 );
 need(
   middlewareSource.includes('const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const'),
