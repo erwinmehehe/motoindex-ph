@@ -10,7 +10,7 @@ import { PriorityModelBrief } from "@/components/PriorityModelBrief";
 import { GrowthModelBrief } from "@/components/GrowthModelBrief";
 import { DecisionPath } from "@/components/DecisionPath";
 import { RecentlyViewedTracker } from "@/components/RecentlyViewed";
-import { pageMetadata } from "@/lib/site";
+import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
 import { priorityModelGrowthProfile } from "@/lib/priorityModelGrowth";
 import { modelIntentDepthProfile } from "@/lib/modelIntentDepth2026";
@@ -112,6 +112,37 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
     imageWidth: media?.width,
     imageHeight: media?.height
   });
+  // Keep the Google title/description and canonical unchanged. Only the
+  // Facebook/Open Graph and X/Twitter previews differ for this model.
+  if (model.id === "yamaha-aerox-v3") {
+    const socialTitle = "Yamaha Aerox V3 Price Philippines 2026 | Standard vs SP";
+    const socialDescription =
+      "Compare Aerox V3 Standard and SP published PH price references (₱125,900–₱163,900), plus specs and installment planning. Confirm current dealer quotes.";
+    const socialImage = absoluteUrl("/og/aerox-v3");
+    return {
+      ...base,
+      keywords: seo.keywords,
+      openGraph: {
+        ...base.openGraph,
+        title: socialTitle,
+        description: socialDescription,
+        images: [{
+          url: socialImage,
+          width: 1200,
+          height: 630,
+          type: "image/png",
+          alt: "MotoIndex PH Yamaha Aerox V3 2026 Standard vs SP published price guide"
+        }]
+      },
+      twitter: {
+        ...base.twitter,
+        card: "summary_large_image",
+        title: socialTitle,
+        description: socialDescription,
+        images: [socialImage]
+      }
+    };
+  }
   return { ...base, keywords: seo.keywords };
 }
 
