@@ -87,6 +87,7 @@ try {
   // Private pages and URL query/filter values must not inherit AdSense.
   const filtered = await get("/motorcycles?q=motoindex-qa-synthetic");
   const filteredHtml = await filtered.text();
+  if (filtered.headers.get("X-Robots-Tag") !== "noindex, follow") errors.push("Filtered catalog lost required SEO noindex");
   if (filteredHtml.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) errors.push("Search query page unexpectedly loaded AdSense");
   const filteredCsp = filtered.headers.get("Content-Security-Policy") || "";
   if (!filteredCsp.includes("script-src 'self'") || filteredCsp.includes("'strict-dynamic'")) errors.push("Filtered catalog missing restrictive CSP");
