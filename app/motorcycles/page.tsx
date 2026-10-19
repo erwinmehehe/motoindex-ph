@@ -1,4 +1,7 @@
 import { ReviewedPriceList } from "@/components/ReviewedPriceList";
+import { AdSense } from "@/components/AdSense";
+import { MotorcycleInContentAd } from "@/components/MotorcycleInContentAd";
+import { motorcycleAdNonce } from "@/lib/adsenseMotorcycleDocument";
 import { observedMarketPriceLabel } from "@/lib/marketChecks";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -31,9 +34,6 @@ const MOTORCYCLE_BRAND_LOGOS = new Set([
   "rusi", "suzuki", "triumph", "vespa", "yamaha", "zontes"
 ]);
 
-export const dynamic = "force-static";
-export const revalidate = false;
-
 export const metadata: Metadata = pageMetadata({
   title: "Motorcycle Price List Philippines 2026 | MotoIndex",
   description: "Compare current motorcycle prices in the Philippines by brand, category, engine size and budget, with checked specs, model research and ownership tools.",
@@ -41,7 +41,8 @@ export const metadata: Metadata = pageMetadata({
   index: currentModels.length > 0
 });
 
-export default function MotorcyclesPage() {
+export default async function MotorcyclesPage() {
+  const adNonce = currentModels.length ? await motorcycleAdNonce() : undefined;
   const makes = [...new Map(currentModels.map((m) => [m.makeSlug, m.make])).entries()];
   const authorityModels = currentModels.filter((model) => Boolean(modelAuthorityProfile(model.id)));
   const priceSpan = marketPriceSpan(currentModels);
@@ -58,7 +59,7 @@ export default function MotorcyclesPage() {
   }).sort((a,b) => b.count - a.count || a.name.localeCompare(b.name));
   const recentModels = currentModels.map(({ id, make, model, makeSlug, slug }) => ({ id, make, model, makeSlug, slug }));
 
-  return <><section className={`${styles.page} motorcycles-index-v300`}>
+  return <><AdSense nonce={adNonce} /><section className={`${styles.page} motorcycles-index-v300`}>
     <div className="motorcycle-index-hero">
       <div className="shell">
         <div className={`motorcycle-index-hero-grid ${styles.heroGrid}`}>
@@ -95,6 +96,7 @@ export default function MotorcyclesPage() {
     <div className="shell motorcycle-index-body">
       {currentModels.length === 0 ? <div className="note-box"><h2>Motorcycle data is being updated</h2><p>Prices and specifications are still being checked. Gear and ownership tools remain available in the meantime.</p></div> : <>
         <ReviewedPriceList items={currentModels.map(model => ({id:model.id,name:`${model.make} ${model.model}`,brand:model.make,category:model.category,cc:model.engineCc,price:observedMarketPriceLabel(model),href:`/motorcycles/${model.makeSlug}/${model.slug}`}))} />
+        <MotorcycleInContentAd nonceReady={Boolean(adNonce)} />
         <section id="browse-models" className="motorcycle-catalog-section">
           <div className="section-head compact motorcycle-section-heading"><div><span className="section-kicker">Full price list</span><h2>Browse and filter current motorcycle models</h2><p>Use filters to narrow the market, then open a model page for prices, specifications, financing context, fitment and ownership information.</p></div></div>
           <ModelExplorer models={forClient(currentModels)} />
@@ -138,6 +140,7 @@ export default function MotorcyclesPage() {
           </CTAGroup>
         </section>
 
+        <MotorcycleInContentAd nonceReady={Boolean(adNonce)} />
         <RecentlyViewedRail models={recentModels} />
 
         <section className="motorcycle-brand-directory">
