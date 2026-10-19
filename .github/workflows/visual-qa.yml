@@ -74,6 +74,11 @@ jobs:
           BASE_URL: http://127.0.0.1:3000
         run: npm run qa:routes
 
+      - name: Private-document CSP and referrer QA (synthetic routes only)
+        env:
+          BASE_URL: http://127.0.0.1:3000
+        run: node scripts/issue466-private-surface-qa.mjs
+
       - name: Priority model commercial QA
         env:
           BASE_URL: http://127.0.0.1:3000
