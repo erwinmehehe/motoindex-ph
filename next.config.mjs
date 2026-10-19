@@ -164,6 +164,17 @@ const nextConfig = {
       process.env.NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED === "true";
     // Keep security headers on every path. Exclude only the conflicting
     // *global CSP* from the advertising guides; middleware adds a nonce CSP.
+    // Next.js static headers can supersede middleware's Referrer-Policy on
+    // the final OpenNext Worker response. Add specific private-route overrides
+    // AFTER the shared policy, preserving affiliate referrers on public pages.
+    const privateReferrerPaths = [
+      "/my/:path*", "/garage/:path*", "/dealer-portal/:path*",
+      "/quote-status/:path*", "/dealer-lead/:path*",
+      "/price-alerts/confirm/:path*", "/price-alerts/unsubscribe/:path*",
+      "/admin/:path*", "/api/my/:path*", "/api/dealer-portal/:path*",
+      "/api/quote-status/:path*", "/api/dealer-lead/:path*",
+      "/api/price-alerts/:path*", "/api/admin/:path*", "/api/ingestion/:path*",
+    ];
     return [
       {
         source: "/:path*",
@@ -179,7 +190,11 @@ const nextConfig = {
       {
         source: adDocumentsEnabled ? "/((?!guides/).*)" : "/:path*",
         headers: [{ key: "Content-Security-Policy", value: csp }]
-      }
+      },
+      ...privateReferrerPaths.map(source => ({
+        source,
+        headers: [{ key: "Referrer-Policy", value: "no-referrer" }]
+      }))
     ];
   }
 };
