@@ -40,6 +40,24 @@ describe("private URL tracking prevention", () => {
     expect(safePageviewUrl("javascript:alert(1)", "/motorcycles")).toBe("");
   });
 
+
+  it("fails closed on new or ambiguous private-looking routes", () => {
+    for (const path of [
+      "/get-quote/honda/adv-160", "/profile", "/account",
+      "/dealer-portal/sign-in", "/quote-status/anything",
+      "/price-alerts/confirm/t0ken", "/my/settings",
+      "/%71uote-status/bearer", "/motorcycles/%2e%2e/quote-status/test",
+      "/motorcycles//yamaha", "/guides/helmet-fit?email=person@example.com",
+    ]) expect(publicAnalyticsAllowed(path)).toBe(false);
+  });
+
+  it("preserves expected non-sensitive editorial and catalogue paths", () => {
+    for (const path of [
+      "/guides/motorcycle-helmet-size-guide", "/motorcycles/yamaha/aerox-v3",
+      "/recommendations", "/tools/motorcycle-loan-calculator", "/privacy", "/price-alerts",
+    ]) expect(publicAnalyticsAllowed(path)).toBe(true);
+  });
+
   it("requires a known per-site Plausible script, not a legacy automatic script", () => {
     expect(plausibleSiteScriptUrl(undefined)).toBe("");
     expect(plausibleSiteScriptUrl("https://plausible.io/js/script.js")).toBe("");

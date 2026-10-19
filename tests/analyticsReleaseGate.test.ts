@@ -20,6 +20,15 @@ describe("privacy analytics release gates", () => {
     expect(tracker).toContain("publicAnalyticsAllowed(window.location.pathname)");
   });
 
+  it("does not send raw search terms even if a legacy capture flag is set", () => {
+    const search = readFileSync(new URL("../components/SearchClient.tsx", import.meta.url), "utf8");
+    const tracker = readFileSync(new URL("../lib/track.ts", import.meta.url), "utf8");
+    expect(search).not.toContain("NEXT_PUBLIC_ANALYTICS_CAPTURE_SEARCH_TERMS");
+    expect(search).toContain("query_length:q.length");
+    expect(tracker).toContain("safeAnalyticsEventParams(params)");
+    expect(tracker).not.toContain("...params, page_location");
+  });
+
   it("keeps sample and manual production deployment OFF until separate privacy QA", () => {
     expect(sample).toContain("NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE=false");
     expect(sample).toContain("NEXT_PUBLIC_PLAUSIBLE_SCRIPT_SRC=");
