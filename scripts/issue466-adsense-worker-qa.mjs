@@ -31,7 +31,13 @@ try {
   for (const route of privatePaths) {
     const res = await get(route);
     if (!res.headers.get("Content-Security-Policy")?.includes("frame-src 'none'")) errors.push("Private response missing blocking CSP");
-    if (res.headers.get("Referrer-Policy") !== "no-referrer") errors.push("Private response missing no-referrer");
+    const policy = res.headers.get("Referrer-Policy");
+    if (policy !== "no-referrer") {
+      // Never print token-bearing URLs. Header values are categorical; cap
+      // diagnostic output to recognized policy characters only.
+      const safePolicy = policy?.replace(/[^a-z, -]/gi, "").slice(0, 80) || "(absent)";
+      errors.push("Private response missing no-referrer (route type " + (privatePaths.indexOf(route) + 1) + "; observed " + safePolicy + "; HTTP " + res.status + ")");
+    }
     if (!/no-store/.test(res.headers.get("Cache-Control") || "")) errors.push("Private response missing no-store");
     const body = await res.text();
     if (body.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) errors.push("AdSense leaked into private HTML");
