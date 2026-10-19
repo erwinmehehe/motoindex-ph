@@ -39,11 +39,20 @@ if (fs.existsSync(path.join(root, "components", "AdSense.tsx"))) {
   const component = read("components", "AdSense.tsx");
   requireText(component, "adsenseEnabled", "AdSense bootstrap must use validated activation state.");
   requireText(component, "adsenseClientId", "AdSense bootstrap must use the validated ca-pub client ID.");
-  requireText(component, 'strategy="beforeInteractive"', "AdSense bootstrap must be injected into the document head.");
+  requireText(component, 'strategy="afterInteractive"', "Guide-scoped AdSense bootstrap must load after the nonce-protected document is interactive.");
+  requireText(component, "nonce={nonce}", "AdSense bootstrap must carry the middleware nonce.");
   requireText(component, "pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=", "AdSense bootstrap must use Google's current loader URL.");
 }
 const layout = read("app", "layout.tsx");
-requireText(layout, "<AdSense", "Root layout must include the AdSense bootstrap.");
+requireText(layout, "<AdSenseNavigationSafety", "Root layout must enforce document boundaries when AdSense has loaded.");
+if (layout.includes("<AdSense/>") || layout.includes("<AdSense />")) errors.push("Root layout must not inject AdSense on private routes.");
+const editorialGuide = read("app", "guides", "[slug]", "page.tsx");
+requireText(editorialGuide, "<AdSense nonce={adNonce} />", "Only public editorial guide pages may mount the AdSense bootstrap.");
+requireText(editorialGuide, "nonceReady={Boolean(adNonce)}", "Guide ad slot must require a matching nonce.");
+const middleware = read("middleware.ts");
+requireText(middleware, "adsenseGuideCsp(nonce)", "AdSense guide middleware must inject a nonce-bound CSP.");
+const workflow = read(".github", "workflows", "cloudflare-production-deploy.yml");
+requireText(workflow, "vars.MOTOINDEX_ADSENSE_RELEASE_GATES_APPROVED || 'false'", "AdSense release gate must remain owner controlled, OFF by default.");
 const privacy = read("app", "privacy", "page.tsx");
 for (const token of [
   "Google advertising cookies",
