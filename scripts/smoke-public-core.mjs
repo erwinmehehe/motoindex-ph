@@ -96,13 +96,53 @@ try {
   for (const [header, expected] of [
     ["x-content-type-options", "nosniff"],
     ["x-frame-options", "SAMEORIGIN"],
-    ["referrer-policy", "strict-origin-when-cross-origin"],
   ]) {
     if (home.headers.get(header) !== expected) failures.push(`/: missing or unexpected ${header}`);
+  }
+  // Modern browsers default to strict-origin-when-cross-origin. A global
+  // static header was removed because OpenNext overwrote the stronger private
+  // no-referrer response on token/account paths.
+  const referrer = home.headers.get("referrer-policy");
+  if (referrer && referrer !== "strict-origin-when-cross-origin") {
+    failures.push("/: unexpected public Referrer-Policy");
   }
   if (!home.headers.get("strict-transport-security")) failures.push("/: missing Strict-Transport-Security");
 } catch (error) {
   failures.push(`/: header verification failed: ${error instanceof Error ? error.message : String(error)}`);
+}
+
+if (process.env.EXPECT_ADS_ONLY === "true") {
+  try {
+    const guide = await fetchWithTimeout("/guides/motorcycle-helmet-size-guide");
+    const csp = guide.headers.get("content-security-policy") || "";
+    const html = await guide.text();
+    if (guide.status !== 200) failures.push("Ads-only guide must return 200");
+    if (!csp.includes("'nonce-") || !csp.includes("'strict-dynamic'")) failures.push("Ads-only guide lacks nonce CSP");
+    if (!html.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) {
+      failures.push("Ads-only guide is missing AdSense loader");
+    }
+    if (!html.includes("6431580274")) failures.push("Ads-only guide is missing approved display slot");
+  } catch (error) {
+    failures.push("Ads-only guide check failed: " + (error instanceof Error ? error.name : "unknown"));
+  }
+
+  for (const path of ["/garage", "/dealer-portal", "/quote-status/motoindex-synthetic-466"]) {
+    try {
+      const response = await fetchWithTimeout(path, { redirect: "manual" });
+      if (response.status !== 503) failures.push("Ads-only private page did not fail closed (HTTP " + response.status + ")");
+      const headers = response.headers.get("referrer-policy") || "";
+      if (!headers.split(",").every(x => x.trim() === "no-referrer")) failures.push("Ads-only private response leaked referrer policy");
+    } catch (error) {
+      failures.push("Ads-only private guard unavailable: " + (error instanceof Error ? error.name : "unknown"));
+    }
+  }
+
+  try {
+    const response = await fetchWithTimeout("/api/leads", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" });
+    if (response.status !== 503) failures.push("Ads-only write API did not fail closed");
+  } catch (error) {
+    failures.push("Ads-only write API guard unavailable: " + (error instanceof Error ? error.name : "unknown"));
+  }
 }
 
 if (failures.length) {
