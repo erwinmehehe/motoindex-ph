@@ -15,7 +15,7 @@ describe("manual MotoIndex guide ad unit", () => {
 
   it("requires the existing explicit AdSense opt-in and matches the slot's publisher", () => {
     const source = read("components/GuideInContentAd.tsx");
-    expect(source).toContain("adsenseEnabled() && adsenseClientId() === AD_CLIENT");
+    expect(source).toContain("nonceReady && adsenseEnabled() && adsenseClientId() === AD_CLIENT");
     expect(source).toContain("if (!enabled) return null");
     expect(source).toContain("dataset.motoindexAdRequested");
   });
@@ -23,8 +23,8 @@ describe("manual MotoIndex guide ad unit", () => {
   it("appears once after the second body section on editorial guide pages only", () => {
     const guide = read("app/guides/[slug]/page.tsx");
     const root = read("app/layout.tsx");
-    expect(guide).toContain('index === 1 && <GuideInContentAd />');
-    expect((guide.match(/<GuideInContentAd \/>/g) || []).length).toBe(1);
+    expect(guide).toContain('index === 1 && <GuideInContentAd nonceReady={Boolean(adNonce)} />');
+    expect((guide.match(/<GuideInContentAd nonceReady=/g) || []).length).toBe(1);
     expect(root).not.toContain("GuideInContentAd");
   });
 });
