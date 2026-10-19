@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fragment } from "react";
-import { connection, headers } from "next/server";
+import { connection } from "next/server";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AuthorBox } from "@/components/AuthorBox";
