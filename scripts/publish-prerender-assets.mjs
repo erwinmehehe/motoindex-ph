@@ -21,7 +21,11 @@ const blockedPrefixes = [
   "/admin",
   "/api",
   "/dealer-lead",
+  "/dealer-portal",
+  "/my",
   "/garage",
+  "/get-quote",
+  "/dealers/join",
   "/price-alerts",
   "/quote-status",
   "/sellers",
@@ -30,6 +34,14 @@ const blockedPrefixes = [
 
 function isSafePublicRoute(route) {
   if (!route.startsWith("/")) return false;
+  // With AdSense active, eligible editorial guides must reach the Worker to
+  // receive a fresh document nonce + strict CSP. Static edge HTML bypasses
+  // middleware completely when run_worker_first=false.
+  if (
+    process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true" &&
+    process.env.NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED === "true" &&
+    /^\/guides\/[a-z0-9-]+\/?$/.test(route)
+  ) return false;
   if (blockedPrefixes.some((prefix) => route === prefix || route.startsWith(`${prefix}/`))) return false;
   if (/^\/motorcycles\/[^/]+\/[^/]+\/(used-value|new-vs-used)\/?$/.test(route)) return false;
   return true;
