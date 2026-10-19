@@ -33,6 +33,7 @@ if (fs.existsSync(path.join(root, "lib", "adsense.ts"))) {
   requireText(config, "pub-1900865456140693", "Verified MotoIndex AdSense publisher ID must remain configured.");
   requireText(config, "ca-pub-1900865456140693", "Verified MotoIndex AdSense client ID must remain configured.");
   requireText(config, 'NEXT_PUBLIC_ADSENSE_ENABLED === "true"', "AdSense must not load without explicit operator activation.");
+  requireText(config, 'NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED === "true"', "AdSense must stay OFF until independent CSP, consent and private-route approval.");
 }
 if (fs.existsSync(path.join(root, "components", "AdSense.tsx"))) {
   const component = read("components", "AdSense.tsx");

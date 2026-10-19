@@ -16,8 +16,12 @@ export function adsenseClientId() {
   return clientIdPattern.test(value) ? value : null;
 }
 
-// Preserve the existing approved bootstrap, but never load AdSense implicitly.
-// The operator must explicitly enable it after consent and private-route QA.
+// Preserve the publisher integration, but fail closed even when someone sets
+// NEXT_PUBLIC_ADSENSE_ENABLED=true before #466 consent, CSP and private-route QA.
+// A future separately reviewed PR must explicitly wire the second release gate
+// after evidence is attached. The production workflow currently does NOT set it.
 export function adsenseEnabled() {
-  return process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true" && Boolean(adsenseClientId());
+  return process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true"
+    && process.env.NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED === "true"
+    && Boolean(adsenseClientId());
 }
