@@ -60,3 +60,25 @@ export function adsenseGuideCsp(nonce: string) {
     ...(process.env.NODE_ENV === "production" ? ["upgrade-insecure-requests"] : []),
   ].join("; ");
 }
+
+
+/**
+ * Fallback equivalent of the site's ordinary public CSP for motorcycle
+ * utility/derivative and query-filtered URLs that are NOT ad documents.
+ * Next.js omits its global CSP on /motorcycles only while AdSense is enabled.
+ */
+export function nonAdvertisingMotorcycleCsp() {
+  return [
+    "default-src 'self'",
+    "base-uri 'self'",
+    "object-src 'none'",
+    "frame-ancestors 'self'",
+    "form-action 'self'",
+    `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://plausible.io`,
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: blob: https:",
+    "font-src 'self' data:",
+    "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://plausible.io",
+    ...(process.env.NODE_ENV === "production" ? ["upgrade-insecure-requests"] : []),
+  ].join("; ");
+}
