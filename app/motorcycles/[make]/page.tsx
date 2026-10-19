@@ -1,4 +1,7 @@
 import { ReviewedCatalogArt } from "@/components/ReviewedCatalogArt";
+import { AdSense } from "@/components/AdSense";
+import { MotorcycleInContentAd } from "@/components/MotorcycleInContentAd";
+import { motorcycleAdNonce } from "@/lib/adsenseMotorcycleDocument";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -85,6 +88,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
     </section>;
   }
 
+  const adNonce = await motorcycleAdNonce();
   const ranges = current.map((model) => ({ model, ...observedMarketRange(model) }));
   const low = Math.min(...ranges.map((row) => row.from));
   const high = Math.max(...ranges.map((row) => row.to || row.from));
@@ -185,6 +189,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   ];
 
   return <section className="ph-brand-page">
+    <AdSense nonce={adNonce} />
     <div className="ph-brand-hero">
       <div className="shell">
         <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: brand }]} />
@@ -224,6 +229,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <SectionHeader kicker="Motorcycle models" title={`Compare ${brand} motorcycle models in the Philippines`} description={`Browse ${catalogModels.length} verified ${brand} motorcycle model pages. Current, previous-generation and discontinued status stays secondary to the motorcycle itself and is shown on the relevant model card.`} />
         <div className="card-grid ph-brand-model-grid" style={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))", gap: 14 }}>{catalogModels.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div>
       </section>
+      <MotorcycleInContentAd nonceReady={Boolean(adNonce)} />
 
       {bigBikes.length > 0 && brandGrowth?.bigBikeTitle && brandGrowth.bigBikeDescription ? <section id="big-bikes" className="ph-brand-section">
         <SectionHeader kicker={`${bigBikeMinCc}cc+ motorcycles`} title={brandGrowth.bigBikeTitle} description={brandGrowth.bigBikeDescription} />
@@ -279,6 +285,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
           </Link>)}
         </DataTable>
       </section>
+      {current.length >= 6 && <MotorcycleInContentAd nonceReady={Boolean(adNonce)} />}
 
       <section id="categories" className="ph-brand-section ph-brand-two-col">
         <div>
