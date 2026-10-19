@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cloudflareAccessConfigured, verifyCloudflareAccess } from "@/lib/cloudflareAccess";
 import { privateDocumentCsp } from "@/lib/privateDocumentCsp";
+import { adsenseEnabled } from "@/lib/adsense";
+import { adsenseGuideCsp, isAdSenseGuideDocument } from "@/lib/adsenseGuideCsp";
 
 const protectedPrefixes = ["/admin", "/api/ingestion", "/api/admin"];
 const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;
@@ -51,6 +53,25 @@ function isPrototypePath(pathname: string) {
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  // A fresh, document-scoped nonce is essential for Google's strict AdSense CSP.
+  // Never apply this policy to private routes, RSC prefetches or non-HTML assets.
+  if (
+    adsenseEnabled() && isAdSenseGuideDocument(pathname) &&
+    !request.headers.has("rsc") &&
+    !request.headers.has("next-router-prefetch") &&
+    request.method === "GET"
+  ) {
+    const nonce = btoa(crypto.randomUUID());
+    const csp = adsenseGuideCsp(nonce);
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-nonce", nonce);
+    requestHeaders.set("Content-Security-Policy", csp);
+    const response = NextResponse.next({ request: { headers: requestHeaders } });
+    response.headers.set("Content-Security-Policy", csp);
+    response.headers.set("Cache-Control", "private, no-store");
+    response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+    return response;
+  }
   if (process.env.NODE_ENV === "production" && isPrototypePath(pathname)) return deny("Not found.", 404);
   if (pathname === "/my" || pathname.startsWith("/api/my/") || pathname === "/garage" || pathname.startsWith("/garage/") || pathname === "/dealer-portal" || pathname.startsWith("/dealer-portal/") || pathname.startsWith("/api/dealer-portal/")) {
     const response = NextResponse.next();
@@ -130,7 +151,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/admin/:path*", "/api/ingestion/:path*", "/api/admin/:path*", "/my", "/api/my/:path*", "/garage/:path*","/garage", "/price-alerts/confirm/:path*", "/price-alerts/unsubscribe/:path*", "/api/price-alerts/:path*",
-    "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*", "/quote-status/:path*", "/api/quote-status/:path*", "/dealer-portal/:path*", "/dealer-portal", "/api/dealer-portal/:path*", "/motorcycles",
+    "/guides/:path*", "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*", "/quote-status/:path*", "/api/quote-status/:path*", "/dealer-portal/:path*", "/dealer-portal", "/api/dealer-portal/:path*", "/motorcycles",
     "/motorcycles/:make/:slug/used-value", "/motorcycles/:make/:slug/new-vs-used"
   ]
 };
