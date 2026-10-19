@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fragment } from "react";
+import { connection, headers } from "next/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AuthorBox } from "@/components/AuthorBox";
@@ -7,6 +8,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FaqSection } from "@/components/FaqSection";
 import { GuideFeaturedArt } from "@/components/GuideFeaturedArt";
 import { GuideInContentAd } from "@/components/GuideInContentAd";
+import { AdSense } from "@/components/AdSense";
+import { adsenseEnabled } from "@/lib/adsense";
 import { QuickAnswer } from "@/components/QuickAnswer";
 import { ArticleJumpLinks, articleSectionId } from "@/components/ArticleJumpLinks";
 import { JsonLd } from "@/components/JsonLd";
@@ -65,6 +68,13 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
   const { slug } = await params;
   const guide = getEditorialGuide(slug);
   if (!guide) return notFound();
+  // Only ad-bearing guides get dynamic, nonce-protected HTML. Ordinary builds
+  // continue using the existing static guide route behavior.
+  let adNonce: string | undefined;
+  if (adsenseEnabled()) {
+    await connection();
+    adNonce = (await headers()).get("x-nonce") || undefined;
+  }
   const guideMedia = getEditorialGuideMedia(guide.slug);
   const schemaImage = guideMedia?.image ?? DEFAULT_GUIDE_IMAGE;
   const guideResearchLinks = /helmet/i.test(guide.slug)
@@ -85,6 +95,7 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
   const quickSteps = guide.sections.find((section) => section.bullets)?.bullets?.slice(0, 4) ?? [];
 
   return <article className="page shell">
+    <AdSense nonce={adNonce} />
     <Breadcrumbs items={[{ label: "Guides", href: "/guides" }, { label: guide.title }]} />
     <header className="page-head">
       <span className="section-kicker">{guide.kicker}</span>
@@ -121,7 +132,7 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
         <div><h2 id={articleSectionId(section.heading, index)}>{section.heading}</h2>{section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
         {section.bullets && <div className="info-card"><h3>Quick check</h3><ul className="checklist">{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul></div>}
       </section>
-      {index === 1 && <GuideInContentAd />}
+      {index === 1 && <GuideInContentAd nonceReady={Boolean(adNonce)} />}
     </Fragment>)}
 
     <section className="section" aria-labelledby="guide-research-tools">
