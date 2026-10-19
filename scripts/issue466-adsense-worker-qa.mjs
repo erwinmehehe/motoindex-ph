@@ -32,11 +32,15 @@ try {
     const res = await get(route);
     if (!res.headers.get("Content-Security-Policy")?.includes("frame-src 'none'")) errors.push("Private response missing blocking CSP");
     const policy = res.headers.get("Referrer-Policy");
-    if (policy !== "no-referrer") {
-      // Never print token-bearing URLs. Header values are categorical; cap
-      // diagnostic output to recognized policy characters only.
+    // Next.js/OpenNext can legally combine identical headers into a comma-
+    // separated policy list. Browsers use the last recognized directive.
+    // Require EVERY directive to be no-referrer: reject any weaker fallback,
+    // but don't mistake "no-referrer, no-referrer" for a leak.
+    const values = policy?.split(",").map(value => value.trim()).filter(Boolean) || [];
+    if (!values.length || values.some(value => value !== "no-referrer")) {
+      // Do not print token-bearing URLs. Policy is categorical, bounded text.
       const safePolicy = policy?.replace(/[^a-z, -]/gi, "").slice(0, 80) || "(absent)";
-      errors.push("Private response missing no-referrer (route type " + (privatePaths.indexOf(route) + 1) + "; observed " + safePolicy + "; HTTP " + res.status + ")");
+      errors.push("Private response policy is not strictly no-referrer (route type " + (privatePaths.indexOf(route) + 1) + "; observed " + safePolicy + "; HTTP " + res.status + ")");
     }
     if (!/no-store/.test(res.headers.get("Cache-Control") || "")) errors.push("Private response missing no-store");
     const body = await res.text();
