@@ -13,6 +13,13 @@ describe("AdSense account, consent and release contracts", () => {
     expect(config).toContain('pub-1900865456140693');
     expect(config).toContain('ca-pub-1900865456140693');
   });
+  it("fails deployment preflight if AdSense is enabled without privacy-release approval", () => {
+    const preflight = read("scripts/check-launch.mjs");
+    expect(preflight).toContain('process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true"');
+    expect(preflight).toContain('process.env.NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED !== "true"');
+    expect(preflight).toContain("failures.push(\"AdSense release is blocked under #466:");
+  });
+
   it("preserves the verified document-head bootstrap requirement", () => {
     const component = read("components/AdSense.tsx");
     expect(component).toContain("adsenseEnabled()");
