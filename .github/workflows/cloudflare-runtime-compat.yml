@@ -22,6 +22,9 @@ jobs:
       NEXT_PUBLIC_SITE_URL: https://motoindexph.com
       NEXT_PUBLIC_CONTACT_EMAIL: hello@motoindexph.com
       NEXT_PUBLIC_ANALYTICS_CAPTURE_SEARCH_TERMS: "false"
+      # Synthetic local-worker build exercises approved AdSense CSP code; no live deploy.
+      NEXT_PUBLIC_ADSENSE_ENABLED: "true"
+      NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED: "true"
       PRICE_ALERTS_ENABLED: "false"
       PRICE_ALERT_CRON_CONFIGURED: "false"
 
@@ -69,6 +72,11 @@ jobs:
         env:
           BASE_URL: http://127.0.0.1:8787
         run: npm run qa:routes
+
+      - name: Approved-mode AdSense nonce and private-page Worker QA
+        env:
+          BASE_URL: http://127.0.0.1:8787
+        run: node scripts/issue466-adsense-worker-qa.mjs
 
       - name: Stop local Cloudflare Worker
         if: always()
