@@ -48,6 +48,6 @@ describe("issue #466 direct private document protection", () => {
     const config = readFileSync(new URL("../lib/adsense.ts", import.meta.url), "utf8");
     const workflow = readFileSync(new URL("../.github/workflows/cloudflare-production-deploy.yml", import.meta.url), "utf8");
     expect(config).toContain('NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED === "true"');
-    expect(workflow).not.toMatch(/^\s+NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED:/m);
+    expect(workflow).toContain("vars.MOTOINDEX_ADSENSE_RELEASE_GATES_APPROVED || 'false'");
   });
 });
