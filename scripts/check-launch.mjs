@@ -27,13 +27,22 @@ if (site) {
   if (/^(localhost|127\.0\.0\.1|0\.0\.0\.0)$/i.test(site.hostname)) failures.push("NEXT_PUBLIC_SITE_URL cannot point to localhost for launch.");
 }
 
+const adsOnlyMode = process.env.NEXT_PUBLIC_MOTOINDEX_ADS_ONLY_MODE === "true";
 const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "";
-if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || /@(example\.(com|org|net)|test|invalid)$/i.test(email)) {
+// In public-guide/ads-only mode no database-backed form accepts contact data.
+// The contact page itself stays noindex until a real mailbox is configured.
+if (!adsOnlyMode && (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || /@(example\.(com|org|net)|test|invalid)$/i.test(email))) {
   failures.push("NEXT_PUBLIC_CONTACT_EMAIL must be a real monitored mailbox for launch.");
 }
 
 const adminAccessMode = (process.env.ADMIN_ACCESS_MODE || "basic").trim().toLowerCase();
-if (adminAccessMode === "cloudflare" || adminAccessMode === "cloudflare-access") {
+if (adsOnlyMode) {
+  if (adminAccessMode !== "disabled") failures.push("Ads-only mode must disable admin authentication and all backend routes.");
+  if (process.env.NEXT_PUBLIC_ADSENSE_ENABLED !== "true" ||
+      process.env.NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED !== "true") {
+    failures.push("Ads-only deployment requires both owner-approved AdSense build flags to be true.");
+  }
+} else if (adminAccessMode === "cloudflare" || adminAccessMode === "cloudflare-access") {
   const teamDomain = (process.env.CF_ACCESS_TEAM_DOMAIN || "").trim().replace(/^https?:\/\//, "").replace(/\/$/, "");
   const audience = (process.env.CF_ACCESS_AUD || "").trim();
   const adminEmails = (process.env.ADMIN_ACCESS_EMAILS || "").split(",").map((value) => value.trim()).filter(Boolean);
@@ -109,4 +118,6 @@ if (failures.length) {
   console.error("Launch preflight failed:\n- " + failures.join("\n- "));
   process.exit(1);
 }
-console.log("Launch preflight passed: exact dependencies, lockfile, HTTPS site URL, contact channel, admin credentials, source freshness, and Next.js security baseline are present.");
+console.log(adsOnlyMode
+  ? "Ads-only launch preflight passed: public guide + AdSense flags, disabled backend/admin, lockfile, source freshness, HTTPS and Next.js security baseline."
+  : "Launch preflight passed: exact dependencies, lockfile, HTTPS site URL, contact channel, admin credentials, source freshness, and Next.js security baseline are present.");

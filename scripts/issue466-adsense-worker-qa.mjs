@@ -4,6 +4,7 @@ const base = new URL(process.env.BASE_URL || "http://127.0.0.1:8787");
 const guide = "/guides/motorcycle-helmet-size-guide";
 const privatePaths = ["/garage", "/quote-status/motoindex-synthetic-466", "/dealer-lead/motoindex-synthetic-466"];
 const errors = [];
+const adsOnly = process.env.NEXT_PUBLIC_MOTOINDEX_ADS_ONLY_MODE === "true";
 
 async function get(path) {
   return fetch(new URL(path, base), {
@@ -30,6 +31,7 @@ try {
 
   for (const route of privatePaths) {
     const res = await get(route);
+    if (adsOnly && res.status !== 503) errors.push("Ads-only mode must disable this private route");
     if (!res.headers.get("Content-Security-Policy")?.includes("frame-src 'none'")) errors.push("Private response missing blocking CSP");
     const policy = res.headers.get("Referrer-Policy");
     // Next.js/OpenNext can legally combine identical headers into a comma-
@@ -45,6 +47,19 @@ try {
     if (!/no-store/.test(res.headers.get("Cache-Control") || "")) errors.push("Private response missing no-store");
     const body = await res.text();
     if (body.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) errors.push("AdSense leaked into private HTML");
+  }
+  if (adsOnly) {
+    const api = await fetch(new URL("/api/leads", base), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: "{}",
+      signal: AbortSignal.timeout(12_000),
+    });
+    if (api.status !== 503) errors.push("Ads-only mode must fail closed for lead submissions");
+    const privateHeaders = api.headers.get("Referrer-Policy") || "";
+    if (!privateHeaders.split(",").every(x => x.trim() === "no-referrer")) {
+      errors.push("Ads-only blocked lead API leaked referrer policy");
+    }
   }
   const publicPage = await get("/motorcycles/yamaha/aerox-v3");
   if (!publicPage.ok) errors.push("Motorcycle catalogue page is unavailable");

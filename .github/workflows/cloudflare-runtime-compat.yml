@@ -25,6 +25,9 @@ jobs:
       # Synthetic local-worker build exercises approved AdSense CSP code; no live deploy.
       NEXT_PUBLIC_ADSENSE_ENABLED: "true"
       NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED: "true"
+      # Prove the release builds and serves ads without PostgreSQL or CF Access.
+      NEXT_PUBLIC_MOTOINDEX_ADS_ONLY_MODE: "true"
+      ADMIN_ACCESS_MODE: "disabled"
       PRICE_ALERTS_ENABLED: "false"
       PRICE_ALERT_CRON_CONFIGURED: "false"
 
@@ -54,6 +57,13 @@ jobs:
           test ! -f .open-next/worker.js || (echo 'Expected a fresh OpenNext output for this test' && exit 1)
           npx wrangler deploy --dry-run
           test -s .open-next/worker.js || (echo 'OpenNext Worker not generated' && exit 1)
+
+      - name: Simulate production static asset publishing
+        run: |
+          node scripts/publish-prerender-assets.mjs
+          test ! -f .open-next/assets/guides/motorcycle-helmet-size-guide.html || (echo 'Advertising guides must be served by Worker nonce CSP, not static edge assets' && exit 1)
+          test ! -f .open-next/assets/garage.html || (echo 'Private Garage HTML must never be published as an edge asset' && exit 1)
+          test ! -f .open-next/assets/my.html || (echo 'Private account HTML must never be published as an edge asset' && exit 1)
 
       - name: Start local Cloudflare Worker
         run: |

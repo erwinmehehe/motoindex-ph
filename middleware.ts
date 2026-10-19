@@ -3,6 +3,7 @@ import { cloudflareAccessConfigured, verifyCloudflareAccess } from "@/lib/cloudf
 import { privateDocumentCsp } from "@/lib/privateDocumentCsp";
 import { adsenseEnabled } from "@/lib/adsense";
 import { adsenseGuideCsp, isAdSenseGuideDocument } from "@/lib/adsenseGuideCsp";
+import { adsOnlyModeEnabled, adsOnlyDisablesRequest } from "@/lib/adsOnlyMode";
 
 const protectedPrefixes = ["/admin", "/api/ingestion", "/api/admin"];
 const CATALOG_FILTER_PARAMS = ["q", "make", "type", "budget", "sort", "max"] as const;
@@ -53,6 +54,12 @@ function isPrototypePath(pathname: string) {
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  // Public-guide monetization does not activate dormant backend products.
+  // This guard runs BEFORE any token/account/AdSense branch, including API
+  // mutations and preview navigation, and exposes no request or bearer data.
+  if (adsOnlyModeEnabled() && adsOnlyDisablesRequest(pathname, request.method)) {
+    return deny("This feature is not available on MotoIndex at this time.", 503);
+  }
   // A fresh, document-scoped nonce is essential for Google's strict AdSense CSP.
   // Never apply this policy to private routes, RSC prefetches or non-HTML assets.
   if (
@@ -151,6 +158,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/admin/:path*", "/api/ingestion/:path*", "/api/admin/:path*", "/my", "/api/my/:path*", "/garage/:path*","/garage", "/price-alerts/confirm/:path*", "/price-alerts/unsubscribe/:path*", "/api/price-alerts/:path*",
+    "/api/:path*", "/get-quote/:path*", "/dealers/join/:path*", "/used-motorcycles/listing/:path*", "/price-alerts",
     "/guides/:path*", "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*", "/quote-status/:path*", "/api/quote-status/:path*", "/dealer-portal/:path*", "/dealer-portal", "/api/dealer-portal/:path*", "/motorcycles",
     "/motorcycles/:make/:slug/used-value", "/motorcycles/:make/:slug/new-vs-used"
   ]

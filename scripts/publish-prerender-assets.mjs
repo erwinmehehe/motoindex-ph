@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 const projectRoot = process.cwd();
 const manifestPath = path.join(projectRoot, ".next", "prerender-manifest.json");
@@ -16,12 +17,25 @@ if (!fs.existsSync(nextAppRoot) || !fs.existsSync(assetRoot)) {
 const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
 const routes = Object.keys(manifest.routes || {});
 
+// Static HTML assets bypass Next redirects and middleware when
+// Wrangler assets.run_worker_first=false. Never copy a configured
+// permanent redirect source as HTTP 200 HTML: that breaks canonical URLs.
+const { default: nextConfig } = await import(pathToFileURL(path.join(projectRoot, "next.config.mjs")).href);
+const configuredRedirects = await nextConfig.redirects();
+const redirectSourcePaths = new Set(
+  configuredRedirects.filter(({ source }) => typeof source === "string" && !source.includes(":")).map(({ source }) => source)
+);
+
 const blockedPrefixes = [
   "/_not-found",
   "/admin",
   "/api",
   "/dealer-lead",
+  "/dealer-portal",
+  "/my",
   "/garage",
+  "/get-quote",
+  "/dealers/join",
   "/price-alerts",
   "/quote-status",
   "/sellers",
@@ -30,6 +44,15 @@ const blockedPrefixes = [
 
 function isSafePublicRoute(route) {
   if (!route.startsWith("/")) return false;
+  if (redirectSourcePaths.has(route)) return false;
+  // With AdSense active, eligible editorial guides must reach the Worker to
+  // receive a fresh document nonce + strict CSP. Static edge HTML bypasses
+  // middleware completely when run_worker_first=false.
+  if (
+    process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true" &&
+    process.env.NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED === "true" &&
+    /^\/guides\/[a-z0-9-]+\/?$/.test(route)
+  ) return false;
   if (blockedPrefixes.some((prefix) => route === prefix || route.startsWith(`${prefix}/`))) return false;
   if (/^\/motorcycles\/[^/]+\/[^/]+\/(used-value|new-vs-used)\/?$/.test(route)) return false;
   return true;
@@ -71,6 +94,16 @@ const requiredRoutes = [
   "/recommendations",
   "/recommendations/motorcycles-under-100k"
 ];
+
+// Wrangler serves static assets before the Worker. Old/prebuilt redirect
+// source HTML may remain in .open-next/assets even when the source was not
+// copied by this pass; remove exact redirect-source files so they cannot
+// shadow configured 308 responses.
+for (const redirectSource of redirectSourcePaths) {
+  if (!redirectSource.startsWith("/") || redirectSource === "/") continue;
+  const destination = destinationFor(redirectSource);
+  if (fs.existsSync(destination)) fs.unlinkSync(destination);
+}
 
 const missing = requiredRoutes.filter((route) => !copiedRoutes.includes(route));
 if (missing.length) {

@@ -4,6 +4,7 @@ import { ShortlistNav } from "@/components/ShortlistNav";
 import { MotoIndexLogo } from "@/components/MotoIndexLogo";
 import { comparisons, publicMotorcycles, isIndexableComparison } from "@/lib/data";
 
+const adsOnly = process.env.NEXT_PUBLIC_MOTOINDEX_ADS_ONLY_MODE === "true";
 const hasModels = publicMotorcycles.length > 0;
 const hasComparisons = comparisons.some((comparison) => isIndexableComparison(comparison.slug));
 const motorcycleBrands = [...new Map(publicMotorcycles.map((model) => [model.makeSlug, model.make])).entries()]
@@ -24,8 +25,7 @@ const gear = [
 ] as const;
 
 const ownership = [
-  ["My MotoIndex", "/my"] as const,
-  ["My Garage", "/garage"] as const,
+  ...(!adsOnly ? [["My MotoIndex", "/my"] as const, ["My Garage", "/garage"] as const] : []),
   ["Ownership", "/ownership"] as const,
   ["Dealers", "/dealers"] as const,
   ["Service centers", "/service-centers"] as const,
@@ -76,7 +76,7 @@ export function Header() {
           </div>
         </details>
       </nav>
-      <div className="nav-actions"><ShortlistNav /><Link className="nav-my-link" href="/my">My MotoIndex</Link><Link className="button small" href="/finder">Find my bike</Link></div>
+      <div className="nav-actions"><ShortlistNav />{!adsOnly && <Link className="nav-my-link" href="/my">My MotoIndex</Link>}<Link className="button small" href="/finder">Find my bike</Link></div>
       <details className="mobile-menu">
         <summary aria-label="Open navigation">Menu</summary>
         <div className="mobile-menu-panel"><nav aria-label="Mobile navigation">

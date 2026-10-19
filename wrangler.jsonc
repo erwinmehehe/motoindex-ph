@@ -20,7 +20,24 @@
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS",
-    "run_worker_first": false,
+    "run_worker_first": [
+      "/guides/*",
+      "/api/*",
+      "/admin", "/admin/*",
+      "/my", "/my/*",
+      "/garage", "/garage/*",
+      "/dealer-portal", "/dealer-portal/*",
+      "/dealer-lead", "/dealer-lead/*",
+      "/quote-status", "/quote-status/*",
+      "/price-alerts", "/price-alerts/*",
+      "/get-quote/*",
+      "/dealers/join", "/dealers/join/*",
+      "/used-motorcycles/listing/*",
+      "/go/*", "/sellers",
+      "/motorcycles/*/price",
+      "/motorcycles/*/specifications",
+      "/motorcycles/*/colors"
+    ],
     "html_handling": "drop-trailing-slash"
   },
   "observability": {
