@@ -13,6 +13,9 @@
 
 Both default to `false`. They are **not automatically enabled** by merging this code. `npm run check:launch` refuses enabling the first flag without the independent approval flag.
 
+## Private routes and response headers
+Private routes including `/garage`, `/my`, `/dealer-portal`, `/quote-status/{token}`, `/dealer-lead/{token}`, and price-alert confirmation/unsubscribe paths must return `Referrer-Policy: no-referrer`, `Cache-Control: no-store`, and a provider-blocking CSP. Both middleware and final Cloudflare Worker HTTP responses must preserve these protections. Tests use synthetic private links and never collect real customer tokens.
+
 ## Required account and live acceptance
 1. Confirm the actual AdSense account is authorized for `motoindexph.com`, that publisher `pub-1900865456140693` and manual ad slot `6431580274` belong to the approved property, and that root `/ads.txt` serves the correct seller line.
 2. Confirm region-appropriate consent/CMP behavior and disclosures, including test cases where visitors decline optional personalized advertising.
