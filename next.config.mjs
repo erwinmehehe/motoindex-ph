@@ -162,18 +162,25 @@ const nextConfig = {
     const adDocumentsEnabled =
       process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true" &&
       process.env.NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED === "true";
-    return [{
-      source: adDocumentsEnabled ? "/((?!guides/).*)" : "/:path*",
-      headers: [
-        { key: "Content-Security-Policy", value: csp },
-        { key: "X-Content-Type-Options", value: "nosniff" },
-        { key: "X-Frame-Options", value: "SAMEORIGIN" },
-        { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-        { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-        { key: "X-DNS-Prefetch-Control", value: "off" },
-        ...(process.env.NODE_ENV === "production" ? [{ key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" }] : [])
-      ]
-    }];
+    // Keep security headers on every path. Exclude only the conflicting
+    // *global CSP* from the advertising guides; middleware adds a nonce CSP.
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          { key: "X-DNS-Prefetch-Control", value: "off" },
+          ...(process.env.NODE_ENV === "production" ? [{ key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" }] : [])
+        ]
+      },
+      {
+        source: adDocumentsEnabled ? "/((?!guides/).*)" : "/:path*",
+        headers: [{ key: "Content-Security-Policy", value: csp }]
+      }
+    ];
   }
 };
 export default nextConfig;
