@@ -58,6 +58,13 @@ jobs:
           npx wrangler deploy --dry-run
           test -s .open-next/worker.js || (echo 'OpenNext Worker not generated' && exit 1)
 
+      - name: Simulate production static asset publishing
+        run: |
+          node scripts/publish-prerender-assets.mjs
+          test ! -f .open-next/assets/guides/motorcycle-helmet-size-guide.html || (echo 'Advertising guides must be served by Worker nonce CSP, not static edge assets' && exit 1)
+          test ! -f .open-next/assets/garage.html || (echo 'Private Garage HTML must never be published as an edge asset' && exit 1)
+          test ! -f .open-next/assets/my.html || (echo 'Private account HTML must never be published as an edge asset' && exit 1)
+
       - name: Start local Cloudflare Worker
         run: |
           CI=true npx wrangler dev --ip 127.0.0.1 --port 8787 > /tmp/motoindex-worker.log 2>&1 &
