@@ -63,6 +63,13 @@ describe("MotoIndex ads-only / no-database release", () => {
     const launch = read("scripts/check-launch.mjs");
     const runtime = read(".github/workflows/cloudflare-runtime-compat.yml");
     const mw = read("middleware.ts");
+    const assetPublisher = read("scripts/publish-prerender-assets.mjs");
+    expect(assetPublisher).toContain('process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true"');
+    expect(assetPublisher).toContain('process.env.NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED === "true"');
+    expect(assetPublisher).toContain('/^\\/guides\\/[a-z0-9-]+\\/?$/.test(route)');
+    expect(assetPublisher).toContain('"/my"');
+    expect(assetPublisher).toContain('"/dealer-portal"');
+    expect(runtime).toContain("node scripts/publish-prerender-assets.mjs");
     expect(workflow).toContain("default: ads-only");
     expect(workflow).toContain("if: inputs.release_mode == 'full'");
     expect(workflow).toContain("environment: production");
