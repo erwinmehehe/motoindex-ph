@@ -61,9 +61,38 @@ try {
       errors.push("Ads-only blocked lead API leaked referrer policy");
     }
   }
-  const publicPage = await get("/motorcycles/yamaha/aerox-v3");
-  if (!publicPage.ok) errors.push("Motorcycle catalogue page is unavailable");
-  if ((await publicPage.text()).includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) errors.push("AdSense leaked into unrelated public HTML");
+  // Direct HTML must execute via OpenNext middleware (not the static asset
+  // publisher), receive a document-specific CSP nonce and serve the existing
+  // approved manual slot. Check directory, brand, model and electric model.
+  for (const route of [
+    "/motorcycles",
+    "/motorcycles/yamaha",
+    "/motorcycles/yamaha/aerox-v3",
+    "/motorcycles/electric/vinfast-evo",
+  ]) {
+    const res = await get(route);
+    if (!res.ok) {
+      errors.push("Motorcycle ad page unavailable (HTTP " + res.status + ")");
+      continue;
+    }
+    const policy = res.headers.get("Content-Security-Policy") || "";
+    const docNonce = policy.match(/'nonce-([A-Za-z0-9+\\/=]+)'/)?.[1];
+    if (!docNonce || !policy.includes("'strict-dynamic'")) errors.push("Motorcycle ad page missing nonce CSP");
+    if (!/no-store/.test(res.headers.get("Cache-Control") || "")) errors.push("Motorcycle ad page missing no-store");
+    const body = await res.text();
+    if (!body.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) errors.push("Motorcycle document missing AdSense loader");
+    if (!body.includes("6431580274")) errors.push("Motorcycle document missing manual ad slot");
+    if (!body.includes("Advertisement")) errors.push("Motorcycle ad placement lacks disclosure label");
+  }
+  // Private pages and URL query/filter values must not inherit AdSense.
+  const filtered = await get("/motorcycles?q=motoindex-qa-synthetic");
+  const filteredHtml = await filtered.text();
+  if (filteredHtml.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) errors.push("Search query page unexpectedly loaded AdSense");
+  const filteredCsp = filtered.headers.get("Content-Security-Policy") || "";
+  if (!filteredCsp.includes("script-src 'self'") || filteredCsp.includes("'strict-dynamic'")) errors.push("Filtered catalog missing restrictive CSP");
+  const utility = await get("/motorcycles/yamaha/aerox-v3/specs");
+  const utilityHtml = await utility.text();
+  if (utilityHtml.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) errors.push("Motorcycle utility page unexpectedly loaded AdSense");
 } catch (e) {
   errors.push("Worker QA did not finish: " + (e instanceof Error ? e.name : "unknown"));
 }
