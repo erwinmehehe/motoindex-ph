@@ -7,6 +7,34 @@ export function isAdSenseGuideDocument(pathname: string) {
   return /^\/guides\/[a-z0-9-]+\/?$/.test(pathname);
 }
 
+
+/**
+ * Canonical, public motorcycle routes that carry manual AdSense units.
+ * Never match account, dealer, quote, interactive subtools or derivative
+ * endpoints. This is a pathname-only allowlist; middleware also rejects
+ * document requests with query parameters and RSC/prefetch headers.
+ */
+const motorcycleNonBrandPaths = new Set(["electric", "scooters", "expressway-legal", "loan"]);
+const motorcycleNonModelPaths = new Set([
+  "dealers", "scooters", "range-comparison", "price", "specifications",
+  "colors", "rider-fit", "fuel-economy", "ownership-cost", "tire-size",
+  "maintenance", "safety", "used-value", "new-vs-used",
+  "accessories", "changes", "fuel-consumption", "gear",
+  "installment", "seat-height", "specs", "top-speed", "weight"
+]);
+
+export function isAdSenseMotorcycleDocument(pathname: string) {
+  if (pathname === "/motorcycles" || pathname === "/motorcycles/") return true;
+  if (!/^\/motorcycles(?:\/[a-z0-9-]+){1,2}\/?$/.test(pathname)) return false;
+  const [, , make, slug] = pathname.split("/");
+  if (!slug) return !motorcycleNonBrandPaths.has(make);
+  return !motorcycleNonModelPaths.has(slug);
+}
+
+export function isAdSensePublicDocument(pathname: string) {
+  return isAdSenseGuideDocument(pathname) || isAdSenseMotorcycleDocument(pathname);
+}
+
 /**
  * Google's supported strict-dynamic/nonce AdSense policy.
  * There are no changing AdSense domain allowlists to maintain.
