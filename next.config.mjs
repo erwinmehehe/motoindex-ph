@@ -181,7 +181,12 @@ const nextConfig = {
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          // Do not set Referrer-Policy in the global Next.js static header
+          // manifest: OpenNext reapplies it after middleware and overrides
+          // no-referrer on private account/token routes. Modern browsers use
+          // strict-origin-when-cross-origin by default on public pages.
+          // Private routes have explicit no-referrer in both middleware and
+          // the privateReferrerPaths overrides below.
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
           { key: "X-DNS-Prefetch-Control", value: "off" },
           ...(process.env.NODE_ENV === "production" ? [{ key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" }] : [])
