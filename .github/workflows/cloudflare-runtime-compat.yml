@@ -25,6 +25,9 @@ jobs:
       # Synthetic local-worker build exercises approved AdSense CSP code; no live deploy.
       NEXT_PUBLIC_ADSENSE_ENABLED: "true"
       NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED: "true"
+      # Prove the release builds and serves ads without PostgreSQL or CF Access.
+      NEXT_PUBLIC_MOTOINDEX_ADS_ONLY_MODE: "true"
+      ADMIN_ACCESS_MODE: "disabled"
       PRICE_ALERTS_ENABLED: "false"
       PRICE_ALERT_CRON_CONFIGURED: "false"
 
