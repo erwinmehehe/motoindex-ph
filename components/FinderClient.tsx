@@ -43,7 +43,7 @@ function intFrom(params: URLSearchParams, key: string, allowed: number[], fallba
   return Number.isFinite(value) && allowed.includes(value) ? value : fallback;
 }
 
-export function FinderClient({ models }: { models: Motorcycle[] }) {
+export function FinderClient({ models, syncUrl = true }: { models: Motorcycle[]; syncUrl?: boolean }) {
   const [initial, setInitial] = useState<FinderInitialFilters>(defaultInitial);
   const [sharedState, setSharedState] = useState(false);
   const [urlReady, setUrlReady] = useState(false);
@@ -99,5 +99,5 @@ export function FinderClient({ models }: { models: Motorcycle[] }) {
     return <div className={className} aria-busy="true"><div className="decision-finder finder-v4"><section className="finder-stage-shell"><div className="finder-stage-main"><div className="finder-stage-card"><div className="finder-stage-kicker">Preparing your Finder</div><h2>Find the motorcycles that fit your ride.</h2><p>Loading your saved answers and current motorcycle data.</p></div></div><aside className="finder-live-preview pending"><span>Your answers</span><h3>Getting the decision flow ready.</h3></aside></section></div></div>;
   }
 
-  return <div className={className}><MotorcycleFinder key={finderKey} models={models} initialFilters={initial} initiallyComplete={sharedState} /></div>;
+  return <div className={className}><MotorcycleFinder key={finderKey} models={models} initialFilters={initial} initiallyComplete={sharedState} syncUrl={syncUrl} /></div>;
 }

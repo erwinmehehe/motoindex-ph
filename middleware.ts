@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cloudflareAccessConfigured, verifyCloudflareAccess } from "@/lib/cloudflareAccess";
 import { privateDocumentCsp } from "@/lib/privateDocumentCsp";
 import { adsenseEnabled } from "@/lib/adsense";
-import { adsenseGuideCsp, isAdSenseGuideDocument, isAdSenseMotorcycleDocument, nonAdvertisingMotorcycleCsp } from "@/lib/adsenseGuideCsp";
+import { adsenseGuideCsp, isAdSenseGuideDocument, isAdSenseMotorcycleDocument, isAdSensePriorityDocument, nonAdvertisingMotorcycleCsp } from "@/lib/adsenseGuideCsp";
 import { adsOnlyModeEnabled, adsOnlyDisablesRequest } from "@/lib/adsOnlyMode";
 
 const protectedPrefixes = ["/admin", "/api/ingestion", "/api/admin"];
@@ -64,7 +64,8 @@ export async function middleware(request: NextRequest) {
   // Never apply this policy to private routes, RSC prefetches or non-HTML assets.
   if (
     adsenseEnabled() &&
-    (isAdSenseGuideDocument(pathname) || (isAdSenseMotorcycleDocument(pathname) && !request.nextUrl.search)) &&
+    (isAdSenseGuideDocument(pathname) || isAdSenseMotorcycleDocument(pathname) || isAdSensePriorityDocument(pathname)) &&
+    !request.nextUrl.search &&
     !request.headers.has("rsc") &&
     !request.headers.has("next-router-prefetch") &&
     request.method === "GET"
@@ -78,6 +79,16 @@ export async function middleware(request: NextRequest) {
     response.headers.set("Content-Security-Policy", csp);
     response.headers.set("Cache-Control", "private, no-store");
     response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+    return response;
+  }
+  // Query, RSC and prefetch requests on ad-capable pages retain strict non-ad CSP.
+  if (adsenseEnabled() && (isAdSenseGuideDocument(pathname) || isAdSensePriorityDocument(pathname))) {
+    const response = NextResponse.next();
+    response.headers.set("Content-Security-Policy", nonAdvertisingMotorcycleCsp());
+    if (request.nextUrl.search) {
+      response.headers.set("Referrer-Policy", "no-referrer");
+      response.headers.set("X-Robots-Tag", "noindex, follow");
+    }
     return response;
   }
   if (process.env.NODE_ENV === "production" && isPrototypePath(pathname)) return deny("Not found.", 404);
@@ -169,6 +180,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    "/", "/finder", "/tools/motorcycle-loan-calculator",
     "/admin/:path*", "/api/ingestion/:path*", "/api/admin/:path*", "/my", "/api/my/:path*", "/garage/:path*","/garage", "/price-alerts/confirm/:path*", "/price-alerts/unsubscribe/:path*", "/api/price-alerts/:path*",
     "/api/:path*", "/get-quote/:path*", "/dealers/join/:path*", "/used-motorcycles/listing/:path*", "/price-alerts",
     "/motorcycles/:path*", "/guides/:path*", "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*", "/quote-status/:path*", "/api/quote-status/:path*", "/dealer-portal/:path*", "/dealer-portal", "/api/dealer-portal/:path*", "/motorcycles",

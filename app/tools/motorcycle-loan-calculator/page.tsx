@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { LoanCalculator } from "@/components/LoanCalculator";
+import { AdSense } from "@/components/AdSense";
+import { GuideInContentAd } from "@/components/GuideInContentAd";
+import { motorcycleAdNonce } from "@/lib/adsenseMotorcycleDocument";
+import { adsenseEnabled } from "@/lib/adsense";
 import { FaqSection } from "@/components/FaqSection";
 import { pageMetadata } from "@/lib/site";
 import { monthlyPayment, php } from "@/lib/utils";
@@ -32,6 +36,7 @@ const exampleFinanced = examplePrice - exampleDown;
 const exampleRepayment = exampleDown + exampleMonthly * exampleMonths;
 
 export default async function MotorcycleLoanCalculatorPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const adNonce = await motorcycleAdNonce();
   const query = await searchParams;
   const price = number(one(query.price), 1000, 10000000, 100000);
   const down = number(one(query.down), 0, 95, 20);
@@ -42,6 +47,7 @@ export default async function MotorcycleLoanCalculatorPage({ searchParams }: { s
   const safeModel = one(query.model)?.slice(0, 80);
 
   return <section className="page shell" data-calculator-page>
+    <AdSense nonce={adNonce} />
     <Breadcrumbs items={[{ label: "Tools", href: "/tools" }, { label: "Loan calculator" }]} />
     <div className="page-head">
       <h1>Motorcycle loan calculator Philippines</h1>
@@ -49,7 +55,8 @@ export default async function MotorcycleLoanCalculatorPage({ searchParams }: { s
     </div>
 
     <p className="muted-note">Comparing actual lender quotes? <Link href="/guides/motorcycle-loan-philippines">Read the Philippine motorcycle-loan guide on EIR, down payments, fees and documents</Link> before accepting a financing offer.</p>
-    <LoanCalculator initialPrice={price} initialDownPct={down} initialDownAmount={downAmount} initialMonths={term} initialRate={rate} modelLabel={safeModel} />
+    <LoanCalculator initialPrice={price} initialDownPct={down} initialDownAmount={downAmount} initialMonths={term} initialRate={rate} modelLabel={safeModel} syncUrl={!adsenseEnabled()} />
+    <GuideInContentAd nonceReady={Boolean(adNonce)} />
 
     <section className="split section" aria-labelledby="loan-down-payment">
       <div>
@@ -106,6 +113,8 @@ export default async function MotorcycleLoanCalculatorPage({ searchParams }: { s
         </ul>
       </div>
     </section>
+
+    <GuideInContentAd nonceReady={Boolean(adNonce)} />
 
     <section className="section" aria-labelledby="loan-limitations">
       <div className="section-head compact"><div><h2 id="loan-limitations">Assumptions and limitations</h2><p>The output is for budgeting and comparison. It does not predict approval, dealer promotions, credit assessment, add-on packages, late fees or lender-specific payment rules. Replace every default with the numbers from the quote you are actually considering.</p></div></div>

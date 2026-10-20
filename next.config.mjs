@@ -163,8 +163,8 @@ const nextConfig = {
       process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true" &&
       process.env.NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED === "true";
     // Keep security headers on every path. Exclude only the conflicting
-    // *global CSP* from the advertising guides and public motorcycles; middleware adds a
-    // nonce CSP or restrictive fallback for every motorcycle path.
+    // *global CSP* from eligible guides, motorcycles and high-traffic pages;
+    // middleware adds a nonce CSP or a restrictive fallback.
     // Next.js static headers can supersede middleware's Referrer-Policy on
     // the final OpenNext Worker response. Add specific private-route overrides
     // AFTER the shared policy, preserving affiliate referrers on public pages.
@@ -194,7 +194,7 @@ const nextConfig = {
         ]
       },
       {
-        source: adDocumentsEnabled ? "/((?!guides/|motorcycles).*)" : "/:path*",
+        source: adDocumentsEnabled ? "/((?!guides/|motorcycles|finder(?:/|$)|tools/motorcycle-loan-calculator(?:/|$)|$).*)" : "/:path*",
         headers: [{ key: "Content-Security-Policy", value: csp }]
       },
       ...privateReferrerPaths.map(source => ({

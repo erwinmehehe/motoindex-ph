@@ -48,9 +48,11 @@ const blockedPrefixes = [
 function isSafePublicRoute(route) {
   if (!route.startsWith("/")) return false;
   if (redirectSourcePaths.has(route)) return false;
-  // Active motorcycle ads require request-specific nonces. Never publish
-  // motorcycle HTML as a static edge asset that could bypass middleware.
-  if (adDocumentsEnabled && (route === "/motorcycles" || route.startsWith("/motorcycles/"))) return false;
+  // Active ad documents require Worker-first HTML and request-specific nonces.
+  if (adDocumentsEnabled && (
+    route === "/" || route === "/finder" || route === "/tools/motorcycle-loan-calculator" ||
+    route === "/motorcycles" || route.startsWith("/motorcycles/")
+  )) return false;
   // With AdSense active, eligible editorial guides must reach the Worker to
   // receive a fresh document nonce + strict CSP. Static edge HTML bypasses
   // middleware completely when run_worker_first=false.
@@ -93,7 +95,7 @@ for (const route of routes) {
 }
 
 const requiredRoutes = [
-  "/",
+  ...(!adDocumentsEnabled ? ["/"] : []),
   // When ads are active these become dynamic Worker HTML, not static assets.
   ...(!adDocumentsEnabled ? ["/motorcycles", "/motorcycles/yamaha/aerox-v3"] : []),
   "/compare",

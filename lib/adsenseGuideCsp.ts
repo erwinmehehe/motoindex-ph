@@ -31,8 +31,14 @@ export function isAdSenseMotorcycleDocument(pathname: string) {
   return !motorcycleNonModelPaths.has(slug);
 }
 
+/** Exact high-traffic, anonymous documents permitted to carry manual ads. */
+export function isAdSensePriorityDocument(pathname: string) {
+  return pathname === "/" || pathname === "/finder" || pathname === "/finder/" ||
+    pathname === "/tools/motorcycle-loan-calculator" || pathname === "/tools/motorcycle-loan-calculator/";
+}
+
 export function isAdSensePublicDocument(pathname: string) {
-  return isAdSenseGuideDocument(pathname) || isAdSenseMotorcycleDocument(pathname);
+  return isAdSenseGuideDocument(pathname) || isAdSenseMotorcycleDocument(pathname) || isAdSensePriorityDocument(pathname);
 }
 
 /**
