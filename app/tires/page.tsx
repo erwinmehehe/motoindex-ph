@@ -5,6 +5,9 @@ import { getModelById, publicMotorcycles } from "@/lib/data";
 import { tireProducts } from "@/lib/catalog";
 import { ProductCard } from "@/components/ProductCard";
 import { AuthorBox } from "@/components/AuthorBox";
+import { QuickAnswer } from "@/components/QuickAnswer";
+import { FaqSection, type FaqItem } from "@/components/FaqSection";
+import { faqPageSchema } from "@/lib/structuredData";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
 import { tireFamilyHubs, tireModelSeoHubs, getTireFamilyModels } from "@/lib/tireSeo";
@@ -62,6 +65,12 @@ export default function TiresPage(){
     {part:"TL",meaning:"Tubeless marking. Check the rim, valve and manufacturer tire/tube requirements."}
   ];
 
+  const tireFaqs: FaqItem[] = [
+    {question:"Where do I find the correct motorcycle front and rear tire sizes?",answer:"Start with the exact make, model, generation and market variant on MotoIndex, then confirm both original tire positions against the motorcycle owner's manual or placard. Also match the tire manufacturer's approved construction, load and speed ratings, rim width and tube or tubeless requirements."},
+    {question:"Can I use a tire with the same size numbers on the front and rear?",answer:"Not automatically. Front and rear tires may differ in construction, orientation, load and application even when some numbers match. Follow the motorcycle and tire manufacturers' position, load, pressure and compatibility guidance before fitting a replacement."},
+    {question:"What does 90/90-14 M/C 46P TL mean on a motorcycle tire?",answer:"In that published example, 90 is nominal width in millimetres, the second 90 is the aspect ratio, 14 is rim diameter in inches, M/C designates motorcycle use, 46 is a load-index code, P a speed-rating code and TL means tubeless. The code explains the marking; it does not establish fitment for a particular motorcycle."}
+  ];
+
   return <section className="page shell tire-master-page">
     <PageHero
       kicker="Motorcycle tire fitment guide"
@@ -69,6 +78,13 @@ export default function TiresPage(){
       description={<>Start with the exact motorcycle&apos;s stock front and rear size. Then check load index, speed rating, construction, tube or tubeless requirement, rim width and physical clearance.</>}
       actions={<CTAGroup><Link className="button" href="/fitment">Open fitment finder</Link><a className="button secondary" href="#products">Browse verified tires</a></CTAGroup>}
     />
+
+    <QuickAnswer
+      question="How can I find the right motorcycle tire size in the Philippines?"
+      answer="Use the stock front and rear size for the exact motorcycle and generation as a starting point, then check the owner's manual and tire manufacturer's approved fitment. A matching size alone is not enough: load index, speed rating, construction, wheel width and tube or tubeless requirements must also be suitable."
+    >
+      <p><Link href="/fitment">Search exact motorcycle fitment →</Link>{" · "}<a href="#size-chart">Learn to read the sidewall marking →</a></p>
+    </QuickAnswer>
 
     <nav className="product-entity-nav tire-master-nav" aria-label="Tire guide sections">
       <a href="#products">Tire products</a>
@@ -207,13 +223,15 @@ export default function TiresPage(){
       <p><strong>Manufacturer references:</strong> <a href="https://www.michelin.com.ph/motorbike/advice-motorbike/tire-basics/motorcycle-tire-size" target="_blank" rel="noopener noreferrer">Michelin Philippines tire-size guide</a> · <a href="https://www.pirelli.com/tyres/en-ww/motorcycle/tyre-reading" target="_blank" rel="noopener noreferrer">Pirelli sidewall marking guide</a> · <a href="https://www.bridgestone.com/products/motorcycle_tires/products/size/result.html?oblateness=90&amp;rim_width=18&amp;tire_width=110" target="_blank" rel="noopener noreferrer">Bridgestone tire-size example</a> · <a href="https://tires.bridgestone.com/en-us/learn/motorcycle/tire-maintenance/motorcycle-tire-safety-and-maintenance-manual" target="_blank" rel="noopener noreferrer">Bridgestone motorcycle tire safety manual</a></p>
     </section>
 
+    <FaqSection title="Motorcycle tire fitment questions" items={tireFaqs}/>
+
     <div className="fitment-crosslinks">
       <Link href="/fitment"><strong>Fitment finder</strong><small>Tires + motorcycle-specific accessories →</small></Link>
       <Link href="/motorcycles"><strong>Motorcycle catalog</strong><small>Open exact model tire sections →</small></Link>
       <Link href="/methodology"><strong>How fitment is checked</strong><small>Evidence and publishing rules →</small></Link>
     </div>
 
-    <JsonLd data={schema}/>
+    <JsonLd data={[schema,faqPageSchema(tireFaqs)]}/>
     <AuthorBox/>
   </section>;
 }

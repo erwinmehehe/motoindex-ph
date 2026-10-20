@@ -3,8 +3,17 @@ const expectedCommit = (process.env.EXPECTED_COMMIT_SHA || "").trim();
 const timeoutMs = Math.max(5000, Number(process.env.SMOKE_REQUEST_TIMEOUT_MS || 15000));
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+// Existing authority URLs receiving visible answers in the next AEO sprint.
+const aeoSprint3Routes = [
+  "/compare/aerox-v3-vs-nmax-v3",
+  "/compare/adv-160-vs-pcx-160",
+  "/gear/helmets",
+  "/tires",
+  "/accessories",
+];
 // Required SEO content destinations from PR #493. Merge does not prove live publication.
 const seoReleaseRoutes = [
+  ...aeoSprint3Routes,
   "/guides/motorcycle-loan-philippines",
   "/guides/semi-automatic-motorcycles-philippines",
   "/recommendations/150cc-motorcycles-philippines",
@@ -85,6 +94,10 @@ for (const path of publicRoutes) {
       if (!/application\/ld\+json/i.test(body)) failures.push(path + ": missing JSON-LD");
       const robotsTag = tags.find(tag => /\bname\s*=\s*(["'])robots\1/i.test(tag));
       if (robotsTag && /\bnoindex\b/i.test(robotsTag)) failures.push(path + ": unexpectedly noindex");
+      if (aeoSprint3Routes.includes(path)) {
+        if (!body.includes("data-aeo-quick-answer")) failures.push(path + ": missing visible answer-first question");
+        if (!body.includes('"@type":"FAQPage"')) failures.push(path + ": missing matching visible FAQ JSON-LD");
+      }
     }
   } catch (error) {
     failures.push(`${path}: ${error instanceof Error ? error.message : String(error)}`);

@@ -10,6 +10,9 @@ import { hasRenderableProductMedia } from "@/lib/media";
 import { ProductCard } from "@/components/ProductCard";
 import { FaqSection, type FaqItem } from "@/components/FaqSection";
 import { AuthorBox } from "@/components/AuthorBox";
+import { QuickAnswer } from "@/components/QuickAnswer";
+import { JsonLd } from "@/components/JsonLd";
+import { faqPageSchema } from "@/lib/structuredData";
 import { php } from "@/lib/utils";
 import { CTAGroup, InfoPanel, PageHero, ProductGrid, SectionHeader, StatRow } from "@/components/ui";
 
@@ -89,6 +92,12 @@ export default function HelmetsPage(){
       description="Use one guide to compare helmet prices, protection formats, ECE 22.06 references, intercom provision, commuting choices, sizing and current brand/model pages. Open the exact helmet before buying to verify fit and the marking on the local unit."
       actions={<CTAGroup><Link className="button" href="/gear/helmets/finder">Find my helmet</Link><Link className="button secondary" href="/gear/helmets/compare">Compare exact helmets</Link></CTAGroup>}
     /></div>
+    <QuickAnswer
+      question="Which motorcycle helmet should I buy in the Philippines?"
+      answer="Choose a motorcycle helmet that fits securely and carries the applicable PS or ICC conformity marking on the exact locally sold unit. Then compare full-face, modular, open-face or specialist formats for your real riding conditions, visor setup and budget. A brand name, price or ECE label alone does not confirm the fit or local marking."
+    >
+      <p><Link href="/guides/motorcycle-helmet-size-guide">Read the sizing guide →</Link>{" · "}<Link href="/guides/motorcycle-helmet-certification-philippines">Check Philippine helmet certification →</Link></p>
+    </QuickAnswer>
 
     <ReviewedHelmetExplorer items={verified.flatMap(product => { const image=getRenderableMedia("helmet",product.id)[0]; return image ? [{id:product.id,brand:product.brand,model:product.model,href:`/gear/helmets/${product.brandSlug}/${product.slug}`,type:product.helmetType,price:product.priceFromPhp,image:image.src,alt:image.alt}] : []; })} />
     <StatRow items={[
@@ -202,5 +211,6 @@ export default function HelmetsPage(){
 
     <AuthorBox />
     <FaqSection title="Motorcycle helmet buying questions" items={faqs}/>
+    <JsonLd data={faqPageSchema(faqs)}/>
   </section>;
 }
