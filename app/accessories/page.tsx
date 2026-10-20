@@ -5,6 +5,9 @@ import { publicMotorcycles } from "@/lib/data";
 import { topBoxProducts } from "@/lib/catalog";
 import { accessorySeoGuides } from "@/lib/accessorySeo";
 import { AuthorBox } from "@/components/AuthorBox";
+import { QuickAnswer } from "@/components/QuickAnswer";
+import { FaqSection, type FaqItem } from "@/components/FaqSection";
+import { faqPageSchema } from "@/lib/structuredData";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
 import { CTAGroup, PageHero, SectionHeader, StatRow } from "@/components/ui";
@@ -28,6 +31,12 @@ const categoryHubs=[
   {href:"/accessories/rain-gear",kicker:"Wet-weather riding",title:rainGuide.title,description:rainGuide.description,meta:"Coverage + daily use"}
 ];
 
+const accessoryFaqs: FaqItem[] = [
+  {question:"Which motorcycle accessory should I buy first?",answer:"Start with the actual riding need rather than a universal ranking: storage, phone navigation, helmet communications or wet-weather coverage. First confirm that the product and mounting setup fit your exact motorcycle or helmet and do not interfere with controls or protective equipment."},
+  {question:"Does a top box fit any motorcycle if its capacity is right?",answer:"No. Box volume does not establish fitment. Match the rack, mounting plate, bracket, model year and load rating to the motorcycle before buying, then check that the installation stays clear of lights and moving parts."},
+  {question:"Can any motorcycle phone holder or intercom fit every bike or helmet?",answer:"No. Phone holders depend on mounting clearance, phone retention and vibration exposure. Intercoms depend on speaker-pocket depth, microphone placement and mounting space. Check the exact motorcycle, helmet and accessory model instead of assuming universal compatibility."}
+];
+
 export default function AccessoriesPage(){
   const verifiedTopBoxes=topBoxProducts.filter(product=>product.status==="verified").length;
   const fitmentPreview=publicMotorcycles.slice(0,8);
@@ -48,6 +57,13 @@ export default function AccessoriesPage(){
       description="Choose the accessory decision first, then open the focused guide for fitment, mounting, helmet compatibility or wet-weather use."
       actions={<CTAGroup><Link className="button" href="/accessories/top-box">Browse top boxes</Link><Link className="button secondary" href="/fitment">Check model fitment</Link></CTAGroup>}
     />
+
+    <QuickAnswer
+      question="What motorcycle accessories should I choose for daily riding?"
+      answer="Choose accessories by the specific problem they solve: secure storage, clear navigation, helmet communication or rain protection. On Philippine roads, safe motorcycle and helmet fitment matters more than a generic best-accessories list. Check mounting clearance, retention, load limits and actual seller specifications for the unit you use."
+    >
+      <p><Link href="/fitment">Check motorcycle fitment →</Link>{" · "}<Link href="/accessories/top-box">Compare top-box mounts →</Link></p>
+    </QuickAnswer>
 
     <StatRow items={[
       {label:"Focused categories",value:"4",note:"One clear buying intent each"},
@@ -105,7 +121,8 @@ export default function AccessoriesPage(){
       </div>
     </section>
 
-    <JsonLd data={schema}/>
+    <FaqSection title="Motorcycle accessory buying questions" items={accessoryFaqs}/>
+    <JsonLd data={[schema,faqPageSchema(accessoryFaqs)]}/>
     <AuthorBox/>
   </section>;
 }

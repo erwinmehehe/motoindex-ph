@@ -13,6 +13,9 @@ import { ComparisonDecisionMatrix } from "@/components/ComparisonDecisionMatrix"
 import { ComparisonDecisionWorkbench } from "@/components/ComparisonDecisionWorkbench";
 import { JsonLd } from "@/components/JsonLd";
 import { articleSchema } from "@/lib/articleSchema";
+import { priorityComparisonAnswers } from "@/lib/priorityComparisonAnswers";
+import { PriorityComparisonAnswer } from "@/components/PriorityComparisonAnswer";
+import { faqPageSchema } from "@/lib/structuredData";
 import { CTAGroup, InfoPanel, PageHero } from "@/components/ui";
 import styles from "./ComparisonDetailPage.module.css";
 
@@ -36,6 +39,7 @@ export default async function ComparisonPage({params}:{params:Promise<{slug:stri
     {href:`/motorcycles/${c.b.makeSlug}/${c.b.slug}#tires-fitment`,title:`${c.b.model} tire size`,eyebrow:"Fitment",description:`${c.b.frontTire} / ${c.b.rearTire}`},
     {href:"/compare",title:"Compare other motorcycles",eyebrow:"Compare",description:"Build another side-by-side comparison."}
   ];
+  const priorityAnswers=priorityComparisonAnswers(slug,c.a,c.b);
   const compareArticle=articleSchema({headline:`${c.a.make} ${c.a.model} vs ${c.b.make} ${c.b.model}`,description:brief?.opening||`Compare the ${c.a.make} ${c.a.model} and ${c.b.make} ${c.b.model} on checked Philippine prices, engine, dimensions, fuel and tires.`,path:`/compare/${c.slug}`,about:`${c.a.model} vs ${c.b.model} Philippines`,keywords:[`${c.a.model} vs ${c.b.model}`,`${c.a.model} or ${c.b.model}`,"motorcycle comparison Philippines"],checkedDates:[c.a.marketPriceCheckedAt||c.a.verifiedAt,c.b.marketPriceCheckedAt||c.b.verifiedAt]});return <section className={`page shell comparison-page ${styles.page}`}><Breadcrumbs items={[{label:"Compare",href:"/compare"},{label:`${c.a.model} vs ${c.b.model}`}]} />
     <PageHero
       kicker="Motorcycle comparison"
@@ -43,11 +47,12 @@ export default async function ComparisonPage({params}:{params:Promise<{slug:stri
       description={brief?.opening||`${c.summary}. Compare the current motorcycles with their prices, fit and grouped specifications.`}
       actions={<CTAGroup><Link className="button" href={`/get-quote/${c.a.makeSlug}/${c.a.slug}`}>Get {c.a.model} dealer price</Link><Link className="button secondary" href={`/get-quote/${c.b.makeSlug}/${c.b.slug}`}>Get {c.b.model} dealer price</Link></CTAGroup>}
     />
+    {priorityAnswers && <PriorityComparisonAnswer items={priorityAnswers} a={c.a} b={c.b} />}
     {!isIndexableComparison(slug)&&<InfoPanel subtle><h2>Custom comparison</h2><p>Check the dated price and specification sources on each motorcycle page before buying.</p></InfoPanel>}
     <ComparisonProductCards models={[c.a,c.b]}/>
     <ComparisonDecisionWorkbench a={c.a} b={c.b}/>
     <ComparisonDecisionMatrix a={c.a} b={c.b}/>
     {brief?<><ComparisonEditorial a={c.a} b={c.b} brief={brief} phase="pre"/><DetailedMotorcycleCompare models={[c.a,c.b]} showProducts={false}/><ComparisonEditorial a={c.a} b={c.b} brief={brief} phase="post"/></>:<><ComparisonHighlights a={c.a} b={c.b}/><DetailedMotorcycleCompare models={[c.a,c.b]} showProducts={false}/></>}<RelatedLinks title="Open the model pages and sources" links={links}/>
-    <JsonLd data={compareArticle} />
+    <JsonLd data={priorityAnswers ? [compareArticle, faqPageSchema(priorityAnswers)] : compareArticle} />
   </section>;
 }
