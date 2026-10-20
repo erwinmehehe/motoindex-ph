@@ -4,7 +4,7 @@ import type { FaqItem } from "@/components/FaqSection";
 import { QuickAnswer } from "@/components/QuickAnswer";
 import { SourceRef } from "@/components/SourceRef";
 import { latestPriceReference } from "@/lib/marketChecks";
-import styles from "@/app/compare/[slug]/ComparisonDetailPage.module.css";
+import styles from "@/components/ComparisonEditorial.module.css";
 
 /** Server-only presentation of exactly the answers also used by FAQPage. */
 export function PriorityComparisonAnswer({ items, a, b }: {
@@ -13,17 +13,17 @@ export function PriorityComparisonAnswer({ items, a, b }: {
   b: Motorcycle;
 }) {
   if (!items.length) return null;
-  return <section className={styles.priorityAnswer} aria-label="Motorcycle comparison buying answers" data-priority-comparison-answer>
+  return <div className={styles.editorial} aria-label="Motorcycle comparison buying answers" data-priority-comparison-answer>
     <QuickAnswer variant="plain" question={items[0].question} answer={items[0].answer} />
-    <div className={styles.priorityFollowups}>
-      <h3>Price, equipment and variant questions</h3>
+    <section className="comparison-faqs">
+      <h2>Price, equipment and variant questions</h2>
       {items.slice(1).map(item => <details key={item.question}>
         <summary>{item.question}</summary>
         <p>{item.answer}</p>
       </details>)}
-    </div>
-    <div className={styles.prioritySources}>
-      <h3>Check both model sources</h3>
+    </section>
+    <section className="comparison-methodology">
+      <h2>Check both model sources</h2>
       <p>Specification checks and market-price checks are different evidence types. Neither is a live dealer quote.</p>
       <ul>
         {[a, b].map(model => {
@@ -39,6 +39,6 @@ export function PriorityComparisonAnswer({ items, a, b }: {
           </li>;
         })}
       </ul>
-    </div>
-  </section>;
+    </section>
+  </div>;
 }
