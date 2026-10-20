@@ -13,7 +13,7 @@ export function PriorityComparisonAnswer({ items, a, b }: {
   b: Motorcycle;
 }) {
   if (!items.length) return null;
-  return <section className={styles.priorityAnswer} aria-label="Source-backed buying answers" data-priority-comparison-answer>
+  return <section className={styles.priorityAnswer} aria-label="Motorcycle comparison buying answers" data-priority-comparison-answer>
     <QuickAnswer variant="plain" question={items[0].question} answer={items[0].answer} />
     <div className={styles.priorityFollowups}>
       <h3>Price, equipment and variant questions</h3>
