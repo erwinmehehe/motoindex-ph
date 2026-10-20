@@ -34,3 +34,10 @@ No provider account/CMP/Cloudflare secret or variable has been changed by this c
 - `wrangler.jsonc` routes `/motorcycles` and `/motorcycles/*` through the Worker before static assets. The publisher excludes motorcycle HTML from static-edge copies when the two approval flags are true, preventing nonce bypass.
 - Production smoke QA asserts actual AdSense loader, slot and CSP on an anonymous directory, brand and model URL, alongside the existing guide and private-route checks. Passing QA cannot prove an AdSense paid fill; Google account approval, actual user consent where required, external network requests and impressions remain separately verified.
 - No PostgreSQL database, Turnstile or Zero Trust secrets are required for the ads-only release. Do not load ads on personal customer pages or assume a paid ad will display on every visit.
+
+## Top-five traffic AdSense extension (2026-10-20)
+
+- The homepage carries one labeled manual unit below discovery content, the Finder one after its interactive wizard/results, and the longer loan calculator two units after the calculator and educational content. Existing motorcycle directory and Yamaha Aerox model slots are unchanged.
+- These three routes get a new document nonce and CSP from middleware, Worker-first Cloudflare HTML, and a page-scoped loader. This is manual AdSense placement, not unrestricted Auto ads.
+- Query URLs on Finder and the loan calculator never load ads. They get non-ad CSP plus no-referrer. While ads are enabled, editing Finder/calculator answers does not rewrite the current ad-document URL. The Copy/Share buttons still produce stateful URLs, which load as non-ad query documents.
+- The two production AdSense flags remain OFF by default. Do not activate until #466 account, consent/CMP, real-browser private-route/network, Cloudflare runtime and paid impression checks have independent sign-off. Source changes alone do not deploy or earn revenue.

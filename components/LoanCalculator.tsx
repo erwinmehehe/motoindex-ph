@@ -29,12 +29,27 @@ export function LoanCalculator({ initialPrice = 100000, modelLabel, initialDownP
     const interest = Math.max(0, loanPayments - financed);
     return { safePrice, safeDown, safeDownAmount, safeMonths, safeRate, financed, monthly, interest, totalCash: safeDownAmount + loanPayments };
   }, [price, downAmount, months, annualRate, safeInitial, initialDown]);
-  useEffect(()=>{if(!syncUrl)return;const p=new URLSearchParams(window.location.search);p.set("price",String(Math.round(result.safePrice)));p.set("down",String(Number(result.safeDown.toFixed(2))));p.set("downAmount",String(Math.round(result.safeDownAmount)));p.set("term",String(result.safeMonths));p.set("rate",String(result.safeRate));if(modelLabel)p.set("model",modelLabel);window.history.replaceState(null,"",`${window.location.pathname}?${p.toString()}`)},[result.safePrice,result.safeDown,result.safeDownAmount,result.safeMonths,result.safeRate,modelLabel,syncUrl]);
+  // Ad-bearing calculator documents do not expose the rider's inputs in their
+  // current address bar; copying still produces an exact shareable result URL.
+  const shareQuery = useMemo(() => {
+    const p = new URLSearchParams();
+    p.set("price",String(Math.round(result.safePrice)));
+    p.set("down",String(Number(result.safeDown.toFixed(2))));
+    p.set("downAmount",String(Math.round(result.safeDownAmount)));
+    p.set("term",String(result.safeMonths));
+    p.set("rate",String(result.safeRate));
+    if(modelLabel)p.set("model",modelLabel);
+    return p.toString();
+  }, [result.safePrice,result.safeDown,result.safeDownAmount,result.safeMonths,result.safeRate,modelLabel]);
+  useEffect(() => {
+    if (!syncUrl) return;
+    window.history.replaceState(null,"",`${window.location.pathname}?${shareQuery}`);
+  },[shareQuery,syncUrl]);
   function setPriceAndProtectDown(next:number){const safeNext=clamp(next,1000,10000000,safeInitial);setPrice(next);setDownAmount(current=>Math.min(current,safeNext*.95));}
   function setExactDown(next:number){setDownAmount(clamp(next,0,result.safePrice*.95,0));}
   function setDownPercentage(next:number){const pct=clamp(next,0,95,initialDown);setDownAmount(result.safePrice*pct/100);}
   function reset(){setPrice(safeInitial);setDownAmount(initialCashDown);setMonths(initialTerm);setAnnualRate(initialApr);}
-  async function copy(){const url=window.location.href;const summary=`${modelLabel?`${modelLabel}: `:""}${peso(result.safePrice)}, ${peso(result.safeDownAmount)} down (${percentage(result.safeDown)}%), ${result.safeMonths} months at ${result.safeRate}% APR ≈ ${peso(result.monthly)}/month. ${url}`;await navigator.clipboard?.writeText(summary);setCopied(true);window.setTimeout(()=>setCopied(false),1800);}
+  async function copy(){const url=new URL(window.location.href); url.search=shareQuery; url.hash=""; const shareUrl=url.toString(); const summary=`${modelLabel?`${modelLabel}: `:""}${peso(result.safePrice)}, ${peso(result.safeDownAmount)} down (${percentage(result.safeDown)}%), ${result.safeMonths} months at ${result.safeRate}% APR ≈ ${peso(result.monthly)}/month. ${shareUrl}`;await navigator.clipboard?.writeText(summary);setCopied(true);window.setTimeout(()=>setCopied(false),1800);}
   return <section className="loan-tool" data-calculator="loan">
     <div className="loan-copy"><h2>{modelLabel ? `Estimate payments for ${modelLabel}` : "Estimate a motorcycle loan"}</h2><p>Enter the exact peso down payment from a dealer quote or use a percentage preset. This is a planning estimate, not a dealer financing quote; processing fees, insurance and add-ons can change the actual amount due.</p><div className="loan-primary" aria-live="polite"><span>Estimated monthly</span><strong>{peso(result.monthly)}</strong><small>{result.safeMonths} months at {result.safeRate}% annual rate</small></div></div>
     <div className="loan-fields">

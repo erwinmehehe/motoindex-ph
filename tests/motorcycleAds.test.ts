@@ -130,7 +130,7 @@ describe("motorcycle page AdSense expansion with per-document CSP", () => {
     expect(document).toContain("await connection()");
     expect(document).toContain('get("x-nonce")');
     expect(boundary).toContain("isAdSensePublicDocument");
-    expect(config).toContain('"/((?!guides/|motorcycles).*)"');
+    expect(config).toContain('"/((?!guides/|motorcycles|finder');
     expect(wrangler.assets.run_worker_first).toContain("/motorcycles");
     expect(wrangler.assets.run_worker_first).toContain("/motorcycles/*");
     expect(assets).toContain('route === "/motorcycles" || route.startsWith("/motorcycles/")');

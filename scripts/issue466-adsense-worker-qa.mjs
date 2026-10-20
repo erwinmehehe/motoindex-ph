@@ -65,6 +65,9 @@ try {
   // publisher), receive a document-specific CSP nonce and serve the existing
   // approved manual slot. Check directory, brand, model and electric model.
   for (const route of [
+    "/",
+    "/finder",
+    "/tools/motorcycle-loan-calculator",
     "/motorcycles",
     "/motorcycles/yamaha",
     "/motorcycles/yamaha/aerox-v3",
@@ -91,6 +94,15 @@ try {
   if (filteredHtml.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) errors.push("Search query page unexpectedly loaded AdSense");
   const filteredCsp = filtered.headers.get("Content-Security-Policy") || "";
   if (!filteredCsp.includes("script-src 'self'") || filteredCsp.includes("'strict-dynamic'")) errors.push("Filtered catalog missing restrictive CSP");
+  // Query URLs remain non-ad documents with restrictive response policies.
+  for (const route of ["/finder?budget=100000", "/tools/motorcycle-loan-calculator?model=motoindex-qa-synthetic"]) {
+    const res = await get(route);
+    const body = await res.text();
+    if (body.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) errors.push("Personalized tool URL unexpectedly loaded AdSense");
+    const policy = res.headers.get("Content-Security-Policy") || "";
+    if (!policy.includes("script-src 'self'") || policy.includes("'strict-dynamic'")) errors.push("Personalized tool URL missing restrictive CSP");
+    if (res.headers.get("Referrer-Policy") !== "no-referrer") errors.push("Personalized tool URL missing no-referrer");
+  }
   const utility = await get("/motorcycles/yamaha/aerox-v3/specs");
   const utilityHtml = await utility.text();
   if (utilityHtml.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) errors.push("Motorcycle utility page unexpectedly loaded AdSense");

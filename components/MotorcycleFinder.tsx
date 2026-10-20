@@ -55,7 +55,7 @@ function finderUseLabel(value: DecisionUseCase) {
   return useChoices.find(([id]) => id === value)?.[1] || "City commute";
 }
 
-export function MotorcycleFinder({ models, initialFilters = {}, initiallyComplete = false }: { models: Motorcycle[]; initialFilters?: FinderInitialFilters; initiallyComplete?: boolean }) {
+export function MotorcycleFinder({ models, initialFilters = {}, initiallyComplete = false, syncUrl = true }: { models: Motorcycle[]; initialFilters?: FinderInitialFilters; initiallyComplete?: boolean; syncUrl?: boolean }) {
   const [budget, setBudget] = useState(initialFilters.budget || "150000");
   const [make, setMake] = useState(initialFilters.make || "any");
   const [transmission, setTransmission] = useState(initialFilters.transmission || "any");
@@ -147,7 +147,8 @@ export function MotorcycleFinder({ models, initialFilters = {}, initiallyComplet
     return () => window.clearTimeout(timer);
   }, [completed, top, results.length, useCase]);
 
-  useEffect(() => {
+  // Keep a shareable link without writing rider choices into an ad-enabled document URL.
+  const shareQuery = useMemo(() => {
     const p = new URLSearchParams();
     if (budget !== "150000") p.set("budget", budget);
     if (make !== "any") p.set("make", make);
@@ -168,8 +169,13 @@ export function MotorcycleFinder({ models, initialFilters = {}, initiallyComplet
     if (downPaymentPct !== 20) p.set("down", String(downPaymentPct));
     if (termMonths !== 36) p.set("term", String(termMonths));
     if (annualRatePct !== 12) p.set("rate", String(annualRatePct));
-    window.history.replaceState(null, "", `${window.location.pathname}${p.size ? `?${p.toString()}` : ""}`);
+    return p.toString();
   }, [budget, make, transmission, useCase, abs, maxSeat, maxWeight, category, inseam, passenger, highway, expresswayClass, luggage, traffic, dailyKm, monthlyBudget, downPaymentPct, termMonths, annualRatePct]);
+
+  useEffect(() => {
+    if (!syncUrl) return;
+    window.history.replaceState(null, "", `${window.location.pathname}${shareQuery ? `?${shareQuery}` : ""}`);
+  }, [shareQuery, syncUrl]);
 
   function reset() {
     trackEvent("finder_reset", { results_before_reset: results.length });
@@ -177,7 +183,10 @@ export function MotorcycleFinder({ models, initialFilters = {}, initiallyComplet
     setInseam(30); setPassenger(false); setHighway(false); setExpresswayClass(false); setLuggage(false); setTraffic("heavy"); setDailyKm(20); setMonthlyBudget(0); setDownPaymentPct(20); setTermMonths(36); setAnnualRatePct(12); setStep(0); setCompleted(false); setShowMoreFilters(false);
   }
   async function share() {
-    await navigator.clipboard?.writeText(window.location.href);
+    const sharedUrl = new URL(window.location.href);
+    sharedUrl.search = shareQuery;
+    sharedUrl.hash = "";
+    await navigator.clipboard?.writeText(sharedUrl.toString());
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1800);
     trackEvent("finder_share", { results: results.length });
