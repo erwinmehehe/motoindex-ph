@@ -3,13 +3,21 @@ const expectedCommit = (process.env.EXPECTED_COMMIT_SHA || "").trim();
 const timeoutMs = Math.max(5000, Number(process.env.SMOKE_REQUEST_TIMEOUT_MS || 15000));
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// Required SEO content destinations from PR #493. Merge does not prove live publication.
+// Required SEO content destinations from PR #493 and the next canonical-model AEO batch.
+// Merge does not prove live publication or Google indexing.
+const aeoModelBatch2Routes = [
+  "/motorcycles/rusi/classic-250i",
+  "/motorcycles/yamaha/fazzio",
+  "/motorcycles/yamaha/mio-gear",
+  "/motorcycles/yamaha/sniper-155",
+];
 const seoReleaseRoutes = [
   "/guides/motorcycle-loan-philippines",
   "/guides/semi-automatic-motorcycles-philippines",
   "/recommendations/150cc-motorcycles-philippines",
   "/tires/honda-beat-tire-size",
   "/guides/motorcycle-brands-philippines",
+  ...aeoModelBatch2Routes,
 ];
 
 const publicRoutes = [
@@ -85,6 +93,10 @@ for (const path of publicRoutes) {
       if (!/application\/ld\+json/i.test(body)) failures.push(path + ": missing JSON-LD");
       const robotsTag = tags.find(tag => /\bname\s*=\s*(["'])robots\1/i.test(tag));
       if (robotsTag && /\bnoindex\b/i.test(robotsTag)) failures.push(path + ": unexpectedly noindex");
+      if (aeoModelBatch2Routes.includes(path)) {
+        if (!body.includes("View cited model source")) failures.push(path + ": missing visible model-source attribution");
+        if (!body.includes("View price sources")) failures.push(path + ": missing price-source handoff");
+      }
     }
   } catch (error) {
     failures.push(`${path}: ${error instanceof Error ? error.message : String(error)}`);
