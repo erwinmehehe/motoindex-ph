@@ -64,6 +64,18 @@ function modelSpecificFaqs(model: Motorcycle): FaqItem[] {
       }
     ];
   }
+  if (model.id === "rusi-classic-250i") {
+    return [
+      {
+        question: "Is the Rusi Classic 250i listed price a Rusi dealer quote?",
+        answer: "No dealer-specific cash quote has been independently recorded for this model. MotoIndex's listed price is based on a third-party Philippine motorcycle reference, so confirm the branch cash price, exact model year, registration charges and parts support before paying."
+      },
+      {
+        question: "Does the Rusi Classic 250i have confirmed ABS?",
+        answer: "ABS is not confirmed by the current specification source. This is not proof that every Classic 250i lacks ABS; inspect the braking system on the exact unit and ask the dealer for the official model and variant specification."
+      }
+    ];
+  }
   if (model.id === "honda-crf150l") {
     return [
       {
@@ -85,6 +97,18 @@ function modelSpecificFaqs(model: Motorcycle): FaqItem[] {
       {
         question: "Is Mio Sporty the same as Mio i 125?",
         answer: "No. Mio Sporty is a distinct 114cc carbureted Mio model. MotoIndex now keeps its dealer-listed price, specifications and market-status caveat on a dedicated Mio Sporty page, while this page remains specific to the 125cc Mio i 125."
+      }
+    ];
+  }
+  if (model.id === "yamaha-sniper-155") {
+    return [
+      {
+        question: "Is ABS standard on every Yamaha Sniper 155 variant?",
+        answer: "No. The stored Philippine model record identifies ABS equipment as variant-dependent. Verify the exact Sniper 155 or Sniper 155 R unit and its braking specification before assuming ABS is included."
+      },
+      {
+        question: "Is the Yamaha Sniper 155 automatic?",
+        answer: "No. The current source-backed Sniper 155 record describes a 155cc manual six-speed underbone. Riders comparing it with automatic scooters should account for clutch and shifting operation as well as seat height, price and braking equipment."
       }
     ];
   }
@@ -122,6 +146,18 @@ function modelSpecificFaqs(model: Motorcycle): FaqItem[] {
       {
         question: "Is Honda Giorno the same as Honda Giorno+?",
         answer: "For current Philippine shopping intent, MotoIndex consolidates broad Honda Giorno searches on the Giorno+ page instead of creating a duplicate Giorno URL. Dealer naming may shorten Giorno+ to Giorno, so verify the exact model code on the unit."
+      }
+    ];
+  }
+  if (model.id === "yamaha-fazzio") {
+    return [
+      {
+        question: "Is an older cheaper Mio Fazzio listing the same as the current Yamaha Fazzio?",
+        answer: "Not necessarily. Older dealer stock may use a different model code or model year from the current new-model price reference. Compare the model code, included equipment, warranty and final dealer quote before treating the prices as equivalent."
+      },
+      {
+        question: "Does the current Yamaha Fazzio specification list ABS?",
+        answer: "No. MotoIndex's current Fazzio record does not list ABS. Confirm the braking system and exact variant on the actual dealer unit; retro styling and a higher price do not establish ABS equipment."
       }
     ];
   }
