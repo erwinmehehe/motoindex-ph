@@ -72,6 +72,6 @@ describe("issue #466 public-guide AdSense runtime", () => {
     expect(loader).toContain("nonce={nonce}");
     expect(boundary).toContain('document.addEventListener("click", forceDocumentBoundary, true)');
     expect(boundary).toContain("window.location.assign(next.href)");
-    expect(config).toContain('"/((?!guides/|motorcycles).*)"');
+    expect(config).toContain('"/((?!guides/|motorcycles|finder');
   });
 });
