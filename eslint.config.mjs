@@ -4,10 +4,21 @@ import nextTs from "eslint-config-next/typescript";
 
 // Next.js 16 ships native ESLint flat configs. FlatCompat on these configs
 // throws a circular-reference error and disables the required CI lint gate.
+// Native Next.js flat-config entries scope their plugins to matching files.
+// Resolve the exact bundled React Hooks instance for our cross-file rule overrides
+// rather than leaving the plugin undefined on files like eslint.config.mjs.
+const reactHooksPlugin = nextVitals
+  .map((config) => config.plugins?.["react-hooks"])
+  .find(Boolean);
+if (!reactHooksPlugin) {
+  throw new Error("Next.js core-web-vitals no longer exports the React Hooks ESLint plugin.");
+}
+
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   {
+    plugins: { "react-hooks": reactHooksPlugin },
     rules: {
       "react/no-unescaped-entities": "off",
       "@typescript-eslint/no-explicit-any": "warn",
