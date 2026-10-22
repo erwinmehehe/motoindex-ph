@@ -96,9 +96,9 @@
   "dependencies": {
     "@opennextjs/cloudflare": "1.20.12",
     "@prisma/client": "6.5.0",
-    "next": "15.5.28",
-    "react": "19.2.7",
-    "react-dom": "19.2.7"
+    "next": "16.4.2",
+    "react": "19.2.9",
+    "react-dom": "19.2.9"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.7",
@@ -108,7 +108,7 @@
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
     "eslint": "9.35.0",
-    "eslint-config-next": "15.5.28",
+    "eslint-config-next": "16.4.2",
     "postcss": "8.5.26",
     "prisma": "6.5.0",
     "tailwindcss": "4.3.3",

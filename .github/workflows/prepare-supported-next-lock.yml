@@ -1,4 +1,4 @@
-name: Regenerate patched transitive dependency lockfile
+name: Regenerate Next 16 and patched dependency lockfile
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - name: Generate npm lockfile with patched transitive glob
+      - name: Generate npm lockfile for Next 16, React security patch and fixed glob
         run: |
           npm install --package-lock-only --ignore-scripts --no-audit --no-fund
           node scripts/validate-lockfile.mjs
