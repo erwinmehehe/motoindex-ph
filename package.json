@@ -94,27 +94,27 @@
     "precf:build": "node scripts/reject-workers-git-production-build.mjs"
   },
   "dependencies": {
-    "next": "15.5.27",
-    "react": "19.2.7",
-    "react-dom": "19.2.7",
+    "@opennextjs/cloudflare": "1.20.12",
     "@prisma/client": "6.5.0",
-    "@opennextjs/cloudflare": "1.20.6"
+    "next": "15.5.28",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "3.3.7",
+    "@playwright/test": "1.63.0",
     "@tailwindcss/postcss": "4.3.3",
     "@types/node": "22.13.10",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
+    "eslint": "9.35.0",
+    "eslint-config-next": "15.5.28",
     "postcss": "8.5.26",
     "prisma": "6.5.0",
     "tailwindcss": "4.3.3",
     "typescript": "5.8.2",
-    "wrangler": "4.129.1",
-    "@eslint/eslintrc": "3.3.7",
-    "eslint": "9.35.0",
-    "eslint-config-next": "15.5.27",
     "vitest": "5.0.3",
-    "@playwright/test": "1.63.0"
+    "wrangler": "4.151.1"
   },
   "overrides": {
     "postcss": "8.5.26",
