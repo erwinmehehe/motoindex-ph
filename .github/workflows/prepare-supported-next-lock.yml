@@ -24,6 +24,7 @@ jobs:
           cache: npm
       - name: Regenerate the pinned dependency lockfile from the npm registry
         run: |
+          npm install wrangler@4.151.1 --save-dev --save-exact --package-lock-only --ignore-scripts --no-audit --no-fund
           npm install next@15.5.28 @opennextjs/cloudflare@1.20.12 --save-exact --package-lock-only --ignore-scripts --no-audit --no-fund
           npm install eslint-config-next@15.5.28 --save-dev --save-exact --package-lock-only --ignore-scripts --no-audit --no-fund
           node scripts/validate-lockfile.mjs
