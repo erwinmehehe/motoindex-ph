@@ -1,4 +1,6 @@
 import { readFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 describe("privacy analytics release gates", () => {
@@ -29,9 +31,48 @@ describe("privacy analytics release gates", () => {
     expect(tracker).not.toContain("...params, page_location");
   });
 
-  it("keeps sample and manual production deployment OFF until separate privacy QA", () => {
+  it("keeps analytics OFF by default and requires BOTH production approvals", () => {
     expect(sample).toContain("NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE=false");
     expect(sample).toContain("NEXT_PUBLIC_PLAUSIBLE_SCRIPT_SRC=");
-    expect(release).not.toMatch(/^\s+NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE:/m);
+    expect(release).toContain("MOTOINDEX_ANALYTICS_SAFE_ENABLE || 'false'");
+    expect(release).toContain("MOTOINDEX_ANALYTICS_RELEASE_GATES_APPROVED || 'false'");
+    expect(release).toContain("MOTOINDEX_ANALYTICS_SAFE_ENABLE == 'true' && vars.MOTOINDEX_ANALYTICS_RELEASE_GATES_APPROVED == 'true'");
+    expect(release.match(/node scripts\/verify-analytics-release\.mjs/g)).toHaveLength(2);
+  });
+
+  it("rejects unapproved or invalid GA4 activation, but allows an approved configured build", () => {
+    const validator = fileURLToPath(new URL("../scripts/verify-analytics-release.mjs", import.meta.url));
+    const check = (overrides: Record<string, string> = {}) => spawnSync(process.execPath, [validator], {
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        MOTOINDEX_ANALYTICS_SAFE_ENABLE: "false",
+        MOTOINDEX_ANALYTICS_RELEASE_GATES_APPROVED: "false",
+        NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE: "false",
+        NEXT_PUBLIC_GA_MEASUREMENT_ID: "",
+        NEXT_PUBLIC_PLAUSIBLE_SCRIPT_SRC: "",
+        ...overrides
+      }
+    });
+    expect(check().status).toBe(0);
+    expect(check({ MOTOINDEX_ANALYTICS_SAFE_ENABLE: "true" }).status).not.toBe(0);
+    expect(check({
+      MOTOINDEX_ANALYTICS_SAFE_ENABLE: "true",
+      MOTOINDEX_ANALYTICS_RELEASE_GATES_APPROVED: "true",
+      NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE: "true"
+    }).status).not.toBe(0);
+    expect(check({ NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE: "true" }).status).not.toBe(0);
+    expect(check({
+      MOTOINDEX_ANALYTICS_SAFE_ENABLE: "true",
+      MOTOINDEX_ANALYTICS_RELEASE_GATES_APPROVED: "true",
+      NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE: "true",
+      NEXT_PUBLIC_GA_MEASUREMENT_ID: "UA-123"
+    }).status).not.toBe(0);
+    expect(check({
+      MOTOINDEX_ANALYTICS_SAFE_ENABLE: "true",
+      MOTOINDEX_ANALYTICS_RELEASE_GATES_APPROVED: "true",
+      NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE: "true",
+      NEXT_PUBLIC_GA_MEASUREMENT_ID: "G-20TKY10EPQ"
+    }).status).toBe(0);
   });
 });
