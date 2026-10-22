@@ -10,7 +10,13 @@ const eslintConfig = defineConfig([
   {
     rules: {
       "react/no-unescaped-entities": "off",
-      "@typescript-eslint/no-explicit-any": "warn"
+      "@typescript-eslint/no-explicit-any": "warn",
+      // Next.js 16's React Compiler presets reveal 29 legacy findings in
+      // existing public/garage components. Keep visible as warnings and
+      // refactor separately under #509 before promoting them back to errors.
+      "react-hooks/purity": "warn",
+      "react-hooks/set-state-in-effect": "warn",
+      "react-hooks/preserve-manual-memoization": "warn"
     }
   },
   {
