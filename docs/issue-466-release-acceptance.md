@@ -4,7 +4,7 @@
 
 ## Source-level protections now present
 
-- GA4 and Plausible require `NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE=true` **at build time**. The manual production workflow intentionally does not provide this opt-in, so analytics stays disabled.
+- GA4 and Plausible require `NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE=true` **at build time**. The manual production workflow now exposes the build-time setting only when BOTH `MOTOINDEX_ANALYTICS_SAFE_ENABLE=true` and `MOTOINDEX_ANALYTICS_RELEASE_GATES_APPROVED=true` are configured in the GitHub production Environment, with a verified `MOTOINDEX_GA_MEASUREMENT_ID`. Unset/default configurations still keep analytics disabled. This makes restoration possible after human approval; it does NOT establish that GA4 ownership, consent, or private-route checks have passed.
 - AdSense requires **both** explicit `NEXT_PUBLIC_ADSENSE_ENABLED=true` and `NEXT_PUBLIC_ADSENSE_RELEASE_GATES_APPROVED=true` at build time, with the pinned public client `ca-pub-1900865456140693`. Manual display slot `6431580274` exists only on long editorial guides. No other ad integration should duplicate the script.
 - Analytics route tracking is **allowlisted**, not default-public. New paths and account/bearer routes fail closed. Pageview URLs are origin + pathname, never query strings or fragments. Custom events accept only reviewed catalogue IDs, short categorical slugs, counters and flags. Raw visitor search text is never sent, even if an old capture flag is set.
 - Private token paths explicitly emit `Cache-Control: no-store`, `X-Robots-Tag` and `Referrer-Policy: no-referrer` through middleware. These protections do **not** remove already-loaded third-party scripts after client-side navigation.

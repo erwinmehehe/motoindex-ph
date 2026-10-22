@@ -43,6 +43,11 @@ jobs:
       TURNSTILE_SECRET_KEY: ${{ secrets.MOTOINDEX_TURNSTILE_SECRET_KEY }}
       REQUIRE_FORM_BOT_PROTECTION: "true"
       NEXT_PUBLIC_ANALYTICS_CAPTURE_SEARCH_TERMS: "false"
+      # Analytics remains OFF until both the owner request and privacy approval are true.
+      # These GitHub production Environment variables default to false when unset.
+      MOTOINDEX_ANALYTICS_SAFE_ENABLE: ${{ vars.MOTOINDEX_ANALYTICS_SAFE_ENABLE || 'false' }}
+      MOTOINDEX_ANALYTICS_RELEASE_GATES_APPROVED: ${{ vars.MOTOINDEX_ANALYTICS_RELEASE_GATES_APPROVED || 'false' }}
+      NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE: ${{ vars.MOTOINDEX_ANALYTICS_SAFE_ENABLE == 'true' && vars.MOTOINDEX_ANALYTICS_RELEASE_GATES_APPROVED == 'true' && 'true' || 'false' }}
       NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ vars.MOTOINDEX_GA_MEASUREMENT_ID }}
       NEXT_PUBLIC_PLAUSIBLE_SCRIPT_SRC: ${{ vars.MOTOINDEX_PLAUSIBLE_SCRIPT_SRC }}
       NEXT_PUBLIC_PLAUSIBLE_DOMAIN: ${{ vars.MOTOINDEX_PLAUSIBLE_DOMAIN }}
@@ -68,6 +73,9 @@ jobs:
         run: node scripts/verify-production-release.mjs
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Validate explicitly approved analytics configuration
+        run: node scripts/verify-analytics-release.mjs
 
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
@@ -102,6 +110,9 @@ jobs:
         run: node scripts/verify-production-release.mjs
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Recheck analytics approval before deploy
+        run: node scripts/verify-analytics-release.mjs
 
       - name: Deploy Worker
         run: npm run cf:deploy:built
