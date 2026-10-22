@@ -26,7 +26,10 @@ describe("issue #466 release and private URL guards", () => {
     expect(analytics).toContain('NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE === "true"');
     expect(ads).toContain('NEXT_PUBLIC_ADSENSE_ENABLED === "true"');
     expect(deployment).toContain("MOTOINDEX_ADSENSE_ENABLED || 'false'");
-    expect(deployment).not.toMatch(/^\s+NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE:/m);
+    expect(deployment).toContain("MOTOINDEX_ANALYTICS_SAFE_ENABLE || 'false'");
+    expect(deployment).toContain("MOTOINDEX_ANALYTICS_RELEASE_GATES_APPROVED || 'false'");
+    expect(deployment).toContain("MOTOINDEX_ANALYTICS_SAFE_ENABLE == 'true' && vars.MOTOINDEX_ANALYTICS_RELEASE_GATES_APPROVED == 'true'");
+    expect(deployment).toContain("node scripts/verify-analytics-release.mjs");
   });
 
   it("provides preview-only synthetic browser evidence checks, not a silent all-off pass", () => {
