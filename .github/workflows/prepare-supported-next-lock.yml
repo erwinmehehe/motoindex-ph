@@ -1,0 +1,37 @@
+name: Regenerate secured Vite lockfile
+
+on:
+  push:
+    branches:
+      - fix/supported-next15-cloudflare-20261022
+    paths:
+      - .github/workflows/prepare-supported-next-lock.yml
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Generate authentic lockfile with secured Vite
+        run: |
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          node scripts/validate-lockfile.mjs
+          npm audit --omit=dev --audit-level=high
+      - name: Commit exact npm-generated lockfile to repair branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          git diff --cached --quiet && exit 0
+          git commit -m "fix(deps): patch Vite development advisory without disabling audit"
+          git push origin HEAD:refs/heads/fix/supported-next15-cloudflare-20261022
