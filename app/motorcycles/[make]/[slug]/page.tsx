@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
     const electricModel = getElectricMotorcycle(slug);
     if (!electricModel) return {};
     return pageMetadata({
-      title: `${electricModel.make} ${electricModel.model} Price, Range & Specs Philippines`,
+      title: `${electricModel.make} ${electricModel.model} Price Philippines | Range & Specs`,
       description: `${electricModel.make} ${electricModel.model} electric motorcycle price, battery capacity, claimed range, charging time, maximum speed and LTO classification in the Philippines.`,
       path: `/motorcycles/electric/${electricModel.slug}`,
       image: electricModel.imageUrl

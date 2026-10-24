@@ -137,7 +137,7 @@ for (const id of ["honda-adv-150", "kawasaki-ninja-zx-4rr", "honda-x-adv", "cfmo
 
 for (const token of [
   'heading: "ADV150 vs the current ADV160"',
-  'seoTitle: "Ninja ZX-4RR Price Philippines 2026 | Specs & Ownership"',
+  'seoTitle: "Kawasaki Ninja ZX-4RR Price Philippines 2026 | Specs & ABS"',
   'seoTitle: "Honda X-ADV Price Philippines 2026 | 745cc DCT Specs"',
   'seoTitle: "CFMOTO 300SR Price Philippines 2026 | Specs, ABS & Costs"',
   'seoTitle: "CFMOTO 400NK Price Philippines 2026 | Specs, ABS & Costs"'
