@@ -133,7 +133,7 @@ export function fuelDirection(value: FuelMovement | number | null): "up" | "down
   const min = typeof value === "number" ? value : value.min;
   const max = typeof value === "number" ? value : value.max;
   if (min < 0 && max > 0) return "mixed";
-  if (max < 0) return "down";
-  if (min > 0) return "up";
+  if (min < 0 && max <= 0) return "down";
+  if (min >= 0 && max > 0) return "up";
   return "flat";
 }
