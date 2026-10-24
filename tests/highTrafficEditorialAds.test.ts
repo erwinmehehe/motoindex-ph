@@ -99,10 +99,16 @@ describe("selective high-traffic editorial AdSense expansion", () => {
     expect(publisher).toContain('route.startsWith("/motorcycles/")');
     expect(matcher).toContain('"/tires", "/gear/helmets", "/research/motorcycle-price-index-philippines"');
     for (const fragment of [
-      "tires/?$", "gear/helmets/?$",
-      "research/motorcycle-price-index-philippines/?$",
-      "recommendations/best-scooters-philippines/?$",
+      "tires(?:/|$)", "gear/helmets(?:/|$)",
+      "research/motorcycle-price-index-philippines(?:/|$)",
+      "recommendations/best-scooters-philippines(?:/|$)",
     ]) expect(config).toContain(fragment);
+    const workerQa = read("scripts/issue466-adsense-worker-qa.mjs");
+    for (const path of adRoutes) {
+      expect(workerQa).toContain('"' + path + '"');
+      expect(workerQa).toContain('"' + path + '?source=motoindex-qa-synthetic"');
+    }
+    expect(workerQa).toContain("Query document missing SEO noindex");
     const smoke = read("scripts/smoke-public-core.mjs");
     for (const path of adRoutes) expect(smoke).toContain('"' + path + '"');
     expect(smoke).toContain("editorial ad page missing approved slot");
