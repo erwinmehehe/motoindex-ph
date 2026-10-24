@@ -20,7 +20,7 @@
 .section>p+p{margin-top:16px}
 .unit{flex-shrink:0;padding:7px 12px;border-radius:20px;background:var(--mi-fuel-neutral-surface);color:var(--mi-color-copy);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
 .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.fuelCard{min-width:0;padding:23px 22px;border:1px solid var(--mi-color-line);border-radius:17px;background:var(--mi-color-surface);box-shadow:0 8px 22px var(--mi-fuel-card-shadow)}
+.fuelCard{min-width:0;padding:23px 22px;border:1px solid var(--mi-color-line);border-radius:17px;background:var(--mi-color-surface);box-shadow:var(--mi-fuel-card-shadow)}
 .cardTop{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px}
 .cardTop>span:first-child{color:var(--mi-color-ink);font-size:14px;font-weight:850}
 .cardTop>span:last-child{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
