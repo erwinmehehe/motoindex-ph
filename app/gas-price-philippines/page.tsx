@@ -190,3 +190,4 @@ export default async function GasPricePhilippinesPage() {
     </section>
     <JsonLd data={sourceSchema} />
   </section>;
+}
