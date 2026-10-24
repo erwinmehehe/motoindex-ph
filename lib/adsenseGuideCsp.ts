@@ -32,9 +32,18 @@ export function isAdSenseMotorcycleDocument(pathname: string) {
 }
 
 /** Exact high-traffic, anonymous documents permitted to carry manual ads. */
+const additionalPriorityAdPaths = new Set([
+  "/tires",
+  "/gear/helmets",
+  "/research/motorcycle-price-index-philippines",
+  "/motorcycles/scooters",
+  "/recommendations/best-scooters-philippines",
+]);
+
 export function isAdSensePriorityDocument(pathname: string) {
   return pathname === "/" || pathname === "/finder" || pathname === "/finder/" ||
-    pathname === "/tools/motorcycle-loan-calculator" || pathname === "/tools/motorcycle-loan-calculator/";
+    pathname === "/tools/motorcycle-loan-calculator" || pathname === "/tools/motorcycle-loan-calculator/" ||
+    additionalPriorityAdPaths.has(pathname.replace(/\/$/, ""));
 }
 
 export function isAdSensePublicDocument(pathname: string) {

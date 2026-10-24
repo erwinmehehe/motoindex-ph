@@ -169,6 +169,24 @@ if (process.env.EXPECT_ADS_ONLY === "true") {
     }
   }
 
+  // Public editorial ad expansion: confirm nonce-protected HTML and manual slot,
+  // not Google ad fill, impression reporting or approval state.
+  for (const path of ["/tires", "/gear/helmets", "/research/motorcycle-price-index-philippines",
+    "/motorcycles/scooters", "/recommendations/best-scooters-philippines"]) {
+    try {
+      const response = await fetchWithTimeout(path);
+      const csp = response.headers.get("content-security-policy") || "";
+      const html = await response.text();
+      if (response.status !== 200) failures.push(path + ": editorial ad page returned HTTP " + response.status);
+      if (!csp.includes("'strict-dynamic'") || !csp.includes("'nonce-")) failures.push(path + ": editorial ad page missing nonce CSP");
+      if (!/no-store/.test(response.headers.get("cache-control") || "")) failures.push(path + ": editorial ad page missing no-store");
+      if (!html.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) failures.push(path + ": editorial ad page missing loader");
+      if (!html.includes("6431580274")) failures.push(path + ": editorial ad page missing approved slot");
+    } catch (error) {
+      failures.push(path + ": editorial ad page smoke failed: " + (error instanceof Error ? error.name : "unknown"));
+    }
+  }
+
   for (const path of ["/garage", "/dealer-portal", "/quote-status/motoindex-synthetic-466"]) {
     try {
       const response = await fetchWithTimeout(path, { redirect: "manual" });

@@ -41,3 +41,10 @@ No provider account/CMP/Cloudflare secret or variable has been changed by this c
 - These three routes get a new document nonce and CSP from middleware, Worker-first Cloudflare HTML, and a page-scoped loader. This is manual AdSense placement, not unrestricted Auto ads.
 - Query URLs on Finder and the loan calculator never load ads. They get non-ad CSP plus no-referrer. While ads are enabled, editing Finder/calculator answers does not rewrite the current ad-document URL. The Copy/Share buttons still produce stateful URLs, which load as non-ad query documents.
 - The two production AdSense flags remain OFF by default. Do not activate until #466 account, consent/CMP, real-browser private-route/network, Cloudflare runtime and paid impression checks have independent sign-off. Source changes alone do not deploy or earn revenue.
+
+## Additional high-traffic editorial placements (2026-10-24)
+
+- Exactly five canonical public pages receive **one** labeled manual AdSense slot after meaningful content: `/tires`, `/gear/helmets`, `/research/motorcycle-price-index-philippines`, `/motorcycles/scooters`, and `/recommendations/best-scooters-philippines`.
+- Reuse the existing account and slot. No Auto ads, global loader, or new slot on the helmet Finder/comparison tools, other recommendation pages, nested tire and helmet routes, private paths or query-filtered URL variants.
+- Preserve the two OFF-by-default build flags, unique per-document nonce CSP, Worker-first HTML, static-edge exclusion, browser navigation boundaries, and privacy-safe fallback CSP on query/RSC/prefetch requests.
+- Merging does not deploy or prove paid impressions. Before production rollout complete issue #466 independently: AdSense account/slot verification, applicable consent/CMP, public→private→public privacy/HAR QA, and real ad impressions. The owner must approve and manually dispatch the protected-main Cloudflare workflow; verify revenue from AdSense reports.

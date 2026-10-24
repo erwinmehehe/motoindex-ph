@@ -181,6 +181,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/", "/finder", "/tools/motorcycle-loan-calculator",
+    "/tires", "/gear/helmets", "/research/motorcycle-price-index-philippines", "/recommendations/best-scooters-philippines",
     "/admin/:path*", "/api/ingestion/:path*", "/api/admin/:path*", "/my", "/api/my/:path*", "/garage/:path*","/garage", "/price-alerts/confirm/:path*", "/price-alerts/unsubscribe/:path*", "/api/price-alerts/:path*",
     "/api/:path*", "/get-quote/:path*", "/dealers/join/:path*", "/used-motorcycles/listing/:path*", "/price-alerts",
     "/motorcycles/:path*", "/guides/:path*", "/sellers", "/go/:path*", "/dealer-lead/:path*", "/api/dealer-lead/:path*", "/quote-status/:path*", "/api/quote-status/:path*", "/dealer-portal/:path*", "/dealer-portal", "/api/dealer-portal/:path*", "/motorcycles",

@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { AdSense } from "@/components/AdSense";
+import { GuideInContentAd } from "@/components/GuideInContentAd";
+import { motorcycleAdNonce } from "@/lib/adsenseMotorcycleDocument";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { comparisons, getRecommendationGuide, getRecommendationModels, getModelById, hasConfirmedAbs, recommendationGuides, isIndexableRecommendation } from "@/lib/data";
@@ -532,6 +535,9 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
   const {slug}=await params;
   const guide=getRecommendationGuide(slug);
   if(!guide)return notFound();
+  const adNonce = slug === "best-scooters-philippines" && isIndexableRecommendation(slug)
+    ? await motorcycleAdNonce()
+    : undefined;
   const brandScooterMatch=slug.match(/^(honda|yamaha|suzuki)-scooters-philippines$/);
   const brandScooterSlug=brandScooterMatch?.[1];
   const models=getRecommendationModels(slug);
@@ -586,6 +592,7 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
   ];
 
   return <section className="page shell">
+    <AdSense nonce={adNonce} />
     <Breadcrumbs items={[{label:"Buying guides",href:"/recommendations"},{label:guide.title}]} />
     <header className="guide-article-hero">
       <div className="page-head guide-page-head"><span className="guide-kicker">{guide.kicker} · Buying guide</span><h1>{guide.title}</h1><p className="guide-hero-description">{guide.description}</p><div className="guide-hero-meta"><span>{models.length} motorcycles compared</span><span>Latest recorded check: {newestCheck}</span></div><a className="guide-hero-action" href="#comparison">Explore the comparison ↓</a></div>
@@ -629,6 +636,8 @@ export default async function RecommendationPage({params}:{params:Promise<{slug:
         <tbody>{models.map((m,index)=><tr key={m.id}><td className="guide-order-cell">{index+1}</td><th scope="row"><Link href={modelHref(m)}>{m.make} {m.model}</Link></th>{guide.tableColumns.map(col=><td key={col}>{cell(m,col)}</td>)}<td className="guide-why-cell">{positionReason(guide,m,index)}</td></tr>)}</tbody>
       </table>
     </div>
+
+    {slug === "best-scooters-philippines" && <GuideInContentAd nonceReady={Boolean(adNonce)} />}
 
     <section className="method-card guide-method guide-method-detailed" id="methodology">
       <div><span>How this guide works</span><h2>What qualifies for this comparison</h2><p>{friendlyRule(guide.orderingRule)}</p></div>
