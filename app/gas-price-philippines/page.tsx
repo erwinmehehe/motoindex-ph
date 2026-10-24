@@ -175,7 +175,7 @@ export default async function GasPricePhilippinesPage() {
       <div className={styles.infoPanel}>
         <span className={styles.eyebrow}>For everyday riders</span>
         <h2>How will a fuel price change affect your commute?</h2>
-        <p>If your motorcycle uses 8 liters per week, a ₱4.30/L gasoline decrease reduces the weekly fuel bill by ₱34.40, assuming you buy the same volume after the adjustment.</p>
+        <p>For example, a hypothetical ₱1.00-per-liter gasoline change would change an 8-liter weekly fuel bill by ₱8.00, assuming you buy the same volume. Check the latest DOE figures above for the actual reported weekly movement.</p>
         <p>Use your real local pump price and fuel economy to estimate a more useful monthly total.</p>
         <Link href="/commute/cost-calculator">Open motorcycle commute cost calculator →</Link>
       </div>
