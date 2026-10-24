@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const checkedYear = latestBrandPriceCheckYear(current);
   return pageMetadata({
     title: current.length ? motorcycleBrandSearchTitle(brand, checkedYear) : motorcycleBrandPriceListTitle(brand),
-    description: current.length ? motorcycleBrandSearchDescription(brand, current.length, low, high, checkedYear) : motorcycleBrandPriceListDescription(brand),
+    description: current.length ? motorcycleBrandSearchDescription(brand, current.length, low, high, checkedYear) : motorcycleBrandPriceListDescription(brand, low, high),
     path: `/motorcycles/${make}`,
     index: publicModels.length > 0
   });

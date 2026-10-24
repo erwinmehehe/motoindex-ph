@@ -1,0 +1,83 @@
+name: Sync DOE Philippine Fuel Price Adjustments
+
+on:
+  schedule:
+    # 09:17 and 18:17 Asia/Manila, Monday-Friday. GitHub cron can be delayed.
+    - cron: "17 1,10 * * 1-5"
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/doe-fuel-prices.yml"
+      - "scripts/update_doe_fuel_prices.py"
+      - "tests/test_doe_fuel_prices.py"
+      - "data/fuel-price-adjustments.seed.json"
+      - "lib/fuelPriceFeed.ts"
+      - "app/gas-price-philippines/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: doe-fuel-price-feed
+  cancel-in-progress: false
+
+jobs:
+  validate-pr:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout importer
+        uses: actions/checkout@v7
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install DOE PDF extraction libraries
+        run: python -m pip install --disable-pip-version-check "requests==2.32.5" "beautifulsoup4==4.14.3" "pdfplumber==0.11.9"
+      - name: Run PDF parser regression tests
+        run: python -m unittest discover -s tests -p "test_doe_fuel_prices.py" -v
+      - name: Verify live DOE PDF extraction without publishing
+        run: python scripts/update_doe_fuel_prices.py --output "$RUNNER_TEMP/fuel-price-adjustments.json"
+
+  update-feed:
+    # Only reviewed main-branch code may publish the public fuel-data feed.
+    # Never allow a manually dispatched feature branch to write live JSON.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout importer from approved main
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install DOE PDF extraction libraries
+        run: python -m pip install --disable-pip-version-check "requests==2.32.5" "beautifulsoup4==4.14.3" "pdfplumber==0.11.9"
+      - name: Run PDF parser regression tests
+        run: python -m unittest discover -s tests -p "test_doe_fuel_prices.py" -v
+      - name: Read current published feed
+        run: |
+          git fetch origin +refs/heads/fuel-data:refs/remotes/origin/fuel-data
+          git show origin/fuel-data:data/fuel-price-adjustments.json > "$RUNNER_TEMP/fuel-price-adjustments.json"
+      - name: Fetch and validate official DOE notices
+        run: python scripts/update_doe_fuel_prices.py --output "$RUNNER_TEMP/fuel-price-adjustments.json"
+      - name: Publish only changed, validated data to feed branch
+        run: |
+          git switch -C fuel-data origin/fuel-data
+          cp "$RUNNER_TEMP/fuel-price-adjustments.json" data/fuel-price-adjustments.json
+          if git diff --quiet -- data/fuel-price-adjustments.json; then
+            echo "No new verified DOE notice. No commit needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/fuel-price-adjustments.json
+          git commit -m "data: refresh verified weekly DOE fuel adjustments"
+          git push origin HEAD:fuel-data

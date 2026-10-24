@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "sourcePage": "https://doe.gov.ph/data-and-prices/liquid-fuels/retail-pump-prices/price-adjustments",
+  "updatedAt": "2026-10-24T04:00:00Z",
+  "weeks": [
+    {
+      "weekStart": "2026-10-20",
+      "weekEnd": "2026-10-26",
+      "sourceTitle": "Prior Notice on LF Price Adjustments 20-26 Oct 2026",
+      "sourceUrl": "https://d24qbtp4vooyzi.cloudfront.net/api/media/file/Price%20Adjustment%20on%20Fuel%2020-26%20Oct%202026.pdf?prefix=dev%2Fmedia",
+      "companies": [
+        {
+          "company": "Shell",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": -1
+        },
+        {
+          "company": "City Oil",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": -1
+        },
+        {
+          "company": "Petro Gazz",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": null
+        },
+        {
+          "company": "Seaoil",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": -1
+        },
+        {
+          "company": "Total",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": null
+        },
+        {
+          "company": "Phoenix",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": null
+        },
+        {
+          "company": "Unioil",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": null
+        },
+        {
+          "company": "Jetti",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": null
+        },
+        {
+          "company": "Petron",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": -1
+        },
+        {
+          "company": "Filpride",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": null
+        },
+        {
+          "company": "Caltex",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": -1
+        },
+        {
+          "company": "Ecooil",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": null
+        },
+        {
+          "company": "Flying V",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": -1
+        },
+        {
+          "company": "Clean Fuel",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": null
+        },
+        {
+          "company": "PTT",
+          "gasoline": -4.3,
+          "diesel": 2.6,
+          "kerosene": null
+        }
+      ],
+      "summary": {
+        "gasoline": {
+          "min": -4.3,
+          "max": -4.3,
+          "reportingCompanies": 15
+        },
+        "diesel": {
+          "min": 2.6,
+          "max": 2.6,
+          "reportingCompanies": 15
+        },
+        "kerosene": {
+          "min": -1,
+          "max": -1,
+          "reportingCompanies": 6
+        }
+      }
+    }
+  ]
+}

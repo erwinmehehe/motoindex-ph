@@ -32,6 +32,7 @@ export function Footer() {
         <strong>Ownership</strong>
         <Link href="/ownership">Ownership hub</Link>
         <Link href="/tools">Tools</Link>
+        <Link href="/gas-price-philippines">Weekly fuel prices</Link>
         <Link href="/maintenance">Maintenance</Link>
         {hasModels && <Link href="/fitment">Fitment finder</Link>}
       </div>
