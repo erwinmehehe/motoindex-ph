@@ -60,7 +60,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ b
     <div className="source-panel">
       <h2>Fuel-price source</h2>
       <p>Use the Department of Energy&apos;s current regional or pump-price monitors to replace the default gasoline assumption with a number that matches where you actually buy fuel.</p>
-      <a className="text-link" href="https://new.doe.gov.ph/prices" target="_blank" rel="noreferrer">Open DOE Energy Prices →</a>
+      <p><Link href="/gas-price-philippines">See this week&apos;s DOE gasoline and diesel price adjustments →</Link></p>
+      <a className="text-link" href="https://doe.gov.ph/data-and-prices/liquid-fuels/retail-pump-prices" target="_blank" rel="noreferrer">Open DOE regional pump prices →</a>
     </div>
   </section>;
 }

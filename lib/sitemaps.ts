@@ -78,6 +78,7 @@ export function coreSitemapEntries(): Entry[] {
     {path:"/ownership",priority:.72,lastModified:latestOwnershipDate},
     {path:"/ownership/cost-calculator",priority:.7,lastModified:latestOwnershipDate},
     {path:"/commute",priority:.86,lastModified:RELEASE_DATE},
+    {path:"/gas-price-philippines",priority:.82,lastModified:"2026-10-20"},
     {path:"/commute/cost-calculator",priority:.82,lastModified:RELEASE_DATE},
     {path:"/commute/affordability",priority:.8,lastModified:RELEASE_DATE},
     {path:"/commute/rainy-season",priority:.72,lastModified:RELEASE_DATE},
@@ -91,7 +92,7 @@ export function coreSitemapEntries(): Entry[] {
   const ownership = ownershipGuides.map(g=>({url:`${SITE_URL}/ownership/${g.slug}`,lastModified:g.lastChecked,changeFrequency:"yearly" as const,priority:.64}));
   const editorial = editorialGuides.map(g=>({url:`${SITE_URL}/guides/${g.slug}`,lastModified:g.lastChecked,changeFrequency:"monthly" as const,priority:.72}));
   const comps = comparisons.filter(c=>isIndexableComparison(c.slug)).map(c=>{const ms=motorcycles.filter(m=>m.id===c.a||m.id===c.b);return {url:`${SITE_URL}/compare/${c.slug}`,lastModified:newest(ms.map(modelCheckedAt)),changeFrequency:"monthly" as const,priority:.74};});
-  return [...staticPaths.map(({path,priority,lastModified})=>({url:`${SITE_URL}${path==="/"?"":path}`,lastModified,changeFrequency:"monthly" as const,priority})),...editorial,...ownership,...comps];
+  return [...staticPaths.map(({path,priority,lastModified})=>({url:`${SITE_URL}${path==="/"?"":path}`,lastModified,changeFrequency:(path==="/gas-price-philippines"?"weekly":"monthly") as "weekly"|"monthly",priority})),...editorial,...ownership,...comps];
 }
 
 export function motorcycleSitemapEntries(): Entry[] {
