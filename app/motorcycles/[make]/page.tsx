@@ -343,7 +343,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       <section id="sources" className="ph-brand-section ph-brand-sources">
         <SectionHeader kicker="Price sources" title={`Where to verify ${brand} motorcycle prices`} />
         <p>These amounts are published price references from dated model research and, where available, separate market-price observations. They are not guaranteed cash or installment quotes. Each model shows the checked date for the available evidence.</p>
-        {latestPriceCheckedAt && <p>Most recent recorded price observation among these models: <time dateTime={latestPriceCheckedAt}>{latestPriceCheckedAt}</time>. Other entries may have older source dates; verify trim, fees and branch offers before purchasing.</p>}
+        {latestPriceCheckedAt && <p>Most recent recorded price observation among these models: <time dateTime={latestPriceCheckedAt}>{latestPriceCheckedAt}</time>. Other entries may have older recorded checks; verify trim, fees and branch offers before purchasing.</p>}
         <div className="ph-brand-source-links">
           <Link href="/research/motorcycle-price-index-philippines">See the Philippine motorcycle price index →</Link>
           {brandSupport && <a href={brandSupport.officialUrl} target="_blank" rel="noopener noreferrer">Visit {brandSupport.officialName} →</a>}
