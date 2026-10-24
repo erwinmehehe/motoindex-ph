@@ -11,13 +11,14 @@ import { motorcycles, isIndexableModel } from "@/lib/data";
 import { MotorcycleCard } from "@/components/MotorcycleCard";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { modelFamilies } from "@/lib/families";
-import { observedMarketRange } from "@/lib/marketChecks";
+import { latestPriceReference, observedMarketRange } from "@/lib/marketChecks";
 import { getPhBrandPriority } from "@/lib/phBrandPriority";
+import { phBrandSupportFor } from "@/lib/phBrandSupport";
 import { modelAuthorityProfile } from "@/lib/modelAuthority";
 import { php, phpRange } from "@/lib/utils";
 import { CTAGroup, DataTable, InfoPanel, PageHero, SectionHeader, StatRow } from "@/components/ui";
 import { brandSeoGrowthProfile } from "@/lib/brandSeoGrowth";
-import { motorcycleBrandDisplayName, motorcycleBrandPriceListDescription, motorcycleBrandPriceListTitle } from "@/lib/brandPriceListSeo";
+import { latestBrandPriceCheckYear, motorcycleBrandDisplayName, motorcycleBrandPriceListDescription, motorcycleBrandPriceListTitle, motorcycleBrandSearchDescription, motorcycleBrandSearchTitle } from "@/lib/brandPriceListSeo";
 
 export function generateStaticParams() {
   return [...new Set(motorcycles.map((m) => m.makeSlug))].map((make) => ({ make }));
@@ -32,9 +33,10 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const current = publicModels.filter((m) => m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued");
   const low = current.length ? Math.min(...current.map((m) => observedMarketRange(m).from)) : undefined;
   const high = current.length ? Math.max(...current.map((m) => observedMarketRange(m).to || observedMarketRange(m).from)) : undefined;
+  const checkedYear = latestBrandPriceCheckYear(current);
   return pageMetadata({
-    title: motorcycleBrandPriceListTitle(brand),
-    description: motorcycleBrandPriceListDescription(brand, low, high),
+    title: current.length ? motorcycleBrandSearchTitle(brand, checkedYear) : motorcycleBrandPriceListTitle(brand),
+    description: current.length ? motorcycleBrandSearchDescription(brand, current.length, low, high, checkedYear) : motorcycleBrandPriceListDescription(brand),
     path: `/motorcycles/${make}`,
     index: publicModels.length > 0
   });
@@ -89,7 +91,22 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
   }
 
   const adNonce = await motorcycleAdNonce();
-  const ranges = current.map((model) => ({ model, ...observedMarketRange(model) }));
+  const ranges = current.map((model) => ({ model, ...observedMarketRange(model), reference: latestPriceReference(model) }));
+  const priceCheckDates = ranges.filter((row) => row.reference.kind === "price-check").map((row) => row.reference.date);
+  const latestPriceCheckedAt = [...priceCheckDates].sort().at(-1);
+  const brandSupport = phBrandSupportFor(make);
+  // Only link to models that pass the existing current/public publication checks.
+  const buyingPaths = (brandGrowth?.buyingPaths ?? []).map((path) => ({
+    ...path,
+    models: path.modelNames.map((name) => current.find((model) => model.model.toLowerCase() === name.toLowerCase()))
+      .filter((model): model is (typeof current)[number] => model !== undefined)
+  })).filter((path) => path.models.length > 0);
+  const priorityBrands = ["honda", "yamaha", "suzuki", "kawasaki"];
+  const relatedBrands = priorityBrands.includes(make) ? priorityBrands.filter((slug) => slug !== make)
+    .map((slug) => {
+      const model = motorcycles.find((row) => row.makeSlug === slug && isIndexableModel(row));
+      return model ? { slug, name: motorcycleBrandDisplayName(slug, model.make) } : null;
+    }).filter((item): item is { slug: string; name: string } => item !== null) : [];
   const low = Math.min(...ranges.map((row) => row.from));
   const high = Math.max(...ranges.map((row) => row.to || row.from));
   const engines = current.map((m) => m.engineCc);
@@ -197,7 +214,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <PageHero
           kicker="Philippines · Price list · Models · Specs"
           title={priceListTitle}
-          description={`${priceListTitle}: ${brandGrowth?.heroDescription || `Compare current ${brand} motorcycles by model, published price, engine size, seat height and transmission. Open any motorcycle for specifications and ownership details.`}`}
+          description={brandGrowth?.heroDescription || `Compare current ${brand} motorcycles by published price, engine size, seat height and transmission. Open a model for specifications and ownership details.`}
           actions={<><CTAGroup><Link className="button" href="#price-list">View {brand} price list</Link><Link className="button secondary" href={{ pathname: "/compare", query: { make } }}>Compare {brand} motorcycles</Link>{["honda","yamaha","suzuki","kawasaki"].includes(make) ? <Link className="button secondary" href={`/motorcycles/${make}/dealers`}>Find {brand} dealers</Link> : null}</CTAGroup></>}
         />
         </div>
@@ -215,7 +232,7 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
     <div className="shell">
       <nav className="ph-brand-nav" aria-label={`${brand} page sections`}>
-        <a href="#price-list">Price list</a><a href="#models">Models</a>{scooters.length >= 3 ? <a href="#scooters">Scooters</a> : null}{bigBikes.length > 0 ? <a href="#big-bikes">Big bikes</a> : null}{spotlightModels.length > 0 ? <a href="#category-spotlight">Featured category</a> : null}<a href="#categories">Categories</a><a href="#research">How to use data</a><a href="#faq">FAQ</a>
+        <a href="#price-list">Price list</a>{buyingPaths.length ? <a href="#buying-guide">Buying guide</a> : null}<a href="#models">Models</a>{scooters.length >= 3 ? <a href="#scooters">Scooters</a> : null}{bigBikes.length > 0 ? <a href="#big-bikes">Big bikes</a> : null}{spotlightModels.length > 0 ? <a href="#category-spotlight">Featured category</a> : null}<a href="#categories">Categories</a><a href="#research">How to use data</a><a href="#sources">Sources</a><a href="#faq">FAQ</a>
       </nav>
 
       {priority && <section className="ph-brand-context">
