@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { AdSense } from "@/components/AdSense";
+import { GuideInContentAd } from "@/components/GuideInContentAd";
+import { motorcycleAdNonce } from "@/lib/adsenseMotorcycleDocument";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
@@ -17,7 +20,8 @@ export const metadata: Metadata = pageMetadata({
   path: "/research/motorcycle-price-index-philippines"
 });
 
-export default function MotorcyclePriceIndexPage() {
+export default async function MotorcyclePriceIndexPage() {
+  const adNonce = await motorcycleAdNonce();
   const rows = researchPriceRows();
   const prices = rows.map((row) => row.fromPhp);
   const medianPrice = Math.round(median(prices));
@@ -49,6 +53,7 @@ export default function MotorcyclePriceIndexPage() {
   };
 
   return <section className="page shell">
+    <AdSense nonce={adNonce} />
     <Breadcrumbs items={[{ label: "Research", href: "/research" }, { label: "Motorcycle price index" }]} />
     <PageHero
       kicker="MotoIndex original price research"
@@ -96,6 +101,8 @@ export default function MotorcyclePriceIndexPage() {
         {budgetBands.map((band) => <article key={band.label}><span>{band.label}</span><strong>{band.count}</strong><small>current model{band.count===1?"":"s"}</small></article>)}
       </div>
     </section>
+
+    <GuideInContentAd nonceReady={Boolean(adNonce)} />
 
     {brands.length > 0 && <section className="section" aria-labelledby="brand-price-benchmarks">
       <SectionHeader

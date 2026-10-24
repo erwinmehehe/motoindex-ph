@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { AdSense } from "@/components/AdSense";
+import { GuideInContentAd } from "@/components/GuideInContentAd";
+import { motorcycleAdNonce } from "@/lib/adsenseMotorcycleDocument";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
 import { getModelById, publicMotorcycles } from "@/lib/data";
@@ -25,7 +28,8 @@ function normalize(value:string){
   return value.toUpperCase().replace(/\s+/g,"").replace(/R(?=\d)/g,"-").replace(/M\/C/g,"").replace(/--+/g,"-");
 }
 
-export default function TiresPage(){
+export default async function TiresPage(){
+  const adNonce = await motorcycleAdNonce();
   const verifiedProducts=tireProducts.filter(p=>p.status==="verified");
   const stockPreview=publicMotorcycles.slice(0,16);
   const sizeMap=new Map<string,{label:string;models:typeof publicMotorcycles}>();
@@ -72,6 +76,7 @@ export default function TiresPage(){
   ];
 
   return <section className="page shell tire-master-page">
+    <AdSense nonce={adNonce} />
     <PageHero
       kicker="Motorcycle tire fitment guide"
       title="Motorcycle tire size chart and finder"
@@ -124,6 +129,8 @@ export default function TiresPage(){
       />
       <ProductGrid density="compact">{verifiedProducts.map(p=><ProductCard key={p.id} item={{entityId:p.id,href:`/tires/${p.brandSlug}/${p.slug}`,category:"Tire",brand:p.brand,model:p.model,meta:`${p.useCase} · ${p.knownSizes.length} listed sizes`,status:p.status,priceFromPhp:p.priceFromPhp}}/>)}</ProductGrid>
     </section>
+
+    <GuideInContentAd nonceReady={Boolean(adNonce)} />
 
     <section id="common-sizes" className={styles.section}>
       <SectionHeader

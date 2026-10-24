@@ -2,6 +2,9 @@ import { ReviewedHelmetExplorer } from "@/components/ReviewedHelmetExplorer";
 import { getRenderableMedia } from "@/lib/renderableMedia";
 import { ReviewedCatalogArt } from "@/components/ReviewedCatalogArt";
 import type { Metadata } from "next";
+import { AdSense } from "@/components/AdSense";
+import { GuideInContentAd } from "@/components/GuideInContentAd";
+import { motorcycleAdNonce } from "@/lib/adsenseMotorcycleDocument";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
 import { helmetBrands } from "@/lib/data";
@@ -56,7 +59,8 @@ function Count({ value }: { value: number }) {
   return <strong className="ui-section-count">{value} models</strong>;
 }
 
-export default function HelmetsPage(){
+export default async function HelmetsPage(){
+  const adNonce = await motorcycleAdNonce();
   const verified=helmetProducts.filter(p=>p.status==="verified").sort((a,b)=>(a.priceFromPhp??Number.MAX_SAFE_INTEGER)-(b.priceFromPhp??Number.MAX_SAFE_INTEGER)||a.brand.localeCompare(b.brand)||a.model.localeCompare(b.model));
   const brands=helmetBrands.filter(h=>isIndexableHelmetBrand(h.slug));
   const priced=verified.map(p=>p.priceFromPhp).filter((v):v is number=>typeof v==="number");
@@ -86,6 +90,7 @@ export default function HelmetsPage(){
   ];
 
   return <section className="page shell helmet-hub-page">
+    <AdSense nonce={adNonce} />
     <div className="reviewed-catalog-hero"><ReviewedCatalogArt entityType="helmet" entityId="spyder-surge-v2" /><PageHero
       kicker="Philippine helmet buying guide"
       title="Motorcycle helmets in the Philippines"
@@ -134,6 +139,8 @@ export default function HelmetsPage(){
       <HelmetProductGrid products={modular} />
       <p className="helmet-master-note"><Link href="/gear/helmets/modular">Open the modular helmet price and model guide →</Link></p>
     </section>
+
+    <GuideInContentAd nonceReady={Boolean(adNonce)} />
 
     <section id="open-face" className="ui-page-section helmet-master-section">
       <SectionHeader kicker="Helmet type" title="Open-face and half-face motorcycle helmets" description="City-focused choices with more airflow and facial openness. Compare visor coverage, sun visor, fit and local conformity marking before buying." aside={<Count value={openFace.length}/>} />

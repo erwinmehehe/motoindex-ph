@@ -194,7 +194,7 @@ const nextConfig = {
         ]
       },
       {
-        source: adDocumentsEnabled ? "/((?!guides/|motorcycles|finder(?:/|$)|tools/motorcycle-loan-calculator(?:/|$)|$).*)" : "/:path*",
+        source: adDocumentsEnabled ? "/((?!guides/|motorcycles|finder(?:/|$)|tools/motorcycle-loan-calculator(?:/|$)|tires(?:/$|$)|gear/helmets(?:/$|$)|research/motorcycle-price-index-philippines(?:/$|$)|recommendations/best-scooters-philippines(?:/$|$)|$).*)" : "/:path*",
         headers: [{ key: "Content-Security-Policy", value: csp }]
       },
       ...privateReferrerPaths.map(source => ({

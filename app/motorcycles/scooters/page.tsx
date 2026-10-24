@@ -2,6 +2,9 @@ import { ModelExplorer } from "@/components/ModelExplorer";
 import { forClient } from "@/lib/competitors";
 import { ReviewedCatalogArt } from "@/components/ReviewedCatalogArt";
 import type { Metadata } from "next";
+import { AdSense } from "@/components/AdSense";
+import { GuideInContentAd } from "@/components/GuideInContentAd";
+import { motorcycleAdNonce } from "@/lib/adsenseMotorcycleDocument";
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -89,8 +92,10 @@ const priceResearchLinks = [
   { href: "/motorcycles/honda/navi", label: "Honda Navi price Philippines", note: "Current compact automatic price and ownership context" }
 ] as const;
 
-export default function ScootersPage() {
+export default async function ScootersPage() {
+  const adNonce = await motorcycleAdNonce();
   return <main className="page">
+    <AdSense nonce={adNonce} />
     <div className="shell">
       <Breadcrumbs items={[{ label: "Motorcycles", href: "/motorcycles" }, { label: "Scooters" }]} />
       <div className="reviewed-catalog-hero"><ReviewedCatalogArt entityId="yamaha-nmax-v3" /><PageHero
@@ -191,6 +196,8 @@ export default function ScootersPage() {
           </div>)}
         </DataTable>
       </section>
+
+      <GuideInContentAd nonceReady={Boolean(adNonce)} />
 
       <section className="section" aria-labelledby="scooter-decision-paths">
         <SectionHeader

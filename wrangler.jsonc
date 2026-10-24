@@ -22,6 +22,7 @@
     "binding": "ASSETS",
     "run_worker_first": [
       "/", "/finder", "/tools/motorcycle-loan-calculator",
+      "/tires", "/gear/helmets", "/research/motorcycle-price-index-philippines", "/recommendations/best-scooters-philippines",
       "/guides/*",
       "/motorcycles", "/motorcycles/*",
       "/api/*",

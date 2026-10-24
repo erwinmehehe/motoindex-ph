@@ -72,6 +72,12 @@ try {
     "/motorcycles/yamaha",
     "/motorcycles/yamaha/aerox-v3",
     "/motorcycles/electric/vinfast-evo",
+    // Editorial hubs added in #510: verify real Worker document handling.
+    "/tires",
+    "/gear/helmets",
+    "/research/motorcycle-price-index-philippines",
+    "/motorcycles/scooters",
+    "/recommendations/best-scooters-philippines",
   ]) {
     const res = await get(route);
     if (!res.ok) {
@@ -95,13 +101,22 @@ try {
   const filteredCsp = filtered.headers.get("Content-Security-Policy") || "";
   if (!filteredCsp.includes("script-src 'self'") || filteredCsp.includes("'strict-dynamic'")) errors.push("Filtered catalog missing restrictive CSP");
   // Query URLs remain non-ad documents with restrictive response policies.
-  for (const route of ["/finder?budget=100000", "/tools/motorcycle-loan-calculator?model=motoindex-qa-synthetic"]) {
+  for (const route of [
+    "/finder?budget=100000",
+    "/tools/motorcycle-loan-calculator?model=motoindex-qa-synthetic",
+    "/tires?source=motoindex-qa-synthetic",
+    "/gear/helmets?source=motoindex-qa-synthetic",
+    "/research/motorcycle-price-index-philippines?source=motoindex-qa-synthetic",
+    "/motorcycles/scooters?source=motoindex-qa-synthetic",
+    "/recommendations/best-scooters-philippines?source=motoindex-qa-synthetic",
+  ]) {
     const res = await get(route);
     const body = await res.text();
     if (body.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) errors.push("Personalized tool URL unexpectedly loaded AdSense");
     const policy = res.headers.get("Content-Security-Policy") || "";
     if (!policy.includes("script-src 'self'") || policy.includes("'strict-dynamic'")) errors.push("Personalized tool URL missing restrictive CSP");
     if (res.headers.get("Referrer-Policy") !== "no-referrer") errors.push("Personalized tool URL missing no-referrer");
+    if (res.headers.get("X-Robots-Tag") !== "noindex, follow") errors.push("Query document missing SEO noindex");
   }
   const utility = await get("/motorcycles/yamaha/aerox-v3/specs");
   const utilityHtml = await utility.text();

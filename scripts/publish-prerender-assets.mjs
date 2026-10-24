@@ -51,6 +51,9 @@ function isSafePublicRoute(route) {
   // Active ad documents require Worker-first HTML and request-specific nonces.
   if (adDocumentsEnabled && (
     route === "/" || route === "/finder" || route === "/tools/motorcycle-loan-calculator" ||
+    route === "/tires" || route === "/gear/helmets" ||
+    route === "/research/motorcycle-price-index-philippines" ||
+    route === "/recommendations/best-scooters-philippines" ||
     route === "/motorcycles" || route.startsWith("/motorcycles/")
   )) return false;
   // With AdSense active, eligible editorial guides must reach the Worker to
