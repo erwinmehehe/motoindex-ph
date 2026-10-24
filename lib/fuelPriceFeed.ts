@@ -22,7 +22,10 @@ function object(value: unknown): value is Record<string, unknown> {
 }
 
 function isoDay(value: unknown): value is string {
-  return typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value + "T00:00:00Z"));
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const parsed = new Date(value + "T00:00:00Z");
+  // JS Date.parse silently rolls invalid dates forward (e.g., February 30).
+  return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
 }
 
 function verifiedPdfUrl(value: unknown): value is string {
@@ -56,6 +59,7 @@ export function summarizeFuelCompanies(companies: FuelCompany[]): Record<FuelTyp
 export function parseFuelFeed(value: unknown): FuelFeed | null {
   if (!object(value) || value.schemaVersion !== 1 || value.sourcePage !== DOE_FUEL_SOURCE ||
       typeof value.updatedAt !== "string" || Number.isNaN(Date.parse(value.updatedAt)) ||
+      Date.parse(value.updatedAt) > Date.now() + 24 * 60 * 60 * 1000 ||
       !Array.isArray(value.weeks) || value.weeks.length < 1 || value.weeks.length > 12) return null;
 
   const weeks: FuelWeek[] = [];
