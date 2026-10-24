@@ -517,6 +517,7 @@ model AffiliateProductLink {
   merchant   String   @default("shopee")
   network    String
   url        String
+  destinationUrl String?
   status     String   @default("active")
   reviewNote String?
   approvedAt DateTime?
