@@ -31,6 +31,7 @@ const ownership = [
   ["Service centers", "/service-centers"] as const,
   ["Seller offers", "/deals"] as const,
   ["Commute", "/commute"] as const,
+  ["Fuel price updates", "/gas-price-philippines"] as const,
   ...(hasModels ? [["Fitment finder", "/fitment"] as const] : []),
   ["Maintenance", "/maintenance"] as const,
   ["Loan calculator", "/tools/motorcycle-loan-calculator"] as const,

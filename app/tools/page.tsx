@@ -19,6 +19,7 @@ const coreTools=[
 ];
 
 const planningTools=[
+  {href:"/gas-price-philippines",label:"Fuel",title:"Gas price Philippines — DOE weekly changes",description:"See weekly gasoline, diesel and kerosene price adjustments from official DOE notices, including oil-company differences.",meta:"Check fuel prices →"},
   {href:"/commute/cost-calculator",label:"Daily use",title:"Commute cost calculator",description:"Estimate fuel, maintenance reserve and parking for your own route and workdays.",meta:"Calculate commute →"},
   {href:"/commute/affordability",label:"Budget",title:"Motorcycle affordability",description:"Turn a realistic monthly budget into a purchase-price ceiling and a shorter candidate list.",meta:"Set affordability →"},
   {href:"/tools/electric-motorcycle-charging-cost",label:"Electric",title:"Charging-cost calculator",description:"Estimate a full charge, cost per 100 km and monthly electricity use.",meta:"Estimate charging →"},
@@ -35,7 +36,7 @@ export default function ToolsPage() {
     />
 
     <StatRow items={[
-      {label:"Planning tools",value:"9",note:"Purchase, resale, ownership and daily use"},
+      {label:"Planning tools",value:"10",note:"Purchase, resale, ownership and daily use"},
       {label:"Core cost tools",value:"5",note:"Used value, ownership, loan, LTO and insurance"},
       {label:"Electric tools",value:"2",note:"Charging cost and range"}
     ]}/>

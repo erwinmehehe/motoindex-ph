@@ -35,7 +35,8 @@
       "/get-quote/*",
       "/dealers/join", "/dealers/join/*",
       "/used-motorcycles/listing/*",
-      "/go/*", "/sellers"
+      "/go/*", "/sellers",
+      "/gas-price-philippines"
     ],
     "html_handling": "drop-trailing-slash"
   },

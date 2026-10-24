@@ -231,3 +231,25 @@ h1, h2, h3, h4, h5, h6, .brand-word {
 }
 
 :root { --mi-control-fill: linear-gradient(135deg,#444CE7 0%,#5d55e7 55%,#7A5AF8 100%); --mi-home-surface: transparent; }
+
+/* Weekly DOE fuel-price report visual tokens.
+ * Route styles use semantic variables, keeping colors in the shared design system.
+ */
+:root {
+  --mi-fuel-week-border: #d9dff8;
+  --mi-fuel-week-tint: #f0f3ff;
+  --mi-fuel-week-label: #5963a7;
+  --mi-fuel-week-ink: #182252;
+  --mi-fuel-week-copy: #495678;
+  --mi-fuel-alert-border: #e7c98a;
+  --mi-fuel-alert-surface: #fffaf0;
+  --mi-fuel-alert-copy: #805510;
+  --mi-fuel-neutral-surface: #f2f4f7;
+  --mi-fuel-card-shadow: 0 8px 22px rgba(16, 24, 40, .03);
+  --mi-fuel-increase: #bc333a;
+  --mi-fuel-decrease: #16784d;
+  --mi-fuel-mixed: #90681c;
+  --mi-fuel-table-header: #f6f7fb;
+  --mi-fuel-table-hover: rgba(79, 70, 229, .025);
+  --mi-fuel-link-border-hover: #b8bff0;
+}
