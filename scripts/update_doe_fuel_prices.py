@@ -30,7 +30,7 @@ WEEK_DAY_FIRST = re.compile(
 )
 # DOE prior notices commonly use a four-column table with the final cell reading
 # "P2.65/lit for gasoline; P2.70/lit for diesel", not numeric fuel columns.
-AMOUNT_TEXT = r"\(?\s*(?:PHP|P|₱)?\s*[+-]?\s*\d{1,2}(?:\.\d{1,2})?\s*\)?"
+AMOUNT_TEXT = r"\(?[ \t]*(?:PHP|P|₱)?[ \t]*[+-]?[ \t]*\d{1,2}(?:\.\d{1,2})?(?:[ \t]*\))?"
 LITER_TEXT = r"(?:\s*/\s*lit(?:er|re)?|\s+per\s+lit(?:er|re)?)?"
 DIRECTION_TEXT = r"(?:increase|increased|hike|decrease|decreased|rollback|roll\s*back|reduction)"
 AMOUNT_THEN_PRODUCT = re.compile(
