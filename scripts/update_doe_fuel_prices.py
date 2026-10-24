@@ -34,15 +34,15 @@ AMOUNT_TEXT = r"\(?\s*(?:PHP|P|₱)?\s*[+-]?\s*\d{1,2}(?:\.\d{1,2})?\s*\)?"
 LITER_TEXT = r"(?:\s*/\s*lit(?:er|re)?|\s+per\s+lit(?:er|re)?)?"
 DIRECTION_TEXT = r"(?:increase|increased|hike|decrease|decreased|rollback|roll\s*back|reduction)"
 AMOUNT_THEN_PRODUCT = re.compile(
-    rf"(?P<amount>{AMOUNT_TEXT}){LITER_TEXT}\s*"
-    rf"(?:(?P<direction>{DIRECTION_TEXT})\s*)?(?:for\s+)?"
+    rf"(?P<amount>{AMOUNT_TEXT}){LITER_TEXT}[ \t]*"
+    rf"(?:(?P<direction>{DIRECTION_TEXT})[ \t]*)?for[ \t]+"
     r"(?P<product>gasoline|diesel|kerosene)\b", re.IGNORECASE
 )
 PRODUCT_THEN_AMOUNT = re.compile(
-    rf"\b(?P<product>gasoline|diesel|kerosene)\s*"
-    rf"(?:adjustment\s*(?:of|:)?\s*)?"
+    rf"(?<!for )\b(?P<product>gasoline|diesel|kerosene)[ \t]*"
+    rf"(?:adjustment[ \t]*(?:of|:)?[ \t]*)?"
     rf"(?P<amount>{AMOUNT_TEXT}){LITER_TEXT}"
-    rf"(?:\s+(?P<direction>{DIRECTION_TEXT}))?", re.IGNORECASE
+    rf"(?:[ \t]+(?P<direction>{DIRECTION_TEXT}))?", re.IGNORECASE
 )
 
 TABLE_SETTINGS = {"vertical_strategy": "lines", "horizontal_strategy": "lines", "snap_tolerance": 4,
