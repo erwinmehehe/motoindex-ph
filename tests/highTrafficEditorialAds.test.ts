@@ -99,9 +99,9 @@ describe("selective high-traffic editorial AdSense expansion", () => {
     expect(publisher).toContain('route.startsWith("/motorcycles/")');
     expect(matcher).toContain('"/tires", "/gear/helmets", "/research/motorcycle-price-index-philippines"');
     for (const fragment of [
-      "tires(?:/|$)", "gear/helmets(?:/|$)",
-      "research/motorcycle-price-index-philippines(?:/|$)",
-      "recommendations/best-scooters-philippines(?:/|$)",
+      "tires(?:/$|$)", "gear/helmets(?:/$|$)",
+      "research/motorcycle-price-index-philippines(?:/$|$)",
+      "recommendations/best-scooters-philippines(?:/$|$)",
     ]) expect(config).toContain(fragment);
     const workerQa = read("scripts/issue466-adsense-worker-qa.mjs");
     for (const path of adRoutes) {
@@ -109,6 +109,21 @@ describe("selective high-traffic editorial AdSense expansion", () => {
       expect(workerQa).toContain('"' + path + '?source=motoindex-qa-synthetic"');
     }
     expect(workerQa).toContain("Query document missing SEO noindex");
+    // The Next global CSP must stay on nested paths. A broad exemption here
+    // silently strips browser restrictions because middleware only handles
+    // the five exact parent documents, not nested tire/helmet routes.
+    const pattern = config.match(/source: adDocumentsEnabled \\? "([^"]+)"/)?.[1];
+    expect(pattern).toBeTruthy();
+    const globalCspPath = new RegExp("^" + pattern + "$");
+    for (const path of adRoutes) expect(globalCspPath.test(path)).toBe(false);
+    for (const path of [
+      "/tires/honda-beat-tire-size", "/gear/helmets/finder",
+      "/gear/helmets/compare", "/gear/helmets/full-face",
+      "/research/motorcycle-price-index-philippines/extra",
+      "/recommendations/best-scooters-philippines/private",
+      "/garage",
+    ]) expect(globalCspPath.test(path)).toBe(true);
+
     const smoke = read("scripts/smoke-public-core.mjs");
     for (const path of adRoutes) expect(smoke).toContain('"' + path + '"');
     expect(smoke).toContain("editorial ad page missing approved slot");
