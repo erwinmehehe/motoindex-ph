@@ -62,7 +62,7 @@ jobs:
         run: python -m unittest discover -s tests -p "test_doe_fuel_prices.py" -v
       - name: Read current published feed
         run: |
-          git fetch origin fuel-data
+          git fetch origin +refs/heads/fuel-data:refs/remotes/origin/fuel-data
           git show origin/fuel-data:data/fuel-price-adjustments.json > "$RUNNER_TEMP/fuel-price-adjustments.json"
       - name: Fetch and validate official DOE notices
         run: python scripts/update_doe_fuel_prices.py --output "$RUNNER_TEMP/fuel-price-adjustments.json"
