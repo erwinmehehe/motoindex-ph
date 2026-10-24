@@ -20,7 +20,7 @@ describe("motorcycle detail page SEO titles", () => {
     const titles = new Set<string>();
     for (const model of motorcycles) {
       const title = modelMetaTitle(model);
-      expect(title, model.id).toMatch(/ Price Philippines\\b/i);
+      expect(title, model.id).toMatch(/ Price Philippines\b/i);
       expect(title.toLowerCase().startsWith(model.make.toLowerCase() + " "), model.id).toBe(true);
       expect(title.length, model.id).toBeLessThanOrEqual(65);
       expect(titles.has(title), `Duplicate model SEO title: ${title}`).toBe(false);
@@ -49,7 +49,7 @@ describe("motorcycle detail page SEO titles", () => {
 
   it("keeps generation-family and electric detail page titles price-first", () => {
     for (const family of modelFamilies) {
-      expect(family.seoTitle, family.slug).toMatch(/ Price Philippines\\b/);
+      expect(family.seoTitle, family.slug).toMatch(/ Price Philippines\b/);
     }
     expect(electricMotorcycles.length).toBeGreaterThan(0);
     const detailRoute = readFileSync(
