@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
 import seed from "../data/fuel-price-adjustments.seed.json";
 import { fuelAmount, fuelDirection, fuelRange, parseFuelFeed, summarizeFuelCompanies } from "../lib/fuelPriceFeed";
 
@@ -21,6 +22,24 @@ describe("DOE weekly fuel price feed", () => {
     const corrupted = structuredClone(seed);
     corrupted.weeks[0].companies[0].gasoline = 999;
     expect(parseFuelFeed(corrupted)).toBeNull();
+  });
+
+  it("rejects rollover-invalid DOE week dates and future feed timestamps", () => {
+    const wrongDate = structuredClone(seed);
+    wrongDate.weeks[0].weekStart = "2026-02-30";
+    expect(parseFuelFeed(wrongDate)).toBeNull();
+
+    const futureTimestamp = structuredClone(seed);
+    futureTimestamp.updatedAt = "2099-01-01T00:00:00Z";
+    expect(parseFuelFeed(futureTimestamp)).toBeNull();
+  });
+
+  it("prevents unreviewed feature branches publishing live DOE data and avoids stale price examples", () => {
+    const workflow = readFileSync(new URL("../.github/workflows/doe-fuel-prices.yml", import.meta.url), "utf8");
+    expect(workflow).toContain("github.event_name != 'pull_request' && github.ref == 'refs/heads/main'");
+    const page = readFileSync(new URL("../app/gas-price-philippines/page.tsx", import.meta.url), "utf8");
+    expect(page).toContain("hypothetical ₱1.00-per-liter gasoline change");
+    expect(page).not.toContain("a ₱4.30/L gasoline decrease");
   });
 
   it("represents ranges and directions instead of inventing one national value", () => {
