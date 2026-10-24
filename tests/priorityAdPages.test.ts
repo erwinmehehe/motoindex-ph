@@ -91,7 +91,10 @@ describe("top-traffic manual AdSense pages", () => {
     const publisher = read("scripts/publish-prerender-assets.mjs");
     for (const path of routes) expect(publisher).toContain('route === "' + path + '"');
     expect(publisher).toContain('...(!adDocumentsEnabled ? ["/"] : [])');
-    expect(read("next.config.mjs")).toContain("finder(?:/|$)|tools/motorcycle-loan-calculator(?:/|$)|$");
+    const config = read("next.config.mjs");
+    expect(config).toContain("finder(?:/|$)|tools/motorcycle-loan-calculator(?:/|$)");
+    expect(config).toContain("tires(?:/$|$)");
+    expect(config).toContain("gear/helmets(?:/$|$)");
     expect(read("middleware.ts")).toContain('"/", "/finder", "/tools/motorcycle-loan-calculator"');
   });
 });
