@@ -235,12 +235,31 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         <a href="#price-list">Price list</a>{buyingPaths.length ? <a href="#buying-guide">Buying guide</a> : null}<a href="#models">Models</a>{scooters.length >= 3 ? <a href="#scooters">Scooters</a> : null}{bigBikes.length > 0 ? <a href="#big-bikes">Big bikes</a> : null}{spotlightModels.length > 0 ? <a href="#category-spotlight">Featured category</a> : null}<a href="#categories">Categories</a><a href="#research">How to use data</a><a href="#sources">Sources</a><a href="#faq">FAQ</a>
       </nav>
 
+      <section id="price-list" className="ph-brand-section">
+        <SectionHeader kicker="Current model prices" title={priceListTitle} description={`Use the ${priceListTitle} to compare current model prices in one table. Open any model to review variants, specifications, financing and ownership details.`} />
+        <DataTable className="ph-brand-price-table" label={`${brand} motorcycle Philippines price list`}>
+          <div className="head" role="row"><span>Model</span><span>Price reference</span><span>Engine</span><span>Seat</span><span>Transmission</span></div>
+          {ranges.map(({ model, from, to, reference }) => <Link role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}`} key={model.id}>
+            <strong>{model.model}<small>{model.category} · {reference.kind === "price-check" ? "Price checked" : "Model details checked"} <time dateTime={reference.date}>{reference.date}</time></small></strong><span>{phpRange(from, to)}</span><span>{model.engineCc} cc</span><span>{model.seatHeightMm} mm</span><span>{model.transmission || "—"} →</span>
+          </Link>)}
+        </DataTable>
+        <p className="ph-brand-evidence-note">These are dated model-level references, not a claim that every manufacturer price was checked today. “Model details checked” means a separate price observation is unavailable. <Link href="/research/motorcycle-price-index-philippines">Read the MotoIndex price methodology →</Link></p>
+      </section>
+
       {priority && <section className="ph-brand-context">
         <div><span>{brand} buying guide</span><h2>How to choose from the {brand} motorcycle price list</h2></div>
         <p>Use the price list to narrow your budget first, then compare engine size, seat height, transmission and local ownership support. Open a model for detailed specifications, financing estimates, fitment and alternatives.</p>
       </section>}
 
       {families.length > 0 && <div className="guide-strip ph-brand-families">{families.map((f) => <Link key={f.slug} href={`/motorcycles/${f.makeSlug}/${f.slug}`}><span>Model family</span><strong>{f.make} {f.name}</strong><small>Compare generations</small></Link>)}</div>}
+
+      {buyingPaths.length > 0 && <section id="buying-guide" className="ph-brand-section">
+        <SectionHeader kicker="Choose by riding needs" title={`How to choose a ${brand} motorcycle in the Philippines`} description="Compare models that MotoIndex currently tracks. These are starting points for research, not dealer-stock guarantees." />
+        <div className="ph-brand-buying-grid">{buyingPaths.map((path) => <article className="ph-brand-buying-path" key={path.title}>
+          <h3>{path.title}</h3><p>{path.description}</p>
+          <ul>{path.models.map((model) => <li key={model.id}><Link href={`/motorcycles/${model.makeSlug}/${model.slug}`}>{model.make} {model.model} — {phpRange(observedMarketRange(model).from, observedMarketRange(model).to)} →</Link></li>)}</ul>
+        </article>)}</div>
+      </section>}
 
       <section id="models" className={`ph-brand-section ph-brand-models-section${catalogModels.length <= 2 ? " is-sparse" : ""}`}>
         <SectionHeader kicker="Motorcycle models" title={`Compare ${brand} motorcycle models in the Philippines`} description={`Browse ${catalogModels.length} verified ${brand} motorcycle model pages. Current, previous-generation and discontinued status stays secondary to the motorcycle itself and is shown on the relevant model card.`} />
@@ -293,17 +312,6 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
         </CTAGroup> : null}
       </section> : null}
 
-      <section id="price-list" className="ph-brand-section">
-        <SectionHeader kicker="Current model prices" title={priceListTitle} description={`Use the ${priceListTitle} to compare current model prices in one table. Open any model to review variants, specifications, financing and ownership details.`} />
-        <DataTable className="ph-brand-price-table" label={`${brand} motorcycle Philippines price list`}>
-          <div className="head" role="row"><span>Model</span><span>Price reference</span><span>Engine</span><span>Seat</span><span>Transmission</span></div>
-          {ranges.map(({ model, from, to }) => <Link role="row" href={`/motorcycles/${model.makeSlug}/${model.slug}`} key={model.id}>
-            <strong>{model.model}<small>{model.category}</small></strong><span>{phpRange(from, to)}</span><span>{model.engineCc} cc</span><span>{model.seatHeightMm} mm</span><span>{model.transmission || "—"} →</span>
-          </Link>)}
-        </DataTable>
-      </section>
-      {current.length >= 6 && <MotorcycleInContentAd nonceReady={Boolean(adNonce)} />}
-
       <section id="categories" className="ph-brand-section ph-brand-two-col">
         <div>
           <SectionHeader kicker="Shop by use" title={`${brand} motorcycle models by category`} />
@@ -323,6 +331,8 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
       </section>
 
 
+      {current.length >= 6 && <MotorcycleInContentAd nonceReady={Boolean(adNonce)} />}
+
       <section id="research" className="ph-brand-section">
         <SectionHeader kicker="How to use the data" title={`How to use this ${brand} motorcycle price list`} description="Prices are reference points, not guaranteed dealer quotes. Compare the model and specification differences here, then confirm the current selling price with the dealer before purchase." />
         <div className="ph-brand-method-grid"><article><span>01</span><h3>Confirm the final price</h3><p>Published prices are reference points. Confirm the current cash price, fees, promotions and exact variant with the seller before paying a reservation.</p></article><article><span>02</span><h3>Compare specs and rider fit</h3><p>Engine size, seat height, weight, transmission and tire data help narrow the shortlist, but actual rider fit and comfort still need an in-person check.</p></article><article><span>03</span><h3>Check local ownership support</h3><p>Dealer reach, parts availability, service intervals and warranty support all matter after purchase.</p></article></div>
@@ -330,10 +340,26 @@ export default async function BrandPage({ params }: { params: Promise<{ make: st
 
       {uncertain.length > 0 && <section className="ph-brand-section"><SectionHeader kicker="Availability to verify" title={`${brand} models needing a current lineup check`} description="These model pages remain available for research, but they stay outside the current price list until present-day official availability is confirmed." /><div className="card-grid">{uncertain.map((m) => <MotorcycleCard key={m.id} model={m} variant="standard" />)}</div></section>}
 
+      <section id="sources" className="ph-brand-section ph-brand-sources">
+        <SectionHeader kicker="Price sources" title={`Where to verify ${brand} motorcycle prices`} />
+        <p>These amounts are published price references from dated model research and, where available, separate market-price observations. They are not guaranteed cash or installment quotes. Each model shows the checked date for the available evidence.</p>
+        {latestPriceCheckedAt && <p>Most recent recorded price observation among these models: <time dateTime={latestPriceCheckedAt}>{latestPriceCheckedAt}</time>. Other entries may have older source dates; verify trim, fees and branch offers before purchasing.</p>}
+        <div className="ph-brand-source-links">
+          <Link href="/research/motorcycle-price-index-philippines">See the Philippine motorcycle price index →</Link>
+          {brandSupport && <a href={brandSupport.officialUrl} target="_blank" rel="noopener noreferrer">Visit {brandSupport.officialName} →</a>}
+          {brandSupport?.dealerUrl && <a href={brandSupport.dealerUrl} target="_blank" rel="noopener noreferrer">Find authorized dealers →</a>}
+        </div>
+      </section>
+
       <section id="faq" className="ph-brand-section">
         <SectionHeader kicker="Quick answers" title={`${priceListTitle} FAQ`} />
         <div className="ph-brand-faq">{faq.map((item) => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div>
       </section>
+      {relatedBrands.length > 0 && <nav className="ph-brand-section ph-brand-related" aria-label="Compare other motorcycle brand price lists">
+        <h2>Compare other Philippine motorcycle price lists</h2>
+        <div>{relatedBrands.map((item) => <Link key={item.slug} href={`/motorcycles/${item.slug}`}>{item.name} motorcycle price list →</Link>)}</div>
+        <Link href="/motorcycles">Browse the full Philippine motorcycle price directory →</Link>
+      </nav>}
     </div>
     <JsonLd data={schema} />
   </section>;
