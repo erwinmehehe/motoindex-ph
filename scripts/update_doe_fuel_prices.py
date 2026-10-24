@@ -19,11 +19,32 @@ DOE_PAGE = "https://doe.gov.ph/data-and-prices/liquid-fuels/retail-pump-prices/p
 ALLOWED_PDF_HOSTS = {"d24qbtp4vooyzi.cloudfront.net", "doe.gov.ph", "www.doe.gov.ph"}
 USER_AGENT = "MotoIndexPH-DOE-Fuel-Notice-Reader/1.0 (public DOE price adjustments)"
 AMOUNT_PATTERN = re.compile(r"^[+\-\u2212]?\d{1,3}(?:\.\d{1,2})?$")
-WEEK_PATTERN = re.compile(
-    r"for\s+the\s+week\s+(?P<from_month>[A-Za-z]+)\s+(?P<from_day>\d{1,2})\s*"
-    r"[-\u2013\u2014]\s*(?:(?P<to_month>[A-Za-z]+)\s+)?(?P<to_day>\d{1,2})\s*,?\s*"
+WEEK_MONTH_FIRST = re.compile(
+    r"(?:for\s+the\s+week\s+)?(?P<from_month>[A-Za-z]+)\s+(?P<from_day>\d{1,2})\s*"
+    r"(?:-|to|–|—)\s*(?:(?P<to_month>[A-Za-z]+)\s+)?(?P<to_day>\d{1,2})\s*,?\s*"
     r"(?P<year>20\d{2})", re.IGNORECASE
 )
+WEEK_DAY_FIRST = re.compile(
+    r"(?P<from_day>\d{1,2})\s*(?:-|to|–|—)\s*(?P<to_day>\d{1,2})\s+"
+    r"(?P<from_month>[A-Za-z]+)\s*,?\s*(?P<year>20\d{2})", re.IGNORECASE
+)
+# DOE prior notices commonly use a four-column table with the final cell reading
+# "P2.65/lit for gasoline; P2.70/lit for diesel", not numeric fuel columns.
+AMOUNT_TEXT = r"\(?\s*(?:PHP|P|₱)?\s*[+-]?\s*\d{1,2}(?:\.\d{1,2})?\s*\)?"
+LITER_TEXT = r"(?:\s*/\s*lit(?:er|re)?|\s+per\s+lit(?:er|re)?)?"
+DIRECTION_TEXT = r"(?:increase|increased|hike|decrease|decreased|rollback|roll\s*back|reduction)"
+AMOUNT_THEN_PRODUCT = re.compile(
+    rf"(?P<amount>{AMOUNT_TEXT}){LITER_TEXT}\s*"
+    rf"(?:(?P<direction>{DIRECTION_TEXT})\s*)?(?:for\s+)?"
+    r"(?P<product>gasoline|diesel|kerosene)\b", re.IGNORECASE
+)
+PRODUCT_THEN_AMOUNT = re.compile(
+    rf"\b(?P<product>gasoline|diesel|kerosene)\s*"
+    rf"(?:adjustment\s*(?:of|:)?\s*)?"
+    rf"(?P<amount>{AMOUNT_TEXT}){LITER_TEXT}"
+    rf"(?:\s+(?P<direction>{DIRECTION_TEXT}))?", re.IGNORECASE
+)
+
 TABLE_SETTINGS = {"vertical_strategy": "lines", "horizontal_strategy": "lines", "snap_tolerance": 4,
                   "join_tolerance": 4, "intersection_tolerance": 5, "text_tolerance": 3}
 PRODUCTS = ("gasoline", "diesel", "kerosene")
@@ -40,12 +61,14 @@ def month_number(name: str) -> int:
 
 
 def week_dates(text: str) -> tuple[str, str]:
-    match = WEEK_PATTERN.search(normalize(text))
+    """Accept heading dates like 'October 20-26, 2026' or '20-26 Oct 2026'."""
+    clean = normalize(text)
+    match = WEEK_MONTH_FIRST.search(clean) or WEEK_DAY_FIRST.search(clean)
     if not match:
-        raise ValueError("Missing recognizable 'For the week' date range in DOE PDF")
+        raise ValueError("Missing recognizable DOE weekly date range")
     parts = match.groupdict()
     start_month = month_number(parts["from_month"])
-    end_month = month_number(parts["to_month"] or parts["from_month"])
+    end_month = month_number(parts.get("to_month") or parts["from_month"])
     end_year = int(parts["year"])
     start_year = end_year - 1 if start_month == 12 and end_month == 1 else end_year
     start = date(start_year, start_month, int(parts["from_day"]))
@@ -53,7 +76,6 @@ def week_dates(text: str) -> tuple[str, str]:
     if not 0 <= (end - start).days <= 10:
         raise ValueError(f"Unexpected DOE notice period: {start} to {end}")
     return start.isoformat(), end.isoformat()
-
 
 def price_change(cell: object) -> float | None:
     value = normalize(cell).replace(" ", "")
@@ -67,35 +89,76 @@ def price_change(cell: object) -> float | None:
     return amount
 
 
+def narrative_amount(text: str, direction: str | None) -> float:
+    negative = text.lstrip().startswith("(") or "-" in text
+    magnitude = float(re.search(r"\d{1,2}(?:\.\d{1,2})?", text).group())
+    if direction and direction.lower().startswith(("decreas", "rollback", "roll back", "reduc")):
+        negative = True
+    elif direction and direction.lower().startswith(("increas", "hike")):
+        if negative:
+            raise ValueError("Conflicting direction and negative amount")
+    if magnitude > 50:
+        raise ValueError(f"Implausible DOE price change: {magnitude}")
+    return round(-magnitude if negative else magnitude, 2)
+
+
+def narrative_changes(cell: object) -> list[float | None]:
+    raw = str(cell or "").replace("\u2212", "-")
+    found: dict[str, list[float]] = {product: [] for product in PRODUCTS}
+    for pattern in (AMOUNT_THEN_PRODUCT, PRODUCT_THEN_AMOUNT):
+        for match in pattern.finditer(raw):
+            product = match.group("product").lower()
+            amount = narrative_amount(match.group("amount"), match.group("direction"))
+            found[product].append(amount)
+    result: list[float | None] = []
+    for product in PRODUCTS:
+        unique = set(found[product])
+        if len(unique) > 1:
+            # Some DOE notices have *multiple* effectivity dates. We will not
+            # collapse those into a single "weekly" adjustment without review.
+            raise ValueError(f"Multiple different {product} adjustments in one notice")
+        result.append(next(iter(unique)) if unique else None)
+    if not any(x is not None for x in result):
+        raise ValueError("No recognizable per-product price adjustments")
+    return result
+
+
 def table_companies(rows: list[list[object]]) -> list[dict[str, object]]:
     companies: list[dict[str, object]] = []
     seen: set[str] = set()
     for row in rows:
-        if len(row) < 6:
+        if len(row) < 4:
             continue
         company = normalize(row[0])
         if not company or company.casefold() in {"oil company", "products"}:
             continue
-        if any(word in company.casefold() for word in ("summary of prior", "for the week")):
+        if any(word in company.casefold() for word in ("summary of prior", "for the week", "date & time")):
+            continue
+        if len(company) > 110:
             continue
         values = row[-3:]
-        try:
-            changes = [price_change(cell) for cell in values]
-        except ValueError:
-            if not any(re.fullmatch(r"[+\-\u2212]?\d+(?:\.\d+)?", normalize(c)) for c in values):
-                continue  # Table heading or footer.
-            raise
+        if len(row) >= 6 and all(
+            AMOUNT_PATTERN.fullmatch(normalize(value)) or not normalize(value)
+            for value in values
+        ):
+            changes = [price_change(value) for value in values]
+        else:
+            description = "\n".join(str(v or "") for v in row[3:])
+            if not re.search(r"gasoline|diesel|kerosene", description, flags=re.IGNORECASE):
+                continue
+            try:
+                changes = narrative_changes(description)
+            except ValueError as error:
+                # Never silently skip a named company's malformed price values.
+                raise ValueError(f"{company}: {error}") from error
         if all(change is None for change in changes):
             continue
-        if len(company) > 80 or any(char.isdigit() for char in company):
-            raise ValueError(f"Unrecognized oil-company label: {company!r}")
         identity = company.casefold()
         if identity in seen:
             raise ValueError(f"Duplicate oil company in one notice: {company}")
         seen.add(identity)
         companies.append({"company": company, **dict(zip(PRODUCTS, changes))})
     return companies
-
 
 def summary_for(companies: list[dict[str, object]]) -> dict[str, dict[str, float | int] | None]:
     result: dict[str, dict[str, float | int] | None] = {}
@@ -139,18 +202,23 @@ def fetch(session: requests.Session, url: str, *, pdf: bool = False) -> bytes:
 def parse_pdf(pdf_bytes: bytes, *, url: str, source_title: str) -> dict[str, object]:
     with pdfplumber.open(BytesIO(pdf_bytes)) as document:
         text = "\n".join(page.extract_text() or "" for page in document.pages)
-        week_start, week_end = week_dates(text)
+        try:
+            week_start, week_end = week_dates(text[:1300])
+        except ValueError:
+            # Cross-check against the link's title/filename when the PDF
+            # prints the date range in a non-extractable header.
+            week_start, week_end = week_dates(source_title + " " + unquote(urlparse(url).path))
         companies: list[dict[str, object]] = []
         for page in document.pages:
-            for table in page.extract_tables(table_settings=TABLE_SETTINGS):
-                found = table_companies(table)
-                if len(found) > len(companies):
-                    companies = found
+            for settings in (TABLE_SETTINGS, {"vertical_strategy": "text", "horizontal_strategy": "text"}):
+                for table in page.extract_tables(table_settings=settings):
+                    found = table_companies(table)
+                    if len(found) > len(companies):
+                        companies = found
     if len(companies) < 3 or not any(row["gasoline"] is not None for row in companies) or not any(row["diesel"] is not None for row in companies):
         raise ValueError(f"Incomplete or unrecognized DOE oil-company table: {url}")
     return {"weekStart": week_start, "weekEnd": week_end, "sourceTitle": source_title,
             "sourceUrl": url, "companies": companies, "summary": summary_for(companies)}
-
 
 def update(output: Path, session: requests.Session) -> bool:
     links = links_from_html(fetch(session, DOE_PAGE).decode("utf-8", "replace"))
