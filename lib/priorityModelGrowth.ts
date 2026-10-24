@@ -135,8 +135,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare maxi scooters"
   },
   "yamaha-aerox-v2": {
-    seoTitle: "Yamaha Aerox V2 Philippines | Price, Specs & Aerox V3",
-    seoDescription: "Yamaha Aerox V2 Philippines reference with historical price, 155cc specs, tire sizes, seat height and the current Aerox V3 successor.",
+    seoTitle: "Yamaha Aerox V2 Price Philippines | Specs & Used Value",
+    seoDescription: "Check the Yamaha Aerox V2 price in the Philippines: ₱112,900 historical 2021 launch SRP, 155cc specs, used-bike pricing context and Aerox V3 comparison.",
     intentIntro: "Aerox V2 still carries major Philippine search demand, but it is a previous generation. Use this canonical page for historical launch pricing and V2 specifications, then compare the current Aerox V3 before treating older pricing as today's new-bike offer.",
     moneyQuestion: "How does the historical Aerox V2 price compare with current Aerox V3 pricing and used V2 listings?",
     ownershipQuestion: "Compare CVT service, 14-inch tires, fuel capacity, braking equipment and parts support while accounting for the V2's previous-generation status.",
