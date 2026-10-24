@@ -8,10 +8,16 @@ export type BrandSeoGrowthProfile = {
   bigBikeTitle?: string;
   bigBikeDescription?: string;
   categorySpotlight?: { title: string; description: string; pattern: string; recommendationHref?: string; recommendationLabel?: string };
+  buyingPaths?: { title: string; description: string; modelNames: string[] }[];
 };
 
 const profiles: Record<string, BrandSeoGrowthProfile> = {
   honda: {
+    buyingPaths: [
+      { title: "Everyday commuting scooters", description: "Compare automatic Honda models for traffic and routine trips. Check actual seat height, brakes and trim before choosing.", modelNames: ["BeAT","Click 125i","Click 160","PCX 160","ADV 160"] },
+      { title: "Underbones and work motorcycles", description: "For daily utility, compare underbone and business-focused models alongside ownership costs and dealer support.", modelNames: ["Wave RSX","XRM125","TMX125 Alpha","TMX Supremo"] },
+      { title: "Larger-displacement Honda motorcycles", description: "Use engine size, weight, seat height and equipment to narrow down higher-capacity Honda models.", modelNames: ["CB650R","CBR650R","Rebel 500","Gold Wing"] }
+    ],
     seoTitle: "Honda Big Bikes Philippines 2026 | Motorcycle Price List",
     seoDescription: "Honda Philippines price list with current motorcycles and tracked big bikes including CB650R, CBR650R, Rebel, X-ADV and Gold Wing, plus specs and buyer tools.",
     heroTitle: "Honda Motorcycle Philippines Price List 2026",
@@ -23,6 +29,11 @@ const profiles: Record<string, BrandSeoGrowthProfile> = {
     categorySpotlight: { title: "Honda off-road and dual-sport motorcycles", description: "Compare current Honda off-road and dual-sport records on the existing Honda authority hub, keeping CRF-related category intent consolidated with the brand price list.", pattern: "Dual-sport|Off-road|Trail", recommendationHref: "/recommendations/dual-sport-motorcycles-philippines", recommendationLabel: "Compare dual-sport and trail motorcycles" }
   },
   yamaha: {
+    buyingPaths: [
+      { title: "Commuter and lifestyle scooters", description: "Compare Yamaha's lower-priced automatic options by seat height, published price and everyday practicality.", modelNames: ["Mio i 125","Mio Gear","Mio Gravis","Fazzio"] },
+      { title: "NMAX, Aerox and premium scooters", description: "Review trim and generation differences before comparing higher-spec scooters or installment estimates.", modelNames: ["Aerox V3","NMAX V3","XMAX","TMAX Tech Max"] },
+      { title: "Manual, street and sport models", description: "Compare underbones, roadsters and sport motorcycles by rider fit, category and engine specifications.", modelNames: ["Sniper 155","MT-15","YZF-R15M","MT-07"] }
+    ],
     seoTitle: "Yamaha Big Bikes Philippines 2026 | Motorcycle Price List",
     seoDescription: "Yamaha Philippines price list with current scooters, sport bikes and tracked big bikes including TMAX, YZF-R7 and YZF-R1M, with specs and buyer tools.",
     heroTitle: "Yamaha Motorcycle Philippines Price List 2026",
@@ -34,6 +45,11 @@ const profiles: Record<string, BrandSeoGrowthProfile> = {
     categorySpotlight: { title: "Yamaha street motorcycles in the Philippines", description: "Compare current Yamaha road and street-focused motorcycles tracked by MotoIndex without splitting them into a thin duplicate URL.", pattern: "Naked street bike|Roadster|Modern classic" }
   },
   kawasaki: {
+    buyingPaths: [
+      { title: "City commuting and utility", description: "Start with commuting and dual-sport research; compare seat height, intended conditions and published prices.", modelNames: ["Brusky 125","Barako II","KLX150"] },
+      { title: "Ninja sport motorcycles", description: "Compare Ninja price references alongside engine capacity and model-specific rider fit rather than relying on a family label.", modelNames: ["Ninja 500","Ninja 650","Ninja ZX-25R"] },
+      { title: "Z-series and larger motorcycles", description: "Compare current Z-series and higher-displacement road bikes by weight, power, seat height and budget.", modelNames: ["Z500","Z650","Z900","Z900 SE"] }
+    ],
     seoTitle: "Kawasaki Big Bikes Philippines 2026 | Motorcycle Price List",
     seoDescription: "Kawasaki Philippines motorcycle price list with Brusky 125 scooter, KLX, Ninja, Z and 400cc+ big-bike models, prices, specs and buyer research.",
     heroTitle: "Kawasaki Motorcycle Philippines Price List 2026",
@@ -45,9 +61,17 @@ const profiles: Record<string, BrandSeoGrowthProfile> = {
     categorySpotlight: { title: "Kawasaki off-road and KLX motorcycles", description: "Compare current Kawasaki off-road and dual-sport models, including KLX-family records, on the main Kawasaki authority hub rather than creating a duplicate brand-category page.", pattern: "Dual-sport|Off-road|Trail", recommendationHref: "/recommendations/dual-sport-motorcycles-philippines", recommendationLabel: "Compare dual-sport and trail motorcycles" }
   },
   suzuki: {
+    buyingPaths: [
+      { title: "Budget commuters and underbones", description: "Compare practical Suzuki city and underbone models by engine size, price reference and riding position.", modelNames: ["Smash Carb","Smash Fi","Raider J Crossover","Raider R150"] },
+      { title: "Burgman, Access and other scooters", description: "Compare automatic scooter choices for daily riding. Check category, seat height and equipment differences.", modelNames: ["Skydrive Sport","Avenis","Access","Burgman Street","Burgman Street EX"] },
+      { title: "Street, touring and larger motorcycles", description: "Compare manual motorcycles, smaller adventure-style models and higher-displacement options without treating them as interchangeable.", modelNames: ["GIXXER 155","GIXXER SF250","V-Strom 250 SX","Burgman 400","Hayabusa"] }
+    ],
     seoTitle: "Suzuki Motorcycles Philippines 2026 | Price List & Models",
     seoDescription: "Suzuki motorcycles Philippines 2026 price list with current scooters, underbones, sport and big-bike models, plus engine sizes, seat heights and buyer research.",
     heroTitle: "Suzuki Motorcycle Philippines Price List 2026",
+    bigBikeMinCc: 400,
+    bigBikeTitle: "Suzuki big bikes in the Philippines",
+    bigBikeDescription: "Compare current Suzuki motorcycles at 400cc and above tracked by MotoIndex, including Burgman 400 and Hayabusa, using published prices, engine size, weight and seat height.",
     heroDescription: "Compare current Suzuki motorcycles tracked in the Philippines by published price, engine size, seat height and category, including scooters, underbones, sport bikes and larger-displacement models.",
     intentNote: "This Suzuki brand hub owns broad Suzuki motorcycle Philippines and price-list intent. Use its current model table and category sections first, then open the canonical model page for detailed specs, financing, fitment and ownership research."
   },
