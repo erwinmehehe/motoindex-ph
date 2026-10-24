@@ -42,7 +42,9 @@ jobs:
         run: python scripts/update_doe_fuel_prices.py --output "$RUNNER_TEMP/fuel-price-adjustments.json"
 
   update-feed:
-    if: github.event_name != 'pull_request'
+    # Only reviewed main-branch code may publish the public fuel-data feed.
+    # Never allow a manually dispatched feature branch to write live JSON.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     permissions:
