@@ -56,5 +56,7 @@ export function motorcycleBrandSearchDescription(
     return motorcycleBrandPriceListDescription(brand, low, high);
   }
   const year = checkedYear ? ` (${checkedYear})` : "";
-  return `${motorcycleBrandPriceListTitle(brand)}${year}: Compare ${modelCount} tracked models, ${php(low)}–${php(high)} price references, specs and dated sources. Verify dealer quotes.`;
+  const long = `${motorcycleBrandPriceListTitle(brand)}${year}: Compare ${modelCount} tracked models, prices ${php(low)}–${php(high)}, specs and source dates. Confirm dealer quotes.`;
+  if (long.length <= 158) return long;
+  return `${brand} motorcycle prices Philippines${year}: ${modelCount} tracked models, ${php(low)}–${php(high)}, checked sources and specs. Confirm dealer quotes.`;
 }
