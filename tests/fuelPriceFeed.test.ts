@@ -40,6 +40,8 @@ describe("DOE weekly fuel price feed", () => {
     const page = readFileSync(new URL("../app/gas-price-philippines/page.tsx", import.meta.url), "utf8");
     expect(page).toContain("hypothetical ₱1.00-per-liter gasoline change");
     expect(page).not.toContain("a ₱4.30/L gasoline decrease");
+    const wrangler = JSON.parse(readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8"));
+    expect(wrangler.assets.run_worker_first).toContain("/gas-price-philippines");
   });
 
   it("represents ranges and directions instead of inventing one national value", () => {
