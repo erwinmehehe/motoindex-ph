@@ -147,8 +147,8 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     legacyContext: { heading: "Aerox V2 vs the current Aerox V3", body: "Aerox V2 is retained for historical Philippine price and specification research. Use the Aerox V3 page for current-generation new-bike research and pricing." }
   },
   "yamaha-nmax-v2": {
-    seoTitle: "Yamaha NMAX V2 Philippines | Price, Specs & NMAX V3",
-    seoDescription: "Yamaha NMAX V2 Philippines reference with historical price, 155cc specs, tire sizes, seat height and the current NMAX V3 successor.",
+    seoTitle: "Yamaha NMAX V2 Price Philippines",
+    seoDescription: "See Yamaha NMAX V2 price in the Philippines: ₱119,900 historical 2020 launch SRP, 155cc specs, used-bike pricing context and newer NMAX V3 comparison.",
     intentIntro: "NMAX V2 remains a high-demand Philippine search, but it is a previous generation. This canonical page keeps its historical price and specifications useful while directing current new-bike research to NMAX V3.",
     moneyQuestion: "How does the historical NMAX V2 price compare with current NMAX V3 pricing and used V2 listings?",
     ownershipQuestion: "Compare CVT service, 13-inch tires, fuel capacity, variant-dependent ABS and parts support while accounting for the V2's previous-generation status.",
@@ -159,7 +159,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     legacyContext: { heading: "NMAX V2 vs the current NMAX V3", body: "NMAX V2 is retained for historical Philippine price and specification research. Use the NMAX V3 page for current-generation new-bike research and pricing." }
   },
   "honda-click-150i": {
-    seoTitle: "Honda Click 150i Philippines | Price, Specs & Click 160",
+    seoTitle: "Honda Click 150i Price Philippines | Specs & Click 160",
     seoDescription: "Honda Click 150i Philippines reference with historical price, 150cc specs, fuel economy, tire sizes and the current Click 160 successor.",
     intentIntro: "The Click 150i remains useful for Philippine historical and used-bike research, but it is a previous generation. Keep its 2018 launch price, 150cc specifications and ownership context on this canonical page, then use the Click 160 page for current new-bike research.",
     moneyQuestion: "How does the historical Click 150i launch price compare with current Click 160 pricing and used Click 150i listings?",
@@ -570,7 +570,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 125cc scooters"
   },
   "suzuki-burgman-street-ex": {
-    seoTitle: "Suzuki Burgman Street EX Price 2026 | Specs & Monthly",
+    seoTitle: "Suzuki Burgman Street EX Price Philippines | Specs & Monthly",
     seoDescription: "Suzuki Burgman Street EX price in the Philippines, 125cc specs, seat height, tires, down payment, monthly estimate, fuel planning and ownership costs.",
     intentIntro: "The Burgman Street EX is a comfort-oriented 125cc scooter, so compare its larger-feeling body, final dealer price, financing, rider fit and daily running cost with Click 125i, Fazzio and Mio Gear.",
     moneyQuestion: "Does the Burgman Street EX comfort package justify the final price once down payment, monthly payment, fees and insurance are included?",
@@ -670,7 +670,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare under-400cc motorcycles"
   },
   "honda-adv-150": {
-    seoTitle: "Honda ADV150 Philippines | Historical Price, Specs & ADV160",
+    seoTitle: "Honda ADV150 Price Philippines | Specs & ADV160",
     seoDescription: "Honda ADV150 Philippines reference with historical ₱149,000 launch price, 150cc specs, ABS, 795mm seat, fuel economy and current ADV160 successor.",
     intentIntro: "The ADV150 remains a major Philippine search even though it is a previous generation. Keep its historical ₱149,000 launch price and 150cc specifications on this canonical page, then use the ADV160 page for current new-bike pricing.",
     moneyQuestion: "How does a used ADV150 asking price compare with a current ADV160 after transfer costs, insurance and near-term service are included?",
@@ -682,7 +682,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     legacyContext: { heading: "ADV150 vs the current ADV160", body: "ADV150 is retained for historical Philippine price, specification and used-bike research. Honda's current adventure-scooter research should continue on the ADV160 page." }
   },
   "kawasaki-ninja-zx-4rr": {
-    seoTitle: "Ninja ZX-4RR Price Philippines 2026 | Specs & Ownership",
+    seoTitle: "Kawasaki Ninja ZX-4RR Price Philippines 2026 | Specs & ABS",
     seoDescription: "Kawasaki Ninja ZX-4RR price in the Philippines, 401cc inline-four specs, 76.43hp, ABS, 800mm seat, ownership costs and sport-bike alternatives.",
     intentIntro: "The Ninja ZX-4RR is a current 401cc inline-four supersport at ₱499,000. Compare its 76.43 hp output, 188 kg curb weight, ABS and 15 L tank with the total cost of other current sport bikes.",
     moneyQuestion: "What does the ZX-4RR cost after insurance, registration, financing, 17-inch sport tires and first-year service are included?",
@@ -1124,7 +1124,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   },
 
   "motorstar-xplorer-250r": {
-    seoTitle: "MotorStar Xplorer 250R Philippines 2026 | Price & Specs",
+    seoTitle: "MotorStar Xplorer 250R Price Philippines 2026 | Specs & Fit",
     seoDescription: "MotorStar Xplorer 250R price Philippines 2026 with 249.6cc specs, 795mm seat, 146kg weight, 16L tank, ownership costs and value-road-bike alternatives.",
     intentIntro: "Xplorer 250R searches are strongly value-led. Compare its 249.6cc engine, 16 L tank, 795 mm seat and current Philippine price with service access, tire availability and recurring ownership costs.",
     moneyQuestion: "What is the Xplorer 250R total cost after the dealer quote, registration, insurance, financing and initial maintenance are included?",
