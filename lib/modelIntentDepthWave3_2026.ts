@@ -20,7 +20,7 @@ const profiles: Record<string, ModelIntentDepthProfile> = {
     intents: ["price", "specs", "colors", "ownership"]
   },
   "kawasaki-ninja-zx-4rr": {
-    seoTitle: "Ninja ZX-4RR Price Philippines 2026 | Specs & Ownership",
+    seoTitle: "Kawasaki Ninja ZX-4RR Price Philippines 2026 | Specs & ABS",
     seoDescription: "Kawasaki Ninja ZX-4RR price Philippines 2026 with 401cc inline-four specs, 76.43hp, ABS, 800mm seat, ownership costs, insurance and sport-bike alternatives.",
     intro: "ZX-4RR demand mixes price with inline-four performance, rider fit and premium sport-bike ownership. The canonical page should answer those together without creating separate price or horsepower descendants.",
     intents: ["price", "specs", "ownership"]

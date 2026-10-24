@@ -38,7 +38,7 @@ const profiles: Record<string, ModelIntentDepthProfile> = {
     intents: ["price", "specs", "ownership"]
   },
   "motorstar-xplorer-250r": {
-    seoTitle: "MotorStar Xplorer 250R Philippines 2026 | Price & Specs",
+    seoTitle: "MotorStar Xplorer 250R Price Philippines 2026 | Specs & Fit",
     seoDescription: "MotorStar Xplorer 250R price Philippines 2026 with 249.6cc specs, 795mm seat, 146kg weight, 16L tank, ownership costs and value-road-bike alternatives.",
     intro: "Xplorer 250R demand is strongly value-led. Keep its 249.6cc specification, 16 L tank, rider fit and ownership trade-offs beside the current Philippine price instead of splitting price and specs into separate thin pages.",
     intents: ["price", "specs", "ownership"]

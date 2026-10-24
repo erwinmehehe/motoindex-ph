@@ -418,9 +418,9 @@ export function motorcycleEntitySeo(model: Motorcycle) {
   const name = `${model.make} ${model.model}`;
   const title = globalDemand && current
     ? firstTitleThatFits([
-        `${name} Specs, Price & Ownership Guide ${releaseYear}`,
-        `${name} Specs, Price & Review Guide`,
-        `${name} Specs & Price`,
+        `${name} Price Philippines ${releaseYear}: Specs & Ownership`,
+        `${name} Price Philippines ${releaseYear} | Specs`,
+        `${name} Price Philippines ${releaseYear}`,
       ])
     : current
       ? firstTitleThatFits([
