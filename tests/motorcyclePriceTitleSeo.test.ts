@@ -57,7 +57,7 @@ describe("motorcycle detail page SEO titles", () => {
       "utf8"
     );
     expect(detailRoute).toContain(
-      "title: \`${electricModel.make} ${electricModel.model} Price Philippines | Range & Specs\`"
+      'title: `${electricModel.make} ${electricModel.model} Price Philippines | Range & Specs`'
     );
   });
 });
