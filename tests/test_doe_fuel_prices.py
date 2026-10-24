@@ -50,6 +50,14 @@ class DoeFuelReaderTests(unittest.TestCase):
             "Gasoline 1.75/liter increase\nDiesel 2.60/liter increase\nKerosene 2.40/liter increase"
         ), [1.75, 2.60, 2.40])
 
+    def test_product_first_direction_signs_are_not_lost_to_whitespace(self):
+        self.assertEqual(
+            narrative_changes("Gasoline P4.30 decrease\nDiesel P2.60 increase\nKerosene P1.00 rollback"),
+            [-4.30, 2.60, -1.00]
+        )
+        with self.assertRaises(ValueError):
+            narrative_changes("Gasoline -P4.30 increase")
+
     def test_multiple_price_changes_require_review(self):
         with self.assertRaises(ValueError):
             narrative_changes("Gasoline 1.75/liter increase\nGasoline 1.30/liter increase\nDiesel 3.00/liter increase")
