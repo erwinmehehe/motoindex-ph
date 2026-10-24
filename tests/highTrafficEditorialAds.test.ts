@@ -112,7 +112,7 @@ describe("selective high-traffic editorial AdSense expansion", () => {
     // The Next global CSP must stay on nested paths. A broad exemption here
     // silently strips browser restrictions because middleware only handles
     // the five exact parent documents, not nested tire/helmet routes.
-    const pattern = config.match(/source: adDocumentsEnabled \\? "([^"]+)"/)?.[1];
+    const pattern = config.match(/source: adDocumentsEnabled \? "([^"]+)"/)?.[1];
     expect(pattern).toBeTruthy();
     const globalCspPath = new RegExp("^" + pattern + "$");
     for (const path of adRoutes) expect(globalCspPath.test(path)).toBe(false);
