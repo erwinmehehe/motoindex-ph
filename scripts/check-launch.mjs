@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { findSiblingDynamicRouteConflicts } from "./route-conflict-guard.mjs";
+import { meetsNextSecurityBaseline } from "./next-security-baseline.mjs";
 
 const root = process.cwd();
 const failures = [];
@@ -108,9 +109,8 @@ function checkDynamicSiblings(dir) {
 checkDynamicSiblings(appDir);
 
 const nextVersion = pkg.dependencies?.next || "";
-const parts = nextVersion.split(".").map(Number);
-if (!(parts[0] === 15 && parts[1] === 5 && parts[2] > 23)) {
-  failures.push(`Next.js ${nextVersion} is below the patched 15.5.24 security baseline. Upgrade to Next.js 15.5.24 or a newer supported 15.5 patch, regenerate the lockfile, and re-run verification.`);
+if (!meetsNextSecurityBaseline(nextVersion)) {
+  failures.push(`Next.js ${nextVersion} does not meet a reviewed security baseline (15.x >= 15.5.24 or 16.x >= 16.4.2). Use an approved, patched release line and verify its lockfile before deployment.`);
 }
 
 if (warnings.length) console.warn("Launch preflight warnings:\n- " + warnings.join("\n- "));
