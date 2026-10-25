@@ -86,8 +86,16 @@ if (metadataRows.length !== 20) {
 
 const seenTitles = new Set();
 const seenDescriptions = new Set();
+// Owner-approved model-first price title: keep the exact shorter CTR copy,
+// rather than padding it to satisfy a generic historical title-length target.
+const exactShortTitles = new Map([
+  ["honda-adv-160", "ADV 160 Price Philippines | MotoIndex"]
+]);
 for (const row of metadataRows) {
-  if (row.title.length < 55 || row.title.length > 60) {
+  const exactShortTitle = exactShortTitles.get(row.modelId);
+  if (exactShortTitle && row.title !== exactShortTitle) {
+    errors.push(`Next-20 approved title mismatch for ${row.modelId}: ${row.title}`);
+  } else if (!exactShortTitle && (row.title.length < 55 || row.title.length > 60)) {
     errors.push(`Next-20 title length should be 55-60 chars: ${row.modelId} (${row.title.length}).`);
   }
   if (row.description.length < 150 || row.description.length > 160) {
