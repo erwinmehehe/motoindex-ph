@@ -66,7 +66,7 @@ const profiles: Record<string, ModelIntentDepthProfile> = {
     intents: ["price", "specs", "colors", "ownership"]
   },
   "honda-adv-160": {
-    seoTitle: "Honda ADV160 Price Philippines 2026 | ABS vs RoadSync Guide",
+    seoTitle: "ADV 160 Price Philippines | MotoIndex",
     seoDescription: "Honda ADV160 price Philippines 2026 with ABS vs RoadSync, 157cc specs, colors, 780mm seat, fuel economy, HSTC, monthly estimate and ownership guidance.",
     intro: "ADV160 is a trim-sensitive purchase, so the page puts ABS versus RoadSync pricing and equipment alongside the shared 157cc specifications and ownership context.",
     intents: ["price", "variants", "specs", "colors"]
