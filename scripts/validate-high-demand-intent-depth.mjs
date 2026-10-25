@@ -37,8 +37,8 @@ for (const token of [
 }
 
 for (const token of [
-  'Yamaha Aerox V3 Price Philippines 2026 | Colors & SP',
-  'Yamaha NMAX V3 Price Philippines 2026 | Colors & Tech Max',
+  'Aerox V3 Price Philippines | MotoIndex',
+  'NMAX V3 Price Philippines | MotoIndex',
   'Honda Click 125i Price Philippines 2026 | Colors & Street'
 ]) {
   if (!growth.includes(token)) errors.push(`High-demand SEO title guard missing: ${token}`);
