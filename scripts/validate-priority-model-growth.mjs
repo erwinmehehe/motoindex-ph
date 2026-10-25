@@ -303,7 +303,7 @@ for (const token of [
 
 for (const token of [
   '"honda-adv-160": {',
-  'seoTitle: "Honda ADV160 Price Philippines 2026 | ABS & RoadSync"'
+  'seoTitle: "ADV 160 Price Philippines | MotoIndex"'
 ]) {
   if (!growth.includes(token)) errors.push(`priorityModelGrowth: ADV160 authority wave lost token ${token}`);
 }
@@ -335,7 +335,7 @@ for (const token of [
 
 for (const token of [
   '"yamaha-nmax-v3": {',
-  'seoTitle: "Yamaha NMAX V3 Price Philippines 2026 | Colors & Tech Max"'
+  'seoTitle: "NMAX V3 Price Philippines | MotoIndex"'
 ]) {
   if (!growth.includes(token)) errors.push(`priorityModelGrowth: NMAX V3 authority wave lost token ${token}`);
 }
@@ -366,7 +366,7 @@ for (const token of [
 
 for (const token of [
   '"yamaha-aerox-v3": {',
-  'seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Colors & SP"'
+  'seoTitle: "Aerox V3 Price Philippines | MotoIndex"'
 ]) {
   if (!growth.includes(token)) errors.push(`priorityModelGrowth: Aerox V3 authority wave lost token ${token}`);
 }
