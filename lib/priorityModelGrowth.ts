@@ -276,7 +276,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
   },
 
   "yamaha-aerox-v3": {
-    seoTitle: "Yamaha Aerox V3 Price Philippines 2026 | Colors & SP",
+    seoTitle: "Aerox V3 Price Philippines | MotoIndex",
     seoDescription: "Yamaha Aerox V3 price Philippines 2026 with Black, Race Blu and Glaze Blue colors, Standard vs SP pricing, 155cc specs, YECVT, ABS/TCS and financing.",
     intentIntro: "The Aerox V3 has a wide price and equipment spread, so compare the exact trim rather than treating every Aerox listing as the same scooter. Yamaha currently shows the base Aerox at ₱125,900, while current dealer data lists Aerox SP at ₱163,900; Yamaha positions the SP as the YECVT-equipped version with Sport/Touring modes and shift-down control.",
     moneyQuestion: "Does the exact Aerox Standard or SP still fit the budget after the real branch quote, down payment, monthly payment, insurance, registration and dealer charges are included?",
@@ -287,7 +287,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 150cc and 155cc scooters"
   },
   "yamaha-nmax-v3": {
-    seoTitle: "Yamaha NMAX V3 Price Philippines 2026 | Colors & Tech Max",
+    seoTitle: "NMAX V3 Price Philippines | MotoIndex",
     seoDescription: "Yamaha NMAX V3 price Philippines 2026 with Black, Light Grey, Black Gold and Dark Magma colors, NMAX vs Tech Max pricing, YECVT and ownership costs.",
     intentIntro: "NMAX V3 buyers need to separate the regular NMAX from the higher-spec Tech Max rather than compare one blended price. The stored regular-line reference is ₱155,900, while current dealer data lists Tech Max at ₱178,400; Yamaha identifies Tech Max as the YECVT-equipped version.",
     moneyQuestion: "How much does the exact NMAX or NMAX Tech Max cost after the branch quote, down payment, monthly payment, registration, insurance and dealer charges are included?",
