@@ -298,7 +298,7 @@ const profiles: Record<string, PriorityModelGrowthProfile> = {
     recommendationLabel: "Compare 150cc and 155cc scooters"
   },
   "honda-adv-160": {
-    seoTitle: "Honda ADV160 Price Philippines 2026 | ABS & RoadSync",
+    seoTitle: "ADV 160 Price Philippines | MotoIndex",
     seoDescription: "Honda ADV160 price in the Philippines: ₱167,400 ABS vs ₱174,900 RoadSync, 157cc specs, 780mm seat, 45 km/L, HSTC, monthly estimate and ownership.",
     intentIntro: "The 2026 ADV160 is a two-variant decision, not one blended price. Honda's ABS type is ₱167,400 and the RoadSync type is ₱174,900; both use the 157cc eSP+ platform, while RoadSync adds the connectivity-focused equipment Honda reserves for that trim.",
     moneyQuestion: "Is the ₱7,500 RoadSync premium worth paying after comparing the exact dealer quote, down payment, monthly payment, insurance, registration and whether you will actually use the connectivity features?",
