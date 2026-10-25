@@ -14,6 +14,12 @@ function modelMetaTitle(model: (typeof motorcycles)[number]) {
     || motorcycleEntitySeo(model).title;
 }
 
+const approvedModelFirstTitles = new Map([
+  ["yamaha-aerox-v3", "Aerox V3 Price Philippines | MotoIndex"],
+  ["yamaha-nmax-v3", "NMAX V3 Price Philippines | MotoIndex"],
+  ["honda-adv-160", "ADV 160 Price Philippines | MotoIndex"]
+]);
+
 describe("motorcycle detail page SEO titles", () => {
   it("keeps every catalog motorcycle price-first and branded without duplicate titles", () => {
     expect(motorcycles.length).toBeGreaterThan(200);
@@ -21,7 +27,12 @@ describe("motorcycle detail page SEO titles", () => {
     for (const model of motorcycles) {
       const title = modelMetaTitle(model);
       expect(title, model.id).toMatch(/ Price Philippines\b/i);
-      expect(title.toLowerCase().startsWith(model.make.toLowerCase() + " "), model.id).toBe(true);
+      const approvedModelFirstTitle = approvedModelFirstTitles.get(model.id);
+      if (approvedModelFirstTitle) {
+        expect(title, model.id).toBe(approvedModelFirstTitle);
+      } else {
+        expect(title.toLowerCase().startsWith(model.make.toLowerCase() + " "), model.id).toBe(true);
+      }
       expect(title.length, model.id).toBeLessThanOrEqual(65);
       expect(titles.has(title), `Duplicate model SEO title: ${title}`).toBe(false);
       titles.add(title);
