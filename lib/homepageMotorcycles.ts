@@ -1,20 +1,11 @@
 import type { Motorcycle } from "./types";
 
-// Keep the four previously featured models in view while adding higher-volume
-// current models. Search volume is historical research used for internal shelf
-// ordering, not a buyer recommendation or a live traffic claim.
+// This is an editorial homepage shelf, not a buyer recommendation ranking.
+// Search volumes are historical PH keyword research estimates stored in the
+// catalog, not live traffic, sales, or popularity figures.
 export const HOMEPAGE_MOTORCYCLE_LIMIT = 15;
 
-export const EXISTING_HOMEPAGE_MODEL_IDS = [
-  "yamaha-aerox-v3",
-  "yamaha-nmax-v3",
-  "honda-adv-160",
-  "honda-click-160",
-] as const;
-
-const existingIds = new Set<string>(EXISTING_HOMEPAGE_MODEL_IDS);
-
-function byRecordedSearchVolume(a: Motorcycle, b: Motorcycle) {
+function compareRecordedDemand(a: Motorcycle, b: Motorcycle) {
   return (
     b.searchVolume - a.searchVolume ||
     a.make.localeCompare(b.make) ||
@@ -24,20 +15,17 @@ function byRecordedSearchVolume(a: Motorcycle, b: Motorcycle) {
 }
 
 /**
- * Accept only current, indexable public catalog models from the caller.
- * Avoid duplicate model cards, retain the original four when still eligible,
- * and use recorded Philippine query demand to choose the remaining slots.
+ * The caller supplies current, indexable public models. Select the 15
+ * highest-demand unique models, without giving existing cards reserved slots
+ * that would exclude a model with higher recorded search volume.
  */
-export function selectHomepageMotorcycles(models: readonly Motorcycle[]) {
-  const uniqueModels = new Map<string, Motorcycle>();
+export function selectHomepageMotorcycles(models: readonly Motorcycle[]): Motorcycle[] {
+  const unique = new Map<string, Motorcycle>();
   for (const model of models) {
-    if (!uniqueModels.has(model.id)) uniqueModels.set(model.id, model);
+    if (!unique.has(model.id)) unique.set(model.id, model);
   }
 
-  const ranked = [...uniqueModels.values()].sort(byRecordedSearchVolume);
-  const retained = ranked.filter((model) => existingIds.has(model.id));
-  const slots = Math.max(0, HOMEPAGE_MOTORCYCLE_LIMIT - retained.length);
-  const additions = ranked.filter((model) => !existingIds.has(model.id)).slice(0, slots);
-
-  return [...retained, ...additions].sort(byRecordedSearchVolume);
+  return [...unique.values()]
+    .sort(compareRecordedDemand)
+    .slice(0, HOMEPAGE_MOTORCYCLE_LIMIT);
 }

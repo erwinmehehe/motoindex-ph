@@ -1,50 +1,41 @@
 import { describe, expect, it } from "vitest";
 import { isIndexableModel, publicMotorcycles } from "../lib/data";
-import {
-  EXISTING_HOMEPAGE_MODEL_IDS,
-  HOMEPAGE_MOTORCYCLE_LIMIT,
-  selectHomepageMotorcycles,
-} from "../lib/homepageMotorcycles";
+import { HOMEPAGE_MOTORCYCLE_LIMIT, selectHomepageMotorcycles } from "../lib/homepageMotorcycles";
 
-describe("homepage current motorcycle selection", () => {
+describe("homepage current motorcycles by recorded Philippine search volume", () => {
   const featured = selectHomepageMotorcycles(publicMotorcycles);
-  const featuredIds = new Set(featured.map((model) => model.id));
-  const originallyFeatured = new Set<string>(EXISTING_HOMEPAGE_MODEL_IDS);
 
-  it("shows 15 unique, current and indexable model pages", () => {
+  it("shows up to 15 unique, current and indexable model pages", () => {
     expect(featured).toHaveLength(Math.min(HOMEPAGE_MOTORCYCLE_LIMIT, publicMotorcycles.length));
-    expect(featuredIds.size).toBe(featured.length);
+    expect(new Set(featured.map((model) => model.id)).size).toBe(featured.length);
     expect(featured.every((model) =>
       isIndexableModel(model) && !["previous", "uncertain", "discontinued"].includes(model.marketStatus || "")
     )).toBe(true);
   });
 
-  it("retains all four original featured models while eligible", () => {
-    for (const id of EXISTING_HOMEPAGE_MODEL_IDS) {
-      if (publicMotorcycles.some((model) => model.id === id)) {
-        expect(featuredIds.has(id)).toBe(true);
-      }
-    }
-  });
-
-  it("uses recorded query volumes for ordering and fills other slots by demand", () => {
-    const volumes = featured.map((model) => model.searchVolume);
-    expect(volumes).toEqual([...volumes].sort((a, b) => b - a));
-
-    const additions = featured.filter((model) => !originallyFeatured.has(model.id));
-    const excluded = publicMotorcycles.filter((model) =>
-      !originallyFeatured.has(model.id) && !featuredIds.has(model.id)
+  it("uses all 15 positions for the highest-demand eligible models, without pinned exceptions", () => {
+    const expected = [...publicMotorcycles]
+      .sort((a, b) =>
+        b.searchVolume - a.searchVolume ||
+        a.make.localeCompare(b.make) ||
+        a.model.localeCompare(b.model) ||
+        a.id.localeCompare(b.id))
+      .slice(0, HOMEPAGE_MOTORCYCLE_LIMIT);
+    expect(featured.map((model) => model.id)).toEqual(expected.map((model) => model.id));
+    expect(featured.map((model) => model.searchVolume)).toEqual(
+      [...featured.map((model) => model.searchVolume)].sort((a, b) => b - a)
     );
-    if (additions.length > 0 && excluded.length > 0) {
-      const smallestIncludedVolume = Math.min(...additions.map((model) => model.searchVolume));
-      expect(excluded.every((model) => model.searchVolume <= smallestIncludedVolume)).toBe(true);
-    }
   });
 
-  it("does not mutate the caller's catalog order", () => {
-    const models = publicMotorcycles.slice(0, 20);
-    const ids = models.map((model) => model.id);
-    selectHomepageMotorcycles(models);
-    expect(models.map((model) => model.id)).toEqual(ids);
+  it("deduplicates input by model ID", () => {
+    const sample = [publicMotorcycles[0], publicMotorcycles[0], publicMotorcycles[1]];
+    expect(selectHomepageMotorcycles(sample).map((model) => model.id)).toHaveLength(2);
+  });
+
+  it("does not change the input catalog order", () => {
+    const sample = publicMotorcycles.slice(0, 20);
+    const before = sample.map((model) => model.id);
+    selectHomepageMotorcycles(sample);
+    expect(sample.map((model) => model.id)).toEqual(before);
   });
 });
