@@ -71,6 +71,14 @@ const websiteSchema = {
   }
 };
 
+// Owner-provided Google tag (gtag.js), reproduced in the document <head>.
+const googleTagHead = `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-20TKY10EPQ');
+`;
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en-PH" data-theme="premium-light" className={`${inter.variable} ${jakarta.variable}`}><body><Analytics/><AdSenseNavigationSafety/><MotionEnhancer/><MyShortlistSync/><a className="skip-link" href="#main-content">Skip to main content</a><Header /><main id="main-content" tabIndex={-1}>{children}</main><CompareTray models={publicMotorcycles.map(({id,make,model,slug})=>({id,make,model,slug}))}/><Footer /><JsonLd data={[organizationSchema, websiteSchema]} /></body></html>;
+  return <html lang="en-PH" data-theme="premium-light" className={`${inter.variable} ${jakarta.variable}`}><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-20TKY10EPQ" /><script id="motoindex-ga4-head" dangerouslySetInnerHTML={{ __html: googleTagHead }} /></head><body><Analytics/><AdSenseNavigationSafety/><MotionEnhancer/><MyShortlistSync/><a className="skip-link" href="#main-content">Skip to main content</a><Header /><main id="main-content" tabIndex={-1}>{children}</main><CompareTray models={publicMotorcycles.map(({id,make,model,slug})=>({id,make,model,slug}))}/><Footer /><JsonLd data={[organizationSchema, websiteSchema]} /></body></html>;
 }

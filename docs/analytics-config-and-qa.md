@@ -1,13 +1,13 @@
 # MotoIndex public-only analytics — operational approval required
 
 ## Privacy-first behavior
-- The client-side analytics code has **no hidden measurement-ID fallback**. The reviewed manual production workflow now provides owner-supplied `G-20TKY10EPQ` as a build-time default (or the explicitly configured GitHub production variable), but will NOT activate analytics unless both existing release gates are approved.
-- GA4, Plausible and custom application events are **OFF by default**. No third-party scripts are emitted unless `NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE=true` is explicitly supplied **at build time**, and the corresponding vetted GA4 ID / per-site Plausible script is configured. Keep the switch false in ordinary builds.
+- **Current proposed change (PR #519):** The owner explicitly requested the standard `G-20TKY10EPQ` Google tag directly in the document `<head>`. Unlike the earlier staged configuration, this makes GA4 independent of the release opt-in; **approval and private-route network QA remain outstanding**.
+- **GA4 now loads from the global `<head>` when PR #519 is deployed.** Plausible and custom application events remain OFF unless `NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE=true`. The production release gate still requires its separate approval, but the head tag itself is not governed by that flag.
 - A verified GA4 ID must match `G-...`. Plausible must use the dedicated `https://plausible.io/js/pa-....js` per-site script; the legacy automatic script is refused.
 - The app constructs pageviews using `origin + pathname` only, excluding query strings and URL fragments. Analytics now uses an **explicit public-page-family allowlist**: new or ambiguous/encoded routes, private accounts, admin/API, garage, dealer-lead, quote-status, magic links, confirmation/unsubscription, protected flows, and merchant redirects fail closed.
 - `trackEvent` uses the same deployment opt-in and public-path guard. Its event keys/values are allowlisted to catalogue identifiers, categorical slugs, bounded counts and flags. Unknown fields and unsafe strings (including names, email addresses, phone numbers, form locations, search phrases and bearer tokens) are dropped. Never pass personal data through event names either.
 - Raw user search terms are **never sent** to analytics, even if the legacy `NEXT_PUBLIC_ANALYTICS_CAPTURE_SEARCH_TERMS` value is set; only aggregate query length/result counts are eligible.
-- GA4 `gtag('config', ..., {send_page_view:false})` requests no automatic pageviews and the app issues at most one manual pageview per public pathname. Plausible initialization uses `autoCapturePageviews:false`.
+- The standard owner-supplied `gtag('config', 'G-20TKY10EPQ')` **sends an automatic initial pageview**. The Analytics component no longer initializes a second GA4 tag or sends a duplicate hydration pageview; its manual SPA events are sanitized. Turn OFF GA4 Enhanced Measurement browser-history pageviews to prevent duplicates or token leakage. Plausible continues using `autoCapturePageviews:false`.
 - A client-side router can retain third-party scripts after leaving a public page. **Code-level filtering alone does not prove privacy.** Do not enable tracking yet.
 
 ## Mandatory owner acceptance before enabling the switch
@@ -36,3 +36,18 @@ MotoIndex already has one Next.js `Analytics` component mounted in the root layo
 The existing component loads `https://www.googletagmanager.com/gtag/js?id=G-20TKY10EPQ` only after build-time opt-in, initializes `gtag('config', 'G-20TKY10EPQ', {send_page_view:false})`, and emits manual, query-free pageviews only for approved public routes. Private routes and bearer-token paths are excluded. This intentionally differs from Google's default snippet.
 
 The measurement ID is now present as a **build-time default** in `.github/workflows/cloudflare-production-deploy.yml` and in `.env.example`. Neither change activates tracking or deploys a site. Before production activation, the operator must still independently verify GA4 stream ownership, disable Enhanced Measurement browser-history pageviews in that stream, review consent/privacy and test direct-private and public-to-private browser navigation in a controlled preview under issue #466. Only after approval should both GitHub production Environment variables `MOTOINDEX_ANALYTICS_SAFE_ENABLE=true` and `MOTOINDEX_ANALYTICS_RELEASE_GATES_APPROVED=true` be set and a manually approved release performed.
+
+## October 26 — owner-directed Google tag in `<head>`
+
+The owner explicitly requested adding `G-20TKY10EPQ` to the document `<head>`. The root layout now has a single inline `gtag` bootstrap in `<head>`, with `send_page_view:false`. On approved public routes, the existing Analytics component appends `https://www.googletagmanager.com/gtag/js?id=G-20TKY10EPQ` to `document.head` once and sends manual, query-free pageviews. On direct private token/account routes, it does not load the external Google tag; public-to-private transitions set `ga-disable-G-20TKY10EPQ` to suppress tracking and clear the last-pageview marker.
+
+This is an explicit owner-directed change to enable GA4 public pageviews independent of the older optional analytics release variable, which still controls Plausible and custom application events. **GA4 Enhanced Measurement automatic browser-history pageviews should be disabled** in the GA4 property to avoid duplicates or private SPA events. Real preview/browser consent and private-navigation QA remain recommended under issue #466; this source change does not authorize a production deployment.
+
+The raw Google tag snippet was not pasted as a second independent tag because MotoIndex already had an analytics integration. The inline bootstrap is in `<head>`, and the `gtag.js` loader is placed in the DOM head only on public pages.
+
+
+## October 26 — exact owner-provided head tag replaces the earlier variation
+
+PR #519 was revised to include **both exact tags from the owner's snippet** in the root layout `<head>`: the asynchronous `gtag/js?id=G-20TKY10EPQ` loader and the inline `dataLayer`, `gtag('js', new Date())`, and `gtag('config', 'G-20TKY10EPQ')` bootstrap. The prior `send_page_view:false` option was removed to match the supplied tag. The client Analytics component no longer loads or initializes a second tag or duplicates the initial pageview.
+
+**Important privacy difference:** the standard snippet sends initial pageview data, potentially including URL query strings and private URL paths, unless prevented by the effective CSP or the GA4 account settings. It also loads on direct private document pages when the browser permits it. An explicit owner request does not establish consent, GA4 Enhanced Measurement configuration or privacy acceptance. Test network traffic with synthetic private paths and verify only permitted URLs are collected before deploying; keep the manual production release policy.

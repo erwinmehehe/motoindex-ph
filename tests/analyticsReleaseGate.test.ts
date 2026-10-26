@@ -5,15 +5,30 @@ import { describe, expect, it } from "vitest";
 
 describe("privacy analytics release gates", () => {
   const component = readFileSync(new URL("../components/Analytics.tsx", import.meta.url), "utf8");
+  const layout = readFileSync(new URL("../app/layout.tsx", import.meta.url), "utf8");
   const tracker = readFileSync(new URL("../lib/track.ts", import.meta.url), "utf8");
   const sample = readFileSync(new URL("../.env.example", import.meta.url), "utf8");
   const release = readFileSync(new URL("../.github/workflows/cloudflare-production-deploy.yml", import.meta.url), "utf8");
 
-  it("does not bootstrap GA4 or Plausible without explicit build-time owner approval", () => {
+  it("puts the exact owner-provided Google tag scripts in head exactly once", () => {
+    expect(layout).toContain('<head><script async src="https://www.googletagmanager.com/gtag/js?id=G-20TKY10EPQ"');
+    expect(layout).toContain('id="motoindex-ga4-head"');
+    expect(layout).toContain("window.dataLayer = window.dataLayer || [];");
+    expect(layout).toContain("function gtag(){dataLayer.push(arguments);}");
+    expect(layout).toContain("gtag('js', new Date());");
+    expect(layout).toContain("gtag('config', 'G-20TKY10EPQ');");
+    expect(layout).not.toContain("send_page_view: false");
+    expect(component).not.toContain("document.head.appendChild(script)");
+    expect(component).not.toContain("motoindex-ga4-loader");
+    expect(component).not.toContain("gtag(\"config\"");
+    expect(component).not.toContain("gtag('config'");
+    expect(component).toContain("previous === null");
+    expect(component).toContain('ga-disable-${ga}');
+  });
+
+  it("keeps Plausible, custom events, and production release controls gated", () => {
     expect(component).toContain('process.env.NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE === "true"');
-    expect(component).toContain('const ga = trackingEnabled ?');
     expect(component).toContain('const plausibleScript = trackingEnabled ?');
-    expect(component).toContain("send_page_view:false");
     expect(component).toContain("autoCapturePageviews:false");
   });
 
@@ -31,7 +46,7 @@ describe("privacy analytics release gates", () => {
     expect(tracker).not.toContain("...params, page_location");
   });
 
-  it("keeps analytics OFF by default and requires BOTH production approvals", () => {
+  it("keeps the optional provider and release opt-in controls intact", () => {
     expect(sample).toContain("NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE=false");
     expect(sample).toContain("NEXT_PUBLIC_GA_MEASUREMENT_ID=G-20TKY10EPQ");
     expect(release).toContain("vars.MOTOINDEX_GA_MEASUREMENT_ID || 'G-20TKY10EPQ'");
