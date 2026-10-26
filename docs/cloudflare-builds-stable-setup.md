@@ -17,13 +17,14 @@ https://developers.cloudflare.com/workers/ci-cd/builds/api-reference/
 
 ## One-time review and apply, without reconnecting
 
-A restricted, manual workflow is provided at `.github/workflows/cloudflare-builds-reconcile.yml`. It is available when reviewed onto `main`.
+A protected workflow is provided at `.github/workflows/cloudflare-builds-reconcile.yml`. When it first lands on reviewed `main`, a path-scoped **read-only inspection** runs once (subject to production-environment approval) and categorizes a known failed Cloudflare preview build. It never applies configuration changes automatically. The manual dispatcher then remains available for future inspection or a separately approved repair.
 
-1. In GitHub Actions, open **Inspect or repair MotoIndex Cloudflare Builds**.
-2. Select **inspect**. Optionally enter the failed build UUID shown in the Cloudflare build link. This reads the current triggers, actual build commands, and a sanitized error-category summary without printing raw logs.
-3. Inspect reports **all existing triggers**, including accounts with only one trigger or a nonstandard configuration. It also reports the suggested safe changes when it recognizes exactly one production and one preview trigger for `motoindex-ph`. If the account has a custom trigger or unsafe preview deploy command, **apply** refuses to guess while **inspect** remains read-only and useful.
-4. Select **apply**, enter `KEEP_GITHUB_CONNECTED`, and run the workflow from **main**. The protected `production` GitHub environment controls access to the token.
-5. Run **inspect** again to verify the recorded state, then retry the affected Cloudflare preview build. Verify its branch Preview URL. GitHub CI and browser QA must also remain green.
+1. After the reviewed repair is merged, check the GitHub Actions **Inspect or repair MotoIndex Cloudflare Builds** run triggered by the `main` push. It uses protected secrets only for a read-only inspection, and may require the GitHub production-environment approver. If its output shows missing credentials, configure a least-privilege Workers CI Read token and Workers Scripts Read permission before retrying.
+2. In GitHub Actions, open **Inspect or repair MotoIndex Cloudflare Builds**.
+3. Select **inspect**. Optionally enter the failed build UUID shown in the Cloudflare build link. This reads the current triggers, actual build commands, and a sanitized error-category summary without printing raw logs.
+4. Inspect reports **all existing triggers**, including accounts with only one trigger or a nonstandard configuration. It also reports the suggested safe changes when it recognizes exactly one production and one preview trigger for `motoindex-ph`. If the account has a custom trigger or unsafe preview deploy command, **apply** refuses to guess while **inspect** remains read-only and useful.
+5. Select **apply**, enter `KEEP_GITHUB_CONNECTED`, and run the workflow from **main**. The protected `production` GitHub environment controls access to the token.
+6. Run **inspect** again to verify the recorded state, then retry the affected Cloudflare preview build. Verify its branch Preview URL. GitHub CI and browser QA must also remain green.
 
 **Inspection is possible before this draft PR merges.** In a trusted local checkout of the draft branch, install no new dependencies and set `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_WORKERS_CI_TOKEN` as shell environment variables, then run:
 
