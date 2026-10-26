@@ -1,0 +1,68 @@
+name: Inspect or repair MotoIndex Cloudflare Builds
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "Inspect or apply safe trigger changes (never reconnects GitHub)"
+        type: choice
+        required: true
+        default: inspect
+        options:
+          - inspect
+          - apply
+      failed_build_uuid:
+        description: "Optional failed Cloudflare build UUID for diagnostics (inspect mode)"
+        type: string
+        required: false
+        default: ""
+      confirmation:
+        description: "For apply only: type KEEP_GITHUB_CONNECTED"
+        type: string
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: motoindex-cloudflare-build-settings
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_WORKERS_CI_TOKEN: ${{ secrets.CLOUDFLARE_WORKERS_CI_TOKEN }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      OPERATION: ${{ inputs.operation }}
+      BUILD_UUID: ${{ inputs.failed_build_uuid }}
+      MOTOINDEX_CLOUDFLARE_APPLY: ${{ inputs.confirmation }}
+    steps:
+      - name: Check out reviewed main
+        uses: actions/checkout@v7
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Confirm operation
+        shell: bash
+        run: |
+          if [ "$OPERATION" = "apply" ]; then
+            if [ "$MOTOINDEX_CLOUDFLARE_APPLY" != "KEEP_GITHUB_CONNECTED" ]; then
+              echo "To apply, enter KEEP_GITHUB_CONNECTED in the confirmation field."
+              exit 1
+            fi
+          fi
+      - name: Inspect or safely reconcile existing build triggers
+        shell: bash
+        run: |
+          if [ "$OPERATION" = "inspect" ]; then
+            node scripts/reconcile-cloudflare-builds.mjs inspect "$BUILD_UUID"
+          else
+            node scripts/reconcile-cloudflare-builds.mjs apply
+          fi
