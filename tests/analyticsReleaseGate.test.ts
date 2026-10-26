@@ -10,16 +10,20 @@ describe("privacy analytics release gates", () => {
   const sample = readFileSync(new URL("../.env.example", import.meta.url), "utf8");
   const release = readFileSync(new URL("../.github/workflows/cloudflare-production-deploy.yml", import.meta.url), "utf8");
 
-  it("puts the owner-requested GA4 tag in head without a second loader", () => {
-    expect(layout).toContain('<head><script id="motoindex-ga4-head"');
-    expect(layout).toContain("G-20TKY10EPQ");
-    expect(layout).toContain("send_page_view: false");
-    expect(component).toContain('const ga = googleAnalyticsMeasurementId("G-20TKY10EPQ")');
-    expect(component).toContain("document.head.appendChild(script)");
-    expect(component).toContain("if (!ga || !publicRoute) return;");
-    expect(component).toContain('script[data-motoindex-ga4-loader]');
-    expect(component).not.toContain('id="motoindex-ga"');
-    expect(component).not.toContain('<Script src={`https://www.googletagmanager.com');
+  it("puts the exact owner-provided Google tag scripts in head exactly once", () => {
+    expect(layout).toContain('<head><script async src="https://www.googletagmanager.com/gtag/js?id=G-20TKY10EPQ"');
+    expect(layout).toContain('id="motoindex-ga4-head"');
+    expect(layout).toContain("window.dataLayer = window.dataLayer || [];");
+    expect(layout).toContain("function gtag(){dataLayer.push(arguments);}");
+    expect(layout).toContain("gtag('js', new Date());");
+    expect(layout).toContain("gtag('config', 'G-20TKY10EPQ');");
+    expect(layout).not.toContain("send_page_view: false");
+    expect(component).not.toContain("document.head.appendChild(script)");
+    expect(component).not.toContain("motoindex-ga4-loader");
+    expect(component).not.toContain("gtag(\"config\"");
+    expect(component).not.toContain("gtag('config'");
+    expect(component).toContain("previous === null");
+    expect(component).toContain('ga-disable-${ga}');
   });
 
   it("keeps Plausible, custom events, and production release controls gated", () => {
