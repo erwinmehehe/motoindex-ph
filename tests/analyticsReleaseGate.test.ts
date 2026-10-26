@@ -33,6 +33,8 @@ describe("privacy analytics release gates", () => {
 
   it("keeps analytics OFF by default and requires BOTH production approvals", () => {
     expect(sample).toContain("NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE=false");
+    expect(sample).toContain("NEXT_PUBLIC_GA_MEASUREMENT_ID=G-20TKY10EPQ");
+    expect(release).toContain("vars.MOTOINDEX_GA_MEASUREMENT_ID || 'G-20TKY10EPQ'");
     expect(sample).toContain("NEXT_PUBLIC_PLAUSIBLE_SCRIPT_SRC=");
     expect(release).toContain("MOTOINDEX_ANALYTICS_SAFE_ENABLE || 'false'");
     expect(release).toContain("MOTOINDEX_ANALYTICS_RELEASE_GATES_APPROVED || 'false'");
