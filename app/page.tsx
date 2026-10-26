@@ -3,14 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { pageMetadata } from "@/lib/site";
 import {
-  currentMotorcycles,
+  publicMotorcycles,
   comparisons,
-  isIndexableModel,
   isIndexableComparison,
 } from "@/lib/data";
 import { helmetProducts, tireProducts, topBoxProducts } from "@/lib/catalog";
 import { ProductCard } from "@/components/ProductCard";
 import { MotorcycleCard } from "@/components/MotorcycleCard";
+import { selectHomepageMotorcycles } from "@/lib/homepageMotorcycles";
 import { ReviewedHomeHero } from "@/components/ReviewedHomeHero";
 import { AdSense } from "@/components/AdSense";
 import { GuideInContentAd } from "@/components/GuideInContentAd";
@@ -36,8 +36,8 @@ const startPoints = [
 
 export default async function HomePage() {
   const adNonce = await motorcycleAdNonce();
-  const verifiedModels = currentMotorcycles.filter(isIndexableModel);
-  const featured = verifiedModels.slice(0, 4);
+  const verifiedModels = publicMotorcycles;
+  const featured = selectHomepageMotorcycles(verifiedModels);
   const hasComparisons = comparisons.some((comparison) => isIndexableComparison(comparison.slug));
   const featuredHelmets = helmetProducts.filter((p) => p.status === "verified" && typeof p.priceFromPhp === "number").slice(0, 2);
   const featuredTires = tireProducts.filter((p) => p.status === "verified" && typeof p.priceFromPhp === "number").slice(0, 2);
