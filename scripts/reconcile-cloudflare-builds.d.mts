@@ -7,7 +7,11 @@ export interface WorkersBuildTrigger {
   build_command?: string;
   deploy_command?: string;
   repo_name?: string;
-  repo_connection?: { repo_name?: string };
+  repo_connection?: {
+    repo_name?: string;
+    provider_type?: string;
+    repo_connection_uuid?: string;
+  };
 }
 
 export interface WorkersBuildChange {
