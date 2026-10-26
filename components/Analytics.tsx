@@ -35,7 +35,7 @@ export function Analytics() {
     (window as unknown as Record<string, unknown>)[`ga-disable-${ga}`] = !publicRoute;
     const previous = previousGaPath.current;
     previousGaPath.current = pathname;
-    // The standard gtag('config') automatically sends the first page_view.
+    // The standard Google tag automatically sends the first page_view.
     // Do not send another pageview during hydration or same-path rerenders.
     if (previous === null || previous === pathname || !publicRoute || !pathname) return;
     const url = safePageviewUrl(window.location.origin, pathname);
