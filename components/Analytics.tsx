@@ -7,6 +7,7 @@ import { googleAnalyticsMeasurementId, plausibleSiteScriptUrl, publicAnalyticsAl
 
 type AnalyticsWindow = Window & {
   gtag?: (...args: unknown[]) => void;
+  dataLayer?: unknown[];
   plausible?: ((event: string, options?: unknown) => void) & {
     init?: (options: { autoCapturePageviews: boolean }) => void;
   };
@@ -16,10 +17,11 @@ type AnalyticsWindow = Window & {
 export function Analytics() {
   const pathname = usePathname();
   const publicRoute = publicAnalyticsAllowed(pathname);
-  // Do not enable third-party analytics until the owner has verified consent,
-  // GA4 Enhanced Measurement settings and public-to-private SPA navigation.
+  // GA4 tag is owner-requested in the document <head>. A third-party loader is
+  // appended only on public routes to avoid network calls on private landings.
+  // Plausible and other custom events retain their separate release opt-in.
   const trackingEnabled = process.env.NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE === "true";
-  const ga = trackingEnabled ? googleAnalyticsMeasurementId(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID) : "";
+  const ga = googleAnalyticsMeasurementId("G-20TKY10EPQ");
   const plausibleScript = trackingEnabled ? plausibleSiteScriptUrl(process.env.NEXT_PUBLIC_PLAUSIBLE_SCRIPT_SRC) : "";
   const [gaInitialized, setGaInitialized] = useState(false);
   const [plausibleInitialized, setPlausibleInitialized] = useState(false);
@@ -33,6 +35,27 @@ export function Analytics() {
     if (!ga) return;
     (window as unknown as Record<string, unknown>)[`ga-disable-${ga}`] = !publicRoute;
     if (!publicRoute) lastGaPath.current = "";
+  }, [ga, publicRoute]);
+
+  useEffect(() => {
+    if (!ga || !publicRoute) return;
+    const w = window as AnalyticsWindow;
+    // The inline <head> bootstrap normally creates this queue. Initialize it
+    // here as a fallback if a strict document CSP suppressed the inline tag.
+    if (!w.gtag) {
+      w.dataLayer = w.dataLayer || [];
+      w.gtag = (...args: unknown[]) => { w.dataLayer?.push(args); };
+      w.gtag("js", new Date());
+      w.gtag("config", ga, { send_page_view: false, anonymize_ip: true });
+    }
+    if (!document.head.querySelector('script[data-motoindex-ga4-loader]')) {
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ga)}`;
+      script.dataset.motoindexGa4Loader = "true";
+      document.head.appendChild(script);
+    }
+    setGaInitialized(true);
   }, [ga, publicRoute]);
 
   useEffect(() => {
@@ -57,13 +80,7 @@ export function Analytics() {
   }, [plausibleScript, plausibleLoaded, publicRoute, pathname]);
 
   return <>
-    {publicRoute && ga && <>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ga)}`} strategy="afterInteractive" />
-      <Script id="motoindex-ga" strategy="afterInteractive" onReady={() => setGaInitialized(true)}>{
-        `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;gtag('js',new Date());gtag('config',${JSON.stringify(ga)},{anonymize_ip:true,send_page_view:false});`
-      }</Script>
-    </>}
-    {publicRoute && plausibleScript && <>
+     {publicRoute && plausibleScript && <>
       <Script id="motoindex-plausible-init" strategy="afterInteractive" onReady={() => setPlausibleInitialized(true)}>{
         "window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)};window.plausible.init=window.plausible.init||function(options){window.plausible.o=options||{}};window.plausible.init({autoCapturePageviews:false});"
       }</Script>

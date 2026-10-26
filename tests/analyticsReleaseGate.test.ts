@@ -5,15 +5,26 @@ import { describe, expect, it } from "vitest";
 
 describe("privacy analytics release gates", () => {
   const component = readFileSync(new URL("../components/Analytics.tsx", import.meta.url), "utf8");
+  const layout = readFileSync(new URL("../app/layout.tsx", import.meta.url), "utf8");
   const tracker = readFileSync(new URL("../lib/track.ts", import.meta.url), "utf8");
   const sample = readFileSync(new URL("../.env.example", import.meta.url), "utf8");
   const release = readFileSync(new URL("../.github/workflows/cloudflare-production-deploy.yml", import.meta.url), "utf8");
 
-  it("does not bootstrap GA4 or Plausible without explicit build-time owner approval", () => {
+  it("puts the owner-requested GA4 tag in head without a second loader", () => {
+    expect(layout).toContain('<head><script id="motoindex-ga4-head"');
+    expect(layout).toContain("G-20TKY10EPQ");
+    expect(layout).toContain("send_page_view: false");
+    expect(component).toContain('const ga = googleAnalyticsMeasurementId("G-20TKY10EPQ")');
+    expect(component).toContain("document.head.appendChild(script)");
+    expect(component).toContain("if (!ga || !publicRoute) return;");
+    expect(component).toContain('script[data-motoindex-ga4-loader]');
+    expect(component).not.toContain('id="motoindex-ga"');
+    expect(component).not.toContain('<Script src={`https://www.googletagmanager.com');
+  });
+
+  it("keeps Plausible, custom events, and production release controls gated", () => {
     expect(component).toContain('process.env.NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE === "true"');
-    expect(component).toContain('const ga = trackingEnabled ?');
     expect(component).toContain('const plausibleScript = trackingEnabled ?');
-    expect(component).toContain("send_page_view:false");
     expect(component).toContain("autoCapturePageviews:false");
   });
 
@@ -31,7 +42,7 @@ describe("privacy analytics release gates", () => {
     expect(tracker).not.toContain("...params, page_location");
   });
 
-  it("keeps analytics OFF by default and requires BOTH production approvals", () => {
+  it("keeps the optional provider and release opt-in controls intact", () => {
     expect(sample).toContain("NEXT_PUBLIC_ANALYTICS_SAFE_ENABLE=false");
     expect(sample).toContain("NEXT_PUBLIC_GA_MEASUREMENT_ID=G-20TKY10EPQ");
     expect(release).toContain("vars.MOTOINDEX_GA_MEASUREMENT_ID || 'G-20TKY10EPQ'");
