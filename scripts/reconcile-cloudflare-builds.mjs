@@ -11,6 +11,15 @@ const SAFE_PRODUCTION = "npx wrangler versions upload";
 
 const includes = (items, value) => Array.isArray(items) && items.includes(value);
 const identical = (a, b) => JSON.stringify(a || []) === JSON.stringify(b || []);
+function visibleCommand(command) {
+  const safeValues = new Set([
+    "npm run build", "npm run cf:build",
+    "npx wrangler deploy", "npx wrangler preview",
+    "npx wrangler versions upload", "npx opennextjs-cloudflare upload"
+  ]);
+  const value = String(command || "").trim();
+  return safeValues.has(value) ? value : "[custom command hidden; inspect securely in Cloudflare]";
+}
 
 export function safePreviewCommand(command) {
   // Exact allowlist: shell chaining (for example '&& wrangler deploy') must
@@ -109,7 +118,7 @@ async function execute() {
     const metadata = build?.build_trigger_metadata || {};
     console.log("Build metadata:", JSON.stringify({
       outcome:build?.build_outcome, branch:metadata.branch,
-      buildCommand:metadata.build_command, deployCommand:metadata.deploy_command
+      buildCommand:visibleCommand(metadata.build_command), deployCommand:visibleCommand(metadata.deploy_command)
     }));
     const log = await request("/builds/builds/" + buildId + "/logs");
     console.log("Sanitized build diagnosis:", JSON.stringify({
@@ -129,7 +138,7 @@ async function execute() {
     console.log(item.role + " trigger:", JSON.stringify({
       id:item.uuid, branchIncludes:item.before.branch_includes,
       branchExcludes:item.before.branch_excludes,
-      build:item.before.build_command, deploy:item.before.deploy_command,
+      build:visibleCommand(item.before.build_command), deploy:visibleCommand(item.before.deploy_command),
       proposedPatch:item.patch
     }));
   }
