@@ -13,9 +13,17 @@ const includes = (items, value) => Array.isArray(items) && items.includes(value)
 const identical = (a, b) => JSON.stringify(a || []) === JSON.stringify(b || []);
 
 export function safePreviewCommand(command) {
-  const s = String(command || "").trim();
-  return /^(?:npx\s+)?wrangler\s+(?:preview|versions\s+upload)(?:\s|$)/.test(s) ||
-    /^(?:npx\s+)?opennextjs-cloudflare\s+upload(?:\s|$)/.test(s);
+  // Exact allowlist: shell chaining (for example '&& wrangler deploy') must
+  // never turn a preview into an accidental production release.
+  const safe = new Set([
+    "npx wrangler preview",
+    "wrangler preview",
+    "npx wrangler versions upload",
+    "wrangler versions upload",
+    "npx opennextjs-cloudflare upload",
+    "opennextjs-cloudflare upload"
+  ]);
+  return safe.has(String(command || "").trim());
 }
 
 export function planCloudflareBuildChanges(triggers) {
