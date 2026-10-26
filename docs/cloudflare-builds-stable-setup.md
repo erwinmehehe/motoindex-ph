@@ -25,7 +25,7 @@ A restricted, manual workflow is provided at `.github/workflows/cloudflare-build
 4. Select **apply**, enter `KEEP_GITHUB_CONNECTED`, and run the workflow from **main**. The protected `production` GitHub environment controls access to the token.
 5. Run **inspect** again to verify the recorded state, then retry the affected Cloudflare preview build. Verify its branch Preview URL. GitHub CI and browser QA must also remain green.
 
-This workflow uses `CLOUDFLARE_ACCOUNT_ID` and a Cloudflare API token. Prefer the protected-environment secret `CLOUDFLARE_WORKERS_CI_TOKEN` with Workers CI Read/Write permission; it falls back to the existing `CLOUDFLARE_API_TOKEN` if that token already has those permissions. Do not place credentials into `wrangler.jsonc`, commit them to git, or print raw build logs.
+This workflow uses `CLOUDFLARE_ACCOUNT_ID` and a Cloudflare API token. Prefer the protected-environment secret `CLOUDFLARE_WORKERS_CI_TOKEN` with Workers CI Read and Write plus Workers Scripts Read permissions (the last permission resolves the Worker's immutable tag); it falls back to the existing `CLOUDFLARE_API_TOKEN` if that token already has those permissions. Do not place credentials into `wrangler.jsonc`, commit them to git, or print raw build logs.
 
 The reconciliation script **only GETs and PATCHes existing Workers Builds triggers**. It never calls repository-connection APIs, deletes triggers, invokes a production deployment, or switches the legacy preview model to Worker Previews. If a trigger is missing or settings differ from the expected shape, it fails closed rather than rebuilding a connection.
 
