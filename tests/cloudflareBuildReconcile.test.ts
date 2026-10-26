@@ -45,6 +45,7 @@ describe("Cloudflare Builds stays connected with safe preview triggers", () => {
     expect(safePreviewCommand("npx wrangler versions upload")).toBe(true);
     expect(safePreviewCommand("npx wrangler preview")).toBe(true);
     expect(safePreviewCommand("npx wrangler deploy")).toBe(false);
+    expect(safePreviewCommand("npx wrangler preview && npx wrangler deploy")).toBe(false);
     expect(() => planCloudflareBuildChanges([
       production, {...preview, deploy_command:"npx wrangler deploy"}
     ])).toThrow(/Unexpected preview deploy/);
