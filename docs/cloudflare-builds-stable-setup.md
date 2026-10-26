@@ -21,9 +21,17 @@ A restricted, manual workflow is provided at `.github/workflows/cloudflare-build
 
 1. In GitHub Actions, open **Inspect or repair MotoIndex Cloudflare Builds**.
 2. Select **inspect**. Optionally enter the failed build UUID shown in the Cloudflare build link. This reads the current triggers, actual build commands, and a sanitized error-category summary without printing raw logs.
-3. Check that exactly one production trigger and one preview trigger are found for `motoindex-ph`. If the account uses a custom or unsafe preview deploy command, the script deliberately refuses to guess.
+3. Inspect reports **all existing triggers**, including accounts with only one trigger or a nonstandard configuration. It also reports the suggested safe changes when it recognizes exactly one production and one preview trigger for `motoindex-ph`. If the account has a custom trigger or unsafe preview deploy command, **apply** refuses to guess while **inspect** remains read-only and useful.
 4. Select **apply**, enter `KEEP_GITHUB_CONNECTED`, and run the workflow from **main**. The protected `production` GitHub environment controls access to the token.
 5. Run **inspect** again to verify the recorded state, then retry the affected Cloudflare preview build. Verify its branch Preview URL. GitHub CI and browser QA must also remain green.
+
+**Inspection is possible before this draft PR merges.** In a trusted local checkout of the draft branch, install no new dependencies and set `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_WORKERS_CI_TOKEN` as shell environment variables, then run:
+
+```bash
+node scripts/reconcile-cloudflare-builds.mjs inspect 0ac31477-dab4-4ebb-950c-e38452aa2ba7
+```
+
+The UUID is the failed Cloudflare build for draft PR #517. Use the `inspect` operation only until the actual build log has been reviewed; do not run `apply` on an unreviewed feature branch.
 
 This workflow uses `CLOUDFLARE_ACCOUNT_ID` and a Cloudflare API token. Prefer the protected-environment secret `CLOUDFLARE_WORKERS_CI_TOKEN` with Workers CI Read and Write plus Workers Scripts Read permissions (the last permission resolves the Worker's immutable tag); it falls back to the existing `CLOUDFLARE_API_TOKEN` if that token already has those permissions. Do not place credentials into `wrangler.jsonc`, commit them to git, or print raw build logs.
 

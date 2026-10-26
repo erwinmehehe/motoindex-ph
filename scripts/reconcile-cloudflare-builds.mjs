@@ -50,6 +50,13 @@ export function planCloudflareBuildChanges(triggers) {
     if (!/^[a-f0-9-]{36}$/i.test(String(item.trigger_uuid || ""))) throw new Error("Invalid trigger ID.");
     const connectedRepo = item.repo_connection?.repo_name || item.repo_name;
     if (connectedRepo && connectedRepo !== NAME) throw new Error("Unexpected GitHub repo; no changes made.");
+    const provider = item.repo_connection?.provider_type;
+    if (provider && provider !== "github") throw new Error("Unexpected Git provider; no changes made.");
+  }
+  const prodConnection = production[0].repo_connection?.repo_connection_uuid;
+  const previewConnection = previews[0].repo_connection?.repo_connection_uuid;
+  if (prodConnection && previewConnection && prodConnection !== previewConnection) {
+    throw new Error("Production and preview triggers use different Git connections; no changes made.");
   }
   if (!safePreviewCommand(previews[0].deploy_command)) {
     throw new Error("Unexpected preview deploy command; inspect it before applying.");
@@ -133,16 +140,36 @@ async function execute() {
   const worker = workers.find(item => item.id === NAME);
   if (!worker?.tag) throw new Error("MotoIndex Worker tag could not be verified.");
   const triggerPath = "/builds/workers/" + encodeURIComponent(worker.tag) + "/triggers";
-  const plan = planCloudflareBuildChanges(await request(triggerPath));
-  for (const item of plan) {
-    console.log(item.role + " trigger:", JSON.stringify({
-      id:item.uuid, branchIncludes:item.before.branch_includes,
-      branchExcludes:item.before.branch_excludes,
-      build:visibleCommand(item.before.build_command), deploy:visibleCommand(item.before.deploy_command),
-      proposedPatch:item.patch
+  const triggers = await request(triggerPath);
+  if (!Array.isArray(triggers)) throw new Error("Cloudflare did not return a trigger list.");
+  console.log("Existing build triggers:", triggers.length);
+  for (const item of triggers) {
+    console.log("Trigger:", JSON.stringify({
+      id: item.trigger_uuid, name: item.trigger_name,
+      provider: item.repo_connection?.provider_type || "[not supplied]",
+      repository: item.repo_connection?.repo_name || item.repo_name || "[not supplied]",
+      branchIncludes: item.branch_includes,
+      branchExcludes: item.branch_excludes,
+      build: visibleCommand(item.build_command),
+      deploy: visibleCommand(item.deploy_command)
     }));
   }
-  if (operation === "inspect") return console.log("Read-only inspection complete; no changes made.");
+  // Inspection should work even on accounts with only one trigger or a
+  // nonstandard setup. Applying changes remains deliberately fail-closed.
+  if (operation === "inspect") {
+    try {
+      const proposed = planCloudflareBuildChanges(triggers);
+      for (const item of proposed) {
+        console.log(item.role + " proposed change:", JSON.stringify(item.patch));
+      }
+      console.log("Read-only inspection complete; no changes made.");
+    } catch (error) {
+      console.log("No safe automatic change plan:", error.message);
+      console.log("Read-only inspection complete; account requires configuration review.");
+    }
+    return;
+  }
+  const plan = planCloudflareBuildChanges(triggers);
 
   // No DELETE and no repo-connection API calls: keep GitHub linked.
   for (const item of plan) {

@@ -56,6 +56,13 @@ describe("Cloudflare Builds stays connected with safe preview triggers", () => {
     expect(() => planCloudflareBuildChanges([
       {...production, repo_name:"another-repo"}, preview
     ])).toThrow(/Unexpected GitHub repo/);
+    expect(() => planCloudflareBuildChanges([
+      {...production, repo_connection:{provider_type:"gitlab", repo_name:"motoindex-ph"}}, preview
+    ])).toThrow(/Unexpected Git provider/);
+    expect(() => planCloudflareBuildChanges([
+      {...production, repo_connection:{provider_type:"github", repo_name:"motoindex-ph", repo_connection_uuid:"prod"}},
+      {...preview, repo_connection:{provider_type:"github", repo_name:"motoindex-ph", repo_connection_uuid:"preview"}}
+    ])).toThrow(/different Git connections/);
   });
 
   it("classifies failure logs without exposing their contents", () => {
