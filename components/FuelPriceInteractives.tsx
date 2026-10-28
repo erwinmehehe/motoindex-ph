@@ -69,6 +69,9 @@ export function FuelCompanyExplorer({ companies, sourceUrl }: { companies: FuelC
 function formatImpact(value: number): string {
   return `₱${Math.abs(value).toLocaleString("en-PH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
+function formatSignedImpact(value: number): string {
+  return `${value < 0 ? "−" : value > 0 ? "+" : ""}${formatImpact(value)}`;
+}
 
 export function FuelCostImpactCalculator({ summary }: { summary: Record<FuelType, FuelMovement> }) {
   const [fuel, setFuel] = useState<FuelType>("gasoline");
@@ -79,7 +82,7 @@ export function FuelCostImpactCalculator({ summary }: { summary: Record<FuelType
   const low = valid && adjustment ? adjustment.min * liters : null;
   const high = valid && adjustment ? adjustment.max * liters : null;
   const value = low === null || high === null ? "Not available" : low !== high
-    ? `${formatImpact(low)} to ${formatImpact(high)}`
+    ? `${formatSignedImpact(low)} to ${formatSignedImpact(high)}`
     : `${formatImpact(low)} ${low < 0 ? "less" : low > 0 ? "more" : "change"}`;
 
   return <article className={styles.calculator}>
