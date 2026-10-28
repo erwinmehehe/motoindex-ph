@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { EntityMedia } from "@/components/EntityMedia";
+import { getRenderableMedia } from "@/lib/renderableMedia";
+import { contextualHeroImageAlt } from "@/lib/motorcycleHeroSeo";
 import type { ModelFamily } from "@/lib/families";
 import { getFamilyModels } from "@/lib/families";
 import { php } from "@/lib/utils";
@@ -18,6 +20,9 @@ import { MotorcycleInContentAd } from "@/components/MotorcycleInContentAd";
 export function ModelFamilyView({ family, nonceReady = false }: { family: ModelFamily; nonceReady?: boolean }) {
   const models = getFamilyModels(family);
   const current = models.find((m) => m?.id === family.currentModelId);
+  const familyHeroHeading = `${family.make} ${family.name} prices and generations`;
+  const currentHeroMedia = current ? getRenderableMedia("motorcycle", current.id)[0] : undefined;
+  const familyHeroAlt = currentHeroMedia ? contextualHeroImageAlt(currentHeroMedia.alt, familyHeroHeading) : undefined;
   const previous = models.find((m) => m && m.id !== family.currentModelId);
   const generationDelta = current && previous ? {
     engine: current.engineCc - previous.engineCc,
@@ -92,8 +97,8 @@ export function ModelFamilyView({ family, nonceReady = false }: { family: ModelF
         <div className="model-family-hero-grid">
           <div className="model-family-hero-copy">
             <span className="entity-kicker">Model family · Philippines</span>
-            <h1>{family.make} {family.name} prices and generations</h1>
-            <p>{family.intro} Use this page to identify the exact generation first, then open that model for its price sources, specs, financing and ownership details.</p>
+            <h1>{familyHeroHeading}</h1>
+            <p>Explore {familyHeroHeading} in the Philippines. {family.intro} Use this page to identify the exact generation first, then open that model for its price sources, specs, financing and ownership details.</p>
             {current && <div className="model-family-direct-answer">
               <span>Current generation</span>
               <strong>{current.make} {current.model} · {observedMarketPriceLabel(current)}</strong>
@@ -109,6 +114,7 @@ export function ModelFamilyView({ family, nonceReady = false }: { family: ModelF
               entityType="motorcycle"
               entityId={current.id}
               className="model-family-current-media"
+              altOverride={familyHeroAlt}
               linkHref={`/motorcycles/${current.makeSlug}/${current.slug}`}
               showCredit={false}
               forceFill

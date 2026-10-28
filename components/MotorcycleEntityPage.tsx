@@ -41,6 +41,7 @@ import { listingsForModel, marketSummary } from "@/lib/usedMarket";
 import { usedValueCurve } from "@/lib/ownership";
 import { php } from "@/lib/utils";
 import { motorcycleEntityEditorial, motorcycleEntityFaqs, motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
+import { modelHeroImageAlt } from "@/lib/motorcycleHeroSeo";
 import { absoluteUrl } from "@/lib/site";
 import { getRenderableMedia } from "@/lib/media";
 import { modelAuthorityProfile } from "@/lib/modelAuthority";
@@ -210,7 +211,7 @@ export function MotorcycleEntityPage({ model, omitHero = false, nonceReady = fal
             <Freshness model={model} />
           </div>
           <div className="motorcycle-hero-visual">
-            <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" priority showCredit={false} sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} className="authority-media-fallback" />} />
+            <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" altOverride={media ? modelHeroImageAlt(model, media.alt) : undefined} priority showCredit={false} sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} className="authority-media-fallback" />} />
             <div className="motorcycle-hero-facts">
               <HeroFact label="Engine" value={`${model.engineCc} cc`} note={`${model.powerHp} hp · ${model.torqueNm} Nm`} />
               <HeroFact label="Seat" value={`${model.seatHeightMm} mm`} note={`${model.curbWeightKg} kg curb weight`} />

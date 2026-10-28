@@ -12,6 +12,7 @@ import { DecisionPath } from "@/components/DecisionPath";
 import { RecentlyViewedTracker } from "@/components/RecentlyViewed";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
+import { contextualHeroImageAlt, modelHeroImageAlt } from "@/lib/motorcycleHeroSeo";
 import { priorityModelGrowthProfile } from "@/lib/priorityModelGrowth";
 import { modelIntentDepthProfile } from "@/lib/modelIntentDepth2026";
 import { getRenderableMedia } from "@/lib/renderableMedia";
@@ -57,7 +58,8 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
       title: `${electricModel.make} ${electricModel.model} Price Philippines | Range & Specs`,
       description: `${electricModel.make} ${electricModel.model} electric motorcycle price, battery capacity, claimed range, charging time, maximum speed and LTO classification in the Philippines.`,
       path: `/motorcycles/electric/${electricModel.slug}`,
-      image: electricModel.imageUrl
+      image: electricModel.imageUrl,
+      imageAlt: contextualHeroImageAlt(`${electricModel.make} ${electricModel.model} electric motorcycle`, `${electricModel.make} ${electricModel.model} price and specifications in the Philippines`)
     });
   }
   if (make === "honda" && slug === "crf250-rally") {
@@ -89,7 +91,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
       path: `/motorcycles/${family.makeSlug}/${family.slug}`,
       index,
       image: media?.src,
-      imageAlt: media?.alt || `${family.make} ${family.name} current generation`,
+      imageAlt: media ? contextualHeroImageAlt(media.alt, `${family.make} ${family.name} prices and generations`) : `${family.make} ${family.name} current generation`,
       imageWidth: media?.width,
       imageHeight: media?.height
     });
@@ -108,7 +110,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
     path: `/motorcycles/${model.makeSlug}/${model.slug}`,
     index: isIndexableModel(model),
     image,
-    imageAlt: media?.alt || `${model.make} ${model.model} motorcycle`,
+    imageAlt: media ? modelHeroImageAlt(model, media.alt) : `${model.make} ${model.model} motorcycle`,
     imageWidth: media?.width,
     imageHeight: media?.height
   });
