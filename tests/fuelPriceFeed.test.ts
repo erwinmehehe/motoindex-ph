@@ -38,8 +38,14 @@ describe("DOE weekly fuel price feed", () => {
     const workflow = readFileSync(new URL("../.github/workflows/doe-fuel-prices.yml", import.meta.url), "utf8");
     expect(workflow).toContain("github.event_name != 'pull_request' && github.ref == 'refs/heads/main'");
     const page = readFileSync(new URL("../app/gas-price-philippines/page.tsx", import.meta.url), "utf8");
-    expect(page).toContain("hypothetical ₱1.00-per-liter gasoline change");
+    // The redesigned page calculates the impact of current, source-verified
+    // adjustments rather than displaying a hard-coded weekly price example.
+    expect(page).toContain("<FuelCostImpactCalculator summary={latest.summary}/>");
     expect(page).not.toContain("a ₱4.30/L gasoline decrease");
+    const calculator = readFileSync(new URL("../components/FuelPriceInteractives.tsx", import.meta.url), "utf8");
+    expect(calculator).toContain("assuming the same weekly volume");
+    expect(calculator).toContain("Illustrative estimate only, not a retail price forecast.");
+    expect(calculator).not.toContain("a ₱4.30/L gasoline decrease");
     const wrangler = JSON.parse(readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8"));
     expect(wrangler.assets.run_worker_first).toContain("/gas-price-philippines");
   });
