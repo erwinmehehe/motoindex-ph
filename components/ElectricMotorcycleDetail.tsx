@@ -116,7 +116,7 @@ export function ElectricMotorcycleDetail({ model, nonceReady = false }: { model:
       <div className="section-head compact"><div><span className="section-kicker">Electric lineup</span><h2>Compare other electric motorcycles</h2><p>Keep price, range and charging comparisons inside the same verified Philippine electric-motorcycle set.</p></div></div>
       <div className="catalog-grid">
         {siblings.map(item=><Link className="catalog-card" href={electricModelHref(item.slug)} key={item.slug}>
-          <div className="catalog-media"><img src={item.imageUrl} alt={`${item.make} ${item.model} electric motorcycle`} loading="lazy"/></div>
+          <div className="catalog-media"><img src={item.imageUrl} alt={`${item.make} ${item.model} electric motorcycle for the ${item.model} Price Philippines guide`} loading="lazy"/></div>
           <span className="catalog-status">LTO L3</span>
           <h3>{item.make} {item.model}</h3>
           <strong>{php(item.priceFromPhp)}</strong>
