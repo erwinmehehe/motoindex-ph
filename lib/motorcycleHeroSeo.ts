@@ -22,7 +22,7 @@ export function modelHeroIntro(model: Motorcycle, defaultIntro: string): string 
 }
 
 function escapeRegex(value: string): string {
-  return value.replace(/[.*+?^$\{\}()|[\]\\]/g, "\\$&");
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 // Preserve detailed, model-specific price descriptions from the existing SEO
