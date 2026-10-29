@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
       description: `${electricModel.model} Price Philippines: Compare ${electricModel.make} ${electricModel.model} battery, claimed range, charging, top speed and LTO classification.`,
       path: `/motorcycles/electric/${electricModel.slug}`,
       image: electricModel.imageUrl,
-      imageAlt: contextualHeroImageAlt(`${electricModel.make} ${electricModel.model} electric motorcycle`, `${electricModel.make} ${electricModel.model} price and specifications in the Philippines`)
+      imageAlt: contextualHeroImageAlt(`${electricModel.make} ${electricModel.model} electric motorcycle`, `${electricModel.model} Price Philippines`)
     });
   }
   if (make === "honda" && slug === "crf250-rally") {
@@ -114,7 +114,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
     path: `/motorcycles/${model.makeSlug}/${model.slug}`,
     index: isIndexableModel(model),
     image: historicalPhoto?.src || image,
-    imageAlt: historicalPhoto ? modelHeroImageAlt(model, historicalPhoto.alt) : media ? modelHeroImageAlt(model, media.alt) : `${model.make} ${model.model} motorcycle`,
+    imageAlt: modelHeroImageAlt(model, historicalPhoto?.alt || media?.alt || `${model.make} ${model.model} motorcycle image not available`),
     imageWidth: historicalPhoto?.width || media?.width,
     imageHeight: historicalPhoto?.height || media?.height
   });
@@ -137,7 +137,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
           width: 1200,
           height: 630,
           type: "image/png",
-          alt: "MotoIndex PH Yamaha Aerox V3 2026 Standard vs SP published price guide"
+          alt: "Yamaha Aerox V3 Standard vs SP motorcycle price guide, Aerox V3 Price Philippines"
         }]
       },
       twitter: {
