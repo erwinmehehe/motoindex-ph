@@ -31,17 +31,27 @@ function escapeRegex(value: string): string {
 export function modelPriceMetaDescription(model: Motorcycle, sourceDescription: string): string {
   const heading = priceFocusedModelHeading(model);
   const description = sourceDescription.replace(/\s+/g, " ").trim();
-  const fullName = `${model.make} ${model.model}`;
-  const branded = new RegExp(`^${escapeRegex(fullName)}\\s+price\\s+(?:in\\s+(?:the\\s+)?)?Philippines\\b`, "i");
-  let aligned: string;
-
+  const compactModel = model.model.replace(/\s+/g, "");
+  const brandedNames = new Set([
+    `${model.make} ${model.model}`,
+    `${model.make} ${compactModel}`,
+    model.model,
+    compactModel,
+    ...(model.alsoKnownAs || [])
+  ]);
+  let aligned = "";
   if (description.toLowerCase().startsWith(heading.toLowerCase())) {
     aligned = heading + description.slice(heading.length);
-  } else if (branded.test(description)) {
-    // Preserve sourced price, variant and ownership details after the phrase.
-    aligned = description.replace(branded, heading);
   } else {
-    aligned = `${heading}: ${description}`;
+    for (const alias of brandedNames) {
+      const branded = new RegExp(`^${escapeRegex(alias)}\\s+price\\s+(?:in\\s+(?:the\\s+)?)?Philippines\\b`, "i");
+      if (branded.test(description)) {
+        // Trim the repeated branded price phrase while retaining facts and variants.
+        aligned = description.replace(branded, heading);
+        break;
+      }
+    }
+    if (!aligned) aligned = `${heading}: ${description}`;
   }
 
   // Ensure status caveats are visible before generic meta-description trimming
