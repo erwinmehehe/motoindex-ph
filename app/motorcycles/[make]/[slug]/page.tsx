@@ -123,7 +123,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   if (model.id === "yamaha-aerox-v3") {
     const socialTitle = "Yamaha Aerox V3 Price Philippines 2026 | Standard vs SP";
     const socialDescription =
-      "Compare Aerox V3 Standard and SP published PH price references (₱125,900–₱163,900), plus specs and installment planning. Confirm current dealer quotes.";
+      `${priceFocusedModelHeading(model)}: Compare Standard and SP published PH prices (₱125,900–₱163,900), specs and installment planning. Confirm dealer quotes.`;
     const socialImage = absoluteUrl("/og/aerox-v3");
     return {
       ...base,
