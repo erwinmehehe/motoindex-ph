@@ -12,6 +12,8 @@ import { DecisionPath } from "@/components/DecisionPath";
 import { RecentlyViewedTracker } from "@/components/RecentlyViewed";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
+import { motorcyclePricePageSeo } from "@/lib/motorcyclePricePageSeo";
+import { licensedHistoricalMotorcycleImage } from "@/lib/licensedMotorcycleReference";
 import { contextualHeroImageAlt, modelHeroImageAlt } from "@/lib/motorcycleHeroSeo";
 import { priorityModelGrowthProfile } from "@/lib/priorityModelGrowth";
 import { modelIntentDepthProfile } from "@/lib/modelIntentDepth2026";
@@ -100,19 +102,21 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const model = getModel(make, slug);
   if (!model) return {};
   const seo = motorcycleEntitySeo(model);
+  const targetSeo = motorcyclePricePageSeo(model.id);
   const growth = priorityModelGrowthProfile(model.id);
   const intentDepth = modelIntentDepthProfile(model.id);
   const media = getRenderableMedia("motorcycle", model.id)[0];
+  const historicalPhoto = licensedHistoricalMotorcycleImage(model.id);
   const image = getRenderableMedia("motorcycle", model.id)[0]?.src;
   const base = pageMetadata({
-    title: intentDepth?.seoTitle || growth?.seoTitle || seo.title,
-    description: intentDepth?.seoDescription || growth?.seoDescription || seo.description,
+    title: targetSeo?.title || intentDepth?.seoTitle || growth?.seoTitle || seo.title,
+    description: targetSeo?.description || intentDepth?.seoDescription || growth?.seoDescription || seo.description,
     path: `/motorcycles/${model.makeSlug}/${model.slug}`,
     index: isIndexableModel(model),
-    image,
-    imageAlt: media ? modelHeroImageAlt(model, media.alt) : `${model.make} ${model.model} motorcycle`,
-    imageWidth: media?.width,
-    imageHeight: media?.height
+    image: historicalPhoto?.src || image,
+    imageAlt: historicalPhoto ? modelHeroImageAlt(model, historicalPhoto.alt) : media ? modelHeroImageAlt(model, media.alt) : `${model.make} ${model.model} motorcycle`,
+    imageWidth: historicalPhoto?.width || media?.width,
+    imageHeight: historicalPhoto?.height || media?.height
   });
   // Keep the Google title/description and canonical unchanged. Only the
   // Facebook/Open Graph and X/Twitter previews differ for this model.

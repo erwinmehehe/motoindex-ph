@@ -41,7 +41,9 @@ import { listingsForModel, marketSummary } from "@/lib/usedMarket";
 import { usedValueCurve } from "@/lib/ownership";
 import { php } from "@/lib/utils";
 import { motorcycleEntityEditorial, motorcycleEntityFaqs, motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
-import { modelHeroImageAlt } from "@/lib/motorcycleHeroSeo";
+import { modelHeroImageAlt, modelHeroIntro, priceFocusedModelHeading } from "@/lib/motorcycleHeroSeo";
+import { licensedHistoricalMotorcycleImage } from "@/lib/licensedMotorcycleReference";
+import { SafeEntityImage } from "@/components/SafeEntityImage";
 import { absoluteUrl } from "@/lib/site";
 import { getRenderableMedia } from "@/lib/media";
 import { modelAuthorityProfile } from "@/lib/modelAuthority";
@@ -121,6 +123,7 @@ export function MotorcycleEntityPage({ model, omitHero = false, nonceReady = fal
   const usedSummary = marketSummary(model.id);
   const usedCurve = usedValueCurve(model);
   const media = getRenderableMedia("motorcycle", model.id)[0];
+  const historicalPhoto = licensedHistoricalMotorcycleImage(model.id);
   const authority = modelAuthorityProfile(model.id);
   const quality = modelAuthorityQuality(model);
   const authorityComparisons = authority?.comparisonIds.map((id) => getModelById(id)).filter((item): item is Motorcycle => Boolean(item)) || [];
@@ -196,8 +199,8 @@ export function MotorcycleEntityPage({ model, omitHero = false, nonceReady = fal
         <div className="motorcycle-hero-grid">
           <div className="motorcycle-hero-copy">
             <span className="entity-kicker">Philippines motorcycle · {model.category} · {model.generation}{isDiscontinued ? " · Discontinued" : availabilityUncertain ? " · Availability to verify" : ""}</span>
-            <h1>{seo.heading}</h1>
-            <p className="entity-lede">{seo.intro}</p>
+            <h1>{priceFocusedModelHeading(model) || seo.heading}</h1>
+            <p className="entity-lede">{modelHeroIntro(model, seo.intro)}</p>
             <div className="motorcycle-price-lockup">
               <span>{isHistorical ? "Last published Philippine price" : availabilityUncertain ? "Published PH price · availability to verify" : "Published Philippine price"}</span>
               <strong>{priceRange.length === 2 ? <><b data-price-boundary style={{ fontWeight: "inherit" }}>{priceRange[0]}</b><i data-price-separator style={{ margin: "0 .22em", color: "var(--model-muted)", fontStyle: "normal", fontWeight: 500 }}>–</i><b data-price-boundary style={{ fontWeight: "inherit" }}>{priceRange[1]}</b></> : priceLabel}</strong>
@@ -211,7 +214,10 @@ export function MotorcycleEntityPage({ model, omitHero = false, nonceReady = fal
             <Freshness model={model} />
           </div>
           <div className="motorcycle-hero-visual">
-            <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" altOverride={media ? modelHeroImageAlt(model, media.alt) : undefined} priority showCredit={false} sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} className="authority-media-fallback" />} />
+            {historicalPhoto ? <div className="motorcycle-hero-media">
+              <SafeEntityImage src={historicalPhoto.src} fallbackSrc={historicalPhoto.fallbackSrc} alt={modelHeroImageAlt(model, historicalPhoto.alt)} width={historicalPhoto.width} height={historicalPhoto.height} sizes="(max-width: 900px) 100vw, 48vw" priority />
+            </div> : <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" altOverride={media ? modelHeroImageAlt(model, media.alt) : undefined} priority showCredit={false} sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} className="authority-media-fallback" />} />}
+            {historicalPhoto && <small className="entity-media-credit">Yamaha R15 V3.0 photo by <a href={historicalPhoto.sourceUrl} target="_blank" rel="noopener noreferrer">{historicalPhoto.creator}</a> · <a href={historicalPhoto.licenseUrl} target="_blank" rel="noopener noreferrer">{historicalPhoto.licenseName}</a> · Wikimedia 1280px resize, no crop. Photo shows an overseas-market example; Philippine colors and trim may differ.</small>}
             <div className="motorcycle-hero-facts">
               <HeroFact label="Engine" value={`${model.engineCc} cc`} note={`${model.powerHp} hp · ${model.torqueNm} Nm`} />
               <HeroFact label="Seat" value={`${model.seatHeightMm} mm`} note={`${model.curbWeightKg} kg curb weight`} />

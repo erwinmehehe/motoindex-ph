@@ -1,4 +1,5 @@
 import type { Motorcycle } from "./types";
+import { motorcyclePricePageSeo } from "./motorcyclePricePageSeo";
 
 // These three H1s are intentionally model-first and price-focused.
 // Keep the hero lede and its main image aligned with their search intent.
@@ -9,10 +10,12 @@ const PRICE_FOCUSED_HEADINGS: Readonly<Record<string, string>> = {
 };
 
 export function priceFocusedModelHeading(model: Motorcycle): string | undefined {
-  return PRICE_FOCUSED_HEADINGS[model.id];
+  return motorcyclePricePageSeo(model.id)?.heading || PRICE_FOCUSED_HEADINGS[model.id];
 }
 
 export function modelHeroIntro(model: Motorcycle, defaultIntro: string): string {
+  const requested = motorcyclePricePageSeo(model.id);
+  if (requested) return requested.intro;
   const heading = priceFocusedModelHeading(model);
   if (!heading) return defaultIntro;
   return `${heading} guide: Compare published prices, variants, specs, rider fit and ownership costs for the ${model.make} ${model.model}, with reasons to buy or skip, direct alternatives and Philippine after-sales links.`;
