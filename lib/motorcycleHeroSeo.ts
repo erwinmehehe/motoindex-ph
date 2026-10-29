@@ -31,7 +31,9 @@ function escapeRegex(value: string): string {
 export function modelPriceMetaDescription(model: Motorcycle, sourceDescription: string): string {
   const heading = priceFocusedModelHeading(model);
   const description = sourceDescription.replace(/\s+/g, " ").trim();
-  if (description.toLowerCase().startsWith(heading.toLowerCase())) return description;
+  if (description.toLowerCase().startsWith(heading.toLowerCase())) {
+    return heading + description.slice(heading.length);
+  }
 
   // When an existing description starts with the fully branded price query,
   // replace only that query. Keep its unique model/variant details intact.
@@ -53,8 +55,15 @@ export function modelPriceMetaDescription(model: Motorcycle, sourceDescription: 
 // Do not portray a placeholder as a photograph or repeat an existing phrase.
 export function contextualHeroImageAlt(visualAlt: string, keyword: string): string {
   const descriptive = visualAlt.trim();
-  if (!descriptive || /placeholder/i.test(descriptive)) return descriptive;
-  if (descriptive.toLowerCase().includes(keyword.toLowerCase())) return descriptive;
+  if (!descriptive) return `${keyword} image not available`;
+  if (descriptive.includes(keyword)) return descriptive;
+  // Normalize case when the exact phrase already appears in image metadata.
+  if (descriptive.toLowerCase().includes(keyword.toLowerCase())) {
+    return descriptive.replace(new RegExp(escapeRegex(keyword), "i"), keyword);
+  }
+  // An accurate placeholder alt can carry the keyword without claiming a
+  // stock graphic or unavailable photo depicts this motorcycle.
+  if (/placeholder/i.test(descriptive)) return `${descriptive} for ${keyword}`;
   return `${descriptive}, featured in the ${keyword} guide`;
 }
 
