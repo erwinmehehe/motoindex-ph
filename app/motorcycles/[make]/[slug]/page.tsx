@@ -107,13 +107,13 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const intentDepth = modelIntentDepthProfile(model.id);
   const media = getRenderableMedia("motorcycle", model.id)[0];
   const historicalPhoto = licensedHistoricalMotorcycleImage(model.id);
-  const image = historicalPhoto?.src || media?.src;
+  const image = getRenderableMedia("motorcycle", model.id)[0]?.src;
   const base = pageMetadata({
     title: targetSeo?.title || intentDepth?.seoTitle || growth?.seoTitle || seo.title,
     description: targetSeo?.description || intentDepth?.seoDescription || growth?.seoDescription || seo.description,
     path: `/motorcycles/${model.makeSlug}/${model.slug}`,
     index: isIndexableModel(model),
-    image,
+    image: historicalPhoto?.src || image,
     imageAlt: historicalPhoto ? modelHeroImageAlt(model, historicalPhoto.alt) : media ? modelHeroImageAlt(model, media.alt) : `${model.make} ${model.model} motorcycle`,
     imageWidth: historicalPhoto?.width || media?.width,
     imageHeight: historicalPhoto?.height || media?.height
