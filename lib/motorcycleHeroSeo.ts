@@ -31,24 +31,35 @@ function escapeRegex(value: string): string {
 export function modelPriceMetaDescription(model: Motorcycle, sourceDescription: string): string {
   const heading = priceFocusedModelHeading(model);
   const description = sourceDescription.replace(/\s+/g, " ").trim();
-  if (description.toLowerCase().startsWith(heading.toLowerCase())) {
-    return heading + description.slice(heading.length);
-  }
-
-  // When an existing description starts with the fully branded price query,
-  // replace only that query. Keep its unique model/variant details intact.
   const fullName = `${model.make} ${model.model}`;
   const branded = new RegExp(`^${escapeRegex(fullName)}\\s+price\\s+(?:in\\s+(?:the\\s+)?)?Philippines\\b`, "i");
-  if (branded.test(description)) return description.replace(branded, heading);
+  let aligned: string;
 
-  const qualifier = model.marketStatus === "previous"
-    ? "Previous-generation historical price; not a current dealer quote. "
+  if (description.toLowerCase().startsWith(heading.toLowerCase())) {
+    aligned = heading + description.slice(heading.length);
+  } else if (branded.test(description)) {
+    // Preserve sourced price, variant and ownership details after the phrase.
+    aligned = description.replace(branded, heading);
+  } else {
+    aligned = `${heading}: ${description}`;
+  }
+
+  // Ensure status caveats are visible before generic meta-description trimming
+  // can hide them. Do not relabel a previous or discontinued bike as new stock.
+  const lead = aligned.slice(heading.length, heading.length + 112);
+  const statusMissing =
+    (model.marketStatus === "previous" && !/historical|previous|dated|last published|used|not current/i.test(lead)) ||
+    (model.marketStatus === "discontinued" && !/discontinued/i.test(lead)) ||
+    (model.marketStatus === "uncertain" && !/availability|verify|confirm|uncertain|stock/i.test(lead));
+  if (!statusMissing) return aligned;
+
+  const caveat = model.marketStatus === "previous"
+    ? "Previous-generation historical price. "
     : model.marketStatus === "discontinued"
-      ? "Discontinued model; historical price, not a current dealer quote. "
-      : model.marketStatus === "uncertain"
-        ? "Current Philippine dealer availability must be confirmed. "
-        : "";
-  return `${heading}: ${qualifier}${description}`;
+      ? "Discontinued model; historical price. "
+      : "Current dealer availability is unconfirmed. ";
+  const remainder = aligned.slice(heading.length).replace(/^:\s*/, "").trim();
+  return `${heading}: ${caveat}${remainder}`;
 }
 
 // Preserve the visual description first, then add one page-specific keyword.
