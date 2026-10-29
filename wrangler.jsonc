@@ -44,6 +44,7 @@
   "observability": {
     "enabled": true
   },
+  "previews": {},
   "build": {
     "command": "node scripts/ensure-cloudflare-worker.mjs"
   }

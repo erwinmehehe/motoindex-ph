@@ -12,6 +12,8 @@ const budgets = {
   // by that calculator component instead of the global CSS stack.
   cssTotalBytes: 505 * 1024,
   installmentCssMaxBytes: 22 * 1024,
+  // This page CSS is loaded only by the fuel route; cap it independently.
+  gasPriceCssMaxBytes: 13 * 1024,
   largestJsChunkBytes: 350 * 1024,
   jsTotalBytes: 4 * 1024 * 1024,
   largestPublicImageBytes: 1500 * 1024,
@@ -51,7 +53,25 @@ const isRouteScoped = hasInstallmentStyle
   && !globalRoutesSource.includes("installment-experience.css");
 const routeScopedAllowance = isRouteScoped && installmentStyleBytes <= budgets.installmentCssMaxBytes
   ? installmentStyleBytes : 0;
-const effectiveCssBudget = budgets.cssTotalBytes + routeScopedAllowance;
+// The build directory contains CSS from every route, even though a visitor
+// downloads only the styles for their actual route. The fuel-monitor stylesheet
+// is imported by its page and interactive widget, never by the global stack.
+const gasPriceCssPath = path.join(root, "app", "gas-price-philippines", "page.module.css");
+const gasPagePath = path.join(root, "app", "gas-price-philippines", "page.tsx");
+const fuelWidgetPath = path.join(root, "components", "FuelPriceInteractives.tsx");
+const globalStackPath = path.join(root, "app", "style-stack.css");
+const gasPriceCssBytes = fs.existsSync(gasPriceCssPath) ? size(gasPriceCssPath) : 0;
+const gasPageSource = fs.existsSync(gasPagePath) ? fs.readFileSync(gasPagePath, "utf8") : "";
+const fuelWidgetSource = fs.existsSync(fuelWidgetPath) ? fs.readFileSync(fuelWidgetPath, "utf8") : "";
+const globalStackSource = fs.existsSync(globalStackPath) ? fs.readFileSync(globalStackPath, "utf8") : "";
+const isGasPriceScoped = gasPriceCssBytes > 0
+  && gasPageSource.includes('import styles from "./page.module.css"')
+  && fuelWidgetSource.includes('import styles from "@/app/gas-price-philippines/page.module.css"')
+  && !globalRoutesSource.includes("gas-price-philippines/page.module.css")
+  && !globalStackSource.includes("gas-price-philippines/page.module.css");
+const gasPriceScopedAllowance = isGasPriceScoped && gasPriceCssBytes <= budgets.gasPriceCssMaxBytes
+  ? gasPriceCssBytes : 0;
+const effectiveCssBudget = budgets.cssTotalBytes + routeScopedAllowance + gasPriceScopedAllowance;
 const jsTotal = jsFiles.reduce((sum, file) => sum + size(file), 0);
 const largestJs = jsFiles.map((file) => ({ file, bytes: size(file) })).sort((a,b) => b.bytes-a.bytes)[0];
 const largestImage = imageFiles.map((file) => ({ file, bytes: size(file) })).sort((a,b) => b.bytes-a.bytes)[0];
@@ -63,12 +83,18 @@ if (hasInstallmentStyle && installmentStyleBytes > budgets.installmentCssMaxByte
 if (hasInstallmentStyle && !isRouteScoped) {
   failures.push("Installment styles must be imported only by the calculator; do not move them into the global CSS stack.");
 }
-if (cssTotal > effectiveCssBudget) failures.push(`Compiled CSS is ${kb(cssTotal)}; core ${kb(budgets.cssTotalBytes)} plus scoped installment ${kb(routeScopedAllowance)} allows ${kb(effectiveCssBudget)}.`);
+if (gasPriceCssBytes > budgets.gasPriceCssMaxBytes) {
+  failures.push(`Gas price route CSS is ${kb(gasPriceCssBytes)}; strict route file budget is ${kb(budgets.gasPriceCssMaxBytes)}.`);
+}
+if (gasPriceCssBytes && !isGasPriceScoped) {
+  failures.push("Gas price styles must be imported only by the route page and its widget, not from the global style stack.");
+}
+if (cssTotal > effectiveCssBudget) failures.push(`Compiled CSS is ${kb(cssTotal)}; core ${kb(budgets.cssTotalBytes)} plus scoped installment ${kb(routeScopedAllowance)} and route-only fuel ${kb(gasPriceScopedAllowance)} allows ${kb(effectiveCssBudget)}.`);
 if (largestJs?.bytes > budgets.largestJsChunkBytes) failures.push(`Largest JS chunk is ${kb(largestJs.bytes)} (${path.relative(root, largestJs.file)}); budget is ${kb(budgets.largestJsChunkBytes)}.`);
 if (jsTotal > budgets.jsTotalBytes) failures.push(`Total emitted JS is ${kb(jsTotal)}; budget is ${kb(budgets.jsTotalBytes)}.`);
 if (largestImage?.bytes > budgets.largestPublicImageBytes) failures.push(`Largest public raster image is ${kb(largestImage.bytes)} (${path.relative(root, largestImage.file)}); budget is ${kb(budgets.largestPublicImageBytes)}.`);
 
-console.log(`Performance budgets: CSS ${kb(cssTotal)} / ${kb(effectiveCssBudget)} (core ${kb(budgets.cssTotalBytes)} + bounded installment ${kb(routeScopedAllowance)}); JS ${kb(jsTotal)} / ${kb(budgets.jsTotalBytes)}; largest JS ${largestJs ? kb(largestJs.bytes) : "0 KB"} / ${kb(budgets.largestJsChunkBytes)}; largest raster ${largestImage ? kb(largestImage.bytes) : "0 KB"} / ${kb(budgets.largestPublicImageBytes)}.`);
+console.log(`Performance budgets: CSS ${kb(cssTotal)} / ${kb(effectiveCssBudget)} (core ${kb(budgets.cssTotalBytes)} + bounded installment ${kb(routeScopedAllowance)} + route-only fuel ${kb(gasPriceScopedAllowance)}); JS ${kb(jsTotal)} / ${kb(budgets.jsTotalBytes)}; largest JS ${largestJs ? kb(largestJs.bytes) : "0 KB"} / ${kb(budgets.largestJsChunkBytes)}; largest raster ${largestImage ? kb(largestImage.bytes) : "0 KB"} / ${kb(budgets.largestPublicImageBytes)}.`);
 
 if (failures.length) {
   console.error("Performance budget failed:");
