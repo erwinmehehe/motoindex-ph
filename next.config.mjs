@@ -8,6 +8,7 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
     // Remote patterns remain only as a migration fallback if a local asset has not been synced yet.
     remotePatterns: [
+      { protocol: "https", hostname: "thumb.wikimedia.org" },
       { protocol: "https", hostname: "bikeluggage.co.uk" },
       { protocol: "https", hostname: "cdn-iutgbvdd.sportsbikeshop.co.uk" },
       { protocol: "https", hostname: "gearchangeonline.com" },
