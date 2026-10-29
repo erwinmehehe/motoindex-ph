@@ -13,6 +13,7 @@ import { RecentlyViewedTracker } from "@/components/RecentlyViewed";
 import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
 import { motorcyclePricePageSeo } from "@/lib/motorcyclePricePageSeo";
+import { licensedHistoricalMotorcycleImage } from "@/lib/licensedMotorcycleReference";
 import { contextualHeroImageAlt, modelHeroImageAlt } from "@/lib/motorcycleHeroSeo";
 import { priorityModelGrowthProfile } from "@/lib/priorityModelGrowth";
 import { modelIntentDepthProfile } from "@/lib/modelIntentDepth2026";
@@ -105,16 +106,17 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const growth = priorityModelGrowthProfile(model.id);
   const intentDepth = modelIntentDepthProfile(model.id);
   const media = getRenderableMedia("motorcycle", model.id)[0];
-  const image = getRenderableMedia("motorcycle", model.id)[0]?.src;
+  const historicalPhoto = licensedHistoricalMotorcycleImage(model.id);
+  const image = historicalPhoto?.src || media?.src;
   const base = pageMetadata({
     title: targetSeo?.title || intentDepth?.seoTitle || growth?.seoTitle || seo.title,
     description: targetSeo?.description || intentDepth?.seoDescription || growth?.seoDescription || seo.description,
     path: `/motorcycles/${model.makeSlug}/${model.slug}`,
     index: isIndexableModel(model),
     image,
-    imageAlt: media ? modelHeroImageAlt(model, media.alt) : `${model.make} ${model.model} motorcycle`,
-    imageWidth: media?.width,
-    imageHeight: media?.height
+    imageAlt: historicalPhoto ? modelHeroImageAlt(model, historicalPhoto.alt) : media ? modelHeroImageAlt(model, media.alt) : `${model.make} ${model.model} motorcycle`,
+    imageWidth: historicalPhoto?.width || media?.width,
+    imageHeight: historicalPhoto?.height || media?.height
   });
   // Keep the Google title/description and canonical unchanged. Only the
   // Facebook/Open Graph and X/Twitter previews differ for this model.
