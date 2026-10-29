@@ -4,12 +4,14 @@ import { motorcycles } from "../lib/data";
 import { modelFamilies } from "../lib/families";
 import { electricMotorcycles } from "../lib/electricMotorcycles";
 import { motorcycleEntitySeo } from "../lib/motorcycleEntitySeo";
+import { motorcyclePricePageSeo } from "../lib/motorcyclePricePageSeo";
 import { priorityModelGrowthProfile } from "../lib/priorityModelGrowth";
 import { modelIntentDepthProfile } from "../lib/modelIntentDepth2026";
 
 function modelMetaTitle(model: (typeof motorcycles)[number]) {
   // Mirror the precedence in app/motorcycles/[make]/[slug]/page.tsx.
-  return modelIntentDepthProfile(model.id)?.seoTitle
+  return motorcyclePricePageSeo(model.id)?.title
+    || modelIntentDepthProfile(model.id)?.seoTitle
     || priorityModelGrowthProfile(model.id)?.seoTitle
     || motorcycleEntitySeo(model).title;
 }
@@ -17,7 +19,15 @@ function modelMetaTitle(model: (typeof motorcycles)[number]) {
 const approvedModelFirstTitles = new Map([
   ["yamaha-aerox-v3", "Aerox V3 Price Philippines | MotoIndex"],
   ["yamaha-nmax-v3", "NMAX V3 Price Philippines | MotoIndex"],
-  ["honda-adv-160", "ADV 160 Price Philippines | MotoIndex"]
+  ["honda-adv-160", "ADV 160 Price Philippines | MotoIndex"],
+  ["honda-click-125i", "Click 125i Price Philippines | Honda SRP & Installment"],
+  ["yamaha-sniper-155", "Sniper 155 Price Philippines | Yamaha Specs & SRP"],
+  ["rusi-classic-250i", "Classic 250i Price Philippines | Rusi Specs & Costs"],
+  ["rusi-rfi-175", "RFI 175 Price Philippines | Rusi Specs & Installment"],
+  ["yamaha-yzf-r15-v3", "YZF-R15 V3 Price Philippines | Yamaha Historic SRP"],
+  ["yamaha-mio-i-125", "Mio i 125 Price Philippines | Yamaha SRP & Specs"],
+  ["yamaha-xmax", "XMAX Price Philippines | Yamaha ABS & Installment"],
+  ["kawasaki-klx150", "KLX150 Price Philippines | Kawasaki Specs & SRP"]
 ]);
 
 describe("motorcycle detail page SEO titles", () => {
