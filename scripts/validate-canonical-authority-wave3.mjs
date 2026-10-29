@@ -108,8 +108,10 @@ for (const token of [
 
 for (const token of [
   'modelIntentDepthProfile(model.id)',
-  'intentDepth?.seoTitle || growth?.seoTitle || seo.title',
-  'intentDepth?.seoDescription || growth?.seoDescription || seo.description'
+  // Model SEO title now follows the shared exact H1 keyword, without
+  // deleting the Wave 3 intent-depth and growth descriptions.
+  'title: priceFocusedModelHeading(model),',
+  'modelPriceMetaDescription(model, targetSeo?.description || intentDepth?.seoDescription || growth?.seoDescription || seo.description)'
 ]) {
   if (!page.includes(token)) errors.push(`Wave 3 metadata wiring missing: ${token}`);
 }
