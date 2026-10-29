@@ -14,7 +14,7 @@ import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
 import { motorcyclePricePageSeo } from "@/lib/motorcyclePricePageSeo";
 import { licensedHistoricalMotorcycleImage } from "@/lib/licensedMotorcycleReference";
-import { contextualHeroImageAlt, modelHeroImageAlt } from "@/lib/motorcycleHeroSeo";
+import { contextualHeroImageAlt, modelHeroImageAlt, priceFocusedModelHeading, modelPriceMetaDescription } from "@/lib/motorcycleHeroSeo";
 import { priorityModelGrowthProfile } from "@/lib/priorityModelGrowth";
 import { modelIntentDepthProfile } from "@/lib/modelIntentDepth2026";
 import { getRenderableMedia } from "@/lib/renderableMedia";
@@ -57,8 +57,8 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
     const electricModel = getElectricMotorcycle(slug);
     if (!electricModel) return {};
     return pageMetadata({
-      title: `${electricModel.make} ${electricModel.model} Price Philippines | Range & Specs`,
-      description: `${electricModel.make} ${electricModel.model} electric motorcycle price, battery capacity, claimed range, charging time, maximum speed and LTO classification in the Philippines.`,
+      title: `${electricModel.model} Price Philippines`,
+      description: `${electricModel.model} Price Philippines: Compare ${electricModel.make} ${electricModel.model} battery, claimed range, charging, top speed and LTO classification.`,
       path: `/motorcycles/electric/${electricModel.slug}`,
       image: electricModel.imageUrl,
       imageAlt: contextualHeroImageAlt(`${electricModel.make} ${electricModel.model} electric motorcycle`, `${electricModel.make} ${electricModel.model} price and specifications in the Philippines`)
@@ -109,8 +109,8 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const historicalPhoto = licensedHistoricalMotorcycleImage(model.id);
   const image = getRenderableMedia("motorcycle", model.id)[0]?.src;
   const base = pageMetadata({
-    title: targetSeo?.title || intentDepth?.seoTitle || growth?.seoTitle || seo.title,
-    description: targetSeo?.description || intentDepth?.seoDescription || growth?.seoDescription || seo.description,
+    title: priceFocusedModelHeading(model),
+    description: modelPriceMetaDescription(model, targetSeo?.description || intentDepth?.seoDescription || growth?.seoDescription || seo.description),
     path: `/motorcycles/${model.makeSlug}/${model.slug}`,
     index: isIndexableModel(model),
     image: historicalPhoto?.src || image,
