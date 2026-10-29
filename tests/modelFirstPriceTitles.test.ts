@@ -1,6 +1,8 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { modelIntentDepthProfile } from "../lib/modelIntentDepth2026";
+import { getModelById } from "../lib/data";
+import { priceFocusedModelHeading } from "../lib/motorcycleHeroSeo";
 import { priorityModelGrowthProfile } from "../lib/priorityModelGrowth";
 
 const targets = [
@@ -24,8 +26,11 @@ describe("model-first price SEO titles and H1s", () => {
 
   it("renders the requested model-specific H1 without changing the hero fallback for other bikes", () => {
     expect(route).toContain("<ReviewedModelHero model={model} />");
+    expect(hero).toContain("priceFocusedModelHeading(model)");
     for (const { id, h1 } of targets) {
-      expect(hero).toContain(`"${id}": "${h1}"`);
+      const model = getModelById(id);
+      expect(model, id).toBeDefined();
+      expect(priceFocusedModelHeading(model!), id).toBe(h1);
     }
     expect(hero).toContain("<h1>{priceFocusedHeading || <>{model.make}<br />{model.model}</>}</h1>");
   });

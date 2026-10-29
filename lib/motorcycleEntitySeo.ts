@@ -457,12 +457,12 @@ export function motorcycleEntitySeo(model: Motorcycle) {
         ? `${name}: price, specs and availability guide`
         : `${name}: price, specs and ownership guide`;
   const intro = globalDemand && current
-    ? `Compare the ${name} specifications, price reference, rider fit, tires, fuel use and ownership details in one place. Market availability and pricing vary by country, so the dated source stays attached to the record.`
+    ? `Compare the ${name} price reference, specifications, rider fit, tires, fuel use and ownership details, including Philippine availability where verified. Pricing varies by country, so the dated source stays attached to the record.`
     : current
-      ? authority ? `Compare the ${name} price, specs, rider fit and ownership costs, with clear reasons to buy or skip it, direct alternatives and Philippine after-sales links.` : `Compare the ${name} price, variants, financing, specs, rider fit, tires, fuel use, maintenance, ownership cost and used-value estimates in one place.`
+      ? authority ? `Compare the ${name} price in the Philippines, specs, rider fit and ownership costs, with clear reasons to buy or skip it, direct alternatives and Philippine after-sales links.` : `Compare the ${name} price in the Philippines, variants, financing, specs, rider fit, tires, fuel use, maintenance, ownership cost and used-value estimates in one place.`
       : uncertain
-        ? `Check the ${name} price, specifications and financing tools, then confirm current dealer stock and the exact model year before buying.`
-        : `Compare the ${name} price reference, specifications, rider fit, tires, maintenance and ownership details in one motorcycle page. Its discontinued or previous-generation status is shown separately so the lifecycle note does not replace the model itself.`;
+        ? `Check the ${name} price and specifications in the Philippines, plus financing tools, then confirm current dealer stock and the exact model year before buying.`
+        : `Compare the ${name} historical price reference in the Philippines, specifications, rider fit, tires, maintenance and ownership details. Its discontinued or previous-generation status remains clear, so an older price is not presented as a current dealer quote.`;
   const keywordBase = name.toLowerCase();
   const phKeywords = [
     `${keywordBase} price philippines`,
