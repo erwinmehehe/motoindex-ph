@@ -6,6 +6,7 @@ import { motorcyclePricePageSeo, MOTORCYCLE_PRICE_PAGE_TARGET_IDS } from "../lib
 import { priceFocusedModelHeading, modelHeroIntro } from "../lib/motorcycleHeroSeo";
 import { motorcycleEntitySeo } from "../lib/motorcycleEntitySeo";
 import { getRenderableMedia } from "../lib/renderableMedia";
+import { licensedHistoricalMotorcycleImage } from "../lib/licensedMotorcycleReference";
 
 const expected = {
   "honda-click-125i": {
@@ -83,17 +84,28 @@ describe("requested motorcycle Price Philippines SEO pages", () => {
     expect(seo.intro).toContain("previous generation");
   });
 
-  it("uses a photographed R15 V3 with visible copyright credit instead of a placeholder or unlicensed binary", () => {
-    const image = getRenderableMedia("motorcycle", "yamaha-yzf-r15-v3")[0];
-    expect(image.rightsStatus).toBe("licensed");
-    expect(image.src).toContain("thumb.wikimedia.org/wikipedia/commons/thumb/");
-    expect(image.src).toContain("Yamaha_R15_V3.0.jpg");
-    expect(image.alt).toContain("YZF-R15 V3");
-    expect(image.sourceUrl).toBe("https://commons.wikimedia.org/wiki/File:Yamaha_R15_V3.0.jpg");
-    expect(image.sourceLabel).toContain("CC BY-SA 4.0");
+  it("keeps the local WebP image catalog strict while displaying a licensed historical R15 photo", () => {
+    const image = licensedHistoricalMotorcycleImage("yamaha-yzf-r15-v3");
+    expect(image).toBeDefined();
+    expect(image?.src).toContain("thumb.wikimedia.org/wikipedia/commons/thumb/");
+    expect(image?.src).toContain("Yamaha_R15_V3.0.jpg");
+    expect(image?.alt).toContain("YZF-R15 V3");
+    expect(image?.sourceUrl).toBe("https://commons.wikimedia.org/wiki/File:Yamaha_R15_V3.0.jpg");
+    expect(image?.licenseUrl).toBe("https://creativecommons.org/licenses/by-sa/4.0/");
+    expect(licensedHistoricalMotorcycleImage("yamaha-sniper-155")).toBeUndefined();
+
+    const mediaSource = readFileSync(new URL("../lib/media.ts", import.meta.url), "utf8");
+    expect(mediaSource).not.toContain("thumb.wikimedia.org");
+    const catalogPhoto = getRenderableMedia("motorcycle", "yamaha-yzf-r15-v3")[0];
+    expect(catalogPhoto.src).toContain("/media/placeholders/motorcycle.svg");
+
     const hero = readFileSync(new URL("../components/MotorcycleEntityPage.tsx", import.meta.url), "utf8");
-    expect(hero).toContain("https://creativecommons.org/licenses/by-sa/4.0/");
-    expect(hero).toContain("Akshayanil919 (Akshay Anil)");
+    expect(hero).toContain('historicalPhoto ? <div className="motorcycle-hero-media">');
+    expect(hero).toContain("<SafeEntityImage src={historicalPhoto.src}");
+    expect(hero).toContain('href={historicalPhoto.licenseUrl}');
+    expect(hero).toContain('href={historicalPhoto.sourceUrl}');
+
+    const metadata = readFileSync(new URL("../app/motorcycles/[make]/[slug]/page.tsx", import.meta.url), "utf8");
+    expect(metadata).toContain("const image = historicalPhoto?.src || media?.src;");
     expect(existsSync(resolve("public/media/motorcycles/yamaha-yzf-r15-v3.webp"))).toBe(false);
-  });
-});
+  });});
