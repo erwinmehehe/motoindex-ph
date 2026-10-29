@@ -199,7 +199,7 @@ export function MotorcycleEntityPage({ model, omitHero = false, nonceReady = fal
         <div className="motorcycle-hero-grid">
           <div className="motorcycle-hero-copy">
             <span className="entity-kicker">Philippines motorcycle · {model.category} · {model.generation}{isDiscontinued ? " · Discontinued" : availabilityUncertain ? " · Availability to verify" : ""}</span>
-            <h1>{priceFocusedModelHeading(model) || seo.heading}</h1>
+            <h1>{priceFocusedModelHeading(model)}</h1>
             <p className="entity-lede">{modelHeroIntro(model, seo.intro)}</p>
             <div className="motorcycle-price-lockup">
               <span>{isHistorical ? "Last published Philippine price" : availabilityUncertain ? "Published PH price · availability to verify" : "Published Philippine price"}</span>
