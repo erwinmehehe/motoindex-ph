@@ -1,22 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { FuelCompanyExplorer, FuelCostImpactCalculator } from "@/components/FuelPriceInteractives";
 import { JsonLd } from "@/components/JsonLd";
 import { pageMetadata, SITE_URL } from "@/lib/site";
-import { DOE_FUEL_SOURCE, FUEL_TYPES, fuelAmount, fuelDirection, fuelRange, getFuelFeed, type FuelMovement, type FuelType } from "@/lib/fuelPriceFeed";
+import {
+  DOE_FUEL_SOURCE, FUEL_TYPES, fuelDirection, fuelRange, getFuelFeed,
+  type FuelMovement, type FuelType
+} from "@/lib/fuelPriceFeed";
 import styles from "./page.module.css";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = pageMetadata({
   title: "Gas Price Philippines: Weekly DOE Fuel Updates | MotoIndex",
-  description: "Track DOE weekly gasoline, diesel and kerosene price adjustments in the Philippines, with oil-company comparisons and links to official reports.",
+  description: "Track DOE weekly gasoline, diesel and kerosene price adjustments in the Philippines, compare oil companies and check official source reports.",
   path: "/gas-price-philippines",
   index: true
 });
 
-const labels: Record<FuelType, string> = { gasoline: "Gasoline", diesel: "Diesel", kerosene: "Kerosene" };
-const regionalPrices = [
+const fuelNames: Record<FuelType, string> = { gasoline: "Gasoline", diesel: "Diesel", kerosene: "Kerosene" };
+const regionLinks = [
   { label: "Metro Manila / NCR", url: "https://doe.gov.ph/data-and-prices/liquid-fuels/retail-pump-prices/ncr-pump-prices" },
   { label: "North Luzon", url: "https://doe.gov.ph/data-and-prices/liquid-fuels/retail-pump-prices/north-luzon-pump-prices" },
   { label: "South Luzon", url: "https://doe.gov.ph/data-and-prices/liquid-fuels/retail-pump-prices/south-luzon-pump-prices" },
@@ -24,40 +28,56 @@ const regionalPrices = [
   { label: "Mindanao", url: "https://doe.gov.ph/data-and-prices/liquid-fuels/retail-pump-prices/mindanao-pump-prices" }
 ];
 
-function shortDate(value: string): string {
-  return new Date(value + "T00:00:00Z").toLocaleDateString("en-PH", {
+function dateLabel(value: string) {
+  return new Date(`${value}T00:00:00Z`).toLocaleDateString("en-PH", {
     day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Manila"
   });
 }
-
-function periodLabel(start: string, end: string): string {
-  return shortDate(start) + " – " + shortDate(end);
+function weekLabel(start: string, end: string) {
+  return `${dateLabel(start)} – ${dateLabel(end)}`;
 }
-
-function movementNote(movement: FuelMovement): string {
-  if (!movement) return "No company figure reported";
-  if (movement.min !== movement.max) return "Range across " + movement.reportingCompanies + " reporting companies";
-  return movement.reportingCompanies + " reporting " + (movement.reportingCompanies === 1 ? "company" : "companies");
-}
-
-function movementKind(movement: FuelMovement): string {
+function movementStatus(movement: FuelMovement) {
   const direction = fuelDirection(movement);
-  return direction === "up" ? "Price increase" : direction === "down" ? "Price decrease" :
-    direction === "mixed" ? "Mixed price movements" : direction === "flat" ? "No price change" : "Not reported";
+  return direction === "down" ? "Decrease" : direction === "up" ? "Increase" :
+    direction === "mixed" ? "Mixed adjustments" : direction === "flat" ? "No change" : "Not reported";
 }
+function movementCount(movement: FuelMovement) {
+  if (!movement) return "No company figure reported";
+  return `${movement.reportingCompanies} reporting ${movement.reportingCompanies === 1 ? "company" : "companies"}`;
+}
+
+function FuelIcon({ type }: { type: FuelType }) {
+  return <span className={styles.fuelIcon} aria-hidden="true">
+    {type === "gasoline" ? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M4 21V4.8A1.8 1.8 0 0 1 5.8 3h8.4A1.8 1.8 0 0 1 16 4.8V21M4 9h12M3 21h15M19 9l2 2v6a2 2 0 0 1-4 0v-4"/></svg> :
+    type === "diesel" ? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M7 3h10l2 5v13H5V8l2-5ZM5 9h14M9 13h6M9 17h6"/></svg> :
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2S6 9 6 14a6 6 0 0 0 12 0c0-5-6-12-6-12ZM9 15c.3 1.8 1.2 2.7 3 3"/></svg>}
+  </span>;
+}
+
+const faqs = [
+  { question: "Are these actual pump prices today?", answer: "No. These are weekly per-liter price adjustments reported in DOE notices, not the total amount charged at a gas station. Retail prices differ by station, location, grade and date." },
+  { question: "How often will MotoIndex update this page?", answer: "The importer checks DOE notices on weekdays. A new verified report appears only after its PDF passes format and value checks. If a source is unavailable, the last valid report stays visible with a warning." },
+  { question: "Why do some oil companies have no kerosene figure?", answer: "A dash means that the oil company's kerosene adjustment was not stated in the DOE notice. It does not mean there was no price change." },
+  { question: "How can I estimate my commuting fuel expense?", answer: "Enter your weekly fuel volume in the calculator. It multiplies that volume by the reported per-liter change. To estimate your full monthly budget, use the commute cost calculator and a current pump price near you." }
+];
 
 export default async function GasPricePhilippinesPage() {
   const { feed, usingFallback } = await getFuelFeed();
   const latest = feed.weeks[0];
-  const older = Date.now() - Date.parse(latest.weekEnd + "T15:59:59Z") > 14 * 86400000;
-  const checkedAt = new Date(feed.updatedAt).toLocaleString("en-PH", {
+  const dated = weekLabel(latest.weekStart, latest.weekEnd);
+  const isOlder = Date.now() - Date.parse(`${latest.weekEnd}T15:59:59Z`) > 14 * 86400000;
+  const lastChecked = new Date(feed.updatedAt).toLocaleString("en-PH", {
     day: "numeric", month: "short", year: "numeric", hour: "numeric", minute: "2-digit", timeZone: "Asia/Manila"
   });
+  const peak = Math.max(1, ...FUEL_TYPES.flatMap((type) => {
+    const value = latest.summary[type];
+    return value ? [Math.abs(value.min), Math.abs(value.max)] : [0];
+  }));
   const sourceSchema = {
     "@context": "https://schema.org",
     "@type": "Dataset",
     name: "Philippines DOE weekly retail fuel price adjustments",
-    description: "DOE prior notices of per-liter gasoline, diesel and kerosene price changes by reporting oil company. Not actual station pump prices.",
+    description: "Officially notified weekly per-liter fuel price changes by reporting oil company. These are not actual station pump prices.",
     url: SITE_URL + "/gas-price-philippines",
     dateModified: feed.updatedAt,
     isBasedOn: DOE_FUEL_SOURCE,
@@ -66,128 +86,159 @@ export default async function GasPricePhilippinesPage() {
     variableMeasured: ["Gasoline price change in PHP per liter", "Diesel price change in PHP per liter", "Kerosene price change in PHP per liter"]
   };
 
-  return <section className={"page shell " + styles.page} data-fuel-price-page>
-    <Breadcrumbs items={[{ label: "Tools", href: "/tools" }, { label: "Gas price Philippines" }]} />
+  return <section className={`page shell ${styles.page}`} data-fuel-price-page>
+    <Breadcrumbs items={[{ label: "Tools", href: "/tools" }, { label: "Gas price monitoring" }]} />
+
     <div className={styles.hero}>
-      <div>
-        <span className={styles.eyebrow}>DOE fuel watch · Updated from official notices</span>
-        <h1>Gas price updates in the Philippines</h1>
-        <p className={styles.lede}>See the latest weekly gasoline, diesel and kerosene <strong>price changes per liter</strong>, including differences between oil companies.</p>
+      <div className={styles.heroCopy}>
+        <span className={styles.eyebrow}><i className={styles.eyebrowDot} aria-hidden="true"/>Fuel watch · Philippines</span>
+        <h1>Gas price updates<br/>in the <span>Philippines.</span></h1>
+        <p className={styles.lede}>Stay on top of weekly gasoline, diesel and kerosene price changes. Compare oil companies, check the official DOE source, and estimate what those changes mean for your rides.</p>
         <div className={styles.heroActions}>
-          <a className="button" href={latest.sourceUrl} target="_blank" rel="noopener noreferrer">View latest DOE notice ↗</a>
-          <a className="button secondary" href="#company-prices">Compare oil companies ↓</a>
+          <a className="button" href={latest.sourceUrl} target="_blank" rel="noopener noreferrer">View DOE price notice ↗</a>
+          <a className={styles.secondaryButton} href="#companies">Compare oil companies ↓</a>
+        </div>
+        <div className={styles.heroTrust} aria-label="Data transparency">
+          <span>✓ DOE source-linked</span><span>▦ By-company breakdown</span><span>◷ Dated reports</span>
         </div>
       </div>
-      <aside className={styles.weekCard} aria-label="Current Department of Energy report">
-        <span className={styles.weekCaption}>Latest verified report</span>
-        <strong>{periodLabel(latest.weekStart, latest.weekEnd)}</strong>
-        <span>Prices shown below are changes in ₱/liter, <strong>not the total pump price</strong>.</span>
-        <small>Feed updated {checkedAt} (Philippine time)</small>
+
+      <aside className={styles.reportCard} aria-label="Latest available DOE fuel adjustment report">
+        <div className={styles.reportTop}><span>Latest available weekly report</span><span className={styles.sourceLabel}>✓ DOE source</span></div>
+        <h2>{dated}</h2>
+        <p>{usingFallback ? "Showing the last bundled source-checked report" : "Source-validated DOE adjustments"}</p>
+        <div className={styles.reportGraph}>
+          <div className={styles.reportGraphHeading}><span>Fuel adjustment overview</span><span>PHP/L</span></div>
+          {FUEL_TYPES.map((type) => {
+            const value = latest.summary[type];
+            const direction = fuelDirection(value);
+            const size = value ? Math.max(Math.abs(value.min), Math.abs(value.max)) / peak * 88 : 0;
+            return <div className={styles.reportBar} key={type}>
+              <span>{fuelNames[type]}</span>
+              <div className={styles.track}><i className={direction === "up" ? styles.barUp : direction === "down" ? styles.barDown : styles.barNeutral} style={{ width: `${size}%` }}/></div>
+              <strong>{fuelRange(value)}</strong>
+            </div>;
+          })}
+          <p>Changes per liter, not current pump prices.</p>
+        </div>
+        <small>Feed checked {lastChecked} (Philippine time)</small>
       </aside>
     </div>
 
-    {(usingFallback || older) && <div className={styles.warning} role="status">
-      <strong>{usingFallback ? "Live feed temporarily unavailable." : "This report may be out of date."}</strong>
-      <span>{usingFallback ? "Showing the last source-checked figures bundled with MotoIndex, not claiming new prices." :
-        "Check the DOE page for newer weekly notices before relying on these figures."}</span>
-      <a href={DOE_FUEL_SOURCE} target="_blank" rel="noopener noreferrer">Check the DOE →</a>
-    </div>}
+    {(usingFallback || isOlder) ? <div className={styles.warning} role="status">
+      <strong>{usingFallback ? "Live feed temporarily unavailable." : "The latest available report may be outdated."}</strong>
+      <span>{usingFallback ? "Showing the last source-checked figures bundled with MotoIndex, not claiming current prices." :
+        "Check the DOE for newer notices before using these figures."}</span>
+      <a href={DOE_FUEL_SOURCE} target="_blank" rel="noopener noreferrer">Check DOE notices ↗</a>
+    </div> : null}
 
-    <section className={styles.section} aria-labelledby="weekly-fuel-changes">
-      <div className={styles.sectionHeader}>
-        <div>
-          <span className={styles.eyebrow}>Latest weekly movement</span>
-          <h2 id="weekly-fuel-changes">Fuel price adjustments this week</h2>
-          <p>Effective week: {periodLabel(latest.weekStart, latest.weekEnd)}. Negative figures mean a decrease; positive figures mean an increase.</p>
-        </div>
-        <span className={styles.unit}>PHP / liter</span>
+    <nav className={styles.jumpNav} aria-label="Sections on this page">
+      <span>Jump to</span><a href="#weekly">Weekly changes</a><a href="#companies">Oil company prices</a>
+      <a href="#impact">Cost impact</a><a href="#sources">Sources</a><a href="#history">History</a>
+    </nav>
+
+    <section id="weekly" className={styles.section} aria-labelledby="weekly-heading">
+      <div className={styles.sectionHeading}>
+        <div><span className={styles.eyebrow}>The weekly picture</span><h2 id="weekly-heading">Fuel price adjustments</h2>
+          <p>Latest available report: {dated}. A negative number means a decrease, and a positive number means an increase.</p></div>
+        <span className={styles.unit}>₱ per liter</span>
       </div>
-      <div className={styles.cards}>
+      <div className={styles.fuelGrid}>
         {FUEL_TYPES.map((type) => {
           const movement = latest.summary[type];
           const direction = fuelDirection(movement);
           return <article key={type} className={styles.fuelCard}>
-            <div className={styles.cardTop}>
-              <span>{labels[type]}</span>
-              <span className={styles[direction]}>{movementKind(movement)}</span>
-            </div>
-            <strong className={styles.value + " " + styles[direction]}>{fuelRange(movement)}</strong>
-            <small>{movementNote(movement)}</small>
+            <div className={styles.fuelCardTop}><FuelIcon type={type}/><span className={`${styles.movePill} ${direction === "down" ? styles.pillDown : direction === "up" ? styles.pillUp : styles.pillFlat}`}>{movementStatus(movement)}</span></div>
+            <h3>{fuelNames[type]}</h3>
+            <strong className={`${styles.fuelValue} ${direction === "down" ? styles.decrease : direction === "up" ? styles.increase : styles.unchanged}`}>{fuelRange(movement)}</strong>
+            <span className={styles.perLiter}>per liter adjusted</span>
+            <p>{movementCount(movement)}</p>
           </article>;
         })}
       </div>
-      <p className={styles.disclaimer}><strong>Important:</strong> The DOE publishes notified adjustments by company, not one nationwide pump price. Stations, grades and locations can have different actual selling prices. Blank kerosene entries are unreported, not zero.</p>
+      <div className={styles.notice}><span aria-hidden="true">i</span><div><strong>These are price changes, not total station prices.</strong>
+        <p>Actual pump prices vary by station, location and fuel grade. A dash means the oil company did not report that fuel. All values are linked to a dated DOE notice.</p></div></div>
     </section>
 
-    <section id="company-prices" className={styles.section} aria-labelledby="company-heading">
-      <div className={styles.sectionHeader}>
-        <div>
-          <span className={styles.eyebrow}>Company breakdown</span>
-          <h2 id="company-heading">Fuel price changes by oil company</h2>
-          <p>Based on the oil companies included in the official DOE notice for the stated week.</p>
-        </div>
-        <a className={styles.inlineLink} href={latest.sourceUrl} target="_blank" rel="noopener noreferrer">Official PDF ↗</a>
+    <section id="companies" className={styles.section} aria-labelledby="company-heading">
+      <div className={styles.sectionHeading}><div><span className={styles.eyebrow}>Compare the market</span>
+        <h2 id="company-heading">Price changes by oil company</h2>
+        <p>Search companies and filter by reported fuel type. Figures come from the DOE notice for {dated}.</p></div>
+        <span className={styles.dateChip}>{dated}</span>
       </div>
-      <div className={styles.tableScroll}>
-        <table className={styles.table}>
-          <caption className={styles.srOnly}>DOE reported price adjustments in Philippine pesos per liter by company</caption>
-          <thead><tr><th scope="col">Oil company</th>{FUEL_TYPES.map((type) => <th key={type} scope="col">{labels[type]} <span>(₱/L)</span></th>)}</tr></thead>
-          <tbody>{latest.companies.map((company) => <tr key={company.company}>
-            <th scope="row">{company.company}</th>
-            {FUEL_TYPES.map((type) => {
-              const value = company[type];
-              return <td key={type}><span className={styles.cellNumber + " " + styles[fuelDirection(value)]}>{value === null ? "—" : fuelAmount(value)}</span></td>;
-            })}
-          </tr>)}</tbody>
-        </table>
-      </div>
-      <p className={styles.tableFootnote}>— means no figure reported for that fuel in the DOE notice. It does not mean the pump price stayed unchanged.</p>
+      <FuelCompanyExplorer companies={latest.companies} sourceUrl={latest.sourceUrl}/>
+      <p className={styles.footnote}>A dash indicates a missing reported figure, not a zero-price change. Source: <a href={latest.sourceUrl} target="_blank" rel="noopener noreferrer">official DOE PDF ↗</a>.</p>
     </section>
 
-    <section className={styles.section} aria-labelledby="price-history">
-      <div className={styles.sectionHeader}>
-        <div>
-          <span className={styles.eyebrow}>Previous reports</span>
-          <h2 id="price-history">Weekly fuel price adjustment history</h2>
-          <p>Compare DOE-notified movements across available weeks. A range means companies reported different changes.</p>
-        </div>
+    <section id="impact" className={styles.section} aria-labelledby="impact-heading">
+      <div className={styles.sectionHeading}><div><span className={styles.eyebrow}>For everyday riders</span>
+        <h2 id="impact-heading">What does it mean for your ride?</h2>
+        <p>See weekly movement at a glance and estimate a change in your regular fuel purchases.</p></div></div>
+      <div className={styles.impactGrid}>
+        <article className={styles.impactCard}>
+          <span className={styles.eyebrow}>Movement at a glance</span>
+          <h3>Up, down, or unchanged?</h3>
+          <p>The direction and magnitude of the reported per-liter adjustments for {dated}.</p>
+          <div className={styles.movementList}>{FUEL_TYPES.map((type) => {
+            const movement = latest.summary[type];
+            const value = movement ? Math.max(Math.abs(movement.min), Math.abs(movement.max)) : 0;
+            const width = `${value / peak * 90}%`;
+            return <div className={styles.movementRow} key={type}>
+              <span>{fuelNames[type]}</span><div className={styles.movementTrack}><i style={{ width }} className={fuelDirection(movement) === "down" ? styles.barDown : fuelDirection(movement) === "up" ? styles.barUp : styles.barNeutral}/></div>
+              <strong>{fuelRange(movement)}</strong>
+            </div>;
+          })}</div>
+          <small>Bars show the magnitude of each adjustment within this report, not nationwide pump prices.</small>
+        </article>
+        <FuelCostImpactCalculator summary={latest.summary}/>
       </div>
-      <div className={styles.tableScroll}>
-        <table className={styles.table}>
-          <thead><tr><th scope="col">Week</th>{FUEL_TYPES.map((type) => <th key={type} scope="col">{labels[type]}</th>)}<th scope="col">Source</th></tr></thead>
-          <tbody>{feed.weeks.map((week) => <tr key={week.weekStart}>
-            <th scope="row">{periodLabel(week.weekStart, week.weekEnd)}</th>
-            {FUEL_TYPES.map((type) => <td key={type}><span className={styles.cellNumber + " " + styles[fuelDirection(week.summary[type])]}>{fuelRange(week.summary[type])}</span></td>)}
-            <td><a href={week.sourceUrl} target="_blank" rel="noopener noreferrer">DOE PDF ↗</a></td>
-          </tr>)}</tbody>
-        </table>
-      </div>
-      <p className={styles.tableFootnote}>The latest available weeks are added automatically after a DOE PDF passes format and value checks.</p>
+      <p className={styles.moreTools}>For your full budget, <Link href="/commute/cost-calculator">open the motorcycle commute cost calculator ↗</Link>.</p>
     </section>
 
-    <section className={styles.infoGrid} aria-label="Find actual prices and estimate commute costs">
-      <div className={styles.infoPanel}>
-        <span className={styles.eyebrow}>Actual price at the pump</span>
-        <h2>Looking for the price of one liter of gasoline?</h2>
-        <p>Weekly changes cannot tell you the retail price at a particular station. Use the DOE&apos;s geographic pump-price reports, then check your station&apos;s displayed price.</p>
-        <div className={styles.regionLinks}>{regionalPrices.map((item) => <a key={item.url} href={item.url} target="_blank" rel="noopener noreferrer">{item.label} ↗</a>)}</div>
-      </div>
-      <div className={styles.infoPanel}>
-        <span className={styles.eyebrow}>For everyday riders</span>
-        <h2>How will a fuel price change affect your commute?</h2>
-        <p>For example, a hypothetical ₱1.00-per-liter gasoline change would change an 8-liter weekly fuel bill by ₱8.00, assuming you buy the same volume. Check the latest DOE figures above for the actual reported weekly movement.</p>
-        <p>Use your real local pump price and fuel economy to estimate a more useful monthly total.</p>
-        <Link href="/commute/cost-calculator">Open motorcycle commute cost calculator →</Link>
-      </div>
+    <section id="sources" className={styles.section} aria-labelledby="source-heading">
+      <div className={styles.sectionHeading}><div><span className={styles.eyebrow}>Source transparency</span>
+        <h2 id="source-heading">Check local pump prices</h2>
+        <p>Weekly adjustments are not posted station prices. For local retail rates, check DOE regional reports and confirm the displayed price at your fuel station.</p></div></div>
+      <div className={styles.regionLinks}>{regionLinks.map((item) =>
+        <a key={item.url} href={item.url} target="_blank" rel="noopener noreferrer">{item.label} ↗</a>)}</div>
     </section>
 
-    <section className={styles.section} aria-labelledby="how-it-works">
-      <span className={styles.eyebrow}>Source and methodology</span>
-      <h2 id="how-it-works">How MotoIndex updates this page</h2>
-      <p>MotoIndex checks the Department of Energy&apos;s price-adjustment publication page on weekdays. A scheduled importer reads the attached PDF notices, verifies the effective week and oil-company figures, and publishes new data only when the report passes validation. The public page reads that published feed independently of production website deployments.</p>
-      <p>If the DOE is delayed, a PDF format changes or a fetch fails, older figures remain labeled with their source week rather than being replaced with guessed prices. This is an independent presentation of public DOE data, not a DOE-operated page.</p>
-      <p>Source: <a href={DOE_FUEL_SOURCE} target="_blank" rel="noopener noreferrer">DOE Prior Notice on Price Adjustments ↗</a>. Published values are price movements, not a guarantee of retail prices at any station.</p>
+    <section id="history" className={styles.section} aria-labelledby="history-heading">
+      <div className={styles.sectionHeading}><div><span className={styles.eyebrow}>Previous verified notices</span>
+        <h2 id="history-heading">Fuel price adjustment history</h2>
+        <p>Compare available reporting weeks without assuming that a missing week means prices stayed flat.</p></div></div>
+      <div className={styles.tableBox}><div className={styles.tableScroll}><table className={styles.dataTable}>
+        <caption className={styles.srOnly}>Dated DOE price adjustments in Philippine pesos per liter</caption>
+        <thead><tr><th scope="col">Week</th>{FUEL_TYPES.map((type) => <th scope="col" key={type}>{fuelNames[type]}</th>)}<th scope="col">Source</th></tr></thead>
+        <tbody>{feed.weeks.map((week) => <tr key={week.weekStart}>
+          <th scope="row">{weekLabel(week.weekStart, week.weekEnd)}</th>
+          {FUEL_TYPES.map((type) => <td key={type}><span className={`${styles.number} ${fuelDirection(week.summary[type]) === "down" ? styles.decrease : fuelDirection(week.summary[type]) === "up" ? styles.increase : styles.unchanged}`}>{fuelRange(week.summary[type])}</span></td>)}
+          <td><a href={week.sourceUrl} target="_blank" rel="noopener noreferrer">DOE PDF ↗</a></td>
+        </tr>)}</tbody>
+      </table></div></div>
     </section>
-    <JsonLd data={sourceSchema} />
+
+    <section className={styles.section} aria-labelledby="methods-heading">
+      <div className={styles.sectionHeading}><div><span className={styles.eyebrow}>Behind the numbers</span>
+        <h2 id="methods-heading">How MotoIndex tracks fuel changes</h2>
+        <p>We show the source and reporting limitations rather than guessing prices.</p></div></div>
+      <div className={styles.methodGrid}>
+        <article><span>01</span><h3>Monitor DOE notices</h3><p>Check official Department of Energy publications for weekly notified fuel adjustments.</p></article>
+        <article><span>02</span><h3>Check company figures</h3><p>Verify the fuel type, per-liter amount, dates and linked PDF before publication.</p></article>
+        <article><span>03</span><h3>Show the report date</h3><p>Keep dates and source links visible. Older or unavailable reports are not presented as new prices.</p></article>
+      </div>
+      <p className={styles.methodNote}>This independent page uses public DOE data and is not operated by the Department of Energy. <a href={DOE_FUEL_SOURCE} target="_blank" rel="noopener noreferrer">DOE Prior Notice on Price Adjustments ↗</a></p>
+    </section>
+
+    <section className={styles.faqSection} aria-labelledby="faq-heading">
+      <div className={styles.faqIntro}><span className={styles.eyebrow}>Frequently asked questions</span>
+        <h2 id="faq-heading">Good questions.<br/>Clear answers.</h2>
+        <p>Understand the figures before using them to plan your commute.</p></div>
+      <div className={styles.faqList}>{faqs.map((faq, index) =>
+        <details key={faq.question} className={styles.faqItem} open={index === 0 ? true : undefined}>
+          <summary>{faq.question}<span aria-hidden="true"/></summary><p>{faq.answer}</p>
+        </details>)}</div>
+    </section>
+    <JsonLd data={sourceSchema}/>
   </section>;
 }
