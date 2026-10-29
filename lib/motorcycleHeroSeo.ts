@@ -46,7 +46,7 @@ export function modelPriceMetaDescription(model: Motorcycle, sourceDescription: 
 
   // Ensure status caveats are visible before generic meta-description trimming
   // can hide them. Do not relabel a previous or discontinued bike as new stock.
-  const lead = aligned.slice(heading.length, heading.length + 112);
+  const lead = aligned.slice(heading.length, 135).split(/\.\s/)[0];
   const statusMissing =
     (model.marketStatus === "previous" && !/historical|previous|dated|last published|used|not current/i.test(lead)) ||
     (model.marketStatus === "discontinued" && !/discontinued/i.test(lead)) ||
