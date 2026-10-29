@@ -60,7 +60,7 @@ export function modelPriceMetaDescription(model: Motorcycle, sourceDescription: 
   const statusMissing =
     (model.marketStatus === "previous" && !/historical|previous|dated|last published|used|not current/i.test(lead)) ||
     (model.marketStatus === "discontinued" && !/discontinued/i.test(lead)) ||
-    (model.marketStatus === "uncertain" && !/availability|verify|confirm|uncertain|stock/i.test(lead));
+    (model.marketStatus === "uncertain" && !/availability|verify|confirm|unconfirmed|uncertain/i.test(lead.slice(0, 84)));
   if (!statusMissing) return aligned;
 
   const caveat = model.marketStatus === "previous"
