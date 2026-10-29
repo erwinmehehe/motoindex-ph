@@ -41,7 +41,7 @@ import { listingsForModel, marketSummary } from "@/lib/usedMarket";
 import { usedValueCurve } from "@/lib/ownership";
 import { php } from "@/lib/utils";
 import { motorcycleEntityEditorial, motorcycleEntityFaqs, motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
-import { modelHeroImageAlt } from "@/lib/motorcycleHeroSeo";
+import { modelHeroImageAlt, modelHeroIntro, priceFocusedModelHeading } from "@/lib/motorcycleHeroSeo";
 import { absoluteUrl } from "@/lib/site";
 import { getRenderableMedia } from "@/lib/media";
 import { modelAuthorityProfile } from "@/lib/modelAuthority";
@@ -196,8 +196,8 @@ export function MotorcycleEntityPage({ model, omitHero = false, nonceReady = fal
         <div className="motorcycle-hero-grid">
           <div className="motorcycle-hero-copy">
             <span className="entity-kicker">Philippines motorcycle · {model.category} · {model.generation}{isDiscontinued ? " · Discontinued" : availabilityUncertain ? " · Availability to verify" : ""}</span>
-            <h1>{seo.heading}</h1>
-            <p className="entity-lede">{seo.intro}</p>
+            <h1>{priceFocusedModelHeading(model) || seo.heading}</h1>
+            <p className="entity-lede">{modelHeroIntro(model, seo.intro)}</p>
             <div className="motorcycle-price-lockup">
               <span>{isHistorical ? "Last published Philippine price" : availabilityUncertain ? "Published PH price · availability to verify" : "Published Philippine price"}</span>
               <strong>{priceRange.length === 2 ? <><b data-price-boundary style={{ fontWeight: "inherit" }}>{priceRange[0]}</b><i data-price-separator style={{ margin: "0 .22em", color: "var(--model-muted)", fontStyle: "normal", fontWeight: 500 }}>–</i><b data-price-boundary style={{ fontWeight: "inherit" }}>{priceRange[1]}</b></> : priceLabel}</strong>
@@ -212,6 +212,7 @@ export function MotorcycleEntityPage({ model, omitHero = false, nonceReady = fal
           </div>
           <div className="motorcycle-hero-visual">
             <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" altOverride={media ? modelHeroImageAlt(model, media.alt) : undefined} priority showCredit={false} sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} className="authority-media-fallback" />} />
+             {model.id === "yamaha-yzf-r15-v3" && <small className="entity-media-credit">Yamaha R15 V3.0 photo by <a href="https://commons.wikimedia.org/wiki/File:Yamaha_R15_V3.0.jpg" target="_blank" rel="noopener noreferrer">Akshayanil919 (Akshay Anil)</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> · Wikimedia 1280px resize, no crop. Photo shows an overseas-market example; Philippine colors and trim may differ.</small>
             <div className="motorcycle-hero-facts">
               <HeroFact label="Engine" value={`${model.engineCc} cc`} note={`${model.powerHp} hp · ${model.torqueNm} Nm`} />
               <HeroFact label="Seat" value={`${model.seatHeightMm} mm`} note={`${model.curbWeightKg} kg curb weight`} />
