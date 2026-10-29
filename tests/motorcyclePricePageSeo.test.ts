@@ -106,6 +106,7 @@ describe("requested motorcycle Price Philippines SEO pages", () => {
     expect(hero).toContain('href={historicalPhoto.sourceUrl}');
 
     const metadata = readFileSync(new URL("../app/motorcycles/[make]/[slug]/page.tsx", import.meta.url), "utf8");
-    expect(metadata).toContain("const image = historicalPhoto?.src || media?.src;");
+    expect(metadata).toContain('const image = getRenderableMedia("motorcycle", model.id)[0]?.src;');
+    expect(metadata).toContain("image: historicalPhoto?.src || image,");
     expect(existsSync(resolve("public/media/motorcycles/yamaha-yzf-r15-v3.webp"))).toBe(false);
   });});
