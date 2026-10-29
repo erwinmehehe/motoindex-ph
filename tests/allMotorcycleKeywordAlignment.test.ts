@@ -54,6 +54,21 @@ describe("catalog-wide keyword audit for all single-model pages", () => {
     }
   });
 
+  it("normalizes compact model-name aliases without duplicating the price query", () => {
+    const pcx = motorcycles.find((model) => model.id === "honda-pcx-160")!;
+    const original = modelIntentDepthProfile(pcx.id)?.seoDescription;
+    expect(original).toBeDefined();
+    expect(original).toContain("Honda PCX160 price Philippines");
+    const resolved = modelPriceMetaDescription(pcx, original!);
+    expect(resolved).toMatch(/^PCX 160 Price Philippines 2026/i);
+    expect(resolved).not.toContain("Honda PCX160 price Philippines");
+
+    const nmax = motorcycles.find((model) => model.id === "yamaha-nmax-v2")!;
+    const historical = modelPriceMetaDescription(nmax, sourceDescription(nmax.id));
+    expect(historical).toContain("NMAX V2 Price Philippines");
+    expect(historical).toMatch(/historical|previous/i);
+  });
+
   it("includes each H1 keyword in primary image alts, including correctly labeled placeholders", () => {
     const placeholders: string[] = [];
     for (const model of motorcycles) {
