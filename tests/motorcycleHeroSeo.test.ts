@@ -20,16 +20,17 @@ describe("motorcycle hero keyword alignment", () => {
   it("preserves accurate photo descriptions and adds the model keyword to hero image alt text", () => {
     for (const model of motorcycles) {
       const mainImage = getRenderableMedia("motorcycle", model.id)[0];
-      if (!mainImage || mainImage.src.includes("/placeholders/")) continue;
+      expect(mainImage, model.id).toBeDefined();
       const alt = modelHeroImageAlt(model, mainImage.alt);
       const keyword = priceFocusedModelHeading(model);
       expect(alt, model.id).toContain(mainImage.alt);
-      expect(alt.toLowerCase(), model.id).toContain(keyword.toLowerCase());
+      expect(alt, model.id).toContain(keyword);
+      if (mainImage.src.includes("/placeholders/")) expect(alt, model.id).toMatch(/placeholder/i);
     }
   });
 
   it("does not turn placeholders into product photos or repeat existing keywords", () => {
-    expect(contextualHeroImageAlt("Motorcycle product image placeholder", "NMAX V3 Price Philippines")).toBe("Motorcycle product image placeholder");
+    expect(contextualHeroImageAlt("Motorcycle product image placeholder", "NMAX V3 Price Philippines")).toBe("Motorcycle product image placeholder for NMAX V3 Price Philippines");
     const alt = "Yamaha NMAX V3 motorcycle in black, NMAX V3 Price Philippines";
     expect(contextualHeroImageAlt(alt, "NMAX V3 Price Philippines")).toBe(alt);
   });
