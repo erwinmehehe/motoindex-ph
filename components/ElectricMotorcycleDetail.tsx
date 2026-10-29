@@ -12,8 +12,8 @@ import { contextualHeroImageAlt } from "@/lib/motorcycleHeroSeo";
 
 export function ElectricMotorcycleDetail({ model, nonceReady = false }: { model: ElectricMotorcycle; nonceReady?: boolean }) {
   const name=`${model.make} ${model.model}`;
-  const heroHeading=`${name} price and specifications`;
-  const heroImageAlt=contextualHeroImageAlt(`${name} electric motorcycle`, `${heroHeading} in the Philippines`);
+  const heroHeading=`${model.model} Price Philippines`;
+  const heroImageAlt=contextualHeroImageAlt(`${name} electric motorcycle`, heroHeading);
   const canonicalPath=`/motorcycles/electric/${model.slug}`;
   const siblings=electricMotorcycles.filter(item=>item.slug!==model.slug);
   const faqs=[
@@ -66,7 +66,7 @@ export function ElectricMotorcycleDetail({ model, nonceReady = false }: { model:
       <div className="product-hero-copy">
         <span className="entity-kicker">LTO L3 electric motorcycle</span>
         <h1>{heroHeading}</h1>
-        <p>Compare {heroHeading} in the Philippines. The recorded starting price is <strong>{php(model.priceFromPhp)}</strong> with a battery subscription. The one-battery setup has a {model.batteryKwh} kWh battery and a claimed {model.rangeOneKm} km range. The two-battery setup has {model.twoBatteryKwh} kWh and a claimed {model.rangeTwoKm} km range.</p>
+        <p>{heroHeading} guide: Compare the {name} battery options and published pricing. The recorded starting price is <strong>{php(model.priceFromPhp)}</strong> with a battery subscription. The one-battery setup has a {model.batteryKwh} kWh battery and a claimed {model.rangeOneKm} km range. The two-battery setup has {model.twoBatteryKwh} kWh and a claimed {model.rangeTwoKm} km range.</p>
         <div className="hero-actions"><a className="button" href={model.sourceUrl} rel="nofollow noopener noreferrer" target="_blank">Check official model page</a><Link className="button secondary" href="/tools/electric-motorcycle-charging-cost">Estimate charging cost</Link></div>
       </div>
     </div>
