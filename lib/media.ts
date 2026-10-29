@@ -6,6 +6,15 @@ import type { EntityMedia } from "./types";
 // Local motorcycle WebP derivatives are art-directed to a 1200x1200 white catalog canvas; source provenance remains below.
 export const entityMedia: EntityMedia[] = [
   {
+    id: "yamaha-yzf-r15-v3-commons-cc-20261029", entityType: "motorcycle", entityId: "yamaha-yzf-r15-v3", role: "primary",
+    src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Yamaha_R15_V3.0.jpg/1280px-Yamaha_R15_V3.0.jpg",
+    sourceImageUrl: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Yamaha_R15_V3.0.jpg/960px-Yamaha_R15_V3.0.jpg",
+    alt: "2018 Yamaha YZF-R15 V3 motorcycle in red and charcoal gray, photographed outdoors", width: 1280, height: 853,
+    rightsStatus: "licensed", rightsHolder: "Akshayanil919 / Akshay Anil Photography",
+    sourceLabel: "Akshayanil919 (Akshay Anil), CC BY-SA 4.0, 1280px resize, no crop",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Yamaha_R15_V3.0.jpg", lastChecked: "2026-10-29"
+  },
+  {
     id: "hjc-rpha-91-source-20261006", entityType: "helmet", entityId: "hjc-rpha-91", role: "primary",
     src: "/media/helmets/hjc-rpha-91.webp", sourceImageUrl: "https://cdn-iutgbvdd.sportsbikeshop.co.uk/image/upload/spin-still/762335_Helmets_HJC_HJC-R-PHA-91-Pearl-White/62.jpg", alt: "HJC RPHA 91 modular motorcycle helmet in pearl white", width: 1200, height: 1200,
     rightsStatus: "external-reference", rightsHolder: "SportsBikeShop / HJC", sourceLabel: "Retailer exact-model studio image · HJC RPHA 91", sourceUrl: "https://www.sportsbikeshop.co.uk/motorcycle_parts/content_prod/762335", lastChecked: "2026-10-06"
