@@ -3,6 +3,7 @@ import Link from "next/link";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { getModelById } from "@/lib/data";
 import { priceAlertConfigStatus } from "@/lib/priceAlerts";
+import { getRequestTimestampMs } from "@/lib/requestClock";
 import { php } from "@/lib/utils";
 import { PriceAlertRunButton } from "@/components/PriceAlertRunButton";
 
@@ -32,7 +33,8 @@ export default async function PriceAlertsAdmin(){
   const active=rows.filter(row=>row.status==="active").length;
   const pending=rows.filter(row=>row.status==="pending").length;
   const unsubscribed=rows.filter(row=>row.status==="unsubscribed").length;
-  const sent30=rows.filter(row=>row.lastSentAt&&row.lastSentAt>=new Date(Date.now()-30*24*60*60*1000)).length;
+  const sentSince=new Date(getRequestTimestampMs()-30*24*60*60*1000);
+  const sent30=rows.filter(row=>row.lastSentAt&&row.lastSentAt>=sentSince).length;
 
   return <section className="page shell">
     <div className="page-head">
