@@ -95,6 +95,7 @@ describe("AEO and SEO for the six Philippine transportation guides", () => {
     expect(template).toContain("<TransitStationTable guide={stationGuide} />");
     expect(template).toContain("<LtoPracticeQuiz />");
     expect(template).toContain("transitStationListSchema");
+    expect(template).toContain("citations: guide.sources.map");
     expect(template).toContain("faqPageSchema(guide.faqs)");
     expect(art).toContain('kind === "rail"');
     expect(art).toContain('kind === "rfid"');
