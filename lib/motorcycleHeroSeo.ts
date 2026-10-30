@@ -1,11 +1,16 @@
 import type { Motorcycle } from "./types";
 import { motorcyclePricePageSeo } from "./motorcyclePricePageSeo";
 
-// Canonical single-model pages use the exact same model-first keyword in the
-// document title and the visible H1. The brand still appears in body copy,
-// breadcrumbs, structured data and metadata keywords.
-export function priceFocusedModelHeading(model: Pick<Motorcycle, "model">): string {
-  return `${model.model.trim()} Price Philippines`;
+// Canonical single-model pages share a brand-first price phrase across the
+// visible H1, metadata title, hero copy and accessible image labels.
+// Avoid doubling a brand when it is already part of a recorded model name.
+export function priceFocusedModelHeading(model: Pick<Motorcycle, "make" | "model">): string {
+  const make = model.make.trim();
+  const modelName = model.model.trim();
+  const fullName = modelName.toLowerCase().startsWith(`${make.toLowerCase()} `)
+    ? modelName
+    : `${make} ${modelName}`;
+  return `${fullName} Price Philippines`;
 }
 
 // Keep dedicated reviewed SEO copy for the eight originally requested models.
