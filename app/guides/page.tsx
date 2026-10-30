@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Philippine Motorcycle & Transport Guides | MotoIndex PH",
-  description: "Philippines motorcycle, LTO, expressway toll, RFID, coding and rail guides with dated fees, station lists, answer-first advice and operator sources.",
+  description: "Philippine motorcycle, LTO licensing, expressway exit and toll guides, RFID balance help and commuting references with checked operator sources.",
   path: "/guides",
   index: true
 });
@@ -40,6 +40,13 @@ export default function GuidesPage() {
       <article><h2>Skyway, SLEX and NLEX toll fees</h2><p>Review dated Class 1 examples, entry and exit guidance, and the right RFID payment network.</p><div className="topic-action"><Link href="/guides/skyway-philippines-routes-toll-fees">Skyway →</Link> · <Link href="/guides/slex-toll-fee-philippines">SLEX →</Link> · <Link href="/guides/nlex-toll-fee-philippines">NLEX →</Link></div></article>
       <article><h2>LRT-1 and EDSA Carousel</h2><p>Use the 25-station LRT-1 table, fare examples and directional EDSA Busway stop list.</p><div className="topic-action"><Link href="/guides/lrt-1-fare-philippines">LRT-1 fares →</Link> · <Link href="/guides/edsa-carousel-stations-fare">Carousel stops →</Link></div></article>
       <article><h2>Number coding today</h2><p>Check the regular Manila plate-ending schedule and announced suspensions before planning a road trip.</p><div className="topic-action"><Link href="/guides/metro-manila-number-coding-today">Check your plate →</Link></div></article>
+    </div>
+
+    <div className="section-head compact"><div><span className="section-kicker">New operator guides</span><h2>TPLEX, SCTEX, CALAX and LTO help</h2><p>Read exit lists, check which toll road and RFID account applies, or prepare for a lost-license replacement with the LTO checklist.</p></div></div>
+    <div className="topic-grid">
+      <article><h2>TPLEX and SCTEX exit lists</h2><p>Plan northern Luzon routes with referenced interchange lists. Learn where Autosweep changes to Easytrip.</p><div className="topic-action"><Link href="/guides/tplex-exits-and-route">TPLEX →</Link> · <Link href="/guides/sctex-route-and-exits">SCTEX →</Link></div></article>
+      <article><h2>CALAX and NLEX Connector</h2><p>Check the currently documented road sections and available access points. Avoid mistaking planned connections for open roads.</p><div className="topic-action"><Link href="/guides/cavite-laguna-expressway-calax">CALAX →</Link> · <Link href="/guides/nlex-connector-road-philippines">NLEX Connector →</Link></div></article>
+      <article><h2>RFID and driver paperwork</h2><p>Find the official Autosweep account-balance methods, or use an LTO document checklist for a duplicate license.</p><div className="topic-action"><Link href="/guides/autosweep-rfid-balance-check">Autosweep balance →</Link> · <Link href="/guides/lost-drivers-license-philippines">Lost LTO license →</Link></div></article>
     </div>
 
     <div className="section-head compact"><div><span className="section-kicker">MotoIndex data research</span><h2>Compare the underlying motorcycle data</h2><p>Use source-led datasets when you need a market-wide view before narrowing to individual model pages.</p></div><Link href="/research">Open research hub →</Link></div>
