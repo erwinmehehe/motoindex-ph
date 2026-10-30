@@ -23,9 +23,10 @@ function sourceDescription(id: string) {
 describe("catalog-wide keyword audit for all single-model pages", () => {
   it("requires the exact keyword in all 236 standard meta titles, descriptions, H1s, and hero intros", () => {
     expect(motorcycles).toHaveLength(236);
+    expect(priceFocusedModelHeading(motorcycles.find((m) => m.id === "honda-click-160")!)).toBe("Honda Click 160 Price Philippines");
     const keywords = new Set<string>();
     for (const model of motorcycles) {
-      const keyword = model.model + " Price Philippines";
+      const keyword = model.make + " " + model.model + " Price Philippines";
       expect(priceFocusedModelHeading(model), model.id).toBe(keyword);
       expect(keywords.has(keyword.toLowerCase()), model.id).toBe(false);
       keywords.add(keyword.toLowerCase());
@@ -60,7 +61,7 @@ describe("catalog-wide keyword audit for all single-model pages", () => {
     expect(original).toBeDefined();
     expect(original).toContain("Honda PCX160 price Philippines");
     const resolved = modelPriceMetaDescription(pcx, original!);
-    expect(resolved).toMatch(/^PCX 160 Price Philippines 2026/i);
+    expect(resolved).toMatch(/^Honda PCX 160 Price Philippines 2026/i);
     expect(resolved).not.toContain("Honda PCX160 price Philippines");
 
     const nmax = motorcycles.find((model) => model.id === "yamaha-nmax-v2")!;
@@ -115,9 +116,9 @@ describe("catalog-wide keyword audit for all single-model pages", () => {
     expect(electric).toContain("alt={heroImageAlt}");
     expect(electric).toContain("{heroHeading} guide:");
     expect(electric).toContain("<h1>{heroHeading}</h1>");
-    expect(route).toContain("electricModel.model} Price Philippines");
+    expect(route).toContain("title: priceFocusedModelHeading(electricModel),");
     for (const model of electricMotorcycles) {
-      const keyword = model.model + " Price Philippines";
+      const keyword = model.make + " " + model.model + " Price Philippines";
       const alt = contextualHeroImageAlt(model.make + " " + model.model + " electric motorcycle", keyword);
       expect(alt).toContain(keyword);
       const desc = keyword + ": Compare " + model.make + " " + model.model + " battery, claimed range, charging, top speed and LTO classification.";
@@ -125,6 +126,9 @@ describe("catalog-wide keyword audit for all single-model pages", () => {
       expect(String(metadata.description)).toContain(keyword);
     }
     expect(modelFamilies).toHaveLength(4);
-    for (const family of modelFamilies) expect(family.generationIds.length).toBeGreaterThan(1);
+    for (const family of modelFamilies) {
+      expect(family.generationIds.length).toBeGreaterThan(1);
+      expect(family.seoTitle).toContain(`${family.make} ${family.name} Price Philippines`);
+    }
   });
 });

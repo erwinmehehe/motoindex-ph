@@ -6,17 +6,17 @@ import { motorcyclePricePageSeo } from "../lib/motorcyclePricePageSeo";
 import { motorcycleEntitySeo } from "../lib/motorcycleEntitySeo";
 
 const priorityModels = [
-  ["yamaha-aerox-v3", "Aerox V3 Price Philippines"],
-  ["yamaha-nmax-v3", "NMAX V3 Price Philippines"],
-  ["honda-adv-160", "ADV 160 Price Philippines"],
-  ["honda-click-125i", "Click 125i Price Philippines"],
-  ["yamaha-sniper-155", "Sniper 155 Price Philippines"],
-  ["rusi-classic-250i", "Classic 250i Price Philippines"],
-  ["rusi-rfi-175", "RFI 175 Price Philippines"],
-  ["yamaha-yzf-r15-v3", "YZF-R15 V3 Price Philippines"],
-  ["yamaha-mio-i-125", "Mio i 125 Price Philippines"],
-  ["yamaha-xmax", "XMAX Price Philippines"],
-  ["kawasaki-klx150", "KLX150 Price Philippines"]
+  ["yamaha-aerox-v3", "Yamaha Aerox V3 Price Philippines"],
+  ["yamaha-nmax-v3", "Yamaha NMAX V3 Price Philippines"],
+  ["honda-adv-160", "Honda ADV 160 Price Philippines"],
+  ["honda-click-125i", "Honda Click 125i Price Philippines"],
+  ["yamaha-sniper-155", "Yamaha Sniper 155 Price Philippines"],
+  ["rusi-classic-250i", "Rusi Classic 250i Price Philippines"],
+  ["rusi-rfi-175", "Rusi RFI 175 Price Philippines"],
+  ["yamaha-yzf-r15-v3", "Yamaha YZF-R15 V3 Price Philippines"],
+  ["yamaha-mio-i-125", "Yamaha Mio i 125 Price Philippines"],
+  ["yamaha-xmax", "Yamaha XMAX Price Philippines"],
+  ["kawasaki-klx150", "Kawasaki KLX150 Price Philippines"]
 ] as const;
 
 describe("model-first price SEO titles and H1s", () => {
