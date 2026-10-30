@@ -26,7 +26,7 @@ describe("one exact Price Philippines HTML title + H1 for each model detail URL"
     const paths = new Set<string>();
     for (const model of motorcycles) {
       const title = priceFocusedModelHeading(model);
-      expect(title, model.id).toBe(`${model.model} Price Philippines`);
+      expect(title, model.id).toBe(`${model.make} ${model.model} Price Philippines`);
       expect(title, model.id).toMatch(/ Price Philippines$/);
       expect(title.length, model.id).toBeLessThanOrEqual(65);
       expect(titles.has(title.toLowerCase()), `Duplicate title: ${title}`).toBe(false);
@@ -59,8 +59,8 @@ describe("one exact Price Philippines HTML title + H1 for each model detail URL"
     const aerox = motorcycles.find((entry) => entry.id === "yamaha-aerox-v2")!;
     expect(nmax.marketStatus).toBe("previous");
     expect(aerox.marketStatus).toBe("previous");
-    expect(priceFocusedModelHeading(nmax)).toBe("NMAX V2 Price Philippines");
-    expect(priceFocusedModelHeading(aerox)).toBe("Aerox V2 Price Philippines");
+    expect(priceFocusedModelHeading(nmax)).toBe("Yamaha NMAX V2 Price Philippines");
+    expect(priceFocusedModelHeading(aerox)).toBe("Yamaha Aerox V2 Price Philippines");
     expect(priorityModelGrowthProfile(nmax.id)?.seoDescription).toContain("₱119,900 historical 2020 launch SRP");
     expect(priorityModelGrowthProfile(aerox.id)?.seoDescription).toContain("historical 2021 launch SRP");
     expect(modelPriceMetaDescription(nmax, modelDescription(nmax))).toMatch(/historical|previous/i);
@@ -72,14 +72,16 @@ describe("one exact Price Philippines HTML title + H1 for each model detail URL"
     expect(electricMotorcycles).toHaveLength(3);
     const route = readFileSync(new URL("../app/motorcycles/[make]/[slug]/page.tsx", import.meta.url), "utf8");
     const electric = readFileSync(new URL("../components/ElectricMotorcycleDetail.tsx", import.meta.url), "utf8");
-    expect(route).toContain('title: `${electricModel.model} Price Philippines`');
-    expect(electric).toContain('const heroHeading=`${model.model} Price Philippines`;');
+    const families = readFileSync(new URL("../components/ModelFamilyView.tsx", import.meta.url), "utf8");
+    expect(route).toContain('title: priceFocusedModelHeading(electricModel),');
+    expect(electric).toContain('const heroHeading=priceFocusedModelHeading(model);');
     expect(electric).toContain("<h1>{heroHeading}</h1>");
     for (const model of electricMotorcycles) {
-      expect(`${model.model} Price Philippines`).toMatch(/ Price Philippines$/);
+      expect(priceFocusedModelHeading(model)).toBe(`${model.make} ${model.model} Price Philippines`);
     }
     expect(modelFamilies).toHaveLength(4);
+    expect(families).toContain("const familyHeroHeading = `${family.make} ${family.name} Price Philippines`;");
     // Family hubs compare generations rather than representing one model.
-    for (const family of modelFamilies) expect(family.seoTitle).toMatch(/Price Philippines/);
+    for (const family of modelFamilies) expect(family.seoTitle).toContain(`${family.make} ${family.name} Price Philippines`);
   });
 });
