@@ -8,13 +8,14 @@ import {
   DOE_FUEL_SOURCE, FUEL_TYPES, fuelDirection, fuelRange, getFuelFeed,
   type FuelMovement, type FuelType
 } from "@/lib/fuelPriceFeed";
+import pumpSnapshot from "@/data/fuel-pump-prices.ncr.json";
 import styles from "./page.module.css";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Gas Price Philippines: Weekly DOE Fuel Updates | MotoIndex",
-  description: "Track DOE weekly gasoline, diesel and kerosene price adjustments in the Philippines, compare oil companies and check official source reports.",
+  title: "Gas Price Philippines: Actual Pump Price Ranges & DOE Updates | MotoIndex",
+  description: "Check dated Metro Manila gasoline and diesel pump-price ranges per liter, plus official DOE weekly price adjustments and regional source reports.",
   path: "/gas-price-philippines",
   index: true
 });
@@ -55,13 +56,15 @@ function FuelIcon({ type }: { type: FuelType }) {
 }
 
 const faqs = [
-  { question: "Are these actual pump prices today?", answer: "No. These are weekly per-liter price adjustments reported in DOE notices, not the total amount charged at a gas station. Retail prices differ by station, location, grade and date." },
+  { question: "Are these today’s pump prices at my station?", answer: "No. The Metro Manila price section shows the lowest and highest observed station prices for its displayed report week. It is a dated retail-price reference, not a live station quote or a national average. The weekly DOE adjustment figures elsewhere on this page are changes, not pump totals." },
   { question: "How often will MotoIndex update this page?", answer: "The importer checks DOE notices on weekdays. A new verified report appears only after its PDF passes format and value checks. If a source is unavailable, the last valid report stays visible with a warning." },
   { question: "Why do some oil companies have no kerosene figure?", answer: "A dash means that the oil company's kerosene adjustment was not stated in the DOE notice. It does not mean there was no price change." },
   { question: "How can I estimate my commuting fuel expense?", answer: "Enter your weekly fuel volume in the calculator. It multiplies that volume by the reported per-liter change. To estimate your full monthly budget, use the commute cost calculator and a current pump price near you." }
 ];
 
 export default async function GasPricePhilippinesPage() {
+  const pumpPeriod = weekLabel(pumpSnapshot.weekStart, pumpSnapshot.weekEnd);
+  const pumpIsOlder = Date.now() - Date.parse(`${pumpSnapshot.weekEnd}T15:59:59Z`) > 7 * 86400000;
   const { feed, usingFallback } = await getFuelFeed();
   const latest = feed.weeks[0];
   const dated = weekLabel(latest.weekStart, latest.weekEnd);
@@ -93,10 +96,10 @@ export default async function GasPricePhilippinesPage() {
       <div className={styles.heroCopy}>
         <span className={styles.eyebrow}><i className={styles.eyebrowDot} aria-hidden="true"/>Fuel watch · Philippines</span>
         <h1>Gas price updates<br/>in the <span>Philippines.</span></h1>
-        <p className={styles.lede}>Stay on top of weekly gasoline, diesel and kerosene price changes. Compare oil companies, check the official DOE source, and estimate what those changes mean for your rides.</p>
+        <p className={styles.lede}>See dated gasoline and diesel prices per liter in Metro Manila, then track weekly DOE price changes and compare oil-company adjustments.</p>
         <div className={styles.heroActions}>
-          <a className="button" href={latest.sourceUrl} target="_blank" rel="noopener noreferrer">View DOE price notice ↗</a>
-          <a className={styles.secondaryButton} href="#companies">Compare oil companies ↓</a>
+          <a className="button" href="#pump-prices">See pump prices per liter ↓</a>
+          <a className={styles.secondaryButton} href={latest.sourceUrl} target="_blank" rel="noopener noreferrer">View DOE weekly notice ↗</a>
         </div>
         <div className={styles.heroTrust} aria-label="Data transparency">
           <span>✓ DOE source-linked</span><span>▦ By-company breakdown</span><span>◷ Dated reports</span>
@@ -133,9 +136,39 @@ export default async function GasPricePhilippinesPage() {
     </div> : null}
 
     <nav className={styles.jumpNav} aria-label="Sections on this page">
-      <span>Jump to</span><a href="#weekly">Weekly changes</a><a href="#companies">Oil company prices</a>
+      <span>Jump to</span><a href="#pump-prices">Pump prices per liter</a><a href="#weekly">Weekly changes</a><a href="#companies">Oil company changes</a>
       <a href="#impact">Cost impact</a><a href="#sources">Sources</a><a href="#history">History</a>
     </nav>
+
+
+    <section id="pump-prices" className={styles.section} aria-labelledby="pump-prices-heading">
+      <div className={styles.sectionHeading}>
+        <div>
+          <span className={styles.eyebrow}>Retail pump prices · Metro Manila</span>
+          <h2 id="pump-prices-heading">How much is gasoline and diesel per liter?</h2>
+          <p>Reported station price ranges in {pumpSnapshot.coverage} for {pumpPeriod}. These are low-to-high pump prices, not a single Philippine average and not the weekly price changes shown below.</p>
+        </div>
+        <span className={styles.dateChip}>{pumpPeriod}</span>
+      </div>
+      <div className={styles.pumpGrid}>
+        {pumpSnapshot.fuels.map((fuel) => <article className={styles.pumpCard} key={fuel.id}>
+          <span className={styles.pumpGrade}>{fuel.grade}</span>
+          <h3>{fuel.name}</h3>
+          <strong>₱{fuel.low.toFixed(2)} <span>–</span> ₱{fuel.high.toFixed(2)}</strong>
+          <small>Observed range, PHP per liter</small>
+        </article>)}
+      </div>
+      <div className={styles.pumpNote} role={pumpIsOlder ? "status" : undefined}>
+        <div>
+          <strong>{pumpIsOlder ? "Older retail-price snapshot." : "Prices are from a dated monitoring week."}</strong>
+          <p>These NCR figures are drawn from a dated independent summary of DOE pump-price monitoring. They are not live station quotes or prices for other regions. Always check the current station display before filling up.</p>
+        </div>
+        <div className={styles.pumpSources}>
+          <a href={pumpSnapshot.sourceUrl} target="_blank" rel="noopener noreferrer">DOE NCR reports ↗</a>
+          <a href={pumpSnapshot.compiledSourceUrl} target="_blank" rel="noopener noreferrer">Compiled source ↗</a>
+        </div>
+      </div>
+    </section>
 
     <section id="weekly" className={styles.section} aria-labelledby="weekly-heading">
       <div className={styles.sectionHeading}>
