@@ -10,35 +10,35 @@ import { licensedHistoricalMotorcycleImage } from "../lib/licensedMotorcycleRefe
 
 const expected = {
   "honda-click-125i": {
-    "title": "Click 125i Price Philippines | Honda SRP & Installment",
+    "title": "Click 125i Price Philippines",
     "h1": "Click 125i Price Philippines"
   },
   "yamaha-sniper-155": {
-    "title": "Sniper 155 Price Philippines | Yamaha Specs & SRP",
+    "title": "Sniper 155 Price Philippines",
     "h1": "Sniper 155 Price Philippines"
   },
   "rusi-classic-250i": {
-    "title": "Classic 250i Price Philippines | Rusi Specs & Costs",
+    "title": "Classic 250i Price Philippines",
     "h1": "Classic 250i Price Philippines"
   },
   "rusi-rfi-175": {
-    "title": "RFI 175 Price Philippines | Rusi Specs & Installment",
+    "title": "RFI 175 Price Philippines",
     "h1": "RFI 175 Price Philippines"
   },
   "yamaha-yzf-r15-v3": {
-    "title": "YZF-R15 V3 Price Philippines | Yamaha Historic SRP",
+    "title": "YZF-R15 V3 Price Philippines",
     "h1": "YZF-R15 V3 Price Philippines"
   },
   "yamaha-mio-i-125": {
-    "title": "Mio i 125 Price Philippines | Yamaha SRP & Specs",
+    "title": "Mio i 125 Price Philippines",
     "h1": "Mio i 125 Price Philippines"
   },
   "yamaha-xmax": {
-    "title": "XMAX Price Philippines | Yamaha ABS & Installment",
+    "title": "XMAX Price Philippines",
     "h1": "XMAX Price Philippines"
   },
   "kawasaki-klx150": {
-    "title": "KLX150 Price Philippines | Kawasaki Specs & SRP",
+    "title": "KLX150 Price Philippines",
     "h1": "KLX150 Price Philippines"
   }
 } as const;
@@ -69,10 +69,10 @@ describe("requested motorcycle Price Philippines SEO pages", () => {
 
   it("gives requested metadata priority, including for models with stronger existing SEO overrides", () => {
     const route = readFileSync(new URL("../app/motorcycles/[make]/[slug]/page.tsx", import.meta.url), "utf8");
-    expect(route).toContain("title: targetSeo?.title || intentDepth?.seoTitle || growth?.seoTitle || seo.title");
-    expect(route).toContain("description: targetSeo?.description || intentDepth?.seoDescription || growth?.seoDescription || seo.description");
+    expect(route).toContain("title: priceFocusedModelHeading(model),");
+    expect(route).toContain("description: modelPriceMetaDescription(model, targetSeo?.description || intentDepth?.seoDescription || growth?.seoDescription || seo.description)");
     const hero = readFileSync(new URL("../components/MotorcycleEntityPage.tsx", import.meta.url), "utf8");
-    expect(hero).toContain("<h1>{priceFocusedModelHeading(model) || seo.heading}</h1>");
+    expect(hero).toContain("<h1>{priceFocusedModelHeading(model)}</h1>");
     expect(hero).toContain("modelHeroIntro(model, seo.intro)");
   });
 

@@ -14,7 +14,7 @@ import { absoluteUrl, pageMetadata } from "@/lib/site";
 import { motorcycleEntitySeo } from "@/lib/motorcycleEntitySeo";
 import { motorcyclePricePageSeo } from "@/lib/motorcyclePricePageSeo";
 import { licensedHistoricalMotorcycleImage } from "@/lib/licensedMotorcycleReference";
-import { contextualHeroImageAlt, modelHeroImageAlt } from "@/lib/motorcycleHeroSeo";
+import { contextualHeroImageAlt, modelHeroImageAlt, priceFocusedModelHeading, modelPriceMetaDescription } from "@/lib/motorcycleHeroSeo";
 import { priorityModelGrowthProfile } from "@/lib/priorityModelGrowth";
 import { modelIntentDepthProfile } from "@/lib/modelIntentDepth2026";
 import { getRenderableMedia } from "@/lib/renderableMedia";
@@ -57,11 +57,11 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
     const electricModel = getElectricMotorcycle(slug);
     if (!electricModel) return {};
     return pageMetadata({
-      title: `${electricModel.make} ${electricModel.model} Price Philippines | Range & Specs`,
-      description: `${electricModel.make} ${electricModel.model} electric motorcycle price, battery capacity, claimed range, charging time, maximum speed and LTO classification in the Philippines.`,
+      title: `${electricModel.model} Price Philippines`,
+      description: `${electricModel.model} Price Philippines: Compare ${electricModel.make} ${electricModel.model} battery, claimed range, charging, top speed and LTO classification.`,
       path: `/motorcycles/electric/${electricModel.slug}`,
       image: electricModel.imageUrl,
-      imageAlt: contextualHeroImageAlt(`${electricModel.make} ${electricModel.model} electric motorcycle`, `${electricModel.make} ${electricModel.model} price and specifications in the Philippines`)
+      imageAlt: contextualHeroImageAlt(`${electricModel.make} ${electricModel.model} electric motorcycle`, `${electricModel.model} Price Philippines`)
     });
   }
   if (make === "honda" && slug === "crf250-rally") {
@@ -109,12 +109,12 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   const historicalPhoto = licensedHistoricalMotorcycleImage(model.id);
   const image = getRenderableMedia("motorcycle", model.id)[0]?.src;
   const base = pageMetadata({
-    title: targetSeo?.title || intentDepth?.seoTitle || growth?.seoTitle || seo.title,
-    description: targetSeo?.description || intentDepth?.seoDescription || growth?.seoDescription || seo.description,
+    title: priceFocusedModelHeading(model),
+    description: modelPriceMetaDescription(model, targetSeo?.description || intentDepth?.seoDescription || growth?.seoDescription || seo.description),
     path: `/motorcycles/${model.makeSlug}/${model.slug}`,
     index: isIndexableModel(model),
     image: historicalPhoto?.src || image,
-    imageAlt: historicalPhoto ? modelHeroImageAlt(model, historicalPhoto.alt) : media ? modelHeroImageAlt(model, media.alt) : `${model.make} ${model.model} motorcycle`,
+    imageAlt: modelHeroImageAlt(model, historicalPhoto?.alt || media?.alt || `${model.make} ${model.model} motorcycle image not available`),
     imageWidth: historicalPhoto?.width || media?.width,
     imageHeight: historicalPhoto?.height || media?.height
   });
@@ -123,7 +123,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
   if (model.id === "yamaha-aerox-v3") {
     const socialTitle = "Yamaha Aerox V3 Price Philippines 2026 | Standard vs SP";
     const socialDescription =
-      "Compare Aerox V3 Standard and SP published PH price references (₱125,900–₱163,900), plus specs and installment planning. Confirm current dealer quotes.";
+      `${priceFocusedModelHeading(model)}: Compare Standard and SP published PH prices (₱125,900–₱163,900), specs and installment planning. Confirm dealer quotes.`;
     const socialImage = absoluteUrl("/og/aerox-v3");
     return {
       ...base,
@@ -137,7 +137,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
           width: 1200,
           height: 630,
           type: "image/png",
-          alt: "MotoIndex PH Yamaha Aerox V3 2026 Standard vs SP published price guide"
+          alt: "Yamaha Aerox V3 Standard vs SP motorcycle price guide, Aerox V3 Price Philippines"
         }]
       },
       twitter: {

@@ -29,7 +29,9 @@ type PageMetadataOptions = {
 function metaDescription(text: string, limit = 158) {
   const clean = text.replace(/\s+/g, " ").trim();
   if (clean.length <= limit) return clean;
-  const window = clean.slice(0, limit + 1);
+  // Reserve one character for the ellipsis; the final result must never
+  // exceed the requested metadata length (including that ellipsis).
+  const window = clean.slice(0, limit);
   const sentenceEnd = Math.max(window.lastIndexOf(". "), window.lastIndexOf("? "), window.lastIndexOf("! "));
   if (sentenceEnd >= 90) return clean.slice(0, sentenceEnd + 1);
   const wordEnd = window.lastIndexOf(" ");
