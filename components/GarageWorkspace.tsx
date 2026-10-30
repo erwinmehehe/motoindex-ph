@@ -216,7 +216,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
   function prepareMaintenanceRecord(item: typeof smartMaintenance[number]) {
     if (!selectedBike) return;
     setMaintenanceDraft({
-      key: `${item.item}-${Date.now()}`,
+      key: id("maintenance-draft"),
       title: item.item,
       category: "PMS",
       nextDueKm: nextMaintenanceDueAfterCompletion(item.interval, selectedBike.odometerKm),
@@ -231,7 +231,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
       ? record.nextDueKm - record.odometerKm
       : undefined;
     setMaintenanceDraft({
-      key: `${record.id}-${Date.now()}`,
+      key: id("maintenance-draft"),
       title: record.title,
       category: record.category,
       nextDueKm: intervalKm !== undefined ? selectedBike.odometerKm + intervalKm : undefined,
@@ -243,7 +243,7 @@ export function GarageWorkspace({ catalog }: { catalog: GarageCatalogModel[] }) 
   function prepareEvidenceDocument(record: GarageRecord) {
     if (!selectedBike) return;
     setDocumentDraft({
-      key: `${record.id}-evidence-${Date.now()}`,
+      key: id("document-draft"),
       linkedRecordId: record.id,
       type: record.category === "WARRANTY" ? "WARRANTY" : "RECEIPT",
       label: `${record.title} evidence`,

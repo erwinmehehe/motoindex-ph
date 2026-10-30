@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { hashActionToken } from "@/lib/actionTokens";
+import { getRequestTimestampMs } from "@/lib/requestClock";
 import { getModelById } from "@/lib/data";
 import { php } from "@/lib/utils";
 import { PriceAlertAction } from "@/components/PriceAlertAction";
@@ -14,7 +15,7 @@ export default async function ConfirmPriceAlertPage({params}:{params:Promise<{to
   const {token}=await params;
   const subscription=await prisma.priceAlertSubscription.findFirst({where:{OR:[{confirmTokenHash:hashActionToken(token)},{confirmToken:token}]}});
   if(!subscription||subscription.status!=="pending")return notFound();
-  if(Date.now()-subscription.updatedAt.getTime()>24*60*60*1000)return notFound();
+  if(getRequestTimestampMs()-subscription.updatedAt.getTime()>24*60*60*1000)return notFound();
 
   const model=getModelById(subscription.entityId);
   if(!model)return notFound();

@@ -29,6 +29,11 @@ describe("motorcycle hero keyword alignment", () => {
     }
   });
 
+  it("includes the full make and model, without duplicating an embedded make", () => {
+    expect(priceFocusedModelHeading({ make: "Honda", model: "Click 160" })).toBe("Honda Click 160 Price Philippines");
+    expect(priceFocusedModelHeading({ make: "Honda", model: "Honda Click 160" })).toBe("Honda Click 160 Price Philippines");
+  });
+
   it("does not turn placeholders into product photos or repeat existing keywords", () => {
     expect(contextualHeroImageAlt("Motorcycle product image placeholder", "NMAX V3 Price Philippines")).toBe("Motorcycle product image placeholder for NMAX V3 Price Philippines");
     const alt = "Yamaha NMAX V3 motorcycle in black, NMAX V3 Price Philippines";
@@ -38,7 +43,7 @@ describe("motorcycle hero keyword alignment", () => {
   it("also aligns family and electric model hero text with their H1s", () => {
     const family = readFileSync(new URL("../components/ModelFamilyView.tsx", import.meta.url), "utf8");
     const electric = readFileSync(new URL("../components/ElectricMotorcycleDetail.tsx", import.meta.url), "utf8");
-    expect(family).toContain("Explore {familyHeroHeading} in the Philippines.");
+    expect(family).toContain("Explore {familyHeroHeading} across generations.");
     expect(family).toContain("altOverride={familyHeroAlt}");
     expect(electric).toContain("{heroHeading} guide: Compare the {name} battery options");
     expect(electric).toContain("alt={heroImageAlt}");
