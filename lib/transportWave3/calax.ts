@@ -5,7 +5,7 @@ export const calaxGuide: EditorialGuide = {
   "kicker": "CALAX 2026 travel guide",
   "title": "CALAX 2026: Open Exits, Cavite–Laguna Toll Fees and Easytrip",
   "seoTitle": "CALAX 2026: Open Exits, Toll Rates & Easytrip RFID",
-  "description": "Plan CALAX routes between Cavite and Laguna with verified open exits, the August 2026 Governor's Drive toll adjustment, Easytrip rules and links to operator sources.",
+  "description": "CALAX 2026: verified open exits, August 2026 Governor's Drive toll rates, Easytrip instructions and construction-status updates from the operator.",
   "intro": "CALAX is the Cavite–Laguna Expressway, a partially completed road intended to connect SLEX at Mamplasan in Biñan to CAVITEX in Kawit. As of the operator's August 2026 update, 26 km was open through Governor's Drive, while sections farther toward Kawit remained planned or under construction. The new Silang Aguinaldo-to-Governor's Drive subsection began collecting tolls on August 9, 2026: ₱35 for Class 1, ₱70 for Class 2 and ₱106 for Class 3.",
   "lastChecked": "2026-10-30",
   "sections": [
