@@ -129,25 +129,22 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
   const codingStatus = isCodingGuide ? getManilaCodingStatus(new Date()) : null;
   const stationGuide = transitStationGuide(guide.slug);
   const stationSchema = transitStationListSchema(guide.slug);
-  const guideResearchLinks = /cavite-laguna-expressway|tplex-exits|sctex-route|nlex-connector-road/i.test(guide.slug)
-    ? newExpresswayResearchLinks
-    : /lost-drivers-license/i.test(guide.slug)
-      ? licensingResearchLinks
-      : stationGuide
-        ? railResearchLinks
-    : /skyway-philippines|slex-toll|nlex-toll/i.test(guide.slug)
-      ? expandedRoadResearchLinks
-      : /autosweep-rfid|easytrip-rfid/i.test(guide.slug)
-        ? roadResearchLinks
-        : /metro-manila-number-coding/i.test(guide.slug)
-          ? expandedRoadResearchLinks
-          : /lto-exam|lto-student/i.test(guide.slug)
-        ? licensingResearchLinks
-        : /helmet/i.test(guide.slug)
-          ? helmetResearchLinks
-          : /nwow|electric|e-bike/i.test(guide.slug)
-            ? electricResearchLinks
-            : motorcycleResearchLinks;
+  let guideResearchLinks = motorcycleResearchLinks;
+  if (/cavite-laguna-expressway|tplex-exits|sctex-route|nlex-connector-road/i.test(guide.slug)) {
+    guideResearchLinks = newExpresswayResearchLinks;
+  } else if (stationGuide) {
+    guideResearchLinks = railResearchLinks;
+  } else if (/lost-drivers-license|lto-exam|lto-student/i.test(guide.slug)) {
+    guideResearchLinks = licensingResearchLinks;
+  } else if (/skyway-philippines|slex-toll|nlex-toll|metro-manila-number-coding/i.test(guide.slug)) {
+    guideResearchLinks = expandedRoadResearchLinks;
+  } else if (/autosweep-rfid|easytrip-rfid/i.test(guide.slug)) {
+    guideResearchLinks = roadResearchLinks;
+  } else if (/helmet/i.test(guide.slug)) {
+    guideResearchLinks = helmetResearchLinks;
+  } else if (/nwow|electric|e-bike/i.test(guide.slug)) {
+    guideResearchLinks = electricResearchLinks;
+  }
   const schema = articleSchema({
     headline: guide.title,
     description: guide.description,
