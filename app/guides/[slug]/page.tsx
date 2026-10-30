@@ -50,7 +50,7 @@ const electricResearchLinks = [
 const roadResearchLinks = [
   { href: "/guides/autosweep-rfid-installation-philippines", title: "Install Autosweep RFID", description: "Prepare for SLEX and Skyway RFID installation through authorized sites." },
   { href: "/guides/easytrip-rfid-balance-check", title: "Check Easytrip balance", description: "Use operator-approved RFID balance and reload channels." },
-  { href: "/motorcycles/expressway-legal", title: "Motorcycle expressway access", description: "Check 400cc+ eligibility with source-backed guidance." }
+  { href: "/motorcycles/expressway-legal", title: "Motorcycle expressway access", description: "Review 400cc motorcycle eligibility and applicable expressway rules." }
 ];
 const railResearchLinks = [
   { href: "/guides/mrt-3-stations-philippines", title: "MRT-3 stations", description: "All 13 North Avenue–Taft stops and transfers." },
