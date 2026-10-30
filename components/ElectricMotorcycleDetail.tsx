@@ -12,8 +12,8 @@ import { contextualHeroImageAlt } from "@/lib/motorcycleHeroSeo";
 
 export function ElectricMotorcycleDetail({ model, nonceReady = false }: { model: ElectricMotorcycle; nonceReady?: boolean }) {
   const name=`${model.make} ${model.model}`;
-  const heroHeading=`${name} price and specifications`;
-  const heroImageAlt=contextualHeroImageAlt(`${name} electric motorcycle`, `${heroHeading} in the Philippines`);
+  const heroHeading=`${model.model} Price Philippines`;
+  const heroImageAlt=contextualHeroImageAlt(`${name} electric motorcycle`, heroHeading);
   const canonicalPath=`/motorcycles/electric/${model.slug}`;
   const siblings=electricMotorcycles.filter(item=>item.slug!==model.slug);
   const faqs=[
@@ -66,7 +66,7 @@ export function ElectricMotorcycleDetail({ model, nonceReady = false }: { model:
       <div className="product-hero-copy">
         <span className="entity-kicker">LTO L3 electric motorcycle</span>
         <h1>{heroHeading}</h1>
-        <p>Compare {heroHeading} in the Philippines. The recorded starting price is <strong>{php(model.priceFromPhp)}</strong> with a battery subscription. The one-battery setup has a {model.batteryKwh} kWh battery and a claimed {model.rangeOneKm} km range. The two-battery setup has {model.twoBatteryKwh} kWh and a claimed {model.rangeTwoKm} km range.</p>
+        <p>{heroHeading} guide: Compare the {name} battery options and published pricing. The recorded starting price is <strong>{php(model.priceFromPhp)}</strong> with a battery subscription. The one-battery setup has a {model.batteryKwh} kWh battery and a claimed {model.rangeOneKm} km range. The two-battery setup has {model.twoBatteryKwh} kWh and a claimed {model.rangeTwoKm} km range.</p>
         <div className="hero-actions"><a className="button" href={model.sourceUrl} rel="nofollow noopener noreferrer" target="_blank">Check official model page</a><Link className="button secondary" href="/tools/electric-motorcycle-charging-cost">Estimate charging cost</Link></div>
       </div>
     </div>
@@ -116,7 +116,7 @@ export function ElectricMotorcycleDetail({ model, nonceReady = false }: { model:
       <div className="section-head compact"><div><span className="section-kicker">Electric lineup</span><h2>Compare other electric motorcycles</h2><p>Keep price, range and charging comparisons inside the same verified Philippine electric-motorcycle set.</p></div></div>
       <div className="catalog-grid">
         {siblings.map(item=><Link className="catalog-card" href={electricModelHref(item.slug)} key={item.slug}>
-          <div className="catalog-media"><img src={item.imageUrl} alt={`${item.make} ${item.model} electric motorcycle`} loading="lazy"/></div>
+          <div className="catalog-media"><img src={item.imageUrl} alt={`${item.make} ${item.model} electric motorcycle for the ${item.model} Price Philippines guide`} loading="lazy"/></div>
           <span className="catalog-status">LTO L3</span>
           <h3>{item.make} {item.model}</h3>
           <strong>{php(item.priceFromPhp)}</strong>

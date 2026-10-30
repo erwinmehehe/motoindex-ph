@@ -135,8 +135,12 @@ for (const token of [
 
 for (const token of [
   'modelIntentDepthProfile(model.id)',
-  'intentDepth?.seoTitle || growth?.seoTitle || seo.title',
-  'intentDepth?.seoDescription || growth?.seoDescription || seo.description'
+  // Individual model titles now share an exact model-first H1, rather than
+  // reusing a growth-profile SEO title with year/brand/suffix variants.
+  'title: priceFocusedModelHeading(model),',
+  // Source-specific descriptions still use the approved intent-depth and
+  // growth profiles, aligned with that exact title via the shared formatter.
+  'modelPriceMetaDescription(model, targetSeo?.description || intentDepth?.seoDescription || growth?.seoDescription || seo.description)'
 ]) {
   if (!page.includes(token)) errors.push(`Model metadata intent-depth guard missing: ${token}`);
 }

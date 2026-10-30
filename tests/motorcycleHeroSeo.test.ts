@@ -12,24 +12,25 @@ describe("motorcycle hero keyword alignment", () => {
       const lede = modelHeroIntro(model, motorcycleEntitySeo(model).intro);
       expect(lede.toLowerCase(), model.id).toContain(`${model.make} ${model.model}`.toLowerCase());
       expect(lede, model.id).toMatch(/Philippine|Philippines/i);
-      const specialH1 = priceFocusedModelHeading(model);
-      if (specialH1) expect(lede, model.id).toMatch(new RegExp(`^${specialH1} guide:`));
+      const expectedH1 = priceFocusedModelHeading(model);
+      expect(lede.startsWith(`${expectedH1} guide:`), model.id).toBe(true);
     }
   });
 
   it("preserves accurate photo descriptions and adds the model keyword to hero image alt text", () => {
     for (const model of motorcycles) {
       const mainImage = getRenderableMedia("motorcycle", model.id)[0];
-      if (!mainImage || mainImage.src.includes("/placeholders/")) continue;
+      expect(mainImage, model.id).toBeDefined();
       const alt = modelHeroImageAlt(model, mainImage.alt);
-      const keyword = priceFocusedModelHeading(model) || `${model.make} ${model.model} price Philippines`;
+      const keyword = priceFocusedModelHeading(model);
       expect(alt, model.id).toContain(mainImage.alt);
-      expect(alt.toLowerCase(), model.id).toContain(keyword.toLowerCase());
+      expect(alt, model.id).toContain(keyword);
+      if (mainImage.src.includes("/placeholders/")) expect(alt, model.id).toMatch(/placeholder/i);
     }
   });
 
   it("does not turn placeholders into product photos or repeat existing keywords", () => {
-    expect(contextualHeroImageAlt("Motorcycle product image placeholder", "NMAX V3 Price Philippines")).toBe("Motorcycle product image placeholder");
+    expect(contextualHeroImageAlt("Motorcycle product image placeholder", "NMAX V3 Price Philippines")).toBe("Motorcycle product image placeholder for NMAX V3 Price Philippines");
     const alt = "Yamaha NMAX V3 motorcycle in black, NMAX V3 Price Philippines";
     expect(contextualHeroImageAlt(alt, "NMAX V3 Price Philippines")).toBe(alt);
   });
@@ -39,7 +40,7 @@ describe("motorcycle hero keyword alignment", () => {
     const electric = readFileSync(new URL("../components/ElectricMotorcycleDetail.tsx", import.meta.url), "utf8");
     expect(family).toContain("Explore {familyHeroHeading} in the Philippines.");
     expect(family).toContain("altOverride={familyHeroAlt}");
-    expect(electric).toContain("Compare {heroHeading} in the Philippines.");
+    expect(electric).toContain("{heroHeading} guide: Compare the {name} battery options");
     expect(electric).toContain("alt={heroImageAlt}");
   });
 });

@@ -20,11 +20,12 @@ describe("Aerox V2 historical price SERP metadata", () => {
   });
 
   it("ensures the submitted title is used in generation metadata on the canonical URL", () => {
-    // Model-intent-depth overrides take precedence in the actual page template;
-    // no V2 override should silently hide the updated commercial profile.
+    // The HTML meta title is now identical to the price-first H1 across all models.
+    // The earlier Aerox V2 historical SEO description remains the source of
+    // its price/used-bike context, despite the new exact-model title.
     expect(modelIntentDepthProfile("yamaha-aerox-v2")).toBeUndefined();
-    expect(modelPage).toContain("intentDepth?.seoTitle || growth?.seoTitle || seo.title");
-    expect(modelPage).toContain("intentDepth?.seoDescription || growth?.seoDescription || seo.description");
+    expect(modelPage).toContain("title: priceFocusedModelHeading(model),");
+    expect(modelPage).toContain("description: modelPriceMetaDescription(model, targetSeo?.description || intentDepth?.seoDescription || growth?.seoDescription || seo.description)");
     expect(modelPage).toContain("path: `/motorcycles/${model.makeSlug}/${model.slug}`");
     expect(modelPage).not.toContain('if (model.id === "yamaha-aerox-v2") {');
   });

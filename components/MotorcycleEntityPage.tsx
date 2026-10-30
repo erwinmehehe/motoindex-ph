@@ -199,7 +199,7 @@ export function MotorcycleEntityPage({ model, omitHero = false, nonceReady = fal
         <div className="motorcycle-hero-grid">
           <div className="motorcycle-hero-copy">
             <span className="entity-kicker">Philippines motorcycle · {model.category} · {model.generation}{isDiscontinued ? " · Discontinued" : availabilityUncertain ? " · Availability to verify" : ""}</span>
-            <h1>{priceFocusedModelHeading(model) || seo.heading}</h1>
+            <h1>{priceFocusedModelHeading(model)}</h1>
             <p className="entity-lede">{modelHeroIntro(model, seo.intro)}</p>
             <div className="motorcycle-price-lockup">
               <span>{isHistorical ? "Last published Philippine price" : availabilityUncertain ? "Published PH price · availability to verify" : "Published Philippine price"}</span>
@@ -216,7 +216,7 @@ export function MotorcycleEntityPage({ model, omitHero = false, nonceReady = fal
           <div className="motorcycle-hero-visual">
             {historicalPhoto ? <div className="motorcycle-hero-media">
               <SafeEntityImage src={historicalPhoto.src} fallbackSrc={historicalPhoto.fallbackSrc} alt={modelHeroImageAlt(model, historicalPhoto.alt)} width={historicalPhoto.width} height={historicalPhoto.height} sizes="(max-width: 900px) 100vw, 48vw" priority />
-            </div> : <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" altOverride={media ? modelHeroImageAlt(model, media.alt) : undefined} priority showCredit={false} sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} className="authority-media-fallback" />} />}
+            </div> : <EntityMedia entityType="motorcycle" entityId={model.id} className="motorcycle-hero-media" altOverride={media ? modelHeroImageAlt(model, media.alt) : undefined} priority showCredit={false} sizes="(max-width: 900px) 100vw, 48vw" fallback={<EntityVerificationFallback brand={model.make} model={model.model} keyword={priceFocusedModelHeading(model)} className="authority-media-fallback" />} />}
             {historicalPhoto && <small className="entity-media-credit">Yamaha R15 V3.0 photo by <a href={historicalPhoto.sourceUrl} target="_blank" rel="noopener noreferrer">{historicalPhoto.creator}</a> · <a href={historicalPhoto.licenseUrl} target="_blank" rel="noopener noreferrer">{historicalPhoto.licenseName}</a> · Wikimedia 1280px resize, no crop. Photo shows an overseas-market example; Philippine colors and trim may differ.</small>}
             <div className="motorcycle-hero-facts">
               <HeroFact label="Engine" value={`${model.engineCc} cc`} note={`${model.powerHp} hp · ${model.torqueNm} Nm`} />
