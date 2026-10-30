@@ -663,7 +663,8 @@ export const transportGuides2026: EditorialGuide[] = [
         "heading": "How to plan MRT-3 fare and operating hours",
         "body": [
           "Check the official DOTr-MRT3 website for current fare announcements, station-specific operating notices and changes to first or last trains. Avoid treating an old posted schedule as a live guarantee, especially on holidays, maintenance nights or special events.",
-          "Work out your origin and destination station first, then consult the operator's fare chart or station ticketing information. Keep sufficient fare balance and check if the connection requires buying a separate ticket."
+          "Work out your origin and destination station first, then consult the operator's fare chart or station ticketing information. Keep sufficient fare balance and check if the connection requires buying a separate ticket.",
+          "For fare context checked on October 30, 2026, LRTA's published ticket page states that a 50% fare discount began on March 23, 2026 for MRT-3 and LRT-2 passengers. Treat this as a dated operator notice, not a guarantee of the exact charge at every later boarding."
         ],
         "bullets": [
           "Choose the entry and exit stations from the ordered list",
@@ -710,6 +711,10 @@ export const transportGuides2026: EditorialGuide[] = [
       {
         "question": "Does the MRT-3 station list include fare prices?",
         "answer": "Station order is shown here, but fares and train hours can change. Check the current operator fare information instead of relying on a dated quote."
+      },
+      {
+        "question": "Was MRT-3 offering a fare discount in 2026?",
+        "answer": "LRTA's official fares page reports a 50% discount for MRT-3 and LRT-2 effective March 23, 2026. Confirm the current fare and any program changes with the operator before a trip."
       }
     ],
     "related": [
@@ -741,6 +746,10 @@ export const transportGuides2026: EditorialGuide[] = [
       {
         "label": "DOTr MRT-3 official website for current service notices",
         "url": "https://www.dotrmrt3.gov.ph/"
+      },
+      {
+        "label": "LRTA official LRT-2 and MRT-3 2026 fare discount and ticket information",
+        "url": "https://www.lrta.gov.ph/tickets-and-fares/"
       }
     ]
   },
@@ -796,7 +805,8 @@ export const transportGuides2026: EditorialGuide[] = [
         "heading": "LRT-2 fares, payment and current train service",
         "body": [
           "LRTA publishes official ticket and fare information and operating schedules. The authority also reported a contactless Fast Lane payment option on Line 2 in July 2026 using certain bank cards and supported payment methods at designated gates. Availability can vary by gate and payment provider.",
-          "Check the current LRTA passenger-information pages before relying on a specific fare, discount, payment method or last-train time. Keep an accepted payment option in case a particular gate or service is temporarily unavailable."
+          "Check the current LRTA passenger-information pages before relying on a specific fare, discount, payment method or last-train time. Keep an accepted payment option in case a particular gate or service is temporarily unavailable.",
+          "As checked October 30, 2026, LRTA's official fare page lists a 50% fare discount for LRT-2 and MRT-3 passengers effective March 23, 2026. Verify the fare displayed at the station or on the operator's current matrix because the discount program or fares may change."
         ],
         "bullets": [
           "Choose your origin and destination first",
@@ -847,6 +857,10 @@ export const transportGuides2026: EditorialGuide[] = [
       {
         "question": "Can I pay for LRT-2 with a bank card?",
         "answer": "LRTA reported contactless payment acceptance at designated Line 2 Fast Lane gates in 2026. Check current on-site signs and the operator's payment guidance for accepted cards and wallets."
+      },
+      {
+        "question": "Was LRT-2 offering a 50% fare discount in 2026?",
+        "answer": "LRTA's fares page states that a 50% fare discount began March 23, 2026 for LRT-2 and MRT-3 passengers. Check the current station fare display for the trip price."
       }
     ],
     "related": [
@@ -882,6 +896,10 @@ export const transportGuides2026: EditorialGuide[] = [
       {
         "label": "LRTA Line 2 2026 operations report",
         "url": "https://www.lrta.gov.ph/train-operations-report-2026-10-21-3/"
+      },
+      {
+        "label": "LRTA official LRT-2 and MRT-3 2026 fare discount and ticket information",
+        "url": "https://www.lrta.gov.ph/tickets-and-fares/"
       }
     ]
   }
