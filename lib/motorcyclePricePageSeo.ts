@@ -19,7 +19,7 @@ const PRICE_PAGE_TARGETS: Readonly<Record<string, MotorcyclePricePageSeo>> = {
   "yamaha-sniper-155": {
     "heading": "Yamaha Sniper 155 Price Philippines",
     "title": "Yamaha Sniper 155 Price Philippines",
-    "description": "Yamaha Sniper 155 Price Philippines: Compare Yamaha Sniper 155 and 155 R price references, 155cc specs, ABS by variant and ownership costs. Check dealer quotes.",
+    "description": "Yamaha Sniper 155 Price Philippines: Compare Yamaha Sniper 155 and 155 R price references, 155cc specs, variant-dependent ABS and ownership costs. Check quotes.",
     "intro": "Yamaha Sniper 155 Price Philippines guide: Compare published Yamaha Sniper 155 and Sniper 155 R dealer references, 155cc specs, six-speed manual riding and variant-dependent ABS before checking local quotes."
   },
   "rusi-classic-250i": {
@@ -55,7 +55,7 @@ const PRICE_PAGE_TARGETS: Readonly<Record<string, MotorcyclePricePageSeo>> = {
   "kawasaki-klx150": {
     "heading": "Kawasaki KLX150 Price Philippines",
     "title": "Kawasaki KLX150 Price Philippines",
-    "description": "Kawasaki KLX150 Price Philippines: Compare Kawasaki's published price reference, dual-sport specs, seat height and ownership checks. Confirm your dealer quote.",
+    "description": "Kawasaki KLX150 Price Philippines: Compare Kawasaki's published price reference, dual-sport specs, seat height and ownership checks. Confirm dealer price.",
     "intro": "Kawasaki KLX150 Price Philippines guide: Explore Kawasaki KLX150 published Philippine pricing, dual-sport specifications, seat height, trail suitability and ownership costs. Check current dealer pricing and availability."
   }
 };
