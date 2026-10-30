@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Philippine Motorcycle & Transport Guides | MotoIndex PH",
-  description: "Source-checked Philippine motorcycle, RFID, LTO licensing, MRT-3 and LRT-2 guides with station lists, practical checklists and verified operator links.",
+  description: "Philippines motorcycle, LTO, expressway toll, RFID, coding and rail guides with dated fees, station lists, answer-first advice and operator sources.",
   path: "/guides",
   index: true
 });
@@ -28,11 +28,18 @@ export default function GuidesPage() {
       <article><h2>Research electric motorcycles</h2><p>Compare current electric models, batteries, range, charging and Philippine registration context.</p><div className="topic-action"><Link href="/motorcycles/electric">Open electric research →</Link></div></article>
     </div>
 
-    <div className="section-head compact"><div><span className="section-kicker">Road and rail</span><h2>Philippine transportation guides</h2><p>Get practical answers about RFID, licensing and public transport. These guides link to official operators and the LTO.</p></div></div>
+    <div className="section-head compact"><div><span className="section-kicker">Road and rail</span><h2>Philippine transportation guides</h2><p>Check toll fees, RFID, licensing, commuter routes, number coding and official operator information.</p></div></div>
     <div className="topic-grid">
       <article><h2>Toll RFID</h2><p>Find the Autosweep installation process and Easytrip balance-check instructions before traveling.</p><div className="topic-action"><Link href="/guides/autosweep-rfid-installation-philippines">Autosweep installation →</Link> · <Link href="/guides/easytrip-rfid-balance-check">Easytrip balance →</Link></div></article>
       <article><h2>LTO license preparation</h2><p>Study driving rules with original practice questions and check the student permit application checklist.</p><div className="topic-action"><Link href="/guides/lto-exam-reviewer-philippines">LTO reviewer →</Link> · <Link href="/guides/lto-student-permit-requirements-philippines">Student permit →</Link></div></article>
       <article><h2>Metro Manila train stations</h2><p>Compare ordered MRT-3 and LRT-2 station tables, terminal stops and pedestrian transfers.</p><div className="topic-action"><Link href="/guides/mrt-3-stations-philippines">MRT-3 stations →</Link> · <Link href="/guides/lrt-2-stations-philippines">LRT-2 stations →</Link></div></article>
+    </div>
+
+    <div className="section-head compact"><div><span className="section-kicker">More travel planning</span><h2>Expressway rates, transit fares and number coding</h2><p>Selected published fares include effective dates. Check operator notices for later adjustments.</p></div></div>
+    <div className="topic-grid">
+      <article><h2>Skyway, SLEX and NLEX toll fees</h2><p>Review dated Class 1 examples, entry and exit guidance, and the right RFID payment network.</p><div className="topic-action"><Link href="/guides/skyway-philippines-routes-toll-fees">Skyway →</Link> · <Link href="/guides/slex-toll-fee-philippines">SLEX →</Link> · <Link href="/guides/nlex-toll-fee-philippines">NLEX →</Link></div></article>
+      <article><h2>LRT-1 and EDSA Carousel</h2><p>Use the 25-station LRT-1 table, fare examples and directional EDSA Busway stop list.</p><div className="topic-action"><Link href="/guides/lrt-1-fare-philippines">LRT-1 fares →</Link> · <Link href="/guides/edsa-carousel-stations-fare">Carousel stops →</Link></div></article>
+      <article><h2>Number coding today</h2><p>Check the regular Manila plate-ending schedule and announced suspensions before planning a road trip.</p><div className="topic-action"><Link href="/guides/metro-manila-number-coding-today">Check your plate →</Link></div></article>
     </div>
 
     <div className="section-head compact"><div><span className="section-kicker">MotoIndex data research</span><h2>Compare the underlying motorcycle data</h2><p>Use source-led datasets when you need a market-wide view before narrowing to individual model pages.</p></div><Link href="/research">Open research hub →</Link></div>
