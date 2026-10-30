@@ -22,6 +22,10 @@ import { getEditorialGuideMedia } from "@/lib/editorialGuideMedia";
 import { pageMetadata } from "@/lib/site";
 import { editorialLeadQuestions, leadQuestion } from "@/lib/aeoContent";
 import { faqPageSchema } from "@/lib/structuredData";
+import { transportGuides2026 } from "@/lib/transportGuides2026";
+import { transitStationGuide, transitStationListSchema } from "@/lib/transitStationGuides2026";
+import { TransitStationTable } from "@/components/TransitStationTable";
+import { LtoPracticeQuiz } from "@/components/LtoPracticeQuiz";
 
 const DEFAULT_GUIDE_IMAGE = "/brand/motoindex-og.png";
 
@@ -41,6 +45,22 @@ const electricResearchLinks = [
   { href: "/motorcycles/electric", title: "Browse electric motorcycle research", description: "Compare current electric mobility research, model context and ownership considerations." },
   { href: "/tools/electric-motorcycle-charging-cost", title: "Estimate charging cost", description: "Model electricity cost using your own charging assumptions." },
   { href: "/methodology", title: "See how MotoIndex verifies claims", description: "Review the source, freshness and correction rules behind the research." }
+];
+
+const roadResearchLinks = [
+  { href: "/guides/autosweep-rfid-installation-philippines", title: "Install Autosweep RFID", description: "Prepare for SLEX and Skyway RFID installation through authorized sites." },
+  { href: "/guides/easytrip-rfid-balance-check", title: "Check Easytrip balance", description: "Use operator-approved RFID balance and reload channels." },
+  { href: "/motorcycles/expressway-legal", title: "Motorcycle expressway access", description: "Review 400cc motorcycle eligibility and applicable expressway rules." }
+];
+const railResearchLinks = [
+  { href: "/guides/mrt-3-stations-philippines", title: "MRT-3 stations", description: "All 13 North Avenue–Taft stops and transfers." },
+  { href: "/guides/lrt-2-stations-philippines", title: "LRT-2 stations", description: "All 13 Recto–Antipolo stops and transfers." },
+  { href: "/commute", title: "Plan your commute", description: "Compare everyday travel choices and costs." }
+];
+const licensingResearchLinks = [
+  { href: "/guides/lto-student-permit-requirements-philippines", title: "Student permit requirements", description: "Check TDC, medical and identification documents." },
+  { href: "/guides/lto-exam-reviewer-philippines", title: "LTO theory practice", description: "Try original road-rule scenarios and review official learning materials." },
+  { href: "/ownership/dl-code-b-motorcycle-philippines", title: "Motorcycle license code", description: "Understand the correct DL Code A entitlement." }
 ];
 
 function readableDate(value: string) {
@@ -78,17 +98,27 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
   }
   const guideMedia = getEditorialGuideMedia(guide.slug);
   const schemaImage = guideMedia?.image ?? DEFAULT_GUIDE_IMAGE;
-  const guideResearchLinks = /helmet/i.test(guide.slug)
-    ? helmetResearchLinks
-    : /nwow|electric|e-bike/i.test(guide.slug)
-      ? electricResearchLinks
-      : motorcycleResearchLinks;
+  const transportGuide = transportGuides2026.some((item) => item.slug === guide.slug);
+  const stationGuide = transitStationGuide(guide.slug);
+  const stationSchema = transitStationListSchema(guide.slug);
+  const guideResearchLinks = stationGuide
+    ? railResearchLinks
+    : /autosweep-rfid|easytrip-rfid/i.test(guide.slug)
+      ? roadResearchLinks
+      : /lto-exam|lto-student/i.test(guide.slug)
+        ? licensingResearchLinks
+        : /helmet/i.test(guide.slug)
+          ? helmetResearchLinks
+          : /nwow|electric|e-bike/i.test(guide.slug)
+            ? electricResearchLinks
+            : motorcycleResearchLinks;
   const schema = articleSchema({
     headline: guide.title,
     description: guide.description,
     path: `/guides/${guide.slug}`,
     about: guide.title,
-    keywords: [guide.seoTitle, "motorcycle guide Philippines"],
+    keywords: [guide.seoTitle, transportGuide ? "Philippines transport and commuting guide" : "motorcycle guide Philippines"],
+    citations: guide.sources.map((source) => source.url),
     datePublished: guideMedia?.publishedAt,
     checkedDates: [guide.lastChecked],
     image: schemaImage
@@ -109,6 +139,8 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
 
     <QuickAnswer question={leadQuestion(guide.slug, editorialLeadQuestions, guide.title)} answer={guide.intro} checkedAt={guide.lastChecked} />
 
+    {stationGuide && <TransitStationTable guide={stationGuide} />}
+
     <figure className="info-card guide-hero-media">
       <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} />
       {guideMedia?.caption && <figcaption><small>{guideMedia.caption}</small></figcaption>}
@@ -117,11 +149,11 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
     <section className="split section" aria-labelledby="guide-at-a-glance">
       <div>
         <span className="section-kicker">At a glance</span>
-        <h2 id="guide-at-a-glance">Use the guide as a verification checklist</h2>
-        <p>Start with the buyer decision, then confirm the exact model, product or rule against the current source before acting. MotoIndex keeps source links beside the guidance so changing prices, specifications, availability and requirements can be checked directly.</p>
+        <h2 id="guide-at-a-glance">{transportGuide ? "Verify the latest operator or government instructions" : "Use the guide as a verification checklist"}</h2>
+        <p>{transportGuide ? "Start with the direct answer, then check the official agency or operator before making a payment, applying for a permit or planning a trip. Service rules, costs and schedules can change." : "Start with the buyer decision, then confirm the exact model, product or rule against the current source before acting. MotoIndex keeps source links beside the guidance so changing prices, specifications, availability and requirements can be checked directly."}</p>
       </div>
       <div className="info-card">
-        <h3>Quick verification path</h3>
+        <h3>{transportGuide ? "Before you act" : "Quick verification path"}</h3>
         <ul className="checklist">{quickSteps.map((item) => <li key={item}>{item}</li>)}</ul>
       </div>
     </section>
@@ -133,6 +165,7 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
         <div><h2 id={articleSectionId(section.heading, index)}>{section.heading}</h2>{section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
         {section.bullets && <div className="info-card"><h3>Quick check</h3><ul className="checklist">{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul></div>}
       </section>
+      {index === 1 && guide.slug === "lto-exam-reviewer-philippines" && <LtoPracticeQuiz />}
       {index === 1 && <GuideInContentAd nonceReady={Boolean(adNonce)} />}
     </Fragment>)}
 
@@ -142,12 +175,12 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
     </section>
 
     <section className="section">
-      <div className="section-head compact"><div><h2>Sources used for this guide</h2><p>Open the original manufacturer or Philippine government source when you need to verify a current requirement or fit instruction.</p></div></div>
+      <div className="section-head compact"><div><h2>Sources used for this guide</h2><p>{transportGuide ? "Open the official operator or Philippine government resource for current requirements, station information and service changes." : "Open the original manufacturer or Philippine government source when you need to verify a current requirement or fit instruction."}</p></div></div>
       <div className="checked-record-list">{guide.sources.map((source) => <div key={source.url}><span><strong>{source.label}</strong><small>Checked {readableDate(guide.lastChecked)}</small></span><span className="checked-record-action"><SourceRef url={source.url} label="Open source" /></span></div>)}</div>
     </section>
     <FaqSection title="Frequently asked questions" items={guide.faqs} />
     <AuthorBox />
     <RelatedLinks title="Continue your research" links={guide.related} />
-    <JsonLd data={[schema, faqPageSchema(guide.faqs)]} />
+    <JsonLd data={stationSchema ? [schema, faqPageSchema(guide.faqs), stationSchema] : [schema, faqPageSchema(guide.faqs)]} />
   </article>;
 }

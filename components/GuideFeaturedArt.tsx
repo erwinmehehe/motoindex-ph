@@ -5,10 +5,13 @@ type Props = {
   compact?: boolean;
 };
 
-type ArtKind = "budget" | "scooter" | "abs" | "fuel" | "fit" | "commute" | "touring" | "underbone" | "sport" | "dual" | "classic" | "helmet-fit" | "helmet-cert" | "electric" | "motorcycle";
+type ArtKind = "budget" | "scooter" | "abs" | "fuel" | "fit" | "commute" | "touring" | "underbone" | "sport" | "dual" | "classic" | "helmet-fit" | "helmet-cert" | "electric" | "motorcycle" | "rail" | "rfid" | "license";
 
 function artKind(slug: string, title: string): ArtKind {
   const value = `${slug} ${title}`.toLowerCase();
+  if (/mrt-3|lrt-2|railway|stations list/.test(value)) return "rail";
+  if (/autosweep|easytrip|rfid/.test(value)) return "rfid";
+  if (/lto exam|lto student|student permit/.test(value)) return "license";
   if (value.includes("helmet") && (value.includes("size") || value.includes("fit"))) return "helmet-fit";
   if (value.includes("helmet") && (value.includes("certification") || value.includes("icc") || value.includes("ece"))) return "helmet-cert";
   if (value.includes("electric") || value.includes("e-bike")) return "electric";
@@ -42,6 +45,9 @@ const themes: Record<ArtKind, { label: string; accent: string; secondary: string
   "helmet-cert": { label: "PS · ICC · ECE", accent: "#12B76A", secondary: "#444CE7", micro: "MARKS · MODEL · VERIFY" },
   electric: { label: "ELECTRIC", accent: "#12B76A", secondary: "#444CE7", micro: "BATTERY · RANGE · CHARGE" },
   motorcycle: { label: "BUYING GUIDE", accent: "#444CE7", secondary: "#7A5AF8", micro: "PRICE · SPECS · OWNERSHIP" },
+  rail: { label: "TRAIN ROUTES", accent: "#55C5E7", secondary: "#12B76A", micro: "STOPS · TRANSFERS · SERVICE" },
+  rfid: { label: "TOLL RFID", accent: "#12B76A", secondary: "#FDB022", micro: "INSTALL · BALANCE · RELOAD" },
+  license: { label: "LTO GUIDES", accent: "#FDB022", secondary: "#55C5E7", micro: "PERMITS · RULES · PRACTICE" },
 };
 
 function Motorcycle({ accent = "#7A5AF8", secondary = "#12B76A", sport = false }: { accent?: string; secondary?: string; sport?: boolean }) {
@@ -161,7 +167,44 @@ function Underbone({ accent, secondary }: { accent: string; secondary: string })
   </g>;
 }
 
+function RailArt({ accent, secondary }: { accent: string; secondary: string }) {
+  return <g transform="translate(795 120)">
+    <rect x="0" y="70" width="320" height="355" rx="45" fill="#E6EFF4" stroke="#CBD5E1" strokeWidth="12"/>
+    <rect x="25" y="103" width="270" height="145" rx="20" fill="#142B3A"/>
+    <path d="M160 103v145" stroke="#7AA2B6" strokeWidth="6"/>
+    <path d="M48 285h224" stroke={accent} strokeWidth="12" strokeLinecap="round"/>
+    <circle cx="85" cy="332" r="23" fill={secondary}/><circle cx="235" cy="332" r="23" fill={secondary}/>
+    <path d="M58 426l-58 82M262 426l58 82" stroke="#CBD5E1" strokeWidth="20"/>
+    <path d="M48 456h226M28 485h264" stroke="#94A3B8" strokeWidth="12"/>
+    <circle cx="355" cy="75" r="28" fill={accent}/><path d="M355 103v110" stroke={accent} strokeWidth="12" strokeDasharray="16 12"/>
+  </g>;
+}
+function RfidArt({ accent, secondary }: { accent: string; secondary: string }) {
+  return <g transform="translate(732 175)">
+    <rect x="0" y="106" width="430" height="250" rx="28" fill="#E8F0F3" stroke="#C9D7E0" strokeWidth="9"/>
+    <rect x="32" y="148" width="89" height="63" rx="10" fill={secondary}/>
+    <path d="M282 177q42 38 0 75M310 151q72 65 0 130M338 121q100 90 0 180" stroke={accent} strokeWidth="12" strokeLinecap="round" fill="none"/>
+    <rect x="32" y="288" width="166" height="17" rx="8" fill="#94A3B8"/>
+    <rect x="32" y="319" width="112" height="12" rx="6" fill="#94A3B8"/>
+    <path d="M90 78v-45h25M145 78v-30h30" stroke={accent} strokeWidth="14" strokeLinecap="round" fill="none"/>
+    <circle cx="110" cy="33" r="9" fill="#F8FAFC"/><circle cx="175" cy="48" r="9" fill="#F8FAFC"/>
+  </g>;
+}
+function LicensingArt({ accent, secondary }: { accent: string; secondary: string }) {
+  return <g transform="translate(790 125)">
+    <rect x="0" y="25" width="320" height="405" rx="26" fill="#F7FAFB" stroke="#CBD5E1" strokeWidth="10"/>
+    <rect x="32" y="60" width="256" height="52" rx="14" fill="#23384D"/>
+    <rect x="52" y="75" width="164" height="12" rx="6" fill={secondary}/>
+    <path d="M60 166l18 19 35-45M60 245l18 19 35-45M60 324l18 19 35-45" fill="none" stroke={accent} strokeWidth="12" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M140 175h115M140 254h115M140 333h115" stroke="#94A3B8" strokeWidth="15" strokeLinecap="round"/>
+    <path d="M278 420l100-200" stroke={secondary} strokeWidth="22" strokeLinecap="round"/>
+  </g>;
+}
+
 function Scene({ kind, accent, secondary }: { kind: ArtKind; accent: string; secondary: string }) {
+  if (kind === "rail") return <RailArt accent={accent} secondary={secondary}/>;
+  if (kind === "rfid") return <RfidArt accent={accent} secondary={secondary}/>;
+  if (kind === "license") return <LicensingArt accent={accent} secondary={secondary}/>;
   if (kind === "helmet-fit") return <Helmet accent={accent}/>;
   if (kind === "helmet-cert") return <Helmet accent={accent} certification/>;
   if (kind === "abs") return <BrakeDisc accent={accent}/>;
@@ -181,6 +224,7 @@ function Scene({ kind, accent, secondary }: { kind: ArtKind; accent: string; sec
 export function GuideFeaturedArt({ slug, title, kicker = "MotoIndex guide", compact = false }: Props) {
   const kind = artKind(slug, title);
   const theme = themes[kind];
+  const transportArt = kind === "rail" || kind === "rfid" || kind === "license";
   const safeId = slug.replace(/[^a-z0-9]/gi, "").slice(0, 28) || "guide";
   const radius = compact ? 18 : 28;
   return <div style={{ width: "100%", aspectRatio: "1200 / 630", overflow: "hidden", borderRadius: radius, background: "#0B1220", border: "1px solid rgba(148,163,184,.18)" }} aria-label={`${title} featured graphic`}>
@@ -223,8 +267,8 @@ export function GuideFeaturedArt({ slug, title, kicker = "MotoIndex guide", comp
 
       <g transform="translate(66 468)">
         <rect width="520" height="92" rx="24" fill="#FFFFFF" fillOpacity=".055" stroke="#FFFFFF" strokeOpacity=".1"/>
-        <text x="24" y="34" fill="#94A3B8" fontFamily="Arial, Helvetica, sans-serif" fontSize="12" fontWeight="800" letterSpacing="1.6">PHILIPPINE MOTORCYCLE RESEARCH</text>
-        <text x="24" y="65" fill="#F8FAFC" fontFamily="Arial, Helvetica, sans-serif" fontSize="18" fontWeight="800">Price, specs and buyer context in one place</text>
+        <text x="24" y="34" fill="#94A3B8" fontFamily="Arial, Helvetica, sans-serif" fontSize="12" fontWeight="800" letterSpacing="1.6">{transportArt ? "PHILIPPINE TRANSPORT GUIDES" : "PHILIPPINE MOTORCYCLE RESEARCH"}</text>
+        <text x="24" y="65" fill="#F8FAFC" fontFamily="Arial, Helvetica, sans-serif" fontSize="18" fontWeight="800">{transportArt ? "Routes, rules and official resources" : "Price, specs and buyer context in one place"}</text>
       </g>
 
       <Scene kind={kind} accent={theme.accent} secondary={theme.secondary}/>

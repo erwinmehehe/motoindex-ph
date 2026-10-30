@@ -7,8 +7,8 @@ import { editorialGuides } from "@/lib/editorialGuides";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Motorcycle Guides Philippines: Helmets, Gear & Ownership",
-  description: "Practical MotoIndex Philippines guides for motorcycle helmet sizing, certification, electric motorcycles, gear, fitment and ownership research.",
+  title: "Philippine Motorcycle & Transport Guides | MotoIndex PH",
+  description: "Source-checked Philippine motorcycle, RFID, LTO licensing, MRT-3 and LRT-2 guides with station lists, practical checklists and verified operator links.",
   path: "/guides",
   index: true
 });
@@ -16,7 +16,7 @@ export const metadata: Metadata = pageMetadata({
 export default function GuidesPage() {
   return <section className="page shell">
     <Breadcrumbs items={[{ label: "Guides" }]} />
-    <div className="reviewed-catalog-hero"><ReviewedCatalogArt entityId="yamaha-aerox-v3" /><div className="page-head ui-page-hero"><span className="entity-kicker">Rider guides</span><h1>Motorcycle guides for Philippine riders</h1><p>Start with the task you are trying to solve, then open the detailed guide or tool only when you need it.</p></div></div>
+    <div className="reviewed-catalog-hero"><ReviewedCatalogArt entityId="yamaha-aerox-v3" /><div className="page-head ui-page-hero"><span className="entity-kicker">Rider guides</span><h1>Motorcycle and transport guides for the Philippines</h1><p>Research motorcycles, driver licensing, toll RFID and Metro Manila rail lines using source-checked practical guides and tools.</p></div></div>
 
     <div className="section-head compact"><div><span className="section-kicker">Choose a starting point</span><h2>What are you trying to do?</h2></div></div>
     <div className="topic-grid">
@@ -26,6 +26,13 @@ export default function GuidesPage() {
       <article><h2>Check gear and fitment</h2><p>Research helmets, tire sizes and model-specific fitment before ordering riding gear or accessories.</p><div className="topic-action"><Link href="/fitment">Open fitment finder →</Link></div></article>
       <article><h2>Handle safety and paperwork</h2><p>Check registration, ownership transfer, insurance and manufacturer safety resources from one ownership path.</p><div className="topic-action"><Link href="/ownership#paperwork">Open paperwork guides →</Link></div></article>
       <article><h2>Research electric motorcycles</h2><p>Compare current electric models, batteries, range, charging and Philippine registration context.</p><div className="topic-action"><Link href="/motorcycles/electric">Open electric research →</Link></div></article>
+    </div>
+
+    <div className="section-head compact"><div><span className="section-kicker">Road and rail</span><h2>Philippine transportation guides</h2><p>Get practical answers about RFID, licensing and public transport. These guides link to official operators and the LTO.</p></div></div>
+    <div className="topic-grid">
+      <article><h2>Toll RFID</h2><p>Find the Autosweep installation process and Easytrip balance-check instructions before traveling.</p><div className="topic-action"><Link href="/guides/autosweep-rfid-installation-philippines">Autosweep installation →</Link> · <Link href="/guides/easytrip-rfid-balance-check">Easytrip balance →</Link></div></article>
+      <article><h2>LTO license preparation</h2><p>Study driving rules with original practice questions and check the student permit application checklist.</p><div className="topic-action"><Link href="/guides/lto-exam-reviewer-philippines">LTO reviewer →</Link> · <Link href="/guides/lto-student-permit-requirements-philippines">Student permit →</Link></div></article>
+      <article><h2>Metro Manila train stations</h2><p>Compare ordered MRT-3 and LRT-2 station tables, terminal stops and pedestrian transfers.</p><div className="topic-action"><Link href="/guides/mrt-3-stations-philippines">MRT-3 stations →</Link> · <Link href="/guides/lrt-2-stations-philippines">LRT-2 stations →</Link></div></article>
     </div>
 
     <div className="section-head compact"><div><span className="section-kicker">MotoIndex data research</span><h2>Compare the underlying motorcycle data</h2><p>Use source-led datasets when you need a market-wide view before narrowing to individual model pages.</p></div><Link href="/research">Open research hub →</Link></div>

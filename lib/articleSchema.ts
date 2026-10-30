@@ -19,6 +19,8 @@ type Args = {
   about?: string;
   /** Extra keyword phrases; the headline is always included. */
   keywords?: (string | undefined)[];
+  /** Visible first-party or agency references that support the article's factual claims. */
+  citations?: string[];
   /** Real publication date for the specific article. */
   datePublished?: string;
   /** Real source-check dates (verifiedAt / lastChecked) from the page's records. */
@@ -29,7 +31,7 @@ type Args = {
 
 const isDate = (value?: string): value is string => Boolean(value) && /^\d{4}-\d{2}-\d{2}$/.test(value as string);
 
-export function articleSchema({ headline, description, path, about, keywords = [], datePublished, checkedDates = [], image }: Args) {
+export function articleSchema({ headline, description, path, about, keywords = [], citations = [], datePublished, checkedDates = [], image }: Args) {
   const published = isDate(datePublished) ? datePublished : undefined;
   const dateModified = checkedDates
     .filter(isDate)
@@ -43,6 +45,7 @@ export function articleSchema({ headline, description, path, about, keywords = [
     description,
     ...(about ? { about } : {}),
     keywords: [headline, about, ...keywords].filter(Boolean).join(", "),
+    ...(citations.length ? { citation: citations.filter((url) => /^https:\/\//.test(url)) } : {}),
     inLanguage: "en-PH",
     isAccessibleForFree: true,
     ...(published ? { datePublished: published } : {}),

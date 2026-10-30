@@ -75,7 +75,13 @@ export const editorialLeadQuestions: Record<string, string> = {
   "tvs-motorcycle-philippines": "Which TVS motorcycles are confirmed for the Philippine market?",
   "hatasu-ebike-price-philippines": "How can buyers compare Hatasu e-bike prices in the Philippines?",
   "voge-motorcycle-philippines": "Which VOGE motorcycles are available in the Philippine catalog?",
-  "italjet-price-philippines": "Which Italjet models have Philippine-market price references?"
+  "italjet-price-philippines": "Which Italjet models have Philippine-market price references?",
+  "autosweep-rfid-installation-philippines": "How do I get Autosweep RFID installed in the Philippines?",
+  "easytrip-rfid-balance-check": "How do I check my Easytrip RFID balance?",
+  "lto-exam-reviewer-philippines": "How should I prepare for the LTO driving exam?",
+  "lto-student-permit-requirements-philippines": "What are the LTO student permit requirements in 2026?",
+  "mrt-3-stations-philippines": "What are all 13 MRT-3 stations in order?",
+  "lrt-2-stations-philippines": "What are the 13 LRT-2 stations in order?"
 };
 
 export const ownershipLeadQuestions: Record<string, string> = {
