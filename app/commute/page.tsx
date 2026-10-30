@@ -127,6 +127,13 @@ export default function CommutePage(){
       </InfoPanel>
     </section>
 
+    <section className={styles.section} aria-labelledby="commute-rail-links">
+      <SectionHeader kicker="Public transport alternatives" title="Compare MRT and LRT routes for your commute" titleId="commute-rail-links" description="Metro Manila rail journeys are another option when you do not need to bring a motorcycle. Check the station order and official transfers before choosing a route." />
+      <div className={styles.decisionList}>
+        <Link className={styles.decisionRow} href="/guides/mrt-3-stations-philippines"><span className={styles.decisionLabel}>MRT-3</span><span className={styles.decisionCopy}><h3>MRT-3 station list</h3><p>All 13 stations from North Avenue to Taft Avenue, with interchange notes.</p></span><span className={styles.decisionMeta}>View stations →</span></Link>
+        <Link className={styles.decisionRow} href="/guides/lrt-2-stations-philippines"><span className={styles.decisionLabel}>LRT-2</span><span className={styles.decisionCopy}><h3>LRT-2 station list</h3><p>All 13 stations from Recto to Antipolo, including rail transfers.</p></span><span className={styles.decisionMeta}>View stations →</span></Link>
+      </div>
+    </section>
     <JsonLd data={schema}/>
     <AuthorBox/>
   </section>;
