@@ -23,6 +23,11 @@ import { pageMetadata } from "@/lib/site";
 import { editorialLeadQuestions, leadQuestion } from "@/lib/aeoContent";
 import { faqPageSchema } from "@/lib/structuredData";
 import { transportGuides2026 } from "@/lib/transportGuides2026";
+import { transportGuidesWave2 } from "@/lib/transportGuidesWave2";
+import { transportFareTable } from "@/lib/transportWave2/fareReferences";
+import { TransportFareTable } from "@/components/TransportFareTable";
+import { getManilaCodingStatus } from "@/lib/transportWave2/numberCodingSchedule";
+import { NumberCodingToday } from "@/components/NumberCodingToday";
 import { transitStationGuide, transitStationListSchema } from "@/lib/transitStationGuides2026";
 import { TransitStationTable } from "@/components/TransitStationTable";
 import { LtoPracticeQuiz } from "@/components/LtoPracticeQuiz";
@@ -63,6 +68,12 @@ const licensingResearchLinks = [
   { href: "/ownership/dl-code-b-motorcycle-philippines", title: "Motorcycle license code", description: "Understand the correct DL Code A entitlement." }
 ];
 
+const expandedRoadResearchLinks = [
+  { href: "/guides/skyway-philippines-routes-toll-fees", title: "Skyway tolls and exits", description: "Check Skyway stages and dated toll examples." },
+  { href: "/guides/slex-toll-fee-philippines", title: "SLEX toll fees", description: "Review southbound toll examples and Autosweep access." },
+  { href: "/guides/nlex-toll-fee-philippines", title: "NLEX toll fees", description: "Review Class 1 toll examples and Easytrip account guidance." }
+];
+
 function readableDate(value: string) {
   return new Intl.DateTimeFormat("en-PH", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${value}T00:00:00Z`));
 }
@@ -89,23 +100,29 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
   const { slug } = await params;
   const guide = getEditorialGuide(slug);
   if (!guide) return notFound();
-  // Only ad-bearing guides get dynamic, nonce-protected HTML. Ordinary builds
-  // continue using the existing static guide route behavior.
+  // The coding indicator must use the Manila date at request time, not a static build date.
+  // All other ad-free guide pages retain their existing static prerendering.
+  const isCodingGuide = slug === "metro-manila-number-coding-today";
+  const hasAds = adsenseEnabled();
+  if (isCodingGuide || hasAds) await connection();
   let adNonce: string | undefined;
-  if (adsenseEnabled()) {
-    await connection();
-    adNonce = (await headers()).get("x-nonce") || undefined;
-  }
+  if (hasAds) adNonce = (await headers()).get("x-nonce") || undefined;
   const guideMedia = getEditorialGuideMedia(guide.slug);
   const schemaImage = guideMedia?.image ?? DEFAULT_GUIDE_IMAGE;
-  const transportGuide = transportGuides2026.some((item) => item.slug === guide.slug);
+  const transportGuide = [...transportGuides2026, ...transportGuidesWave2].some((item) => item.slug === guide.slug);
+  const fareTable = transportFareTable(guide.slug);
+  const codingStatus = isCodingGuide ? getManilaCodingStatus(new Date()) : null;
   const stationGuide = transitStationGuide(guide.slug);
   const stationSchema = transitStationListSchema(guide.slug);
   const guideResearchLinks = stationGuide
     ? railResearchLinks
-    : /autosweep-rfid|easytrip-rfid/i.test(guide.slug)
-      ? roadResearchLinks
-      : /lto-exam|lto-student/i.test(guide.slug)
+    : /skyway-philippines|slex-toll|nlex-toll/i.test(guide.slug)
+      ? expandedRoadResearchLinks
+      : /autosweep-rfid|easytrip-rfid/i.test(guide.slug)
+        ? roadResearchLinks
+        : /metro-manila-number-coding/i.test(guide.slug)
+          ? expandedRoadResearchLinks
+          : /lto-exam|lto-student/i.test(guide.slug)
         ? licensingResearchLinks
         : /helmet/i.test(guide.slug)
           ? helmetResearchLinks
@@ -139,6 +156,8 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
 
     <QuickAnswer question={leadQuestion(guide.slug, editorialLeadQuestions, guide.title)} answer={guide.intro} checkedAt={guide.lastChecked} />
 
+    {codingStatus && <NumberCodingToday status={codingStatus} />}
+    {fareTable && <TransportFareTable table={fareTable} />}
     {stationGuide && <TransitStationTable guide={stationGuide} />}
 
     <figure className="info-card guide-hero-media">
