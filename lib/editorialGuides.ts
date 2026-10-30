@@ -1,4 +1,5 @@
 import { seoGapGuides2026 } from "./seoGapGuides2026";
+import { transportGuides2026 } from "./transportGuides2026";
 
 export type EditorialGuide = {
   slug: string;
@@ -637,6 +638,7 @@ export const editorialGuides: EditorialGuide[] = [
     ]
   },
   ...seoGapGuides2026,
+  ...transportGuides2026,
 ];
 
 export function getEditorialGuide(slug: string) {
