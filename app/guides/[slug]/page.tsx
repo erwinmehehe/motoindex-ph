@@ -118,6 +118,7 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
     path: `/guides/${guide.slug}`,
     about: guide.title,
     keywords: [guide.seoTitle, transportGuide ? "Philippines transport and commuting guide" : "motorcycle guide Philippines"],
+    citations: guide.sources.map((source) => source.url),
     datePublished: guideMedia?.publishedAt,
     checkedDates: [guide.lastChecked],
     image: schemaImage
