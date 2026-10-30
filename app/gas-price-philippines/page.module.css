@@ -139,3 +139,16 @@
 .fuelFilters button{padding:7px}
 .calcFields{grid-template-columns:1fr}
 }
+/* NCR pump prices */
+.pumpGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.pumpCard{min-width:0;padding:22px;border:1px solid var(--mi-color-line);border-radius:17px;background:var(--mi-color-surface)}
+.pumpGrade{color:var(--mi-color-primary);font-size:11px;font-weight:800}
+.pumpCard h3{margin:12px 0;font-size:14px}
+.pumpCard strong{display:block;font-size:clamp(18px,1.9vw,26px);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.pumpCard small{color:var(--mi-color-muted);font-size:11px}
+.pumpNote{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:17px;padding:17px;background:var(--mi-color-surface-subtle);border-radius:13px}
+.pumpNote p{margin:4px 0 0;max-width:740px;font-size:11px;line-height:1.6}
+.pumpSources{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+.pumpSources a{font-size:11px;font-weight:800;color:var(--mi-color-primary)}
+@media(max-width:1050px){.pumpGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.pumpGrid{grid-template-columns:1fr}}

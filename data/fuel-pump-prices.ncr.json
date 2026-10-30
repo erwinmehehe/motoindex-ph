@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "coverage": "Metro Manila (NCR)",
+  "weekStart": "2026-10-20",
+  "weekEnd": "2026-10-26",
+  "sourceDescription": "DOE NCR retail pump price monitoring, compiled in a dated independent report",
+  "sourceUrl": "https://doe.gov.ph/data-and-prices/liquid-fuels/retail-pump-prices/ncr-pump-prices",
+  "compiledSourceUrl": "https://wiseph.net/latest-oil-price-update-philippines/",
+  "fuels": [
+    {
+      "id": "ron91",
+      "name": "Regular gasoline",
+      "grade": "RON 91",
+      "low": 75.1,
+      "high": 93.77
+    },
+    {
+      "id": "ron95",
+      "name": "Premium gasoline",
+      "grade": "RON 95",
+      "low": 75.53,
+      "high": 98.5
+    },
+    {
+      "id": "diesel",
+      "name": "Diesel",
+      "grade": "Standard diesel",
+      "low": 88,
+      "high": 98.5
+    },
+    {
+      "id": "kerosene",
+      "name": "Kerosene",
+      "grade": "Kerosene",
+      "low": 116,
+      "high": 145.34
+    }
+  ]
+}

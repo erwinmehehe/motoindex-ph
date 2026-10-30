@@ -10,36 +10,36 @@ import { licensedHistoricalMotorcycleImage } from "../lib/licensedMotorcycleRefe
 
 const expected = {
   "honda-click-125i": {
-    "title": "Click 125i Price Philippines",
-    "h1": "Click 125i Price Philippines"
+    "title": "Honda Click 125i Price Philippines",
+    "h1": "Honda Click 125i Price Philippines"
   },
   "yamaha-sniper-155": {
-    "title": "Sniper 155 Price Philippines",
-    "h1": "Sniper 155 Price Philippines"
+    "title": "Yamaha Sniper 155 Price Philippines",
+    "h1": "Yamaha Sniper 155 Price Philippines"
   },
   "rusi-classic-250i": {
-    "title": "Classic 250i Price Philippines",
-    "h1": "Classic 250i Price Philippines"
+    "title": "Rusi Classic 250i Price Philippines",
+    "h1": "Rusi Classic 250i Price Philippines"
   },
   "rusi-rfi-175": {
-    "title": "RFI 175 Price Philippines",
-    "h1": "RFI 175 Price Philippines"
+    "title": "Rusi RFI 175 Price Philippines",
+    "h1": "Rusi RFI 175 Price Philippines"
   },
   "yamaha-yzf-r15-v3": {
-    "title": "YZF-R15 V3 Price Philippines",
-    "h1": "YZF-R15 V3 Price Philippines"
+    "title": "Yamaha YZF-R15 V3 Price Philippines",
+    "h1": "Yamaha YZF-R15 V3 Price Philippines"
   },
   "yamaha-mio-i-125": {
-    "title": "Mio i 125 Price Philippines",
-    "h1": "Mio i 125 Price Philippines"
+    "title": "Yamaha Mio i 125 Price Philippines",
+    "h1": "Yamaha Mio i 125 Price Philippines"
   },
   "yamaha-xmax": {
-    "title": "XMAX Price Philippines",
-    "h1": "XMAX Price Philippines"
+    "title": "Yamaha XMAX Price Philippines",
+    "h1": "Yamaha XMAX Price Philippines"
   },
   "kawasaki-klx150": {
-    "title": "KLX150 Price Philippines",
-    "h1": "KLX150 Price Philippines"
+    "title": "Kawasaki KLX150 Price Philippines",
+    "h1": "Kawasaki KLX150 Price Philippines"
   }
 } as const;
 

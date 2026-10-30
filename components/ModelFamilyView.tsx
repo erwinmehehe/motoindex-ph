@@ -20,7 +20,7 @@ import { MotorcycleInContentAd } from "@/components/MotorcycleInContentAd";
 export function ModelFamilyView({ family, nonceReady = false }: { family: ModelFamily; nonceReady?: boolean }) {
   const models = getFamilyModels(family);
   const current = models.find((m) => m?.id === family.currentModelId);
-  const familyHeroHeading = `${family.make} ${family.name} prices and generations`;
+  const familyHeroHeading = `${family.make} ${family.name} Price Philippines`;
   const currentHeroMedia = current ? getRenderableMedia("motorcycle", current.id)[0] : undefined;
   const familyHeroAlt = currentHeroMedia ? contextualHeroImageAlt(currentHeroMedia.alt, familyHeroHeading) : undefined;
   const previous = models.find((m) => m && m.id !== family.currentModelId);
@@ -98,7 +98,7 @@ export function ModelFamilyView({ family, nonceReady = false }: { family: ModelF
           <div className="model-family-hero-copy">
             <span className="entity-kicker">Model family · Philippines</span>
             <h1>{familyHeroHeading}</h1>
-            <p>Explore {familyHeroHeading} in the Philippines. {family.intro} Use this page to identify the exact generation first, then open that model for its price sources, specs, financing and ownership details.</p>
+            <p>Explore {familyHeroHeading} across generations. {family.intro} Use this page to identify the exact generation first, then open that model for its price sources, specs, financing and ownership details.</p>
             {current && <div className="model-family-direct-answer">
               <span>Current generation</span>
               <strong>{current.make} {current.model} · {observedMarketPriceLabel(current)}</strong>

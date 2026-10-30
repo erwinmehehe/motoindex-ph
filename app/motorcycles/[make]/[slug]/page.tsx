@@ -57,11 +57,11 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
     const electricModel = getElectricMotorcycle(slug);
     if (!electricModel) return {};
     return pageMetadata({
-      title: `${electricModel.model} Price Philippines`,
-      description: `${electricModel.model} Price Philippines: Compare ${electricModel.make} ${electricModel.model} battery, claimed range, charging, top speed and LTO classification.`,
+      title: priceFocusedModelHeading(electricModel),
+      description: `${priceFocusedModelHeading(electricModel)}: Compare battery options, claimed range, charging, top speed and LTO classification in the Philippines.`,
       path: `/motorcycles/electric/${electricModel.slug}`,
       image: electricModel.imageUrl,
-      imageAlt: contextualHeroImageAlt(`${electricModel.make} ${electricModel.model} electric motorcycle`, `${electricModel.model} Price Philippines`)
+      imageAlt: contextualHeroImageAlt(`${electricModel.make} ${electricModel.model} electric motorcycle`, priceFocusedModelHeading(electricModel))
     });
   }
   if (make === "honda" && slug === "crf250-rally") {
@@ -137,7 +137,7 @@ export async function generateMetadata({ params }: { params: Promise<{ make: str
           width: 1200,
           height: 630,
           type: "image/png",
-          alt: "Yamaha Aerox V3 Standard vs SP motorcycle price guide, Aerox V3 Price Philippines"
+          alt: "Yamaha Aerox V3 Standard vs SP motorcycle price guide, Yamaha Aerox V3 Price Philippines"
         }]
       },
       twitter: {
