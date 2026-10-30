@@ -125,6 +125,11 @@ export const transportGuides2026: EditorialGuide[] = [
         "description": "Check and reload the other major RFID system before an NLEX or SCTEX trip."
       },
       {
+        "href": "/guides/autosweep-rfid-balance-check",
+        "title": "Check Autosweep balance",
+        "description": "Use the official app, customer website or published SMS inquiry."
+      },
+      {
         "href": "/motorcycles/expressway-legal",
         "title": "Expressway-legal motorcycles",
         "description": "Check 400cc+ displacement and road-entry considerations."
@@ -274,6 +279,11 @@ export const transportGuides2026: EditorialGuide[] = [
         "href": "/guides/autosweep-rfid-installation-philippines",
         "title": "Autosweep RFID installation",
         "description": "Get the right RFID for SLEX or Skyway and verify the installation process."
+      },
+      {
+        "href": "/guides/autosweep-rfid-balance-check",
+        "title": "Autosweep balance inquiry",
+        "description": "The other toll-account balance inquiry, through operator-approved methods."
       },
       {
         "href": "/motorcycles/expressway-legal",
@@ -579,6 +589,11 @@ export const transportGuides2026: EditorialGuide[] = [
         "href": "/guides/lto-exam-reviewer-philippines",
         "title": "LTO exam reviewer",
         "description": "Study road rules and try original practice questions."
+      },
+      {
+        "href": "/guides/lost-drivers-license-philippines",
+        "title": "LTO lost-license replacement",
+        "description": "Prepare the duplicate-license requirements rather than a first permit."
       },
       {
         "href": "/ownership/dl-code-b-motorcycle-philippines",
