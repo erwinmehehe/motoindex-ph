@@ -19,7 +19,7 @@ const PRICE_PAGE_TARGETS: Readonly<Record<string, MotorcyclePricePageSeo>> = {
   "yamaha-sniper-155": {
     "heading": "Yamaha Sniper 155 Price Philippines",
     "title": "Yamaha Sniper 155 Price Philippines",
-    "description": "Yamaha Sniper 155 Price Philippines: Compare Yamaha Sniper 155 and 155 R price references, 155cc specs, variant-dependent ABS and ownership costs. Check quotes.",
+    "description": "Yamaha Sniper 155 Price Philippines: Compare Yamaha Sniper 155 and 155 R price references, 155cc specs, ABS by variant and ownership costs. Check quotes.",
     "intro": "Yamaha Sniper 155 Price Philippines guide: Compare published Yamaha Sniper 155 and Sniper 155 R dealer references, 155cc specs, six-speed manual riding and variant-dependent ABS before checking local quotes."
   },
   "rusi-classic-250i": {
