@@ -97,6 +97,7 @@ export default function ExpresswayLegalMotorcyclesPage() {
             <h3>RFID and toll-system requirements can change</h3>
             <p>The Toll Regulatory Board re-implemented cashless/contactless requirements from March 15, 2025 for toll expressways under its jurisdiction. Check the latest RFID and payment guidance before a trip rather than relying on an old forum post or dealer claim.</p>
             <p>See MotoIndex&apos;s <Link href="/guides/autosweep-rfid-installation-philippines">Autosweep RFID installation guide</Link> for SLEX and Skyway, or <Link href="/guides/easytrip-rfid-balance-check">Easytrip balance inquiry</Link> for MPTC routes.</p>
+            <p>For dated toll-fee examples and road access, compare the <Link href="/guides/skyway-philippines-routes-toll-fees">Skyway route guide</Link>, <Link href="/guides/slex-toll-fee-philippines">SLEX fees</Link> and <Link href="/guides/nlex-toll-fee-philippines">NLEX fees</Link>. Use the current operator matrix for an exact trip.</p>
             <p><a href="https://www.trb.gov.ph/index.php/toll-rates/nlex-slex-connector-road-toll-rate/47-press-release" target="_blank" rel="noreferrer">Check the Toll Regulatory Board guidance →</a></p>
           </InfoPanel>
           <InfoPanel>

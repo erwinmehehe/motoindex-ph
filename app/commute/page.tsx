@@ -132,6 +132,9 @@ export default function CommutePage(){
       <div className={styles.decisionList}>
         <Link className={styles.decisionRow} href="/guides/mrt-3-stations-philippines"><span className={styles.decisionLabel}>MRT-3</span><span className={styles.decisionCopy}><h3>MRT-3 station list</h3><p>All 13 stations from North Avenue to Taft Avenue, with interchange notes.</p></span><span className={styles.decisionMeta}>View stations →</span></Link>
         <Link className={styles.decisionRow} href="/guides/lrt-2-stations-philippines"><span className={styles.decisionLabel}>LRT-2</span><span className={styles.decisionCopy}><h3>LRT-2 station list</h3><p>All 13 stations from Recto to Antipolo, including rail transfers.</p></span><span className={styles.decisionMeta}>View stations →</span></Link>
+        <Link className={styles.decisionRow} href="/guides/lrt-1-fare-philippines"><span className={styles.decisionLabel}>LRT-1</span><span className={styles.decisionCopy}><h3>LRT-1 fares and stations</h3><p>Find all 25 stations and selected beep and single-journey fares.</p></span><span className={styles.decisionMeta}>Check fares →</span></Link>
+        <Link className={styles.decisionRow} href="/guides/edsa-carousel-stations-fare"><span className={styles.decisionLabel}>Busway</span><span className={styles.decisionCopy}><h3>EDSA Carousel stops</h3><p>See the Monumento-to-PITX busway and dated September 2026 fares.</p></span><span className={styles.decisionMeta}>View stops →</span></Link>
+        <Link className={styles.decisionRow} href="/guides/metro-manila-number-coding-today"><span className={styles.decisionLabel}>Road rules</span><span className={styles.decisionCopy}><h3>Number coding today</h3><p>Check scheduled plate endings and announced MMDA suspensions.</p></span><span className={styles.decisionMeta}>Check schedule →</span></Link>
       </div>
     </section>
     <JsonLd data={schema}/>

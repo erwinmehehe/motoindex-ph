@@ -1,7 +1,7 @@
 import { absoluteUrl } from "./site";
 
 export type TransitStation = { name: string; area: string; transfer: string; note: string };
-export type TransitStationGuide = { line: string; title: string; direction: string; sourceUrl: string; stations: TransitStation[] };
+export type TransitStationGuide = { line: string; title: string; direction: string; sourceUrl: string; sourceLabel?: string; stations: TransitStation[] };
 
 /** Official DOTr-MRT3 / LRTA station sequences checked 2026-10-30. */
 const stationGuides: Record<string,TransitStationGuide> = {
@@ -176,7 +176,319 @@ const stationGuides: Record<string,TransitStationGuide> = {
         "note": "Eastern terminal; Masinag area"
       }
     ]
-  }
+  },
+  "lrt-1-fare-philippines": {
+  "line": "LRT-1",
+  "title": "All 25 LRT-1 stations from Fernando Poe Jr. to Dr. Santos",
+  "direction": "Fernando Poe Jr. → Dr. Santos (north to south)",
+  "sourceUrl": "https://www.lrta.gov.ph/railway-operations/",
+  "sourceLabel": "LRTA official railway operations",
+  "stations": [
+    {
+      "name": "Fernando Poe Jr.",
+      "area": "Quezon City",
+      "transfer": "",
+      "note": "Northern terminal"
+    },
+    {
+      "name": "Balintawak",
+      "area": "Quezon City",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "Monumento",
+      "area": "Caloocan City",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "5th Avenue",
+      "area": "Caloocan City",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "R. Papa",
+      "area": "Caloocan City",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "Abad Santos",
+      "area": "Caloocan City",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "Blumentritt",
+      "area": "Manila",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "Tayuman",
+      "area": "Manila",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "Bambang",
+      "area": "Manila",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "Doroteo Jose",
+      "area": "Manila",
+      "transfer": "LRT-2 Recto",
+      "note": "Pedestrian transfer to LRT-2"
+    },
+    {
+      "name": "Carriedo",
+      "area": "Manila",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "Central Terminal",
+      "area": "Manila",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "United Nations Avenue",
+      "area": "Manila",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "Pedro Gil",
+      "area": "Manila",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "Quirino",
+      "area": "Manila",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "Vito Cruz",
+      "area": "Manila",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "Gil Puyat",
+      "area": "Pasay City",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "Libertad",
+      "area": "Pasay City",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "EDSA",
+      "area": "Pasay City",
+      "transfer": "MRT-3 Taft Avenue",
+      "note": "Pedestrian transfer to MRT-3"
+    },
+    {
+      "name": "Baclaran",
+      "area": "Pasay City",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "Redemptorist-Aseana",
+      "area": "Parañaque City",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "MIA Road",
+      "area": "Parañaque City",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "PITX",
+      "area": "Parañaque City",
+      "transfer": "PITX bus terminal",
+      "note": "Southern extension station"
+    },
+    {
+      "name": "Ninoy Aquino Avenue",
+      "area": "Parañaque City",
+      "transfer": "",
+      "note": "LRT-1 corridor stop"
+    },
+    {
+      "name": "Dr. Santos",
+      "area": "Parañaque City",
+      "transfer": "",
+      "note": "Southern terminal"
+    }
+  ]
+},
+  "edsa-carousel-stations-fare": {
+  "line": "EDSA Carousel",
+  "title": "EDSA Carousel southbound stops: Monumento to PITX",
+  "direction": "Monumento → PITX (southbound route reference)",
+  "sourceUrl": "https://edsacarousel.com/bus-route",
+  "sourceLabel": "EDSA Busway published route listing",
+  "stations": [
+    {
+      "name": "Monumento",
+      "area": "Caloocan City",
+      "transfer": "LRT-1 Monumento",
+      "note": "Northern terminal"
+    },
+    {
+      "name": "Bagong Barrio",
+      "area": "Caloocan City",
+      "transfer": "",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Balintawak",
+      "area": "Quezon City",
+      "transfer": "LRT-1 Balintawak",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Kaingin",
+      "area": "Quezon City",
+      "transfer": "",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Fernando Poe Jr. / Roosevelt",
+      "area": "Quezon City",
+      "transfer": "LRT-1 Fernando Poe Jr.",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "SM North EDSA",
+      "area": "Quezon City",
+      "transfer": "",
+      "note": "Busy Quezon City boarding area"
+    },
+    {
+      "name": "North Avenue",
+      "area": "Quezon City",
+      "transfer": "MRT-3 North Avenue",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Philam Q.C.",
+      "area": "Quezon City",
+      "transfer": "",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Quezon Avenue",
+      "area": "Quezon City",
+      "transfer": "MRT-3 Quezon Avenue",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Kamuning",
+      "area": "Quezon City",
+      "transfer": "",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Nepa Q. Mart",
+      "area": "Quezon City",
+      "transfer": "",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Main Avenue",
+      "area": "Quezon City",
+      "transfer": "Cubao rail district",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Santolan",
+      "area": "Quezon City",
+      "transfer": "MRT-3 Santolan",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Ortigas",
+      "area": "Mandaluyong / Pasig",
+      "transfer": "MRT-3 Ortigas",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Guadalupe",
+      "area": "Makati City",
+      "transfer": "MRT-3 Guadalupe",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Buendia",
+      "area": "Makati City",
+      "transfer": "MRT-3 Buendia",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Ayala",
+      "area": "Makati City",
+      "transfer": "MRT-3 Ayala",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Tramo",
+      "area": "Pasay City",
+      "transfer": "",
+      "note": "Southbound-specific stop"
+    },
+    {
+      "name": "Taft Avenue",
+      "area": "Pasay City",
+      "transfer": "MRT-3 Taft / LRT-1 EDSA",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Roxas Boulevard",
+      "area": "Pasay City",
+      "transfer": "",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "SM Mall of Asia",
+      "area": "Pasay City",
+      "transfer": "",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "BVA",
+      "area": "Parañaque City",
+      "transfer": "",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "Macapagal / Aseana",
+      "area": "Parañaque City",
+      "transfer": "",
+      "note": "Check exact platform entrance and travel direction"
+    },
+    {
+      "name": "PITX",
+      "area": "Parañaque City",
+      "transfer": "LRT-1 PITX",
+      "note": "Southern terminal"
+    }
+  ]
+}
 };
 
 export function transitStationGuide(slug: string): TransitStationGuide | undefined { return stationGuides[slug]; }
