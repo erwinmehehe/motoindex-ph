@@ -81,7 +81,13 @@ export const editorialLeadQuestions: Record<string, string> = {
   "lto-exam-reviewer-philippines": "How should I prepare for the LTO driving exam?",
   "lto-student-permit-requirements-philippines": "What are the LTO student permit requirements in 2026?",
   "mrt-3-stations-philippines": "What are all 13 MRT-3 stations in order?",
-  "lrt-2-stations-philippines": "What are the 13 LRT-2 stations in order?"
+  "lrt-2-stations-philippines": "What are the 13 LRT-2 stations in order?",
+  "skyway-philippines-routes-toll-fees": "Where does Skyway go and how much are toll fees?",
+  "slex-toll-fee-philippines": "How much are SLEX toll fees for common exits?",
+  "nlex-toll-fee-philippines": "How much is NLEX toll from Balintawak?",
+  "lrt-1-fare-philippines": "How much is the LRT-1 fare and where are its stations?",
+  "edsa-carousel-stations-fare": "Where does EDSA Carousel stop and what is the updated fare?",
+  "metro-manila-number-coding-today": "Which plate endings are scheduled for Metro Manila number coding today?"
 };
 
 export const ownershipLeadQuestions: Record<string, string> = {
