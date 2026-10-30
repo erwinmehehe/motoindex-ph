@@ -54,7 +54,7 @@ const stationGuides: Record<string,TransitStationGuide> = {
         "note": "Shaw Boulevard commercial corridor"
       },
       {
-        "name": "Boni Avenue",
+        "name": "Boni",
         "area": "Mandaluyong City",
         "transfer": "",
         "note": "Boni Avenue corridor"
