@@ -9,12 +9,12 @@ type ArtKind = "budget" | "scooter" | "abs" | "fuel" | "fit" | "commute" | "tour
 
 function artKind(slug: string, title: string): ArtKind {
   const value = `${slug} ${title}`.toLowerCase();
-  if (/skyway-philippines|slex-toll|nlex-toll/.test(value)) return "toll";
+  if (/skyway-philippines|slex-toll|nlex-toll|calax|tplex|sctex|nlex-connector/.test(value)) return "toll";
   if (/edsa-carousel/.test(value)) return "bus";
   if (/metro-manila-number-coding/.test(value)) return "coding";
   if (/mrt-3|lrt-2|lrt-1|railway|stations list/.test(value)) return "rail";
   if (/autosweep|easytrip|rfid/.test(value)) return "rfid";
-  if (/lto exam|lto student|student permit/.test(value)) return "license";
+  if (/lto exam|lto student|student permit|lost.driver|duplicate license/.test(value)) return "license";
   if (value.includes("helmet") && (value.includes("size") || value.includes("fit"))) return "helmet-fit";
   if (value.includes("helmet") && (value.includes("certification") || value.includes("icc") || value.includes("ece"))) return "helmet-cert";
   if (value.includes("electric") || value.includes("e-bike")) return "electric";
