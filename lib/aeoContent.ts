@@ -87,7 +87,13 @@ export const editorialLeadQuestions: Record<string, string> = {
   "nlex-toll-fee-philippines": "How much is NLEX toll from Balintawak?",
   "lrt-1-fare-philippines": "How much is the LRT-1 fare and where are its stations?",
   "edsa-carousel-stations-fare": "Where does EDSA Carousel stop and what is the updated fare?",
-  "metro-manila-number-coding-today": "Which plate endings are scheduled for Metro Manila number coding today?"
+  "metro-manila-number-coding-today": "Which plate endings are scheduled for Metro Manila number coding today?",
+  "cavite-laguna-expressway-calax": "Which CALAX interchanges and toll sections are open in 2026?",
+  "autosweep-rfid-balance-check": "How can I check Autosweep RFID balance safely?",
+  "nlex-connector-road-philippines": "Where does NLEX Connector Road go and which exits are open?",
+  "tplex-exits-and-route": "What does TPLEX mean and where are all its exits?",
+  "sctex-route-and-exits": "What does SCTEX stand for and which exit should I use?",
+  "lost-drivers-license-philippines": "How do I replace a lost LTO driver's license?"
 };
 
 export const ownershipLeadQuestions: Record<string, string> = {
