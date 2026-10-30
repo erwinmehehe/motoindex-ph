@@ -5,11 +5,14 @@ type Props = {
   compact?: boolean;
 };
 
-type ArtKind = "budget" | "scooter" | "abs" | "fuel" | "fit" | "commute" | "touring" | "underbone" | "sport" | "dual" | "classic" | "helmet-fit" | "helmet-cert" | "electric" | "motorcycle" | "rail" | "rfid" | "license";
+type ArtKind = "budget" | "scooter" | "abs" | "fuel" | "fit" | "commute" | "touring" | "underbone" | "sport" | "dual" | "classic" | "helmet-fit" | "helmet-cert" | "electric" | "motorcycle" | "rail" | "rfid" | "license" | "toll" | "bus" | "coding";
 
 function artKind(slug: string, title: string): ArtKind {
   const value = `${slug} ${title}`.toLowerCase();
-  if (/mrt-3|lrt-2|railway|stations list/.test(value)) return "rail";
+  if (/skyway-philippines|slex-toll|nlex-toll/.test(value)) return "toll";
+  if (/edsa-carousel/.test(value)) return "bus";
+  if (/metro-manila-number-coding/.test(value)) return "coding";
+  if (/mrt-3|lrt-2|lrt-1|railway|stations list/.test(value)) return "rail";
   if (/autosweep|easytrip|rfid/.test(value)) return "rfid";
   if (/lto exam|lto student|student permit/.test(value)) return "license";
   if (value.includes("helmet") && (value.includes("size") || value.includes("fit"))) return "helmet-fit";
@@ -48,6 +51,9 @@ const themes: Record<ArtKind, { label: string; accent: string; secondary: string
   rail: { label: "TRAIN ROUTES", accent: "#55C5E7", secondary: "#12B76A", micro: "STOPS · TRANSFERS · SERVICE" },
   rfid: { label: "TOLL RFID", accent: "#12B76A", secondary: "#FDB022", micro: "INSTALL · BALANCE · RELOAD" },
   license: { label: "LTO GUIDES", accent: "#FDB022", secondary: "#55C5E7", micro: "PERMITS · RULES · PRACTICE" },
+  toll: { label: "TOLL ROADS", accent: "#12B76A", secondary: "#FDB022", micro: "FEES · RAMPS · RFID" },
+  bus: { label: "EDSA BUSWAY", accent: "#55C5E7", secondary: "#12B76A", micro: "STOPS · FARES · TRANSFERS" },
+  coding: { label: "CODING DAYS", accent: "#FDB022", secondary: "#55C5E7", micro: "PLATES · HOURS · ADVISORIES" },
 };
 
 function Motorcycle({ accent = "#7A5AF8", secondary = "#12B76A", sport = false }: { accent?: string; secondary?: string; sport?: boolean }) {
@@ -201,7 +207,43 @@ function LicensingArt({ accent, secondary }: { accent: string; secondary: string
   </g>;
 }
 
+function TollArt({ accent, secondary }: { accent: string; secondary: string }) {
+  return <g transform="translate(690 150)">
+    <path d="M35 420h505" stroke="#94A3B8" strokeWidth="28" strokeLinecap="round"/>
+    <path d="M75 430V105h400v325" fill="none" stroke="#F8FAFC" strokeWidth="28" strokeLinecap="round"/>
+    <rect x="90" y="95" width="370" height="100" rx="20" fill={accent}/>
+    <rect x="122" y="126" width="118" height="28" rx="10" fill="#0B1220"/>
+    <path d="M270 139h130" stroke="#F8FAFC" strokeWidth="18" strokeLinecap="round"/>
+    <rect x="325" y="285" width="190" height="91" rx="23" fill="#F8FAFC"/>
+    <circle cx="365" cy="393" r="23" fill="#0B1220"/><circle cx="475" cy="393" r="23" fill="#0B1220"/>
+    <path d="M70 306h265" stroke={secondary} strokeWidth="12" strokeLinecap="round"/>
+    <rect x="58" y="274" width="16" height="70" rx="7" fill="#F8FAFC"/>
+  </g>;
+}
+function BusArt({ accent, secondary }: { accent: string; secondary: string }) {
+  return <g transform="translate(700 150)">
+    <rect x="35" y="90" width="470" height="310" rx="46" fill="#F8FAFC" stroke="#CBD5E1" strokeWidth="12"/>
+    <rect x="70" y="132" width="402" height="134" rx="19" fill="#142B3A"/>
+    <path d="M271 132v134" stroke="#6F90A7" strokeWidth="11"/>
+    <path d="M70 289h402" stroke={accent} strokeWidth="24"/>
+    <circle cx="130" cy="373" r="26" fill={secondary}/><circle cx="415" cy="373" r="26" fill={secondary}/>
+    <path d="M160 435h225" stroke="#94A3B8" strokeWidth="12" strokeLinecap="round"/>
+  </g>;
+}
+function CodingArt({ accent, secondary }: { accent: string; secondary: string }) {
+  return <g transform="translate(760 150)">
+    <rect x="45" y="60" width="390" height="325" rx="36" fill="#F8FAFC" stroke="#CBD5E1" strokeWidth="12"/>
+    <rect x="75" y="95" width="330" height="78" rx="14" fill="#142B3A"/>
+    <path d="M105 133h265" stroke={accent} strokeWidth="16" strokeLinecap="round"/>
+    <circle cx="145" cy="260" r="58" fill={secondary}/>
+    <circle cx="328" cy="260" r="58" fill={accent}/>
+    <path d="M105 385h275" stroke="#94A3B8" strokeWidth="14" strokeLinecap="round"/>
+  </g>;
+}
 function Scene({ kind, accent, secondary }: { kind: ArtKind; accent: string; secondary: string }) {
+  if (kind === "toll") return <TollArt accent={accent} secondary={secondary}/>;
+  if (kind === "bus") return <BusArt accent={accent} secondary={secondary}/>;
+  if (kind === "coding") return <CodingArt accent={accent} secondary={secondary}/>;
   if (kind === "rail") return <RailArt accent={accent} secondary={secondary}/>;
   if (kind === "rfid") return <RfidArt accent={accent} secondary={secondary}/>;
   if (kind === "license") return <LicensingArt accent={accent} secondary={secondary}/>;
@@ -224,7 +266,7 @@ function Scene({ kind, accent, secondary }: { kind: ArtKind; accent: string; sec
 export function GuideFeaturedArt({ slug, title, kicker = "MotoIndex guide", compact = false }: Props) {
   const kind = artKind(slug, title);
   const theme = themes[kind];
-  const transportArt = kind === "rail" || kind === "rfid" || kind === "license";
+  const transportArt = ["rail", "rfid", "license", "toll", "bus", "coding"].includes(kind);
   const safeId = slug.replace(/[^a-z0-9]/gi, "").slice(0, 28) || "guide";
   const radius = compact ? 18 : 28;
   return <div style={{ width: "100%", aspectRatio: "1200 / 630", overflow: "hidden", borderRadius: radius, background: "#0B1220", border: "1px solid rgba(148,163,184,.18)" }} aria-label={`${title} featured graphic`}>
