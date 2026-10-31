@@ -4,3 +4,11 @@
 .toc li{max-width:100%}
 .toc a{display:inline-block;font-size:13px;line-height:1.45;color:var(--mi-color-primary,var(--accent,#f0542d));text-decoration:underline;text-underline-offset:3px}
 .toc a:hover{color:var(--mi-color-ink,var(--ink,#101317))}
+
+/* Guide-only editorial TOC. All other uses retain default TOC. */
+.editorial{padding:0;margin:0;color:var(--mi-guide-ink)}
+.editorial strong{display:block;margin-bottom:13px;font-size:11px;font-weight:900;letter-spacing:.125em;text-transform:uppercase}
+.editorial ul{display:grid;gap:0;margin:0;padding:0;list-style:none;border-left:1px solid var(--mi-guide-line)}
+.editorial li{min-width:0}
+.editorial a{display:block;width:100%;margin-left:-1px;padding:10px 10px 10px 12px;border-left:2px solid transparent;color:var(--mi-guide-muted);font-size:12px;font-weight:700;line-height:1.52;text-decoration:none}
+.editorial a:hover,.editorial a:focus-visible{border-left-color:var(--mi-guide-accent-button);background:var(--mi-guide-accent-surface);color:var(--mi-guide-accent-deep)}

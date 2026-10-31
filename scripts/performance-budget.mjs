@@ -14,6 +14,8 @@ const budgets = {
   installmentCssMaxBytes: 22 * 1024,
   // This page CSS is loaded only by the fuel route; cap it independently.
   gasPriceCssMaxBytes: 13 * 1024,
+  // Guide article CSS is imported only by /guides/[slug] and has its own small cap.
+  guideArticleCssMaxBytes: 9 * 1024,
   largestJsChunkBytes: 350 * 1024,
   jsTotalBytes: 4 * 1024 * 1024,
   largestPublicImageBytes: 1500 * 1024,
@@ -71,12 +73,28 @@ const isGasPriceScoped = gasPriceCssBytes > 0
   && !globalStackSource.includes("gas-price-philippines/page.module.css");
 const gasPriceScopedAllowance = isGasPriceScoped && gasPriceCssBytes <= budgets.gasPriceCssMaxBytes
   ? gasPriceCssBytes : 0;
-const effectiveCssBudget = budgets.cssTotalBytes + routeScopedAllowance + gasPriceScopedAllowance;
+const guideArticleCssPath = path.join(root, "app", "guides", "[slug]", "guide.module.css");
+const guideArticlePagePath = path.join(root, "app", "guides", "[slug]", "page.tsx");
+const guideArticleCssBytes = fs.existsSync(guideArticleCssPath) ? size(guideArticleCssPath) : 0;
+const guideArticlePageSource = fs.existsSync(guideArticlePagePath) ? fs.readFileSync(guideArticlePagePath, "utf8") : "";
+const guideArticleScoped = guideArticleCssBytes > 0
+  && guideArticlePageSource.includes('import styles from "./guide.module.css"')
+  && !globalRoutesSource.includes("guide.module.css")
+  && !globalStackSource.includes("guide.module.css");
+const guideArticleScopedAllowance = guideArticleScoped && guideArticleCssBytes <= budgets.guideArticleCssMaxBytes
+  ? guideArticleCssBytes : 0;
+const effectiveCssBudget = budgets.cssTotalBytes + routeScopedAllowance + gasPriceScopedAllowance + guideArticleScopedAllowance;
 const jsTotal = jsFiles.reduce((sum, file) => sum + size(file), 0);
 const largestJs = jsFiles.map((file) => ({ file, bytes: size(file) })).sort((a,b) => b.bytes-a.bytes)[0];
 const largestImage = imageFiles.map((file) => ({ file, bytes: size(file) })).sort((a,b) => b.bytes-a.bytes)[0];
 
 const failures = [];
+if (guideArticleCssBytes > budgets.guideArticleCssMaxBytes) {
+  failures.push(`Guide article CSS is ${kb(guideArticleCssBytes)}; strict route file budget is ${kb(budgets.guideArticleCssMaxBytes)}.`);
+}
+if (guideArticleCssBytes && !guideArticleScoped) {
+  failures.push("Guide styles must be imported only by the guide article page, not from the global CSS stack.");
+}
 if (hasInstallmentStyle && installmentStyleBytes > budgets.installmentCssMaxBytes) {
   failures.push(`Route-scoped installment styles are ${kb(installmentStyleBytes)}; strict file budget is ${kb(budgets.installmentCssMaxBytes)}.`);
 }
@@ -89,12 +107,12 @@ if (gasPriceCssBytes > budgets.gasPriceCssMaxBytes) {
 if (gasPriceCssBytes && !isGasPriceScoped) {
   failures.push("Gas price styles must be imported only by the route page and its widget, not from the global style stack.");
 }
-if (cssTotal > effectiveCssBudget) failures.push(`Compiled CSS is ${kb(cssTotal)}; core ${kb(budgets.cssTotalBytes)} plus scoped installment ${kb(routeScopedAllowance)} and route-only fuel ${kb(gasPriceScopedAllowance)} allows ${kb(effectiveCssBudget)}.`);
+if (cssTotal > effectiveCssBudget) failures.push(`Compiled CSS is ${kb(cssTotal)}; core ${kb(budgets.cssTotalBytes)} plus scoped installment ${kb(routeScopedAllowance)}, route-only fuel ${kb(gasPriceScopedAllowance)} and guide articles ${kb(guideArticleScopedAllowance)} allows ${kb(effectiveCssBudget)}.`);
 if (largestJs?.bytes > budgets.largestJsChunkBytes) failures.push(`Largest JS chunk is ${kb(largestJs.bytes)} (${path.relative(root, largestJs.file)}); budget is ${kb(budgets.largestJsChunkBytes)}.`);
 if (jsTotal > budgets.jsTotalBytes) failures.push(`Total emitted JS is ${kb(jsTotal)}; budget is ${kb(budgets.jsTotalBytes)}.`);
 if (largestImage?.bytes > budgets.largestPublicImageBytes) failures.push(`Largest public raster image is ${kb(largestImage.bytes)} (${path.relative(root, largestImage.file)}); budget is ${kb(budgets.largestPublicImageBytes)}.`);
 
-console.log(`Performance budgets: CSS ${kb(cssTotal)} / ${kb(effectiveCssBudget)} (core ${kb(budgets.cssTotalBytes)} + bounded installment ${kb(routeScopedAllowance)} + route-only fuel ${kb(gasPriceScopedAllowance)}); JS ${kb(jsTotal)} / ${kb(budgets.jsTotalBytes)}; largest JS ${largestJs ? kb(largestJs.bytes) : "0 KB"} / ${kb(budgets.largestJsChunkBytes)}; largest raster ${largestImage ? kb(largestImage.bytes) : "0 KB"} / ${kb(budgets.largestPublicImageBytes)}.`);
+console.log(`Performance budgets: CSS ${kb(cssTotal)} / ${kb(effectiveCssBudget)} (core ${kb(budgets.cssTotalBytes)} + bounded installment ${kb(routeScopedAllowance)} + route-only fuel ${kb(gasPriceScopedAllowance)} + guide articles ${kb(guideArticleScopedAllowance)}); JS ${kb(jsTotal)} / ${kb(budgets.jsTotalBytes)}; largest JS ${largestJs ? kb(largestJs.bytes) : "0 KB"} / ${kb(budgets.largestJsChunkBytes)}; largest raster ${largestImage ? kb(largestImage.bytes) : "0 KB"} / ${kb(budgets.largestPublicImageBytes)}.`);
 
 if (failures.length) {
   console.error("Performance budget failed:");
