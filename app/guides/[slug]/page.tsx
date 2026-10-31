@@ -157,7 +157,6 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
     checkedDates: [guide.lastChecked],
     image: schemaImage
   });
-  const quickSteps = guide.sections.find((section) => section.bullets)?.bullets?.slice(0, 4) ?? [];
 
 
   return <article className={"page shell " + styles.editorialPage}>
@@ -230,13 +229,6 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
           {exitGuide && <CorridorExitTable guide={exitGuide} />}
           {stationGuide && <TransitStationTable guide={stationGuide} />}
         </div>}
-
-        <section className={styles.beforeCard} aria-labelledby="guide-at-a-glance">
-          <span className={styles.sectionEyebrow}>Before you begin</span>
-          <h2 id="guide-at-a-glance">{transportGuide ? "Check the latest official instructions" : "Know what to verify"}</h2>
-          <p>{transportGuide ? "Check the operator or government agency before paying, applying or traveling. Schedules, rules and fees can change." : "Use this guide to narrow your options, then check details against the original current source before acting."}</p>
-          {quickSteps.length > 0 && <ul className={styles.beforeChecklist}>{quickSteps.map((item) => <li key={item}>{item}</li>)}</ul>}
-        </section>
 
         <div className={styles.articleSections}>
           {guide.sections.map((section, index) => <Fragment key={section.heading}>
