@@ -13,6 +13,49 @@ export const metadata: Metadata = pageMetadata({
   index: true
 });
 
+// Keep all indexable editorial guides discoverable without one overwhelming grid.
+// Topic sections cap repeated card counts and improve scanning on narrow screens.
+const roadGuideSlugs = new Set([
+  "autosweep-rfid-installation-philippines",
+  "easytrip-rfid-balance-check",
+  "skyway-philippines-routes-toll-fees",
+  "slex-toll-fee-philippines",
+  "nlex-toll-fee-philippines",
+  "cavite-laguna-expressway-calax",
+  "autosweep-rfid-balance-check",
+  "nlex-connector-road-philippines",
+  "tplex-exits-and-route",
+  "sctex-route-and-exits",
+]);
+const commuteGuideSlugs = new Set([
+  "lto-exam-reviewer-philippines",
+  "lto-student-permit-requirements-philippines",
+  "mrt-3-stations-philippines",
+  "lrt-2-stations-philippines",
+  "lrt-1-fare-philippines",
+  "edsa-carousel-stations-fare",
+  "metro-manila-number-coding-today",
+  "lost-drivers-license-philippines",
+]);
+
+const guideSections = [
+  {
+    title: "Expressways and RFID",
+    description: "Operator-sourced toll roads, exit tables, toll examples and RFID account guidance.",
+    guides: editorialGuides.filter((guide) => roadGuideSlugs.has(guide.slug)),
+  },
+  {
+    title: "Commuting and driver licensing",
+    description: "Train and bus station lists, number coding, LTO requirements and practice resources.",
+    guides: editorialGuides.filter((guide) => commuteGuideSlugs.has(guide.slug)),
+  },
+  {
+    title: "Motorcycles, ownership and gear",
+    description: "Motorcycle decisions, maintenance, safety, ownership paperwork and riding gear.",
+    guides: editorialGuides.filter((guide) => !roadGuideSlugs.has(guide.slug) && !commuteGuideSlugs.has(guide.slug)),
+  },
+];
+
 export default function GuidesPage() {
   return <section className="page shell">
     <Breadcrumbs items={[{ label: "Guides" }]} />
@@ -57,6 +100,9 @@ export default function GuidesPage() {
     </div>
 
     <div className="section-head inline-head"><div><span className="section-kicker">Published research</span><h2>Detailed MotoIndex guides</h2><p>Use these when you need a focused answer beyond the main buying and ownership tools.</p></div></div>
-    <div className="guide-grid">{editorialGuides.map((guide) => <Link className="guide-card" key={guide.slug} href={`/guides/${guide.slug}`}><div style={{marginBottom:16}}><GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} compact /></div><span className="section-kicker">{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><strong className="guide-action">Read guide →</strong></Link>)}</div>
+    {guideSections.map((group) => <section key={group.title} aria-label={group.title}>
+      <div className="section-head compact"><div><h2>{group.title}</h2><p>{group.description}</p></div></div>
+      <div className="guide-grid">{group.guides.map((guide) => <Link className="guide-card" key={guide.slug} href={`/guides/${guide.slug}`}><div style={{marginBottom:16}}><GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} compact /></div><span className="section-kicker">{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><strong className="guide-action">Read guide →</strong></Link>)}</div>
+    </section>)}
   </section>;
 }
