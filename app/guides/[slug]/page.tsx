@@ -36,6 +36,7 @@ import { NumberCodingToday } from "@/components/NumberCodingToday";
 import { transitStationGuide, transitStationListSchema } from "@/lib/transitStationGuides2026";
 import { TransitStationTable } from "@/components/TransitStationTable";
 import { LtoPracticeQuiz } from "@/components/LtoPracticeQuiz";
+import { AUTHOR_NAME, AUTHOR_PATH } from "@/lib/author";
 import styles from "./guide.module.css";
 
 const DEFAULT_GUIDE_IMAGE = "/brand/motoindex-og.png";
@@ -159,69 +160,103 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
   });
 
 
+  const isAutosweepInstall = guide.slug === "autosweep-rfid-installation-philippines";
+  const displayTitle = isAutosweepInstall ? "Autosweep RFID installation in the Philippines" : guide.title;
+  const preflightItems = isAutosweepInstall
+    ? [
+        "Confirm that the installation center accepts new RFID applications, not only reloads.",
+        "Check current opening hours and any required vehicle documents.",
+        "Ask about the opening toll load and any separate installation charge."
+      ]
+    : (guide.sections[0]?.bullets?.slice(0, 3) ?? []);
+  const quickLinks = isAutosweepInstall
+    ? [
+        { index: 0, title: "Installation centers", hint: "Where to start", mark: "⌖" },
+        { index: 2, title: "Requirements", hint: "What to bring", mark: "✓" },
+        { index: 2, title: "Fees & initial load", hint: "What to confirm", mark: "₱" },
+        { index: 1, title: "Installation process", hint: "Five practical steps", mark: "01" }
+      ]
+    : guide.sections.slice(0, 4).map((section, index) => ({
+        index,
+        title: section.heading,
+        hint: "Jump to section",
+        mark: String(index + 1).padStart(2, "0")
+      }));
+  const sourceInAnswer = isAutosweepInstall
+    ? guide.sources.find((source) => source.url === "https://autosweeprfid.com/")
+    : guide.sources[0];
+  const autoSourceIndexBySection: Record<number, number> = { 0: 1, 1: 2, 2: 1, 3: 0, 5: 3 };
+
+
   return <article className={"page shell " + styles.editorialPage}>
     <AdSense nonce={adNonce} />
     <div className={styles.breadcrumbBar}>
       <Breadcrumbs items={[{ label: "Guides", href: "/guides" }, { label: guide.title }]} />
     </div>
 
-    <header className={styles.guideHero}>
-      <div className={styles.heroCopy}>
-        <div className={styles.heroEyebrow}>
-          <span className={styles.heroCategory}>{guide.kicker}</span>
-          <span className={styles.heroEdition}>MotoIndex PH / Editorial guide</span>
+    <div className={styles.heroLayout}>
+      <header className={styles.guideHero}>
+        <span className={styles.heroCategory}>{guide.kicker}</span>
+        <h1>{displayTitle}</h1>
+        <p className={styles.heroDeck}>{isAutosweepInstall
+          ? "Where to get it, what documents to bring, and what to expect when the tag is installed."
+          : guide.description}</p>
+        <div className={styles.byline}>
+          <span className={styles.avatar} aria-hidden="true">EV</span>
+          <span>By <Link href={AUTHOR_PATH}>{AUTHOR_NAME}</Link></span>
+          {guideMedia?.publishedAt && <><span aria-hidden="true" className={styles.metaDot}>•</span><span>Published <time dateTime={guideMedia.publishedAt}>{readableDate(guideMedia.publishedAt)}</time></span></>}
+          <span aria-hidden="true" className={styles.metaDot}>•</span>
+          <span className={styles.verified}>Last source check <time dateTime={guide.lastChecked}>{readableDate(guide.lastChecked)}</time></span>
         </div>
-        <h1 className={styles.heroTitle}>{guide.title}</h1>
-        <p className={styles.heroDeck}>{guide.description}</p>
-        <div className={styles.heroMeta}>
-          {guideMedia?.publishedAt && <span>Published <time dateTime={guideMedia.publishedAt}>{readableDate(guideMedia.publishedAt)}</time></span>}
-          {guideMedia?.publishedAt && <span className={styles.heroMetaDivider} aria-hidden="true">•</span>}
-          <span>Sources checked <time dateTime={guide.lastChecked}>{readableDate(guide.lastChecked)}</time></span>
-        </div>
-        <div className={styles.heroActions}>
-          <a className={styles.heroPrimary} href="#guide-answer">Get the quick answer <span aria-hidden="true">↓</span></a>
-          <a className={styles.heroSecondary} href="#guide-content">Read the full guide <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-      <figure className={styles.heroArtwork}>
-        <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} />
-        {guideMedia?.caption && <figcaption>{guideMedia.caption}</figcaption>}
-      </figure>
-    </header>
+      </header>
 
-    <div className={styles.trustRibbon} aria-label="Guide information">
-      <div className={styles.trustItem}>
-        <span className={styles.trustIcon} aria-hidden="true">✓</span>
-        <span className={styles.trustCopy}><strong>Source-checked</strong><small>Verified {readableDate(guide.lastChecked)}</small></span>
-      </div>
-      <div className={styles.trustItem}>
-        <span className={styles.trustIcon} aria-hidden="true">§</span>
-        <span className={styles.trustCopy}><strong>{guide.sections.length} practical sections</strong><small>Steps and useful context</small></span>
-      </div>
-      <div className={styles.trustItem}>
-        <span className={styles.trustIcon} aria-hidden="true">↗</span>
-        <span className={styles.trustCopy}><strong>{guide.sources.length} cited sources</strong><small>Open and verify the originals</small></span>
-      </div>
+      <section className={styles.answerWrap} id="guide-answer" aria-label="Quick answer and official resource">
+        <QuickAnswer question={leadQuestion(guide.slug, editorialLeadQuestions, guide.title)} answer={guide.intro} checkedAt={guide.lastChecked}>
+          <div className={styles.answerActions}>
+            {sourceInAnswer && <SourceRef url={sourceInAnswer.url} label={isAutosweepInstall ? "Visit official Autosweep website" : "View cited reference"} className={styles.answerPrimary} />}
+            <a href={"#" + articleSectionId(guide.sections[0].heading, 0)} className={styles.answerSecondary}>Read the steps ↓</a>
+          </div>
+          {sourceInAnswer && <p className={styles.answerNote}>{isAutosweepInstall
+            ? "This opens the official operator website. Confirm current installation locations and hours there."
+            : "Check the original reference for changing details before acting."}</p>}
+        </QuickAnswer>
+      </section>
+
+      <aside className={styles.visitCard} aria-label={isAutosweepInstall ? "Before you visit an installation center" : "Before you act"}>
+        <span className={styles.visitEyebrow}>{isAutosweepInstall ? "Before you drive" : "Before you act"}</span>
+        <h2>{isAutosweepInstall ? "Confirm these three things" : "A few things to verify"}</h2>
+        <ul>{preflightItems.map((item) => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
+        <p>Availability, requirements and fees can change. Check the original source before traveling or paying.</p>
+      </aside>
     </div>
 
-    <div className={styles.answerWrap} id="guide-answer">
-      <QuickAnswer question={leadQuestion(guide.slug, editorialLeadQuestions, guide.title)} answer={guide.intro} checkedAt={guide.lastChecked} />
-    </div>
+    {quickLinks.length > 0 && <nav className={styles.quickNavigation} aria-label="Popular sections of this guide">
+      <div className={styles.quickNavHead}><h2>Find what you need</h2><p>Jump straight to the answer.</p></div>
+      <div className={styles.quickNavGrid}>{quickLinks.map((item, index) =>
+        <a href={"#" + articleSectionId(guide.sections[item.index].heading, item.index)} key={index} className={styles.quickNavItem}>
+          <span aria-hidden="true" className={styles.quickNavIcon}>{item.mark}</span>
+          <strong>{item.title}</strong>
+          <small>{item.hint}</small>
+        </a>)}</div>
+    </nav>}
 
     <div className={styles.readingLayout} id="guide-content">
       <aside className={styles.sidebar} aria-label="Guide navigation">
-        <div className={styles.sidebarInner}>
-          <span className={styles.sidebarEyebrow}>Navigate this guide</span>
-          <p className={styles.sidebarTitle}>In this article</p>
-          <ArticleJumpLinks sections={guide.sections} />
-          <div className={styles.sidebarLinks}>
-            <a href="#guide-sources">Official sources <span aria-hidden="true">↗</span></a>
-            <Link href="/guides">All MotoIndex guides <span aria-hidden="true">→</span></Link>
-          </div>
+        <ArticleJumpLinks sections={guide.sections} />
+        <div className={styles.sidebarLinks}>
+          <a href="#guide-sources">Sources & references ↗</a>
+          <a href="#guide-faqs">Common questions ↓</a>
+          <Link href="/guides">All guides →</Link>
         </div>
       </aside>
 
       <div className={styles.readingColumn}>
+        <details className={styles.mobileContents}>
+          <summary>On this page <span aria-hidden="true">↓</span></summary>
+          <ul>{guide.sections.map((section, index) =>
+            <li key={section.heading}><a href={"#" + articleSectionId(section.heading, index)}>{section.heading}</a></li>)}</ul>
+        </details>
+
         {(codingStatus || lostLicenseChecklist || fareTable || exitGuide || stationGuide) && <div className={styles.toolsArea}>
           {codingStatus && <NumberCodingToday status={codingStatus} />}
           {lostLicenseChecklist && <LostLicenseChecklist />}
@@ -233,52 +268,64 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
         <div className={styles.articleSections}>
           {guide.sections.map((section, index) => <Fragment key={section.heading}>
             <section className={styles.articleSection} aria-labelledby={articleSectionId(section.heading, index)}>
-              <div className={styles.sectionIndex}>
-                <span className={styles.sectionNumber}>{String(index + 1).padStart(2, "0")}</span>
-                <span className={styles.sectionIndexText}>Guide section</span>
-              </div>
-              <h2 id={articleSectionId(section.heading, index)}>{section.heading}</h2>
+              <div className={styles.sectionIndex}><span>{String(index + 1).padStart(2, "0")}</span><small>{isAutosweepInstall ? ["Installation locations","Installation process","Documents & costs","Choosing an RFID","Motorcycle access","After installation"][index] : "Guide section"}</small></div>
+              <h2 id={articleSectionId(section.heading, index)}>{isAutosweepInstall && index === 1 ? "The Autosweep installation process" : section.heading}</h2>
               <div className={styles.articleBody}>{section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-              {section.bullets && <div className={styles.takeaways}>
-                <h3>Key things to check</h3>
-                <ul>{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul>
-              </div>}
+
+              {isAutosweepInstall && autoSourceIndexBySection[index] !== undefined && guide.sources[autoSourceIndexBySection[index]] &&
+                <div className={styles.inlineSource}><SourceRef url={guide.sources[autoSourceIndexBySection[index]].url} label={"Official source: " + guide.sources[autoSourceIndexBySection[index]].label} /></div>}
+
+              {section.bullets && (isAutosweepInstall && index === 1
+                ? <ol className={styles.stepList}>{section.bullets.map((item) =>
+                    <li key={item}>{item.replace(/^\d+\.\s*/, "")}</li>)}</ol>
+                : isAutosweepInstall && index === 2
+                ? <div className={styles.requirementsCards}>
+                    <div><h3>Documents to prepare</h3><ul>{section.bullets.slice(0, 3).map((item) => <li key={item}>{item}</li>)}</ul></div>
+                    <div><h3>Payment and account setup</h3><ul>{section.bullets.slice(3).map((item) => <li key={item}>{item}</li>)}
+                      <li>Ask for a receipt separating prepaid toll load from any fee.</li>
+                    </ul></div>
+                  </div>
+                : <ul className={styles.checkList}>{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul>)}
+
+              {isAutosweepInstall && index === 3 &&
+                <div className={styles.compareScroll} role="region" aria-label="Autosweep and Easytrip network comparison" tabIndex={0}>
+                  <table><thead><tr><th>RFID network</th><th>Example expressways</th><th>What to check</th></tr></thead><tbody>
+                    <tr><th scope="row">Autosweep</th><td>SLEX, Skyway</td><td>Authorized installation and available load</td></tr>
+                    <tr><th scope="row">Easytrip</th><td>NLEX, SCTEX</td><td>Account and accepted toll lanes</td></tr>
+                  </tbody></table>
+                </div>}
+
+              {index === 1 && <figure className={styles.editorialArt}>
+                <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} />
+                <figcaption>{guideMedia?.caption ?? "MotoIndex original editorial illustration. Verify current route, account and product details against cited sources."}</figcaption>
+              </figure>}
             </section>
             {index === 1 && guide.slug === "lto-exam-reviewer-philippines" && <div className={styles.afterSectionTool}><LtoPracticeQuiz /></div>}
             {index === 1 && <GuideInContentAd nonceReady={Boolean(adNonce)} />}
           </Fragment>)}
         </div>
 
-        <section className={styles.actionBlock} aria-labelledby="guide-research-tools">
-          <div className={styles.blockHeader}>
-            <span className={styles.sectionEyebrow}>What next</span>
-            <h2 id="guide-research-tools">Put this guide to work</h2>
-            <p>Explore related MotoIndex resources and verify the details that matter to your next step.</p>
-          </div>
-          <div className={styles.actionLinks}>
-            {guideResearchLinks.map((item) => <Link className={styles.actionLink} href={item.href} key={item.href}>
-              <strong>{item.title}</strong><small>{item.description}</small><span>Explore guide →</span>
-            </Link>)}
-          </div>
-        </section>
-
         <section className={styles.sourcesBlock} id="guide-sources" aria-labelledby="guide-source-heading">
-          <div className={styles.blockHeader}>
-            <span className={styles.sectionEyebrow}>Research and transparency</span>
-            <h2 id="guide-source-heading">Official sources and references</h2>
-            <p>{transportGuide ? "Check the current operator or government source for requirements, fees, service schedules and announcements." : "Check the original manufacturer, agency or research source for changing prices, product details and requirements."}</p>
-          </div>
-          <div className={styles.sourceRows}>
-            {guide.sources.map((source) => <div className={styles.sourceRow} key={source.url}>
-              <span className={styles.sourceInfo}><strong>{source.label}</strong><small>Source checked {readableDate(guide.lastChecked)}</small></span>
-              <span className={styles.sourceAction}><SourceRef url={source.url} label="View source" /></span>
-            </div>)}
-          </div>
+          <span className={styles.sectionEyebrow}>Research notes</span>
+          <h2 id="guide-source-heading">Sources you can check yourself</h2>
+          <p>These are the original resources behind this guide. Last source check <time dateTime={guide.lastChecked}>{readableDate(guide.lastChecked)}</time>. Confirm changing details with the relevant operator, agency or manufacturer.</p>
+          <div className={styles.sourceRows}>{guide.sources.map((source) =>
+            <div className={styles.sourceRow} key={source.url}>
+              <div><strong>{source.label}</strong><small>Checked {readableDate(guide.lastChecked)}</small></div>
+              <SourceRef url={source.url} label="Open source" />
+            </div>)}</div>
         </section>
 
-        <div className={styles.faqArea}><FaqSection title="Frequently asked questions" items={guide.faqs} /></div>
+        <section className={styles.faqArea} id="guide-faqs" aria-label="Frequently asked questions">
+          <FaqSection title="Frequently asked questions" items={guide.faqs} />
+        </section>
         <div className={styles.authorArea}><AuthorBox /></div>
-        <div className={styles.relatedArea}><RelatedLinks title="Continue your research" links={guide.related} /></div>
+        <div className={styles.relatedArea}><RelatedLinks title="Related MotoIndex guides" links={guide.related} /></div>
+        <section className={styles.actionBlock} aria-labelledby="guide-research-tools">
+          <h2 id="guide-research-tools">Keep researching</h2>
+          <div className={styles.actionLinks}>{guideResearchLinks.map((item) =>
+            <Link href={item.href} key={item.href}><strong>{item.title}</strong><small>{item.description}</small><span aria-hidden="true">→</span></Link>)}</div>
+        </section>
       </div>
     </div>
     <JsonLd data={[schema, faqPageSchema(guide.faqs), ...(stationSchema ? [stationSchema] : []), ...(exitSchema ? [exitSchema] : [])]} />
