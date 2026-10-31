@@ -36,6 +36,7 @@ import { NumberCodingToday } from "@/components/NumberCodingToday";
 import { transitStationGuide, transitStationListSchema } from "@/lib/transitStationGuides2026";
 import { TransitStationTable } from "@/components/TransitStationTable";
 import { LtoPracticeQuiz } from "@/components/LtoPracticeQuiz";
+import styles from "./guide.module.css";
 
 const DEFAULT_GUIDE_IMAGE = "/brand/motoindex-og.png";
 
@@ -158,66 +159,136 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
   });
   const quickSteps = guide.sections.find((section) => section.bullets)?.bullets?.slice(0, 4) ?? [];
 
-  return <article className="page shell">
+
+  return <article className={"page shell " + styles.editorialPage}>
     <AdSense nonce={adNonce} />
-    <Breadcrumbs items={[{ label: "Guides", href: "/guides" }, { label: guide.title }]} />
-    <header className="page-head">
-      <span className="section-kicker">{guide.kicker}</span>
-      <h1>{guide.title}</h1>
-      <p className="article-meta">
-        {guideMedia?.publishedAt && <>Published <time dateTime={guideMedia.publishedAt}>{readableDate(guideMedia.publishedAt)}</time> · </>}
-        Last source check <time dateTime={guide.lastChecked}>{readableDate(guide.lastChecked)}</time>
-      </p>
+    <div className={styles.breadcrumbBar}>
+      <Breadcrumbs items={[{ label: "Guides", href: "/guides" }, { label: guide.title }]} />
+    </div>
+
+    <header className={styles.guideHero}>
+      <div className={styles.heroCopy}>
+        <div className={styles.heroEyebrow}>
+          <span className={styles.heroCategory}>{guide.kicker}</span>
+          <span className={styles.heroEdition}>MotoIndex PH / Editorial guide</span>
+        </div>
+        <h1 className={styles.heroTitle}>{guide.title}</h1>
+        <p className={styles.heroDeck}>{guide.description}</p>
+        <div className={styles.heroMeta}>
+          {guideMedia?.publishedAt && <span>Published <time dateTime={guideMedia.publishedAt}>{readableDate(guideMedia.publishedAt)}</time></span>}
+          {guideMedia?.publishedAt && <span className={styles.heroMetaDivider} aria-hidden="true">•</span>}
+          <span>Sources checked <time dateTime={guide.lastChecked}>{readableDate(guide.lastChecked)}</time></span>
+        </div>
+        <div className={styles.heroActions}>
+          <a className={styles.heroPrimary} href="#guide-answer">Get the quick answer <span aria-hidden="true">↓</span></a>
+          <a className={styles.heroSecondary} href="#guide-content">Read the full guide <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <figure className={styles.heroArtwork}>
+        <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} />
+        {guideMedia?.caption && <figcaption>{guideMedia.caption}</figcaption>}
+      </figure>
     </header>
 
-    <QuickAnswer question={leadQuestion(guide.slug, editorialLeadQuestions, guide.title)} answer={guide.intro} checkedAt={guide.lastChecked} />
-
-    {codingStatus && <NumberCodingToday status={codingStatus} />}
-    {lostLicenseChecklist && <LostLicenseChecklist />}
-    {fareTable && <TransportFareTable table={fareTable} />}
-    {exitGuide && <CorridorExitTable guide={exitGuide} />}
-    {stationGuide && <TransitStationTable guide={stationGuide} />}
-
-    <figure className="info-card guide-hero-media">
-      <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} />
-      {guideMedia?.caption && <figcaption><small>{guideMedia.caption}</small></figcaption>}
-    </figure>
-
-    <section className="split section" aria-labelledby="guide-at-a-glance">
-      <div>
-        <span className="section-kicker">At a glance</span>
-        <h2 id="guide-at-a-glance">{transportGuide ? "Verify the latest operator or government instructions" : "Use the guide as a verification checklist"}</h2>
-        <p>{transportGuide ? "Start with the direct answer, then check the official agency or operator before making a payment, applying for a permit or planning a trip. Service rules, costs and schedules can change." : "Start with the buyer decision, then confirm the exact model, product or rule against the current source before acting. MotoIndex keeps source links beside the guidance so changing prices, specifications, availability and requirements can be checked directly."}</p>
+    <div className={styles.trustRibbon} aria-label="Guide information">
+      <div className={styles.trustItem}>
+        <span className={styles.trustIcon} aria-hidden="true">✓</span>
+        <span className={styles.trustCopy}><strong>Source-checked</strong><small>Verified {readableDate(guide.lastChecked)}</small></span>
       </div>
-      <div className="info-card">
-        <h3>{transportGuide ? "Before you act" : "Quick verification path"}</h3>
-        <ul className="checklist">{quickSteps.map((item) => <li key={item}>{item}</li>)}</ul>
+      <div className={styles.trustItem}>
+        <span className={styles.trustIcon} aria-hidden="true">§</span>
+        <span className={styles.trustCopy}><strong>{guide.sections.length} practical sections</strong><small>Steps and useful context</small></span>
       </div>
-    </section>
+      <div className={styles.trustItem}>
+        <span className={styles.trustIcon} aria-hidden="true">↗</span>
+        <span className={styles.trustCopy}><strong>{guide.sources.length} cited sources</strong><small>Open and verify the originals</small></span>
+      </div>
+    </div>
 
-    <ArticleJumpLinks sections={guide.sections} />
+    <div className={styles.answerWrap} id="guide-answer">
+      <QuickAnswer question={leadQuestion(guide.slug, editorialLeadQuestions, guide.title)} answer={guide.intro} checkedAt={guide.lastChecked} />
+    </div>
 
-    {guide.sections.map((section, index) => <Fragment key={section.heading}>
-      <section className="split section">
-        <div><h2 id={articleSectionId(section.heading, index)}>{section.heading}</h2>{section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-        {section.bullets && <div className="info-card"><h3>Quick check</h3><ul className="checklist">{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul></div>}
-      </section>
-      {index === 1 && guide.slug === "lto-exam-reviewer-philippines" && <LtoPracticeQuiz />}
-      {index === 1 && <GuideInContentAd nonceReady={Boolean(adNonce)} />}
-    </Fragment>)}
+    <div className={styles.readingLayout} id="guide-content">
+      <aside className={styles.sidebar} aria-label="Guide navigation">
+        <div className={styles.sidebarInner}>
+          <span className={styles.sidebarEyebrow}>Navigate this guide</span>
+          <p className={styles.sidebarTitle}>In this article</p>
+          <ArticleJumpLinks sections={guide.sections} />
+          <div className={styles.sidebarLinks}>
+            <a href="#guide-sources">Official sources <span aria-hidden="true">↗</span></a>
+            <Link href="/guides">All MotoIndex guides <span aria-hidden="true">→</span></Link>
+          </div>
+        </div>
+      </aside>
 
-    <section className="section" aria-labelledby="guide-research-tools">
-      <div className="section-head compact"><div><h2 id="guide-research-tools">Put this guide to work</h2><p>Continue from general guidance into model-level research, comparison and verification without creating another thin search page.</p></div></div>
-      <div className="guide-strip">{guideResearchLinks.map((item) => <Link href={item.href} key={item.href}><strong>{item.title}</strong><small>{item.description}</small></Link>)}</div>
-    </section>
+      <div className={styles.readingColumn}>
+        {(codingStatus || lostLicenseChecklist || fareTable || exitGuide || stationGuide) && <div className={styles.toolsArea}>
+          {codingStatus && <NumberCodingToday status={codingStatus} />}
+          {lostLicenseChecklist && <LostLicenseChecklist />}
+          {fareTable && <TransportFareTable table={fareTable} />}
+          {exitGuide && <CorridorExitTable guide={exitGuide} />}
+          {stationGuide && <TransitStationTable guide={stationGuide} />}
+        </div>}
 
-    <section className="section">
-      <div className="section-head compact"><div><h2>Sources used for this guide</h2><p>{transportGuide ? "Open the official operator or Philippine government resource for current requirements, station information and service changes." : "Open the original manufacturer or Philippine government source when you need to verify a current requirement or fit instruction."}</p></div></div>
-      <div className="checked-record-list">{guide.sources.map((source) => <div key={source.url}><span><strong>{source.label}</strong><small>Checked {readableDate(guide.lastChecked)}</small></span><span className="checked-record-action"><SourceRef url={source.url} label="Open source" /></span></div>)}</div>
-    </section>
-    <FaqSection title="Frequently asked questions" items={guide.faqs} />
-    <AuthorBox />
-    <RelatedLinks title="Continue your research" links={guide.related} />
+        <section className={styles.beforeCard} aria-labelledby="guide-at-a-glance">
+          <span className={styles.sectionEyebrow}>Before you begin</span>
+          <h2 id="guide-at-a-glance">{transportGuide ? "Check the latest official instructions" : "Know what to verify"}</h2>
+          <p>{transportGuide ? "Check the operator or government agency before paying, applying or traveling. Schedules, rules and fees can change." : "Use this guide to narrow your options, then check details against the original current source before acting."}</p>
+          {quickSteps.length > 0 && <ul className={styles.beforeChecklist}>{quickSteps.map((item) => <li key={item}>{item}</li>)}</ul>}
+        </section>
+
+        <div className={styles.articleSections}>
+          {guide.sections.map((section, index) => <Fragment key={section.heading}>
+            <section className={styles.articleSection} aria-labelledby={articleSectionId(section.heading, index)}>
+              <div className={styles.sectionIndex}>
+                <span className={styles.sectionNumber}>{String(index + 1).padStart(2, "0")}</span>
+                <span className={styles.sectionIndexText}>Guide section</span>
+              </div>
+              <h2 id={articleSectionId(section.heading, index)}>{section.heading}</h2>
+              <div className={styles.articleBody}>{section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+              {section.bullets && <div className={styles.takeaways}>
+                <h3>Key things to check</h3>
+                <ul>{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul>
+              </div>}
+            </section>
+            {index === 1 && guide.slug === "lto-exam-reviewer-philippines" && <div className={styles.afterSectionTool}><LtoPracticeQuiz /></div>}
+            {index === 1 && <GuideInContentAd nonceReady={Boolean(adNonce)} />}
+          </Fragment>)}
+        </div>
+
+        <section className={styles.actionBlock} aria-labelledby="guide-research-tools">
+          <div className={styles.blockHeader}>
+            <span className={styles.sectionEyebrow}>What next</span>
+            <h2 id="guide-research-tools">Put this guide to work</h2>
+            <p>Explore related MotoIndex resources and verify the details that matter to your next step.</p>
+          </div>
+          <div className={styles.actionLinks}>
+            {guideResearchLinks.map((item) => <Link className={styles.actionLink} href={item.href} key={item.href}>
+              <strong>{item.title}</strong><small>{item.description}</small><span>Explore guide →</span>
+            </Link>)}
+          </div>
+        </section>
+
+        <section className={styles.sourcesBlock} id="guide-sources" aria-labelledby="guide-source-heading">
+          <div className={styles.blockHeader}>
+            <span className={styles.sectionEyebrow}>Research and transparency</span>
+            <h2 id="guide-source-heading">Official sources and references</h2>
+            <p>{transportGuide ? "Check the current operator or government source for requirements, fees, service schedules and announcements." : "Check the original manufacturer, agency or research source for changing prices, product details and requirements."}</p>
+          </div>
+          <div className={styles.sourceRows}>
+            {guide.sources.map((source) => <div className={styles.sourceRow} key={source.url}>
+              <span className={styles.sourceInfo}><strong>{source.label}</strong><small>Source checked {readableDate(guide.lastChecked)}</small></span>
+              <span className={styles.sourceAction}><SourceRef url={source.url} label="View source" /></span>
+            </div>)}
+          </div>
+        </section>
+
+        <div className={styles.faqArea}><FaqSection title="Frequently asked questions" items={guide.faqs} /></div>
+        <div className={styles.authorArea}><AuthorBox /></div>
+        <div className={styles.relatedArea}><RelatedLinks title="Continue your research" links={guide.related} /></div>
+      </div>
+    </div>
     <JsonLd data={[schema, faqPageSchema(guide.faqs), ...(stationSchema ? [stationSchema] : []), ...(exitSchema ? [exitSchema] : [])]} />
   </article>;
 }
