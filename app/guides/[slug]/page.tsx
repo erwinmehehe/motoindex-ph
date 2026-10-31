@@ -211,7 +211,8 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
       </header>
 
       <section className={styles.answerWrap} id="guide-answer" aria-label="Quick answer and official resource">
-        <QuickAnswer question={leadQuestion(guide.slug, editorialLeadQuestions, guide.title)} answer={guide.intro} checkedAt={guide.lastChecked}>
+        <div className={styles.answerPanel}>
+        <QuickAnswer variant="plain" question={leadQuestion(guide.slug, editorialLeadQuestions, guide.title)} answer={guide.intro} checkedAt={guide.lastChecked}>
           <div className={styles.answerActions}>
             {sourceInAnswer && <SourceRef url={sourceInAnswer.url} label={isAutosweepInstall ? "Visit official Autosweep website" : "View cited reference"} className={styles.answerPrimary} />}
             <a href={"#" + articleSectionId(guide.sections[0].heading, 0)} className={styles.answerSecondary}>Read the steps ↓</a>
@@ -220,6 +221,7 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
             ? "This opens the official operator website. Confirm current installation locations and hours there."
             : "Check the original reference for changing details before acting."}</p>}
         </QuickAnswer>
+        </div>
       </section>
 
       <aside className={styles.visitCard} aria-label={isAutosweepInstall ? "Before you visit an installation center" : "Before you act"}>
@@ -242,7 +244,7 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
 
     <div className={styles.readingLayout} id="guide-content">
       <aside className={styles.sidebar} aria-label="Guide navigation">
-        <ArticleJumpLinks sections={guide.sections} />
+        <ArticleJumpLinks sections={guide.sections} variant="editorial" />
         <div className={styles.sidebarLinks}>
           <a href="#guide-sources">Sources & references ↗</a>
           <a href="#guide-faqs">Common questions ↓</a>
