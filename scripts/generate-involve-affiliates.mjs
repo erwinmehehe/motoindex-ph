@@ -153,12 +153,7 @@ async function readGenerated() {
   }
 }
 
-function shopeeSearchUrl(product) {
-  const keyword = [product.brand, product.model].filter(Boolean).join(" ").trim();
-  return `https://shopee.ph/search?keyword=${encodeURIComponent(keyword)}`;
-}
-
-function buildCandidates(products, destinationOverrides, generated, useSearchFallback) {
+function buildCandidates(products, destinationOverrides, generated) {
   const known = new Map(products.map((product) => [product.id, product]));
   for (const id of Object.keys(destinationOverrides)) {
     if (!known.has(id)) throw new Error(`AFFILIATE_DESTINATIONS_JSON contains unknown product ID: ${id}`);
@@ -175,9 +170,6 @@ function buildCandidates(products, destinationOverrides, generated, useSearchFal
       } else if (product.priceSourceUrl && isShopeeProductDestination(product.priceSourceUrl)) {
         destination = product.priceSourceUrl;
         destinationType = "catalog-shopee";
-      } else if (useSearchFallback) {
-        destination = shopeeSearchUrl(product);
-        destinationType = "shopee-search";
       }
       if (!destination || !isShopeeProductDestination(destination)) return undefined;
       return {
@@ -185,7 +177,7 @@ function buildCandidates(products, destinationOverrides, generated, useSearchFal
         destinationUrl: new URL(destination).toString(),
         destinationType,
         offerId: override?.offerId,
-        existing: (Array.isArray(generated.links[product.id]) ? generated.links[product.id] : [generated.links[product.id]]).find((link) => link?.merchant === "shopee")
+        existing: (Array.isArray(generated.links[product.id]) ? generated.links[product.id] : [generated.links[product.id]]).find((link) => link?.merchant === "shopee" && link.destinationUrl === new URL(destination).toString() && isShopeeProductDestination(link.destinationUrl))
       };
     })
     .filter(Boolean)
@@ -352,9 +344,8 @@ async function main() {
   const products = parseCatalog(catalogSource);
   const destinationOverrides = readJsonEnv("AFFILIATE_DESTINATIONS_JSON");
   const generated = await readGenerated();
-  const useSearchFallback = false; // Exact item pages only, never a marketplace search fallback.
   if (process.env.INVOLVE_ASIA_SHOPEE_SEARCH_FALLBACK === "true") console.warn("Search-result affiliate targets are disabled: use exact item URLs.");
-  let candidates = buildCandidates(products, destinationOverrides, generated, useSearchFallback);
+  let candidates = buildCandidates(products, destinationOverrides, generated);
 
   if (onlyProductId && !products.some((product) => product.id === onlyProductId)) {
     throw new Error(`Unknown product ID: ${onlyProductId}`);
