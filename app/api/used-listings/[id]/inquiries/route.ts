@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { databaseConfigured, prisma } from "@/lib/db";
 import { ownerRequestOriginAllowed } from "@/lib/ownerAuth";
 import { sendUsedListingInquiry, usedMarketplaceEmailConfigured } from "@/lib/usedMarketplace";
+import { verifyPublicFormChallenge } from "@/lib/publicFormChallenge";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -44,6 +45,9 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
   if (buyerName.length < 2 || !validEmail(buyerEmail) || message.length < 10 || !consent) {
     return NextResponse.json({ ok: false, error: "Complete your name, email, message and consent before sending." }, { status: 400, headers });
   }
+
+  const challenge = await verifyPublicFormChallenge(body.turnstileToken, "used_listing_inquiry");
+  if (!challenge.ok) return NextResponse.json({ ok: false, error: challenge.error }, { status: challenge.status, headers });
 
   const { id } = await context.params;
   const listing = await prisma.usedListing.findFirst({
