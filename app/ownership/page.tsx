@@ -122,7 +122,7 @@ export default function OwnershipPage(){
           <span className={styles.decisionMeta}>Checked {guide.lastChecked}</span>
         </Link>)}
       </div>
-      <p>Applying for a driver&apos;s permit rather than renewing a motorcycle registration? See the <Link href="/guides/lto-student-permit-requirements-philippines">LTO student permit checklist</Link> and <Link href="/guides/lto-exam-reviewer-philippines">LTO theory exam reviewer</Link> with original practice questions.</p>
+      <p>Applying for a driver&apos;s permit rather than renewing a motorcycle registration? See the <Link href="/guides/lto-student-permit-requirements-philippines">LTO student permit checklist</Link> and <Link href="/guides/lto-exam-reviewer-philippines">LTO theory exam reviewer</Link> with original practice questions. If a driver&apos;s license is missing, use the separate <Link href="/guides/lost-drivers-license-philippines">LTO lost-license replacement checklist</Link>.</p>
     </section>
 
     <JsonLd data={schema}/>

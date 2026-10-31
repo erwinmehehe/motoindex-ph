@@ -30,6 +30,29 @@ const seoReleaseRoutes = [
   ...aeoSprint3Routes,
 ];
 
+// The three October 2026 transport guide waves must be present on the actual production site.
+// Route registration or merging a PR is not sufficient proof of publication.
+const transportReleaseRoutes = [
+  "/guides/autosweep-rfid-installation-philippines",
+  "/guides/easytrip-rfid-balance-check",
+  "/guides/lto-exam-reviewer-philippines",
+  "/guides/lto-student-permit-requirements-philippines",
+  "/guides/mrt-3-stations-philippines",
+  "/guides/lrt-2-stations-philippines",
+  "/guides/skyway-philippines-routes-toll-fees",
+  "/guides/slex-toll-fee-philippines",
+  "/guides/nlex-toll-fee-philippines",
+  "/guides/lrt-1-fare-philippines",
+  "/guides/edsa-carousel-stations-fare",
+  "/guides/metro-manila-number-coding-today",
+  "/guides/cavite-laguna-expressway-calax",
+  "/guides/autosweep-rfid-balance-check",
+  "/guides/nlex-connector-road-philippines",
+  "/guides/tplex-exits-and-route",
+  "/guides/sctex-route-and-exits",
+  "/guides/lost-drivers-license-philippines",
+];
+
 const publicRoutes = [
   "/",
   "/motorcycles",
@@ -41,6 +64,8 @@ const publicRoutes = [
   "/motorcycles/honda/adv-160",
   "/motorcycles/honda/click-160",
   ...seoReleaseRoutes,
+  ...transportReleaseRoutes,
+  "/guides",
 ];
 
 const cloudflareFailurePattern = /error\s*1102|worker exceeded resource limits|error\s*503|service unavailable/i;
@@ -86,7 +111,7 @@ for (const path of publicRoutes) {
     if (response.status !== 200) failures.push(`${path}: expected 200, got ${response.status}`);
     if (cloudflareFailurePattern.test(body)) failures.push(`${path}: response contains a Cloudflare Worker resource/server error`);
     if (!body.trim()) failures.push(`${path}: empty response body`);
-    if (seoReleaseRoutes.includes(path) && response.status === 200) {
+    if ((seoReleaseRoutes.includes(path) || transportReleaseRoutes.includes(path)) && response.status === 200) {
       const title = body.match(/<title\b[^>]*>([^<]+)<\/title>/i)?.[1]?.trim();
       if (!title || title.length < 12) failures.push(path + ": missing HTML title");
       const tags = body.match(/<meta\b[^>]*>/gi) || [];

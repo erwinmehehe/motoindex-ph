@@ -8,10 +8,53 @@ import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Philippine Motorcycle & Transport Guides | MotoIndex PH",
-  description: "Philippines motorcycle, LTO, expressway toll, RFID, coding and rail guides with dated fees, station lists, answer-first advice and operator sources.",
+  description: "Philippine motorcycle, LTO licensing, expressway exit and toll guides, RFID balance help and commuting references with checked operator sources.",
   path: "/guides",
   index: true
 });
+
+// Keep all indexable editorial guides discoverable without one overwhelming grid.
+// Topic sections cap repeated card counts and improve scanning on narrow screens.
+const roadGuideSlugs = new Set([
+  "autosweep-rfid-installation-philippines",
+  "easytrip-rfid-balance-check",
+  "skyway-philippines-routes-toll-fees",
+  "slex-toll-fee-philippines",
+  "nlex-toll-fee-philippines",
+  "cavite-laguna-expressway-calax",
+  "autosweep-rfid-balance-check",
+  "nlex-connector-road-philippines",
+  "tplex-exits-and-route",
+  "sctex-route-and-exits",
+]);
+const commuteGuideSlugs = new Set([
+  "lto-exam-reviewer-philippines",
+  "lto-student-permit-requirements-philippines",
+  "mrt-3-stations-philippines",
+  "lrt-2-stations-philippines",
+  "lrt-1-fare-philippines",
+  "edsa-carousel-stations-fare",
+  "metro-manila-number-coding-today",
+  "lost-drivers-license-philippines",
+]);
+
+const guideSections = [
+  {
+    title: "Expressways and RFID",
+    description: "Operator-sourced toll roads, exit tables, toll examples and RFID account guidance.",
+    guides: editorialGuides.filter((guide) => roadGuideSlugs.has(guide.slug)),
+  },
+  {
+    title: "Commuting and driver licensing",
+    description: "Train and bus station lists, number coding, LTO requirements and practice resources.",
+    guides: editorialGuides.filter((guide) => commuteGuideSlugs.has(guide.slug)),
+  },
+  {
+    title: "Motorcycles, ownership and gear",
+    description: "Motorcycle decisions, maintenance, safety, ownership paperwork and riding gear.",
+    guides: editorialGuides.filter((guide) => !roadGuideSlugs.has(guide.slug) && !commuteGuideSlugs.has(guide.slug)),
+  },
+];
 
 export default function GuidesPage() {
   return <section className="page shell">
@@ -42,6 +85,13 @@ export default function GuidesPage() {
       <article><h2>Number coding today</h2><p>Check the regular Manila plate-ending schedule and announced suspensions before planning a road trip.</p><div className="topic-action"><Link href="/guides/metro-manila-number-coding-today">Check your plate →</Link></div></article>
     </div>
 
+    <div className="section-head compact"><div><span className="section-kicker">New operator guides</span><h2>TPLEX, SCTEX, CALAX and LTO help</h2><p>Read exit lists, check which toll road and RFID account applies, or prepare for a lost-license replacement with the LTO checklist.</p></div></div>
+    <div className="topic-grid">
+      <article><h2>TPLEX and SCTEX exit lists</h2><p>Plan northern Luzon routes with referenced interchange lists. Learn where Autosweep changes to Easytrip.</p><div className="topic-action"><Link href="/guides/tplex-exits-and-route">TPLEX →</Link> · <Link href="/guides/sctex-route-and-exits">SCTEX →</Link></div></article>
+      <article><h2>CALAX and NLEX Connector</h2><p>Check the currently documented road sections and available access points. Avoid mistaking planned connections for open roads.</p><div className="topic-action"><Link href="/guides/cavite-laguna-expressway-calax">CALAX →</Link> · <Link href="/guides/nlex-connector-road-philippines">NLEX Connector →</Link></div></article>
+      <article><h2>RFID and driver paperwork</h2><p>Find the official Autosweep account-balance methods, or use an LTO document checklist for a duplicate license.</p><div className="topic-action"><Link href="/guides/autosweep-rfid-balance-check">Autosweep balance →</Link> · <Link href="/guides/lost-drivers-license-philippines">Lost LTO license →</Link></div></article>
+    </div>
+
     <div className="section-head compact"><div><span className="section-kicker">MotoIndex data research</span><h2>Compare the underlying motorcycle data</h2><p>Use source-led datasets when you need a market-wide view before narrowing to individual model pages.</p></div><Link href="/research">Open research hub →</Link></div>
     <div className="topic-grid">
       <article><h2>Philippine motorcycle price index</h2><p>Compare current published starting prices, median price and budget bands across the public MotoIndex catalog.</p><div className="topic-action"><Link href="/research/motorcycle-price-index-philippines">Explore price data →</Link></div></article>
@@ -50,6 +100,9 @@ export default function GuidesPage() {
     </div>
 
     <div className="section-head inline-head"><div><span className="section-kicker">Published research</span><h2>Detailed MotoIndex guides</h2><p>Use these when you need a focused answer beyond the main buying and ownership tools.</p></div></div>
-    <div className="guide-grid">{editorialGuides.map((guide) => <Link className="guide-card" key={guide.slug} href={`/guides/${guide.slug}`}><div style={{marginBottom:16}}><GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} compact /></div><span className="section-kicker">{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><strong className="guide-action">Read guide →</strong></Link>)}</div>
+    {guideSections.map((group) => <section key={group.title} aria-label={group.title}>
+      <div className="section-head compact"><div><h2>{group.title}</h2><p>{group.description}</p></div></div>
+      <div className="guide-grid">{group.guides.map((guide) => <Link className="guide-card" key={guide.slug} href={`/guides/${guide.slug}`}><div style={{marginBottom:16}}><GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} compact /></div><span className="section-kicker">{guide.kicker}</span><h2>{guide.title}</h2><p>{guide.description}</p><strong className="guide-action">Read guide →</strong></Link>)}</div>
+    </section>)}
   </section>;
 }
