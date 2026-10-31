@@ -7,9 +7,9 @@ export function articleSectionId(heading: string, index: number) {
   return "section-" + (index + 1) + "-" + (slug || "details");
 }
 
-export function ArticleJumpLinks({ sections }: { sections: readonly { heading: string }[] }) {
+export function ArticleJumpLinks({ sections, variant = "default" }: { sections: readonly { heading: string }[]; variant?: "default" | "editorial" }) {
   if (sections.length < 2) return null;
-  return <nav className={styles.toc} aria-label="Article sections" data-article-jump-links>
+  return <nav className={variant === "editorial" ? styles.editorial : styles.toc} aria-label="Article sections" data-article-jump-links>
     <strong>In this article</strong>
     <ul>{sections.map((section, index) => <li key={articleSectionId(section.heading, index)}>
       <a href={"#" + articleSectionId(section.heading, index)}>{section.heading}</a>
