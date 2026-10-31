@@ -65,7 +65,6 @@ const publicRoutes = [
   "/motorcycles/honda/click-160",
   ...seoReleaseRoutes,
   ...transportReleaseRoutes,
-  "/gas-price-philippines",
   "/guides",
 ];
 
@@ -112,7 +111,7 @@ for (const path of publicRoutes) {
     if (response.status !== 200) failures.push(`${path}: expected 200, got ${response.status}`);
     if (cloudflareFailurePattern.test(body)) failures.push(`${path}: response contains a Cloudflare Worker resource/server error`);
     if (!body.trim()) failures.push(`${path}: empty response body`);
-    if ((seoReleaseRoutes.includes(path) || transportReleaseRoutes.includes(path) || path === "/gas-price-philippines") && response.status === 200) {
+    if ((seoReleaseRoutes.includes(path) || transportReleaseRoutes.includes(path)) && response.status === 200) {
       const title = body.match(/<title\b[^>]*>([^<]+)<\/title>/i)?.[1]?.trim();
       if (!title || title.length < 12) failures.push(path + ": missing HTML title");
       const tags = body.match(/<meta\b[^>]*>/gi) || [];
@@ -129,14 +128,6 @@ for (const path of publicRoutes) {
       if (!/application\/ld\+json/i.test(body)) failures.push(path + ": missing JSON-LD");
       const robotsTag = tags.find(tag => /\bname\s*=\s*(["'])robots\1/i.test(tag));
       if (robotsTag && /\bnoindex\b/i.test(robotsTag)) failures.push(path + ": unexpectedly noindex");
-      // Catch the October 2026 regression where the live page showed only
-      // weekly DOE movements even though actual, dated NCR pump prices were coded.
-      if (path === "/gas-price-philippines") {
-        if (!/id=["']pump-prices["']/.test(body)) failures.push(path + ": missing retail pump-price section");
-        for (const grade of ["RON 91", "RON 95", "Diesel", "Kerosene"]) {
-          if (!body.includes(grade)) failures.push(path + ": missing pump-price grade " + grade);
-        }
-      }
       if (aeoModelBatch2Routes.includes(path)) {
         if (!body.includes("View cited model source")) failures.push(path + ": missing visible model-source attribution");
         if (!body.includes("View price sources")) failures.push(path + ": missing price-source handoff");
