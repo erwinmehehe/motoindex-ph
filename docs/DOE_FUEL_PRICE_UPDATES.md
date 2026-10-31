@@ -10,6 +10,10 @@ The DOE **Prior Notice on Price Adjustments** PDFs list Philippine peso **change
 
 The site links to the DOE's separate NCR, Luzon, Visayas and Mindanao actual pump-price reports.
 
+## Dated retail pump prices
+
+`data/fuel-pump-prices.ncr.json` is a separate, manually checked retail snapshot. It records the report week, actual monitoring dates, source-check date, direct DOE PDF URL, and the DOE summary's overall low/high ranges and common prices. Common prices are not averages. As checked on October 31, 2026, the latest report linked on the DOE NCR page covers October 20–26 (monitoring October 20–23). Do not relabel that snapshot as today's prices or add newer weekly adjustments to its ranges. The scheduled adjustment importer does not refresh this retail snapshot.
+
 ## How automatic updates work
 
 - Source importer: `scripts/update_doe_fuel_prices.py`

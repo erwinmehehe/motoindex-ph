@@ -8,7 +8,10 @@ describe("Dated NCR retail pump-price snapshot", () => {
     expect(snapshot.weekStart).toBe("2026-10-20");
     expect(snapshot.weekEnd).toBe("2026-10-26");
     expect(snapshot.sourceUrl).toMatch(/^https:\/\/doe\.gov\.ph\//);
-    expect(snapshot.compiledSourceUrl).toMatch(/^https:\/\/wiseph\.net\//);
+    expect(snapshot.sourcePdfUrl).toMatch(/^https:\/\/d24qbtp4vooyzi\.cloudfront\.net\/.+\.pdf\?/);
+    expect(snapshot.monitoringStart).toBe("2026-10-20");
+    expect(snapshot.monitoringEnd).toBe("2026-10-23");
+    expect(snapshot.sourceCheckedAt).toBe("2026-10-31");
     expect(snapshot.fuels.map((fuel) => fuel.id)).toEqual(["ron91", "ron95", "diesel", "kerosene"]);
     for (const fuel of snapshot.fuels) {
       expect(Number.isFinite(fuel.low)).toBe(true);
@@ -16,7 +19,12 @@ describe("Dated NCR retail pump-price snapshot", () => {
       expect(fuel.low).toBeGreaterThan(0);
       expect(fuel.high).toBeGreaterThanOrEqual(fuel.low);
       expect(fuel.high).toBeLessThan(250);
+      expect(fuel.common).toBeGreaterThanOrEqual(fuel.low);
+      expect(fuel.common).toBeLessThanOrEqual(fuel.high);
     }
+  });
+  it("reproduces the DOE summary's common prices without labelling them averages", () => {
+    expect(snapshot.fuels.map(fuel => fuel.common)).toEqual([81.7, 82.7, 93.3, 123.4]);
   });
   it("keeps retail prices separate from weekly DOE price movements", () => {
     const page = readFileSync(new URL("../app/gas-price-philippines/page.tsx", import.meta.url), "utf8");

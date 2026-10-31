@@ -146,7 +146,7 @@ export default async function GasPricePhilippinesPage() {
         <div>
           <span className={styles.eyebrow}>Retail pump prices · Metro Manila</span>
           <h2 id="pump-prices-heading">How much is gasoline and diesel per liter?</h2>
-          <p>Reported station price ranges in {pumpSnapshot.coverage} for {pumpPeriod}. These are low-to-high pump prices, not a single Philippine average and not the weekly price changes shown below.</p>
+          <p>Latest linked DOE retail report checked {dateLabel(pumpSnapshot.sourceCheckedAt)}: {pumpSnapshot.coverage}, {pumpPeriod}. These are low-to-high pump prices, not a single Philippine average and not the weekly price changes shown below.</p>
         </div>
         <span className={styles.dateChip}>{pumpPeriod}</span>
       </div>
@@ -156,16 +156,17 @@ export default async function GasPricePhilippinesPage() {
           <h3>{fuel.name}</h3>
           <strong>₱{fuel.low.toFixed(2)} <span>–</span> ₱{fuel.high.toFixed(2)}</strong>
           <small>Observed range, PHP per liter</small>
+          <p>DOE common price <b>₱{fuel.common.toFixed(2)}/L</b></p>
         </article>)}
       </div>
       <div className={styles.pumpNote} role={pumpIsOlder ? "status" : undefined}>
         <div>
           <strong>{pumpIsOlder ? "Older retail-price snapshot." : "Prices are from a dated monitoring week."}</strong>
-          <p>These NCR figures are drawn from a dated independent summary of DOE pump-price monitoring. They are not live station quotes or prices for other regions. Always check the current station display before filling up.</p>
+          <p>DOE monitored these NCR prices on {weekLabel(pumpSnapshot.monitoringStart, pumpSnapshot.monitoringEnd)}. The common price is the figure listed by DOE, not an average or a guaranteed station price. A newer retail report was not linked when checked; later weekly adjustments below are separate and have not been added to these observed ranges.</p>
         </div>
         <div className={styles.pumpSources}>
           <a href={pumpSnapshot.sourceUrl} target="_blank" rel="noopener noreferrer">DOE NCR reports ↗</a>
-          <a href={pumpSnapshot.compiledSourceUrl} target="_blank" rel="noopener noreferrer">Compiled source ↗</a>
+          <a href={pumpSnapshot.sourcePdfUrl} target="_blank" rel="noopener noreferrer">View retail price PDF ↗</a>
         </div>
       </div>
     </section>
