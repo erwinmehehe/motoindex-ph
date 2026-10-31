@@ -8,7 +8,7 @@ const requiredItems = [
   { id: "copy", name: "One photocopy of that valid photo-and-signature ID" }
 ] as const;
 
-/** Private on-device checklist: stores no names, IDs, passwords or form data. */
+/** Session-only checklist: selections stay in React state, with no collection or persistence. */
 export function LostLicenseChecklist() {
   const [ready, setReady] = useState<string[]>([]);
   return <section className="info-card" aria-labelledby="lost-license-checklist" data-lto-duplicate-checklist>
