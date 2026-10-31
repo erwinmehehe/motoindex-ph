@@ -322,7 +322,8 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
         <div className={styles.authorArea}><AuthorBox /></div>
         <div className={styles.relatedArea}><RelatedLinks title="Related MotoIndex guides" links={guide.related} /></div>
         <section className={styles.actionBlock} aria-labelledby="guide-research-tools">
-          <h2 id="guide-research-tools">Keep researching</h2>
+          <h2 id="guide-research-tools">Put this guide to work</h2>
+          <p>Continue to related motorcycle research, official sources, and our <Link href="/methodology">editorial methodology</Link>.</p>
           <div className={styles.actionLinks}>{guideResearchLinks.map((item) =>
             <Link href={item.href} key={item.href}><strong>{item.title}</strong><small>{item.description}</small><span aria-hidden="true">→</span></Link>)}</div>
         </section>
