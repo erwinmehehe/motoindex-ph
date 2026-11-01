@@ -36,6 +36,8 @@ import { NumberCodingToday } from "@/components/NumberCodingToday";
 import { transitStationGuide, transitStationListSchema } from "@/lib/transitStationGuides2026";
 import { TransitStationTable } from "@/components/TransitStationTable";
 import { LtoPracticeQuiz } from "@/components/LtoPracticeQuiz";
+import { AUTHOR_NAME, AUTHOR_PATH } from "@/lib/author";
+import styles from "./guide.module.css";
 
 const DEFAULT_GUIDE_IMAGE = "/brand/motoindex-og.png";
 
@@ -156,68 +158,179 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
     checkedDates: [guide.lastChecked],
     image: schemaImage
   });
-  const quickSteps = guide.sections.find((section) => section.bullets)?.bullets?.slice(0, 4) ?? [];
 
-  return <article className="page shell">
+
+  const isAutosweepInstall = guide.slug === "autosweep-rfid-installation-philippines";
+  const displayTitle = isAutosweepInstall ? "Autosweep RFID installation in the Philippines" : guide.title;
+  const preflightItems = isAutosweepInstall
+    ? [
+        "Confirm that the installation center accepts new RFID applications, not only reloads.",
+        "Check current opening hours and any required vehicle documents.",
+        "Ask about the opening toll load and any separate installation charge."
+      ]
+    : (guide.sections[0]?.bullets?.slice(0, 3) ?? []);
+  const quickLinks = isAutosweepInstall
+    ? [
+        { index: 0, title: "Installation centers", hint: "Where to start", mark: "⌖" },
+        { index: 2, title: "Requirements", hint: "What to bring", mark: "✓" },
+        { index: 2, title: "Fees & initial load", hint: "What to confirm", mark: "₱" },
+        { index: 1, title: "Installation process", hint: "Five practical steps", mark: "01" }
+      ]
+    : guide.sections.slice(0, 4).map((section, index) => ({
+        index,
+        title: section.heading,
+        hint: "Jump to section",
+        mark: String(index + 1).padStart(2, "0")
+      }));
+  const sourceInAnswer = isAutosweepInstall
+    ? guide.sources.find((source) => source.url === "https://autosweeprfid.com/")
+    : guide.sources[0];
+  const autoSourceIndexBySection: Record<number, number> = { 0: 1, 1: 2, 2: 1, 3: 0, 5: 3 };
+
+
+  return <article className={"page shell " + styles.editorialPage}>
     <AdSense nonce={adNonce} />
-    <Breadcrumbs items={[{ label: "Guides", href: "/guides" }, { label: guide.title }]} />
-    <header className="page-head">
-      <span className="section-kicker">{guide.kicker}</span>
-      <h1>{guide.title}</h1>
-      <p className="article-meta">
-        {guideMedia?.publishedAt && <>Published <time dateTime={guideMedia.publishedAt}>{readableDate(guideMedia.publishedAt)}</time> · </>}
-        Last source check <time dateTime={guide.lastChecked}>{readableDate(guide.lastChecked)}</time>
-      </p>
-    </header>
+    <div className={styles.breadcrumbBar}>
+      <Breadcrumbs items={[{ label: "Guides", href: "/guides" }, { label: guide.title }]} />
+    </div>
 
-    <QuickAnswer question={leadQuestion(guide.slug, editorialLeadQuestions, guide.title)} answer={guide.intro} checkedAt={guide.lastChecked} />
+    <div className={styles.heroLayout}>
+      <header className={styles.guideHero}>
+        <span className={styles.heroCategory}>{guide.kicker}</span>
+        <h1>{displayTitle}</h1>
+        <p className={styles.heroDeck}>{isAutosweepInstall
+          ? "Where to get it, what documents to bring, and what to expect when the tag is installed."
+          : guide.description}</p>
+        <div className={styles.byline}>
+          <span className={styles.avatar} aria-hidden="true">EV</span>
+          <span>By <Link href={AUTHOR_PATH}>{AUTHOR_NAME}</Link></span>
+          {guideMedia?.publishedAt && <><span aria-hidden="true" className={styles.metaDot}>•</span><span>Published <time dateTime={guideMedia.publishedAt}>{readableDate(guideMedia.publishedAt)}</time></span></>}
+          <span aria-hidden="true" className={styles.metaDot}>•</span>
+          <span className={styles.verified}>Last source check <time dateTime={guide.lastChecked}>{readableDate(guide.lastChecked)}</time></span>
+        </div>
+      </header>
 
-    {codingStatus && <NumberCodingToday status={codingStatus} />}
-    {lostLicenseChecklist && <LostLicenseChecklist />}
-    {fareTable && <TransportFareTable table={fareTable} />}
-    {exitGuide && <CorridorExitTable guide={exitGuide} />}
-    {stationGuide && <TransitStationTable guide={stationGuide} />}
-
-    <figure className="info-card guide-hero-media">
-      <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} />
-      {guideMedia?.caption && <figcaption><small>{guideMedia.caption}</small></figcaption>}
-    </figure>
-
-    <section className="split section" aria-labelledby="guide-at-a-glance">
-      <div>
-        <span className="section-kicker">At a glance</span>
-        <h2 id="guide-at-a-glance">{transportGuide ? "Verify the latest operator or government instructions" : "Use the guide as a verification checklist"}</h2>
-        <p>{transportGuide ? "Start with the direct answer, then check the official agency or operator before making a payment, applying for a permit or planning a trip. Service rules, costs and schedules can change." : "Start with the buyer decision, then confirm the exact model, product or rule against the current source before acting. MotoIndex keeps source links beside the guidance so changing prices, specifications, availability and requirements can be checked directly."}</p>
-      </div>
-      <div className="info-card">
-        <h3>{transportGuide ? "Before you act" : "Quick verification path"}</h3>
-        <ul className="checklist">{quickSteps.map((item) => <li key={item}>{item}</li>)}</ul>
-      </div>
-    </section>
-
-    <ArticleJumpLinks sections={guide.sections} />
-
-    {guide.sections.map((section, index) => <Fragment key={section.heading}>
-      <section className="split section">
-        <div><h2 id={articleSectionId(section.heading, index)}>{section.heading}</h2>{section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-        {section.bullets && <div className="info-card"><h3>Quick check</h3><ul className="checklist">{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul></div>}
+      <section className={styles.answerWrap} id="guide-answer" aria-label="Quick answer and official resource">
+        <div className={styles.answerPanel}>
+        <QuickAnswer variant="plain" question={leadQuestion(guide.slug, editorialLeadQuestions, guide.title)} answer={guide.intro} checkedAt={guide.lastChecked}>
+          <div className={styles.answerActions}>
+            {sourceInAnswer && <SourceRef url={sourceInAnswer.url} label={isAutosweepInstall ? "Visit official Autosweep website" : "View cited reference"} className={styles.answerPrimary} />}
+            <a href={"#" + articleSectionId(guide.sections[0].heading, 0)} className={styles.answerSecondary}>Read the steps ↓</a>
+          </div>
+          {sourceInAnswer && <p className={styles.answerNote}>{isAutosweepInstall
+            ? "This opens the official operator website. Confirm current installation locations and hours there."
+            : "Check the original reference for changing details before acting."}</p>}
+        </QuickAnswer>
+        </div>
       </section>
-      {index === 1 && guide.slug === "lto-exam-reviewer-philippines" && <LtoPracticeQuiz />}
-      {index === 1 && <GuideInContentAd nonceReady={Boolean(adNonce)} />}
-    </Fragment>)}
 
-    <section className="section" aria-labelledby="guide-research-tools">
-      <div className="section-head compact"><div><h2 id="guide-research-tools">Put this guide to work</h2><p>Continue from general guidance into model-level research, comparison and verification without creating another thin search page.</p></div></div>
-      <div className="guide-strip">{guideResearchLinks.map((item) => <Link href={item.href} key={item.href}><strong>{item.title}</strong><small>{item.description}</small></Link>)}</div>
-    </section>
+      <aside className={styles.visitCard} aria-label={isAutosweepInstall ? "Before you visit an installation center" : "Before you act"}>
+        <span className={styles.visitEyebrow}>{isAutosweepInstall ? "Before you drive" : "Before you act"}</span>
+        <h2>{isAutosweepInstall ? "Confirm these three things" : "A few things to verify"}</h2>
+        <ul>{preflightItems.map((item) => <li key={item}><span aria-hidden="true">✓</span>{item}</li>)}</ul>
+        <p>Availability, requirements and fees can change. Check the original source before traveling or paying.</p>
+      </aside>
+    </div>
 
-    <section className="section">
-      <div className="section-head compact"><div><h2>Sources used for this guide</h2><p>{transportGuide ? "Open the official operator or Philippine government resource for current requirements, station information and service changes." : "Open the original manufacturer or Philippine government source when you need to verify a current requirement or fit instruction."}</p></div></div>
-      <div className="checked-record-list">{guide.sources.map((source) => <div key={source.url}><span><strong>{source.label}</strong><small>Checked {readableDate(guide.lastChecked)}</small></span><span className="checked-record-action"><SourceRef url={source.url} label="Open source" /></span></div>)}</div>
-    </section>
-    <FaqSection title="Frequently asked questions" items={guide.faqs} />
-    <AuthorBox />
-    <RelatedLinks title="Continue your research" links={guide.related} />
+    {quickLinks.length > 0 && <nav className={styles.quickNavigation} aria-label="Popular sections of this guide">
+      <div className={styles.quickNavHead}><h2>Find what you need</h2><p>Jump straight to the answer.</p></div>
+      <div className={styles.quickNavGrid}>{quickLinks.map((item, index) =>
+        <a href={"#" + articleSectionId(guide.sections[item.index].heading, item.index)} key={index} className={styles.quickNavItem}>
+          <span aria-hidden="true" className={styles.quickNavIcon}>{item.mark}</span>
+          <strong>{item.title}</strong>
+          <small>{item.hint}</small>
+        </a>)}</div>
+    </nav>}
+
+    <div className={styles.readingLayout} id="guide-content">
+      <aside className={styles.sidebar} aria-label="Guide navigation">
+        <ArticleJumpLinks sections={guide.sections} variant="editorial" />
+        <div className={styles.sidebarLinks}>
+          <a href="#guide-sources">Sources & references ↗</a>
+          <a href="#guide-faqs">Common questions ↓</a>
+          <Link href="/guides">All guides →</Link>
+        </div>
+      </aside>
+
+      <div className={styles.readingColumn}>
+        <details className={styles.mobileContents}>
+          <summary>On this page <span aria-hidden="true">↓</span></summary>
+          <ul>{guide.sections.map((section, index) =>
+            <li key={section.heading}><a href={"#" + articleSectionId(section.heading, index)}>{section.heading}</a></li>)}</ul>
+        </details>
+
+        {(codingStatus || lostLicenseChecklist || fareTable || exitGuide || stationGuide) && <div className={styles.toolsArea}>
+          {codingStatus && <NumberCodingToday status={codingStatus} />}
+          {lostLicenseChecklist && <LostLicenseChecklist />}
+          {fareTable && <TransportFareTable table={fareTable} />}
+          {exitGuide && <CorridorExitTable guide={exitGuide} />}
+          {stationGuide && <TransitStationTable guide={stationGuide} />}
+        </div>}
+
+        <div className={styles.articleSections}>
+          {guide.sections.map((section, index) => <Fragment key={section.heading}>
+            <section className={styles.articleSection} aria-labelledby={articleSectionId(section.heading, index)}>
+              <div className={styles.sectionIndex}><span>{String(index + 1).padStart(2, "0")}</span><small>{isAutosweepInstall ? ["Installation locations","Installation process","Documents & costs","Choosing an RFID","Motorcycle access","After installation"][index] : "Guide section"}</small></div>
+              <h2 id={articleSectionId(section.heading, index)}>{isAutosweepInstall && index === 1 ? "The Autosweep installation process" : section.heading}</h2>
+              <div className={styles.articleBody}>{section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+
+              {isAutosweepInstall && autoSourceIndexBySection[index] !== undefined && guide.sources[autoSourceIndexBySection[index]] &&
+                <div className={styles.inlineSource}><SourceRef url={guide.sources[autoSourceIndexBySection[index]].url} label={"Official source: " + guide.sources[autoSourceIndexBySection[index]].label} /></div>}
+
+              {section.bullets && (isAutosweepInstall && index === 1
+                ? <ol className={styles.stepList}>{section.bullets.map((item) =>
+                    <li key={item}>{item.replace(/^\d+\.\s*/, "")}</li>)}</ol>
+                : isAutosweepInstall && index === 2
+                ? <div className={styles.requirementsCards}>
+                    <div><h3>Documents to prepare</h3><ul>{section.bullets.slice(0, 3).map((item) => <li key={item}>{item}</li>)}</ul></div>
+                    <div><h3>Payment and account setup</h3><ul>{section.bullets.slice(3).map((item) => <li key={item}>{item}</li>)}
+                      <li>Ask for a receipt separating prepaid toll load from any fee.</li>
+                    </ul></div>
+                  </div>
+                : <ul className={styles.checkList}>{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul>)}
+
+              {isAutosweepInstall && index === 3 &&
+                <div className={styles.compareScroll} role="region" aria-label="Autosweep and Easytrip network comparison" tabIndex={0}>
+                  <table><thead><tr><th>RFID network</th><th>Example expressways</th><th>What to check</th></tr></thead><tbody>
+                    <tr><th scope="row">Autosweep</th><td>SLEX, Skyway</td><td>Authorized installation and available load</td></tr>
+                    <tr><th scope="row">Easytrip</th><td>NLEX, SCTEX</td><td>Account and accepted toll lanes</td></tr>
+                  </tbody></table>
+                </div>}
+
+              {index === 1 && <figure className={styles.editorialArt}>
+                <GuideFeaturedArt slug={guide.slug} title={guide.title} kicker={guide.kicker} />
+                <figcaption>{guideMedia?.caption ?? "MotoIndex original editorial illustration. Verify current route, account and product details against cited sources."}</figcaption>
+              </figure>}
+            </section>
+            {index === 1 && guide.slug === "lto-exam-reviewer-philippines" && <div className={styles.afterSectionTool}><LtoPracticeQuiz /></div>}
+            {index === 1 && <GuideInContentAd nonceReady={Boolean(adNonce)} />}
+          </Fragment>)}
+        </div>
+
+        <section className={styles.sourcesBlock} id="guide-sources" aria-labelledby="guide-source-heading">
+          <span className={styles.sectionEyebrow}>Research notes</span>
+          <h2 id="guide-source-heading">Sources you can check yourself</h2>
+          <p>These are the original resources behind this guide. Last source check <time dateTime={guide.lastChecked}>{readableDate(guide.lastChecked)}</time>. Confirm changing details with the relevant operator, agency or manufacturer.</p>
+          <div className={styles.sourceRows}>{guide.sources.map((source) =>
+            <div className={styles.sourceRow} key={source.url}>
+              <div><strong>{source.label}</strong><small>Checked {readableDate(guide.lastChecked)}</small></div>
+              <SourceRef url={source.url} label="Open source" />
+            </div>)}</div>
+        </section>
+
+        <section className={styles.faqArea} id="guide-faqs" aria-label="Frequently asked questions">
+          <FaqSection title="Frequently asked questions" items={guide.faqs} />
+        </section>
+        <div className={styles.authorArea}><AuthorBox /></div>
+        <div className={styles.relatedArea}><RelatedLinks title="Related MotoIndex guides" links={guide.related} /></div>
+        <section className={styles.actionBlock} aria-labelledby="guide-research-tools">
+          <h2 id="guide-research-tools">Put this guide to work</h2>
+          <p>Continue to related motorcycle research, official sources, and our <Link href="/methodology">editorial methodology</Link>.</p>
+          <div className={styles.actionLinks}>{guideResearchLinks.map((item) =>
+            <Link href={item.href} key={item.href}><strong>{item.title}</strong><small>{item.description}</small><span aria-hidden="true">→</span></Link>)}</div>
+        </section>
+      </div>
+    </div>
     <JsonLd data={[schema, faqPageSchema(guide.faqs), ...(stationSchema ? [stationSchema] : []), ...(exitSchema ? [exitSchema] : [])]} />
   </article>;
 }

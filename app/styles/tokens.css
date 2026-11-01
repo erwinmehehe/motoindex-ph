@@ -253,3 +253,31 @@ h1, h2, h3, h4, h5, h6, .brand-word {
   --mi-fuel-table-hover: rgba(79, 70, 229, .025);
   --mi-fuel-link-border-hover: #b8bff0;
 }
+
+/* MotoIndex guide editorial palette. Route CSS consumes these semantic tokens. */
+:root {
+  --mi-guide-ink: #172e3c;
+  --mi-guide-ink-strong: #142d3c;
+  --mi-guide-copy: #4d616a;
+  --mi-guide-muted: #62767f;
+  --mi-guide-muted-light: #94a3a8;
+  --mi-guide-line: #dfe7e5;
+  --mi-guide-green-line: #dcebe5;
+  --mi-guide-canvas: #faf9f6;
+  --mi-guide-surface: #fff;
+  --mi-guide-subtle: #f0f5f3;
+  --mi-guide-green-surface: #edf7f2;
+  --mi-guide-green-pale: #d8f0e4;
+  --mi-guide-green: #237b63;
+  --mi-guide-green-deep: #176b5b;
+  --mi-guide-accent: #bd3d20;
+  --mi-guide-accent-deep: #a43c21;
+  --mi-guide-accent-button: #cc4929;
+  --mi-guide-accent-pale: #f6dfd6;
+  --mi-guide-accent-surface: #fff0e9;
+  --mi-guide-shadow-card: rgba(15,48,47,.045);
+  --mi-guide-shadow-answer: rgba(19,60,54,.04);
+  --mi-guide-shadow-button: rgba(211,72,42,.12);
+  --mi-guide-shadow-nav: rgba(20,52,49,.07);
+  --mi-guide-shadow-link: rgba(20,49,46,.07);
+}
