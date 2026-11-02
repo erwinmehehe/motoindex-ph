@@ -21,6 +21,11 @@ function operatorForSeller(seller: SellerProfile) {
   return null;
 }
 
+// Keep the network provenance section visible even when every checked price has expired.
+export function supportsDealerNetworkPriceReferences(seller: SellerProfile) {
+  return operatorForSeller(seller) !== null;
+}
+
 export function dealerNetworkPriceReferences(seller: SellerProfile, now = new Date()): DealerNetworkPriceReference[] {
   const operator = operatorForSeller(seller);
   if (!operator) return [];
