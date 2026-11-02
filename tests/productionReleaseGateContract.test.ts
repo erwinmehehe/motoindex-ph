@@ -5,10 +5,18 @@ const workflow=readFileSync(new URL("../.github/workflows/cloudflare-production-
 const release=readFileSync(new URL("../scripts/verify-production-release.mjs",import.meta.url),"utf8");
 
 describe("MotoIndex fail-closed production release workflow",()=>{
-  it("runs only by manual dispatch on main with a production environment gate",()=>{
-    expect(workflow).toMatch(/^on:\s*\n\s+workflow_dispatch:\s*$/m);
-    expect(workflow).not.toMatch(/^\s{2}(push|pull_request|pull_request_target|schedule|workflow_run):/m);
-    expect(workflow).toContain("if: github.ref == 'refs/heads/main'");
+  it("admits only manual-main or successful protected-main Visual QA releases",()=>{
+    expect(workflow).toContain("  workflow_dispatch:");
+    expect(workflow).toContain("  workflow_run:");
+    expect(workflow).toContain("      - Visual QA");
+    expect(workflow).toContain("    types: [completed]");
+    expect(workflow).not.toMatch(/^\s{2}(push|pull_request|pull_request_target|schedule):/m);
+    expect(workflow).toContain("(github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')");
+    expect(workflow).toContain("github.event.workflow_run.event == 'push'");
+    expect(workflow).toContain("github.event.workflow_run.conclusion == 'success'");
+    expect(workflow).toContain("github.event.workflow_run.head_branch == 'main'");
+    expect(workflow).toContain("github.event.workflow_run.head_sha == github.sha");
+    expect(workflow).toContain("github.event.workflow_run.head_repository.full_name == github.repository");
     expect(workflow).toContain("environment: production");
   });
   it("checks the repository and runtime secrets before deploying and rechecks after build",()=>{
