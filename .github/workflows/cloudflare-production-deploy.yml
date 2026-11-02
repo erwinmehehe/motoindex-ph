@@ -1,6 +1,12 @@
 name: Deploy MotoIndex Production to Cloudflare
 
 on:
+  # Publish the exact protected-main revision only after the slowest QA workflow succeeds.
+  # The deploy job still verifies CI, Visual QA and Cloudflare Runtime on main.
+  workflow_run:
+    workflows:
+      - Visual QA
+    types: [completed]
   workflow_dispatch:
     inputs:
       release_mode:
@@ -22,18 +28,27 @@ permissions:
 
 jobs:
   deploy:
-    if: github.ref == 'refs/heads/main'
+    # Never deploy PR runs, fork runs, stale commits or a failed main-branch QA.
+    # The production environment and fail-closed release verifier remain in force.
+    if: >-
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.event == 'push' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main' &&
+       github.event.workflow_run.head_sha == github.sha &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
     runs-on: ubuntu-latest
     environment: production
-    timeout-minutes: 30
+    timeout-minutes: 60
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       # ads-only disables account/dealer/admin services before routing and
       # deliberately does not require PostgreSQL, Turnstile or Zero Trust.
-      NEXT_PUBLIC_MOTOINDEX_ADS_ONLY_MODE: ${{ inputs.release_mode == 'ads-only' && 'true' || 'false' }}
-      ADMIN_ACCESS_MODE: ${{ inputs.release_mode == 'ads-only' && 'disabled' || 'cloudflare' }}
+      NEXT_PUBLIC_MOTOINDEX_ADS_ONLY_MODE: ${{ github.event_name == 'workflow_run' && 'true' || inputs.release_mode == 'ads-only' && 'true' || 'false' }}
+      ADMIN_ACCESS_MODE: ${{ github.event_name == 'workflow_run' && 'disabled' || inputs.release_mode == 'ads-only' && 'disabled' || 'cloudflare' }}
       CF_ACCESS_TEAM_DOMAIN: ${{ secrets.CF_ACCESS_TEAM_DOMAIN }}
       CF_ACCESS_AUD: ${{ secrets.CF_ACCESS_AUD }}
       ADMIN_ACCESS_EMAILS: ${{ secrets.ADMIN_ACCESS_EMAILS }}
@@ -71,10 +86,22 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Verify production release gates
-        run: node scripts/verify-production-release.mjs
+      - name: Wait for required production release checks
         env:
           GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          # Visual QA normally finishes last; allow slower CI/runtime jobs to catch up.
+          # A real failure or superseded main SHA still blocks publication.
+          for attempt in $(seq 1 20); do
+            if node scripts/verify-production-release.mjs; then
+              exit 0
+            fi
+            if [ "$attempt" -eq 20 ]; then
+              echo "Production release checks are not green; nothing was deployed." >&2
+              exit 1
+            fi
+            sleep 30
+          done
 
       - name: Validate explicitly approved analytics configuration
         run: node scripts/verify-analytics-release.mjs
@@ -88,7 +115,7 @@ jobs:
           test -n "$CLOUDFLARE_ACCOUNT_ID" || (echo "CLOUDFLARE_ACCOUNT_ID is not configured" && exit 1)
 
       - name: Verify Worker runtime secret bindings
-        if: inputs.release_mode == 'full'
+        if: github.event_name == 'workflow_dispatch' && inputs.release_mode == 'full'
         run: |
           npx wrangler secret list --format json > /tmp/motoindex-worker-secret-names.json
           node scripts/verify-worker-binding-names.mjs /tmp/motoindex-worker-secret-names.json
@@ -124,4 +151,4 @@ jobs:
         env:
           BASE_URL: https://motoindexph.com
           EXPECTED_COMMIT_SHA: ${{ github.sha }}
-          EXPECT_ADS_ONLY: ${{ inputs.release_mode == 'ads-only' && 'true' || 'false' }}
+          EXPECT_ADS_ONLY: ${{ github.event_name == 'workflow_run' && 'true' || inputs.release_mode == 'ads-only' && 'true' || 'false' }}
