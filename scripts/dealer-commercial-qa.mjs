@@ -66,12 +66,25 @@ try{
     }
 
     await nav("/sellers/yamaha-motortrade-malate");
-    const dealerProfile=await evalJs(client.send,`(()=>{const root=document.documentElement;const network=document.querySelector('.dealer-network-prices');const body=network?.innerText||'';return{overflow:root.scrollWidth-root.clientWidth,network:Boolean(network),networkRows:network?.querySelectorAll('.dealer-network-offers>a').length||0,hasDisclaimer:/not proof of this branch|not proof of.*branch/i.test(body),branchSpecificEmpty:/No current branch-specific checked price offers yet/i.test(document.body.innerText),hasNetworkBadge:[...document.querySelectorAll('.dealer-network-prices .offer-status')].some(el=>/network/i.test(el.textContent||''))};})()`);
+    const dealerProfile=await evalJs(client.send,`(()=>{const root=document.documentElement;const network=document.querySelector('.dealer-network-prices');const body=network?.innerText||'';const rows=Array.from(network?.querySelectorAll('.dealer-network-offers>a')||[]);return{overflow:root.scrollWidth-root.clientWidth,network:Boolean(network),networkRows:rows.length,checkedDates:rows.map(a=>a.textContent?.match(/Checked ([0-9-]{10})/)?.[1]||null),hasDisclaimer:/not proof of this branch|not proof of.*branch/i.test(body),branchSpecificEmpty:/No current branch-specific checked price offers yet/i.test(document.body.innerText),noCurrentNetworkPrices:/No current dealer-network price references available/.test(body),hasNetworkBadge:[...document.querySelectorAll('.dealer-network-prices .offer-status')].some(el=>/network/i.test(el.textContent||''))};})()`);
     results.push({width,page:"dealer-profile-network-pricing",...dealerProfile});
     if((dealerProfile?.overflow||0)>5)failures.push(`${width}px dealer profile overflow`);
-    if(!dealerProfile?.network||(dealerProfile?.networkRows||0)<1)failures.push(`${width}px dealer network price references missing`);
+    if(!dealerProfile?.network)failures.push(`${width}px dealer network provenance section missing`);
     if(!dealerProfile?.hasDisclaimer)failures.push(`${width}px dealer network branch-level disclaimer missing`);
-    if(!dealerProfile?.hasNetworkBadge)failures.push(`${width}px dealer network price labels missing`);
+    if((dealerProfile?.networkRows||0)>0){
+      if(!dealerProfile?.hasNetworkBadge)failures.push(`${width}px dealer network price labels missing`);
+      if(dealerProfile?.noCurrentNetworkPrices)failures.push(`${width}px contradictory dealer network empty state`);
+      for(const checkedAt of dealerProfile.checkedDates||[]){
+        const checkedMs=checkedAt?Date.parse(checkedAt+"T00:00:00Z"):NaN;
+        const ageDays=Math.floor((Date.now()-checkedMs)/86400000);
+        if(!Number.isFinite(ageDays)||ageDays<0||ageDays>30)failures.push(`${width}px dealer network price missing a current 30-day source check: ${checkedAt||"missing"}`);
+      }
+      if((dealerProfile.checkedDates||[]).length!==dealerProfile.networkRows)failures.push(`${width}px dealer network price check dates incomplete`);
+    }else{
+      // A correct empty state is mandatory when source checks have expired.
+      if(!dealerProfile?.noCurrentNetworkPrices)failures.push(`${width}px dealer network expired-price explanation missing`);
+      if(dealerProfile?.hasNetworkBadge)failures.push(`${width}px dealer network unverified price badge displayed`);
+    }
     await shot("dealer-profile-network-pricing",width);
 
     await nav("/dealers/pampanga");
