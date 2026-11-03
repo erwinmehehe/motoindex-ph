@@ -1,6 +1,6 @@
 import { allCatalogProducts } from "./catalog";
 import generatedAffiliateData from "../data/affiliate-links.generated.json";
-import { isKnownGenericAffiliateDestination } from "./affiliateDestinations";
+import { isExactMerchantProductUrl, isKnownGenericAffiliateDestination, isExactShopeeProductUrl } from "./affiliateDestinations";
 
 export type AffiliateMerchant = "shopee" | "lazada";
 export type AffiliateNetwork = "shopee_direct" | "involve_asia";
@@ -10,6 +10,7 @@ export type AffiliateLinkConfig = {
   merchant: AffiliateMerchant;
   network: AffiliateNetwork;
   url: string;
+  destinationUrl?: string;
   destination?: "merchant_homepage";
 };
 
@@ -48,6 +49,7 @@ function validateEntry(productId: string, rawValue: unknown, issues: AffiliateCo
   let merchant: AffiliateMerchant = "shopee";
   let network: AffiliateNetwork | undefined;
   let rawUrl: unknown;
+  let rawDestinationUrl: unknown;
   let destination: "merchant_homepage" | undefined;
 
   if (typeof rawValue === "string") {
@@ -55,6 +57,7 @@ function validateEntry(productId: string, rawValue: unknown, issues: AffiliateCo
   } else if (rawValue && typeof rawValue === "object" && !Array.isArray(rawValue)) {
     const entry = rawValue as Record<string, unknown>;
     rawUrl = entry.url;
+    rawDestinationUrl = entry.destinationUrl;
     if (entry.destination === "merchant_homepage") destination = "merchant_homepage";
     if (entry.merchant !== undefined && entry.merchant !== "shopee" && entry.merchant !== "lazada") {
       issues.push({ productId, message: "Unsupported merchant. Catalog affiliate offers support Shopee and Lazada destinations." });
@@ -95,7 +98,26 @@ function validateEntry(productId: string, rawValue: unknown, issues: AffiliateCo
       issues.push({ productId, message: "Configured affiliate network does not match the URL host." });
       return undefined;
     }
-    return { productId, merchant, network: network ?? inferred, url: url.toString(), ...(destination ? { destination } : {}) };
+    if (url.username || url.password || url.port) {
+      issues.push({ productId, message: "Marketplace tracking URLs must not contain user credentials or custom ports." });
+      return undefined;
+    }
+    const exactDirect = inferred === "shopee_direct" && merchant === "shopee" && isExactShopeeProductUrl(url.toString());
+    const checkedDestination = typeof rawDestinationUrl === "string" && isExactMerchantProductUrl(merchant, rawDestinationUrl)
+      ? new URL(rawDestinationUrl).toString() : undefined;
+    if (!exactDirect && !checkedDestination) {
+      issues.push({ productId, message: "A tracked shortlink needs a separately reviewed exact Shopee/Lazada product URL in destinationUrl. Generic store/search links are not supported." });
+      return undefined;
+    }
+    if (merchant === "lazada" && inferred === "shopee_direct") {
+      issues.push({ productId, message: "Lazada entries cannot use a Shopee direct URL." });
+      return undefined;
+    }
+    if (exactDirect && checkedDestination && checkedDestination !== url.toString()) {
+      issues.push({ productId, message: "Direct Shopee URL and verified item destination must match." });
+      return undefined;
+    }
+    return { productId, merchant, network: network ?? inferred, url: url.toString(), destinationUrl: checkedDestination || url.toString() };
   } catch {
     issues.push({ productId, message: "Affiliate link is not a valid URL." });
     return undefined;
@@ -160,29 +182,47 @@ function readAffiliateMap(): { links: Record<string, AffiliateLinkConfig[]>; iss
   const issues = [...generated.issues, ...legacy.issues, ...unified.issues];
   const owners = new Map<string, string>();
   const collisions = new Set<string>();
-  // Unrelated catalog items must never inherit a shared tracking URL or
-  // exact item URL, even when a custom shortlink is not on the denylist.
-  for (const [id, links] of Object.entries(merged)) {
-    for (const link of links) {
-      for (const target of [link.url]) {
-        const key = link.merchant + "|" + target;
-        const previous = owners.get(key);
-        if (previous && previous !== id) collisions.add(key);
+  // Never let two unrelated products inherit the same tracked URL or item
+  // destination, even if an unknown shortlink is not on our denylist.
+  for (const [id, records] of Object.entries(merged)) {
+    for (const record of records) {
+      for (const target of [record.url, record.destinationUrl].filter((v): v is string => Boolean(v))) {
+        const key = target; // An opaque tracking URL must belong to one catalog product across all merchants.
+        const existing = owners.get(key);
+        if (existing && existing !== id) collisions.add(key);
         else owners.set(key, id);
       }
     }
   }
   const safe: Record<string, AffiliateLinkConfig[]> = {};
-  for (const [id, links] of Object.entries(merged)) {
-    const valid = links.filter(link => {
-      const repeated = [link.url]
-        .some(value => collisions.has(link.merchant + "|" + value));
+  for (const [id, records] of Object.entries(merged)) {
+    const valid = records.filter(record => {
+      const targets = [record.url, record.destinationUrl].filter((v): v is string => Boolean(v));
+      const repeated = targets.some(target => collisions.has(target));
       if (repeated) issues.push({ productId: id, message: "Affiliate link or exact item is shared across multiple product IDs and needs review." });
       return !repeated;
     });
     if (valid.length) safe[id] = valid;
   }
   return { links: safe, issues };
+}
+
+/**
+ * A database-approved offer must not reuse a URL already claimed by another
+ * product in the generated or environment-configured fallback maps.
+ * Compare both opaque tracking URLs and independently checked item URLs.
+ */
+export function findStaticAffiliateDestinationOwner(productId: string, targets: string[]): string | undefined {
+  const candidates = new Set(targets.filter(Boolean));
+  if (!candidates.size) return undefined;
+  const { links } = readAffiliateMap();
+  for (const [ownerId, configured] of Object.entries(links)) {
+    if (ownerId === productId) continue;
+    if (configured.some(link => [link.url, link.destinationUrl].some(value => value && candidates.has(value)))) {
+      return ownerId;
+    }
+  }
+  return undefined;
 }
 
 export function getAffiliateLink(productId: string) {

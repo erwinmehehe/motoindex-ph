@@ -31,11 +31,13 @@ Do not invent or reuse tracking IDs, and **do not post affiliate account credent
 
 ## Bulk upload
 
-The admin bulk editor accepts three tab-separated columns:
+The admin bulk editor accepts **four tab-separated columns** for an opaque network tracking link, in this order:
 
 ```text
-productId    exact-item-affiliate-url    reviewNote
+productId    affiliate-tracking-url    verified-exact-item-destination-url    dated-review-note
 ```
+
+Use the third column for the original exact merchant item URL (not the network homepage). If the tracking URL is already a direct exact Shopee item URL, the legacy three-column format (`productId`, exact Shopee item URL, review note) remains supported. **Do not omit the verified destination for an opaque `invl.me`, `invol.co`, or `shope.ee` shortlink.** Importing a structurally valid URL does not prove it is approved by your affiliate account or resolves to the intended SKU; verify the redirect independently before activation.
 
 Each product ID must match a verified MotoIndex catalog record. Known generic `clo1b14`/`clo1b1b` shortlinks, general Shopee homepages, and Shopee search URLs are rejected. The admin must confirm that any opaque `invl.me` or `shope.ee` redirect lands on the correct product (the shortened URL itself does not expose the destination).
 
@@ -83,3 +85,11 @@ The public click route logs a product-level outbound event only for valid active
 ## Editorial and safety rule
 
 MotoIndex should never describe a generic marketplace page as the exact item's purchase offer. For Shopee product sources, a URL must point to a specific listing such as `-i.<shopId>.<itemId>` or `/product/<shopId>/<itemId>`. Seller, price, variations and availability can change. Disclosure and retailer-quality review remain necessary.
+
+## Exact product redirect verification (October 2026)
+
+The user-facing `/go/affiliate/gille-kerena-ff007/shopee` path now redirects to the exact Shopee source listing when there is no valid product-specific commission-tracked link. That fallback is **not an affiliate link** and cannot be counted as commission. Global store, universal-link and keyword-search destinations are not offered as exact products.
+
+To activate a genuine Involve Asia tracking URL, apply Prisma migration `20261009120000_add_affiliate_exact_destination` and open `/admin/affiliate-links`. Store both the generated shortlink and the **original exact-product destination URL**, then open the shortlink in a browser and verify it lands on that exact item. This human check is necessary: an opaque shortlink alone cannot prove its real redirect. Direct Shopee item URLs work without a second destination URL, but only the affiliate provider can establish whether a given link earns commission.
+
+Bulk uploads now support product ID, tracking URL, exact product URL and review note. Existing opaque shortcuts without destination evidence will be hidden until reviewed. The generator no longer uses search-page fallbacks; existing generated tracking links are reused only when their stored destination matches the exact requested item.
