@@ -4,19 +4,19 @@ const routes = [
   {
     path: "/",
     checks: {
-      buyingGuidesNav: /Buying guides/.test,
-      gearNav: />Gear\s*</.test,
-      ownershipToolsNav: /Ownership &amp; tools|Ownership & tools/.test,
-      canonicalScooterLink: /href=["']\/motorcycles\/scooters/.test,
+      buyingGuidesNav: /Buying guides/,
+      gearNav: />Gear\s*</,
+      ownershipToolsNav: /Ownership &amp; tools|Ownership & tools/,
+      canonicalScooterLink: /href=["']\/motorcycles\/scooters/,
       newGuideMenu: /nav-popover-guides/.test
     }
   },
   {
     path: "/guides/autosweep-rfid-installation-philippines",
     checks: {
-      lastSourceCheck: /Last source check/.test,
-      quickAnswer: /Quick answer/.test,
-      autosweepChecklist: /Confirm these three things/.test,
+      lastSourceCheck: /Last source check/,
+      quickAnswer: /Quick answer/,
+      autosweepChecklist: /Confirm these three things/,
       sourceCta: /Visit official Autosweep website/.test
     }
   }
