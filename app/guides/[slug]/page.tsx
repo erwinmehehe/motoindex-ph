@@ -322,7 +322,7 @@ export default async function EditorialGuidePage({ params }: { params: Promise<{
           <FaqSection title="Frequently asked questions" items={guide.faqs} />
         </section>
         <div className={styles.authorArea}><AuthorBox /></div>
-        <div className={styles.relatedArea}><RelatedLinks title="Related MotoIndex guides" links={guide.related} /></div>
+        <div className={styles.relatedArea}><RelatedLinks title="Continue on this topic" links={[...guide.related, ...guideResearchLinks.filter((item) => item.href !== "/methodology" && item.href !== `/guides/${guide.slug}`)].filter((item, index, items) => items.findIndex((candidate) => candidate.href === item.href) === index).slice(0, 6)} /></div>
         <section className={styles.actionBlock} aria-labelledby="guide-research-tools">
           <h2 id="guide-research-tools">Put this guide to work</h2>
           <p>Continue to related motorcycle research, official sources, and our <Link href="/methodology">editorial methodology</Link>.</p>
