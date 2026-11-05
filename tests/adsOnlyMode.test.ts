@@ -79,7 +79,9 @@ describe("MotoIndex ads-only / no-database release", () => {
     expect(assetPublisher).toContain('"/dealer-portal"');
     expect(runtime).toContain("node scripts/publish-prerender-assets.mjs");
     expect(workflow).toContain("default: ads-only");
-    expect(workflow).toContain("if: inputs.release_mode == 'full'");
+    expect(workflow).toContain("if: github.event_name == 'workflow_dispatch' && inputs.release_mode == 'full'");
+    expect(workflow).toContain("github.event_name == 'workflow_run' && 'true'");
+    expect(workflow).toContain("github.event_name == 'workflow_run' && 'disabled'");
     expect(workflow).toContain("environment: production");
     expect(workflow).toContain("node scripts/verify-production-release.mjs");
     expect(workflow).toContain("node scripts/verify-worker-binding-names.mjs");
