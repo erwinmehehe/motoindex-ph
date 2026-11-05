@@ -28,7 +28,7 @@ for (const route of routes) {
     signal: AbortSignal.timeout(15000)
   });
   const html = await response.text();
-  const checks = Object.fromEntries(Object.entries(route.checks).map(([name, test]) => [name, test(html)]));
+  const checks = Object.fromEntries(Object.entries(route.checks).map(([name, test]) => [name, test.test(html)]));
   console.log(JSON.stringify({ path: route.path, status: response.status, checks }));
   if (response.status !== 200 || Object.values(checks).some((value) => !value)) failed = true;
   await new Promise((r) => setTimeout(r, 800));
