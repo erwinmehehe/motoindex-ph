@@ -54,6 +54,8 @@ function linksFrom(html) {
   const anchor = /<a\b[^>]*\bhref\s*=\s*(["'])(.*?)\1[^>]*>/gis;
   for (const match of html.matchAll(anchor)) {
     const href = match[2].replaceAll("&amp;", "&");
+    // Fragment-only navigation stays within the current document.
+    if (href.startsWith("#") || href.startsWith("?")) continue;
     const path = localPath(href);
     if (path) links.add(path);
   }
