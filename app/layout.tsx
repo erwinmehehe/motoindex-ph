@@ -12,6 +12,10 @@ import { publicMotorcycles } from "@/lib/data";
 import { AdSenseNavigationSafety } from "@/components/AdSenseNavigationSafety";
 import { MyShortlistSync } from "@/components/MyShortlistSync";
 
+// Derived once per server module rather than allocating a new, duplicated
+// comparison index on every nonce-protected public SSR request.
+const compareTrayModels = publicMotorcycles.map(({ id, make, model, slug }) => ({ id, make, model, slug }));
+
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });
 
@@ -80,5 +84,5 @@ gtag('config', 'G-20TKY10EPQ');
 `;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en-PH" data-theme="premium-light" className={`${inter.variable} ${jakarta.variable}`}><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-20TKY10EPQ" /><script id="motoindex-ga4-head" dangerouslySetInnerHTML={{ __html: googleTagHead }} /></head><body><Analytics/><AdSenseNavigationSafety/><MotionEnhancer/><MyShortlistSync/><a className="skip-link" href="#main-content">Skip to main content</a><Header /><main id="main-content" tabIndex={-1}>{children}</main><CompareTray models={publicMotorcycles.map(({id,make,model,slug})=>({id,make,model,slug}))}/><Footer /><JsonLd data={[organizationSchema, websiteSchema]} /></body></html>;
+  return <html lang="en-PH" data-theme="premium-light" className={`${inter.variable} ${jakarta.variable}`}><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-20TKY10EPQ" /><script id="motoindex-ga4-head" dangerouslySetInnerHTML={{ __html: googleTagHead }} /></head><body><Analytics/><AdSenseNavigationSafety/><MotionEnhancer/><MyShortlistSync/><a className="skip-link" href="#main-content">Skip to main content</a><Header /><main id="main-content" tabIndex={-1}>{children}</main><CompareTray models={compareTrayModels}/><Footer /><JsonLd data={[organizationSchema, websiteSchema]} /></body></html>;
 }
