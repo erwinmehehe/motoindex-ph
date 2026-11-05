@@ -1,0 +1,22 @@
+name: Cloudflare Resource Diagnostics (read-only)
+
+on:
+  push:
+    branches:
+      - diagnostics/cloudflare-resource-metrics-20261105
+
+permissions:
+  contents: read
+
+jobs:
+  cloudflare-resource-metrics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: production
+    steps:
+      - uses: actions/checkout@v7
+      - name: Read aggregate Cloudflare invocation outcomes (no writes)
+        run: node scripts/diagnose-cloudflare-resource-metrics.mjs
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
