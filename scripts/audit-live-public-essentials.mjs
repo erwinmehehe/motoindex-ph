@@ -32,7 +32,7 @@ for (const path of pages) {
     const canonical = attr(links.find((tag) => attr(tag, "rel").split(" ").includes("canonical")), "href");
     const robots = attr(metas.find((tag) => attr(tag, "name").toLowerCase() === "robots"), "content");
     const description = attr(metas.find((tag) => attr(tag, "name").toLowerCase() === "description"), "content");
-    const title = html.match(/<title[^>]*>([^<]*)<\\/title>/i)?.[1] || "";
+    const title = html.match(new RegExp("<title[^>]*>([^<]*)</title>", "i"))?.[1] || "";
     const expected = new URL(path, origin).href;
     const issues = [];
     if (response.status !== 200) issues.push("status=" + response.status);
