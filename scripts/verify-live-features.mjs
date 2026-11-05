@@ -8,7 +8,7 @@ const routes = [
       gearNav: />Gear\s*</,
       ownershipToolsNav: /Ownership &amp; tools|Ownership & tools/,
       canonicalScooterLink: /href=["']\/motorcycles\/scooters/,
-      newGuideMenu: /nav-popover-guides/.test
+      newGuideMenu: /nav-popover-guides/
     }
   },
   {
@@ -17,7 +17,7 @@ const routes = [
       lastSourceCheck: /Last source check/,
       quickAnswer: /Quick answer/,
       autosweepChecklist: /Confirm these three things/,
-      sourceCta: /Visit official Autosweep website/.test
+      sourceCta: /Visit official Autosweep website/
     }
   }
 ];
