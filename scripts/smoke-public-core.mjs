@@ -69,6 +69,12 @@ const publicRoutes = [
 ];
 
 const cloudflareFailurePattern = /error\s*1102|worker exceeded resource limits|error\s*503|service unavailable/i;
+const responseContext = (response) => {
+  // Do not log private response bodies or per-request nonce/security tokens.
+  const ray = response.headers.get("cf-ray") || "not-provided";
+  const server = response.headers.get("server") || "not-provided";
+  return " (HTTP " + response.status + ", CF-Ray " + ray + ", server " + server + ")";
+};
 
 async function fetchWithTimeout(path, init = {}) {
   return fetch(new URL(path, base), {
@@ -108,7 +114,7 @@ for (const path of publicRoutes) {
   try {
     const response = await fetchWithTimeout(path);
     const body = await response.text();
-    if (response.status !== 200) failures.push(`${path}: expected 200, got ${response.status}`);
+    if (response.status !== 200) failures.push(`${path}: expected 200, got ${response.status}${responseContext(response)}`);
     if (cloudflareFailurePattern.test(body)) failures.push(`${path}: response contains a Cloudflare Worker resource/server error`);
     if (!body.trim()) failures.push(`${path}: empty response body`);
     if ((seoReleaseRoutes.includes(path) || transportReleaseRoutes.includes(path)) && response.status === 200) {
@@ -148,16 +154,16 @@ try {
     ["x-content-type-options", "nosniff"],
     ["x-frame-options", "SAMEORIGIN"],
   ]) {
-    if (home.headers.get(header) !== expected) failures.push(`/: missing or unexpected ${header}`);
+    if (home.headers.get(header) !== expected) failures.push(`/: missing or unexpected ${header}` + responseContext(home));
   }
   // Modern browsers default to strict-origin-when-cross-origin. A global
   // static header was removed because OpenNext overwrote the stronger private
   // no-referrer response on token/account paths.
   const referrer = home.headers.get("referrer-policy");
   if (referrer && referrer !== "strict-origin-when-cross-origin") {
-    failures.push("/: unexpected public Referrer-Policy");
+    failures.push("/: unexpected public Referrer-Policy" + responseContext(home));
   }
-  if (!home.headers.get("strict-transport-security")) failures.push("/: missing Strict-Transport-Security");
+  if (!home.headers.get("strict-transport-security")) failures.push("/: missing Strict-Transport-Security" + responseContext(home));
 } catch (error) {
   failures.push(`/: header verification failed: ${error instanceof Error ? error.message : String(error)}`);
 }
@@ -167,7 +173,7 @@ if (process.env.EXPECT_ADS_ONLY === "true") {
     const guide = await fetchWithTimeout("/guides/motorcycle-helmet-size-guide");
     const csp = guide.headers.get("content-security-policy") || "";
     const html = await guide.text();
-    if (guide.status !== 200) failures.push("Ads-only guide must return 200");
+    if (guide.status !== 200) failures.push("Ads-only guide must return 200" + responseContext(guide));
     if (!csp.includes("'nonce-") || !csp.includes("'strict-dynamic'")) failures.push("Ads-only guide lacks nonce CSP");
     if (!html.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) {
       failures.push("Ads-only guide is missing AdSense loader");
@@ -184,7 +190,7 @@ if (process.env.EXPECT_ADS_ONLY === "true") {
       const response = await fetchWithTimeout(path);
       const csp = response.headers.get("content-security-policy") || "";
       const html = await response.text();
-      if (response.status !== 200) failures.push("Motorcycle ad document returned HTTP " + response.status);
+      if (response.status !== 200) failures.push("Motorcycle ad document returned HTTP " + response.status + responseContext(response));
       if (!csp.includes("'strict-dynamic'") || !csp.includes("'nonce-")) failures.push("Motorcycle ad document missing nonce CSP");
       if (!/no-store/.test(response.headers.get("cache-control") || "")) failures.push("Motorcycle ad document missing no-store");
       if (!html.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) failures.push("Motorcycle ad document missing Google loader");
@@ -202,7 +208,7 @@ if (process.env.EXPECT_ADS_ONLY === "true") {
       const response = await fetchWithTimeout(path);
       const csp = response.headers.get("content-security-policy") || "";
       const html = await response.text();
-      if (response.status !== 200) failures.push(path + ": editorial ad page returned HTTP " + response.status);
+      if (response.status !== 200) failures.push(path + ": editorial ad page returned HTTP " + response.status + responseContext(response));
       if (!csp.includes("'strict-dynamic'") || !csp.includes("'nonce-")) failures.push(path + ": editorial ad page missing nonce CSP");
       if (!/no-store/.test(response.headers.get("cache-control") || "")) failures.push(path + ": editorial ad page missing no-store");
       if (!html.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")) failures.push(path + ": editorial ad page missing loader");
