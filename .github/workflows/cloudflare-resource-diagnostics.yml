@@ -12,7 +12,7 @@ jobs:
   cloudflare-resource-metrics:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    environment: production
+    # Read-only on this diagnostic branch; only repository-scoped credentials are accessible.
     steps:
       - uses: actions/checkout@v7
       - name: Read aggregate Cloudflare invocation outcomes (no writes)
