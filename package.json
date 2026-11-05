@@ -13,7 +13,7 @@
     "cf:deploy:built": "opennextjs-cloudflare deploy",
     "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "typecheck": "tsc --noEmit",
-    "check:links": "node scripts/check-internal-links.mjs",
+    "check:links": "node scripts/check-internal-links.mjs && npm run check:nav-seo",
     "check:legacy-links": "node scripts/check-legacy-recommendation-links.mjs",
     "audit:freshness": "node scripts/audit-freshness.mjs",
     "visual:qa": "node scripts/visual-qa.mjs && node scripts/visual-qa-editorial.mjs && node scripts/visual-qa-model-fallback.mjs",
@@ -91,7 +91,9 @@
     "test:e2e": "playwright test",
     "test": "npm run test:unit",
     "test:security": "vitest run tests/actionTokens.test.ts",
-    "precf:build": "node scripts/reject-workers-git-production-build.mjs"
+    "precf:build": "node scripts/reject-workers-git-production-build.mjs",
+    "check:nav-seo": "node scripts/validate-navigation-seo.mjs",
+    "audit:rendered-links": "node scripts/audit-rendered-links.mjs"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "1.20.12",

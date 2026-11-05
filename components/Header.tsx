@@ -11,17 +11,20 @@ const motorcycleBrands = [...new Map(publicMotorcycles.map((model) => [model.mak
   .sort((a, b) => a[1].localeCompare(b[1]));
 
 const navGuides = [
-  ["Under ₱100K", "/recommendations#budget"] as const,
-  ["Scooters", "/recommendations#scooters"] as const,
-  ["Daily commuting", "/recommendations#commuting"] as const,
-  ["Rider fit", "/recommendations#rider-fit"] as const,
-  ["ABS & fuel", "/recommendations#safety-efficiency"] as const
+  ["Under ₱100K", "/recommendations/motorcycles-under-100k"] as const,
+  ["Scooters", "/motorcycles/scooters"] as const,
+  ["Daily commuting", "/recommendations/best-motorcycles-for-daily-commute-philippines"] as const,
+  ["Beginner-friendly bikes", "/recommendations/beginner-friendly-motorcycles-philippines"] as const,
+  ["Rider fit", "/recommendations/best-motorcycles-for-short-riders"] as const,
+  ["ABS motorcycles", "/recommendations/motorcycles-with-abs-philippines"] as const
 ] as const;
 
 const gear = [
   ["Helmets", "/gear/helmets"] as const,
+  ["Helmet finder", "/gear/helmets/finder"] as const,
   ["Tires", "/tires"] as const,
-  ["Accessories", "/accessories"] as const
+  ["Accessories", "/accessories"] as const,
+  ["Fitment finder", "/fitment"] as const
 ] as const;
 
 const ownership = [
@@ -58,6 +61,10 @@ export function Header() {
                 <small>Battery, range and charging research</small>
               </Link>
             </div>
+            <div className="nav-secondary-links">
+              <Link href="/motorcycles/scooters">Scooters</Link>
+              <Link href="/used-motorcycles">Used motorcycles</Link>
+            </div>
             <span className="nav-popover-label">Browse by brand</span>
             <div className="nav-brand-grid">
               {motorcycleBrands.map(([slug, label]) => <Link href={`/motorcycles/${slug}`} key={slug}>{label}</Link>)}
@@ -66,14 +73,24 @@ export function Header() {
         </details>}
         {hasComparisons && <Link href="/compare">Compare</Link>}
         {hasModels && <Link href="/finder">Finder</Link>}
-        <details className="nav-more nav-gear"><summary>Helmets & gear <span>⌄</span></summary><div className="nav-popover">{gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</div></details>
-        <Link href="/tools">Tools</Link>
         <details className="nav-more nav-guides">
-          <summary>Guides <span>⌄</span></summary>
+          <summary>Buying guides <span aria-hidden="true">⌄</span></summary>
           <div className="nav-popover nav-popover-menu nav-popover-guides">
-            <Link className="nav-popover-primary" href="/recommendations">Start with the buying guide</Link>
-            <Link href="/guides">Editorial guides</Link>
+            <Link className="nav-popover-primary" href="/recommendations">All motorcycle buying guides</Link>
             {navGuides.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
+            <Link href="/guides">Editorial guides and how-tos</Link>
+          </div>
+        </details>
+        <details className="nav-more nav-gear"><summary>Gear <span aria-hidden="true">⌄</span></summary><div className="nav-popover">{gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}</div></details>
+        <details className="nav-more nav-ownership">
+          <summary>Ownership &amp; tools <span aria-hidden="true">⌄</span></summary>
+          <div className="nav-popover">
+            <Link href="/ownership">Ownership guide</Link>
+            <Link href="/maintenance">Maintenance</Link>
+            <Link href="/dealers">Dealers</Link>
+            <Link href="/service-centers">Service centers</Link>
+            <Link href="/ownership/cost-calculator">Ownership cost calculator</Link>
+            <Link href="/tools">All calculators</Link>
           </div>
         </details>
       </nav>
@@ -81,29 +98,44 @@ export function Header() {
       <details className="mobile-menu">
         <summary aria-label="Open navigation">Menu</summary>
         <div className="mobile-menu-panel"><nav aria-label="Mobile navigation">
-          {hasModels && <>
-            <strong className="mobile-menu-heading">Motorcycles</strong>
-            <div className="mobile-menu-featured">
-              <Link href="/motorcycles">All motorcycles</Link>
+          <div className="mobile-menu-featured">
+            {hasModels && <Link href="/finder">Find my bike</Link>}
+            {hasComparisons && <Link href="/compare">Compare motorcycles</Link>}
+            <Link href="/motorcycles">All motorcycles</Link>
+            <Link href="/recommendations">Buying guides</Link>
+          </div>
+          <details className="mobile-menu-group">
+            <summary>Motorcycles &amp; brands</summary>
+            {hasModels && <>
+              <Link href="/motorcycles/scooters">Scooters</Link>
               <Link href="/motorcycles/electric">Electric motorcycles</Link>
-            </div>
-            <span className="mobile-menu-label">Browse by brand</span>
-            <div className="mobile-menu-brand-grid">
-              {motorcycleBrands.map(([slug, label]) => <Link href={`/motorcycles/${slug}`} key={slug}>{label}</Link>)}
-            </div>
-          </>}
-          {hasComparisons && <Link href="/compare">Compare</Link>}
-          {hasModels && <Link href="/finder">Finder</Link>}
-          <strong className="mobile-menu-heading">Helmets & gear</strong>
-          {gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
-          <Link href="/tools">All tools</Link>
-          <strong className="mobile-menu-heading">Guides</strong>
-          <Link href="/recommendations">Motorcycle buying guide</Link>
-          <Link href="/guides">Editorial guides</Link>
-          {navGuides.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
-          <strong className="mobile-menu-heading">Ownership & local research</strong>
-          {ownership.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
-          <Link href="/shortlist">Shortlist</Link><Link href="/search">Search</Link>
+              <Link href="/used-motorcycles">Used motorcycles</Link>
+              <span className="mobile-menu-label">Browse by brand</span>
+              <div className="mobile-menu-brand-grid">
+                {motorcycleBrands.map(([slug, label]) => <Link href={"/motorcycles/" + slug} key={slug}>{label}</Link>)}
+              </div>
+            </>}
+          </details>
+          <details className="mobile-menu-group">
+            <summary>Buying guides</summary>
+            <Link href="/recommendations">All buying guides</Link>
+            {navGuides.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
+            <Link href="/guides">Editorial guides and how-tos</Link>
+          </details>
+          <details className="mobile-menu-group">
+            <summary>Helmets &amp; gear</summary>
+            {gear.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
+          </details>
+          <details className="mobile-menu-group">
+            <summary>Ownership &amp; tools</summary>
+            {ownership.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
+            <Link href="/tools">All tools</Link>
+            <Link href="/used-motorcycles">Used motorcycles</Link>
+          </details>
+          <div className="mobile-menu-utilities">
+            <Link href="/shortlist">Shortlist</Link>
+            <Link href="/search">Search MotoIndex</Link>
+          </div>
         </nav></div>
       </details>
     </div>

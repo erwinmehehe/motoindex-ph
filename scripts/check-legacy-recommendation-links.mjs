@@ -25,6 +25,11 @@ for (const base of scanRoots) {
     if (rel === "app/recommendations/[slug]/page.tsx") continue;
     if (rel === "app/recommendations/RecommendationGuideArchive.tsx") continue;
     if (rel === "app/recommendations/RecommendationsHub.tsx") continue;
+    // Header, footer and homepage promote a small set of canonical, indexable
+    // topic destinations instead of sending every visitor to hub fragments.
+    if (rel === "components/Header.tsx") continue;
+    if (rel === "components/Footer.tsx") continue;
+    if (rel === "app/page.tsx") continue;
     if (rel === "app/motorcycles/page.tsx") continue;
     if (rel === "app/motorcycles/scooters/page.tsx") continue;
     // Brand pages are canonical entity hubs. They may link directly to

@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Motorcycle } from "@/lib/types";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { RelatedLinks } from "@/components/RelatedLinks";
+import { modelInternalLinks } from "@/lib/internalLinks";
 import { JsonLd } from "@/components/JsonLd";
 import { Freshness } from "@/components/Freshness";
 import { EntityMedia } from "@/components/EntityMedia";
@@ -449,6 +451,7 @@ export function MotorcycleEntityPage({ model, omitHero = false, nonceReady = fal
       {authority && <section id="research-quality" className="motorcycle-entity-section research-quality-section"><details className="entity-disclosure"><summary>What to confirm before buying</summary><div className="research-quality-panel"><article><span>Covered on this page</span><ul>{quality.strengths.slice(0,5).map((item) => <li key={item}>{item}</li>)}</ul></article><article><span>Still worth confirming</span><ul>{quality.gaps.slice(0,5).map((item) => <li key={item}>{item}</li>)}</ul></article></div></details></section>}
 
       <section id="faq" className="motorcycle-entity-section"><FaqSection title={`${model.make} ${model.model} FAQs`} items={faqs} /></section>
+      <RelatedLinks title={`Continue researching the ${model.make} ${model.model}`} intro="Compare relevant motorcycles, then check ownership costs, gear and fitment before buying." links={modelInternalLinks(model)} />
       <AuthorBox />
     </div>
     <JsonLd data={[schema, faqSchema, authorSchema]} />

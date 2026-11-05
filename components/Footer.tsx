@@ -17,21 +17,29 @@ export function Footer() {
       <div className={styles.column}>
         <strong>Browse</strong>
         {hasModels && <Link href="/motorcycles">Motorcycles</Link>}
+        {hasModels && <Link href="/motorcycles/scooters">Scooters</Link>}
+        <Link href="/used-motorcycles">Used motorcycles</Link>
         {hasModels && <Link href="/finder">Finder</Link>}
         {hasComparisons && <Link href="/compare">Compare</Link>}
-        <Link href="/guides">Guides</Link>
+        <Link href="/recommendations">Buying guides</Link>
+        <Link href="/guides">Editorial guides</Link>
         <Link href="/research">Research</Link>
       </div>
       <div className={styles.column}>
         <strong>Gear</strong>
         <Link href="/gear/helmets">Helmets</Link>
+        <Link href="/gear/helmets/finder">Helmet finder</Link>
         <Link href="/tires">Tires</Link>
         <Link href="/accessories">Accessories</Link>
+        <Link href="/fitment">Fitment finder</Link>
       </div>
       <div className={styles.column}>
         <strong>Ownership</strong>
         <Link href="/ownership">Ownership hub</Link>
         <Link href="/tools">Tools</Link>
+        <Link href="/ownership/cost-calculator">Ownership cost calculator</Link>
+        <Link href="/dealers">Dealers</Link>
+        <Link href="/service-centers">Service centers</Link>
         <Link href="/gas-price-philippines">Weekly fuel prices</Link>
         <Link href="/maintenance">Maintenance</Link>
         {hasModels && <Link href="/fitment">Fitment finder</Link>}

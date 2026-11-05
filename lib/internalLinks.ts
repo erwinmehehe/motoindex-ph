@@ -31,7 +31,29 @@ export function modelInternalLinks(model: Motorcycle): RelatedLink[] {
     return { href: `/compare/${c.slug}`, title: `${model.model} vs ${other.model}`, eyebrow: "Compare", description: "Price, dimensions and specifications side by side." };
   });
   const alternatives = motorcycles.filter(m => m.id !== model.id && m.marketStatus !== "previous" && m.marketStatus !== "uncertain" && m.marketStatus !== "discontinued" && m.category === model.category && isIndexableModel(m)).sort((a,b)=>Math.abs(a.srp-model.srp)-Math.abs(b.srp-model.srp)).slice(0,2).map(m=>({href:`/motorcycles/${m.makeSlug}/${m.slug}`,title:`${m.make} ${m.model}`,eyebrow:"Alternative",description:`${m.engineCc} cc · ${m.seatHeightMm} mm seat`}));
-  return [...links, ...comparisonLinks, ...alternatives].slice(0, 16);
+  // Cross-page research needs priority over same-page anchors. Previously the
+  // 16-item slice removed curated comparisons and alternative motorcycle links.
+  const categoryGuide: RelatedLink | undefined = /scooter/i.test(model.category)
+    ? { href: "/motorcycles/scooters", title: "Compare scooters in the Philippines", eyebrow: "Category", description: "Browse current automatic scooter prices and specifications." }
+    : /underbone/i.test(model.category)
+      ? { href: "/recommendations/best-underbone-motorcycles-philippines", title: "Compare underbone motorcycles", eyebrow: "Category", description: "Research published underbone price and fit differences." }
+      : /sport/i.test(model.category)
+        ? { href: "/recommendations/sport-motorcycles-philippines", title: "Compare sport motorcycles", eyebrow: "Category", description: "Research sport motorcycle options across brands." }
+        : undefined;
+  const researchLinks: RelatedLink[] = [
+    { href: "/ownership", title: "Motorcycle ownership in the Philippines", eyebrow: "Ownership", description: "Registration, servicing, insurance and total ownership costs." },
+    { href: "/fitment", title: "Motorcycle tire and accessory fitment", eyebrow: "Fitment", description: "Check exact model fitment before buying replacement parts." },
+    { href: "/gear/helmets", title: "Motorcycle helmet buying guide", eyebrow: "Rider gear", description: "Compare checked helmet models, sizes and certifications." },
+    { href: "/used-motorcycles", title: "Used motorcycle buying research", eyebrow: "Used market", description: "Review used-bike value, paperwork and safety checks." }
+  ];
+  return [
+    links[0],
+    ...(categoryGuide ? [categoryGuide] : []),
+    ...comparisonLinks,
+    ...alternatives,
+    ...researchLinks,
+    ...links.filter(link => link.eyebrow === "Calculator").slice(0, 1)
+  ].slice(0, 13);
 }
 
 export function helmetProductInternalLinks(product: HelmetProduct): RelatedLink[] {
