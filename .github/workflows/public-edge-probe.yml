@@ -19,3 +19,8 @@ jobs:
         run: node scripts/verify-live-features.mjs
         env:
           BASE_URL: https://motoindexph.com
+
+      - name: Sample canonical and metadata on 28 public pages
+        run: node scripts/audit-live-public-essentials.mjs
+        env:
+          BASE_URL: https://motoindexph.com
