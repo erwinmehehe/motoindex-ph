@@ -125,7 +125,7 @@ export default function RecommendationsPage() {
       </nav>
     </div>
 
-    <main className="shell rec-content">
+    <div className="shell rec-content">
       <section className="rec-principles">
         <div className="rec-section-intro"><span>Make a better shortlist</span><h2>Four filters matter more than a generic “best” list.</h2></div>
         <div className="rec-principle-grid">
@@ -198,6 +198,6 @@ export default function RecommendationsPage() {
         <FaqSection title="Motorcycle buying questions" items={faqs} />
         <AuthorBox />
       </div>
-    </main>
+    </div>
   </section>;
 }
