@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getDealerPublishedInventory } from "@/lib/persistentOffers";
+import { adsOnlyModeEnabled } from "@/lib/adsOnlyMode";
 import { php } from "@/lib/utils";
 
 function availability(value:string){
@@ -11,7 +11,12 @@ function availability(value:string){
 }
 
 export async function DealerInventoryPanel({modelId,makeSlug,modelSlug}:{modelId:string;makeSlug:string;modelSlug:string}){
-  const inventory=await getDealerPublishedInventory(modelId);
+  // Public research in ads-only mode has no dealer database or active quotes.
+  // Do not eagerly load Prisma and the ingestion/catalog graph into the edge SSR
+  // isolate when the entire backend is deliberately disabled.
+  if (adsOnlyModeEnabled()) return null;
+  const { getDealerPublishedInventory } = await import("@/lib/persistentOffers");
+  const inventory = await getDealerPublishedInventory(modelId);
   if(!inventory.length)return null;
   return <section className="motorcycle-entity-section dealer-live-inventory" id="dealer-inventory">
     <div className="section-head compact">
