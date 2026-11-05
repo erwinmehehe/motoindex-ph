@@ -152,3 +152,9 @@ jobs:
           BASE_URL: https://motoindexph.com
           EXPECTED_COMMIT_SHA: ${{ github.sha }}
           EXPECT_ADS_ONLY: ${{ github.event_name == 'workflow_run' && 'true' || inputs.release_mode == 'ads-only' && 'true' || 'false' }}
+
+      - name: Capture sanitized public-edge diagnostics if the release fails
+        if: failure()
+        run: node scripts/diagnose-public-edge.mjs
+        env:
+          BASE_URL: https://motoindexph.com
