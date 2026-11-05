@@ -26,7 +26,15 @@ for (const path of pages) {
       headers: { "user-agent": "MotoIndex-SEO-public-sample/1.0", "cache-control": "no-cache" },
       signal: AbortSignal.timeout(13000)
     });
-    const html = response.status === 200 ? await response.text() : "";
+    const raw = await response.text();
+    const html = response.status === 200 ? raw : "";
+    const edgeError = response.status >= 500 ? (() => {
+      const body = raw.slice(0, 4000).toLowerCase();
+      if (/1102|resource limit|worker exceeded|memory limit|cpu time exceeded/.test(body)) return "worker-resource";
+      if (/1015|rate limit|too many requests/.test(body)) return "rate-limit";
+      if (/cloudflare|cloudflare-nginx/.test(body)) return "cloudflare-identified";
+      return "unclassified";
+    })() : undefined;
     const links = tags(html, "link");
     const metas = tags(html, "meta");
     const canonical = attr(links.find((tag) => attr(tag, "rel").split(" ").includes("canonical")), "href");
@@ -43,7 +51,15 @@ for (const path of pages) {
       else if (canonical !== expected) issues.push("different-canonical");
       if (/noindex/i.test(robots + " " + (response.headers.get("x-robots-tag") || ""))) issues.push("noindex");
     }
-    report.push({ path, status: response.status, issueCount: issues.length, issues });
+    report.push({ path, status: response.status, issueCount: issues.length, issues,
+      ...(canonical && canonical !== expected ? {canonical} : {}),
+      ...(response.status >= 500 ? {
+        cfRay: response.headers.get("cf-ray"),
+        server: response.headers.get("server"),
+        retryAfter: response.headers.get("retry-after"),
+        edgeError
+      } : {})
+    });
   } catch (error) {
     report.push({ path, status: "network-error", issueCount: 1, issues: [error instanceof Error ? error.name : "unknown"] });
   }
