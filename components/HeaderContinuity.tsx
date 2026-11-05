@@ -29,6 +29,7 @@ export function HeaderContinuity() {
 
     const allMenus = Array.from(header.querySelectorAll<HTMLDetailsElement>("details"));
     const desktopMenus = Array.from(header.querySelectorAll<HTMLDetailsElement>(".nav-links details.nav-more"));
+    const mobileGroups = Array.from(header.querySelectorAll<HTMLDetailsElement>(".mobile-menu-group"));
     const closeMenus = (except?: HTMLDetailsElement) => {
       allMenus.forEach(details => { if (details !== except && details.open) details.removeAttribute("open"); });
     };
@@ -47,13 +48,29 @@ export function HeaderContinuity() {
     gearSummary?.classList.toggle("nav-current", gearActive);
     if (gearActive) gearSummary?.setAttribute("aria-current", "location"); else gearSummary?.removeAttribute("aria-current");
 
-    const moreSummary = header.querySelector<HTMLElement>(".nav-moremenu>summary");
-    const moreActive = pathname.startsWith("/ownership") || pathname.startsWith("/dealers") || pathname.startsWith("/sellers/") || pathname.startsWith("/commute") || pathname.startsWith("/tools") || pathname.startsWith("/fitment") || pathname.startsWith("/maintenance");
-    moreSummary?.classList.toggle("nav-current", moreActive);
-    if (moreActive) moreSummary?.setAttribute("aria-current", "location"); else moreSummary?.removeAttribute("aria-current");
+    const motorcyclesSummary = header.querySelector<HTMLElement>(".nav-motorcycles>summary");
+    const motorcyclesActive = pathname.startsWith("/motorcycles") || pathname.startsWith("/used-motorcycles");
+    motorcyclesSummary?.classList.toggle("nav-current", motorcyclesActive);
+    if (motorcyclesActive) motorcyclesSummary?.setAttribute("aria-current", "location"); else motorcyclesSummary?.removeAttribute("aria-current");
 
-    const handleMenuToggle = (event: Event) => { const current = event.currentTarget as HTMLDetailsElement; if (current.open) closeMenus(current); };
-    desktopMenus.forEach(menu => menu.addEventListener("toggle", handleMenuToggle));
+    const guidesSummary = header.querySelector<HTMLElement>(".nav-guides>summary");
+    const guidesActive = pathname.startsWith("/recommendations") || pathname.startsWith("/guides");
+    guidesSummary?.classList.toggle("nav-current", guidesActive);
+    if (guidesActive) guidesSummary?.setAttribute("aria-current", "location"); else guidesSummary?.removeAttribute("aria-current");
+
+    const ownershipSummary = header.querySelector<HTMLElement>(".nav-ownership>summary");
+    const ownershipActive = ["/ownership", "/dealers", "/service-centers", "/commute", "/tools", "/maintenance", "/my", "/garage"].some(prefix => pathname === prefix || pathname.startsWith(prefix + "/"));
+    ownershipSummary?.classList.toggle("nav-current", ownershipActive);
+    if (ownershipActive) ownershipSummary?.setAttribute("aria-current", "location"); else ownershipSummary?.removeAttribute("aria-current");
+
+    const handleMenuToggle = (event: Event) => {
+      const current = event.currentTarget as HTMLDetailsElement;
+      if (!current.open) return;
+      // Mobile accordion groups must not close their parent mobile menu.
+      const peers = current.classList.contains("mobile-menu-group") ? mobileGroups : desktopMenus;
+      peers.forEach(menu => { if (menu !== current && menu.open) menu.removeAttribute("open"); });
+    };
+    [...desktopMenus, ...mobileGroups].forEach(menu => menu.addEventListener("toggle", handleMenuToggle));
     const handleClick = (event: Event) => { const target = event.target as Element | null; if (target?.closest("a[href]")) closeMenus(); };
     const handleOutsidePointer = (event: PointerEvent) => { const target = event.target as Node | null; if (target && !header.contains(target)) closeMenus(); };
     const handleKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") { closeMenus(); header.querySelector<HTMLElement>(".nav-more>summary:focus")?.focus(); } };
@@ -62,7 +79,7 @@ export function HeaderContinuity() {
     document.addEventListener("pointerdown", handleOutsidePointer);
     document.addEventListener("keydown", handleKeyDown);
     return () => {
-      desktopMenus.forEach(menu => menu.removeEventListener("toggle", handleMenuToggle));
+      [...desktopMenus, ...mobileGroups].forEach(menu => menu.removeEventListener("toggle", handleMenuToggle));
       header.removeEventListener("click", handleClick);
       document.removeEventListener("pointerdown", handleOutsidePointer);
       document.removeEventListener("keydown", handleKeyDown);
