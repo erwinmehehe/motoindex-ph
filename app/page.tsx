@@ -26,11 +26,11 @@ export const metadata: Metadata = pageMetadata({
 
 const brandPriority = ["honda", "yamaha", "suzuki", "kawasaki", "ktm", "cfmoto"];
 const startPoints = [
-  ["01", "Daily commute", "Practical motorcycles for traffic, errands and frequent riding.", "/recommendations#commuting"],
-  ["02", "Scooters", "Automatic choices built around easy city use.", "/recommendations#scooters"],
-  ["03", "Beginner friendly", "Approachable choices with fit and weight kept in view.", "/recommendations#rider-fit"],
-  ["04", "Under ₱100K", "Current models that fit an entry-level purchase budget.", "/recommendations#budget"],
-  ["05", "400cc and above", "Bigger-displacement options with the important numbers side by side.", "/recommendations#400cc"],
+  ["01", "Daily commute", "Practical motorcycles for traffic, errands and frequent riding.", "/recommendations/best-motorcycles-for-daily-commute-philippines"],
+  ["02", "Scooters", "Automatic choices built around easy city use.", "/motorcycles/scooters"],
+  ["03", "Beginner friendly", "Approachable choices with fit and weight kept in view.", "/recommendations/beginner-friendly-motorcycles-philippines"],
+  ["04", "Under ₱100K", "Current models that fit an entry-level purchase budget.", "/recommendations/motorcycles-under-100k"],
+  ["05", "400cc and above", "Bigger-displacement options with the important numbers side by side.", "/recommendations/motorcycles-400cc-plus-philippines"],
   ["06", "Electric", "Battery, range, charging and registration research.", "/motorcycles/electric"],
 ] as const;
 
