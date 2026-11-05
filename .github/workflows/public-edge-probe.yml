@@ -1,0 +1,17 @@
+name: Public Edge Diagnostic (read-only)
+on:
+  push:
+    branches:
+      - diagnostics/public-edge-sample-20261105
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - name: Run safe low-rate public GET checks
+        run: node scripts/diagnose-public-edge.mjs
+        env:
+          BASE_URL: https://motoindexph.com
