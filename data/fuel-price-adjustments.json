@@ -1,8 +1,123 @@
 {
   "schemaVersion": 1,
   "sourcePage": "https://doe.gov.ph/data-and-prices/liquid-fuels/retail-pump-prices/price-adjustments",
-  "updatedAt": "2026-10-30T16:43:36Z",
+  "updatedAt": "2026-11-06T08:13:48Z",
   "weeks": [
+    {
+      "weekStart": "2026-11-03",
+      "weekEnd": "2026-11-09",
+      "sourceTitle": "Price Adjustment of liquid fuels Nov 3-9",
+      "sourceUrl": "https://d24qbtp4vooyzi.cloudfront.net/api/media/file/Price%20Adjustment%20of%20liquid%20fuels%20Nov%203-9.pdf?prefix=dev%2Fmedia",
+      "companies": [
+        {
+          "company": "City Oil",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": -1.9
+        },
+        {
+          "company": "Filpride",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": null
+        },
+        {
+          "company": "TPC Energy Corporation",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": null
+        },
+        {
+          "company": "Shell",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": -1.9
+        },
+        {
+          "company": "Petro Gazz",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": null
+        },
+        {
+          "company": "Seaoil",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": -1.9
+        },
+        {
+          "company": "Unioil",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": null
+        },
+        {
+          "company": "Jetti",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": null
+        },
+        {
+          "company": "Petron",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": -1.9
+        },
+        {
+          "company": "Caltex",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": -1.9
+        },
+        {
+          "company": "Flying V",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": -1.9
+        },
+        {
+          "company": "Phoenix",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": null
+        },
+        {
+          "company": "Ecooil",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": null
+        },
+        {
+          "company": "PTT",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": null
+        },
+        {
+          "company": "Clean Fuel",
+          "gasoline": 3.5,
+          "diesel": -1.0,
+          "kerosene": null
+        }
+      ],
+      "summary": {
+        "gasoline": {
+          "min": 3.5,
+          "max": 3.5,
+          "reportingCompanies": 15
+        },
+        "diesel": {
+          "min": -1.0,
+          "max": -1.0,
+          "reportingCompanies": 15
+        },
+        "kerosene": {
+          "min": -1.9,
+          "max": -1.9,
+          "reportingCompanies": 6
+        }
+      }
+    },
     {
       "weekStart": "2026-10-27",
       "weekEnd": "2026-11-02",
@@ -804,121 +919,6 @@
         "kerosene": {
           "min": 4.6,
           "max": 4.62,
-          "reportingCompanies": 6
-        }
-      }
-    },
-    {
-      "weekStart": "2026-09-08",
-      "weekEnd": "2026-09-14",
-      "sourceTitle": "Prior Notice on Price Adjustments Sep 8-14",
-      "sourceUrl": "https://d24qbtp4vooyzi.cloudfront.net/api/media/file/Prior%20Notice%20on%20Price%20Adjustments%20Sep%208-14.pdf?prefix=dev%2Fmedia",
-      "companies": [
-        {
-          "company": "City Oil",
-          "gasoline": 4.69,
-          "diesel": 5.18,
-          "kerosene": 5.58
-        },
-        {
-          "company": "Shell",
-          "gasoline": 4.7,
-          "diesel": 5.2,
-          "kerosene": 5.6
-        },
-        {
-          "company": "Petro Gazz",
-          "gasoline": 4.69,
-          "diesel": 5.18,
-          "kerosene": null
-        },
-        {
-          "company": "Seaoil",
-          "gasoline": 4.69,
-          "diesel": 5.18,
-          "kerosene": 5.58
-        },
-        {
-          "company": "Caltex",
-          "gasoline": 4.7,
-          "diesel": 5.2,
-          "kerosene": 5.6
-        },
-        {
-          "company": "Unioil",
-          "gasoline": 4.7,
-          "diesel": 5.2,
-          "kerosene": null
-        },
-        {
-          "company": "Phoenix",
-          "gasoline": 4.7,
-          "diesel": 5.2,
-          "kerosene": null
-        },
-        {
-          "company": "Jetti",
-          "gasoline": 4.6,
-          "diesel": 5.1,
-          "kerosene": null
-        },
-        {
-          "company": "Petron",
-          "gasoline": 4.7,
-          "diesel": 5.2,
-          "kerosene": 5.6
-        },
-        {
-          "company": "Clean Fuel",
-          "gasoline": 4.1,
-          "diesel": 4.6,
-          "kerosene": null
-        },
-        {
-          "company": "PTT",
-          "gasoline": 4.69,
-          "diesel": 5.18,
-          "kerosene": null
-        },
-        {
-          "company": "Ecooil",
-          "gasoline": 4.69,
-          "diesel": 5.18,
-          "kerosene": null
-        },
-        {
-          "company": "Filpride",
-          "gasoline": 4.69,
-          "diesel": 5.18,
-          "kerosene": null
-        },
-        {
-          "company": "Flying V",
-          "gasoline": 4.69,
-          "diesel": 5.18,
-          "kerosene": 5.58
-        },
-        {
-          "company": "Total",
-          "gasoline": 4.69,
-          "diesel": 5.18,
-          "kerosene": null
-        }
-      ],
-      "summary": {
-        "gasoline": {
-          "min": 4.1,
-          "max": 4.7,
-          "reportingCompanies": 15
-        },
-        "diesel": {
-          "min": 4.6,
-          "max": 5.2,
-          "reportingCompanies": 15
-        },
-        "kerosene": {
-          "min": 5.58,
-          "max": 5.6,
           "reportingCompanies": 6
         }
       }
